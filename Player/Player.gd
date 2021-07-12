@@ -8,7 +8,7 @@ var velocity = Vector3()
 var offhand_item = "lantern"
 var damage = 100
 
-onready var aimcast = $Body/BodyMesh/Sunglasses/FPSCamera/AimCast
+onready var aimcast = $Body/FPSCamera/AimCast
 
 func _process(delta):
 	

@@ -10,8 +10,9 @@ var path_finder : PathFinder = null
 var health = 200
 
 onready var hitbox = $HitboxArea
-onready var player = get_parent().get_node("Player")
-
+onready var game_world = get_parent()
+onready var player = game_world.get_node("Player")
+onready var navigation : Navigation = game_world.navigation
 func _ready():
 	
 	self.set_physics_process(false)
@@ -20,7 +21,7 @@ func _ready():
 	path_finder = PathFinder.new(get_parent(), 1)
 	
 	var timer = Timer.new()
-	timer.wait_time = 1
+	timer.wait_time = 0.1
 	add_child(timer)
 	timer.connect("timeout", self, "find_path_timer")
 	timer.start()
@@ -35,8 +36,8 @@ func _physics_process(delta):
 
 	self.look_at(target.global_transform.origin, Vector3.UP)
 	
-#	if path.size() > 0:
-#		move_along_path(path)
+	if path.size() > 0:
+		move_along_path(path)
 
 		
 	
@@ -65,6 +66,7 @@ func on_hit_player(body):
 	
 func find_path_timer():
 	self.set_target(player)
+	path = navigation.get_simple_path(global_transform.origin, target.global_transform.origin)
+	path.remove(0)
 #	path = path_finder.find_path(global_transform.origin, target.global_transform.origin)
-#	path.remove(0)
 	

@@ -1,4 +1,5 @@
 extends Spatial
+class_name GameWorld
 
 const Ghost = preload("res://Characters/Monster.tscn")
 const CELL_SIZE = 2
@@ -11,12 +12,12 @@ var wallx_basis : Basis = Basis.IDENTITY.rotated(Vector3.UP, deg2rad(90))
 
 # Make this an array later
 var floor_index = 0
-var wall_index = 2
+var wall_index = 1
 
 onready var floor_map : GridMap = $Gridmaps/Floor as GridMap
 onready var wallx_map : GridMap = $Gridmaps/WallsX as GridMap
 onready var wallz_map : GridMap = $Gridmaps/WallsZ as GridMap
-
+onready var navigation : Navigation = $Gridmaps as Navigation
 #onready var monster = $GridMap/Monster
 #onready var player = $Player
 

@@ -43,7 +43,7 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id=7]
-render_priority = 100
+render_priority = 110
 shader = SubResource( 6 )
 
 [sub_resource type="QuadMesh" id=8]
@@ -79,7 +79,8 @@ mesh = SubResource( 4 )
 material/0 = null
 
 [node name="Lantern" type="OmniLight" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.341532, -0.121985, -0.529257 )
+light_color = Color( 1, 0.882353, 0.811765, 1 )
 light_energy = 0.5
 shadow_enabled = true
 omni_range = 8.0

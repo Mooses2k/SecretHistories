@@ -1,6 +1,8 @@
 extends Spatial
 class_name GameWorld
 
+signal grid_data_changed(grid_size, cell_size , grid_data)
+
 const Ghost = preload("res://Characters/Monster.tscn")
 const CELL_SIZE = 2
 
@@ -49,7 +51,7 @@ func generate_data():
 		grid_data[location.x][location.y] = true
 		
 	spawn_monsters(world_position)
-
+	emit_signal("grid_data_changed", grid_size, CELL_SIZE, grid_data)
 func generate_mesh():
 	for i in grid_data.size():
 		for j in grid_data[i].size():

@@ -27,7 +27,8 @@ func _process(delta):
 		#Point this node towards the player
 		var target_pos : Vector3 = get_parent().global_transform.origin
 		target_pos.y = self.global_transform.origin.y
-		self.look_at(target_pos, Vector3.UP)
+		if (not self.global_transform.origin.is_equal_approx(target_pos)):
+			self.look_at(target_pos, Vector3.UP)
 	else:
 		self.visible = false
 		

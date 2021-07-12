@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/whispers.wav-6159d3967e11e21180dee58d1cddba74.sample"
+
+[deps]
+
+source_file="res://Sounds/whispers.wav"
+dest_files=[ "res://.import/whispers.wav-6159d3967e11e21180dee58d1cddba74.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

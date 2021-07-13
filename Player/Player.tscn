@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player/MouseCam.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Player/PlayerAimPoint.gd" type="Script" id=3]
+[ext_resource path="res://Objects/Items/Pistol/Pistol.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -113,3 +114,10 @@ collision_mask = 16
 [node name="CollisionShape" type="CollisionShape" parent="Hurtbox"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0 )
 shape = SubResource( 9 )
+
+[node name="Listener" type="Listener" parent="."]
+current = true
+
+[node name="Pistol" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.389626, 0.93216, 0 )
+damage = 100

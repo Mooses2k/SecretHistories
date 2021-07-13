@@ -37,7 +37,7 @@ void fragment() {
 //	ALBEDO = vec3(fract(10.0*uv), 0);
 }"
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=3]
 render_priority = 100
 shader = SubResource( 2 )
 shader_param/offset = null
@@ -88,7 +88,7 @@ __meta__ = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 48.5, 0, 48.5 )
 
 [node name="VisibilityMask" parent="." instance=ExtResource( 4 )]
-material_override = SubResource( 4 )
+material_override = SubResource( 3 )
 target_node_path = NodePath("../Player")
 
 [connection signal="grid_data_changed" from="." to="VisibilityMask" method="_on_World_grid_data_changed"]

@@ -1,18 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Characters/Monster.gd" type="Script" id=1]
 [ext_resource path="res://Sounds/whispers.wav" type="AudioStream" id=2]
 [ext_resource path="res://Sounds/monster_growl.wav" type="AudioStream" id=3]
+[ext_resource path="res://Characters/Hitbox.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.65
-
-[sub_resource type="SpatialMaterial" id=2]
-flags_transparent = true
-albedo_color = Color( 0.588235, 0.478431, 0.478431, 0.666667 )
-
-[sub_resource type="CapsuleMesh" id=3]
-material = SubResource( 2 )
 radius = 0.65
 
 [sub_resource type="SpatialMaterial" id=4]
@@ -41,8 +34,6 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.13678, 0 )
-mesh = SubResource( 3 )
-material/0 = null
 
 [node name="Eyes" type="Spatial" parent="MeshInstance"]
 
@@ -59,6 +50,8 @@ material/0 = null
 [node name="HitboxArea" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 4
+script = ExtResource( 4 )
+hitbox_owner_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="HitboxArea"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.16376, 0 )
@@ -67,6 +60,8 @@ shape = SubResource( 6 )
 [node name="HurtboxArea" type="Area" parent="."]
 collision_layer = 8
 collision_mask = 2
+script = ExtResource( 4 )
+hitbox_owner_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="HurtboxArea"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.16376, 0 )

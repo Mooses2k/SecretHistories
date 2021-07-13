@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Worlds/World.gd"
 }, {
+"base": "Spatial",
+"class": "Gun",
+"language": "GDScript",
+"path": "res://Objects/Items/Gun.gd"
+}, {
+"base": "Area",
+"class": "Hitbox",
+"language": "GDScript",
+"path": "res://Characters/Hitbox.gd"
+}, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
 "language": "GDScript",
@@ -36,6 +46,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "GameWorld": "",
+"Gun": "",
+"Hitbox": "",
 "MeshTransform": "",
 "PathFinder": "",
 "VisibilityMask": "",

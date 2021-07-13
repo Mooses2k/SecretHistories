@@ -9,19 +9,19 @@ var offhand_item = "lantern"
 var damage = 100
 
 onready var aimcast = $Body/FPSCamera/AimCast
+onready var gun = $Pistol
+onready var aimpoint = $PlayerAimPoint
 
 func _process(delta):
 	
 	velocity = Vector3()
 	
-	if Input.is_action_just_pressed("attack"):
-		print("Fired.")
-		if aimcast.is_colliding():
-			var target_hit = aimcast.get_collider()
-			if target_hit.is_in_group("Enemy"):
-				print("Hit enemy!")
-				target_hit.health -= damage
+	gun.aim_at(aimpoint.global_transform.origin)
 	
+	if Input.is_action_just_pressed("attack"):
+		if gun:
+			gun.shoot()
+
 	if Input.is_action_pressed("sprint"):
 		current_speed = sprint_speed
 	else:

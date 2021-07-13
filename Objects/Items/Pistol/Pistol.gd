@@ -2,6 +2,8 @@ extends Gun
 
 var can_shoot : bool = true
 
+const hit_effect_packed = preload("res://Objects/Items/Pistol/HitEffect.tscn")
+
 onready var aimcast : RayCast = $RayCast as RayCast
 onready var timer = $RateofFireTimer as Timer
 
@@ -14,17 +16,20 @@ func shoot():
 	if not can_shoot:
 		return
 	
-#	aimcast.rotation.z = rand_range(0, 2 * PI)
-#	aimcast.rotation.x = rand_range(0, dispersion)
+	var shoot_direction = Vector3.FORWARD
+	var shoot_dispersion = Vector3.UP.rotated(Vector3.FORWARD, randf()*2*PI)
+	shoot_dispersion *= randf()*self.dispersion
+	aimcast.look_at(to_global(shoot_direction + shoot_dispersion), Vector3.UP)
 	aimcast.force_raycast_update()
-	
-	print("Fired.")
+	print("Fired at ", -aimcast.global_transform.basis.z)
 	if aimcast.is_colliding():
 		var target_hit = aimcast.get_collider()
 		if target_hit is Hitbox:
 			print("Hit enemy!")
 			target_hit.hitbox_owner.health -= damage
-
+		var effect = hit_effect_packed.instance()
+		effect.set_orientation(aimcast.get_collision_point(), aimcast.get_collision_normal())
+		call_deferred("add_child", effect)
 	can_shoot = false
 	timer.start()
 

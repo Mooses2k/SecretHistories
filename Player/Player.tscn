@@ -87,6 +87,10 @@ shadow_enabled = true
 omni_range = 8.0
 omni_attenuation = 4.0
 
+[node name="Pistol" parent="Body" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.389626, 0.13216, 0 )
+damage = 100
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.8, 0 )
 shape = SubResource( 5 )
@@ -117,7 +121,3 @@ shape = SubResource( 9 )
 
 [node name="Listener" type="Listener" parent="."]
 current = true
-
-[node name="Pistol" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.389626, 0.93216, 0 )
-damage = 100

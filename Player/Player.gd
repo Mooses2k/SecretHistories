@@ -9,7 +9,7 @@ var offhand_item = "lantern"
 var damage = 100
 
 onready var aimcast = $Body/FPSCamera/AimCast
-onready var gun = $Pistol
+onready var gun = $Body/Pistol
 onready var aimpoint = $PlayerAimPoint
 
 func _process(delta):

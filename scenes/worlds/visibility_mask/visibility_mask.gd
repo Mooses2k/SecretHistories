@@ -162,15 +162,15 @@ func _process(delta):
 	var active_camera : Camera = get_viewport().get_camera()
 	self.camera.global_transform.origin.x = active_camera.global_transform.origin.x + active_camera.h_offset
 	self.camera.global_transform.origin.z = active_camera.global_transform.origin.z - active_camera.v_offset
-	
+
 	var floor_plane = Plane.PLANE_XZ
 	var top_left = active_camera.project_position(Vector2.ZERO, active_camera.global_transform.origin.y)
 	var bottom_right = active_camera.project_position(get_viewport().size, active_camera.global_transform.origin.y)
 	var width = max(abs(top_left.x - bottom_right.x), abs(top_left.y - bottom_right.y)) + self.margin
 	self.camera.size = width
-	
+
 	viewport.size = Vector2.ONE*resolution
-	
+
 	(self.material_override as ShaderMaterial).set_shader_param("offset", self.camera.global_transform.origin)
 	(self.material_override as ShaderMaterial).set_shader_param("view_width", width)
 

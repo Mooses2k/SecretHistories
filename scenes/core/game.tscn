@@ -9,6 +9,6 @@ script = ExtResource( 1 )
 start_level_scn = ExtResource( 3 )
 player_scn = ExtResource( 2 )
 
-[node name="World" type="Node" parent="."]
+[node name="World" type="Spatial" parent="."]
 
 [node name="UI" type="Node" parent="."]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/core/game.gd" type="Script" id=1]
+[ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/worlds/procedural_world/procedural_world.tscn" type="PackedScene" id=3]
+
+[node name="Game" type="Node"]
+script = ExtResource( 1 )
+start_level_scn = ExtResource( 3 )
+player_scn = ExtResource( 2 )
+
+[node name="World" type="Node" parent="."]
+
+[node name="UI" type="Node" parent="."]

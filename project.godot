@@ -9,47 +9,59 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Spatial",
+"base": "Object",
+"class": "AttackTypes",
+"language": "GDScript",
+"path": "res://globals/attack_types.gd"
+}, {
+"base": "KinematicBody",
+"class": "Character",
+"language": "GDScript",
+"path": "res://scenes/characters/character.gd"
+}, {
+"base": "Node",
+"class": "Game",
+"language": "GDScript",
+"path": "res://scenes/core/game.gd"
+}, {
+"base": "Node",
 "class": "GameWorld",
 "language": "GDScript",
-"path": "res://Worlds/World.gd"
+"path": "res://scenes/worlds/game_world.gd"
 }, {
 "base": "Spatial",
 "class": "Gun",
 "language": "GDScript",
-"path": "res://Objects/Items/Gun.gd"
+"path": "res://scenes/objects/items/gun.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
 "language": "GDScript",
-"path": "res://Characters/Hitbox.gd"
+"path": "res://scenes/characters/hitbox.gd"
 }, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
 "language": "GDScript",
-"path": "res://Libraries/mesh_transform.gd"
-}, {
-"base": "Node",
-"class": "PathFinder",
-"language": "GDScript",
-"path": "res://Libraries/PathFinder.gd"
+"path": "res://utils/mesh_transform.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
-"path": "res://Worlds/VisibilityMask/VisibilityMask.gd"
+"path": "res://scenes/worlds/visibility_mask/visibility_mask.gd"
 }, {
 "base": "Node",
 "class": "Walker",
 "language": "GDScript",
-"path": "res://Worlds/RandomWalker.gd"
+"path": "res://scenes/worlds/procedural_world/random_walker.gd"
 } ]
 _global_script_class_icons={
+"AttackTypes": "",
+"Character": "",
+"Game": "",
 "GameWorld": "",
 "Gun": "",
 "Hitbox": "",
 "MeshTransform": "",
-"PathFinder": "",
 "VisibilityMask": "",
 "Walker": ""
 }
@@ -57,8 +69,12 @@ _global_script_class_icons={
 [application]
 
 config/name="HotlineCthulhu"
-run/main_scene="res://Worlds/World.tscn"
+run/main_scene="res://scenes/core/game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameManager="*res://globals/game_manager.gd"
 
 [input]
 
@@ -159,6 +175,8 @@ throw={
 [physics]
 
 common/enable_pause_aware_picking=true
+3d/physics_engine="GodotPhysics"
+3d/active_soft_world=false
 
 [rendering]
 

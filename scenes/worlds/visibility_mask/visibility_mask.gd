@@ -16,7 +16,7 @@ onready var camera = $Viewport/Camera
 
 var world : GameWorld
 
-func _ready():
+func _ready():	
 	GameManager.game.connect("player_spawned", self, "on_player_spawn")
 	
 	if self.get_parent() is GameWorld:

@@ -25,8 +25,7 @@ func shoot():
 	if aimcast.is_colliding():
 		var target_hit = aimcast.get_collider()
 		if target_hit is Hitbox:
-			print("Hit enemy!")
-			target_hit.hitbox_owner.health -= damage
+			target_hit.hit(self.damage)
 		var effect = hit_effect_packed.instance()
 		effect.set_orientation(aimcast.get_collision_point(), aimcast.get_collision_normal())
 		call_deferred("add_child", effect)

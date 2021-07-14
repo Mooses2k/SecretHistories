@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/lantern.obj-299b06d7aae5055803f4830c7816c8dd.mesh"
+
+[deps]
+
+files=[ "res://.import/lantern.obj-299b06d7aae5055803f4830c7816c8dd.mesh" ]
+
+source_file="res://!FreeAssets/VoxelDungeonSet/Obj/lantern.obj"
+dest_files=[ "res://.import/lantern.obj-299b06d7aae5055803f4830c7816c8dd.mesh", "res://.import/lantern.obj-299b06d7aae5055803f4830c7816c8dd.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

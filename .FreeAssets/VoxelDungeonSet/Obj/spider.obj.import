@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/spider.obj-2477e93bf88f20b1cd4ad8d0b6d7707a.mesh"
+
+[deps]
+
+files=[ "res://.import/spider.obj-2477e93bf88f20b1cd4ad8d0b6d7707a.mesh" ]
+
+source_file="res://!FreeAssets/VoxelDungeonSet/Obj/spider.obj"
+dest_files=[ "res://.import/spider.obj-2477e93bf88f20b1cd4ad8d0b6d7707a.mesh", "res://.import/spider.obj-2477e93bf88f20b1cd4ad8d0b6d7707a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

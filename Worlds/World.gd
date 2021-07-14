@@ -14,7 +14,7 @@ var wallx_basis : Basis = Basis.IDENTITY.rotated(Vector3.UP, deg2rad(90))
 
 # Make this an array later
 var floor_index = 0
-var wall_index = 1
+var wall_index = 2  # 1 is the flat starter wall
 
 onready var floor_map : GridMap = $Gridmaps/Floor as GridMap
 onready var wallx_map : GridMap = $Gridmaps/WallsX as GridMap

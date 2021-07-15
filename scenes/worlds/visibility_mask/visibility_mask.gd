@@ -156,7 +156,7 @@ func generate_mesh(grid_data : Array):
 
 
 func _process(delta):
-	if self.target_node:
+	if self.target_node and is_instance_valid(self.target_node):
 		self.visibility_agent.global_transform = self.target_node.global_transform
 
 	var active_camera : Camera = get_viewport().get_camera()

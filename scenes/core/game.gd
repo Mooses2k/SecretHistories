@@ -32,7 +32,7 @@ func on_level_loaded(level : GameWorld):
 
 func spawn_player():
 	self.player = player_scn.instance()
+	self.player.translation = self.level.get_player_spawn_position()
 	world_root.call_deferred("add_child", self.player)
 	yield(self.player, "ready")
-	self.player.global_transform.origin = self.level.get_player_spawn_position()
 	self.emit_signal("player_spawned", self.player)

@@ -52,6 +52,6 @@ func spawn_monsters(location):
 #			var number_of_monsters_to_spawn = 1   # randi() % 1 + 1 #change first number to number of bats per bunch
 #			for m in number_of_monsters_to_spawn:
 				var ghost = Ghost.instance()
-				add_child(ghost)
 				ghost.translation = location
+				call_deferred("add_child", ghost)
 				print("Ghost spawned at: ", ghost.translation)

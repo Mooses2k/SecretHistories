@@ -12,7 +12,7 @@ var move_direction : Vector3 = Vector3.ZERO
 
 
 
-onready var _current_health = self.max_health
+onready var current_health : float = self.max_health
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
@@ -44,10 +44,10 @@ func _handle_movement(delta : float):
 	self._current_velocity = self.move_and_slide(self._current_velocity, Vector3.UP)
 
 
-func damage(value : int, type : int):
+func damage(value : float, type : int):
 	if self._alive:
-		self._current_health -= self._type_damage_multiplier[type]*value
-		if self._current_health <= 0:
+		self.current_health -= self._type_damage_multiplier[type]*value
+		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")
 			self.queue_free()

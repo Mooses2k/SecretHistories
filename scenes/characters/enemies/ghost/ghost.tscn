@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/sounds/monster_growl.wav" type="AudioStream" id=1]
 [ext_resource path="res://resources/sounds/whispers.wav" type="AudioStream" id=2]
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=4]
+[ext_resource path="res://resources/effects/Fog.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.65
@@ -76,3 +77,7 @@ max_distance = 10.0
 
 [node name="Growl" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 1 )
+
+[node name="Fog" parent="." instance=ExtResource( 5 )]
+transform = Transform( -2, 1.74846e-07, 1.74846e-07, -1.74846e-07, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, 0, 0.5, 0 )
+visibility_aabb = AABB( -1.98862, -2.40844, -1.99884, 3.98575, 4.38035, 3.98444 )

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/worlds/visibility_mask/visibility_mask.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
 [ext_resource path="res://resources/mesh_libraries/default.meshlib" type="MeshLibrary" id=3]
+[ext_resource path="res://resources/sounds/music_and_ambient/ambient/dark_shadows.mp3" type="AudioStream" id=4]
 [ext_resource path="res://scenes/worlds/procedural_world/gridmaps.gd" type="Script" id=5]
 
 [sub_resource type="Environment" id=1]
@@ -55,3 +56,8 @@ data = {
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="BackgroundSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+autoplay = true

@@ -1,6 +1,6 @@
 extends KinematicBody
 
-const SPEED = 2.0
+const SPEED = 1.0  # quite slow
 
 var target = null
 var vel = Vector3()

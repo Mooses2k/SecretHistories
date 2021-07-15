@@ -8,12 +8,16 @@ var path = null
 
 var health = 200
 
+onready var fog = $Fog as Particles
 onready var hitbox = $HitboxArea
 onready var game_world = get_parent()
 onready var player = game_world.get_node("Player")
 onready var navigation : Navigation = game_world.navigation
+
 func _ready():
 	self.set_physics_process(false)
+	
+	fog.emitting = true
 	
 	hitbox.connect("body_entered", self, "on_hit_player")
 	

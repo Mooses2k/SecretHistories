@@ -1,5 +1,6 @@
 extends GameWorld
 
+const Fog = preload("res://resources/effects/Fog.tscn")
 const Ghost = preload("res://scenes/characters/enemies/ghost/ghost.tscn")
 
 export var grid_size : int = 48
@@ -41,17 +42,24 @@ func generate_data():
 	walker.queue_free()
 	for location in map:
 		grid_data[location.x][location.y] = true
-		
+
+	# This is wrong and not sure quickly how to spawn fog in a few random rooms
+	if (randi() % 4 < 1):
+		spawn_fog(world_position)
+
 	spawn_monsters(world_position)
+
 	self.set_world_data(grid_data)
 
 
 func spawn_monsters(location):
-#	if (randi() % 60 < 1):
-#		for room in rooms:  #issue is here I think, as 'room' is only defined here not the previous definition!
-#			var number_of_monsters_to_spawn = 1   # randi() % 1 + 1 #change first number to number of bats per bunch
-#			for m in number_of_monsters_to_spawn:
-				var ghost = Ghost.instance()
-				ghost.translation = location
-				call_deferred("add_child", ghost)
-				print("Ghost spawned at: ", ghost.translation)
+	var ghost = Ghost.instance()
+	add_child(ghost)
+	ghost.translation = location
+	print("Ghost spawned at: ", ghost.translation)
+
+func spawn_fog(location):
+	var fog = Fog.instance() as Particles
+	add_child(fog)
+	fog.translation = location
+	print("Room fogged at: ", fog.translation)

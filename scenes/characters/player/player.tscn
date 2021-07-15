@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/characters/player/mouse_cam.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/player_aim_point.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/items/pistol/pistol.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/items/shotgun/shotgun.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -87,9 +87,8 @@ shadow_enabled = true
 omni_range = 8.0
 omni_attenuation = 4.0
 
-[node name="Pistol" parent="Body" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.389626, 0.13216, 0 )
-damage = 100
+[node name="Shotgun" parent="Body" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39, 0.132, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.8, 0 )

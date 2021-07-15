@@ -5,11 +5,12 @@ var sprint_speed = 6
 var current_speed = 0
 var velocity = Vector3()
 
+var item_in_main_hand = "shotgun"
 var offhand_item = "lantern"
 var damage = 100
 
 onready var aimcast = $Body/FPSCamera/AimCast
-onready var gun = $Body/Pistol
+onready var gun = $Body/Shotgun     # $Body/Pistol
 onready var aimpoint = $PlayerAimPoint
 
 func _process(delta):
@@ -46,3 +47,9 @@ func _process(delta):
 				$Lantern.visible = true
 			else:
 				 $Lantern.visible = false
+
+	if Input.is_action_just_pressed("inventory_1"):
+		pass
+		
+	if Input.is_action_just_pressed("inventory_3"):
+		pass

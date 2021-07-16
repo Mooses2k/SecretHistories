@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/core/game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/sounds/music_and_ambient/ambient/dark_shadows.mp3" type="AudioStream" id=4]
-[ext_resource path="res://resources/effects/Fog.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Node"]
 script = ExtResource( 1 )
@@ -17,7 +16,5 @@ player_scn = ExtResource( 2 )
 stream = ExtResource( 4 )
 volume_db = -10.0
 autoplay = true
-
-[node name="Fog" parent="World" instance=ExtResource( 5 )]
 
 [node name="UI" type="Node" parent="."]

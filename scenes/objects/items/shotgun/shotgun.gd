@@ -4,6 +4,7 @@ var can_shoot : bool = true
 var pellets = 8
 
 const hit_effect_packed = preload("res://scenes/objects/items/shotgun/hit_effect.tscn")
+const Gunsmoke = preload("res://resources/effects/gunsmoke.tscn")
 
 onready var aimcast : RayCast = $RayCast as RayCast
 onready var timer = $RateofFireTimer as Timer
@@ -31,6 +32,12 @@ func shoot():
 			var effect = hit_effect_packed.instance()
 			effect.set_orientation(aimcast.get_collision_point(), aimcast.get_collision_normal())
 			call_deferred("add_child", effect)
+	
+	var gunsmoke = Gunsmoke.instance()
+	add_child(gunsmoke)
+	gunsmoke.emitting = true
+	print(gunsmoke.global_transform)
+
 	can_shoot = false
 	timer.start()
 	flash.visible = true

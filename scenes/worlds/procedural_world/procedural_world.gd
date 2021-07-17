@@ -58,6 +58,7 @@ func spawn_monsters(location):
 	ghost.translation = location
 	print("Ghost spawned at: ", ghost.translation)
 
+# Doesn't work - want it to spawn randomly in 1 out of 4 rooms, right now, just spawns at the ghost spawn
 func spawn_fog(location):
 	var fog = Fog.instance() as Particles
 	add_child(fog)

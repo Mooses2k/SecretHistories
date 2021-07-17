@@ -5,8 +5,8 @@ onready var wallx_map : GridMap = $WallsX as GridMap
 onready var wallz_map : GridMap = $WallsZ as GridMap
 
 # Make this an array later
-var floor_index = 0
-var wall_index = 2  # 1 is the flat starter wall
+var floor_index = 4
+var wall_index = 3
 var wallx_basis : Basis = Basis.IDENTITY.rotated(Vector3.UP, deg2rad(90))
 
 func generate_mesh(world_data : Array, world_size : int):

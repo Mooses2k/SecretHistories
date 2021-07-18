@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/objects/items/pistol/hit_effect.gd" type="Script" id=1]
+[ext_resource path="res://resources/effects/fog-freepik.jpg" type="Texture" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -9,6 +10,7 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 albedo_color = Color( 1, 0, 0, 1 )
+albedo_texture = ExtResource( 2 )
 
 [sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -19,11 +21,12 @@ curve = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
 direction = Vector3( 0, 0, -1 )
+spread = 10.0
 gravity = Vector3( 0, -4, 0 )
-initial_velocity = 3.0
+initial_velocity = 10.0
 initial_velocity_random = 1.0
 damping = 5.0
-scale = 0.2
+scale = 0.1
 scale_random = 0.1
 scale_curve = SubResource( 3 )
 
@@ -41,7 +44,7 @@ material_override = SubResource( 1 )
 cast_shadow = 0
 emitting = false
 amount = 32
-lifetime = 0.3
+lifetime = 0.2
 one_shot = true
 explosiveness = 0.8
 local_coords = false

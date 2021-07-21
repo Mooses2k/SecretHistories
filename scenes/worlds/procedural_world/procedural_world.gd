@@ -43,8 +43,8 @@ func generate_data():
 	for location in map:
 		grid_data[location.x][location.y] = true
 
-	# This is wrong and not sure quickly how to spawn fog in a few random rooms
-	if (randi() % 4 < 1):
+	# This is wrong and not sure how to spawn fog in a few random rooms
+	if (randi() % 6 < 1):
 		spawn_fog(world_position)
 
 	spawn_monsters(world_position)

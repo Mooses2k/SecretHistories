@@ -58,11 +58,11 @@ func set_target(target):
 #	find_path_timer()
 	
 	
-func on_hit_player(body):
-	if body.name == "Player":
-		body.die()
-		$Whisper.stop()
-		$Growl.play()
+#func on_hit_player(body):
+#	if body.name == "Player":
+#		body.die()
+#		$Whisper.stop()
+#		$Growl.play()
 		
 	
 func find_path_timer():

@@ -1,12 +1,14 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/characters/player/mouse_cam.gd" type="Script" id=1]
-[ext_resource path="res://scenes/characters/character.gd" type="Script" id=2]
+[ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/player_aim_point.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=4]
 [ext_resource path="res://scenes/objects/items/shotgun/shotgun.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=7]
+[ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
+[ext_resource path="res://scenes/characters/player/Tinnitus.gd" type="Script" id=9]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -69,18 +71,17 @@ void fragment() {
 	ALPHA = sample.a;
 }"
 
-[sub_resource type="ShaderMaterial" id=12]
+[sub_resource type="ShaderMaterial" id=11]
 render_priority = 110
 shader = SubResource( 10 )
 shader_param/color = Color( 0.054902, 1, 0, 1 )
 
-[sub_resource type="QuadMesh" id=13]
+[sub_resource type="QuadMesh" id=12]
 size = Vector2( 2, 0.8 )
 
 [node name="Player" type="KinematicBody"]
 collision_layer = 2
 script = ExtResource( 2 )
-acceleration = 12.0
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -153,8 +154,8 @@ current = true
 
 [node name="HPDisplay" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0.6 )
-material_override = SubResource( 12 )
-mesh = SubResource( 13 )
+material_override = SubResource( 11 )
+mesh = SubResource( 12 )
 material/0 = null
 script = ExtResource( 7 )
 
@@ -185,3 +186,8 @@ custom_constants/shadow_as_outline = 1
 text = "0000"
 align = 1
 valign = 1
+
+[node name="Tinnitus" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -31.0
+script = ExtResource( 9 )

@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://utils/mesh_transform.gd"
 }, {
+"base": "Character",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scenes/characters/player/player.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
@@ -62,6 +67,7 @@ _global_script_class_icons={
 "Gun": "",
 "Hitbox": "",
 "MeshTransform": "",
+"Player": "",
 "VisibilityMask": "",
 "Walker": ""
 }

@@ -24,6 +24,9 @@ albedo_color = Color( 0.462745, 0.733333, 1, 1 )
 [sub_resource type="CapsuleMesh" id=4]
 material = SubResource( 3 )
 radius = 0.3
+mid_height = 1.2
+radial_segments = 16
+rings = 4
 
 [sub_resource type="Animation" id=5]
 resource_name = "Flicker"
@@ -75,6 +78,7 @@ tracks/3/keys = PoolRealArray( 0.1, 1, -0.341532, -0.121985, -0.529257, 0, 0, 0,
 
 [sub_resource type="CapsuleShape" id=6]
 radius = 0.3
+height = 1.2
 
 [sub_resource type="Shader" id=7]
 code = "shader_type spatial;
@@ -106,6 +110,7 @@ material = SubResource( 8 )
 
 [sub_resource type="CapsuleShape" id=10]
 radius = 0.3
+height = 1.2
 
 [sub_resource type="Shader" id=11]
 code = "shader_type spatial;
@@ -141,10 +146,10 @@ script = ExtResource( 2 )
 script = ExtResource( 6 )
 
 [node name="Body" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
 
 [node name="FPSCamera" type="Camera" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41997e-09, 0.367484, -0.197735 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.2 )
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera"]
 enabled = true
@@ -153,7 +158,7 @@ collision_mask = 9
 collide_with_areas = true
 
 [node name="Sunglasses" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41997e-09, 0.367484, -0.197735 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.198 )
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -179,7 +184,7 @@ anims/Flicker = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39, 0.132, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.8, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
 shape = SubResource( 6 )
 
 [node name="TopCamera" type="Camera" parent="."]
@@ -198,14 +203,13 @@ mesh = SubResource( 9 )
 material/0 = null
 
 [node name="Hurtbox" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0 )
 collision_layer = 4
 collision_mask = 16
 script = ExtResource( 4 )
 hitbox_owner_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="Hurtbox"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 shape = SubResource( 10 )
 
 [node name="Listener" type="Listener" parent="."]

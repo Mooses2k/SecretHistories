@@ -21,5 +21,6 @@ func mesh_transform():
 		var arrays = mesh.surface_get_arrays(surface_index)
 		for i in arrays[Mesh.ARRAY_VERTEX].size():
 			arrays[Mesh.ARRAY_VERTEX][i] = transform.xform(arrays[Mesh.ARRAY_VERTEX][i])
+			arrays[Mesh.ARRAY_NORMAL][i] = transform.basis.xform(arrays[Mesh.ARRAY_NORMAL][i])
 		self.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 		self.surface_set_material(surface_index, mesh.surface_get_material(surface_index))

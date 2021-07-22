@@ -28,4 +28,4 @@ func generate_mesh(world_data : Array, world_size : int):
 				if j - 1 < 0 or world_data[i][j - 1] == false:
 					wallz_plus_map.set_cell_item(i, 0, j, wall_index, wallz_plus_basis.get_orthogonal_index())
 				if j + 1 > world_size - 1 or world_data[i][j + 1] == false:
-					wallz_minus_map.set_cell_item(i, 0, j, wallz_minus_basis.get_orthogonal_index())
+					wallz_minus_map.set_cell_item(i, 0, j, wall_index, wallz_minus_basis.get_orthogonal_index())

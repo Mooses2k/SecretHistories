@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/items/shotgun/shotgun.gd" type="Script" id=1]
 [ext_resource path="res://resources/effects/gunsmoke.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/sounds/sonar_ping.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.mp3" type="AudioStream" id=3]
 [ext_resource path="res://scenes/objects/items/shotgun/Effects.gd" type="Script" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -50,7 +50,8 @@ script = ExtResource( 5 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Effects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
-stream = ExtResource( 4 )
+stream = ExtResource( 3 )
+unit_size = 10.0
 
 [node name="Smoke" parent="Effects" instance=ExtResource( 2 )]
 lifetime = 0.4

@@ -37,7 +37,7 @@ __meta__ = {
 "_editor_clip_": 0
 }
 
-[node name="WallsX" type="GridMap" parent="Gridmaps"]
+[node name="WallsXp" type="GridMap" parent="Gridmaps"]
 mesh_library = ExtResource( 3 )
 cell_center_y = false
 data = {
@@ -47,7 +47,27 @@ __meta__ = {
 "_editor_clip_": 0
 }
 
-[node name="WallsZ" type="GridMap" parent="Gridmaps"]
+[node name="WallsXn" type="GridMap" parent="Gridmaps"]
+mesh_library = ExtResource( 3 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="WallsZp" type="GridMap" parent="Gridmaps"]
+mesh_library = ExtResource( 3 )
+cell_center_y = false
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="WallsZn" type="GridMap" parent="Gridmaps"]
 mesh_library = ExtResource( 3 )
 cell_center_y = false
 data = {

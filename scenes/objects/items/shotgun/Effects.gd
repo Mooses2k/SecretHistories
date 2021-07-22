@@ -8,9 +8,13 @@ onready var light = $OmniLight
 
 
 func handle_sound():
-	sound_effect.play(0.0)
+	var sound_instance = sound_effect.duplicate()
+	call_deferred("add_child", sound_instance)
+	yield(sound_instance, "ready")
+	sound_instance.play(0.0)
 	yield(get_tree().create_timer(sound_effect.stream.get_length()), "timeout")
-	sound_effect.stop()
+	sound_instance.stop()
+	sound_instance.queue_free()
 
 func handle_light():
 	light.visible = true
@@ -18,7 +22,12 @@ func handle_light():
 	light.visible = false
 
 func handle_particles():
-	particle_smoke.emitting = true
+	var smoke_instance = particle_smoke.duplicate()
+	call_deferred("add_child", smoke_instance)
+	yield(smoke_instance, "ready")
+	smoke_instance.emitting = true
+	yield(get_tree().create_timer(smoke_instance.lifetime), "timeout")
+	smoke_instance.queue_free()
 
 
 func _on_Shotgun_gun_shot():

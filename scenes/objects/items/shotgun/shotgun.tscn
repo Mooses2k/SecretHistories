@@ -54,7 +54,6 @@ stream = ExtResource( 3 )
 unit_size = 10.0
 
 [node name="Smoke" parent="Effects" instance=ExtResource( 2 )]
-lifetime = 0.4
 
 [node name="OmniLight" type="OmniLight" parent="Effects"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )

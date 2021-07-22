@@ -14,7 +14,7 @@ func enable():
 	occuring = true
 
 func _physics_process(delta):
-	var dir = 1.0 if occuring else -1.0
+	var dir = 1.0 if occuring else -0.25
 	t += delta*dir/period
 	t = clamp(t, 0, 1)
 	volume_db = curve.interpolate(t)

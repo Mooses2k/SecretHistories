@@ -1,6 +1,6 @@
 extends Spatial
 
-export var light_duration = 0.2
+export var light_duration = 0.1
 
 onready var sound_effect = $AudioStreamPlayer3D
 onready var particle_smoke = $Smoke

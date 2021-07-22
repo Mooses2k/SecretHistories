@@ -9,4 +9,5 @@ func _process(delta):
 		if body is Character:
 			body.damage(dps*delta, AttackTypes.Types.SPECIAL)
 			if body is Player:
-				body.tinnitus.volume_db += 0.3
+				var player = body as Player
+				player.tinnitus.enable()

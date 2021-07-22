@@ -1,6 +1,8 @@
 extends Spatial
 class_name Gun
 
+signal gun_shot
+
 export var damage = 0
 export var dispersion = 0.0
 export var ammunition_type = ""

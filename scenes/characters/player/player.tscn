@@ -143,6 +143,7 @@ _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 collision_layer = 2
 physics_material_override = ExtResource( 11 )
 script = ExtResource( 2 )
+move_speed = 6.0
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 6 )

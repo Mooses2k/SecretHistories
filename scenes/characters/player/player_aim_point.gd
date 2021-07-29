@@ -3,6 +3,7 @@ extends Spatial
 export var aim_plane : Plane
 var camera_node : Camera
 
+onready var controller = $ "../PlayerController"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	camera_node = get_viewport().get_camera()
@@ -25,7 +26,7 @@ func _process(delta):
 		var body = get_parent().get_node("Body")
 		if not body.global_transform.origin.is_equal_approx(look_at_me):
 			body.look_at(look_at_me, Vector3.UP)
-		
+			controller.equipment.look_at(look_at_me, Vector3.UP)
 		#Point this node towards the player
 		var target_pos : Vector3 = get_parent().global_transform.origin
 		target_pos.y = self.global_transform.origin.y

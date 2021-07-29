@@ -1,23 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/objects/items/shotgun/shotgun.gd" type="Script" id=1]
 [ext_resource path="res://resources/effects/gunsmoke.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.mp3" type="AudioStream" id=3]
 [ext_resource path="res://scenes/objects/items/shotgun/Effects.gd" type="Script" id=5]
 
-[sub_resource type="SpatialMaterial" id=1]
-flags_unshaded = true
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="CylinderMesh" id=2]
-material = SubResource( 1 )
-top_radius = 0.01
-bottom_radius = 0.01
-height = 20.0
-radial_segments = 4
-rings = 1
-
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.1, 0.1, 0.5 )
 
 [node name="Shotgun" type="Spatial"]
@@ -32,17 +20,11 @@ cast_to = Vector3( 0, 0, -1000 )
 collision_mask = 9
 collide_with_areas = true
 
-[node name="MeshInstance" type="MeshInstance" parent="RayCast"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -10 )
-cast_shadow = 0
-mesh = SubResource( 2 )
-material/0 = null
-
 [node name="RateofFireTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 3 )
+mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Effects" type="Spatial" parent="."]

@@ -25,6 +25,7 @@ environment = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 48, 70, 48 )
 
 [node name="VisibilityMask" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="Gridmaps" type="Navigation" parent="."]
 script = ExtResource( 5 )

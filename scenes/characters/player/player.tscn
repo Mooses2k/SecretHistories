@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/characters/player/mouse_cam.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/Lantern.gd" type="Script" id=10]
+[ext_resource path="res://scenes/characters/character.phymat" type="PhysicsMaterial" id=11]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -138,8 +139,9 @@ min_value = -100.0
 max_value = 0.0
 _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[node name="Player" type="KinematicBody"]
+[node name="Player" type="RigidBody"]
 collision_layer = 2
+physics_material_override = ExtResource( 11 )
 script = ExtResource( 2 )
 
 [node name="PlayerController" type="Node" parent="."]
@@ -152,6 +154,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.2 )
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera"]
+visible = false
 enabled = true
 cast_to = Vector3( 0, 0, -1000 )
 collision_mask = 9
@@ -257,12 +260,3 @@ stream = ExtResource( 8 )
 volume_db = -31.0
 script = ExtResource( 9 )
 curve = SubResource( 14 )
-
-[node name="FPSCamera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.41997e-09, 1.16748, -0.197735 )
-
-[node name="AimCast" type="RayCast" parent="FPSCamera"]
-enabled = true
-cast_to = Vector3( 0, 0, -1000 )
-collision_mask = 9
-collide_with_areas = true

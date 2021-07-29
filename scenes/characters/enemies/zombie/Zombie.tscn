@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
+[ext_resource path="res://scenes/characters/enemies/zombie/grab_area.gd" type="Script" id=3]
+[ext_resource path="res://scenes/characters/enemies/zombie/zombie_controller.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.3
@@ -17,12 +19,39 @@ mid_height = 1.2
 [sub_resource type="CubeMesh" id=4]
 size = Vector3( 0.1, 0.15, 1 )
 
-[sub_resource type="CapsuleShape" id=5]
+[sub_resource type="Curve" id=5]
+max_value = 32.0
+_data = [ Vector2( 0.5, 32 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="SphereShape" id=6]
+radius = 0.4
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 0.333333, 0.2, 0.12549 )
+
+[sub_resource type="CylinderMesh" id=8]
+material = SubResource( 7 )
+top_radius = 0.1
+bottom_radius = 27.713
+height = 16.0
+radial_segments = 4
+rings = 1
+
+[sub_resource type="ConvexPolygonShape" id=9]
+points = PoolVector3Array( 0, 8, 0.1, 0.1, 8, 6.12323e-18, 1.22465e-17, 8, -0.1, -0.1, 8, -1.83697e-17, -2.44929e-17, 8, 0.1, 0, 0, 13.9065, 13.9065, 0, 8.51528e-16, 1.70306e-15, 0, -13.9065, -13.9065, 0, -2.55458e-15, -3.40611e-15, 0, 13.9065, 0, -8, 27.713, 27.713, -8, 1.69693e-15, 3.39386e-15, -8, -27.713, -27.713, -8, -5.0908e-15, -6.78773e-15, -8, 27.713, 0, 8, 0, 0, 8, 0.1, 0.1, 8, 6.12323e-18, 1.22465e-17, 8, -0.1, -0.1, 8, -1.83697e-17, -2.44929e-17, 8, 0.1, 0, -8, 0, 0, -8, 27.713, 27.713, -8, 1.69693e-15, 3.39386e-15, -8, -27.713, -27.713, -8, -5.0908e-15, -6.78773e-15, -8, 27.713 )
+
+[sub_resource type="CapsuleShape" id=10]
 radius = 0.4
 height = 1.2
 
-[node name="Zombie" type="KinematicBody"]
+[node name="Zombie" type="RigidBody"]
+collision_layer = 16
+collision_mask = 19
 script = ExtResource( 1 )
+move_speed = 2.0
+acceleration = 2.0
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
@@ -46,10 +75,44 @@ transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0
 mesh = SubResource( 4 )
 material/0 = null
 
+[node name="GrabArea" type="Area" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8 )
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 3 )
+force_curve = SubResource( 5 )
+max_distance = 0.8
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/GrabArea"]
+shape = SubResource( 6 )
+
+[node name="ViewArea" type="Area" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="MeshInstance" type="MeshInstance" parent="Body/ViewArea"]
+transform = Transform( -0.707107, 4.37114e-08, 0.707107, 0.707107, -4.37114e-08, 0.707107, 6.18172e-08, 1, 0, -4.76837e-07, 0, -8 )
+visible = false
+mesh = SubResource( 8 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Body/ViewArea"]
+transform = Transform( -0.707107, 4.37114e-08, 0.707107, 0.707107, -4.37114e-08, 0.707107, 6.18172e-08, 1, 0, -4.76837e-07, 0, -8 )
+shape = SubResource( 9 )
+
+[node name="ViewRayCast" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+cast_to = Vector3( 0, 0, -16 )
+collision_mask = 3
+
 [node name="Hitbox" type="Area" parent="."]
 script = ExtResource( 2 )
 hitbox_owner_path = NodePath("..")
 
 [node name="CollisionShape2" type="CollisionShape" parent="Hitbox"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 10 )
+
+[node name="ZombieController" type="Node" parent="."]
+script = ExtResource( 4 )

@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://globals/attack_types.gd"
 }, {
-"base": "KinematicBody",
+"base": "RigidBody",
 "class": "Character",
 "language": "GDScript",
 "path": "res://scenes/characters/character.gd"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/worlds/visibility_mask/visibility_mask.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -15,6 +15,11 @@ ambient_light_energy = 0.0
 ambient_light_sky_contribution = 0.0
 fog_enabled = true
 
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 0.466667, 0.2, 0.501961 )
+
 [node name="World" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -29,6 +34,8 @@ visible = false
 
 [node name="Gridmaps" type="Navigation" parent="."]
 script = ExtResource( 5 )
+navigation_visible = false
+navigation_debug_material = SubResource( 2 )
 
 [node name="Floor" type="GridMap" parent="Gridmaps"]
 mesh_library = ExtResource( 3 )
@@ -89,4 +96,5 @@ autoplay = true
 script = ExtResource( 6 )
 enemy_scene = ExtResource( 7 )
 
+[connection signal="world_data_changed" from="." to="Gridmaps" method="_on_World_world_data_changed"]
 [connection signal="world_data_changed" from="." to="EnemySpawner" method="_on_World_world_data_changed"]

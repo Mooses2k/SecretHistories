@@ -21,7 +21,7 @@ func get_player_spawn_position() -> Vector3:
 
 func generate_world():
 	generate_data()
-	gridmaps.generate_mesh(self.world_data, self.world_size)
+#	gridmaps.generate_mesh(self.world_data, self.world_size)
 
 func generate_data():
 	var grid_data : Array = []

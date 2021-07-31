@@ -56,7 +56,7 @@ func handle_state():
 			return
 
 func follow_path():
-	while path.size() > 0 and path[0].distance_to(character.global_transform.origin) < 1.0:
+	while path.size() > 0 and path[0].distance_to(character.global_transform.origin) < 0.1:
 		path.pop_front()
 	if path.size() > 0:
 		character.move_direction = path[0] - character.global_transform.origin

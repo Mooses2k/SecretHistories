@@ -9,32 +9,168 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Object",
+"class": "AttackTypes",
+"language": "GDScript",
+"path": "res://globals/attack_types.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Approach_Random_Distance",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_approach_distance.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_ControlFlow",
+"language": "GDScript",
+"path": "res://core/ai/flow_nodes/bt_control_flow.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Go_To_Target",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_go_to_target.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Gun_Cooldown",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_gun_cooldown.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Look_At_Target",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_look_at_target.gd"
+}, {
+"base": "Node",
+"class": "BT_Node",
+"language": "GDScript",
+"path": "res://core/ai/bt_node.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Player_Sensor",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_player_sensor.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Select_Random_Target",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_select_random_target.gd"
+}, {
+"base": "BT_ControlFlow",
+"class": "BT_Selector",
+"language": "GDScript",
+"path": "res://core/ai/flow_nodes/bt_selector.gd"
+}, {
+"base": "BT_ControlFlow",
+"class": "BT_Sequence",
+"language": "GDScript",
+"path": "res://core/ai/flow_nodes/bt_sequence.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Shoot",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_shoot.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Wait_Random",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_wait_random.gd"
+}, {
+"base": "Node",
+"class": "BehaviorTree",
+"language": "GDScript",
+"path": "res://core/ai/behavior_tree.gd"
+}, {
+"base": "RigidBody",
+"class": "Character",
+"language": "GDScript",
+"path": "res://scenes/characters/character.gd"
+}, {
+"base": "Reference",
+"class": "CharacterState",
+"language": "GDScript",
+"path": "res://core/ai/character_state.gd"
+}, {
+"base": "Node",
+"class": "Game",
+"language": "GDScript",
+"path": "res://scenes/core/game.gd"
+}, {
+"base": "Node",
+"class": "GameWorld",
+"language": "GDScript",
+"path": "res://scenes/worlds/game_world.gd"
+}, {
+"base": "Spatial",
+"class": "Gun",
+"language": "GDScript",
+"path": "res://scenes/objects/items/gun.gd"
+}, {
+"base": "Area",
+"class": "Hitbox",
+"language": "GDScript",
+"path": "res://scenes/characters/hitbox.gd"
+}, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
 "language": "GDScript",
-"path": "res://Libraries/mesh_transform.gd"
+"path": "res://utils/mesh_transform.gd"
 }, {
-"base": "Node",
-"class": "PathFinder",
+"base": "Character",
+"class": "Player",
 "language": "GDScript",
-"path": "res://Libraries/PathFinder.gd"
+"path": "res://scenes/characters/player/player.gd"
+}, {
+"base": "Spatial",
+"class": "PlayerSensor",
+"language": "GDScript",
+"path": "res://scenes/sensors/player_sensor.gd"
+}, {
+"base": "MeshInstance",
+"class": "VisibilityMask",
+"language": "GDScript",
+"path": "res://scenes/worlds/visibility_mask/visibility_mask.gd"
 }, {
 "base": "Node",
 "class": "Walker",
 "language": "GDScript",
-"path": "res://Worlds/RandomWalker.gd"
+"path": "res://scenes/worlds/procedural_world/random_walker.gd"
 } ]
 _global_script_class_icons={
+"AttackTypes": "",
+"BT_Approach_Random_Distance": "",
+"BT_ControlFlow": "",
+"BT_Go_To_Target": "",
+"BT_Gun_Cooldown": "",
+"BT_Look_At_Target": "",
+"BT_Node": "",
+"BT_Player_Sensor": "",
+"BT_Select_Random_Target": "",
+"BT_Selector": "",
+"BT_Sequence": "",
+"BT_Shoot": "",
+"BT_Wait_Random": "",
+"BehaviorTree": "",
+"Character": "",
+"CharacterState": "",
+"Game": "",
+"GameWorld": "",
+"Gun": "",
+"Hitbox": "",
 "MeshTransform": "",
-"PathFinder": "",
+"Player": "",
+"PlayerSensor": "",
+"VisibilityMask": "",
 "Walker": ""
 }
 
 [application]
 
 config/name="HotlineCthulhu"
-run/main_scene="res://Worlds/World.tscn"
+run/main_scene="res://scenes/core/game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameManager="*res://globals/game_manager.gd"
 
 [input]
 
@@ -119,6 +255,21 @@ throw={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"unicode":0,"echo":false,"script":null)
  ]
 }
+inventory_1={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"unicode":0,"echo":false,"script":null)
+ ]
+}
+inventory_2={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"unicode":0,"echo":false,"script":null)
+ ]
+}
+inventory_3={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -135,6 +286,8 @@ throw={
 [physics]
 
 common/enable_pause_aware_picking=true
+3d/physics_engine="GodotPhysics"
+3d/active_soft_world=false
 
 [rendering]
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/health_potion.obj-4eca5c2f22cfd629f6d3ac36115cc499.mesh"
+
+[deps]
+
+files=[ "res://.import/health_potion.obj-4eca5c2f22cfd629f6d3ac36115cc499.mesh" ]
+
+source_file="res://!FreeAssets/VoxelDungeonSet/Obj/health_potion.obj"
+dest_files=[ "res://.import/health_potion.obj-4eca5c2f22cfd629f6d3ac36115cc499.mesh", "res://.import/health_potion.obj-4eca5c2f22cfd629f6d3ac36115cc499.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/.obj-3982ca6197313691343b9d6ce5a46af0.mesh"
+
+[deps]
+
+files=[ "res://.import/.obj-3982ca6197313691343b9d6ce5a46af0.mesh" ]
+
+source_file="res://!FreeAssets/VoxelDungeonSet/Obj/.obj"
+dest_files=[ "res://.import/.obj-3982ca6197313691343b9d6ce5a46af0.mesh", "res://.import/.obj-3982ca6197313691343b9d6ce5a46af0.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/chest_lock.obj-65e6c303123ca0e4dcff7b766772936f.mesh"
+
+[deps]
+
+files=[ "res://.import/chest_lock.obj-65e6c303123ca0e4dcff7b766772936f.mesh" ]
+
+source_file="res://!FreeAssets/VoxelDungeonSet/Obj/chest_lock.obj"
+dest_files=[ "res://.import/chest_lock.obj-65e6c303123ca0e4dcff7b766772936f.mesh", "res://.import/chest_lock.obj-65e6c303123ca0e4dcff7b766772936f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

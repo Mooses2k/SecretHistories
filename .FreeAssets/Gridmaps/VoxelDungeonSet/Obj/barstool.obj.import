@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/barstool.obj-6f42f5ef2c1ef2a90d7878e3fb2629e4.mesh"
+
+[deps]
+
+files=[ "res://.import/barstool.obj-6f42f5ef2c1ef2a90d7878e3fb2629e4.mesh" ]
+
+source_file="res://!FreeAssets/VoxelDungeonSet/Obj/barstool.obj"
+dest_files=[ "res://.import/barstool.obj-6f42f5ef2c1ef2a90d7878e3fb2629e4.mesh", "res://.import/barstool.obj-6f42f5ef2c1ef2a90d7878e3fb2629e4.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

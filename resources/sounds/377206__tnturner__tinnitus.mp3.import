@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/377206__tnturner__tinnitus.mp3-6673e7e96a48bc7bac2c9154a0109637.mp3str"
+
+[deps]
+
+source_file="res://resources/sounds/377206__tnturner__tinnitus.mp3"
+dest_files=[ "res://.import/377206__tnturner__tinnitus.mp3-6673e7e96a48bc7bac2c9154a0109637.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/chest.obj-8ab7be27a4fc98f91251491d3b8b33fb.mesh"
+
+[deps]
+
+files=[ "res://.import/chest.obj-8ab7be27a4fc98f91251491d3b8b33fb.mesh" ]
+
+source_file="res://!FreeAssets/VoxelDungeonSet/Obj/chest.obj"
+dest_files=[ "res://.import/chest.obj-8ab7be27a4fc98f91251491d3b8b33fb.mesh", "res://.import/chest.obj-8ab7be27a4fc98f91251491d3b8b33fb.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

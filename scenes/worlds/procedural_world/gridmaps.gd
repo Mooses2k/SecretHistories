@@ -43,7 +43,7 @@ func _ready():
 	multimeshes.resize(CornerTypes.COUNT)
 	visible_instances.resize(CornerTypes.COUNT)
 	for i in CornerTypes.COUNT:
-		print((corner_navmeshes[i] as NavigationMesh).get_polygon_count())
+#		print((corner_navmeshes[i] as NavigationMesh).get_polygon_count())
 		multimeshes[i] = VisualServer.multimesh_create()
 		VisualServer.multimesh_set_mesh(multimeshes[i], (corner_meshes_debug[i] as ArrayMesh).get_rid())
 		visible_instances[i] = 0

@@ -11,6 +11,8 @@ onready var timer = $RateofFireTimer as Timer
 func _ready():
 	timer.wait_time = 1.0 / rate_of_fire
 
+func can_shoot() -> bool:
+	return can_shoot
 
 func shoot():
 	if not can_shoot:

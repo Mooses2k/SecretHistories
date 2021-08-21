@@ -85,9 +85,9 @@ height = 1.2
 code = "shader_type spatial;
 render_mode unshaded, cull_disabled, depth_draw_never, depth_test_disable;
 
-const float INNER_RADIUS_SQR = -0.25*0.25;
+const float INNER_RADIUS_SQR = -0.05*0.05;
 const float OUTER_RADIUS_SQR = 0.05*0.05;
-const float SMOOTH = 0.01;
+const float SMOOTH = 0.002;
 
 varying vec3 position;
 
@@ -143,6 +143,7 @@ _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 collision_layer = 2
 physics_material_override = ExtResource( 11 )
 script = ExtResource( 2 )
+immunities = [ 1, 0 ]
 move_speed = 6.0
 
 [node name="PlayerController" type="Node" parent="."]

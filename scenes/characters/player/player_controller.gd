@@ -25,7 +25,7 @@ func handle_movement():
 	direction = direction.normalized()*min(1.0, direction.length())
 	if not Input.is_action_pressed("sprint"):
 		direction *= 0.5;
-	character.move_direction = direction
+	character.character_state.move_direction = direction
 		
 func handle_equipment():
 	if Input.is_action_just_pressed("attack"):

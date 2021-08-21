@@ -10,7 +10,7 @@ var chasing : bool = false setget set_chasing
 
 func _process(delta):
 	self.update_target()
-	self.character.move_direction = target_position - self.global_transform.origin
+	self.character.character_state.move_direction = target_position - self.global_transform.origin
 	pass # Replace with function body.
 
 func update_target():

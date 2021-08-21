@@ -13,7 +13,7 @@
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 1, 0.1, 1 )
 
-[sub_resource type="SpatialMaterial" id=24]
+[sub_resource type="SpatialMaterial" id=3]
 resource_name = "palette"
 albedo_texture = ExtResource( 7 )
 
@@ -25,7 +25,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 6090,
-"material": SubResource( 24 ),
+"material": SubResource( 3 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 2999

@@ -17,4 +17,5 @@ func aim_at(position : Vector3):
 func shoot():
 	pass
 
-
+func can_shoot() -> bool:
+	return false

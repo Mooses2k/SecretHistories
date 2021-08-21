@@ -59,9 +59,9 @@ func follow_path():
 	while path.size() > 0 and path[0].distance_to(character.global_transform.origin) < 0.1:
 		path.pop_front()
 	if path.size() > 0:
-		character.move_direction = path[0] - character.global_transform.origin
-		character.move_direction = character.move_direction.normalized()*speed_multiplier
-		var facing = character.move_direction + character.linear_velocity
+		character.character_state.move_direction = path[0] - character.global_transform.origin
+		character.character_state.move_direction *= speed_multiplier
+		var facing = character.character_state.face_direction
 		facing.y = 0
 		if not facing.is_equal_approx(Vector3.ZERO):
 			body.look_at(facing + body.global_transform.origin, Vector3.UP)
@@ -78,7 +78,7 @@ func update_state():
 		States.WANDER:
 			if player_visible:
 				current_state = States.FOLLOW
-				character.move_direction = Vector3.ZERO
+				character.character_state.move_direction = Vector3.ZERO
 
 func update_view():
 	for body in view_area.get_overlapping_bodies():

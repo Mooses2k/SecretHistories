@@ -8,7 +8,7 @@ export var max_health : int = 100
 export var move_speed : float = 8.0
 export var acceleration : float = 32.0
 
-var move_direction : Vector3 = Vector3.ZERO
+onready var character_state : CharacterState = CharacterState.new(self)
 
 
 
@@ -54,9 +54,7 @@ func handle_elevation(state : PhysicsDirectBodyState):
 func handle_movement(state : PhysicsDirectBodyState):
 	var planar_velocity = state.linear_velocity
 	planar_velocity.y = 0
-	move_direction.y = 0
-	move_direction = move_direction.normalized()*min(1.0, move_direction.length())
-	var target_velocity : Vector3 = move_direction*move_speed
+	var target_velocity : Vector3 = character_state.move_direction*move_speed
 	var velocity_diff = target_velocity - planar_velocity
 	var velocity_correction = velocity_diff.normalized()*min(acceleration*state.step, velocity_diff.length())
 	apply_central_impulse(velocity_correction*mass)

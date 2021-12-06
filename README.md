@@ -1,4 +1,4 @@
-# Hotline Cthulhu
+# Secret Histories
 Alien Swarm meets Infra Arcana.
 
 Anyone is welcome to help - first timers and GODOT pros alike!

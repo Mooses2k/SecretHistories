@@ -1,0 +1,307 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/UI/settings_menu.gd" type="Script" id=1]
+
+[node name="SettingsMenu" type="Popup"]
+visible = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -450.0
+margin_top = -300.0
+margin_right = 450.0
+margin_bottom = 300.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -432.5
+margin_top = -280.0
+margin_right = 432.5
+margin_bottom = 280.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Column" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 430.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Column"]
+margin_right = 430.0
+margin_bottom = 14.0
+text = "Video"
+align = 1
+valign = 1
+
+[node name="Graphics" type="HBoxContainer" parent="HBoxContainer/Column"]
+margin_top = 18.0
+margin_right = 430.0
+margin_bottom = 278.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer/Column/Graphics"]
+margin_right = 213.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Column/Graphics/VBoxContainer3"]
+margin_right = 213.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="Resolution" type="Label" parent="HBoxContainer/Column/Graphics/VBoxContainer3/VBoxContainer"]
+margin_right = 213.0
+margin_bottom = 14.0
+text = "Quality Scaling"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fullscreen" type="Label" parent="HBoxContainer/Column/Graphics/VBoxContainer3/VBoxContainer"]
+margin_top = 18.0
+margin_right = 213.0
+margin_bottom = 32.0
+text = "Fullscreen"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSync" type="Label" parent="HBoxContainer/Column/Graphics/VBoxContainer3/VBoxContainer"]
+margin_top = 36.0
+margin_right = 213.0
+margin_bottom = 50.0
+text = "VSync"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Brightness" type="Label" parent="HBoxContainer/Column/Graphics/VBoxContainer3/VBoxContainer"]
+margin_top = 54.0
+margin_right = 213.0
+margin_bottom = 68.0
+text = "Brightness"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/Column/Graphics"]
+margin_left = 217.0
+margin_right = 430.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+
+[node name="QualityScaling" type="OptionButton" parent="HBoxContainer/Column/Graphics/VBoxContainer2"]
+margin_right = 213.0
+margin_bottom = 20.0
+
+[node name="Fullscreen" type="OptionButton" parent="HBoxContainer/Column/Graphics/VBoxContainer2"]
+margin_top = 24.0
+margin_right = 213.0
+margin_bottom = 44.0
+
+[node name="VSyncButton" type="CheckButton" parent="HBoxContainer/Column/Graphics/VBoxContainer2"]
+margin_top = 48.0
+margin_right = 213.0
+margin_bottom = 88.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BrightnessSlider" type="HSlider" parent="HBoxContainer/Column/Graphics/VBoxContainer2"]
+margin_top = 92.0
+margin_right = 213.0
+margin_bottom = 108.0
+
+[node name="Label2" type="Label" parent="HBoxContainer/Column"]
+margin_top = 282.0
+margin_right = 430.0
+margin_bottom = 296.0
+text = "Audio"
+align = 1
+valign = 1
+
+[node name="Audio" type="HBoxContainer" parent="HBoxContainer/Column"]
+margin_top = 300.0
+margin_right = 430.0
+margin_bottom = 560.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Column/Audio"]
+margin_right = 213.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Column/Audio/VBoxContainer"]
+margin_right = 213.0
+margin_bottom = 68.0
+
+[node name="Master" type="Label" parent="HBoxContainer/Column/Audio/VBoxContainer/VBoxContainer"]
+margin_right = 213.0
+margin_bottom = 14.0
+text = "Master"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sound" type="Label" parent="HBoxContainer/Column/Audio/VBoxContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 213.0
+margin_bottom = 32.0
+text = "Sound"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Voice" type="Label" parent="HBoxContainer/Column/Audio/VBoxContainer/VBoxContainer"]
+margin_top = 36.0
+margin_right = 213.0
+margin_bottom = 50.0
+text = "Voice"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="Label" parent="HBoxContainer/Column/Audio/VBoxContainer/VBoxContainer"]
+margin_top = 54.0
+margin_right = 213.0
+margin_bottom = 68.0
+text = "Music"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/Column/Audio"]
+margin_left = 217.0
+margin_right = 430.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+
+[node name="master_audio_db" type="HSlider" parent="HBoxContainer/Column/Audio/VBoxContainer2"]
+margin_right = 213.0
+margin_bottom = 16.0
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="sound_db" type="HSlider" parent="HBoxContainer/Column/Audio/VBoxContainer2"]
+margin_top = 20.0
+margin_right = 213.0
+margin_bottom = 36.0
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="music_db" type="HSlider" parent="HBoxContainer/Column/Audio/VBoxContainer2"]
+margin_top = 40.0
+margin_right = 213.0
+margin_bottom = 56.0
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="voice_db" type="HSlider" parent="HBoxContainer/Column/Audio/VBoxContainer2"]
+margin_top = 60.0
+margin_right = 213.0
+margin_bottom = 76.0
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="Controls" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 434.0
+margin_right = 865.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Controls"]
+margin_right = 431.0
+margin_bottom = 14.0
+text = "Controls"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Controls"]
+margin_top = 18.0
+margin_right = 431.0
+margin_bottom = 536.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Controls/HBoxContainer"]
+margin_right = 213.0
+margin_bottom = 518.0
+size_flags_horizontal = 3
+
+[node name="Actions" type="Label" parent="HBoxContainer/Controls/HBoxContainer/VBoxContainer"]
+margin_right = 213.0
+margin_bottom = 14.0
+text = "Actions"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/Controls/HBoxContainer"]
+margin_left = 217.0
+margin_right = 431.0
+margin_bottom = 518.0
+size_flags_horizontal = 3
+
+[node name="Bindings" type="Label" parent="HBoxContainer/Controls/HBoxContainer/VBoxContainer2"]
+margin_right = 214.0
+margin_bottom = 14.0
+text = "Bindings"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReturnButton" type="Button" parent="HBoxContainer/Controls"]
+margin_top = 540.0
+margin_right = 431.0
+margin_bottom = 560.0
+text = "Return"
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+margin_right = 8.0
+margin_bottom = 8.0
+
+[node name="Label" type="Label" parent="PopupPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 206.0
+margin_bottom = 18.0
+text = "Press any key or mouse button!"
+
+[connection signal="toggled" from="HBoxContainer/Column/Graphics/VBoxContainer2/VSyncButton" to="." method="_on_VSyncButton_toggled"]
+[connection signal="value_changed" from="HBoxContainer/Column/Graphics/VBoxContainer2/BrightnessSlider" to="." method="_on_BrightnessSlider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/VBoxContainer2/master_audio_db" to="." method="_on_master_audio_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/VBoxContainer2/sound_db" to="." method="_on_sound_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/VBoxContainer2/music_db" to="." method="_on_music_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/VBoxContainer2/voice_db" to="." method="_on_voice_db_value_changed"]
+[connection signal="pressed" from="HBoxContainer/Controls/ReturnButton" to="." method="_on_ReturnButton_pressed"]

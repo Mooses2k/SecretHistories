@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/UI/title_menu.gd" type="Script" id=1]
+[ext_resource path="res://resources/fonts/3618-vibrissa-desktop.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/UI/settings_menu.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -450.0
+margin_right = 900.0
+margin_bottom = 450.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+margin_top = 440.0
+margin_right = 900.0
+margin_bottom = 460.0
+text = "Title graphic here"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.89
+anchor_top = 0.5
+anchor_right = 0.972
+anchor_bottom = 0.5
+margin_left = -87.0
+margin_top = -46.0
+margin_right = -24.0
+margin_bottom = 46.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+margin_right = 220.0
+margin_bottom = 26.0
+focus_neighbour_top = NodePath("../QuitButton")
+text = "Continue"
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+margin_top = 30.0
+margin_right = 220.0
+margin_bottom = 56.0
+text = "Commence"
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+margin_top = 60.0
+margin_right = 220.0
+margin_bottom = 86.0
+text = "Configure"
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+margin_top = 90.0
+margin_right = 220.0
+margin_bottom = 116.0
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 120.0
+margin_right = 220.0
+margin_bottom = 146.0
+focus_neighbour_bottom = NodePath("../ContinueButton")
+text = "Conclude"
+
+[node name="Menus" type="Node" parent="."]
+
+[node name="SettingsMenu" parent="Menus" instance=ExtResource( 3 )]
+
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_CreditsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

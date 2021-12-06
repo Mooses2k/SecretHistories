@@ -2,12 +2,12 @@ extends Popup
 
 
 func _ready() -> void:
-	$HBoxContainer/Column/Graphics/VBoxContainer2/Fullscreen.connect("item_selected", self, "Fullscreen")
-	$HBoxContainer/Column/Graphics/VBoxContainer2/Fullscreen.add_item("Fullscreen", GlobalSettings.FullscreenMode.FULLSCREEN)
-	$HBoxContainer/Column/Graphics/VBoxContainer2/Fullscreen.add_item("Borderless Windowed", GlobalSettings.FullscreenMode.BORDERLESS_WINDOWED)
-	$HBoxContainer/Column/Graphics/VBoxContainer2/Fullscreen.add_item("Windowed", GlobalSettings.FullscreenMode.WINDOWED)
+	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.connect("item_selected", self, "Fullscreen")
+	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.add_item("Fullscreen", GlobalSettings.FullscreenMode.FULLSCREEN)
+	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.add_item("Borderless Windowed", GlobalSettings.FullscreenMode.BORDERLESS_WINDOWED)
+	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.add_item("Windowed", GlobalSettings.FullscreenMode.WINDOWED)
 
-	$HBoxContainer/Column/Graphics/VBoxContainer2/Fullscreen.select(GlobalSettings.fullscreen_mode)
+	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.select(GlobalSettings.fullscreen_mode)
 
 
 func Fullscreen(item):

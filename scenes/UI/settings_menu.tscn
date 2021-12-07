@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/UI/settings_menu.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/btnparent.tscn" type="PackedScene" id=2]
+
+[sub_resource type="ButtonGroup" id=1]
+resource_local_to_scene = false
+resource_name = "button_keys"
 
 [node name="SettingsMenu" type="Popup"]
 visible = true
@@ -292,11 +296,12 @@ text = "Move up"
 align = 2
 valign = 1
 
-[node name="ButtonParent4" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent4" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 20.0
 margin_right = 430.0
 margin_bottom = 40.0
+group = SubResource( 1 )
 action_name = "move_up"
 
 [node name="Label2" type="Label" parent="HBoxContainer/Controls/GridContainer"]
@@ -307,11 +312,12 @@ text = "Move left"
 align = 2
 valign = 1
 
-[node name="ButtonParent2" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent2" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 46.0
 margin_right = 430.0
 margin_bottom = 66.0
+group = SubResource( 1 )
 text = "A"
 action_name = "move_left"
 
@@ -323,11 +329,12 @@ text = "Move down"
 align = 2
 valign = 1
 
-[node name="ButtonParent3" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent3" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 72.0
 margin_right = 430.0
 margin_bottom = 92.0
+group = SubResource( 1 )
 text = "S"
 action_name = "move_down"
 
@@ -339,11 +346,12 @@ text = "Move right"
 align = 2
 valign = 1
 
-[node name="ButtonParent" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 98.0
 margin_right = 430.0
 margin_bottom = 118.0
+group = SubResource( 1 )
 text = "D"
 action_name = "move_right"
 
@@ -355,11 +363,12 @@ text = "Sprint"
 align = 2
 valign = 1
 
-[node name="ButtonParent10" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent10" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 124.0
 margin_right = 430.0
 margin_bottom = 144.0
+group = SubResource( 1 )
 text = "LShift"
 action_name = "sprint"
 
@@ -422,11 +431,12 @@ text = "Interact (hold to grab)"
 align = 2
 valign = 1
 
-[node name="ButtonParent9" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent9" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 228.0
 margin_right = 430.0
 margin_bottom = 248.0
+group = SubResource( 1 )
 text = "F"
 action_name = "interact"
 
@@ -438,11 +448,12 @@ text = "Kick"
 align = 2
 valign = 1
 
-[node name="ButtonParent8" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent8" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 254.0
 margin_right = 430.0
 margin_bottom = 274.0
+group = SubResource( 1 )
 text = "LCtrl"
 action_name = "kick"
 
@@ -454,11 +465,12 @@ text = "Reload"
 align = 2
 valign = 1
 
-[node name="ButtonParent15" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent15" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 280.0
 margin_right = 430.0
 margin_bottom = 300.0
+group = SubResource( 1 )
 text = "R"
 action_name = "reload"
 
@@ -470,11 +482,12 @@ text = "Use offhand item"
 align = 2
 valign = 1
 
-[node name="ButtonParent7" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent7" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 306.0
 margin_right = 430.0
 margin_bottom = 326.0
+group = SubResource( 1 )
 text = "E"
 action_name = "offhand_use"
 
@@ -486,11 +499,12 @@ text = "Throw / Drop"
 align = 2
 valign = 1
 
-[node name="ButtonParent12" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent12" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 332.0
 margin_right = 430.0
 margin_bottom = 352.0
+group = SubResource( 1 )
 text = "T"
 action_name = "throw"
 
@@ -518,11 +532,12 @@ text = "Inventory"
 align = 2
 valign = 1
 
-[node name="ButtonParent16" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent16" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 384.0
 margin_right = 430.0
 margin_bottom = 404.0
+group = SubResource( 1 )
 text = "Tab"
 action_name = "inventory_menu"
 
@@ -534,11 +549,12 @@ text = "Map"
 align = 2
 valign = 1
 
-[node name="ButtonParent14" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+[node name="ButtonParent14" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
 margin_left = 221.0
 margin_top = 410.0
 margin_right = 430.0
 margin_bottom = 430.0
+group = SubResource( 1 )
 text = "M"
 action_name = "map_menu"
 

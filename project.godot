@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://utils/mesh_transform.gd"
 }, {
+"base": "RigidBody",
+"class": "PickableItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/pickable_item.gd"
+}, {
 "base": "Character",
 "class": "Player",
 "language": "GDScript",
@@ -156,6 +161,7 @@ _global_script_class_icons={
 "Gun": "",
 "Hitbox": "",
 "MeshTransform": "",
+"PickableItem": "",
 "Player": "",
 "PlayerSensor": "",
 "VisibilityMask": "",

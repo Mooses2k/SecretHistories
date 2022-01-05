@@ -9,7 +9,7 @@ enum States {
 export var max_wander = 6.0
 export var wander_speed_factor : float = 0.6
 
-onready var character = get_parent() as Character
+onready var character = owner
 onready var body = $"../Body" as Spatial
 onready var view_area = $"../Body/ViewArea" as Area
 onready var view_raycast = $"../Body/ViewRayCast" as RayCast
@@ -27,10 +27,10 @@ func _physics_process(delta):
 	handle_state()
 	update_view()
 	update_state()
-	
+
 	pass # Replace with function body.
 
-func update_wander_target():	
+func update_wander_target():
 	if path.size() == 0:
 		var level = GameManager.game.level
 		if level:

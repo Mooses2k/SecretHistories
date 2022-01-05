@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/objects/items/shotgun/shotgun.gd" type="Script" id=1]
 [ext_resource path="res://resources/effects/gunsmoke.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.mp3" type="AudioStream" id=3]
-[ext_resource path="res://scenes/objects/items/shotgun/Effects.gd" type="Script" id=5]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/guns/shotgun/effects.gd" type="Script" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.1, 0.1, 0.5 )

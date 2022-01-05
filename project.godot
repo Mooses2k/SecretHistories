@@ -79,15 +79,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/behavior_tree.gd"
 }, {
-"base": "RigidBody",
-"class": "Character",
-"language": "GDScript",
-"path": "res://scenes/characters/character.gd"
-}, {
 "base": "Reference",
 "class": "CharacterState",
 "language": "GDScript",
 "path": "res://core/ai/character_state.gd"
+}, {
+"base": "PickableItem",
+"class": "EquipmentItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/equipment_item.gd"
 }, {
 "base": "Node",
 "class": "Game",
@@ -99,10 +99,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
 }, {
+"base": "Node",
+"class": "Groups",
+"language": "GDScript",
+"path": "res://globals/groups.gd"
+}, {
 "base": "Spatial",
 "class": "Gun",
 "language": "GDScript",
 "path": "res://scenes/objects/items/gun.gd"
+}, {
+"base": "EquipmentItem",
+"class": "GunItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/guns/gun_item.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
@@ -119,7 +129,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/pickable_item.gd"
 }, {
-"base": "Character",
+"base": "Area",
+"class": "PickupArea",
+"language": "GDScript",
+"path": "res://scenes/characters/pickup_area.gd"
+}, {
+"base": "RigidBody",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
@@ -128,6 +143,16 @@ _global_script_classes=[ {
 "class": "PlayerSensor",
 "language": "GDScript",
 "path": "res://scenes/sensors/player_sensor.gd"
+}, {
+"base": "GunItem",
+"class": "ShotgunItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.gd"
+}, {
+"base": "PickableItem",
+"class": "SpecialItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/special/special_item.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
@@ -154,16 +179,21 @@ _global_script_class_icons={
 "BT_Shoot": "",
 "BT_Wait_Random": "",
 "BehaviorTree": "",
-"Character": "",
 "CharacterState": "",
+"EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
+"Groups": "",
 "Gun": "",
+"GunItem": "",
 "Hitbox": "",
 "MeshTransform": "",
 "PickableItem": "",
+"PickupArea": "",
 "Player": "",
 "PlayerSensor": "",
+"ShotgunItem": "",
+"SpecialItem": "",
 "VisibilityMask": "",
 "Walker": ""
 }
@@ -331,7 +361,6 @@ map_menu={
 [physics]
 
 common/enable_pause_aware_picking=true
-3d/physics_engine="GodotPhysics"
 3d/active_soft_world=false
 
 [rendering]

@@ -1,15 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/character.phymat" type="PhysicsMaterial" id=3]
 [ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
+[ext_resource path="res://scenes/characters/pickup_area.gd" type="Script" id=5]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.3
 height = 1.2
 
+[sub_resource type="SphereShape" id=2]
+
 [node name="Character" type="RigidBody"]
+collision_layer = 0
 mode = 2
 physics_material_override = ExtResource( 3 )
 script = ExtResource( 1 )
@@ -28,5 +32,17 @@ hitbox_owner_path = NodePath("..")
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 shape = SubResource( 1 )
 
+[node name="DropPosition" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5.96046e-08 )
+
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource( 4 )
+
+[node name="PickupArea" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 64
+monitorable = false
+script = ExtResource( 5 )
+
+[node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
+shape = SubResource( 2 )

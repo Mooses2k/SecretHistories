@@ -19,14 +19,15 @@ func _process(delta):
 	if intersection_result:
 		self.visible = true
 		self.global_transform.origin = intersection_result
-		
+
 		# Point player towards this point without rotating (around y?)
 		var pos = intersection_result
 		var look_at_me = Vector3(pos.x, get_parent().get_node("Body").global_transform.origin.y, pos.z)
 		var body = get_parent().get_node("Body")
 		if not body.global_transform.origin.is_equal_approx(look_at_me):
 			body.look_at(look_at_me, Vector3.UP)
-			controller.equipment.look_at(look_at_me, Vector3.UP)
+			if controller.equipment != null:
+				controller.equipment.look_at(look_at_me, Vector3.UP)
 		#Point this node towards the player
 		var target_pos : Vector3 = get_parent().global_transform.origin
 		target_pos.y = self.global_transform.origin.y
@@ -34,5 +35,5 @@ func _process(delta):
 			self.look_at(target_pos, Vector3.UP)
 	else:
 		self.visible = false
-		
+
 

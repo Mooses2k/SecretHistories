@@ -5,9 +5,9 @@ extends Node
 # var a = 2
 # var b = "text"
 
-onready var character : Character = get_parent() as Character
+onready var character = get_parent()
 
-onready var equipment = get_node("../Body/Shotgun")
+onready var equipment = null
 
 func _ready():
 	pass # Replace with function body.
@@ -17,6 +17,7 @@ func _ready():
 func _process(delta):
 	handle_movement()
 	handle_equipment()
+	handle_inventory()
 
 func handle_movement():
 	var direction : Vector3 = Vector3.ZERO
@@ -26,9 +27,16 @@ func handle_movement():
 	if not Input.is_action_pressed("sprint"):
 		direction *= 0.5;
 	character.character_state.move_direction = direction
-		
+
 func handle_equipment():
 	if Input.is_action_just_pressed("attack"):
 		if equipment is Gun:
 			equipment.shoot()
 	pass
+
+func handle_inventory():
+	if Input.is_action_just_pressed("interact"):
+		if character.pickup_area.get_item_list().size() > 0:
+			character.inventory.add_item(character.pickup_area.get_item_list()[0])
+	elif Input.is_action_just_pressed("throw"):
+		character.inventory.drop_current_item()

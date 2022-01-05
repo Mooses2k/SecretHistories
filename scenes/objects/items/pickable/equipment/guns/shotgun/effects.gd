@@ -2,9 +2,12 @@ extends Spatial
 
 export var light_duration = 0.1
 
+export var smoke_particles : PackedScene
+
 onready var sound_effect = $AudioStreamPlayer3D
-onready var particle_smoke = $Smoke
-onready var light = $OmniLight
+onready var smoke_origin = $SmokeOrigin
+onready var flash = $Flash
+onready var flash_timer = $Flash/FlashTimer
 
 
 func handle_sound():
@@ -16,22 +19,23 @@ func handle_sound():
 	sound_instance.stop()
 	sound_instance.queue_free()
 
-func handle_light():
-	light.visible = true
-	yield(get_tree().create_timer(light_duration), "timeout")
-	light.visible = false
+func handle_flash():
+	flash.visible = true
+	flash_timer.start(light_duration)
+
+
+func _on_FlashTimer_timeout():
+	flash.visible = false
+
 
 func handle_particles():
-	var smoke_instance = particle_smoke.duplicate()
-	call_deferred("add_child", smoke_instance)
-	yield(smoke_instance, "ready")
-	smoke_instance.emitting = true
-	yield(get_tree().create_timer(smoke_instance.lifetime), "timeout")
-	smoke_instance.queue_free()
-
+	var smoke_instance = smoke_particles.instance()
+	smoke_origin.call_deferred("add_child", smoke_instance)
 
 func _on_Shotgun_gun_shot():
 	handle_sound()
 	handle_particles()
-	handle_light()
+	handle_flash()
 	pass # Replace with function body.
+
+

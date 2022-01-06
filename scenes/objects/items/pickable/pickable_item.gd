@@ -45,19 +45,24 @@ func set_physics_equipped():
 
 func pickup(by : Node):
 	self.item_state = ItemState.INVENTORY
-	get_parent().remove_child(self)
+	get_parent().call_deferred("remove_child", self)
+	yield(self, "tree_exited")
 	set_physics_equipped()
 	self.owner_character = by
 
 func drop(at : Transform):
 	self.item_state = ItemState.DROPPED
 	if self.get_parent():
-		get_parent().remove_child(self)
+		get_parent().call_deferred("remove_child", self)
+		yield(self, "tree_exited")
 	set_physics_dropped()
 	self.owner_character = null
 	if GameManager.game.level:
 		self.global_transform = at
-		GameManager.game.level.add_child(self)
+		self.linear_velocity = at.basis.x
+		GameManager.game.level.call_deferred("add_child", self)
+		yield(self, "tree_entered")
+		self.force_update_transform()
 	else:
 		printerr(self, " has disappeared into the void: no Level was found")
 		self.free()

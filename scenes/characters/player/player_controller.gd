@@ -35,7 +35,7 @@ func handle_inventory():
 	if Input.is_action_just_pressed("interact"):
 		if character.pickup_area.get_item_list().size() > 0:
 			character.inventory.add_item(character.pickup_area.get_item_list()[0])
-	elif Input.is_action_just_pressed("throw"):
+	if Input.is_action_just_pressed("throw"):
 		character.inventory.drop_current_item()
 	for i in range(character.inventory.HOTBAR_SIZE):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):

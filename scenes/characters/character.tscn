@@ -31,7 +31,6 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 1, -0.3 )
 remote_path = NodePath("../../EquipmentRoot")
 update_rotation = false
-update_scale = false
 
 [node name="Hitbox" type="Area" parent="."]
 script = ExtResource( 2 )

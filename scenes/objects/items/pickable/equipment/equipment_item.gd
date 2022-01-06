@@ -10,16 +10,25 @@ func equip() -> void:
 	if item_state != ItemState.EQUIPPED and !self.is_inside_tree():
 		if owner_character != null:
 			self.transform = Transform.IDENTITY
-			owner_character.equipment_root.add_child(self)
+			owner_character.equipment_root.call_deferred("add_child", self)
+			yield(self, "tree_entered")
+			self.transform = Transform.IDENTITY
+			self.force_update_transform()
 			owner_character.inventory.current_equipment = self
+			self.owner = owner_character
 			self.item_state = ItemState.EQUIPPED
 		pass
 	pass
 
+func _process(delta):
+	if item_state == ItemState.EQUIPPED:
+		transform = Transform.IDENTITY
+
 func unequip() -> void:
 	if item_state == ItemState.EQUIPPED:
 		owner_character.inventory.current_equipment = null
-		get_parent().remove_child(self)
+		get_parent().call_deferred("remove_child", self)
+		yield(self, "tree_exited")
 		self.item_state = ItemState.INVENTORY # emits state changed signal
 		pass
 	pass

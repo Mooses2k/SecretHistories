@@ -22,6 +22,7 @@ func _ready():
 	self.connect("hotbar_changed", self, "on_hotbar_changed")
 
 func on_hotbar_changed(slot):
+	print(slot)
 	last_changed_slot = slot
 	pass
 
@@ -47,7 +48,7 @@ func add_item(item : PickableItem) -> bool:
 	if not can_add:
 		return false
 
-	item.pickup(owner)
+	yield(item.pickup(owner), "completed")
 
 	if item is SpecialItem and item.item_data != null:
 		if not special.has(item.item_data):
@@ -58,7 +59,8 @@ func add_item(item : PickableItem) -> bool:
 		var slot : int = hotbar.find(null)
 		hotbar[slot] = item
 		if current_slot == slot:
-			item.equip()
+			yield(item.equip(), "completed")
+			print("Equipping new item")
 		emit_signal("hotbar_changed", slot)
 	return true
 
@@ -68,7 +70,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 		var item_node = item as EquipmentItem
 		hotbar[slot] = null
 		if current_equipment == item_node:
-			current_equipment.unequip()
+			yield(current_equipment.unequip(), "completed")
 		if item_node:
 			item_node.drop(drop_position_node.global_transform)
 		emit_signal("hotbar_changed", slot)

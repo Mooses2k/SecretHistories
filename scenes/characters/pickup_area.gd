@@ -10,7 +10,7 @@ func update_item_list():
 		(body as Node).disconnect("tree_exiting", self, "item_removed")
 	item_list.clear()
 	for body in get_overlapping_bodies():
-		if body is PickableItem and body.is_inside_tree():
+		if body is PickableItem and body.is_inside_tree() and body.item_state == PickableItem.ItemState.DROPPED:
 			item_list.push_back(body)
 			body.connect("tree_exiting", self, "item_removed", [body], CONNECT_ONESHOT)
 	item_list.sort_custom(self, "sort_items")
@@ -34,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	up_to_date = false
 
 func item_removed(item : PickableItem):
+#	item.disconnect("tree_exiting", self, "item_removed")
 	self.item_list.erase(item)
 	pass
 

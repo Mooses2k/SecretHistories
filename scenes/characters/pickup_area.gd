@@ -10,7 +10,7 @@ func update_item_list():
 		(body as Node).disconnect("tree_exiting", self, "item_removed")
 	item_list.clear()
 	for body in get_overlapping_bodies():
-		if body is PickableItem:
+		if body is PickableItem and body.is_inside_tree():
 			item_list.push_back(body)
 			body.connect("tree_exiting", self, "item_removed", [body], CONNECT_ONESHOT)
 	item_list.sort_custom(self, "sort_items")

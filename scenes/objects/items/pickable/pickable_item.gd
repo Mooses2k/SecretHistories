@@ -18,10 +18,11 @@ enum ItemState {
 }
 
 onready var mesh_instance = $MeshInstance
-var _owner : Node = null
+var owner_character : Node = null
 var item_state = ItemState.DROPPED setget set_item_state
 
 func _ready() -> void:
+	owner_character = null
 	if item_state == ItemState.DROPPED:
 		set_physics_dropped()
 	else:
@@ -46,14 +47,14 @@ func pickup(by : Node):
 	self.item_state = ItemState.INVENTORY
 	get_parent().remove_child(self)
 	set_physics_equipped()
-	self._owner = by
+	self.owner_character = by
 
 func drop(at : Transform):
 	self.item_state = ItemState.DROPPED
 	if self.get_parent():
 		get_parent().remove_child(self)
 	set_physics_dropped()
-	self._owner = null
+	self.owner_character = null
 	if GameManager.game.level:
 		self.global_transform = at
 		GameManager.game.level.add_child(self)

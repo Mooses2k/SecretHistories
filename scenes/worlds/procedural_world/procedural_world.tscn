@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/mesh_libraries/default.meshlib" type="MeshLibrary" id=3]
 [ext_resource path="res://resources/sounds/music_and_ambient/ambient/dark_shadows.mp3" type="AudioStream" id=4]
 [ext_resource path="res://scenes/worlds/procedural_world/gridmaps.gd" type="Script" id=5]
-[ext_resource path="res://scenes/objects/items/pickable/pickable_item.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/equipment_item.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
@@ -96,11 +96,17 @@ stream = ExtResource( 4 )
 volume_db = -10.0
 autoplay = true
 
-[node name="PickableItem" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 10, 48 )
+[node name="EquipmentItem" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 10, 49 )
 
 [node name="ShotgunItem" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 50 )
+collision_layer = 0
+collision_mask = 0
+mass = 0.1
+dropped_layers = 64
+dropped_mask = 1
+equipped_mode = 3
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 0, 0 )

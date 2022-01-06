@@ -7,8 +7,6 @@ extends Node
 
 onready var character = get_parent()
 
-onready var equipment = null
-
 func _ready():
 	pass # Replace with function body.
 
@@ -30,9 +28,8 @@ func handle_movement():
 
 func handle_equipment():
 	if Input.is_action_just_pressed("attack"):
-		if equipment is Gun:
-			equipment.shoot()
-	pass
+		if character.inventory.current_equipment:
+			character.inventory.current_equipment.use()
 
 func handle_inventory():
 	if Input.is_action_just_pressed("interact"):
@@ -40,3 +37,7 @@ func handle_inventory():
 			character.inventory.add_item(character.pickup_area.get_item_list()[0])
 	elif Input.is_action_just_pressed("throw"):
 		character.inventory.drop_current_item()
+	for i in range(character.inventory.HOTBAR_SIZE):
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):
+			character.inventory.current_slot = i
+	pass

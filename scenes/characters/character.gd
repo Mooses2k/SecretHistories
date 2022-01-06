@@ -12,6 +12,7 @@ onready var character_state : CharacterState = CharacterState.new(self)
 onready var current_health : float = self.max_health
 onready var inventory = $Inventory
 onready var pickup_area = $PickupArea
+onready var equipment_root = $EquipmentRoot
 
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray

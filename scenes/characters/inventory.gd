@@ -1,5 +1,6 @@
 extends Node
 #class_name Inventory
+signal hotbar_changed(slot)
 
 const HOTBAR_SIZE : int= 10
 
@@ -10,14 +11,19 @@ var special : Dictionary
 # Usable items that appear in the hotbar
 var hotbar : Array
 var last_changed_slot : int = 0
-var current_slot : int = 0
-
+var current_slot : int = 0 setget set_current_slot
+var current_equipment : EquipmentItem = null
 # Armor currently equipped by the character
 var current_armor : Node
-onready var drop_position_node : Spatial = owner.get_node("DropPosition") as Spatial
+onready var drop_position_node : Spatial = owner.get_node("Body/DropPosition") as Spatial
 
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
+	self.connect("hotbar_changed", self, "on_hotbar_changed")
+
+func on_hotbar_changed(slot):
+	last_changed_slot = slot
+	pass
 
 # Returns wether a given node can be added as an Item to this inventory
 func can_add_item(item : PickableItem) -> bool:
@@ -48,12 +54,12 @@ func add_item(item : PickableItem) -> bool:
 			special[item.item_data] = 0
 		special[item.item_data] += item.amount
 		item.free()
-
 	elif item is EquipmentItem:
 		var slot : int = hotbar.find(null)
 		hotbar[slot] = item
-		last_changed_slot = slot
-
+		if current_slot == slot:
+			item.equip()
+		emit_signal("hotbar_changed", slot)
 	return true
 
 func drop_hotbar_slot(slot : int) -> Node:
@@ -61,11 +67,21 @@ func drop_hotbar_slot(slot : int) -> Node:
 	if not item == null:
 		var item_node = item as EquipmentItem
 		hotbar[slot] = null
+		if current_equipment == item_node:
+			current_equipment.unequip()
 		if item_node:
 			item_node.drop(drop_position_node.global_transform)
-		last_changed_slot = slot
-
+		emit_signal("hotbar_changed", slot)
 	return item
 
 func drop_current_item() -> Node:
 	return drop_hotbar_slot(current_slot)
+
+func set_current_slot(value : int):
+	if value != current_slot:
+		current_slot = value
+		if current_equipment != null:
+			current_equipment.unequip()
+			current_equipment = null
+		if hotbar[current_slot]:
+			hotbar[current_slot].equip()

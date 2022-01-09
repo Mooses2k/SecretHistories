@@ -8,7 +8,6 @@ resource_local_to_scene = false
 resource_name = "button_keys"
 
 [node name="SettingsMenu" type="Popup"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -95,7 +94,7 @@ margin_top = 39.0
 margin_right = 209.0
 margin_bottom = 53.0
 size_flags_horizontal = 3
-text = "VSync"
+text = "VSync - not implemented"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -118,7 +117,7 @@ margin_top = 73.0
 margin_right = 209.0
 margin_bottom = 87.0
 size_flags_horizontal = 3
-text = "Brightness"
+text = "Brightness - not implemented"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -129,6 +128,25 @@ margin_left = 221.0
 margin_top = 72.0
 margin_right = 430.0
 margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HUDSize" type="Label" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_top = 95.0
+margin_right = 209.0
+margin_bottom = 109.0
+size_flags_horizontal = 3
+text = "HUD Size - not implemented"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HUDSizeSlider" type="HSlider" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_left = 221.0
+margin_top = 94.0
+margin_right = 430.0
+margin_bottom = 110.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
@@ -182,7 +200,7 @@ margin_right = 209.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "Sound"
+text = "Sound - not implemented"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -205,7 +223,7 @@ margin_right = 209.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "Voice"
+text = "Voice - not implemented"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -228,7 +246,7 @@ margin_right = 209.0
 margin_bottom = 82.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-text = "Music"
+text = "Music - not implemented"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -584,6 +602,7 @@ text = "Press any key or mouse button!"
 
 [connection signal="toggled" from="HBoxContainer/Column/Graphics/GridContainer/VSyncButton" to="." method="_on_VSyncButton_toggled"]
 [connection signal="value_changed" from="HBoxContainer/Column/Graphics/GridContainer/BrightnessSlider" to="." method="_on_BrightnessSlider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Graphics/GridContainer/HUDSizeSlider" to="." method="_on_BrightnessSlider_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/master_audio_db" to="." method="_on_master_audio_db_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/sound_db" to="." method="_on_sound_db_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/voice_db" to="." method="_on_voice_db_value_changed"]

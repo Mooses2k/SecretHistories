@@ -14,7 +14,7 @@ func Fullscreen(item):
 	GlobalSettings.fullscreen_mode = item
 
 
-func _on_VSyncButton_toggled(button_pressed: bool) -> void:
+func _on_VSyncButton_toggled(_button_pressed: bool) -> void:
 	if OS.vsync_enabled == true:
 		OS.vsync_enabled = false
 	else:

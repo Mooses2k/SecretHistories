@@ -9,6 +9,7 @@ var navigation : Navigation
 var world_data : Array setget set_world_data
 var world_size : int = 0
 
+
 # Override this function
 func get_player_spawn_position() -> Vector3:
 	return Vector3.ZERO

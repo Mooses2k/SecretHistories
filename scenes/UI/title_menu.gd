@@ -1,6 +1,5 @@
 extends Control
 
-
 func _ready():
 	$VBoxContainer/ContinueButton.grab_focus()
 

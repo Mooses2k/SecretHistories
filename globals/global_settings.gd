@@ -45,10 +45,10 @@ func _ready():
 #	pause_mode = Node.PAUSE_MODE_PROCESS
 
 
-func _process(delta):
-	if(Input.is_action_just_pressed("ui_cancel")):
-		get_tree().paused = !get_tree().paused
-		get_child(0).visible = get_tree().paused
+#func _process(delta):
+#	if(Input.is_action_just_pressed("ui_cancel")):
+#		get_tree().paused = !get_tree().paused
+#		get_child(0).visible = get_tree().paused
 
 
 func set_fullscreen_mode(value : int):

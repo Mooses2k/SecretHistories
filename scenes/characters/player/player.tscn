@@ -141,6 +141,7 @@ _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [node name="Player" type="RigidBody"]
 collision_layer = 2
+mode = 2
 physics_material_override = ExtResource( 11 )
 script = ExtResource( 2 )
 immunities = [ 1, 0 ]
@@ -173,7 +174,7 @@ mesh = SubResource( 4 )
 material/0 = null
 
 [node name="Lantern" type="OmniLight" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.344149, -0.129489, -0.519193 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.329149, -0.129489, -0.529193 )
 light_color = Color( 1, 0.67451, 0.254902, 1 )
 light_energy = 0.4
 shadow_enabled = true
@@ -201,6 +202,8 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 
 current = true
 fov = 45.0
 script = ExtResource( 1 )
+shift_intensity = 0.75
+_aim = NodePath("../PlayerAimPoint")
 
 [node name="PlayerAimPoint" type="Spatial" parent="."]
 script = ExtResource( 3 )

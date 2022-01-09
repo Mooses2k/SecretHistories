@@ -28,7 +28,7 @@ func _on_BrightnessSlider_value_changed(value: float) -> void:
 
 func _on_master_audio_db_value_changed(value: float) -> void:
 	GlobalSettings.master_audio_volume = value
-	if value == $HBoxContainer/Column/Audio/VBoxContainer2/master_audio_db.min_value:
+	if value == $HBoxContainer/Column/Audio/GridContainer3/master_audio_db.min_value:
 		GlobalSettings.master_audio_enabled = false
 	else:
 		GlobalSettings.master_audio_enabled = true
@@ -38,7 +38,7 @@ func _on_master_audio_db_value_changed(value: float) -> void:
 
 func _on_sound_db_value_changed(value: float) -> void:
 	GlobalSettings.sound_volume = value
-	if value == $HBoxContainer/Column/Audio/VBoxContainer2/sound_db.min_value:
+	if value == $HBoxContainer/Column/Audio/GridContainer3/sound_db.min_value:
 		GlobalSettings.sound_enabled = false
 	else:
 		GlobalSettings.sound_enabled = true
@@ -47,7 +47,7 @@ func _on_sound_db_value_changed(value: float) -> void:
 
 func _on_music_db_value_changed(value: float) -> void:
 	GlobalSettings.music_volume = value
-	if value == $HBoxContainer/Column/Audio/VBoxContainer2/music_db.min_value:
+	if value == $HBoxContainer/Column/Audio/GridContainer3/music_db.min_value:
 		GlobalSettings.music_enabled = false
 	else:
 		GlobalSettings.music_enabled = true
@@ -56,7 +56,7 @@ func _on_music_db_value_changed(value: float) -> void:
 
 func _on_voice_db_value_changed(value: float) -> void:
 	GlobalSettings.voice_volume = value
-	if value == $HBoxContainer/Column/Audio/VBoxContainer2/voice_db.min_value:
+	if value == $HBoxContainer/Column/Audio/GridContainer3/voice_db.min_value:
 		GlobalSettings.voice_enabled = false
 	else:
 		GlobalSettings.voice_enabled = true

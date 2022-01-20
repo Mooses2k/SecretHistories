@@ -13,6 +13,7 @@ onready var UI_root : Node = $UI
 var player
 var level : GameWorld
 
+
 func _init():
 	GameManager.game = self
 	var _error = self.connect("level_loaded", self, "on_level_loaded")

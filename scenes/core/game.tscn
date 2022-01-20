@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/core/game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/UI/settings_menu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/UI/title_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/core/UI.gd" type="Script" id=8]
+[ext_resource path="res://scenes/UI/hotbar/hotbar.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Node"]
 pause_mode = 1
@@ -38,6 +39,8 @@ pause_mode = 2
 
 [node name="HUD" type="Node" parent="UI"]
 pause_mode = 1
+
+[node name="Hotbar" parent="UI/HUD" instance=ExtResource( 9 )]
 
 [node name="InGame" type="Node" parent="UI"]
 

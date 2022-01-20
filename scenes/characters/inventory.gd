@@ -1,6 +1,7 @@
 extends Node
 #class_name Inventory
 signal hotbar_changed(slot)
+signal current_slot_changed(previous, current)
 
 const HOTBAR_SIZE : int= 10
 
@@ -80,6 +81,8 @@ func drop_current_item() -> Node:
 	return drop_hotbar_slot(current_slot)
 
 func set_current_slot(value : int):
+	emit_signal("current_slot_changed", current_slot, value)
+	
 	if value != current_slot:
 		current_slot = value
 		if current_equipment != null:

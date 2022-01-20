@@ -3,6 +3,7 @@ class_name EquipmentItem
 
 export var item_name : String = "Equipment"
 
+
 func use():
 	pass
 

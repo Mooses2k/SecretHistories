@@ -2,9 +2,13 @@ extends Object
 class_name AttackTypes
 
 enum Types {
-	PHYSICAL,
+	BLUDGEONING, # Blunt
+	SLASHING,
+	PIERCING,
+	BALLISTIC,
+	FIRE,
 	SPECIAL,
-	TYPE_COUNT, # Not a type, helper value for the ammount of types
+	_COUNT, # Not a type, helper value for the ammount of types
 }
 
 func _init():

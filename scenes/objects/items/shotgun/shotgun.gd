@@ -17,7 +17,7 @@ func can_shoot() -> bool:
 func shoot():
 	if not can_shoot:
 		return
-	
+
 	for p in pellets:
 		var shoot_direction = Vector3.FORWARD
 		var shoot_dispersion = Vector3.UP.rotated(Vector3.FORWARD, randf()*2*PI)

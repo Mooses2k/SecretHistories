@@ -40,4 +40,8 @@ func handle_inventory():
 	for i in range(character.inventory.HOTBAR_SIZE):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):
 			character.inventory.current_slot = i
+	if Input.is_action_just_pressed("reload"):
+		if character.inventory.current_equipment.has_method("reload"):
+			print("Trying to reload")
+			character.inventory.current_equipment.reload()
 	pass

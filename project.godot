@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "TinyItemData",
+"class": "AmmunitionData",
+"language": "GDScript",
+"path": "res://resources/special_items/ammunition/ammunition_data.gd"
+}, {
 "base": "Object",
 "class": "AttackTypes",
 "language": "GDScript",
@@ -150,9 +155,14 @@ _global_script_classes=[ {
 "path": "res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.gd"
 }, {
 "base": "PickableItem",
-"class": "SpecialItem",
+"class": "TinyItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/special/special_item.gd"
+"path": "res://scenes/objects/items/pickable/tiny/tiny_item.gd"
+}, {
+"base": "Resource",
+"class": "TinyItemData",
+"language": "GDScript",
+"path": "res://resources/special_items/tiny_item_data.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
@@ -165,6 +175,7 @@ _global_script_classes=[ {
 "path": "res://scenes/worlds/procedural_world/random_walker.gd"
 } ]
 _global_script_class_icons={
+"AmmunitionData": "",
 "AttackTypes": "",
 "BT_Approach_Random_Distance": "",
 "BT_ControlFlow": "",
@@ -193,7 +204,8 @@ _global_script_class_icons={
 "Player": "",
 "PlayerSensor": "",
 "ShotgunItem": "",
-"SpecialItem": "",
+"TinyItem": "",
+"TinyItemData": "",
 "VisibilityMask": "",
 "Walker": ""
 }

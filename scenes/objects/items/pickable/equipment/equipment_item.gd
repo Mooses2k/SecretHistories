@@ -2,9 +2,15 @@ extends PickableItem
 class_name EquipmentItem
 
 export var item_name : String = "Equipment"
+signal on_use()
 
+#Override this function for use actions
+func _use():
+	pass
 
 func use():
+	_use()
+	emit_signal("on_use")
 	pass
 
 func equip() -> void:

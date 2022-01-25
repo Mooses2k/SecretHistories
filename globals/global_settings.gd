@@ -82,7 +82,7 @@ func load_keys():
 		#NoFile, so lets save the default keys now
 		save_keys()
 	pass
-	
+
 func delete_old_keys():
 	#Remove the old keys
 	for i in key_dict:
@@ -98,7 +98,7 @@ func setup_keys():
 		var newkey = InputEventKey.new()
 		newkey.scancode = int(key_dict[i])
 		InputMap.action_add_event(i,newkey)
-	
+
 func save_keys():
 	var file = File.new()
 	file.open(file_name,File.WRITE)

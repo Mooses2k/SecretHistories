@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/special_items/ammunition/ammunition_data.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "shotgun shell"
+attack_type = 3
+damage = 15
+dispersion = 10.0
+pellet_count = 9

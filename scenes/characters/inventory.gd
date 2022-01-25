@@ -7,7 +7,7 @@ const HOTBAR_SIZE : int= 10
 
 # Items tracked exclusively by ammount, don't contribute to weight,
 # don't show in hotbar
-var special : Dictionary
+var tiny_items : Dictionary
 
 # Usable items that appear in the hotbar
 var hotbar : Array
@@ -34,7 +34,7 @@ func can_add_item(item : PickableItem) -> bool:
 	if item.item_state != PickableItem.ItemState.DROPPED:
 		return false
 	# Can always pickup special items
-	if item is SpecialItem:
+	if item is TinyItem:
 		return true
 	# Can only pickup equipment if there's an empty hotbar slot
 	if item is EquipmentItem and hotbar.has(null):
@@ -51,11 +51,11 @@ func add_item(item : PickableItem) -> bool:
 
 	yield(item.pickup(owner), "completed")
 
-	if item is SpecialItem and item.item_data != null:
-		if not special.has(item.item_data):
-			special[item.item_data] = 0
-		special[item.item_data] += item.amount
-		item.free()
+	if item is TinyItem and item.item_data != null:
+		if not tiny_items.has(item.item_data):
+			tiny_items[item.item_data] = 0
+		tiny_items[item.item_data] += item.amount
+		item.call_deferred("free")
 	elif item is EquipmentItem:
 		var slot : int = hotbar.find(null)
 		hotbar[slot] = item
@@ -82,7 +82,7 @@ func drop_current_item() -> Node:
 
 func set_current_slot(value : int):
 	emit_signal("current_slot_changed", current_slot, value)
-	
+
 	if value != current_slot:
 		current_slot = value
 		if current_equipment != null:

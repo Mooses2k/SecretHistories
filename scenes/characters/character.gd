@@ -23,7 +23,7 @@ var _alive : bool = true
 #	self.physics_material_override = preload("res://scenes/characters/character.phymat")
 
 func _ready():
-	_type_damage_multiplier.resize(AttackTypes.Types.TYPE_COUNT)
+	_type_damage_multiplier.resize(AttackTypes.Types._COUNT)
 	for i in _type_damage_multiplier.size():
 		_type_damage_multiplier[i] = 1
 	for immunity in self.immunities:

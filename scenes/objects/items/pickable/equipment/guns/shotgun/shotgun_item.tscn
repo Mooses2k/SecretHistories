@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/guns/gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://resources/models/items/guns/Fox Sterlingworth Philly/shotgun_Barrel.mesh" type="ArrayMesh" id=4]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/guns/shotgun/effects.gd" type="Script" id=5]
 [ext_resource path="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.mp3" type="AudioStream" id=6]
+[ext_resource path="res://resources/special_items/ammunition/shotgun_shell.tres" type="Resource" id=7]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( -0.00904758, -0.180314, 0.50786, 0.00904169, -0.180314, 0.50786, -0.00556865, -0.17696, 0.511609, -0.0113845, -0.173149, 0.511922, -0.0151931, -0.176307, 0.508172, -0.00904758, -0.179901, 0.502548, 0.00904169, -0.179901, 0.502548, 0.0151872, -0.176307, 0.508172, 0.0113786, -0.173149, 0.511922, 0.00556276, -0.17696, 0.511609, -0.00447376, -0.0467847, 0.52218, -0.0113198, -0.0509881, 0.521816, -0.0151225, -0.0472856, 0.518639, -0.0151931, -0.175871, 0.502861, -0.0300683, 0.018118, 0.068565, -0.0300683, 0.018118, 0.0624203, -0.00860021, -0.179705, 0.501194, -0.00595716, -0.0614858, 0.106423, 0.0151872, -0.175871, 0.502861, 0.00859432, -0.179705, 0.501194, 0.00595127, -0.0614858, 0.106423, 0.0151166, -0.0472856, 0.518639, 0.0300683, 0.018118, 0.0624203, 0.0300683, 0.018118, 0.068565, 0.0113139, -0.0509881, 0.521816, 0.00446787, -0.0467847, 0.52218, -0.00789382, -0.0428644, 0.519004, -0.0300683, 0.0341477, 0.068565, -0.0155698, -0.0952657, 0.246449, -0.0199965, -0.0108486, -0.00163057, -0.0300683, 0.0341477, 0.0624203, -0.0199965, -0.000742972, -0.00980616, -0.0199965, -0.00821331, -0.00668173, -0.00595716, -0.0544728, 0.0892904, 0.015564, -0.0952657, 0.246449, 0.0199906, -0.0108486, -0.00163057, 0.00595127, -0.0544728, 0.0892904, 0.00788794, -0.0428644, 0.519004, 0.0300683, 0.0341477, 0.068565, 0.0199906, -0.00821331, -0.00668173, 0.0199906, -0.000742972, -0.00980616, 0.0300625, 0.0341477, 0.0624203, -0.00166589, 0.0302492, 0.151623, -0.016182, 0.0421843, 0.068565, -0.0142101, -0.0151392, 0.0056077, -0.016182, 0.0421843, 0.0624203, -0.0199965, 0.0119109, 0.00279571, -0.0199965, 0.00672738, -0.00668173, -0.0157994, 0.00674917, -0.00668173, -0.0157876, -0.000721186, -0.00980616, 0.0142042, -0.0151392, 0.0056077, 0.0161762, 0.0421843, 0.068565, 0.00166, 0.0302492, 0.151623, 0.0161762, 0.0421843, 0.0624203, 0.0157818, -0.000721186, -0.00980616, 0.0157935, 0.00674917, -0.00668173, 0.0199906, 0.00672738, -0.00668173, 0.0199906, 0.0119109, 0.00279571 )
@@ -16,6 +17,11 @@ points = PoolVector3Array( 0.0301847, 0.0181182, 0.0624171, 0.0301788, 0.0341303
 [node name="ShotgunItem" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 item_name = "Double-barrel shotgun"
+ammo_types = [ ExtResource( 7 ) ]
+ammunition_capacity = 2
+reload_amount = 2
+reload_time = 1.0
+cooldown = 0.1
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = ExtResource( 3 )
@@ -57,13 +63,5 @@ one_shot = true
 
 [node name="SmokeOrigin" type="Position3D" parent="Effects" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.7 )
-
-[node name="RayCast" type="RayCast" parent="." index="4"]
-cast_to = Vector3( 0, 0, -1000 )
-collision_mask = 13
-collide_with_areas = true
-
-[node name="RateofFireTimer" type="Timer" parent="." index="5"]
-one_shot = true
 
 [connection signal="timeout" from="Effects/Flash/FlashTimer" to="Effects" method="_on_FlashTimer_timeout"]

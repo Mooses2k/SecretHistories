@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/worlds/visibility_mask/visibility_mask.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://resources/sounds/music_and_ambient/ambient/dark_shadows.mp3" type="AudioStream" id=4]
 [ext_resource path="res://scenes/worlds/procedural_world/gridmaps.gd" type="Script" id=5]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/equipment_item.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resources/special_items/ammunition/shotgun_shell.tres" type="Resource" id=7]
+[ext_resource path="res://scenes/objects/items/pickable/tiny/tiny_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Environment" id=1]
@@ -97,7 +99,12 @@ volume_db = -10.0
 autoplay = true
 
 [node name="EquipmentItem" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49.5757, 10, 49 )
+
+[node name="TinyItem" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 10, 49 )
+item_data = ExtResource( 7 )
+amount = 4
 
 [node name="ShotgunItem" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 10, 50 )

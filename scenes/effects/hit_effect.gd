@@ -1,11 +1,6 @@
 extends Particles
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 var ready : bool = false
 func _ready():
 	ready = true
@@ -19,7 +14,6 @@ func set_orientation(position : Vector3, normal : Vector3):
 	self.global_transform.origin = position
 	if not normal.is_equal_approx(Vector3.ZERO) and not normal.is_equal_approx(Vector3.UP):
 		self.look_at(normal + position, Vector3.UP)
-
 
 func _on_Timer_timeout():
 	queue_free()

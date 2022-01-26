@@ -9,6 +9,7 @@ enum MeleeStyle {
 }
 
 signal target_hit(target, position, direction, normal)
+signal on_shoot()
 
 export(Array, Resource) var ammo_types
 
@@ -53,12 +54,10 @@ func shoot():
 			if target is Hitbox:
 				target.hit(total_damage, ammo_type.attack_type, global_hit_position, global_hit_direction)
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
-		pass
 	raycast.cast_to = Vector3.FORWARD*raycast_range
 	current_ammo -= 1
 #	if current_ammo == 0:
 #		current_ammo_type = null
-	pass
 
 func _use():
 	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
@@ -66,8 +65,7 @@ func _use():
 		shoot()
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
-	pass
-
+		emit_signal("on_shoot")
 
 func reload():
 	if owner_character and current_ammo < ammunition_capacity and not is_reloading:

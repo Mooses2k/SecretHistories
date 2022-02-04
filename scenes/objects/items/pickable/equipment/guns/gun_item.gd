@@ -32,6 +32,13 @@ var on_cooldown = false
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
 
+func set_range(value : Vector2):
+	var amount : int = value.x
+	if value.y > value.x:
+		amount += randi()%(int(1 + value.y - value.x))
+	current_ammo = clamp(amount, 0, ammunition_capacity)
+	current_ammo_type = ammo_types[0]
+
 func shoot():
 	var ammo_type = current_ammo_type as AmmunitionData
 	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0

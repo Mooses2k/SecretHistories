@@ -22,7 +22,6 @@ var owner_character : Node = null
 var item_state = ItemState.DROPPED setget set_item_state
 
 func _ready() -> void:
-	owner_character = null
 	if item_state == ItemState.DROPPED:
 		set_physics_dropped()
 	else:
@@ -45,8 +44,9 @@ func set_physics_equipped():
 
 func pickup(by : Node):
 	self.item_state = ItemState.INVENTORY
-	get_parent().call_deferred("remove_child", self)
-	yield(self, "tree_exited")
+	if self.is_inside_tree():
+		get_parent().call_deferred("remove_child", self)
+		yield(self, "tree_exited")
 	set_physics_equipped()
 	self.owner_character = by
 
@@ -74,4 +74,7 @@ func get_instance_data() -> Dictionary:
 	return Dictionary()
 
 func set_instance_data(value : Dictionary):
+	pass
+
+func set_range(value : Vector2):
 	pass

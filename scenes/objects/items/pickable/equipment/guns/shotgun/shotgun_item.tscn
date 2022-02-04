@@ -47,11 +47,10 @@ material/2 = null
 [node name="Effects" type="Spatial" parent="." index="3"]
 script = ExtResource( 5 )
 smoke_particles = ExtResource( 9 )
+sound_effect = ExtResource( 6 )
 hit_effect = ExtResource( 8 )
 
-[node name="AudioStreamPlayer3D" parent="Effects" index="0" instance=ExtResource( 6 )]
-
-[node name="Flash" type="OmniLight" parent="Effects" index="1"]
+[node name="Flash" type="OmniLight" parent="Effects" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
 visible = false
 light_energy = 5.0
@@ -62,8 +61,10 @@ omni_attenuation = 4.82968
 [node name="FlashTimer" type="Timer" parent="Effects/Flash" index="0"]
 one_shot = true
 
-[node name="SmokeOrigin" type="Position3D" parent="Effects" index="2"]
+[node name="SmokeOrigin" type="Position3D" parent="Effects" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.7 )
+
+[node name="SoundOrigin" type="Position3D" parent="Effects" index="2"]
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_ShotgunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_ShotgunItem_target_hit"]

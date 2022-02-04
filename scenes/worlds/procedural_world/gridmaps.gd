@@ -47,7 +47,7 @@ func _ready():
 		multimeshes[i] = VisualServer.multimesh_create()
 		VisualServer.multimesh_set_mesh(multimeshes[i], (corner_meshes_debug[i] as ArrayMesh).get_rid())
 		visible_instances[i] = 0
-		
+
 	instances.resize(CornerTypes.COUNT)
 	for i in CornerTypes.COUNT:
 		instances[i] = VisualServer.instance_create2(multimeshes[i], get_world().scenario)
@@ -100,13 +100,13 @@ func initialize_corner_navmeshes():
 					Vector3(1 - nav_margin, 0, 0),
 					Vector3(1 - nav_margin, 0, 1 - nav_margin),
 					Vector3(0, 0, 1 - nav_margin),
-					
+
 					Vector3(1 - nav_margin, 0, 0),
 					Vector3(1, 0, 0),
 					Vector3(1, 0, 1 - nav_margin),
 					Vector3(1 - nav_margin, 0, 1 - nav_margin),
-					
-					
+
+
 					Vector3(0, 0, 1 - nav_margin),
 					Vector3(1 - nav_margin, 0, 1 - nav_margin),
 					Vector3(1 - nav_margin, 0, 1),
@@ -167,7 +167,7 @@ func generate_navmesh(world_data : Array, world_size : int):
 				var x_coords = [[i + 1, j], [i, j + 1], [i - 1, j], [i, j - 1]]
 				var z_coords = [[i, j + 1], [i - 1, j], [i, j - 1], [i + 1, j]]
 				var xz_coords = [[i + 1, j + 1], [i - 1, j + 1], [i - 1, j - 1], [i + 1, j - 1]]
-				
+
 				for k in 4:
 					var x_blocked = true
 					if (x_coords[k][0] >= 0 and x_coords[k][0] < world_size and x_coords[k][1] >= 0 and x_coords[k][1] < world_size):
@@ -178,7 +178,7 @@ func generate_navmesh(world_data : Array, world_size : int):
 					var xz_blocked = true
 					if (xz_coords[k][0] >= 0 and xz_coords[k][0] < world_size and xz_coords[k][1] >= 0 and xz_coords[k][1] < world_size):
 						xz_blocked = not world_data[xz_coords[k][0]][xz_coords[k][1]]
-						
+
 					var selected = CornerTypes.FREE
 					if x_blocked and not z_blocked:
 						selected = CornerTypes.X

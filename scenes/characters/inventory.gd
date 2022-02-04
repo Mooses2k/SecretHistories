@@ -45,12 +45,12 @@ func can_add_item(item : PickableItem) -> bool:
 # if the attempt was successful, or 'false' otherwise
 func add_item(item : PickableItem) -> bool:
 	var can_add : bool = can_add_item(item)
-
+#	print(can_add)
 	if not can_add:
 		return false
-
-	yield(item.pickup(owner), "completed")
-
+	var item_pickup_function_state = item.pickup(owner)
+	if item_pickup_function_state:
+		yield(item_pickup_function_state, "completed")
 	if item is TinyItem and item.item_data != null:
 		if not tiny_items.has(item.item_data):
 			tiny_items[item.item_data] = 0

@@ -1,8 +1,6 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=1]
-[ext_resource path="res://scenes/objects/items/shotgun/shotgun.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/characters/character.gd" type="Script" id=3]
+[ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/enemies/body.gd" type="Script" id=4]
 [ext_resource path="res://scenes/sensors/direct_player_sight/direct_player_sight.tscn" type="PackedScene" id=5]
 [ext_resource path="res://core/ai/behavior_tree.gd" type="Script" id=6]
@@ -14,123 +12,100 @@
 [ext_resource path="res://core/ai/action_nodes/bt_go_to_target.gd" type="Script" id=12]
 [ext_resource path="res://core/ai/check_nodes/bt_approach_distance.gd" type="Script" id=13]
 [ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
-[ext_resource path="res://core/ai/action_nodes/bt_shoot.gd" type="Script" id=15]
 
-[sub_resource type="CapsuleShape" id=6]
-radius = 0.4
-height = 1.2
-
-[sub_resource type="CapsuleShape" id=1]
-radius = 0.3
-height = 1.2
-
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.2, 0.163333, 0.16, 1 )
 
-[sub_resource type="CapsuleMesh" id=3]
+[sub_resource type="CapsuleMesh" id=2]
 radius = 0.3
 mid_height = 1.2
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
 albedo_color = Color( 1, 0.2, 0.2, 1 )
 
-[sub_resource type="SphereMesh" id=5]
+[sub_resource type="SphereMesh" id=4]
 radius = 0.04
 height = 0.08
 radial_segments = 8
 rings = 4
 
-[node name="Cultist" type="RigidBody"]
-script = ExtResource( 3 )
-move_speed = 3.0
-acceleration = 6.0
+[node name="Cultist" instance=ExtResource( 1 )]
+max_health = 50
 
-[node name="Hitbox" type="Area" parent="."]
-script = ExtResource( 1 )
-hitbox_owner_path = NodePath("..")
-
-[node name="CollisionShape2" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-shape = SubResource( 6 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-shape = SubResource( 1 )
-
-[node name="Body" type="Spatial" parent="."]
+[node name="Body" parent="." index="1"]
 script = ExtResource( 4 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Body"]
+[node name="RemoteTransform" parent="Body" index="1"]
+update_rotation = true
+
+[node name="MeshInstance" type="MeshInstance" parent="Body" index="2"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-material_override = SubResource( 2 )
-mesh = SubResource( 3 )
+material_override = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
-[node name="MeshInstance2" type="MeshInstance" parent="Body"]
+[node name="MeshInstance2" type="MeshInstance" parent="Body" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15, 1.4, -0.25 )
-material_override = SubResource( 4 )
-mesh = SubResource( 5 )
+material_override = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = null
 
-[node name="MeshInstance3" type="MeshInstance" parent="Body"]
+[node name="MeshInstance3" type="MeshInstance" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15, 1.4, -0.25 )
-material_override = SubResource( 4 )
-mesh = SubResource( 5 )
+material_override = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = null
 
-[node name="Shotgun" parent="Body" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.1, -0.4 )
-
-[node name="DirectPlayerSight" parent="Body" instance=ExtResource( 5 )]
+[node name="DirectPlayerSight" parent="Body" index="5" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 )
 character = NodePath("../..")
 FOV = 120.0
 
-[node name="BehaviorTree" type="Node" parent="."]
+[node name="Hitbox" parent="." index="2"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="BehaviorTree" type="Node" parent="." index="6"]
 script = ExtResource( 6 )
 bt_root = NodePath("BT_Selector")
 
-[node name="BT_Selector" type="Node" parent="BehaviorTree"]
+[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
 script = ExtResource( 8 )
 
-[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector"]
+[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
 script = ExtResource( 9 )
 
-[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2"]
+[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
 script = ExtResource( 11 )
 sensor = NodePath("../../../../Body/DirectPlayerSight")
 
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2"]
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
 script = ExtResource( 9 )
 
-[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence"]
+[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
 script = ExtResource( 8 )
 
-[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector"]
+[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
 script = ExtResource( 13 )
 
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector"]
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
 script = ExtResource( 12 )
 
-[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence"]
+[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
 script = ExtResource( 14 )
 
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence"]
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
 script = ExtResource( 10 )
 
-[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence"]
-script = ExtResource( 15 )
-gun = NodePath("../../../../../Body/Shotgun")
-
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector"]
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
 script = ExtResource( 9 )
 
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence"]
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
 script = ExtResource( 12 )
 
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence"]
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
 script = ExtResource( 10 )
 
-[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence"]
+[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
 script = ExtResource( 7 )

@@ -10,7 +10,6 @@ size = Vector3( 0.1, 0.1, 0.5 )
 
 [node name="Shotgun" type="Spatial"]
 script = ExtResource( 1 )
-ammunition_capacity = 2
 
 [node name="RayCast" type="RayCast" parent="."]
 cast_to = Vector3( 0, 0, -1000 )
@@ -42,5 +41,4 @@ shadow_enabled = true
 omni_range = 15.0
 omni_attenuation = 4.82968
 
-[connection signal="gun_shot" from="." to="Effects" method="_on_Shotgun_gun_shot"]
 [connection signal="timeout" from="RateofFireTimer" to="." method="_on_RateofFireTimer_timeout"]

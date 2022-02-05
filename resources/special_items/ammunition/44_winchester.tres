@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "shotgun shell"
+name = ".43 Winchester round"
 attack_type = 3
-damage = 12
-dispersion = 10.0
-pellet_count = 9
+damage = 31
+dispersion = 25.0
+pellet_count = 1

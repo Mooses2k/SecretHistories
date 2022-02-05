@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/objects/items/pickable/equipment/guns/gun_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/guns/sawed_off_shotgun/sawed_off_shotgun_item.gd" type="Script" id=2]
+[ext_resource path="res://resources/models/items/guns/sawed_off/sawed_-off_shotgun_Barrel.mesh" type="ArrayMesh" id=3]
+[ext_resource path="res://resources/models/items/guns/sawed_off/sawed_-off_shotgun_Body.mesh" type="ArrayMesh" id=4]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/guns/double_barrel_shotgun/effects.gd" type="Script" id=5]
+[ext_resource path="res://scenes/effects/shotgun_audio.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resources/special_items/ammunition/shotgun_shell.tres" type="Resource" id=7]
+[ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/guns/double_barrel_shotgun/smoke.tscn" type="PackedScene" id=9]
+
+[sub_resource type="ConvexPolygonShape" id=1]
+points = PoolVector3Array( -0.00413823, -0.100855, 0.249222, 0.00413234, -0.100855, 0.249222, -0.0100012, -0.0944005, 0.265214, -0.0100012, -0.099511, 0.252545, -0.00595716, -0.0614829, 0.106428, 0.00999531, -0.099511, 0.252545, 0.00999531, -0.0944005, 0.265214, 0.00595127, -0.0614829, 0.106428, -1.86265e-09, -0.0887859, 0.279076, -0.00629269, -0.0891499, 0.278167, -0.00991879, -0.0910401, 0.273395, -0.015458, -0.0840533, 0.27402, -0.0155698, -0.0884918, 0.263197, -0.0155698, -0.0952546, 0.246467, -0.0199965, -0.0108534, -0.00165384, -0.00595716, -0.0544681, 0.0893284, 0.015564, -0.0952546, 0.246467, 0.0154521, -0.0840533, 0.27402, 0.0099129, -0.0910401, 0.273395, 0.0062868, -0.0891499, 0.278167, 0.015564, -0.0884918, 0.263197, 0.00595127, -0.0544681, 0.0893284, 0.0199906, -0.0108534, -0.00165384, 0.0106605, -0.0815611, 0.280354, -0.0106664, -0.0815611, 0.280354, -0.0106369, -0.053628, 0.26084, -0.0154286, -0.0579125, 0.255556, -0.0300683, 0.0341615, 0.0685925, -0.0300683, 0.0181157, 0.0685925, -0.0300683, 0.0181157, 0.0624285, -0.0199965, -0.00819313, -0.00668158, -0.0142101, -0.0151379, 0.00564633, 0.0300683, 0.0181157, 0.0624285, 0.0300683, 0.0181157, 0.0685925, 0.0154227, -0.0579125, 0.255556, 0.0106311, -0.053628, 0.26084, 0.0300683, 0.0341615, 0.0685925, 0.0142042, -0.0151379, 0.00564633, 0.0199906, -0.00819313, -0.00668158, -0.0105899, -0.016314, 0.219737, -0.0153815, -0.0220406, 0.216044, -0.016182, 0.0421843, 0.0685925, -0.0300683, 0.0341615, 0.0624285, -0.00166589, 0.0276648, 0.160683, -0.00166589, 0.030255, 0.15165, -0.0199965, -0.000730321, -0.00980616, 0.0199906, -0.000730321, -0.00980616, 0.0300625, 0.0341615, 0.0624285, 0.0153756, -0.0220406, 0.216044, 0.010584, -0.016314, 0.219737, 0.0161762, 0.0421843, 0.0685925, 0.00166, 0.030255, 0.15165, 0.00166, 0.0276648, 0.160683, -0.016182, 0.0421703, 0.0624285, -0.0199965, 0.0119271, 0.00277739, -0.0199965, 0.00674649, -0.00668158, -0.0157876, -0.000716321, -0.00980616, 0.0157818, -0.000716321, -0.00980616, 0.0199906, 0.00674649, -0.00668158, 0.0199906, 0.0119271, 0.00277739, 0.0161762, 0.0421703, 0.0624285 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( 0.0301847, 0.0181182, 0.0624631, 0.0301788, 0.0341303, 0.0624631, 0.0264264, 0.0319704, 0.0624955, 0.0264264, 0.0202782, 0.0624955, 0.0163038, 0.0144321, 0.0624955, 0.0163097, 0.0101121, 0.0624631, 0.00586202, -0.00255446, 0.0405517, 0.0089644, -0.0178212, -0.0161203, 0.0184193, -0.00944534, -0.0161203, 0.0184193, -0.00944534, -0.0421097, 0.0184193, -0.00466751, -0.10396, 0.022018, 0.020196, -0.26815, 0.022018, 0.0320525, -0.26815, 0.0163097, 0.0421423, 0.0624631, 0.0163038, 0.0378164, 0.0624955, -0.0163097, 0.0144321, 0.0624955, -0.0163156, 0.0101121, 0.0624631, -0.00586794, -0.00255446, 0.0405517, 0.00756981, -0.0156788, -0.0079318, -0.00897032, -0.0178212, -0.0161203, 0.0089644, -0.0178212, -0.0421097, 0.0089644, -0.0130023, -0.104575, 0.0089644, -0.00437403, -0.169565, 0.0089644, 0.00372011, -0.223874, 0.0117536, 0.0142736, -0.26815, 0.0117536, 0.0379749, -0.26815, -0.0163156, 0.0421364, 0.0624631, -0.0163097, 0.0378164, 0.0624955, -0.0117595, 0.0379749, -0.26815, -0.0264323, 0.0202782, 0.0624955, -0.0301847, 0.0181182, 0.0624631, -0.00757572, -0.0156788, -0.0079318, -0.0184252, -0.00944534, -0.0161203, -0.00897032, -0.0178212, -0.0421097, -0.00897032, -0.0130023, -0.104575, -0.00897032, -0.00437403, -0.169565, -0.00897032, 0.00372011, -0.223874, -0.0117595, 0.0142736, -0.26815, -0.0301847, 0.0341303, 0.0624631, -0.022024, 0.0320525, -0.26815, -0.0264323, 0.0319704, 0.0624955, -0.022024, 0.020196, -0.26815, -0.0184252, -0.00466751, -0.10396, -0.0184252, -0.00944534, -0.0421097 )
+
+[node name="SawedOffShotgunItem" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+dropped_layers = 0
+dropped_mask = 0
+equipped_mode = 0
+ammo_types = [ ExtResource( 7 ) ]
+ammunition_capacity = 2
+reload_amount = 2
+reload_time = 1.8
+damage_offset = -3
+dispersion_offset_degrees = 5
+cooldown = 0.1
+melee_style = 1
+
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.000742957 )
+mesh = ExtResource( 4 )
+material/1 = null
+material/2 = null
+material/3 = null
+
+[node name="CollisionShape" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="." index="2"]
+shape = SubResource( 2 )
+
+[node name="shotgun_Barrel" type="MeshInstance" parent="CollisionShape2" index="0"]
+mesh = ExtResource( 3 )
+skeleton = NodePath("../../MeshInstance")
+material/0 = null
+material/1 = null
+
+[node name="Effects" type="Spatial" parent="." index="3"]
+script = ExtResource( 5 )
+smoke_particles = ExtResource( 9 )
+hit_effect = ExtResource( 8 )
+
+[node name="AudioStreamPlayer3D" parent="Effects" index="0" instance=ExtResource( 6 )]
+
+[node name="Flash" type="OmniLight" parent="Effects" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0261422, -0.318887 )
+visible = false
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 15.0
+omni_attenuation = 4.82968
+
+[node name="FlashTimer" type="Timer" parent="Effects/Flash" index="0"]
+one_shot = true
+
+[node name="SmokeOrigin" type="Position3D" parent="Effects" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.275848 )
+
+[connection signal="on_shoot" from="." to="Effects" method="_on_ShotgunItem_on_shoot"]
+[connection signal="target_hit" from="." to="Effects" method="_on_ShotgunItem_target_hit"]
+[connection signal="timeout" from="Effects/Flash/FlashTimer" to="Effects" method="_on_FlashTimer_timeout"]

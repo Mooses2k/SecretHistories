@@ -1,11 +1,10 @@
-class_name BT_Gun_Cooldown
+class_name BT_Reload_Gun
 extends BT_Node
-
 
 func tick(state : CharacterState) -> int:
 	var equipment = state.character.inventory.current_equipment as GunItem
 	if equipment:
-		if equipment.on_cooldown or equipment.is_reloading:
-			return Status.RUNNING
+		equipment.reload()
 		return Status.SUCCESS
 	return Status.FAILURE
+

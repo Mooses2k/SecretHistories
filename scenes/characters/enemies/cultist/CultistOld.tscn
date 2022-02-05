@@ -123,7 +123,6 @@ script = ExtResource( 9 )
 
 [node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence"]
 script = ExtResource( 15 )
-gun = NodePath("../../../../../Body/Shotgun")
 
 [node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector"]
 script = ExtResource( 7 )

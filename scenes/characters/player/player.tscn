@@ -83,6 +83,7 @@ _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 [node name="Player" instance=ExtResource( 4 )]
 collision_layer = 2
 script = ExtResource( 2 )
+immunities = [ 3 ]
 
 [node name="FPSCamera" type="Camera" parent="Body" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )

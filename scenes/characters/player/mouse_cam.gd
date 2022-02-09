@@ -15,7 +15,7 @@ func _ready():
 
 #TODO: dynamically set limit of camera move away from player - allow more depending on zoom and long-range weapon
 
-func _physics_process(delta):
+func _physics_process(_delta):
 # This sets up the mouse following the cursor
 	pass
 	var local_aim = owner.to_local(aim.global_transform.origin)*shift_intensity

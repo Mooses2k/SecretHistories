@@ -2,7 +2,7 @@ extends Popup
 
 
 func _ready() -> void:
-	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.connect("item_selected", self, "Fullscreen")
+	var _error = $HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.connect("item_selected", self, "Fullscreen")
 	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.add_item("Fullscreen", GlobalSettings.FullscreenMode.FULLSCREEN)
 	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.add_item("Borderless Windowed", GlobalSettings.FullscreenMode.BORDERLESS_WINDOWED)
 	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.add_item("Windowed", GlobalSettings.FullscreenMode.WINDOWED)

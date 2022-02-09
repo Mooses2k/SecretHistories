@@ -47,7 +47,7 @@ func generate_data():
 	if (randi() % 6 < 1):
 		spawn_fog(world_position)
 
-	spawn_monsters(world_position)
+#	spawn_monsters(world_position)
 
 	self.set_world_data(grid_data)
 

@@ -9,9 +9,13 @@ size = Vector3( 0.2, 0.2, 0.2 )
 extents = Vector3( 0.1, 0.1, 0.1 )
 
 [node name="PickableItem" type="RigidBody"]
-collision_layer = 65
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 script = ExtResource( 1 )
+dropped_layers = 64
+dropped_mask = 1
+equipped_mode = 3
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )

@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "TinyItemData",
+"class": "AmmunitionData",
+"language": "GDScript",
+"path": "res://resources/special_items/ammunition/ammunition_data.gd"
+}, {
 "base": "Object",
 "class": "AttackTypes",
 "language": "GDScript",
@@ -25,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/flow_nodes/bt_control_flow.gd"
 }, {
 "base": "BT_Node",
+"class": "BT_Equip_Next_Gun",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_equip_next_gun.gd"
+}, {
+"base": "BT_Node",
 "class": "BT_Go_To_Target",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_go_to_target.gd"
@@ -33,6 +43,21 @@ _global_script_classes=[ {
 "class": "BT_Gun_Cooldown",
 "language": "GDScript",
 "path": "res://core/ai/check_nodes/bt_gun_cooldown.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Gun_Equipped",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_gun_equipped.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Gun_Has_Ammo",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_gun_has_ammo.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Inventory_Has_Ammo",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_inventory_has_ammo.gd"
 }, {
 "base": "BT_Node",
 "class": "BT_Look_At_Target",
@@ -48,6 +73,11 @@ _global_script_classes=[ {
 "class": "BT_Player_Sensor",
 "language": "GDScript",
 "path": "res://core/ai/check_nodes/bt_player_sensor.gd"
+}, {
+"base": "BT_Node",
+"class": "BT_Reload_Gun",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_reload_gun.gd"
 }, {
 "base": "BT_Node",
 "class": "BT_Select_Random_Target",
@@ -79,15 +109,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/behavior_tree.gd"
 }, {
-"base": "RigidBody",
-"class": "Character",
-"language": "GDScript",
-"path": "res://scenes/characters/character.gd"
-}, {
 "base": "Reference",
 "class": "CharacterState",
 "language": "GDScript",
 "path": "res://core/ai/character_state.gd"
+}, {
+"base": "Node",
+"class": "EnemySpawner",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/enemy_spawner.gd"
+}, {
+"base": "PickableItem",
+"class": "EquipmentItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/equipment_item.gd"
 }, {
 "base": "Node",
 "class": "Game",
@@ -99,10 +134,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
 }, {
+"base": "Node",
+"class": "Groups",
+"language": "GDScript",
+"path": "res://globals/groups.gd"
+}, {
 "base": "Spatial",
 "class": "Gun",
 "language": "GDScript",
 "path": "res://scenes/objects/items/gun.gd"
+}, {
+"base": "EquipmentItem",
+"class": "GunItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/guns/gun_item.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
@@ -119,7 +164,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/pickable_item.gd"
 }, {
-"base": "Character",
+"base": "Area",
+"class": "PickupArea",
+"language": "GDScript",
+"path": "res://scenes/characters/pickup_area.gd"
+}, {
+"base": "RigidBody",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
@@ -128,6 +178,21 @@ _global_script_classes=[ {
 "class": "PlayerSensor",
 "language": "GDScript",
 "path": "res://scenes/sensors/player_sensor.gd"
+}, {
+"base": "GunItem",
+"class": "ShotgunItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.gd"
+}, {
+"base": "PickableItem",
+"class": "TinyItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/tiny/tiny_item.gd"
+}, {
+"base": "Resource",
+"class": "TinyItemData",
+"language": "GDScript",
+"path": "res://resources/special_items/tiny_item_data.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
@@ -140,30 +205,43 @@ _global_script_classes=[ {
 "path": "res://scenes/worlds/procedural_world/random_walker.gd"
 } ]
 _global_script_class_icons={
+"AmmunitionData": "",
 "AttackTypes": "",
 "BT_Approach_Random_Distance": "",
 "BT_ControlFlow": "",
+"BT_Equip_Next_Gun": "",
 "BT_Go_To_Target": "",
 "BT_Gun_Cooldown": "",
+"BT_Gun_Equipped": "",
+"BT_Gun_Has_Ammo": "",
+"BT_Inventory_Has_Ammo": "",
 "BT_Look_At_Target": "",
 "BT_Node": "",
 "BT_Player_Sensor": "",
+"BT_Reload_Gun": "",
 "BT_Select_Random_Target": "",
 "BT_Selector": "",
 "BT_Sequence": "",
 "BT_Shoot": "",
 "BT_Wait_Random": "",
 "BehaviorTree": "",
-"Character": "",
 "CharacterState": "",
+"EnemySpawner": "",
+"EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
+"Groups": "",
 "Gun": "",
+"GunItem": "",
 "Hitbox": "",
 "MeshTransform": "",
 "PickableItem": "",
+"PickupArea": "",
 "Player": "",
 "PlayerSensor": "",
+"ShotgunItem": "",
+"TinyItem": "",
+"TinyItemData": "",
 "VisibilityMask": "",
 "Walker": ""
 }
@@ -299,7 +377,7 @@ hotbar_9={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":57,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
-hotbar_0={
+hotbar_10={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":48,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
@@ -331,7 +409,6 @@ map_menu={
 [physics]
 
 common/enable_pause_aware_picking=true
-3d/physics_engine="GodotPhysics"
 3d/active_soft_world=false
 
 [rendering]

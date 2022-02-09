@@ -12,7 +12,7 @@ func _on_ContinueButton_pressed():
 func _on_StartButton_pressed():
 #	get_parent().title_menu_active = false      #doesn't work this stuff
 #	get_parent().start_game_menu_active = true
-	get_tree().change_scene("res://scenes/UI/start_game_menu.tscn")
+	var _error = get_tree().change_scene("res://scenes/UI/start_game_menu.tscn")
 
 
 func _on_SettingsButton_pressed():

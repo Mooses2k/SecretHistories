@@ -3,17 +3,13 @@
 [ext_resource path="res://scenes/objects/items/shotgun/shotgun.gd" type="Script" id=1]
 [ext_resource path="res://resources/effects/gunsmoke.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.mp3" type="AudioStream" id=3]
-[ext_resource path="res://scenes/objects/items/shotgun/Effects.gd" type="Script" id=5]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/guns/shotgun/effects.gd" type="Script" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.1, 0.1, 0.5 )
 
 [node name="Shotgun" type="Spatial"]
 script = ExtResource( 1 )
-damage = 20
-dispersion = 0.15
-ammunition_capacity = 2
-rate_of_fire = 1.0
 
 [node name="RayCast" type="RayCast" parent="."]
 cast_to = Vector3( 0, 0, -1000 )
@@ -45,5 +41,4 @@ shadow_enabled = true
 omni_range = 15.0
 omni_attenuation = 4.82968
 
-[connection signal="gun_shot" from="." to="Effects" method="_on_Shotgun_gun_shot"]
 [connection signal="timeout" from="RateofFireTimer" to="." method="_on_RateofFireTimer_timeout"]

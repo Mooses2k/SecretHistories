@@ -1,5 +1,5 @@
 extends RigidBody
-class_name Character
+#class_name Character
 
 signal character_died()
 
@@ -9,8 +9,11 @@ export var move_speed : float = 8.0
 export var acceleration : float = 32.0
 
 onready var character_state : CharacterState = CharacterState.new(self)
-
 onready var current_health : float = self.max_health
+onready var inventory = $Inventory
+onready var pickup_area = $PickupArea
+onready var equipment_root = $EquipmentRoot
+
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
@@ -20,7 +23,7 @@ var _alive : bool = true
 #	self.physics_material_override = preload("res://scenes/characters/character.phymat")
 
 func _ready():
-	_type_damage_multiplier.resize(AttackTypes.Types.TYPE_COUNT)
+	_type_damage_multiplier.resize(AttackTypes.Types._COUNT)
 	for i in _type_damage_multiplier.size():
 		_type_damage_multiplier[i] = 1
 	for immunity in self.immunities:

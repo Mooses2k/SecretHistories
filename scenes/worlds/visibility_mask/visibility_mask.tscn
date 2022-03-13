@@ -23,7 +23,9 @@ void fragment() {
 	vec4 world = CAMERA * INV_PROJECTION_MATRIX * vec4(ndc, 1.0);
 	vec3 world_position = world.xyz / world.w;
 	vec2 uv = (world_position.xz - offset.xz)/(view_width) + vec2(0.5);
-	ALBEDO = texture(data_texture, uv).rgb;
+	float mask = texture(data_texture, uv).r;
+//	mask = step(0.5, mask);
+	ALBEDO = vec3(mask);
 //	ALBEDO = vec3(fract(10.0*uv), 0);
 }"
 

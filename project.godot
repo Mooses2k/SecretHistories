@@ -117,7 +117,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "EnemySpawner",
 "language": "GDScript",
-"path": "res://scenes/worlds/procedural_world/enemy_spawner.gd"
+"path": "res://scenes/worlds/enemy_spawner.gd"
 }, {
 "base": "PickableItem",
 "class": "EquipmentItem",
@@ -129,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/core/game.gd"
 }, {
-"base": "Node",
+"base": "Spatial",
 "class": "GameWorld",
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
@@ -199,10 +199,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/visibility_mask/visibility_mask.gd"
 }, {
-"base": "Node",
-"class": "Walker",
+"base": "Resource",
+"class": "WorldData",
 "language": "GDScript",
-"path": "res://scenes/worlds/procedural_world/random_walker.gd"
+"path": "res://resources/world/world_data.gd"
+}, {
+"base": "Resource",
+"class": "WorldGenerator",
+"language": "GDScript",
+"path": "res://resources/world/world_generator.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -243,13 +248,15 @@ _global_script_class_icons={
 "TinyItem": "",
 "TinyItemData": "",
 "VisibilityMask": "",
-"Walker": ""
+"WorldData": "",
+"WorldGenerator": ""
 }
 
 [application]
 
 config/name="Secret Histories"
 run/main_scene="res://scenes/UI/title_menu.tscn"
+run/flush_stdout_on_print=true
 config/icon="res://icon.png"
 
 [autoload]
@@ -257,13 +264,6 @@ config/icon="res://icon.png"
 GameManager="*res://globals/game_manager.gd"
 Save="*res://globals/save.gd"
 GlobalSettings="*res://globals/global_settings.gd"
-
-[display]
-
-window/size/width=1920
-window/size/height=1080
-window/size/borderless=true
-window/size/fullscreen=true
 
 [input]
 
@@ -405,6 +405,10 @@ map_menu={
 3d_physics/layer_7="ItemDrops"
 3d_physics/layer_8="ItemDropsSoftCollisions"
 3d_physics/layer_9="Portals"
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=16384
 
 [physics]
 

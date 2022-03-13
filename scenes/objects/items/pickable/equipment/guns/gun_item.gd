@@ -47,7 +47,7 @@ func shoot():
 	var raycast_range = raycast.cast_to.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)
-	print("shoot")
+#	print("shoot")
 	for pellet in ammo_type.pellet_count:
 		var shoot_direction : Vector3 = Vector3.FORWARD.rotated(Vector3.RIGHT, randf()*max_dispersion_radians)
 		shoot_direction = shoot_direction.rotated(Vector3.FORWARD, randf()*2*PI)
@@ -67,7 +67,7 @@ func shoot():
 #		current_ammo_type = null
 
 func _use():
-	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
+#	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
 	if (not is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
 		$CooldownTimer.start(cooldown)
@@ -88,7 +88,7 @@ func reload():
 					current_ammo_type = null
 				var _reload_amount = min(inventory.tiny_items[ammo_type], reload_amount - current_ammo)
 				if _reload_amount > 0:
-					print("Reload queued")
+#					print("Reload queued")
 					$ReloadTimer.start(reload_time)
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type

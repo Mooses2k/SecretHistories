@@ -1,33 +1,31 @@
 class_name GameWorld
-extends Node
+extends Spatial
 
-const CELL_SIZE : float = 2.0
+signal generation_finished()
 
-signal world_data_changed(new_data, new_size)
+var world_data : WorldData
+export var world_generator : Resource
 
-var navigation : Navigation
-var world_data : Array setget set_world_data
-var world_size : int = 0
-
-
+onready var gridmaps = $Gridmaps
+onready var navigation = $Navigation
+func _ready() -> void:
+	world_data = world_generator.get_data()
+	gridmaps.data = world_data
+	gridmaps.update_gridmaps()
+	navigation.data = world_data
+	navigation.update_navigation()
+	emit_signal("generation_finished")
 # Override this function
 func get_player_spawn_position() -> Vector3:
 	return Vector3.ZERO
 
-
-func set_world_data(value : Array):
-	world_data = value
-	world_size = value.size()
-	emit_signal("world_data_changed", world_data, world_size)
-
-
 func world_to_grid(position : Vector3) -> Vector3:
-	var result : Vector3 = (position/CELL_SIZE).floor()
+	var result : Vector3 = (position/WorldData.CELL_SIZE).floor()
 	result.y = 0
 	return result
 
 
 func grid_to_world(position : Vector3) -> Vector3:
-	var result : Vector3 = (position + Vector3.ONE*0.5)*CELL_SIZE
+	var result : Vector3 = (position + Vector3.ONE*0.5)*WorldData.CELL_SIZE
 	result.y = 0
 	return result

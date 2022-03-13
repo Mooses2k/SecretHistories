@@ -23,7 +23,7 @@ func _ready():
 	self.connect("hotbar_changed", self, "on_hotbar_changed")
 
 func on_hotbar_changed(slot):
-	print(slot)
+#	print(slot)
 	last_changed_slot = slot
 	pass
 
@@ -61,7 +61,7 @@ func add_item(item : PickableItem) -> bool:
 		hotbar[slot] = item
 		if current_slot == slot:
 			yield(item.equip(), "completed")
-			print("Equipping new item")
+#			print("Equipping new item")
 		emit_signal("hotbar_changed", slot)
 	return true
 

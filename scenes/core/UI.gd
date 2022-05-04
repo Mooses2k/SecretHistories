@@ -8,7 +8,6 @@ onready var esc_menu_active = false
 onready var settings_menu_active = false
 onready var ingame_menu_active = false
 
-
 func _ready():
 	pass
 

@@ -1,13 +1,13 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://scenes/characters/player/mouse_cam.gd" type="Script" id=1]
+[ext_resource path="res://scenes/characters/player/TopDownControlMode.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
-[ext_resource path="res://scenes/characters/player/player_aim_point.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=7]
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
+[ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -89,10 +89,9 @@ immunities = [ 3 ]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera" index="0"]
-visible = false
 enabled = true
 cast_to = Vector3( 0, 0, -1000 )
-collision_mask = 9
+collision_mask = 73
 collide_with_areas = true
 
 [node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
@@ -106,34 +105,39 @@ mesh = SubResource( 18 )
 material/0 = null
 
 [node name="Listener" type="Listener" parent="Body" index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.403488, 1.64281, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
 current = true
 
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
-[node name="PlayerController" type="Node" parent="." index="6"]
-script = ExtResource( 6 )
-
-[node name="TopCamera" type="Camera" parent="." index="7"]
+[node name="TopCamera" type="Camera" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0 )
 current = true
 fov = 45.0
 far = 20.0
-script = ExtResource( 1 )
-shift_intensity = 0.75
-_aim = NodePath("../PlayerAimPoint")
 
-[node name="PlayerAimPoint" type="Spatial" parent="." index="8"]
-script = ExtResource( 3 )
-aim_plane = Plane( 0, 1, 0, 0.8 )
+[node name="PlayerAimPoint" type="Spatial" parent="." index="6"]
 
 [node name="Reticle" type="MeshInstance" parent="PlayerAimPoint" index="0"]
 transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0 )
 mesh = SubResource( 13 )
 material/0 = null
 
-[node name="HUD" type="MeshInstance" parent="." index="9"]
+[node name="PlayerController" type="Node" parent="." index="7"]
+script = ExtResource( 6 )
+
+[node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
+script = ExtResource( 10 )
+_camera = NodePath("../../Body/FPSCamera")
+_aimcast = NodePath("../../Body/FPSCamera/AimCast")
+
+[node name="TopDownControlMode" type="Node" parent="PlayerController" index="1"]
+script = ExtResource( 1 )
+_camera = NodePath("../../TopCamera")
+_aim = NodePath("../../PlayerAimPoint")
+
+[node name="HUD" type="MeshInstance" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0.6 )
 material_override = SubResource( 14 )
 mesh = SubResource( 15 )
@@ -178,7 +182,7 @@ text = "F"
 align = 2
 valign = 1
 
-[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="10"]
+[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="9"]
 process_priority = 100
 stream = ExtResource( 8 )
 volume_db = -31.0

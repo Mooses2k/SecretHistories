@@ -17,6 +17,7 @@ start_level_scn = ExtResource( 3 )
 player_scn = ExtResource( 2 )
 
 [node name="World" type="Spatial" parent="."]
+pause_mode = 1
 
 [node name="UI" type="Node" parent="."]
 pause_mode = 2

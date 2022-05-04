@@ -115,6 +115,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/character_state.gd"
 }, {
 "base": "Node",
+"class": "ControlMode",
+"language": "GDScript",
+"path": "res://scenes/characters/player/control_mode.gd"
+}, {
+"base": "Node",
 "class": "EnemySpawner",
 "language": "GDScript",
 "path": "res://scenes/worlds/enemy_spawner.gd"
@@ -180,6 +185,11 @@ _global_script_classes=[ {
 "path": "res://scenes/sensors/player_sensor.gd"
 }, {
 "base": "GunItem",
+"class": "SawedOffShotgunItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/guns/sawed_off_shotgun/sawed_off_shotgun_item.gd"
+}, {
+"base": "GunItem",
 "class": "ShotgunItem",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.gd"
@@ -231,6 +241,7 @@ _global_script_class_icons={
 "BT_Wait_Random": "",
 "BehaviorTree": "",
 "CharacterState": "",
+"ControlMode": "",
 "EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",
@@ -244,6 +255,7 @@ _global_script_class_icons={
 "PickupArea": "",
 "Player": "",
 "PlayerSensor": "",
+"SawedOffShotgunItem": "",
 "ShotgunItem": "",
 "TinyItem": "",
 "TinyItemData": "",
@@ -391,6 +403,11 @@ inventory_menu={
 map_menu={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":77,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+toggle_perspective={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":80,"unicode":0,"echo":false,"script":null)
  ]
 }
 

@@ -53,12 +53,14 @@ func handle_movement(delta : float):
 		direction *= 0.5;
 	character.character_state.move_direction = direction
 
+
 func handle_equipment(delta : float):
 	if Input.is_action_just_pressed("attack"):
 		if throw_state:
 			throw_state = false
 		elif character.inventory.current_equipment:
 			character.inventory.current_equipment.use()
+
 
 func handle_inventory(delta : float):
 	for i in range(character.inventory.HOTBAR_SIZE):

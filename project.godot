@@ -144,11 +144,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://globals/groups.gd"
 }, {
-"base": "Spatial",
-"class": "Gun",
-"language": "GDScript",
-"path": "res://scenes/objects/items/gun.gd"
-}, {
 "base": "EquipmentItem",
 "class": "GunItem",
 "language": "GDScript",
@@ -158,6 +153,11 @@ _global_script_classes=[ {
 "class": "Hitbox",
 "language": "GDScript",
 "path": "res://scenes/characters/hitbox.gd"
+}, {
+"base": "EquipmentItem",
+"class": "MeleeItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/melee/melee_item.gd"
 }, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
@@ -183,6 +183,11 @@ _global_script_classes=[ {
 "class": "PlayerSensor",
 "language": "GDScript",
 "path": "res://scenes/sensors/player_sensor.gd"
+}, {
+"base": "MeleeItem",
+"class": "SabreItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.gd"
 }, {
 "base": "GunItem",
 "class": "SawedOffShotgunItem",
@@ -247,14 +252,15 @@ _global_script_class_icons={
 "Game": "",
 "GameWorld": "",
 "Groups": "",
-"Gun": "",
 "GunItem": "",
 "Hitbox": "",
+"MeleeItem": "",
 "MeshTransform": "",
 "PickableItem": "",
 "PickupArea": "",
 "Player": "",
 "PlayerSensor": "",
+"SabreItem": "",
 "SawedOffShotgunItem": "",
 "ShotgunItem": "",
 "TinyItem": "",
@@ -314,7 +320,7 @@ weapon_melee={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
-aim={
+aim_or_slash={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]

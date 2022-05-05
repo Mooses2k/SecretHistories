@@ -59,7 +59,7 @@ func drop(at : Transform):
 	self.owner_character = null
 	if GameManager.game.level:
 		self.global_transform = at
-		self.linear_velocity = at.basis.x
+#		self.linear_velocity = at.basis.x
 		GameManager.game.level.call_deferred("add_child", self)
 		yield(self, "tree_entered")
 		self.force_update_transform()

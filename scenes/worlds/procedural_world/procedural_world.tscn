@@ -20,10 +20,26 @@ density = 0.01
 
 [node name="TinyItem" parent="." index="6" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 6 )
+continuous_cd = false
 item_data = ExtResource( 5 )
 amount = 10
 
 [node name="ShotgunItem" parent="." index="7" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5 )
+
+[node name="ShotgunItem2" parent="." index="8" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 5, 5 )
+
+[node name="ShotgunItem3" parent="." index="9" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 5, 5 )
+
+[node name="ShotgunItem4" parent="." index="10" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 5, 5 )
+
+[node name="ShotgunItem5" parent="." index="11" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 5, 5 )
+
+[node name="ShotgunItem6" parent="." index="12" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 5, 5 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

@@ -22,3 +22,9 @@ func get_movement_basis() -> Basis:
 
 func get_interaction_target() -> Node:
 	return null
+
+func get_target_placement_position() -> Vector3:
+	return Vector3.ZERO
+
+func get_aim_direction() -> Vector3:
+	return Vector3.FORWARD

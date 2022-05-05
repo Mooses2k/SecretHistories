@@ -1,5 +1,6 @@
 extends ControlMode
 
+export(int, LAYERS_3D_PHYSICS) var raycast_mask : int
 export(float, 0.0, 1.0) var shift_intensity : float = 0.5
 export var _aim : NodePath
 onready var aim : Spatial = get_node(_aim) as Spatial;
@@ -46,3 +47,20 @@ func _ready():
 	aim.visible = false
 	aim.set_as_toplevel(true)
 	pass
+
+func get_target_placement_position() -> Vector3:
+	var ray_end = aim.global_transform.origin
+	var ray_origin = camera.global_transform.origin
+	var ray_dir = (ray_end - ray_origin)
+	var space = PhysicsServer.space_get_direct_state(get_viewport().world.space) as PhysicsDirectSpaceState
+	var result = space.intersect_ray(ray_origin, ray_origin + 2.0*ray_dir, [], raycast_mask)
+	if result.empty():
+		return aim.global_transform.origin
+	else:
+		return result.position
+
+
+func get_aim_direction() -> Vector3:
+	var dir = owner.to_local(aim.global_transform.origin)
+	dir.y = 0.0
+	return dir.normalized()

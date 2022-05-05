@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -10,7 +10,95 @@
 radius = 0.3
 height = 1.2
 
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 0.05, 1, 0.05 )
+
 [sub_resource type="SphereShape" id=2]
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, 1.2, -0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "RecoveryToTierce"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07, 0.14, 0.22, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.2, 1.2, -0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07, 0.14, 0.22, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -135, 0, 25 ), Vector3( -250, 0, 40 ), Vector3( -310, 0, 32 ), Vector3( -360, 0, 24 ), Vector3( -360, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Swing1FromTierce"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, 1.2, -0.5 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0, -25 ), Vector3( -135, 0, 25 ) ]
+}
 
 [node name="Character" type="RigidBody"]
 collision_layer = 16
@@ -31,6 +119,12 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5
 [node name="EquipmentRoot" type="Position3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.3 )
 
+[node name="teststick" type="MeshInstance" parent="Body/EquipmentRoot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.341872, 0 )
+visible = false
+mesh = SubResource( 6 )
+material/0 = null
+
 [node name="Hitbox" type="Area" parent="."]
 script = ExtResource( 2 )
 hitbox_owner_path = NodePath("..")
@@ -50,3 +144,12 @@ script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
 shape = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/RecoveryToTierce = SubResource( 5 )
+anims/Swing1FromTierce = SubResource( 3 )
+
+[node name="testCamera" type="Camera" parent="." groups=["CHARACTER"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+fov = 70.828

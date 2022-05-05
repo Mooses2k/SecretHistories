@@ -1,10 +1,6 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4

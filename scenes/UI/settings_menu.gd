@@ -9,6 +9,8 @@ func _ready() -> void:
 
 	$HBoxContainer/Column/Graphics/GridContainer/FullscreenSlider.select(GlobalSettings.fullscreen_mode)
 
+	$HBoxContainer/Controls/GridContainer/mouse_sensitivity_slider.value = GlobalSettings.mouse_sensitivity
+
 
 func Fullscreen(item):
 	GlobalSettings.fullscreen_mode = item
@@ -63,5 +65,10 @@ func _on_voice_db_value_changed(value: float) -> void:
 	emit_signal("voice_audio_changed") # signal not handled at the moment
 
 
+func _on_mouse_sensitivity_slider_value_changed(value : float):
+	GlobalSettings.mouse_sensitivity = value
+
+
 func _on_ReturnButton_pressed() -> void:
 	hide()
+

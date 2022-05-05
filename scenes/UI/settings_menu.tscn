@@ -25,9 +25,6 @@ margin_top = -300.0
 margin_right = 450.0
 margin_bottom = 300.0
 color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchor_left = 0.5
@@ -279,7 +276,7 @@ align = 1
 [node name="GridContainer" type="GridContainer" parent="HBoxContainer/Controls"]
 margin_top = 18.0
 margin_right = 431.0
-margin_bottom = 448.0
+margin_bottom = 470.0
 size_flags_horizontal = 3
 custom_constants/vseparation = 6
 custom_constants/hseparation = 12
@@ -394,7 +391,7 @@ action_name = "sprint"
 margin_top = 153.0
 margin_right = 209.0
 margin_bottom = 167.0
-text = "Fire / Melee swing"
+text = "Fire / Melee thrust"
 align = 2
 valign = 1
 
@@ -411,7 +408,7 @@ action_name = "attack"
 margin_top = 179.0
 margin_right = 209.0
 margin_bottom = 193.0
-text = "Melee thrust"
+text = "Pommel-strike / Firearm melee"
 align = 2
 valign = 1
 
@@ -428,7 +425,7 @@ action_name = "weapon_melee"
 margin_top = 205.0
 margin_right = 209.0
 margin_bottom = 219.0
-text = "Aim / Parry"
+text = "Aim / Melee cut"
 align = 2
 valign = 1
 
@@ -576,8 +573,27 @@ group = SubResource( 1 )
 text = "M"
 action_name = "map_menu"
 
+[node name="Label16" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 437.0
+margin_right = 209.0
+margin_bottom = 451.0
+text = "Mouse sensitivity"
+align = 2
+valign = 1
+
+[node name="mouse_sensitivity_slider" type="HSlider" parent="HBoxContainer/Controls/GridContainer"]
+margin_left = 221.0
+margin_top = 436.0
+margin_right = 430.0
+margin_bottom = 452.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Controls"]
-margin_top = 452.0
+margin_top = 474.0
 margin_right = 431.0
 margin_bottom = 536.0
 size_flags_horizontal = 3
@@ -607,4 +623,5 @@ text = "Press any key or mouse button!"
 [connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/sound_db" to="." method="_on_sound_db_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/voice_db" to="." method="_on_voice_db_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/music_db" to="." method="_on_music_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Controls/GridContainer/mouse_sensitivity_slider" to="." method="_on_mouse_sensitivity_slider_value_changed"]
 [connection signal="pressed" from="HBoxContainer/Controls/ReturnButton" to="." method="_on_ReturnButton_pressed"]

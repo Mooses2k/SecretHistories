@@ -35,6 +35,8 @@ var key_dict = {
 	"inventory_menu":16777218,
 	"map_menu":77
 }
+var mouse_sensitivity : float = 0.5
+
 var setting_key = false
 
 

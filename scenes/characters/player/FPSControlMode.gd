@@ -49,3 +49,12 @@ func get_movement_basis() -> Basis:
 
 func get_interaction_target() -> Node:
 	return aimcast.get_collider() as Node
+
+func get_target_placement_position() -> Vector3:
+	if aimcast.is_colliding():
+		return aimcast.get_collision_point()
+	else:
+		return aimcast.to_global(aimcast.cast_to)
+
+func get_aim_direction() -> Vector3:
+	return -camera.global_transform.basis.z

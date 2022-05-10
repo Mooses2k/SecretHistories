@@ -111,6 +111,8 @@ current = true
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
+[node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
+
 [node name="TopCamera" type="Camera" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 10, 0 )
 current = true

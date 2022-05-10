@@ -19,10 +19,11 @@ func attack():
 		melee_anim.queue("RecoveryToTierce")
 	if melee_anim.current_animation == "Swing1FromTierce":
 		for area in melee_hitbox.get_overlapping_areas():
-			if area.is_in_group("CHARACTER") or area is Hitbox:
-				area.hit(melee_damage, AttackTypes.Types.SLASHING) # doesn't kill
-				
-				
+			if area is Hitbox and not area.is_in_group("PLAYER"):
+				print("hit NPC")
+				area.hit(melee_damage, melee_damage_type)
+
+
 func _use():
 	if not on_cooldown:
 		attack()

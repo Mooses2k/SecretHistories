@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = ".43 Winchester round"
+name = ".577 Martini-Henry round"
 attack_type = 3
-damage = 31
+damage = 45
 dispersion = 25.0
 pellet_count = 1

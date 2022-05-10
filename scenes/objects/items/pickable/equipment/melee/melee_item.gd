@@ -19,14 +19,11 @@ func attack():
 		melee_anim.queue("RecoveryToTierce")
 	if melee_anim.current_animation == "Swing1FromTierce":
 		for area in melee_hitbox.get_overlapping_areas():
-			print("hit an area")  
 			if area.is_in_group("CHARACTER") or area is Hitbox:
-				print("hit a character!") # never procs
-#				area.current_health -= melee_damage    # crashes it
-				area.hit(melee_damage, AttackTypes.Types.PHYSICAL) # doesn't kill
+				area.hit(melee_damage, AttackTypes.Types.SLASHING) # doesn't kill
+				
 				
 func _use():
-	print("try use : ", on_cooldown, " ")
 	if not on_cooldown:
 		attack()
 		$CooldownTimer.start(cooldown)
@@ -44,4 +41,3 @@ func _use():
 
 func _on_CooldownTimer_timeout() -> void:
 	on_cooldown = false
-	pass # Replace with function body.

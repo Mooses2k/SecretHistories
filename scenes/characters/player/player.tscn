@@ -90,7 +90,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera" index="0"]
 enabled = true
-cast_to = Vector3( 0, 0, -1000 )
+cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 73
 collide_with_areas = true
 
@@ -110,6 +110,9 @@ current = true
 
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
+
+[node name="EquipmentRoot" parent="Body" index="6"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
 

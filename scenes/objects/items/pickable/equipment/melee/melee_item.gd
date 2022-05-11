@@ -11,10 +11,11 @@ onready var melee_hitbox = $Hitbox
 
 var on_cooldown = false
 
-func attack():
+func attack(): # bug is it only checks for hit right when attack is first called, needs to check as long as in melee_anim "Swing"
 	var melee_anim = owner_character.find_node("AnimationPlayer")  # this needs to set only when equipped
 	# need something here to determine type of weapon, for now, a sabre
-	if not melee_anim.is_playing():    #how to correctly point to this?
+	#determine attack angle from where pointing
+	if not melee_anim.is_playing(): 
 		melee_anim.play("Swing1FromTierce")
 		melee_anim.queue("RecoveryToTierce")
 	if melee_anim.current_animation == "Swing1FromTierce":

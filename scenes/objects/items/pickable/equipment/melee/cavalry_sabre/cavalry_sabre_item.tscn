@@ -47,3 +47,4 @@ script = ExtResource( 2 )
 shape = SubResource( 3 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="hit"]

@@ -61,6 +61,7 @@ func handle_movement(state : PhysicsDirectBodyState):
 	apply_central_impulse(velocity_correction*mass)
 
 func damage(value : float, type : int):
+	queue_free()
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value
 		if self.current_health <= 0:

@@ -193,3 +193,5 @@ stream = ExtResource( 8 )
 volume_db = -31.0
 script = ExtResource( 9 )
 curve = SubResource( 16 )
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="hit"]

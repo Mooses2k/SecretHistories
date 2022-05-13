@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/control_mode.gd"
 }, {
+"base": "Spatial",
+"class": "Door",
+"language": "GDScript",
+"path": "res://scenes/objects/world_objects/doors/door.gd"
+}, {
 "base": "Node",
 "class": "EnemySpawner",
 "language": "GDScript",
@@ -153,6 +158,11 @@ _global_script_classes=[ {
 "class": "Hitbox",
 "language": "GDScript",
 "path": "res://scenes/characters/hitbox.gd"
+}, {
+"base": "Area",
+"class": "Interactable",
+"language": "GDScript",
+"path": "res://scenes/objects/interactables/interactable.gd"
 }, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
@@ -247,6 +257,7 @@ _global_script_class_icons={
 "BehaviorTree": "",
 "CharacterState": "",
 "ControlMode": "",
+"Door": "",
 "EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",
@@ -254,6 +265,7 @@ _global_script_class_icons={
 "Groups": "",
 "GunItem": "",
 "Hitbox": "",
+"Interactable": "",
 "MeleeItem": "",
 "MeshTransform": "",
 "PickableItem": "",
@@ -320,7 +332,7 @@ weapon_melee={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
-aim_or_slash={
+aim={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
@@ -428,6 +440,7 @@ toggle_perspective={
 3d_physics/layer_7="ItemDrops"
 3d_physics/layer_8="ItemDropsSoftCollisions"
 3d_physics/layer_9="Portals"
+3d_physics/layer_10="Interactables"
 
 [network]
 
@@ -440,5 +453,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

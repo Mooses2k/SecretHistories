@@ -114,7 +114,7 @@ shape = SubResource( 1 )
 [node name="Body" type="Spatial" parent="."]
 
 [node name="DropPosition" type="Position3D" parent="Body"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 5.96046e-08 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
 
 [node name="EquipmentRoot" type="Position3D" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )

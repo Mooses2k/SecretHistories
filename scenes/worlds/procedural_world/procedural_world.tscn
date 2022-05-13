@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -7,12 +7,17 @@
 [ext_resource path="res://resources/special_items/ammunition/shotgun_shell.tres" type="Resource" id=5]
 [ext_resource path="res://scenes/objects/items/pickable/tiny/tiny_item.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/objects/world_objects/doors/door.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/enemies/cultist/Cultist.tscn" type="PackedScene" id=11]
 
 [node name="ProceduralWorld" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 world_generator = ExtResource( 3 )
+
+[node name="DirectionalLight" parent="." index="2"]
+shadow_bias = 0.05
+directional_shadow_normal_bias = 0.2
 
 [node name="EnemySpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
@@ -48,5 +53,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 5, 5 )
 
 [node name="ShotgunItem6" parent="." index="14" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 5, 5 )
+
+[node name="Door" parent="." index="15" instance=ExtResource( 8 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, 6 )
+hinge_side = 1
+door_lock_count = 1
+
+[node name="Door2" parent="." index="16" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, 0, 4 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

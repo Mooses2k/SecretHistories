@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-room_size = 5
-corridor_length = 4
+room_size = 6
+corridor_length = 2
 ground_index = 2
 wall_index = 0
 doorway_index = 1

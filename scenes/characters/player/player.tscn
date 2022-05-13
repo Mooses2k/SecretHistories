@@ -131,6 +131,7 @@ material/0 = null
 
 [node name="PlayerController" type="Node" parent="." index="7"]
 script = ExtResource( 6 )
+throw_strength = 10.0
 
 [node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
 script = ExtResource( 10 )

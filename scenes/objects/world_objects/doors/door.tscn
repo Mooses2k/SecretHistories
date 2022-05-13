@@ -1,39 +1,141 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=13 format=2]
 
-[sub_resource type="CylinderShape" id=1]
-radius = 0.06
+[ext_resource path="res://scenes/objects/world_objects/doors/door_body.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/world_objects/doors/door.gd" type="Script" id=2]
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.48, 0.95, 0.05 )
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.6, 0.216, 0.12, 1 )
 
-[sub_resource type="SpatialMaterial" id=4]
-albedo_color = Color( 0.6, 0.24, 0.06, 1 )
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 1, 0.25, 0.3 )
 
-[sub_resource type="CubeMesh" id=3]
-size = Vector3( 1, 2, 0.1 )
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.1, 2, 0.3 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.6, 0.125, 0.15 )
+
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.1, 1, 0.15 )
+
+[sub_resource type="SpatialMaterial" id=9]
+metallic = 1.0
+roughness = 0.4
+
+[sub_resource type="CubeMesh" id=10]
+size = Vector3( 0.02, 0.1, 0.04 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.38, 0.95, 0.075 )
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 0.78, 1.96, 0.15 )
+
+[sub_resource type="CylinderMesh" id=7]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.08
+radial_segments = 6
 
 [node name="Door" type="Spatial"]
+script = ExtResource( 2 )
+hinge_side = 0
+max_angle = 175.0
 
-[node name="HingeJoint" type="HingeJoint" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.5, 0, 0 )
-nodes/node_a = NodePath("../DoorHinge")
-nodes/node_b = NodePath("../DoorPanel")
-angular_limit/enable = true
+[node name="DoorFrame" type="StaticBody" parent="."]
 
-[node name="DoorHinge" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.5, 0, 0 )
+[node name="Top" type="MeshInstance" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
+material_override = SubResource( 8 )
+mesh = SubResource( 1 )
+material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="DoorHinge"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -4.37114e-08, 1 )
-shape = SubResource( 1 )
+[node name="Left" type="MeshInstance" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1, 0 )
+material_override = SubResource( 8 )
+mesh = SubResource( 2 )
+material/0 = null
 
-[node name="DoorPanel" type="RigidBody" parent="."]
+[node name="Right" type="MeshInstance" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1, 0 )
+material_override = SubResource( 8 )
+mesh = SubResource( 2 )
+material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="DoorPanel"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-shape = SubResource( 2 )
+[node name="CollisionShape" type="CollisionShape" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
+shape = SubResource( 5 )
 
-[node name="MeshInstance" type="MeshInstance" parent="DoorPanel/CollisionShape"]
-material_override = SubResource( 4 )
-mesh = SubResource( 3 )
+[node name="CollisionShape2" type="CollisionShape" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0 )
+shape = SubResource( 6 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0 )
+shape = SubResource( 6 )
+
+[node name="LockLoop" type="MeshInstance" parent="DoorFrame"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41, 1, -0.17 )
+material_override = SubResource( 9 )
+mesh = SubResource( 10 )
+skeleton = NodePath("../../DoorBody")
+material/0 = null
+
+[node name="DoorBody" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+mass = 30.0
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+linear_damp = 1.0
+angular_damp = 1.0
+script = ExtResource( 1 )
+min_angle = -90.0
+max_angle = 0.0
+_hinge_node = NodePath("../Hinge")
+
+[node name="CollisionShape" type="CollisionShape" parent="DoorBody"]
+shape = SubResource( 3 )
+
+[node name="Body" type="MeshInstance" parent="DoorBody"]
+material_override = SubResource( 8 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="BottomHinge" type="MeshInstance" parent="DoorBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, -0.515, -0.085 )
+material_override = SubResource( 9 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../../Hinge")
+material/0 = null
+
+[node name="TopHinge" type="MeshInstance" parent="DoorBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, 0.685, -0.085 )
+material_override = SubResource( 9 )
+mesh = SubResource( 7 )
+skeleton = NodePath("../../Hinge")
+material/0 = null
+
+[node name="LockLoop" type="MeshInstance" parent="DoorBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38, 0, -0.095 )
+material_override = SubResource( 9 )
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="Hinge" type="PinJoint" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, 0, -0.16 )
+nodes/node_a = NodePath("../DoorFrame")
+nodes/node_b = NodePath("../DoorBody")
+collision/exclude_nodes = false
+
+[node name="BottomHinge" type="MeshInstance" parent="Hinge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
+material_override = SubResource( 9 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="TopHinge" type="MeshInstance" parent="Hinge"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+material_override = SubResource( 9 )
+mesh = SubResource( 7 )
 material/0 = null

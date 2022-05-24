@@ -14,8 +14,10 @@ var target_placement_position : Vector3 = Vector3.ZERO
 var throw_press_length : float = 0.0
 var throw_state : bool = false
 
+var stamina := 100.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
+
 
 func _ready():
 	active_mode.set_deferred("is_active", true)
@@ -32,25 +34,35 @@ func _physics_process(delta : float):
 	handle_inventory(delta)
 	handle_misc_controls(delta)
 
-func handle_misc_controls(delta : float):
+func handle_misc_controls(_delta : float):
 	if Input.is_action_just_pressed("toggle_perspective"):
 		active_mode_index = (active_mode_index + 1)%get_child_count()
 		active_mode.is_active = false
 		active_mode = get_child(active_mode_index)
 		active_mode.is_active = true
 
-func handle_movement(delta : float):
+func handle_movement(_delta : float):
 	var direction : Vector3 = Vector3.ZERO
 	direction.x += Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	direction.z += Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	direction = movement_basis.xform(direction)
 	direction = direction.normalized()*min(1.0, direction.length())
-	if not Input.is_action_pressed("sprint"):
+	
+	
+	if Input.is_action_pressed("sprint") and stamina > 0:
 		direction *= 0.5;
+		change_stamina(-0.5)
+	else:
+		direction *= 0.3;
+		if !Input.is_action_pressed("sprint"):
+			change_stamina(0.5)
+	print(stamina)
+		
+		
 	character.character_state.move_direction = direction
 
 
-func handle_equipment(delta : float):
+func handle_equipment(_delta : float):
 	if Input.is_action_just_pressed("attack"):
 		if throw_state:
 			throw_state = false
@@ -88,13 +100,14 @@ func handle_inventory(delta : float):
 				var mask = item.collision_mask
 				item.collision_layer = item.dropped_layers
 				item.collision_mask = item.dropped_mask
-				PhysicsServer.body_test_motion(item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true)
+				assert(PhysicsServer.body_test_motion(item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true))
 				item.collision_layer = layers
 				item.collision_mask = mask
 				if result.motion.length() > 0.1:
 					item = yield(character.inventory.drop_current_item(), "completed") as RigidBody
 					if item:
 						item.call_deferred("global_translate", result.motion)
+	
 	if Input.is_action_just_pressed("interact"):
 		if interaction_target != null:
 			if interaction_target is PickableItem:
@@ -107,3 +120,7 @@ func handle_inventory(delta : float):
 		throw_press_length = 0.0
 	if Input.is_action_just_pressed("throw"):
 		throw_state = true
+
+func change_stamina(amount: float) -> void:
+	stamina = min(500, max(0, stamina + amount));
+	HUDS.tired(stamina);

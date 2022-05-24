@@ -294,6 +294,7 @@ config/icon="res://icon.png"
 GameManager="*res://globals/game_manager.gd"
 Save="*res://globals/save.gd"
 GlobalSettings="*res://globals/global_settings.gd"
+HUDS="*res://globals/HUD.tscn"
 
 [input]
 

@@ -10,9 +10,11 @@ export(HingeSide) var hinge_side : int = HingeSide.RIGHT setget set_hinge_side
 export var max_angle = 90.0 setget set_max_angle
 export var min_angle = 0.0 setget set_min_angle
 
-var nav_mesh : NavigationMeshInstance = null
+var navmesh : NavigationMeshInstance = null
 export var door_lock_count : int = 0 setget set_door_lock_count
 var door_locked_transform : Transform
+
+onready var door_body : RigidBody = $DoorBody
 
 func set_door_lock_count(value : int):
 	if value == door_lock_count:
@@ -22,7 +24,11 @@ func set_door_lock_count(value : int):
 		yield(self, "tree_entered")
 	if door_lock_count == 0: #unlock door
 		$DoorBody.mode = RigidBody.MODE_RIGID
+		if navmesh:
+			navmesh.enabled = true
 	else: #lock door
+		if navmesh:
+			navmesh.enabled = false
 		$DoorBody.transform = door_locked_transform
 		$DoorBody.mode = RigidBody.MODE_STATIC
 		

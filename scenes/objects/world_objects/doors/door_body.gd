@@ -22,7 +22,7 @@ func _integrate_forces(state):
 		var hinge_arm : Vector3 = state.transform.origin - hinge_node.global_transform.origin
 		hinge_arm.y = 0.0
 		var ang_vel : Vector3 = state.angular_velocity
-		print(ang_vel.y)
+#		print(ang_vel.y)
 		if sign(ang_vel.y) != sign(angle_diff):
 			ang_vel.y *= -restitution
 		state.angular_velocity = ang_vel

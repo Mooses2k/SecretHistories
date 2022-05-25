@@ -7,7 +7,7 @@ export var elevation : float = 0.2
 var data : Resource setget set_data
 var walls_done = Dictionary()
 
-var door_scene = preload("res://scenes/objects/world_objects/doors/test_door.tscn")
+var door_scene = preload("res://scenes/objects/world_objects/doors/door.tscn")
 #stores the navmeshes for each door, similar to wall_meta on the WorldData resource
 var doors_x := Dictionary()
 var doors_z := Dictionary()
@@ -117,6 +117,7 @@ func update_navigation():
 #							var navmesh_index = navmesh_add(navmesh, Transform.IDENTITY)
 							var door_inst = door_scene.instance()
 							door_inst.translation = pos
+							door_inst.rotation.y = -PI*0.5*dir;
 							door_inst.navmesh = navmesh_instance
 							call_deferred("add_child", door_inst)
 							set_door_navmesh_instance(current, dir, navmesh_instance)

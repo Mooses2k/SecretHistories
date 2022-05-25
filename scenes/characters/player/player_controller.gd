@@ -113,6 +113,8 @@ func handle_inventory(delta : float):
 			if interaction_target is PickableItem:
 				character.inventory.add_item(interaction_target)
 				interaction_target = null
+			elif interaction_target is Interactable:
+				interaction_target.interact(owner)
 	
 	if Input.is_action_pressed("throw") and throw_state:
 		throw_press_length += delta

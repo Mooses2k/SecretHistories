@@ -14,7 +14,7 @@ var target_placement_position : Vector3 = Vector3.ZERO
 var throw_press_length : float = 0.0
 var throw_state : bool = false
 
-var stamina := 100.0
+var stamina := 125.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
@@ -51,11 +51,11 @@ func handle_movement(_delta : float):
 	
 	if Input.is_action_pressed("sprint") and stamina > 0:
 		direction *= 0.5;
-		change_stamina(-0.5)
+		change_stamina(-0.3)
 	else:
-		direction *= 0.3;
+		direction *= 0.2;
 		if !Input.is_action_pressed("sprint"):
-			change_stamina(0.5)
+			change_stamina(0.3)
 	print(stamina)
 		
 		
@@ -124,5 +124,5 @@ func handle_inventory(delta : float):
 		throw_state = true
 
 func change_stamina(amount: float) -> void:
-	stamina = min(500, max(0, stamina + amount));
+	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);

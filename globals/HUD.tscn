@@ -16,8 +16,8 @@ onready var Stamina: AudioStreamPlayer = $Stamina/Audio;
 ############################
 enum stamina_values\\
 {
-	maximum = 60,
-	minimum = -30
+	maximum = 40,
+	minimum = -10
 }
 
 func tired(amount: float) -> void:
@@ -41,3 +41,4 @@ mouse_filter = 2
 
 [node name="Audio" type="AudioStreamPlayer" parent="Stamina"]
 stream = ExtResource( 1 )
+bus = "Player"

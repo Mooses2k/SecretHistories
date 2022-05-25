@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://resources/sounds/heavy_breath.wav" type="AudioStream" id=1]
+[ext_resource path="res://resources/sounds/heavy_breath.mp3" type="AudioStream" id=1]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control;
@@ -22,7 +22,7 @@ enum stamina_values\\
 
 func tired(amount: float) -> void:
 	# convert stamina percentage to db:
-	var volume = (amount / 100) * -stamina_values.maximum;
+	var volume = ((amount / 100) * -stamina_values.maximum)+24;
 	if Stamina.playing != (volume > stamina_values.minimum):
 		Stamina.playing = volume > stamina_values.minimum;
 	Stamina.volume_db = volume;

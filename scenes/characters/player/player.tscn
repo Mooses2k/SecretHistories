@@ -96,6 +96,7 @@ collide_with_areas = true
 
 [node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
+cast_shadow = 0
 mesh = SubResource( 17 )
 material/0 = null
 

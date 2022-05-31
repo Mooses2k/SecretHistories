@@ -1,9 +1,28 @@
 # Secret Histories
-Alien Swarm meets Infra Arcana.
+
+<p align="center">
+<b>HOTLINE CTHULHU</b><br>
+Or<br>
+<b>SECRET HISTORIES</b><br>
+Or<br>
+<b>CURIOUS HAPPENINGS SURROUNDING THE SOCIETY OF HEAVENLY KNOWLEDGE CIRCA THE YEAR 1900 AS TOLD BY VARIOUS PARTIES CONTEMPORARY TO SAID EVENTS, VOL I.</b>
+</p>
+<br>
+<br>
+
+Simulationist dungeon delving
+
+* _Controls and some gameplay of Alien Swarm_
+* _Same for Delver_
+* _Gameplay of OSR D&D_
+* _Story and world, some gameplay, and stealth of Infra Arcana_
+* _World-building of SCP_
+* _Time period, guns, & stealth of Hunt: Showdown_
+* _Fiddly gun mechanics of Receiver_
+* _Melee of Hellish Quart_
+
 
 Anyone is welcome to help - first timers and GODOT pros alike!
-
-Eventually, with JSON support and more documentation, it will be easy to make your own levels, campaigns, items, and enemies. For now, the game is entirely in GDScript, so requires Godot 3.4 for any improvements.
 
 The design doc is in the form of the Github wiki here: https://github.com/Mooses2k/HotlineCthulhu/wiki
 

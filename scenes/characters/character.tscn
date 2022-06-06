@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -43,7 +43,36 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=5]
-resource_name = "RecoveryToTierce"
+resource_name = "Recovery1ToTierce"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.09, 0.19, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.9, -0.6 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09, 0.19, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -250, 0, 40 ), Vector3( -310, 0, 32 ), Vector3( -360, 0, 24 ), Vector3( -390, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Recovery2ToQuarte"
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
@@ -56,7 +85,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.09, 0.19, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0.9, -0.7 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.2, 1.2, -0.3 ) ]
+"values": [ Vector3( 0, 0.9, -0.7 ), Vector3( 0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( -0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
@@ -68,7 +97,65 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.09, 0.19, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -250, 0, 40 ), Vector3( -310, 0, 32 ), Vector3( -360, 0, 24 ), Vector3( -390, 0, 0 ) ]
+"values": [ Vector3( -250, 0, -40 ), Vector3( -310, 0, -32 ), Vector3( -360, 0, -24 ), Vector3( -390, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "RecoveryThrustToQuarte"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 0.933033 ),
+"update": 0,
+"values": [ Vector3( -0.3, 1.45, -1 ), Vector3( -0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 3, 70, -100 ), Vector3( -30, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "RecoveryThrustToTierce"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 0.933033 ),
+"update": 0,
+"values": [ Vector3( 0.3, 1.45, -1 ), Vector3( 0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 3, -70, 100 ), Vector3( -30, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -83,9 +170,9 @@ tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.2, 1.2, -0.3 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
+"values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
@@ -97,7 +184,94 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( -30, 0, 0 ), Vector3( -30, 0, -25 ), Vector3( -135, 0, -25 ), Vector3( -250, 0, -40 ) ]
+"values": [ Vector3( -30, 0, 0 ), Vector3( -30, 0, -25 ), Vector3( -135, 0, 25 ), Vector3( -250, 0, 40 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Swing2FromQuarte"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ), Vector3( -30, 0, 25 ), Vector3( -135, 0, -25 ), Vector3( -250, 0, -40 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "ThrustFromQuarte"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.15, 0.25 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( -0.5, 1.5, -0.5 ), Vector3( -0.3, 1.5, -0.65 ), Vector3( -0.3, 1.45, -1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.15, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ), Vector3( -13, 45, -55 ), Vector3( 0, 75, -95 ), Vector3( 3, 70, -100 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "ThrustFromTierce"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07, 0.12, 0.2 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0.5, 1.5, -0.5 ), Vector3( 0.3, 1.5, -0.65 ), Vector3( 0.3, 1.45, -1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07, 0.12, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ), Vector3( -13, -45, 55 ), Vector3( 0, -75, 95 ), Vector3( 3, -70, 100 ) ]
 }
 
 [node name="Character" type="RigidBody" groups=["CHARACTER"]]
@@ -120,7 +294,7 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4,
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="teststick" type="MeshInstance" parent="Body/EquipmentRoot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.341872, 0 )
+transform = Transform( 1, -1.49012e-08, 0, -7.45058e-09, 1, 5.96046e-08, 2.22045e-16, -8.9407e-08, 1, 0, 0.341872, -1.19209e-07 )
 visible = false
 mesh = SubResource( 6 )
 material/0 = null
@@ -147,8 +321,14 @@ shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
-anims/RecoveryToTierce = SubResource( 5 )
+anims/Recovery1ToTierce = SubResource( 5 )
+anims/Recovery2ToQuarte = SubResource( 9 )
+anims/RecoveryThrustToQuarte = SubResource( 12 )
+anims/RecoveryThrustToTierce = SubResource( 13 )
 anims/Swing1FromTierce = SubResource( 3 )
+anims/Swing2FromQuarte = SubResource( 8 )
+anims/ThrustFromQuarte = SubResource( 11 )
+anims/ThrustFromTierce = SubResource( 10 )
 
 [node name="testCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )

@@ -20,7 +20,7 @@ func attack(): # bug is it only checks for hit right when attack is first called
 		melee_anim.play("Swing1FromTierce")
 		yield(melee_anim, "animation_finished")
 		melee_hitbox.can_hit = false
-		melee_anim.queue("RecoveryToTierce")
+		melee_anim.queue("Recovery1ToTierce")
 
 func _ready() -> void:
 	melee_hitbox.set_info(melee_damage, melee_damage_type)

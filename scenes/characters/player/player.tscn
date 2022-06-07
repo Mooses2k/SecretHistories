@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/characters/player/TopDownControlMode.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
+
+[sub_resource type="BoxShape" id=19]
+extents = Vector3( 1, 1, 2 )
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -93,6 +96,18 @@ enabled = true
 cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 585
 collide_with_areas = true
+
+[node name="CombatCast" type="RayCast" parent="Body/FPSCamera" index="1"]
+enabled = true
+cast_to = Vector3( 0, 0, -4 )
+collision_mask = 585
+collide_with_areas = true
+
+[node name="CombatMode" type="Area" parent="Body/FPSCamera" index="2"]
+
+[node name="Collision" type="CollisionShape" parent="Body/FPSCamera/CombatMode" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+shape = SubResource( 19 )
 
 [node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
@@ -199,4 +214,8 @@ volume_db = -31.0
 script = ExtResource( 9 )
 curve = SubResource( 16 )
 
+[node name="Node" type="Node" parent="." index="12"]
+
+[connection signal="body_entered" from="Body/FPSCamera/CombatMode" to="." method="combat_mode_body_entered"]
+[connection signal="body_exited" from="Body/FPSCamera/CombatMode" to="." method="combat_mode_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="hit"]

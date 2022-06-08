@@ -11,6 +11,7 @@ onready var melee_hitbox = $Hitbox
 
 var on_cooldown = false
 
+# Alek, Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to the guard on the other side...
 func attack(): # bug is it only checks for hit right when attack is first called, needs to check as long as in melee_anim "Swing"
 	var melee_anim = owner_character.find_node("AnimationPlayer")  # this needs to set only when equipped
 	# need something here to determine type of weapon, for now, a sabre

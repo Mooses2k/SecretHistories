@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -14,6 +14,90 @@ height = 1.2
 size = Vector3( 0.05, 1, 0.05 )
 
 [sub_resource type="SphereShape" id=2]
+
+[sub_resource type="Animation" id=19]
+resource_name = "GuardQuarte"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "GuardQuinte"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.3, 1.5, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -11, -28, 70 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "GuardTierce"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -53,7 +137,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.09, 0.19, 0.28 ),
+"times": PoolRealArray( 0, 0.09, 0.19, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0.9, -0.6 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.3, 1.2, -0.4 ) ]
@@ -274,6 +358,70 @@ tracks/1/keys = {
 "values": [ Vector3( -30, 0, 0 ), Vector3( -13, -45, 55 ), Vector3( 0, -75, 95 ), Vector3( 3, -70, 100 ) ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=25]
+animation = "ThrustFromQuarte"
+
+[sub_resource type="AnimationNodeAnimation" id=26]
+animation = "ThrustFromTierce"
+
+[sub_resource type="AnimationNodeAnimation" id=27]
+animation = "ThrustFromTierce"
+
+[sub_resource type="AnimationNodeAnimation" id=28]
+animation = "ThrustFromQuarte"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=29]
+blend_point_0/node = SubResource( 25 )
+blend_point_0/pos = Vector2( -1, 1 )
+blend_point_1/node = SubResource( 26 )
+blend_point_1/pos = Vector2( 1, 0.9 )
+blend_point_2/node = SubResource( 27 )
+blend_point_2/pos = Vector2( 1, -0.9 )
+blend_point_3/node = SubResource( 28 )
+blend_point_3/pos = Vector2( -1, -0.9 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "Swing2FromQuarte"
+
+[sub_resource type="AnimationNodeAnimation" id=31]
+animation = "Swing1FromTierce"
+
+[sub_resource type="AnimationNodeAnimation" id=32]
+animation = "Swing1FromTierce"
+
+[sub_resource type="AnimationNodeAnimation" id=33]
+animation = "Swing2FromQuarte"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=34]
+blend_point_0/node = SubResource( 30 )
+blend_point_0/pos = Vector2( -1, 0.9 )
+blend_point_1/node = SubResource( 31 )
+blend_point_1/pos = Vector2( 1, 0.9 )
+blend_point_2/node = SubResource( 32 )
+blend_point_2/pos = Vector2( 1, -0.9 )
+blend_point_3/node = SubResource( 33 )
+blend_point_3/pos = Vector2( -1, -0.9 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "GuardQuinte"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "GuardTierce"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "GuardQuarte"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=18]
+blend_point_0/node = SubResource( 22 )
+blend_point_0/pos = Vector2( 0, 0.9 )
+blend_point_1/node = SubResource( 23 )
+blend_point_1/pos = Vector2( 1, -0.9 )
+blend_point_2/node = SubResource( 24 )
+blend_point_2/pos = Vector2( -1, -0.9 )
+blend_mode = 1
+
 [node name="Character" type="RigidBody" groups=["CHARACTER"]]
 collision_layer = 16
 collision_mask = 19
@@ -320,6 +468,9 @@ script = ExtResource( 5 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/GuardQuarte = SubResource( 19 )
+anims/GuardQuinte = SubResource( 21 )
+anims/GuardTierce = SubResource( 20 )
 anims/RESET = SubResource( 4 )
 anims/Recovery1ToTierce = SubResource( 5 )
 anims/Recovery2ToQuarte = SubResource( 9 )
@@ -329,6 +480,21 @@ anims/Swing1FromTierce = SubResource( 3 )
 anims/Swing2FromQuarte = SubResource( 8 )
 anims/ThrustFromQuarte = SubResource( 11 )
 anims/ThrustFromTierce = SubResource( 10 )
+
+[node name="AnimationTreeThrust" type="AnimationTree" parent="."]
+tree_root = SubResource( 29 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/blend_position = Vector2( -0.502377, -0.5 )
+
+[node name="AnimationTreeCut" type="AnimationTree" parent="."]
+tree_root = SubResource( 34 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/blend_position = Vector2( 0.690967, -0.741379 )
+
+[node name="AnimationTreeGuard" type="AnimationTree" parent="."]
+tree_root = SubResource( 18 )
+anim_player = NodePath("../AnimationPlayer")
+parameters/blend_position = Vector2( -0.158479, 0.508621 )
 
 [node name="testCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )

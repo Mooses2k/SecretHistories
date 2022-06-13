@@ -1,5 +1,5 @@
 extends EquipmentItem
-class_name GunItem
+class_name RangedItem
 
 enum MeleeStyle {
 	BUTT_STRIKE,

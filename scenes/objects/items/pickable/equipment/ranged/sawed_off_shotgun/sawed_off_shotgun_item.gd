@@ -1,3 +1,3 @@
-extends GunItem
+extends RangedItem
 class_name SawedOffShotgunItem
 

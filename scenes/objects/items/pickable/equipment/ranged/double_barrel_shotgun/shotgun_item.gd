@@ -1,0 +1,3 @@
+extends RangedItem
+class_name DoubleBarrelShotgunItem
+

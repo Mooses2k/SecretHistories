@@ -14,7 +14,7 @@ var target_placement_position : Vector3 = Vector3.ZERO
 var throw_press_length : float = 0.0
 var throw_state : bool = false
 
-var stamina := 125.0
+var stamina := 300.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
@@ -82,7 +82,7 @@ func handle_inventory(delta : float):
 			throw_state = false
 	
 	
-	if Input.is_action_just_released("throw") and throw_state:
+	if Input.is_action_just_released("throw_offhand") and throw_state:
 		throw_state = false
 		if character.inventory.current_equipment:
 			if throw_press_length < hold_time_to_place:
@@ -116,13 +116,13 @@ func handle_inventory(delta : float):
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
 	
-	if Input.is_action_pressed("throw") and throw_state:
+	if Input.is_action_pressed("throw_offhand") and throw_state:
 		throw_press_length += delta
 	else:
 		throw_press_length = 0.0
-	if Input.is_action_just_pressed("throw"):
+	if Input.is_action_just_pressed("throw_offhand"):
 		throw_state = true
 
 func change_stamina(amount: float) -> void:
-	stamina = min(125, max(0, stamina + amount));
+	stamina = min(300, max(0, stamina + amount));
 	HUDS.tired(stamina);

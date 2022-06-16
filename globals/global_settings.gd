@@ -31,7 +31,7 @@ var key_dict = {
 	"kick":16777238,
 	"reload":0,
 	"offhand_use":69,
-	"throw":84,
+	"throw_offhand":84,
 	"inventory_menu":16777218,
 	"map_menu":77
 }

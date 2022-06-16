@@ -1,14 +1,14 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/effects/hit_effect.gd" type="Script" id=1]
-[ext_resource path="res://resources/effects/fog-freepik.jpg" type="Texture" id=2]
+[ext_resource path="res://scenes/effects/explosion/smokesprite.png" type="Texture" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
-flags_unshaded = true
+flags_transparent = true
 params_billboard_mode = 3
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
+particles_anim_h_frames = 8
+particles_anim_v_frames = 8
+particles_anim_loop = true
 albedo_color = Color( 1, 0, 0, 1 )
 albedo_texture = ExtResource( 2 )
 
@@ -29,6 +29,8 @@ damping = 5.0
 scale = 0.1
 scale_random = 0.1
 scale_curve = SubResource( 3 )
+anim_speed = 7.33
+anim_speed_random = 0.07
 
 [sub_resource type="SpatialMaterial" id=5]
 params_billboard_mode = 3
@@ -44,7 +46,7 @@ material_override = SubResource( 1 )
 cast_shadow = 0
 emitting = false
 amount = 32
-lifetime = 0.2
+lifetime = 0.43
 one_shot = true
 explosiveness = 0.8
 local_coords = false

@@ -56,7 +56,6 @@ radius = 0.596233
 height = 2.57468
 
 [node name="EquipmentItem" type="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.378328, 0, 0.482504 )
 collision_layer = 0
 collision_mask = 0
 mass = 0.1
@@ -64,8 +63,7 @@ continuous_cd = true
 script = SubResource( 7 )
 dropped_layers = 64
 dropped_mask = 1
-equipped_layers = 64
-equipped_mask = 1
+equipped_mode = 3
 
 [node name="Body" type="MeshInstance" parent="."]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -0.00505602, 0.00759797, 0.00253722 )
@@ -74,7 +72,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Fire" type="MeshInstance" parent="Body"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.07976, 0 )
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.2248, 0 )
 cast_shadow = 0
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")

@@ -95,12 +95,13 @@ func handle_inventory(delta : float):
 				var end : Vector3 = active_mode.get_target_placement_position()
 				var dir : Vector3 = end - origin
 				dir = dir.normalized()*min(dir.length(), max_placement_distance)
-				var result = PhysicsTestMotionResult.new()
 				var layers = item.collision_layer
 				var mask = item.collision_mask
 				item.collision_layer = item.dropped_layers
 				item.collision_mask = item.dropped_mask
-				assert(PhysicsServer.body_test_motion(item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true))
+				var result = PhysicsTestMotionResult.new()
+				# The return value can be ignored, since extra information is put into the 'result' variable
+				PhysicsServer.body_test_motion(item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true)
 				item.collision_layer = layers
 				item.collision_mask = mask
 				if result.motion.length() > 0.1:

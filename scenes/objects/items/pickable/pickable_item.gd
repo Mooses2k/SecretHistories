@@ -17,7 +17,7 @@ enum ItemState {
 	EQUIPPED
 }
 
-onready var mesh_instance = $MeshInstance
+#onready var mesh_instance = $MeshInstance
 var owner_character : Node = null
 var item_state = ItemState.DROPPED setget set_item_state
 

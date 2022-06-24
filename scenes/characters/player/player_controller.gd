@@ -5,6 +5,12 @@ onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
 export var throw_strength : float = 2
+
+export var hold_time_to_grab : float = 0.4
+export var grab_strength : float = 2.0
+#export var grab_spring_distance : float = 0.1
+#export var grab_damping : float = 0.2
+
 ## Determines the real world directions each movement key corresponds to.
 ## By default, Right corresponds to +X, Left to -X, Up to -Z and Down to +Z
 var movement_basis : Basis = Basis.IDENTITY
@@ -15,10 +21,18 @@ var throw_press_length : float = 0.0
 var throw_state : bool = false
 
 var stamina := 125.0
+
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
 
+var grab_press_length : float = 0.0
+var wanna_grab : bool = false
+var is_grabbing : bool = false
+var interaction_handled : bool = false
+var grab_object : RigidBody = null
+var grab_relative_object_position : Vector3
+var grab_distance : float = 0.0
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
@@ -29,7 +43,10 @@ func _physics_process(delta : float):
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
+	interaction_handled = false
 	handle_movement(delta)
+	handle_grab_input(delta)
+	handle_grab(delta)
 	handle_equipment(delta)
 	handle_inventory(delta)
 	handle_misc_controls(delta)
@@ -56,8 +73,7 @@ func handle_movement(_delta : float):
 		direction *= 0.2;
 		if !Input.is_action_pressed("sprint"):
 			change_stamina(0.3)
-	print(stamina)
-		
+#	print(stamina)
 		
 	character.character_state.move_direction = direction
 
@@ -69,7 +85,81 @@ func handle_equipment(_delta : float):
 		elif character.inventory.current_equipment:
 			character.inventory.current_equipment.use()
 
+func handle_grab_input(delta : float):
+	if Input.is_action_just_released("interact") and is_grabbing:
+		is_grabbing = false
+		interaction_handled = true
+	if Input.is_action_pressed("interact"):
+		grab_press_length += delta
+	else:
+		wanna_grab = false
+		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
+			wanna_grab = true
+			interaction_handled = true
+		grab_press_length = 0.0
 
+func handle_grab(delta : float):
+	if wanna_grab and not is_grabbing:
+#		print(wanna_grab)
+		var object = active_mode.get_grab_target()
+		if object:
+			var grab_position = active_mode.get_grab_global_position()
+			grab_relative_object_position = object.to_local(grab_position)
+			grab_distance = owner.fps_camera.global_transform.origin.distance_to(grab_position)
+			grab_object = object
+			is_grabbing = true
+	$MeshInstance.visible = is_grabbing
+	$MeshInstance2.visible = is_grabbing
+	if is_grabbing:
+		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
+		print("mass : ", direct_state.inverse_mass)
+		print("inertia : ", direct_state.inverse_inertia)
+		
+		# The position to drag the grabbed spot to, in global space
+		var grab_target_global : Vector3 = active_mode.get_grab_target_position(grab_distance)
+		
+		# The position the object was grabbed at, in object local space
+		var grab_object_local : Vector3 = grab_relative_object_position
+		
+		# The position the object was grabbed at, in global space
+		var grab_object_global : Vector3 = direct_state.transform.xform(grab_object_local)
+		
+		# The offset from the center of the object to where it is being grabbed, in global space
+		# this is required by some physics functions
+		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
+		
+		# Some visualization stuff
+		$MeshInstance.global_transform.origin = grab_target_global
+		$MeshInstance2.global_transform.origin = grab_object_global
+		
+		#local velocity of the object at the grabbing point, used to cancel the objects movement
+		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
+		
+		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
+		var desired_velocity : Vector3 = 32.0*(grab_target_global - grab_object_global)
+		desired_velocity = desired_velocity.normalized()*min(desired_velocity.length(), 2.0)
+		
+		# Desired velocity follows the player character
+		desired_velocity += owner.linear_velocity
+		
+		# Impulse is based on how much the velocity needs to change
+		var velocity_delta = desired_velocity - local_velocity
+		var impulse_velocity = velocity_delta*grab_object.mass
+		
+		# Counteract gravity on the grabbed object (and other 
+		var impulse_forces = -(direct_state.total_gravity*grab_object.mass*delta)
+		var total_impulse : Vector3 = impulse_velocity + impulse_forces
+		total_impulse = total_impulse.normalized()*min(total_impulse.length(), grab_strength)
+		
+		# Applying torque separately, to make it less effective
+		direct_state.apply_central_impulse(total_impulse)
+		direct_state.apply_torque_impulse(0.2*(grab_object_offset.cross(total_impulse)))
+		
+		# Limits the angular velocity to prevent some issues
+		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
+		
+		
+		
 func handle_inventory(delta : float):
 	for i in range(character.inventory.HOTBAR_SIZE):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):
@@ -109,7 +199,7 @@ func handle_inventory(delta : float):
 					if item:
 						item.call_deferred("global_translate", result.motion)
 	
-	if Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
 		if interaction_target != null:
 			if interaction_target is PickableItem:
 				character.inventory.add_item(interaction_target)

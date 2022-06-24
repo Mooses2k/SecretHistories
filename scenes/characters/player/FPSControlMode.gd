@@ -2,7 +2,8 @@ extends ControlMode
 
 export var _aimcast : NodePath
 onready var aimcast : RayCast = get_node(_aimcast) as RayCast
-
+export var _grabcast : NodePath
+onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 var pitch_yaw : Vector2 = Vector2.ZERO
 const rad_deg = rad2deg(1.0);
 
@@ -58,3 +59,12 @@ func get_target_placement_position() -> Vector3:
 
 func get_aim_direction() -> Vector3:
 	return -camera.global_transform.basis.z
+
+func get_grab_target() -> RigidBody:
+	return grabcast.get_collider() as RigidBody
+
+func get_grab_global_position() -> Vector3:
+	return grabcast.get_collision_point()
+
+func get_grab_target_position(distance : float) -> Vector3:
+	return camera.global_transform.origin - camera.global_transform.basis.z*distance

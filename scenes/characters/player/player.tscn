@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/characters/player/TopDownControlMode.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -54,6 +54,17 @@ shader = SubResource( 12 )
 [sub_resource type="QuadMesh" id=13]
 material = SubResource( 8 )
 
+[sub_resource type="CubeMesh" id=19]
+size = Vector3( 0.05, 0.05, 0.05 )
+
+[sub_resource type="SpatialMaterial" id=20]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=21]
+flags_unshaded = true
+albedo_color = Color( 0.219608, 1, 0, 1 )
+
 [sub_resource type="Shader" id=11]
 code = "shader_type spatial;
 render_mode unshaded, depth_draw_never, depth_test_disable;
@@ -93,6 +104,11 @@ enabled = true
 cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 585
 collide_with_areas = true
+
+[node name="GrabCast" type="RayCast" parent="Body/FPSCamera" index="1"]
+enabled = true
+cast_to = Vector3( 0, 0, -1.5 )
+collision_mask = 65
 
 [node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
@@ -136,16 +152,28 @@ material/0 = null
 [node name="PlayerController" type="Node" parent="." index="7"]
 script = ExtResource( 6 )
 throw_strength = 10.0
+grab_strength = 4.0
 
 [node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
 script = ExtResource( 10 )
 _camera = NodePath("../../Body/FPSCamera")
 _aimcast = NodePath("../../Body/FPSCamera/AimCast")
+_grabcast = NodePath("../../Body/FPSCamera/GrabCast")
 
 [node name="TopDownControlMode" type="Node" parent="PlayerController" index="1"]
 script = ExtResource( 1 )
 _camera = NodePath("../../TopCamera")
 _aim = NodePath("../../PlayerAimPoint")
+
+[node name="MeshInstance" type="MeshInstance" parent="PlayerController" index="2"]
+cast_shadow = 0
+mesh = SubResource( 19 )
+material/0 = SubResource( 20 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="PlayerController" index="3"]
+cast_shadow = 0
+mesh = SubResource( 19 )
+material/0 = SubResource( 21 )
 
 [node name="HUD" type="MeshInstance" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0.6 )

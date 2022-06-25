@@ -222,7 +222,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "ToolItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/tool/tool.gd"
+"path": "res://scenes/objects/items/pickable/equipment/tool/tool_item.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",

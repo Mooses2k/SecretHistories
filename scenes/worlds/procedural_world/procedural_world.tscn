@@ -9,8 +9,8 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/world_objects/doors/door.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
-[ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light source/candle/candle.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/characters/enemies/cultist/Cultist.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light source/candle/candle.tscn" type="PackedScene" id=12]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.25 )
@@ -90,10 +90,7 @@ hinge_side = 1
 [node name="Door2" parent="." index="16" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, 0, 4 )
 
-[node name="Candle" parent="." index="17" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75272, 1.76998, 7.06012 )
-
-[node name="RigidBody" type="RigidBody" parent="." index="18"]
+[node name="RigidBody" type="RigidBody" parent="." index="17"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
 mass = 100.0
 
@@ -103,5 +100,8 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="RigidBody/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 material/0 = null
+
+[node name="Candle2" parent="." index="18" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

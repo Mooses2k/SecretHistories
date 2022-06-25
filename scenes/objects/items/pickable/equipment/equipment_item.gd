@@ -4,7 +4,7 @@ class_name EquipmentItem
 export var item_name : String = "Equipment"
 signal on_use()
 
-#Override this function for use actions
+# Override this function for use actions
 func _use():
 	pass
 

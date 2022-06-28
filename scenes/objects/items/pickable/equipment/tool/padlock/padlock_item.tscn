@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/objects/items/pickable/equipment/equipment_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/tool/padlock/padlock_item.gd" type="Script" id=2]
+[ext_resource path="res://resources/models/items/padlock/lock_padlock_Padlock.mesh" type="ArrayMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.373333, 0.8, 0.16, 1 )
+
+[node name="PadlockItem" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+item_name = "Padlock"
+
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
+material_override = SubResource( 1 )
+mesh = ExtResource( 3 )
+
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0461455, 0 )
+
+[node name="LoopPosition" type="Position3D" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128323, 0 )

@@ -43,6 +43,7 @@ func _physics_process(delta : float):
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
+	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
 	handle_movement(delta)
 	handle_grab_input(delta)
@@ -112,8 +113,8 @@ func handle_grab(delta : float):
 	$MeshInstance2.visible = is_grabbing
 	if is_grabbing:
 		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
-		print("mass : ", direct_state.inverse_mass)
-		print("inertia : ", direct_state.inverse_inertia)
+#		print("mass : ", direct_state.inverse_mass)
+#		print("inertia : ", direct_state.inverse_inertia)
 		
 		# The position to drag the grabbed spot to, in global space
 		var grab_target_global : Vector3 = active_mode.get_grab_target_position(grab_distance)

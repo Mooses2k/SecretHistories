@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://resources/models/items/padlock/lock_padlock_LockLoop.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://scenes/objects/interactables/interactable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/models/items/padlock/lock_padlock_LockLinkage.mesh" type="ArrayMesh" id=3]
+[ext_resource path="res://scenes/objects/interactables/lock/lock_wall_half.gd" type="Script" id=4]
+
+[sub_resource type="Animation" id=4]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/path = NodePath("LockLoop/LockLinkage:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.0358218, 0.00703865 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LockLoop/LockLinkage:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -1.77174e-06, -90, -75.015 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "lock"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("LockLoop/LockLinkage:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -0.0358218, 0.00703865 ), Vector3( 0.00584378, -0.0171772, 0.026791 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LockLoop/LockLinkage:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -1.77174e-06, -90, -75.015 ), Vector3( 34.3574, -30.1605, -5.1621 ), Vector3( 13.357, 12.6131, 4.79453 ) ]
+}
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.05, 0.05, 0.05 )
+
+[node name="LockWallHalf" instance=ExtResource( 2 )]
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="0"]
+anims/RESET = SubResource( 4 )
+anims/lock = SubResource( 3 )
+
+[node name="LockLoop" type="MeshInstance" parent="." index="1"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.1, 0, -0.035 )
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="LockLinkage" type="MeshInstance" parent="LockLoop" index="0"]
+transform = Transform( -4.11734e-08, -3.42294e-08, -0.999999, -0.965993, 0.258566, 3.09227e-08, 0.258566, 0.965994, -4.37114e-08, 0, -0.0358218, 0.00703865 )
+mesh = ExtResource( 3 )
+skeleton = NodePath("../../AnimationPlayer")
+material/0 = null
+
+[node name="LockLoop2" type="MeshInstance" parent="." index="2"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.1, 0, -0.0363557 )
+visible = false
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.05, 0, -0.035 )
+shape = SubResource( 1 )

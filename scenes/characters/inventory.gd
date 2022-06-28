@@ -9,6 +9,10 @@ const HOTBAR_SIZE : int= 10
 # don't show in hotbar
 var tiny_items : Dictionary
 
+# Dictionary of {int : int}, where the key is the key_id and the value is the amount of keys owned
+# with that ID
+var keychain : Dictionary
+
 # Usable items that appear in the hotbar
 var hotbar : Array
 var last_changed_slot : int = 0
@@ -27,14 +31,20 @@ func on_hotbar_changed(slot):
 	last_changed_slot = slot
 	pass
 
+func hotbar_has_free_slot() -> bool:
+	for i in hotbar:
+		if i == null:
+			return true
+	return false
+
 # Returns wether a given node can be added as an Item to this inventory
 func can_add_item(item : PickableItem) -> bool:
-	# Can only pickup dropped items
+	# Can only pickup dropped itemsfw
 	# (may change later to steal weapons, or we can do that by dropping them first)
 	if item.item_state != PickableItem.ItemState.DROPPED:
 		return false
 	# Can always pickup special items
-	if item is TinyItem:
+	if (item is TinyItem) or (item is KeyItem):
 		return true
 	# Can only pickup equipment if there's an empty hotbar slot
 	if item is EquipmentItem and hotbar.has(null):
@@ -46,6 +56,7 @@ func can_add_item(item : PickableItem) -> bool:
 func add_item(item : PickableItem) -> bool:
 	var can_add : bool = can_add_item(item)
 #	print(can_add)
+#	print(can_add)
 	if not can_add:
 		return false
 	var item_pickup_function_state = item.pickup(owner)
@@ -55,7 +66,15 @@ func add_item(item : PickableItem) -> bool:
 		if not tiny_items.has(item.item_data):
 			tiny_items[item.item_data] = 0
 		tiny_items[item.item_data] += item.amount
+		print_stray_nodes()
 		item.call_deferred("free")
+		call_deferred("print_stray_nodes")
+	if item is KeyItem:
+		if not keychain.has(item.key_id):
+			keychain[item.key_id] = 0
+		keychain[item.key_id] += 1
+		item.call_deferred("free")
+		print_stray_nodes()
 	elif item is EquipmentItem:
 		var slot : int = hotbar.find(null)
 		hotbar[slot] = item

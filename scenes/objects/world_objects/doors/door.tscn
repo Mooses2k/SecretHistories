@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/objects/world_objects/doors/door_body.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/world_objects/doors/door.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/world_objects/doors/lock_manager.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/interactables/interactable.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/interactables/lock/lock_door_half.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/objects/interactables/lock/lock_wall_half.tscn" type="PackedScene" id=6]
 
 [sub_resource type="SpatialMaterial" id=8]
 albedo_color = Color( 0.6, 0.216, 0.12, 1 )
@@ -20,18 +20,15 @@ extents = Vector3( 0.6, 0.125, 0.15 )
 [sub_resource type="BoxShape" id=6]
 extents = Vector3( 0.1, 1, 0.15 )
 
-[sub_resource type="SpatialMaterial" id=9]
-metallic = 1.0
-roughness = 0.4
-
-[sub_resource type="CubeMesh" id=10]
-size = Vector3( 0.02, 0.1, 0.04 )
-
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.38, 0.95, 0.075 )
 
 [sub_resource type="CubeMesh" id=4]
 size = Vector3( 0.78, 1.96, 0.15 )
+
+[sub_resource type="SpatialMaterial" id=9]
+metallic = 1.0
+roughness = 0.4
 
 [sub_resource type="CylinderMesh" id=7]
 top_radius = 0.02
@@ -39,13 +36,13 @@ bottom_radius = 0.02
 height = 0.08
 radial_segments = 6
 
-[sub_resource type="BoxShape" id=11]
-extents = Vector3( 0.4, 1, 0.1 )
-
 [node name="Door" type="Spatial"]
 script = ExtResource( 2 )
-hinge_side = 0
 max_angle = 175.0
+
+[node name="LockWallHalf" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 1, -0.16 )
+_door_half = NodePath("../DoorBody/LockDoorHalf")
 
 [node name="DoorFrame" type="StaticBody" parent="."]
 
@@ -79,13 +76,6 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0 )
 shape = SubResource( 6 )
 
-[node name="LockLoop" type="MeshInstance" parent="DoorFrame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.41, 1, -0.17 )
-material_override = SubResource( 9 )
-mesh = SubResource( 10 )
-skeleton = NodePath("../../DoorBody")
-material/0 = null
-
 [node name="DoorBody" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 mass = 30.0
@@ -95,8 +85,6 @@ axis_lock_angular_z = true
 linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource( 1 )
-min_angle = -90.0
-max_angle = 0.0
 _hinge_node = NodePath("../Hinge")
 
 [node name="CollisionShape" type="CollisionShape" parent="DoorBody"]
@@ -108,32 +96,24 @@ mesh = SubResource( 4 )
 material/0 = null
 
 [node name="BottomHinge" type="MeshInstance" parent="DoorBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, -0.515, -0.085 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, -0.515, -0.085 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 skeleton = NodePath("../../Hinge")
 material/0 = null
 
 [node name="TopHinge" type="MeshInstance" parent="DoorBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, 0.685, -0.085 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0.685, -0.085 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 skeleton = NodePath("../../Hinge")
 material/0 = null
 
-[node name="LockLoop" type="MeshInstance" parent="DoorBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.38, 0, -0.095 )
-material_override = SubResource( 9 )
-mesh = SubResource( 10 )
-material/0 = null
-
-[node name="Interactable" parent="DoorBody" instance=ExtResource( 4 )]
-
-[node name="CollisionShape" type="CollisionShape" parent="DoorBody/Interactable"]
-shape = SubResource( 11 )
+[node name="LockDoorHalf" parent="DoorBody" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0, -0.0848467 )
 
 [node name="Hinge" type="PinJoint" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, 0, -0.16 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0, -0.16 )
 nodes/node_a = NodePath("../DoorFrame")
 nodes/node_b = NodePath("../DoorBody")
 collision/exclude_nodes = false
@@ -149,8 +129,3 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 material/0 = null
-
-[node name="LockManager" type="Node" parent="."]
-script = ExtResource( 3 )
-
-[connection signal="character_interacted" from="DoorBody/Interactable" to="LockManager" method="_on_Interactable_character_interacted"]

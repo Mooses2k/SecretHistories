@@ -40,11 +40,13 @@ one_shot = true
 
 [node name="Hitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.607795, 0 )
-collision_mask = 9
+collision_layer = 0
+collision_mask = 12
+monitorable = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 shape = SubResource( 3 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
-[connection signal="area_entered" from="Hitbox" to="Hitbox" method="hit"]
+[connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

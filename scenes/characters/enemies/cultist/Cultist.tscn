@@ -63,7 +63,6 @@ FOV = 120.0
 
 [node name="Hitbox" parent="." index="2" groups=["CHARACTER"]]
 collision_layer = 8
-collision_mask = 0
 
 [node name="BehaviorTree" type="Node" parent="." index="5"]
 script = ExtResource( 6 )

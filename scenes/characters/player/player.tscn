@@ -113,12 +113,10 @@ collision_mask = 65
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
-material/0 = null
 
 [node name="BodyMesh" type="MeshInstance" parent="Body" index="2"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 mesh = SubResource( 18 )
-material/0 = null
 
 [node name="Listener" type="Listener" parent="Body" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
@@ -126,6 +124,9 @@ current = true
 
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
+
+[node name="PrimaryEquipmentRoot" parent="Body" index="6"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
 collision_layer = 4
@@ -144,7 +145,6 @@ far = 20.0
 [node name="Reticle" type="MeshInstance" parent="PlayerAimPoint" index="0"]
 transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0 )
 mesh = SubResource( 13 )
-material/0 = null
 
 [node name="PlayerController" type="Node" parent="." index="7"]
 script = ExtResource( 6 )
@@ -177,7 +177,6 @@ transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0
 material_override = SubResource( 14 )
 mesh = SubResource( 15 )
 skeleton = NodePath("")
-material/0 = null
 script = ExtResource( 7 )
 
 [node name="Viewport" type="Viewport" parent="HUD" index="0"]

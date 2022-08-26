@@ -13,7 +13,7 @@ func get_loop_position() -> Vector3:
 var current_padlock : PadlockItem = null
 
 func has_padlock() -> bool:
-	return current_padlock != null and is_instance_valid(current_padlock)
+	return current_padlock != null
 
 func is_padlock_locked() -> bool:
 	return current_padlock.padlock_locked if current_padlock else false
@@ -38,23 +38,32 @@ func _interact(character):
 	#remove a padlock from the loop
 	if has_padlock():
 		if try_unlock_padlock(character):
-			yield(current_padlock.drop(current_padlock.global_transform), "completed")
-			inventory.add_item(current_padlock)
-			emit_signal("padlock_removed")
+			var padlock = current_padlock
 			current_padlock = null
+			var picked = inventory.add_item(padlock)
+			emit_signal("padlock_removed")
+			if not picked:
+				padlock.get_parent().remove_child(padlock)
+				inventory._drop_item(padlock)
 	else: # Add a padlock to the loop
-		if inventory.current_equipment is PadlockItem:
-			var padlock : PadlockItem = inventory.current_equipment
-			if not padlock.padlock_locked:
-				current_padlock = inventory.current_equipment
-				inventory.hotbar[inventory.current_slot] = null
-				yield(current_padlock.unequip(), "completed")
-				inventory.emit_signal("hotbar_changed", inventory.current_slot)
-				update_lock_position()
-				call_deferred("add_child", current_padlock)
-				emit_signal("padlock_added")
-
-func _process(delta):
+		var padlock_primary = true
+		var padlock = inventory.get_primary_item() as PadlockItem
+		if not padlock or padlock.padlock_locked:
+			padlock = inventory.get_secondary_item() as PadlockItem
+			padlock_primary = false
+		if padlock and not padlock.padlock_locked:
+			current_padlock = padlock
+			if padlock_primary:
+				inventory.drop_primary_item()
+			else:
+				inventory.drop_secondary_item()
+			padlock.get_parent().remove_child(padlock)
+			add_child(current_padlock)
+			padlock.set_physics_equipped()
+			update_lock_position()
+			emit_signal("padlock_added")
+	
+func _physics_process(delta):
 	update_lock_position()
 
 func update_lock_position():

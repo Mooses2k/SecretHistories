@@ -35,8 +35,8 @@ shader = SubResource( 8 )
 shader_param/EMISSION_COLOR = Color( 1, 0.713726, 0.411765, 1 )
 
 [sub_resource type="CylinderShape" id=2]
-radius = 0.06
 height = 0.2
+radius = 0.06
 
 [sub_resource type="CylinderMesh" id=3]
 top_radius = 0.0
@@ -79,14 +79,7 @@ shader_param/INTENSITY = 4.0
 shader_param/COLOR_RAMP = SubResource( 6 )
 
 [node name="Candle" instance=ExtResource( 1 )]
-collision_layer = 0
-collision_mask = 0
-mass = 0.1
-continuous_cd = true
 script = ExtResource( 3 )
-dropped_layers = 64
-dropped_mask = 1
-equipped_mode = 3
 
 [node name="MeshInstance" parent="." index="0"]
 cast_shadow = 2

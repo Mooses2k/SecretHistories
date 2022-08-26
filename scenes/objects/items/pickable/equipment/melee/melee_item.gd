@@ -23,7 +23,7 @@ func attack(): # bug is it only checks for hit right when attack is first called
 		can_hit = false
 		melee_anim.queue("Recovery1ToTierce")
 
-func _use():
+func _use_primary():
 	if not on_cooldown:
 		attack()
 		$CooldownTimer.start(cooldown)

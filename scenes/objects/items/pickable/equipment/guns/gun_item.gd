@@ -40,6 +40,7 @@ func set_range(value : Vector2):
 	current_ammo_type = ammo_types[0]
 
 func shoot():
+	print("shoot")
 	var ammo_type = current_ammo_type as AmmunitionData
 	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0
 	var total_damage : int = damage_offset + ammo_type.damage
@@ -66,13 +67,16 @@ func shoot():
 #	if current_ammo == 0:
 #		current_ammo_type = null
 
-func _use():
+func _use_primary():
 #	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
 	if (not is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 		emit_signal("on_shoot")
+
+func _use_reload():
+	reload()
 
 func reload():
 	if owner_character and current_ammo < ammunition_capacity and not is_reloading:
@@ -86,7 +90,7 @@ func reload():
 						inventory.tiny_items[current_ammo_type] += current_ammo
 					current_ammo = 0
 					current_ammo_type = null
-				var _reload_amount = min(inventory.tiny_items[ammo_type], reload_amount - current_ammo)
+				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
 				if _reload_amount > 0:
 #					print("Reload queued")
 					$ReloadTimer.start(reload_time)

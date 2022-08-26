@@ -5,3 +5,7 @@
 
 [node name="EquipmentItem" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+item_size = 1
+item_name = "Equipment"
+
+[node name="HoldPosition" type="Position3D" parent="." index="2"]

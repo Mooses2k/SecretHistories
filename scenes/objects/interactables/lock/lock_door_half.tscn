@@ -13,7 +13,6 @@ script = ExtResource( 3 )
 [node name="LockLoop" type="MeshInstance" parent="." index="0"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.1, 0, -0.035 )
 mesh = ExtResource( 1 )
-material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="1"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.05, 0, -0.035 )

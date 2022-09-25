@@ -1,5 +1,0 @@
-robed cultist Animation Key
-
-Idle   0   - 100
-Walk   120 - 150
-Run    160 - 180

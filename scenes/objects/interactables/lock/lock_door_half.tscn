@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://resources/models/items/padlock/lock_padlock_LockLoop.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://resources/models/items/tools/padlock/lock_padlock_LockLoop.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/objects/interactables/interactable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/objects/interactables/lock/lock_door_half.gd" type="Script" id=3]
 

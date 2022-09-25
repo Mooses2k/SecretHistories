@@ -14,9 +14,9 @@
 [ext_resource path="res://core/ai/action_nodes/bt_go_to_target.gd" type="Script" id=12]
 [ext_resource path="res://core/ai/check_nodes/bt_approach_distance.gd" type="Script" id=13]
 [ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
-[ext_resource path="res://resources/models/characters/enemies/cultist/RobeCultBUMPcomT.png" type="Texture" id=15]
-[ext_resource path="res://resources/models/characters/enemies/cultist/RobeCultOCcom3.png" type="Texture" id=16]
-[ext_resource path="res://resources/models/characters/enemies/cultist/Material.material" type="Material" id=17]
+[ext_resource path="res://resources/models/characters/enemies/cultist_neophyte/RobeCultBUMPcomT.png" type="Texture" id=15]
+[ext_resource path="res://resources/models/characters/enemies/cultist_neophyte/RobeCultOCcom3.png" type="Texture" id=16]
+[ext_resource path="res://resources/models/characters/enemies/cultist_neophyte/Material.material" type="Material" id=17]
 
 [sub_resource type="ArrayMesh" id=5]
 resource_name = "Robed cultist ANIM_Cube"

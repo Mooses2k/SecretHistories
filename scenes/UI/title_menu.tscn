@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/UI/title_menu.gd" type="Script" id=1]
+[ext_resource path="res://resources/thumbnailsfile1.png" type="Texture" id=2]
 [ext_resource path="res://scenes/UI/settings_menu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/ui_themes/revolver_blackletter.tres" type="Theme" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=1]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -21,59 +24,70 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer2"]
-margin_top = 419.0
+margin_top = 173.0
 margin_right = 900.0
-margin_bottom = 480.0
+margin_bottom = 226.0
 theme = ExtResource( 4 )
 text = "SECRET HISTORIES"
 align = 1
 valign = 1
+
+[node name="TitleImage" type="TextureRect" parent="VBoxContainer2"]
+material = SubResource( 1 )
+margin_top = 230.0
+margin_right = 900.0
+margin_bottom = 727.0
+texture = ExtResource( 2 )
+stretch_mode = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -220.44
-margin_top = -175.5
-margin_bottom = 175.5
+margin_left = -297.0
+margin_top = -175.0
+margin_right = 5.0
+margin_bottom = 176.0
+alignment = 1
 
 [node name="ContinueButton" type="Button" parent="VBoxContainer"]
-margin_right = 220.0
-margin_bottom = 67.0
+margin_top = 20.0
+margin_right = 302.0
+margin_bottom = 79.0
 focus_neighbour_top = NodePath("../QuitButton")
 theme = ExtResource( 4 )
 text = "Continue"
 flat = true
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
-margin_top = 71.0
-margin_right = 220.0
-margin_bottom = 138.0
+margin_top = 83.0
+margin_right = 302.0
+margin_bottom = 142.0
 theme = ExtResource( 4 )
 text = "Commence"
 flat = true
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
-margin_top = 142.0
-margin_right = 220.0
-margin_bottom = 209.0
+margin_top = 146.0
+margin_right = 302.0
+margin_bottom = 205.0
 theme = ExtResource( 4 )
 text = "Configure"
 flat = true
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer"]
-margin_top = 213.0
-margin_right = 220.0
-margin_bottom = 280.0
+margin_top = 209.0
+margin_right = 302.0
+margin_bottom = 268.0
 theme = ExtResource( 4 )
 text = "Credits"
 flat = true
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
-margin_top = 284.0
-margin_right = 220.0
-margin_bottom = 351.0
+margin_top = 272.0
+margin_right = 302.0
+margin_bottom = 331.0
 focus_neighbour_bottom = NodePath("../ContinueButton")
 theme = ExtResource( 4 )
 text = "Conclude"

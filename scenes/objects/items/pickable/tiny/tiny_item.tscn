@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/objects/items/pickable/pickable_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/tiny/tiny_item.gd" type="Script" id=2]
+
+[node name="TinyItem" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" parent="." index="0"]
+main_parent = NodePath("..")

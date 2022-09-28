@@ -1,0 +1,93 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/UI/title_menu.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/settings_menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/ui_themes/revolver_blackletter.tres" type="Theme" id=4]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -450.0
+margin_right = 900.0
+margin_bottom = 450.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer2"]
+margin_top = 419.0
+margin_right = 900.0
+margin_bottom = 480.0
+theme = ExtResource( 4 )
+text = "SECRET HISTORIES"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -220.44
+margin_top = -175.5
+margin_bottom = 175.5
+
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
+margin_right = 220.0
+margin_bottom = 67.0
+focus_neighbour_top = NodePath("../QuitButton")
+theme = ExtResource( 4 )
+text = "Continue"
+flat = true
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+margin_top = 71.0
+margin_right = 220.0
+margin_bottom = 138.0
+theme = ExtResource( 4 )
+text = "Commence"
+flat = true
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+margin_top = 142.0
+margin_right = 220.0
+margin_bottom = 209.0
+theme = ExtResource( 4 )
+text = "Configure"
+flat = true
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer"]
+margin_top = 213.0
+margin_right = 220.0
+margin_bottom = 280.0
+theme = ExtResource( 4 )
+text = "Credits"
+flat = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 284.0
+margin_right = 220.0
+margin_bottom = 351.0
+focus_neighbour_bottom = NodePath("../ContinueButton")
+theme = ExtResource( 4 )
+text = "Conclude"
+flat = true
+
+[node name="Menus" type="Node" parent="."]
+
+[node name="SettingsMenu" parent="Menus" instance=ExtResource( 3 )]
+
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditsButton" to="." method="_on_CreditsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

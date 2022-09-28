@@ -1,0 +1,627 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/UI/settings_menu.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/btnparent.tscn" type="PackedScene" id=2]
+
+[sub_resource type="ButtonGroup" id=1]
+resource_local_to_scene = false
+resource_name = "button_keys"
+
+[node name="SettingsMenu" type="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -450.0
+margin_top = -300.0
+margin_right = 450.0
+margin_bottom = 300.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -432.5
+margin_top = -280.0
+margin_right = 432.5
+margin_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Column" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 430.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/Column"]
+margin_right = 430.0
+margin_bottom = 14.0
+text = "Video"
+align = 1
+valign = 1
+
+[node name="Graphics" type="HBoxContainer" parent="HBoxContainer/Column"]
+margin_top = 18.0
+margin_right = 430.0
+margin_bottom = 278.0
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Column/Graphics"]
+margin_right = 430.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 6
+custom_constants/hseparation = 12
+columns = 2
+
+[node name="Fullscreen" type="Label" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_top = 3.0
+margin_right = 209.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Fullscreen"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullscreenSlider" type="OptionButton" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_left = 221.0
+margin_right = 430.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="VSync" type="Label" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_top = 39.0
+margin_right = 209.0
+margin_bottom = 53.0
+size_flags_horizontal = 3
+text = "VSync - not implemented"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSyncButton" type="CheckButton" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_left = 221.0
+margin_top = 26.0
+margin_right = 297.0
+margin_bottom = 66.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Brightness" type="Label" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_top = 73.0
+margin_right = 209.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+text = "Brightness - not implemented"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BrightnessSlider" type="HSlider" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_left = 221.0
+margin_top = 72.0
+margin_right = 430.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HUDSize" type="Label" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_top = 95.0
+margin_right = 209.0
+margin_bottom = 109.0
+size_flags_horizontal = 3
+text = "HUD Size - not implemented"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HUDSizeSlider" type="HSlider" parent="HBoxContainer/Column/Graphics/GridContainer"]
+margin_left = 221.0
+margin_top = 94.0
+margin_right = 430.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="HBoxContainer/Column"]
+margin_top = 282.0
+margin_right = 430.0
+margin_bottom = 296.0
+text = "Audio"
+align = 1
+valign = 1
+
+[node name="Audio" type="HBoxContainer" parent="HBoxContainer/Column"]
+margin_top = 300.0
+margin_right = 430.0
+margin_bottom = 560.0
+size_flags_vertical = 3
+
+[node name="GridContainer3" type="GridContainer" parent="HBoxContainer/Column/Audio"]
+margin_right = 430.0
+margin_bottom = 260.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 6
+custom_constants/hseparation = 12
+columns = 2
+
+[node name="Master" type="Label" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_right = 209.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Master"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="master_audio_db" type="HSlider" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_left = 221.0
+margin_right = 430.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="Sound" type="Label" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_top = 22.0
+margin_right = 209.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Sound - not implemented"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sound_db" type="HSlider" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_left = 221.0
+margin_top = 22.0
+margin_right = 430.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="Voice" type="Label" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_top = 44.0
+margin_right = 209.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Voice - not implemented"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="voice_db" type="HSlider" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_left = 221.0
+margin_top = 44.0
+margin_right = 430.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="Music" type="Label" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_top = 66.0
+margin_right = 209.0
+margin_bottom = 82.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Music - not implemented"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music_db" type="HSlider" parent="HBoxContainer/Column/Audio/GridContainer3"]
+margin_left = 221.0
+margin_top = 66.0
+margin_right = 430.0
+margin_bottom = 82.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -50.0
+max_value = 50.0
+value = 50.0
+
+[node name="Controls" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 434.0
+margin_right = 865.0
+margin_bottom = 560.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/Controls"]
+margin_right = 431.0
+margin_bottom = 14.0
+text = "Controls"
+align = 1
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/Controls"]
+margin_top = 18.0
+margin_right = 431.0
+margin_bottom = 470.0
+size_flags_horizontal = 3
+custom_constants/vseparation = 6
+custom_constants/hseparation = 12
+columns = 2
+
+[node name="Action" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_right = 210.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Action"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_left = 222.0
+margin_right = 431.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "Button"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 23.0
+margin_right = 210.0
+margin_bottom = 37.0
+text = "Move up"
+align = 2
+valign = 1
+
+[node name="ButtonParent4" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 20.0
+margin_right = 431.0
+margin_bottom = 40.0
+group = SubResource( 1 )
+action_name = "move_up"
+
+[node name="Label2" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 49.0
+margin_right = 210.0
+margin_bottom = 63.0
+text = "Move left"
+align = 2
+valign = 1
+
+[node name="ButtonParent2" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 46.0
+margin_right = 431.0
+margin_bottom = 66.0
+group = SubResource( 1 )
+text = "A"
+action_name = "move_left"
+
+[node name="Label3" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 75.0
+margin_right = 210.0
+margin_bottom = 89.0
+text = "Move down"
+align = 2
+valign = 1
+
+[node name="ButtonParent3" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 72.0
+margin_right = 431.0
+margin_bottom = 92.0
+group = SubResource( 1 )
+text = "S"
+action_name = "move_down"
+
+[node name="Label4" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 101.0
+margin_right = 210.0
+margin_bottom = 115.0
+text = "Move right"
+align = 2
+valign = 1
+
+[node name="ButtonParent" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 98.0
+margin_right = 431.0
+margin_bottom = 118.0
+group = SubResource( 1 )
+text = "D"
+action_name = "move_right"
+
+[node name="Label19" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 127.0
+margin_right = 210.0
+margin_bottom = 141.0
+text = "Sprint"
+align = 2
+valign = 1
+
+[node name="ButtonParent10" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 124.0
+margin_right = 431.0
+margin_bottom = 144.0
+group = SubResource( 1 )
+text = "LShift"
+action_name = "sprint"
+
+[node name="Label5" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 153.0
+margin_right = 210.0
+margin_bottom = 167.0
+text = "Fire / Melee thrust"
+align = 2
+valign = 1
+
+[node name="ButtonParent11" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 150.0
+margin_right = 431.0
+margin_bottom = 170.0
+disabled = true
+text = "LeftMouse"
+action_name = "attack"
+
+[node name="Label6" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 179.0
+margin_right = 210.0
+margin_bottom = 193.0
+text = "Pommel-strike / Firearm melee"
+align = 2
+valign = 1
+
+[node name="ButtonParent6" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 176.0
+margin_right = 431.0
+margin_bottom = 196.0
+disabled = true
+text = "MiddleMouse"
+action_name = "weapon_melee"
+
+[node name="Label7" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 205.0
+margin_right = 210.0
+margin_bottom = 219.0
+text = "Aim / Melee cut"
+align = 2
+valign = 1
+
+[node name="ButtonParent5" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 202.0
+margin_right = 431.0
+margin_bottom = 222.0
+disabled = true
+text = "RightMouse"
+action_name = "aim"
+
+[node name="Label8" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 231.0
+margin_right = 210.0
+margin_bottom = 245.0
+text = "Interact (hold to grab)"
+align = 2
+valign = 1
+
+[node name="ButtonParent9" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 228.0
+margin_right = 431.0
+margin_bottom = 248.0
+group = SubResource( 1 )
+text = "F"
+action_name = "interact"
+
+[node name="Label9" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 257.0
+margin_right = 210.0
+margin_bottom = 271.0
+text = "Kick"
+align = 2
+valign = 1
+
+[node name="ButtonParent8" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 254.0
+margin_right = 431.0
+margin_bottom = 274.0
+group = SubResource( 1 )
+text = "LCtrl"
+action_name = "kick"
+
+[node name="Label10" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 283.0
+margin_right = 210.0
+margin_bottom = 297.0
+text = "Reload"
+align = 2
+valign = 1
+
+[node name="ButtonParent15" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 280.0
+margin_right = 431.0
+margin_bottom = 300.0
+group = SubResource( 1 )
+text = "R"
+action_name = "reload"
+
+[node name="Label11" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 309.0
+margin_right = 210.0
+margin_bottom = 323.0
+text = "Use offhand item"
+align = 2
+valign = 1
+
+[node name="ButtonParent7" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 306.0
+margin_right = 431.0
+margin_bottom = 326.0
+group = SubResource( 1 )
+text = "E"
+action_name = "offhand_use"
+
+[node name="Label12" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 335.0
+margin_right = 210.0
+margin_bottom = 349.0
+text = "Throw / Drop"
+align = 2
+valign = 1
+
+[node name="ButtonParent12" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 332.0
+margin_right = 431.0
+margin_bottom = 352.0
+group = SubResource( 1 )
+text = "T"
+action_name = "throw"
+
+[node name="Label13" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 361.0
+margin_right = 210.0
+margin_bottom = 375.0
+text = "Hotbar equipment"
+align = 2
+valign = 1
+
+[node name="ButtonParent13" parent="HBoxContainer/Controls/GridContainer" instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 358.0
+margin_right = 431.0
+margin_bottom = 378.0
+disabled = true
+text = "1, 2, 3, 4, 5, 6, 7, 8, 9, 0"
+
+[node name="Label15" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 387.0
+margin_right = 210.0
+margin_bottom = 401.0
+text = "Inventory"
+align = 2
+valign = 1
+
+[node name="ButtonParent16" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 384.0
+margin_right = 431.0
+margin_bottom = 404.0
+group = SubResource( 1 )
+text = "Tab"
+action_name = "inventory_menu"
+
+[node name="Label14" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 413.0
+margin_right = 210.0
+margin_bottom = 427.0
+text = "Map"
+align = 2
+valign = 1
+
+[node name="ButtonParent14" parent="HBoxContainer/Controls/GridContainer" groups=["button_keys"] instance=ExtResource( 2 )]
+margin_left = 222.0
+margin_top = 410.0
+margin_right = 431.0
+margin_bottom = 430.0
+group = SubResource( 1 )
+text = "M"
+action_name = "map_menu"
+
+[node name="Label16" type="Label" parent="HBoxContainer/Controls/GridContainer"]
+margin_top = 437.0
+margin_right = 210.0
+margin_bottom = 451.0
+text = "Mouse sensitivity"
+align = 2
+valign = 1
+
+[node name="mouse_sensitivity_slider" type="HSlider" parent="HBoxContainer/Controls/GridContainer"]
+margin_left = 222.0
+margin_top = 436.0
+margin_right = 431.0
+margin_bottom = 452.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 2.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Controls"]
+margin_top = 474.0
+margin_right = 431.0
+margin_bottom = 536.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ReturnButton" type="Button" parent="HBoxContainer/Controls"]
+margin_top = 540.0
+margin_right = 431.0
+margin_bottom = 560.0
+text = "Return"
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+margin_right = 8.0
+margin_bottom = 8.0
+
+[node name="Label" type="Label" parent="PopupPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 206.0
+margin_bottom = 18.0
+text = "Press any key or mouse button!"
+
+[connection signal="toggled" from="HBoxContainer/Column/Graphics/GridContainer/VSyncButton" to="." method="_on_VSyncButton_toggled"]
+[connection signal="value_changed" from="HBoxContainer/Column/Graphics/GridContainer/BrightnessSlider" to="." method="_on_BrightnessSlider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Graphics/GridContainer/HUDSizeSlider" to="." method="_on_BrightnessSlider_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/master_audio_db" to="." method="_on_master_audio_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/sound_db" to="." method="_on_sound_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/voice_db" to="." method="_on_voice_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Column/Audio/GridContainer3/music_db" to="." method="_on_music_db_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/Controls/GridContainer/mouse_sensitivity_slider" to="." method="_on_mouse_sensitivity_slider_value_changed"]
+[connection signal="pressed" from="HBoxContainer/Controls/ReturnButton" to="." method="_on_ReturnButton_pressed"]

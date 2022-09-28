@@ -1,6 +1,6 @@
 extends Spatial
 
-onready var character : Character = owner as Character
+onready var character = owner
 var facing : Vector3 = Vector3.FORWARD
 
 func _process(delta):

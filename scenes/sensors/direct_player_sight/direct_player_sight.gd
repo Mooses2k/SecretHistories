@@ -9,7 +9,7 @@ export var distance : float = 16 setget set_distance
 
 onready var area : DetectionArea = $DirectSightArea
 onready var raycast : RayCast = $RayCast
-var _character : Character
+var _character
 
 var sensor_up_to_date : bool = false
 var player_visible : bool = false
@@ -55,7 +55,7 @@ func queue_update():
 		yield(self, "ready")
 	if not get_tree().is_connected("idle_frame", self, "_update"):
 		get_tree().connect("idle_frame", self, "_update", [], CONNECT_ONESHOT)
-	
+
 
 func _update():
 	area.update_mesh(FOV, distance)
@@ -64,7 +64,7 @@ func _update():
 
 func _ready():
 	if not Engine.editor_hint:
-		_character = get_node(character) as Character
+		_character = get_node(character)
 		raycast.add_exception(_character)
 	queue_update()
 	get_tree().connect("idle_frame", self, "clear_sensor")

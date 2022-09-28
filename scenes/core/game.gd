@@ -13,21 +13,22 @@ onready var UI_root : Node = $UI
 var player
 var level : GameWorld
 
+
 func _init():
 	GameManager.game = self
-	self.connect("level_loaded", self, "on_level_loaded")
+	var _error = self.connect("level_loaded", self, "on_level_loaded")
 
 func _ready():
 	load_level(start_level_scn)
 	pass
 
 func load_level(packed : PackedScene):
-	self.level = start_level_scn.instance() as GameWorld
+	self.level = packed.instance() as GameWorld
 	world_root.call_deferred("add_child", self.level)
 	yield(self.level, "ready")
 	self.emit_signal("level_loaded", self.level)
 
-func on_level_loaded(level : GameWorld):
+func on_level_loaded(_level : GameWorld):
 	self.spawn_player()
 
 func spawn_player():

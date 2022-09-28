@@ -11,7 +11,7 @@ var reset : bool = false
 func idle():
 	if active:
 		active = false
-		time_left -= get_process_delta_time()
+		time_left -= get_physics_process_delta_time()
 		reset = false
 	elif not reset:
 		reset_timer()

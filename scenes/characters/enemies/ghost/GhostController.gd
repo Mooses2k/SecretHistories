@@ -2,7 +2,7 @@ extends Node
 
 onready var detection_area : Area = get_node("../DetectionArea") as Area
 onready var damage_area : Area = get_node("../DamageArea") as Area
-onready var character : Character = get_parent() as Character
+onready var character = owner
 
 onready var target_position : Vector3 = self.global_transform.origin
 
@@ -15,7 +15,7 @@ func _process(delta):
 
 func update_target():
 	for body in self.detection_area.get_overlapping_bodies():
-		if body is Character:
+		if body.is_in_group(Groups.CHARACTER):
 			self.target_position = body.global_transform.origin
 			self.chasing = true
 			return

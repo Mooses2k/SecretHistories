@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/fire_origin.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/candle.gd" type="Script" id=3]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/MeshInstances.gd" type="Script" id=4]
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.02
@@ -35,8 +36,8 @@ shader = SubResource( 8 )
 shader_param/EMISSION_COLOR = Color( 1, 0.713726, 0.411765, 1 )
 
 [sub_resource type="CylinderShape" id=2]
-height = 0.2
 radius = 0.06
+height = 0.2
 
 [sub_resource type="CylinderMesh" id=3]
 top_radius = 0.0
@@ -85,6 +86,7 @@ script = ExtResource( 3 )
 cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 9 )
+main_parent = NodePath("..")
 
 [node name="CollisionShape" parent="." index="1"]
 shape = SubResource( 2 )
@@ -99,6 +101,8 @@ cast_shadow = 0
 mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 7 )
+script = ExtResource( 4 )
+main_parent = NodePath("../..")
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )

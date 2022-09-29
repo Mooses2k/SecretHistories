@@ -25,7 +25,6 @@ explosiveness = 0.91
 randomness = 0.84
 fixed_fps = 30
 visibility_aabb = AABB( -4, -4, -4.79199, 8, 8, 8 )
-local_coords = false
 process_material = SubResource( 1 )
 draw_pass_1 = SubResource( 2 )
 script = ExtResource( 2 )

@@ -24,11 +24,7 @@ ammo_types = [ ExtResource( 7 ) ]
 ammunition_capacity = 2
 reload_amount = 2
 reload_time = 1.0
-damage_offset = 0
-dispersion_offset_degrees = 0
 cooldown = 0.1
-melee_damage_type = 0
-melee_style = 0
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = ExtResource( 3 )

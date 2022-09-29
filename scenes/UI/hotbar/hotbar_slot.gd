@@ -20,12 +20,12 @@ var is_equippable_secondary : bool = false
 func update_primary_indicator():
 	var final_color = can_equip_modulate if is_equippable_primary else can_not_equip_modulate
 	final_color = equipped_modulate if is_equipped_primary else final_color
-	$"%PrimaryIndicator".modulate = final_color
+	$"UseIndicators/HBoxContainer/PrimaryIndicator".modulate = final_color
 
 func update_secondary_indicator():
 	var final_color = can_equip_modulate if is_equippable_secondary else can_not_equip_modulate
 	final_color = equipped_modulate if is_equipped_secondary else final_color
-	$"%SecondaryIndicator".modulate = final_color
+	$"UseIndicators/HBoxContainer/SecondaryIndicator".modulate = final_color
 
 func set_item(value : EquipmentItem):
 	item = value
@@ -105,7 +105,7 @@ func _physics_process(delta):
 		update_ammo_data()
 
 func update_name():
-	$"%ItemName".text = item.item_name if item else ""
+	$"ItemInfo/HBoxContainer/ItemName".text = item.item_name if item else ""
 
 func update_ammo_data():
 	if item is GunItem:
@@ -115,7 +115,7 @@ func update_ammo_data():
 		if ammo_type != null and (inventory.tiny_items as Dictionary).has(ammo_type):
 			inv_ammo = inventory.tiny_items[ammo_type]
 		tracking_tiny_item = ammo_type
-		$"%AmmoCount".text = AMMO_COUNT_TEMPLATE % [current_ammo, inv_ammo]
+		$"ItemInfo/HBoxContainer/AmmoCount".text = AMMO_COUNT_TEMPLATE % [current_ammo, inv_ammo]
 	else:
 		tracking_tiny_item = null
-		$"%AmmoCount".text = ""
+		$"ItemInfo/HBoxContainer/AmmoCount".text = ""

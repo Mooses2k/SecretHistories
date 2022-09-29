@@ -128,7 +128,7 @@ expression = "v = INSTANCE_CUSTOM.xyz;"
 
 [resource]
 code = "shader_type spatial;
-render_mode depth_draw_never, specular_schlick_ggx, async_visible;
+render_mode depth_draw_never, specular_schlick_ggx;
 
 uniform float particle_h_frames;
 uniform float particle_v_frames;
@@ -208,7 +208,8 @@ void fragment() {
 		vec3 c = n_out2p0;
 		float max1 = max(c.r, c.g);
 		float max2 = max(max1, c.b);
-		n_out10p0 = vec3(max2, max2, max2);
+		float max3 = max(max1, max2);
+		n_out10p0 = vec3(max3, max3, max3);
 	}
 
 // TextureUniform:9

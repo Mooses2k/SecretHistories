@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
 [ext_resource path="res://resources/models/items/ranged/webley_revolver/Webley.material" type="Material" id=3]
+[ext_resource path="res://scenes/objects/items/pickable/MeshInstances.gd" type="Script" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Webley_Plane002"
@@ -56,10 +57,7 @@ ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 6
 reload_amount = 1
 reload_time = 1.0
-damage_offset = 0
-dispersion_offset_degrees = 0
 cooldown = 0.1
-melee_damage_type = 0
 melee_style = 1
 
 [node name="MeshInstance" parent="." index="0"]
@@ -112,6 +110,9 @@ bones/6/bound_children = [  ]
 extra_cull_margin = 0.2
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
+material/0 = null
+script = ExtResource( 4 )
+main_parent = NodePath("../../../../..")
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0 )

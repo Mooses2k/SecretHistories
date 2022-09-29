@@ -97,6 +97,7 @@ script = ExtResource( 2 )
 
 [node name="FPSCamera" type="Camera" parent="Body" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+cull_mask = 1048573
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera" index="0"]
 enabled = true
@@ -109,14 +110,34 @@ enabled = true
 cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 65
 
+[node name="ViewportContainer" type="ViewportContainer" parent="Body/FPSCamera" index="2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="Body/FPSCamera/ViewportContainer" index="0"]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="GunCam" type="Camera" parent="Body/FPSCamera/ViewportContainer/Viewport" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+cull_mask = 2
+
 [node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
+material/0 = null
 
 [node name="BodyMesh" type="MeshInstance" parent="Body" index="2"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 mesh = SubResource( 18 )
+material/0 = null
 
 [node name="Listener" type="Listener" parent="Body" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
@@ -145,6 +166,7 @@ far = 20.0
 [node name="Reticle" type="MeshInstance" parent="PlayerAimPoint" index="0"]
 transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0 )
 mesh = SubResource( 13 )
+material/0 = null
 
 [node name="PlayerController" type="Node" parent="." index="7"]
 script = ExtResource( 6 )
@@ -177,6 +199,7 @@ transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0
 material_override = SubResource( 14 )
 mesh = SubResource( 15 )
 skeleton = NodePath("")
+material/0 = null
 script = ExtResource( 7 )
 
 [node name="Viewport" type="Viewport" parent="HUD" index="0"]

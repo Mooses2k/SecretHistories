@@ -8,9 +8,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="KeyItem" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-dropped_mode = 0
-equipped_layers = 0
-equipped_mask = 0
 
 [node name="MeshInstance" parent="." index="0"]
 material_override = SubResource( 1 )
+main_parent = NodePath("..")

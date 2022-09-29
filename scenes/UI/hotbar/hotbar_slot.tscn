@@ -43,14 +43,12 @@ margin_bottom = 24.0
 mouse_filter = 2
 
 [node name="SecondaryIndicator" type="Label" parent="UseIndicators/HBoxContainer"]
-unique_name_in_owner = true
 margin_top = 3.0
 margin_right = 7.0
 margin_bottom = 17.0
 text = "L"
 
 [node name="PrimaryIndicator" type="Label" parent="UseIndicators/HBoxContainer"]
-unique_name_in_owner = true
 margin_left = 11.0
 margin_top = 3.0
 margin_right = 19.0
@@ -73,7 +71,6 @@ mouse_filter = 2
 custom_constants/separation = 30
 
 [node name="ItemName" type="Label" parent="ItemInfo/HBoxContainer"]
-unique_name_in_owner = true
 margin_top = 3.0
 margin_right = 240.0
 margin_bottom = 17.0
@@ -81,13 +78,11 @@ rect_min_size = Vector2( 240, 0 )
 size_flags_horizontal = 3
 valign = 1
 clip_text = true
-percent_visible = 1.33333
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AmmoCount" type="Label" parent="ItemInfo/HBoxContainer"]
-unique_name_in_owner = true
 margin_left = 270.0
 margin_top = 3.0
 margin_right = 330.0

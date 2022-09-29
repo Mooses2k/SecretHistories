@@ -1,6 +1,6 @@
 extends Particles
 
-
+#unchecked local cords to fix following issue
 func _ready():
 	self.emitting = true
 

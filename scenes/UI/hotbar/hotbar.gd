@@ -16,21 +16,20 @@ func _ready():
 	initialize_hotbar()
 
 func initialize_hotbar():
-	pass
-#	inventory.connect("hotbar_changed", self, "hotbar_changed")
+	inventory.connect("hotbar_changed", self, "hotbar_changed")
 #	inventory.connect("current_slot_changed", self, "current_slot_changed")
 #
-#	for i in inventory.HOTBAR_SIZE: #0 to 9
-#		var item = inventory.hotbar[i] as EquipmentItem
-#		var item_name = item.item_name if item != null else ""
-#		var item_amount = 1 if item != null else 0
-#		var slot = $VBoxContainer.get_child(i)
-#		slot.set_name(item_name)
-#		slot.set_stack_size(str(item_amount))
-#		if i != inventory.current_slot:
-#			slot.modulate.a = 0.6
-#		else:
-#			slot.modulate.a = 1
+	for i in inventory.HOTBAR_SIZE: #0 to 9
+		var item = inventory.hotbar[i] as EquipmentItem
+		var item_name = item.item_name if item != null else ""
+		var item_amount = 1 if item != null else 0
+		var slot = $VBoxContainer.get_child(i)
+		slot.set_name(item_name)
+		slot.set_stack_size(str(item_amount))
+		if i != inventory.current_primary_slot or i != inventory.current_secondary_slot:
+			slot.modulate.a = 0.6
+		else:
+			slot.modulate.a = 1
 
 func hotbar_changed(slot):
 	#from that number, get_child (0 is hotbar 1)

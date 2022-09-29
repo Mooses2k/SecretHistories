@@ -1,12 +1,15 @@
 extends Node
 #class_name Inventory
 
+signal bulky_item_changed()
 # Emitted when a hotbar slot changes (item added or removed)
 signal hotbar_changed(slot)
 # Emitted when the user selects a new slot for the main hand
 signal primary_slot_changed(previous, current)
 # Emitted when the user selects a new slot for the offhand
 signal secondary_slot_changed(previous, current)
+# Emitted when the ammount of a tiny item changes
+signal tiny_item_changed(item, previous_ammount, curent_ammount)
 
 const HOTBAR_SIZE : int= 10
 
@@ -65,9 +68,7 @@ func add_item(item : PickableItem) -> bool:
 	
 	if item is TinyItem:
 		if item.item_data != null:
-			if not tiny_items.has(item.item_data):
-				tiny_items[item.item_data] = 0
-			tiny_items[item.item_data] += item.amount
+			insert_tiny_item(item.item_data, item.amount)
 		# To make sure the item can't be interacted with again
 		item.item_state = GlobalConsts.ItemState.BUSY
 		item.queue_free()
@@ -112,6 +113,29 @@ func add_item(item : PickableItem) -> bool:
 				equip_secondary_item()
 	return true
 
+# Functions to interact with tiny items
+func insert_tiny_item(item : TinyItemData, amount : int):
+	if not tiny_items.has(item):
+		tiny_items[item] = 0
+	var prev = tiny_items[item]
+	tiny_items[item] += amount
+	var new = tiny_items[item]
+	emit_signal("tiny_item_changed", item, prev, new)
+
+func remove_tiny_item(item : TinyItemData, amount : int) -> bool:
+	if tiny_items.has(item) and tiny_items[item] >= amount:
+		var prev = tiny_items[item]
+		tiny_items[item] -= amount
+		var new = tiny_items[item]
+		if tiny_items[item] == 0:
+			tiny_items.erase(item)
+		emit_signal("tiny_item_changed", item, prev, new)
+		return true
+	return false
+
+func tiny_item_amount(item : TinyItemData) -> int:
+	return 0 if not tiny_items.has(item) else tiny_items[item]
+
 func equip_primary_item():
 	if current_primary_equipment != null: # Item already equipped
 		return
@@ -144,6 +168,7 @@ func equip_bulky_item(item : EquipmentItem):
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		item.transform = item.get_hold_transform()
 		bulky_equipment = item
+		emit_signal("bulky_item_changed")
 		owner.primary_equipment_root.add_child(item)
 	pass
 
@@ -153,8 +178,9 @@ func drop_bulky_item():
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = bulky_equipment
 	bulky_equipment = null
+	emit_signal("bulky_item_changed")
 	item.get_parent().remove_child(item)
-	_drop_item(bulky_equipment)
+	_drop_item(item)
 	pass
 
 func equip_secondary_item():
@@ -229,9 +255,10 @@ func _drop_item(item : EquipmentItem):
 func set_primary_slot(value : int):
 	if value != current_primary_slot:
 		unequip_primary_item()
+		var previous_slot = current_primary_slot
 		current_primary_slot = value
 		equip_primary_item()
-		emit_signal("primary_slot_changed", current_primary_slot, value)
+		emit_signal("primary_slot_changed", previous_slot, value)
 	else:
 		if get_primary_item() == hotbar[current_primary_slot]:
 			unequip_primary_item()
@@ -240,7 +267,8 @@ func set_primary_slot(value : int):
 
 func set_secondary_slot(value : int):
 	if value != current_secondary_slot:
+		var previous_slot = current_secondary_slot
 		unequip_secondary_item()
 		current_secondary_slot = value
 		equip_secondary_item()
-		emit_signal("secondary_slot_changed", current_secondary_slot, value)
+		emit_signal("secondary_slot_changed", previous_slot, value)

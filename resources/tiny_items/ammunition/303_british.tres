@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/tiny_items/ammunition/ammunition_data.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = ".303 British round"
+attack_type = 3
+damage = 57
+dispersion = 15.0
+pellet_count = 1

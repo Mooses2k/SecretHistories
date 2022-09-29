@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/characters/enemies/cultist/robed cultist/RobeCultBUMPcomT.png" type="Texture" id=1]
-[ext_resource path="res://resources/models/characters/enemies/cultist/Robed cultist ANIM.gltf" type="PackedScene" id=2]
-[ext_resource path="res://resources/models/characters/enemies/cultist/RobeCultOCcom3.png" type="Texture" id=3]
+[ext_resource path="res://resources/models/characters/enemies/cultist_neophyte/Robed cultist ANIM.gltf" type="PackedScene" id=2]
+[ext_resource path="res://resources/models/characters/enemies/cultist_neophyte/RobeCultOCcom3.png" type="Texture" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 3 )

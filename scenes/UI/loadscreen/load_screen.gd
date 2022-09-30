@@ -17,10 +17,10 @@ func _ready():
 	if GameManager.level > 2:
 		#late game
 		randomNum = randomNumG.randi_range(0, LoadQuotes.list2.size()-1)
-		label.text = '"' + LoadQuotes.list2[randomNum] + '"'
+		label.text = LoadQuotes.list2[randomNum]
 	else:
 		#early game
 		randomNum = randomNumG.randi_range(0, LoadQuotes.list1.size()-1)
-		label.text = '"' + LoadQuotes.list1[randomNum] + '"'
+		label.text = LoadQuotes.list1[randomNum]
 
 

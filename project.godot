@@ -325,6 +325,7 @@ GameManager="*res://globals/game_manager.gd"
 Save="*res://globals/save.gd"
 GlobalSettings="*res://globals/global_settings.gd"
 HUDS="*res://globals/HUD.tscn"
+LoadQuotes="*res://globals/loadQuotes.gd"
 
 [editor_plugins]
 

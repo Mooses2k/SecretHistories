@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=2]
 
-[ext_resource path="res://resources/fonts/RevolverBlackletter-Regular.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=3]
 size = 50

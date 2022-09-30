@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/objects/items/pickable/equipment/equipment_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/gun_item.gd" type="Script" id=2]
+
+[node name="GunItem" instance=ExtResource( 1 )]
+collision_layer = 64
+collision_mask = 1
+continuous_cd = false
+script = ExtResource( 2 )
+
+[node name="MeshInstance" parent="." index="0"]
+main_parent = NodePath("..")
+
+[node name="ReloadTimer" type="Timer" parent="." index="2"]
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="." index="3"]
+one_shot = true
+
+[node name="RayCast" type="RayCast" parent="." index="4"]
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 13
+collide_with_areas = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

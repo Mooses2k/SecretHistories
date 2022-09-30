@@ -1,7 +1,15 @@
 extends Node
 #class_name Inventory
+
+signal bulky_item_changed()
+# Emitted when a hotbar slot changes (item added or removed)
 signal hotbar_changed(slot)
-signal current_slot_changed(previous, current)
+# Emitted when the user selects a new slot for the main hand
+signal primary_slot_changed(previous, current)
+# Emitted when the user selects a new slot for the offhand
+signal secondary_slot_changed(previous, current)
+# Emitted when the ammount of a tiny item changes
+signal tiny_item_changed(item, previous_ammount, curent_ammount)
 
 const HOTBAR_SIZE : int= 10
 
@@ -9,84 +17,258 @@ const HOTBAR_SIZE : int= 10
 # don't show in hotbar
 var tiny_items : Dictionary
 
-# Usable items that appear in the hotbar
+# Dictionary of {int : int}, where the key is the key_id and the value is the amount of keys owned
+# with that ID
+var keychain : Dictionary
+
+# Usable items that appear in the hotbar, as an array of nodes
 var hotbar : Array
-var last_changed_slot : int = 0
-var current_slot : int = 0 setget set_current_slot
-var current_equipment : EquipmentItem = null
-# Armor currently equipped by the character
-var current_armor : Node
-onready var drop_position_node : Spatial = owner.get_node("Body/DropPosition") as Spatial
+
+# A special kind of equipment, overrides the hotbar items, cannot be stored
+var bulky_equipment : EquipmentItem = null
+
+# Information about the item equipped on the main hand
+var current_primary_slot : int = 0 setget set_primary_slot
+var current_primary_equipment : EquipmentItem = null
+
+# Information about the item equipped on the offhand
+var current_secondary_slot : int = 0 setget set_secondary_slot
+var current_secondary_equipment : EquipmentItem = null
+
+# Where to drop items from
+onready var drop_position_node : Spatial = $"%DropPosition" as Spatial
 
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
-	self.connect("hotbar_changed", self, "on_hotbar_changed")
-
-func on_hotbar_changed(slot):
-#	print(slot)
-	last_changed_slot = slot
-	pass
 
 # Returns wether a given node can be added as an Item to this inventory
-func can_add_item(item : PickableItem) -> bool:
+func can_pickup_item(item : PickableItem) -> bool:
 	# Can only pickup dropped items
 	# (may change later to steal weapons, or we can do that by dropping them first)
-	if item.item_state != PickableItem.ItemState.DROPPED:
+	# Also prevents picking up busy items
+	if item.item_state != GlobalConsts.ItemState.DROPPED:
 		return false
 	# Can always pickup special items
-	if item is TinyItem:
+	if (item is TinyItem) or (item is KeyItem):
 		return true
-	# Can only pickup equipment if there's an empty hotbar slot
-	if item is EquipmentItem and hotbar.has(null):
+	# Can always pick up equipment (goes to bulky slot if necessary)
+	if item is EquipmentItem:
 		return true
 	return false
 
 # Attempts to add a node as an Item to this inventory, returns 'true'
 # if the attempt was successful, or 'false' otherwise
 func add_item(item : PickableItem) -> bool:
-	var can_add : bool = can_add_item(item)
-#	print(can_add)
-	if not can_add:
+	var can_pickup : bool = can_pickup_item(item)
+	
+	if not can_pickup:
 		return false
-	var item_pickup_function_state = item.pickup(owner)
-	if item_pickup_function_state:
-		yield(item_pickup_function_state, "completed")
-	if item is TinyItem and item.item_data != null:
-		if not tiny_items.has(item.item_data):
-			tiny_items[item.item_data] = 0
-		tiny_items[item.item_data] += item.amount
-		item.call_deferred("free")
+	
+	item.owner_character = owner
+	
+	if item is TinyItem:
+		if item.item_data != null:
+			insert_tiny_item(item.item_data, item.amount)
+		# To make sure the item can't be interacted with again
+		item.item_state = GlobalConsts.ItemState.BUSY
+		item.queue_free()
+	
+	if item is KeyItem:
+		if not keychain.has(item.key_id):
+			keychain[item.key_id] = 0
+		keychain[item.key_id] += 1
+		# To make sure the item can't be interacted with again
+		item.item_state = GlobalConsts.ItemState.BUSY
+		item.queue_free()
+	
 	elif item is EquipmentItem:
-		var slot : int = hotbar.find(null)
-		hotbar[slot] = item
-		if current_slot == slot:
-			yield(item.equip(), "completed")
-#			print("Equipping new item")
-		emit_signal("hotbar_changed", slot)
+		# Schedule the item removal from the world
+		if item.is_inside_tree():
+			item.get_parent().remove_child(item)
+		# Update the inventory info immediately
+		# This is a bulky item, or there is no space on the hotbar
+		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
+			drop_bulky_item()
+			unequip_primary_item()
+			unequip_secondary_item()
+			equip_bulky_item(item)
+		else:
+			# Select an empty slot, prioritizing the current one, if empty
+			var slot : int = current_primary_slot
+			# Then the offhand
+			if hotbar[slot] != null:
+				slot = current_secondary_slot
+				pass
+			# Then the first empty slot
+			if hotbar[slot] != null:
+				slot = hotbar.find(null)
+			# Add the item to the slot
+			hotbar[slot] = item
+			emit_signal("hotbar_changed", slot)
+			
+			# Autoequip if possible
+			if current_primary_slot == slot and not bulky_equipment:
+				equip_primary_item()
+			elif current_secondary_slot == slot and not bulky_equipment:
+				equip_secondary_item()
 	return true
+
+# Functions to interact with tiny items
+func insert_tiny_item(item : TinyItemData, amount : int):
+	if not tiny_items.has(item):
+		tiny_items[item] = 0
+	var prev = tiny_items[item]
+	tiny_items[item] += amount
+	var new = tiny_items[item]
+	emit_signal("tiny_item_changed", item, prev, new)
+
+func remove_tiny_item(item : TinyItemData, amount : int) -> bool:
+	if tiny_items.has(item) and tiny_items[item] >= amount:
+		var prev = tiny_items[item]
+		tiny_items[item] -= amount
+		var new = tiny_items[item]
+		if tiny_items[item] == 0:
+			tiny_items.erase(item)
+		emit_signal("tiny_item_changed", item, prev, new)
+		return true
+	return false
+
+func tiny_item_amount(item : TinyItemData) -> int:
+	return 0 if not tiny_items.has(item) else tiny_items[item]
+
+func equip_primary_item():
+	if current_primary_equipment != null: # Item already equipped
+		return
+	var item : EquipmentItem = hotbar[current_primary_slot] as EquipmentItem
+	if item:
+		# Can't Equip a Bulky Item simultaneously with a normal item
+		drop_bulky_item()
+		# Can't Equip item on both hands
+		if current_secondary_equipment == item:
+			unequip_secondary_item()
+		item.item_state = GlobalConsts.ItemState.EQUIPPED
+		current_primary_equipment = item
+		item.transform = item.get_hold_transform()
+		owner.primary_equipment_root.add_child(item)
+
+func unequip_primary_item():
+	if current_primary_equipment == null: # No item equipped
+		return
+	current_primary_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	var item = current_primary_equipment
+	current_primary_equipment = null
+	item.get_parent().remove_child(item)
+
+func equip_bulky_item(item : EquipmentItem):
+	# Clear any currently equipped items
+	unequip_primary_item()
+	unequip_secondary_item()
+	drop_bulky_item()
+	if item:
+		item.item_state = GlobalConsts.ItemState.EQUIPPED
+		item.transform = item.get_hold_transform()
+		bulky_equipment = item
+		emit_signal("bulky_item_changed")
+		owner.primary_equipment_root.add_child(item)
+	pass
+
+func drop_bulky_item():
+	if bulky_equipment == null:
+		return
+	# If the item was just equipped, waits for it to enter the tree before removing
+	var item = bulky_equipment
+	bulky_equipment = null
+	emit_signal("bulky_item_changed")
+	item.get_parent().remove_child(item)
+	_drop_item(item)
+	pass
+
+func equip_secondary_item():
+	# Item already equipped or both slots set to the same item
+	if current_secondary_equipment != null or current_secondary_slot == current_primary_slot:
+		return
+	var item : EquipmentItem = hotbar[current_secondary_slot]
+	# Item exists, can be equipped on the offhand, and is not already equipped
+	if item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_primary_equipment:
+		# Can't Equip a Bulky Item simultaneously with a normal item
+		drop_bulky_item()
+		item.item_state = GlobalConsts.ItemState.EQUIPPED
+		current_secondary_equipment = item
+		# Waits for the item to exit the tree, if necessary
+		item.transform = item.get_hold_transform()
+		owner.secondary_equipment_root.add_child(item)
+	pass
+
+func unequip_secondary_item():
+	if current_secondary_equipment == null: # No item equipped
+		return
+	current_secondary_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	# If the item was just equipped, waits for it to enter the tree before removing
+	var item = current_secondary_equipment
+	current_secondary_equipment = null
+	item.get_parent().remove_child(item)
+	pass
+
+func drop_primary_item():
+	if bulky_equipment:
+		drop_bulky_item()
+	else:
+		drop_hotbar_slot(current_primary_slot)
+	pass
+
+func get_primary_item() -> EquipmentItem:
+	return bulky_equipment if bulky_equipment else current_primary_equipment
+
+func get_secondary_item() -> EquipmentItem:
+	return current_secondary_equipment
+
+func has_bulky_item() -> bool:
+	return bulky_equipment != null
+
+func drop_secondary_item():
+	drop_hotbar_slot(current_secondary_slot)
+	pass
 
 func drop_hotbar_slot(slot : int) -> Node:
 	var item = hotbar[slot]
 	if not item == null:
 		var item_node = item as EquipmentItem
 		hotbar[slot] = null
-		if current_equipment == item_node:
-			yield(current_equipment.unequip(), "completed")
+		if current_primary_equipment == item_node:
+			unequip_primary_item()
+		elif current_secondary_equipment == item_node:
+			unequip_secondary_item()
 		if item_node:
-			item_node.drop(drop_position_node.global_transform)
+			_drop_item(item_node)
 		emit_signal("hotbar_changed", slot)
 	return item
 
-func drop_current_item() -> Node:
-	return drop_hotbar_slot(current_slot)
+# Drops the item, it must be unequipped first
+# note that the drop is done in a deferred manner
+func _drop_item(item : EquipmentItem):
+	item.item_state = GlobalConsts.ItemState.DROPPED
+	if GameManager.game.level:
+		item.global_transform = drop_position_node.global_transform
+		GameManager.game.level.add_child(item)
+	pass
 
-func set_current_slot(value : int):
-	emit_signal("current_slot_changed", current_slot, value)
+func set_primary_slot(value : int):
+	if value != current_primary_slot:
+		unequip_primary_item()
+		var previous_slot = current_primary_slot
+		current_primary_slot = value
+		equip_primary_item()
+		emit_signal("primary_slot_changed", previous_slot, value)
+	else:
+		if get_primary_item() == hotbar[current_primary_slot]:
+			unequip_primary_item()
+		else:
+			equip_primary_item()
 
-	if value != current_slot:
-		current_slot = value
-		if current_equipment != null:
-			current_equipment.unequip()
-			current_equipment = null
-		if hotbar[current_slot]:
-			hotbar[current_slot].equip()
+func set_secondary_slot(value : int):
+	if value != current_secondary_slot:
+		var previous_slot = current_secondary_slot
+		unequip_secondary_item()
+		current_secondary_slot = value
+		equip_secondary_item()
+		emit_signal("secondary_slot_changed", previous_slot, value)

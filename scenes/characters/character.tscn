@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -10,15 +10,12 @@
 radius = 0.3
 height = 1.2
 
-[sub_resource type="CubeMesh" id=6]
-size = Vector3( 0.05, 1, 0.05 )
-
 [sub_resource type="SphereShape" id=2]
 
 [sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -30,7 +27,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.2, 1.2, -0.3 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -47,7 +44,7 @@ resource_name = "Recovery1ToTierce"
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -59,7 +56,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0.9, -0.6 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -76,7 +73,7 @@ resource_name = "Recovery2ToQuarte"
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -88,7 +85,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0.9, -0.7 ), Vector3( 0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( -0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -105,7 +102,7 @@ resource_name = "RecoveryThrustToQuarte"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -117,7 +114,7 @@ tracks/0/keys = {
 "values": [ Vector3( -0.3, 1.45, -1 ), Vector3( -0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -134,7 +131,7 @@ resource_name = "RecoveryThrustToTierce"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -146,7 +143,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.3, 1.45, -1 ), Vector3( 0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -163,7 +160,7 @@ resource_name = "Swing1FromTierce"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -175,7 +172,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -192,7 +189,7 @@ resource_name = "Swing2FromQuarte"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -204,7 +201,7 @@ tracks/0/keys = {
 "values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -221,7 +218,7 @@ resource_name = "ThrustFromQuarte"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -233,7 +230,7 @@ tracks/0/keys = {
 "values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( -0.5, 1.5, -0.5 ), Vector3( -0.3, 1.5, -0.65 ), Vector3( -0.3, 1.45, -1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -250,7 +247,7 @@ resource_name = "ThrustFromTierce"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/EquipmentRoot:translation")
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -262,7 +259,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0.5, 1.5, -0.5 ), Vector3( 0.3, 1.5, -0.65 ), Vector3( 0.3, 1.45, -1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/EquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -288,20 +285,22 @@ shape = SubResource( 1 )
 [node name="Body" type="Spatial" parent="."]
 
 [node name="DropPosition" type="Position3D" parent="Body"]
+unique_name_in_owner = true
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
 
-[node name="EquipmentRoot" type="Position3D" parent="Body"]
+[node name="PrimaryEquipmentRoot" type="Position3D" parent="Body"]
+unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
-[node name="teststick" type="MeshInstance" parent="Body/EquipmentRoot"]
-transform = Transform( 1, -1.49012e-08, 0, -7.45058e-09, 1, 5.96046e-08, 2.22045e-16, -8.9407e-08, 1, 0, 0.341872, -1.19209e-07 )
-visible = false
-mesh = SubResource( 6 )
-material/0 = null
+[node name="SecondaryEquipmentRoot" type="Position3D" parent="Body"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.3 )
 
 [node name="Hitbox" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
 script = ExtResource( 2 )
-hitbox_owner_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )

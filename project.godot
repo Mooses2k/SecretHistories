@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "TinyItemData",
 "class": "AmmunitionData",
 "language": "GDScript",
-"path": "res://resources/special_items/ammunition/ammunition_data.gd"
+"path": "res://resources/tiny_items/ammunition/ammunition_data.gd"
 }, {
 "base": "Object",
 "class": "AttackTypes",
@@ -109,10 +109,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/behavior_tree.gd"
 }, {
+"base": "ConsumableItem",
+"class": "BombItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/Bomb.gd"
+}, {
 "base": "Reference",
 "class": "CharacterState",
 "language": "GDScript",
 "path": "res://core/ai/character_state.gd"
+}, {
+"base": "EquipmentItem",
+"class": "ConsumableItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/consumable/consumable.gd"
 }, {
 "base": "Node",
 "class": "ControlMode",
@@ -144,6 +154,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
 }, {
+"base": "Object",
+"class": "GlobalConsts",
+"language": "GDScript",
+"path": "res://globals/global_consts.gd"
+}, {
 "base": "Node",
 "class": "Groups",
 "language": "GDScript",
@@ -152,7 +167,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "GunItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/guns/gun_item.gd"
+"path": "res://scenes/objects/items/pickable/equipment/ranged/gun_item.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
@@ -164,6 +179,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/interactables/interactable.gd"
 }, {
+"base": "PickableItem",
+"class": "KeyItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/tiny/key/key_item.gd"
+}, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
 "language": "GDScript",
@@ -173,6 +193,11 @@ _global_script_classes=[ {
 "class": "MeshTransform",
 "language": "GDScript",
 "path": "res://utils/mesh_transform.gd"
+}, {
+"base": "EquipmentItem",
+"class": "PadlockItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/tool/padlock/padlock_item.gd"
 }, {
 "base": "RigidBody",
 "class": "PickableItem",
@@ -200,14 +225,9 @@ _global_script_classes=[ {
 "path": "res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.gd"
 }, {
 "base": "GunItem",
-"class": "SawedOffShotgunItem",
-"language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/guns/sawed_off_shotgun/sawed_off_shotgun_item.gd"
-}, {
-"base": "GunItem",
 "class": "ShotgunItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/guns/shotgun/shotgun_item.gd"
+"path": "res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/shotgun_item.gd"
 }, {
 "base": "PickableItem",
 "class": "TinyItem",
@@ -217,12 +237,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "TinyItemData",
 "language": "GDScript",
-"path": "res://resources/special_items/tiny_item_data.gd"
+"path": "res://resources/tiny_items/tiny_item_data.gd"
 }, {
 "base": "EquipmentItem",
 "class": "ToolItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/tool/tool.gd"
+"path": "res://scenes/objects/items/pickable/equipment/tool/tool_item.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
@@ -260,25 +280,29 @@ _global_script_class_icons={
 "BT_Shoot": "",
 "BT_Wait_Random": "",
 "BehaviorTree": "",
+"BombItem": "",
 "CharacterState": "",
+"ConsumableItem": "",
 "ControlMode": "",
 "Door": "",
 "EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
+"GlobalConsts": "",
 "Groups": "",
 "GunItem": "",
 "Hitbox": "",
 "Interactable": "",
+"KeyItem": "",
 "MeleeItem": "",
 "MeshTransform": "",
+"PadlockItem": "",
 "PickableItem": "",
 "PickupArea": "",
 "Player": "",
 "PlayerSensor": "",
 "SabreItem": "",
-"SawedOffShotgunItem": "",
 "ShotgunItem": "",
 "TinyItem": "",
 "TinyItemData": "",
@@ -301,6 +325,11 @@ GameManager="*res://globals/game_manager.gd"
 Save="*res://globals/save.gd"
 GlobalSettings="*res://globals/global_settings.gd"
 HUDS="*res://globals/HUD.tscn"
+LoadQuotes="*res://globals/loadQuotes.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg" )
 
 [input]
 
@@ -329,17 +358,17 @@ sprint={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
-attack={
+main_use_primary={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
-weapon_melee={
+main_throw={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
-aim={
+main_use_secondary={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
@@ -364,7 +393,7 @@ offhand_use={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
-throw={
+offhand_throw={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
@@ -435,6 +464,11 @@ toggle_perspective={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":80,"unicode":0,"echo":false,"script":null)
  ]
 }
+cycle_offhand_slot={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":81,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -457,6 +491,7 @@ limits/debugger_stdout/max_chars_per_second=16384
 
 common/enable_pause_aware_picking=true
 3d/active_soft_world=false
+common/physics_interpolation=true
 
 [rendering]
 

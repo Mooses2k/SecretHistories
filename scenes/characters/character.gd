@@ -10,10 +10,14 @@ export var acceleration : float = 32.0
 
 onready var character_state : CharacterState = CharacterState.new(self)
 onready var current_health : float = self.max_health
+
 onready var inventory = $Inventory
 onready var pickup_area = $PickupArea
-onready var equipment_root = $Body/EquipmentRoot
+onready var primary_equipment_root = $Body/PrimaryEquipmentRoot
+onready var secondary_equipment_root = $Body/SecondaryEquipmentRoot
+onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
+
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
@@ -60,7 +64,7 @@ func handle_movement(state : PhysicsDirectBodyState):
 	var velocity_correction = velocity_diff.normalized()*min(acceleration*state.step, velocity_diff.length())
 	apply_central_impulse(velocity_correction*mass)
 
-func damage(value : float, type : int):
+func damage(value : float, type : int, on_hitbox : Hitbox):
 	queue_free()
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value

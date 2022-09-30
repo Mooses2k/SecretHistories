@@ -1,7 +1,7 @@
 extends RigidBody
 
-export var min_angle = 0.0
-export var max_angle = 90.0
+var min_angle = 0.0
+var max_angle = 90.0
 export var restitution = 0.5
 export var _hinge_node : NodePath
 onready var hinge_node : Spatial

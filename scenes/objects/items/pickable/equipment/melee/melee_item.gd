@@ -9,6 +9,7 @@ export(AttackTypes.Types) var melee_damage_type : int = 0
 
 onready var melee_hitbox = $Hitbox
 
+var can_hit = false
 var on_cooldown = false
 
 func attack(): # bug is it only checks for hit right when attack is first called, needs to check as long as in melee_anim "Swing"
@@ -16,16 +17,13 @@ func attack(): # bug is it only checks for hit right when attack is first called
 	# need something here to determine type of weapon, for now, a sabre
 	#determine attack angle from where pointing
 	if not melee_anim.is_playing(): 
-		melee_hitbox.can_hit = true
+		can_hit = true
 		melee_anim.play("Swing1FromTierce")
 		yield(melee_anim, "animation_finished")
-		melee_hitbox.can_hit = false
+		can_hit = false
 		melee_anim.queue("Recovery1ToTierce")
 
-func _ready() -> void:
-	melee_hitbox.set_info(melee_damage, melee_damage_type)
-
-func _use():
+func _use_primary():
 	if not on_cooldown:
 		attack()
 		$CooldownTimer.start(cooldown)

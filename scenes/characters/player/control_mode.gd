@@ -23,6 +23,15 @@ func get_movement_basis() -> Basis:
 func get_interaction_target() -> Node:
 	return null
 
+func get_grab_target() -> RigidBody:
+	return null
+
+func get_grab_global_position() -> Vector3:
+	return Vector3.ZERO
+
+func get_grab_target_position(distance : float) -> Vector3:
+	return Vector3.ZERO
+
 func get_target_placement_position() -> Vector3:
 	return Vector3.ZERO
 

@@ -17,8 +17,7 @@ func _on_GhostDetectionRange_value_changed(value: float) -> void:
 
 
 func _on_StartGame_pressed() -> void:
-	var _error = get_tree().change_scene("res://scenes/core/game.tscn")
-
+	var _error = get_tree().change_scene("res://scenes/UI/loadscreen/load_screen.tscn")
 
 func _on_ReturnButton_pressed() -> void:
 	var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")

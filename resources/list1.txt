@@ -1,0 +1,5 @@
+To Kick, press [Kick key] key and press [Reload key] to reload
+To Sprint, just hold [Sprint key] key while moving.
+Press [Inventory key] key to open inventory menu and [Map key] key to open map.
+Bring me a bucket, and I'll show you a bucket!
+The healthy human mind doesn't wake up in the morning thinking this is its last day on Earth. But I think that's a luxury, not a curse. To know you're close to the end is a kind of freedom. Good time to take...inventory.

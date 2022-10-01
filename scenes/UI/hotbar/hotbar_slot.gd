@@ -35,6 +35,8 @@ func set_item(value : EquipmentItem):
 	update_item_data()
 
 func _ready():
+	fadeanimations.play("Fade_in")
+	$"../..".show()
 	var game = GameManager.game
 	var player = game.player
 	if player == null:
@@ -57,22 +59,24 @@ func set_inventory(value : Node):
 	inventory.connect("tiny_item_changed", self, "inventory_tiny_item_changed")
 	inventory.connect("primary_slot_changed", self, "inventory_primary_slot_changed")
 	inventory.connect("secondary_slot_changed", self, "inventory_secondary_slot_changed")
+	inventory.connect("UpdateHud",self, "Hud_visibility")
+	
+func Hud_visibility():
+		fadeanimations.play("Fade_in")
+		$"../..".show()
 
 func inventory_bulky_item_changed():
 	if is_bulky:
 		self.item = inventory.bulky_equipment
 		self.visible = item != null
 		update_equipped_status()
-		fadeanimations.play("Fade_in")
-		$"../..".show()
 	else:
 		update_equipped_status()
 
 func inventory_primary_slot_changed(previous : int, current : int):
 	if index == previous or index == current:
 		update_equipped_status()
-		fadeanimations.play("Fade_in")
-		$"../..".show()
+
 
 func inventory_secondary_slot_changed(previous : int, current : int):
 	if index == previous or index == current:
@@ -97,8 +101,7 @@ func inventory_slot_changed(slot : int):
 
 	if slot == index:
 		self.item = inventory.hotbar[slot]
-		fadeanimations.play("Fade_in")
-		$"../..".show()
+
 
 
 

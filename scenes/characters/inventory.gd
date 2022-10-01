@@ -159,6 +159,7 @@ func unequip_primary_item():
 	current_primary_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_primary_equipment
 	current_primary_equipment = null
+	emit_signal("UpdateHud")
 	item.get_parent().remove_child(item)
 
 func equip_bulky_item(item : EquipmentItem):

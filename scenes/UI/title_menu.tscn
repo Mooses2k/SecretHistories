@@ -22,6 +22,7 @@ anchor_bottom = 0.5
 margin_top = -450.0
 margin_right = 900.0
 margin_bottom = 450.0
+rect_scale = Vector2( 1, 1.00544 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1

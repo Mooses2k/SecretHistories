@@ -1,7 +1,7 @@
 extends Node
 
-onready var file1 = 'res://resources/list1.txt' #text files on 'resources' folder
-onready var file2 = 'res://resources/list2.txt'
+onready var file1 = 'res://resources/list1.txt' # text files on 'resources' folder
+onready var file2 = 'res://resources/list2.txt' # creepier list for Acts 3+
 
 
 var list1 : PoolStringArray
@@ -14,122 +14,158 @@ func check_word():
 	if "[Interact key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("interact"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Interact key]", keys)
-		check_word()
-		return
+		return true
 
 	elif "[Move_right key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("move_right"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Move_right key]", keys)
-		check_word()
-		return
+		return true
 
 	elif "[Move_left key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("move_left"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Move_left key]", keys)
-		check_word()
-		return
+		return true
 
 	elif "[Move_up key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("move_up"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Move_up key]", keys)
-		check_word()
-		return
+		return true
 
 	elif "[Move_down key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("move_down"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Move_down key]", keys)
-		check_word()
-		return
+		return true
 
 	elif "[Sprint key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("sprint"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Sprint key]", keys)
-		check_word()
-		return
+		return true
 
-	elif "[Kick key]" in temp:
+	elif "[Melee key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("kick"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
-		temp = temp.replace("[Kick key]", keys)
-		check_word()
-		return
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Melee key]", keys)
+		return true
 
 	elif "[Reload key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("reload"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Reload key]", keys)
-		check_word()
-		return
+		return true
 
-	elif "[Offhand use key]" in temp:
+	elif "[Off-hand use key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("offhand_use"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
-		temp = temp.replace("[Offhand use key]", keys)
-		check_word()
-		return
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Off-hand use key]", keys)
+		return true
 
-	elif "[Offhand throw key]" in temp:
+	elif "[Off-hand switch key]" in temp:
+		keys = ""
+		for actionKey in InputMap.get_action_list("cycle_offhand_slot"):
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Off-hand switch key]", keys)
+		return true
+
+	elif "[Off-hand throw key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("offhand_throw"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
-		temp = temp.replace("[Offhand throw key]", keys)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Off-hand throw key]", keys)
+		return true
+
+	elif "[Main-hand throw key]" in temp:
+		keys = ""
+		for actionKey in InputMap.get_action_list("main_throw"):
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Main-hand throw key]", keys)
+		return true
+
+	elif "[Main-hand use key]" in temp:
+		keys = ""
+		for actionKey in InputMap.get_action_list("main_use_primary"):
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Main-hand use key]", keys)
 		check_word()
 		return
 
-	elif "[Inventory key]" in temp:
+	elif "[Main-hand secondary key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("inventory_menu"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
-		temp = temp.replace("[Inventory key]", keys)
-		check_word()
-		return
+		for actionKey in InputMap.get_action_list("main_use_secondary"):
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Main-hand secondary key]", keys)
+		return true
 
 	elif "[Map key]" in temp:
 		keys = ""
 		for actionKey in InputMap.get_action_list("map_menu"):
-			if not keys.empty():
-				keys += " or "
-			keys += OS.get_scancode_string(actionKey.scancode)
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Map key]", keys)
-		check_word()
-		return
+		return true
+	
+	elif "[" in temp:
+		printerr(temp) # this will catch wrong writing in list and mouse events (not implemented)
+	
+	return false
 
 
 func load_files():
@@ -138,7 +174,8 @@ func load_files():
 	while not f.eof_reached(): # iterate through all lines until the end of file is reached
 		temp = f.get_line()
 		if not temp == "":
-			check_word()
+			while check_word():
+				pass
 			list1.append(temp)
 			print(temp)
 	f.close()

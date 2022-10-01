@@ -1,4 +1,4 @@
 extends Node
 
 var game : Game
-var level = 0
+var act = 0

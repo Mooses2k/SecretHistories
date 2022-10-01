@@ -14,7 +14,7 @@ func _input(event):
 func _ready():
 	randomNumG.randomize()
 
-	if GameManager.level > 2:
+	if GameManager.act > 2:
 		#late game
 		randomNum = randomNumG.randi_range(0, LoadQuotes.list2.size()-1)
 		label.text = LoadQuotes.list2[randomNum]

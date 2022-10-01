@@ -285,15 +285,12 @@ shape = SubResource( 1 )
 [node name="Body" type="Spatial" parent="."]
 
 [node name="DropPosition" type="Position3D" parent="Body"]
-unique_name_in_owner = true
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
 
 [node name="PrimaryEquipmentRoot" type="Position3D" parent="Body"]
-unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="SecondaryEquipmentRoot" type="Position3D" parent="Body"]
-unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.3 )
 
 [node name="Hitbox" type="Area" parent="."]

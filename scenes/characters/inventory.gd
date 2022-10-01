@@ -10,6 +10,8 @@ signal primary_slot_changed(previous, current)
 signal secondary_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
+#Emitted to fadein the HUD UI
+signal UpdateHud
 
 const HOTBAR_SIZE : int= 10
 
@@ -105,7 +107,7 @@ func add_item(item : PickableItem) -> bool:
 			# Add the item to the slot
 			hotbar[slot] = item
 			emit_signal("hotbar_changed", slot)
-			
+			emit_signal("UpdateHud")
 			# Autoequip if possible
 			if current_primary_slot == slot and not bulky_equipment:
 				equip_primary_item()
@@ -150,7 +152,7 @@ func equip_primary_item():
 		current_primary_equipment = item
 		item.transform = item.get_hold_transform()
 		owner.primary_equipment_root.add_child(item)
-
+		emit_signal("UpdateHud")
 func unequip_primary_item():
 	if current_primary_equipment == null: # No item equipped
 		return
@@ -170,6 +172,7 @@ func equip_bulky_item(item : EquipmentItem):
 		bulky_equipment = item
 		emit_signal("bulky_item_changed")
 		owner.primary_equipment_root.add_child(item)
+		emit_signal("UpdateHud")
 	pass
 
 func drop_bulky_item():
@@ -259,6 +262,7 @@ func set_primary_slot(value : int):
 		current_primary_slot = value
 		equip_primary_item()
 		emit_signal("primary_slot_changed", previous_slot, value)
+		emit_signal("UpdateHud")
 	else:
 		if get_primary_item() == hotbar[current_primary_slot]:
 			unequip_primary_item()

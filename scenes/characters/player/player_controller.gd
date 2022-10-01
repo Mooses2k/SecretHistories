@@ -62,14 +62,14 @@ func _physics_process(delta : float):
 	handle_grab_input(delta)
 	handle_grab(delta)
 	handle_inventory(delta)
-	handle_misc_controls(delta)
+#	handle_misc_controls(delta)
 
-func handle_misc_controls(_delta : float):
-	if Input.is_action_just_pressed("toggle_perspective"):
-		active_mode_index = (active_mode_index + 1)%get_child_count()
-		active_mode.is_active = false
-		active_mode = get_child(active_mode_index)
-		active_mode.is_active = true
+#func handle_misc_controls(_delta : float):
+#	if Input.is_action_just_pressed("toggle_perspective"):
+#		active_mode_index = (active_mode_index + 1)%get_child_count()
+#		active_mode.is_active = false
+#		active_mode = get_child(active_mode_index)
+#		active_mode.is_active = true
 
 func handle_movement(_delta : float):
 	var direction : Vector3 = Vector3.ZERO

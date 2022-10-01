@@ -495,7 +495,6 @@ common/physics_interpolation=true
 
 [rendering]
 
-
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

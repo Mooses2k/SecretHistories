@@ -4,7 +4,7 @@
 
 [sub_resource type="Animation" id=2]
 resource_name = "Fade_in"
-length = 2.0
+length = 1.8
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1

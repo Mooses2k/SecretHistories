@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=4]
@@ -23,34 +23,6 @@ radius = 0.3
 mid_height = 1.2
 radial_segments = 16
 rings = 4
-
-[sub_resource type="Shader" id=12]
-code = "shader_type spatial;
-render_mode unshaded, cull_disabled, depth_draw_never, depth_test_disable;
-
-const float INNER_RADIUS_SQR = -0.05*0.05;
-const float OUTER_RADIUS_SQR = 0.05*0.05;
-const float SMOOTH = 0.002;
-
-varying vec3 position;
-
-void vertex() {
-	position = VERTEX;
-}
-
-void fragment() {
-	float dist_sqr = position.x*position.x + position.y*position.y;
-	float mask = smoothstep(OUTER_RADIUS_SQR + SMOOTH, OUTER_RADIUS_SQR, dist_sqr);
-	mask *= smoothstep(INNER_RADIUS_SQR - SMOOTH, INNER_RADIUS_SQR, dist_sqr);
-	ALPHA = mask;
-}"
-
-[sub_resource type="ShaderMaterial" id=8]
-render_priority = 110
-shader = SubResource( 12 )
-
-[sub_resource type="QuadMesh" id=13]
-material = SubResource( 8 )
 
 [sub_resource type="CubeMesh" id=19]
 size = Vector3( 0.05, 0.05, 0.05 )
@@ -134,11 +106,6 @@ collision_layer = 4
 collision_mask = 576
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="5"]
-
-[node name="Reticle" type="MeshInstance" parent="PlayerAimPoint" index="0"]
-transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0 )
-mesh = SubResource( 13 )
-material/0 = null
 
 [node name="PlayerController" type="Node" parent="." index="6"]
 script = ExtResource( 6 )

@@ -279,3 +279,4 @@ func set_secondary_slot(value : int):
 		current_secondary_slot = value
 		equip_secondary_item()
 		emit_signal("secondary_slot_changed", previous_slot, value)
+		emit_signal("UpdateHud")

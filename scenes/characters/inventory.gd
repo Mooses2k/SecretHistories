@@ -10,6 +10,8 @@ signal primary_slot_changed(previous, current)
 signal secondary_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
+#Emitted to fadein the HUD UI
+signal UpdateHud
 
 const HOTBAR_SIZE : int= 10
 
@@ -36,7 +38,7 @@ var current_secondary_slot : int = 0 setget set_secondary_slot
 var current_secondary_equipment : EquipmentItem = null
 
 # Where to drop items from
-onready var drop_position_node : Spatial = $"%DropPosition" as Spatial
+onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
 
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
@@ -105,7 +107,7 @@ func add_item(item : PickableItem) -> bool:
 			# Add the item to the slot
 			hotbar[slot] = item
 			emit_signal("hotbar_changed", slot)
-			
+			emit_signal("UpdateHud")
 			# Autoequip if possible
 			if current_primary_slot == slot and not bulky_equipment:
 				equip_primary_item()
@@ -150,13 +152,15 @@ func equip_primary_item():
 		current_primary_equipment = item
 		item.transform = item.get_hold_transform()
 		owner.primary_equipment_root.add_child(item)
-
+		emit_signal("UpdateHud")
 func unequip_primary_item():
 	if current_primary_equipment == null: # No item equipped
+		
 		return
 	current_primary_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_primary_equipment
 	current_primary_equipment = null
+#	emit_signal("UpdateHud")
 	item.get_parent().remove_child(item)
 
 func equip_bulky_item(item : EquipmentItem):
@@ -170,6 +174,7 @@ func equip_bulky_item(item : EquipmentItem):
 		bulky_equipment = item
 		emit_signal("bulky_item_changed")
 		owner.primary_equipment_root.add_child(item)
+		emit_signal("UpdateHud")
 	pass
 
 func drop_bulky_item():
@@ -259,8 +264,10 @@ func set_primary_slot(value : int):
 		current_primary_slot = value
 		equip_primary_item()
 		emit_signal("primary_slot_changed", previous_slot, value)
+		emit_signal("UpdateHud")
 	else:
 		if get_primary_item() == hotbar[current_primary_slot]:
+			emit_signal("UpdateHud")
 			unequip_primary_item()
 		else:
 			equip_primary_item()
@@ -272,3 +279,4 @@ func set_secondary_slot(value : int):
 		current_secondary_slot = value
 		equip_secondary_item()
 		emit_signal("secondary_slot_changed", previous_slot, value)
+		emit_signal("UpdateHud")

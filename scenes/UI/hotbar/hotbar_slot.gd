@@ -12,6 +12,9 @@ var inventory = null setget set_inventory
 export var index : int = -1
 export var is_bulky : bool = false
 
+
+onready var fadeanimations=$"../../FadeAnim"
+
 var is_equipped_primary : bool = false 
 var is_equipped_secondary : bool = false
 var is_equippable_primary : bool = false
@@ -32,6 +35,8 @@ func set_item(value : EquipmentItem):
 	update_item_data()
 
 func _ready():
+	fadeanimations.play("Fade_in")
+	$"../..".show()
 	var game = GameManager.game
 	var player = game.player
 	if player == null:
@@ -54,6 +59,11 @@ func set_inventory(value : Node):
 	inventory.connect("tiny_item_changed", self, "inventory_tiny_item_changed")
 	inventory.connect("primary_slot_changed", self, "inventory_primary_slot_changed")
 	inventory.connect("secondary_slot_changed", self, "inventory_secondary_slot_changed")
+	inventory.connect("UpdateHud",self, "Hud_visibility")
+	
+func Hud_visibility():
+		fadeanimations.play("Fade_in")
+		$"../..".show()
 
 func inventory_bulky_item_changed():
 	if is_bulky:
@@ -66,13 +76,14 @@ func inventory_bulky_item_changed():
 func inventory_primary_slot_changed(previous : int, current : int):
 	if index == previous or index == current:
 		update_equipped_status()
-	pass
+
 
 func inventory_secondary_slot_changed(previous : int, current : int):
 	if index == previous or index == current:
 		update_equipped_status()
 
 func update_equipped_status():
+
 	if is_bulky:
 		is_equipped_primary = item != null and inventory.bulky_equipment == item
 		is_equipped_secondary = is_equipped_primary
@@ -87,8 +98,12 @@ func update_equipped_status():
 	update_secondary_indicator()
 
 func inventory_slot_changed(slot : int):
+
 	if slot == index:
 		self.item = inventory.hotbar[slot]
+
+
+
 
 func inventory_tiny_item_changed(tiny_item : TinyItemData, previous : int, current : int):
 	if tiny_item == tracking_tiny_item:
@@ -119,3 +134,10 @@ func update_ammo_data():
 	else:
 		tracking_tiny_item = null
 		$"ItemInfo/HBoxContainer/AmmoCount".text = ""
+
+
+
+
+func _on_Fade_animation_finished(anim_name):
+	if anim_name=="Fade_in":
+		fadeanimations.play("Fade_out")

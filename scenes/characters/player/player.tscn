@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
+[ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -56,22 +57,46 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 0, 0, 0.784314 ) ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TextureRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=23]
 resource_name = "hit_effect"
-length = 0.3
+length = 0.9
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.09, 0.18, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 2.46229, 1.6245 ),
 "update": 0,
-"values": [ Color( 1, 0, 0, 0.784314 ), Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 0.784314 ), Color( 1, 0, 0, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [node name="Player" instance=ExtResource( 4 )]
@@ -172,19 +197,19 @@ script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]
 visible = false
-modulate = Color( 1, 1, 1, 0.764706 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 
-[node name="ColorRect" type="ColorRect" parent="HitEffect" index="1"]
+[node name="ColorRect" type="TextureRect" parent="HitEffect" index="1"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 1, 0, 0, 0.784314 )
+texture = ExtResource( 11 )
+expand = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HitEffect" index="2"]
 anims/RESET = SubResource( 22 )

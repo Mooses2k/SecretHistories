@@ -1,11 +1,14 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
+[ext_resource path="res://scenes/characters/player/player_hit.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/effects/BloodOverlay.png" type="Texture" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
+[ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -39,6 +42,62 @@ albedo_color = Color( 0.219608, 1, 0, 1 )
 min_value = -100.0
 max_value = 0.0
 _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0.784314 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRect:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TextureRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "hit_effect"
+length = 0.9
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 2.46229, 1.6245 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [node name="Player" instance=ExtResource( 4 )]
 collision_layer = 2
@@ -82,12 +141,10 @@ cull_mask = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
-material/0 = null
 
 [node name="BodyMesh" type="MeshInstance" parent="Body" index="2"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 mesh = SubResource( 18 )
-material/0 = null
 
 [node name="Listener" type="Listener" parent="Body" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
@@ -135,4 +192,28 @@ volume_db = -31.0
 script = ExtResource( 9 )
 curve = SubResource( 16 )
 
+[node name="HitEffect" type="CanvasLayer" parent="." index="12"]
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+expand = true
+
+[node name="ColorRect" type="TextureRect" parent="HitEffect" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 11 )
+expand = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HitEffect" index="2"]
+anims/RESET = SubResource( 22 )
+anims/hit_effect = SubResource( 23 )
+
+[connection signal="player_is_hit" from="." to="HitEffect" method="_on_Player_player_is_hit"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="hit"]

@@ -112,9 +112,9 @@ func _on_ReloadTimer_timeout() -> void:
 		var inventory = owner_character.inventory
 		if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
 			var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
-			inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
+			inventory.remove_tiny_item(_queued_reload_type, reload_amount)
 			current_ammo_type = _queued_reload_type
-			current_ammo += _reload_amount
+			current_ammo += reload_amount
 	is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 

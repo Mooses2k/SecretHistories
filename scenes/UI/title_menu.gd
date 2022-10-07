@@ -18,7 +18,7 @@ func _on_StartButton_pressed():
 
 
 func _on_SettingsButton_pressed():
-	$Menus/SettingsMenu.popup()
+	$"%SettingsMenu".show()
 
 
 func _on_CreditsButton_pressed():

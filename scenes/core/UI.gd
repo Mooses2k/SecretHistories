@@ -1,56 +1,40 @@
-extends Node
+extends CanvasLayer
 
+enum GUIState {
+	HUD,
+	PAUSE
+}
 
-onready var modal_window_active = false
-#onready var start_game_menu_active = true    #doesn't work these two
-#onready var title_menu_active = false
-onready var esc_menu_active = false
-onready var settings_menu_active = false
-onready var ingame_menu_active = false
+onready var states = [
+	$"%HUD",
+	$"%PauseMenu"
+]
 
+var gui_state : int = GUIState.HUD setget set_gui_state
+
+func set_gui_state(value : int):
+	states[gui_state].exit_state()
+	gui_state = value
+	states[gui_state].enter_state()
+		
 func _ready():
-	pass
+	for state in states:
+		state.exit_state()
+	states[gui_state].enter_state()
+	self.scale = Vector2.ONE*VideoSettings.gui_scale
+	$"%UIRoot".rect_size = get_viewport().size/VideoSettings.gui_scale
+	VideoSettings.connect("gui_scale_changed", self, "on_gui_scale_changed")
+
+func on_gui_scale_changed(value):
+	self.scale = Vector2.ONE*value
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if modal_window_active == true: #NA, things like press key to keybind or quit game dialog
-			pass #hide modal window
-#		if start_game_menu_active == true:    #not working
-#			start_game_menu_active = false
-#			title_menu_active = true
-#			get_tree().change_scene("res://scenes/UI/title_menu.tscn")
-#		if title_menu_active == true:
-#			#implement 'do you want to quit?'
-#			get_tree().quit()
-		elif settings_menu_active == true:
-			settings_menu_active = false
-			$PauseMenu/SettingsMenu.hide() #hide settings_menu
-		elif esc_menu_active == true:
-			$PauseMenu/EscMenu/ColorRect.visible = get_tree().paused
-			get_tree().paused = not get_tree().paused
-			_on_EscMenu_popup_hide() #go to HUD
-		elif ingame_menu_active == true: #NA, ingame menus like inv/map/journal not implemented yet
-			pass #go to HUD
-		else: #is in HUD
-			$PauseMenu/EscMenu/ColorRect.visible = get_tree().paused
-			get_tree().paused = not get_tree().paused
-			$PauseMenu/EscMenu.popup() #go to esc menu
-		get_tree().set_input_as_handled()
-
-
-func _on_EscMenu_about_to_show() -> void:
-	esc_menu_active = true
-
-
-func _on_EscMenu_popup_hide() -> void:
-	$PauseMenu/EscMenu.visible = get_tree().paused
-	esc_menu_active = false
-
-
-func _on_SettingsMenu_about_to_show() -> void:
-	settings_menu_active = true
-
-
-func _on_SettingsMenu_popup_hide() -> void:
-	settings_menu_active = false
+		match gui_state:
+			GUIState.HUD:
+				self.gui_state = GUIState.PAUSE
+				get_tree().set_input_as_handled()
+			GUIState.PAUSE:
+				self.gui_state = GUIState.HUD
+				get_tree().set_input_as_handled()

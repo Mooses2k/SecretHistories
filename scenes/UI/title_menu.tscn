@@ -96,6 +96,10 @@ flat = true
 [node name="Menus" type="Node" parent="."]
 
 [node name="SettingsMenu" parent="Menus" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+visible = false
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]

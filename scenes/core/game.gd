@@ -8,7 +8,7 @@ export var start_level_scn : PackedScene
 export var player_scn : PackedScene
 
 onready var world_root : Node = $World
-onready var UI_root : Node = $UI
+onready var UI_root : CanvasLayer = $GameUI
 
 var player
 var level : GameWorld

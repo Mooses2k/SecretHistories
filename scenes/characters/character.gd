@@ -2,7 +2,7 @@ extends RigidBody
 #class_name Character
 
 signal character_died()
-signal player_is_hit(current_health)
+signal is_hit(current_health)
 
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
@@ -69,7 +69,7 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 	queue_free()
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value
-		self.emit_signal("player_is_hit", current_health)
+		self.emit_signal("is_hit", current_health)
 		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")

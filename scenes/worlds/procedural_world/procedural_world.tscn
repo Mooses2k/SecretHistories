@@ -111,14 +111,15 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, 6
 [node name="Door2" parent="." index="25" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, 0, 4 )
 
-[node name="RigidBody" type="RigidBody" parent="." index="26"]
+[node name="Bookcase" type="RigidBody" parent="." index="26"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
-mass = 100.0
+collision_layer = 5
+mass = 102.041
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody/CollisionShape" index="0"]
+[node name="MeshInstance" type="MeshInstance" parent="Bookcase/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 material/0 = null
 

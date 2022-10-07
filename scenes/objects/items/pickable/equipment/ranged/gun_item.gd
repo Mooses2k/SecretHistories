@@ -20,6 +20,7 @@ export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 
+
 export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
 
@@ -32,6 +33,9 @@ var on_cooldown = false
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
 
+export (NodePath) var detection_raycast
+
+onready var raycast=get_node(detection_raycast)
 func set_range(value : Vector2):
 	var amount : int = value.x
 	if value.y > value.x:
@@ -44,7 +48,7 @@ func shoot():
 	var ammo_type = current_ammo_type as AmmunitionData
 	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0
 	var total_damage : int = damage_offset + ammo_type.damage
-	var raycast = $RayCast as RayCast
+	
 	var raycast_range = raycast.cast_to.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)
@@ -64,6 +68,7 @@ func shoot():
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
 	raycast.cast_to = Vector3.FORWARD*raycast_range
 	current_ammo -= 1
+	apply_damage(total_damage)
 #	if current_ammo == 0:
 #		current_ammo_type = null
 
@@ -105,8 +110,12 @@ func reload():
 # while one of these timers is active should appropriately reset the timer and deal any of it's side effects
 #
 #
-#
-
+func apply_damage(total_damage):
+	if raycast.is_colliding():
+		var object_detected=raycast.get_collider()
+		if object_detected is RigidBody and has_method("apply_damage") :
+			print("detected rigidbody")
+			object_detected.apply_central_impulse(Vector3(total_damage*4,total_damage*3,total_damage*5))
 func _on_ReloadTimer_timeout() -> void:
 	if owner_character and is_reloading and (current_ammo_type == null or current_ammo_type == _queued_reload_type):
 		var inventory = owner_character.inventory

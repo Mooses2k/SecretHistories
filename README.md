@@ -22,5 +22,5 @@ Simulationist dungeon delving
 
 Anyone is welcome to help - first timers and GODOT pros alike!
 
-The design doc is in the form of the Github wiki here: https://github.com/Mooses2k/HotlineCthulhu/wiki
+The design doc is in the form of the Github wiki here: https://github.com/Mooses2k/SecretHistories/wiki
 

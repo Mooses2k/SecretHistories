@@ -23,6 +23,9 @@ export var cooldown = 1.0
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
+export (NodePath) var player_path
+onready var player=get_node(player_path)
+
 
 var current_ammo : int = 0
 var current_ammo_type : Resource = null
@@ -115,7 +118,7 @@ func apply_damage(total_damage):
 		var object_detected=raycast.get_collider()
 		if object_detected is RigidBody and has_method("apply_damage") :
 			print("detected rigidbody")
-			object_detected.apply_central_impulse(Vector3(total_damage*4,total_damage*3,total_damage*5))
+			object_detected.apply_central_impulse(-player.global_transform.basis.z*total_damage*5)
 func _on_ReloadTimer_timeout() -> void:
 	if owner_character and is_reloading and (current_ammo_type == null or current_ammo_type == _queued_reload_type):
 		var inventory = owner_character.inventory

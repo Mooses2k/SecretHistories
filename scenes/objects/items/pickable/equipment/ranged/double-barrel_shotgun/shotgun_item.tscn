@@ -26,6 +26,7 @@ ammunition_capacity = 2
 reload_amount = 2
 reload_time = 1.0
 cooldown = 0.1
+player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
 [node name="MeshInstance" parent="." index="0"]

@@ -8,3 +8,4 @@ onready var Gun_cam=$"Body/FPSCamera/ViewportContainer2/Viewport/GunCam"
 
 func _process(delta):
 	Gun_cam.global_transform=fps_camera.global_transform
+	

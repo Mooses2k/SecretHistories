@@ -44,18 +44,15 @@ visible = false
 [node name="MeshInstance" type="MeshInstance" parent="Body/Eyes"]
 transform = Transform( 0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, 0.182021, -0.593601, -0.681859 )
 mesh = SubResource( 2 )
-material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="Body/Eyes"]
 transform = Transform( 0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, -0.201965, -0.593601, -0.681859 )
 mesh = SubResource( 2 )
-material/0 = null
 
 [node name="HitboxArea" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource( 4 )
-hitbox_owner_path = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="HitboxArea"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.16376, 0 )
@@ -85,4 +82,5 @@ monitorable = false
 script = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="DamageArea"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 shape = SubResource( 5 )

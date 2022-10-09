@@ -59,7 +59,6 @@ reload_amount = 1
 reload_time = 1.0
 cooldown = 0.1
 melee_style = 1
-detection_raycast = NodePath("RayCast")
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0 )

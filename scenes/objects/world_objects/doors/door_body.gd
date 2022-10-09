@@ -30,7 +30,3 @@ func _integrate_forces(state):
 		state.transform.basis = get_parent().global_transform.basis.rotated(Vector3.UP, target_angle)
 		
 		
-
-
-
-

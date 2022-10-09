@@ -18,5 +18,4 @@ func _ready():
 func on_area_entered(area):
 	# Checks if the other area is also a hitbox
 	if area is get_script():
-		emit_signal("hit", area)
-	
+		emit_signal("hit", area)	

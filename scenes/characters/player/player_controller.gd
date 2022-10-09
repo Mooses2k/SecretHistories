@@ -71,6 +71,21 @@ func _physics_process(delta : float):
 #		active_mode = get_child(active_mode_index)
 #		active_mode.is_active = true
 
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			match event.button_index:
+				BUTTON_WHEEL_UP:
+					if character.inventory.current_primary_slot!=0:
+						character.inventory.current_primary_slot-=1
+				BUTTON_WHEEL_DOWN:
+					if character.inventory.current_primary_slot!=9:
+						character.inventory.current_primary_slot+=1
+
+
+
+
 func handle_movement(_delta : float):
 	var direction : Vector3 = Vector3.ZERO
 	direction.x += Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
@@ -187,12 +202,14 @@ func update_throw_state(delta : float):
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
-	
+	previous_weapon()
+	next_weapon()
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):
 			inv.current_primary_slot = i
 			throw_state = ThrowState.IDLE
+
 	
 	# Secondary slot selection
 	if Input.is_action_just_pressed("cycle_offhand_slot"):
@@ -317,6 +334,15 @@ func handle_inventory(delta : float):
 #		throw_press_length = 0.0
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
+
+func next_weapon():
+	if Input.is_action_just_pressed("Current_weapon") and character.inventory.current_primary_slot!=0:
+			character.inventory.current_primary_slot-=1
+
+func previous_weapon():
+	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot!=9:
+			character.inventory.current_primary_slot+=1
+
 
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));

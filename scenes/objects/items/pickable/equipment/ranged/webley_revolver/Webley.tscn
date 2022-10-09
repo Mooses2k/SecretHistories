@@ -59,7 +59,6 @@ reload_amount = 1
 reload_time = 1.0
 cooldown = 0.1
 melee_style = 1
-player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
 [node name="MeshInstance" parent="." index="0"]

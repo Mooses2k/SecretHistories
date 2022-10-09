@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/player_hit.gd" type="Script" id=3]
@@ -141,12 +141,10 @@ cull_mask = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
-material/0 = null
 
 [node name="BodyMesh" type="MeshInstance" parent="Body" index="2"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 mesh = SubResource( 18 )
-material/0 = null
 
 [node name="Listener" type="Listener" parent="Body" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
@@ -194,7 +192,7 @@ volume_db = -31.0
 script = ExtResource( 9 )
 curve = SubResource( 16 )
 
-[node name="HitEffect" type="CanvasLayer" parent="." index="10"]
+[node name="HitEffect" type="CanvasLayer" parent="." index="12"]
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]

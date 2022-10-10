@@ -62,8 +62,21 @@ func _physics_process(delta : float):
 	handle_grab_input(delta)
 	handle_grab(delta)
 	handle_inventory(delta)
+	next_weapon()
+	previous_weapon()
 #	handle_misc_controls(delta)
 
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.pressed:
+			match event.button_index:
+				BUTTON_WHEEL_UP:
+					if character.inventory.current_primary_slot!=0:
+						character.inventory.current_primary_slot-=1
+				BUTTON_WHEEL_DOWN:
+					if character.inventory.current_primary_slot!=9:
+						character.inventory.current_primary_slot+=1
 #func handle_misc_controls(_delta : float):
 #	if Input.is_action_just_pressed("toggle_perspective"):
 #		active_mode_index = (active_mode_index + 1)%get_child_count()
@@ -321,3 +334,10 @@ func handle_inventory(delta : float):
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);
+func previous_weapon():
+	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot!=0:
+			character.inventory.current_primary_slot-=1
+
+func next_weapon():
+	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot!=9:
+			character.inventory.current_primary_slot+=1

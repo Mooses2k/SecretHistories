@@ -3,7 +3,8 @@
 [ext_resource path="res://scenes/UI/title_menu.gd" type="Script" id=1]
 [ext_resource path="res://resources/title_screen_image.png" type="Texture" id=2]
 [ext_resource path="res://scenes/UI/settings_menu.tscn" type="PackedScene" id=3]
-[ext_resource path="res://resources/ui_themes/revolver_blackletter.tres" type="Theme" id=4]
+[ext_resource path="res://resources/ui_themes/main_menu.tres" type="Theme" id=4]
+
 
 [sub_resource type="CanvasItemMaterial" id=1]
 
@@ -96,6 +97,10 @@ flat = true
 [node name="Menus" type="Node" parent="."]
 
 [node name="SettingsMenu" parent="Menus" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+visible = false
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]

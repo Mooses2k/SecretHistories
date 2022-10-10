@@ -15,6 +15,7 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/padlock/padlock_item.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/webley_revolver/Webley.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=15]
+[ext_resource path="res://scenes/characters/enemies/ghost/ghost.tscn" type="PackedScene" id=16]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.25 )
@@ -111,14 +112,15 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, 6
 [node name="Door2" parent="." index="25" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, 0, 4 )
 
-[node name="RigidBody" type="RigidBody" parent="." index="26"]
+[node name="Bookcase" type="RigidBody" parent="." index="26"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
-mass = 100.0
+collision_layer = 5
+mass = 102.041
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="RigidBody/CollisionShape" index="0"]
+[node name="MeshInstance" type="MeshInstance" parent="Bookcase/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -127,11 +129,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
 
 [node name="KeyItem" parent="." index="28" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
+key_id = 0
 
 [node name="PadlockItem" parent="." index="29" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
+padlock_id = 0
+padlock_locked = false
 
 [node name="Webley" parent="." index="30" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16169, 0.463916, 3.70036 )
+damage_offset = 0
+dispersion_offset_degrees = 0
+melee_damage_type = 0
+
+[node name="Ghost" parent="." index="31" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5788, 0.702882, 14.438 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

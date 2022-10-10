@@ -10,6 +10,3 @@ focus_mode = 0
 enabled_focus_mode = 0
 text = "W"
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}

@@ -25,15 +25,16 @@ ammo_types = [ ExtResource( 7 ) ]
 ammunition_capacity = 2
 reload_amount = 2
 reload_time = 1.0
+damage_offset = 0
+dispersion_offset_degrees = 0
 cooldown = 0.1
+melee_damage_type = 0
+melee_style = 0
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = ExtResource( 3 )
-material/1 = null
-material/2 = null
-material/3 = null
 
 [node name="CollisionShape" parent="." index="1"]
 shape = SubResource( 1 )
@@ -44,9 +45,6 @@ shape = SubResource( 2 )
 [node name="shotgun_Barrel" type="MeshInstance" parent="CollisionShape2" index="0"]
 mesh = ExtResource( 4 )
 skeleton = NodePath("../../MeshInstance")
-material/0 = null
-material/1 = null
-material/2 = null
 script = ExtResource( 10 )
 main_parent = NodePath("../..")
 

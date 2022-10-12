@@ -68,3 +68,5 @@ func _process(delta):
 #		self.item_state = ItemState.INVENTORY # emits state changed signal
 #		pass
 #	pass
+
+

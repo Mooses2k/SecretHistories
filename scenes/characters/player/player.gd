@@ -20,4 +20,3 @@ func grab_indicator():
 			$Indication_canvas/Indication_system/Grab.show()
 	else:
 				$Indication_canvas/Indication_system/Grab.hide()
-				

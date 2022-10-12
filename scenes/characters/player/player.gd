@@ -15,9 +15,9 @@ func _process(delta):
 
 func grab_indicator():
 	var grabable_object=grabcast.get_collider()
-	if grabcast.is_colliding() and grabable_object.has_method("is_grabable") :
-			if $PlayerController.is_grabbing==false:
-				$Indication_canvas/Indication_system/Grab.show()
+	if grabcast.is_colliding() and grabable_object is PickableItem:
+		if $PlayerController.is_grabbing==false:
+			$Indication_canvas/Indication_system/Grab.show()
 	else:
-			$Indication_canvas/Indication_system/Grab.hide()
-
+				$Indication_canvas/Indication_system/Grab.hide()
+				

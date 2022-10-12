@@ -69,5 +69,4 @@ func _process(delta):
 #		pass
 #	pass
 
-func is_grabable():
-	pass
+

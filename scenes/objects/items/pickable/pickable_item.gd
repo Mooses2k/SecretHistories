@@ -81,5 +81,3 @@ func _integrate_forces(state):
 #		printerr(self, " has disappeared into the void: no Level was found")
 #		self.free()
 
-func is_grabable():
-	pass

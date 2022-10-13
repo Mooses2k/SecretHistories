@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://resources/effects/BloodOverlay1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -12,6 +12,11 @@
 [ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 [ext_resource path="res://scenes/characters/player/Indication_canvas.gd" type="Script" id=12]
+[ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=13]
+[ext_resource path="res://resources/health/lifeCircleBar1.png" type="Texture" id=14]
+[ext_resource path="res://resources/health/lifeCircleBar2.png" type="Texture" id=15]
+[ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
+[ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -49,36 +54,12 @@ _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 [sub_resource type="Animation" id=22]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:color")
+tracks/0/path = NodePath("ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 0, 0, 0.784314 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("TextureRect:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -101,6 +82,139 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+
+[sub_resource type="Animation" id=32]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "rotate"
+length = 15.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -360, 0 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+length = 0.001
+
+[sub_resource type="Animation" id=24]
+resource_name = "fadeIn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance2:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "fadeOut"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance2:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=25]
+params_use_alpha_scissor = true
+params_alpha_scissor_threshold = 0.1
+albedo_color = Color( 1, 1, 1, 0 )
+albedo_texture = ExtResource( 14 )
+
+[sub_resource type="PlaneMesh" id=26]
+material = SubResource( 25 )
+
+[sub_resource type="SpatialMaterial" id=28]
+params_use_alpha_scissor = true
+params_alpha_scissor_threshold = 0.1
+albedo_color = Color( 1, 1, 1, 0 )
+albedo_texture = ExtResource( 15 )
+
+[sub_resource type="PlaneMesh" id=29]
+material = SubResource( 28 )
 
 [node name="Player" instance=ExtResource( 4 )]
 collision_layer = 2
@@ -252,7 +366,48 @@ mouse_filter = 2
 texture = ExtResource( 7 )
 expand = true
 
+[node name="HP" type="Spatial" parent="." index="12"]
+script = ExtResource( 13 )
+raycast = NodePath("../Body/FPSCamera/GrabCast")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HP" index="0"]
+anims/RESET = SubResource( 32 )
+anims/rotate = SubResource( 31 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="HP" index="1"]
+anims/RESET = SubResource( 27 )
+anims/fadeIn = SubResource( 24 )
+anims/fadeOut = SubResource( 30 )
+
+[node name="MeshInstance" type="MeshInstance" parent="HP" index="2"]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.0298637, 0 )
+mesh = SubResource( 26 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="HP" index="3"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0298637, 0 )
+mesh = SubResource( 29 )
+
+[node name="PlayerDeath" type="CanvasLayer" parent="." index="13"]
+pause_mode = 2
+script = ExtResource( 16 )
+
+[node name="ColorRect" type="ColorRect" parent="PlayerDeath" index="0"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Tween" type="Tween" parent="PlayerDeath" index="1"]
+
+[node name="Death" type="AudioStreamPlayer" parent="PlayerDeath" index="2"]
+stream = ExtResource( 17 )
+volume_db = 10.0
+
+[connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]
 [connection signal="is_hit" from="." to="HitEffect" method="_on_Player_is_hit"]
+[connection signal="is_hit" from="." to="HP" method="_on_Player_is_hit"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="hit"]
+[connection signal="is_moving" from="PlayerController" to="HP" method="_on_PlayerController_is_moving"]
 [connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]

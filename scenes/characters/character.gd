@@ -67,11 +67,11 @@ func handle_movement(state : PhysicsDirectBodyState):
 
 #func damage(value : float, type : int, on_hitbox : Hitbox):
 func damage(value : float, type : int):
-	queue_free()
+	#queue_free()
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value
 		self.emit_signal("is_hit", current_health)
 		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")
-			self.queue_free()
+			#self.queue_free()

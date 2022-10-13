@@ -1,5 +1,7 @@
 extends Node
 
+signal is_moving(is_player_moving)
+var is_player_moving : bool = false
 
 onready var character = get_parent()
 export var max_placement_distance = 1.5
@@ -102,6 +104,13 @@ func handle_movement(_delta : float):
 #	print(stamina)
 		
 	character.character_state.move_direction = direction
+	
+	if direction == Vector3.ZERO:
+		is_player_moving = false
+		emit_signal("is_moving", is_player_moving)
+	else:
+		is_player_moving = true
+		emit_signal("is_moving", is_player_moving)
 
 func handle_grab_input(delta : float):
 	if Input.is_action_just_released("interact") and is_grabbing:

@@ -185,10 +185,16 @@ func update_throw_state(delta : float):
 				throw_item = ItemSelection.ITEM_PRIMARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
+				if is_grabbing==true:
+					is_grabbing = false
+					interaction_handled = true
 			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item():
 				throw_item = ItemSelection.ITEM_SECONDARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
+				if is_grabbing==true:
+					is_grabbing = false
+					interaction_handled = true
 		ThrowState.PRESSING:
 			if Input.is_action_pressed("main_throw" if throw_item == ItemSelection.ITEM_PRIMARY else "offhand_throw"):
 				throw_press_length += delta

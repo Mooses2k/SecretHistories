@@ -2,6 +2,7 @@ extends CanvasLayer
 
 onready var opacity_target = [0.1, 0.2]
 var tween_speed = 0.7
+var is_fade_in = false
 
 #------>FOR TESTING<------
 var health = 100 
@@ -52,6 +53,10 @@ func _input(event):
 
 
 func _on_Player_is_hit(current_health):
+	if current_health <= 0:
+		$TextureRect.hide()
+		$ColorRect.hide()
+		
 	if not $ColorRect.is_visible_in_tree():
 		$ColorRect.show()
 	if $AnimationPlayer.is_playing():
@@ -92,19 +97,21 @@ func _on_Player_is_hit(current_health):
 		
 
 func _start_fade_in():
+	is_fade_in = true
 	$Tween.interpolate_property($TextureRect, "modulate", 
 		Color(1, 1, 1, opacity_target[0]), Color(1, 1, 1, opacity_target[1]), tween_speed, Tween.TRANS_SINE, Tween.EASE_OUT)    
 	$Tween.start()
 	
 func _start_fade_out():
-	$Tween2.interpolate_property($TextureRect, "modulate", 
+	is_fade_in = false
+	$Tween.interpolate_property($TextureRect, "modulate", 
 		Color(1, 1, 1, opacity_target[1]), Color(1, 1, 1, opacity_target[0]), tween_speed, Tween.TRANS_SINE, Tween.EASE_IN)    
-	$Tween2.start()
+	$Tween.start()
 
 
 func _on_Tween_tween_completed(object, key):
-	_start_fade_out()
+	if is_fade_in:
+		_start_fade_out()
+	else:
+		_start_fade_out()
 
-
-func _on_Tween2_tween_completed(object, key):
-	_start_fade_in()

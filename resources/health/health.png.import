@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/lifeCircleBar2.png-4f76bfa505f02f62cc296086689283d9.s3tc.stex"
-path.etc2="res://.import/lifeCircleBar2.png-4f76bfa505f02f62cc296086689283d9.etc2.stex"
+path.s3tc="res://.import/health.png-eed560272547871f3210be864af5d8bd.s3tc.stex"
+path.etc2="res://.import/health.png-eed560272547871f3210be864af5d8bd.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/health/lifeCircleBar2.png"
-dest_files=[ "res://.import/lifeCircleBar2.png-4f76bfa505f02f62cc296086689283d9.s3tc.stex", "res://.import/lifeCircleBar2.png-4f76bfa505f02f62cc296086689283d9.etc2.stex" ]
+source_file="res://resources/health/health.png"
+dest_files=[ "res://.import/health.png-eed560272547871f3210be864af5d8bd.s3tc.stex", "res://.import/health.png-eed560272547871f3210be864af5d8bd.etc2.stex" ]
 
 [params]
 

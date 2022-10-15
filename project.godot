@@ -335,6 +335,7 @@ LoadQuotes="*res://globals/loadQuotes.gd"
 Settings="*res://globals/settings.gd"
 AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
+ChangeScene="*res://globals/changeScene.gd"
 
 [editor_plugins]
 

@@ -8,7 +8,7 @@ var randomNum
 
 func _input(event):
 	if event is InputEvent and event.is_pressed():
-		var _error = get_tree().change_scene("res://scenes/core/game.tscn")
+		var _error = get_tree().change_scene(ChangeScene.next_scene)
 
 
 func _ready():

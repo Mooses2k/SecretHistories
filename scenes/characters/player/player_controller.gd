@@ -64,6 +64,8 @@ func _physics_process(delta : float):
 	handle_inventory(delta)
 	next_weapon()
 	previous_weapon()
+	if is_grabbing==true:
+		drop_grabbable()
 #	handle_misc_controls(delta)
 
 
@@ -330,7 +332,12 @@ func handle_inventory(delta : float):
 #		throw_press_length = 0.0
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
-
+func drop_grabbable():
+	if Input.is_action_just_pressed("main_throw") or   Input.is_action_just_pressed("offhand_throw"):
+		is_grabbing = false
+		interaction_handled = true
+		var impulse = active_mode.get_aim_direction()*throw_strength
+		grab_object.apply_central_impulse(impulse)
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);

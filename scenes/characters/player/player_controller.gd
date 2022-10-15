@@ -199,11 +199,11 @@ func handle_grab(delta : float):
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
-			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item():
+			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing==false:
 				throw_item = ItemSelection.ITEM_PRIMARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item():
+			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing==false:
 				throw_item = ItemSelection.ITEM_SECONDARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
@@ -347,6 +347,7 @@ func handle_inventory(delta : float):
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
 func drop_grabbable():
+	#when the drop buttons or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("main_throw") or   Input.is_action_just_pressed("offhand_throw"):
 		is_grabbing = false
 		interaction_handled = true

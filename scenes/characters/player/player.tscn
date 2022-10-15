@@ -253,10 +253,9 @@ enabled = true
 cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 65
 
-[node name="FloorDetect" type="RayCast" parent="Body/FPSCamera" index="2"]
+[node name="GroundCast" type="RayCast" parent="Body/FPSCamera" index="2"]
 enabled = true
 cast_to = Vector3( 0, 0, -1.36 )
-collision_mask = 65
 debug_shape_thickness = 3
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="Body/FPSCamera" index="3"]
@@ -290,6 +289,9 @@ current = true
 
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
+
+[node name="PrimaryEquipmentRoot" parent="Body" index="6"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
 collision_layer = 4
@@ -389,7 +391,7 @@ expand = true
 
 [node name="HP" type="Spatial" parent="." index="12"]
 script = ExtResource( 13 )
-raycast = NodePath("../Body/FPSCamera/FloorDetect")
+raycast = NodePath("../Body/FPSCamera/GroundCast")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HP" index="0"]
 anims/RESET = SubResource( 32 )

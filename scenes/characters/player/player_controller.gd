@@ -347,6 +347,7 @@ func handle_inventory(delta : float):
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
 func drop_grabbable():
+	#when the drop buttons or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("main_throw") or   Input.is_action_just_pressed("offhand_throw"):
 		is_grabbing = false
 		interaction_handled = true

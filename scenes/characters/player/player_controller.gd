@@ -1,6 +1,9 @@
 extends Node
 
 
+signal is_moving(is_player_moving)
+var is_player_moving : bool = false
+
 onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
@@ -17,7 +20,6 @@ var movement_basis : Basis = Basis.IDENTITY
 var interaction_target : Node = null
 var target_placement_position : Vector3 = Vector3.ZERO
 
-
 enum ItemSelection {
 	ITEM_PRIMARY,
 	ITEM_SECONDARY,
@@ -29,15 +31,13 @@ enum ThrowState {
 	SHOULD_PLACE,
 	SHOULD_THROW,
 }
+
 var throw_state : int = ThrowState.IDLE
 var throw_item : int = ItemSelection.ITEM_PRIMARY
 var throw_press_length : float = 0.0
-
 var stamina := 125.0
-
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
-
 
 var grab_press_length : float = 0.0
 var wanna_grab : bool = false
@@ -46,6 +46,8 @@ var interaction_handled : bool = false
 var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
 var grab_distance : float = 0.0
+
+
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
@@ -79,6 +81,8 @@ func _input(event):
 				BUTTON_WHEEL_DOWN:
 					if character.inventory.current_primary_slot!=9:
 						character.inventory.current_primary_slot+=1
+
+
 #func handle_misc_controls(_delta : float):
 #	if Input.is_action_just_pressed("toggle_perspective"):
 #		active_mode_index = (active_mode_index + 1)%get_child_count()
@@ -86,13 +90,13 @@ func _input(event):
 #		active_mode = get_child(active_mode_index)
 #		active_mode.is_active = true
 
+
 func handle_movement(_delta : float):
 	var direction : Vector3 = Vector3.ZERO
 	direction.x += Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	direction.z += Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	direction = movement_basis.xform(direction)
 	direction = direction.normalized()*min(1.0, direction.length())
-	
 	
 	if Input.is_action_pressed("sprint") and stamina > 0:
 		direction *= 0.5;
@@ -104,11 +108,20 @@ func handle_movement(_delta : float):
 #	print(stamina)
 		
 	character.character_state.move_direction = direction
+	
+	if direction == Vector3.ZERO:
+		is_player_moving = false
+		emit_signal("is_moving", is_player_moving)
+	else:
+		is_player_moving = true
+		emit_signal("is_moving", is_player_moving)
+
 
 func handle_grab_input(delta : float):
 	if Input.is_action_just_released("interact") and is_grabbing:
 		is_grabbing = false
 		interaction_handled = true
+		
 	if Input.is_action_pressed("interact"):
 		grab_press_length += delta
 	else:
@@ -116,7 +129,9 @@ func handle_grab_input(delta : float):
 		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
 			wanna_grab = true
 			interaction_handled = true
+		
 		grab_press_length = 0.0
+
 
 func handle_grab(delta : float):
 	if wanna_grab and not is_grabbing:
@@ -128,8 +143,10 @@ func handle_grab(delta : float):
 			grab_distance = owner.fps_camera.global_transform.origin.distance_to(grab_position)
 			grab_object = object
 			is_grabbing = true
+	
 	$MeshInstance.visible = is_grabbing
 	$MeshInstance2.visible = is_grabbing
+	
 	if is_grabbing:
 		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
 #		print("mass : ", direct_state.inverse_mass)
@@ -177,8 +194,7 @@ func handle_grab(delta : float):
 		
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
-		
-		
+
 
 func update_throw_state(delta : float):
 	match throw_state:
@@ -199,6 +215,7 @@ func update_throw_state(delta : float):
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
 	pass
+
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
@@ -248,9 +265,6 @@ func handle_inventory(delta : float):
 		if inv.get_secondary_item():
 			inv.get_secondary_item().use_primary()
 			throw_state = ThrowState.IDLE
-	
-	
-	
 	
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = inv.get_primary_item() if throw_item == ItemSelection.ITEM_PRIMARY else inv.get_secondary_item()
@@ -341,9 +355,12 @@ func drop_grabbable():
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);
+
+
 func previous_weapon():
 	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot!=0:
 			character.inventory.current_primary_slot-=1
+
 
 func next_weapon():
 	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot!=9:

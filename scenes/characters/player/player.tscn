@@ -253,7 +253,13 @@ enabled = true
 cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 65
 
-[node name="ViewportContainer2" type="ViewportContainer" parent="Body/FPSCamera" index="2"]
+[node name="FloorDetect" type="RayCast" parent="Body/FPSCamera" index="2"]
+enabled = true
+cast_to = Vector3( 0, 0, -1.36 )
+collision_mask = 65
+debug_shape_thickness = 3
+
+[node name="ViewportContainer2" type="ViewportContainer" parent="Body/FPSCamera" index="3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -284,9 +290,6 @@ current = true
 
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
-
-[node name="PrimaryEquipmentRoot" parent="Body" index="6"]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
 collision_layer = 4
@@ -386,7 +389,7 @@ expand = true
 
 [node name="HP" type="Spatial" parent="." index="12"]
 script = ExtResource( 13 )
-raycast = NodePath("../Body/FPSCamera/GrabCast")
+raycast = NodePath("../Body/FPSCamera/FloorDetect")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HP" index="0"]
 anims/RESET = SubResource( 32 )
@@ -404,6 +407,9 @@ mesh = SubResource( 26 )
 [node name="MeshInstance2" type="MeshInstance" parent="HP" index="3"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0298637, 0 )
 mesh = SubResource( 29 )
+
+[node name="Timer" type="Timer" parent="HP" index="4"]
+one_shot = true
 
 [node name="PlayerDeath" type="CanvasLayer" parent="." index="13"]
 pause_mode = 2
@@ -432,6 +438,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
+[connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]
 [connection signal="is_hit" from="." to="HitEffect" method="_on_Player_is_hit"]
 [connection signal="is_hit" from="." to="HP" method="_on_Player_is_hit"]
@@ -439,4 +446,5 @@ mouse_filter = 2
 [connection signal="is_moving" from="PlayerController" to="HP" method="_on_PlayerController_is_moving"]
 [connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]
+[connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]

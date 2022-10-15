@@ -5,10 +5,10 @@ var is_BW = false
 export var main_cam_path : NodePath
 onready var main_cam = get_node(main_cam_path)
 
+
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("kick"):
 		_on_Player_character_died()
-	
 	else:
 		if event is InputEvent and event.is_pressed() and is_BW:
 			_fade_to_black()
@@ -27,15 +27,14 @@ func _on_Player_character_died():
 
 func _move_cam():
 	$Tween.interpolate_property(main_cam, "translation", 
-		Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y, main_cam.transform.origin.z), 
-		Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y + 1, main_cam.transform.origin.z + 1.3), 
-		8, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y, main_cam.transform.origin.z), 
+			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y + 1, main_cam.transform.origin.z + 1.3), 
+			8, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.interpolate_property(main_cam, "rotation_degrees", 
-		Vector3(main_cam.transform.basis.x.x, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
-		Vector3(main_cam.transform.basis.x.x-40, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
-		5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+			Vector3(main_cam.transform.basis.x.x, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
+			Vector3(main_cam.transform.basis.x.x-40, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
+			5, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()
-	
 
 
 func _fade_to_black():

@@ -12,8 +12,10 @@ class_name Hitbox
 # This hitbox collided with another hitbox
 signal hit(other)
 
+
 func _ready():
 	connect("area_entered", self, "on_area_entered")
+
 
 func on_area_entered(area):
 	# Checks if the other area is also a hitbox

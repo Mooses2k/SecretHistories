@@ -1,5 +1,6 @@
 extends AudioStreamPlayer
 
+
 var occuring = false
 export var curve : Curve
 export var period = 1.0
@@ -8,11 +9,14 @@ var t = 0
 var threshold = 1.0
 var is_dead = false
 
+
 func _ready():
 	volume_db = curve.interpolate(0)
 
+
 func enable():
 	occuring = true
+
 
 func _physics_process(delta):
 	if not is_dead:

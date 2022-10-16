@@ -36,8 +36,8 @@ shader = SubResource( 8 )
 shader_param/EMISSION_COLOR = Color( 1, 0.713726, 0.411765, 1 )
 
 [sub_resource type="CylinderShape" id=2]
-radius = 0.06
 height = 0.2
+radius = 0.06
 
 [sub_resource type="CylinderMesh" id=3]
 top_radius = 0.0
@@ -81,13 +81,12 @@ shader_param/COLOR_RAMP = SubResource( 6 )
 
 [node name="Candle" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+item_name = "Candle"
 
 [node name="MeshInstance" parent="." index="0"]
 cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 9 )
-script = ExtResource( 4 )
-main_parent = NodePath("..")
 
 [node name="CollisionShape" parent="." index="1"]
 shape = SubResource( 2 )

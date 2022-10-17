@@ -30,13 +30,20 @@ func _on_ResumeButton_pressed() -> void:
 func _on_SaveButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.SAVE)
 
+
 func _on_SettingsButton_pressed():
 	emit_signal("button_pressed", EscMenuButtons.SETTINGS)
 #	$"../SettingsMenu".show()
 #	call_deferred("hide")
-	
+
+
 func _on_QuitButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.QUIT)
 #	get_tree().quit()
 
+
+func _input(event):
+	if event.is_action_pressed("fullscreen"):
+		if not VideoSettings.is_fullscreen_enabled():
+			VideoSettings.set_fullscreen_enabled(true)
 

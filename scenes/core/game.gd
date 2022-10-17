@@ -37,3 +37,8 @@ func spawn_player():
 	world_root.call_deferred("add_child", self.player)
 	yield(self.player, "ready")
 	self.emit_signal("player_spawned", self.player)
+	
+func _input(event):
+	if event.is_action_pressed("fullscreen"):
+		if not VideoSettings.is_fullscreen_enabled():
+			VideoSettings.set_fullscreen_enabled(true)

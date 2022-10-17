@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.mp3" type="AudioStream" id=1]
+[ext_resource path="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.wav" type="AudioStream" id=1]
 [ext_resource path="res://scenes/effects/shotgun_audio.gd" type="Script" id=2]
 
 [node name="ShotgunAudio" type="AudioStreamPlayer3D"]

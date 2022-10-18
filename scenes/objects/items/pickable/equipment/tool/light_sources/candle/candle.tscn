@@ -110,3 +110,9 @@ light_color = Color( 1, 0.713726, 0.411765, 1 )
 shadow_enabled = true
 omni_range = 14.9623
 omni_attenuation = 4.0
+
+[node name="Durability" type="Timer" parent="." index="4"]
+wait_time = 900.0
+one_shot = true
+
+[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

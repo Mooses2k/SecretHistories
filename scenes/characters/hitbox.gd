@@ -1,9 +1,23 @@
 extends Area
 class_name Hitbox
+# This class represents a generic hitbox
+# If this hitbox can initiate interactions with other hitboxes,
+# For example, if it belongs to a melee weapon,
+# `Monitoring` should be set to true, and false otherwise
 
-export var hitbox_owner_path : NodePath
+# If this hitbox can receive interactions from other hitboxes,
+# For example, it it belongs to a character that can be attacked,
+# `Monitorable` should be set to true, and false otherwise
 
-onready var character : Character = get_node(hitbox_owner_path) as Character
+# This hitbox collided with another hitbox
+signal hit(other)
 
-func hit(damage : int, type : int = AttackTypes.Types.PHYSICAL, position : Vector3 = Vector3.ZERO, direction : Vector3 = Vector3.ZERO):
-	character.damage(damage, type)
+
+func _ready():
+	connect("area_entered", self, "on_area_entered")
+
+
+func on_area_entered(area):
+	# Checks if the other area is also a hitbox
+	if area is get_script():
+		emit_signal("hit", area)

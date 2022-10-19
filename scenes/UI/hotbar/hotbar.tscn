@@ -1,0 +1,199 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/UI/hotbar/hotbar_slot.tscn" type="PackedScene" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Fade_in"
+length = 1.8
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "Fade_out"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Hotbar" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 2.0
+margin_top = 336.0
+margin_right = 369.0
+margin_bottom = 598.0
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+custom_constants/separation = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bulky" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_right = 367.0
+margin_bottom = 22.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 0
+is_bulky = true
+
+[node name="1" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 24.0
+margin_right = 367.0
+margin_bottom = 46.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 0
+
+[node name="2" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 48.0
+margin_right = 367.0
+margin_bottom = 70.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 1
+
+[node name="3" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 72.0
+margin_right = 367.0
+margin_bottom = 94.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 2
+
+[node name="4" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 96.0
+margin_right = 367.0
+margin_bottom = 118.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 3
+
+[node name="5" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 120.0
+margin_right = 367.0
+margin_bottom = 142.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 4
+
+[node name="6" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 144.0
+margin_right = 367.0
+margin_bottom = 166.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 5
+
+[node name="7" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 168.0
+margin_right = 367.0
+margin_bottom = 190.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 6
+
+[node name="8" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 192.0
+margin_right = 367.0
+margin_bottom = 214.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 7
+
+[node name="9" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 216.0
+margin_right = 367.0
+margin_bottom = 238.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 8
+
+[node name="10" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_top = 240.0
+margin_right = 367.0
+margin_bottom = 262.0
+can_equip_modulate = Color( 1, 1, 1, 0.501961 )
+equipped_modulate = Color( 1, 1, 1, 1 )
+can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 9
+
+[node name="FadeAnim" type="AnimationPlayer" parent="."]
+anims/Fade_in = SubResource( 2 )
+anims/Fade_out = SubResource( 1 )
+
+[connection signal="animation_finished" from="FadeAnim" to="VBoxContainer/Bulky" method="_on_Fade_animation_finished"]

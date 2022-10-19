@@ -1,7 +1,9 @@
 extends RigidBody
-class_name Character
+#class_name Character
+
 
 signal character_died()
+signal is_hit(current_health)
 
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
@@ -9,20 +11,27 @@ export var move_speed : float = 8.0
 export var acceleration : float = 32.0
 
 onready var character_state : CharacterState = CharacterState.new(self)
-
-
-
 onready var current_health : float = self.max_health
+
+onready var inventory = $Inventory
+onready var pickup_area = $PickupArea
+onready var primary_equipment_root = $Body/PrimaryEquipmentRoot
+onready var secondary_equipment_root = $Body/SecondaryEquipmentRoot
+onready var drop_position_node = $Body/DropPosition
+onready var body = $Body
+
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
 
-func _init():
-	mode = MODE_CHARACTER
-	self.physics_material_override = preload("res://scenes/characters/character.phymat")
+
+#func _init():
+#	mode = MODE_CHARACTER
+#	self.physics_material_override = preload("res://scenes/characters/character.phymat")
+
 
 func _ready():
-	_type_damage_multiplier.resize(AttackTypes.Types.TYPE_COUNT)
+	_type_damage_multiplier.resize(AttackTypes.Types._COUNT)
 	for i in _type_damage_multiplier.size():
 		_type_damage_multiplier[i] = 1
 	for immunity in self.immunities:
@@ -44,12 +53,14 @@ func _integrate_forces(state):
 #
 #	self._current_velocity = self.move_and_slide(self._current_velocity, Vector3.UP)
 
+
 #Stays at y = 0, raycast later
 func handle_elevation(state : PhysicsDirectBodyState):
 	var diff_correction = -Vector3.UP*state.transform.origin.y*mass/state.step
 	var speed_correction = -Vector3.UP*state.linear_velocity.y*mass
 	var gravity_correction = -state.total_gravity*mass*state.step
 	apply_central_impulse(diff_correction + speed_correction + gravity_correction)
+
 
 func handle_movement(state : PhysicsDirectBodyState):
 	var planar_velocity = state.linear_velocity
@@ -59,10 +70,16 @@ func handle_movement(state : PhysicsDirectBodyState):
 	var velocity_correction = velocity_diff.normalized()*min(acceleration*state.step, velocity_diff.length())
 	apply_central_impulse(velocity_correction*mass)
 
-func damage(value : float, type : int):
+
+func damage(value : float, type : int, on_hitbox : Hitbox):
+	#queue_free()
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value
+		self.emit_signal("is_hit", current_health)
+		
 		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")
-			self.queue_free()
+			
+			if self.name != "Player":
+				self.queue_free()

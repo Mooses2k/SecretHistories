@@ -1,14 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/core/game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/UI/game_ui/GameUI.tscn" type="PackedScene" id=4]
 
 [node name="Game" type="Node"]
+pause_mode = 1
 script = ExtResource( 1 )
 start_level_scn = ExtResource( 3 )
 player_scn = ExtResource( 2 )
 
 [node name="World" type="Spatial" parent="."]
+pause_mode = 1
 
-[node name="UI" type="Node" parent="."]
+[node name="GameUI" parent="." instance=ExtResource( 4 )]

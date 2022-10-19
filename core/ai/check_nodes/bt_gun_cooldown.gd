@@ -1,10 +1,11 @@
 class_name BT_Gun_Cooldown
 extends BT_Node
 
-export var gun : NodePath
-onready var _gun : Gun = get_node(gun) as Gun
 
 func tick(state : CharacterState) -> int:
-	if _gun.can_shoot():
+	var equipment = state.character.inventory.current_equipment as GunItem
+	if equipment:
+		if equipment.on_cooldown or equipment.is_reloading:
+			return Status.RUNNING
 		return Status.SUCCESS
-	return Status.RUNNING
+	return Status.FAILURE

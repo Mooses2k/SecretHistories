@@ -48,6 +48,9 @@ acceleration = 6.0
 [node name="Body" parent="." index="1"]
 script = ExtResource( 4 )
 
+[node name="EquipmentRoot" parent="Body" index="1"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
+
 [node name="MeshInstance" type="MeshInstance" parent="Body" index="2"]
 transform = Transform( -0.17, 0, -1.48619e-08, 0, 0.17, 0, 1.48619e-08, 0, -0.17, 0, 0, 0 )
 mesh = SubResource( 5 )

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Shotgun_Blast-Jim_Rogers-1914772763.wav-c3830817b4c3ea6e338c461f2b8f78ff.sample"
+
+[deps]
+
+source_file="res://resources/sounds/Shotgun_Blast-Jim_Rogers-1914772763.wav"
+dest_files=[ "res://.import/Shotgun_Blast-Jim_Rogers-1914772763.wav-c3830817b4c3ea6e338c461f2b8f78ff.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

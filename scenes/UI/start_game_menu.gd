@@ -4,6 +4,11 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
+func _input(event):
+	if event.is_action_pressed("fullscreen"):
+		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
+
+
 func _on_ZombieSpawnChance_value_changed(value: float) -> void:
 	pass # Replace with function body.
 

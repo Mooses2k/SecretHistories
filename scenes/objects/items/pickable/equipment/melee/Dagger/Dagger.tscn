@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Dagger/Dagger.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/items/pickable/MeshInstances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/dagger/M_Dagger.material" type="Material" id=5]
 
 [sub_resource type="CylinderShape" id=3]
@@ -61,6 +62,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0807962, 0 )
 [node name="SM_Dagger" type="MeshInstance" parent="."]
 transform = Transform( -2.62268e-07, 0, 6, 0, 6, 0, -6, 0, -2.62268e-07, 0, -0.0289248, 0 )
 mesh = SubResource( 6 )
+script = ExtResource( 3 )
+main_parent = NodePath("..")
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
 transform = Transform( -2.62268e-07, 0, 6, 0, 6, 0, -6, 0, -2.62268e-07, 0, -0.0289248, 0 )

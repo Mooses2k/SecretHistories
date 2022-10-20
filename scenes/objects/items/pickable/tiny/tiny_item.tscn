@@ -5,6 +5,8 @@
 
 [node name="TinyItem" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+item_data = null
+amount = 1
 
 [node name="MeshInstance" parent="." index="0"]
 main_parent = NodePath("..")

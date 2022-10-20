@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -21,6 +21,9 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/components/rocks/Rock3.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Dagger/Dagger.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Mace/Mace.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Pitchfork/Pitchfork.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Shovel/Shovel.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/objects/items/pickable/tiny/Hammer/Hammer.tscn" type="PackedScene" id=24]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.25 )
@@ -60,61 +63,64 @@ continuous_cd = false
 item_data = ExtResource( 15 )
 amount = 100
 
-[node name="TinyItem4" parent="." index="9" instance=ExtResource( 6 )]
+[node name="Hammer" parent="." index="9" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.96659, 0.5, 4.60864 )
+
+[node name="TinyItem4" parent="." index="10" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.20663, 0.5, 5 )
 continuous_cd = false
 item_data = ExtResource( 15 )
 amount = 100
 
-[node name="TinyItem5" parent="." index="10" instance=ExtResource( 6 )]
+[node name="TinyItem5" parent="." index="11" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.97114, 0.5, 2 )
 continuous_cd = false
 item_data = ExtResource( 15 )
 amount = 100
 
-[node name="ShotgunItem" parent="." index="11" instance=ExtResource( 4 )]
+[node name="ShotgunItem" parent="." index="12" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5 )
 
-[node name="ShotgunItem7" parent="." index="12" instance=ExtResource( 4 )]
+[node name="ShotgunItem7" parent="." index="13" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5 )
 
-[node name="CavalrySabre" parent="." index="13" instance=ExtResource( 7 )]
+[node name="CavalrySabre" parent="." index="14" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.89856, 5.31467, 4.92483 )
 
-[node name="ShotgunItem2" parent="." index="14" instance=ExtResource( 4 )]
+[node name="ShotgunItem2" parent="." index="15" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 5, 5 )
 
-[node name="ShotgunItem3" parent="." index="15" instance=ExtResource( 4 )]
+[node name="ShotgunItem3" parent="." index="16" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 5, 5 )
 
-[node name="ShotgunItem4" parent="." index="16" instance=ExtResource( 4 )]
+[node name="ShotgunItem4" parent="." index="17" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 5, 5 )
 
-[node name="ShotgunItem5" parent="." index="17" instance=ExtResource( 4 )]
+[node name="ShotgunItem5" parent="." index="18" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 5, 5 )
 
-[node name="ShotgunItem6" parent="." index="18" instance=ExtResource( 4 )]
+[node name="ShotgunItem6" parent="." index="19" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 5, 5 )
 
-[node name="ShotgunItem8" parent="." index="19" instance=ExtResource( 4 )]
+[node name="ShotgunItem8" parent="." index="20" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 5, 5 )
 
-[node name="ShotgunItem9" parent="." index="20" instance=ExtResource( 4 )]
+[node name="ShotgunItem9" parent="." index="21" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.2, 5, 5 )
 
-[node name="ShotgunItem10" parent="." index="21" instance=ExtResource( 4 )]
+[node name="ShotgunItem10" parent="." index="22" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 5, 5 )
 
-[node name="ShotgunItem11" parent="." index="22" instance=ExtResource( 4 )]
+[node name="ShotgunItem11" parent="." index="23" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 5, 5 )
 
-[node name="ShotgunItem12" parent="." index="23" instance=ExtResource( 4 )]
+[node name="ShotgunItem12" parent="." index="24" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 5, 5 )
 
-[node name="Door" parent="." index="24" instance=ExtResource( 8 )]
+[node name="Door" parent="." index="25" instance=ExtResource( 8 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, 6 )
 
-[node name="Bookcase" type="RigidBody" parent="." index="25"]
+[node name="Bookcase" type="RigidBody" parent="." index="26"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
 collision_layer = 5
 mass = 102.041
@@ -125,37 +131,42 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Candle2" parent="." index="26" instance=ExtResource( 12 )]
+[node name="Candle2" parent="." index="27" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
 
-[node name="KeyItem" parent="." index="27" instance=ExtResource( 10 )]
+[node name="KeyItem" parent="." index="28" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
-key_id = 0
 
-[node name="PadlockItem" parent="." index="28" instance=ExtResource( 13 )]
+[node name="PadlockItem" parent="." index="29" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
 padlock_id = 0
 padlock_locked = false
 
-[node name="Webley" parent="." index="29" instance=ExtResource( 14 )]
+[node name="Webley" parent="." index="30" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16169, 0.463916, 3.70036 )
 
-[node name="Ghost" parent="." index="30" instance=ExtResource( 16 )]
+[node name="Ghost" parent="." index="31" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5788, 0.702882, 14.438 )
 
-[node name="Rock1" parent="." index="31" instance=ExtResource( 17 )]
+[node name="Rock1" parent="." index="32" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3935, 0.421084, 2.44898 )
 
-[node name="Rock3" parent="." index="32" instance=ExtResource( 19 )]
+[node name="Rock3" parent="." index="33" instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.73767, 0, 4.27411 )
 
-[node name="Rock2" parent="." index="33" instance=ExtResource( 18 )]
+[node name="Rock2" parent="." index="34" instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7919, 0, 3.86273 )
 
-[node name="Dagger" parent="." index="34" instance=ExtResource( 20 )]
+[node name="Dagger" parent="." index="35" instance=ExtResource( 20 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56684, 0, 4.90412 )
 
-[node name="Mace" parent="." index="35" instance=ExtResource( 21 )]
+[node name="Mace" parent="." index="36" instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6471, 0.0105126, 7.29076 )
+
+[node name="Shovel" parent="." index="37" instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94063, 0, 5.37948 )
+
+[node name="Pitchfork" parent="." index="38" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45495, 0, 4.23118 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

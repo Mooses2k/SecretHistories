@@ -1,8 +1,8 @@
-extends PickableItem
-class_name Hammer
+extends TinyItem
+
 
 #export var item_data : Resource
-export var amount : int = 1
+
 
 
 

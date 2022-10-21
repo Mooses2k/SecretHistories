@@ -174,11 +174,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/ranged/gun_item.gd"
 }, {
-"base": "PickableItem",
-"class": "Hammer",
-"language": "GDScript",
-"path": "res://scenes/objects/items/pickable/tiny/Hammer/Hammer.gd"
-}, {
 "base": "Area",
 "class": "Hitbox",
 "language": "GDScript",
@@ -328,7 +323,6 @@ _global_script_class_icons={
 "GlobalConsts": "",
 "Groups": "",
 "GunItem": "",
-"Hammer": "",
 "Hitbox": "",
 "Interactable": "",
 "KeyItem": "",
@@ -609,7 +603,6 @@ common/physics_interpolation=true
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 quality/filters/use_fxaa=true

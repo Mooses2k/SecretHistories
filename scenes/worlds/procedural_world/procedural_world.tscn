@@ -187,7 +187,7 @@ padlock_locked = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16169, 0.463916, 3.70036 )
 
 [node name="Ghost" parent="." index="39" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4371, 0.421084, 8.35447 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.579, 0.703, 14.438 )
 
 [node name="Rock1" parent="." index="40" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3935, 0.421084, 2.44898 )

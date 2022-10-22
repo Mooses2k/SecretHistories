@@ -14,15 +14,18 @@ onready var states = [
 
 var gui_state = PauseMenuState.ESC_MENU setget set_gui_state
 
+
 func _ready() -> void:
 	for state in states:
 		state.exit_state()
 	states[gui_state].enter_state()
 
+
 func set_gui_state(value : int):
 	states[gui_state].exit_state()
 	gui_state = value
 	states[gui_state].enter_state()
+
 
 func exit_state():
 	get_tree().paused = false
@@ -30,14 +33,16 @@ func exit_state():
 	self.visible = false
 	pass
 
+
 func enter_state():
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	self.visible = true
 	pass
 
+
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel") and not GameManager.is_player_dead:
 		match gui_state:
 			PauseMenuState.SETTINGS_MENU:
 				self.gui_state = PauseMenuState.ESC_MENU

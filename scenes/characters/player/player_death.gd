@@ -15,6 +15,7 @@ func _input(event):
 
 
 func _on_Player_character_died():
+	GameManager.is_player_dead = true
 	get_tree().paused = true
 	$Death.play()
 	$ColorRect.show()

@@ -30,7 +30,7 @@ func on_gui_scale_changed(value):
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel") and not GameManager.is_player_dead:
 		match gui_state:
 			GUIState.HUD:
 				self.gui_state = GUIState.PAUSE

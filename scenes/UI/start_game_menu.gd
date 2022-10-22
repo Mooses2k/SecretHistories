@@ -22,6 +22,7 @@ func _on_GhostDetectionRange_value_changed(value: float) -> void:
 
 
 func _on_StartGame_pressed() -> void:
+	GameManager.is_player_dead = false
 	ChangeScene._change_to_scene("res://scenes/core/game.tscn")
 
 func _on_ReturnButton_pressed() -> void:

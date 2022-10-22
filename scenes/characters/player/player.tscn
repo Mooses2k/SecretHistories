@@ -239,7 +239,7 @@ collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="FPSCamera" type="Camera" parent="Body" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54753, -0.2 )
 cull_mask = 1048573
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera" index="0"]
@@ -275,7 +275,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
 cull_mask = 2
 
 [node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54754, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
 

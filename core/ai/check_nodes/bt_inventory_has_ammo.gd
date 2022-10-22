@@ -4,7 +4,7 @@ extends BT_Node
 
 func tick(state : CharacterState) -> int:
 	var inventory = state.character.inventory
-	var equipment = inventory.current_equipment as GunItem
+	var equipment = inventory.current_primary_equipment as GunItem
 	if equipment:
 		for ammo_type in equipment.ammo_types:
 			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:

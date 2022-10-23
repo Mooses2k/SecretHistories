@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/models/items/melee/dagger/M_Dagger.material" type="Material" id=5]
 
 [sub_resource type="CylinderShape" id=3]
-height = 0.339561
+height = 0.165698
 radius = 0.0555477
 
 [sub_resource type="ArrayMesh" id=6]
@@ -56,28 +56,28 @@ monitorable = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.198226, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.376374, 0 )
 shape = SubResource( 3 )
 
 [node name="HoldPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0807962, 0 )
 
 [node name="SM_Dagger" type="MeshInstance" parent="."]
-transform = Transform( -2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 0, -0.0289248, 0 )
+transform = Transform( -1.87959e-07, 0, 4.3, 0, 4.3, 0, -4.3, 0, -1.87959e-07, 0, -0.0289248, 0 )
 mesh = SubResource( 6 )
 script = ExtResource( 3 )
 main_parent = NodePath("..")
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( -2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 0, -0.0289248, 0 )
+transform = Transform( -1.87959e-07, 0, 4.3, 0, 4.3, 0, -4.3, 0, -1.87959e-07, 0, -0.0289248, 0 )
 shape = SubResource( 11 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 0, -0.0289248, 0 )
+transform = Transform( -1.87959e-07, 0, 4.3, 0, 4.3, 0, -4.3, 0, -1.87959e-07, 0, -0.0289248, 0 )
 shape = SubResource( 12 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( 2.62268e-07, -2.29282e-14, 6, -5.24537e-07, -6, 0, 6, -5.24537e-07, -2.62268e-07, 0, 0.542758, 0 )
+transform = Transform( 1.31134e-07, -1.98007e-14, 3, -4.52987e-07, -3, 5.0822e-21, 3, -4.52987e-07, -1.31134e-07, 0, 0.266495, 0 )
 shape = SubResource( 10 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

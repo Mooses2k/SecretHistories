@@ -7,7 +7,7 @@
 [ext_resource path="res://resources/models/items/melee/mace/source/Bulava.obj" type="ArrayMesh" id=5]
 
 [sub_resource type="CylinderShape" id=3]
-height = 0.262575
+height = 0.145875
 radius = 0.1
 
 [sub_resource type="ConvexPolygonShape" id=12]
@@ -41,14 +41,14 @@ monitorable = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0622283, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
 shape = SubResource( 3 )
 
 [node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.251386, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26883, 0 )
 
 [node name="Bulava" type="MeshInstance" parent="."]
-transform = Transform( 0.007, 0, 0, 0, 0.007, 0, 0, 0, 0.007, 0, 0.173, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
 mesh = ExtResource( 5 )
 skeleton = NodePath("")
 material/0 = ExtResource( 4 )
@@ -56,15 +56,15 @@ script = ExtResource( 3 )
 main_parent = NodePath("..")
 
 [node name="CollisionShape5" type="CollisionShape" parent="."]
-transform = Transform( 0.007, 0, 0, 0, 0.007, 0, 0, 0, 0.007, 0, 0.173, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
 shape = SubResource( 12 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( 0.007, 0, 0, 0, 0.007, 0, 0, 0, 0.007, 0, 0.173, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
 shape = SubResource( 13 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -1, 9.05975e-08, 0, -1.50996e-07, -0.6, 0, 0, 0, 0.6, -0.00380212, 0.27033, -0.00468011 )
+transform = Transform( -0.4, 6.03983e-08, 0, -6.03983e-08, -0.4, 0, 0, 0, 0.4, 0.000208497, 0.202245, 0.000981377 )
 shape = SubResource( 11 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

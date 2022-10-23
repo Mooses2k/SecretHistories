@@ -4,16 +4,12 @@ export var margin : float = 0.3
 export var wall_thickness : float = 0.15
 export var elevation : float = 0.2
 #export var doors_enabled : bool = true setget set_doors_enabled
-var data : Resource setget set_data
+var data : WorldData
 var walls_done = Dictionary()
 
 var door_scene = preload("res://scenes/objects/world_objects/doors/door.tscn")
 #stores the navmeshes for each door, similar to wall_meta on the WorldData resource
-var doors_x := Dictionary()
-var doors_z := Dictionary()
-
-func set_data(value : WorldData):
-	data = value
+var doors := Dictionary()
 
 #func set_doors_enabled(value : bool):
 #	doors_enabled = value
@@ -25,46 +21,15 @@ func set_data(value : WorldData):
 #	for idx in doors_z.keys():
 #		navmesh_set_transform(doors_z[idx], xform)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
 func get_door_navmesh_instance(cell_index : int, direction : int) -> NavigationMeshInstance:
-	var idx = 0
-	match direction:
-		WorldData.Direction.NORTH:
-			idx = data.get_north_wall_index(cell_index)
-		WorldData.Direction.SOUTH:
-			idx = data.get_south_wall_index(cell_index)
-		WorldData.Direction.EAST:
-			idx = data.get_east_wall_index(cell_index)
-		WorldData.Direction.WEST:
-			idx = data.get_west_wall_index(cell_index)
-	var dict : Dictionary = doors_x
-	if direction == WorldData.Direction.NORTH or direction == WorldData.Direction.SOUTH:
-		dict = doors_z
-	return dict.get(idx)
+	return doors.get(data._get_wall_index(cell_index, direction))
 
 func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
-	var idx = 0
-	match direction:
-		WorldData.Direction.NORTH:
-			idx = data.get_north_wall_index(cell_index)
-		WorldData.Direction.SOUTH:
-			idx = data.get_south_wall_index(cell_index)
-		WorldData.Direction.EAST:
-			idx = data.get_east_wall_index(cell_index)
-		WorldData.Direction.WEST:
-			idx = data.get_west_wall_index(cell_index)
-	var dict : Dictionary = doors_x
-	if direction == WorldData.Direction.NORTH or direction == WorldData.Direction.SOUTH:
-		dict = doors_z
+	var idx = data._get_wall_index(cell_index, direction)
 	if value == null:
-		if dict.has(idx):
-			(dict as Dictionary).erase(idx)
+		doors.erase(idx)
 	else:
-		dict[idx] = value
+		doors[idx] = value
 
 func update_navigation():
 	var start = OS.get_ticks_msec()

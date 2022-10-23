@@ -52,10 +52,10 @@ func spawn_enemies():
 	for child in enemies_root.get_children():
 		child.queue_free()
 	print("Spawning enemies")
-	for i in data.world_size_x:
-		for j in data.world_size_z:
+	for i in data.get_size_x():
+		for j in data.get_size_z():
 			var cell = data.get_cell_index_from_int_position(i, j)
-			if data.is_cell_free[cell] and randf()<density:
+			if data.get_cell_type(cell) == data.CellType.ROOM and randf()<density:
 				var enemy = enemy_scene.instance() as Spatial
 				enemy.translation = GameManager.game.level.grid_to_world(Vector3(i, 0, j))
 				enemies_root.add_child(enemy)

@@ -154,6 +154,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
 }, {
+"base": "Node",
+"class": "GenerationManager",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/generation_steps/generation_manager.gd"
+}, {
+"base": "Node",
+"class": "GenerationStep",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/generation_steps/generation_step.gd"
+}, {
 "base": "Object",
 "class": "GlobalConsts",
 "language": "GDScript",
@@ -183,6 +193,11 @@ _global_script_classes=[ {
 "class": "KeyItem",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/tiny/key/key_item.gd"
+}, {
+"base": "AStar2D",
+"class": "ManhattanAStar2D",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/ManhattanAStar2D.gd"
 }, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
@@ -258,11 +273,6 @@ _global_script_classes=[ {
 "class": "WorldData",
 "language": "GDScript",
 "path": "res://resources/world/world_data.gd"
-}, {
-"base": "Resource",
-"class": "WorldGenerator",
-"language": "GDScript",
-"path": "res://resources/world/world_generator.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -294,12 +304,15 @@ _global_script_class_icons={
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
+"GenerationManager": "",
+"GenerationStep": "",
 "GlobalConsts": "",
 "Groups": "",
 "GunItem": "",
 "Hitbox": "",
 "Interactable": "",
 "KeyItem": "",
+"ManhattanAStar2D": "",
 "MeleeItem": "",
 "MeshTransform": "",
 "PadlockItem": "",
@@ -314,8 +327,7 @@ _global_script_class_icons={
 "TinyItemData": "",
 "ToolItem": "",
 "VisibilityMask": "",
-"WorldData": "",
-"WorldGenerator": ""
+"WorldData": ""
 }
 
 [application]
@@ -341,7 +353,6 @@ ChangeScene="*res://globals/changeScene.gd"
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
 
 [editor_plugins]
 

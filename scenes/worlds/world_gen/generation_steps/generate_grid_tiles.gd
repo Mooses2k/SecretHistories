@@ -20,7 +20,6 @@ func select_floor_tiles(data : WorldData):
 	for i in data.cell_count:
 		if data.get_cell_type(i) != data.CellType.EMPTY:
 			data.set_ground_tile_index(i, floor_tile)
-	print(data.ground_tile_index)
 
 func select_ceiling_tiles(data : WorldData):
 	for i in data.cell_count:

@@ -41,14 +41,14 @@ monitorable = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0142777, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
 shape = SubResource( 3 )
 
 [node name="HoldPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26883, 0 )
 
 [node name="Bulava" type="MeshInstance" parent="."]
-transform = Transform( 0.006, 0, 0, 0, 0.006, 0, 0, 0, 0.006, 0, 0.173, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
 mesh = ExtResource( 5 )
 skeleton = NodePath("")
 material/0 = ExtResource( 4 )
@@ -56,15 +56,15 @@ script = ExtResource( 3 )
 main_parent = NodePath("..")
 
 [node name="CollisionShape5" type="CollisionShape" parent="."]
-transform = Transform( 0.006, 0, 0, 0, 0.006, 0, 0, 0, 0.006, 0, 0.173, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
 shape = SubResource( 12 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( 0.006, 0, 0, 0, 0.006, 0, 0, 0, 0.006, 0, 0.173, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
 shape = SubResource( 13 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -0.7, 7.54979e-08, 0, -1.05697e-07, -0.5, 0, 0, 0, 0.5, -0.00127417, 0.295807, 0.000981377 )
+transform = Transform( -0.4, 6.03983e-08, 0, -6.03983e-08, -0.4, 0, 0, 0, 0.4, 0.000208497, 0.202245, 0.000981377 )
 shape = SubResource( 11 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

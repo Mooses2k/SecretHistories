@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/gun_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/shotgun_item.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=5]
-[ext_resource path="res://scenes/effects/shotgun_audio.tscn" type="PackedScene" id=6]
-[ext_resource path="res://resources/tiny_items/ammunition/shotgun_shell.tres" type="Resource" id=7]
-[ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/smoke.tscn" type="PackedScene" id=9]
-[ext_resource path="res://resources/models/items/ranged/double_barrel_shotguns/DoubleBarrel.material" type="Material" id=11]
+[ext_resource path="res://resources/models/items/ranged/double_barrel_shotguns/DoubleBarrel.material" type="Material" id=3]
+[ext_resource path="res://resources/tiny_items/ammunition/shotgun_shell.tres" type="Resource" id=4]
+[ext_resource path="res://scenes/effects/shotgun_audio.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/gun_item.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_sawed_shotgun/smoke.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ArrayMesh" id=3]
 resource_name = "DoubleBarrel_Circle011"
@@ -18,7 +18,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194903,
 "index_count": 15675,
-"material": ExtResource( 11 ),
+"material": ExtResource( 3 ),
 "primitive": 4,
 "skeleton_aabb": [ AABB( -0.530932, -0.107141, -0.0310412, 0.504073, 0.18892, 0.0620825 ), AABB( -0.0894673, 0.0251537, -0.0306605, 0.548153, 0.0599223, 0.0613212 ), AABB( -0.157519, -0.0153546, -0.00471602, 0.0312148, 0.0371511, 0.00497016 ), AABB( -0.164436, -0.0144767, 0.00027025, 0.0237897, 0.0479656, 0.00499047 ), AABB( -0.160402, 0.0599203, -0.00935769, 0.0676046, 0.0204554, 0.0187154 ) ],
 "vertex_count": 4456
@@ -46,11 +46,11 @@ bind/4/pose = Transform( -6.37646e-05, -1.19916e-07, -1, -0.980782, -0.195106, 6
 [sub_resource type="ConvexPolygonShape" id=5]
 points = PoolVector3Array( -0.0843641, 0.085076, 0.00704932, -0.0874639, 0.0780014, 0.0231351, 0.445124, 0.0804286, 0.00235181, -0.0843641, 0.085076, -0.00705536, -0.523376, 0.0274824, 0.00641732, -0.0874639, 0.0755742, 0.0270851, 0.458589, 0.0732788, 0.0175868, 0.458589, 0.0741066, 0.0134909, 0.445899, 0.0801652, 0.00235181, 0.445124, 0.0804286, -0.00235785, -0.0874639, 0.0780014, -0.0231411, -0.523376, 0.0274824, -0.00642335, -0.529188, 0.0197305, 0.00827079, -0.525895, 0.0189779, 0.0133876, -0.52231, 0.0246601, 0.0107988, -0.0874639, 0.0721875, 0.0289447, 0.458589, 0.0674837, 0.0233843, 0.458589, 0.0709645, 0.0210628, 0.458589, 0.0741066, -0.013497, 0.445899, 0.0801652, -0.00235785, 0.458589, 0.0732788, -0.0175928, -0.0874639, 0.0755742, -0.0270912, -0.52231, 0.0246601, -0.0108049, -0.525895, 0.0189779, -0.0133937, -0.529188, 0.0197305, -0.00827683, -0.530932, -0.00211407, 0.00958342, -0.527541, -0.00202, 0.0159643, -0.0874639, 0.0676154, 0.0306037, 0.458589, 0.0633819, 0.0241986, 0.458589, 0.0709645, -0.0210689, 0.458589, 0.0674837, -0.0233903, -0.0874639, 0.0721875, -0.0289507, -0.527541, -0.00202, -0.0159703, -0.0874639, 0.0676154, -0.0306097, -0.530932, -0.00211407, -0.00958338, -0.530932, -0.0235635, 0.0092978, -0.527832, -0.0230367, 0.0155449, -0.527638, -0.0411934, 0.0155449, -0.526669, -0.0606484, 0.0154659, -0.0874639, 0.0631373, 0.0310412, 0.458589, 0.059299, 0.0233843, -0.122821, 0.0179807, 0.0261857, 0.458589, 0.0633819, -0.0242046, -0.526669, -0.0606484, -0.015472, -0.527638, -0.0411934, -0.015551, -0.527832, -0.0230367, -0.015551, -0.0874639, 0.0631373, -0.0310412, -0.530932, -0.0235635, -0.00930384, -0.530738, -0.041946, 0.0092978, -0.529866, -0.0617397, 0.0092978, -0.527251, -0.0842428, 0.00839841, -0.524054, -0.0824554, 0.0136368, -0.140161, 0.0169458, 0.0261918, 0.458589, 0.0558182, 0.0210628, -0.52202, -0.0982602, 0.010106, -0.519985, -0.103453, 0.00783933, 0.458589, 0.059299, -0.0233903, -0.122821, 0.0179807, -0.0261918, -0.524054, -0.0824554, -0.0136428, -0.527251, -0.0842428, -0.00840445, -0.529866, -0.0617397, -0.00930384, -0.530738, -0.041946, -0.00930384, -0.140161, 0.0169458, -0.0261979, -0.525216, -0.100574, 0.00704324, 0.458589, 0.0535039, 0.0175868, -0.522504, -0.107009, 0.00441799, 0.458589, 0.0558182, -0.0210689, -0.519985, -0.103453, -0.00784537, -0.52202, -0.0982602, -0.0101121, -0.525216, -0.100574, -0.00704321, -0.522504, -0.107141, 1.86265e-08, 0.458589, 0.052676, 0.0134909, 0.458589, 0.0535039, -0.0175928, -0.522504, -0.107009, -0.00442402, 0.458589, 0.052676, -0.013497 )
 
-[node name="ShotgunItem" instance=ExtResource( 1 )]
+[node name="ShotgunItem" instance=ExtResource( 7 )]
 mass = 3.0
 script = ExtResource( 2 )
 item_name = "Double-barrel shotgun"
-ammo_types = [ ExtResource( 7 ) ]
+ammo_types = [ ExtResource( 4 ) ]
 ammunition_capacity = 2
 reload_amount = 2
 reload_time = 1.0
@@ -59,10 +59,10 @@ player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
 [node name="Effects" type="Spatial" parent="." index="0"]
-script = ExtResource( 5 )
-smoke_particles = ExtResource( 9 )
-sound_effect = ExtResource( 6 )
-hit_effect = ExtResource( 8 )
+script = ExtResource( 1 )
+smoke_particles = ExtResource( 8 )
+sound_effect = ExtResource( 5 )
+hit_effect = ExtResource( 6 )
 
 [node name="Flash" type="OmniLight" parent="Effects" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
@@ -79,14 +79,14 @@ one_shot = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.7 )
 
 [node name="SoundOrigin" type="Position3D" parent="Effects" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.7 )
 
-[node name="MeshInstance" parent="." index="5"]
+[node name="MeshInstance" parent="." index="1"]
 transform = Transform( -5.24537e-08, 0, 1.2, 0, 1.2, 0, -1.2, 0, -5.24537e-08, 0, -0.0507376, -0.140181 )
 mesh = SubResource( 3 )
 skin = SubResource( 4 )
-script = null
 
-[node name="CollisionShape" parent="." index="6"]
+[node name="CollisionShape" parent="." index="2"]
 transform = Transform( -5.24537e-08, 0, 1.2, 0, 1.2, 0, -1.2, 0, -5.24537e-08, 0, -0.0507376, -0.140181 )
 shape = SubResource( 5 )
 

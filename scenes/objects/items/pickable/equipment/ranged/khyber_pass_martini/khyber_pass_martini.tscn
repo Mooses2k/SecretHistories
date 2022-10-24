@@ -51,9 +51,11 @@ continuous_cd = true
 item_size = 0
 item_name = "Khyber Pass Martini"
 ammo_types = [ ExtResource( 2 ) ]
-ammunition_capacity = 6
+ammunition_capacity = 1
 reload_amount = 1
-reload_time = 1.0
+reload_time = 1.5
+damage_offset = -10
+dispersion_offset_degrees = 5
 cooldown = 0.1
 melee_style = 1
 player_path = NodePath(".")
@@ -106,9 +108,9 @@ skin = SubResource( 5 )
 script = ExtResource( 4 )
 main_parent = NodePath("../../../../..")
 
-[node name="HoldPosition" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0774746, 0.177475 )
-
-[node name="CollisionShape" parent="." index="5"]
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0893607, -0.0235785 )
 shape = SubResource( 6 )
+
+[node name="HoldPosition" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0774746, 0.177475 )

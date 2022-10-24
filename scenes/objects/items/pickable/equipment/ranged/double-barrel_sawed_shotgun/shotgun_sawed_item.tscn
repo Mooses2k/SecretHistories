@@ -48,11 +48,14 @@ points = PoolVector3Array( -0.0874182, 0.0817786, 0.00620462, -0.0874182, 0.0811
 [node name="Shotgun_sawed_item" instance=ExtResource( 7 )]
 mass = 3.0
 script = ExtResource( 2 )
+item_size = 0
 item_name = "Double Barrel Sawed Shotgun"
 ammo_types = [ null ]
 ammunition_capacity = 2
 reload_amount = 2
 reload_time = 2.0
+damage_offset = -3
+dispersion_offset_degrees = 5
 cooldown = 0.1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")

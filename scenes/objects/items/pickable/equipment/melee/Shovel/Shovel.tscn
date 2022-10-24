@@ -84,12 +84,14 @@ points = PoolVector3Array( 0.00237982, 0.545558, -0.0208563, 0.00651577, 0.59102
 [node name="Shovel" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.0119464, 0.00388288 )
 collision_layer = 64
+mass = 3.0
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
 item_size = 2
 item_name = "Shovel"
+melee_damage = 40
 player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]

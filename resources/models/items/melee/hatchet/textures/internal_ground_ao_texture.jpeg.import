@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/internal_ground_ao_texture.jpeg-f004912722f7bb95f98852a182609504.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://resources/models/items/melee/hatchet/textures/internal_ground_ao_texture.jpeg"
+dest_files=[ "res://.import/internal_ground_ao_texture.jpeg-f004912722f7bb95f98852a182609504.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

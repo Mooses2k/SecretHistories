@@ -16,7 +16,8 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/webley_revolver/Webley.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=15]
 [ext_resource path="res://scenes/characters/enemies/ghost/ghost.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/Torch/Torch.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/torch/torch.tscn" type="PackedScene" id=17]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.25 )

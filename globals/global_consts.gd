@@ -1,6 +1,7 @@
 extends Object
 class_name GlobalConsts
 
+
 # Keeping enums/conts on a centralized location helps prevent cyclic
 # reference errors
 

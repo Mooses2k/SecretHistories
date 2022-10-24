@@ -7,7 +7,8 @@ var has_onned=false
 var is_on=true
 func _ready():
 	DurableTimer.start()
-	
+
+
 func _process(delta):
 	if is_on==true:
 		DurableTimer.pause_mode=false
@@ -24,10 +25,5 @@ func _use_primary():
 		firelight.visible = not firelight.visible
 
 
-
 func _on_Durability_timeout():
 	firelight.visible=false
-
-
-
-

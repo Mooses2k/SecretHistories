@@ -2,11 +2,15 @@ extends ToolItem
 
 onready var firelight=$Light
 onready var DurableTimer=$Durability
+
 var has_onned=false
 var is_on=false
+
+
 func _ready():
 	pass
-	
+
+
 func _process(delta):
 	if is_on==true:
 		DurableTimer.pause_mode=false
@@ -19,15 +23,12 @@ func _process(delta):
 			is_on=true
 	else:
 		is_on=false
+
+
 func _use_primary():
 	if !DurableTimer.is_stopped():
 		firelight.visible = not firelight.visible
 
 
-
 func _on_Durability_timeout():
 	firelight.visible=false
-
-
-
-

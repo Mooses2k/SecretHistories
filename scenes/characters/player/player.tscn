@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/effects/whiteScreen.png" type="Texture" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
-[ext_resource path="res://resources/Art/Ui/Grab.png" type="Texture" id=7]
+[ext_resource path="res://resources/art/Ui/Grab.png" type="Texture" id=7]
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
@@ -16,6 +16,7 @@
 [ext_resource path="res://resources/health/health.png" type="Texture" id=14]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
+
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )

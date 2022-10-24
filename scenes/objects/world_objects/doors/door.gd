@@ -1,6 +1,7 @@
 extends Spatial
 class_name Door
 
+
 enum HingeSide {
 	LEFT,
 	RIGHT
@@ -17,6 +18,7 @@ var door_locked_transform : Transform
 
 onready var door_body : RigidBody = $DoorBody
 
+
 func set_door_lock_count(value : int):
 	if value == door_lock_count:
 		return
@@ -32,9 +34,11 @@ func set_door_lock_count(value : int):
 			navmesh.enabled = false
 		$DoorBody.transform = door_locked_transform
 		$DoorBody.mode = RigidBody.MODE_KINEMATIC
-		
+
+
 func _enter_tree():
 	door_locked_transform = $DoorBody.transform
+
 
 #func set_hinge_side(value : int):
 #	if value == hinge_side:
@@ -56,14 +60,17 @@ func _enter_tree():
 #	set_max_angle(max_angle)
 #	set_min_angle(min_angle)
 
+
 func can_lock() -> bool:
 	return abs(door_body.rotation.y) < deg2rad(lock_angle_limit)
+
 
 func set_max_angle(value : float):
 	max_angle = value
 	if not is_inside_tree():
 		yield(self, "tree_entered")
 	$DoorBody.max_angle = max_angle
+
 
 func set_min_angle(value : float):
 	min_angle = value

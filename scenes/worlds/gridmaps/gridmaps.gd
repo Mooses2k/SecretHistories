@@ -1,9 +1,12 @@
 extends Spatial
 
+
 var data : Resource setget set_data
+
 
 func set_data(value : WorldData):
 	data = value
+
 
 export var mesh_library : MeshLibrary
 
@@ -16,6 +19,7 @@ onready var gridmaps = {
 	"pillar" : $pillar,
 	"ceiling" : $ceiling,
 }
+
 
 func update_gridmaps():
 	for slot in gridmaps.keys():

@@ -10,4 +10,3 @@ func tick(state : CharacterState) -> int:
 			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
 				return Status.SUCCESS
 	return Status.FAILURE
-

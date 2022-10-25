@@ -41,8 +41,9 @@ dropped_mask = 1
 equipped_mode = 3
 item_size = 0
 item_name = "Dagger"
-player_path = NodePath(".")
+melee_damage = 25
 melee_damage_type = 2
+player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

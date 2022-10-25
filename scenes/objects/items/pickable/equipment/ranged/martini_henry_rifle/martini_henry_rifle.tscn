@@ -101,9 +101,9 @@ mass = 1.0
 continuous_cd = true
 item_name = "martini_henry_Rifle"
 ammo_types = [ ExtResource( 2 ) ]
-ammunition_capacity = 6
+ammunition_capacity = 1
 reload_amount = 1
-reload_time = 1.0
+reload_time = 2.0
 cooldown = 0.1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
@@ -182,15 +182,15 @@ transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0 )
 
 [node name="Node_15" type="Spatial" parent="MeshInstance/martini_henry/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f2084ca24d164038b9a54167919ef8bcfbx/RootNode/Lamp/Node_14" index="0"]
 
-[node name="RayCast" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1399 )
-
-[node name="HoldPosition" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0151194, 0.198463 )
-
-[node name="CollisionShape" parent="." index="5"]
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )
 shape = SubResource( 12 )
+
+[node name="RayCast" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1399 )
+
+[node name="HoldPosition" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0151194, 0.198463 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="." index="6"]
 transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )

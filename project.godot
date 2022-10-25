@@ -129,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/control_mode.gd"
 }, {
-"base": "EquipmentItem",
+"base": "MeleeItem",
 "class": "Dagger",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/melee/Dagger/Dagger.gd"
@@ -219,7 +219,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/pickup_area.gd"
 }, {
-"base": "EquipmentItem",
+"base": "MeleeItem",
 "class": "Pitchfork",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/melee/Pitchfork/Pitchfork.gd"
@@ -254,7 +254,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/shotgun_item.gd"
 }, {
-"base": "EquipmentItem",
+"base": "MeleeItem",
 "class": "Shovel",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/melee/Shovel/Shovel.gd"
@@ -361,7 +361,7 @@ GameManager="*res://globals/game_manager.gd"
 Save="*res://globals/save.gd"
 GlobalSettings="*res://globals/global_settings.gd"
 HUDS="*res://globals/HUD.tscn"
-LoadQuotes="*res://globals/loadQuotes.gd"
+LoadQuotes="*res://globals/load_quotes.gd"
 Settings="*res://globals/settings.gd"
 AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"

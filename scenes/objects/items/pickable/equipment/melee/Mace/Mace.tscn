@@ -21,6 +21,7 @@ points = PoolVector3Array( 0.00237982, 0.545558, -0.0208563, 0.00651577, 0.59102
 
 [node name="Mace" type="RigidBody"]
 collision_layer = 64
+mass = 3.0
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1

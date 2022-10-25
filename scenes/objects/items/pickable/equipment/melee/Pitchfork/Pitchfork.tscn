@@ -54,14 +54,16 @@ points = PoolVector3Array( 0.00237982, 0.545558, -0.0208563, 0.00651577, 0.59102
 
 [node name="Pitchfork" type="RigidBody"]
 collision_layer = 64
+mass = 3.0
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
 item_size = 2
 item_name = "Pitchfork"
-player_path = NodePath(".")
+melee_damage = 40
 melee_damage_type = 2
+player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

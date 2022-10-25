@@ -38,7 +38,7 @@ radius = 0.4
 radius = 0.4
 height = 1.2
 
-[node name="Zombie" type="RigidBody"]
+[node name="Zombie" type="KinematicBody"]
 collision_layer = 16
 collision_mask = 19
 script = ExtResource( 1 )
@@ -56,17 +56,14 @@ script = ExtResource( 8 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
 material_override = SubResource( 2 )
 mesh = SubResource( 3 )
-material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="Body"]
 transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.4, 1.2, -0.5 )
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="MeshInstance3" type="MeshInstance" parent="Body"]
 transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.4, 1.2, -0.5 )
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="GrabArea" type="Area" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8 )
@@ -87,7 +84,6 @@ distance = 12.0
 
 [node name="Hitbox" type="Area" parent="."]
 script = ExtResource( 2 )
-hitbox_owner_path = NodePath("..")
 
 [node name="CollisionShape2" type="CollisionShape" parent="Hitbox"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )

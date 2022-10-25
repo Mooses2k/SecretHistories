@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Grab.png-06d5692dc439520a2c927e1159c5219a.stex"
+path="res://.import/checkerboard.png-75c49f57d76cb7595bdd1776cf693fee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/Art/Ui/Grab.png"
-dest_files=[ "res://.import/Grab.png-06d5692dc439520a2c927e1159c5219a.stex" ]
+source_file="res://addons/thief_controller/texture/checkerboard.png"
+dest_files=[ "res://.import/checkerboard.png-75c49f57d76cb7595bdd1776cf693fee.stex" ]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

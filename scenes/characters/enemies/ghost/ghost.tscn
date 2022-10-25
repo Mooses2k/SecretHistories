@@ -28,7 +28,7 @@ radius = 32.0
 [sub_resource type="SphereShape" id=5]
 radius = 2.0
 
-[node name="Ghost" type="RigidBody" groups=["Enemy"]]
+[node name="Ghost" type="KinematicBody" groups=["Enemy"]]
 collision_layer = 8
 script = ExtResource( 3 )
 immunities = [ 0 ]

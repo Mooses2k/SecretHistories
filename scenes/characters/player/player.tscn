@@ -1,9 +1,9 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://resources/effects/BloodOverlay1.png" type="Texture" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/player_hit.gd" type="Script" id=3]
-[ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=4]
 [ext_resource path="res://resources/effects/whiteScreen.png" type="Texture" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
 [ext_resource path="res://resources/art/Ui/Grab.png" type="Texture" id=7]
@@ -14,15 +14,21 @@
 [ext_resource path="res://scenes/characters/player/Indication_canvas.gd" type="Script" id=12]
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=13]
 [ext_resource path="res://resources/health/health.png" type="Texture" id=14]
+[ext_resource path="res://addons/thief_controller/scripts/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
+[ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=18]
+[ext_resource path="res://scenes/characters/pickup_area.gd" type="Script" id=19]
 
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.3
+height = 1.2
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=35]
 albedo_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="CubeMesh" id=17]
-material = SubResource( 1 )
+material = SubResource( 35 )
 size = Vector3( 0.3, 0.1, 0.5 )
 
 [sub_resource type="SpatialMaterial" id=3]
@@ -34,6 +40,8 @@ radius = 0.3
 mid_height = 1.2
 radial_segments = 16
 rings = 4
+
+[sub_resource type="SphereShape" id=2]
 
 [sub_resource type="CubeMesh" id=19]
 size = Vector3( 0.05, 0.05, 0.05 )
@@ -50,6 +58,265 @@ albedo_color = Color( 0.219608, 1, 0, 1 )
 min_value = -100.0
 max_value = 0.0
 _data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, 1.2, -0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Recovery1ToTierce"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.09, 0.19, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.9, -0.6 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09, 0.19, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -250, 0, 40 ), Vector3( -310, 0, 32 ), Vector3( -360, 0, 24 ), Vector3( -390, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "Recovery2ToQuarte"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.09, 0.19, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.9, -0.7 ), Vector3( 0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( -0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09, 0.19, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -250, 0, -40 ), Vector3( -310, 0, -32 ), Vector3( -360, 0, -24 ), Vector3( -390, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "RecoveryThrustToQuarte"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 0.933033 ),
+"update": 0,
+"values": [ Vector3( -0.3, 1.45, -1 ), Vector3( -0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 3, 70, -100 ), Vector3( -30, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "RecoveryThrustToTierce"
+length = 0.2
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 0.933033 ),
+"update": 0,
+"values": [ Vector3( 0.3, 1.45, -1 ), Vector3( 0.3, 1.2, -0.4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 3, -70, 100 ), Vector3( -30, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=36]
+resource_name = "Swing1FromTierce"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ), Vector3( -30, 0, -25 ), Vector3( -135, 0, 25 ), Vector3( -250, 0, 40 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Swing2FromQuarte"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.17, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ), Vector3( -30, 0, 25 ), Vector3( -135, 0, -25 ), Vector3( -250, 0, -40 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "ThrustFromQuarte"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.15, 0.25 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( -0.5, 1.5, -0.5 ), Vector3( -0.3, 1.5, -0.65 ), Vector3( -0.3, 1.45, -1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.15, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ), Vector3( -13, 45, -55 ), Vector3( 0, 75, -95 ), Vector3( 3, 70, -100 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "ThrustFromTierce"
+length = 0.25
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07, 0.12, 0.2 ),
+"transitions": PoolRealArray( 0.933033, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0.5, 1.5, -0.5 ), Vector3( 0.3, 1.5, -0.65 ), Vector3( 0.3, 1.45, -1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07, 0.12, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ), Vector3( -13, -45, 55 ), Vector3( 0, -75, 95 ), Vector3( 3, -70, 100 ) ]
+}
 
 [sub_resource type="Animation" id=22]
 length = 0.001
@@ -235,105 +502,140 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=34]
 shader = SubResource( 33 )
 
-[node name="Player" instance=ExtResource( 4 )]
-collision_layer = 2
+[node name="Player" type="KinematicBody" groups=["CHARACTER"]]
+collision_layer = 3
+collision_mask = 19
 script = ExtResource( 2 )
 
-[node name="FPSCamera" type="Camera" parent="Body" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
+shape = SubResource( 1 )
+
+[node name="Body" type="Spatial" parent="."]
+
+[node name="FPSCamera" type="Camera" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54753, -0.2 )
 cull_mask = 1048573
+script = ExtResource( 15 )
 
-[node name="AimCast" type="RayCast" parent="Body/FPSCamera" index="0"]
+[node name="AimCast" type="RayCast" parent="Body/FPSCamera"]
 enabled = true
 cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 585
 collide_with_areas = true
 
-[node name="GrabCast" type="RayCast" parent="Body/FPSCamera" index="1"]
+[node name="GrabCast" type="RayCast" parent="Body/FPSCamera"]
 enabled = true
 cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 65
 
-[node name="GroundCast" type="RayCast" parent="Body/FPSCamera" index="2"]
+[node name="GroundCast" type="RayCast" parent="Body/FPSCamera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.47035e-08 )
 enabled = true
-cast_to = Vector3( 0, 0, -1.36 )
+cast_to = Vector3( 0, 0, -1.55 )
 debug_shape_thickness = 3
 
-[node name="ViewportContainer2" type="ViewportContainer" parent="Body/FPSCamera" index="3"]
+[node name="ViewportContainer2" type="ViewportContainer" parent="Body/FPSCamera"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 stretch = true
 
-[node name="Viewport" type="Viewport" parent="Body/FPSCamera/ViewportContainer2" index="0"]
+[node name="Viewport" type="Viewport" parent="Body/FPSCamera/ViewportContainer2"]
 size = Vector2( 1920, 1080 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="GunCam" type="Camera" parent="Body/FPSCamera/ViewportContainer2/Viewport" index="0"]
+[node name="GunCam" type="Camera" parent="Body/FPSCamera/ViewportContainer2/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
 cull_mask = 2
 
-[node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
+[node name="Sunglasses" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54754, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
 
-[node name="BodyMesh" type="MeshInstance" parent="Body" index="2"]
+[node name="BodyMesh" type="MeshInstance" parent="Body"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 mesh = SubResource( 18 )
 
-[node name="Listener" type="Listener" parent="Body" index="3"]
+[node name="Listener" type="Listener" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
 current = true
 
-[node name="Equipment" type="Spatial" parent="Body" index="4"]
+[node name="Equipment" type="Spatial" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
-[node name="PrimaryEquipmentRoot" parent="Body" index="6"]
+[node name="DropPosition" type="Position3D" parent="Body"]
+unique_name_in_owner = true
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
+
+[node name="PrimaryEquipmentRoot" type="Position3D" parent="Body"]
+unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
-[node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
+[node name="SecondaryEquipmentRoot" type="Position3D" parent="Body"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.3 )
+
+[node name="Hitbox" type="Area" parent="." groups=["PLAYER"]]
 collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource( 4 )
 
-[node name="PickupArea" parent="." index="4"]
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
+shape = SubResource( 1 )
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource( 18 )
+
+[node name="PickupArea" type="Area" parent="."]
+collision_layer = 0
 collision_mask = 576
+monitorable = false
+script = ExtResource( 19 )
 
-[node name="PlayerAimPoint" type="Spatial" parent="." index="5"]
+[node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
+shape = SubResource( 2 )
 
-[node name="PlayerController" type="Node" parent="." index="6"]
+[node name="PlayerAimPoint" type="Spatial" parent="."]
+
+[node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
 _grabcast = NodePath("../Body/FPSCamera/GrabCast")
+_cam_pos = NodePath("../Body/FPSCamera")
 
-[node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
+[node name="FPSControlMode" type="Node" parent="PlayerController"]
 script = ExtResource( 10 )
 _camera = NodePath("../../Body/FPSCamera")
 _aimcast = NodePath("../../Body/FPSCamera/AimCast")
 _grabcast = NodePath("../../Body/FPSCamera/GrabCast")
 
-[node name="MeshInstance" type="MeshInstance" parent="PlayerController" index="1"]
+[node name="MeshInstance" type="MeshInstance" parent="PlayerController"]
 cast_shadow = 0
 mesh = SubResource( 19 )
 material/0 = SubResource( 20 )
 
-[node name="MeshInstance2" type="MeshInstance" parent="PlayerController" index="2"]
+[node name="MeshInstance2" type="MeshInstance" parent="PlayerController"]
 cast_shadow = 0
 mesh = SubResource( 19 )
 material/0 = SubResource( 21 )
 
-[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="7"]
+[node name="Tinnitus" type="AudioStreamPlayer" parent="."]
 process_priority = 100
 stream = ExtResource( 8 )
 volume_db = -13.0
 script = ExtResource( 9 )
 curve = SubResource( 16 )
 
-[node name="ScreenWhite" type="CanvasLayer" parent="Tinnitus" index="0"]
+[node name="ScreenWhite" type="CanvasLayer" parent="Tinnitus"]
 
-[node name="TextureRect" type="TextureRect" parent="Tinnitus/ScreenWhite" index="0"]
+[node name="TextureRect" type="TextureRect" parent="Tinnitus/ScreenWhite"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -341,10 +643,25 @@ mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 
-[node name="HitEffect" type="CanvasLayer" parent="." index="10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/Recovery1ToTierce = SubResource( 5 )
+anims/Recovery2ToQuarte = SubResource( 9 )
+anims/RecoveryThrustToQuarte = SubResource( 12 )
+anims/RecoveryThrustToTierce = SubResource( 13 )
+anims/Swing1FromTierce = SubResource( 36 )
+anims/Swing2FromQuarte = SubResource( 8 )
+anims/ThrustFromQuarte = SubResource( 11 )
+anims/ThrustFromTierce = SubResource( 10 )
+
+[node name="testCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+fov = 70.828
+
+[node name="HitEffect" type="CanvasLayer" parent="."]
 script = ExtResource( 3 )
 
-[node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]
+[node name="TextureRect" type="TextureRect" parent="HitEffect"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -352,7 +669,7 @@ mouse_filter = 2
 texture = ExtResource( 1 )
 expand = true
 
-[node name="ColorRect" type="TextureRect" parent="HitEffect" index="1"]
+[node name="ColorRect" type="TextureRect" parent="HitEffect"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -360,24 +677,24 @@ mouse_filter = 2
 texture = ExtResource( 11 )
 expand = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HitEffect" index="2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HitEffect"]
 anims/RESET = SubResource( 22 )
 anims/hit_effect = SubResource( 23 )
 
-[node name="Tween" type="Tween" parent="HitEffect" index="3"]
+[node name="Tween" type="Tween" parent="HitEffect"]
 
-[node name="Tween2" type="Tween" parent="HitEffect" index="4"]
+[node name="Tween2" type="Tween" parent="HitEffect"]
 
-[node name="Indication_canvas" type="CanvasLayer" parent="." index="11"]
+[node name="Indication_canvas" type="CanvasLayer" parent="."]
 pause_mode = 2
 script = ExtResource( 12 )
 
-[node name="Indication_system" type="Control" parent="Indication_canvas" index="0"]
+[node name="Indication_system" type="Control" parent="Indication_canvas"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="Grab" type="TextureRect" parent="Indication_canvas/Indication_system" index="0"]
+[node name="Grab" type="TextureRect" parent="Indication_canvas/Indication_system"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -391,49 +708,49 @@ mouse_filter = 2
 texture = ExtResource( 7 )
 expand = true
 
-[node name="HP" type="Spatial" parent="." index="12"]
+[node name="HP" type="Spatial" parent="."]
 script = ExtResource( 13 )
 raycast = NodePath("../Body/FPSCamera/GroundCast")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HP" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HP"]
 anims/RESET = SubResource( 32 )
 anims/rotate = SubResource( 31 )
 
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="HP" index="1"]
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="HP"]
 anims/RESET = SubResource( 27 )
 anims/fadeIn = SubResource( 24 )
 anims/fadeOut = SubResource( 30 )
 
-[node name="MeshInstance" type="MeshInstance" parent="HP" index="2"]
+[node name="MeshInstance" type="MeshInstance" parent="HP"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0298637, 0 )
 mesh = SubResource( 26 )
 
-[node name="MeshInstance2" type="MeshInstance" parent="HP" index="3"]
+[node name="MeshInstance2" type="MeshInstance" parent="HP"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0298637, 0 )
 mesh = SubResource( 29 )
 
-[node name="Timer" type="Timer" parent="HP" index="4"]
+[node name="Timer" type="Timer" parent="HP"]
 one_shot = true
 
-[node name="PlayerDeath" type="CanvasLayer" parent="." index="13"]
+[node name="PlayerDeath" type="CanvasLayer" parent="."]
 pause_mode = 2
 script = ExtResource( 16 )
 
-[node name="Tween" type="Tween" parent="PlayerDeath" index="0"]
+[node name="Tween" type="Tween" parent="PlayerDeath"]
 
-[node name="ColorRect" type="ColorRect" parent="PlayerDeath" index="1"]
+[node name="ColorRect" type="ColorRect" parent="PlayerDeath"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
-[node name="Death" type="AudioStreamPlayer" parent="PlayerDeath" index="2"]
+[node name="Death" type="AudioStreamPlayer" parent="PlayerDeath"]
 stream = ExtResource( 17 )
 volume_db = 20.263
 pitch_scale = 1.74
 
-[node name="BW" type="ColorRect" parent="PlayerDeath" index="3"]
+[node name="BW" type="ColorRect" parent="PlayerDeath"]
 visible = false
 material = SubResource( 34 )
 anchor_right = 1.0

@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/characters/character.phymat" type="PhysicsMaterial" id=3]
 [ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
 [ext_resource path="res://scenes/characters/pickup_area.gd" type="Script" id=5]
 
@@ -271,11 +270,9 @@ tracks/1/keys = {
 "values": [ Vector3( -30, 0, 0 ), Vector3( -13, -45, 55 ), Vector3( 0, -75, 95 ), Vector3( 3, -70, 100 ) ]
 }
 
-[node name="Character" type="RigidBody" groups=["CHARACTER"]]
+[node name="Character" type="KinematicBody" groups=["CHARACTER"]]
 collision_layer = 16
 collision_mask = 19
-mode = 2
-physics_material_override = ExtResource( 3 )
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

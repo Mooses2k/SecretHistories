@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/in_1.wav-3d912016944bc905e896e5a54e0b90d7.sample"
+
+[deps]
+
+source_file="res://addons/thief_controller/sfx/breathe/in_1.wav"
+dest_files=[ "res://.import/in_1.wav-3d912016944bc905e896e5a54e0b90d7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

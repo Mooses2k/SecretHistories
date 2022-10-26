@@ -50,6 +50,7 @@ func place_pillars(data : WorldData):
 			var i = data.get_cell_index_from_int_position(x, z)
 			var n = data.get_neighbour_cell(i, data.Direction.NORTH)
 			var w = data.get_neighbour_cell(i, data.Direction.WEST)
+			var nw = data.get_neighbour_cell(w, data.Direction.NORTH)
 			# walls in a cross around the potential pillar
 			var wall_n = data.get_wall_type(n, data.Direction.WEST)
 			var wall_e = data.get_wall_type(i, data.Direction.NORTH)
@@ -67,5 +68,13 @@ func place_pillars(data : WorldData):
 			# but not on a straight line
 			place_pillar = place_pillar and not (edge_n and edge_s)
 			place_pillar = place_pillar and not (edge_e and edge_w)
+#			if not place_pillar:
+#				if not [
+#					data.get_cell_type(i),
+#					data.get_cell_type(n),
+#					data.get_cell_type(w),
+#					data.get_cell_type(nw)
+#				].has(data.CellType.EMPTY):
+#					place_pillar = randf() < 0.05
 			if place_pillar:
 				data.set_pillar(i, pillar_tile, 0.3)

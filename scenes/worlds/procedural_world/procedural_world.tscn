@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -22,6 +22,10 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=21]
 [ext_resource path="res://resources/mesh_libraries/tile_template.meshlib" type="MeshLibrary" id=22]
 
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.25 )
 
@@ -39,10 +43,14 @@ visible = false
 shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
 
+[node name="Navigation" parent="." index="4"]
+preview_material = SubResource( 3 )
+
 [node name="EnemySpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
 enemy_scene = ExtResource( 11 )
-density = 0.0
+density = 0.01
+max_count = 1
 
 [node name="TinyItem" parent="." index="6" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.1, 6 )
@@ -157,6 +165,7 @@ script = ExtResource( 3 )
 
 [node name="GenerateCorridors" type="Node" parent="GenerationManager" index="2"]
 script = ExtResource( 20 )
+room_edge_cost_multiplier = 0.0
 
 [node name="GenerateHalls" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 19 )

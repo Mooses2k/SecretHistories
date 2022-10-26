@@ -29,7 +29,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="Navigation" type="Navigation" parent="."]
+[node name="Navigation" type="Spatial" parent="."]
 script = ExtResource( 5 )
 
 [node name="GenerationManager" type="Node" parent="."]

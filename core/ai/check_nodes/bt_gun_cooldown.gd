@@ -3,7 +3,7 @@ extends BT_Node
 
 
 func tick(state : CharacterState) -> int:
-	var equipment = state.character.inventory.get_primary_equipment() as GunItem
+	var equipment = state.character.inventory.get_primary_item() as GunItem
 	if equipment:
 		if equipment.on_cooldown or equipment.is_reloading:
 			return Status.RUNNING

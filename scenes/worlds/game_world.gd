@@ -12,7 +12,7 @@ func _ready() -> void:
 	gridmaps.data = world_data
 	gridmaps.update_gridmaps()
 	navigation.data = world_data
-#	navigation.update_navigation()
+	navigation.update_navigation()
 	emit_signal("generation_finished")
 # Override this function
 func get_player_spawn_position() -> Vector3:

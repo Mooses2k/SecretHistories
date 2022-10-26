@@ -11,12 +11,11 @@ angular_velocity_random = 1.0
 linear_accel = -1.0
 angle_random = 1.0
 
-[sub_resource type="QuadMesh" id=2]
+[sub_resource type="QuadMesh" id=5]
 
 [node name="Explosion" type="Particles"]
 transform = Transform( 0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479 )
 material_override = ExtResource( 1 )
-emitting = false
 amount = 20
 lifetime = 2.13
 one_shot = true
@@ -25,7 +24,7 @@ randomness = 0.84
 fixed_fps = 30
 visibility_aabb = AABB( -4, -4, -4.79199, 8, 8, 8 )
 process_material = SubResource( 1 )
-draw_pass_1 = SubResource( 2 )
+draw_pass_1 = SubResource( 5 )
 __meta__ = {
 "_editor_description_": ""
 }

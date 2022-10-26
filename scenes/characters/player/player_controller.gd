@@ -203,6 +203,7 @@ func update_throw_state(delta : float):
 				throw_item = ItemSelection.ITEM_PRIMARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
+				print(owner.inventory.get_primary_item())
 			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing==false:
 				throw_item = ItemSelection.ITEM_SECONDARY
 				throw_state = ThrowState.PRESSING
@@ -215,6 +216,21 @@ func update_throw_state(delta : float):
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
 	pass
+
+func throw_consumable():
+		var inv = character.inventory
+		var item : EquipmentItem = null
+		if throw_item == ItemSelection.ITEM_PRIMARY:
+			item = inv.get_primary_item()
+			inv.drop_primary_item()
+		else:
+			item = inv.get_secondary_item()
+			inv.drop_secondary_item()
+		if item:
+			var impulse = active_mode.get_aim_direction()*throw_strength
+			# At this point, the item is still equipped, so we wait until
+			# it exits the tree and is re inserted in the world
+			item.apply_central_impulse(impulse)
 
 
 func handle_inventory(delta : float):

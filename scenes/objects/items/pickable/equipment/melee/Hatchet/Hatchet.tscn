@@ -1,0 +1,103 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Hatchet/Hatchet.gd" type="Script" id=1]
+[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/items/pickable/MeshInstances.gd" type="Script" id=3]
+[ext_resource path="res://resources/models/items/melee/hatchet/source/axe.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/axe_low_fixed_Blade_AlbedoTransparency.jpg" type="Texture" id=5]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/axe_low_fixed_Blade_Normal.jpg" type="Texture" id=6]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/axe_low_fixed_Blade_SpecularSmoothness.jpg" type="Texture" id=7]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/Blade_AO.jpg" type="Texture" id=8]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/axe_low_fixed_Hand_AlbedoTransparency.jpg" type="Texture" id=9]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/axe_low_fixed_Hand_SpecularSmoothness.jpg" type="Texture" id=10]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/Hand_AO.jpg" type="Texture" id=11]
+[ext_resource path="res://resources/models/items/melee/hatchet/textures/axe_low_fixed_Hand_Normal.jpg" type="Texture" id=12]
+
+[sub_resource type="CylinderShape" id=3]
+height = 0.181495
+radius = 0.118034
+
+[sub_resource type="SpatialMaterial" id=6]
+albedo_texture = ExtResource( 5 )
+roughness_texture = ExtResource( 7 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 6 )
+ao_enabled = true
+ao_light_affect = 0.0
+ao_texture = ExtResource( 8 )
+ao_on_uv2 = false
+ao_texture_channel = 0
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_texture = ExtResource( 9 )
+roughness_texture = ExtResource( 10 )
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 12 )
+ao_enabled = true
+ao_light_affect = 0.0
+ao_texture = ExtResource( 11 )
+ao_on_uv2 = false
+ao_texture_channel = 0
+
+[sub_resource type="ConvexPolygonShape" id=4]
+points = PoolVector3Array( 3.5682, 79.8702, 167.876, -7.51421, -85.842, -144.147, 7.41826, -85.9379, -144.295, 7.36059, 85.2552, -169.137, -27.8941, 73.5621, -120.574, -10.7914, -74.9143, 140.848, 26.8399, -46.3435, -2.22475, 27.8507, 70.1887, -152.197, -28.8607, -39.3736, -164.323, -14.2225, 88.9275, 118.173, 10.7013, -75.0176, 141.026, 25.9277, -44.518, -173.084, -27.1468, -46.7498, -5.57597, 14.0079, 88.2578, 120.695, -22.6058, 71.3497, -179.101, -19.2986, -88.8109, -71.7098, 19.195, -88.8109, -71.7456, 27.1105, 71.9473, -22.5749, -3.65986, -82.8338, 156.508, -7.38517, 99.105, 125.929, 22.2075, 85.353, -165.657, -22.2866, 85.267, -165.44, -26.9678, 61.2679, -8.89038, -18.7449, -41.1687, -178.114, 26.1772, 56.1332, -178.539, -0.0518141, 60.1342, 178.284, 28.8382, -39.5054, -164.818, 3.64362, 92.475, -139.168, 7.29015, 99.2126, 129.73, -13.89, -61.7733, 129.195, -10.6804, 81.8453, 146.472, 13.5242, -33.2759, 130.095, -24.5079, 80.802, 4.69447, 7.48217, -41.5299, -179.469, 3.54504, -57.3426, 166.799, 23.3564, 57.5747, 34.5442, 21.9896, 88.277, -68.5008, -16.725, 74.1182, 101.127, 10.5105, 42.6343, 149.092, -26.1021, 59.5356, -177.291, -3.63709, -24.8393, 169.897, -3.64681, 97.3833, 159.519, 3.54068, -82.4448, 155.831, -22.1121, 88.3462, -64.8313, -25.9495, -48.0487, -168.824, -7.39058, 91.8094, -134.432, 16.7361, -52.9954, 101.858, 27.7502, -48.164, -57.8346, 7.46925, 75.0952, -179.162, 13.8797, 84.0608, 126.553, 21.011, 84.6878, 43.316, -28.1759, 60.1398, -160.43, -10.6951, -56.4253, 146.675, 11.0805, -85.3552, -139.705, 3.54831, 97.5117, 159.748, -23.3597, 57.3598, 34.4248, 22.3727, -33.6747, -178.11, -26.2196, -41.1618, -174.334, 10.6126, -56.5516, 147, 26.9503, 61.4402, -8.94851, -14.5438, 94.4119, 66.5003, 27.8002, 73.5851, -138.001, 3.52979, -24.8062, 169.723, -3.65338, -71.8577, 163.398 )
+
+[sub_resource type="ConvexPolygonShape" id=5]
+points = PoolVector3Array( -3.75179, -572.47, -142.816, 3.79588, -535.346, -21.7115, -3.89951, -535.346, -21.7115, 15.3465, -88.8109, -141.045, -19.3016, -88.8109, -71.7731, 19.198, -593.137, -114.088, 15.3465, -88.8109, -60.2277, -19.3016, -581.558, -121.794, -15.4501, -88.8109, -141.045, -19.3016, -585.418, -48.6688, 19.198, -581.558, -48.6688, 3.79588, -493.043, -160.31, 19.1942, -88.8109, -125.647, -7.75098, -88.8109, -52.5353, -15.4501, -504.571, -148.751, 15.3465, -504.571, -148.751, -11.5987, -573.89, -25.5645, -19.3016, -131.164, -129.5, 19.1942, -88.8109, -71.7731, 15.3465, -581.558, -33.2705, 7.64735, -88.8109, -52.5353, -11.3786, -595.975, -79.6988, -3.89951, -493.043, -160.31, 7.12666, -106.126, -144.846, 11.495, -539.206, -25.5645, 15.3465, -585.418, -133.339, -15.4501, -585.418, -133.339, -15.4501, -88.8109, -60.2277, -15.4501, -550.784, -33.2705, 19.198, -577.749, -125.66, 19.198, -593.137, -64.0807, -11.5987, -539.206, -25.5645, -3.82962, -596.205, -121.235, -7.22406, -106.333, -144.799, -19.3016, -593.137, -114.088, 19.1942, -123.495, -129.5, -3.81741, -587.839, -42.044, 7.64735, -543.065, -21.7115, 15.3465, -550.784, -33.2705, -19.3016, -88.8109, -125.66, -7.75098, -543.065, -21.7115, -19.3016, -593.137, -64.0807, 11.495, -573.89, -25.5645, 11.2839, -596.175, -79.6898, 3.65279, -572.755, -142.881, -15.4501, -581.558, -33.2705, 15.3465, -573.89, -137.206, -15.4501, -573.89, -137.206, 3.72554, -596.175, -121.231, -15.4501, -493.043, -148.751, 15.3465, -493.043, -148.751, -19.3016, -573.89, -48.6688 )
+
+[node name="Hatchet" type="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.0119464, 0.00388288 )
+collision_layer = 64
+mass = 3.0
+script = ExtResource( 1 )
+dropped_layers = 64
+dropped_mask = 1
+equipped_mode = 3
+item_name = "Hatchet"
+melee_damage = 30
+melee_damage_type = 1
+player_path = NodePath(".")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Hitbox" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.3813, 0 )
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, -0.169024, 0.0430822 )
+shape = SubResource( 3 )
+
+[node name="HoldPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0621456, 0.0467051 )
+
+[node name="HatchetHolder" type="Spatial" parent="."]
+transform = Transform( -0.7, 0, -6.11959e-08, 0, 0.7, 0, 6.11959e-08, 0, -0.7, 0, -0.226495, 0 )
+
+[node name="axe" type="MeshInstance" parent="HatchetHolder"]
+transform = Transform( 0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0, 0.606225, 0 )
+mesh = ExtResource( 4 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 6 )
+material/1 = SubResource( 7 )
+script = ExtResource( 3 )
+main_parent = NodePath("../..")
+
+[node name="CollisionShape2" type="CollisionShape" parent="."]
+transform = Transform( -0.0007, 0, -6.11959e-11, 0, 0.0007, 0, 6.11959e-11, 0, -0.0007, 0, 0.197862, 0 )
+shape = SubResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( -0.0007, 0, -6.11959e-11, 0, 0.0007, 0, 6.11959e-11, 0, -0.0007, 0, 0.197862, 0 )
+shape = SubResource( 5 )
+
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

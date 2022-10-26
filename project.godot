@@ -130,6 +130,11 @@ _global_script_classes=[ {
 "path": "res://scenes/characters/player/control_mode.gd"
 }, {
 "base": "MeleeItem",
+"class": "Crowbar",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/melee/Crowbar/Crowbar.gd"
+}, {
+"base": "MeleeItem",
 "class": "Dagger",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/melee/Dagger/Dagger.gd"
@@ -138,6 +143,11 @@ _global_script_classes=[ {
 "class": "Door",
 "language": "GDScript",
 "path": "res://scenes/objects/world_objects/doors/door.gd"
+}, {
+"base": "ConsumableItem",
+"class": "Dynamite",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/Dynamite/Dynamite.gd"
 }, {
 "base": "Node",
 "class": "EnemySpawner",
@@ -164,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://globals/global_consts.gd"
 }, {
+"base": "ConsumableItem",
+"class": "Grenade",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/Grenade/Grenade.gd"
+}, {
 "base": "Node",
 "class": "Groups",
 "language": "GDScript",
@@ -173,6 +188,16 @@ _global_script_classes=[ {
 "class": "GunItem",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/ranged/gun_item.gd"
+}, {
+"base": "MeleeItem",
+"class": "Halberd",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/melee/Halberd/Halberd.gd"
+}, {
+"base": "MeleeItem",
+"class": "Hatchet",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/melee/Hatchet/Hatchet.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
@@ -314,15 +339,20 @@ _global_script_class_icons={
 "CharacterState": "",
 "ConsumableItem": "",
 "ControlMode": "",
+"Crowbar": "",
 "Dagger": "",
 "Door": "",
+"Dynamite": "",
 "EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
 "GlobalConsts": "",
+"Grenade": "",
 "Groups": "",
 "GunItem": "",
+"Halberd": "",
+"Hatchet": "",
 "Hitbox": "",
 "Interactable": "",
 "KeyItem": "",
@@ -371,7 +401,8 @@ ChangeScene="*res://globals/changeScene.gd"
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
+window/size/test_width=1024
+window/size/test_height=600
 
 [editor_plugins]
 
@@ -603,6 +634,7 @@ common/physics_interpolation=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 quality/filters/use_fxaa=true

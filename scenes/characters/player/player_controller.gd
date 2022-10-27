@@ -126,11 +126,15 @@ func handle_grab_input(delta : float):
 		
 	if Input.is_action_pressed("interact"):
 		grab_press_length += delta
-	else:
-		wanna_grab = false
-		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
+		if grab_press_length >= hold_time_to_grab :
 			wanna_grab = true
 			interaction_handled = true
+	else:
+#		wanna_grab = false
+#		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
+#		if Input.is_action_just_released("interact") :
+#			wanna_grab = true
+#			interaction_handled = true
 		
 		grab_press_length = 0.0
 
@@ -357,6 +361,7 @@ func drop_grabbable():
 		interaction_handled = true
 		var impulse = active_mode.get_aim_direction()*throw_strength
 		grab_object.apply_central_impulse(impulse)
+		wanna_grab=false
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);

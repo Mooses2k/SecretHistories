@@ -17,6 +17,7 @@
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
 
+
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
 

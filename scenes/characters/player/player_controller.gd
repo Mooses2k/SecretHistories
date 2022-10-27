@@ -100,7 +100,7 @@ func handle_movement(_delta : float):
 	direction = movement_basis.xform(direction)
 	direction = direction.normalized()*min(1.0, direction.length())
 	
-	if Input.is_action_pressed("sprint") and stamina > 0:
+	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.currently_reloading == false:
 		direction *= 0.5;
 		change_stamina(-0.3)
 	else:

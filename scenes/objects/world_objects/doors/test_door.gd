@@ -1,5 +1,6 @@
 extends Area
 
+
 export var active_material : Material
 export var inactive_material : Material
 
@@ -10,10 +11,12 @@ var navmesh : NavigationMeshInstance
 var active_transform = Transform.IDENTITY
 var inactive_transform = Transform(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, Vector3.ZERO)
 
+
 func set_active(value : bool):
 	$Visual.material_override = active_material if value else inactive_material
 	navmesh.enabled = value
 	active = value
+
 
 func _ready():
 	self.active = true

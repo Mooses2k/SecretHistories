@@ -1,12 +1,15 @@
 class_name BT_Go_To_Target
 extends BT_Node
 
+
 export var threshold : float = 0.5 setget set_threshold
 var _thresold_squared : float = 0.25
+
 
 func set_threshold(value : float):
 	threshold = value
 	_thresold_squared = value*value
+
 
 func tick(state : CharacterState) -> int:
 	var character = state.character

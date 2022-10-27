@@ -1,5 +1,6 @@
 extends Node
 
+
 onready var label = get_node("Holder/Quote")
 
 var randomNumG = RandomNumberGenerator.new()
@@ -22,5 +23,3 @@ func _ready():
 		#early game
 		randomNum = randomNumG.randi_range(0, LoadQuotes.list1.size()-1)
 		label.text = LoadQuotes.list1[randomNum]
-
-

@@ -63,18 +63,16 @@ func _physics_process(delta : float):
 	handle_movement(delta)
 	handle_grab_input(delta)
 	handle_grab(delta)
-	
 	handle_inventory(delta)
-	if GameManager.currently_reloading == false:
-		next_weapon()
-		previous_weapon()
+	next_weapon()
+	previous_weapon()
 	if is_grabbing==true:
 		drop_grabbable()
 #	handle_misc_controls(delta)
 
 
 func _input(event):
-	if event is InputEventMouseButton and GameManager.currently_reloading == false :
+	if event is InputEventMouseButton:
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
@@ -201,11 +199,11 @@ func handle_grab(delta : float):
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
-			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing==false and GameManager.currently_reloading == false:
+			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing==false:
 				throw_item = ItemSelection.ITEM_PRIMARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing==false and GameManager.currently_reloading == false:
+			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing==false:
 				throw_item = ItemSelection.ITEM_SECONDARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
@@ -224,12 +222,12 @@ func handle_inventory(delta : float):
 	
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.currently_reloading == false:
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):
 			inv.current_primary_slot = i
 			throw_state = ThrowState.IDLE
 	
 	# Secondary slot selection
-	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.currently_reloading == false:
+	if Input.is_action_just_pressed("cycle_offhand_slot"):
 		var start_slot = inv.current_secondary_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
@@ -262,8 +260,6 @@ func handle_inventory(delta : float):
 		if inv.get_primary_item():
 			inv.get_primary_item().use_reload()
 			throw_state = ThrowState.IDLE
-#			if inv.get_primary_item() is ShotgunItem:
-#				print(inv.get_primary_item())
 	
 	if Input.is_action_just_pressed("offhand_use"):
 		if inv.get_secondary_item():

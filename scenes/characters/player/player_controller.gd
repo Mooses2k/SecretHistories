@@ -154,8 +154,8 @@ func handle_grab(delta : float):
 			grab_object = object
 			is_grabbing = true
 	
-#	$MeshInstance.visible = is_grabbing
-#	$MeshInstance2.visible = is_grabbing
+	$MeshInstance.visible = is_grabbing
+	$MeshInstance2.visible = is_grabbing
 	
 	if is_grabbing:
 		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
@@ -176,8 +176,8 @@ func handle_grab(delta : float):
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 		
 		# Some visualization stuff
-#		$MeshInstance.global_transform.origin = grab_target_global
-#		$MeshInstance2.global_transform.origin = grab_object_global
+		$MeshInstance.global_transform.origin = grab_target_global
+		$MeshInstance2.global_transform.origin = grab_object_global
 		
 		#local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)

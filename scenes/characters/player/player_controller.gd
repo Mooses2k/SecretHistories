@@ -126,19 +126,20 @@ func handle_grab_input(delta : float):
 		wanna_grab=false 
 	if Input.is_action_pressed("interact") and is_grabbing==false:
 		grab_press_length += delta
-		if grab_press_length >= hold_time_to_grab :
+		if grab_press_length >= 0.15 :
 			wanna_grab = true
 			interaction_handled = true
-	else:
+#	else:
 #		wanna_grab = false
 #		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
 #		if Input.is_action_just_released("interact") :
 #			wanna_grab = true
 #			interaction_handled = true
 		
+#		grab_press_length = 0.0
+	if Input.is_action_just_released("interact"):
 		grab_press_length = 0.0
-	if Input.is_action_just_pressed("interact"):
-		if grab_object is Door_body and is_grabbing==true:
+		if is_grabbing==true:
 			is_grabbing = false
 			wanna_grab=false 
 			interaction_handled = true
@@ -154,9 +155,9 @@ func handle_grab(delta : float):
 			grab_object = object
 			is_grabbing = true
 	
-	$MeshInstance.visible = is_grabbing
-	$MeshInstance2.visible = is_grabbing
-	
+#	$MeshInstance.visible = is_grabbing
+#	$MeshInstance2.visible = is_grabbing
+#
 	if is_grabbing:
 		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
 #		print("mass : ", direct_state.inverse_mass)
@@ -176,9 +177,9 @@ func handle_grab(delta : float):
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 		
 		# Some visualization stuff
-		$MeshInstance.global_transform.origin = grab_target_global
-		$MeshInstance2.global_transform.origin = grab_object_global
-		
+#		$MeshInstance.global_transform.origin = grab_target_global
+#		$MeshInstance2.global_transform.origin = grab_object_global
+#
 		#local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 		
@@ -343,6 +344,7 @@ func handle_inventory(delta : float):
 #						item.call_deferred("global_translate", result.motion)
 #
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
+		
 		if interaction_target != null:
 			if interaction_target is PickableItem:
 				character.inventory.add_item(interaction_target)

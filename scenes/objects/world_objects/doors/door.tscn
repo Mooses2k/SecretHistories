@@ -50,19 +50,16 @@ _door_half = NodePath("../DoorBody/LockDoorHalf")
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
 material_override = SubResource( 8 )
 mesh = SubResource( 1 )
-material/0 = null
 
 [node name="Left" type="MeshInstance" parent="DoorFrame"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1, 0 )
 material_override = SubResource( 8 )
 mesh = SubResource( 2 )
-material/0 = null
 
 [node name="Right" type="MeshInstance" parent="DoorFrame"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1, 0 )
 material_override = SubResource( 8 )
 mesh = SubResource( 2 )
-material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="DoorFrame"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
@@ -94,21 +91,18 @@ shape = SubResource( 3 )
 [node name="Body" type="MeshInstance" parent="DoorBody"]
 material_override = SubResource( 8 )
 mesh = SubResource( 4 )
-material/0 = null
 
 [node name="BottomHinge" type="MeshInstance" parent="DoorBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, -0.515, -0.085 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 skeleton = NodePath("../../Hinge")
-material/0 = null
 
 [node name="TopHinge" type="MeshInstance" parent="DoorBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0.685, -0.085 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 skeleton = NodePath("../../Hinge")
-material/0 = null
 
 [node name="LockDoorHalf" parent="DoorBody" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0, -0.0848467 )
@@ -123,10 +117,8 @@ collision/exclude_nodes = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
-material/0 = null
 
 [node name="TopHinge" type="MeshInstance" parent="Hinge"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
-material/0 = null

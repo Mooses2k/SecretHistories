@@ -45,7 +45,7 @@ var is_grabbing : bool = false
 var interaction_handled : bool = false
 var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
-var grab_distance : float = 0.0
+var grab_distance : float = 0
 
 
 func _ready():
@@ -118,11 +118,13 @@ func handle_movement(_delta : float):
 
 
 func handle_grab_input(delta : float):
-	if Input.is_action_just_released("interact") and is_grabbing:
-		is_grabbing = false
-		interaction_handled = true
-		
-	if Input.is_action_pressed("interact"):
+	
+
+	if is_grabbing:
+		wanna_grab=true
+	else:
+		wanna_grab=false 
+	if Input.is_action_pressed("interact") and is_grabbing==false:
 		grab_press_length += delta
 		if grab_press_length >= hold_time_to_grab :
 			wanna_grab = true
@@ -135,7 +137,11 @@ func handle_grab_input(delta : float):
 #			interaction_handled = true
 		
 		grab_press_length = 0.0
-
+	if Input.is_action_just_pressed("interact"):
+		if grab_object is Door_body and is_grabbing==true:
+			is_grabbing = false
+			wanna_grab=false 
+			interaction_handled = true
 
 func handle_grab(delta : float):
 	if wanna_grab and not is_grabbing:
@@ -351,7 +357,7 @@ func handle_inventory(delta : float):
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
 func drop_grabbable():
-	#when the drop buttons or keys are pressed , grabable objects are released
+	#when the drop button or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("main_throw") or   Input.is_action_just_pressed("offhand_throw"):
 		is_grabbing = false
 		interaction_handled = true

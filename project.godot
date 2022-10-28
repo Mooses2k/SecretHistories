@@ -134,6 +134,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/world_objects/doors/door.gd"
 }, {
+"base": "RigidBody",
+"class": "Door_body",
+"language": "GDScript",
+"path": "res://scenes/objects/world_objects/doors/door_body.gd"
+}, {
 "base": "Node",
 "class": "EnemySpawner",
 "language": "GDScript",
@@ -290,6 +295,7 @@ _global_script_class_icons={
 "ConsumableItem": "",
 "ControlMode": "",
 "Door": "",
+"Door_body": "",
 "EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",

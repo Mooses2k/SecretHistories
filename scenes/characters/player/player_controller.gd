@@ -126,9 +126,9 @@ func handle_grab_input(delta : float):
 		wanna_grab=false 
 	if Input.is_action_pressed("interact") and is_grabbing == false:
 		grab_press_length += delta
-		if grab_press_length >= hold_time_to_grab :
-			wanna_grab = true
-			interaction_handled = true
+#		if grab_press_length >= hold_time_to_grab :
+		wanna_grab = true
+		interaction_handled = true
 	else:
 #		wanna_grab = false
 #		is_grabbing=false

@@ -110,6 +110,7 @@ func reload():
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
 					is_reloading = true
+					GameManager.is_reloading = true
 					return
 
 
@@ -135,6 +136,7 @@ func _on_ReloadTimer_timeout() -> void:
 			current_ammo_type = _queued_reload_type
 			current_ammo += reload_amount
 	is_reloading = false
+	GameManager.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 
 

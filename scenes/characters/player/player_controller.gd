@@ -75,7 +75,7 @@ func _physics_process(delta : float):
 
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and GameManager.is_reloading == false :
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
@@ -220,12 +220,12 @@ func handle_grab(delta : float):
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
-			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing==false:
+			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing == false and GameManager.is_reloading == false:
 				throw_item = ItemSelection.ITEM_PRIMARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
 				print(throw_item)
-			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing==false:
+			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing == false  and GameManager.is_reloading == false:
 				throw_item = ItemSelection.ITEM_SECONDARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0

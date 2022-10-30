@@ -69,6 +69,7 @@ func _physics_process(delta : float):
 	handle_movement(delta)
 	handle_grab_input(delta)
 	handle_grab(delta)
+	
 	handle_inventory(delta)
 	next_weapon()
 	previous_weapon()
@@ -135,6 +136,12 @@ func handle_grab_input(delta : float):
 		if grab_press_length >= 0.15 :
 			wanna_grab = true
 			interaction_handled = true
+#	else:
+#		wanna_grab = false
+#		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
+#		if Input.is_action_just_released("interact") :
+#			wanna_grab = true
+#			interaction_handled = true
 		
 			
 #	else:
@@ -286,6 +293,8 @@ func handle_inventory(delta : float):
 		if inv.get_primary_item():
 			inv.get_primary_item().use_reload()
 			throw_state = ThrowState.IDLE
+#			if inv.get_primary_item() is ShotgunItem:
+#				print(inv.get_primary_item())
 	
 	if Input.is_action_just_pressed("offhand_use"):
 		if inv.get_secondary_item():

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/UI/hotbar/hotbar_slot.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/UI/hotbar/hotbar_slot.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=2]
 resource_name = "Fade_in"
@@ -64,15 +65,12 @@ anchor_bottom = 1.0
 mouse_filter = 2
 custom_constants/margin_left = 2
 custom_constants/margin_bottom = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 2.0
-margin_top = 336.0
-margin_right = 369.0
-margin_bottom = 598.0
+margin_top = 810.0
+margin_right = 387.0
+margin_bottom = 1078.0
 mouse_filter = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -83,8 +81,9 @@ __meta__ = {
 }
 
 [node name="Bulky" parent="VBoxContainer" instance=ExtResource( 1 )]
+visible = false
 anchor_right = 0.0
-margin_right = 367.0
+margin_right = 385.0
 margin_bottom = 22.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
@@ -94,19 +93,25 @@ is_bulky = true
 
 [node name="1" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 24.0
-margin_right = 367.0
-margin_bottom = 46.0
+margin_right = 385.0
+margin_bottom = 22.0
+script = ExtResource( 2 )
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
 index = 0
 
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 385.0
+margin_bottom = 52.0
+custom_constants/margin_top = 28
+
 [node name="2" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 48.0
-margin_right = 367.0
-margin_bottom = 70.0
+margin_top = 54.0
+margin_right = 385.0
+margin_bottom = 76.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -114,9 +119,9 @@ index = 1
 
 [node name="3" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 72.0
-margin_right = 367.0
-margin_bottom = 94.0
+margin_top = 78.0
+margin_right = 385.0
+margin_bottom = 100.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -124,9 +129,9 @@ index = 2
 
 [node name="4" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 96.0
-margin_right = 367.0
-margin_bottom = 118.0
+margin_top = 102.0
+margin_right = 385.0
+margin_bottom = 124.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -134,9 +139,9 @@ index = 3
 
 [node name="5" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 120.0
-margin_right = 367.0
-margin_bottom = 142.0
+margin_top = 126.0
+margin_right = 385.0
+margin_bottom = 148.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -144,9 +149,9 @@ index = 4
 
 [node name="6" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 144.0
-margin_right = 367.0
-margin_bottom = 166.0
+margin_top = 150.0
+margin_right = 385.0
+margin_bottom = 172.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -154,9 +159,9 @@ index = 5
 
 [node name="7" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 168.0
-margin_right = 367.0
-margin_bottom = 190.0
+margin_top = 174.0
+margin_right = 385.0
+margin_bottom = 196.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -164,9 +169,9 @@ index = 6
 
 [node name="8" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 192.0
-margin_right = 367.0
-margin_bottom = 214.0
+margin_top = 198.0
+margin_right = 385.0
+margin_bottom = 220.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -174,9 +179,9 @@ index = 7
 
 [node name="9" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 216.0
-margin_right = 367.0
-margin_bottom = 238.0
+margin_top = 222.0
+margin_right = 385.0
+margin_bottom = 244.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
@@ -184,9 +189,9 @@ index = 8
 
 [node name="10" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_top = 240.0
-margin_right = 367.0
-margin_bottom = 262.0
+margin_top = 246.0
+margin_right = 385.0
+margin_bottom = 268.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )

@@ -115,7 +115,7 @@ transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, 0, 4 )
 
 [node name="Bookcase" type="RigidBody" parent="." index="26"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
-collision_layer = 69
+collision_layer = 5
 mass = 102.041
 
 [node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]

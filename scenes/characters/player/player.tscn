@@ -305,6 +305,7 @@ collision_mask = 576
 script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
+_grabcast = NodePath("../Body/FPSCamera/GrabCast")
 
 [node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
 script = ExtResource( 10 )

@@ -18,7 +18,6 @@
 [ext_resource path="res://scenes/characters/enemies/ghost/ghost.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/torch/torch.tscn" type="PackedScene" id=17]
 
-
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.25 )
 
@@ -116,7 +115,7 @@ transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, 0, 4 )
 
 [node name="Bookcase" type="RigidBody" parent="." index="26"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
-collision_layer = 5
+collision_layer = 69
 mass = 102.041
 
 [node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]

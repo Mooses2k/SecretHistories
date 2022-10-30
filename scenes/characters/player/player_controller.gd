@@ -190,7 +190,7 @@ func handle_grab(delta : float):
 		# Some visualization stuff
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
-		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.5 and !grab_object is PickableItem:
+		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
 			is_grabbing=false
 			interaction_handled=true
 		#local velocity of the object at the grabbing point, used to cancel the objects movement
@@ -228,12 +228,10 @@ func update_throw_state(delta : float):
 				throw_item = ItemSelection.ITEM_PRIMARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-				print(throw_item)
 			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing == false  and GameManager.is_reloading == false:
 				throw_item = ItemSelection.ITEM_SECONDARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-				print(throw_item)
 		ThrowState.PRESSING:
 			if Input.is_action_pressed("main_throw" if throw_item == ItemSelection.ITEM_PRIMARY else "offhand_throw"):
 				throw_press_length += delta
@@ -249,12 +247,13 @@ func handle_inventory(delta : float):
 	
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false:
 			inv.current_primary_slot = i
 			throw_state = ThrowState.IDLE
 	
 	# Secondary slot selection
-	if Input.is_action_just_pressed("cycle_offhand_slot"):
+		
+	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
 		var start_slot = inv.current_secondary_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \

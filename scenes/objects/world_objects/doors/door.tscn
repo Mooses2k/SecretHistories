@@ -75,7 +75,7 @@ shape = SubResource( 6 )
 
 [node name="DoorBody" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
-collision_layer = 69
+collision_layer = 5
 mass = 30.0
 axis_lock_linear_y = true
 axis_lock_angular_x = true

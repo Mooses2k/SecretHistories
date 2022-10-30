@@ -190,7 +190,7 @@ func handle_grab(delta : float):
 		# Some visualization stuff
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
-		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 2.2:
+		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.5 and !grab_object is PickableItem:
 			is_grabbing=false
 			interaction_handled=true
 		#local velocity of the object at the grabbing point, used to cancel the objects movement

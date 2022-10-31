@@ -6,11 +6,13 @@ export var can_equip_modulate : Color
 export var equipped_modulate : Color
 export var can_not_equip_modulate : Color
 
+
+
 var item : EquipmentItem = null setget set_item
-var tracking_tiny_item = null
+var tracking_tiny_item= null
 var inventory = null setget set_inventory
 export var index : int = -1
-export var is_bulky : bool = false
+export var is_bulky : bool  = false
 
 
 onready var fadeanimations=$"../../FadeAnim"
@@ -37,6 +39,10 @@ func set_item(value : EquipmentItem):
 func _ready():
 	fadeanimations.play("Fade_in")
 	$"../..".show()
+	if self.name == "10":
+		$SlotNumber.text=str(index+1)
+	else:
+		$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
 	var game = GameManager.game
 	var player = game.player
 	if player == null:

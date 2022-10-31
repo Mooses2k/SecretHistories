@@ -48,9 +48,14 @@ margin_right = 8.0
 margin_bottom = 17.0
 text = "1"
 
-[node name="UseIndicators" type="PanelContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 18.0
-margin_right = 45.0
+margin_right = 18.0
+margin_bottom = 28.0
+
+[node name="UseIndicators" type="PanelContainer" parent="."]
+margin_left = 20.0
+margin_right = 47.0
 margin_bottom = 28.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 2 )
@@ -76,8 +81,8 @@ margin_bottom = 17.0
 text = "R"
 
 [node name="ItemInfo" type="PanelContainer" parent="."]
-margin_left = 47.0
-margin_right = 385.0
+margin_left = 49.0
+margin_right = 387.0
 margin_bottom = 28.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )

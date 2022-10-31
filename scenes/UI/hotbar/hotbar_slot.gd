@@ -39,7 +39,10 @@ func set_item(value : EquipmentItem):
 func _ready():
 	fadeanimations.play("Fade_in")
 	$"../..".show()
-	$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
+	if self.name == "10":
+		$SlotNumber.text=str(index+1)
+	else:
+		$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
 	var game = GameManager.game
 	var player = game.player
 	if player == null:

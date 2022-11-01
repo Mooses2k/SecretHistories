@@ -85,6 +85,7 @@ func _input(event):
 				BUTTON_WHEEL_UP:
 					if character.inventory.current_primary_slot!=0:
 						character.inventory.current_primary_slot-=1
+					
 				BUTTON_WHEEL_DOWN:
 					if character.inventory.current_primary_slot!=9:
 						character.inventory.current_primary_slot+=1
@@ -397,10 +398,16 @@ func change_stamina(amount: float) -> void:
 
 
 func previous_weapon():
-	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot!=0:
-			character.inventory.current_primary_slot-=1
+	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot != 0:
+		character.inventory.current_primary_slot -=1 
+		
+	elif  Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot == 0:
+		character.inventory.current_primary_slot = 10
 
 
 func next_weapon():
-	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot!=9:
-			character.inventory.current_primary_slot+=1
+	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot != 10:
+		character.inventory.current_primary_slot += 1
+		
+	elif  Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot == 10:
+		character.inventory.current_primary_slot = 0

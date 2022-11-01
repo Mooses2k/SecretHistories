@@ -13,7 +13,7 @@ signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
 signal UpdateHud
 
-const HOTBAR_SIZE : int= 10
+const HOTBAR_SIZE : int= 11
 
 # Items tracked exclusively by ammount, don't contribute to weight,
 # don't show in hotbar

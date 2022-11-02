@@ -85,10 +85,19 @@ func _input(event):
 				BUTTON_WHEEL_UP:
 					if character.inventory.current_primary_slot!=0:
 						character.inventory.current_primary_slot-=1
-					
+						
+					elif character.inventory.current_primary_slot == 0:
+						character.inventory.current_primary_slot = 10
+						
+						
 				BUTTON_WHEEL_DOWN:
-					if character.inventory.current_primary_slot!=9:
+					if character.inventory.current_primary_slot!=10:
 						character.inventory.current_primary_slot+=1
+						
+					elif character.inventory.current_primary_slot == 10:
+						character.inventory.current_primary_slot = 0
+						
+
 
 
 #func handle_misc_controls(_delta : float):
@@ -371,7 +380,7 @@ func handle_inventory(delta : float):
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
 		
 		if interaction_target != null:
-			if interaction_target is PickableItem:
+			if interaction_target is PickableItem and character.inventory.current_primary_slot != 10:
 				character.inventory.add_item(interaction_target)
 				interaction_target = null
 			elif interaction_target is Interactable:

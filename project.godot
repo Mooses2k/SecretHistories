@@ -224,7 +224,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/pickup_area.gd"
 }, {
-"base": "RigidBody",
+"base": "KinematicBody",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"

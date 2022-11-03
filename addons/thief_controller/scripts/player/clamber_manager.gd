@@ -53,7 +53,10 @@ func _test_clamber_ledge() -> Vector3:
 					if r:
 						var ground_check = space.intersect_ray(pos, 
 								pos + Vector3.DOWN * 2)
-				
+						
+						if !ground_check:
+							return Vector3.ZERO
+						
 						if ground_check.collider == r.collider:
 							return Vector3.ZERO
 				

@@ -48,9 +48,6 @@ maxRoll = 10.0
 [node name="PlayerUI" type="Control" parent="Camera/CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Crosshair" type="TextureRect" parent="Camera/CanvasLayer/PlayerUI"]
 anchor_left = 0.5

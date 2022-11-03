@@ -10,6 +10,10 @@ var is_fade_in = false
 var health = 100 
 
 
+func _process(delta):
+	$RichTextLabel.text = str(owner.global_transform.origin.y) + " \nplayer on floor=" + str(owner.is_on_floor())
+
+
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("kick"):
 		if not $ColorRect.is_visible_in_tree():

@@ -10,15 +10,15 @@ _setting_type = 1
 
 [node name="Name" type="Label" parent="."]
 unique_name_in_owner = true
-margin_top = 293.0
-margin_right = 996.0
-margin_bottom = 307.0
+margin_top = 533.0
+margin_right = 1892.0
+margin_bottom = 547.0
 size_flags_horizontal = 3
 
 [node name="Value" type="CheckBox" parent="."]
 unique_name_in_owner = true
-margin_left = 1000.0
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_left = 1896.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 
 [connection signal="toggled" from="Value" to="." method="_on_Value_toggled"]

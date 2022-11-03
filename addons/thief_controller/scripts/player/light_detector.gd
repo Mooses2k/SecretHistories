@@ -10,7 +10,7 @@ onready var _cam_bottom = $Viewport2/CameraBottom
 export var light_detect_interval : float = 0.25
 var _last_time_since_detect : float = 0.0
 
-var _player : Player = null
+var _player : Player1 = null
 
 func _ready() -> void:
 	_player = get_parent()

@@ -254,8 +254,8 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	collision_mask = _normal_collision_layer_and_mask
 	
 	var move_dir = Vector3()
-	move_dir.x = (Input.get_action_strength("right") - Input.get_action_strength("left"))
-	move_dir.z = (Input.get_action_strength("back") - Input.get_action_strength("forward"))
+	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
+	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	move_dir = move_dir.normalized()	
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
@@ -293,7 +293,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if c != Vector3.ZERO:
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE
-			_audio_player.play_clamber_sound(true)
+			#_audio_player.play_clamber_sound(true)
 			return
 			
 		# If no clamber, jump
@@ -378,13 +378,16 @@ func _crouch() -> void:
 				pos + Vector3.UP * _bob_reset + Vector3.UP * 0.2, [self])
 		
 		if !r_up:
-			state = State.STATE_WALKING
-			_camera.global_transform.origin = pos + Vector3.UP * _bob_reset
-			_collider.shape.height = _collider_normal_height
-			_collider.shape.radius = _collider_normal_radius
-			_collider.rotation_degrees.x = 90
-			return
-		
+			pass
+		elif r_up.collider.name != "ground":
+			return;
+			
+		state = State.STATE_WALKING
+		_camera.global_transform.origin = pos + Vector3.UP * _bob_reset
+		_collider.shape.height = _collider_normal_height
+		_collider.shape.radius = _collider_normal_radius
+		_collider.rotation_degrees.x = 90
+
 
 func _crawling() -> void:
 	crawl_rate = clamp(crawl_rate, 0.11, 1.0)

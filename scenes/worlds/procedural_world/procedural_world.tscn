@@ -39,31 +39,26 @@ density = 0.01
 
 [node name="TinyItem" parent="." index="6" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.1, 6 )
-continuous_cd = false
 item_data = ExtResource( 5 )
 amount = 10
 
 [node name="TinyItem2" parent="." index="7" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.1, 5 )
-continuous_cd = false
 item_data = ExtResource( 5 )
 amount = 10
 
 [node name="TinyItem3" parent="." index="8" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 5 )
-continuous_cd = false
 item_data = ExtResource( 15 )
 amount = 100
 
 [node name="TinyItem4" parent="." index="9" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.20663, 0.5, 5 )
-continuous_cd = false
 item_data = ExtResource( 15 )
 amount = 100
 
 [node name="TinyItem5" parent="." index="10" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.97114, 0.5, 2 )
-continuous_cd = false
 item_data = ExtResource( 15 )
 amount = 100
 

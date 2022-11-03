@@ -513,9 +513,26 @@ shape = SubResource( 1 )
 
 [node name="Body" type="Spatial" parent="."]
 
+[node name="ViewportContainer2" type="ViewportContainer" parent="Body"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="Body/ViewportContainer2"]
+size = Vector2( 1920, 1080 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="GunCam" type="Camera" parent="Body/ViewportContainer2/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+cull_mask = 2
+
 [node name="FPSCamera" type="Camera" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54753, -0.2 )
 cull_mask = 1048573
+current = true
 script = ExtResource( 15 )
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera"]
@@ -532,24 +549,8 @@ collision_mask = 65
 [node name="GroundCast" type="RayCast" parent="Body/FPSCamera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.47035e-08 )
 enabled = true
-cast_to = Vector3( 0, 0, -1.55 )
+cast_to = Vector3( 0, 0, -1.6 )
 debug_shape_thickness = 3
-
-[node name="ViewportContainer2" type="ViewportContainer" parent="Body/FPSCamera"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-stretch = true
-
-[node name="Viewport" type="Viewport" parent="Body/FPSCamera/ViewportContainer2"]
-size = Vector2( 1920, 1080 )
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="GunCam" type="Camera" parent="Body/FPSCamera/ViewportContainer2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
-cull_mask = 2
 
 [node name="Sunglasses" type="MeshInstance" parent="Body"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54754, -0.198 )
@@ -602,6 +603,7 @@ script = ExtResource( 19 )
 shape = SubResource( 2 )
 
 [node name="PlayerAimPoint" type="Spatial" parent="."]
+visible = false
 
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -609,6 +611,8 @@ throw_strength = 10.0
 grab_strength = 4.0
 _grabcast = NodePath("../Body/FPSCamera/GrabCast")
 _cam_pos = NodePath("../Body/FPSCamera")
+_cam_path = NodePath("../Body/FPSCamera")
+_gun_cam_path = NodePath("../Body/ViewportContainer2/Viewport/GunCam")
 
 [node name="FPSControlMode" type="Node" parent="PlayerController"]
 script = ExtResource( 10 )
@@ -684,6 +688,13 @@ anims/hit_effect = SubResource( 23 )
 [node name="Tween" type="Tween" parent="HitEffect"]
 
 [node name="Tween2" type="Tween" parent="HitEffect"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HitEffect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+tab_size = 8
+text = "dsafsdfd"
 
 [node name="Indication_canvas" type="CanvasLayer" parent="."]
 pause_mode = 2

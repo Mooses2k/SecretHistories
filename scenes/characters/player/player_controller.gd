@@ -280,6 +280,7 @@ func handle_inventory(delta : float):
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
 					or new_slot == inv.current_primary_slot \
+					or inv.hotbar[new_slot] == null \
 				):
 				
 				new_slot = (new_slot + 1)%inv.hotbar.size()

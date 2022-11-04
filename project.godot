@@ -348,8 +348,6 @@ ChangeScene="*res://globals/change_scene.gd"
 window/size/width=1920
 window/size/height=1080
 window/size/fullscreen=true
-window/size/test_width=1024
-window/size/test_height=600
 
 [editor_plugins]
 
@@ -591,7 +589,6 @@ common/physics_interpolation=true
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

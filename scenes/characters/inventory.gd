@@ -42,7 +42,7 @@ onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
 
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
-
+	current_secondary_slot = 10
 # Returns wether a given node can be added as an Item to this inventory
 func can_pickup_item(item : PickableItem) -> bool:
 	# Can only pickup dropped items

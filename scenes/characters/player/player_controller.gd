@@ -301,8 +301,8 @@ func handle_inventory(delta : float):
 		while new_slot != start_slot \
 			and (
 					(
-						new_slot == 10 \
-						and inv.hotbar[new_slot] != null \
+						
+						inv.hotbar[new_slot] != null \
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
 					or new_slot == inv.current_primary_slot \

@@ -261,7 +261,6 @@ func update_throw_state(delta : float):
 func empty_slot():
 	
 	var inv = character.inventory
-	print(inv.hotbar)
 	if inv.hotbar != null:
 		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
@@ -299,6 +298,10 @@ func handle_inventory(delta : float):
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
 	
+	if Input.is_action_just_pressed("hotbar_11"):
+		if inv.current_secondary_slot != 10:
+			print("Testing")
+			inv.current_secondary_slot = 10
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_primary_item():

@@ -83,20 +83,37 @@ func _input(event):
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
-					if character.inventory.current_primary_slot!=0:
-						character.inventory.current_primary_slot-=1
-						
+					if character.inventory.current_primary_slot != 0:
+						var total_inventory = character.inventory.current_primary_slot - 1
+						if total_inventory != character.inventory.current_secondary_slot:
+							character.inventory.current_primary_slot = total_inventory
+						else:
+							var plus_inventory = total_inventory - 1
+							if plus_inventory != -1  :
+								character.inventory.current_primary_slot = plus_inventory
+							else:
+								character.inventory.current_primary_slot = 10
 					elif character.inventory.current_primary_slot == 0:
 						character.inventory.current_primary_slot = 10
 						
 						
 				BUTTON_WHEEL_DOWN:
-					if character.inventory.current_primary_slot!=10:
-						character.inventory.current_primary_slot+=1
-						
+					if character.inventory.current_primary_slot != 10:
+						var total_inventory = character.inventory.current_primary_slot + 1
+						if total_inventory != character.inventory.current_secondary_slot :
+							character.inventory.current_primary_slot = total_inventory
+						else:
+							var plus_inventory = total_inventory + 1
+							if character.inventory.current_secondary_slot != 10:
+								character.inventory.current_primary_slot = plus_inventory
+							else:
+								character.inventory.current_primary_slot = 10
 					elif character.inventory.current_primary_slot == 10:
-						character.inventory.current_primary_slot = 0
-						
+						if character.inventory.current_secondary_slot != 0:
+							character.inventory.current_primary_slot = 0
+						else:
+							character.inventory.current_primary_slot = 1
+
 
 
 
@@ -272,9 +289,9 @@ func handle_inventory(delta : float):
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
-			
-			inv.current_primary_slot = i
-			throw_state = ThrowState.IDLE
+			if i != inv.current_secondary_slot :
+				inv.current_primary_slot = i
+				throw_state = ThrowState.IDLE
 	
 	# Secondary slot selection
 		

@@ -56,7 +56,7 @@ var current_object=null
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
@@ -74,7 +74,7 @@ func _physics_process(delta : float):
 	next_weapon()
 	previous_weapon()
 	drop_grabbable()
-
+	empty_slot()
 
 
 
@@ -258,13 +258,22 @@ func update_throw_state(delta : float):
 			throw_state = ThrowState.IDLE
 	pass
 
+func empty_slot():
+	
+	var inv = character.inventory
+	print(inv.hotbar)
+	if inv.hotbar != null:
+		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
+		if  !inv.hotbar.has(10):
+			inv.hotbar[10] = gun
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
-	
+
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false:
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
+			
 			inv.current_primary_slot = i
 			throw_state = ThrowState.IDLE
 	
@@ -276,7 +285,8 @@ func handle_inventory(delta : float):
 		while new_slot != start_slot \
 			and (
 					(
-						inv.hotbar[new_slot] != null \
+						new_slot == 10 \
+						and inv.hotbar[new_slot] != null \
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
 					or new_slot == inv.current_primary_slot \

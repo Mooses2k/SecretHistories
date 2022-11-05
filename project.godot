@@ -268,6 +268,11 @@ _global_script_classes=[ {
 "class": "WorldGenerator",
 "language": "GDScript",
 "path": "res://resources/world/world_generator.gd"
+}, {
+"base": "EquipmentItem",
+"class": "empty_hand",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -321,7 +326,8 @@ _global_script_class_icons={
 "ToolItem": "",
 "VisibilityMask": "",
 "WorldData": "",
-"WorldGenerator": ""
+"WorldGenerator": "",
+"empty_hand": ""
 }
 
 [application]
@@ -589,6 +595,7 @@ common/physics_interpolation=true
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

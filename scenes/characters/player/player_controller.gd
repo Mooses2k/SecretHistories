@@ -56,7 +56,7 @@ var current_object=null
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
@@ -74,7 +74,7 @@ func _physics_process(delta : float):
 	next_weapon()
 	previous_weapon()
 	drop_grabbable()
-
+	empty_slot()
 
 
 
@@ -83,11 +83,38 @@ func _input(event):
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
-					if character.inventory.current_primary_slot!=0:
-						character.inventory.current_primary_slot-=1
+					if character.inventory.current_primary_slot != 0:
+						var total_inventory = character.inventory.current_primary_slot - 1
+						if total_inventory != character.inventory.current_secondary_slot:
+							character.inventory.current_primary_slot = total_inventory
+						else:
+							var plus_inventory = total_inventory - 1
+							if plus_inventory != -1  :
+								character.inventory.current_primary_slot = plus_inventory
+							else:
+								character.inventory.current_primary_slot = 10
+					elif character.inventory.current_primary_slot == 0:
+						character.inventory.current_primary_slot = 10
+						
+						
 				BUTTON_WHEEL_DOWN:
-					if character.inventory.current_primary_slot!=9:
-						character.inventory.current_primary_slot+=1
+					if character.inventory.current_primary_slot != 10:
+						var total_inventory = character.inventory.current_primary_slot + 1
+						if total_inventory != character.inventory.current_secondary_slot :
+							character.inventory.current_primary_slot = total_inventory
+						else:
+							var plus_inventory = total_inventory + 1
+							if character.inventory.current_secondary_slot != 10:
+								character.inventory.current_primary_slot = plus_inventory
+							else:
+								character.inventory.current_primary_slot = 10
+					elif character.inventory.current_primary_slot == 10:
+						if character.inventory.current_secondary_slot != 0:
+							character.inventory.current_primary_slot = 0
+						else:
+							character.inventory.current_primary_slot = 1
+
+
 
 
 #func handle_misc_controls(_delta : float):
@@ -248,15 +275,23 @@ func update_throw_state(delta : float):
 			throw_state = ThrowState.IDLE
 	pass
 
+func empty_slot():
+	
+	var inv = character.inventory
+	if inv.hotbar != null:
+		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
+		if  !inv.hotbar.has(10):
+			inv.hotbar[10] = gun
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
-	
+
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false:
-			inv.current_primary_slot = i
-			throw_state = ThrowState.IDLE
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
+			if i != inv.current_secondary_slot :
+				inv.current_primary_slot = i
+				throw_state = ThrowState.IDLE
 	
 	# Secondary slot selection
 		
@@ -266,10 +301,12 @@ func handle_inventory(delta : float):
 		while new_slot != start_slot \
 			and (
 					(
+						
 						inv.hotbar[new_slot] != null \
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
 					or new_slot == inv.current_primary_slot \
+					or inv.hotbar[new_slot] == null \
 				):
 				
 				new_slot = (new_slot + 1)%inv.hotbar.size()
@@ -278,6 +315,10 @@ func handle_inventory(delta : float):
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
 	
+	if Input.is_action_just_pressed("hotbar_11"):
+		if inv.current_secondary_slot != 10:
+			print("Testing")
+			inv.current_secondary_slot = 10
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_primary_item():
@@ -370,7 +411,7 @@ func handle_inventory(delta : float):
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
 		
 		if interaction_target != null:
-			if interaction_target is PickableItem:
+			if interaction_target is PickableItem and character.inventory.current_primary_slot != 10:
 				character.inventory.add_item(interaction_target)
 				interaction_target = null
 			elif interaction_target is Interactable:
@@ -397,10 +438,16 @@ func change_stamina(amount: float) -> void:
 
 
 func previous_weapon():
-	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot!=0:
-			character.inventory.current_primary_slot-=1
+	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot != 0:
+		character.inventory.current_primary_slot -=1 
+		
+	elif  Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot == 0:
+		character.inventory.current_primary_slot = 10
 
 
 func next_weapon():
-	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot!=9:
-			character.inventory.current_primary_slot+=1
+	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot != 10:
+		character.inventory.current_primary_slot += 1
+		
+	elif  Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot == 10:
+		character.inventory.current_primary_slot = 0

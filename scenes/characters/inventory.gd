@@ -13,7 +13,7 @@ signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
 signal UpdateHud
 
-const HOTBAR_SIZE : int= 10
+const HOTBAR_SIZE : int= 11
 
 # Items tracked exclusively by ammount, don't contribute to weight,
 # don't show in hotbar
@@ -42,7 +42,7 @@ onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
 
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
-
+	current_secondary_slot = 10
 # Returns wether a given node can be added as an Item to this inventory
 func can_pickup_item(item : PickableItem) -> bool:
 	# Can only pickup dropped items
@@ -61,6 +61,7 @@ func can_pickup_item(item : PickableItem) -> bool:
 # Attempts to add a node as an Item to this inventory, returns 'true'
 # if the attempt was successful, or 'false' otherwise
 func add_item(item : PickableItem) -> bool:
+	
 	var can_pickup : bool = can_pickup_item(item)
 	
 	if not can_pickup:
@@ -84,9 +85,7 @@ func add_item(item : PickableItem) -> bool:
 		item.queue_free()
 	
 	elif item is EquipmentItem:
-		# Schedule the item removal from the world
-		if item.is_inside_tree():
-			item.get_parent().remove_child(item)
+
 		# Update the inventory info immediately
 		# This is a bulky item, or there is no space on the hotbar
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
@@ -98,21 +97,30 @@ func add_item(item : PickableItem) -> bool:
 			# Select an empty slot, prioritizing the current one, if empty
 			var slot : int = current_primary_slot
 			# Then the offhand
+			
 			if hotbar[slot] != null:
 				slot = current_secondary_slot
-				pass
+				
 			# Then the first empty slot
 			if hotbar[slot] != null:
 				slot = hotbar.find(null)
-			# Add the item to the slot
-			hotbar[slot] = item
-			emit_signal("hotbar_changed", slot)
-			emit_signal("UpdateHud")
-			# Autoequip if possible
-			if current_primary_slot == slot and not bulky_equipment:
-				equip_primary_item()
-			elif current_secondary_slot == slot and not bulky_equipment:
-				equip_secondary_item()
+			# This checks if the slot to add the item isnt the item free slot then Adds the item to the slot
+			if slot != 10:
+				hotbar[slot] = item
+				# Schedule the item removal from the world
+				if item.is_inside_tree():
+					item.get_parent().remove_child(item)
+				
+				emit_signal("hotbar_changed", slot)
+				emit_signal("UpdateHud")
+				# Autoequip if possible
+				if current_primary_slot == slot and not bulky_equipment:
+					equip_primary_item()
+
+				elif current_secondary_slot == slot and not bulky_equipment:
+					equip_secondary_item()
+				
+
 	return true
 
 # Functions to interact with tiny items

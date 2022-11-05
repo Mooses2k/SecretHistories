@@ -26,11 +26,18 @@ func update_primary_indicator():
 	var final_color = can_equip_modulate if is_equippable_primary else can_not_equip_modulate
 	final_color = equipped_modulate if is_equipped_primary else final_color
 	$"UseIndicators/HBoxContainer/PrimaryIndicator".modulate = final_color
+	if is_equipped_primary:
+		is_equipped_secondary = false
+
+
 
 func update_secondary_indicator():
 	var final_color = can_equip_modulate if is_equippable_secondary else can_not_equip_modulate
-	final_color = equipped_modulate if is_equipped_secondary else final_color
+	final_color = equipped_modulate if is_equipped_secondary  else final_color
 	$"UseIndicators/HBoxContainer/SecondaryIndicator".modulate = final_color
+	if is_equippable_secondary:
+		is_equipped_secondary = false
+
 
 func set_item(value : EquipmentItem):
 	item = value

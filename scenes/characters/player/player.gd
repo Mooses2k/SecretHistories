@@ -8,6 +8,10 @@ onready var Gun_cam=$Body/ViewportContainer2/Viewport/GunCam
 onready var grabcast=$Body/FPSCamera/GrabCast
 
 
+#func _ready():
+#	body.add_collision_exception_with()
+
+
 func _process(delta):
 	Gun_cam.global_transform = fps_camera.global_transform
 	grab_indicator()

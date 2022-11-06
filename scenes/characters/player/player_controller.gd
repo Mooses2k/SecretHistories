@@ -373,8 +373,8 @@ func _input(event) -> void:
 
 
 func _walk(delta, speed_mod : float = 1.0) -> void:
-	owner.collision_layer = _normal_collision_layer_and_mask
-	owner.collision_mask = _normal_collision_layer_and_mask
+#	owner.collision_layer = _normal_collision_layer_and_mask
+#	owner.collision_mask = _normal_collision_layer_and_mask
 	
 	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
 		direction *= 0.5;

@@ -46,3 +46,5 @@ func _on_Player_character_died():
 	is_dead = true
 	playing = false
 	$ScreenWhite/TextureRect.hide()
+
+

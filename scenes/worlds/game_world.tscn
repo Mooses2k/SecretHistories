@@ -8,8 +8,9 @@
 
 [sub_resource type="Environment" id=2]
 background_mode = 1
-background_color = Color( 0.0588235, 0.0392157, 0.101961, 1 )
-ambient_light_color = Color( 0.172667, 0.16, 0.2, 1 )
+background_energy = 0.0
+ambient_light_energy = 0.0
+ambient_light_sky_contribution = 0.0
 
 [node name="GameWorld" type="Spatial"]
 script = ExtResource( 1 )
@@ -25,6 +26,8 @@ fov = 30.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, -0.75, 0.433013, 0, 0, 0 )
+light_energy = 0.0
+light_indirect_energy = 0.0
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

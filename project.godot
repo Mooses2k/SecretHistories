@@ -383,6 +383,7 @@ _global_script_class_icons={
 config/name="Secret Histories"
 run/main_scene="res://scenes/UI/title_menu.tscn"
 run/flush_stdout_on_print=true
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -401,6 +402,7 @@ ChangeScene="*res://globals/changeScene.gd"
 
 window/size/width=1920
 window/size/height=1080
+window/size/fullscreen=true
 window/size/test_width=1024
 window/size/test_height=600
 

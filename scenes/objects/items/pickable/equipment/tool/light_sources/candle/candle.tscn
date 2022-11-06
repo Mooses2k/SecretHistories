@@ -105,7 +105,8 @@ main_parent = NodePath("../..")
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
-light_color = Color( 1, 0.713726, 0.411765, 1 )
+light_color = Color( 0.980392, 0.529412, 0, 1 )
+light_energy = 0.5
 shadow_enabled = true
-omni_range = 14.9623
+omni_range = 6.0
 omni_attenuation = 4.0

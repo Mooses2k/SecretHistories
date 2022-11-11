@@ -107,6 +107,7 @@ func _input(event) -> void:
 		
 		
 func _physics_process(delta) -> void:
+	$Camera/CanvasLayer/PlayerUI/RichTextLabel.text = str(light_level)
 	_camera_pos_normal = global_transform.origin + Vector3.UP * _bob_reset
 	#_camera_pos_normal.z = _camera.global_transform.origin.z
 

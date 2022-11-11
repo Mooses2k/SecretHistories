@@ -10,10 +10,12 @@ onready var _cam_bottom = $Viewport2/CameraBottom
 export var light_detect_interval : float = 0.25
 var _last_time_since_detect : float = 0.0
 
-var _player : Player1 = null
+export var _player_path : NodePath
+onready var _player = get_node(_player_path)
+#var _player : Player1 = null
 
-func _ready() -> void:
-	_player = get_parent()
+#func _ready() -> void:
+#	_player = get_parent()
 
 
 func _get_time() -> float:
@@ -21,7 +23,7 @@ func _get_time() -> float:
 
 
 func _process(_delta) -> void:
-	var new_pos = _player.global_transform.origin + Vector3.UP * 0.5
+	var new_pos = _player.owner.global_transform.origin + Vector3.UP * 0.5
 	
 	_octahedron.global_transform.origin = new_pos
 	_cam_top.global_transform.origin = new_pos
@@ -47,7 +49,6 @@ func get_light_level(top : bool = true) -> float:
 		img = _viewport_bottom.get_texture().get_data()
 	
 	img.flip_y()
-	
 	img.lock()
 	
 	var p0 = img.get_pixel(0, 0)

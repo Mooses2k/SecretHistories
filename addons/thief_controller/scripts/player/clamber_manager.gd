@@ -34,8 +34,8 @@ func attempt_clamber() -> Vector3:
 		if v != Vector3.ZERO:
 			return v
 	return Vector3.ZERO
-	
-		
+
+
 func _test_clamber_ledge() -> Vector3:
 	var user_forward = -_user.global_transform.basis.z.normalized()
 	var space = _get_world().direct_space_state
@@ -43,7 +43,7 @@ func _test_clamber_ledge() -> Vector3:
 	var d1 = pos + Vector3.UP * 1.25
 	var d2 = d1 + user_forward
 	var d3 = d2 + Vector3.DOWN * 16
-	
+
 	if not space.intersect_ray(pos, d1):
 		for i in range(5):
 			if not space.intersect_ray(d1, d2 + user_forward * i):
@@ -53,7 +53,7 @@ func _test_clamber_ledge() -> Vector3:
 					if r:
 						var ground_check = space.intersect_ray(pos, 
 								pos + Vector3.DOWN * 2)
-						
+
 						if !ground_check:
 							return Vector3.ZERO
 						
@@ -66,12 +66,12 @@ func _test_clamber_ledge() -> Vector3:
 				
 						if r.position.y < pos.y:
 							return Vector3.ZERO
-				
+						print("ledge")
 						return r.position + offset
 				
 	return Vector3.ZERO
-	
-	
+
+
 func _test_clamber_vent() -> Vector3:
 	var cam_forward = -_camera.global_transform.basis.z.normalized() * 0.4
 	var space = _get_world().direct_space_state
@@ -79,9 +79,9 @@ func _test_clamber_vent() -> Vector3:
 	var d1 = _camera.global_transform.origin + cam_forward
 	var d2 = d1 + Vector3.DOWN * 6
 	
-	if not space.intersect_ray(pos, d1, [self]):
+	if not space.intersect_ray(pos, d1, [_user]):
 		for i in range(5):
-			var r = space.intersect_ray(d1 + cam_forward * i, d2, [self])
+			var r = space.intersect_ray(d1 + cam_forward * i, d2, [_user])
 			if r:
 				var ground_check = space.intersect_ray(pos,
 						pos + Vector3.DOWN * 2)
@@ -95,12 +95,12 @@ func _test_clamber_vent() -> Vector3:
 				
 				if r.position.y < pos.y:
 					return Vector3.ZERO
-				
+				print("vent")
 				return r.position + offset
 				
 	return Vector3.ZERO
-	
-	
+
+
 # Nudging may need some refining
 func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
 	var state = _get_world().direct_space_state
@@ -113,13 +113,14 @@ func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
 	var result = state.intersect_shape(params)
 	
 	for i in range(result.size() - 1):
-		if result[i].collider == self:
-			result.remove(i)	
-	
-	if result.size() == 1 and result[0].collider.global_transform.origin.y < pos.y:
-		return Vector3.ZERO
+		print(result[i].collider)
+		if result[i].collider == _user:
+			result.remove(i)
 	
 	if result.size() == 0:
+		return Vector3.ZERO
+		
+	if result.size() == 1 and result[0].collider.global_transform.origin.y < pos.y:
 		return Vector3.ZERO
 	
 	if !_check_gap(pos + Vector3.FORWARD * 0.15):
@@ -151,7 +152,8 @@ func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
 			return offset
 	
 	return -Vector3.ONE
-	
+
+
 func _check_gap(pos : Vector3) -> bool:
 	var space = _get_world().direct_space_state
 	
@@ -160,11 +162,11 @@ func _check_gap(pos : Vector3) -> bool:
 	for i in range(4):
 		var r = i * 90
 		var v = Vector3.UP.rotated(Vector3.FORWARD, deg2rad(r))
-		var result = space.intersect_ray(pos, pos + v, [self])
+		var result = space.intersect_ray(pos, pos + v, [_user])
 		if result and (result.position - pos).length() < 0.2:
 			c += 1
 			
-	if c >= 2:
+	if c >= 3:
 		return false
 	
 	return true

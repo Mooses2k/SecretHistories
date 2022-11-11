@@ -98,6 +98,7 @@ var wanna_stand : bool = false
 var is_crouching : bool = false
 var wanna_grab : bool = false
 var is_grabbing : bool = false
+var just_clambered : bool = false
 var interaction_handled : bool = false
 var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
@@ -240,6 +241,7 @@ func _physics_process(delta : float):
 			var target = Vector3(pos.x, clamber_destination.y, pos.z)
 			owner.global_transform.origin = lerp(pos, target, 0.1)
 			_crouch()
+			is_crouching = true
 			
 			var from = _camera.rotation_degrees.x
 			var to = pos.angle_to(target)
@@ -255,6 +257,7 @@ func _physics_process(delta : float):
 			var pos = owner.global_transform.origin
 			owner.global_transform.origin = lerp(pos, clamber_destination, 0.1)
 			_crouch()
+			is_crouching = true
 			
 			var from = _camera.rotation_degrees.x
 			var to = owner.global_transform.origin.angle_to(clamber_destination)
@@ -263,7 +266,13 @@ func _physics_process(delta : float):
 			var d = owner.global_transform.origin - clamber_destination
 			if d.length() < 0.1:
 				owner.global_transform.origin = clamber_destination
+				just_clambered = true
 				state = State.STATE_CROUCHING
+				if is_player_crouch_toggle:
+					if is_crouching:
+						is_crouching = false
+						wanna_stand = true
+						state = State.STATE_WALKING
 				return
 
 		State.STATE_NOCLIP:
@@ -334,8 +343,6 @@ func _input(event) -> void:
 			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 
 		_camera._camera_rotation_reset = _camera.rotation_degrees
-
-
 
 
 #func handle_misc_controls(_delta : float):
@@ -420,7 +427,6 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		
 	if grounded:
 		velocity.y = -0.01
-		
 		_jumping = false
 	
 	if grounded and Input.is_action_just_pressed("clamber"):
@@ -430,6 +436,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		# Check for clamber
 		var c = _clamber_m.attempt_clamber()
 		if c != Vector3.ZERO:
+			print(c)
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE
 #			_audio_player.play_clamber_sound(true)
@@ -494,20 +501,27 @@ func _crouch() -> void:
 	
 	if is_player_crouch_toggle:
 		return
-	
+		
+
+		
 	if !Input.is_action_pressed("crouch") and state == State.STATE_CROUCHING:
 		var pos = owner.global_transform.origin
 		var space = owner.get_world().direct_space_state
 		
 		var r_up = space.intersect_ray(pos, 
 				pos + Vector3.UP * _bob_reset + Vector3.UP * 0.2, [owner])
+				
+		if just_clambered:
+			state = State.STATE_WALKING
+			wanna_stand = true
+			return
 		
 		if !r_up:
 			pass
 		elif r_up.collider.name != "ground":
 			return
 		else:
-			
+			just_clambered = false
 			state = State.STATE_WALKING
 			wanna_stand = true
 			return

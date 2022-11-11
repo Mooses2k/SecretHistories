@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://addons/thief_controller/scripts/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
+[ext_resource path="res://addons/thief_controller/prefabs/LightDetector.tscn" type="PackedScene" id=18]
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.462745, 0.733333, 1, 1 )
@@ -238,7 +239,11 @@ shader = SubResource( 33 )
 [node name="Player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="FPSCamera" type="Camera" parent="Body" index="0"]
+[node name="LightDetector" parent="Body" index="0" instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.370098, 0 )
+_player_path = NodePath("../../PlayerController")
+
+[node name="FPSCamera" type="Camera" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54753, -0.2 )
 cull_mask = 1048573
 current = true
@@ -262,7 +267,7 @@ cast_to = Vector3( 0, 0, -1.6 )
 collision_mask = 65
 debug_shape_thickness = 3
 
-[node name="ViewportContainer2" type="ViewportContainer" parent="Body" index="1"]
+[node name="ViewportContainer2" type="ViewportContainer" parent="Body" index="2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -278,23 +283,27 @@ render_target_update_mode = 3
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
 cull_mask = 2
 
-[node name="Listener" type="Listener" parent="Body" index="2"]
+[node name="Listener" type="Listener" parent="Body" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
 current = true
 
-[node name="BodyMesh" type="MeshInstance" parent="Body" index="3"]
+[node name="BodyMesh" type="MeshInstance" parent="Body" index="4"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
+visible = false
 mesh = SubResource( 18 )
 skeleton = NodePath("../..")
 
-[node name="Sunglasses" type="MeshInstance" parent="Body" index="4"]
+[node name="Sunglasses" type="MeshInstance" parent="Body" index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54754, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
 skeleton = NodePath("../..")
 
-[node name="Equipment" type="Spatial" parent="Body" index="5"]
+[node name="Equipment" type="Spatial" parent="Body" index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
+
+[node name="PrimaryEquipmentRoot" parent="Body" index="8"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="7"]
 visible = false
@@ -343,6 +352,7 @@ expand = true
 
 [node name="HitEffect" type="CanvasLayer" parent="." index="10"]
 script = ExtResource( 3 )
+light_node_path = NodePath("../PlayerController")
 
 [node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]
 visible = false
@@ -453,6 +463,7 @@ mouse_filter = 2
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]
 [connection signal="is_hit" from="." to="HitEffect" method="_on_Player_is_hit"]
 [connection signal="is_hit" from="." to="HP" method="_on_Player_is_hit"]
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_Hitbox_area_entered"]
 [connection signal="is_moving" from="PlayerController" to="HP" method="_on_PlayerController_is_moving"]
 [connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]

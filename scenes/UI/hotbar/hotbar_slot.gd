@@ -55,10 +55,10 @@ func _ready():
 	if player == null:
 		yield(game, "player_spawned")
 		player = game.player
-	if player.inventory == null:
-		yield(player, "ready")
-		inventory = player.inventory
-	self.inventory = player.inventory
+#	if player.inventory == null:
+#		yield(player, "ready")
+#		inventory = player.inventory
+#	self.inventory = player.inventory
 
 func set_inventory(value : Node):
 	inventory = value

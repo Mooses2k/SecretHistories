@@ -93,6 +93,13 @@ position = Vector2( 512, 300.993 )
 scale = Vector2( 1.024, 0.996689 )
 texture = SubResource( 2 )
 
+[node name="RichTextLabel" type="RichTextLabel" parent="Camera/CanvasLayer/PlayerUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+tab_size = 8
+text = "dsafsdfd"
+
 [node name="FrobCast" type="RayCast" parent="Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -1 )

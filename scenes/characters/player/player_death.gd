@@ -2,20 +2,14 @@ extends CanvasLayer
 
 
 var is_BW = false
-export var main_cam_path : NodePath
-onready var main_cam = get_node(main_cam_path)
-export var gun_cam_path : NodePath
-onready var gun_cam = get_node(gun_cam_path)
-export var white_effect_rect_path : NodePath
-onready var white_effect_rect = get_node(white_effect_rect_path)
+onready var main_cam = get_node("../Body/FPSCamera")
+onready var gun_cam = get_node("../Body/FPSCamera/ViewportContainer2/Viewport/GunCam")
+onready var white_effect_rect = get_node("../Tinnitus/ScreenWhite/TextureRect")
 
 
 func _input(event):
-	if event is InputEvent and event.is_action_pressed("kick"):
-		_on_Player_character_died()
-	else:
-		if event is InputEvent and event.is_pressed() and is_BW:
-			_fade_to_black()
+	if event is InputEvent and event.is_pressed() and is_BW:
+		_fade_to_black()
 
 
 func _on_Player_character_died():

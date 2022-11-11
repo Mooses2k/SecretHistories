@@ -418,6 +418,8 @@ one_shot = true
 pause_mode = 2
 script = ExtResource( 16 )
 main_cam_path = NodePath("../Body/FPSCamera")
+gun_cam_path = NodePath("../Body/FPSCamera/ViewportContainer2/Viewport/GunCam")
+white_effect_rect_path = NodePath("../Tinnitus/ScreenWhite/TextureRect")
 
 [node name="Tween" type="Tween" parent="PlayerDeath" index="0"]
 

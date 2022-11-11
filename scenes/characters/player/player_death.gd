@@ -4,6 +4,10 @@ extends CanvasLayer
 var is_BW = false
 export var main_cam_path : NodePath
 onready var main_cam = get_node(main_cam_path)
+export var gun_cam_path : NodePath
+onready var gun_cam = get_node(gun_cam_path)
+export var white_effect_rect_path : NodePath
+onready var white_effect_rect = get_node(white_effect_rect_path)
 
 
 func _input(event):
@@ -23,17 +27,19 @@ func _on_Player_character_died():
 	$BW.show()
 	$ColorRect.modulate.a = 0
 	is_BW = true
+	gun_cam.cull_mask = 0
+	white_effect_rect.hide()
 	_move_cam()
 
 
 func _move_cam():
 	$Tween.interpolate_property(main_cam, "translation", 
-			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y, main_cam.transform.origin.z), 
-			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y + 1, main_cam.transform.origin.z + 1.3), 
+			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y, main_cam.transform.origin.z + 0.8), 
+			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y + 1, main_cam.transform.origin.z + 1.8), 
 			8, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.interpolate_property(main_cam, "rotation_degrees", 
 			Vector3(main_cam.transform.basis.x.x, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
-			Vector3(main_cam.transform.basis.x.x-40, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
+			Vector3(main_cam.transform.basis.x.x-45, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
 			5, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()
 

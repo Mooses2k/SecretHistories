@@ -1,6 +1,7 @@
 extends Node
 #class_name Inventory
 
+
 signal bulky_item_changed()
 # Emitted when a hotbar slot changes (item added or removed)
 signal hotbar_changed(slot)
@@ -40,9 +41,12 @@ var current_secondary_equipment : EquipmentItem = null
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
 
+
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
 	current_secondary_slot = 10
+
+
 # Returns wether a given node can be added as an Item to this inventory
 func can_pickup_item(item : PickableItem) -> bool:
 	# Can only pickup dropped items
@@ -57,6 +61,7 @@ func can_pickup_item(item : PickableItem) -> bool:
 	if item is EquipmentItem:
 		return true
 	return false
+
 
 # Attempts to add a node as an Item to this inventory, returns 'true'
 # if the attempt was successful, or 'false' otherwise
@@ -123,6 +128,7 @@ func add_item(item : PickableItem) -> bool:
 
 	return true
 
+
 # Functions to interact with tiny items
 func insert_tiny_item(item : TinyItemData, amount : int):
 	if not tiny_items.has(item):
@@ -131,6 +137,7 @@ func insert_tiny_item(item : TinyItemData, amount : int):
 	tiny_items[item] += amount
 	var new = tiny_items[item]
 	emit_signal("tiny_item_changed", item, prev, new)
+
 
 func remove_tiny_item(item : TinyItemData, amount : int) -> bool:
 	if tiny_items.has(item) and tiny_items[item] >= amount:
@@ -143,8 +150,10 @@ func remove_tiny_item(item : TinyItemData, amount : int) -> bool:
 		return true
 	return false
 
+
 func tiny_item_amount(item : TinyItemData) -> int:
 	return 0 if not tiny_items.has(item) else tiny_items[item]
+
 
 func equip_primary_item():
 	if current_primary_equipment != null: # Item already equipped
@@ -161,6 +170,8 @@ func equip_primary_item():
 		item.transform = item.get_hold_transform()
 		owner.primary_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
+
+
 func unequip_primary_item():
 	if current_primary_equipment == null: # No item equipped
 		
@@ -170,6 +181,7 @@ func unequip_primary_item():
 	current_primary_equipment = null
 #	emit_signal("UpdateHud")
 	item.get_parent().remove_child(item)
+
 
 func equip_bulky_item(item : EquipmentItem):
 	# Clear any currently equipped items
@@ -185,6 +197,7 @@ func equip_bulky_item(item : EquipmentItem):
 		emit_signal("UpdateHud")
 	pass
 
+
 func drop_bulky_item():
 	if bulky_equipment == null:
 		return
@@ -195,6 +208,7 @@ func drop_bulky_item():
 	item.get_parent().remove_child(item)
 	_drop_item(item)
 	pass
+
 
 func equip_secondary_item():
 	# Item already equipped or both slots set to the same item
@@ -212,6 +226,7 @@ func equip_secondary_item():
 		owner.secondary_equipment_root.add_child(item)
 	pass
 
+
 func unequip_secondary_item():
 	if current_secondary_equipment == null: # No item equipped
 		return
@@ -222,6 +237,7 @@ func unequip_secondary_item():
 	item.get_parent().remove_child(item)
 	pass
 
+
 func drop_primary_item():
 	if bulky_equipment:
 		drop_bulky_item()
@@ -229,18 +245,23 @@ func drop_primary_item():
 		drop_hotbar_slot(current_primary_slot)
 	pass
 
+
 func get_primary_item() -> EquipmentItem:
 	return bulky_equipment if bulky_equipment else current_primary_equipment
+
 
 func get_secondary_item() -> EquipmentItem:
 	return current_secondary_equipment
 
+
 func has_bulky_item() -> bool:
 	return bulky_equipment != null
+
 
 func drop_secondary_item():
 	drop_hotbar_slot(current_secondary_slot)
 	pass
+
 
 func drop_hotbar_slot(slot : int) -> Node:
 	var item = hotbar[slot]
@@ -256,6 +277,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 		emit_signal("hotbar_changed", slot)
 	return item
 
+
 # Drops the item, it must be unequipped first
 # note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
@@ -264,6 +286,7 @@ func _drop_item(item : EquipmentItem):
 		item.global_transform = drop_position_node.global_transform
 		GameManager.game.level.add_child(item)
 	pass
+
 
 func set_primary_slot(value : int):
 	if value != current_primary_slot:
@@ -279,6 +302,7 @@ func set_primary_slot(value : int):
 			unequip_primary_item()
 		else:
 			equip_primary_item()
+
 
 func set_secondary_slot(value : int):
 	if value != current_secondary_slot:

@@ -3,7 +3,8 @@
 [ext_resource path="res://scenes/core/game.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/UI/game_ui/GameUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/UI/game_ui/game_UI.tscn" type="PackedScene" id=4]
+
 
 [node name="Game" type="Node"]
 pause_mode = 1

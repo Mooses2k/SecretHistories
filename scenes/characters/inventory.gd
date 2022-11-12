@@ -13,6 +13,8 @@ signal secondary_slot_changed(previous, current)
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
 signal UpdateHud
+#Emitted to hide the HUD UI when player dies
+signal PlayerDead
 
 const HOTBAR_SIZE : int= 11
 
@@ -312,3 +314,7 @@ func set_secondary_slot(value : int):
 		equip_secondary_item()
 		emit_signal("secondary_slot_changed", previous_slot, value)
 		emit_signal("UpdateHud")
+
+
+func _on_Player_character_died():
+	emit_signal("PlayerDead")

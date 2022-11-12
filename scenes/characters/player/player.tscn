@@ -418,7 +418,6 @@ one_shot = true
 [node name="PlayerDeath" type="CanvasLayer" parent="." index="13"]
 pause_mode = 2
 script = ExtResource( 16 )
-main_cam_path = NodePath("../Body/FPSCamera")
 
 [node name="Tween" type="Tween" parent="PlayerDeath" index="0"]
 
@@ -441,6 +440,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
+[connection signal="character_died" from="." to="Inventory" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]

@@ -83,3 +83,8 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			
 			if self.name != "Player":
 				self.queue_free()
+
+#for testing
+func _input(event):
+	if event is InputEvent and event.is_action_pressed("kick"):
+					self.emit_signal("character_died")

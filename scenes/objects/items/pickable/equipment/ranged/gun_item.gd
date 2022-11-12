@@ -24,7 +24,7 @@ export var cooldown = 1.0
 export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
-onready var player=get_node(player_path)
+onready var player = get_node(player_path)
 
 var current_ammo : int = 0
 var current_ammo_type : Resource = null

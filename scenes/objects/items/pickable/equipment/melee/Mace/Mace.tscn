@@ -2,9 +2,10 @@
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Mace/Mace.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/items/pickable/MeshInstances.gd" type="Script" id=3]
+[ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/mace/Mace.tres" type="Material" id=4]
 [ext_resource path="res://resources/models/items/melee/mace/source/Bulava.obj" type="ArrayMesh" id=5]
+
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.145875

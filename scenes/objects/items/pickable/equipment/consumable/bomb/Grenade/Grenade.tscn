@@ -7,8 +7,9 @@
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Metallic.png" type="Texture" id=5]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Normal.png" type="Texture" id=6]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Roughness.png" type="Texture" id=7]
-[ext_resource path="res://scenes/objects/items/pickable/MeshInstances.gd" type="Script" id=8]
+[ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=8]
 [ext_resource path="res://scenes/effects/explosion/Explosions.tscn" type="PackedScene" id=9]
+
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "FrenchGrenade_Cube"

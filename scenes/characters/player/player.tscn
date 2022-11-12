@@ -290,6 +290,9 @@ current = true
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
+[node name="PrimaryEquipmentRoot" parent="Body" index="6"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
+
 [node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
 collision_layer = 4
 

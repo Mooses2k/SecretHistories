@@ -26,6 +26,7 @@ equipped_mode = 3
 item_size = 0
 item_name = "Shinai"
 melee_damage = 51
+Throw_logic = true
 melee_damage_type = 1
 collision_mesh_1_path = NodePath("CollisionShape")
 collision_mesh_2_path = NodePath("CollisionShape2")
@@ -33,7 +34,7 @@ player_path = NodePath(".")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 unique_name_in_owner = true
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.273708, 0 )
 visible = false
 shape = SubResource( 2 )
 

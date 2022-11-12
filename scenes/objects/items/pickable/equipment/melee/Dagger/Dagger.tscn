@@ -27,6 +27,7 @@ item_size = 0
 item_name = "Dagger"
 melee_damage = 7
 Can_Spin = true
+Throw_logic = true
 collision_mesh_1_path = NodePath("CollisionShape")
 collision_mesh_2_path = NodePath("CollisionShape2")
 player_path = NodePath(".")
@@ -46,6 +47,7 @@ main_parent = NodePath("../..")
 unique_name_in_owner = true
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 shape = SubResource( 4 )
+disabled = true
 
 [node name="MeshInstance" type="MeshInstance" parent="CollisionShape2"]
 mesh = SubResource( 1 )
@@ -59,6 +61,7 @@ one_shot = true
 
 [node name="Hitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.385657, 0 )
+visible = false
 collision_layer = 0
 collision_mask = 12
 monitorable = false

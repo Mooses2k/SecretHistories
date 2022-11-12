@@ -5,6 +5,7 @@ class_name MeleeItem
 export var melee_damage = 0
 export var cooldown = 0.01
 export var Can_Spin : bool
+export var Throw_logic : bool
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
@@ -30,12 +31,18 @@ func _ready():
 		melee_damage = melee_damage
 
 func _process(delta):
-	if item_state == GlobalConsts.ItemState.EQUIPPED: 
-		collision_mesh_2.visible = true
-		collision_mesh_1.visible = false
-	elif item_state == GlobalConsts.ItemState.DROPPED:
-		collision_mesh_2.visible = false
-		collision_mesh_1.visible = true
+	if Throw_logic == true :
+		if item_state == GlobalConsts.ItemState.EQUIPPED: 
+			collision_mesh_2.visible = true
+			collision_mesh_1.visible = false
+			collision_mesh_1.disabled = true
+			collision_mesh_2.disabled = false
+			
+		elif item_state == GlobalConsts.ItemState.DROPPED:
+			collision_mesh_2.visible = false
+			collision_mesh_1.visible = true
+			collision_mesh_2.disabled = true
+			collision_mesh_1.disabled = false
 
 	
 	
@@ -57,12 +64,11 @@ func attack(): # bug is it only checks for hit right when attack is first called
 func apply_throw_logic(impulse):
 	if Can_Spin:
 		angular_velocity = Vector3(global_transform.basis.z*30)
-		apply_central_impulse(impulse)
-#		apply_torque_impulse(Drop_vectors)
+		apply_central_impulse(impulse /1.5)
+
 	else:
-		
-		apply_central_impulse(impulse)
-		
+		apply_central_impulse(impulse /1.5)
+
 
 func _use_primary():
 	if not on_cooldown:

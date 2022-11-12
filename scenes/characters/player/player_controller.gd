@@ -23,7 +23,6 @@ var target_placement_position : Vector3 = Vector3.ZERO
 export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
-
 enum ItemSelection {
 	ITEM_PRIMARY,
 	ITEM_SECONDARY,
@@ -39,7 +38,7 @@ enum ThrowState {
 var throw_state : int = ThrowState.IDLE
 var throw_item : int = ItemSelection.ITEM_PRIMARY
 var throw_press_length : float = 0.0
-var stamina := 125.0
+var stamina := 600.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
@@ -53,10 +52,11 @@ var grab_distance : float = 0
 var target
 var current_object=null
 
+
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
@@ -75,7 +75,6 @@ func _physics_process(delta : float):
 	previous_weapon()
 	drop_grabbable()
 	empty_slot()
-
 
 
 func _input(event):
@@ -115,8 +114,6 @@ func _input(event):
 							character.inventory.current_primary_slot = 1
 
 
-
-
 #func handle_misc_controls(_delta : float):
 #	if Input.is_action_just_pressed("toggle_perspective"):
 #		active_mode_index = (active_mode_index + 1)%get_child_count()
@@ -133,7 +130,8 @@ func handle_movement(_delta : float):
 	direction = direction.normalized()*min(1.0, direction.length())
 	
 	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
-		direction *= 0.5;
+		# sprint speed is walk speed plus stamina * a number, so player slows down as runs longer
+		direction *= (0.2 + ((stamina / 500) * 0.3))
 		change_stamina(-0.3)
 	else:
 		direction *= 0.2;
@@ -152,8 +150,6 @@ func handle_movement(_delta : float):
 
 
 func handle_grab_input(delta : float):
-
-
 	if is_grabbing:
 		wanna_grab=true
 	else:
@@ -186,6 +182,7 @@ func handle_grab_input(delta : float):
 			wanna_grab=false 
 			interaction_handled = true
 
+
 func handle_grab(delta : float):
 	if wanna_grab and not is_grabbing:
 		
@@ -197,11 +194,9 @@ func handle_grab(delta : float):
 			grab_distance = owner.fps_camera.global_transform.origin.distance_to(grab_position)
 			grab_object = object
 			is_grabbing = true
-			
-			
+
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
-
 
 	if is_grabbing:
 		
@@ -254,7 +249,6 @@ func handle_grab(delta : float):
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
 
 
-
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
@@ -275,6 +269,7 @@ func update_throw_state(delta : float):
 			throw_state = ThrowState.IDLE
 	pass
 
+
 func empty_slot():
 	
 	var inv = character.inventory
@@ -282,6 +277,7 @@ func empty_slot():
 		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
 			inv.hotbar[10] = gun
+
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
@@ -432,8 +428,10 @@ func drop_grabbable():
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			grab_object.apply_central_impulse(impulse)
 		wanna_grab=false
+
+
 func change_stamina(amount: float) -> void:
-	stamina = min(125, max(0, stamina + amount));
+	stamina = min(600, max(0, stamina + amount));
 	HUDS.tired(stamina);
 
 

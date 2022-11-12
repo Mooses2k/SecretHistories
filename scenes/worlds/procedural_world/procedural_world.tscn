@@ -10,7 +10,7 @@
 [ext_resource path="res://scenes/objects/world_objects/doors/door.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/objects/items/pickable/tiny/key/key_item.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/characters/enemies/cultist/Cultist.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/characters/enemies/cultist/cultist.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/candle.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/padlock/padlock_item.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/webley_revolver/Webley.tscn" type="PackedScene" id=14]
@@ -33,6 +33,8 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Halberd/Halberd.tscn" type="PackedScene" id=31]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/consumable/bomb/Dynamite/Dynamite.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/consumable/bomb/Grenade/Grenade.tscn" type="PackedScene" id=33]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/torch/torch.tscn" type="PackedScene" id=17]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.5, 1, 0.25 )
@@ -230,6 +232,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94063, 0, 5.37948 )
 
 [node name="Pitchfork" parent="." index="50" instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45495, 0, 4.23118 )
+
+[node name="Torch" parent="." index="32" instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91335, 0.750593, 5.72667 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="EnemySpawner3" method="_on_ProceduralWorld_generation_finished"]

@@ -1,12 +1,17 @@
 extends RigidBody
+class_name Door_body
+
 
 var min_angle = 0.0
 var max_angle = 90.0
 export var restitution = 0.5
 export var _hinge_node : NodePath
 onready var hinge_node : Spatial
+
+
 func _ready():
 	pass
+
 
 func _integrate_forces(state):
 #	state.angular_velocity = Vector3.ZERO
@@ -28,5 +33,3 @@ func _integrate_forces(state):
 		state.angular_velocity = ang_vel
 		state.linear_velocity = ang_vel.cross(hinge_arm)
 		state.transform.basis = get_parent().global_transform.basis.rotated(Vector3.UP, target_angle)
-		
-		

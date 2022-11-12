@@ -1,8 +1,10 @@
 extends Node
 
+
 const SAVEFILE = "user://savefile.save"
 
 var game_data = {}
+
 
 func _ready():
 	load_data()

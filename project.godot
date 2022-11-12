@@ -144,6 +144,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/world_objects/doors/door.gd"
 }, {
+"base": "RigidBody",
+"class": "Door_body",
+"language": "GDScript",
+"path": "res://scenes/objects/world_objects/doors/door_body.gd"
+}, {
 "base": "ConsumableItem",
 "class": "Dynamite",
 "language": "GDScript",
@@ -313,6 +318,11 @@ _global_script_classes=[ {
 "class": "WorldGenerator",
 "language": "GDScript",
 "path": "res://resources/world/world_generator.gd"
+}, {
+"base": "EquipmentItem",
+"class": "empty_hand",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -342,6 +352,7 @@ _global_script_class_icons={
 "Crowbar": "",
 "Dagger": "",
 "Door": "",
+"Door_body": "",
 "Dynamite": "",
 "EnemySpawner": "",
 "EquipmentItem": "",
@@ -375,7 +386,8 @@ _global_script_class_icons={
 "ToolItem": "",
 "VisibilityMask": "",
 "WorldData": "",
-"WorldGenerator": ""
+"WorldGenerator": "",
+"empty_hand": ""
 }
 
 [application]
@@ -396,7 +408,7 @@ LoadQuotes="*res://globals/load_quotes.gd"
 Settings="*res://globals/settings.gd"
 AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
-ChangeScene="*res://globals/changeScene.gd"
+ChangeScene="*res://globals/change_scene.gd"
 
 [display]
 
@@ -610,6 +622,16 @@ fullscreen={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+Left_Mouse_Button={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+hotbar_11={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":72,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -639,5 +661,4 @@ common/physics_interpolation=true
 quality/driver/driver_name="GLES2"
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
-quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"

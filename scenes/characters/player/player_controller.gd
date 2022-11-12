@@ -20,6 +20,10 @@ var movement_basis : Basis = Basis.IDENTITY
 var interaction_target : Node = null
 var target_placement_position : Vector3 = Vector3.ZERO
 
+export var _grabcast : NodePath
+onready var grabcast : RayCast = get_node(_grabcast) as RayCast
+
+
 enum ItemSelection {
 	ITEM_PRIMARY,
 	ITEM_SECONDARY,
@@ -45,13 +49,14 @@ var is_grabbing : bool = false
 var interaction_handled : bool = false
 var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
-var grab_distance : float = 0.0
-
+var grab_distance : float = 0
+var target
+var current_object=null
 
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
@@ -60,27 +65,56 @@ func _physics_process(delta : float):
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
+	current_object=active_mode.get_grab_target()
 	handle_movement(delta)
 	handle_grab_input(delta)
 	handle_grab(delta)
+	
 	handle_inventory(delta)
 	next_weapon()
 	previous_weapon()
-	if is_grabbing==true:
-		drop_grabbable()
-#	handle_misc_controls(delta)
+	drop_grabbable()
+	empty_slot()
+
 
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and GameManager.is_reloading == false :
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
-					if character.inventory.current_primary_slot!=0:
-						character.inventory.current_primary_slot-=1
+					if character.inventory.current_primary_slot != 0:
+						var total_inventory = character.inventory.current_primary_slot - 1
+						if total_inventory != character.inventory.current_secondary_slot:
+							character.inventory.current_primary_slot = total_inventory
+						else:
+							var plus_inventory = total_inventory - 1
+							if plus_inventory != -1  :
+								character.inventory.current_primary_slot = plus_inventory
+							else:
+								character.inventory.current_primary_slot = 10
+					elif character.inventory.current_primary_slot == 0:
+						character.inventory.current_primary_slot = 10
+						
+						
 				BUTTON_WHEEL_DOWN:
-					if character.inventory.current_primary_slot!=9:
-						character.inventory.current_primary_slot+=1
+					if character.inventory.current_primary_slot != 10:
+						var total_inventory = character.inventory.current_primary_slot + 1
+						if total_inventory != character.inventory.current_secondary_slot :
+							character.inventory.current_primary_slot = total_inventory
+						else:
+							var plus_inventory = total_inventory + 1
+							if character.inventory.current_secondary_slot != 10:
+								character.inventory.current_primary_slot = plus_inventory
+							else:
+								character.inventory.current_primary_slot = 10
+					elif character.inventory.current_primary_slot == 10:
+						if character.inventory.current_secondary_slot != 0:
+							character.inventory.current_primary_slot = 0
+						else:
+							character.inventory.current_primary_slot = 1
+
+
 
 
 #func handle_misc_controls(_delta : float):
@@ -98,7 +132,7 @@ func handle_movement(_delta : float):
 	direction = movement_basis.xform(direction)
 	direction = direction.normalized()*min(1.0, direction.length())
 	
-	if Input.is_action_pressed("sprint") and stamina > 0:
+	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
 		direction *= 0.5;
 		change_stamina(-0.3)
 	else:
@@ -118,43 +152,64 @@ func handle_movement(_delta : float):
 
 
 func handle_grab_input(delta : float):
-	if Input.is_action_just_released("interact") and is_grabbing:
-		is_grabbing = false
-		interaction_handled = true
-		
-	if Input.is_action_pressed("interact"):
-		grab_press_length += delta
+
+
+	if is_grabbing:
+		wanna_grab=true
 	else:
-		wanna_grab = false
-		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
+		wanna_grab=false 
+	if Input.is_action_pressed("interact") and is_grabbing == false:
+		grab_press_length += delta
+		if grab_press_length >= 0.15 :
 			wanna_grab = true
 			interaction_handled = true
+#	else:
+#		wanna_grab = false
+#		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
+#		if Input.is_action_just_released("interact") :
+#			wanna_grab = true
+#			interaction_handled = true
 		
+			
+#	else:
+#		wanna_grab = false
+#		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
+#		if Input.is_action_just_released("interact") :
+#			wanna_grab = true
+#			interaction_handled = true
+		
+#		grab_press_length = 0.0
+	if Input.is_action_just_released("interact"):
 		grab_press_length = 0.0
-
+		if is_grabbing==true:
+			is_grabbing = false
+			wanna_grab=false 
+			interaction_handled = true
 
 func handle_grab(delta : float):
 	if wanna_grab and not is_grabbing:
-#		print(wanna_grab)
+		
 		var object = active_mode.get_grab_target()
+		
 		if object:
 			var grab_position = active_mode.get_grab_global_position()
 			grab_relative_object_position = object.to_local(grab_position)
 			grab_distance = owner.fps_camera.global_transform.origin.distance_to(grab_position)
 			grab_object = object
 			is_grabbing = true
-	
-	$MeshInstance.visible = is_grabbing
-	$MeshInstance2.visible = is_grabbing
-	
+			
+			
+	$MeshInstance.visible = false
+	$MeshInstance2.visible = false
+
+
 	if is_grabbing:
+		
 		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
 #		print("mass : ", direct_state.inverse_mass)
 #		print("inertia : ", direct_state.inverse_inertia)
-		
 		# The position to drag the grabbed spot to, in global space
 		var grab_target_global : Vector3 = active_mode.get_grab_target_position(grab_distance)
-		
 		# The position the object was grabbed at, in object local space
 		var grab_object_local : Vector3 = grab_relative_object_position
 		
@@ -165,10 +220,13 @@ func handle_grab(delta : float):
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 		
+		
 		# Some visualization stuff
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
-		
+		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
+			is_grabbing=false
+			interaction_handled=true
 		#local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 		
@@ -196,15 +254,15 @@ func handle_grab(delta : float):
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
 
 
+
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
-			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing==false:
+			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing == false and GameManager.is_reloading == false:
 				throw_item = ItemSelection.ITEM_PRIMARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-				print(owner.inventory.get_primary_item())
-			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing==false:
+			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing == false  and GameManager.is_reloading == false:
 				throw_item = ItemSelection.ITEM_SECONDARY
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
@@ -217,6 +275,13 @@ func update_throw_state(delta : float):
 			throw_state = ThrowState.IDLE
 	pass
 
+func empty_slot():
+	
+	var inv = character.inventory
+	if inv.hotbar != null:
+		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
+		if  !inv.hotbar.has(10):
+			inv.hotbar[10] = gun
 func throw_consumable():
 		var inv = character.inventory
 		var item : EquipmentItem = null
@@ -235,24 +300,28 @@ func throw_consumable():
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
-	
+
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]):
-			inv.current_primary_slot = i
-			throw_state = ThrowState.IDLE
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
+			if i != inv.current_secondary_slot :
+				inv.current_primary_slot = i
+				throw_state = ThrowState.IDLE
 	
 	# Secondary slot selection
-	if Input.is_action_just_pressed("cycle_offhand_slot"):
+		
+	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
 		var start_slot = inv.current_secondary_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
 			and (
 					(
+						
 						inv.hotbar[new_slot] != null \
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
 					or new_slot == inv.current_primary_slot \
+					or inv.hotbar[new_slot] == null \
 				):
 				
 				new_slot = (new_slot + 1)%inv.hotbar.size()
@@ -261,6 +330,10 @@ func handle_inventory(delta : float):
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
 	
+	if Input.is_action_just_pressed("hotbar_11"):
+		if inv.current_secondary_slot != 10:
+			print("Testing")
+			inv.current_secondary_slot = 10
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_primary_item():
@@ -276,6 +349,8 @@ func handle_inventory(delta : float):
 		if inv.get_primary_item():
 			inv.get_primary_item().use_reload()
 			throw_state = ThrowState.IDLE
+#			if inv.get_primary_item() is ShotgunItem:
+#				print(inv.get_primary_item())
 	
 	if Input.is_action_just_pressed("offhand_use"):
 		if inv.get_secondary_item():
@@ -349,8 +424,9 @@ func handle_inventory(delta : float):
 #						item.call_deferred("global_translate", result.motion)
 #
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
+		
 		if interaction_target != null:
-			if interaction_target is PickableItem:
+			if interaction_target is PickableItem and character.inventory.current_primary_slot != 10:
 				character.inventory.add_item(interaction_target)
 				interaction_target = null
 			elif interaction_target is Interactable:
@@ -363,22 +439,30 @@ func handle_inventory(delta : float):
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
 func drop_grabbable():
-	#when the drop buttons or keys are pressed , grabable objects are released
-	if Input.is_action_just_pressed("main_throw") or   Input.is_action_just_pressed("offhand_throw"):
-		is_grabbing = false
-		interaction_handled = true
-		var impulse = active_mode.get_aim_direction()*throw_strength
-		grab_object.apply_central_impulse(impulse)
+	#when the drop button or keys are pressed , grabable objects are released
+	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw"):
+		if current_object!=null:
+			is_grabbing = false
+			interaction_handled = true
+			var impulse = active_mode.get_aim_direction()*throw_strength
+			grab_object.apply_central_impulse(impulse)
+		wanna_grab=false
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);
 
 
 func previous_weapon():
-	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot!=0:
-			character.inventory.current_primary_slot-=1
+	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot != 0:
+		character.inventory.current_primary_slot -=1 
+		
+	elif  Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot == 0:
+		character.inventory.current_primary_slot = 10
 
 
 func next_weapon():
-	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot!=9:
-			character.inventory.current_primary_slot+=1
+	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot != 10:
+		character.inventory.current_primary_slot += 1
+		
+	elif  Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot == 10:
+		character.inventory.current_primary_slot = 0

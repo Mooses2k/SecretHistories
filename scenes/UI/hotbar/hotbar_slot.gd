@@ -6,11 +6,13 @@ export var can_equip_modulate : Color
 export var equipped_modulate : Color
 export var can_not_equip_modulate : Color
 
+
+
 var item : EquipmentItem = null setget set_item
-var tracking_tiny_item = null
+var tracking_tiny_item= null
 var inventory = null setget set_inventory
 export var index : int = -1
-export var is_bulky : bool = false
+export var is_bulky : bool  = false
 
 
 onready var fadeanimations=$"../../FadeAnim"
@@ -24,11 +26,18 @@ func update_primary_indicator():
 	var final_color = can_equip_modulate if is_equippable_primary else can_not_equip_modulate
 	final_color = equipped_modulate if is_equipped_primary else final_color
 	$"UseIndicators/HBoxContainer/PrimaryIndicator".modulate = final_color
+	if is_equipped_primary:
+		is_equipped_secondary = false
+
+
 
 func update_secondary_indicator():
 	var final_color = can_equip_modulate if is_equippable_secondary else can_not_equip_modulate
-	final_color = equipped_modulate if is_equipped_secondary else final_color
+	final_color = equipped_modulate if is_equipped_secondary  else final_color
 	$"UseIndicators/HBoxContainer/SecondaryIndicator".modulate = final_color
+	if is_equippable_secondary:
+		is_equipped_secondary = false
+
 
 func set_item(value : EquipmentItem):
 	item = value
@@ -37,6 +46,10 @@ func set_item(value : EquipmentItem):
 func _ready():
 	fadeanimations.play("Fade_in")
 	$"../..".show()
+	if self.name == "10":
+		$SlotNumber.text=str(index+1)
+	else:
+		$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
 	var game = GameManager.game
 	var player = game.player
 	if player == null:
@@ -60,10 +73,17 @@ func set_inventory(value : Node):
 	inventory.connect("primary_slot_changed", self, "inventory_primary_slot_changed")
 	inventory.connect("secondary_slot_changed", self, "inventory_secondary_slot_changed")
 	inventory.connect("UpdateHud",self, "Hud_visibility")
-	
+	inventory.connect("PlayerDead",self, "hide_HUD")
+
+
+func hide_HUD():
+	self.owner.visible = false
+
+
 func Hud_visibility():
 		fadeanimations.play("Fade_in")
 		$"../..".show()
+
 
 func inventory_bulky_item_changed():
 	if is_bulky:
@@ -72,6 +92,7 @@ func inventory_bulky_item_changed():
 		update_equipped_status()
 	else:
 		update_equipped_status()
+
 
 func inventory_primary_slot_changed(previous : int, current : int):
 	if index == previous or index == current:
@@ -82,8 +103,8 @@ func inventory_secondary_slot_changed(previous : int, current : int):
 	if index == previous or index == current:
 		update_equipped_status()
 
-func update_equipped_status():
 
+func update_equipped_status():
 	if is_bulky:
 		is_equipped_primary = item != null and inventory.bulky_equipment == item
 		is_equipped_secondary = is_equipped_primary
@@ -97,12 +118,10 @@ func update_equipped_status():
 	update_primary_indicator()
 	update_secondary_indicator()
 
-func inventory_slot_changed(slot : int):
 
+func inventory_slot_changed(slot : int):
 	if slot == index:
 		self.item = inventory.hotbar[slot]
-
-
 
 
 func inventory_tiny_item_changed(tiny_item : TinyItemData, previous : int, current : int):
@@ -110,17 +129,21 @@ func inventory_tiny_item_changed(tiny_item : TinyItemData, previous : int, curre
 		update_ammo_data()
 	pass
 
+
 func update_item_data():
 	update_name()
 	update_ammo_data()
 	update_equipped_status()
 
+
 func _physics_process(delta):
 	if is_equipped_primary or is_equipped_secondary:
 		update_ammo_data()
 
+
 func update_name():
 	$"ItemInfo/HBoxContainer/ItemName".text = item.item_name if item else ""
+
 
 func update_ammo_data():
 	if item is GunItem:
@@ -134,8 +157,6 @@ func update_ammo_data():
 	else:
 		tracking_tiny_item = null
 		$"ItemInfo/HBoxContainer/AmmoCount".text = ""
-
-
 
 
 func _on_Fade_animation_finished(anim_name):

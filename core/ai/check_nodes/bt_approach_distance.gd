@@ -1,6 +1,7 @@
 class_name BT_Approach_Random_Distance
 extends BT_Node
 
+
 export var min_distance : float = 4.0
 export var max_distance : float = 8.0
 export var threshold_factor : float = 1.5
@@ -28,6 +29,7 @@ func tick(state : CharacterState) -> int:
 			target_reached = true
 			return Status.SUCCESS
 		return Status.FAILURE
+
 
 func _ready():
 	get_tree().connect("physics_frame", self, "idle")

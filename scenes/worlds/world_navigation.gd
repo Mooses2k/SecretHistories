@@ -12,6 +12,7 @@ var door_scene = preload("res://scenes/objects/world_objects/doors/door.tscn")
 var doors_x := Dictionary()
 var doors_z := Dictionary()
 
+
 func set_data(value : WorldData):
 	data = value
 
@@ -46,6 +47,7 @@ func get_door_navmesh_instance(cell_index : int, direction : int) -> NavigationM
 		dict = doors_z
 	return dict.get(idx)
 
+
 func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 	var idx = 0
 	match direction:
@@ -65,6 +67,7 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 			(dict as Dictionary).erase(idx)
 	else:
 		dict[idx] = value
+
 
 func update_navigation():
 	var start = OS.get_ticks_msec()
@@ -152,6 +155,7 @@ func update_navigation():
 	var end = OS.get_ticks_msec()
 	print("Navmesh generated in ", end - start, " ms")
 
+
 func gen_pillar_navmesh(cell: int):
 	var _data = data as WorldData
 	var pos = _data.get_int_position_from_cell_index(cell)
@@ -180,6 +184,7 @@ func gen_pillar_navmesh(cell: int):
 				vec = vec.rotated(2.0*PI/8.0)
 			return result
 	return null
+
 
 func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 	var vec_direction = PoolVector2Array()
@@ -283,7 +288,8 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 	for p in new_points:
 		result.push_back((p.x* cell_x + p.y*cell_y)*half_cell + offset)
 	return PoolVector2Array(result)
-	
+
+
 func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2Array:
 	var vec_direction = PoolVector2Array()
 	vec_direction.resize(WorldData.Direction.DIRECTION_MAX)

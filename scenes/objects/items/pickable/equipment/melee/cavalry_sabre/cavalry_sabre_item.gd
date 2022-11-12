@@ -7,10 +7,8 @@ export (NodePath) var player_path
 onready var player = get_node(player_path)
 
 
-func _ready():
+func _process(delta):
 	pass
-
-
 func _on_Hitbox_hit(other):
 	if can_hit and other.owner != owner_character and other.owner.has_method("damage"):
 		other.owner.damage(melee_damage, melee_damage_type, other)

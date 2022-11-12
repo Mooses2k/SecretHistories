@@ -9,6 +9,16 @@ export var Can_Spin : bool
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
 
+
+
+export var collision_mesh_1_path : NodePath
+onready var collision_mesh_1 = get_node(collision_mesh_1_path)
+
+export var collision_mesh_2_path : NodePath
+onready var collision_mesh_2 = get_node(collision_mesh_2_path)
+
+
+
 var can_hit = false
 var on_cooldown = false
 
@@ -20,8 +30,18 @@ func _ready():
 		melee_damage = melee_damage
 
 func _process(delta):
-	pass
+	if item_state == GlobalConsts.ItemState.EQUIPPED: 
+		collision_mesh_2.visible = true
+		collision_mesh_1.visible = false
+	elif item_state == GlobalConsts.ItemState.DROPPED:
+		collision_mesh_2.visible = false
+		collision_mesh_1.visible = true
 
+	
+	
+	
+	
+	
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack(): # bug is it only checks for hit right when attack is first called, needs to check as long as in melee_anim "Swing"
 	var melee_anim = owner_character.find_node("AnimationPlayer")  # this needs to set only when equipped
@@ -36,15 +56,13 @@ func attack(): # bug is it only checks for hit right when attack is first called
 
 func apply_throw_logic(impulse):
 	if Can_Spin:
-		$AnimationPlayer.play("Rotate")
+		angular_velocity = Vector3(global_transform.basis.z*30)
+		apply_central_impulse(impulse)
+#		apply_torque_impulse(Drop_vectors)
+	else:
+		
 		apply_central_impulse(impulse)
 		
-	else:
-		if global_transform.basis.z.z < -0.99 or global_transform.basis.z.z > 0.99:
-			$AnimationPlayer.play("OtherStraight")
-		else:
-			$AnimationPlayer.play("Straight")
-		apply_central_impulse(impulse)
 
 func _use_primary():
 	if not on_cooldown:

@@ -382,7 +382,7 @@ func handle_inventory(delta : float):
 			var x_pos = item.global_transform.origin.x
 			if item is MeleeItem :
 				item.apply_throw_logic(impulse)
-				item.global_transform.origin.x = x_pos 
+#				item.global_transform.origin.x = x_pos 
 			else:
 				item.apply_central_impulse(impulse)
 	

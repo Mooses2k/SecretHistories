@@ -7,5 +7,5 @@ script = ExtResource( 1 )
 name = ".577 Martini-Henry round"
 attack_type = 3
 damage = 45
-dispersion = 25.0
+dispersion = 3.0
 pellet_count = 1

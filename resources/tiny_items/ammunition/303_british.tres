@@ -7,5 +7,5 @@ script = ExtResource( 1 )
 name = ".303 British round"
 attack_type = 3
 damage = 57
-dispersion = 15.0
+dispersion = 2.0
 pellet_count = 1

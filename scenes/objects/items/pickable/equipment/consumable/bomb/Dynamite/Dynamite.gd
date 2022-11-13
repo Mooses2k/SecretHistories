@@ -1,4 +1,4 @@
-extends ConsumableItem
+extends BombItem
 class_name Dynamite
 
 
@@ -15,11 +15,12 @@ func _process(delta):
 		$Explosion.lifetime -= delta
 	if $Explosion.lifetime < 1.2:
 		queue_free()
+
+
 func _use_primary():
-
-
 	if countdown_timer.is_stopped():
 		countdown_timer.start()
+		$Fuse.emitting = true
 	else:
 		get_parent().get_parent().get_parent().drop_consumable(self)
 #		get_parent().get_parent().get_parent().delete_bomb()
@@ -28,4 +29,6 @@ func _use_primary():
 
 func _on_Countdown_timeout():
 	$Explosion.emitting = true
+	$Fuse.emitting = false
+	$SM_Dynamite.visible = false
 	countdown_started = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/consumable/bomb/Dynamite/Dynamite.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/explosion/Explosions.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/consumables/bombs/dynamite/M_Dynamite.material" type="Material" id=3]
+[ext_resource path="res://scenes/effects/explosion/smokeshader.tres" type="Shader" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "SM_Dynamite_Mesh"
@@ -21,6 +22,79 @@ surfaces/0 = {
 
 [sub_resource type="ConvexPolygonShape" id=2]
 points = PoolVector3Array( -0.00416932, -0.122762, -0.0250712, 0.00478367, 0.117743, 0.0249634, 0.0181498, 0.170133, 0.00717721, -0.0248951, 0.112306, -0.00726582, -0.00931825, -0.120223, 0.0239837, 0.0238912, -0.12149, 0.00841759, 0.00992067, 0.113616, -0.0232074, -0.0251471, -0.12141, -0.00558611, -0.0218252, 0.115714, 0.0137888, 0.0218317, -0.119502, -0.0124366, -0.0145167, 0.112446, -0.0211603, 0.00499873, 0.188939, -0.0116029, 0.0244559, 0.117009, -0.00570987, 0.0150816, -0.121043, 0.0206184, 0.0203188, 0.113001, 0.0153812, -0.0236317, -0.122963, 0.0102735, -0.0149449, 0.116868, 0.0211308, -0.0215298, -0.120597, -0.0142636, 0.00992067, -0.122129, -0.0232074, 0.0011558, 0.117125, -0.0254604, -0.0257939, 0.117253, 0.00145709, 0.0198716, 0.111192, -0.0157174, 0.0106371, 0.187052, -0.0134876, 0.00813762, -0.121735, 0.0242312, 0.0245829, 0.117458, 0.00506531, -0.0160639, -0.116568, 0.0202361, -0.00603711, 0.117405, 0.0248677, 0.0150816, 0.113, 0.0206184, -0.0145167, -0.120118, -0.0211603, 0.00499873, 0.187052, -0.00596941, -0.0200007, 0.115454, -0.01618, 0.0200241, 0.173907, -0.000335881, 0.0235638, -0.11949, -0.00897248, 0.0164251, -0.115848, -0.0191034, -0.00587724, 0.112984, -0.0247937, -0.0250086, -0.118786, 0.00662648, 0.0203188, -0.121044, 0.0153812, 0.0062997, -0.118199, -0.024614, -0.0211698, -0.116284, 0.0150641, 0.0125114, 0.177649, 0.00341294, -0.0250086, 0.112699, 0.00662648, 0.0162703, 0.181423, -0.00784897, 0.0164251, 0.111042, -0.0191034, 0.0238892, 0.113246, 0.00842166, 0.0200241, 0.166359, 0.00717721, -0.0110731, -0.120468, -0.0229549, 0.0235617, 0.112112, -0.0089765, 0.00813762, 0.113392, 0.0242312, 0.0134152, -0.121909, -0.0214116, -0.0256678, 0.116807, -0.00211496, -0.0211698, 0.111263, 0.0150641, 0.0198716, -0.116111, -0.0157174, 0.0062997, 0.112391, -0.024614, -0.00931825, 0.112506, 0.0239837, -0.0215298, 0.112717, -0.0142636, -0.0110731, 0.112644, -0.0229549, -0.0236317, 0.115866, 0.0102735, -0.0248951, -0.118101, -0.00726582, -0.0164497, 0.115299, -0.0196687, -0.0252649, -0.122129, 0.00493958, 0.0125114, 0.187052, -0.00972338, 0.00462401, -0.121654, -0.0248897, -0.00587724, -0.119284, -0.0247937, 0.0181498, 0.173907, 0.00529765 )
+
+[sub_resource type="ParticlesMaterial" id=19]
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 7.0
+initial_velocity_random = 0.49
+angular_velocity = 10.28
+angular_velocity_random = 1.0
+linear_accel = -1.0
+damping = 75.0
+damping_random = 0.38
+angle_random = 1.0
+scale = 3.0
+scale_random = 1.0
+anim_speed_random = 0.46
+anim_offset_random = 0.51
+
+[sub_resource type="ParticlesMaterial" id=20]
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+initial_velocity = 1.0
+initial_velocity_random = 0.5
+damping = 8.65
+scale = 0.03
+color = Color( 1, 0.776471, 0.176471, 1 )
+
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.52381, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.542857, 0.542857, 0.542857, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=21]
+gradient = SubResource( 9 )
+width = 256
+
+[sub_resource type="Gradient" id=11]
+offsets = PoolRealArray( 0.209524, 0.571429, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 0.53012, 0.53012, 0.53012, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=22]
+gradient = SubResource( 11 )
+
+[sub_resource type="Gradient" id=18]
+offsets = PoolRealArray( 0, 0.280405, 0.459459, 0.996622 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.960938, 0.82299, 0.409149, 1, 0.720703, 0.306862, 0.306862, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=23]
+gradient = SubResource( 18 )
+width = 256
+
+[sub_resource type="Gradient" id=15]
+offsets = PoolRealArray( 0, 0.333333 )
+
+[sub_resource type="GradientTexture" id=24]
+gradient = SubResource( 15 )
+width = 64
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 4 )
+shader_param/particle_h_frames = 8.0
+shader_param/particle_v_frames = 8.0
+shader_param/particles_anim_loop = false
+shader_param/still_frame = -1.0
+shader_param/Soft_limit = 0.1
+shader_param/blend_scale = 0.1
+shader_param/emission_falloff_multiplier = 1.0
+shader_param/Smoke_color_ramp = SubResource( 21 )
+shader_param/blend_help = SubResource( 22 )
+shader_param/emission_falloff = SubResource( 24 )
+shader_param/emission_color_ramp = SubResource( 23 )
+
+[sub_resource type="QuadMesh" id=25]
+material = SubResource( 16 )
 
 [node name="Dynamite" type="RigidBody"]
 script = ExtResource( 1 )
@@ -44,5 +118,20 @@ wait_time = 5.0
 one_shot = true
 
 [node name="Explosion" parent="." instance=ExtResource( 2 )]
+transform = Transform( -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0 )
+amount = 200
+lifetime = 3.49
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 19 )
+
+[node name="Fuse" type="Particles" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14717, 0 )
+emitting = false
+amount = 20
+randomness = 0.16
+local_coords = false
+process_material = SubResource( 20 )
+draw_pass_1 = SubResource( 25 )
 
 [connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]

@@ -51,7 +51,7 @@ var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
 var grab_distance : float = 0
 var target
-var current_object=null
+var current_object = null
 
 func _ready():
 	active_mode.set_deferred("is_active", true)
@@ -65,7 +65,7 @@ func _physics_process(delta : float):
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
-	current_object=active_mode.get_grab_target()
+	current_object = active_mode.get_grab_target()
 	handle_movement(delta)
 	handle_grab_input(delta)
 	handle_grab(delta)
@@ -431,7 +431,8 @@ func handle_inventory(delta : float):
 				interaction_target = null
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
-	
+
+
 #	if Input.is_action_pressed("throw") and throw_state:
 #		throw_press_length += delta
 #	else:
@@ -440,8 +441,8 @@ func handle_inventory(delta : float):
 #		throw_state = true
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
-	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw"):
-		if current_object!=null:
+	if Input.is_action_just_pressed("main_throw")  or  Input.is_action_just_pressed("offhand_throw"):
+		if current_object != null:
 			is_grabbing = false
 			interaction_handled = true
 			var impulse = active_mode.get_aim_direction()*throw_strength

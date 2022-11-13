@@ -8,12 +8,11 @@ func _gui_input(event):
 		emit_signal("settings_menu_exited")
 
 
-
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		self.hide()
+	if self.visible :
 		emit_signal("settings_menu_exited")
-
 
 
 func _ready() -> void:
@@ -28,5 +27,3 @@ func enter_state():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	self.visible = true
 	pass
-
-

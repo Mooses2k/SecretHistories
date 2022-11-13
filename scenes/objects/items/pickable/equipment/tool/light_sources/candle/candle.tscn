@@ -5,7 +5,6 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/candle.gd" type="Script" id=3]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=4]
 
-
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.02
 bottom_radius = 0.02
@@ -108,9 +107,10 @@ main_parent = NodePath("../..")
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 light_color = Color( 0.980392, 0.529412, 0, 1 )
-light_energy = 0.5
+light_energy = 0.2
 shadow_enabled = true
-omni_attenuation = 3.0
+omni_range = 6.0
+omni_attenuation = 10.0
 
 [node name="Durability" type="Timer" parent="." index="4"]
 wait_time = 900.0

@@ -47,8 +47,9 @@ one_shot = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185425, 0 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+light_energy = 0.5
 shadow_enabled = true
-omni_range = 14.9623
-omni_attenuation = 4.0
+omni_range = 9.0
+omni_attenuation = 7.0
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

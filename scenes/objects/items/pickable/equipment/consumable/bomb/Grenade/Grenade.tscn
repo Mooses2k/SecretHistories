@@ -10,7 +10,6 @@
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=8]
 [ext_resource path="res://scenes/effects/explosion/Explosions.tscn" type="PackedScene" id=9]
 
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "FrenchGrenade_Cube"
 surfaces/0 = {

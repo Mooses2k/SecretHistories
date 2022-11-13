@@ -53,10 +53,11 @@ var grab_distance : float = 0
 var target
 var current_object=null
 
+
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
@@ -75,7 +76,6 @@ func _physics_process(delta : float):
 	previous_weapon()
 	drop_grabbable()
 	empty_slot()
-
 
 
 func _input(event):
@@ -115,8 +115,6 @@ func _input(event):
 							character.inventory.current_primary_slot = 1
 
 
-
-
 #func handle_misc_controls(_delta : float):
 #	if Input.is_action_just_pressed("toggle_perspective"):
 #		active_mode_index = (active_mode_index + 1)%get_child_count()
@@ -152,8 +150,6 @@ func handle_movement(_delta : float):
 
 
 func handle_grab_input(delta : float):
-
-
 	if is_grabbing:
 		wanna_grab=true
 	else:
@@ -186,9 +182,9 @@ func handle_grab_input(delta : float):
 			wanna_grab=false 
 			interaction_handled = true
 
+
 func handle_grab(delta : float):
 	if wanna_grab and not is_grabbing:
-		
 		var object = active_mode.get_grab_target()
 		
 		if object:
@@ -202,9 +198,7 @@ func handle_grab(delta : float):
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
-
 	if is_grabbing:
-		
 		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
 #		print("mass : ", direct_state.inverse_mass)
 #		print("inertia : ", direct_state.inverse_inertia)
@@ -219,7 +213,6 @@ func handle_grab(delta : float):
 		# The offset from the center of the object to where it is being grabbed, in global space
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
-		
 		
 		# Some visualization stuff
 		$MeshInstance.global_transform.origin = grab_target_global
@@ -254,7 +247,6 @@ func handle_grab(delta : float):
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
 
 
-
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
@@ -275,13 +267,14 @@ func update_throw_state(delta : float):
 			throw_state = ThrowState.IDLE
 	pass
 
+
 func empty_slot():
-	
 	var inv = character.inventory
 	if inv.hotbar != null:
 		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
 			inv.hotbar[10] = gun
+
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
@@ -292,16 +285,15 @@ func handle_inventory(delta : float):
 			if i != inv.current_secondary_slot :
 				inv.current_primary_slot = i
 				throw_state = ThrowState.IDLE
-	
+
 	# Secondary slot selection
-		
+
 	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
 		var start_slot = inv.current_secondary_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
 			and (
 					(
-						
 						inv.hotbar[new_slot] != null \
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
@@ -416,13 +408,16 @@ func handle_inventory(delta : float):
 				interaction_target = null
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
-	
+
+
 #	if Input.is_action_pressed("throw") and throw_state:
 #		throw_press_length += delta
 #	else:
 #		throw_press_length = 0.0
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
+
+
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw"):

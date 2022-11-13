@@ -1,5 +1,5 @@
 extends MeleeItem
-class_name SabreItem
+class_name DaggerItem
 
 
 export (NodePath) var player_path
@@ -7,8 +7,10 @@ export (NodePath) var player_path
 onready var player = get_node(player_path)
 
 
-func _process(delta):
+func _ready():
 	pass
+
+
 func _on_Hitbox_hit(other):
 	if can_hit and other.owner != owner_character and other.owner.has_method("damage"):
 		other.owner.damage(melee_damage, melee_damage_type, other)

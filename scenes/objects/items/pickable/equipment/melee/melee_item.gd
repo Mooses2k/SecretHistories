@@ -4,21 +4,51 @@ class_name MeleeItem
 
 export var melee_damage = 0
 export var cooldown = 0.01
+export var Can_Spin : bool
+export var Throw_logic : bool
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
+
+
+
+export var collision_mesh_1_path : NodePath
+onready var collision_mesh_1 = get_node(collision_mesh_1_path)
+
+export var collision_mesh_2_path : NodePath
+onready var collision_mesh_2 = get_node(collision_mesh_2_path)
+
+
 
 var can_hit = false
 var on_cooldown = false
 
 
 func _ready():
-	if melee_damage_type==1:
+	if melee_damage_type == 1:
 		melee_damage/2
 	else:
-		melee_damage=melee_damage
+		melee_damage = melee_damage
 
+func _process(delta):
+	if Throw_logic == true :
+		if item_state == GlobalConsts.ItemState.EQUIPPED: 
+			collision_mesh_2.visible = true
+			collision_mesh_1.visible = false
+			collision_mesh_1.disabled = true
+			collision_mesh_2.disabled = false
+			
+		elif item_state == GlobalConsts.ItemState.DROPPED:
+			collision_mesh_2.visible = false
+			collision_mesh_1.visible = true
+			collision_mesh_2.disabled = true
+			collision_mesh_1.disabled = false
 
+	
+	
+	
+	
+	
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack(): # bug is it only checks for hit right when attack is first called, needs to check as long as in melee_anim "Swing"
 	var melee_anim = owner_character.find_node("AnimationPlayer")  # this needs to set only when equipped
@@ -30,6 +60,14 @@ func attack(): # bug is it only checks for hit right when attack is first called
 		yield(melee_anim, "animation_finished")
 		can_hit = false
 		melee_anim.queue("Recovery1ToTierce")
+
+func apply_throw_logic(impulse):
+	if Can_Spin:
+		angular_velocity = Vector3(global_transform.basis.z*30)
+		apply_central_impulse(impulse /1.5)
+
+	else:
+		apply_central_impulse(impulse /1.5)
 
 
 func _use_primary():

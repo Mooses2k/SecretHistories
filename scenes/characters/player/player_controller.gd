@@ -23,6 +23,8 @@ var target_placement_position : Vector3 = Vector3.ZERO
 export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
+export var Player_path : NodePath
+onready var player = get_node(Player_path)
 
 enum ItemSelection {
 	ITEM_PRIMARY,
@@ -65,7 +67,7 @@ func _physics_process(delta : float):
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
-	current_object=active_mode.get_grab_target()
+	current_object = active_mode.get_grab_target()
 	handle_movement(delta)
 	handle_grab_input(delta)
 	handle_grab(delta)
@@ -225,8 +227,8 @@ func handle_grab(delta : float):
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
 		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
-			is_grabbing=false
-			interaction_handled=true
+			is_grabbing = false
+			interaction_handled = true
 		#local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 		
@@ -317,7 +319,6 @@ func handle_inventory(delta : float):
 	
 	if Input.is_action_just_pressed("hotbar_11"):
 		if inv.current_secondary_slot != 10:
-			print("Testing")
 			inv.current_secondary_slot = 10
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
@@ -334,8 +335,7 @@ func handle_inventory(delta : float):
 		if inv.get_primary_item():
 			inv.get_primary_item().use_reload()
 			throw_state = ThrowState.IDLE
-#			if inv.get_primary_item() is ShotgunItem:
-#				print(inv.get_primary_item())
+
 	
 	if Input.is_action_just_pressed("offhand_use"):
 		if inv.get_secondary_item():
@@ -345,6 +345,7 @@ func handle_inventory(delta : float):
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = inv.get_primary_item() if throw_item == ItemSelection.ITEM_PRIMARY else inv.get_secondary_item()
 		if item:
+			
 			# Calculates where to place the item
 			var origin : Vector3 = owner.drop_position_node.global_transform.origin
 			var end : Vector3 = active_mode.get_target_placement_position()
@@ -378,7 +379,11 @@ func handle_inventory(delta : float):
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
-			item.apply_central_impulse(impulse)
+			var x_pos = item.global_transform.origin.x
+			if item is MeleeItem :
+				item.apply_throw_logic(impulse)
+			else:
+				item.apply_central_impulse(impulse)
 	
 	update_throw_state(delta)
 	
@@ -409,7 +414,6 @@ func handle_inventory(delta : float):
 #						item.call_deferred("global_translate", result.motion)
 #
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
-		
 		if interaction_target != null:
 			if interaction_target is PickableItem and character.inventory.current_primary_slot != 10:
 				character.inventory.add_item(interaction_target)
@@ -425,13 +429,18 @@ func handle_inventory(delta : float):
 #		throw_state = true
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
-	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw"):
-		if current_object!=null:
+	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw") and is_grabbing:
+		
+		if active_mode.get_grab_target():
 			is_grabbing = false
 			interaction_handled = true
 			var impulse = active_mode.get_aim_direction()*throw_strength
-			grab_object.apply_central_impulse(impulse)
-		wanna_grab=false
+#			if current_object is MeleeItem :
+#				current_object.apply_throw_logic(impulse)
+#			else:
+			if grab_object != null:
+				grab_object.apply_central_impulse(impulse)
+		wanna_grab = false
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);

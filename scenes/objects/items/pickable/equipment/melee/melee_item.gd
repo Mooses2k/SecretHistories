@@ -23,18 +23,20 @@ onready var melee_hitbox = $Hitbox as Area
 var can_hit = false
 var on_cooldown = false
 
+export (NodePath) var player_path
+
+onready var player = get_node(player_path)
+
+onready var character = get_parent()
+
 
 func _ready():
-# no idea what this is
-#	if melee_damage_type==1:
-#		melee_damage/2
-#	else:
-#		melee_damage=melee_damage
 	pass
 
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
-func attack_primary():
+func attack_thrust():
+	character = get_parent().get_parent().get_parent()
 	var melee_anim
 	if weapon_type == 3:
 		melee_anim = owner_character.find_node("SabreTechniques")
@@ -42,6 +44,7 @@ func attack_primary():
 			can_hit = true
 			melee_anim.play("ThrustFromTierce")
 			yield(melee_anim, "animation_finished")
+			character.stamina -= 50
 			can_hit = false
 			melee_anim.queue("RecoveryThrustToTierce")
 	if weapon_type == 6:
@@ -50,13 +53,16 @@ func attack_primary():
 			can_hit = true
 			melee_anim.play("polearm_thrust_from_right")
 			yield(melee_anim, "animation_finished")
+			character.stamina -= 50
 			can_hit = false
 			melee_anim.queue("polearm_recovery_from_right")
 
 	# need something here to determine type of weapon, for now, a sabre
 	#determine attack angle from where pointing
 
-func attack_secondary():
+
+func attack_cut():
+	character = get_parent().get_parent().get_parent()
 	var melee_anim
 	if weapon_type == 3:
 		melee_anim = owner_character.find_node("SabreTechniques")
@@ -64,21 +70,23 @@ func attack_secondary():
 			can_hit = true
 			melee_anim.play("Swing1FromTierce")
 			yield(melee_anim, "animation_finished")
+			character.stamina -= 50
 			can_hit = false
 			melee_anim.queue("Recovery1ToTierce")
 	if weapon_type == 6:
 		melee_anim = owner_character.find_node("PolearmTechniques")
 		if not melee_anim.is_playing():
 			can_hit = true
-			melee_anim.play("polearm_thrust_from_right")
+			melee_anim.play("polearm_cut_2") # WIP
 			yield(melee_anim, "animation_finished")
+			character.stamina -= 50
 			can_hit = false
-			melee_anim.queue("polearm_recovery_from_right")
+			melee_anim.queue("polearm_cut_2_recovery") # WIP
 
 
 func _use_primary():
 	if not on_cooldown:
-		attack_primary()
+		attack_thrust()
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 #		emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
@@ -86,7 +94,7 @@ func _use_primary():
 
 func _use_secondary():
 	if not on_cooldown:
-		attack_secondary()
+		attack_cut()
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 #		emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
@@ -102,3 +110,17 @@ func _use_secondary():
 
 func _on_CooldownTimer_timeout() -> void:
 	on_cooldown = false
+
+
+func _on_Hitbox_hit(other):
+	if can_hit and other.owner != owner_character and other.owner.has_method("damage"):
+		other.owner.damage(melee_damage, melee_damage_type, other)
+
+
+func _on_Hitbox_body_entered(body):
+	if melee_damage_type == 0:
+		melee_damage / 2
+	else:
+		melee_damage = melee_damage
+	if body is RigidBody and can_hit == true:
+		body.apply_central_impulse(-player.global_transform.basis.z * melee_damage)

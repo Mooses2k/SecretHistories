@@ -2,10 +2,12 @@ extends "res://scenes/characters/character.gd"
 class_name Player
 
 
+var stamina := 125.0
+
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $Body/FPSCamera
-onready var gun_cam=$"Body/FPSCamera/ViewportContainer2/Viewport/GunCam"
-onready var grabcast=$Body/FPSCamera/GrabCast
+onready var gun_cam = $"Body/FPSCamera/ViewportContainer2/Viewport/GunCam"
+onready var grabcast = $Body/FPSCamera/GrabCast
 
 
 func _process(delta):

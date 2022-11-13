@@ -38,7 +38,7 @@ enum ThrowState {
 var throw_state : int = ThrowState.IDLE
 var throw_item : int = ItemSelection.ITEM_PRIMARY
 var throw_press_length : float = 0.0
-var stamina := 125.0
+
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
@@ -129,7 +129,7 @@ func handle_movement(_delta : float):
 	direction = movement_basis.xform(direction)
 	direction = direction.normalized()*min(1.0, direction.length())
 	
-	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
+	if Input.is_action_pressed("sprint") and character.stamina > 0 and GameManager.is_reloading==false:
 		direction *= 0.5;
 		change_stamina(-0.3)
 	else:
@@ -443,9 +443,11 @@ func drop_grabbable():
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			grab_object.apply_central_impulse(impulse)
 		wanna_grab=false
+
+
 func change_stamina(amount: float) -> void:
-	stamina = min(125, max(0, stamina + amount));
-	HUDS.tired(stamina);
+	character.stamina = min(125, max(0, character.stamina + amount));
+	HUDS.tired(character.stamina);
 
 
 func previous_weapon():

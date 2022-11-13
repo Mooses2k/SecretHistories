@@ -24,7 +24,7 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/pitchfork/pitchfork.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/shovel/shovel.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/objects/items/pickable/tiny/Hammer/Hammer.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/characters/unded/renevant/renevant.tscn" type="PackedScene" id=25]
+[ext_resource path="res://scenes/characters/undead/revenant/revenant.tscn" type="PackedScene" id=25]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/khyber_pass_martini/khyber_pass_martini.tscn" type="PackedScene" id=26]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn" type="PackedScene" id=27]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn" type="PackedScene" id=28]
@@ -173,7 +173,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20868, 0.2, 16.1772 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.23932, 0.2, 2.90634 )
 
 [node name="Torch" parent="." index="32" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91335, 0.750593, 5.72667 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41883, 0.750593, 2.42554 )
 
 [node name="Candle7" parent="." index="33" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46207, 0.2, 2.90634 )

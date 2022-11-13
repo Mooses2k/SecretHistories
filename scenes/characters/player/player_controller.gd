@@ -438,7 +438,8 @@ func drop_grabbable():
 #			if current_object is MeleeItem :
 #				current_object.apply_throw_logic(impulse)
 #			else:
-			grab_object.apply_central_impulse(impulse)
+			if grab_object != null:
+				grab_object.apply_central_impulse(impulse)
 		wanna_grab = false
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));

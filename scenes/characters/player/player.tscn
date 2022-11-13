@@ -9,13 +9,14 @@
 [ext_resource path="res://resources/art/Ui/Grab.png" type="Texture" id=7]
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
-[ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
+[ext_resource path="res://scenes/characters/player/FPS_control_mode.gd" type="Script" id=10]
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 [ext_resource path="res://scenes/characters/player/Indication_canvas.gd" type="Script" id=12]
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=13]
 [ext_resource path="res://resources/health/health.png" type="Texture" id=14]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
+
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -418,7 +419,6 @@ one_shot = true
 [node name="PlayerDeath" type="CanvasLayer" parent="." index="13"]
 pause_mode = 2
 script = ExtResource( 16 )
-main_cam_path = NodePath("../Body/FPSCamera")
 
 [node name="Tween" type="Tween" parent="PlayerDeath" index="0"]
 
@@ -441,6 +441,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
+[connection signal="character_died" from="." to="Inventory" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]

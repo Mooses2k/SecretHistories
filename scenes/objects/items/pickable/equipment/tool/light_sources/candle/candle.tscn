@@ -3,7 +3,8 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/fire_origin.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/candle.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/items/pickable/MeshInstances.gd" type="Script" id=4]
+[ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=4]
+
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.02

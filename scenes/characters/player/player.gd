@@ -9,15 +9,15 @@ onready var grabcast=$Body/FPSCamera/GrabCast
 
 
 func _process(delta):
-	Gun_cam.global_transform = fps_camera.global_transform
+	Gun_cam.global_transform=fps_camera.global_transform
 	grab_indicator()
 
 
 func grab_indicator():
-	var grabable_object = grabcast.get_collider()
+	var grabable_object=grabcast.get_collider()
 	
 	if grabcast.is_colliding() and grabable_object is PickableItem:
-		if $PlayerController.is_grabbing == false:
+		if $PlayerController.is_grabbing==false:
 			$Indication_canvas/Indication_system/Grab.show()
 	else:
 			$Indication_canvas/Indication_system/Grab.hide()

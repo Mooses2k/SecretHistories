@@ -12,8 +12,7 @@ func _gui_input(event):
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		self.hide()
-		if self.visible :
-			emit_signal("settings_menu_exited")
+		emit_signal("settings_menu_exited")
 
 
 

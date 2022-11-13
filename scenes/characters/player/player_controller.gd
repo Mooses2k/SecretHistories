@@ -53,8 +53,8 @@ var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
 var grab_distance : float = 0
 var target
-var current_object=null
-
+var current_object = null
+var wants_to_drop = false
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
@@ -157,9 +157,9 @@ func handle_grab_input(delta : float):
 
 
 	if is_grabbing:
-		wanna_grab=true
+		wanna_grab = true
 	else:
-		wanna_grab=false 
+		wanna_grab = false 
 	if Input.is_action_pressed("interact") and is_grabbing == false:
 		grab_press_length += delta
 		if grab_press_length >= 0.15 :
@@ -189,16 +189,17 @@ func handle_grab_input(delta : float):
 			interaction_handled = true
 
 func handle_grab(delta : float):
-	if wanna_grab and not is_grabbing:
-		
-		var object = active_mode.get_grab_target()
-		
-		if object:
-			var grab_position = active_mode.get_grab_global_position()
-			grab_relative_object_position = object.to_local(grab_position)
-			grab_distance = owner.fps_camera.global_transform.origin.distance_to(grab_position)
-			grab_object = object
-			is_grabbing = true
+	if wants_to_drop == false :
+		if wanna_grab and not is_grabbing:
+			
+			var object = active_mode.get_grab_target()
+			
+			if object:
+				var grab_position = active_mode.get_grab_global_position()
+				grab_relative_object_position = object.to_local(grab_position)
+				grab_distance = owner.fps_camera.global_transform.origin.distance_to(grab_position)
+				grab_object = object
+				is_grabbing = true
 			
 			
 	$MeshInstance.visible = false
@@ -276,6 +277,8 @@ func update_throw_state(delta : float):
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
 	pass
+
+
 
 func empty_slot():
 	
@@ -380,6 +383,7 @@ func handle_inventory(delta : float):
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
 			var x_pos = item.global_transform.origin.x
+			#Applies unique throw  logic to item if its a melee item 
 			if item is MeleeItem :
 				item.apply_throw_logic(impulse)
 			else:
@@ -429,18 +433,20 @@ func handle_inventory(delta : float):
 #		throw_state = true
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
-	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw") and is_grabbing:
-		
-		if active_mode.get_grab_target():
+	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw") and is_grabbing == true :
+		wants_to_drop = true
+		if grab_object != null :
 			is_grabbing = false
 			interaction_handled = true
 			var impulse = active_mode.get_aim_direction()*throw_strength
 #			if current_object is MeleeItem :
 #				current_object.apply_throw_logic(impulse)
 #			else:
-			if grab_object != null:
-				grab_object.apply_central_impulse(impulse)
-		wanna_grab = false
+			wanna_grab = false
+			grab_object.apply_central_impulse(impulse)
+	if Input.is_action_just_released("main_throw") or Input.is_action_just_released("offhand_throw"):
+		wants_to_drop = false
+#		
 func change_stamina(amount: float) -> void:
 	stamina = min(125, max(0, stamina + amount));
 	HUDS.tired(stamina);

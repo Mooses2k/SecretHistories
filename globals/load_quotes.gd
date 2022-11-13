@@ -161,7 +161,17 @@ func check_word():
 				keys += OS.get_scancode_string(actionKey.scancode)
 		temp = temp.replace("[Map key]", keys)
 		return true
-	
+
+	elif "[Binoculars key]" in temp:
+		keys = ""
+		for actionKey in InputMap.get_action_list("binocs_spyglass"):
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Binoculars key]", keys)
+		return true
+
 	elif "[" in temp:
 		printerr(temp) # this will catch wrong writing in list and mouse events (not implemented)
 	

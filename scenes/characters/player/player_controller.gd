@@ -23,7 +23,6 @@ var target_placement_position : Vector3 = Vector3.ZERO
 export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
-
 enum ItemSelection {
 	ITEM_PRIMARY,
 	ITEM_SECONDARY,
@@ -53,10 +52,11 @@ var grab_distance : float = 0
 var target
 var current_object = null
 
+
 func _ready():
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta : float):
@@ -75,7 +75,6 @@ func _physics_process(delta : float):
 	previous_weapon()
 	drop_grabbable()
 	empty_slot()
-
 
 
 func _input(event):
@@ -115,8 +114,6 @@ func _input(event):
 							character.inventory.current_primary_slot = 1
 
 
-
-
 #func handle_misc_controls(_delta : float):
 #	if Input.is_action_just_pressed("toggle_perspective"):
 #		active_mode_index = (active_mode_index + 1)%get_child_count()
@@ -152,8 +149,6 @@ func handle_movement(_delta : float):
 
 
 func handle_grab_input(delta : float):
-
-
 	if is_grabbing:
 		wanna_grab=true
 	else:
@@ -186,6 +181,7 @@ func handle_grab_input(delta : float):
 			wanna_grab=false 
 			interaction_handled = true
 
+
 func handle_grab(delta : float):
 	if wanna_grab and not is_grabbing:
 		
@@ -198,10 +194,8 @@ func handle_grab(delta : float):
 			grab_object = object
 			is_grabbing = true
 			
-			
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
-
 
 	if is_grabbing:
 		
@@ -219,7 +213,6 @@ func handle_grab(delta : float):
 		# The offset from the center of the object to where it is being grabbed, in global space
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
-		
 		
 		# Some visualization stuff
 		$MeshInstance.global_transform.origin = grab_target_global
@@ -254,7 +247,6 @@ func handle_grab(delta : float):
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
 
 
-
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
@@ -275,6 +267,7 @@ func update_throw_state(delta : float):
 			throw_state = ThrowState.IDLE
 	pass
 
+
 func empty_slot():
 	
 	var inv = character.inventory
@@ -282,6 +275,8 @@ func empty_slot():
 		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
 			inv.hotbar[10] = gun
+
+
 func throw_consumable():
 		var inv = character.inventory
 		var item : EquipmentItem = null

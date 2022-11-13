@@ -132,12 +132,12 @@ _global_script_classes=[ {
 "base": "MeleeItem",
 "class": "Crowbar",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Crowbar/Crowbar.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/crowbar/crowbar.gd"
 }, {
 "base": "MeleeItem",
 "class": "Dagger",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Dagger/Dagger.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/dagger/dagger.gd"
 }, {
 "base": "Spatial",
 "class": "Door",
@@ -197,12 +197,12 @@ _global_script_classes=[ {
 "base": "MeleeItem",
 "class": "Halberd",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Halberd/Halberd.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/halberd/halberd.gd"
 }, {
 "base": "MeleeItem",
 "class": "Hatchet",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Hatchet/Hatchet.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/hatchet/hatchet.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
@@ -222,7 +222,7 @@ _global_script_classes=[ {
 "base": "MeleeItem",
 "class": "Mace",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Mace/Mace.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/mace/mace.gd"
 }, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
@@ -252,7 +252,7 @@ _global_script_classes=[ {
 "base": "MeleeItem",
 "class": "Pitchfork",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Pitchfork/Pitchfork.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/pitchfork/pitchfork.gd"
 }, {
 "base": "RigidBody",
 "class": "Player",
@@ -287,7 +287,7 @@ _global_script_classes=[ {
 "base": "MeleeItem",
 "class": "Shovel",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Shovel/Shovel.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/shovel/shovel.gd"
 }, {
 "base": "PickableItem",
 "class": "TinyItem",

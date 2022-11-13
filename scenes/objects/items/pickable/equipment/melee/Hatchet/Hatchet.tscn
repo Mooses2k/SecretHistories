@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Hatchet/Hatchet.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/hatchet/hatchet.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/hatchet/source/axe.obj" type="ArrayMesh" id=4]

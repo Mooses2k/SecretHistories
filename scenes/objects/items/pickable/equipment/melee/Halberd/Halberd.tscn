@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/models/items/melee/halberd/textures/LP2_2_Normal.png" type="Texture" id=4]
 [ext_resource path="res://resources/models/items/melee/halberd/textures/LP2_2_Roughness.png" type="Texture" id=5]
 [ext_resource path="res://resources/models/items/melee/halberd/textures/LP2_2_Metallic.png" type="Texture" id=6]
-[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/Halberd/Halberd.gd" type="Script" id=7]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/halberd/halberd.gd" type="Script" id=7]
 
 
 [sub_resource type="CylinderShape" id=3]

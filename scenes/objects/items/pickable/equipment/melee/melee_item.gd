@@ -2,6 +2,18 @@ extends EquipmentItem
 class_name MeleeItem
 
 
+enum WeaponType {
+	ROCK,
+	KNIFE,
+	SIMPLE_HILT_ONE_HAND,
+	COMPLEX_HILT_ONE_HAND,
+	TWO_HANDED_SWORD,
+	AXE_AND_SLEDGE,
+	POLEARM,
+	COUNT
+}
+
+export(WeaponType) var weapon_type : int = 0
 export var melee_damage = 0
 export var cooldown = 0.01
 
@@ -20,8 +32,14 @@ func _ready():
 
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
-func attack(): # bug is it only checks for hit right when attack is first called, needs to check as long as in melee_anim "Swing"
-	var melee_anim = owner_character.find_node("AnimationPlayer")  # this needs to set only when equipped
+func attack():
+	var melee_anim
+	if weapon_type == 3:
+		melee_anim = owner_character.find_node("SabreTechniques")
+	if weapon_type == 6:
+		melee_anim = owner_character.find_node("PolearmTechniques")
+	else:
+		pass
 	# need something here to determine type of weapon, for now, a sabre
 	#determine attack angle from where pointing
 	if not melee_anim.is_playing(): 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -271,6 +271,65 @@ tracks/1/keys = {
 "values": [ Vector3( -30, 0, 0 ), Vector3( -13, -45, 55 ), Vector3( 0, -75, 95 ), Vector3( 3, -70, 100 ) ]
 }
 
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.2, 1.2, -0.3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( -30, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "polearm_recovery_from_right"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.9, -1.29664 ), Vector3( 0, 0.9, -0.586993 ) ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "polearm_thrust_from_right"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.9, -0.586993 ), Vector3( 0, 0.9, -0.461476 ), Vector3( 0, 0.9, -1.29664 ) ]
+}
+
 [node name="Character" type="RigidBody" groups=["CHARACTER"]]
 collision_layer = 16
 collision_mask = 19
@@ -318,7 +377,7 @@ script = ExtResource( 5 )
 [node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
 shape = SubResource( 2 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="SabreTechniques" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
 anims/Recovery1ToTierce = SubResource( 5 )
 anims/Recovery2ToQuarte = SubResource( 9 )
@@ -328,6 +387,11 @@ anims/Swing1FromTierce = SubResource( 3 )
 anims/Swing2FromQuarte = SubResource( 8 )
 anims/ThrustFromQuarte = SubResource( 11 )
 anims/ThrustFromTierce = SubResource( 10 )
+
+[node name="PolearmTechniques" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 14 )
+anims/polearm_recovery_from_right = SubResource( 15 )
+anims/polearm_thrust_from_right = SubResource( 16 )
 
 [node name="testCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )

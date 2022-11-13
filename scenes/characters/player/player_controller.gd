@@ -382,7 +382,6 @@ func handle_inventory(delta : float):
 			var x_pos = item.global_transform.origin.x
 			if item is MeleeItem :
 				item.apply_throw_logic(impulse)
-#				item.global_transform.origin.x = x_pos 
 			else:
 				item.apply_central_impulse(impulse)
 	
@@ -415,7 +414,6 @@ func handle_inventory(delta : float):
 #						item.call_deferred("global_translate", result.motion)
 #
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
-		
 		if interaction_target != null:
 			if interaction_target is PickableItem and character.inventory.current_primary_slot != 10:
 				character.inventory.add_item(interaction_target)
@@ -431,11 +429,15 @@ func handle_inventory(delta : float):
 #		throw_state = true
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
-	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw"):
-		if current_object != null:
+	if Input.is_action_just_pressed("main_throw")  or   Input.is_action_just_pressed("offhand_throw") and is_grabbing:
+		
+		if active_mode.get_grab_target():
 			is_grabbing = false
 			interaction_handled = true
 			var impulse = active_mode.get_aim_direction()*throw_strength
+#			if current_object is MeleeItem :
+#				current_object.apply_throw_logic(impulse)
+#			else:
 			grab_object.apply_central_impulse(impulse)
 		wanna_grab = false
 func change_stamina(amount: float) -> void:

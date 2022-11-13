@@ -5,9 +5,8 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/melee/crowbar/crowbar.gd" type="Script" id=4]
 [ext_resource path="res://resources/models/items/melee/crowbar/M_Crowbar.material" type="Material" id=5]
 
-
 [sub_resource type="CylinderShape" id=3]
-height = 0.543172
+height = 0.2
 radius = 0.118034
 
 [sub_resource type="ArrayMesh" id=5]
@@ -46,12 +45,13 @@ points = PoolVector3Array( -0.300213, 0.0149189, 0.0313185, -0.253748, -0.008314
 [node name="Crowbar" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.0119464, 0.00388288 )
 collision_layer = 64
-mass = 3.0
+mass = 2.0
 script = ExtResource( 4 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
 item_name = "Crowbar"
+weapon_type = 2
 melee_damage = 30
 player_path = NodePath(".")
 
@@ -67,40 +67,40 @@ monitorable = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.0979651, -0.0230775 )
+transform = Transform( 1, 0, 0, 0, 0.788462, -0.615084, 0, 0.615084, 0.788462, -0.554467, 0.0854276, -0.093096 )
 shape = SubResource( 3 )
 
 [node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0464681, -0.0154864 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0937089, -0.0154864 )
 
 [node name="SM_Crowbar" type="MeshInstance" parent="."]
-transform = Transform( -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 0, 0, 1.5, -0.000361785, 0.111071, 0.00332663 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
 mesh = SubResource( 5 )
 script = ExtResource( 3 )
 main_parent = NodePath("..")
 
 [node name="CollisionShape6" type="CollisionShape" parent="."]
-transform = Transform( -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 0, 0, 1.5, -0.000361785, 0.111071, 0.00332663 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
 shape = SubResource( 6 )
 
 [node name="CollisionShape5" type="CollisionShape" parent="."]
-transform = Transform( -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 0, 0, 1.5, -0.000361785, 0.111071, 0.00332663 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
 shape = SubResource( 7 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 0, 0, 1.5, -0.000361785, 0.111071, 0.00332663 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
 shape = SubResource( 8 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 0, 0, 1.5, -0.000361785, 0.111071, 0.00332663 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
 shape = SubResource( 9 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 0, 0, 1.5, -0.000361785, 0.111071, 0.00332663 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
 shape = SubResource( 10 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -6.55671e-08, -1.5, 0, 1.5, -6.55671e-08, 0, 0, 0, 1.5, -0.000361785, 0.111071, 0.00332663 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
 shape = SubResource( 11 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

@@ -5,7 +5,6 @@
 [ext_resource path="res://resources/models/items/melee/pitchfork/source/pitchfork.material" type="Material" id=3]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=4]
 
-
 [sub_resource type="CylinderShape" id=3]
 height = 0.339561
 radius = 0.108755
@@ -60,8 +59,8 @@ script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
-item_size = 2
 item_name = "Pitchfork"
+weapon_type = 6
 melee_damage = 40
 melee_damage_type = 2
 player_path = NodePath(".")

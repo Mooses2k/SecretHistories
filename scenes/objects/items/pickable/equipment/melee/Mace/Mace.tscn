@@ -6,7 +6,6 @@
 [ext_resource path="res://resources/models/items/melee/mace/Mace.tres" type="Material" id=4]
 [ext_resource path="res://resources/models/items/melee/mace/source/Bulava.obj" type="ArrayMesh" id=5]
 
-
 [sub_resource type="CylinderShape" id=3]
 height = 0.145875
 radius = 0.1
@@ -28,6 +27,7 @@ dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
 item_name = "Mace"
+weapon_type = 2
 melee_damage = 60
 player_path = NodePath(".")
 

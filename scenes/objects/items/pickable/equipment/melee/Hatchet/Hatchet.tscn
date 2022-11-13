@@ -13,7 +13,6 @@
 [ext_resource path="res://resources/models/items/melee/hatchet/textures/Hand_AO.jpg" type="Texture" id=11]
 [ext_resource path="res://resources/models/items/melee/hatchet/textures/axe_low_fixed_Hand_Normal.jpg" type="Texture" id=12]
 
-
 [sub_resource type="CylinderShape" id=3]
 height = 0.181495
 radius = 0.118034
@@ -57,7 +56,8 @@ dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
 item_name = "Hatchet"
-melee_damage = 30
+weapon_type = 2
+melee_damage = 35
 melee_damage_type = 1
 player_path = NodePath(".")
 

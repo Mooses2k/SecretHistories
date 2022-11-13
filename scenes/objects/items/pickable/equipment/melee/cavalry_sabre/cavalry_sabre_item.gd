@@ -1,10 +1,10 @@
 extends MeleeItem
-class_name SabreItem
+class_name Sabre
 
 
 export (NodePath) var player_path
 
-onready var player=get_node(player_path)
+onready var player = get_node(player_path)
 
 
 func _ready():

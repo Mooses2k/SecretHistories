@@ -4,12 +4,12 @@ class_name Player
 
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $Body/FPSCamera
-onready var Gun_cam=$"Body/FPSCamera/ViewportContainer2/Viewport/GunCam"
+onready var gun_cam=$"Body/FPSCamera/ViewportContainer2/Viewport/GunCam"
 onready var grabcast=$Body/FPSCamera/GrabCast
 
 
 func _process(delta):
-	Gun_cam.global_transform=fps_camera.global_transform
+	gun_cam.global_transform=fps_camera.global_transform
 	grab_indicator()
 	
 

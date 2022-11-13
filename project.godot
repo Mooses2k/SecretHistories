@@ -270,7 +270,7 @@ _global_script_classes=[ {
 "path": "res://scenes/objects/items/pickable/equipment/components/rocks/Rock.gd"
 }, {
 "base": "MeleeItem",
-"class": "SabreItem",
+"class": "Sabre",
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.gd"
 }, {
@@ -377,7 +377,7 @@ _global_script_class_icons={
 "Player": "",
 "PlayerSensor": "",
 "Rock": "",
-"SabreItem": "",
+"Sabre": "",
 "SettingsClass": "",
 "ShotgunItem": "",
 "Shovel": "",

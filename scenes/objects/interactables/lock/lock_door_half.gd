@@ -5,7 +5,6 @@ var loop_position : Vector3 setget ,get_loop_position
 
 var current_padlock : PadlockItem = null
 
-
 signal padlock_added()
 signal padlock_removed()
 signal padlock_unlocked()

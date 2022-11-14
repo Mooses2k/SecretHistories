@@ -53,7 +53,7 @@ func attack_thrust():
 			can_hit = true
 			melee_anim.play("polearm_thrust_from_right")
 			yield(melee_anim, "animation_finished")
-			character.stamina -= 50
+#			character.stamina -= 50 # this is bugged with halberd
 			can_hit = false
 			melee_anim.queue("polearm_recovery_from_right")
 

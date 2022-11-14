@@ -7,16 +7,19 @@ export var cooldown = 0.01
 export var Can_Spin : bool
 export var Throw_logic : bool
 
+export var Throw_pos_path : NodePath
+onready var Throw_Pos = get_node(Throw_pos_path)
+export var Normal_pos_path : NodePath
+onready var Normal_Pos = get_node(Normal_pos_path)
+
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
 
 
 
-export var collision_mesh_1_path : NodePath
-onready var collision_mesh_1 = get_node(collision_mesh_1_path)
+export var Element_path : NodePath
+onready var Elements = get_node(Element_path)
 
-export var collision_mesh_2_path : NodePath
-onready var collision_mesh_2 = get_node(collision_mesh_2_path)
 
 
 
@@ -25,6 +28,15 @@ var on_cooldown = false
 
 
 func _ready():
+	if Throw_logic == true :
+		if item_state == GlobalConsts.ItemState.EQUIPPED: 
+			Elements.global_transform.origin = Normal_Pos.global_transform.origin
+			Elements.global_rotation = Normal_Pos.global_rotation
+
+		elif item_state == GlobalConsts.ItemState.DROPPED:
+			Elements.global_transform.origin = Throw_Pos.global_transform.origin
+			Elements.global_rotation = Throw_Pos.global_rotation
+
 	if melee_damage_type == 1:
 		melee_damage/2
 	else:
@@ -33,16 +45,12 @@ func _ready():
 func _process(delta):
 	if Throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			collision_mesh_2.visible = true
-			collision_mesh_1.visible = false
-			collision_mesh_1.disabled = true
-			collision_mesh_2.disabled = false
-			
+			Elements.global_transform.origin = Normal_Pos.global_transform.origin
+			Elements.global_rotation = Normal_Pos.global_rotation
+
 		elif item_state == GlobalConsts.ItemState.DROPPED:
-			collision_mesh_2.visible = false
-			collision_mesh_1.visible = true
-			collision_mesh_2.disabled = true
-			collision_mesh_1.disabled = false
+			Elements.global_transform.origin = Throw_Pos.global_transform.origin
+			Elements.global_rotation = Throw_Pos.global_rotation
 
 	
 	

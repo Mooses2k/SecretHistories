@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/dagger/dagger.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/dagger/M_Dagger.material" type="Material" id=5]
@@ -29,16 +28,6 @@ points = PoolVector3Array( 0.00434943, 0.00356853, 0.000378523, -0.0120609, 0.03
 
 [node name="Dagger" type="RigidBody"]
 collision_layer = 64
-script = ExtResource( 1 )
-dropped_layers = 64
-dropped_mask = 1
-equipped_mode = 3
-item_size = 0
-item_name = "Dagger"
-weapon_type = 1
-melee_damage = 25
-melee_damage_type = 2
-player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -62,7 +51,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0807962, 0 )
 transform = Transform( -1.87959e-07, 0, 4.3, 0, 4.3, 0, -4.3, 0, -1.87959e-07, 0, -0.0289248, 0 )
 mesh = SubResource( 6 )
 script = ExtResource( 3 )
-main_parent = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -1.87959e-07, 0, 4.3, 0, 4.3, 0, -4.3, 0, -1.87959e-07, 0, -0.0289248, 0 )

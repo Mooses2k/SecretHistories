@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/consumable/bomb/Dynamite/Dynamite.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/explosion/Explosions.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/consumables/bombs/dynamite/M_Dynamite.material" type="Material" id=3]
 [ext_resource path="res://scenes/effects/explosion/smokeshader.tres" type="Shader" id=4]
+[ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "SM_Dynamite_Mesh"
@@ -39,6 +40,18 @@ scale = 3.0
 scale_random = 1.0
 anim_speed_random = 0.46
 anim_offset_random = 0.51
+
+[sub_resource type="ParticlesMaterial" id=26]
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+initial_velocity = 10.0
+initial_velocity_random = 0.49
+damping = 1.0
+damping_random = 0.5
+scale = 0.1
+
+[sub_resource type="QuadMesh" id=27]
+resource_local_to_scene = true
 
 [sub_resource type="ParticlesMaterial" id=20]
 direction = Vector3( 0, 0, 0 )
@@ -104,7 +117,7 @@ equipped_mode = 3
 item_size = 0
 item_name = "Dynamite"
 
-[node name="SM_Dynamite" type="MeshInstance" parent="."]
+[node name="Mesh" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -124,6 +137,25 @@ lifetime = 3.49
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 19 )
+
+[node name="Shrapnel" type="Particles" parent="."]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00112057, 0.142892, -0.00190479 )
+material_override = ExtResource( 5 )
+cast_shadow = 0
+emitting = false
+amount = 50
+lifetime = 5.93
+one_shot = true
+explosiveness = 1.0
+randomness = 0.84
+fixed_fps = 30
+visibility_aabb = AABB( -4, -4, -4.79199, 8, 8, 8 )
+local_coords = false
+process_material = SubResource( 26 )
+draw_pass_1 = SubResource( 27 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Fuse" type="Particles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14717, 0 )

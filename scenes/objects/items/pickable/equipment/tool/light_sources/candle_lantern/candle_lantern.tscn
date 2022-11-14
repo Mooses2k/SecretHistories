@@ -47,7 +47,6 @@ item_name = "Candle Lantern"
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
-cast_shadow = 0
 mesh = null
 skeleton = NodePath("")
 
@@ -56,7 +55,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0107755, 8.0144
 shape = SubResource( 1 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225399, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.203924, 0 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
 wait_time = 300.0

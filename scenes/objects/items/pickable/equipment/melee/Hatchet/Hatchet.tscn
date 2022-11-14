@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/hatchet/hatchet.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/melee/hatchet/Main.material" type="Material" id=3]
 
@@ -30,16 +29,6 @@ radius = 0.118034
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.0119464, 0.00388288 )
 collision_layer = 64
 mass = 2.0
-script = ExtResource( 1 )
-dropped_layers = 1
-dropped_mask = 64
-equipped_mode = 3
-item_size = 0
-item_name = "Hatchet"
-weapon_type = 2
-melee_damage = 35
-melee_damage_type = 1
-player_path = NodePath(".")
 
 [node name="axe0326_Main_0" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.272767, 0 )

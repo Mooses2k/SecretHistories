@@ -84,7 +84,6 @@ script = ExtResource( 3 )
 item_name = "Candle"
 
 [node name="MeshInstance" parent="." index="0"]
-cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 9 )
 
@@ -102,7 +101,6 @@ mesh = SubResource( 3 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 7 )
 script = ExtResource( 4 )
-main_parent = NodePath("../..")
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )

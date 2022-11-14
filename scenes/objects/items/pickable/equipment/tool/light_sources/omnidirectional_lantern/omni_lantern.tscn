@@ -44,7 +44,6 @@ item_name = "Oil Lantern"
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
 visible = false
-cast_shadow = 0
 mesh = null
 skeleton = NodePath("")
 
@@ -53,14 +52,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.0707697, 8.014
 shape = SubResource( 1 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.338968, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30587, 0 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
 wait_time = 300.0
 one_shot = true
 
 [node name="Light" type="OmniLight" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185425, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0673865, 0 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.5

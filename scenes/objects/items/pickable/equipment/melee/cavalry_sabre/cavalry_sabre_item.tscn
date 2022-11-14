@@ -62,7 +62,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0702357, 0 )
 transform = Transform( -95, 8.30516e-06, 3.6303e-13, 0, -4.15258e-06, 95, 8.30516e-06, 95, 4.15258e-06, 0, 0.156858, 0 )
 mesh = SubResource( 4 )
 script = ExtResource( 3 )
-main_parent = NodePath("..")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -95, 8.30516e-06, 3.6303e-13, 0, -4.15258e-06, 95, 8.30516e-06, 95, 4.15258e-06, 0, 0.156858, 0 )

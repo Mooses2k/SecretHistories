@@ -1,6 +1,5 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/pitchfork/pitchfork.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/melee/pitchfork/source/pitchfork.material" type="Material" id=3]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=4]
@@ -55,15 +54,6 @@ points = PoolVector3Array( 0.00237982, 0.545558, -0.0208563, 0.00651577, 0.59102
 [node name="Pitchfork" type="RigidBody"]
 collision_layer = 64
 mass = 3.0
-script = ExtResource( 1 )
-dropped_layers = 64
-dropped_mask = 1
-equipped_mode = 3
-item_name = "Pitchfork"
-weapon_type = 6
-melee_damage = 40
-melee_damage_type = 2
-player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -88,7 +78,6 @@ transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.00331759, 0.322069, 0.
 mesh = SubResource( 4 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
-main_parent = NodePath("..")
 
 [node name="CollisionShape10" type="CollisionShape" parent="."]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.00331759, 0.322069, 0.000796676 )

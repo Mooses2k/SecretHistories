@@ -4,13 +4,13 @@ class_name MeleeItem
 
 export var melee_damage = 0
 export var cooldown = 0.01
-export var Can_Spin : bool
-export var Throw_logic : bool
+export var can_Spin : bool
+export var throw_logic : bool
 
-export var Throw_pos_path : NodePath
-onready var Throw_Pos = get_node(Throw_pos_path)
-export var Normal_pos_path : NodePath
-onready var Normal_Pos = get_node(Normal_pos_path)
+export var throw_pos_path : NodePath
+onready var throw_pos = get_node(throw_pos_path)
+export var normal_pos_path : NodePath
+onready var normal_pos = get_node(normal_pos_path)
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
@@ -28,14 +28,14 @@ var on_cooldown = false
 
 
 func _ready():
-	if Throw_logic == true :
+	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			Elements.global_transform.origin = Normal_Pos.global_transform.origin
-			Elements.global_rotation = Normal_Pos.global_rotation
+			Elements.global_transform.origin = normal_pos.global_transform.origin
+			Elements.global_rotation = normal_pos.global_rotation
 
 		elif item_state == GlobalConsts.ItemState.DROPPED:
-			Elements.global_transform.origin = Throw_Pos.global_transform.origin
-			Elements.global_rotation = Throw_Pos.global_rotation
+			Elements.global_transform.origin = throw_pos.global_transform.origin
+			Elements.global_rotation = throw_pos.global_rotation
 
 	if melee_damage_type == 1:
 		melee_damage/2
@@ -43,15 +43,14 @@ func _ready():
 		melee_damage = melee_damage
 
 func _process(delta):
-	if Throw_logic == true :
+	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			Elements.global_transform.origin = Normal_Pos.global_transform.origin
-			Elements.global_rotation = Normal_Pos.global_rotation
+			Elements.global_transform.origin = normal_pos.global_transform.origin
+			Elements.global_rotation = normal_pos.global_rotation
 
 		elif item_state == GlobalConsts.ItemState.DROPPED:
-			Elements.global_transform.origin = Throw_Pos.global_transform.origin
-			Elements.global_rotation = Throw_Pos.global_rotation
-
+			Elements.global_transform.origin = throw_pos.global_transform.origin
+			Elements.global_rotation = throw_pos.global_rotation
 	
 	
 	
@@ -70,12 +69,11 @@ func attack(): # bug is it only checks for hit right when attack is first called
 		melee_anim.queue("Recovery1ToTierce")
 
 func apply_throw_logic(impulse):
-	if Can_Spin:
+	if can_Spin:
 		angular_velocity = Vector3(global_transform.basis.z*30)
-		apply_central_impulse(impulse /1.5)
-
+		apply_central_impulse(impulse)
 	else:
-		apply_central_impulse(impulse /1.5)
+		apply_central_impulse(impulse)
 
 
 func _use_primary():

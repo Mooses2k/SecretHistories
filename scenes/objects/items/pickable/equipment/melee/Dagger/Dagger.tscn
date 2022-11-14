@@ -16,7 +16,7 @@ height = 0.5
 height = 0.406657
 radius = 0.1
 
-[node name="Dagger" type="RigidBody"]
+[node name="dagger" type="RigidBody"]
 collision_layer = 64
 continuous_cd = true
 script = ExtResource( 1 )
@@ -26,10 +26,10 @@ equipped_mode = 3
 item_size = 0
 item_name = "Dagger"
 melee_damage = 7
-Can_Spin = true
-Throw_logic = true
-Throw_pos_path = NodePath("Throw_Pos")
-Normal_pos_path = NodePath("Normal_Pos")
+can_Spin = true
+throw_logic = true
+throw_pos_path = NodePath("Throw_Pos")
+normal_pos_path = NodePath("Normal_Pos")
 Element_path = NodePath("CollisionShape")
 player_path = NodePath(".")
 

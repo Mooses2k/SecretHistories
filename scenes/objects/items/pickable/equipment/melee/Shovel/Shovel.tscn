@@ -1,5 +1,6 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
+[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/melee/shovel/M_Shovel.material" type="Material" id=3]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=4]
@@ -83,7 +84,14 @@ points = PoolVector3Array( 0.00237982, 0.545558, -0.0208563, 0.00651577, 0.59102
 [node name="Shovel" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, -0.661764, 0.00388288 )
 collision_layer = 64
-mass = 3.0
+mass = 2.5
+continuous_cd = true
+script = ExtResource( 1 )
+equipped_mode = 3
+item_size = 2
+item_name = "Shovel"
+weapon_type = 5
+melee_damage = 40
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

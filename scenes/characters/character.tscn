@@ -435,6 +435,9 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.3 )
 
+[node name="testCamera" type="Camera" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+
 [node name="Hitbox" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 0
@@ -474,7 +477,3 @@ anims/polearm_cut_2 = SubResource( 17 )
 anims/polearm_cut_2_recovery = SubResource( 18 )
 anims/polearm_recovery_from_right = SubResource( 15 )
 anims/polearm_thrust_from_right = SubResource( 16 )
-
-[node name="testCamera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
-fov = 70.828

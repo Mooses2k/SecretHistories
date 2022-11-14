@@ -35,6 +35,6 @@ func _on_Countdown_timeout():
 	$Shrapnel.emitting = true
 	$Fuse.emitting = false
 	$Mesh.visible = false
-	GameManager.game.player.inventory.drop_primary_item()
-	GameManager.game.player.inventory.drop_secondary_item()
+	if get_parent().get_parent().get_parent().is_in_group("CHARACTER"):
+		get_parent().get_parent().get_parent().drop_consumable(self)
 	countdown_started = true

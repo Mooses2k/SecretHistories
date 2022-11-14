@@ -56,18 +56,18 @@ func _integrate_forces(state):
 
 #Stays at y = 0, raycast later
 func handle_elevation(state : PhysicsDirectBodyState):
-	var diff_correction = -Vector3.UP*state.transform.origin.y*mass/state.step
-	var speed_correction = -Vector3.UP*state.linear_velocity.y*mass
-	var gravity_correction = -state.total_gravity*mass*state.step
+	var diff_correction = -Vector3.UP * state.transform.origin.y * mass / state.step
+	var speed_correction = -Vector3.UP * state.linear_velocity.y * mass
+	var gravity_correction = -state.total_gravity * mass * state.step
 	apply_central_impulse(diff_correction + speed_correction + gravity_correction)
 
 
 func handle_movement(state : PhysicsDirectBodyState):
 	var planar_velocity = state.linear_velocity
 	planar_velocity.y = 0
-	var target_velocity : Vector3 = character_state.move_direction*move_speed
+	var target_velocity : Vector3 = character_state.move_direction * move_speed
 	var velocity_diff = target_velocity - planar_velocity
-	var velocity_correction = velocity_diff.normalized()*min(acceleration*state.step, velocity_diff.length())
+	var velocity_correction = velocity_diff.normalized() * min(acceleration*state.step, velocity_diff.length())
 	apply_central_impulse(velocity_correction*mass)
 
 
@@ -84,7 +84,8 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			if self.name != "Player":
 				self.queue_free()
 
-#for testing
+
+# for testing
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("kick"):
 					self.emit_signal("character_died")

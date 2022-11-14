@@ -55,7 +55,6 @@ var current_object = null
 
 func _ready():
 	active_mode.set_deferred("is_active", true)
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

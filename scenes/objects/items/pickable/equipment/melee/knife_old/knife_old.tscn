@@ -29,6 +29,7 @@ points = PoolVector3Array( -0.0866853, 0.000792582, -0.00313829, 0.00822016, 0.0
 
 [node name="OldKnife" type="RigidBody"]
 collision_layer = 64
+continuous_cd = true
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1

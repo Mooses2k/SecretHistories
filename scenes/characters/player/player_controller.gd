@@ -370,7 +370,11 @@ func handle_inventory(delta : float):
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
-			item.apply_central_impulse(impulse)
+			if item is MeleeItem:
+				item.apply_throw_logic(impulse)
+			else:
+				
+				item.apply_central_impulse(impulse)
 	
 	update_throw_state(delta)
 	

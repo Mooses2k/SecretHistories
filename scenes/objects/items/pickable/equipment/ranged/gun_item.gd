@@ -37,7 +37,7 @@ var _queued_reload_amount : int = 0
 
 export (NodePath) var detection_raycast
 
-onready var raycast=get_node(detection_raycast)
+onready var raycast = get_node(detection_raycast)
 
 
 func set_range(value : Vector2):
@@ -59,8 +59,8 @@ func shoot():
 	raycast.add_exception(owner_character)
 #	print("shoot")
 	for pellet in ammo_type.pellet_count:
-		var shoot_direction : Vector3 = Vector3.FORWARD.rotated(Vector3.RIGHT, randf()*max_dispersion_radians)
-		shoot_direction = shoot_direction.rotated(Vector3.FORWARD, randf()*2*PI)
+		var shoot_direction : Vector3 = Vector3.FORWARD.rotated(Vector3.RIGHT, randf() * max_dispersion_radians)
+		shoot_direction = shoot_direction.rotated(Vector3.FORWARD, randf() * 2 * PI)
 		raycast.cast_to = shoot_direction*raycast_range
 		raycast.force_raycast_update()
 		if raycast.is_colliding():
@@ -124,7 +124,7 @@ func apply_damage(total_damage):
 		var object_detected=raycast.get_collider()
 		if object_detected is RigidBody and has_method("apply_damage") :
 			print("detected rigidbody")
-			object_detected.apply_central_impulse(-player.global_transform.basis.z*total_damage*5)
+			object_detected.apply_central_impulse(-player.global_transform.basis.z * total_damage * 5)
 
 
 func _on_ReloadTimer_timeout() -> void:

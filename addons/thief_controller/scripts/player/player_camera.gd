@@ -22,7 +22,7 @@ var state = CameraState.STATE_NORMAL
 var _camera_rotation_reset : Vector3 = Vector3()
 var _crosshair_textures : Dictionary = {}
 
-onready var zoom_overlay : TextureRect = $CanvasLayer/PlayerUI/ZoomOverlay
+#onready var zoom_overlay : TextureRect = $CanvasLayer/PlayerUI/ZoomOverlay
 
 func _ready():
 	_crosshair_textures = _load_crosshair_textures("res://addons/thief_controller/texture/player ui")

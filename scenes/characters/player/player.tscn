@@ -289,7 +289,6 @@ current = true
 
 [node name="BodyMesh" type="MeshInstance" parent="Body" index="4"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
-visible = false
 mesh = SubResource( 18 )
 skeleton = NodePath("../..")
 
@@ -313,7 +312,6 @@ script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
 _grabcast = NodePath("../Body/FPSCamera/GrabCast")
-_cam_pos = NodePath("../Body/FPSCamera")
 _cam_path = NodePath("../Body/FPSCamera")
 _gun_cam_path = NodePath("../Body/ViewportContainer2/Viewport/GunCam")
 

@@ -23,8 +23,8 @@ var target_placement_position : Vector3 = Vector3.ZERO
 export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
-export var Player_path : NodePath
-onready var player = get_node(Player_path)
+#export var Player_path : NodePath
+#onready var player = get_node(Player_path)
 
 enum ItemSelection {
 	ITEM_PRIMARY,
@@ -178,30 +178,30 @@ func _physics_process(delta : float):
 	match state:
 		State.STATE_WALKING:
 			_process_frob_and_drag()
-			if Input.is_action_pressed("lean"):
-				state = State.STATE_LEANING
-				return
+#			if Input.is_action_pressed("lean"):
+#				state = State.STATE_LEANING
+#				return
 				
 			if Input.is_action_just_pressed("crouch"):
 				state = State.STATE_CROUCHING
 				return
 			
-			if Input.is_action_pressed("crawl"):
-				state = State.STATE_CRAWLING
-				return
-
-			if Input.is_action_pressed("sneak"):
-				_walk(delta, 0.75)
-				return
-				
-			if Input.is_action_just_pressed("noclip"):
-				state = State.STATE_NOCLIP
-				return
-			
-			if Input.is_action_pressed("zoom"):
-				_camera.state = _camera.CameraState.STATE_ZOOM
-			else:
-				_camera.state = _camera.CameraState.STATE_NORMAL
+#			if Input.is_action_pressed("crawl"):
+#				state = State.STATE_CRAWLING
+#				return
+#
+#			if Input.is_action_pressed("sneak"):
+#				_walk(delta, 0.75)
+#				return
+#
+#			if Input.is_action_just_pressed("noclip"):
+#				state = State.STATE_NOCLIP
+#				return
+#
+#			if Input.is_action_pressed("zoom"):
+#				_camera.state = _camera.CameraState.STATE_ZOOM
+#			else:
+#				_camera.state = _camera.CameraState.STATE_NORMAL
 			
 			_walk(delta)
 		
@@ -210,10 +210,10 @@ func _physics_process(delta : float):
 #			_lean()
 
 		State.STATE_CROUCHING:
-			if Input.is_action_pressed("zoom"):
-				_camera.state = _camera.CameraState.STATE_ZOOM
-			else:
-				_camera.state = _camera.CameraState.STATE_NORMAL
+#			if Input.is_action_pressed("zoom"):
+#				_camera.state = _camera.CameraState.STATE_ZOOM
+#			else:
+#				_camera.state = _camera.CameraState.STATE_NORMAL
 				
 			if Input.is_action_just_pressed("crouch"):
 				if is_player_crouch_toggle:
@@ -228,15 +228,15 @@ func _physics_process(delta : float):
 			_crouch()
 			_walk(delta, 0.65)
 
-		State.STATE_CRAWLING:
-			if Input.is_action_pressed("zoom"):
-				_camera.state = _camera.CameraState.STATE_ZOOM
-			else:
-				_camera.state = _camera.CameraState.STATE_NORMAL
-			
-#			_crawling()
-#			crawl_headmove(delta)
-			_walk(delta, 0.45)
+#		State.STATE_CRAWLING:
+#			if Input.is_action_pressed("zoom"):
+#				_camera.state = _camera.CameraState.STATE_ZOOM
+#			else:
+#				_camera.state = _camera.CameraState.STATE_NORMAL
+#
+##			_crawling()
+##			crawl_headmove(delta)
+#			_walk(delta, 0.45)
 
 		State.STATE_CLAMBERING_RISE:
 			var pos = owner.global_transform.origin
@@ -277,14 +277,14 @@ func _physics_process(delta : float):
 						state = State.STATE_WALKING
 				return
 
-		State.STATE_NOCLIP:
-			if Input.is_action_just_pressed("noclip"):
-				state = State.STATE_WALKING
-				return
-			
-			owner.collision_layer = 2
-			owner.collision_mask = 2
-			_noclip_walk()
+#		State.STATE_NOCLIP:
+#			if Input.is_action_just_pressed("noclip"):
+#				state = State.STATE_WALKING
+#				return
+#
+#			owner.collision_layer = 2
+#			owner.collision_mask = 2
+#			_noclip_walk()
 
 
 func _input(event):

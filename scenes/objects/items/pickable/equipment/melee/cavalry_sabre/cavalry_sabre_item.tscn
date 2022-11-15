@@ -39,6 +39,7 @@ equipped_mode = 3
 item_name = "Cavalry Sabre"
 weapon_type = 3
 melee_damage = 51
+can_Spin = null
 throw_logic = true
 element_path = NodePath("CollisionShape")
 normal_pos_path = NodePath("NormalPosition")

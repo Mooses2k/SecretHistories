@@ -16,7 +16,7 @@ enum WeaponType {
 export(WeaponType) var weapon_type : int = 0
 export var melee_damage = 0
 export var cooldown = 0.01
-export var can_Spin : bool
+export var can_spin : bool
 export var throw_logic : bool
 
 export var element_path : NodePath
@@ -45,8 +45,7 @@ func _ready():
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			collision_and_mesh.global_transform.origin = normal_pos.global_transform.origin
-			collision_and_mesh.global_rotation = normal_pos.global_rotation
+			self.global_rotation = normal_pos.global_rotation
 
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
@@ -77,9 +76,8 @@ func attack_thrust():
 
 func apply_throw_logic(impulse):
 	if throw_logic:
-		collision_and_mesh.global_transform.origin = throw_pos.global_transform.origin
-		collision_and_mesh.global_rotation = throw_pos.global_rotation
-	if can_Spin:
+		self.global_rotation = throw_pos.global_rotation
+	if can_spin:
 		angular_velocity = Vector3(global_transform.basis.z*30)
 		apply_central_impulse(impulse)
 	else:

@@ -38,9 +38,12 @@ item_size = 0
 item_name = "Dagger"
 weapon_type = 1
 melee_damage = 30
-can_Spin = true
+can_spin = true
 throw_logic = true
 melee_damage_type = 2
+throw_pos_path = NodePath("Throw_Pos")
+normal_pos_path = NodePath("Normal_Pos")
+player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

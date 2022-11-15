@@ -1,5 +1,5 @@
 extends MeleeItem
-class_name SabreItem
+class_name Dagger
 
 
 export (NodePath) var player_path

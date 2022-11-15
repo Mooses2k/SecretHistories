@@ -31,10 +31,10 @@ onready var melee_hitbox = $Hitbox as Area
 
 var can_hit = false
 var on_cooldown = false
-
-export (NodePath) var player_path
-
-onready var player = get_node(player_path)
+#
+#export (NodePath) var player_path
+#
+#onready var player = get_node(player_path)
 
 onready var character = get_parent()
 
@@ -148,4 +148,4 @@ func _on_Hitbox_body_entered(body):
 	else:
 		melee_damage = melee_damage
 	if body is RigidBody and can_hit == true:
-		body.apply_central_impulse(-player.global_transform.basis.z * melee_damage)
+		body.apply_central_impulse(-character.global_transform.basis.z * melee_damage)

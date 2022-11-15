@@ -38,7 +38,7 @@ dropped_mask = 1
 equipped_mode = 3
 item_name = "Cavalry Sabre"
 weapon_type = 3
-can_Spin = true
+melee_damage = 51
 throw_logic = true
 element_path = NodePath("CollisionShape")
 normal_pos_path = NodePath("NormalPosition")
@@ -75,4 +75,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0702357, 0 )
 [node name="NormalPosition" type="Position3D" parent="."]
 
 [node name="ThrowPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210725, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202506, 0 )

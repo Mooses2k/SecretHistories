@@ -76,10 +76,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5 )
 
 [node name="Dagger" parent="." index="13" instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.28632, 5.31467, 4.92483 )
+transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.34076, 5.31467, 4.92483 )
 
 [node name="CavalrySabre" parent="." index="14" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.80033, 5.31467, 4.92483 )
+transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.71832, 5.31467, 4.92483 )
 
 [node name="ShotgunItem2" parent="." index="15" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 5, 5 )

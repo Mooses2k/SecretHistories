@@ -95,6 +95,8 @@ item_name = "Shovel"
 weapon_type = 5
 melee_damage = 40
 throw_logic = true
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -195,6 +197,12 @@ shape = SubResource( 42 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -0.8, 1.20797e-07, 0, -1.20797e-07, -0.8, 0, 0, 0, 0.8, 0.00456691, 0.363439, -0.00885463 )
 shape = SubResource( 24 )
+
+[node name="NormalPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66244, 0 )
+
+[node name="ThrowPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.945974, 0 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

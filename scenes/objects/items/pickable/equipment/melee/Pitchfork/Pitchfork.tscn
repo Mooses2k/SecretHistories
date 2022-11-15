@@ -41,6 +41,8 @@ item_name = "Pitchfork"
 weapon_type = 6
 melee_damage = 51
 throw_logic = true
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
 melee_damage_type = 2
 
 [node name="CooldownTimer" type="Timer" parent="."]
@@ -70,6 +72,11 @@ mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
+
+[node name="NormalPosition" type="Position3D" parent="."]
+
+[node name="ThrowPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202506, 0 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

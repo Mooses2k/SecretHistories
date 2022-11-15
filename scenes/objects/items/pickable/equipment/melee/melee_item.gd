@@ -19,8 +19,8 @@ export var cooldown = 0.01
 export var can_spin : bool
 export var throw_logic : bool
 
-export var element_path : NodePath
-onready var collision_and_mesh = get_node(element_path)
+#export var element_path : NodePath
+#onready var collision_and_mesh = get_node(element_path)
 export var normal_pos_path : NodePath
 onready var normal_pos = get_node(normal_pos_path)
 export var throw_pos_path : NodePath
@@ -78,7 +78,7 @@ func apply_throw_logic(impulse):
 	if throw_logic:
 		self.global_rotation = throw_pos.global_rotation
 	if can_spin:
-		angular_velocity = Vector3(global_transform.basis.z*30)
+		angular_velocity = Vector3(global_transform.basis.z * 15)
 		apply_central_impulse(impulse)
 	else:
 		apply_central_impulse(impulse)

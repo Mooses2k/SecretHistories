@@ -1,15 +1,15 @@
 extends ToolItem
 
 
-onready var firelight = $Light
+onready var firelight = $FireOrigin/Fire/Light
 onready var DurableTimer = $Durability
 
-var has_onned = false # onned?
-var is_lit = false
+var has_ever_been_on = false 
+var is_lit = true
 
 
 func _ready():
-	pass
+	DurableTimer.start()
 
 
 func _process(delta):
@@ -17,10 +17,9 @@ func _process(delta):
 		DurableTimer.pause_mode = false
 	else:
 		DurableTimer.pause_mode = true
-	if self.mode == equipped_mode and has_onned == false:
-			DurableTimer.start()
-			has_onned = true
-			firelight.visible = true
+	if self.mode == equipped_mode and has_ever_been_on == false:
+#			DurableTimer.start()
+#			has_onned=true
 			is_lit = true
 	else:
 		is_lit = false

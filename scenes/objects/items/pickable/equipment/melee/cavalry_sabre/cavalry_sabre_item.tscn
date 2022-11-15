@@ -39,9 +39,7 @@ equipped_mode = 3
 item_name = "Cavalry Sabre"
 weapon_type = 3
 melee_damage = 51
-can_Spin = null
 throw_logic = true
-element_path = NodePath("CollisionShape")
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 melee_damage_type = 1
@@ -61,7 +59,7 @@ script = ExtResource( 2 )
 shape = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -95, 8.30516e-06, 3.6303e-13, 0, -4.15258e-06, 95, 8.30516e-06, 95, 4.15258e-06, 0, 0.156858, 0 )
+transform = Transform( -95, 1.43446e-05, 6.27022e-13, 0, -4.15258e-06, 95, 1.43446e-05, 95, 4.15258e-06, 0, 0.156858, 0 )
 shape = SubResource( 5 )
 
 [node name="Sabre" type="MeshInstance" parent="CollisionShape"]
@@ -74,6 +72,10 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0702357, 0 )
 
 [node name="NormalPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0413099, 0 )
 
 [node name="ThrowPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202506, 0 )
+transform = Transform( 1.19249e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -1.19249e-08, -5.21253e-16, 0, 0.202506, 0 )
+__meta__ = {
+"_editor_description_": ""
+}

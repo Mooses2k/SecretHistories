@@ -48,8 +48,10 @@ item_size = 0
 item_name = "Hatchet"
 weapon_type = 2
 melee_damage = 40
-can_Spin = true
+can_spin = true
 throw_logic = true
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
 melee_damage_type = 1
 
 [node name="axe0326_Main_0" type="MeshInstance" parent="."]
@@ -90,6 +92,12 @@ shape = SubResource( 3 )
 
 [node name="HoldPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1464, -0.0127318 )
+
+[node name="NormalPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.013061, -0.0127318 )
+
+[node name="ThrowPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.105544, -0.0127318 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

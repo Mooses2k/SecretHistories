@@ -20,6 +20,7 @@ points = PoolVector3Array( -0.315198, 63.3035, -5.8902, 4.7937, 58.6587, -2.1727
 points = PoolVector3Array( 0.00237982, 0.545558, -0.0208563, 0.00651577, 0.591022, 0.0239456, -0.0052794, 0.591022, 0.0239456, 0.00257981, -0.534104, 0.0200124, -0.0210232, 0.386402, -0.0153963, 0.0143877, -0.538067, -0.0114584, 0.0225376, 0.626195, 0.008309, -0.0131471, -0.534104, 0.0160791, -0.0131471, -0.534104, -0.0153963, -0.0212878, 0.625835, 0.00830411, 0.0143877, -0.534104, 0.0160791, 0.0183237, 0.390366, -0.0193295, -0.0131471, 0.567469, -0.0232628, 0.00651577, -0.534104, -0.0193295, -0.0210232, 0.390366, 0.0160791, 0.0183237, 0.606875, -0.0153963, 0.0222596, 0.386402, -0.0075251, 0.0104517, 0.429772, 0.0239456, -0.00921536, 0.394329, 0.0239456, 0.0222596, 0.386402, 0.0121412, -0.0213514, 0.627535, -0.00763968, -0.0052794, 0.386402, -0.0232628, -0.017083, 0.594986, 0.0200124, 0.0143877, 0.602912, 0.0200124, 0.0224526, 0.623924, -0.00362225, -0.0131471, 0.540065, -0.0232628, -0.0210232, 0.532026, 0.0160791, 0.00651577, 0.390366, 0.0239456, 0.0100294, 0.586337, -0.0184847, -0.017083, 0.610839, 0.0160791, 0.0104517, 0.516399, 0.0239456 )
 
 [node name="Mace" type="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.367629, 0 )
 collision_layer = 64
 mass = 2.5
 continuous_cd = true
@@ -30,8 +31,10 @@ equipped_mode = 3
 item_name = "Mace"
 weapon_type = 2
 melee_damage = 40
-can_Spin = true
+can_spin = true
 throw_logic = true
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -69,6 +72,12 @@ shape = SubResource( 13 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -0.4, 6.03983e-08, 0, -6.03983e-08, -0.4, 0, 0, 0, 0.4, 0.000208497, 0.202245, 0.000981377 )
 shape = SubResource( 11 )
+
+[node name="NormalPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365748, 0 )
+
+[node name="ThrowPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69205, 0 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

@@ -10,6 +10,8 @@ class_name Hitbox
 # `Monitorable` should be set to true, and false otherwise
 
 # This hitbox collided with another hitbox
+
+
 signal hit(other)
 
 

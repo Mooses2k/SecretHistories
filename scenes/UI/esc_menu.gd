@@ -1,5 +1,8 @@
 extends Control
 
+
+signal button_pressed(button)
+
 enum EscMenuButtons {
 	RESUME,
 	SAVE,
@@ -7,17 +10,17 @@ enum EscMenuButtons {
 	QUIT
 }
 
+
 func exit_state():
 	self.visible = false
 	pass
+
 
 func enter_state():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	self.visible = true
 	pass
 
-
-signal button_pressed(button)
 
 func _on_ResumeButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.RESUME)
@@ -26,6 +29,7 @@ func _on_ResumeButton_pressed() -> void:
 #	$ColorRect.visible = get_tree().paused
 ##	get_tree().set_input_as_handled()
 #	hide()
+
 
 func _on_SaveButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.SAVE)

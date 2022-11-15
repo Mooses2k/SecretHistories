@@ -39,6 +39,9 @@ equipped_mode = 3
 item_name = "Cavalry Sabre"
 weapon_type = 3
 melee_damage = 51
+throw_logic = true
+throw_pos_path = NodePath("Throw_Pos")
+normal_pos_path = NodePath("Normal_Pos")
 melee_damage_type = 1
 
 [node name="CooldownTimer" type="Timer" parent="."]
@@ -46,7 +49,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Hitbox" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.607795, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.385657, 0 )
 collision_layer = 0
 collision_mask = 12
 monitorable = false

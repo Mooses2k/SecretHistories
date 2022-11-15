@@ -150,7 +150,7 @@ script = ExtResource( 9 )
 enemy_scene = ExtResource( 25 )
 density = 0.01
 
-[node name="Bookcase" type="RigidBody" parent="." index="26"]
+[node name="Bookcase" type="RigidBody" parent="." index="20"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
 collision_layer = 5
 mass = 102.041
@@ -161,7 +161,7 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Candle2" parent="." index="27" instance=ExtResource( 12 )]
+[node name="Candle2" parent="." index="21" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
 
 [node name="Candle3" parent="." index="28" instance=ExtResource( 12 )]

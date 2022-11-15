@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/control_mode.gd"
 }, {
+"base": "MeleeItem",
+"class": "Dagger_item",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/melee/dagger/Dagger_item.gd"
+}, {
 "base": "Spatial",
 "class": "Door",
 "language": "GDScript",
@@ -234,6 +239,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/sensors/player_sensor.gd"
 }, {
+"base": "GunItem",
+"class": "RevolverItem",
+"language": "GDScript",
+"path": "res://scenes/objects/items/pickable/equipment/ranged/webley_revolver/revolver_item.gd"
+}, {
 "base": "EquipmentItem",
 "class": "Rock",
 "language": "GDScript",
@@ -314,6 +324,7 @@ _global_script_class_icons={
 "CharacterState": "",
 "ConsumableItem": "",
 "ControlMode": "",
+"Dagger_item": "",
 "Door": "",
 "Door_body": "",
 "Dynamite": "",
@@ -372,6 +383,8 @@ ChangeScene="*res://globals/change_scene.gd"
 window/size/width=1920
 window/size/height=1080
 window/size/fullscreen=true
+window/size/test_width=1024
+window/size/test_height=600
 
 [editor_plugins]
 

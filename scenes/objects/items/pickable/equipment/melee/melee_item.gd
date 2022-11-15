@@ -16,9 +16,25 @@ enum WeaponType {
 export(WeaponType) var weapon_type : int = 0
 export var melee_damage = 0
 export var cooldown = 0.01
+export var can_Spin : bool
+export var throw_logic : bool
+
+export var throw_pos_path : NodePath
+onready var throw_pos = get_node(throw_pos_path)
+export var normal_pos_path : NodePath
+onready var normal_pos = get_node(normal_pos_path)
+
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
+
+
+
+export var element_path : NodePath
+onready var elements = get_node(element_path)
+
+
+
 
 var can_hit = false
 var on_cooldown = false
@@ -33,7 +49,17 @@ onready var character = get_parent()
 func _ready():
 	pass
 
+func _process(delta):
+	if throw_logic == true :
+		if item_state == GlobalConsts.ItemState.EQUIPPED: 
+			elements.global_transform.origin = normal_pos.global_transform.origin
+			elements.global_rotation = normal_pos.global_rotation
 
+#
+	
+	
+	
+	
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
 	character = get_parent().get_parent().get_parent()
@@ -60,6 +86,15 @@ func attack_thrust():
 	# need something here to determine type of weapon, for now, a sabre
 	#determine attack angle from where pointing
 
+func apply_throw_logic(impulse):
+	if throw_logic:
+		elements.global_transform.origin = throw_pos.global_transform.origin
+		elements.global_rotation = throw_pos.global_rotation
+	if can_Spin:
+		angular_velocity = Vector3(global_transform.basis.z*30)
+		apply_central_impulse(impulse)
+	else:
+		apply_central_impulse(impulse)
 
 func attack_cut():
 	character = get_parent().get_parent().get_parent()

@@ -1,5 +1,6 @@
 extends Control
 
+
 func _ready() -> void:
 	pass # Replace with function body.
 
@@ -24,6 +25,7 @@ func _on_GhostDetectionRange_value_changed(value: float) -> void:
 func _on_StartGame_pressed() -> void:
 	GameManager.is_player_dead = false
 	ChangeScene._change_to_scene("res://scenes/core/game.tscn")
+
 
 func _on_ReturnButton_pressed() -> void:
 	var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")

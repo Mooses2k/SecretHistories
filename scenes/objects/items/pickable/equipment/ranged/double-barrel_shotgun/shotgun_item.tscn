@@ -48,6 +48,7 @@ points = PoolVector3Array( -0.0843641, 0.085076, 0.00704932, -0.0874639, 0.07800
 
 [node name="ShotgunItem" instance=ExtResource( 7 )]
 mass = 3.0
+continuous_cd = true
 script = ExtResource( 2 )
 item_name = "Double-barrel shotgun"
 ammo_types = [ ExtResource( 4 ) ]

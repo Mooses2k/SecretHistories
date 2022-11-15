@@ -130,9 +130,9 @@ _global_script_classes=[ {
 "path": "res://scenes/characters/player/control_mode.gd"
 }, {
 "base": "MeleeItem",
-"class": "Dagger_item",
+"class": "Dagger",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/dagger/Dagger_item.gd"
+"path": "res://scenes/objects/items/pickable/equipment/melee/Dagger/Dagger_item.gd"
 }, {
 "base": "Spatial",
 "class": "Door",
@@ -309,7 +309,7 @@ _global_script_class_icons={
 "CharacterState": "",
 "ConsumableItem": "",
 "ControlMode": "",
-"Dagger_item": "",
+"Dagger": "",
 "Door": "",
 "Door_body": "",
 "EnemySpawner": "",

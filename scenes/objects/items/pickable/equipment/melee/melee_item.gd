@@ -4,7 +4,7 @@ class_name MeleeItem
 
 export var melee_damage = 0
 export var cooldown = 0.01
-export var can_Spin : bool
+export var can_spin : bool
 export var throw_logic : bool
 
 export var throw_pos_path : NodePath
@@ -16,10 +16,6 @@ onready var normal_pos = get_node(normal_pos_path)
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
 
-
-
-export var element_path : NodePath
-onready var elements = get_node(element_path)
 
 
 
@@ -47,8 +43,7 @@ func _ready():
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			elements.global_transform.origin = normal_pos.global_transform.origin
-			elements.global_rotation = normal_pos.global_rotation
+			self.global_rotation = normal_pos.global_rotation
 
 #
 	
@@ -69,9 +64,8 @@ func attack(): # bug is it only checks for hit right when attack is first called
 
 func apply_throw_logic(impulse):
 	if throw_logic:
-		elements.global_transform.origin = throw_pos.global_transform.origin
-		elements.global_rotation = throw_pos.global_rotation
-	if can_Spin:
+		self.global_rotation = throw_pos.global_rotation
+	if can_spin:
 		angular_velocity = Vector3(global_transform.basis.z*30)
 		apply_central_impulse(impulse)
 	else:

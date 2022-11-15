@@ -21,8 +21,8 @@ export var throw_logic : bool
 
 export var throw_pos_path : NodePath
 onready var throw_pos = get_node(throw_pos_path)
-export var normal_pos_path : NodePath
-onready var normal_pos = get_node(normal_pos_path)
+export var hold_pos_path : NodePath
+onready var hold_pos = get_node(hold_pos_path)
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
@@ -46,8 +46,8 @@ func _ready():
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			elements.global_transform.origin = normal_pos.global_transform.origin
-			elements.global_rotation = normal_pos.global_rotation
+			elements.global_transform.origin = hold_pos.global_transform.origin
+			elements.global_rotation = hold_pos.global_rotation
 
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards

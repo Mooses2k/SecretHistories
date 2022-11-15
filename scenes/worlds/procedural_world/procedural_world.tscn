@@ -106,8 +106,6 @@ key_id = 0
 
 [node name="PadlockItem" parent="." index="22" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
-padlock_id = 0
-padlock_locked = false
 
 [node name="Webley" parent="." index="23" instance=ExtResource( 14 )]
 transform = Transform( 0.711744, 0.702439, 0, -0.702439, 0.711744, 0, 0, 0, 1, 2.30643, 0.618492, 5.0266 )

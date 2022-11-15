@@ -462,7 +462,7 @@ func _process_frob_and_drag():
 				
 			_camera.set_crosshair_state("interact")
 				
-			if Input.is_action_just_released("mouse_left"):
+			if Input.is_action_just_released("main_use_primary"):
 				_camera.set_crosshair_state("dragging")
 				drag_object = c
 				drag_object.linear_velocity = Vector3.ZERO

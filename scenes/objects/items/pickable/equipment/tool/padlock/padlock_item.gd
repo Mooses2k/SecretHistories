@@ -12,4 +12,3 @@ func get_loop_position() -> Vector3:
 func _use():
 	print("padlock used")
 	
-	

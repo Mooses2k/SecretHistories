@@ -78,12 +78,15 @@ onready var _camera : ShakeCamera = get_node(_cam_path)
 onready var _collider : CollisionShape = owner.get_node("CollisionShape")
 export var _gun_cam_path : NodePath
 onready var _gun_cam = get_node(_gun_cam_path)
+onready var _frob_raycast = get_node("../Body/FPSCamera/GrabCast")
 
 var _normal_collision_layer_and_mask : int = 1
 var _collider_normal_radius : float = 0.0
 var _collider_normal_height : float = 0.0
 var _camera_orig_pos_y : float = 0.0
 var _camera_pos_normal : Vector3 = Vector3.ZERO
+var _click_timer : float = 0.0
+var _throw_wait_time : float = 400	
 #stealth player controller addon -->
 
 var throw_state : int = ThrowState.IDLE
@@ -175,7 +178,7 @@ func _physics_process(delta : float):
 	
 	match state:
 		State.STATE_WALKING:
-			#_process_frob_and_drag()
+			_process_frob_and_drag()
 			if Input.is_action_pressed("lean"):
 				state = State.STATE_LEANING
 				return
@@ -221,7 +224,7 @@ func _physics_process(delta : float):
 						state = State.STATE_WALKING
 						return
 				
-#			_process_frob_and_drag()
+			_process_frob_and_drag()
 			is_crouching = true
 			_crouch()
 			_walk(delta, 0.65)
@@ -556,6 +559,86 @@ func _crouch() -> void:
 #		_collider.rotation_degrees.x = 90
 #		_collider.shape.height = _collider_normal_height
 #		_collider.shape.radius = _collider_normal_radius
+
+
+func _process_frob_and_drag():
+	if (Input.is_action_just_pressed("main_use_primary") 
+		and _click_timer == 0.0 
+		and drag_object != null):
+		_click_timer = OS.get_ticks_msec()
+		
+	if Input.is_action_pressed("main_use_primary"):
+		if _click_timer + _throw_wait_time < OS.get_ticks_msec():
+			if _click_timer == 0.0:
+				return
+			
+#			_camera.set_crosshair_state("normal")
+			_click_timer = 0.0
+			_throw()
+			drag_object = null
+	
+	if _frob_raycast.is_colliding():
+		var c = _frob_raycast.get_collider()
+		if drag_object == null and c is RigidBody:
+			if c.scale > (Vector3.ONE * 5):
+				return
+				
+			var w = owner.get_world().direct_space_state
+			var r = w.intersect_ray(c.global_transform.origin,
+					c.global_transform.origin + Vector3.UP * 0.5, [owner])
+						
+			if r and r.collider == owner:
+				return
+				
+#			_camera.set_crosshair_state("interact")
+				
+			if Input.is_action_just_released("main_use_primary"):
+#				_camera.set_crosshair_state("dragging")
+				drag_object = c
+				drag_object.linear_velocity = Vector3.ZERO
+	
+	if Input.is_action_just_released("main_use_primary"):	
+		if drag_object != null:
+			if _click_timer + _throw_wait_time > OS.get_ticks_msec():
+				if _click_timer == 0.0:
+					return
+				
+#				_camera.set_crosshair_state("normal")
+				drag_object = null
+				_click_timer = 0.0
+				
+	if Input.is_action_just_pressed("main_use_secondary") and drag_object != null:
+		drag_object.rotation_degrees.y += 45
+		drag_object.rotation_degrees.x = 90
+				
+	if drag_object:
+		_drag()
+		
+		var d = _camera.global_transform.origin.distance_to(drag_object.global_transform.origin)
+		if  d > interact_distance + 0.35:
+			drag_object = null
+	
+#	if !drag_object and not _frob_raycast.is_colliding():
+#		_camera.set_crosshair_state("normal")
+	
+
+func _drag(damping : float = 0.5, s2ms : int = 15) -> void:
+	var d = _frob_raycast.global_transform.basis.z.normalized()
+	var dest = _frob_raycast.global_transform.origin - d * interact_distance
+	var d1 = (dest - drag_object.global_transform.origin)
+	drag_object.angular_velocity = Vector3.ZERO
+	
+	var v1 = velocity * damping + drag_object.linear_velocity * damping
+	var v2 = (d1 * s2ms) * (1.0 - damping) / drag_object.mass
+	
+	drag_object.linear_velocity = v1 + v2
+	
+	
+func _throw(throw_force : float = 10.0) -> void:
+	var d = -_camera.global_transform.basis.z.normalized()
+	drag_object.apply_central_impulse(d * throw_force)
+	_camera.add_stress(0.2)
+
 
 
 func handle_grab_input(delta : float):

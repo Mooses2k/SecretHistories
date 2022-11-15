@@ -13,7 +13,7 @@ var _last_time_since_detect : float = 0.0
 export var _player_path : NodePath
 onready var _player = get_node(_player_path)
 #var _player : Player1 = null
-
+#
 #func _ready() -> void:
 #	_player = get_parent()
 
@@ -52,7 +52,7 @@ func get_light_level(top : bool = true) -> float:
 	img.lock()
 	
 	var p0 = img.get_pixel(0, 0)
-	var hl = 0.2126 * p0.r + 0.7152 * p0.g + 0.0722 * p0.b				
+	var hl = 0.2126 * p0.r + 0.7152 * p0.g + 0.0722 * p0.b
 	
 	for y in img.get_height():
 		for x in img.get_width():

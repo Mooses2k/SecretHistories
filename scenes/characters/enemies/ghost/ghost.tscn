@@ -6,7 +6,6 @@
 [ext_resource path="res://scenes/characters/enemies/ghost/ghost_controller.gd" type="Script" id=5]
 [ext_resource path="res://scenes/characters/enemies/ghost/damage_area.gd" type="Script" id=6]
 
-
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 1, 0.776471, 0.776471, 1 )
 emission_enabled = true

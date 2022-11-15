@@ -110,10 +110,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
 [node name="Webley" parent="." index="23" instance=ExtResource( 14 )]
 transform = Transform( 0.711744, 0.702439, 0, -0.702439, 0.711744, 0, 0, 0, 1, 2.30643, 0.618492, 5.0266 )
 
-[node name="Ghost" parent="." index="24" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5788, 0.702882, 14.438 )
-
-[node name="Torch" parent="." index="25" instance=ExtResource( 17 )]
+[node name="Torch" parent="." index="24" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91335, 0.750593, 5.72667 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

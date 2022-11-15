@@ -138,7 +138,6 @@ func _physics_process(delta : float):
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
 	current_object = active_mode.get_grab_target()
-	handle_movement(delta)
 	#handle_movement(delta)
 	handle_grab_input(delta)
 	handle_grab(delta)
@@ -290,8 +289,6 @@ func _physics_process(delta : float):
 
 func _input(event):
 	if event is InputEventMouseButton and GameManager.is_reloading == false :
-func _input(event) -> void:
-	if event is InputEventMouseButton:
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
@@ -386,13 +383,13 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 #	owner.collision_layer = _normal_collision_layer_and_mask
 #	owner.collision_mask = _normal_collision_layer_and_mask
 	
-	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
-		direction *= 0.5;
-		change_stamina(-0.3)
-	else:
-		direction *= 0.2;
-		if !Input.is_action_pressed("sprint"):
-			change_stamina(0.3)
+#	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
+#		direction *= 0.5;
+#		change_stamina(-0.3)
+#	else:
+#		direction *= 0.2;
+#		if !Input.is_action_pressed("sprint"):
+#			change_stamina(0.3)
 #	print(stamina)
 	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))

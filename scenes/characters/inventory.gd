@@ -16,6 +16,7 @@ signal UpdateHud
 #Emitted to hide the HUD UI when player dies
 signal PlayerDead
 
+# 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int= 11
 
 # Items tracked exclusively by ammount, don't contribute to weight,
@@ -68,7 +69,6 @@ func can_pickup_item(item : PickableItem) -> bool:
 # Attempts to add a node as an Item to this inventory, returns 'true'
 # if the attempt was successful, or 'false' otherwise
 func add_item(item : PickableItem) -> bool:
-	
 	var can_pickup : bool = can_pickup_item(item)
 	
 	if not can_pickup:
@@ -195,6 +195,8 @@ func equip_bulky_item(item : EquipmentItem):
 		item.transform = item.get_hold_transform()
 		bulky_equipment = item
 		emit_signal("bulky_item_changed")
+		if item.get_parent():
+			item.get_parent().remove_child(item)
 		owner.primary_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
 	pass

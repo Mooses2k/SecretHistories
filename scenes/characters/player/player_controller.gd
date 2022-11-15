@@ -70,8 +70,8 @@ func _physics_process(delta : float):
 	handle_grab(delta)
 	
 	handle_inventory(delta)
-	next_weapon()
-	previous_weapon()
+	next_item()
+	previous_item()
 	drop_grabbable()
 	empty_slot()
 
@@ -268,7 +268,6 @@ func update_throw_state(delta : float):
 
 
 func empty_slot():
-	
 	var inv = character.inventory
 	if inv.hotbar != null:
 		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
@@ -297,6 +296,7 @@ func handle_inventory(delta : float):
 
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
+		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
 			if i != inv.current_secondary_slot :
 				inv.current_primary_slot = i
@@ -326,8 +326,8 @@ func handle_inventory(delta : float):
 	
 	if Input.is_action_just_pressed("hotbar_11"):
 		if inv.current_secondary_slot != 10:
-			print("Testing")
 			inv.current_secondary_slot = 10
+
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_primary_item():
@@ -358,7 +358,7 @@ func handle_inventory(delta : float):
 			var origin : Vector3 = owner.drop_position_node.global_transform.origin
 			var end : Vector3 = active_mode.get_target_placement_position()
 			var dir : Vector3 = end - origin
-			dir = dir.normalized()*min(dir.length(), max_placement_distance)
+			dir = dir.normalized() * min(dir.length(), max_placement_distance)
 			var layers = item.collision_layer
 			var mask = item.collision_mask
 			item.collision_layer = item.dropped_layers
@@ -439,9 +439,9 @@ func drop_grabbable():
 		if current_object != null:
 			is_grabbing = false
 			interaction_handled = true
-			var impulse = active_mode.get_aim_direction()*throw_strength
+			var impulse = active_mode.get_aim_direction() * throw_strength
 			grab_object.apply_central_impulse(impulse)
-		wanna_grab=false
+		wanna_grab = false
 
 
 func change_stamina(amount: float) -> void:
@@ -449,17 +449,21 @@ func change_stamina(amount: float) -> void:
 	HUDS.tired(character.stamina);
 
 
-func previous_weapon():
-	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot != 0:
+func previous_item():
+	if Input.is_action_just_pressed("previous_item") and character.inventory.current_primary_slot != 0:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_primary_slot -=1 
 		
-	elif  Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot == 0:
+	elif  Input.is_action_just_pressed("previous_item") and character.inventory.current_primary_slot == 0:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_primary_slot = 10
 
 
-func next_weapon():
-	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot != 10:
+func next_item():
+	if Input.is_action_just_pressed("next_item") and character.inventory.current_primary_slot != 10:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_primary_slot += 1
 		
-	elif  Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot == 10:
+	elif  Input.is_action_just_pressed("next_item") and character.inventory.current_primary_slot == 10:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_primary_slot = 0

@@ -19,16 +19,15 @@ export var cooldown = 0.01
 export var can_Spin : bool
 export var throw_logic : bool
 
+export var element_path : NodePath
+onready var collision_and_mesh = get_node(element_path)
+export var normal_pos_path : NodePath
+onready var normal_pos = get_node(normal_pos_path)
 export var throw_pos_path : NodePath
 onready var throw_pos = get_node(throw_pos_path)
-export var hold_pos_path : NodePath
-onready var hold_pos = get_node(hold_pos_path)
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
-
-export var element_path : NodePath
-onready var elements = get_node(element_path)
 
 var can_hit = false
 var on_cooldown = false
@@ -46,8 +45,8 @@ func _ready():
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			elements.global_transform.origin = hold_pos.global_transform.origin
-			elements.global_rotation = hold_pos.global_rotation
+			collision_and_mesh.global_transform.origin = normal_pos.global_transform.origin
+			collision_and_mesh.global_rotation = normal_pos.global_rotation
 
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
@@ -78,8 +77,8 @@ func attack_thrust():
 
 func apply_throw_logic(impulse):
 	if throw_logic:
-		elements.global_transform.origin = throw_pos.global_transform.origin
-		elements.global_rotation = throw_pos.global_rotation
+		collision_and_mesh.global_transform.origin = throw_pos.global_transform.origin
+		collision_and_mesh.global_rotation = throw_pos.global_rotation
 	if can_Spin:
 		angular_velocity = Vector3(global_transform.basis.z*30)
 		apply_central_impulse(impulse)

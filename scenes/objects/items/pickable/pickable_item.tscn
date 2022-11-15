@@ -3,7 +3,6 @@
 [ext_resource path="res://scenes/objects/items/pickable/pickable_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=2]
 
-
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.2, 0.2, 0.2 )
 

@@ -30,7 +30,10 @@ cast_to = Vector3( 0, 0, -1000 )
 collision_mask = 13
 collide_with_areas = true
 
-[node name="ThrowPosition" type="Position3D" parent="HoldPosition" index="0"]
+[node name="NormalPosition" type="Position3D" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+
+[node name="ThrowPosition" type="Position3D" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]

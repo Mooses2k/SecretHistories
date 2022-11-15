@@ -48,6 +48,8 @@ item_size = 0
 item_name = "Hatchet"
 weapon_type = 2
 melee_damage = 40
+can_Spin = true
+throw_logic = true
 melee_damage_type = 1
 
 [node name="axe0326_Main_0" type="MeshInstance" parent="."]

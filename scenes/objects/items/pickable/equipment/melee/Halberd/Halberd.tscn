@@ -50,6 +50,7 @@ item_size = 2
 item_name = "Halberd"
 weapon_type = 6
 melee_damage = 70
+throw_logic = true
 melee_damage_type = 1
 
 [node name="CooldownTimer" type="Timer" parent="."]

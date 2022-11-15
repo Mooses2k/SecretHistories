@@ -129,11 +129,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/control_mode.gd"
 }, {
-"base": "MeleeItem",
-"class": "Dagger_item",
-"language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/dagger/Dagger_item.gd"
-}, {
 "base": "Spatial",
 "class": "Door",
 "language": "GDScript",
@@ -249,11 +244,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/equipment/components/rocks/Rock.gd"
 }, {
-"base": "MeleeItem",
-"class": "Sabre",
-"language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.gd"
-}, {
 "base": "Node",
 "class": "SettingsClass",
 "language": "GDScript",
@@ -324,7 +314,6 @@ _global_script_class_icons={
 "CharacterState": "",
 "ConsumableItem": "",
 "ControlMode": "",
-"Dagger_item": "",
 "Door": "",
 "Door_body": "",
 "Dynamite": "",
@@ -346,8 +335,8 @@ _global_script_class_icons={
 "PickupArea": "",
 "Player": "",
 "PlayerSensor": "",
+"RevolverItem": "",
 "Rock": "",
-"Sabre": "",
 "SettingsClass": "",
 "ShotgunItem": "",
 "TinyItem": "",

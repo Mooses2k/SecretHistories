@@ -54,6 +54,8 @@ equipped_mode = 3
 item_name = "Crowbar"
 weapon_type = 2
 melee_damage = 30
+can_Spin = true
+throw_logic = true
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

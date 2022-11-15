@@ -38,6 +38,8 @@ item_size = 0
 item_name = "Dagger"
 weapon_type = 1
 melee_damage = 30
+can_Spin = true
+throw_logic = true
 melee_damage_type = 2
 
 [node name="CooldownTimer" type="Timer" parent="."]

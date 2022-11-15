@@ -1,9 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/wilkinson_sabre/Saber_001.material" type="Material" id=4]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends MeleeItem
+class_name Sabre
+"
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.5
@@ -32,7 +36,7 @@ points = PoolVector3Array( 0.000189029, -0.00081782, -0.00243078, 0.000193082, -
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0413938, 0 )
 collision_layer = 64
 mass = 1.5
-script = ExtResource( 1 )
+script = SubResource( 6 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
@@ -69,7 +73,3 @@ script = ExtResource( 3 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -95, 8.30516e-06, 3.6303e-13, 0, -4.15258e-06, 95, 8.30516e-06, 95, 4.15258e-06, 0, 0.156858, 0 )
 shape = SubResource( 5 )
-
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
-[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
-[connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

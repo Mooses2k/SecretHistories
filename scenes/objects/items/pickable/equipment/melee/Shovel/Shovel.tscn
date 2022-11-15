@@ -94,6 +94,7 @@ item_size = 2
 item_name = "Shovel"
 weapon_type = 5
 melee_damage = 40
+throw_logic = true
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

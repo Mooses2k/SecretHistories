@@ -24,17 +24,11 @@ onready var throw_pos = get_node(throw_pos_path)
 export var normal_pos_path : NodePath
 onready var normal_pos = get_node(normal_pos_path)
 
-
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
 
-
-
 export var element_path : NodePath
 onready var elements = get_node(element_path)
-
-
-
 
 var can_hit = false
 var on_cooldown = false
@@ -55,11 +49,7 @@ func _process(delta):
 			elements.global_transform.origin = normal_pos.global_transform.origin
 			elements.global_rotation = normal_pos.global_rotation
 
-#
-	
-	
-	
-	
+
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
 	character = get_parent().get_parent().get_parent()
@@ -95,6 +85,7 @@ func apply_throw_logic(impulse):
 		apply_central_impulse(impulse)
 	else:
 		apply_central_impulse(impulse)
+
 
 func attack_cut():
 	character = get_parent().get_parent().get_parent()

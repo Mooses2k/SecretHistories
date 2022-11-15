@@ -64,6 +64,7 @@ item_size = 2
 item_name = "Pitchfork"
 weapon_type = 6
 melee_damage = 51
+throw_logic = true
 melee_damage_type = 2
 
 [node name="CooldownTimer" type="Timer" parent="."]

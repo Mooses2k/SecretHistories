@@ -12,13 +12,14 @@ onready var throw_pos = get_node(throw_pos_path)
 export var normal_pos_path : NodePath
 onready var normal_pos = get_node(normal_pos_path)
 
+
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var melee_hitbox = $Hitbox as Area
 
 
 
-export var Element_path : NodePath
-onready var Elements = get_node(Element_path)
+export var element_path : NodePath
+onready var elements = get_node(element_path)
 
 
 
@@ -28,14 +29,15 @@ var on_cooldown = false
 
 
 func _ready():
-	if throw_logic == true :
-		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			Elements.global_transform.origin = normal_pos.global_transform.origin
-			Elements.global_rotation = normal_pos.global_rotation
-
-		elif item_state == GlobalConsts.ItemState.DROPPED:
-			Elements.global_transform.origin = throw_pos.global_transform.origin
-			Elements.global_rotation = throw_pos.global_rotation
+	pass
+#	if throw_logic == true :
+#		if item_state == GlobalConsts.ItemState.EQUIPPED: 
+#			Elements.global_transform.origin = normal_pos.global_transform.origin
+#			Elements.global_rotation = normal_pos.global_rotation
+#
+#		elif item_state == GlobalConsts.ItemState.DROPPED:
+#			Elements.global_transform.origin = throw_pos.global_transform.origin
+#			Elements.global_rotation = throw_pos.global_rotation
 
 	if melee_damage_type == 1:
 		melee_damage/2
@@ -45,13 +47,10 @@ func _ready():
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED: 
-			Elements.global_transform.origin = normal_pos.global_transform.origin
-			Elements.global_rotation = normal_pos.global_rotation
+			elements.global_transform.origin = normal_pos.global_transform.origin
+			elements.global_rotation = normal_pos.global_rotation
 
-		elif item_state == GlobalConsts.ItemState.DROPPED:
-			Elements.global_transform.origin = throw_pos.global_transform.origin
-			Elements.global_rotation = throw_pos.global_rotation
-	
+#
 	
 	
 	
@@ -69,6 +68,9 @@ func attack(): # bug is it only checks for hit right when attack is first called
 		melee_anim.queue("Recovery1ToTierce")
 
 func apply_throw_logic(impulse):
+	if throw_logic:
+		elements.global_transform.origin = throw_pos.global_transform.origin
+		elements.global_rotation = throw_pos.global_rotation
 	if can_Spin:
 		angular_velocity = Vector3(global_transform.basis.z*30)
 		apply_central_impulse(impulse)

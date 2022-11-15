@@ -30,7 +30,7 @@ throw_logic = true
 throw_pos_path = NodePath("Throw_Pos")
 normal_pos_path = NodePath("Normal_Pos")
 melee_damage_type = 1
-Element_path = NodePath("CollisionShape")
+element_path = NodePath("CollisionShape")
 player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]
@@ -64,7 +64,7 @@ main_parent = NodePath("../..")
 [node name="Normal_Pos" type="Position3D" parent="."]
 
 [node name="Throw_Pos" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.274, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

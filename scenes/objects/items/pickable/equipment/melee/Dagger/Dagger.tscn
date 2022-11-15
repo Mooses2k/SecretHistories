@@ -30,7 +30,7 @@ can_Spin = true
 throw_logic = true
 throw_pos_path = NodePath("Throw_Pos")
 normal_pos_path = NodePath("Normal_Pos")
-Element_path = NodePath("CollisionShape")
+element_path = NodePath("CollisionShape")
 player_path = NodePath(".")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

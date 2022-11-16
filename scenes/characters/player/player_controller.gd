@@ -50,6 +50,13 @@ enum State {
 	STATE_NOCLIP,
 }
 
+const TEXTURE_SOUND_LIB = {
+	"checkerboard" : {
+		"amplifier" : 5.0,
+		"sfx_folder" : "addons/thief_controller/sfx/footsteps"
+	}
+}
+
 export var speed : float = 0.5
 export var gravity : float = 10.0
 export var jump_force : float = 3.5
@@ -79,6 +86,9 @@ onready var _collider : CollisionShape = owner.get_node("CollisionShape")
 export var _gun_cam_path : NodePath
 onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../Body/FPSCamera/GrabCast")
+onready var _surface_detector = get_node("../Body/SurfaceDetector")
+onready var _sound_emitter : PlayerSoundEmitter = get_node("../SoundEmitter")
+onready var _audio_player : PlayerAudio = get_node("../Audio")
 
 var _normal_collision_layer_and_mask : int = 1
 var _collider_normal_radius : float = 0.0
@@ -121,6 +131,10 @@ func _ready():
 	_normal_collision_layer_and_mask = owner.collision_layer
 	_camera_orig_pos_y = _camera.global_transform.origin.y
 	
+	_audio_player.load_sounds("addons/thief_controller/sfx/footsteps", 0)
+	_audio_player.load_sounds("addons/thief_controller/sfx/breathe", 1)
+	_audio_player.load_sounds("addons/thief_controller/sfx/landing", 2)
+	
 	active_mode.set_deferred("is_active", true)
 	pass # Replace with function body.
 	
@@ -141,16 +155,11 @@ func _physics_process(delta : float):
 	#handle_movement(delta)
 	handle_grab_input(delta)
 	handle_grab(delta)
-	
 	handle_inventory(delta)
 	next_weapon()
 	previous_weapon()
 	drop_grabbable()
 	empty_slot()
-
-	if is_grabbing==true:
-		drop_grabbable()
-#	handle_misc_controls(delta)
 	
 	if wanna_stand:
 		var from = _collider.shape.height
@@ -190,9 +199,9 @@ func _physics_process(delta : float):
 #				state = State.STATE_CRAWLING
 #				return
 #
-#			if Input.is_action_pressed("sneak"):
-#				_walk(delta, 0.75)
-#				return
+			if Input.is_action_pressed("sneak"):
+				_walk(delta, 0.75)
+				return
 #
 #			if Input.is_action_just_pressed("noclip"):
 #				state = State.STATE_NOCLIP
@@ -322,8 +331,6 @@ func _input(event):
 							character.inventory.current_primary_slot = 0
 						else:
 							character.inventory.current_primary_slot = 1
-					if character.inventory.current_primary_slot!=9:
-						character.inventory.current_primary_slot+=1
 	
 	if event is InputEventMouseMotion:
 		if (state == State.STATE_CLAMBERING_LEDGE 
@@ -345,57 +352,60 @@ func _input(event):
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
 
-#func handle_misc_controls(_delta : float):
-#	if Input.is_action_just_pressed("toggle_perspective"):
-#		active_mode_index = (active_mode_index + 1)%get_child_count()
-#		active_mode.is_active = false
-#		active_mode = get_child(active_mode_index)
-#		active_mode.is_active = true
+func _get_surface_texture() -> Dictionary:
+	if _surface_detector.get_collider():
+		var mesh = null
+		for node in _surface_detector.get_collider().get_children():
+			if node is MeshInstance:
+				if node.mesh != null:
+					mesh = node
+		
+		if !mesh:
+			return {}
+		
+		if mesh.get_surface_material(0) != null:
+				var tex = mesh.get_surface_material(0).albedo_texture
+				
+				if !tex:
+					return {}
+				
+				var path = tex.resource_path.split("/")
+				var n = path[path.size() - 1].split(".")[0]
+				if TEXTURE_SOUND_LIB.has(n):
+					return TEXTURE_SOUND_LIB[n]
+					
+	return {}
 
 
-#func handle_movement(_delta : float):
-#	var direction : Vector3 = Vector3.ZERO
-#	direction.x += Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-#	direction.z += Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-#	direction = movement_basis.xform(direction)
-#	direction = direction.normalized()*min(1.0, direction.length())
-#
-#	if Input.is_action_pressed("sprint") and stamina > 0:
-#		direction *= 0.5;
-#		change_stamina(-0.3)
-#	else:
-#		direction *= 0.2;
-#		if !Input.is_action_pressed("sprint"):
-#			change_stamina(0.3)
-##	print(stamina)
-#
-#	character.character_state.move_direction = direction
-#
-#	if direction == Vector3.ZERO:
-#		is_player_moving = false
-#		emit_signal("is_moving", is_player_moving)
-#	else:
-#		is_player_moving = true
-#		emit_signal("is_moving", is_player_moving)
+func _handle_player_sound_emission() -> void:
+	var result = _get_surface_texture()
+	
+	if result.size() == 0:
+		return
+	
+	_sound_emitter.radius = result["amplifier"]
+	
+	if result.sfx_folder != "":
+		_audio_player.load_sounds(result.sfx_folder, 0)
 
 
 func _walk(delta, speed_mod : float = 1.0) -> void:
 #	owner.collision_layer = _normal_collision_layer_and_mask
 #	owner.collision_mask = _normal_collision_layer_and_mask
-	
-#	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
-#		direction *= 0.5;
-#		change_stamina(-0.3)
-#	else:
-#		direction *= 0.2;
-#		if !Input.is_action_pressed("sprint"):
-#			change_stamina(0.3)
-#	print(stamina)
+
 	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	move_dir = move_dir.normalized()
 	move_dir = move_dir.rotated(Vector3.UP, owner.body.rotation.y)
+	
+	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
+		move_dir *= 1.5;
+		change_stamina(-0.3)
+	else:
+		move_dir *= 0.8
+		if !Input.is_action_pressed("sprint"):
+			change_stamina(0.3)
 	
 	var y_velo = velocity.y
 	
@@ -416,8 +426,8 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		is_player_moving = true
 		emit_signal("is_moving", is_player_moving)
 	
-#	if owner.is_on_floor() and !grounded and state != State.STATE_CROUCHING and _camera.stress < 0.1:
-#		#_audio_player.play_land_sound()
+	if owner.is_on_floor() and !grounded and state != State.STATE_CROUCHING and _camera.stress < 0.1:
+		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
 
 	grounded = owner.is_on_floor()
@@ -447,13 +457,13 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		_jumping = true
 		return
 		
-	#_handle_player_sound_emission()
+	_handle_player_sound_emission()
 	
 	if head_bob_enabled and grounded and state == State.STATE_WALKING:
 		_head_bob(delta)
 		
-#	if velocity.length() > 0.1 and grounded and not _audio_player.playing:
-#		_audio_player.play_footstep_sound()
+	if velocity.length() > 0.1 and grounded and not _audio_player.playing:
+		_audio_player.play_footstep_sound()
 
 
 func _head_bob(delta : float) -> void:
@@ -558,6 +568,23 @@ func _crouch() -> void:
 #		_collider.shape.radius = _collider_normal_radius
 
 
+#func _lean() -> void:
+#	var axis = (Input.get_action_strength("right") - Input.get_action_strength("left"))
+#
+#	var from = _camera.global_transform.origin
+#	var to = _camera_pos_normal + (_camera.global_transform.basis.x * 0.2 * axis)
+#	_camera.global_transform.origin = lerp(from, to, 0.1)
+#
+#	from = _camera.rotation_degrees.z
+#	to = max_lean * axis
+#	_camera.rotation_degrees.z = lerp(from, to, 0.1)
+#
+#	var diff = _camera.global_transform.origin - _camera_pos_normal
+#	if axis == 0 and diff.length() <= 0.01:
+#		state = State.STATE_WALKING
+#		return
+
+
 func _process_frob_and_drag():
 	if (Input.is_action_just_pressed("main_use_primary") 
 		and _click_timer == 0.0 
@@ -617,7 +644,7 @@ func _process_frob_and_drag():
 	
 #	if !drag_object and not _frob_raycast.is_colliding():
 #		_camera.set_crosshair_state("normal")
-	
+
 
 func _drag(damping : float = 0.5, s2ms : int = 15) -> void:
 	var d = _frob_raycast.global_transform.basis.z.normalized()
@@ -629,18 +656,49 @@ func _drag(damping : float = 0.5, s2ms : int = 15) -> void:
 	var v2 = (d1 * s2ms) * (1.0 - damping) / drag_object.mass
 	
 	drag_object.linear_velocity = v1 + v2
-	
-	
+
+
 func _throw(throw_force : float = 10.0) -> void:
 	var d = -_camera.global_transform.basis.z.normalized()
 	drag_object.apply_central_impulse(d * throw_force)
 	_camera.add_stress(0.2)
 
 
+#func handle_misc_controls(_delta : float):
+#	if Input.is_action_just_pressed("toggle_perspective"):
+#		active_mode_index = (active_mode_index + 1)%get_child_count()
+#		active_mode.is_active = false
+#		active_mode = get_child(active_mode_index)
+#		active_mode.is_active = true
+
+
+#func handle_movement(_delta : float):
+#	var direction : Vector3 = Vector3.ZERO
+#	direction.x += Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+#	direction.z += Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+#	direction = movement_basis.xform(direction)
+#	direction = direction.normalized()*min(1.0, direction.length())
+#
+#	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
+#		direction *= 0.5;
+#		change_stamina(-0.3)
+#	else:
+#		direction *= 0.2;
+#		if !Input.is_action_pressed("sprint"):
+#			change_stamina(0.3)
+##	print(stamina)
+#
+#	character.character_state.move_direction = direction
+#
+#	if direction == Vector3.ZERO:
+#		is_player_moving = false
+#		emit_signal("is_moving", is_player_moving)
+#	else:
+#		is_player_moving = true
+#		emit_signal("is_moving", is_player_moving)
+
 
 func handle_grab_input(delta : float):
-
-
 	if is_grabbing:
 		wanna_grab = true
 	else:
@@ -673,6 +731,7 @@ func handle_grab_input(delta : float):
 			wanna_grab=false 
 			interaction_handled = true
 
+
 func handle_grab(delta : float):
 	if wants_to_drop == false :
 		if wanna_grab and not is_grabbing:
@@ -686,10 +745,8 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 			
-			
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
-
 
 	if is_grabbing:
 		
@@ -723,7 +780,7 @@ func handle_grab(delta : float):
 		desired_velocity = desired_velocity.normalized()*min(desired_velocity.length(), 2.0)
 		
 		# Desired velocity follows the player character
-		desired_velocity += owner.linear_velocity
+		desired_velocity += velocity
 		
 		# Impulse is based on how much the velocity needs to change
 		var velocity_delta = desired_velocity - local_velocity
@@ -740,7 +797,6 @@ func handle_grab(delta : float):
 		
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
-
 
 
 func update_throw_state(delta : float):
@@ -764,7 +820,6 @@ func update_throw_state(delta : float):
 	pass
 
 
-
 func empty_slot():
 	
 	var inv = character.inventory
@@ -772,6 +827,7 @@ func empty_slot():
 		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
 			inv.hotbar[10] = gun
+
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
@@ -901,7 +957,8 @@ func handle_inventory(delta : float):
 #					item = yield(character.inventory.drop_current_item(), "completed") as RigidBody
 #					if item:
 #						item.call_deferred("global_translate", result.motion)
-#
+
+
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
 		if interaction_target != null:
 			if interaction_target is PickableItem and character.inventory.current_primary_slot != 10:
@@ -909,7 +966,7 @@ func handle_inventory(delta : float):
 				interaction_target = null
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
-	
+
 #	if Input.is_action_pressed("throw") and throw_state:
 #		throw_press_length += delta
 #	else:
@@ -933,13 +990,6 @@ func drop_grabbable():
 			grab_object.apply_central_impulse(impulse)
 	if Input.is_action_just_released("main_throw") or Input.is_action_just_released("offhand_throw"):
 		wants_to_drop = false
-#		
-	#when the drop buttons or keys are pressed , grabable objects are released
-	if Input.is_action_just_pressed("main_throw") or   Input.is_action_just_pressed("offhand_throw"):
-		is_grabbing = false
-		interaction_handled = true
-		var impulse = active_mode.get_aim_direction()*throw_strength
-		grab_object.apply_central_impulse(impulse)
 
 
 func change_stamina(amount: float) -> void:

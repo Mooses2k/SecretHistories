@@ -19,12 +19,12 @@ func _ready():
 	#(self.material_override as ShaderMaterial).set_shader_param("albedo", texture)
 
 
-func _process(delta):
+func _physics_process(delta):
 	#health_label.text = str(character.current_health)
 	#input_label.visible = owner.pickup_area.get_item_list().size() > 0
 	if not player_health < 40:
 		if pointCast.is_colliding():
-			if pointCast.get_collider().name == "ground":
+			if pointCast.get_collider().name == "ground" and owner.colliding_pickable_items.empty():
 				if not is_moving:
 					if not is_hp_triggered:
 						$Timer.stop()

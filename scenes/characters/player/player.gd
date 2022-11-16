@@ -5,8 +5,9 @@ class_name Player
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $Body/FPSCamera
 onready var Gun_cam=$Body/ViewportContainer2/Viewport/GunCam
-onready var grabcast=$Body/FPSCamera/GrabCast
+onready var grab_cast=$Body/FPSCamera/GrabCast
 
+var colliding_pickable_items = []
 
 #func _ready():
 #	body.add_collision_exception_with()
@@ -14,14 +15,33 @@ onready var grabcast=$Body/FPSCamera/GrabCast
 
 func _process(delta):
 	Gun_cam.global_transform = fps_camera.global_transform
+	
+	if colliding_pickable_items.empty():
+		$Indication_canvas/Indication_system/Dot.hide()
+	else:
+		$Indication_canvas/Indication_system/Dot.show()
+	
 	grab_indicator()
+	
+
 
 
 func grab_indicator():
-	var grabable_object=grabcast.get_collider()
+	var grabable_object=grab_cast.get_collider()
 	
-	if grabcast.is_colliding() and grabable_object is PickableItem:
+	if grab_cast.is_colliding() and grabable_object is PickableItem:
 		if $PlayerController.is_grabbing==false:
 			$Indication_canvas/Indication_system/Grab.show()
 	else:
 			$Indication_canvas/Indication_system/Grab.hide()
+
+
+func _on_GrabCastDot_body_entered(body):
+	if body is PickableItem:
+		if !colliding_pickable_items.has(body):
+			colliding_pickable_items.append(body)
+
+
+func _on_GrabCastDot_body_exited(body):
+	if body is PickableItem:
+		colliding_pickable_items.remove(colliding_pickable_items.find(body))

@@ -33,7 +33,7 @@ func _process(_delta):
 	if stress == 0.0:
 		_camera_rotation_reset = rotation_degrees
 	
-	rotation_degrees = _process_shake(_camera_rotation_reset, _delta)
+#	rotation_degrees = _process_shake(_camera_rotation_reset, _delta)
 
 
 func _process_shake(angle_center : Vector3, delta : float) -> Vector3:

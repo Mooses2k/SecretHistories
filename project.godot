@@ -112,7 +112,7 @@ _global_script_classes=[ {
 "base": "ConsumableItem",
 "class": "BombItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/Bomb.gd"
+"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/bomb.gd"
 }, {
 "base": "Reference",
 "class": "CharacterState",
@@ -142,7 +142,7 @@ _global_script_classes=[ {
 "base": "BombItem",
 "class": "Dynamite",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/Dynamite/Dynamite.gd"
+"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/dynamite/dynamite.gd"
 }, {
 "base": "Spatial",
 "class": "Effect",
@@ -177,7 +177,7 @@ _global_script_classes=[ {
 "base": "BombItem",
 "class": "Grenade",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/Grenade/Grenade.gd"
+"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/grenade/grenade.gd"
 }, {
 "base": "Node",
 "class": "Groups",
@@ -252,7 +252,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "Rock",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/components/rocks/Rock.gd"
+"path": "res://scenes/objects/items/pickable/equipment/components/rocks/rock.gd"
 }, {
 "base": "Node",
 "class": "SettingsClass",

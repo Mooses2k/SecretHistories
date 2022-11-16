@@ -2,8 +2,8 @@ extends ConsumableItem
 class_name BombItem
 
 
-export var radius = 5
-export var fragments = 200
+export var radius = 5 # meters
+export var fragments = 200 # number of raycasts and/or particles
 
 var countdown_started = false
 

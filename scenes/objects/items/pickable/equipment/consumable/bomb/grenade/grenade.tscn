@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/consumable/bomb/Grenade/Grenade.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/consumable/bomb/grenade/grenade.gd" type="Script" id=1]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Material.material" type="Material" id=2]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Mixed_AO.png" type="Texture" id=3]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Base_color.png" type="Texture" id=4]
@@ -8,11 +8,12 @@
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Normal.png" type="Texture" id=6]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Roughness.png" type="Texture" id=7]
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=8]
-[ext_resource path="res://scenes/effects/explosion/Explosions.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/effects/explosion/explosions.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=10]
 [ext_resource path="res://scenes/effects/explosion/smokeshader.tres" type="Shader" id=11]
 [ext_resource path="res://scenes/effects/effects.gd" type="Script" id=12]
 [ext_resource path="res://scenes/effects/explosion_audio.tscn" type="PackedScene" id=13]
+
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "FrenchGrenade_Cube"

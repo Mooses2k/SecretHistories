@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/characters/enemies/zombie/grab_area.gd" type="Script" id=3]
+[ext_resource path="res://scenes/characters/undead/revenant/grab_area.gd" type="Script" id=3]
 [ext_resource path="res://core/ai/behavior_tree.gd" type="Script" id=4]
 [ext_resource path="res://core/ai/flow_nodes/bt_sequence.gd" type="Script" id=5]
 [ext_resource path="res://core/ai/action_nodes/bt_go_to_target.gd" type="Script" id=6]
@@ -12,6 +12,7 @@
 [ext_resource path="res://core/ai/flow_nodes/bt_selector.gd" type="Script" id=10]
 [ext_resource path="res://scenes/sensors/direct_player_sight/direct_player_sight.tscn" type="PackedScene" id=11]
 [ext_resource path="res://core/ai/action_nodes/bt_wait_random.gd" type="Script" id=12]
+
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.3

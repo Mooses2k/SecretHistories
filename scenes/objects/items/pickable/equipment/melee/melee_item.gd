@@ -16,8 +16,9 @@ enum WeaponType {
 export(WeaponType) var weapon_type : int = 0
 export var melee_damage = 0
 export var cooldown = 0.01
-export var can_spin : bool
+
 export var throw_logic : bool
+export var can_spin : bool
 
 #export var element_path : NodePath
 #onready var collision_and_mesh = get_node(element_path)
@@ -41,6 +42,7 @@ onready var character = get_parent()
 
 func _ready():
 	pass
+
 
 func _process(delta):
 	if throw_logic == true :
@@ -71,14 +73,12 @@ func attack_thrust():
 			can_hit = false
 			melee_anim.queue("polearm_recovery_from_right")
 
-	# need something here to determine type of weapon, for now, a sabre
-	#determine attack angle from where pointing
 
 func apply_throw_logic(impulse):
 	if throw_logic:
 		self.global_rotation = throw_pos.global_rotation
 	if can_spin:
-		angular_velocity = Vector3(global_transform.basis.z * 15)
+		angular_velocity = Vector3(global_transform.basis.z * -15)
 		apply_central_impulse(impulse)
 	else:
 		apply_central_impulse(impulse)

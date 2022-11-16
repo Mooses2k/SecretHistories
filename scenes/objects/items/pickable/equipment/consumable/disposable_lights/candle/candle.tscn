@@ -46,7 +46,7 @@ height = 0.08
 radial_segments = 6
 rings = 1
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=10]
 code = "shader_type spatial;
 render_mode blend_add, unshaded;
 
@@ -70,14 +70,14 @@ void fragment() {
 offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
 colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=6]
+[sub_resource type="GradientTexture" id=11]
 gradient = SubResource( 5 )
 width = 32
 
 [sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 4 )
+shader = SubResource( 10 )
 shader_param/INTENSITY = 4.0
-shader_param/COLOR_RAMP = SubResource( 6 )
+shader_param/COLOR_RAMP = SubResource( 11 )
 
 [node name="Candle" instance=ExtResource( 1 )]
 script = ExtResource( 3 )

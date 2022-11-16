@@ -1,7 +1,7 @@
 extends ToolItem
 
 
-onready var firelight = $Light
+onready var firelight = $FireOrigin/Fire/Light
 onready var DurableTimer = $Durability
 
 var has_ever_been_on = false 
@@ -30,10 +30,13 @@ func _use_primary():
 	if !DurableTimer.is_stopped():
 		firelight.visible = not firelight.visible
 		$AnimationPlayer.play("flicker")
+		$FireOrigin/Fire.emitting = true
 	else:
 		$AnimationPlayer.stop()
+		$FireOrigin/Fire.emitting = false
 
 
 func _on_Durability_timeout():
 	firelight.visible = false
 	$AnimationPlayer.stop()
+	$FireOrigin/Fire.emitting = false

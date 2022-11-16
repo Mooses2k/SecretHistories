@@ -5,7 +5,6 @@
 [ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/components/rocks/M_Rock1.material" type="Material" id=5]
 
-
 [sub_resource type="SphereShape" id=8]
 radius = 0.101082
 
@@ -62,7 +61,6 @@ transform = Transform( 0.001, 0, 0, 0, -4.37114e-11, -0.001, 0, 0.001, -4.37114e
 mesh = SubResource( 6 )
 skeleton = NodePath("../..")
 script = ExtResource( 3 )
-main_parent = NodePath("../..")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.0006, 0, 0, 0, -2.62268e-11, -0.0006, 0, 0.0006, -2.62268e-11, -2.26165e-05, -0.00244474, -4.92275e-05 )

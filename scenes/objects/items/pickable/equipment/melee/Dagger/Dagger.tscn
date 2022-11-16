@@ -26,11 +26,10 @@ equipped_mode = 3
 item_size = 0
 item_name = "Dagger"
 melee_damage = 7
-can_Spin = true
+can_spin = true
 throw_logic = true
 throw_pos_path = NodePath("Throw_Pos")
 normal_pos_path = NodePath("Normal_Pos")
-element_path = NodePath("CollisionShape")
 player_path = NodePath(".")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

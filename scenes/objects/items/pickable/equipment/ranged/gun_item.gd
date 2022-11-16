@@ -36,7 +36,6 @@ var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
 
 export (NodePath) var detection_raycast
-
 onready var raycast = get_node(detection_raycast)
 
 

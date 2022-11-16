@@ -20,9 +20,6 @@ melee_style = 0
 player_path = NodePath("")
 detection_raycast = NodePath("")
 
-[node name="MeshInstance" parent="." index="0"]
-main_parent = NodePath("..")
-
 [node name="ReloadTimer" type="Timer" parent="." index="2"]
 one_shot = true
 

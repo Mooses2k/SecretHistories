@@ -1,13 +1,16 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" type="Script" id=1]
-[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/shotgun_item.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://resources/models/items/ranged/double_barrel_shotguns/DoubleBarrel.material" type="Material" id=3]
 [ext_resource path="res://resources/tiny_items/ammunition/shotgun_shell.tres" type="Resource" id=4]
 [ext_resource path="res://scenes/effects/shotgun_audio.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/gun_item.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_sawed_shotgun/smoke.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/smoke.tscn" type="PackedScene" id=8]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends GunItem
+"
 
 [sub_resource type="ArrayMesh" id=3]
 resource_name = "DoubleBarrel_Circle011"
@@ -48,8 +51,7 @@ points = PoolVector3Array( -0.0843641, 0.085076, 0.00704932, -0.0874639, 0.07800
 
 [node name="ShotgunItem" instance=ExtResource( 7 )]
 mass = 3.0
-continuous_cd = true
-script = ExtResource( 2 )
+script = SubResource( 6 )
 item_name = "Double-barrel shotgun"
 ammo_types = [ ExtResource( 4 ) ]
 ammunition_capacity = 2
@@ -68,10 +70,11 @@ hit_effect = ExtResource( 6 )
 [node name="Flash" type="OmniLight" parent="Effects" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
 visible = false
+light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 5.0
 shadow_enabled = true
-omni_range = 15.0
-omni_attenuation = 4.82968
+omni_range = 6.0
+omni_attenuation = 7.0
 
 [node name="FlashTimer" type="Timer" parent="Effects/Flash" index="0"]
 one_shot = true
@@ -90,6 +93,12 @@ skin = SubResource( 4 )
 [node name="CollisionShape" parent="." index="2"]
 transform = Transform( -5.24537e-08, 0, 1.2, 0, 1.2, 0, -1.2, 0, -5.24537e-08, 0, -0.0507376, -0.140181 )
 shape = SubResource( 5 )
+
+[node name="RayCast" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0222715, -0.702074 )
+
+[node name="HoldPosition" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0552596 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_ShotgunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_ShotgunItem_target_hit"]

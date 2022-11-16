@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
@@ -8,7 +8,10 @@
 [ext_resource path="res://resources/models/items/ranged/martini-henry_rifle/Material_005.material" type="Material" id=6]
 [ext_resource path="res://resources/models/items/ranged/martini-henry_rifle/Material_006.material" type="Material" id=7]
 [ext_resource path="res://resources/models/items/ranged/martini-henry_rifle/Material_004.material" type="Material" id=8]
-
+[ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/martini_henry_rifle/smoke.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/effects/martini_audio.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/martini_henry_rifle/effects.gd" type="Script" id=12]
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "martini_henry_Mesh_0"
@@ -100,7 +103,7 @@ points = PoolVector3Array( 10.1372, -0.404484, -2.0994, 10.1486, -0.352186, -2.1
 [node name="martini_henry_Rifle" instance=ExtResource( 1 )]
 mass = 1.0
 continuous_cd = true
-item_name = "martini_henry_Rifle"
+item_name = "Martini-Henry rifle"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1
@@ -109,7 +112,31 @@ cooldown = 0.1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
-[node name="MeshInstance" parent="." index="0"]
+[node name="Effects" type="Spatial" parent="." index="0"]
+script = ExtResource( 12 )
+smoke_particles = ExtResource( 10 )
+sound_effect = ExtResource( 11 )
+hit_effect = ExtResource( 9 )
+
+[node name="Flash" type="OmniLight" parent="Effects" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
+visible = false
+light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 9.0
+omni_attenuation = 7.0
+
+[node name="FlashTimer" type="Timer" parent="Effects/Flash" index="0"]
+one_shot = true
+
+[node name="SmokeOrigin" type="Position3D" parent="Effects" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.38389 )
+
+[node name="SoundOrigin" type="Position3D" parent="Effects" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
+
+[node name="MeshInstance" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0 )
 mesh = null
 
@@ -141,31 +168,26 @@ transform = Transform( 16.2839, 0, 0, 0, 0, 16.2839, 0, -15.008, 0, -165.517, 34
 mesh = SubResource( 7 )
 material/0 = ExtResource( 5 )
 script = ExtResource( 4 )
-main_parent = NodePath("../../../../../../../../../..")
 
 [node name="Mesh_1" type="MeshInstance" parent="MeshInstance/martini_henry/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f2084ca24d164038b9a54167919ef8bcfbx/RootNode/Armature/Armature001/Node_7" index="1"]
 mesh = SubResource( 8 )
 material/0 = ExtResource( 8 )
 script = ExtResource( 4 )
-main_parent = NodePath("../../../../../../../../../..")
 
 [node name="Mesh_2" type="MeshInstance" parent="MeshInstance/martini_henry/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f2084ca24d164038b9a54167919ef8bcfbx/RootNode/Armature/Armature001/Node_7" index="2"]
 mesh = SubResource( 9 )
 material/0 = ExtResource( 6 )
 script = ExtResource( 4 )
-main_parent = NodePath("../../../../../../../../../..")
 
 [node name="Mesh_3" type="MeshInstance" parent="MeshInstance/martini_henry/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f2084ca24d164038b9a54167919ef8bcfbx/RootNode/Armature/Armature001/Node_7" index="3"]
 mesh = SubResource( 10 )
 material/0 = ExtResource( 6 )
 script = ExtResource( 4 )
-main_parent = NodePath("../../../../../../../../../..")
 
 [node name="Mesh_4" type="MeshInstance" parent="MeshInstance/martini_henry/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f2084ca24d164038b9a54167919ef8bcfbx/RootNode/Armature/Armature001/Node_7" index="4"]
 mesh = SubResource( 11 )
 material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
-main_parent = NodePath("../../../../../../../../../..")
 
 [node name="_rootJoint" type="Spatial" parent="MeshInstance/martini_henry/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f2084ca24d164038b9a54167919ef8bcfbx/RootNode/Armature/Armature001" index="1"]
 transform = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0 )
@@ -183,24 +205,28 @@ transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0 )
 
 [node name="Node_15" type="Spatial" parent="MeshInstance/martini_henry/RootNode (gltf orientation matrix)/RootNode (model correction matrix)/f2084ca24d164038b9a54167919ef8bcfbx/RootNode/Lamp/Node_14" index="0"]
 
-[node name="CollisionShape" parent="." index="1"]
+[node name="CollisionShape" parent="." index="2"]
 transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )
 shape = SubResource( 12 )
 
-[node name="RayCast" parent="." index="4"]
+[node name="RayCast" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1399 )
 
-[node name="HoldPosition" parent="." index="5"]
+[node name="HoldPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0151194, 0.198463 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="." index="6"]
+[node name="CollisionShape2" type="CollisionShape" parent="." index="7"]
 transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )
 shape = SubResource( 13 )
 
-[node name="CollisionShape3" type="CollisionShape" parent="." index="7"]
+[node name="CollisionShape3" type="CollisionShape" parent="." index="8"]
 transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )
 shape = SubResource( 14 )
 
-[node name="CollisionShape4" type="CollisionShape" parent="." index="8"]
+[node name="CollisionShape4" type="CollisionShape" parent="." index="9"]
 transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )
 shape = SubResource( 15 )
+
+[connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
+[connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]
+[connection signal="timeout" from="Effects/Flash/FlashTimer" to="Effects" method="_on_FlashTimer_timeout"]

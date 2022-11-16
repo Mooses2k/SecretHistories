@@ -9,3 +9,14 @@ script = ExtResource( 1 )
 [node name="Explosion" parent="." instance=ExtResource( 2 )]
 transform = Transform( -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0 )
 amount = 40
+
+[node name="Flash" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
+visible = false
+light_energy = 5.0
+shadow_enabled = true
+omni_range = 15.0
+omni_attenuation = 4.82968
+
+[node name="FlashTimer" type="Timer" parent="Flash"]
+one_shot = true

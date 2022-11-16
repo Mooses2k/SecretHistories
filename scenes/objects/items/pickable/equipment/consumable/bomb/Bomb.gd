@@ -8,6 +8,7 @@ export var fragments = 200
 var countdown_started = false
 
 onready var countdown_timer = $Countdown
+onready var flash = $Flash
 
 
 func _ready():
@@ -31,6 +32,9 @@ func _use_primary():
 
 
 func _on_Countdown_timeout():
+	flash.visible = true
+	flash.get_node("FlashTimer").start()
+	$Effect.handle_sound()
 	$Explosion.emitting = true
 	$Shrapnel.emitting = true
 	$Fuse.emitting = false
@@ -39,3 +43,8 @@ func _on_Countdown_timeout():
 	# below lines fix crash if bomb is still in hands when explodes
 	if get_parent().get_parent().get_parent().is_in_group("CHARACTER"):
 		get_parent().get_parent().get_parent().drop_consumable(self)
+
+
+# this doesn't work - it doesn't timeout until apparently the queue_free
+func _on_FlashTimer_timeout():
+	flash.visible = false

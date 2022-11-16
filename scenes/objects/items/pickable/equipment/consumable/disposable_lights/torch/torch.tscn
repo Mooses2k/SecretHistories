@@ -132,7 +132,7 @@ visible = false
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.2
 shadow_enabled = true
-omni_range = 6.0
+omni_range = 9.0
 omni_attenuation = 10.0
 
 [node name="Smoke" type="Particles" parent="FireOrigin" index="1"]

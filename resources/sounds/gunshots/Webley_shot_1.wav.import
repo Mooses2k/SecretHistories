@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/49512__jon285__357mag.wav-23a8713217f0f98acb4ee9b565e4f087.sample"
+path="res://.import/Webley_shot_1.wav-94a801d0346655f40654b6dd03fccd39.sample"
 
 [deps]
 
-source_file="res://resources/sounds/49512__jon285__357mag.wav"
-dest_files=[ "res://.import/49512__jon285__357mag.wav-23a8713217f0f98acb4ee9b565e4f087.sample" ]
+source_file="res://resources/sounds/gunshots/Webley_shot_1.wav"
+dest_files=[ "res://.import/Webley_shot_1.wav-94a801d0346655f40654b6dd03fccd39.sample" ]
 
 [params]
 

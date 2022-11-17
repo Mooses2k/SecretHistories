@@ -366,8 +366,6 @@ ChangeScene="*res://globals/change_scene.gd"
 window/size/width=1920
 window/size/height=1080
 window/size/fullscreen=true
-window/size/test_width=1024
-window/size/test_height=600
 
 [editor_plugins]
 

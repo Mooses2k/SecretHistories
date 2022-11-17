@@ -19,7 +19,8 @@ onready var primary_equipment_root = $Body/PrimaryEquipmentRoot
 onready var secondary_equipment_root = $Body/SecondaryEquipmentRoot
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
-
+onready var skeleton = $Body/MeshInstance/rig_deform001/Skeleton
+onready var collision_shape = $CollisionShape
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
@@ -82,7 +83,8 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			self.emit_signal("character_died")
 			
 			if self.name != "Player":
-				self.queue_free()
+				collision_shape.disabled = true
+				skeleton.physical_bones_start_simulation()
 
 #for testing
 func _input(event):

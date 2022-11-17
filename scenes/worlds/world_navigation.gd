@@ -2,7 +2,6 @@ extends Spatial
 
 export var margin : float = 0.3
 export var wall_thickness : float = 0.15
-export var elevation : float = 0.2
 export var preview : bool = false
 export var preview_material : Material
 #export var doors_enabled : bool = true setget set_doors_enabled
@@ -44,7 +43,9 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 		doors[idx] = value
 
 func update_navigation():
-	NavigationServer.map_set_edge_connection_margin(get_world().navigation_map, 0.01)
+	var cell_size = 0.1;
+	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
+	var cell_height = NavigationServer.map_get_cell_height(get_world().navigation_map)
 	var all_points = Array()
 	var rooms = PoolIntArray()
 	rooms.resize(data.cell_count)
@@ -78,17 +79,19 @@ func update_navigation():
 							var pos = Vector3.ZERO
 							for v in verts.size():
 								var vert = verts[v]
-								verts_3d[v] = Vector3(vert.x, elevation, vert.y)
+								verts_3d[v] = Vector3(vert.x, cell_height, vert.y)
 								pos += verts_3d[v]
 							pos/= 4.0
 							pos.y = 0.0
 							var navmesh = NavigationMesh.new()
-							navmesh.cell_size = 0.15
+							navmesh.cell_size = cell_size
+							navmesh.cell_height = cell_height
 							navmesh.vertices = verts_3d
 							all_points.append_array(Array(verts_3d))
 							navmesh.polygons = [PoolIntArray([0, 1, 2, 3])]
 							var navmesh_instance = NavigationMeshInstance.new()
 							navmesh_instance.navmesh = navmesh
+							
 							call_deferred("add_child", navmesh_instance)
 #							var navmesh_index = navmesh_add(navmesh, Transform.IDENTITY)
 							set_door_navmesh_instance(current, dir, navmesh_instance)
@@ -110,10 +113,11 @@ func update_navigation():
 			vertices_3d.resize(vertices_2d.size())
 			for v in vertices_2d.size():
 				var vertex_2d = vertices_2d[v]
-				vertices_3d[v] = Vector3(vertex_2d.x, elevation, vertex_2d.y)
+				vertices_3d[v] = Vector3(vertex_2d.x, cell_height, vertex_2d.y)
 			
 			var navmesh = NavigationMesh.new()
-			navmesh.cell_size = 1.5
+			navmesh.cell_size = cell_size
+			navmesh.cell_height = cell_height
 			navmesh.vertices = vertices_3d
 			all_points.append_array(Array(vertices_3d))
 			navmesh.polygons = navpoly.polygons

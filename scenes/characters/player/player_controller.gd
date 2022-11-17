@@ -166,10 +166,6 @@ func _physics_process(delta : float):
 		var to = _collider_normal_height
 		_collider.shape.height = lerp(from, to, 0.1)
 
-		from = _collider.shape.radius
-		to = _collider_normal_radius
-		_collider.shape.radius = lerp(from, to, 0.1)
-
 		_collider.rotation_degrees.x = 90
 
 		from = _camera.global_transform.origin
@@ -199,9 +195,9 @@ func _physics_process(delta : float):
 #				state = State.STATE_CRAWLING
 #				return
 #
-			if Input.is_action_pressed("sneak"):
-				_walk(delta, 0.75)
-				return
+#			if Input.is_action_pressed("sneak"):
+#				_walk(delta, 0.75)
+#				return
 #
 #			if Input.is_action_just_pressed("noclip"):
 #				state = State.STATE_NOCLIP
@@ -399,7 +395,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = move_dir.normalized()
 	move_dir = move_dir.rotated(Vector3.UP, owner.body.rotation.y)
 	
-	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
+	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false and !is_crouching:
 		move_dir *= 1.5;
 		change_stamina(-0.3)
 	else:
@@ -439,14 +435,15 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		velocity.y = -0.01
 		_jumping = false
 	
-	if grounded and Input.is_action_just_pressed("clamber"):
-		if state != State.STATE_WALKING or _jumping:
+	if grounded and Input.is_action_pressed("clamber"):
+		if is_crouching:
+			pass
+		elif state != State.STATE_WALKING or _jumping:
 			return
 		
 		# Check for clamber
 		var c = _clamber_m.attempt_clamber()
 		if c != Vector3.ZERO:
-			print(c)
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE
 #			_audio_player.play_clamber_sound(true)
@@ -497,10 +494,6 @@ func _crouch() -> void:
 	var to = _collider_normal_height * crouch_rate
 	_collider.shape.height = lerp(from, to, 0.1)
 	
-	from = _collider.shape.radius
-	to = _collider_normal_radius * crouch_rate
-	_collider.shape.radius = lerp(from, to, 0.1)
-	
 	_collider.rotation_degrees.x = 0
 	
 	from = _camera.global_transform.origin
@@ -511,8 +504,6 @@ func _crouch() -> void:
 	
 	if is_player_crouch_toggle:
 		return
-		
-
 		
 	if !Input.is_action_pressed("crouch") and state == State.STATE_CROUCHING:
 		var pos = owner.global_transform.origin

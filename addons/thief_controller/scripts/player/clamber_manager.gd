@@ -38,7 +38,7 @@ func attempt_clamber() -> Vector3:
 
 func _test_clamber_ledge() -> Vector3:
 	var user_forward = -_user.global_transform.basis.z.normalized()
-	var space = _get_world().direct_space_state
+	var space = _world.direct_space_state
 	var pos = _user.global_transform.origin
 	var d1 = pos + Vector3.UP * 1.25
 	var d2 = d1 + user_forward
@@ -66,7 +66,7 @@ func _test_clamber_ledge() -> Vector3:
 				
 						if r.position.y < pos.y:
 							return Vector3.ZERO
-						print("ledge")
+					
 						return r.position + offset
 				
 	return Vector3.ZERO
@@ -74,7 +74,7 @@ func _test_clamber_ledge() -> Vector3:
 
 func _test_clamber_vent() -> Vector3:
 	var cam_forward = -_camera.global_transform.basis.z.normalized() * 0.4
-	var space = _get_world().direct_space_state
+	var space = _world.direct_space_state
 	var pos = _user.global_transform.origin
 	var d1 = _camera.global_transform.origin + cam_forward
 	var d2 = d1 + Vector3.DOWN * 6
@@ -95,7 +95,7 @@ func _test_clamber_vent() -> Vector3:
 				
 				if r.position.y < pos.y:
 					return Vector3.ZERO
-				print("vent")
+				
 				return r.position + offset
 				
 	return Vector3.ZERO
@@ -103,7 +103,7 @@ func _test_clamber_vent() -> Vector3:
 
 # Nudging may need some refining
 func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
-	var state = _get_world().direct_space_state
+	var state = _world.direct_space_state
 	var shape = BoxShape.new()
 	shape.extents = Vector3.ONE * box_size
 	
@@ -113,7 +113,6 @@ func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
 	var result = state.intersect_shape(params)
 	
 	for i in range(result.size() - 1):
-		print(result[i].collider)
 		if result[i].collider == _user:
 			result.remove(i)
 	
@@ -155,7 +154,7 @@ func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
 
 
 func _check_gap(pos : Vector3) -> bool:
-	var space = _get_world().direct_space_state
+	var space = _world.direct_space_state
 	
 	var c = 0
 	

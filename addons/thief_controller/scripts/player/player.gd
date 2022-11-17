@@ -285,7 +285,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		velocity.y = -0.01
 		
 		_jumping = false
-	if grounded and Input.is_action_just_pressed("clamber"):
+	if grounded and Input.is_action_pressed("clamber"):
 		if state != State.STATE_WALKING or _jumping:
 			return
 		

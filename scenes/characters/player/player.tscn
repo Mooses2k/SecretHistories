@@ -243,6 +243,12 @@ shader = SubResource( 33 )
 [node name="Player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="CollisionShape" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
+
+[node name="Body" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
+
 [node name="FPSCamera" type="Camera" parent="Body" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54753, -0.2 )
 cull_mask = 1048573
@@ -317,6 +323,9 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -
 [node name="SurfaceDetector" type="RayCast" parent="Body" index="9"]
 enabled = true
 cast_to = Vector3( 0, -0.5, 0 )
+
+[node name="Hitbox" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="7"]
 visible = false

@@ -9,10 +9,10 @@ export var player_scn : PackedScene
 
 onready var world_root : Node = $World
 onready var UI_root : CanvasLayer = $GameUI
+onready var local_settings : SettingsClass = $"%LocalSettings"
 
 var player
 var level : GameWorld
-
 
 func _init():
 	GameManager.game = self

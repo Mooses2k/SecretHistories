@@ -9,7 +9,8 @@ const SettingEditor = preload("SettingsEditors/SettingEditor.gd")
 const SettingsEditors = {
 	SettingsClass.SettingType.BOOL : preload("SettingsEditors/BoolEditor.tscn"),
 	SettingsClass.SettingType.FLOAT : preload("SettingsEditors/FloatEditor.tscn"),
-	SettingsClass.SettingType.ENUM : preload("SettingsEditors/EnumEditor.tscn")
+	SettingsClass.SettingType.ENUM : preload("SettingsEditors/EnumEditor.tscn"),
+	SettingsClass.SettingType.INT : preload("SettingsEditors/IntEditor.tscn")
 }
 
 var group_nodes : Dictionary = Dictionary()

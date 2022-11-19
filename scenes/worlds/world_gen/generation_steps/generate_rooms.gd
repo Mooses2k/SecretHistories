@@ -3,14 +3,14 @@ extends GenerationStep
 const ROOM_ARRAY_KEY = "rooms"
 
 export var room_size_min : int = 2
-export var room_size_max : int = 8
+export var room_size_max : int = 3
 
-export var room_count_min : int = 8
+export var room_count_min : int = 12
 export var room_count_max : int = 16
 
 export var room_size_scale : int = 2
 
-export var room_min_distance : int = 2
+export var room_min_distance : int = 1
 export var intersection_chance : float = 0.2
 export var min_intersection_size : int = 4
 

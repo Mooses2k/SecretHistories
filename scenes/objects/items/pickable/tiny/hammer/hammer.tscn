@@ -1,8 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/objects/items/pickable/tiny/Hammer/Hammer.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/items/pickable/tiny/hammer/hammer.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/items/pickable/pickable_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/tiny_items/hammer_small/M_BeanHammer.material" type="Material" id=3]
+
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "BeanHammer_grip_high_hammer_peen_hammer1015"

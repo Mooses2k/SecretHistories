@@ -100,6 +100,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0222715, -0.702074 )
 [node name="HoldPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0552596 )
 
-[connection signal="on_shoot" from="." to="Effects" method="_on_ShotgunItem_on_shoot"]
-[connection signal="target_hit" from="." to="Effects" method="_on_ShotgunItem_target_hit"]
+[connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
+[connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]
 [connection signal="timeout" from="Effects/Flash/FlashTimer" to="Effects" method="_on_FlashTimer_timeout"]

@@ -11,12 +11,13 @@ albedo_color = Color( 0.373333, 0.8, 0.16, 1 )
 script = ExtResource( 2 )
 item_size = 0
 item_name = "Padlock"
+padlock_id = 0
+padlock_locked = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
 material_override = SubResource( 1 )
 mesh = ExtResource( 3 )
-main_parent = NodePath("..")
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0461455, 0 )

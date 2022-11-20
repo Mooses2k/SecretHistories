@@ -50,6 +50,17 @@ func _process(delta):
 			self.global_rotation = normal_pos.global_rotation
 
 
+
+func apply_throw_logic(impulse):
+	if throw_logic:
+		self.global_rotation = throw_pos.global_rotation
+	if can_spin:
+		angular_velocity = Vector3(global_transform.basis.z * -15)
+		apply_central_impulse(impulse)
+	else:
+		apply_central_impulse(impulse)
+
+
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
 	character = get_parent().get_parent().get_parent()
@@ -72,16 +83,6 @@ func attack_thrust():
 #			character.stamina -= 50 # this is bugged with halberd
 			can_hit = false
 			melee_anim.queue("polearm_recovery_from_right")
-
-
-func apply_throw_logic(impulse):
-	if throw_logic:
-		self.global_rotation = throw_pos.global_rotation
-	if can_spin:
-		angular_velocity = Vector3(global_transform.basis.z * -15)
-		apply_central_impulse(impulse)
-	else:
-		apply_central_impulse(impulse)
 
 
 func attack_cut():

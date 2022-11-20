@@ -8,6 +8,7 @@ onready var Gun_cam=$Body/ViewportContainer2/Viewport/GunCam
 onready var grab_cast=$Body/FPSCamera/GrabCast
 
 var colliding_pickable_items = []
+var colliding_interactable_items = []
 
 #func _ready():
 #	body.add_collision_exception_with()
@@ -16,7 +17,7 @@ var colliding_pickable_items = []
 func _process(delta):
 	Gun_cam.global_transform = fps_camera.global_transform
 	
-	if colliding_pickable_items.empty():
+	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
 		$Indication_canvas/Indication_system/Dot.hide()
 	else:
 		$Indication_canvas/Indication_system/Dot.show()
@@ -37,11 +38,22 @@ func grab_indicator():
 
 
 func _on_GrabCastDot_body_entered(body):
-	if body is PickableItem:
+	if body is PickableItem or body is Door_body:
 		if !colliding_pickable_items.has(body):
 			colliding_pickable_items.append(body)
 
 
 func _on_GrabCastDot_body_exited(body):
-	if body is PickableItem:
+	if body is PickableItem or body is Door_body:
 		colliding_pickable_items.remove(colliding_pickable_items.find(body))
+
+
+func _on_GrabCastDot_area_entered(area):
+	if area is Interactable:
+		if !colliding_interactable_items.has(area):
+			colliding_interactable_items.append(area)
+
+
+func _on_GrabCastDot_area_exited(area):
+	if area is Interactable:
+		colliding_interactable_items.remove(colliding_interactable_items.find(area))

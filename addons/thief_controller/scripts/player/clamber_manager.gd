@@ -37,12 +37,12 @@ func attempt_clamber() -> Vector3:
 
 
 func _test_clamber_ledge() -> Vector3:
-	var user_forward = -_user.global_transform.basis.z.normalized()
+	var user_forward = -_user.global_transform.basis.z.normalized() * 0.1
 	var space = _world.direct_space_state
 	var pos = _user.global_transform.origin
-	var d1 = pos + Vector3.UP * 1.25
-	var d2 = d1 + user_forward
-	var d3 = d2 + Vector3.DOWN * 16
+	var d1 = pos + Vector3.UP * 2.3 #1.25
+	var d2 = d1 + user_forward 
+	var d3 = d2 + Vector3.DOWN * 32 #16
 
 	if not space.intersect_ray(pos, d1):
 		for i in range(5):
@@ -50,7 +50,7 @@ func _test_clamber_ledge() -> Vector3:
 				for j in range(5):
 					d2 = d1 + user_forward * (j + 1)
 					var r = space.intersect_ray(d2, d3)
-					if r:
+					if r and r.collider.is_in_group("CLAMBERABLE"):
 						var ground_check = space.intersect_ray(pos, 
 								pos + Vector3.DOWN * 2)
 
@@ -73,16 +73,16 @@ func _test_clamber_ledge() -> Vector3:
 
 
 func _test_clamber_vent() -> Vector3:
-	var cam_forward = -_camera.global_transform.basis.z.normalized() * 0.4
+	var cam_forward = -_camera.global_transform.basis.z.normalized() * 0.1#0.4
 	var space = _world.direct_space_state
 	var pos = _user.global_transform.origin
 	var d1 = _camera.global_transform.origin + cam_forward
-	var d2 = d1 + Vector3.DOWN * 6
+	var d2 = d1 + Vector3.DOWN * 6 #6
 	
 	if not space.intersect_ray(pos, d1, [_user]):
 		for i in range(5):
 			var r = space.intersect_ray(d1 + cam_forward * i, d2, [_user])
-			if r:
+			if r and r.collider.is_in_group("CLAMBERABLE"):
 				var ground_check = space.intersect_ray(pos,
 						pos + Vector3.DOWN * 2)
 			

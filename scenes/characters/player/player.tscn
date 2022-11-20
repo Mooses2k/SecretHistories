@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://addons/thief_controller/scripts/player/player_sound_emitter.gd" type="Script" id=18]
 [ext_resource path="res://addons/thief_controller/scripts/player/player_audio.gd" type="Script" id=19]
 [ext_resource path="res://addons/thief_controller/texture/player ui/normal.png" type="Texture" id=20]
+[ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 
 [sub_resource type="BoxShape" id=36]
 
@@ -87,6 +88,10 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+
+[sub_resource type="DynamicFont" id=37]
+size = 25
+font_data = ExtResource( 21 )
 
 [sub_resource type="Animation" id=32]
 length = 0.001
@@ -246,7 +251,16 @@ script = ExtResource( 2 )
 [node name="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
 
-[node name="Body" parent="." index="1"]
+[node name="CollisionShape2" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.316957, 0 )
+disabled = true
+
+[node name="SurfaceDetector" type="RayCast" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.5, 0 )
+
+[node name="Body" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 
 [node name="FPSCamera" type="Camera" parent="Body" index="0"]
@@ -275,8 +289,8 @@ debug_shape_thickness = 3
 
 [node name="GrabCastDot" type="Area" parent="Body/FPSCamera" index="3"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.7, 0, 0, -0.805458 )
-collision_layer = 65
-collision_mask = 65
+collision_layer = 577
+collision_mask = 577
 input_ray_pickable = false
 monitorable = false
 
@@ -320,17 +334,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 [node name="PrimaryEquipmentRoot" parent="Body" index="7"]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
-[node name="SurfaceDetector" type="RayCast" parent="Body" index="9"]
-enabled = true
-cast_to = Vector3( 0, -0.5, 0 )
-
-[node name="Hitbox" parent="." index="2"]
+[node name="Hitbox" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 
-[node name="PlayerAimPoint" type="Spatial" parent="." index="7"]
+[node name="PlayerAimPoint" type="Spatial" parent="." index="8"]
 visible = false
 
-[node name="PlayerController" type="Node" parent="." index="8"]
+[node name="PlayerController" type="Node" parent="." index="9"]
 script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
@@ -354,7 +364,7 @@ cast_shadow = 0
 mesh = SubResource( 19 )
 material/0 = SubResource( 21 )
 
-[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="9"]
+[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="10"]
 process_priority = 100
 stream = ExtResource( 8 )
 volume_db = -13.0
@@ -371,7 +381,7 @@ mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 
-[node name="HitEffect" type="CanvasLayer" parent="." index="10"]
+[node name="HitEffect" type="CanvasLayer" parent="." index="11"]
 script = ExtResource( 3 )
 light_node_path = NodePath("../PlayerController")
 
@@ -406,7 +416,7 @@ mouse_filter = 2
 tab_size = 8
 text = "dsafsdfd"
 
-[node name="Indication_canvas" type="CanvasLayer" parent="." index="11"]
+[node name="Indication_canvas" type="CanvasLayer" parent="." index="12"]
 pause_mode = 2
 script = ExtResource( 12 )
 
@@ -438,7 +448,17 @@ texture = ExtResource( 20 )
 expand = true
 stretch_mode = 4
 
-[node name="HP" type="Spatial" parent="." index="12"]
+[node name="Label" type="Label" parent="Indication_canvas" index="1"]
+visible = false
+anchor_top = 0.86
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 37 )
+text = "Clamber (SPACE)"
+align = 1
+valign = 1
+
+[node name="HP" type="Spatial" parent="." index="13"]
 script = ExtResource( 13 )
 raycast = NodePath("../Body/FPSCamera/GroundCast")
 
@@ -462,7 +482,7 @@ mesh = SubResource( 29 )
 [node name="Timer" type="Timer" parent="HP" index="4"]
 one_shot = true
 
-[node name="PlayerDeath" type="CanvasLayer" parent="." index="13"]
+[node name="PlayerDeath" type="CanvasLayer" parent="." index="14"]
 pause_mode = 2
 script = ExtResource( 16 )
 
@@ -487,12 +507,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="SoundEmitter" type="Area" parent="." index="14"]
+[node name="SoundEmitter" type="Area" parent="." index="15"]
 script = ExtResource( 18 )
 
 [node name="CollisionShape" type="CollisionShape" parent="SoundEmitter" index="0"]
 
-[node name="Audio" type="AudioStreamPlayer" parent="." index="15"]
+[node name="Audio" type="AudioStreamPlayer" parent="." index="16"]
 script = ExtResource( 19 )
 
 [connection signal="character_died" from="." to="Inventory" method="_on_Player_character_died"]
@@ -501,6 +521,8 @@ script = ExtResource( 19 )
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]
 [connection signal="is_hit" from="." to="HitEffect" method="_on_Player_is_hit"]
 [connection signal="is_hit" from="." to="HP" method="_on_Player_is_hit"]
+[connection signal="area_entered" from="Body/FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
+[connection signal="area_exited" from="Body/FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="Body/FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]
 [connection signal="body_exited" from="Body/FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_Hitbox_area_entered"]

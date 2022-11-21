@@ -289,7 +289,7 @@ debug_shape_thickness = 3
 
 [node name="GrabCastDot" type="Area" parent="Body/FPSCamera" index="3"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.7, 0, 0, -0.805458 )
-collision_layer = 577
+collision_layer = 2
 collision_mask = 577
 input_ray_pickable = false
 monitorable = false
@@ -508,6 +508,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="SoundEmitter" type="Area" parent="." index="15"]
+collision_layer = 2
 script = ExtResource( 18 )
 
 [node name="CollisionShape" type="CollisionShape" parent="SoundEmitter" index="0"]

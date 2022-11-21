@@ -148,9 +148,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
-#	_camera_pos_normal = owner.global_transform.origin + Vector3.UP * _bob_reset
-#
-#	_gun_cam.global_transform.origin = _camera_pos_normal
+	_camera_pos_normal = owner.global_transform.origin + Vector3.UP * _bob_reset
+
+	_gun_cam.global_transform.origin = _camera_pos_normal
 	_gun_cam.rotation_degrees = _camera.rotation_degrees
 	
 	active_mode.update()
@@ -167,6 +167,7 @@ func _physics_process(delta : float):
 	previous_weapon()
 	drop_grabbable()
 	empty_slot()
+	
 	var c = _clamber_m.attempt_clamber()
 	if c != Vector3.ZERO:
 		_text.show()
@@ -455,7 +456,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	var grounded = owner.is_on_floor()
 	
 	velocity = owner.move_and_slide((velocity * speed_mod) + owner.get_floor_velocity(),
-			Vector3.UP, true, 4, PI, false)
+			Vector3.UP, true, 4, PI/4, false)
 			
 	var y_velo = velocity.y
 	

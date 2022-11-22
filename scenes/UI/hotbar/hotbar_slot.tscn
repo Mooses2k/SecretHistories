@@ -68,13 +68,13 @@ margin_right = 23.0
 margin_bottom = 24.0
 mouse_filter = 2
 
-[node name="SecondaryIndicator" type="Label" parent="UseIndicators/HBoxContainer"]
+[node name="OffHandIndicator" type="Label" parent="UseIndicators/HBoxContainer"]
 margin_top = 3.0
 margin_right = 7.0
 margin_bottom = 17.0
 text = "L"
 
-[node name="PrimaryIndicator" type="Label" parent="UseIndicators/HBoxContainer"]
+[node name="MainHandIndicator" type="Label" parent="UseIndicators/HBoxContainer"]
 margin_left = 11.0
 margin_top = 3.0
 margin_right = 19.0

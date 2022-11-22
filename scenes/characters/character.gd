@@ -15,11 +15,12 @@ onready var current_health : float = self.max_health
 
 onready var inventory = $Inventory
 onready var pickup_area = $PickupArea
-onready var primary_equipment_root = $Body/PrimaryEquipmentRoot
-onready var secondary_equipment_root = $Body/SecondaryEquipmentRoot
+onready var mainhand_equipment_root = $Body/MainHandEquipmentRoot
+onready var offhand_equipment_root = $Body/OffHandEquipmentRoot
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
-
+onready var skeleton = $"%Skeleton"
+onready var collision_shape = $CollisionShape
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
@@ -82,9 +83,18 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			self.emit_signal("character_died")
 			
 			if self.name != "Player":
-				self.queue_free()
+				collision_shape.disabled = true
+				skeleton.physical_bones_start_simulation()
 
 #for testing
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("kick"):
 					self.emit_signal("character_died")
+#
+#	if event.is_action_pressed("crouch"):
+#		if $crouch_timer.is_stopped(): # && !$AnimationTree.get(roll_active):
+#			$crouch_timer.start()
+#			$AnimationTree.tree_root.get_node("cs_transition").xfade_time = (velocity.length() + 1.5)/ 15.0
+#			crouch_stand_target = 1 - crouch_stand_target
+#			$AnimationTree.set(cs_transition, crouch_stand_target)
+#

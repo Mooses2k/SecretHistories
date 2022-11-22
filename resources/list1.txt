@@ -54,10 +54,10 @@ Note: Light is your primary resource.
 Note: You must judge whether it's best to light up a room or keep it shrouded in merciful darkness.
 Note: Don't let them spot you first. 
 Note: Nobody likes a camper...because ambushes are highly effective.
-Note: For a light-source in your main hand, hit [Main-hand use key] or, for the off-hand, [Off-hand use key], to light or douse it. [Main-hand secondary key] holds it forwards or swings it.
+Note: For a light-source in your main hand, hit Left-Click or, for the off-hand, hit [Off-hand use key] to light or douse it. Right-Click holds it forwards or swings it.
 Note: Press [Main-hand throw key] to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
 Note: Press the [Map key] key to open your map.
-Note: Press the [Binoculars key] to see through your spyglass.
+Note: Press the [Binoculars key] key to see through your spyglass.
 Note: Violence is always an answer, but not always the answer.
 Note: Conserve your ammo. You're going to need it.
 Note: Where no humans have tread, no ammo is to be found.

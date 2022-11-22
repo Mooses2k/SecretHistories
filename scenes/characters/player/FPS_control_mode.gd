@@ -38,9 +38,9 @@ func update():
 	owner.body.rotation.y = pitch_yaw.y
 	camera.rotation.x = pitch_yaw.x
 	if aimcast.is_colliding():
-		owner.primary_equipment_root.look_at(aimcast.get_collision_point(), Vector3.UP)
+		owner.mainhand_equipment_root.look_at(aimcast.get_collision_point(), Vector3.UP)
 	else:
-		owner.primary_equipment_root.global_transform.basis = camera.global_transform.basis
+		owner.mainhand_equipment_root.global_transform.basis = camera.global_transform.basis
 	pass
 
 

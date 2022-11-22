@@ -4,6 +4,8 @@
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control;
+
+
 # [ Subnodes ]
 onready var Stamina: AudioStreamPlayer = $Stamina/Audio;
 
@@ -16,9 +18,10 @@ onready var Stamina: AudioStreamPlayer = $Stamina/Audio;
 ############################
 enum stamina_values\\
 {
-	maximum = 40,
-	minimum = -10
+	maximum = 5,
+	minimum = -30
 }
+
 
 func tired(amount: float) -> void:
 	# convert stamina percentage to db:
@@ -41,4 +44,3 @@ mouse_filter = 2
 
 [node name="Audio" type="AudioStreamPlayer" parent="Stamina"]
 stream = ExtResource( 1 )
-bus = "Player"

@@ -85,14 +85,14 @@ func _input(event):
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
-					if character.inventory.current_primary_slot != 0:
+					if character.inventory.current_mainhand_slot != 0:
 						var total_inventory 
 						if  character.inventory.bulky_equipment:
 							total_inventory = 10
 						else:
-							total_inventory = character.inventory.current_primary_slot - 1
-						if total_inventory != character.inventory.current_secondary_slot:
-							character.inventory.current_primary_slot = total_inventory
+							total_inventory = character.inventory.current_mainhand_slot - 1
+						if total_inventory != character.inventory.current_offhand_slot:
+							character.inventory.current_mainhand_slot = total_inventory
 						else:
 							var plus_inventory 
 							if  character.inventory.bulky_equipment:
@@ -100,33 +100,33 @@ func _input(event):
 							else:
 								plus_inventory = total_inventory - 1
 							if plus_inventory != -1  :
-								character.inventory.current_primary_slot = plus_inventory
+								character.inventory.current_mainhand_slot = plus_inventory
 							else:
-								character.inventory.current_primary_slot = 10
-					elif character.inventory.current_primary_slot == 0:
-						character.inventory.current_primary_slot = 10
+								character.inventory.current_mainhand_slot = 10
+					elif character.inventory.current_mainhand_slot == 0:
+						character.inventory.current_mainhand_slot = 10
 						
 						
 				BUTTON_WHEEL_DOWN:
-					if character.inventory.current_primary_slot != 10 :
+					if character.inventory.current_mainhand_slot != 10 :
 						var total_inventory
 						if  character.inventory.bulky_equipment:
 							total_inventory = 0
 						else:
-							total_inventory = character.inventory.current_primary_slot + 1
-						if total_inventory != character.inventory.current_secondary_slot :
-							character.inventory.current_primary_slot = total_inventory
+							total_inventory = character.inventory.current_mainhand_slot + 1
+						if total_inventory != character.inventory.current_offhand_slot :
+							character.inventory.current_mainhand_slot = total_inventory
 						else:
 							var plus_inventory = total_inventory + 1
-							if character.inventory.current_secondary_slot != 10:
-								character.inventory.current_primary_slot = plus_inventory
+							if character.inventory.current_offhand_slot != 10:
+								character.inventory.current_mainhand_slot = plus_inventory
 							else:
-								character.inventory.current_primary_slot = 10
-					elif character.inventory.current_primary_slot == 10:
-						if character.inventory.current_secondary_slot != 0:
-							character.inventory.current_primary_slot = 0
+								character.inventory.current_mainhand_slot = 10
+					elif character.inventory.current_mainhand_slot == 10:
+						if character.inventory.current_offhand_slot != 0:
+							character.inventory.current_mainhand_slot = 0
 						else:
-							character.inventory.current_primary_slot = 1
+							character.inventory.current_mainhand_slot = 1
 
 
 
@@ -431,7 +431,7 @@ func handle_inventory(delta : float):
 #
 	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
 		if interaction_target != null:
-			if interaction_target is PickableItem and character.inventory.current_primary_slot != 10:
+			if interaction_target is PickableItem and character.inventory.current_mainhand_slot != 10:
 				character.inventory.add_item(interaction_target)
 				interaction_target = null
 			elif interaction_target is Interactable:
@@ -465,16 +465,16 @@ func change_stamina(amount: float) -> void:
 
 
 func previous_weapon():
-	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot != 0:
-		character.inventory.current_primary_slot -=1 
+	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_mainhand_slot != 0:
+		character.inventory.current_mainhand_slot -=1 
 		
-	elif  Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_primary_slot == 0:
-		character.inventory.current_primary_slot = 10
+	elif  Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_mainhand_slot == 0:
+		character.inventory.current_mainhand_slot = 10
 
 
 func next_weapon():
-	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot != 10:
-		character.inventory.current_primary_slot += 1
+	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_mainhand_slot != 10:
+		character.inventory.current_mainhand_slot += 1
 		
-	elif  Input.is_action_just_pressed("Next_weapon") and character.inventory.current_primary_slot == 10:
-		character.inventory.current_primary_slot = 0
+	elif  Input.is_action_just_pressed("Next_weapon") and character.inventory.current_mainhand_slot == 10:
+		character.inventory.current_mainhand_slot = 0

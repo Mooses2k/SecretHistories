@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/ModularPiecesExport.glb-eb5893185b4ca99a1b2fdfe99703d329.scn"
+path="res://.import/ModularPiecesExport.glb-cef8cc580d06b2897766e9706ee19583.scn"
 
 [deps]
 
-source_file="res://resources/models/ModularPiecesExport.glb"
-dest_files=[ "res://.import/ModularPiecesExport.glb-eb5893185b4ca99a1b2fdfe99703d329.scn" ]
+source_file="res://resources/models/gridmap/ModularPiecesExport.glb"
+dest_files=[ "res://.import/ModularPiecesExport.glb-cef8cc580d06b2897766e9706ee19583.scn" ]
 
 [params]
 

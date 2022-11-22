@@ -310,7 +310,7 @@ func handle_inventory(delta : float):
 				inv.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 	
-	# Secondary slot selection
+	# Offhand slot selection
 		
 	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
 		var start_slot = inv.current_offhand_slot

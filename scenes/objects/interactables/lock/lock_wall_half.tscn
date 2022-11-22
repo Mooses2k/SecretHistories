@@ -1,11 +1,12 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://resources/models/items/tools/padlock/lock_padlock_LockLoop.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://resources/models/items/tools/locks_and_keys/lock_padlock_LockLoop.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/objects/interactables/interactable.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/models/items/tools/padlock/lock_padlock_LockLinkage.mesh" type="ArrayMesh" id=3]
+[ext_resource path="res://resources/models/items/tools/locks_and_keys/lock_padlock_LockLinkage.mesh" type="ArrayMesh" id=3]
 [ext_resource path="res://scenes/objects/interactables/lock/lock_wall_half.gd" type="Script" id=4]
 [ext_resource path="res://resources/sounds/locks/342617__spacejoe__lock-1-insert-key-1.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/sounds/locks/536414__rudmer-rotteveel__small-padlock-opening.wav" type="AudioStream" id=6]
+
 
 [sub_resource type="Animation" id=4]
 resource_name = "RESET"

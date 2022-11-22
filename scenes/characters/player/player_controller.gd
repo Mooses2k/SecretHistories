@@ -298,7 +298,7 @@ func throw_consumable():
 func handle_inventory(delta : float):
 	var inv = character.inventory
 
-	# Primary slot selection
+	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
@@ -306,7 +306,7 @@ func handle_inventory(delta : float):
 				inv.current_primary_slot = i
 				throw_state = ThrowState.IDLE
 	
-	# Secondary slot selection
+	# Offhand slot selection
 		
 	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
 		var start_slot = inv.current_secondary_slot
@@ -456,9 +456,11 @@ func drop_grabbable():
 			grab_object.apply_central_impulse(impulse)
 	if Input.is_action_just_released("main_throw") or Input.is_action_just_released("offhand_throw"):
 		wants_to_drop = false
-#		
+
+
+
 func change_stamina(amount: float) -> void:
-	character.stamina = min(125, max(0, character.stamina + amount));
+	character.stamina = min(600, max(0, character.stamina + amount));
 	HUDS.tired(character.stamina);
 
 

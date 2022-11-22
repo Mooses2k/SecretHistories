@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/lock_padlock.glb-d770407fd36199ee340dbd35d149cd05.scn"
+path="res://.import/Railings.glb-322678200048ec53d142f92b8b0479f0.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tools/padlock/lock_padlock.glb"
-dest_files=[ "res://.import/lock_padlock.glb-d770407fd36199ee340dbd35d149cd05.scn" ]
+source_file="res://resources/models/gridmap/Railings.glb"
+dest_files=[ "res://.import/Railings.glb-322678200048ec53d142f92b8b0479f0.scn" ]
 
 [params]
 
@@ -23,7 +23,7 @@ materials/keep_on_reimport=true
 meshes/octahedral_compression=true
 meshes/compress=4286
 meshes/ensure_tangents=true
-meshes/storage=1
+meshes/storage=0
 meshes/light_baking=0
 meshes/lightmap_texel_size=0.1
 skins/use_named_skins=true

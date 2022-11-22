@@ -86,11 +86,19 @@ func _input(event):
 			match event.button_index:
 				BUTTON_WHEEL_UP:
 					if character.inventory.current_primary_slot != 0:
-						var total_inventory = character.inventory.current_primary_slot - 1
+						var total_inventory 
+						if  character.inventory.bulky_equipment:
+							total_inventory = 10
+						else:
+							total_inventory = character.inventory.current_primary_slot - 1
 						if total_inventory != character.inventory.current_secondary_slot:
 							character.inventory.current_primary_slot = total_inventory
 						else:
-							var plus_inventory = total_inventory - 1
+							var plus_inventory 
+							if  character.inventory.bulky_equipment:
+								plus_inventory = 10
+							else:
+								plus_inventory = total_inventory - 1
 							if plus_inventory != -1  :
 								character.inventory.current_primary_slot = plus_inventory
 							else:
@@ -100,8 +108,12 @@ func _input(event):
 						
 						
 				BUTTON_WHEEL_DOWN:
-					if character.inventory.current_primary_slot != 10:
-						var total_inventory = character.inventory.current_primary_slot + 1
+					if character.inventory.current_primary_slot != 10 :
+						var total_inventory
+						if  character.inventory.bulky_equipment:
+							total_inventory = 0
+						else:
+							total_inventory = character.inventory.current_primary_slot + 1
 						if total_inventory != character.inventory.current_secondary_slot :
 							character.inventory.current_primary_slot = total_inventory
 						else:

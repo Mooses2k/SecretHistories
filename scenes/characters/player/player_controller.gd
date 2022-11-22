@@ -306,14 +306,14 @@ func handle_inventory(delta : float):
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
-			if i != inv.current_secondary_slot :
-				inv.current_primary_slot = i
+			if i != inv.current_offhand_slot :
+				inv.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 	
 	# Secondary slot selection
 		
 	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
-		var start_slot = inv.current_secondary_slot
+		var start_slot = inv.current_offhand_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
 			and (
@@ -322,19 +322,19 @@ func handle_inventory(delta : float):
 						inv.hotbar[new_slot] != null \
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
-					or new_slot == inv.current_primary_slot \
+					or new_slot == inv.current_mainhand_slot \
 					or inv.hotbar[new_slot] == null \
 				):
 				
 				new_slot = (new_slot + 1)%inv.hotbar.size()
 		if start_slot != new_slot:
-			inv.current_secondary_slot = new_slot
+			inv.current_offhand_slot = new_slot
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
 	
 	if Input.is_action_just_pressed("hotbar_11"):
-		if inv.current_secondary_slot != 10:
-			inv.current_secondary_slot = 10
+		if inv.current_offhand_slot != 10:
+			inv.current_offhand_slot = 10
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_mainhand_item():

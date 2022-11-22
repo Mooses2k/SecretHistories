@@ -33,7 +33,7 @@ var hotbar : Array
 var bulky_equipment : EquipmentItem = null
 
 # Information about the item equipped on the main hand
-var current_mainhand_slot : int = 0 setget set_primary_slot
+var current_mainhand_slot : int = 0 setget set_mainhand_slot
 var current_mainhand_equipment : EquipmentItem = null
 
 # Information about the item equipped on the offhand
@@ -97,7 +97,7 @@ func add_item(item : PickableItem) -> bool:
 		# This is a bulky item, or there is no space on the hotbar
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
 			drop_bulky_item()
-			unequip_primary_item()
+			unequip_mainhand_item()
 			unequip_offhand_item()
 			equip_bulky_item(item)
 		else:
@@ -122,7 +122,7 @@ func add_item(item : PickableItem) -> bool:
 				emit_signal("UpdateHud")
 				# Autoequip if possible
 				if current_mainhand_slot == slot and not bulky_equipment:
-					equip_primary_item()
+					equip_mainhand_item()
 
 				elif current_offhand_slot == slot and not bulky_equipment:
 					equip_offhand_item()
@@ -157,7 +157,7 @@ func tiny_item_amount(item : TinyItemData) -> int:
 	return 0 if not tiny_items.has(item) else tiny_items[item]
 
 
-func equip_primary_item():
+func equip_mainhand_item():
 	if current_mainhand_equipment != null: # Item already equipped
 		return
 	var item : EquipmentItem = hotbar[current_mainhand_slot] as EquipmentItem
@@ -174,7 +174,7 @@ func equip_primary_item():
 		emit_signal("UpdateHud")
 
 
-func unequip_primary_item():
+func unequip_mainhand_item():
 	if current_mainhand_equipment == null: # No item equipped
 		
 		return
@@ -187,7 +187,7 @@ func unequip_primary_item():
 
 func equip_bulky_item(item : EquipmentItem):
 	# Clear any currently equipped items
-	unequip_primary_item()
+	unequip_mainhand_item()
 	unequip_offhand_item()
 	drop_bulky_item()
 	if item:
@@ -271,7 +271,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 		var item_node = item as EquipmentItem
 		hotbar[slot] = null
 		if current_mainhand_equipment == item_node:
-			unequip_primary_item()
+			unequip_mainhand_item()
 		elif current_offhand_equipment == item_node:
 			unequip_offhand_item()
 		if item_node:
@@ -290,20 +290,20 @@ func _drop_item(item : EquipmentItem):
 	pass
 
 
-func set_primary_slot(value : int):
+func set_mainhand_slot(value : int):
 	if value != current_mainhand_slot:
-		unequip_primary_item()
+		unequip_mainhand_item()
 		var previous_slot = current_mainhand_slot
 		current_mainhand_slot = value
-		equip_primary_item()
+		equip_mainhand_item()
 		emit_signal("mainhand_slot_changed", previous_slot, value)
 		emit_signal("UpdateHud")
 	else:
 		if get_mainhand_item() == hotbar[current_mainhand_slot]:
 			emit_signal("UpdateHud")
-			unequip_primary_item()
+			unequip_mainhand_item()
 		else:
-			equip_primary_item()
+			equip_mainhand_item()
 
 
 func set_offhand_slot(value : int):

@@ -41,7 +41,7 @@ enum ThrowState {
 var throw_state : int = ThrowState.IDLE
 var throw_item : int = ItemSelection.ITEM_MAINHAND
 var throw_press_length : float = 0.0
-var stamina := 125.0
+var stamina := 600.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
@@ -450,7 +450,7 @@ func drop_grabbable():
 		wants_to_drop = false
 #		
 func change_stamina(amount: float) -> void:
-	stamina = min(125, max(0, stamina + amount));
+	stamina = min(600, max(0, stamina + amount));
 	HUDS.tired(stamina);
 
 

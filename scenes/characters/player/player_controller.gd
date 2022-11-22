@@ -24,11 +24,11 @@ export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
 export var Player_path : NodePath
-onready var player = get_node(Player_path)
+onready var player = owner
 
 enum ItemSelection {
-	ITEM_PRIMARY,
-	ITEM_SECONDARY,
+	ITEM_MAINHAND,
+	ITEM_OFFHAND,
 }
 
 enum ThrowState {
@@ -39,9 +39,9 @@ enum ThrowState {
 }
 
 var throw_state : int = ThrowState.IDLE
-var throw_item : int = ItemSelection.ITEM_PRIMARY
+var throw_item : int = ItemSelection.ITEM_MAINHAND
 var throw_press_length : float = 0.0
-var stamina := 125.0
+var stamina := 600.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
@@ -274,15 +274,15 @@ func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
 			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing == false and GameManager.is_reloading == false:
-				throw_item = ItemSelection.ITEM_PRIMARY
+				throw_item = ItemSelection.ITEM_MAINHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
 			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing == false  and GameManager.is_reloading == false:
-				throw_item = ItemSelection.ITEM_SECONDARY
+				throw_item = ItemSelection.ITEM_OFFHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
 		ThrowState.PRESSING:
-			if Input.is_action_pressed("main_throw" if throw_item == ItemSelection.ITEM_PRIMARY else "offhand_throw"):
+			if Input.is_action_pressed("main_throw" if throw_item == ItemSelection.ITEM_MAINHAND else "offhand_throw"):
 				throw_press_length += delta
 			else:
 				throw_state = ThrowState.SHOULD_PLACE if throw_press_length > hold_time_to_grab else ThrowState.SHOULD_THROW
@@ -358,7 +358,7 @@ func handle_inventory(delta : float):
 			throw_state = ThrowState.IDLE
 	
 	if throw_state == ThrowState.SHOULD_PLACE:
-		var item : EquipmentItem = inv.get_primary_item() if throw_item == ItemSelection.ITEM_PRIMARY else inv.get_secondary_item()
+		var item : EquipmentItem = inv.get_primary_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_secondary_item()
 		if item:
 			
 			# Calculates where to place the item
@@ -376,7 +376,7 @@ func handle_inventory(delta : float):
 			item.collision_layer = layers
 			item.collision_mask = mask
 			if result.motion.length() > 0.1:
-				if throw_item == ItemSelection.ITEM_PRIMARY:
+				if throw_item == ItemSelection.ITEM_MAINHAND:
 					inv.drop_primary_item()
 				else:
 					inv.drop_secondary_item()
@@ -384,7 +384,7 @@ func handle_inventory(delta : float):
 		
 	elif throw_state == ThrowState.SHOULD_THROW:
 		var item : EquipmentItem = null
-		if throw_item == ItemSelection.ITEM_PRIMARY:
+		if throw_item == ItemSelection.ITEM_MAINHAND:
 			item = inv.get_primary_item()
 			inv.drop_primary_item()
 		else:
@@ -460,7 +460,7 @@ func drop_grabbable():
 		wants_to_drop = false
 #		
 func change_stamina(amount: float) -> void:
-	stamina = min(125, max(0, stamina + amount));
+	stamina = min(600, max(0, stamina + amount));
 	HUDS.tired(stamina);
 
 

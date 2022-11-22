@@ -1,5 +1,8 @@
 extends Control
 
+
+signal button_pressed(button)
+
 enum EscMenuButtons {
 	RESUME,
 	SAVE,
@@ -7,17 +10,17 @@ enum EscMenuButtons {
 	QUIT
 }
 
+
 func exit_state():
 	self.visible = false
 	pass
+
 
 func enter_state():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	self.visible = true
 	pass
 
-
-signal button_pressed(button)
 
 func _on_ResumeButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.RESUME)
@@ -27,16 +30,23 @@ func _on_ResumeButton_pressed() -> void:
 ##	get_tree().set_input_as_handled()
 #	hide()
 
+
 func _on_SaveButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.SAVE)
+
 
 func _on_SettingsButton_pressed():
 	emit_signal("button_pressed", EscMenuButtons.SETTINGS)
 #	$"../SettingsMenu".show()
 #	call_deferred("hide")
-	
+
+
 func _on_QuitButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.QUIT)
 #	get_tree().quit()
 
+
+func _input(event):
+	if event.is_action_pressed("fullscreen"):
+		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
 

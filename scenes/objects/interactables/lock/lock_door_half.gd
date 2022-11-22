@@ -1,22 +1,26 @@
 extends Interactable
 
+
 var loop_position : Vector3 setget ,get_loop_position
+
+var current_padlock : PadlockItem = null
 
 signal padlock_added()
 signal padlock_removed()
 signal padlock_unlocked()
 
+
 func get_loop_position() -> Vector3:
 	return $LoopPosition.translation
 
 
-var current_padlock : PadlockItem = null
-
 func has_padlock() -> bool:
 	return current_padlock != null
 
+
 func is_padlock_locked() -> bool:
 	return current_padlock.padlock_locked if current_padlock else false
+
 
 func try_unlock_padlock(character) -> bool:
 	var inventory = character.inventory
@@ -27,11 +31,13 @@ func try_unlock_padlock(character) -> bool:
 			return true
 	return false
 
+
 func try_lock_padlock() -> bool:
 	if current_padlock and not current_padlock.padlock_locked:
 		current_padlock.padlock_locked = true
 		return true
 	return false
+
 
 func _interact(character):
 	var inventory = character.inventory
@@ -62,9 +68,11 @@ func _interact(character):
 			padlock.set_physics_equipped()
 			update_lock_position()
 			emit_signal("padlock_added")
-	
+
+
 func _physics_process(delta):
 	update_lock_position()
+
 
 func update_lock_position():
 	if current_padlock:

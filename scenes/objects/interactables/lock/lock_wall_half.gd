@@ -1,5 +1,6 @@
 extends Interactable
 
+
 signal lock_locked()
 signal lock_unlocked()
 
@@ -8,12 +9,15 @@ onready var other_half = get_node(_door_half) if not other_half else other_half
 
 var is_locked : bool = false setget set_locked
 
+
 func _ready():
 	other_half.connect("padlock_unlocked", self, "on_padlock_unlocked")
+
 
 func on_padlock_unlocked():
 	if self.is_locked:
 		self.is_locked = false
+
 
 func set_locked(value : bool):
 	if is_locked != value:

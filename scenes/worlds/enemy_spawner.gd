@@ -1,6 +1,7 @@
 extends Node
 class_name EnemySpawner
 
+
 export var enemy_scene : PackedScene
 
 # Represents the possible enemy loadouts, with the following structure:
@@ -45,8 +46,10 @@ onready var enemies_root = Node.new()
 
 var data : WorldData
 
+
 func _ready():
 	add_child(enemies_root)
+
 
 func spawn_enemies():
 	for child in enemies_root.get_children():

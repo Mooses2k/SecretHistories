@@ -61,7 +61,6 @@ func _on_PlayerController_is_moving(is_player_moving):
 
 func _on_Player_is_hit(current_health):
 	player_health = current_health
-	print(player_health)
 	
 	if player_health < 75 and player_health > 39:
 		if $MeshInstance2.is_visible_in_tree():

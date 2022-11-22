@@ -1,6 +1,7 @@
 extends MeshInstance
 class_name VisibilityMask
 
+
 export var wall_height : float = 16.0
 export var resolution : int = 2048
 export var margin : float = 1.0
@@ -16,6 +17,7 @@ onready var camera = $Viewport/Camera
 
 var world : GameWorld
 
+
 func _ready():
 	var _error = GameManager.game.connect("player_spawned", self, "on_player_spawn")
 
@@ -30,8 +32,10 @@ func _ready():
 	texture.flags = Texture.FLAG_FILTER
 	(self.material_override as ShaderMaterial).set_shader_param("data_texture", texture)
 
+
 func on_player_spawn(player : Spatial):
 	self.target_node = player
+
 
 func generate_mesh(grid_data : Array):
 	var x = Vector3(1, 0, 0)
@@ -173,6 +177,7 @@ func _process(_delta):
 
 	(self.material_override as ShaderMaterial).set_shader_param("offset", self.camera.global_transform.origin)
 	(self.material_override as ShaderMaterial).set_shader_param("view_width", width)
+
 
 func world_changed(world_data : Array, world_size : int):
 	print_debug("Generating visibility mask world")

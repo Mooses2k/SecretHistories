@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/RobeCultOCcom3.png-e769d6a8649fe61555cf0c69c5acb5c8.s3tc.stex"
-path.etc2="res://.import/RobeCultOCcom3.png-e769d6a8649fe61555cf0c69c5acb5c8.etc2.stex"
+path.s3tc="res://.import/RobeCultOCcom3.png-3a24316ac5add9a3db1d611a1d2043ae.s3tc.stex"
+path.etc2="res://.import/RobeCultOCcom3.png-3a24316ac5add9a3db1d611a1d2043ae.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/models/characters/enemies/cultist_neophyte/RobeCultOCcom3.png"
-dest_files=[ "res://.import/RobeCultOCcom3.png-e769d6a8649fe61555cf0c69c5acb5c8.s3tc.stex", "res://.import/RobeCultOCcom3.png-e769d6a8649fe61555cf0c69c5acb5c8.etc2.stex" ]
+source_file="res://resources/models/characters/cultists/cultist_neophyte/RobeCultOCcom3.png"
+dest_files=[ "res://.import/RobeCultOCcom3.png-3a24316ac5add9a3db1d611a1d2043ae.s3tc.stex", "res://.import/RobeCultOCcom3.png-3a24316ac5add9a3db1d611a1d2043ae.etc2.stex" ]
 
 [params]
 

@@ -8,6 +8,11 @@ func _ready():
 	$VBoxContainer/ContinueButton.grab_focus()
 
 
+func _input(event):
+	if event.is_action_pressed("fullscreen"):
+		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
+
+
 func _on_ContinueButton_pressed():
 	pass # Replace with function body once save/load implemented.
 

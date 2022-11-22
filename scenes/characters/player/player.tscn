@@ -6,16 +6,17 @@
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/effects/whiteScreen.png" type="Texture" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
-[ext_resource path="res://resources/Art/Ui/Grab.png" type="Texture" id=7]
+[ext_resource path="res://resources/art/Ui/Grab.png" type="Texture" id=7]
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
-[ext_resource path="res://scenes/characters/player/FPSControlMode.gd" type="Script" id=10]
+[ext_resource path="res://scenes/characters/player/FPS_control_mode.gd" type="Script" id=10]
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 [ext_resource path="res://scenes/characters/player/Indication_canvas.gd" type="Script" id=12]
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=13]
 [ext_resource path="res://resources/health/health.png" type="Texture" id=14]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
+
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
@@ -239,7 +240,7 @@ collision_layer = 2
 script = ExtResource( 2 )
 
 [node name="FPSCamera" type="Camera" parent="Body" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54753, -0.2 )
 cull_mask = 1048573
 
 [node name="AimCast" type="RayCast" parent="Body/FPSCamera" index="0"]
@@ -265,7 +266,7 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="Body/FPSCamera/ViewportContainer2" index="0"]
-size = Vector2( 1024, 600 )
+size = Vector2( 1920, 1080 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
@@ -275,7 +276,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
 cull_mask = 2
 
 [node name="Sunglasses" type="MeshInstance" parent="Body" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.198 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54754, -0.198 )
 cast_shadow = 0
 mesh = SubResource( 17 )
 
@@ -290,6 +291,9 @@ current = true
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
+[node name="PrimaryEquipmentRoot" parent="Body" index="6"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
+
 [node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
 collision_layer = 4
 
@@ -302,6 +306,7 @@ collision_mask = 576
 script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
+_grabcast = NodePath("../Body/FPSCamera/GrabCast")
 
 [node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
 script = ExtResource( 10 )
@@ -413,7 +418,6 @@ one_shot = true
 [node name="PlayerDeath" type="CanvasLayer" parent="." index="13"]
 pause_mode = 2
 script = ExtResource( 16 )
-main_cam_path = NodePath("../Body/FPSCamera")
 
 [node name="Tween" type="Tween" parent="PlayerDeath" index="0"]
 
@@ -436,6 +440,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
+[connection signal="character_died" from="." to="Inventory" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]

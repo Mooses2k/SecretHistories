@@ -1,17 +1,13 @@
 extends Particles
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
 var ready : bool = false
 func _ready():
 	ready = true
 	self.set_as_toplevel(true)
 	self.emitting = true
 	pass # Replace with function body.
+
 
 func set_orientation(position : Vector3, normal : Vector3):
 	if not ready:

@@ -1,6 +1,7 @@
 class_name BT_Equip_Next_Gun
 extends BT_Node
 
+
 func tick(state : CharacterState) -> int:
 	var inventory = state.character.inventory
 	for i in inventory.HOTBAR_SIZE - 1:
@@ -9,4 +10,3 @@ func tick(state : CharacterState) -> int:
 			inventory.current_slot = slot
 			return Status.SUCCESS
 	return Status.FAILURE
-

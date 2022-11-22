@@ -1,5 +1,6 @@
 extends MeshInstance
 
+
 export (NodePath) var main_parent
 onready var parent=get_node(main_parent)
 func _ready():
@@ -11,5 +12,3 @@ func _process(delta):
 		layers=2
 	else:
 		layers=1
-
-

@@ -31,6 +31,7 @@
 "Use the Force, Frodo" --Dumbledore
 "So long and thanks for all the fnord!" --the Jjaro
 “Isn't sanity really just a one trick pony anyway? I mean all you get is one trick, rational thinking, but when you're good and crazy, oooh, oooh, oooh, the sky is the limit!” --The Tick
+"Monsters are real, and ghosts are real too. They live inside of us, and sometimes, they win." --Stephen King
 "Even in dark times, we cannot relinquish the things that make us human."
 "The things that came for him in the daylight resembled heat waves, mirages, and when they were done with him, he could no longer properly be considered a person." --Unattributed
 The sun is no longer in its splendor - you are not protected by its rays.
@@ -40,14 +41,28 @@ This game is best played in the dark, with headphones, facing away from an open 
 Do not store this game in an airtight container.
 Store this game in a cool, dark place.
 Warning: explosion risk.
+Slowly... Quietly...
+Don't speak while playing this game. They might hear you.
+Note: If you crouch and walk quietly, you make it easier for them to catch you.
 Note: You can sprint with the [Sprint key] key, but it won't save you.
 Note: You can kick by pressing [Melee key]. You can melee attack with your weapon by holding [Main-hand secondary key] then pressing [Melee key].
+Note: Melee attacks, jumping, mantling, climbing, and running all affect your stamina.
 Note: Hold [Interact key] to drag things around. Bookcases, corpses, and doors are things.
 Note: Press the [Off-hand switch key] key to cycle through items that can be held in the off-hand. Hold [Off-hand switch key] to swap items between hands.
 Note: Look at the lightable portion of a light-source and hit [Interact key] to light it. Look at the holdable part of a light-source and hit [Interact key] to take it.
+Note: Light is your primary resource.
+Note: You must judge whether it's best to light up a room or keep it shrouded in merciful darkness.
+Note: Don't let them spot you first. 
+Note: Nobody likes a camper...because ambushes are highly effective.
 Note: For a light-source in your main hand, hit [Main-hand use key] or, for the off-hand, [Off-hand use key], to light or douse it. [Main-hand secondary key] holds it forwards or swings it.
 Note: Press [Main-hand throw key] to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
 Note: Press the [Map key] key to open your map.
+Note: Press the [Binoculars key] to see through your spyglass.
+Note: Violence is always an answer, but not always the answer.
+Note: Conserve your ammo. You're going to need it.
+Note: Where no humans have tread, no ammo is to be found.
+Have you considered: leaving the situation?
+Note: If you can't accept a situation or change it, then leave it.
 Note: Torches give off a lot of smoke and wreck your night-vision.
 Note: Green slime will outlive us all.
 Note: Swords don't really make a schink sound when you draw them.

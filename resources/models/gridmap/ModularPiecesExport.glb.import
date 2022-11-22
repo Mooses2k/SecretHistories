@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Robed cultist ANIM.gltf-8caed1867e9b2f0643508bff206a549d.scn"
+path="res://.import/ModularPiecesExport.glb-cef8cc580d06b2897766e9706ee19583.scn"
 
 [deps]
 
-source_file="res://resources/models/characters/enemies/cultist_neophyte/Robed cultist ANIM.gltf"
-dest_files=[ "res://.import/Robed cultist ANIM.gltf-8caed1867e9b2f0643508bff206a549d.scn" ]
+source_file="res://resources/models/gridmap/ModularPiecesExport.glb"
+dest_files=[ "res://.import/ModularPiecesExport.glb-cef8cc580d06b2897766e9706ee19583.scn" ]
 
 [params]
 

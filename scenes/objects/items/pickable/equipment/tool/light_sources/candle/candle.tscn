@@ -3,7 +3,8 @@
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/fire_origin.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/candle.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/items/pickable/MeshInstances.gd" type="Script" id=4]
+[ext_resource path="res://scenes/objects/items/pickable/mesh_instances.gd" type="Script" id=4]
+
 
 [sub_resource type="CylinderMesh" id=1]
 top_radius = 0.02
@@ -36,8 +37,8 @@ shader = SubResource( 8 )
 shader_param/EMISSION_COLOR = Color( 1, 0.713726, 0.411765, 1 )
 
 [sub_resource type="CylinderShape" id=2]
-radius = 0.06
 height = 0.2
+radius = 0.06
 
 [sub_resource type="CylinderMesh" id=3]
 top_radius = 0.0
@@ -81,13 +82,12 @@ shader_param/COLOR_RAMP = SubResource( 6 )
 
 [node name="Candle" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+item_name = "Candle"
 
 [node name="MeshInstance" parent="." index="0"]
 cast_shadow = 2
 mesh = SubResource( 1 )
 material/0 = SubResource( 9 )
-script = ExtResource( 4 )
-main_parent = NodePath("..")
 
 [node name="CollisionShape" parent="." index="1"]
 shape = SubResource( 2 )
@@ -107,7 +107,13 @@ main_parent = NodePath("../..")
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
-light_color = Color( 1, 0.713726, 0.411765, 1 )
+light_color = Color( 0.765625, 0.425389, 0.152527, 1 )
 shadow_enabled = true
 omni_range = 14.9623
 omni_attenuation = 4.0
+
+[node name="Durability" type="Timer" parent="." index="4"]
+wait_time = 900.0
+one_shot = true
+
+[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

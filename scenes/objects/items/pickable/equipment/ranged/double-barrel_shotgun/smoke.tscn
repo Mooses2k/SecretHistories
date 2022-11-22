@@ -18,6 +18,7 @@ angle_random = 1.0
 [node name="Smoke" type="Particles"]
 transform = Transform( 0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479 )
 material_override = ExtResource( 1 )
+emitting = false
 amount = 20
 lifetime = 2.13
 one_shot = true

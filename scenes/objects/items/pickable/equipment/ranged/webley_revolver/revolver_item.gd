@@ -1,0 +1,2 @@
+extends GunItem
+class_name RevolverItem

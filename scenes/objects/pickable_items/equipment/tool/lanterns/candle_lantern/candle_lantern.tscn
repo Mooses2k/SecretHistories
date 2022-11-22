@@ -4,7 +4,6 @@
 [ext_resource path="res://resources/models/items/tools/light_sources/candle_lantern/lantern.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/lanterns/lanterns.gd" type="Script" id=3]
 
-
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.05, 0.15, 0.05 )
 
@@ -108,7 +107,7 @@ tracks/1/keys = {
 "values": [ 1.0, 1.136, 0.803, 1.136, 1.136, 0.729, 1.136, 1.136 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Light:spot_range")
+tracks/2/path = NodePath("Light:omni_range")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -145,7 +144,7 @@ one_shot = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185425, 0 )
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
-omni_range = 7.0
+omni_range = 20.0
 omni_attenuation = 10.0
 
 [node name="Skeleton" type="Skeleton" parent="." index="5"]

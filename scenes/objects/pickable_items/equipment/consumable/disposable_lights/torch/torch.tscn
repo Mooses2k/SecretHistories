@@ -6,7 +6,6 @@
 [ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
 
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Torch_torch_lp"
 surfaces/0 = {

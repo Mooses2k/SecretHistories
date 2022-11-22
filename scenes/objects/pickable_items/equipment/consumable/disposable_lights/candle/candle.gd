@@ -19,7 +19,7 @@ func _process(delta):
 		DurableTimer.pause_mode = true
 	if self.mode == equipped_mode and has_ever_been_on == false:
 #			DurableTimer.start()
-#			has_onned=true
+#			has_ever_been_on = true
 			is_lit = true
 	else:
 		is_lit = false

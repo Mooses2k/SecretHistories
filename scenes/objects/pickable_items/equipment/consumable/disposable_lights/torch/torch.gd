@@ -29,7 +29,7 @@ func _process(delta):
 func _use_primary():
 	if !DurableTimer.is_stopped():
 		firelight.visible = not firelight.visible
-		$AnimationPlayer.play("flicker")
+#		$AnimationPlayer.play("flicker")
 		$FireOrigin/Fire.emitting = true
 	else:
 		$AnimationPlayer.stop()

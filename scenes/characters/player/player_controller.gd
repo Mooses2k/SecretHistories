@@ -274,7 +274,7 @@ func update_throw_state(delta : float):
 func empty_slot():
 	var inv = character.inventory
 	if inv.hotbar != null:
-		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
+		var gun = preload("res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
 			inv.hotbar[10] = gun
 

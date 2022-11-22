@@ -112,7 +112,7 @@ _global_script_classes=[ {
 "base": "ConsumableItem",
 "class": "BombItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/bomb.gd"
+"path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd"
 }, {
 "base": "Reference",
 "class": "CharacterState",
@@ -122,7 +122,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "ConsumableItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/consumable.gd"
+"path": "res://scenes/objects/pickable_items/equipment/consumable/consumable.gd"
 }, {
 "base": "Node",
 "class": "ControlMode",
@@ -142,7 +142,7 @@ _global_script_classes=[ {
 "base": "BombItem",
 "class": "Dynamite",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/dynamite/dynamite.gd"
+"path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.gd"
 }, {
 "base": "Spatial",
 "class": "Effect",
@@ -157,7 +157,7 @@ _global_script_classes=[ {
 "base": "PickableItem",
 "class": "EquipmentItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/equipment_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/equipment_item.gd"
 }, {
 "base": "Node",
 "class": "Game",
@@ -177,7 +177,7 @@ _global_script_classes=[ {
 "base": "BombItem",
 "class": "Grenade",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/grenade/grenade.gd"
+"path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd"
 }, {
 "base": "Node",
 "class": "Groups",
@@ -187,7 +187,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "GunItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/ranged/gun_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/ranged/gun_item.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
@@ -202,17 +202,17 @@ _global_script_classes=[ {
 "base": "PickableItem",
 "class": "KeyItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/tiny/key/key_item.gd"
+"path": "res://scenes/objects/pickable_items/tiny/key/key_item.gd"
 }, {
 "base": "ToolItem",
 "class": "LanternItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/tool/lanterns/lanterns.gd"
+"path": "res://scenes/objects/pickable_items/equipment/tool/lanterns/lanterns.gd"
 }, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/melee_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/melee/melee_item.gd"
 }, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
@@ -222,12 +222,12 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "PadlockItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/tool/padlock/padlock_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/tool/padlock/padlock_item.gd"
 }, {
 "base": "RigidBody",
 "class": "PickableItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/pickable_item.gd"
+"path": "res://scenes/objects/pickable_items/pickable_item.gd"
 }, {
 "base": "Area",
 "class": "PickupArea",
@@ -247,12 +247,12 @@ _global_script_classes=[ {
 "base": "GunItem",
 "class": "RevolverItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/ranged/webley_revolver/revolver_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd"
 }, {
 "base": "EquipmentItem",
 "class": "Rock",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/components/rocks/rock.gd"
+"path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
 }, {
 "base": "Node",
 "class": "SettingsClass",
@@ -262,7 +262,7 @@ _global_script_classes=[ {
 "base": "PickableItem",
 "class": "TinyItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/tiny/tiny_item.gd"
+"path": "res://scenes/objects/pickable_items/tiny/tiny_item.gd"
 }, {
 "base": "Resource",
 "class": "TinyItemData",
@@ -272,7 +272,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "ToolItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/tool/tool_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/tool/tool_item.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
@@ -292,7 +292,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "empty_hand",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.gd"
+"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",

@@ -773,7 +773,7 @@ height = 0.162729
 [sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -785,7 +785,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.2, 1.2, -0.3 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -802,7 +802,7 @@ resource_name = "Recovery1ToTierce"
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -814,7 +814,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0.9, -0.6 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -831,7 +831,7 @@ resource_name = "Recovery2ToQuarte"
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -843,7 +843,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0.9, -0.7 ), Vector3( 0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( -0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -860,7 +860,7 @@ resource_name = "RecoveryThrustToQuarte"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -872,7 +872,7 @@ tracks/0/keys = {
 "values": [ Vector3( -0.3, 1.45, -1 ), Vector3( -0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -889,7 +889,7 @@ resource_name = "RecoveryThrustToTierce"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -901,7 +901,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.3, 1.45, -1 ), Vector3( 0.3, 1.2, -0.4 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -918,7 +918,7 @@ resource_name = "Swing1FromTierce"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -930,7 +930,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -947,7 +947,7 @@ resource_name = "Swing2FromQuarte"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -959,7 +959,7 @@ tracks/0/keys = {
 "values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -976,7 +976,7 @@ resource_name = "ThrustFromQuarte"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -988,7 +988,7 @@ tracks/0/keys = {
 "values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( -0.5, 1.5, -0.5 ), Vector3( -0.3, 1.5, -0.65 ), Vector3( -0.3, 1.45, -1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1005,7 +1005,7 @@ resource_name = "ThrustFromTierce"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -1017,7 +1017,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0.5, 1.5, -0.5 ), Vector3( 0.3, 1.5, -0.65 ), Vector3( 0.3, 1.45, -1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -1048,12 +1048,12 @@ unique_name_in_owner = true
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
 visible = false
 
-[node name="PrimaryEquipmentRoot" type="Position3D" parent="Body"]
+[node name="MainHandEquipmentRoot" type="Position3D" parent="Body"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 visible = false
 
-[node name="SecondaryEquipmentRoot" type="Position3D" parent="Body"]
+[node name="MainHandNormalPosition" type="Position3D" parent="Body"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.3 )
 visible = false

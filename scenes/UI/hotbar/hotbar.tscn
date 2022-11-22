@@ -235,12 +235,12 @@ margin_right = 23.0
 margin_bottom = 18.0
 mouse_filter = 2
 
-[node name="SecondaryIndicator" type="Label" parent="VBoxContainer/10/UseIndicators/HBoxContainer"]
+[node name="OffHandIndicator" type="Label" parent="VBoxContainer/10/UseIndicators/HBoxContainer"]
 margin_right = 7.0
 margin_bottom = 14.0
 text = "L"
 
-[node name="PrimaryIndicator" type="Label" parent="VBoxContainer/10/UseIndicators/HBoxContainer"]
+[node name="MainHandIndicator" type="Label" parent="VBoxContainer/10/UseIndicators/HBoxContainer"]
 margin_left = 11.0
 margin_right = 19.0
 margin_bottom = 14.0

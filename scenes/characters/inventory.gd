@@ -6,9 +6,9 @@ signal bulky_item_changed()
 # Emitted when a hotbar slot changes (item added or removed)
 signal hotbar_changed(slot)
 # Emitted when the user selects a new slot for the main hand
-signal primary_slot_changed(previous, current)
+signal mainhand_slot_changed(previous, current)
 # Emitted when the user selects a new slot for the offhand
-signal secondary_slot_changed(previous, current)
+signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
@@ -33,12 +33,12 @@ var hotbar : Array
 var bulky_equipment : EquipmentItem = null
 
 # Information about the item equipped on the main hand
-var current_primary_slot : int = 0 setget set_primary_slot
-var current_primary_equipment : EquipmentItem = null
+var current_mainhand_slot : int = 0 setget set_primary_slot
+var current_mainhand_equipment : EquipmentItem = null
 
 # Information about the item equipped on the offhand
-var current_secondary_slot : int = 0 setget set_secondary_slot
-var current_secondary_equipment : EquipmentItem = null
+var current_offhand_slot : int = 0 setget set_offhand_slot
+var current_offhand_equipment : EquipmentItem = null
 
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
@@ -46,7 +46,7 @@ onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
 
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
-	current_secondary_slot = 10
+	current_offhand_slot = 10
 
 
 # Returns wether a given node can be added as an Item to this inventory
@@ -98,15 +98,15 @@ func add_item(item : PickableItem) -> bool:
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
 			drop_bulky_item()
 			unequip_primary_item()
-			unequip_secondary_item()
+			unequip_offhand_item()
 			equip_bulky_item(item)
 		else:
 			# Select an empty slot, prioritizing the current one, if empty
-			var slot : int = current_primary_slot
+			var slot : int = current_mainhand_slot
 			# Then the offhand
 			
 			if hotbar[slot] != null:
-				slot = current_secondary_slot
+				slot = current_offhand_slot
 				
 			# Then the first empty slot
 			if hotbar[slot] != null:
@@ -121,11 +121,11 @@ func add_item(item : PickableItem) -> bool:
 				emit_signal("hotbar_changed", slot)
 				emit_signal("UpdateHud")
 				# Autoequip if possible
-				if current_primary_slot == slot and not bulky_equipment:
+				if current_mainhand_slot == slot and not bulky_equipment:
 					equip_primary_item()
 
-				elif current_secondary_slot == slot and not bulky_equipment:
-					equip_secondary_item()
+				elif current_offhand_slot == slot and not bulky_equipment:
+					equip_offhand_item()
 				
 
 	return true
@@ -158,29 +158,29 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_primary_item():
-	if current_primary_equipment != null: # Item already equipped
+	if current_mainhand_equipment != null: # Item already equipped
 		return
-	var item : EquipmentItem = hotbar[current_primary_slot] as EquipmentItem
+	var item : EquipmentItem = hotbar[current_mainhand_slot] as EquipmentItem
 	if item:
 		# Can't Equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
 		# Can't Equip item on both hands
-		if current_secondary_equipment == item:
-			unequip_secondary_item()
+		if current_offhand_equipment == item:
+			unequip_offhand_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
-		current_primary_equipment = item
+		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
-		owner.primary_equipment_root.add_child(item)
+		owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
 
 
 func unequip_primary_item():
-	if current_primary_equipment == null: # No item equipped
+	if current_mainhand_equipment == null: # No item equipped
 		
 		return
-	current_primary_equipment.item_state = GlobalConsts.ItemState.INVENTORY
-	var item = current_primary_equipment
-	current_primary_equipment = null
+	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	var item = current_mainhand_equipment
+	current_mainhand_equipment = null
 #	emit_signal("UpdateHud")
 	item.get_parent().remove_child(item)
 
@@ -188,14 +188,14 @@ func unequip_primary_item():
 func equip_bulky_item(item : EquipmentItem):
 	# Clear any currently equipped items
 	unequip_primary_item()
-	unequip_secondary_item()
+	unequip_offhand_item()
 	drop_bulky_item()
 	if item:
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		item.transform = item.get_hold_transform()
 		bulky_equipment = item
 		emit_signal("bulky_item_changed")
-		owner.primary_equipment_root.add_child(item)
+		owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
 	pass
 
@@ -212,56 +212,56 @@ func drop_bulky_item():
 	pass
 
 
-func equip_secondary_item():
+func equip_offhand_item():
 	# Item already equipped or both slots set to the same item
-	if current_secondary_equipment != null or current_secondary_slot == current_primary_slot:
+	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
-	var item : EquipmentItem = hotbar[current_secondary_slot]
+	var item : EquipmentItem = hotbar[current_offhand_slot]
 	# Item exists, can be equipped on the offhand, and is not already equipped
-	if item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_primary_equipment:
+	if item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
 		# Can't Equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
-		current_secondary_equipment = item
+		current_offhand_equipment = item
 		# Waits for the item to exit the tree, if necessary
 		item.transform = item.get_hold_transform()
-		owner.secondary_equipment_root.add_child(item)
+		owner.offhand_equipment_root.add_child(item)
 	pass
 
 
-func unequip_secondary_item():
-	if current_secondary_equipment == null: # No item equipped
+func unequip_offhand_item():
+	if current_offhand_equipment == null: # No item equipped
 		return
-	current_secondary_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	current_offhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	# If the item was just equipped, waits for it to enter the tree before removing
-	var item = current_secondary_equipment
-	current_secondary_equipment = null
+	var item = current_offhand_equipment
+	current_offhand_equipment = null
 	item.get_parent().remove_child(item)
 	pass
 
 
-func drop_primary_item():
+func drop_mainhand_item():
 	if bulky_equipment:
 		drop_bulky_item()
 	else:
-		drop_hotbar_slot(current_primary_slot)
+		drop_hotbar_slot(current_mainhand_slot)
 	pass
 
 
-func get_primary_item() -> EquipmentItem:
-	return bulky_equipment if bulky_equipment else current_primary_equipment
+func get_mainhand_item() -> EquipmentItem:
+	return bulky_equipment if bulky_equipment else current_mainhand_equipment
 
 
-func get_secondary_item() -> EquipmentItem:
-	return current_secondary_equipment
+func get_offhand_item() -> EquipmentItem:
+	return current_offhand_equipment
 
 
 func has_bulky_item() -> bool:
 	return bulky_equipment != null
 
 
-func drop_secondary_item():
-	drop_hotbar_slot(current_secondary_slot)
+func drop_offhand_item():
+	drop_hotbar_slot(current_offhand_slot)
 	pass
 
 
@@ -270,10 +270,10 @@ func drop_hotbar_slot(slot : int) -> Node:
 	if not item == null:
 		var item_node = item as EquipmentItem
 		hotbar[slot] = null
-		if current_primary_equipment == item_node:
+		if current_mainhand_equipment == item_node:
 			unequip_primary_item()
-		elif current_secondary_equipment == item_node:
-			unequip_secondary_item()
+		elif current_offhand_equipment == item_node:
+			unequip_offhand_item()
 		if item_node:
 			_drop_item(item_node)
 		emit_signal("hotbar_changed", slot)
@@ -291,28 +291,28 @@ func _drop_item(item : EquipmentItem):
 
 
 func set_primary_slot(value : int):
-	if value != current_primary_slot:
+	if value != current_mainhand_slot:
 		unequip_primary_item()
-		var previous_slot = current_primary_slot
-		current_primary_slot = value
+		var previous_slot = current_mainhand_slot
+		current_mainhand_slot = value
 		equip_primary_item()
-		emit_signal("primary_slot_changed", previous_slot, value)
+		emit_signal("mainhand_slot_changed", previous_slot, value)
 		emit_signal("UpdateHud")
 	else:
-		if get_primary_item() == hotbar[current_primary_slot]:
+		if get_mainhand_item() == hotbar[current_mainhand_slot]:
 			emit_signal("UpdateHud")
 			unequip_primary_item()
 		else:
 			equip_primary_item()
 
 
-func set_secondary_slot(value : int):
-	if value != current_secondary_slot:
-		var previous_slot = current_secondary_slot
-		unequip_secondary_item()
-		current_secondary_slot = value
-		equip_secondary_item()
-		emit_signal("secondary_slot_changed", previous_slot, value)
+func set_offhand_slot(value : int):
+	if value != current_offhand_slot:
+		var previous_slot = current_offhand_slot
+		unequip_offhand_item()
+		current_offhand_slot = value
+		equip_offhand_item()
+		emit_signal("offhand_slot_changed", previous_slot, value)
 		emit_signal("UpdateHud")
 
 

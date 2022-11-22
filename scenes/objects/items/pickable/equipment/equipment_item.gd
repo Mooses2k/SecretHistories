@@ -11,12 +11,12 @@ export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_M
 export var item_name : String = "Equipment"
 
 
-# Override this function for use actions
+# Override this function for (Left-Click and E, typically) use actions
 func _use_primary():
 	print("use primary")
 	pass
 
-
+# Right-click, typically
 func _use_secondary():
 	print("use secondary")
 	pass

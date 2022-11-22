@@ -53,16 +53,16 @@ func _interact(character):
 				inventory._drop_item(padlock)
 	else: # Add a padlock to the loop
 		var padlock_primary = true
-		var padlock = inventory.get_primary_item() as PadlockItem
+		var padlock = inventory.get_mainhand_item() as PadlockItem
 		if not padlock or padlock.padlock_locked:
-			padlock = inventory.get_secondary_item() as PadlockItem
+			padlock = inventory.get_offhand_item() as PadlockItem
 			padlock_primary = false
 		if padlock and not padlock.padlock_locked:
 			current_padlock = padlock
 			if padlock_primary:
-				inventory.drop_primary_item()
+				inventory.drop_mainhand_item()
 			else:
-				inventory.drop_secondary_item()
+				inventory.drop_offhand_item()
 			padlock.get_parent().remove_child(padlock)
 			add_child(current_padlock)
 			padlock.set_physics_equipped()

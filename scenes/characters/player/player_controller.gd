@@ -273,11 +273,11 @@ func handle_grab(delta : float):
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
-			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_primary_item() and is_grabbing == false and GameManager.is_reloading == false:
+			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_mainhand_item() and is_grabbing == false and GameManager.is_reloading == false:
 				throw_item = ItemSelection.ITEM_MAINHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_secondary_item() and is_grabbing == false  and GameManager.is_reloading == false:
+			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_offhand_item() and is_grabbing == false  and GameManager.is_reloading == false:
 				throw_item = ItemSelection.ITEM_OFFHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
@@ -337,28 +337,28 @@ func handle_inventory(delta : float):
 			inv.current_secondary_slot = 10
 	## Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
-		if inv.get_primary_item():
-			inv.get_primary_item().use_primary()
+		if inv.get_mainhand_item():
+			inv.get_mainhand_item().use_primary()
 			throw_state = ThrowState.IDLE
 	
 	if Input.is_action_just_pressed("main_use_secondary"):
-		if inv.get_primary_item():
-			inv.get_primary_item().use_secondary()
+		if inv.get_mainhand_item():
+			inv.get_mainhand_item().use_secondary()
 			throw_state = ThrowState.IDLE
 	
 	if Input.is_action_just_pressed("reload"):
-		if inv.get_primary_item():
-			inv.get_primary_item().use_reload()
+		if inv.get_mainhand_item():
+			inv.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
 
 	
 	if Input.is_action_just_pressed("offhand_use"):
-		if inv.get_secondary_item():
-			inv.get_secondary_item().use_primary()
+		if inv.get_offhand_item():
+			inv.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE
 	
 	if throw_state == ThrowState.SHOULD_PLACE:
-		var item : EquipmentItem = inv.get_primary_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_secondary_item()
+		var item : EquipmentItem = inv.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_offhand_item()
 		if item:
 			
 			# Calculates where to place the item
@@ -377,19 +377,19 @@ func handle_inventory(delta : float):
 			item.collision_mask = mask
 			if result.motion.length() > 0.1:
 				if throw_item == ItemSelection.ITEM_MAINHAND:
-					inv.drop_primary_item()
+					inv.drop_mainhand_item()
 				else:
-					inv.drop_secondary_item()
+					inv.drop_offhand_item()
 				item.call_deferred("global_translate", result.motion)
 		
 	elif throw_state == ThrowState.SHOULD_THROW:
 		var item : EquipmentItem = null
 		if throw_item == ItemSelection.ITEM_MAINHAND:
-			item = inv.get_primary_item()
-			inv.drop_primary_item()
+			item = inv.get_mainhand_item()
+			inv.drop_mainhand_item()
 		else:
-			item = inv.get_secondary_item()
-			inv.drop_secondary_item()
+			item = inv.get_offhand_item()
+			inv.drop_offhand_item()
 		if item:
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
@@ -405,10 +405,10 @@ func handle_inventory(delta : float):
 	
 #	if Input.is_action_just_released("throw") and throw_state:
 #		throw_state = false
-#		var item = inv.get_primary_item()
+#		var item = inv.get_mainhand_item()
 #		if item:
 #			if throw_press_length < hold_time_to_place:
-#				inv.drop_primary_item()
+#				inv.drop_mainhand_item()
 #				item.apply_central_impulse(active_mode.get_aim_direction()*throw_strength)
 #			else:
 #				var origin : Vector3 = owner.inventory.drop_position_node.global_transform.origin

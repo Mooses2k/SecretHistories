@@ -104,6 +104,7 @@ margin_bottom = 22.0
 can_equip_modulate = Color( 1, 1, 1, 0.501961 )
 equipped_modulate = Color( 1, 1, 1, 1 )
 can_not_equip_modulate = Color( 0, 0, 0, 0 )
+index = 0
 is_bulky = true
 
 [node name="1" parent="VBoxContainer" instance=ExtResource( 1 )]

@@ -361,7 +361,6 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 ChangeScene="*res://globals/change_scene.gd"
 
-
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg" )

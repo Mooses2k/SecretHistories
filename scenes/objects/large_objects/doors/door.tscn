@@ -1,9 +1,10 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://scenes/objects/world_objects/doors/door_body.gd" type="Script" id=1]
-[ext_resource path="res://scenes/objects/world_objects/doors/door.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/large_objects/doors/door_body.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/large_objects/doors/door.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/interactables/lock/lock_door_half.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/objects/interactables/lock/lock_wall_half.tscn" type="PackedScene" id=6]
+
 
 [sub_resource type="SpatialMaterial" id=8]
 albedo_color = Color( 0.6, 0.216, 0.12, 1 )

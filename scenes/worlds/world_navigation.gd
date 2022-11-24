@@ -7,7 +7,7 @@ export var elevation : float = 0.2
 var data : Resource setget set_data
 var walls_done = Dictionary()
 
-var door_scene = preload("res://scenes/objects/world_objects/doors/door.tscn")
+var door_scene = preload("res://scenes/objects/large_objects/doors/door.tscn")
 #stores the navmeshes for each door, similar to wall_meta on the WorldData resource
 var doors_x := Dictionary()
 var doors_z := Dictionary()

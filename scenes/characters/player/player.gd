@@ -3,9 +3,9 @@ class_name Player
 
 
 onready var tinnitus = $Tinnitus
-onready var fps_camera = $Body/FPSCamera
+onready var fps_camera = $FPSCamera
 onready var Gun_cam=$Body/ViewportContainer2/Viewport/GunCam
-onready var grab_cast=$Body/FPSCamera/GrabCast
+onready var grab_cast=$FPSCamera/GrabCast
 
 var colliding_pickable_items = []
 var colliding_interactable_items = []

@@ -37,7 +37,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.624744, 0 )
 cull_mask = 4
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 3.84615, 0, 2.5, 0 )
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.5, 0 )
 cull_mask = 1048569
 current = true
 script = ExtResource( 5 )

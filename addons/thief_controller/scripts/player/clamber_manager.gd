@@ -18,21 +18,40 @@ func _get_world():
 	return _world
 
 
-func attempt_clamber() -> Vector3:
-	if _camera.rotation_degrees.x < 20.0:
-		var v = _test_clamber_vent()
-		if v != Vector3.ZERO:
-			return v
+func attempt_clamber(is_crouching:bool) -> Vector3:
+#	if _camera.rotation_degrees.x < 20.0:
+#		var v = _test_clamber_vent()
+#		if v != Vector3.ZERO:
+#			return v
+#		v = _test_clamber_ledge()
+#		if v != Vector3.ZERO:
+#			return v
+#	elif _camera.rotation_degrees.x > 20.0:
+#		var v = _test_clamber_ledge()
+#		if v != Vector3.ZERO:
+#			return v
+#		v = _test_clamber_vent()
+#		if v != Vector3.ZERO:
+#			return v
+#	return Vector3.ZERO
+	
+	var v = _test_clamber_vent()
+	if v == Vector3.ZERO:
 		v = _test_clamber_ledge()
-		if v != Vector3.ZERO:
+		if v == Vector3.ZERO:
+			return Vector3.ZERO
+	
+	if is_crouching:
+		if v.y < 0.8 and _camera.rotation_degrees.x < 5.0:
 			return v
-	elif _camera.rotation_degrees.x > 20.0:
-		var v = _test_clamber_ledge()
-		if v != Vector3.ZERO:
+		if (v.y < 2.0 and v.y > 0.8) and _camera.rotation_degrees.x > 20.0:
 			return v
-		v = _test_clamber_vent()
-		if v != Vector3.ZERO:
-			return v
+		return Vector3.ZERO
+	
+	if v.y < 1.6 and _camera.rotation_degrees.x < 5.0:
+		return v
+	elif (v.y > 1.6 and v.y < 2.0) and _camera.rotation_degrees.x > 20.0:
+		return v
 	return Vector3.ZERO
 
 

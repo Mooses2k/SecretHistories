@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=1]
+[ext_resource path="res://scenes/effects/explosion/explosions.gd" type="Script" id=2]
 
 [sub_resource type="ParticlesMaterial" id=1]
 gravity = Vector3( 0, 0, 0 )
@@ -26,6 +27,114 @@ fixed_fps = 30
 visibility_aabb = AABB( -4, -4, -4.79199, 8, 8, 8 )
 process_material = SubResource( 1 )
 draw_pass_1 = SubResource( 5 )
+script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="bombcasts" type="Spatial" parent="."]
+
+[node name="RayCast" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, -4.35411e-08, -1.00391, 0, 0.996104, -4.38823e-08, 0, 0, 2.32831e-10 )
+
+[node name="RayCast2" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, -4.35411e-08, 1.00391, 0, -0.996104, -4.38823e-08, 0, 0, 2.32831e-10 )
+
+[node name="RayCast3" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, -0.999996, 8.74232e-08, 0, -8.74224e-08, -1, 0, 0, 2.32831e-10 )
+
+[node name="RayCast4" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, 0.999993, 0, 0, 0, 1.00001, 0, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast5" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.37114e-08, -0.999995, -8.74232e-08, -1, -4.37112e-08, 0, -3.82137e-15, 8.74224e-08, -1, -1.16415e-10, 0, 2.32831e-10 )
+
+[node name="RayCast6" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.37114e-08, 0.999995, -8.74232e-08, 0.999999, -4.37112e-08, 0, -3.82137e-15, -8.74224e-08, -1, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast7" type="RayCast" parent="bombcasts"]
+transform = Transform( 2.6488e-08, 0.605972, -0.7986, 0.999999, -4.37112e-08, 0, -3.46362e-08, -0.79238, -0.605977, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast8" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.22191e-08, -0.737085, 0.678443, 0.999999, -4.37112e-08, 0, 2.94249e-08, 0.67316, 0.737092, -1.16415e-10, -4.65661e-10, 0 )
+
+[node name="RayCast9" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.04494e-08, 0.696599, 0.720268, 0.999999, -4.37112e-08, 0, 3.12388e-08, 0.714659, -0.696605, -1.16415e-10, -4.65661e-10, 0 )
+
+[node name="RayCast10" type="RayCast" parent="bombcasts"]
+transform = Transform( -2.91845e-08, -0.667661, -0.747379, 0.999999, -4.37112e-08, 0, -3.24147e-08, -0.741558, 0.667667, -1.16415e-10, -4.65661e-10, 1.16415e-10 )
+
+[node name="RayCast11" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.11809e-08, -0.942106, 0.336617, 0.999999, -4.37112e-08, 0, 1.45995e-08, 0.333996, 0.942114, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast12" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.02174e-08, 0.920063, -0.393293, 0.999999, -4.37112e-08, 0, -1.70576e-08, -0.390231, -0.920072, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast13" type="RayCast" parent="bombcasts"]
+transform = Transform( -1.52022e-08, -0.347785, -0.941246, 0.999999, -4.37112e-08, 0, -4.08229e-08, -0.933915, 0.347788, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast14" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.90672e-08, -0.893751, -0.450312, 0.999999, -4.37112e-08, 0, -1.95305e-08, -0.446804, 0.893759, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast15" type="RayCast" parent="bombcasts"]
+transform = Transform( 1.51865e-08, 0.347425, -0.941379, 0.999998, -4.37112e-08, 0, -4.08287e-08, -0.934048, -0.347428, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast16" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.24124e-08, -0.970278, -0.24292, 0.999998, -4.37112e-08, 0, -1.05357e-08, -0.241028, 0.970287, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast17" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.30151e-08, -0.984066, 0.178468, 0.999998, -4.37112e-08, 0, 7.74037e-09, 0.177078, 0.984076, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast18" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.69996e-08, -0.846449, 0.534548, 0.999998, -4.37112e-08, 0, 2.3184e-08, 0.530385, 0.846457, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast19" type="RayCast" parent="bombcasts"]
+transform = Transform( -1.5288e-08, -0.349747, 0.940512, 0.999998, -4.37112e-08, 0, 4.07911e-08, 0.933187, 0.349751, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast20" type="RayCast" parent="bombcasts"]
+transform = Transform( 1.7448e-08, 0.399163, 0.92047, 0.999998, -4.37112e-08, 0, 3.99218e-08, 0.913301, -0.399167, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast21" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.036e-08, 0.923326, 0.385509, 0.999998, -4.37112e-08, 0, 1.672e-08, 0.382506, -0.923334, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast22" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.3099e-08, 0.985987, -0.167439, 0.999997, -4.37112e-08, 0, -7.26203e-09, -0.166135, -0.985997, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast23" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.56409e-08, 0.815365, -0.581207, 0.999997, -4.37112e-08, 0, -2.52076e-08, -0.57668, -0.815373, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast24" type="RayCast" parent="bombcasts"]
+transform = Transform( 7.4115e-09, 0.169555, -0.98938, 0.999997, -4.37112e-08, 0, -4.29105e-08, -0.981674, -0.169557, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast25" type="RayCast" parent="bombcasts"]
+transform = Transform( -7.67153e-09, -0.175504, -0.988334, 0.999997, -4.37112e-08, 0, -4.28651e-08, -0.980636, 0.175505, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast26" type="RayCast" parent="bombcasts"]
+transform = Transform( -2.33411e-08, -0.533981, -0.848806, 0.999997, -4.37112e-08, 0, -3.68136e-08, -0.842195, 0.533985, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast27" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.48446e-08, -0.797148, -0.606143, 0.999997, -4.37112e-08, 0, -2.62891e-08, -0.601422, 0.797155, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast28" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.33901e-08, -0.992646, -0.121477, 0.999997, -4.37112e-08, 0, -5.26858e-09, -0.12053, 0.992655, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+
+[node name="RayCast29" type="RayCast" parent="bombcasts"]
+transform = Transform( -2.52782e-08, -0.578295, 0.819019, 0.999997, -4.37112e-08, 0, 3.55218e-08, 0.812641, 0.578301, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast30" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.49301e-08, 0.799104, 0.603542, 0.999996, -4.37112e-08, 0, 2.61763e-08, 0.598841, -0.799111, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast31" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.27544e-08, 0.978102, 0.208914, 0.999996, -4.37112e-08, 0, 9.06083e-09, 0.207287, -0.978111, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+
+[node name="RayCast32" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.14517e-08, 0.719529, -0.697177, 0.999996, -4.37112e-08, 0, -3.02373e-08, -0.691748, -0.719536, -1.16415e-10, -4.65661e-10, 4.65661e-10 )
+
+[node name="RayCast33" type="RayCast" parent="bombcasts"]
+transform = Transform( 2.14374e-08, 0.490429, -0.874892, 0.999996, -4.37112e-08, 0, -3.7945e-08, -0.868078, -0.490434, -1.16415e-10, -4.65661e-10, 4.65661e-10 )
+
+[node name="RayCast34" type="RayCast" parent="bombcasts"]
+transform = Transform( -5.57154e-09, -0.127461, 0.995727, 0.999996, -4.37112e-08, 0, 4.31858e-08, 0.987972, 0.127463, -2.32831e-10, -4.65661e-10, 4.65661e-10 )
+
+[node name="RayCast35" type="RayCast" parent="bombcasts"]
+transform = Transform( 2.55445e-08, 0.584388, 0.814649, 0.999996, -4.37112e-08, 0, 3.53322e-08, 0.808304, -0.584393, -2.32831e-10, -4.65661e-10, 4.65661e-10 )

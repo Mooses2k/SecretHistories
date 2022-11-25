@@ -39,6 +39,7 @@ func _on_Countdown_timeout():
 	$Shrapnel.emitting = true
 	$Fuse.emitting = false
 	$Mesh.visible = false
+	$Explosion._on_Bomb_explosion()
 	countdown_started = true
 	# below lines fix crash if bomb is still in hands when explodes
 	if get_parent().get_parent().get_parent().is_in_group("CHARACTER"):

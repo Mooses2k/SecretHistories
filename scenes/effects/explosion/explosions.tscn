@@ -174,3 +174,143 @@ enabled = true
 [node name="RayCast35" type="RayCast" parent="bombcasts"]
 transform = Transform( 2.55445e-08, 0.584388, 0.814649, 0.999996, -4.37112e-08, 0, 3.53322e-08, 0.808304, -0.584393, -2.32831e-10, -4.65661e-10, 4.65661e-10 )
 enabled = true
+
+[node name="RayCast36" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, -0.999999, -0.00194488, 0, 0.00192973, -0.999996, 0, -4.65661e-10, 1.16415e-09 )
+enabled = true
+
+[node name="RayCast37" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, 0.999999, 0.00194497, 0, -0.00192985, 0.999996, 0, -4.65661e-10, 1.16415e-09 )
+enabled = true
+
+[node name="RayCast38" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, -0.00193722, 1.00391, 0, -0.996097, -0.0019373, 0, -4.65661e-10, 1.16415e-09 )
+enabled = true
+
+[node name="RayCast39" type="RayCast" parent="bombcasts"]
+transform = Transform( 1, 0, 0, 0, 0.00193722, -1.00392, 0, 0.996094, 0.00193736, 0, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast40" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.37114e-08, -0.999995, -8.74232e-08, -0.00193731, -8.78489e-08, 1.00391, -0.996101, -4.33714e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 1.16415e-09 )
+enabled = true
+
+[node name="RayCast41" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.37114e-08, 0.999995, -8.74232e-08, 0.00193731, 8.76796e-08, 1.00391, 0.9961, -4.37101e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast42" type="RayCast" parent="bombcasts"]
+transform = Transform( 2.6488e-08, 0.605972, -0.7986, 0.00193731, 0.795478, 0.608346, 0.9961, -0.00153521, -0.001174, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast43" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.22191e-08, -0.737085, 0.678443, 0.00193731, -0.675792, -0.739974, 0.9961, 0.00130409, 0.00142798, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast44" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.04494e-08, 0.696599, 0.720268, 0.00193731, -0.717453, 0.699329, 0.9961, 0.0013845, -0.00134954, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast45" type="RayCast" parent="bombcasts"]
+transform = Transform( -2.91845e-08, -0.667661, -0.747379, 0.00193731, 0.744458, -0.670278, 0.9961, -0.00143665, 0.00129348, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast46" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.11809e-08, -0.942106, 0.336617, 0.00193731, -0.335302, -0.945798, 0.9961, 0.000647053, 0.00182524, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast47" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.02174e-08, 0.920063, -0.393293, 0.00193731, 0.391757, 0.92367, 0.9961, -0.000756055, -0.00178248, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast48" type="RayCast" parent="bombcasts"]
+transform = Transform( -1.52022e-08, -0.347785, -0.941246, 0.00193737, 0.937567, -0.349148, 0.9961, -0.00180936, 0.000673816, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast49" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.90672e-08, -0.893751, -0.450312, 0.00193731, 0.448551, -0.897254, 0.9961, -0.000865683, 0.00173154, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast50" type="RayCast" parent="bombcasts"]
+transform = Transform( 1.51865e-08, 0.347425, -0.941379, 0.00193734, 0.9377, 0.348786, 0.996099, -0.0018096, -0.000673085, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast51" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.24124e-08, -0.970278, -0.24292, 0.00193731, 0.24197, -0.974081, 0.996099, -0.000467002, 0.00187972, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast52" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.30151e-08, -0.984066, 0.178468, 0.00193731, -0.17777, -0.987924, 0.996099, 0.00034301, 0.00190648, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast53" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.69996e-08, -0.846449, 0.534548, 0.00193731, -0.532459, -0.849767, 0.996099, 0.00102754, 0.00163987, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast54" type="RayCast" parent="bombcasts"]
+transform = Transform( -1.5288e-08, -0.349747, 0.940512, 0.00193725, -0.936836, -0.351119, 0.996099, 0.00180787, 0.000677601, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast55" type="RayCast" parent="bombcasts"]
+transform = Transform( 1.7448e-08, 0.399163, 0.92047, 0.00193725, -0.916872, 0.400728, 0.996099, 0.00176939, -0.00077334, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast56" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.036e-08, 0.923326, 0.385509, 0.00193731, -0.384002, 0.926944, 0.996099, 0.000741005, -0.00178885, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast57" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.3099e-08, 0.985987, -0.167439, 0.00193731, 0.166785, 0.989853, 0.996098, -0.000321902, -0.00191018, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast58" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.56409e-08, 0.815365, -0.581207, 0.00193731, 0.578935, 0.818561, 0.996098, -0.00111723, -0.00157964, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast59" type="RayCast" parent="bombcasts"]
+transform = Transform( 7.4115e-09, 0.169555, -0.98938, 0.00193737, 0.985512, 0.17022, 0.996098, -0.00190195, -0.000328504, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast60" type="RayCast" parent="bombcasts"]
+transform = Transform( -7.67153e-09, -0.175504, -0.988334, 0.00193737, 0.984471, -0.176191, 0.996098, -0.00189987, 0.000340022, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast61" type="RayCast" parent="bombcasts"]
+transform = Transform( -2.33411e-08, -0.533981, -0.848806, 0.00193737, 0.845488, -0.536073, 0.996098, -0.00163162, 0.00103453, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast62" type="RayCast" parent="bombcasts"]
+transform = Transform( -3.48446e-08, -0.797148, -0.606143, 0.00193731, 0.603774, -0.800272, 0.996098, -0.00116524, 0.00154433, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast63" type="RayCast" parent="bombcasts"]
+transform = Transform( -4.33901e-08, -0.992646, -0.121477, 0.00193731, 0.121001, -0.996536, 0.996098, -0.000233546, 0.00192317, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast64" type="RayCast" parent="bombcasts"]
+transform = Transform( -2.52782e-08, -0.578295, 0.819019, 0.00193731, -0.815819, -0.580562, 0.996098, 0.00157431, 0.00112036, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast65" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.49301e-08, 0.799104, 0.603542, 0.00193731, -0.601183, 0.802236, 0.996097, 0.00116014, -0.00154811, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast66" type="RayCast" parent="bombcasts"]
+transform = Transform( 4.27544e-08, 0.978102, 0.208914, 0.00193731, -0.208098, 0.981936, 0.996097, 0.000401534, -0.00189495, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+enabled = true
+
+[node name="RayCast67" type="RayCast" parent="bombcasts"]
+transform = Transform( 3.14517e-08, 0.719529, -0.697177, 0.00193731, 0.694453, 0.72235, 0.996097, -0.00134018, -0.00139397, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+enabled = true
+
+[node name="RayCast68" type="RayCast" parent="bombcasts"]
+transform = Transform( 2.14374e-08, 0.490429, -0.874892, 0.00193734, 0.871472, 0.492352, 0.996097, -0.00168183, -0.000950173, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+enabled = true
+
+[node name="RayCast69" type="RayCast" parent="bombcasts"]
+transform = Transform( -5.57154e-09, -0.127461, 0.995727, 0.00193725, -0.991835, -0.127961, 0.996097, 0.00191393, 0.000246938, -2.32831e-10, -4.65661e-10, 6.98492e-10 )
+enabled = true
+
+[node name="RayCast70" type="RayCast" parent="bombcasts"]
+transform = Transform( 2.55445e-08, 0.584388, 0.814649, 0.00193731, -0.811465, 0.586678, 0.996097, 0.0015659, -0.00113219, -2.32831e-10, -4.65661e-10, 6.98492e-10 )
+enabled = true

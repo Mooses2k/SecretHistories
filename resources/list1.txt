@@ -26,7 +26,7 @@
 "The worthy GM never purposely kills players' PCs. He presents opportunities for the rash and unthinking players to do that all on their own." --Gary Gygax
 "The books I write because I want to read them, the games because I want to play them, and stories I tell because I find them exciting personally." --Gary Gygax
 "Somebody said they threw their copy of Dungeons and Dragons into the fire, and it screamed. It's a game! The magic spells in it are as real as the gold." --Gary Gygax
-"Hail Satan!" --Gary Gygax
+"Hail Satan!" --Gary Gygax (attributed)
 "Satanic panic is my favorite kind of panic, other than the one with bunnies." --Gary Gygax
 "Use the Force, Frodo" --Dumbledore
 "So long and thanks for all the fnord!" --the Jjaro
@@ -55,13 +55,14 @@ Note: You must judge whether it's best to light up a room or keep it shrouded in
 Note: Don't let them spot you first. 
 Note: Nobody likes a camper...because ambushes are highly effective.
 Note: For a light-source in your main hand, hit Left-Click or, for the off-hand, hit [Off-hand use key] to light or douse it. Right-Click holds it forwards or swings it.
-Note: Press [Main-hand throw key] to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
+Note: Press Middle-Mouse Button to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
 Note: Press the [Map key] key to open your map.
 Note: Press the [Binoculars key] key to see through your spyglass.
 Note: Violence is always an answer, but not always the answer.
 Note: Conserve your ammo. You're going to need it.
 Note: Where no humans have tread, no ammo is to be found.
 Have you considered: leaving the situation?
+Have you considered: killing it with fire?
 Note: If you can't accept a situation or change it, then leave it.
 Note: Torches give off a lot of smoke and wreck your night-vision.
 Note: Green slime will outlive us all.
@@ -71,3 +72,5 @@ Note: Wear a helmet.
 Note: Be sure to use protection.
 Note: A gambeson can keep you warm despite the ravages of a cold, dead Earth.
 Note: Running away like a coward is a valid option for cowards.
+Note: Astrology is not the same as astronomy despite having a similar name.
+Note: Astronomers sometimes omit the truth to protect you.

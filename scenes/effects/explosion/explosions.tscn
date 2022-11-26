@@ -31,427 +31,1376 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
-shockwave = 100
+shockwave = 70
+blast_range = 5.0
 
 [node name="bombcasts" type="Spatial" parent="."]
 unique_name_in_owner = true
 
 [node name="RayCast" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, -4.35411e-08, -1.00391, 0, 0.996104, -4.38823e-08, 0, 0, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast2" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, -4.35411e-08, 1.00391, 0, -0.996104, -4.38823e-08, 0, 0, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast3" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, -0.999996, 8.74232e-08, 0, -8.74224e-08, -1, 0, 0, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 4
+debug_shape_thickness = 1
 
 [node name="RayCast4" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, 0.999993, 0, 0, 0, 1.00001, 0, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast5" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.37114e-08, -0.999995, -8.74232e-08, -1, -4.37112e-08, 0, -3.82137e-15, 8.74224e-08, -1, -1.16415e-10, 0, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast6" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.37114e-08, 0.999995, -8.74232e-08, 0.999999, -4.37112e-08, 0, -3.82137e-15, -8.74224e-08, -1, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast7" type="RayCast" parent="bombcasts"]
 transform = Transform( 2.6488e-08, 0.605972, -0.7986, 0.999999, -4.37112e-08, 0, -3.46362e-08, -0.79238, -0.605977, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast8" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.22191e-08, -0.737085, 0.678443, 0.999999, -4.37112e-08, 0, 2.94249e-08, 0.67316, 0.737092, -1.16415e-10, -4.65661e-10, 0 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast9" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.04494e-08, 0.696599, 0.720268, 0.999999, -4.37112e-08, 0, 3.12388e-08, 0.714659, -0.696605, -1.16415e-10, -4.65661e-10, 0 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast10" type="RayCast" parent="bombcasts"]
 transform = Transform( -2.91845e-08, -0.667661, -0.747379, 0.999999, -4.37112e-08, 0, -3.24147e-08, -0.741558, 0.667667, -1.16415e-10, -4.65661e-10, 1.16415e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast11" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.11809e-08, -0.942106, 0.336617, 0.999999, -4.37112e-08, 0, 1.45995e-08, 0.333996, 0.942114, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast12" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.02174e-08, 0.920063, -0.393293, 0.999999, -4.37112e-08, 0, -1.70576e-08, -0.390231, -0.920072, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast13" type="RayCast" parent="bombcasts"]
 transform = Transform( -1.52022e-08, -0.347785, -0.941246, 0.999999, -4.37112e-08, 0, -4.08229e-08, -0.933915, 0.347788, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast14" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.90672e-08, -0.893751, -0.450312, 0.999999, -4.37112e-08, 0, -1.95305e-08, -0.446804, 0.893759, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast15" type="RayCast" parent="bombcasts"]
 transform = Transform( 1.51865e-08, 0.347425, -0.941379, 0.999998, -4.37112e-08, 0, -4.08287e-08, -0.934048, -0.347428, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast16" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.24124e-08, -0.970278, -0.24292, 0.999998, -4.37112e-08, 0, -1.05357e-08, -0.241028, 0.970287, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast17" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.30151e-08, -0.984066, 0.178468, 0.999998, -4.37112e-08, 0, 7.74037e-09, 0.177078, 0.984076, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast18" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.69996e-08, -0.846449, 0.534548, 0.999998, -4.37112e-08, 0, 2.3184e-08, 0.530385, 0.846457, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast19" type="RayCast" parent="bombcasts"]
 transform = Transform( -1.5288e-08, -0.349747, 0.940512, 0.999998, -4.37112e-08, 0, 4.07911e-08, 0.933187, 0.349751, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast20" type="RayCast" parent="bombcasts"]
 transform = Transform( 1.7448e-08, 0.399163, 0.92047, 0.999998, -4.37112e-08, 0, 3.99218e-08, 0.913301, -0.399167, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast21" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.036e-08, 0.923326, 0.385509, 0.999998, -4.37112e-08, 0, 1.672e-08, 0.382506, -0.923334, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast22" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.3099e-08, 0.985987, -0.167439, 0.999997, -4.37112e-08, 0, -7.26203e-09, -0.166135, -0.985997, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast23" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.56409e-08, 0.815365, -0.581207, 0.999997, -4.37112e-08, 0, -2.52076e-08, -0.57668, -0.815373, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast24" type="RayCast" parent="bombcasts"]
 transform = Transform( 7.4115e-09, 0.169555, -0.98938, 0.999997, -4.37112e-08, 0, -4.29105e-08, -0.981674, -0.169557, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast25" type="RayCast" parent="bombcasts"]
 transform = Transform( -7.67153e-09, -0.175504, -0.988334, 0.999997, -4.37112e-08, 0, -4.28651e-08, -0.980636, 0.175505, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast26" type="RayCast" parent="bombcasts"]
 transform = Transform( -2.33411e-08, -0.533981, -0.848806, 0.999997, -4.37112e-08, 0, -3.68136e-08, -0.842195, 0.533985, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast27" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.48446e-08, -0.797148, -0.606143, 0.999997, -4.37112e-08, 0, -2.62891e-08, -0.601422, 0.797155, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast28" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.33901e-08, -0.992646, -0.121477, 0.999997, -4.37112e-08, 0, -5.26858e-09, -0.12053, 0.992655, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast29" type="RayCast" parent="bombcasts"]
 transform = Transform( -2.52782e-08, -0.578295, 0.819019, 0.999997, -4.37112e-08, 0, 3.55218e-08, 0.812641, 0.578301, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast30" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.49301e-08, 0.799104, 0.603542, 0.999996, -4.37112e-08, 0, 2.61763e-08, 0.598841, -0.799111, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast31" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.27544e-08, 0.978102, 0.208914, 0.999996, -4.37112e-08, 0, 9.06083e-09, 0.207287, -0.978111, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast32" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.14517e-08, 0.719529, -0.697177, 0.999996, -4.37112e-08, 0, -3.02373e-08, -0.691748, -0.719536, -1.16415e-10, -4.65661e-10, 4.65661e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast33" type="RayCast" parent="bombcasts"]
 transform = Transform( 2.14374e-08, 0.490429, -0.874892, 0.999996, -4.37112e-08, 0, -3.7945e-08, -0.868078, -0.490434, -1.16415e-10, -4.65661e-10, 4.65661e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast34" type="RayCast" parent="bombcasts"]
 transform = Transform( -5.57154e-09, -0.127461, 0.995727, 0.999996, -4.37112e-08, 0, 4.31858e-08, 0.987972, 0.127463, -2.32831e-10, -4.65661e-10, 4.65661e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast35" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.17717, 0.575143, 0.801761, 0.984176, -0.103536, -0.144332, 3.53322e-08, 0.808304, -0.584393, -1.16415e-10, 0, 4.65661e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast36" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.98418, -0.17717, -0.000344576, -0.177171, -0.984179, -0.00191411, 0, 0.00192973, -0.999996, 1.16415e-10, -4.65661e-10, 1.16415e-09 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast37" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.98418, 0.17717, 0.000344591, -0.177171, 0.984179, 0.0019142, 0, -0.00192985, 0.999996, 1.16415e-10, -4.65661e-10, 1.16415e-09 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast38" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.98418, -0.000343218, 0.177863, -0.177171, -0.00190657, 0.988028, 0, -0.996097, -0.0019373, 1.16415e-10, -4.65661e-10, 1.16415e-09 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast39" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.98418, 0.000343218, -0.177865, -0.177171, 0.00190657, -0.988038, 0, 0.996094, 0.00193736, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast40" type="RayCast" parent="bombcasts"]
 transform = Transform( -0.000343191, -0.984175, 0.177863, -0.00190667, 0.17717, 0.988028, -0.996101, -4.33714e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 1.16415e-09 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast41" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343277, 0.984175, 0.177863, 0.00190665, -0.17717, 0.988028, 0.9961, -4.37101e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast42" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.00034326, 0.737321, -0.678185, 0.00190666, 0.675533, 0.74021, 0.9961, -0.00153521, -0.001174, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast43" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343203, -0.845155, 0.536608, 0.00190667, -0.534511, -0.848468, 0.9961, 0.00130409, 0.00142798, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast44" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343264, 0.558467, 0.832774, 0.00190666, -0.82952, 0.560655, 0.9961, 0.0013845, -0.00134954, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast45" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343206, -0.525203, -0.854309, 0.00190667, 0.850971, -0.527261, 0.9961, -0.00143665, 0.00129348, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast46" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343194, -0.986608, 0.163724, 0.00190667, -0.163084, -0.990474, 0.9961, 0.000647053, 0.00182524, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast47" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343274, 0.974915, -0.223424, 0.00190665, 0.222551, 0.978737, 0.9961, -0.000756055, -0.00178248, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast48" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.00034323, -0.176174, -0.988214, 0.00190672, 0.984352, -0.176863, 0.9961, -0.00180936, 0.000673816, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast49" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343196, -0.800142, -0.602155, 0.00190667, 0.599801, -0.803277, 0.9961, -0.000865683, 0.00173154, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast50" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343255, 0.508061, -0.864692, 0.00190669, 0.861312, 0.510053, 0.996099, -0.0018096, -0.000673085, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast51" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343193, -0.912058, -0.411656, 0.00190667, 0.410047, -0.915633, 0.996099, -0.000467002, 0.00187972, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast52" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343192, -0.999994, 0.000613517, 0.00190667, -0.000610121, -1.00391, 0.996099, 0.00034301, 0.00190648, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast53" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343198, -0.927394, 0.375538, 0.00190667, -0.37407, -0.93103, 0.996099, 0.00102754, 0.00163987, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast54" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343209, -0.510194, 0.863425, 0.00190661, -0.86005, -0.512195, 0.996099, 0.00180787, 0.000677601, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast55" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343241, 0.230406, 0.976905, 0.0019066, -0.973087, 0.231308, 0.996099, 0.00176939, -0.00077334, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast56" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343274, 0.840685, 0.543637, 0.00190665, -0.541513, 0.843979, 0.996099, 0.000741005, -0.00178885, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast57" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343277, 0.999938, 0.0105827, 0.00190665, -0.0105415, 1.00386, 0.996098, -0.000321902, -0.00191018, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast58" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343269, 0.905036, -0.426987, 0.00190666, 0.425318, 0.908584, 0.996098, -0.00111723, -0.00157964, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast59" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343252, 0.341476, -0.94357, 0.00190672, 0.939881, 0.342816, 0.996098, -0.00190195, -0.000328504, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast60" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343237, 0.00169181, -1.00391, 0.00190672, 0.999991, 0.00170007, 0.996098, -0.00189987, 0.000340022, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast61" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343222, -0.375738, -0.930354, 0.00190672, 0.926718, -0.377209, 0.996098, -0.00163162, 0.00103453, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast62" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.0003432, -0.677566, -0.738339, 0.00190667, 0.735453, -0.680221, 0.996098, -0.00116524, 0.00154433, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast63" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343192, -0.955504, -0.296112, 0.00190667, 0.294954, -0.959249, 0.996098, -0.000233546, 0.00192317, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast64" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343209, -0.713686, 0.703204, 0.00190667, -0.700456, -0.716484, 0.996098, 0.00157431, 0.00112036, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast65" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343269, 0.67995, 0.736127, 0.00190666, -0.73325, 0.682615, 0.996097, 0.00116014, -0.00154811, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast66" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343276, 0.92576, 0.379579, 0.00190665, -0.378097, 0.929388, 0.996097, 0.000401534, -0.00189495, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast67" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343265, 0.831183, -0.558168, 0.00190666, 0.555987, 0.834442, 0.996097, -0.00134018, -0.00139397, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast68" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343261, 0.63707, -0.773821, 0.00190669, 0.770796, 0.639568, 0.996097, -0.00168183, -0.000950173, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast69" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343218, -0.301169, 0.957304, 0.0019066, -0.953562, -0.30235, 0.996097, 0.00191393, 0.000246938, -1.16415e-10, 0, 6.98492e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
 
 [node name="RayCast70" type="RayCast" parent="bombcasts"]
 transform = Transform( 0.000343259, 0.431375, 0.905703, 0.00190666, -0.902164, 0.433065, 0.996097, 0.0015659, -0.00113219, -1.16415e-10, 0, 6.98492e-10 )
-enabled = true
 cast_to = Vector3( 0, -1.2, 0 )
-collision_mask = 65
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast71" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.651754, 3.30229e-08, 0.761395, 0.75843, -2.83781e-08, -0.654303, 0, 0.996104, -4.38823e-08, -3.49246e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast72" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.651754, 3.30229e-08, -0.761395, 0.75843, -2.83781e-08, 0.654303, 0, -0.996104, -4.38823e-08, -3.49246e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast73" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.651754, 0.758427, -6.63044e-08, 0.75843, -0.651752, 5.69784e-08, 0, -8.74224e-08, -1, -3.49246e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast74" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.651754, -0.758425, 0, 0.75843, 0.65175, 0, 0, 0, 1.00001, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast75" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.75843, -0.651751, -5.69784e-08, -0.651754, -0.758426, -6.63044e-08, -3.82137e-15, 8.74224e-08, -1, -3.49246e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast76" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, 0.651751, -5.69784e-08, 0.651754, 0.758426, -6.63044e-08, -3.82137e-15, -8.74224e-08, -1, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast77" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, 0.394945, -0.520491, 0.651754, 0.459587, -0.605682, -3.46362e-08, -0.79238, -0.605977, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast78" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, -0.480398, 0.442178, 0.651754, -0.559027, 0.514552, 2.94249e-08, 0.67316, 0.737092, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast79" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, 0.454011, 0.469438, 0.651754, 0.528322, 0.546273, 3.12388e-08, 0.714659, -0.696605, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast84" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189467, -0.0887561, -0.99995, 0.832977, 0.551255, -0.0477225, 0.551143, -0.826362, 0.0749759, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast85" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189467, -0.918516, -0.396916, 0.832977, 0.220206, -0.509584, 0.551143, -0.327089, 0.765528, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast86" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189469, -0.421238, 0.910499, 0.832976, -0.501149, -0.235423, 0.551143, 0.752962, 0.349936, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast87" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189469, 0.000541442, 1.00391, 0.832976, -0.553299, -0.00128342, 0.551143, 0.829729, -0.00149979, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast88" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189469, 0.829286, 0.561003, 0.832976, -0.310501, 0.45976, 0.551143, 0.4628, -0.691372, -1.16415e-10, 0, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast89" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189471, 0.954612, 0.29899, 0.832976, -0.166292, 0.52979, 0.551143, 0.246117, -0.795496, -1.16415e-10, 0, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast90" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189462, -0.996601, 0.0825921, 0.832976, -0.0439472, -0.553716, 0.551143, 0.0693027, 0.830073, 3.49246e-10, 0, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast91" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00189468, -0.671688, 0.743727, 0.832976, -0.408839, -0.374278, 0.551143, 0.615389, 0.558733, 3.49246e-10, 0, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast92" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.948727, -1.37632e-08, -0.317332, -0.175003, 0.832758, -0.527306, 0.262205, 0.551482, 0.790057, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast93" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.948727, -1.37632e-08, 0.317332, -0.175003, -0.832758, 0.527305, 0.262205, -0.551482, -0.790057, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast94" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.948727, -0.316095, 2.76341e-08, -0.175003, -0.52525, -0.836015, 0.262205, 0.786977, -0.553639, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast95" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.948727, 0.316094, 0, -0.175003, 0.525248, 0.836023, 0.262205, -0.786975, 0.553644, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast96" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.316096, -0.948722, -8.29408e-08, -0.525252, 0.175002, -0.836015, 0.78698, -0.262204, -0.553639, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast97" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.316096, 0.948722, -8.29408e-08, 0.525251, -0.175002, -0.836015, -0.786979, 0.262204, -0.553639, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast98" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.316096, 0.574902, -0.757654, 0.525251, -0.768488, -0.366848, -0.786979, -0.279803, -0.544889, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast99" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.316096, -0.699292, 0.643657, 0.525251, 0.691764, 0.49749, -0.786979, 0.17942, 0.585974, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast100" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.316096, 0.660882, 0.683338, 0.525251, 0.475559, -0.708421, -0.786979, 0.578315, -0.196809, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast101" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00157627, -0.737944, 0.677498, -0.0011263, -0.674853, -0.740837, 0.996097, 0.000401534, -0.00189495, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast102" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00157627, 0.146738, 0.993047, -0.00112629, -0.989168, 0.147315, 0.996097, -0.00134018, -0.00139397, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast103" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0015763, 0.423958, 0.909225, -0.0011263, -0.905673, 0.425623, 0.996097, -0.00168183, -0.000950173, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast104" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00157624, -0.732905, -0.682987, -0.00112623, 0.680318, -0.735781, 0.996097, 0.00191393, 0.000246938, 3.49246e-10, -9.31323e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast105" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.00157628, -0.999985, 0.00374881, -0.00112629, -0.00373639, -1.00391, 0.996097, 0.0015659, -0.00113219, 3.49246e-10, -9.31323e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast106" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.406497, -3.97814e-08, -0.917224, -0.913652, -1.76994e-08, -0.408087, 0, 0.996104, -4.38823e-08, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast107" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.406497, -3.97814e-08, 0.917224, -0.913652, -1.76994e-08, 0.408087, 0, -0.996104, -4.38823e-08, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast108" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.406497, -0.913648, 7.98744e-08, -0.913652, -0.406496, 3.55373e-08, 0, -8.74224e-08, -1, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast109" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.406497, 0.913645, 0, -0.913652, 0.406494, 0, 0, 0, 1.00001, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast110" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.913652, -0.406495, -3.55373e-08, -0.406497, 0.913647, 7.98744e-08, -3.82137e-15, 8.74224e-08, -1, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast111" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.913651, 0.406495, -3.55373e-08, 0.406497, -0.913647, 7.98744e-08, -3.82137e-15, -8.74224e-08, -1, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast112" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.913651, 0.246326, -0.324629, 0.406497, -0.553647, 0.729642, -3.46362e-08, -0.79238, -0.605977, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast113" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.913651, -0.299623, 0.275785, 0.406497, 0.673439, -0.619861, 2.94249e-08, 0.67316, 0.737092, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast114" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.913651, 0.283166, 0.292787, 0.406497, -0.636449, -0.658074, 3.12388e-08, 0.714659, -0.696605, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast115" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752014, 0.536199, 0.384853, -0.35823, -0.155724, 0.924157, 0.551143, -0.826362, 0.0749759, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast116" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752014, 0.592146, -0.290668, -0.35823, 0.735883, 0.576827, 0.551143, -0.327089, 0.765528, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast117" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752013, -0.272635, -0.602468, -0.35823, 0.595199, -0.722125, 0.551143, 0.752962, 0.349936, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast118" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752013, -0.500291, -0.43084, -0.35823, 0.236325, -0.906764, 0.551143, 0.829729, -0.00149979, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast119" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752013, -0.635561, 0.175408, -0.35823, -0.616593, -0.703801, 0.551143, 0.4628, -0.691372, 3.49246e-10, -9.31323e-10, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast120" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752013, -0.55887, 0.350843, -0.35823, -0.791582, -0.496973, 0.551143, 0.246117, -0.795496, 3.49246e-10, -9.31323e-10, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast121" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752013, 0.386831, -0.535785, -0.35823, 0.919514, 0.162348, 0.551143, 0.0693027, 0.830073, 1.16415e-10, -1.39698e-09, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast122" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.752013, -0.0820136, -0.656583, -0.35823, 0.782041, -0.51197, 0.551143, 0.615389, 0.558733, 1.16415e-10, -1.39698e-09, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast123" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.564223, 0.752627, -0.340747, -0.782535, -0.356424, 0.512486, 0.262205, 0.551482, 0.790057, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast124" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.564223, -0.752627, 0.340747, -0.782535, 0.356424, -0.512486, 0.262205, -0.551482, -0.790057, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast125" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.564223, -0.339419, -0.755571, -0.782535, 0.510489, 0.357818, 0.262205, 0.786977, -0.553639, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast126" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.564223, 0.339417, 0.755578, -0.782535, -0.510487, -0.357822, 0.262205, -0.786975, 0.553644, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast127" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.33942, 0.56422, -0.755571, 0.51049, 0.782531, 0.357818, 0.78698, -0.262204, -0.553639, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast128" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.339419, -0.56422, -0.755571, -0.51049, -0.782531, 0.357818, -0.786979, 0.262204, -0.553639, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast129" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.339419, -0.940602, -0.00726976, -0.51049, -0.190666, 0.841762, -0.786979, -0.279803, -0.544889, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast130" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.339419, 0.9245, 0.174132, -0.51049, 0.335926, -0.79465, -0.786979, 0.17942, 0.585974, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast131" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.339419, 0.146938, -0.932726, -0.51049, -0.800831, -0.314377, -0.786979, 0.578315, -0.196809, -1.16415e-10, -4.65661e-10, 0 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast132" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.924091, 0.187248, -0.334452, 0.223569, -0.44212, -0.872044, -0.308737, -0.873767, 0.3667, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast133" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.924091, -0.204099, -0.324364, 0.223569, -0.974388, -0.0240062, -0.308737, -0.0939643, 0.946065, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast134" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.92409, -0.328752, 0.195624, 0.223569, -0.0515171, 0.977136, -0.308736, 0.939329, 0.121107, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast135" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.92409, -0.215907, 0.316566, 0.223569, 0.363768, 0.907801, -0.308736, 0.902584, -0.287888, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast136" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.92409, 0.140655, 0.356731, 0.223569, 0.95306, 0.204959, -0.308736, 0.267059, -0.912172, -3.49246e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast137" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.92409, 0.236554, 0.301327, 0.223569, 0.9716, -0.0777289, -0.308736, -0.00442593, -0.950747, -3.49246e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast138" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.92409, -0.331919, -0.190156, 0.223569, -0.871498, 0.438168, -0.308736, 0.359572, 0.879563, 1.16415e-10, 4.65661e-10, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast139" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.92409, -0.371802, 0.0887262, 0.223569, -0.338388, 0.917639, -0.308736, 0.861063, 0.39583, 1.16415e-10, 4.65661e-10, 4.65661e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast140" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.229206, -0.924777, -0.304917, 0.973287, 0.222003, 0.058769, 0.0132409, -0.30783, 0.950956, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast141" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.229206, 0.924777, 0.304917, 0.973287, -0.222003, -0.0587691, 0.0132409, 0.30783, -0.950955, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast142" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.229206, -0.303728, 0.928395, 0.973287, 0.0585396, -0.222872, 0.0132409, 0.947248, 0.309034, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast143" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.229206, 0.303728, -0.928403, 0.973287, -0.0585395, 0.222874, 0.0132409, -0.947245, -0.309037, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast144" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.30373, -0.229205, 0.928395, 0.05854, -0.973281, -0.222872, 0.947252, -0.0132408, 0.309034, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast145" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.30373, 0.229205, 0.928395, -0.0585398, 0.973281, -0.222872, -0.947251, 0.0132409, 0.309034, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast146" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.30373, 0.874534, 0.379542, -0.0585399, 0.413185, -0.912322, -0.947251, 0.252896, 0.176693, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast147" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.30373, -0.793903, -0.528808, -0.0585399, -0.567366, 0.824596, -0.947251, -0.217789, -0.218803, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast148" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.30373, -0.50382, 0.811814, -0.0585399, 0.837268, 0.545773, -0.947251, -0.211631, 0.224812, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast149" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.690391, 0.207524, 0.695742, 0.426801, -0.656645, 0.624247, 0.58184, 0.722252, 0.364775, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast150" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.690391, 0.690571, 0.216394, 0.426801, 0.148235, 0.895606, 0.58184, 0.705144, -0.397081, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast151" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.690391, 0.723376, 0.00871834, 0.426801, 0.397586, 0.815437, 0.58184, 0.562281, -0.583236, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast152" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.690391, -0.673744, 0.264504, 0.426801, -0.673396, -0.605995, 0.58184, -0.303105, 0.752472, 5.82077e-10, 0, 9.31323e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast153" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.690391, -0.312114, 0.655195, 0.426801, -0.904136, 0.0191737, 0.58184, 0.290596, 0.757429, 5.82077e-10, 0, 9.31323e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast154" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.721927, -0.691623, -0.0219766, 0.382634, 0.42536, -0.823365, 0.574305, 0.581445, 0.571715, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast155" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.721927, 0.691623, 0.0219767, 0.382634, -0.42536, 0.823365, 0.574305, -0.581445, -0.571715, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast156" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.721927, -0.021891, 0.694328, 0.382634, -0.820155, -0.427023, 0.574305, 0.569486, -0.583719, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast157" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.721927, 0.0218909, -0.694335, 0.382634, 0.820153, 0.427027, 0.574305, -0.569484, 0.583725, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast158" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.0218909, -0.721923, 0.694328, -0.820158, -0.382632, -0.427023, 0.569489, -0.574302, -0.583719, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast159" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.021891, 0.721923, 0.694328, 0.820158, 0.382632, -0.427023, -0.569488, 0.574302, -0.583719, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast160" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.021891, 0.987639, -0.155784, 0.820158, -0.106499, -0.564338, -0.569488, -0.114514, -0.81236, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast161" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.021891, -0.999515, -0.0219974, 0.820158, 0.00542113, 0.574351, -0.569488, -0.0303755, 0.819888, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast162" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.021891, 0.00668586, 1.00365, 0.820158, 0.571718, -0.0218678, -0.569488, 0.81722, 0.00703189, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast163" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0861512, 0.843172, -0.532762, 0.921637, 0.134843, 0.365289, 0.376887, -0.518417, -0.765492, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast164" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0861512, -0.0661101, -0.997977, 0.921637, 0.384223, 0.054533, 0.376887, -0.917275, 0.0940315, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast165" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.086151, -0.995555, 0.0380592, 0.921636, 0.0651877, -0.38403, 0.376886, 0.0676311, 0.923167, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast166" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.086151, -0.886701, 0.456013, 0.921636, -0.102218, -0.375807, 0.376886, 0.44913, 0.80842, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast167" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.086151, -0.119347, 0.99298, 0.921636, -0.36749, -0.125106, 0.376886, 0.918736, 0.0783374, 5.82077e-10, 0, 9.31323e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast168" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0861511, 0.169006, 0.985687, 0.921636, -0.387787, -0.014173, 0.376886, 0.902584, -0.189173, 5.82077e-10, 0, 9.31323e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast169" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.086151, -0.525181, -0.84993, 0.921636, 0.364732, -0.13299, 0.376886, -0.76586, 0.515456, 1.28057e-09, 4.65661e-10, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast170" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0861511, -0.961857, -0.260624, 0.921636, 0.175902, -0.347241, 0.376886, -0.208648, 0.901648, 1.28057e-09, 4.65661e-10, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast171" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.150269, 0.0849328, -0.988841, -0.385907, 0.922307, 0.020735, 0.906669, 0.375543, 0.171371, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast172" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.150269, -0.0849328, 0.988841, -0.385907, -0.922307, -0.0207351, 0.906669, -0.375543, -0.171371, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast173" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.150269, -0.984985, -0.0852652, -0.385907, 0.020654, -0.925914, 0.906669, 0.170702, -0.377012, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast174" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.150269, 0.984982, 0.0852659, -0.385907, -0.0206543, 0.925923, 0.906669, -0.170702, 0.377015, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast175" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.984989, -0.150269, -0.0852653, 0.020654, 0.385906, -0.925914, 0.170703, -0.906664, -0.377012, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast176" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.984988, 0.150269, -0.0852653, -0.0206541, -0.385906, -0.925914, -0.170703, 0.906664, -0.377012, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast177" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.984988, 0.0234969, -0.171674, -0.020654, -0.967524, -0.252897, -0.170703, 0.250679, -0.952527, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast178" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.984988, -0.0533642, 0.164798, -0.020654, 0.907735, 0.420667, -0.170703, -0.414503, 0.893016, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast179" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.984988, 0.165613, 0.048838, -0.020654, 0.39289, -0.922953, -0.170703, 0.90102, 0.390417, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast180" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541276, -0.718856, 0.437889, 0.825129, -0.354294, 0.441757, -0.161155, 0.595755, 0.78493, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast181" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541276, 0.0420581, 0.843079, 0.825129, 0.218736, 0.522914, -0.161155, 0.971071, -0.153101, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast182" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541275, 0.840641, -0.0183124, 0.825128, 0.526862, -0.204686, -0.161155, -0.124922, -0.978828, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast183" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541275, 0.754533, -0.37252, 0.825128, 0.391731, -0.408658, -0.161155, -0.524459, -0.834633, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast184" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541275, 0.114375, -0.83629, 0.825128, -0.118369, -0.554562, -0.161155, -0.98251, -0.030305, -5.82077e-10, 4.65661e-10, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast185" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541275, -0.129057, -0.834134, 0.825128, -0.271654, -0.497277, -0.161155, -0.949978, 0.253533, -5.82077e-10, 4.65661e-10, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast186" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541275, 0.431491, 0.724512, 0.825128, 0.437716, 0.358552, -0.161155, 0.785726, -0.592969, -1.16415e-10, 0, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast187" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.541275, 0.808095, 0.233269, 0.825128, 0.563647, -0.0382838, -0.161155, 0.170418, -0.971884, -1.16415e-10, 0, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast188" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.113987, -0.54027, 0.836995, -0.260718, 0.82606, 0.501604, -0.954926, -0.159792, -0.235018, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast189" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.113987, 0.54027, -0.836995, -0.260718, -0.82606, -0.501604, -0.954926, 0.159791, 0.235018, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast190" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.113987, 0.833732, 0.542383, -0.260718, 0.499648, -0.829291, -0.954926, -0.234101, 0.160417, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast191" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.113987, -0.83373, -0.542388, -0.260718, -0.499647, 0.829299, -0.954926, 0.2341, -0.160418, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast192" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.833736, 0.113986, 0.542383, 0.499651, 0.260717, -0.829291, -0.234102, 0.95492, 0.160417, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast193" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.833735, -0.113986, 0.542383, -0.49965, -0.260717, -0.829291, 0.234102, -0.954921, 0.160417, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast194" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.833735, 0.360701, 0.419701, -0.49965, -0.815102, -0.294322, 0.234102, -0.451547, 0.859812, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast195" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.833735, -0.281093, -0.47712, -0.49965, 0.750417, 0.434381, 0.234102, 0.595875, -0.766104, -1.16415e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast196" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.833735, -0.467022, 0.295726, -0.49965, 0.411044, -0.765475, 0.234102, -0.779843, -0.576055, -1.16415e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast197" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.329971, 0.86011, 0.390521, 0.782289, -0.0185212, -0.625074, -0.526273, 0.507774, -0.678975, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast198" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.329971, 0.803502, -0.497412, 0.782289, -0.526514, -0.334168, -0.526273, -0.276685, -0.802316, -1.16415e-10, 4.65661e-10, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast199" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.329971, 0.627886, -0.70765, 0.782288, -0.599802, -0.168738, -0.526273, -0.494032, -0.689116, -1.16415e-10, 4.65661e-10, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast200" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.329971, -0.317397, 0.892511, 0.782289, 0.619035, -0.069619, -0.526273, 0.71556, 0.452566, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast201" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.329971, 0.375438, 0.869509, 0.782289, 0.404753, -0.475341, -0.526273, 0.830541, -0.160146, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast202" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.641858, 0.329582, 0.695089, -0.595162, 0.783464, 0.179494, -0.481644, -0.524788, 0.699025, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast203" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.641858, -0.329582, -0.695089, -0.595162, -0.783463, -0.179494, -0.481644, 0.524788, -0.699025, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast204" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.641858, 0.692379, -0.330871, -0.595162, 0.178794, -0.786528, -0.481644, 0.696299, 0.526841, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast205" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.641858, -0.692378, 0.330874, -0.595162, -0.178794, 0.786536, -0.481644, -0.696297, -0.526846, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast206" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.692382, -0.641854, -0.330871, 0.178795, 0.595158, -0.786528, 0.696302, 0.481642, 0.526841, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast207" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.692382, 0.641855, -0.330871, -0.178795, -0.595158, -0.786528, -0.696302, -0.481642, 0.526841, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast208" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.692382, 0.126772, -0.713088, -0.178795, -0.98388, -0.0013217, -0.696302, 0.125595, 0.703895, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast209" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.692382, -0.250375, 0.679346, -0.178795, 0.968144, 0.17596, -0.696302, 0.000364838, -0.715098, -1.16415e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast210" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.692382, 0.683577, 0.231823, -0.178795, 0.14751, -0.976575, -0.696302, -0.712024, 0.0200872, -1.16415e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast211" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.21375, -0.337564, -0.920299, -0.0400519, -0.940632, 0.338356, -0.97226, -0.0351883, -0.214582, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast212" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.21375, -0.966978, -0.139293, -0.0400519, -0.150587, 0.991651, -0.97226, -0.20478, -0.0709178, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast213" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.21375, -0.166098, 0.966433, -0.0400517, 0.983115, 0.179221, -0.972259, -0.0764165, 0.20349, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast214" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.21375, 0.255379, 0.946608, -0.0400517, 0.966697, -0.253734, -0.972259, 0.016195, 0.216862, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast215" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.21375, 0.924487, 0.316868, -0.0400517, 0.331118, -0.946428, -0.972259, 0.188131, 0.107805, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast216" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.21375, 0.976159, 0.037707, -0.0400518, 0.0471732, -1.00199, -0.972259, 0.211009, 0.0491809, 3.49246e-10, -4.65661e-10, 6.98492e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast217" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.213749, -0.918882, 0.33289, -0.0400517, 0.330905, 0.946504, -0.972259, -0.213968, 0.0339281, 8.14907e-10, -9.31323e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast218" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.21375, -0.444626, 0.873241, -0.0400518, 0.885672, 0.46438, -0.972259, -0.133191, 0.171506, 8.14907e-10, -9.31323e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast219" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.975619, 0.212066, -0.0567231, 0.0662596, -0.0391829, 1.00093, 0.208407, -0.972665, -0.0522795, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast220" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.975619, -0.212066, 0.0567231, 0.0662596, 0.039183, -1.00093, 0.208407, 0.972665, 0.0522795, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast221" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.975619, -0.056502, -0.212896, 0.0662596, 0.997028, 0.0393363, 0.208407, -0.0520754, 0.976469, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast222" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.975619, 0.056502, 0.212898, 0.0662596, -0.997025, -0.0393366, 0.208407, 0.0520756, -0.976478, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast223" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.0565022, -0.975615, -0.212896, 0.997032, -0.0662593, 0.0393365, -0.0520756, -0.208407, 0.976469, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast224" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0565023, 0.975615, -0.212896, -0.997031, 0.0662593, 0.0393365, 0.0520756, 0.208407, 0.976469, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast225" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0565022, 0.422504, -0.90814, -0.997031, 0.0713205, -0.0290778, 0.0520756, 0.900023, 0.425283, 3.49246e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast226" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0565022, -0.575802, 0.818826, -0.997031, -0.0753186, 0.0159587, 0.0520756, -0.810934, -0.578355, -1.16415e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast227" type="RayCast" parent="bombcasts"]
+transform = Transform( 0.0565022, 0.831764, 0.554403, -0.997031, 0.0180443, 0.0751267, 0.0520756, -0.552666, 0.830322, -1.16415e-10, 0, 1.62981e-09 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast80" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, -0.435151, -0.487107, 0.651754, -0.506374, -0.566835, -3.24147e-08, -0.741558, 0.667667, -1.16415e-10, -4.65661e-10, 1.16415e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast81" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, -0.614022, 0.219392, 0.651754, -0.714522, 0.2553, 1.45995e-08, 0.333996, 0.942114, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast82" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, 0.599655, -0.25633, 0.651754, 0.697804, -0.298285, -1.70576e-08, -0.390231, -0.920072, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="RayCast83" type="RayCast" parent="bombcasts"]
+transform = Transform( -0.758429, -0.22667, -0.613461, 0.651754, -0.263771, -0.713869, -4.08229e-08, -0.933915, 0.347788, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 68
+debug_shape_thickness = 1
+
+[node name="Shockwave" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="Shockwave" to="." method="_on_Shockwave_timeout"]

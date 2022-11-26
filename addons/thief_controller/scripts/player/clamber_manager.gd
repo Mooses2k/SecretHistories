@@ -18,7 +18,7 @@ func _get_world():
 	return _world
 
 
-func attempt_clamber(is_crouching:bool) -> Vector3:
+func attempt_clamber(is_crouching:bool, is_jumping:bool) -> Vector3:
 #	if _camera.rotation_degrees.x < 20.0:
 #		var v = _test_clamber_vent()
 #		if v != Vector3.ZERO:
@@ -41,6 +41,10 @@ func attempt_clamber(is_crouching:bool) -> Vector3:
 		if v == Vector3.ZERO:
 			return Vector3.ZERO
 	
+	if is_jumping:
+		if v.y >= 2.0 and _camera.rotation_degrees.x > 10.0:
+			return v
+	
 	if is_crouching:
 		if v.y < 0.8 and _camera.rotation_degrees.x < 5.0:
 			return v
@@ -48,9 +52,11 @@ func attempt_clamber(is_crouching:bool) -> Vector3:
 			return v
 		return Vector3.ZERO
 	
-	if v.y < 1.6 and _camera.rotation_degrees.x < 5.0:
+	if is_jumping and v.y < 1.8 and _camera.rotation_degrees.x < 5.0:
 		return v
-	elif (v.y > 1.6 and v.y < 2.0) and _camera.rotation_degrees.x > 20.0:
+	elif v.y < 1.6 and _camera.rotation_degrees.x < 5.0:
+		return v
+	elif !is_jumping and (v.y > 1.6 and v.y < 2.0) and _camera.rotation_degrees.x > 20.0:
 		return v
 	return Vector3.ZERO
 

@@ -94,7 +94,7 @@ transform = Transform( 1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 4, 0, 4 )
 [node name="Bookcase2" type="RigidBody" parent="." index="20" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.336059, 0, 0, 0, 1, 7.99988, 0.32941, 7.47564 )
 collision_layer = 5
-mass = 102.041
+mass = 100.0
 
 [node name="CollisionShape" type="CollisionShape" parent="Bookcase2" index="0"]
 shape = SubResource( 1 )
@@ -103,9 +103,9 @@ shape = SubResource( 1 )
 mesh = SubResource( 2 )
 
 [node name="Bookcase3" type="RigidBody" parent="." index="21" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 0.648498, 0, 0, 0, 1, 6.52328, 0.647476, 8.45309 )
+transform = Transform( 1, 0, 0, 0, 1.12151, 0, 0, 0, 1, 6.52328, 1.14237, 8.45309 )
 collision_layer = 5
-mass = 102.041
+mass = 100.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -116,24 +116,10 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase3/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase7" type="RigidBody" parent="." index="22" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, -2.83467e-08, -1, 0, 1.04491, -7.04312e-08, 6.57486, 1.71175, 7.72524 )
-collision_layer = 5
-mass = 102.041
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase7" index="0"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase7/CollisionShape" index="0"]
-mesh = SubResource( 2 )
-
-[node name="Bookcase5" type="RigidBody" parent="." index="23" groups=["CLAMBERABLE"]]
+[node name="Bookcase5" type="RigidBody" parent="." index="22" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.648498, 0, 0, 0, 1, 6.52328, 0.647476, 6.97344 )
 collision_layer = 5
-mass = 102.041
+mass = 65535.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -144,10 +130,10 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase5/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase8" type="RigidBody" parent="." index="24" groups=["CLAMBERABLE"]]
+[node name="Bookcase8" type="RigidBody" parent="." index="23" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.759531, 0, 0, 0, 1, 6.95147, 0.757586, 4.27391 )
 collision_layer = 5
-mass = 102.041
+mass = 100.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -158,10 +144,10 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase8/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase9" type="RigidBody" parent="." index="25" groups=["CLAMBERABLE"]]
+[node name="Bookcase9" type="RigidBody" parent="." index="24" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.837303, 0, 0, 0, 1, 5.54153, 0.834234, 4.27391 )
 collision_layer = 5
-mass = 102.041
+mass = 100.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -172,10 +158,10 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase9/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase6" type="RigidBody" parent="." index="26" groups=["CLAMBERABLE"]]
+[node name="Bookcase6" type="RigidBody" parent="." index="25" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.648498, 0, 0, 0, 1, 8.83, 0.647476, 3.87439 )
 collision_layer = 5
-mass = 102.041
+mass = 100.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -186,10 +172,10 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase6/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase4" type="RigidBody" parent="." index="27" groups=["CLAMBERABLE"]]
+[node name="Bookcase4" type="RigidBody" parent="." index="26" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.869979, 0, 0, 0, 1, 4.78655, 0.906206, 8.45804 )
 collision_layer = 5
-mass = 102.041
+mass = 100.0
 
 [node name="CollisionShape" type="CollisionShape" parent="Bookcase4" index="0"]
 shape = SubResource( 1 )
@@ -197,26 +183,26 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase4/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Candle2" parent="." index="28" instance=ExtResource( 12 )]
+[node name="Candle2" parent="." index="27" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
 
-[node name="KeyItem" parent="." index="29" instance=ExtResource( 10 )]
+[node name="KeyItem" parent="." index="28" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
 key_id = 0
 
-[node name="PadlockItem" parent="." index="30" instance=ExtResource( 13 )]
+[node name="PadlockItem" parent="." index="29" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
 
-[node name="Webley" parent="." index="31" instance=ExtResource( 14 )]
+[node name="Webley" parent="." index="30" instance=ExtResource( 14 )]
 transform = Transform( 0.711744, 0.702439, 0, -0.702439, 0.711744, 0, 0, 0, 1, 2.30643, 0.618492, 5.0266 )
 
-[node name="Torch" parent="." index="32" instance=ExtResource( 17 )]
+[node name="Torch" parent="." index="31" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91335, 0.750593, 5.72667 )
 
-[node name="Bookcase" type="RigidBody" parent="." index="33" groups=["CLAMBERABLE"]]
+[node name="Bookcase" type="RigidBody" parent="." index="32" groups=["CLAMBERABLE"]]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1.0793, 0, -1, 0, -4.37114e-08, 2.16859, 1.06141, 8.44387 )
 collision_layer = 5
-mass = 102.041
+mass = 100.0
 __meta__ = {
 "_edit_group_": true
 }

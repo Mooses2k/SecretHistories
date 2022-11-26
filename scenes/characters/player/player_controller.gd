@@ -178,7 +178,7 @@ func _physics_process(delta : float):
 	drop_grabbable()
 	empty_slot()
 	
-	var c = _clamber_m.attempt_clamber(is_crouching)
+	var c = _clamber_m.attempt_clamber(is_crouching, _jumping)
 	if c != Vector3.ZERO:
 		_text.show()
 	else:
@@ -472,8 +472,12 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	var grounded = owner.is_on_floor() or _ground_checker.is_colliding()
 	
-	velocity = owner.move_and_slide((velocity * speed_mod) + owner.get_floor_velocity(),
-			Vector3.UP, true, 4, PI/4, false)
+	if is_crouching and _jumping:
+		velocity = owner.move_and_slide((velocity) + owner.get_floor_velocity(),
+				Vector3.UP, true, 4, PI/4, false)
+	else:
+		velocity = owner.move_and_slide((velocity * speed_mod) + owner.get_floor_velocity(),
+				Vector3.UP, true, 4, PI/4, false)
 			
 	
 	if move_dir == Vector3.ZERO:
@@ -483,7 +487,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		is_player_moving = true
 		emit_signal("is_moving", is_player_moving)
 	
-	if owner.is_on_floor() and !grounded and state != State.STATE_CROUCHING and _camera.stress < 0.1:
+	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
 	
@@ -500,14 +504,14 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	if is_clambering:
 		return
 	
-	if owner.is_on_floor()and Input.is_action_just_pressed("clamber"):
+	if Input.is_action_just_pressed("clamber"):
 		if is_crouching:
 			pass
-		elif state != State.STATE_WALKING or _jumping:
+		elif state != State.STATE_WALKING:
 			return
 		
 		# Check for clamber
-		var c = _clamber_m.attempt_clamber(is_crouching)
+		var c = _clamber_m.attempt_clamber(is_crouching, _jumping)
 		if c != Vector3.ZERO:
 			clamber_destination = c
 			if is_crouching:
@@ -518,8 +522,9 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			return
 			
 		# If no clamber, jump
-		if is_crouching:
+		if _jumping or !owner.is_on_floor():
 			return
+		
 		velocity.y = jump_force
 		_jumping = true
 		return
@@ -558,7 +563,7 @@ func _noclip_walk() -> void:
 
 func _crouch(delta : float) -> void:
 	wanna_stand = false
-	crouch_rate = clamp(crouch_rate, 0.05, 1.0)
+#	crouch_rate = clamp(crouch_rate, 0.05, 1.0)
 
 	if !_collider.disabled:
 		_crouch_collider.set_deferred("disabled", false)
@@ -570,10 +575,10 @@ func _crouch(delta : float) -> void:
 	from = _camera.transform.origin.y
 	_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
 	
-	if !owner.is_on_floor():
-		velocity.y -= 8 * (gravity * delta)
+	if !owner.is_on_floor() and !_jumping:
+		velocity.y -= 5 * (gravity * delta)
 	else:
-		velocity.y -= 0.01
+		velocity.y -= 0.05
 
 #	var from = _collider.shape.height
 #	var to = _collider_normal_height * crouch_rate

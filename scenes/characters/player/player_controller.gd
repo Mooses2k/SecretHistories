@@ -24,7 +24,7 @@ export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
 export var Player_path : NodePath
-onready var player = get_node(Player_path)
+onready var player = owner
 
 enum ItemSelection {
 	ITEM_PRIMARY,

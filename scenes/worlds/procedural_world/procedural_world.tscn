@@ -4,6 +4,7 @@
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" type="Script" id=3]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
+[ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/enemies/cultist/Cultist.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
@@ -12,7 +13,6 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" type="Script" id=19]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=20]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=21]
-[ext_resource path="res://resources/mesh_libraries/tile_template.meshlib" type="MeshLibrary" id=22]
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
@@ -22,7 +22,7 @@ vertex_color_use_as_albedo = true
 script = ExtResource( 2 )
 
 [node name="Gridmaps" parent="." index="0"]
-mesh_library = ExtResource( 22 )
+mesh_library = ExtResource( 5 )
 
 [node name="DirectionalLight" parent="." index="2"]
 visible = false
@@ -36,7 +36,7 @@ preview_material = SubResource( 3 )
 script = ExtResource( 9 )
 enemy_scene = ExtResource( 11 )
 density = 0.01
-max_count = 1
+max_count = 0
 
 [node name="GenerationManager" parent="." index="6"]
 world_size_x = 30
@@ -59,16 +59,16 @@ script = ExtResource( 18 )
 
 [node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="5"]
 script = ExtResource( 4 )
-pillar_tile = 2
+pillar_tile = 7
 
 [node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="6"]
 script = ExtResource( 21 )
-floor_tile = 0
-wall_tile = 5
-door_tile = 3
-double_door_tile = 4
-pillar_tile = 2
-ceiling_tile = 1
+floor_tile = 9
+wall_tile = 6
+door_tile = 1
+double_door_tile = 0
+pillar_tile = 7
+ceiling_tile = 14
 
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )

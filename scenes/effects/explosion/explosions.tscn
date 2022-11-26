@@ -31,6 +31,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
+shockwave = 100
 
 [node name="bombcasts" type="Spatial" parent="."]
 unique_name_in_owner = true
@@ -38,279 +39,419 @@ unique_name_in_owner = true
 [node name="RayCast" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, -4.35411e-08, -1.00391, 0, 0.996104, -4.38823e-08, 0, 0, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast2" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, -4.35411e-08, 1.00391, 0, -0.996104, -4.38823e-08, 0, 0, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast3" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, -0.999996, 8.74232e-08, 0, -8.74224e-08, -1, 0, 0, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast4" type="RayCast" parent="bombcasts"]
 transform = Transform( 1, 0, 0, 0, 0.999993, 0, 0, 0, 1.00001, 0, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast5" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.37114e-08, -0.999995, -8.74232e-08, -1, -4.37112e-08, 0, -3.82137e-15, 8.74224e-08, -1, -1.16415e-10, 0, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast6" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.37114e-08, 0.999995, -8.74232e-08, 0.999999, -4.37112e-08, 0, -3.82137e-15, -8.74224e-08, -1, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast7" type="RayCast" parent="bombcasts"]
 transform = Transform( 2.6488e-08, 0.605972, -0.7986, 0.999999, -4.37112e-08, 0, -3.46362e-08, -0.79238, -0.605977, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast8" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.22191e-08, -0.737085, 0.678443, 0.999999, -4.37112e-08, 0, 2.94249e-08, 0.67316, 0.737092, -1.16415e-10, -4.65661e-10, 0 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast9" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.04494e-08, 0.696599, 0.720268, 0.999999, -4.37112e-08, 0, 3.12388e-08, 0.714659, -0.696605, -1.16415e-10, -4.65661e-10, 0 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast10" type="RayCast" parent="bombcasts"]
 transform = Transform( -2.91845e-08, -0.667661, -0.747379, 0.999999, -4.37112e-08, 0, -3.24147e-08, -0.741558, 0.667667, -1.16415e-10, -4.65661e-10, 1.16415e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast11" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.11809e-08, -0.942106, 0.336617, 0.999999, -4.37112e-08, 0, 1.45995e-08, 0.333996, 0.942114, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast12" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.02174e-08, 0.920063, -0.393293, 0.999999, -4.37112e-08, 0, -1.70576e-08, -0.390231, -0.920072, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast13" type="RayCast" parent="bombcasts"]
 transform = Transform( -1.52022e-08, -0.347785, -0.941246, 0.999999, -4.37112e-08, 0, -4.08229e-08, -0.933915, 0.347788, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast14" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.90672e-08, -0.893751, -0.450312, 0.999999, -4.37112e-08, 0, -1.95305e-08, -0.446804, 0.893759, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast15" type="RayCast" parent="bombcasts"]
 transform = Transform( 1.51865e-08, 0.347425, -0.941379, 0.999998, -4.37112e-08, 0, -4.08287e-08, -0.934048, -0.347428, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast16" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.24124e-08, -0.970278, -0.24292, 0.999998, -4.37112e-08, 0, -1.05357e-08, -0.241028, 0.970287, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast17" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.30151e-08, -0.984066, 0.178468, 0.999998, -4.37112e-08, 0, 7.74037e-09, 0.177078, 0.984076, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast18" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.69996e-08, -0.846449, 0.534548, 0.999998, -4.37112e-08, 0, 2.3184e-08, 0.530385, 0.846457, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast19" type="RayCast" parent="bombcasts"]
 transform = Transform( -1.5288e-08, -0.349747, 0.940512, 0.999998, -4.37112e-08, 0, 4.07911e-08, 0.933187, 0.349751, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast20" type="RayCast" parent="bombcasts"]
 transform = Transform( 1.7448e-08, 0.399163, 0.92047, 0.999998, -4.37112e-08, 0, 3.99218e-08, 0.913301, -0.399167, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast21" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.036e-08, 0.923326, 0.385509, 0.999998, -4.37112e-08, 0, 1.672e-08, 0.382506, -0.923334, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast22" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.3099e-08, 0.985987, -0.167439, 0.999997, -4.37112e-08, 0, -7.26203e-09, -0.166135, -0.985997, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast23" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.56409e-08, 0.815365, -0.581207, 0.999997, -4.37112e-08, 0, -2.52076e-08, -0.57668, -0.815373, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast24" type="RayCast" parent="bombcasts"]
 transform = Transform( 7.4115e-09, 0.169555, -0.98938, 0.999997, -4.37112e-08, 0, -4.29105e-08, -0.981674, -0.169557, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast25" type="RayCast" parent="bombcasts"]
 transform = Transform( -7.67153e-09, -0.175504, -0.988334, 0.999997, -4.37112e-08, 0, -4.28651e-08, -0.980636, 0.175505, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast26" type="RayCast" parent="bombcasts"]
 transform = Transform( -2.33411e-08, -0.533981, -0.848806, 0.999997, -4.37112e-08, 0, -3.68136e-08, -0.842195, 0.533985, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast27" type="RayCast" parent="bombcasts"]
 transform = Transform( -3.48446e-08, -0.797148, -0.606143, 0.999997, -4.37112e-08, 0, -2.62891e-08, -0.601422, 0.797155, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast28" type="RayCast" parent="bombcasts"]
 transform = Transform( -4.33901e-08, -0.992646, -0.121477, 0.999997, -4.37112e-08, 0, -5.26858e-09, -0.12053, 0.992655, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast29" type="RayCast" parent="bombcasts"]
 transform = Transform( -2.52782e-08, -0.578295, 0.819019, 0.999997, -4.37112e-08, 0, 3.55218e-08, 0.812641, 0.578301, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast30" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.49301e-08, 0.799104, 0.603542, 0.999996, -4.37112e-08, 0, 2.61763e-08, 0.598841, -0.799111, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast31" type="RayCast" parent="bombcasts"]
 transform = Transform( 4.27544e-08, 0.978102, 0.208914, 0.999996, -4.37112e-08, 0, 9.06083e-09, 0.207287, -0.978111, -1.16415e-10, -4.65661e-10, 3.49246e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast32" type="RayCast" parent="bombcasts"]
 transform = Transform( 3.14517e-08, 0.719529, -0.697177, 0.999996, -4.37112e-08, 0, -3.02373e-08, -0.691748, -0.719536, -1.16415e-10, -4.65661e-10, 4.65661e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast33" type="RayCast" parent="bombcasts"]
 transform = Transform( 2.14374e-08, 0.490429, -0.874892, 0.999996, -4.37112e-08, 0, -3.7945e-08, -0.868078, -0.490434, -1.16415e-10, -4.65661e-10, 4.65661e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast34" type="RayCast" parent="bombcasts"]
 transform = Transform( -5.57154e-09, -0.127461, 0.995727, 0.999996, -4.37112e-08, 0, 4.31858e-08, 0.987972, 0.127463, -2.32831e-10, -4.65661e-10, 4.65661e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast35" type="RayCast" parent="bombcasts"]
-transform = Transform( 2.55445e-08, 0.584388, 0.814649, 0.999996, -4.37112e-08, 0, 3.53322e-08, 0.808304, -0.584393, -2.32831e-10, -4.65661e-10, 4.65661e-10 )
+transform = Transform( 0.17717, 0.575143, 0.801761, 0.984176, -0.103536, -0.144332, 3.53322e-08, 0.808304, -0.584393, -1.16415e-10, 0, 4.65661e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast36" type="RayCast" parent="bombcasts"]
-transform = Transform( 1, 0, 0, 0, -0.999999, -0.00194488, 0, 0.00192973, -0.999996, 0, -4.65661e-10, 1.16415e-09 )
+transform = Transform( 0.98418, -0.17717, -0.000344576, -0.177171, -0.984179, -0.00191411, 0, 0.00192973, -0.999996, 1.16415e-10, -4.65661e-10, 1.16415e-09 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast37" type="RayCast" parent="bombcasts"]
-transform = Transform( 1, 0, 0, 0, 0.999999, 0.00194497, 0, -0.00192985, 0.999996, 0, -4.65661e-10, 1.16415e-09 )
+transform = Transform( 0.98418, 0.17717, 0.000344591, -0.177171, 0.984179, 0.0019142, 0, -0.00192985, 0.999996, 1.16415e-10, -4.65661e-10, 1.16415e-09 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast38" type="RayCast" parent="bombcasts"]
-transform = Transform( 1, 0, 0, 0, -0.00193722, 1.00391, 0, -0.996097, -0.0019373, 0, -4.65661e-10, 1.16415e-09 )
+transform = Transform( 0.98418, -0.000343218, 0.177863, -0.177171, -0.00190657, 0.988028, 0, -0.996097, -0.0019373, 1.16415e-10, -4.65661e-10, 1.16415e-09 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast39" type="RayCast" parent="bombcasts"]
-transform = Transform( 1, 0, 0, 0, 0.00193722, -1.00392, 0, 0.996094, 0.00193736, 0, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.98418, 0.000343218, -0.177865, -0.177171, 0.00190657, -0.988038, 0, 0.996094, 0.00193736, 1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast40" type="RayCast" parent="bombcasts"]
-transform = Transform( 4.37114e-08, -0.999995, -8.74232e-08, -0.00193731, -8.78489e-08, 1.00391, -0.996101, -4.33714e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 1.16415e-09 )
+transform = Transform( -0.000343191, -0.984175, 0.177863, -0.00190667, 0.17717, 0.988028, -0.996101, -4.33714e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 1.16415e-09 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast41" type="RayCast" parent="bombcasts"]
-transform = Transform( 4.37114e-08, 0.999995, -8.74232e-08, 0.00193731, 8.76796e-08, 1.00391, 0.9961, -4.37101e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343277, 0.984175, 0.177863, 0.00190665, -0.17717, 0.988028, 0.9961, -4.37101e-08, -0.00193739, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast42" type="RayCast" parent="bombcasts"]
-transform = Transform( 2.6488e-08, 0.605972, -0.7986, 0.00193731, 0.795478, 0.608346, 0.9961, -0.00153521, -0.001174, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.00034326, 0.737321, -0.678185, 0.00190666, 0.675533, 0.74021, 0.9961, -0.00153521, -0.001174, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast43" type="RayCast" parent="bombcasts"]
-transform = Transform( -3.22191e-08, -0.737085, 0.678443, 0.00193731, -0.675792, -0.739974, 0.9961, 0.00130409, 0.00142798, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343203, -0.845155, 0.536608, 0.00190667, -0.534511, -0.848468, 0.9961, 0.00130409, 0.00142798, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast44" type="RayCast" parent="bombcasts"]
-transform = Transform( 3.04494e-08, 0.696599, 0.720268, 0.00193731, -0.717453, 0.699329, 0.9961, 0.0013845, -0.00134954, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343264, 0.558467, 0.832774, 0.00190666, -0.82952, 0.560655, 0.9961, 0.0013845, -0.00134954, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast45" type="RayCast" parent="bombcasts"]
-transform = Transform( -2.91845e-08, -0.667661, -0.747379, 0.00193731, 0.744458, -0.670278, 0.9961, -0.00143665, 0.00129348, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343206, -0.525203, -0.854309, 0.00190667, 0.850971, -0.527261, 0.9961, -0.00143665, 0.00129348, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast46" type="RayCast" parent="bombcasts"]
-transform = Transform( -4.11809e-08, -0.942106, 0.336617, 0.00193731, -0.335302, -0.945798, 0.9961, 0.000647053, 0.00182524, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343194, -0.986608, 0.163724, 0.00190667, -0.163084, -0.990474, 0.9961, 0.000647053, 0.00182524, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast47" type="RayCast" parent="bombcasts"]
-transform = Transform( 4.02174e-08, 0.920063, -0.393293, 0.00193731, 0.391757, 0.92367, 0.9961, -0.000756055, -0.00178248, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343274, 0.974915, -0.223424, 0.00190665, 0.222551, 0.978737, 0.9961, -0.000756055, -0.00178248, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast48" type="RayCast" parent="bombcasts"]
-transform = Transform( -1.52022e-08, -0.347785, -0.941246, 0.00193737, 0.937567, -0.349148, 0.9961, -0.00180936, 0.000673816, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.00034323, -0.176174, -0.988214, 0.00190672, 0.984352, -0.176863, 0.9961, -0.00180936, 0.000673816, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast49" type="RayCast" parent="bombcasts"]
-transform = Transform( -3.90672e-08, -0.893751, -0.450312, 0.00193731, 0.448551, -0.897254, 0.9961, -0.000865683, 0.00173154, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343196, -0.800142, -0.602155, 0.00190667, 0.599801, -0.803277, 0.9961, -0.000865683, 0.00173154, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast50" type="RayCast" parent="bombcasts"]
-transform = Transform( 1.51865e-08, 0.347425, -0.941379, 0.00193734, 0.9377, 0.348786, 0.996099, -0.0018096, -0.000673085, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343255, 0.508061, -0.864692, 0.00190669, 0.861312, 0.510053, 0.996099, -0.0018096, -0.000673085, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast51" type="RayCast" parent="bombcasts"]
-transform = Transform( -4.24124e-08, -0.970278, -0.24292, 0.00193731, 0.24197, -0.974081, 0.996099, -0.000467002, 0.00187972, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343193, -0.912058, -0.411656, 0.00190667, 0.410047, -0.915633, 0.996099, -0.000467002, 0.00187972, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast52" type="RayCast" parent="bombcasts"]
-transform = Transform( -4.30151e-08, -0.984066, 0.178468, 0.00193731, -0.17777, -0.987924, 0.996099, 0.00034301, 0.00190648, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343192, -0.999994, 0.000613517, 0.00190667, -0.000610121, -1.00391, 0.996099, 0.00034301, 0.00190648, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast53" type="RayCast" parent="bombcasts"]
-transform = Transform( -3.69996e-08, -0.846449, 0.534548, 0.00193731, -0.532459, -0.849767, 0.996099, 0.00102754, 0.00163987, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343198, -0.927394, 0.375538, 0.00190667, -0.37407, -0.93103, 0.996099, 0.00102754, 0.00163987, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast54" type="RayCast" parent="bombcasts"]
-transform = Transform( -1.5288e-08, -0.349747, 0.940512, 0.00193725, -0.936836, -0.351119, 0.996099, 0.00180787, 0.000677601, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343209, -0.510194, 0.863425, 0.00190661, -0.86005, -0.512195, 0.996099, 0.00180787, 0.000677601, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast55" type="RayCast" parent="bombcasts"]
-transform = Transform( 1.7448e-08, 0.399163, 0.92047, 0.00193725, -0.916872, 0.400728, 0.996099, 0.00176939, -0.00077334, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343241, 0.230406, 0.976905, 0.0019066, -0.973087, 0.231308, 0.996099, 0.00176939, -0.00077334, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast56" type="RayCast" parent="bombcasts"]
-transform = Transform( 4.036e-08, 0.923326, 0.385509, 0.00193731, -0.384002, 0.926944, 0.996099, 0.000741005, -0.00178885, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343274, 0.840685, 0.543637, 0.00190665, -0.541513, 0.843979, 0.996099, 0.000741005, -0.00178885, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast57" type="RayCast" parent="bombcasts"]
-transform = Transform( 4.3099e-08, 0.985987, -0.167439, 0.00193731, 0.166785, 0.989853, 0.996098, -0.000321902, -0.00191018, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343277, 0.999938, 0.0105827, 0.00190665, -0.0105415, 1.00386, 0.996098, -0.000321902, -0.00191018, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast58" type="RayCast" parent="bombcasts"]
-transform = Transform( 3.56409e-08, 0.815365, -0.581207, 0.00193731, 0.578935, 0.818561, 0.996098, -0.00111723, -0.00157964, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343269, 0.905036, -0.426987, 0.00190666, 0.425318, 0.908584, 0.996098, -0.00111723, -0.00157964, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast59" type="RayCast" parent="bombcasts"]
-transform = Transform( 7.4115e-09, 0.169555, -0.98938, 0.00193737, 0.985512, 0.17022, 0.996098, -0.00190195, -0.000328504, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343252, 0.341476, -0.94357, 0.00190672, 0.939881, 0.342816, 0.996098, -0.00190195, -0.000328504, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast60" type="RayCast" parent="bombcasts"]
-transform = Transform( -7.67153e-09, -0.175504, -0.988334, 0.00193737, 0.984471, -0.176191, 0.996098, -0.00189987, 0.000340022, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343237, 0.00169181, -1.00391, 0.00190672, 0.999991, 0.00170007, 0.996098, -0.00189987, 0.000340022, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast61" type="RayCast" parent="bombcasts"]
-transform = Transform( -2.33411e-08, -0.533981, -0.848806, 0.00193737, 0.845488, -0.536073, 0.996098, -0.00163162, 0.00103453, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343222, -0.375738, -0.930354, 0.00190672, 0.926718, -0.377209, 0.996098, -0.00163162, 0.00103453, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast62" type="RayCast" parent="bombcasts"]
-transform = Transform( -3.48446e-08, -0.797148, -0.606143, 0.00193731, 0.603774, -0.800272, 0.996098, -0.00116524, 0.00154433, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.0003432, -0.677566, -0.738339, 0.00190667, 0.735453, -0.680221, 0.996098, -0.00116524, 0.00154433, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast63" type="RayCast" parent="bombcasts"]
-transform = Transform( -4.33901e-08, -0.992646, -0.121477, 0.00193731, 0.121001, -0.996536, 0.996098, -0.000233546, 0.00192317, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343192, -0.955504, -0.296112, 0.00190667, 0.294954, -0.959249, 0.996098, -0.000233546, 0.00192317, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast64" type="RayCast" parent="bombcasts"]
-transform = Transform( -2.52782e-08, -0.578295, 0.819019, 0.00193731, -0.815819, -0.580562, 0.996098, 0.00157431, 0.00112036, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343209, -0.713686, 0.703204, 0.00190667, -0.700456, -0.716484, 0.996098, 0.00157431, 0.00112036, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast65" type="RayCast" parent="bombcasts"]
-transform = Transform( 3.49301e-08, 0.799104, 0.603542, 0.00193731, -0.601183, 0.802236, 0.996097, 0.00116014, -0.00154811, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343269, 0.67995, 0.736127, 0.00190666, -0.73325, 0.682615, 0.996097, 0.00116014, -0.00154811, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast66" type="RayCast" parent="bombcasts"]
-transform = Transform( 4.27544e-08, 0.978102, 0.208914, 0.00193731, -0.208098, 0.981936, 0.996097, 0.000401534, -0.00189495, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
+transform = Transform( 0.000343276, 0.92576, 0.379579, 0.00190665, -0.378097, 0.929388, 0.996097, 0.000401534, -0.00189495, -1.16415e-10, -4.65661e-10, 2.32831e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast67" type="RayCast" parent="bombcasts"]
-transform = Transform( 3.14517e-08, 0.719529, -0.697177, 0.00193731, 0.694453, 0.72235, 0.996097, -0.00134018, -0.00139397, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+transform = Transform( 0.000343265, 0.831183, -0.558168, 0.00190666, 0.555987, 0.834442, 0.996097, -0.00134018, -0.00139397, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast68" type="RayCast" parent="bombcasts"]
-transform = Transform( 2.14374e-08, 0.490429, -0.874892, 0.00193734, 0.871472, 0.492352, 0.996097, -0.00168183, -0.000950173, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
+transform = Transform( 0.000343261, 0.63707, -0.773821, 0.00190669, 0.770796, 0.639568, 0.996097, -0.00168183, -0.000950173, -1.16415e-10, -4.65661e-10, 6.98492e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast69" type="RayCast" parent="bombcasts"]
-transform = Transform( -5.57154e-09, -0.127461, 0.995727, 0.00193725, -0.991835, -0.127961, 0.996097, 0.00191393, 0.000246938, -2.32831e-10, -4.65661e-10, 6.98492e-10 )
+transform = Transform( 0.000343218, -0.301169, 0.957304, 0.0019066, -0.953562, -0.30235, 0.996097, 0.00191393, 0.000246938, -1.16415e-10, 0, 6.98492e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65
 
 [node name="RayCast70" type="RayCast" parent="bombcasts"]
-transform = Transform( 2.55445e-08, 0.584388, 0.814649, 0.00193731, -0.811465, 0.586678, 0.996097, 0.0015659, -0.00113219, -2.32831e-10, -4.65661e-10, 6.98492e-10 )
+transform = Transform( 0.000343259, 0.431375, 0.905703, 0.00190666, -0.902164, 0.433065, 0.996097, 0.0015659, -0.00113219, -1.16415e-10, 0, 6.98492e-10 )
 enabled = true
+cast_to = Vector3( 0, -1.2, 0 )
+collision_mask = 65

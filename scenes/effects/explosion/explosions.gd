@@ -2,6 +2,7 @@ extends Particles
 
 
 onready var bombcasts = $"%bombcasts"
+export var shockwave : int 
 func _ready():
 	pass
 
@@ -18,6 +19,8 @@ func _on_Bomb_explosion():
 
 
 func after_effects():
-	for b in bombcasts.get_children():
-		if b.is_colliding():
-			print(b.get_collider())
+	for ray in bombcasts.get_children():
+		if ray.is_colliding():
+			var object = ray.get_collider()
+			if object is RigidBody:
+				object.apply_central_impulse(-ray.global_transform.basis.z*shockwave)

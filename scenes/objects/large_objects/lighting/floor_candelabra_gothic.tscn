@@ -240,7 +240,7 @@ loop = true
 
 [node name="FloorCandelabraGothic" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00993706, 0 )
-collision_layer = 1
+collision_layer = 5
 collision_mask = 1
 mass = 30.0
 script = ExtResource( 3 )

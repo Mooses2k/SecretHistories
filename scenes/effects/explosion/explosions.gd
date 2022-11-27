@@ -4,6 +4,8 @@ extends Particles
 onready var bombcasts = $"%bombcasts"
 export var shockwave : int 
 export var blast_range : float
+export var blast_damage : float
+export(AttackTypes.Types) var damage_type : int = 0
 
 func _ready():
 	pass
@@ -25,9 +27,13 @@ func _on_Bomb_explosion():
 func after_effects():
 		for ray in bombcasts.get_children():
 			if ray.is_colliding():
-				var object = ray.get_collider()
-				if object is RigidBody:
+				var object = ray.get_collider() 
+				if object is RigidBody and !object.is_in_group("CHARACTER") :
 					object.apply_central_impulse(-ray.global_transform.basis.z * shockwave)
+				else:
+					object.apply_central_impulse(-ray.global_transform.basis.z * shockwave)
+					object.damage(blast_damage,damage_type,object)
+
 
 
 

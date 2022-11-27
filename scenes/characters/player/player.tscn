@@ -17,7 +17,6 @@
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
 
-
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0, 0, 0, 1 )
 
@@ -237,6 +236,7 @@ shader = SubResource( 33 )
 
 [node name="Player" instance=ExtResource( 4 )]
 collision_layer = 2
+continuous_cd = true
 script = ExtResource( 2 )
 
 [node name="FPSCamera" type="Camera" parent="Body" index="0"]
@@ -266,7 +266,7 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="Body/FPSCamera/ViewportContainer2" index="0"]
-size = Vector2( 1920, 1080 )
+size = Vector2( 1024, 600 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
@@ -291,7 +291,7 @@ current = true
 [node name="Equipment" type="Spatial" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
-[node name="PrimaryEquipmentRoot" parent="Body" index="6"]
+[node name="MainHandEquipmentRoot" parent="Body" index="6"]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="Hitbox" parent="." index="2" groups=["PLAYER"]]

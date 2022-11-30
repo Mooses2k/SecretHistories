@@ -133,6 +133,7 @@ var is_player_crouch_toggle : bool = true
 var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var normal_pos : float
+var clamberable_obj : RigidBody
 
 
 func _ready():
@@ -315,6 +316,7 @@ func _physics_process(delta : float):
 			if d.length() < 0.1:
 				is_clambering = false
 				owner.global_transform.origin = clamber_destination
+				clamberable_obj.mode = 0
 #				just_clambered = true
 #				state = State.STATE_CROUCHING
 				
@@ -513,6 +515,8 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		# Check for clamber
 		var c = _clamber_m.attempt_clamber(is_crouching, _jumping)
 		if c != Vector3.ZERO:
+			clamberable_obj = owner.clamberable
+			clamberable_obj.mode = 1
 			clamber_destination = c
 			if is_crouching:
 				is_crouching_clamber = true
@@ -544,8 +548,8 @@ func _head_bob(delta : float) -> void:
 		_camera.global_transform.origin = owner.global_transform.origin + br
 
 	_bob_time += delta
-	var y_bob = sin(_bob_time * (4 * PI)) * velocity.length() * (speed / 1000.0)
-	var z_bob = sin(_bob_time * (2 * PI)) * velocity.length() * 0.2
+	var y_bob = sin(_bob_time * (2 * PI)) * velocity.length() * (speed / 1000.0)
+	var z_bob = sin(_bob_time * (PI)) * velocity.length() * 0.2
 	_camera.global_transform.origin.y += y_bob
 	_camera.rotation_degrees.z = z_bob
 

@@ -4,11 +4,12 @@ class_name Player
 
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
-onready var Gun_cam=$Body/ViewportContainer2/Viewport/GunCam
+onready var Gun_cam=$ViewportContainer2/Viewport/GunCam
 onready var grab_cast=$FPSCamera/GrabCast
 
 var colliding_pickable_items = []
 var colliding_interactable_items = []
+var clamberable : RigidBody = null
 
 #func _ready():
 #	body.add_collision_exception_with()
@@ -23,8 +24,6 @@ func _process(delta):
 		$Indication_canvas/Indication_system/Dot.show()
 	
 	grab_indicator()
-	
-
 
 
 func grab_indicator():
@@ -57,3 +56,8 @@ func _on_GrabCastDot_area_entered(area):
 func _on_GrabCastDot_area_exited(area):
 	if area is Interactable:
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
+
+
+func _on_ClamberableChecker_body_entered(body): 
+	if body.is_in_group("CLAMBERABLE"):
+		clamberable = body

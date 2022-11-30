@@ -23,7 +23,6 @@
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/EffectOrigin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
-[ext_resource path="res://addons/thief_controller/prefabs/LightDetector.tscn" type="PackedScene" id=24]
 
 [sub_resource type="BoxShape" id=36]
 
@@ -50,6 +49,9 @@ size = Vector2( 2, 2 )
 [sub_resource type="CapsuleShape" id=39]
 radius = 0.3
 height = 1.2
+
+[sub_resource type="SphereShape" id=40]
+radius = 0.5
 
 [sub_resource type="CubeMesh" id=19]
 size = Vector3( 0.05, 0.05, 0.05 )
@@ -269,7 +271,23 @@ disabled = true
 enabled = true
 cast_to = Vector3( 0, -0.5, 0 )
 
-[node name="FPSCamera" type="Camera" parent="." index="3"]
+[node name="ViewportContainer2" type="ViewportContainer" parent="." index="3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer2" index="0"]
+size = Vector2( 1920, 1080 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="GunCam" type="Camera" parent="ViewportContainer2/Viewport" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
+cull_mask = 2
+
+[node name="FPSCamera" type="Camera" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 1.51721, -0.2 )
 cull_mask = 1048573
 current = true
@@ -309,82 +327,71 @@ cast_shadow = 0
 mesh = SubResource( 17 )
 skeleton = NodePath("../..")
 
-[node name="Body" parent="." index="4"]
+[node name="PrimaryEquipmentRoot" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
+
+[node name="Body" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 
-[node name="ViewportContainer2" type="ViewportContainer" parent="Body" index="0"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-stretch = true
-
-[node name="Viewport" type="Viewport" parent="Body/ViewportContainer2" index="0"]
-size = Vector2( 1920, 1080 )
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="GunCam" type="Camera" parent="Body/ViewportContainer2/Viewport" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
-cull_mask = 2
-
-[node name="Listener" type="Listener" parent="Body" index="1"]
+[node name="Listener" type="Listener" parent="Body" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
 current = true
 
-[node name="BodyMesh" type="MeshInstance" parent="Body" index="2"]
+[node name="BodyMesh" type="MeshInstance" parent="Body" index="1"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
 mesh = SubResource( 18 )
 skeleton = NodePath("../..")
 
-[node name="Equipment" type="Spatial" parent="Body" index="3"]
+[node name="Equipment" type="Spatial" parent="Body" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
-[node name="PrimaryEquipmentRoot" parent="Body" index="5"]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
-
-[node name="GroundChecker" type="RayCast" parent="Body" index="7"]
+[node name="GroundChecker" type="RayCast" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0 )
 enabled = true
 cast_to = Vector3( 0, -0.04, 0 )
 
-[node name="EffectOrigin" type="Position3D" parent="Body" index="8"]
+[node name="EffectOrigin" type="Position3D" parent="Body" index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86265e-09, 0 )
 script = ExtResource( 22 )
 material = ExtResource( 23 )
 uniform_name_position = "EFFECT_POSITION"
 
-[node name="RippleEffect" type="MeshInstance" parent="Body" index="9"]
+[node name="RippleEffect" type="MeshInstance" parent="Body" index="6"]
 visible = false
 material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
 mesh = SubResource( 38 )
 
-[node name="LightDetector" parent="Body" index="10" instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.030245, 0 )
-_player_path = NodePath("../../PlayerController")
+[node name="Hitbox" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 
-[node name="PlayerStandChecker" type="Area" parent="." index="5"]
-collision_layer = 0
+[node name="PlayerStandChecker" type="Area" parent="." index="9"]
+collision_layer = 2
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="PlayerStandChecker" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869301, 0 )
 shape = SubResource( 39 )
 
-[node name="Hitbox" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
+[node name="ClamberableChecker" type="Area" parent="." index="10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512443, 0 )
+collision_layer = 2
+monitorable = false
 
-[node name="PlayerAimPoint" type="Spatial" parent="." index="10"]
+[node name="CollisionShape" type="CollisionShape" parent="ClamberableChecker" index="0"]
+transform = Transform( 0.53918, 0, 0, 0, 1, 0, 0, 0, 1, -0.00335217, -0.211382, -0.213174 )
+shape = SubResource( 40 )
+
+[node name="PlayerAimPoint" type="Spatial" parent="." index="12"]
 visible = false
 
-[node name="PlayerController" type="Node" parent="." index="11"]
+[node name="PlayerController" type="Node" parent="." index="13"]
 script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
 _grabcast = NodePath("../FPSCamera/GrabCast")
 _cam_path = NodePath("../FPSCamera")
-_gun_cam_path = NodePath("../Body/ViewportContainer2/Viewport/GunCam")
+_gun_cam_path = NodePath("../ViewportContainer2/Viewport/GunCam")
 
 [node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
 script = ExtResource( 10 )
@@ -402,7 +409,7 @@ cast_shadow = 0
 mesh = SubResource( 19 )
 material/0 = SubResource( 21 )
 
-[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="12"]
+[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="14"]
 process_priority = 100
 stream = ExtResource( 8 )
 volume_db = -13.0
@@ -419,7 +426,7 @@ mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 
-[node name="HitEffect" type="CanvasLayer" parent="." index="13"]
+[node name="HitEffect" type="CanvasLayer" parent="." index="15"]
 script = ExtResource( 3 )
 light_node_path = NodePath("../PlayerController")
 
@@ -454,7 +461,7 @@ mouse_filter = 2
 tab_size = 8
 text = "dsafsdfd"
 
-[node name="Indication_canvas" type="CanvasLayer" parent="." index="14"]
+[node name="Indication_canvas" type="CanvasLayer" parent="." index="16"]
 pause_mode = 2
 script = ExtResource( 12 )
 
@@ -496,7 +503,7 @@ text = "Clamber (SPACE)"
 align = 1
 valign = 1
 
-[node name="HP" type="Spatial" parent="." index="15"]
+[node name="HP" type="Spatial" parent="." index="17"]
 script = ExtResource( 13 )
 raycast = NodePath("../FPSCamera/GroundCast")
 
@@ -520,7 +527,7 @@ mesh = SubResource( 29 )
 [node name="Timer" type="Timer" parent="HP" index="4"]
 one_shot = true
 
-[node name="PlayerDeath" type="CanvasLayer" parent="." index="16"]
+[node name="PlayerDeath" type="CanvasLayer" parent="." index="18"]
 pause_mode = 2
 script = ExtResource( 16 )
 
@@ -545,26 +552,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="SoundEmitter" type="Area" parent="." index="17"]
+[node name="SoundEmitter" type="Area" parent="." index="19"]
 collision_layer = 2
 script = ExtResource( 18 )
 
 [node name="CollisionShape" type="CollisionShape" parent="SoundEmitter" index="0"]
 
-[node name="Audio" type="AudioStreamPlayer" parent="." index="18"]
+[node name="Audio" type="AudioStreamPlayer" parent="." index="20"]
 script = ExtResource( 19 )
 
-[connection signal="character_died" from="." to="Inventory" method="_on_Player_character_died"]
-[connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
-[connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
-[connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]
-[connection signal="is_hit" from="." to="HitEffect" method="_on_Player_is_hit"]
-[connection signal="is_hit" from="." to="HP" method="_on_Player_is_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]
 [connection signal="body_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_exited"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_Hitbox_area_entered"]
+[connection signal="body_entered" from="ClamberableChecker" to="." method="_on_ClamberableChecker_body_entered"]
 [connection signal="is_moving" from="PlayerController" to="HP" method="_on_PlayerController_is_moving"]
 [connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]

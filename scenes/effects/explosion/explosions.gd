@@ -27,7 +27,7 @@ func _on_Bomb_explosion():
 				if bodies.collider is RigidBody:
 					if bodies.collider.is_in_group("CHARACTER"):
 						bodies.collider.damage(blast_damage,damage_type,bodies.collider)
-						bodies.collider.apply_central_impulse(-bodies.position  * 2)
+						bodies.collider.apply_central_impulse(-bodies.position  * 1)
 					else:
 						bodies.collider.apply_central_impulse(-bodies.position * shockwave)
 

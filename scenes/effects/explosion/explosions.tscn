@@ -34,8 +34,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
-shockwave = 120
-blast_damage = 20.0
+shockwave = 80
+blast_damage = 100.0
 
 [node name="BlastRadius" type="Area" parent="."]
 unique_name_in_owner = true

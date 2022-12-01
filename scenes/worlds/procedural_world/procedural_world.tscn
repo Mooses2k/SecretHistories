@@ -111,7 +111,7 @@ density = 0.01
 
 [node name="Bookcase" type="RigidBody" parent="." index="17"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
-collision_layer = 5
+collision_layer = 513
 mass = 102.041
 
 [node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]

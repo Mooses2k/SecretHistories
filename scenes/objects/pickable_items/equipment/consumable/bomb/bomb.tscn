@@ -3,8 +3,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/explosion/explosions.tscn" type="PackedScene" id=2]
 
-
-
 [node name="Bomb" type="Spatial"]
 script = ExtResource( 1 )
 

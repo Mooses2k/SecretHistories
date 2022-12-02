@@ -2,10 +2,8 @@ extends Particles
 
 
 onready var blastradius = $"%BlastRadius"
-export var shockwave : int 
-export var blast_damage : float
 var trigger = false
-export(AttackTypes.Types) var damage_type : int = 0
+
 
 func _ready():
 	pass
@@ -31,11 +29,11 @@ func _on_Bomb_explosion():
 					var direction_vector = global_transform.origin - bodies.collider.global_transform.origin
 					var damage_coordinates 
 					if distance > 0 :
-						damage_coordinates = 1 / global_transform.origin.distance_to(bodies.collider.global_transform.origin) * shockwave
+						damage_coordinates = 1 / global_transform.origin.distance_to(bodies.collider.global_transform.origin) * get_parent().bomb_damage
 					else:
-						damage_coordinates = shockwave
+						damage_coordinates = get_parent().bomb_damage
 					if bodies.collider.is_in_group("CHARACTER"):
-						bodies.collider.damage(damage_coordinates,damage_type,bodies.collider)
+						bodies.collider.damage(damage_coordinates,get_parent().damage_type,bodies.collider)
 						print(damage_coordinates)
 #						bodies.collider.apply_central_impulse( -bodies.position* damage_coordinates)
 					else:

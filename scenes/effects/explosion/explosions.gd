@@ -18,18 +18,30 @@ func _physics_process(delta):
 	pass
 
 func _on_Bomb_explosion():
+	var detection_array : Array
 	var collisions = blastradius.get_overlapping_bodies()
 	for body in collisions:
 		if body is RigidBody:
 			var space = get_world().direct_space_state
 			var bodies = space.intersect_ray(global_transform.origin, body.global_transform.origin) 
 			if (not bodies.empty()) :
-				if bodies.collider is RigidBody:
-					if bodies.collider.is_in_group("CHARACTER"):
-						bodies.collider.damage(blast_damage,damage_type,bodies.collider)
-						bodies.collider.apply_central_impulse(-bodies.position  * 1)
+				if ! detection_array.has(bodies.collider):
+					detection_array.append(bodies.collider)
+					var distance = global_transform.origin.distance_to(bodies.collider.global_transform.origin) 
+					var direction_vector = global_transform.origin - bodies.collider.global_transform.origin
+					var damage_coordinates 
+					if distance > 0 :
+						damage_coordinates = 1 / global_transform.origin.distance_to(bodies.collider.global_transform.origin) * shockwave
 					else:
-						bodies.collider.apply_central_impulse(-bodies.position * shockwave)
+						damage_coordinates = shockwave
+					if bodies.collider.is_in_group("CHARACTER"):
+						bodies.collider.damage(damage_coordinates,damage_type,bodies.collider)
+						print(damage_coordinates)
+#						bodies.collider.apply_central_impulse( -bodies.position* damage_coordinates)
+					else:
+						bodies.collider.apply_central_impulse( -bodies.position  * damage_coordinates)
+
+
 
 
 

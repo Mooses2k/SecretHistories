@@ -4,8 +4,10 @@ class_name BombItem
 
 export var radius = 5 # meters
 export var fragments = 200 # number of raycasts and/or particles
+export var bomb_damage : float #amount of damage to be registered
 
 var countdown_started = false
+
 
 onready var countdown_timer = $Countdown
 onready var flash = $Flash

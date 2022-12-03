@@ -34,10 +34,10 @@ func _on_Bomb_explosion():
 						damage_coordinates = get_parent().bomb_damage
 					if bodies.collider.is_in_group("CHARACTER"):
 						bodies.collider.damage(damage_coordinates,get_parent().damage_type,bodies.collider)
-						print(damage_coordinates)
-#						bodies.collider.apply_central_impulse( -bodies.position* damage_coordinates)
+						bodies.collider.apply_central_impulse( -bodies.position * damage_coordinates)
 					else:
 						bodies.collider.apply_central_impulse( -bodies.position  * damage_coordinates)
+
 
 
 

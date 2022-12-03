@@ -41,6 +41,7 @@ func _ready():
 func _integrate_forces(state):
 	handle_elevation(state)
 	handle_movement(state)
+	slow_down(state)
 #	var vertical_velocity = self._current_velocity.y
 #	self._current_velocity.y = 0
 #
@@ -70,6 +71,9 @@ func handle_movement(state : PhysicsDirectBodyState):
 	var velocity_correction = velocity_diff.normalized() * min(acceleration*state.step, velocity_diff.length())
 	apply_central_impulse(velocity_correction*mass)
 
+
+func slow_down(state : PhysicsDirectBodyState):
+	state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), move_speed)
 
 func damage(value : float, type : int, on_hitbox : Hitbox):
 	#queue_free()

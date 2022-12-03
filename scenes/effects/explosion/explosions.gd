@@ -4,10 +4,8 @@ extends Particles
 onready var blastradius = $"%BlastRadius"
 var trigger = false
 
-
 func _ready():
 	pass
-
 
 
 
@@ -32,10 +30,11 @@ func _on_Bomb_explosion():
 						damage_coordinates = 1 / global_transform.origin.distance_to(bodies.collider.global_transform.origin) * get_parent().bomb_damage
 					else:
 						damage_coordinates = get_parent().bomb_damage
-					if bodies.collider.is_in_group("CHARACTER"):
+					if bodies.collider.is_in_group("CHARACTER") and bodies.collider is RigidBody:
 						bodies.collider.damage(damage_coordinates,get_parent().damage_type,bodies.collider)
 						bodies.collider.apply_central_impulse( -bodies.position * damage_coordinates)
-					else:
+						print(damage_coordinates)
+					elif !bodies.collider.is_in_group("CHARACTER") and bodies.collider is RigidBody:
 						bodies.collider.apply_central_impulse( -bodies.position  * damage_coordinates)
 
 

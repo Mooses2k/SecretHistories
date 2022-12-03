@@ -15,7 +15,7 @@ angle_random = 1.0
 [sub_resource type="QuadMesh" id=5]
 
 [sub_resource type="SphereShape" id=6]
-radius = 1.29726
+radius = 2.45528
 
 [node name="Explosion" type="Particles"]
 transform = Transform( 0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479 )
@@ -41,6 +41,7 @@ collision_layer = 536870912
 collision_mask = 754
 
 [node name="CollisionShape" type="CollisionShape" parent="BlastRadius"]
+unique_name_in_owner = true
 shape = SubResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]

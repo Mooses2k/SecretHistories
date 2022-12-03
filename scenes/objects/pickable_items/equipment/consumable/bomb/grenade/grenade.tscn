@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd" type="Script" id=1]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Material.material" type="Material" id=2]
@@ -64,6 +64,9 @@ scale = 3.0
 scale_random = 1.0
 anim_speed_random = 0.46
 anim_offset_random = 0.51
+
+[sub_resource type="SphereShape" id=26]
+radius = 3.268
 
 [sub_resource type="ParticlesMaterial" id=6]
 direction = Vector3( 0, 0, 0 )
@@ -143,7 +146,7 @@ item_size = 0
 item_name = "Grenade"
 radius = 10
 fragments = 400
-bomb_damage = 100.0
+bomb_damage = 350.0
 damage_type = 2
 
 [node name="HoldPosition" type="Position3D" parent="."]
@@ -174,6 +177,9 @@ lifetime = 3.67
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 20 )
+
+[node name="CollisionShape" parent="Explosion/BlastRadius" index="0"]
+shape = SubResource( 26 )
 
 [node name="Shrapnel" type="Particles" parent="."]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00112057, -0.00427759, -0.00190479 )
@@ -223,3 +229,5 @@ sound_effect = ExtResource( 13 )
 
 [connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]
 [connection signal="timeout" from="Flash/FlashTimer" to="." method="_on_FlashTimer_timeout"]
+
+[editable path="Explosion"]

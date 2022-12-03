@@ -38,25 +38,6 @@ enum ThrowState {
 	SHOULD_THROW,
 }
 
-#stealth player controller addon -->
-enum State {
-	STATE_WALKING,
-	STATE_LEANING,
-	STATE_CROUCHING,
-	STATE_CRAWLING,
-	STATE_CLAMBERING_RISE,
-	STATE_CLAMBERING_LEDGE,
-	STATE_CLAMBERING_VENT,
-	STATE_NOCLIP,
-}
-
-const TEXTURE_SOUND_LIB = {
-	"checkerboard" : {
-		"amplifier" : 5.0,
-		"sfx_folder" : "addons/thief_controller/sfx/footsteps"
-	}
-}
-
 export var speed : float = 0.5
 export var gravity : float = 10.0
 export var jump_force : float = 3.5
@@ -69,7 +50,6 @@ export var mouse_sens : float = 0.5
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
 
-var state = State.STATE_WALKING
 var clamber_destination : Vector3 = Vector3.ZERO
 var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
@@ -80,17 +60,10 @@ var _clamber_m = null
 var _bob_reset : float = 0.0
 
 export var _cam_path : NodePath
-onready var _cam_fps = get_node(_cam_path)
 onready var _camera : ShakeCamera = get_node(_cam_path)
-onready var _collider : CollisionShape = owner.get_node("CollisionShape")
-onready var _crouch_collider : CollisionShape = owner.get_node("CollisionShape2")
 export var _gun_cam_path : NodePath
 onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
-onready var _surface_detector = get_node("../SurfaceDetector")
-onready var _sound_emitter : PlayerSoundEmitter = get_node("../SoundEmitter")
-onready var _audio_player : PlayerAudio = get_node("../Audio")
-onready var _body = get_node("../Body")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../PlayerStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
@@ -132,18 +105,13 @@ var wants_to_drop = false
 var is_player_crouch_toggle : bool = true
 var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
-var normal_pos : float
 var clamberable_obj : RigidBody
 
 func _ready():
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
-	_collider_normal_radius = _collider.shape.radius
-	_collider_normal_height = _collider.shape.height
-	_normal_collision_layer_and_mask = owner.collision_layer
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-	normal_pos = _body.global_transform.origin.y
 	
 	active_mode.set_deferred("is_active", true)
 
@@ -221,9 +189,9 @@ func _input(event):
 							character.inventory.current_primary_slot = 1
 	
 	if event is InputEventMouseMotion:
-		if (state == State.STATE_CLAMBERING_LEDGE 
-			or state == State.STATE_CLAMBERING_RISE 
-			or state == State.STATE_CLAMBERING_VENT):
+		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE 
+			or owner.state == owner.State.STATE_CLAMBERING_RISE 
+			or owner.state == owner.State.STATE_CLAMBERING_VENT):
 			return
 		
 		var m = 1.0
@@ -234,7 +202,7 @@ func _input(event):
 		owner.rotation_degrees.y -= event.relative.x * mouse_sens * m
 #		owner.body.rotation_degrees.y -= event.relative.x * mouse_sens * m
 		
-		if state != State.STATE_CRAWLING:
+		if owner.state != owner.State.STATE_CRAWLING:
 			_camera.rotation_degrees.x -= event.relative.y * mouse_sens * m
 			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 
@@ -245,8 +213,7 @@ func _walk(delta) -> void:
 	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
-	owner.move_dir = move_dir
-	
+	character.character_state.move_direction = move_dir.normalized()
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
 	else:
@@ -260,7 +227,7 @@ func _walk(delta) -> void:
 	if Input.is_action_just_pressed("clamber"):
 		owner.do_jump = true
 		
-	if head_bob_enabled and owner.grounded and owner.state == State.STATE_WALKING:
+	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
 		_head_bob(delta)
 
 

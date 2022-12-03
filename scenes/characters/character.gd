@@ -81,31 +81,14 @@ var _bob_time : float = 0.0
 var _clamber_m = null
 var _bob_reset : float = 0.0
 
-export var _cam_path : NodePath
-onready var _cam_fps = get_node(_cam_path)
 onready var _camera = get_node("FPSCamera")
 onready var _collider = get_node("CollisionShape")
 onready var _crouch_collider = get_node("CollisionShape2")
-export var _gun_cam_path : NodePath
-onready var _gun_cam = get_node(_gun_cam_path)
-onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _surface_detector = get_node("SurfaceDetector")
-onready var _sound_emitter : PlayerSoundEmitter = get_node("../SoundEmitter")
+onready var _sound_emitter = get_node("SoundEmitter")
 onready var _audio_player = get_node("Audio")
-onready var _body = get_node("../Body")
-onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = get_node("Body/GroundChecker")
-
-var _normal_collision_layer_and_mask : int = 1
-var _collider_normal_radius : float = 0.0
-var _collider_normal_height : float = 0.0
-var _camera_orig_pos : Vector3
-var _camera_orig_rotation : Vector3
-var _camera_pos_normal : Vector3 = Vector3.ZERO
-var _click_timer : float = 0.0
-var _throw_wait_time : float = 400
-#stealth player controller addon -->
 
 var throw_state : int = ThrowState.IDLE
 var throw_item : int = ItemSelection.ITEM_PRIMARY
@@ -117,11 +100,9 @@ var active_mode_index = 0
 var grab_press_length : float = 0.0
 var wanna_stand : bool = false
 var is_crouching : bool = false
-var is_crouching_clamber : bool = false
 var wanna_grab : bool = false
 var is_grabbing : bool = false
 var can_stand : bool = false
-var just_clambered : bool = false
 var is_clambering : bool = false
 var interaction_handled : bool = false
 var grab_object : RigidBody = null
@@ -130,12 +111,11 @@ var grab_distance : float = 0
 var target
 var current_object = null
 var wants_to_drop = false
+var crouch_equipment_target_pos = 0.663
+var equipment_orig_pos : float
 
 var is_player_moving : bool = false
 var is_player_crouch_toggle : bool = true
-var crouch_target_pos = -0.55
-var crouch_cam_target_pos = 0.98
-var normal_pos : float
 var clamberable_obj : RigidBody
 var clamberable : RigidBody = null
 
@@ -147,17 +127,9 @@ var do_jump : bool = false
 var do_crouch : bool = false
 
 
-#func _ready():
-#	_type_damage_multiplier.resize(AttackTypes.Types._COUNT)
-#	for i in _type_damage_multiplier.size():
-#		_type_damage_multiplier[i] = 1
-#	for immunity in self.immunities:
-#		_type_damage_multiplier[immunity] = 0
-
-
-func _integrate_forces(state):
-	handle_elevation(state)
-	handle_movement(state)
+#func _integrate_forces(state):
+#	handle_elevation(state)
+#	handle_movement(state)
 #	var vertical_velocity = self._current_velocity.y
 #	self._current_velocity.y = 0
 #
@@ -172,19 +144,19 @@ func _integrate_forces(state):
 
 
 #Stays at y = 0, raycast later
-func handle_elevation(state : PhysicsDirectBodyState):
-	var diff_correction = -Vector3.UP*state.transform.origin.y*mass/state.step
-	var speed_correction = -Vector3.UP*state.linear_velocity.y*mass
-	var gravity_correction = -state.total_gravity*mass*state.step
+#func handle_elevation(state : PhysicsDirectBodyState):
+#	var diff_correction = -Vector3.UP*state.transform.origin.y*mass/state.step
+#	var speed_correction = -Vector3.UP*state.linear_velocity.y*mass
+#	var gravity_correction = -state.total_gravity*mass*state.step
 #	apply_central_impulse(diff_correction + speed_correction + gravity_correction)
 
 
-func handle_movement(state : PhysicsDirectBodyState):
-	var planar_velocity = state.linear_velocity
-	planar_velocity.y = 0
-	var target_velocity : Vector3 = character_state.move_direction*move_speed
-	var velocity_diff = target_velocity - planar_velocity
-	var velocity_correction = velocity_diff.normalized()*min(acceleration*state.step, velocity_diff.length())
+#func handle_movement(state : PhysicsDirectBodyState):
+#	var planar_velocity = state.linear_velocity
+#	planar_velocity.y = 0
+#	var target_velocity : Vector3 = character_state.move_direction*move_speed
+#	var velocity_diff = target_velocity - planar_velocity
+#	var velocity_correction = velocity_diff.normalized()*min(acceleration*state.step, velocity_diff.length())
 #	apply_central_impulse(velocity_correction*mass)
 
 
@@ -208,16 +180,17 @@ func _input(event):
 
 
 func _ready():
-#	_bob_reset = _camera.global_transform.origin.y - global_transform.origin.y
+	_type_damage_multiplier.resize(AttackTypes.Types._COUNT)
+	for i in _type_damage_multiplier.size():
+		_type_damage_multiplier[i] = 1
+	for immunity in self.immunities:
+		_type_damage_multiplier[immunity] = 0
+		
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
-#	_camera_orig_pos = _camera.transform.origin
-#	_camera_orig_rotation = _camera.rotation_degrees
-#	normal_pos = _body.global_transform.origin.y
-	
+	equipment_orig_pos = primary_equipment_root.transform.origin.y
 	_audio_player.load_sounds("addons/thief_controller/sfx/footsteps", 0)
 	_audio_player.load_sounds("addons/thief_controller/sfx/breathe", 1)
 	_audio_player.load_sounds("addons/thief_controller/sfx/landing", 2)
-	
 #	active_mode.set_deferred("is_active", true)
 
 
@@ -246,6 +219,17 @@ func _physics_process(delta : float):
 		if _collider.disabled:
 			_collider.set_deferred("disabled", false)
 			_crouch_collider.set_deferred("disabled", true)
+			
+		var from = primary_equipment_root.transform.origin.y
+		primary_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
+		
+		from = secondary_equipment_root.transform.origin.y
+		secondary_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
+		
+		var d1 = primary_equipment_root.transform.origin.y - equipment_orig_pos
+		if d1 > -0.04:
+			primary_equipment_root.transform.origin.y = equipment_orig_pos
+			secondary_equipment_root.transform.origin.y = equipment_orig_pos
 		
 	match state:
 		State.STATE_WALKING:
@@ -328,7 +312,7 @@ func _handle_player_sound_emission() -> void:
 
 
 func _walk(delta, speed_mod : float = 1.0) -> void:
-	move_dir = move_dir.normalized()
+	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
 	if do_sprint and stamina > 0 and GameManager.is_reloading == false:
@@ -396,8 +380,6 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			clamberable_obj = clamberable
 			clamberable_obj.mode = 1
 			clamber_destination = c
-			if is_crouching:
-				is_crouching_clamber = true
 			state = State.STATE_CLAMBERING_RISE
 			is_clambering = true
 			_audio_player.play_clamber_sound(true)
@@ -426,6 +408,12 @@ func _crouch(delta : float) -> void:
 	if !_collider.disabled:
 		_crouch_collider.set_deferred("disabled", false)
 		_collider.set_deferred("disabled", true)
+	
+	var from = primary_equipment_root.transform.origin.y
+	primary_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+	
+	from = secondary_equipment_root.transform.origin.y
+	secondary_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
 	if !is_on_floor() and !_jumping:
 		velocity.y -= 5 * (gravity * delta)

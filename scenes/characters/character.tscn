@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://addons/thief_controller/scripts/player/player_audio.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
 [ext_resource path="res://scenes/characters/pickup_area.gd" type="Script" id=5]
+[ext_resource path="res://addons/thief_controller/scripts/player/player_sound_emitter.gd" type="Script" id=6]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.3
@@ -380,5 +381,11 @@ current = true
 
 [node name="Audio" type="AudioStreamPlayer3D" parent="."]
 script = ExtResource( 3 )
+
+[node name="SoundEmitter" type="Area" parent="."]
+collision_layer = 2
+script = ExtResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="SoundEmitter"]
 
 [connection signal="body_entered" from="ClamberableChecker" to="." method="_on_ClamberableChecker_body_entered"]

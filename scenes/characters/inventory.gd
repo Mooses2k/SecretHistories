@@ -170,7 +170,7 @@ func equip_mainhand_item():
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
-		owner.mainhand_equipment_root.add_child(item)
+		owner.primary_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
 
 
@@ -227,7 +227,7 @@ func equip_offhand_item():
 		current_offhand_equipment = item
 		# Waits for the item to exit the tree, if necessary
 		item.transform = item.get_hold_transform()
-		owner.offhand_equipment_root.add_child(item)
+		owner.secondary_equipment_root.add_child(item)
 	pass
 
 

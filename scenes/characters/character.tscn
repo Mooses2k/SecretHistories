@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
+[ext_resource path="res://addons/thief_controller/scripts/player/player_audio.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
 [ext_resource path="res://scenes/characters/pickup_area.gd" type="Script" id=5]
 
@@ -274,7 +275,15 @@ tracks/1/keys = {
 "values": [ Vector3( -30, 0, 0 ), Vector3( -13, -45, 55 ), Vector3( 0, -75, 95 ), Vector3( 3, -70, 100 ) ]
 }
 
+[sub_resource type="CapsuleShape" id=15]
+radius = 0.3
+height = 1.2
+
+[sub_resource type="SphereShape" id=16]
+radius = 0.5
+
 [node name="Character" type="KinematicBody" groups=["CHARACTER"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0378679, 0 )
 collision_layer = 16
 collision_mask = 19
 script = ExtResource( 1 )
@@ -300,6 +309,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.2, -0.3 )
 [node name="DropPosition" type="Position3D" parent="Body"]
 unique_name_in_owner = true
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
+
+[node name="GroundChecker" type="RayCast" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.04, 0 )
 
 [node name="Hitbox" type="Area" parent="."]
 collision_layer = 0
@@ -337,3 +351,34 @@ anims/ThrustFromTierce = SubResource( 10 )
 [node name="testCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, -0.2 )
 fov = 70.828
+
+[node name="PlayerStandChecker" type="Area" parent="."]
+collision_layer = 2
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerStandChecker"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.900284, 0 )
+shape = SubResource( 15 )
+
+[node name="ClamberableChecker" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512443, 0 )
+collision_layer = 2
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="ClamberableChecker"]
+transform = Transform( 0.53918, 0, 0, 0, 1, 0, 0, 0, 1, -0.00335217, -0.211382, -0.213174 )
+shape = SubResource( 16 )
+
+[node name="SurfaceDetector" type="RayCast" parent="."]
+enabled = true
+cast_to = Vector3( 0, -0.5, 0 )
+
+[node name="FPSCamera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 1.51721, -0.2 )
+cull_mask = 1048573
+current = true
+
+[node name="Audio" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource( 3 )
+
+[connection signal="body_entered" from="ClamberableChecker" to="." method="_on_ClamberableChecker_body_entered"]

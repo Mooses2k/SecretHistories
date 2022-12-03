@@ -135,7 +135,6 @@ var crouch_cam_target_pos = 0.98
 var normal_pos : float
 var clamberable_obj : RigidBody
 
-
 func _ready():
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
@@ -146,23 +145,11 @@ func _ready():
 	_camera_orig_rotation = _camera.rotation_degrees
 	normal_pos = _body.global_transform.origin.y
 	
-	_audio_player.load_sounds("addons/thief_controller/sfx/footsteps", 0)
-	_audio_player.load_sounds("addons/thief_controller/sfx/breathe", 1)
-	_audio_player.load_sounds("addons/thief_controller/sfx/landing", 2)
-	
 	active_mode.set_deferred("is_active", true)
 
 
 func _physics_process(delta : float):
-	can_stand = true
-	for body in _player_hitbox.get_overlapping_bodies():
-		if body is RigidBody:
-			can_stand = false
-#	_camera_pos_normal = owner.transform.origin + Vector3.UP * _bob_reset
 	_camera.rotation_degrees = _camera_orig_rotation
-#	_camera.transform.origin = _camera_orig_pos
-#	_gun_cam.transform.origin = _camera_pos_normal
-#	_gun_cam.rotation_degrees = _camera.rotation_degrees
 	
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
@@ -170,7 +157,8 @@ func _physics_process(delta : float):
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
 	current_object = active_mode.get_grab_target()
-	#handle_movement(delta)
+	_walk(delta)
+	_crouch()
 	handle_grab_input(delta)
 	handle_grab(delta)
 	handle_inventory(delta)
@@ -179,173 +167,21 @@ func _physics_process(delta : float):
 	drop_grabbable()
 	empty_slot()
 	
-	var c = _clamber_m.attempt_clamber(is_crouching, _jumping)
+	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner._jumping)
 	if c != Vector3.ZERO:
 		_text.show()
 	else:
 		_text.hide()
 	
-	if wanna_stand:
-		if _collider.disabled:
-			_collider.set_deferred("disabled", false)
-			_crouch_collider.set_deferred("disabled", true)
-
-		var from = _body.transform.origin.y
-		_body.transform.origin.y = lerp(from, normal_pos, 0.08)
-		
-		from = _camera.transform.origin.y
+	if owner.wanna_stand:
+		var from = _camera.transform.origin.y
 		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, 0.08)
 		
-		var d1 = _body.transform.origin.y - normal_pos
-		var d2 = _camera.transform.origin.y - _camera_orig_pos.y
-		if d1 > -0.02 and d2 > -0.02:
-			_body.transform.origin.y = normal_pos
+		var d1 = _camera.transform.origin.y - _camera_orig_pos.y
+		if d1 > -0.02:
 			_camera.transform.origin.y = _camera_orig_pos.y
-			is_crouching = false
-			wanna_stand = false
-		
-#		var from = _collider.shape.height
-#		var to = _collider_normal_height
-#		_collider.shape.height = lerp(from, to, 0.1)
-#
-#		_collider.rotation_degrees.x = 90
-
-#		var from = _camera.global_transform.origin
-#		var to = _camera_pos_normal + (Vector3.UP * _bob_reset * (crouch_rate - 0.1))
-#		#to = _camera_pos_normal + (Vector3.UP * _bob_reset)
-#		_camera.global_transform.origin = lerp(from, to, 0.1)
-
-#		if (str(_collider.shape.height) == str(_collider_normal_height) or 
-#			str(_camera.global_transform.origin) == str(_camera_pos_normal + 
-#			(Vector3.UP * _bob_reset * (crouch_rate - 0.1)))):
-#			is_crouching = false
-#			wanna_stand = false
-#			print("standing" + str(owner.global_transform.origin.y))
-	
-	match state:
-		State.STATE_WALKING:
-#			_process_frob_and_drag()
-#			if Input.is_action_pressed("lean"):
-#				state = State.STATE_LEANING
-#				return
-				
-			if Input.is_action_just_pressed("crouch"):
-				state = State.STATE_CROUCHING
-				return
-			
-#			if Input.is_action_pressed("crawl"):
-#				state = State.STATE_CRAWLING
-#				return
-#
-#			if Input.is_action_pressed("sneak"):
-#				_walk(delta, 0.75)
-#				return
-#
-#			if Input.is_action_just_pressed("noclip"):
-#				state = State.STATE_NOCLIP
-#				return
-#
-#			if Input.is_action_pressed("zoom"):
-#				_camera.state = _camera.CameraState.STATE_ZOOM
-#			else:
-#				_camera.state = _camera.CameraState.STATE_NORMAL
-			
-			_walk(delta)
-		
-#		State.STATE_LEANING:
-#			_process_frob_and_drag()
-#			_lean()
-
-		State.STATE_CROUCHING:
-#			if Input.is_action_pressed("zoom"):
-#				_camera.state = _camera.CameraState.STATE_ZOOM
-#			else:
-#				_camera.state = _camera.CameraState.STATE_NORMAL
-				
-			if Input.is_action_just_pressed("crouch"):
-				if is_player_crouch_toggle:
-					if is_crouching and can_stand:
-						wanna_stand = true
-						state = State.STATE_WALKING
-						return
-				
-#			_process_frob_and_drag()
-			is_crouching = true
-			_crouch(delta)
-			_walk(delta, 0.65)
-
-#		State.STATE_CRAWLING:
-#			if Input.is_action_pressed("zoom"):
-#				_camera.state = _camera.CameraState.STATE_ZOOM
-#			else:
-#				_camera.state = _camera.CameraState.STATE_NORMAL
-#
-##			_crawling()
-##			crawl_headmove(delta)
-#			_walk(delta, 0.45)
-
-		State.STATE_CLAMBERING_RISE:
-			var pos = owner.global_transform.origin
-			var target = Vector3(pos.x, clamber_destination.y, pos.z)
-			owner.global_transform.origin = lerp(pos, target, 0.1)
-#			is_crouching = true
-#			_crouch()
-			
-#			var from = _camera.rotation_degrees.x
-#			var to = pos.angle_to(target)
-#			_camera.rotation_degrees.x = lerp(from, to, 0.1)
-			
-			var d = pos - target
-			if d.length() < 0.1:
-				state = State.STATE_CLAMBERING_LEDGE
-				return
-
-		State.STATE_CLAMBERING_LEDGE:
-			#_audio_player.play_clamber_sound(false)
-			var pos = owner.global_transform.origin
-			owner.global_transform.origin = lerp(pos, clamber_destination, 0.1)
-			
-#			is_crouching = true
-#			_crouch()
-			
-#			var from = _camera.rotation_degrees.x
-#			var to = owner.global_transform.origin.angle_to(clamber_destination)
-#			_camera.rotation_degrees.x = lerp(from, to, 0.1)
-			
-			var d = owner.global_transform.origin - clamber_destination
-			if d.length() < 0.1:
-				is_clambering = false
-				owner.global_transform.origin = clamber_destination
-				clamberable_obj.mode = 0
-#				just_clambered = true
-#				state = State.STATE_CROUCHING
-				
-#				if is_player_crouch_toggle:
-#					if is_crouching_clamber:
-#						is_crouching_clamber = false
-#						_crouch()
-#						_walk(delta, 0.65)
-#						return
-#
-#					if is_crouching:
-#						wanna_stand = true
-#						state = State.STATE_WALKING
-#						return
-#				wanna_stand = true
-				if is_crouching:
-					state = State.STATE_CROUCHING
-					return
-				state = State.STATE_WALKING
-				return
-
-#		State.STATE_NOCLIP:
-#			if Input.is_action_just_pressed("noclip"):
-#				state = State.STATE_WALKING
-#				return
-#
-#			owner.collision_layer = 2
-#			owner.collision_mask = 2
-#			_noclip_walk()
+			owner.is_crouching = false
+			owner.wanna_stand = false
 
 
 func _input(event):
@@ -405,250 +241,62 @@ func _input(event):
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
 
-func _get_surface_texture() -> Dictionary:
-	if _surface_detector.get_collider():
-		var mesh = null
-		for node in _surface_detector.get_collider().get_children():
-			if node is MeshInstance:
-				if node.mesh != null:
-					mesh = node
-		
-		if !mesh:
-			return {}
-		
-		if mesh.get_surface_material(0) != null:
-				var tex = mesh.get_surface_material(0).albedo_texture
-				
-				if !tex:
-					return {}
-				
-				var path = tex.resource_path.split("/")
-				var n = path[path.size() - 1].split(".")[0]
-				if TEXTURE_SOUND_LIB.has(n):
-					return TEXTURE_SOUND_LIB[n]
-					
-	return {}
-
-
-func _handle_player_sound_emission() -> void:
-	var result = _get_surface_texture()
-	
-	if result.size() == 0:
-		return
-	
-	_sound_emitter.radius = result["amplifier"]
-	
-	if result.sfx_folder != "":
-		_audio_player.load_sounds(result.sfx_folder, 0)
-
-
-func _walk(delta, speed_mod : float = 1.0) -> void:
-#	owner.collision_layer = _normal_collision_layer_and_mask
-#	owner.collision_mask = _normal_collision_layer_and_mask
-
+func _walk(delta) -> void:
 	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
-	move_dir = move_dir.normalized()
-	move_dir = move_dir.rotated(Vector3.UP, owner.rotation.y)
+	owner.move_dir = move_dir
 	
-	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading == false:
-		if is_player_crouch_toggle:
-			if is_crouching:
-				is_crouching = false
-				wanna_stand = true
-				state = State.STATE_WALKING
-		move_dir *= 1.5;
-		change_stamina(-0.3)
+	if Input.is_action_pressed("sprint"):
+		owner.do_sprint = true
 	else:
-		move_dir *= 0.8
-		if !Input.is_action_pressed("sprint"):
-			change_stamina(0.3)
-	
-	var y_velo = velocity.y
-	
-	var v1 = speed * move_dir - velocity * Vector3(move_drag, 0, move_drag)
-	var v2 = Vector3.DOWN * gravity * delta
-	
-	velocity += v1 + v2
-	
-	var grounded = owner.is_on_floor() or _ground_checker.is_colliding()
-	
-	if is_crouching and _jumping:
-		velocity = owner.move_and_slide((velocity) + owner.get_floor_velocity(),
-				Vector3.UP, true, 4, PI/4, false)
-	else:
-		velocity = owner.move_and_slide((velocity * speed_mod) + owner.get_floor_velocity(),
-				Vector3.UP, true, 4, PI/4, false)
-			
-	
-	if move_dir == Vector3.ZERO:
-		is_player_moving = false
-		emit_signal("is_moving", is_player_moving)
-	else:
-		is_player_moving = true
-		emit_signal("is_moving", is_player_moving)
-	
-	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
-		_audio_player.play_land_sound()
-#		_camera.add_stress(0.25)
-	
-	grounded = owner.is_on_floor()
-	
-	if !grounded and y_velo < velocity.y:
-		velocity.y = y_velo
-		
-	if grounded:
-		velocity.y -= 0.01
-		
-		_jumping = false
-		
-	if is_clambering:
-		return
+		owner.do_sprint = false
+	HUDS.tired(owner.stamina);
+
+#	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
+#		_audio_player.play_land_sound()
+##		_camera.add_stress(0.25)
 	
 	if Input.is_action_just_pressed("clamber"):
-		if is_crouching:
-			pass
-		elif state != State.STATE_WALKING:
-			return
+		owner.do_jump = true
 		
-		# Check for clamber
-		var c = _clamber_m.attempt_clamber(is_crouching, _jumping)
-		if c != Vector3.ZERO:
-			clamberable_obj = owner.clamberable
-			clamberable_obj.mode = 1
-			clamber_destination = c
-			if is_crouching:
-				is_crouching_clamber = true
-			state = State.STATE_CLAMBERING_RISE
-			is_clambering = true
-#			_audio_player.play_clamber_sound(true)
-			return
-			
-		# If no clamber, jump
-		if _jumping or !owner.is_on_floor():
-			return
-		
-		velocity.y = jump_force
-		_jumping = true
-		return
-		
-	_handle_player_sound_emission()
-	
-	if head_bob_enabled and grounded and state == State.STATE_WALKING:
+	if head_bob_enabled and owner.grounded and owner.state == State.STATE_WALKING:
 		_head_bob(delta)
-	
-	if velocity.length() > 0.1 and grounded and not _audio_player.playing:
-		_audio_player.play_footstep_sound()
 
 
 func _head_bob(delta : float) -> void:
-	if velocity.length() == 0.0:
+	if owner.velocity.length() == 0.0:
 		var br = Vector3(0, _bob_reset, 0)
 		_camera.global_transform.origin = owner.global_transform.origin + br
 
 	_bob_time += delta
-	var y_bob = sin(_bob_time * (2 * PI)) * velocity.length() * (speed / 1000.0)
-	var z_bob = sin(_bob_time * (PI)) * velocity.length() * 0.2
+	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (speed / 1000.0)
+	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
 	_camera.global_transform.origin.y += y_bob
 	_camera.rotation_degrees.z = z_bob
 
 
-func _noclip_walk() -> void:
-	var move_dir = Vector3()
-	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
-	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
-	move_dir = move_dir.normalized()	
-	move_dir = move_dir.rotated(Vector3.RIGHT, _cam_fps.rotation.x)
-	move_dir = move_dir.rotated(Vector3.UP, owner.rotation.y)
-	
-	var _vel = owner.move_and_slide(move_dir * speed * 3.0)
-
-
-func _crouch(delta : float) -> void:
-	wanna_stand = false
-#	crouch_rate = clamp(crouch_rate, 0.05, 1.0)
-
-	if !_collider.disabled:
-		_crouch_collider.set_deferred("disabled", false)
-		_collider.set_deferred("disabled", true)
+func _crouch() -> void:
+	if owner.is_player_crouch_toggle:
+		if Input.is_action_just_pressed("crouch"):
+			owner.do_crouch = !owner.do_crouch
+			if owner.do_crouch:
+				owner.state = owner.State.STATE_CROUCHING
 		
-	var from = _body.transform.origin.y
-	_body.transform.origin.y = lerp(from, crouch_target_pos, 0.08)
+		if owner.do_crouch:
+			var from = _camera.transform.origin.y
+			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
 	
-	from = _camera.transform.origin.y
-	_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
-	
-	if !owner.is_on_floor() and !_jumping:
-		velocity.y -= 5 * (gravity * delta)
 	else:
-		velocity.y -= 0.05
-
-#	var from = _collider.shape.height
-#	var to = _collider_normal_height * crouch_rate
-#	_collider.shape.height = lerp(from, to, 0.1)
-#
-#	_collider.rotation_degrees.x = 0
-	
-#	var from = _camera.global_transform.origin
-#	var to = _camera_pos_normal + (Vector3.DOWN * _bob_reset * (crouch_rate - 0.1))
-#	_camera.global_transform.origin = lerp(from, to, 0.1)
-	
-	if is_player_crouch_toggle:
-		return
+		if Input.is_action_pressed("crouch"):
+			owner.do_crouch = true
+			owner.state = owner.State.STATE_CROUCHING
 		
-	if !Input.is_action_pressed("crouch") and state == State.STATE_CROUCHING:
-		var pos = owner.global_transform.origin
-		var space = owner.get_world().direct_space_state
-		
-		var r_up = space.intersect_ray(pos, 
-				pos + Vector3.UP * _bob_reset + Vector3.UP * 0.2, [owner])
-				
-#		if just_clambered:
-#			state = State.STATE_WALKING
-#			wanna_stand = true
-#			return
-		
-		if !r_up:
-			pass
-		elif r_up.collider.name != "ground":
-			return
-		else:
-			just_clambered = false
-			state = State.STATE_WALKING
-			wanna_stand = true
-			return
-		
-#		state = State.STATE_WALKING
-#
-#		while(!is_equal_approx(_collider.shape.height, _collider_normal_height) or !is_equal_approx(owner.global_transform.origin.y, 0.15)):
-#			from = _collider.shape.height
-#			to = _collider_normal_height
-#			_collider.shape.height = lerp(from, to, 0.1)
-#
-#			from = _collider.shape.radius
-#			to = _collider_normal_radius
-#			_collider.shape.radius = lerp(from, to, 0.1)
-#
-#			_collider.rotation_degrees.x = 90
-#
-#			from = _camera.global_transform.origin
-#			pos.y = 0.15
-#			to = pos + (Vector3.UP * _bob_reset)
-#			#to = _camera_pos_normal + (Vector3.UP * _bob_reset)
-#			_camera.global_transform.origin = lerp(from, to, 0.1)
-#
-#			from = owner.global_transform.origin.y
-#			to = 0.15
-#			owner.global_transform.origin.y = lerp(from, to, 0.1)
-#
-#			velocity.y -= 1
-
-#		state = State.STATE_WALKING
-#		_camera.global_transform.origin = pos + Vector3.UP * _bob_reset
-#		_collider.rotation_degrees.x = 90
-#		_collider.shape.height = _collider_normal_height
-#		_collider.shape.radius = _collider_normal_radius
+			var from = _camera.transform.origin.y
+			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+			
+		if !Input.is_action_pressed("crouch"):
+			owner.do_crouch = false
 
 
 #func _lean() -> void:
@@ -668,83 +316,83 @@ func _crouch(delta : float) -> void:
 #		return
 
 
-func _process_frob_and_drag():
-	if (Input.is_action_just_pressed("main_use_primary") 
-		and _click_timer == 0.0 
-		and drag_object != null):
-		_click_timer = OS.get_ticks_msec()
-		
-	if Input.is_action_pressed("main_use_primary"):
-		if _click_timer + _throw_wait_time < OS.get_ticks_msec():
-			if _click_timer == 0.0:
-				return
-			
-#			_camera.set_crosshair_state("normal")
-			_click_timer = 0.0
-			_throw()
-			drag_object = null
-	
-	if _frob_raycast.is_colliding():
-		var c = _frob_raycast.get_collider()
-		if drag_object == null and c is RigidBody:
-			if c.scale > (Vector3.ONE * 5):
-				return
-				
-			var w = owner.get_world().direct_space_state
-			var r = w.intersect_ray(c.global_transform.origin,
-					c.global_transform.origin + Vector3.UP * 0.5, [owner])
-						
-			if r and r.collider == owner:
-				return
-				
-#			_camera.set_crosshair_state("interact")
-				
-			if Input.is_action_just_released("main_use_primary"):
-#				_camera.set_crosshair_state("dragging")
-				drag_object = c
-				drag_object.linear_velocity = Vector3.ZERO
-	
-	if Input.is_action_just_released("main_use_primary"):	
-		if drag_object != null:
-			if _click_timer + _throw_wait_time > OS.get_ticks_msec():
-				if _click_timer == 0.0:
-					return
-				
-#				_camera.set_crosshair_state("normal")
-				drag_object = null
-				_click_timer = 0.0
-				
-	if Input.is_action_just_pressed("main_use_secondary") and drag_object != null:
-		drag_object.rotation_degrees.y += 45
-		drag_object.rotation_degrees.x = 90
-				
-	if drag_object:
-		_drag()
-		
-		var d = _camera.global_transform.origin.distance_to(drag_object.global_transform.origin)
-		if  d > interact_distance + 0.35:
-			drag_object = null
-	
-#	if !drag_object and not _frob_raycast.is_colliding():
-#		_camera.set_crosshair_state("normal")
-
-
-func _drag(damping : float = 0.5, s2ms : int = 15) -> void:
-	var d = _frob_raycast.global_transform.basis.z.normalized()
-	var dest = _frob_raycast.global_transform.origin - d * interact_distance
-	var d1 = (dest - drag_object.global_transform.origin)
-	drag_object.angular_velocity = Vector3.ZERO
-	
-	var v1 = velocity * damping + drag_object.linear_velocity * damping
-	var v2 = (d1 * s2ms) * (1.0 - damping) / drag_object.mass
-	
-	drag_object.linear_velocity = v1 + v2
-
-
-func _throw(throw_force : float = 10.0) -> void:
-	var d = -_camera.global_transform.basis.z.normalized()
-	drag_object.apply_central_impulse(d * throw_force)
-	_camera.add_stress(0.2)
+#func _process_frob_and_drag():
+#	if (Input.is_action_just_pressed("main_use_primary") 
+#		and _click_timer == 0.0 
+#		and drag_object != null):
+#		_click_timer = OS.get_ticks_msec()
+#
+#	if Input.is_action_pressed("main_use_primary"):
+#		if _click_timer + _throw_wait_time < OS.get_ticks_msec():
+#			if _click_timer == 0.0:
+#				return
+#
+##			_camera.set_crosshair_state("normal")
+#			_click_timer = 0.0
+#			_throw()
+#			drag_object = null
+#
+#	if _frob_raycast.is_colliding():
+#		var c = _frob_raycast.get_collider()
+#		if drag_object == null and c is RigidBody:
+#			if c.scale > (Vector3.ONE * 5):
+#				return
+#
+#			var w = owner.get_world().direct_space_state
+#			var r = w.intersect_ray(c.global_transform.origin,
+#					c.global_transform.origin + Vector3.UP * 0.5, [owner])
+#
+#			if r and r.collider == owner:
+#				return
+#
+##			_camera.set_crosshair_state("interact")
+#
+#			if Input.is_action_just_released("main_use_primary"):
+##				_camera.set_crosshair_state("dragging")
+#				drag_object = c
+#				drag_object.linear_velocity = Vector3.ZERO
+#
+#	if Input.is_action_just_released("main_use_primary"):	
+#		if drag_object != null:
+#			if _click_timer + _throw_wait_time > OS.get_ticks_msec():
+#				if _click_timer == 0.0:
+#					return
+#
+##				_camera.set_crosshair_state("normal")
+#				drag_object = null
+#				_click_timer = 0.0
+#
+#	if Input.is_action_just_pressed("main_use_secondary") and drag_object != null:
+#		drag_object.rotation_degrees.y += 45
+#		drag_object.rotation_degrees.x = 90
+#
+#	if drag_object:
+#		_drag()
+#
+#		var d = _camera.global_transform.origin.distance_to(drag_object.global_transform.origin)
+#		if  d > interact_distance + 0.35:
+#			drag_object = null
+#
+##	if !drag_object and not _frob_raycast.is_colliding():
+##		_camera.set_crosshair_state("normal")
+#
+#
+#func _drag(damping : float = 0.5, s2ms : int = 15) -> void:
+#	var d = _frob_raycast.global_transform.basis.z.normalized()
+#	var dest = _frob_raycast.global_transform.origin - d * interact_distance
+#	var d1 = (dest - drag_object.global_transform.origin)
+#	drag_object.angular_velocity = Vector3.ZERO
+#
+#	var v1 = velocity * damping + drag_object.linear_velocity * damping
+#	var v2 = (d1 * s2ms) * (1.0 - damping) / drag_object.mass
+#
+#	drag_object.linear_velocity = v1 + v2
+#
+#
+#func _throw(throw_force : float = 10.0) -> void:
+#	var d = -_camera.global_transform.basis.z.normalized()
+#	drag_object.apply_central_impulse(d * throw_force)
+#	_camera.add_stress(0.2)
 
 
 #func handle_misc_controls(_delta : float):
@@ -879,7 +527,6 @@ func handle_grab(delta : float):
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
 
 
-
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
@@ -903,16 +550,15 @@ func update_throw_state(delta : float):
 
 
 func empty_slot():
-	
 	var inv = character.inventory
 	if inv.hotbar != null:
 		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
 			inv.hotbar[10] = gun
 
+
 func handle_inventory(delta : float):
 	var inv = character.inventory
-
 	# Primary slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
@@ -1070,11 +716,6 @@ func drop_grabbable():
 			grab_object.apply_central_impulse(impulse)
 	if Input.is_action_just_released("main_throw") or Input.is_action_just_released("offhand_throw"):
 		wants_to_drop = false
-
-
-func change_stamina(amount: float) -> void:
-	stamina = min(125, max(0, stamina + amount));
-	HUDS.tired(stamina);
 
 
 func previous_weapon():

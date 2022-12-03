@@ -1,4 +1,4 @@
-extends AudioStreamPlayer
+extends AudioStreamPlayer3D
 class_name PlayerAudio
 
 var _footstep_sounds : Array = []

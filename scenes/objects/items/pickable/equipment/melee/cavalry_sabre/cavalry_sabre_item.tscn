@@ -23,15 +23,13 @@ script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
-item_size = 0
+item_size = 2
 item_name = "Shinai"
 melee_damage = 51
-can_Spin = null
 throw_logic = true
 throw_pos_path = NodePath("Throw_Pos")
 normal_pos_path = NodePath("Normal_Pos")
 melee_damage_type = 1
-element_path = NodePath("CollisionShape")
 player_path = NodePath(".")
 
 [node name="CooldownTimer" type="Timer" parent="."]

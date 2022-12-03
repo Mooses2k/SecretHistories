@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/effects/BloodOverlay1.png" type="Texture" id=4]
 [ext_resource path="res://resources/effects/whiteScreen.png" type="Texture" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
-[ext_resource path="res://resources/art/Ui/Grab.png" type="Texture" id=7]
+[ext_resource path="res://resources/art/UI/grab.png" type="Texture" id=7]
 [ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/FPS_control_mode.gd" type="Script" id=10]
@@ -307,6 +307,176 @@ visible = false
 material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
 mesh = SubResource( 38 )
+
+[node name="GunCam" type="Camera" parent="Body/FPSCamera/ViewportContainer2/Viewport" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60536, -0.2 )
+cull_mask = 2
+
+[node name="Listener" type="Listener" parent="Body" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
+current = true
+
+[node name="Equipment" type="Spatial" parent="Body" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
+
+[node name="DropPosition" parent="Body" index="3"]
+visible = true
+
+[node name="MainHandEquipmentRoot" parent="Body" index="4"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
+
+[node name="Physical Bone DEF-spine" parent="Body/Skeleton" index="0"]
+transform = Transform( 1, -7.81597e-14, -5.32907e-15, -4.29466e-16, -0.24964, -0.968339, 5.68434e-14, 0.968339, -0.24964, 0.00569725, 0.970537, -0.0324231 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.63284e-16, 1.27336e-07, 0.0681683 )
+body_offset = Transform( 1, -7.81597e-14, -5.32907e-15, 1.42109e-14, -1.19209e-07, -1, 5.68434e-14, 1, -1.19209e-07, 0, 0.0681683, -1.19209e-07 )
+
+[node name="Physical Bone DEF-spine001" parent="Body/Skeleton" index="1"]
+transform = Transform( 1, -3.55271e-14, -4.44089e-15, -2.56631e-15, -0.122954, -0.992413, 7.10543e-14, 0.992413, -0.122954, 0.00569724, 1.09727, -0.00788177 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, -4.55901e-09, 0.06119 )
+body_offset = Transform( 1, -3.55271e-14, -4.44089e-15, 6.21725e-15, 7.45058e-08, -1, 7.10543e-14, 1, 7.45058e-08, -7.45058e-09, 0.06119, 0 )
+
+[node name="Physical Bone DEF-spine002" parent="Body/Skeleton" index="2"]
+transform = Transform( 1, -7.81597e-14, -2.22045e-15, -1.93151e-16, 0.0318129, -0.999495, 4.9738e-14, 0.999495, 0.0318129, 0.00569726, 1.23538, -0.00282136 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.12227e-09, 3.15086e-08, 0.0774242 )
+body_offset = Transform( 1, -7.81597e-14, -2.22045e-15, -1.77636e-15, 2.6077e-08, -1, 4.9738e-14, 1, 2.6077e-08, 5.12227e-09, 0.0774242, -3.35276e-08 )
+
+[node name="Physical Bone DEF-spine003" parent="Body/Skeleton" index="3"]
+transform = Transform( 1, -4.9738e-14, -2.22045e-16, -1.70582e-15, 0.0285608, -0.999594, 5.68434e-14, 0.999594, 0.0285608, 0.00569725, 1.39898, -0.00774758 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83e-17, 1.21397e-08, 0.0862427 )
+body_offset = Transform( 1, -4.9738e-14, -4.44089e-16, -3.33067e-15, 0, -1, 5.68434e-14, 1, -1.11759e-08, 0, 0.0862427, -1.11759e-08 )
+
+[node name="Physical Bone DEF-spine004" parent="Body/Skeleton" index="4"]
+transform = Transform( 1, 3.95772e-12, -4.02326e-06, -3.73969e-06, -0.368784, -0.929517, -1.48371e-06, 0.929517, -0.368784, 0.00569737, 1.51273, 0.000716294 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.65342e-10, 3.48795e-08, 0.0296299 )
+body_offset = Transform( 1, 3.95772e-12, -4.02326e-06, -4.02326e-06, 8.34465e-07, -1, 7.95808e-13, 1, 8.34465e-07, 1.18744e-07, 0.0296299, -5.96046e-08 )
+
+[node name="Physical Bone DEF-spine005" parent="Body/Skeleton" index="5"]
+transform = Transform( 1, 4.74743e-07, 1.92378e-06, 1.97346e-06, -0.151267, -0.988494, -1.78276e-07, 0.988494, -0.151267, 0.00569742, 1.57451, 0.0168832 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27844e-09, 3.96096e-08, 0.0346398 )
+body_offset = Transform( 1, 5.68434e-13, 1.92378e-06, 1.92378e-06, -2.5332e-07, -1, -3.97904e-13, 1, -2.83122e-07, -6.89179e-08, 0.0346398, -2.98023e-08 )
+
+[node name="Physical Bone DEF-shoulderL" parent="Body/Skeleton" index="6"]
+transform = Transform( 0.473863, -0.0863692, -0.876355, 0.356962, 0.928591, 0.1015, 0.805007, -0.360922, 0.470855, 0.101353, 1.42845, 0.0186746 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33649e-07, -1.90083e-06, 0.0904493 )
+body_offset = Transform( 0.934094, -0.35494, -0.0385776, 8.9407e-08, 0.108051, -0.994147, 0.35703, 0.928625, 0.10093, 0.00348932, 0.0899201, -0.00912702 )
+
+[node name="Physical Bone DEF-upper_armL" parent="Body/Skeleton" index="7"]
+transform = Transform( -0.033985, -0.0421099, -0.998535, -0.944831, -0.324339, 0.0458353, -0.325795, 0.945004, -0.0287646, 0.251859, 1.41599, -0.0218615 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26671e-07, -3.85472e-07, 0.071345 )
+body_offset = Transform( 1, -2.38419e-07, -7.03149e-07, -7.94418e-07, -4.28408e-07, -1, -3.8743e-07, 1, -4.45172e-07, 4.76837e-07, 0.071345, 4.17233e-07 )
+
+[node name="Physical Bone DEF-upper_armL001" parent="Body/Skeleton" index="8"]
+transform = Transform( -0.0344296, -0.0417463, -0.998534, -0.948219, -0.314289, 0.0458348, -0.315742, 0.948409, -0.0287644, 0.394341, 1.40945, -0.0177571 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.60699e-07, 2.40882e-08, 0.0713453 )
+body_offset = Transform( 0.999998, -2.38419e-07, 4.95464e-07, 4.88013e-07, 9.49949e-08, -0.999999, -2.98023e-07, 0.999999, 8.00937e-08, -5.96046e-07, 0.0713452, -2.98023e-08 )
+
+[node name="Physical Bone DEF-forearmL" parent="Body/Skeleton" index="9"]
+transform = Transform( -0.0348728, -0.0630529, -0.9974, -0.951505, -0.303137, 0.0524318, -0.305655, 0.95086, -0.0494243, 0.533397, 1.40262, -0.0123455 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33524e-06, 1.55512e-07, 0.0679932 )
+body_offset = Transform( 1, 8.9407e-08, -7.19912e-07, -7.70204e-07, 3.72529e-07, -1, 3.27826e-07, 1, 3.42727e-07, 2.38419e-06, 0.0679932, -1.78814e-07 )
+
+[node name="Physical Bone DEF-forearmL001" parent="Body/Skeleton" index="10"]
+transform = Transform( -0.0342762, -0.0633794, -0.997399, -0.948604, -0.312096, 0.0524314, -0.314607, 0.947936, -0.0494248, 0.669032, 1.39549, -0.00562342 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38777e-07, 1.01315e-09, 0.067994 )
+body_offset = Transform( 1, 2.38419e-07, -2.87779e-07, -2.49594e-07, -1.00583e-07, -0.999999, 2.68221e-07, 1, -1.49012e-08, -1.19209e-07, 0.0679939, 0 )
+
+[node name="Physical Bone DEF-handL" parent="Body/Skeleton" index="11"]
+transform = Transform( -0.197002, 0.287713, -0.937236, 0.977501, -0.0158735, -0.210338, -0.0753942, -0.957586, -0.278113, 0.784723, 1.40267, 0.0119436 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47035e-08, 2.98023e-07, 0.0510809 )
+body_offset = Transform( -0.911476, 0.372301, 0.17494, 1.39698e-08, 0.425279, -0.905063, -0.411354, -0.824942, -0.387631, -0.00893617, 0.0462313, 0.0198008 )
+
+[node name="Physical Bone DEF-shoulderR" parent="Body/Skeleton" index="12"]
+transform = Transform( 0.473861, 0.0863736, 0.876355, -0.356969, 0.928587, 0.101499, -0.805003, -0.360927, 0.470855, -0.0899596, 1.42845, 0.0186745 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0571e-07, -1.8375e-06, 0.0904495 )
+body_offset = Transform( 0.93409, 0.354947, 0.0385779, 1.49012e-07, 0.10805, -0.994147, -0.357037, 0.928621, 0.100929, -0.00348936, 0.0899203, -0.00912702 )
+
+[node name="Physical Bone DEF-upper_armR" parent="Body/Skeleton" index="13"]
+transform = Transform( -0.0339865, 0.0421074, 0.998535, 0.944831, -0.324341, 0.045836, 0.325795, 0.945004, -0.028762, -0.240466, 1.41599, -0.0218625 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77017e-07, 2.45595e-07, 0.0713451 )
+body_offset = Transform( 1, 0, 8.10251e-07, 9.12696e-07, -7.26432e-08, -1, 0, 1, -1.00583e-07, 1.19209e-07, 0.0713451, -2.38419e-07 )
+
+[node name="Physical Bone DEF-upper_armR001" parent="Body/Skeleton" index="14"]
+transform = Transform( -0.0344326, 0.0417442, 0.998535, 0.948222, -0.31429, 0.045837, 0.315743, 0.94841, -0.0287617, -0.382947, 1.40945, -0.0177583 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.12957e-08, 1.75764e-08, 0.071345 )
+body_offset = Transform( 1, -2.68221e-07, 9.99309e-07, 9.83477e-07, 1.49012e-07, -1, 5.96046e-08, 1, 1.71363e-07, 0, 0.071345, -2.98023e-08 )
+
+[node name="Physical Bone DEF-forearmR" parent="Body/Skeleton" index="15"]
+transform = Transform( -0.0348717, 0.0630544, 0.997399, 0.951506, -0.303137, 0.0524313, 0.305655, 0.95086, -0.0494264, -0.522005, 1.40262, -0.0123456 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.00688e-07, -1.31367e-07, 0.0679938 )
+body_offset = Transform( 1, 1.78814e-07, -6.33299e-07, -6.83591e-07, 1.82539e-07, -0.999999, -2.98023e-07, 1, 1.78814e-07, -3.57628e-07, 0.0679937, 1.19209e-07 )
+
+[node name="Physical Bone DEF-forearmR001" parent="Body/Skeleton" index="16"]
+transform = Transform( -0.0342763, 0.0633808, 0.9974, 0.948605, -0.312095, 0.0524321, 0.314606, 0.947936, -0.0494267, -0.657638, 1.39549, -0.00562429 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.32249e-07, -2.2626e-07, 0.0679932 )
+body_offset = Transform( 1, -1.78814e-07, 3.25963e-08, 4.47035e-08, -1.19209e-07, -1, -2.98023e-08, 1, -1.78814e-07, -8.34465e-07, 0.0679932, 2.38419e-07 )
+
+[node name="Physical Bone DEF-handR" parent="Body/Skeleton" index="17"]
+transform = Transform( -0.197001, -0.287712, 0.937237, -0.977502, -0.01587, -0.210337, 0.0753905, -0.957587, -0.278113, -0.773331, 1.40267, 0.0119431 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.78351e-07, 1.32248e-07, 0.051082 )
+body_offset = Transform( -0.911478, -0.372297, -0.174938, -3.64147e-07, 0.425278, -0.905063, 0.411349, -0.824945, -0.387632, 0.00893676, 0.0462324, 0.0198009 )
+
+[node name="Physical Bone DEF-pelvisL" parent="Body/Skeleton" index="18"]
+transform = Transform( 0.0103968, -0.609805, -0.792483, -0.578526, 0.64275, -0.502176, 0.815598, 0.463693, -0.346104, 0.0495843, 0.932337, -0.0302735 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43424e-07, -1.92784e-07, 0.0553793 )
+body_offset = Transform( 0.859965, 0.479616, 0.17444, -1.19209e-07, 0.341802, -0.939771, -0.510354, 0.808171, 0.293937, -0.00966039, 0.0520439, -0.0162778 )
+
+[node name="Physical Bone DEF-thighL" parent="Body/Skeleton" index="19"]
+transform = Transform( 0.891998, -0.443382, -0.0880437, 0.0445856, -0.107527, 0.993202, -0.449835, -0.88986, -0.0761447, 0.104087, 0.840398, -0.00192559 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98167e-08, -7.39847e-09, 0.120569 )
+body_offset = Transform( 1, -5.66244e-07, -7.82311e-07, -7.63685e-07, 5.96046e-07, -1, 5.96046e-08, 1, 4.32134e-07, 7.45058e-08, 0.120569, -4.47035e-08 )
+
+[node name="Physical Bone DEF-thighL001" parent="Body/Skeleton" index="20"]
+transform = Transform( 0.891997, -0.443382, -0.0880431, 0.0445853, -0.107527, 0.993202, -0.449834, -0.88986, -0.0761443, 0.125318, 0.600899, 0.0164358 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.27884e-08, 7.38195e-08, 0.120569 )
+body_offset = Transform( 0.999999, -3.8743e-07, -2.71946e-07, -3.72529e-07, -2.01166e-07, -1, 1.49012e-07, 1, -3.65078e-07, 0, 0.120569, -2.98023e-08 )
+
+[node name="Physical Bone DEF-shinL" parent="Body/Skeleton" index="21"]
+transform = Transform( 0.891999, -0.452037, 6.3593e-07, 0.0445862, 0.0879813, 0.995123, -0.449833, -0.887649, 0.0986347, 0.135933, 0.379939, 0.0155847 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.92985e-09, -3.60551e-08, 0.101706 )
+body_offset = Transform( 1, -1.49012e-07, -1.39698e-06, -1.3411e-06, 2.23517e-07, -0.999999, -1.19209e-07, 1, 1.71363e-07, 1.49012e-07, 0.101706, 1.86265e-08 )
+
+[node name="Physical Bone DEF-shinL001" parent="Body/Skeleton" index="22"]
+transform = Transform( 0.891999, -0.452036, 2.14402e-06, 0.0445847, 0.0879818, 0.995124, -0.449833, -0.88765, 0.0986345, 0.135933, 0.17752, -0.00447863 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.68328e-09, 1.31363e-08, 0.101706 )
+body_offset = Transform( 1, 9.83477e-07, 5.58794e-08, 5.96046e-08, -2.5332e-07, -1, -1.19209e-07, 1, -2.75671e-07, 0, 0.101706, 1.49012e-08 )
+
+[node name="Physical Bone DEF-footL" parent="Body/Skeleton" index="23"]
+transform = Transform( 0.999999, -0.00117087, -2.8467e-06, -0.000990307, -0.847999, 0.529996, -0.000622909, -0.529997, -0.847999, 0.135933, 0.0456345, 0.0345716 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.3679e-08, -9.05811e-08, 0.0578797 )
+body_offset = Transform( 1, 1.10595e-09, -1.38622e-06, -1.38482e-06, 4.47035e-07, -1, -1.92085e-09, 1, 1.49012e-07, 1.63913e-07, 0.0578797, 8.19564e-08 )
+
+[node name="Physical Bone DEF-pelvisR" parent="Body/Skeleton" index="24"]
+transform = Transform( 0.0103911, 0.609802, 0.792485, 0.578523, 0.642755, -0.502174, -0.8156, 0.46369, -0.346106, -0.0381902, 0.932337, -0.0302733 )
+joint_offset = Transform( -0.8156, -0.578522, 0.010392, 0.463688, -0.642753, 0.609805, -0.346106, 0.502175, 0.792484, 7.45058e-08, 6.70552e-08, 0.0553794 )
+body_offset = Transform( 0.859968, -0.479611, -0.174439, 2.38419e-07, 0.341805, -0.939771, 0.510348, 0.808173, 0.29394, 0.0096603, 0.052044, -0.0162783 )
+
+[node name="Physical Bone DEF-thighR" parent="Body/Skeleton" index="25"]
+transform = Transform( 0.891999, 0.443381, 0.0880433, -0.044586, -0.107526, 0.993202, 0.449834, -0.889861, -0.0761445, -0.0926928, 0.840398, -0.00192556 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.31853e-08, -2.29859e-08, 0.120569 )
+body_offset = Transform( 1, 3.8743e-07, 5.02914e-07, 4.65661e-07, 7.45058e-08, -1, 1.19209e-07, 1, 6.70552e-08, -7.45058e-09, 0.120569, 1.49012e-08 )
+
+[node name="Physical Bone DEF-thighR001" parent="Body/Skeleton" index="26"]
+transform = Transform( 0.891999, 0.443381, 0.0880431, -0.044586, -0.107526, 0.993202, 0.449835, -0.889861, -0.0761442, -0.113924, 0.600897, 0.0164359 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.42029e-08, -1.1836e-08, 0.12057 )
+body_offset = Transform( 1, 2.68221e-07, 6.33299e-07, 6.48201e-07, -7.45058e-09, -1, -5.96046e-08, 1, -1.49012e-07, -5.21541e-08, 0.12057, 2.98023e-08 )
+
+[node name="Physical Bone DEF-shinR" parent="Body/Skeleton" index="27"]
+transform = Transform( 0.891999, 0.452037, 1.09857e-07, -0.0445865, 0.08798, 0.995125, 0.449834, -0.88765, 0.0986327, -0.124539, 0.379938, 0.0155851 )
+joint_offset = Transform( -4.09782e-08, -0.5, 0.866026, -7.45058e-09, 0.866025, 0.5, -1, 2.23517e-08, -3.72529e-08, -4.66068e-08, -3.30284e-08, 0.101705 )
+body_offset = Transform( 1, 0, 8.97795e-07, 8.53091e-07, 6.92904e-07, -1, -5.96046e-08, 1, 5.81145e-07, -4.47035e-08, 0.101705, -2.6077e-08 )
+
+[node name="Physical Bone DEF-shinR001" parent="Body/Skeleton" index="28"]
+transform = Transform( 0.891999, 0.452037, -4.74051e-07, -0.0445862, 0.0879807, 0.995124, 0.449833, -0.88765, 0.0986332, -0.124539, 0.177518, -0.00447798 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.11323e-08, 7.19636e-09, 0.101706 )
+body_offset = Transform( 1, 2.98023e-08, 1.11386e-06, 1.15484e-06, 2.16067e-07, -1, -1.19209e-07, 1, 1.49012e-07, -5.21541e-08, 0.101706, -2.23517e-08 )
+
+[node name="Physical Bone DEF-footR" parent="Body/Skeleton" index="29"]
+transform = Transform( 0.999999, 0.00117043, 3.44252e-07, 0.000991535, -0.848, 0.529996, 0.000621498, -0.529996, -0.848001, -0.124539, 0.0456329, 0.0345727 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.33018e-08, -3.69775e-08, 0.0578799 )
+body_offset = Transform( 1, -1.45519e-09, -2.81667e-07, -2.8091e-07, 8.9407e-08, -1, -8.14907e-10, 1, 5.96046e-08, 5.96046e-08, 0.0578799, 3.35276e-08 )
+
+[node name="Hitbox" parent="." index="2" groups=["PLAYER"]]
+collision_layer = 4
 
 [node name="Hitbox" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )

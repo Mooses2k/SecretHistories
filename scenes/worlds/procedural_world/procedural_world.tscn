@@ -10,7 +10,7 @@
 [ext_resource path="res://scenes/objects/world_objects/doors/door.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/objects/items/pickable/tiny/key/key_item.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/characters/enemies/cultist/cultist.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/characters/enemies/cultist/neophyte.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/light_sources/candle/candle.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/tool/padlock/padlock_item.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/objects/items/pickable/equipment/ranged/webley_revolver/Webley.tscn" type="PackedScene" id=14]
@@ -218,5 +218,23 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase/CollisionShape" index="0"]
 mesh = SubResource( 2 )
+
+[node name="Candle2" parent="." index="21" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
+
+[node name="KeyItem" parent="." index="22" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
+key_id = 0
+
+[node name="PadlockItem" parent="." index="23" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
+padlock_id = 0
+padlock_locked = false
+
+[node name="Webley" parent="." index="24" instance=ExtResource( 14 )]
+transform = Transform( 0.711744, 0.702439, 0, -0.702439, 0.711744, 0, 0, 0, 1, 2.30643, 0.618492, 5.0266 )
+
+[node name="Torch" parent="." index="25" instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91335, 0.750593, 5.72667 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

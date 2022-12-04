@@ -1,6 +1,5 @@
 extends Node
 
-
 signal is_moving(is_player_moving)
 var is_player_moving : bool = false
 
@@ -39,8 +38,6 @@ enum ThrowState {
 }
 
 export var speed : float = 0.5
-export var gravity : float = 10.0
-export var jump_force : float = 3.5
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
@@ -50,11 +47,8 @@ export var mouse_sens : float = 0.5
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
 
-var clamber_destination : Vector3 = Vector3.ZERO
 var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
-var drag_object : RigidBody = null
-var _jumping : bool = false
 var _bob_time : float = 0.0
 var _clamber_m = null
 var _bob_reset : float = 0.0
@@ -68,32 +62,19 @@ onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../PlayerStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
 
-var _normal_collision_layer_and_mask : int = 1
-var _collider_normal_radius : float = 0.0
-var _collider_normal_height : float = 0.0
 var _camera_orig_pos : Vector3
 var _camera_orig_rotation : Vector3
-var _camera_pos_normal : Vector3 = Vector3.ZERO
-var _click_timer : float = 0.0
-var _throw_wait_time : float = 400
 #stealth player controller addon -->
 
 var throw_state : int = ThrowState.IDLE
 var throw_item : int = ItemSelection.ITEM_MAINHAND
 var throw_press_length : float = 0.0
-var stamina := 600.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
 var grab_press_length : float = 0.0
-var wanna_stand : bool = false
-var is_crouching : bool = false
-var is_crouching_clamber : bool = false
 var wanna_grab : bool = false
 var is_grabbing : bool = false
-var can_stand : bool = false
-var just_clambered : bool = false
-var is_clambering : bool = false
 var interaction_handled : bool = false
 var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
@@ -102,13 +83,11 @@ var target
 var current_object = null
 var wants_to_drop = false
 
-var is_player_crouch_toggle : bool = true
 var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 
 func _ready():
-	owner.is_player_crouch_toggle = false
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin

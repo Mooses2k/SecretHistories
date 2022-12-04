@@ -78,9 +78,7 @@ var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
 var drag_object : RigidBody = null
 var _jumping : bool = false
-var _bob_time : float = 0.0
 var _clamber_m = null
-var _bob_reset : float = 0.0
 
 onready var _camera = get_node("FPSCamera")
 onready var _collider = get_node("CollisionShape")
@@ -91,9 +89,6 @@ onready var _audio_player = get_node("Audio")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = get_node("Body/GroundChecker")
 
-var throw_state : int = ThrowState.IDLE
-var throw_item : int = ItemSelection.ITEM_PRIMARY
-var throw_press_length : float = 0.0
 var stamina := 125.0
 var active_mode_index = 0
 #onready var active_mode : ControlMode = get_child(0)

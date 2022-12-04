@@ -18,8 +18,8 @@ onready var Stamina: AudioStreamPlayer = $Stamina/Audio;
 ############################
 enum stamina_values\\
 {
-	maximum = 5,
-	minimum = -30
+	maximum = 40,
+	minimum = -10
 }
 
 

@@ -17,10 +17,8 @@ onready var current_health : float = self.max_health
 
 onready var inventory = $Inventory
 onready var pickup_area = $PickupArea
-onready var primary_equipment_root = $PrimaryEquipmentRoot
-onready var secondary_equipment_root = $SecondaryEquipmentRoot
-onready var mainhand_equipment_root = $Body/MainHandEquipmentRoot
-onready var offhand_equipment_root = $Body/OffHandEquipmentRoot
+onready var mainhand_equipment_root = $MainHandEquipmentRoot
+onready var offhand_equipment_root = $OffHandEquipmentRoot
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"
@@ -191,7 +189,7 @@ func _ready():
 		_type_damage_multiplier[immunity] = 0
 		
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
-	equipment_orig_pos = primary_equipment_root.transform.origin.y
+	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
 	_audio_player.load_sounds("addons/thief_controller/sfx/footsteps", 0)
 	_audio_player.load_sounds("addons/thief_controller/sfx/breathe", 1)
 	_audio_player.load_sounds("addons/thief_controller/sfx/landing", 2)
@@ -224,16 +222,16 @@ func _physics_process(delta : float):
 			_collider.set_deferred("disabled", false)
 			_crouch_collider.set_deferred("disabled", true)
 			
-		var from = primary_equipment_root.transform.origin.y
-		primary_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
+		var from = mainhand_equipment_root.transform.origin.y
+		mainhand_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
 		
-		from = secondary_equipment_root.transform.origin.y
-		secondary_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
+		from = offhand_equipment_root.transform.origin.y
+		offhand_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
 		
-		var d1 = primary_equipment_root.transform.origin.y - equipment_orig_pos
+		var d1 = mainhand_equipment_root.transform.origin.y - equipment_orig_pos
 		if d1 > -0.04:
-			primary_equipment_root.transform.origin.y = equipment_orig_pos
-			secondary_equipment_root.transform.origin.y = equipment_orig_pos
+			mainhand_equipment_root.transform.origin.y = equipment_orig_pos
+			offhand_equipment_root.transform.origin.y = equipment_orig_pos
 		
 	match state:
 		State.STATE_WALKING:
@@ -413,11 +411,11 @@ func _crouch(delta : float) -> void:
 		_crouch_collider.set_deferred("disabled", false)
 		_collider.set_deferred("disabled", true)
 	
-	var from = primary_equipment_root.transform.origin.y
-	primary_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+	var from = mainhand_equipment_root.transform.origin.y
+	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
-	from = secondary_equipment_root.transform.origin.y
-	secondary_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+	from = offhand_equipment_root.transform.origin.y
+	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
 	if !is_on_floor() and !_jumping:
 		velocity.y -= 5 * (gravity * delta)
@@ -441,7 +439,6 @@ func change_stamina(amount: float) -> void:
 func _on_ClamberableChecker_body_entered(body):
 	if body.is_in_group("CLAMBERABLE"):
 		clamberable = body
-					self.emit_signal("character_died")
 #
 #	if event.is_action_pressed("crouch"):
 #		if $crouch_timer.is_stopped(): # && !$AnimationTree.get(roll_active):

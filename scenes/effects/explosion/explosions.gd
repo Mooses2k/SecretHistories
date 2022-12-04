@@ -24,7 +24,6 @@ func _on_Bomb_explosion():
 				if ! detection_array.has(bodies.collider):
 					detection_array.append(bodies.collider)
 					var distance = global_transform.origin.distance_to(bodies.collider.global_transform.origin) 
-					var direction_vector = global_transform.origin - bodies.collider.global_transform.origin
 					var damage_coordinates 
 					if distance > 0 :
 						damage_coordinates = 1 / global_transform.origin.distance_to(bodies.collider.global_transform.origin) * get_parent().bomb_damage

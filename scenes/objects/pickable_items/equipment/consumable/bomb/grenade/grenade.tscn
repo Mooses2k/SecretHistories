@@ -66,7 +66,7 @@ anim_speed_random = 0.46
 anim_offset_random = 0.51
 
 [sub_resource type="SphereShape" id=26]
-radius = 3.268
+radius = 2.5
 
 [sub_resource type="ParticlesMaterial" id=6]
 direction = Vector3( 0, 0, 0 )
@@ -137,6 +137,8 @@ shader_param/emission_color_ramp = SubResource( 19 )
 material = SubResource( 25 )
 
 [node name="Grenade" type="RigidBody"]
+collision_layer = 0
+collision_mask = 0
 mass = 0.3
 script = ExtResource( 1 )
 dropped_layers = 64
@@ -146,7 +148,7 @@ item_size = 0
 item_name = "Grenade"
 radius = 10
 fragments = 400
-bomb_damage = 400.0
+bomb_damage = 250.0
 damage_type = 2
 
 [node name="HoldPosition" type="Position3D" parent="."]

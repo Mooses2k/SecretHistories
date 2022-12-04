@@ -44,7 +44,7 @@ anim_speed_random = 0.46
 anim_offset_random = 0.51
 
 [sub_resource type="SphereShape" id=28]
-radius = 2.45528
+radius = 2.2
 
 [sub_resource type="ParticlesMaterial" id=26]
 direction = Vector3( 0, 0, 0 )
@@ -115,13 +115,15 @@ shader_param/emission_color_ramp = SubResource( 23 )
 material = SubResource( 16 )
 
 [node name="Dynamite" type="RigidBody"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
 item_size = 0
 item_name = "Dynamite"
-bomb_damage = 400.0
+bomb_damage = 250.0
 
 [node name="Mesh" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )

@@ -19,6 +19,8 @@ onready var inventory = $Inventory
 onready var pickup_area = $PickupArea
 onready var primary_equipment_root = $PrimaryEquipmentRoot
 onready var secondary_equipment_root = $SecondaryEquipmentRoot
+onready var mainhand_equipment_root = $Body/MainHandEquipmentRoot
+onready var offhand_equipment_root = $Body/OffHandEquipmentRoot
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"
@@ -439,7 +441,8 @@ func change_stamina(amount: float) -> void:
 func _on_ClamberableChecker_body_entered(body):
 	if body.is_in_group("CLAMBERABLE"):
 		clamberable = body
-
+					self.emit_signal("character_died")
+#
 #	if event.is_action_pressed("crouch"):
 #		if $crouch_timer.is_stopped(): # && !$AnimationTree.get(roll_active):
 #			$crouch_timer.start()

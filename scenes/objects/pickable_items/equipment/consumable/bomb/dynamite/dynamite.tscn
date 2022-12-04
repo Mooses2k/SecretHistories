@@ -123,7 +123,7 @@ dropped_mask = 1
 equipped_mode = 3
 item_size = 0
 item_name = "Dynamite"
-bomb_damage = 250.0
+bomb_damage = 300.0
 
 [node name="Mesh" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )

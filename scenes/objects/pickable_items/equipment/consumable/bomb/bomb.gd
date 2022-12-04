@@ -46,7 +46,7 @@ func _on_Countdown_timeout():
 	countdown_started = true
 	# below lines fix crash if bomb is still in hands when explodes
 	if get_parent().get_parent().get_parent().is_in_group("CHARACTER"):
-		get_parent().get_parent().get_parent().damage(bomb_damage,damage_type,get_parent().get_parent().get_parent())
+		get_parent().get_parent().get_parent().damage(bomb_damage , damage_type , get_parent().get_parent().get_parent())
 		get_parent().get_parent().get_parent().drop_consumable(self)
 
 # this doesn't work - it doesn't timeout until apparently the queue_free

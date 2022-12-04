@@ -379,12 +379,6 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 ChangeScene="*res://globals/change_scene.gd"
 
-[display]
-
-window/size/width=1920
-window/size/height=1080
-window/size/fullscreen=true
-
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg" )

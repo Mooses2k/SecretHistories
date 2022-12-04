@@ -46,5 +46,3 @@ shape = SubResource( 6 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-
-[connection signal="body_entered" from="BlastRadius" to="." method="_on_BlastRadius_body_entered"]

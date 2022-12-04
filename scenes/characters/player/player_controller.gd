@@ -108,6 +108,7 @@ var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 
 func _ready():
+	owner.is_player_crouch_toggle = false
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin
@@ -144,7 +145,6 @@ func _physics_process(delta : float):
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
 		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, 0.08)
-		
 		var d1 = _camera.transform.origin.y - _camera_orig_pos.y
 		if d1 > -0.02:
 			_camera.transform.origin.y = _camera_orig_pos.y
@@ -259,6 +259,10 @@ func _head_bob(delta : float) -> void:
 
 func _crouch() -> void:
 	if owner.is_player_crouch_toggle:
+		if owner.do_sprint:
+			owner.do_crouch = false
+			return
+		
 		if Input.is_action_just_pressed("crouch"):
 			owner.do_crouch = !owner.do_crouch
 			if owner.do_crouch:
@@ -270,6 +274,10 @@ func _crouch() -> void:
 	
 	else:
 		if Input.is_action_pressed("crouch"):
+			if owner.do_sprint:
+				owner.do_crouch = false
+				return
+			
 			owner.do_crouch = true
 			owner.state = owner.State.STATE_CROUCHING
 		

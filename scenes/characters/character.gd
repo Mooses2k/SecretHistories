@@ -216,7 +216,6 @@ func _physics_process(delta : float):
 #	previous_weapon()
 #	drop_grabbable()
 #	empty_slot()
-	
 	if wanna_stand:
 		if _collider.disabled:
 			_collider.set_deferred("disabled", false)
@@ -227,7 +226,6 @@ func _physics_process(delta : float):
 		
 		from = offhand_equipment_root.transform.origin.y
 		offhand_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
-		
 		var d1 = mainhand_equipment_root.transform.origin.y - equipment_orig_pos
 		if d1 > -0.04:
 			mainhand_equipment_root.transform.origin.y = equipment_orig_pos
@@ -239,7 +237,8 @@ func _physics_process(delta : float):
 
 		State.STATE_CROUCHING:
 			if !do_crouch and is_player_crouch_toggle:
-				if is_crouching and can_stand:
+				if do_sprint or (is_crouching and can_stand):
+					is_crouching = false
 					wanna_stand = true
 					state = State.STATE_WALKING
 					return
@@ -318,11 +317,19 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
 	if do_sprint and stamina > 0 and GameManager.is_reloading == false:
-		if is_player_crouch_toggle:
-			if is_crouching:
+		if is_crouching:
+#			if is_player_crouch_toggle:
+#				if !do_crouch:
+#					if can_stand:
+#						wanna_stand = true
+#						state = State.STATE_WALKING
+#			else:
+			if can_stand:
 				is_crouching = false
 				wanna_stand = true
 				state = State.STATE_WALKING
+			else:
+				return
 		move_dir *= 1.5;
 		change_stamina(-0.3)
 	else:
@@ -424,8 +431,8 @@ func _crouch(delta : float) -> void:
 	
 	if is_player_crouch_toggle:
 		return
-
-	if !do_crouch and state == State.STATE_CROUCHING:
+	
+	if do_sprint or (!do_crouch and state == State.STATE_CROUCHING):
 		if can_stand:
 			state = State.STATE_WALKING
 			wanna_stand = true

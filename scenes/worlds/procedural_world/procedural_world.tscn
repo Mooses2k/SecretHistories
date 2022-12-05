@@ -111,7 +111,7 @@ density = 0.01
 
 [node name="Bookcase" type="RigidBody" parent="." index="17"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
-collision_layer = 513
+collision_layer = 5
 mass = 102.041
 
 [node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]
@@ -218,6 +218,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98031, 1.07749, 2.31026 )
 
 [node name="FloorCandelabraGothic2" parent="." index="50" instance=ExtResource( 40 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.22474, 0.815375, 8.02499 )
-collision_layer = 512
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/explosion/explosions.tscn" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=5]
 [ext_resource path="res://scenes/effects/effects.gd" type="Script" id=6]
 [ext_resource path="res://scenes/effects/explosion_audio.tscn" type="PackedScene" id=7]
-
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "SM_Dynamite_Mesh"
@@ -43,6 +42,9 @@ scale = 3.0
 scale_random = 1.0
 anim_speed_random = 0.46
 anim_offset_random = 0.51
+
+[sub_resource type="SphereShape" id=28]
+radius = 1.5
 
 [sub_resource type="ParticlesMaterial" id=26]
 direction = Vector3( 0, 0, 0 )
@@ -113,12 +115,15 @@ shader_param/emission_color_ramp = SubResource( 23 )
 material = SubResource( 16 )
 
 [node name="Dynamite" type="RigidBody"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
 item_size = 0
 item_name = "Dynamite"
+bomb_damage = 80.0
 
 [node name="Mesh" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
@@ -140,6 +145,9 @@ lifetime = 3.49
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 19 )
+
+[node name="CollisionShape" parent="Explosion/BlastRadius" index="0"]
+shape = SubResource( 28 )
 
 [node name="Shrapnel" type="Particles" parent="."]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00112057, 0.142892, -0.00190479 )
@@ -188,3 +196,5 @@ sound_effect = ExtResource( 7 )
 [node name="SoundOrigin" type="Position3D" parent="Effect"]
 
 [connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]
+
+[editable path="Explosion"]

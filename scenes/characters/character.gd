@@ -30,8 +30,8 @@ var _alive : bool = true
 
 
 enum ItemSelection {
-	ITEM_PRIMARY,
-	ITEM_SECONDARY,
+	ITEM_MAINHAND,
+	ITEM_OFFHAND,
 }
 
 enum ThrowState {

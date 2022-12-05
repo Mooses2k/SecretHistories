@@ -4,18 +4,19 @@ class_name Player
 
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
-onready var Gun_cam=$ViewportContainer2/Viewport/GunCam
-onready var grab_cast=$FPSCamera/GrabCast
+onready var gun_cam = $ViewportContainer2/Viewport/GunCam
+onready var grab_cast = $FPSCamera/GrabCast
 
 var colliding_pickable_items = []
 var colliding_interactable_items = []
+
 
 #func _ready():
 #	body.add_collision_exception_with()
 
 
 func _process(delta):
-	Gun_cam.global_transform = fps_camera.global_transform
+	gun_cam.global_transform = fps_camera.global_transform
 	
 	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
 		$Indication_canvas/Indication_system/Dot.hide()

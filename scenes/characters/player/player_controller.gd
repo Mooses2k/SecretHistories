@@ -87,6 +87,7 @@ var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 
+
 func _ready():
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())

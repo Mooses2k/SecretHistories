@@ -211,6 +211,7 @@ func _physics_process(delta : float):
 #	previous_weapon()
 #	drop_grabbable()
 #	empty_slot()
+	
 	if wanna_stand:
 		if _collider.disabled:
 			_collider.set_deferred("disabled", false)

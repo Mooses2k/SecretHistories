@@ -28,7 +28,6 @@ var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
 
 
-
 enum ItemSelection {
 	ITEM_MAINHAND,
 	ITEM_OFFHAND,
@@ -449,4 +448,3 @@ func _on_ClamberableChecker_body_entered(body):
 #			$AnimationTree.tree_root.get_node("cs_transition").xfade_time = (velocity.length() + 1.5)/ 15.0
 #			crouch_stand_target = 1 - crouch_stand_target
 #			$AnimationTree.set(cs_transition, crouch_stand_target)
-#

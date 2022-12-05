@@ -53,12 +53,6 @@ func _hide_hp():
 		$AnimationPlayer.stop()
 
 
-func _on_PlayerController_is_moving(is_player_moving):
-	is_moving = is_player_moving
-	if is_moving and is_hp_triggered:
-		_hide_hp()
-
-
 func _on_Player_is_hit(current_health):
 	player_health = current_health
 	
@@ -75,3 +69,9 @@ func _on_Timer_timeout():
 	if is_hp_triggered:
 		is_hp_visible = true
 		$AnimationPlayer2.play("fadeIn")
+
+
+func _on_Player_is_moving(is_player_moving):
+	is_moving = is_player_moving
+	if is_moving and is_hp_triggered:
+		_hide_hp()

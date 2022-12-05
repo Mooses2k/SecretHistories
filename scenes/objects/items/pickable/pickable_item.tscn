@@ -22,7 +22,6 @@ equipped_mode = 3
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
-material/0 = null
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

@@ -119,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/character_state.gd"
 }, {
+"base": "Object",
+"class": "ClamberManager",
+"language": "GDScript",
+"path": "res://addons/thief_controller/scripts/player/clamber_manager.gd"
+}, {
 "base": "EquipmentItem",
 "class": "ConsumableItem",
 "language": "GDScript",
@@ -194,6 +199,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/items/pickable/tiny/key/key_item.gd"
 }, {
+"base": "Spatial",
+"class": "LightDetector",
+"language": "GDScript",
+"path": "res://addons/thief_controller/scripts/player/light_detector.gd"
+}, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
 "language": "GDScript",
@@ -219,15 +229,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/pickup_area.gd"
 }, {
-"base": "RigidBody",
+"base": "KinematicBody",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
+}, {
+"base": "KinematicBody",
+"class": "Player1",
+"language": "GDScript",
+"path": "res://addons/thief_controller/scripts/player/player.gd"
+}, {
+"base": "AudioStreamPlayer3D",
+"class": "PlayerAudio",
+"language": "GDScript",
+"path": "res://addons/thief_controller/scripts/player/player_audio.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerSensor",
 "language": "GDScript",
 "path": "res://scenes/sensors/player_sensor.gd"
+}, {
+"base": "Area",
+"class": "PlayerSoundEmitter",
+"language": "GDScript",
+"path": "res://addons/thief_controller/scripts/player/player_sound_emitter.gd"
 }, {
 "base": "GunItem",
 "class": "RevolverItem",
@@ -243,6 +268,11 @@ _global_script_classes=[ {
 "class": "SettingsClass",
 "language": "GDScript",
 "path": "res://globals/settings.gd"
+}, {
+"base": "Camera",
+"class": "ShakeCamera",
+"language": "GDScript",
+"path": "res://addons/thief_controller/scripts/player/player_camera.gd"
 }, {
 "base": "GunItem",
 "class": "ShotgunItem",
@@ -307,6 +337,7 @@ _global_script_class_icons={
 "BehaviorTree": "",
 "BombItem": "",
 "CharacterState": "",
+"ClamberManager": "",
 "ConsumableItem": "",
 "ControlMode": "",
 "Dagger": "",
@@ -322,16 +353,21 @@ _global_script_class_icons={
 "Hitbox": "",
 "Interactable": "",
 "KeyItem": "",
+"LightDetector": "",
 "MeleeItem": "",
 "MeshTransform": "",
 "PadlockItem": "",
 "PickableItem": "",
 "PickupArea": "",
 "Player": "",
+"Player1": "",
+"PlayerAudio": "",
 "PlayerSensor": "",
+"PlayerSoundEmitter": "",
 "RevolverItem": "",
 "SabreItem": "",
 "SettingsClass": "",
+"ShakeCamera": "",
 "ShotgunItem": "",
 "TinyItem": "",
 "TinyItemData": "",
@@ -573,6 +609,11 @@ Left_Mouse_Button={
 hotbar_11={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":72,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+clamber={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

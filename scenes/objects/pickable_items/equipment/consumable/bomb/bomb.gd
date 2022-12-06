@@ -2,6 +2,10 @@ extends ConsumableItem
 class_name BombItem
 
 
+
+onready var countdown_timer = $Countdown
+onready var flash = $Flash
+
 export var radius = 5 # meters
 export var fragments = 200 # number of raycasts and/or particles
 export var bomb_damage : float #amount of damage to be registered
@@ -10,8 +14,6 @@ export(AttackTypes.Types) var damage_type : int = 0
 var countdown_started = false
 
 
-onready var countdown_timer = $Countdown
-onready var flash = $Flash
 
 
 func _ready():
@@ -46,7 +48,7 @@ func _on_Countdown_timeout():
 	countdown_started = true
 	# below lines fix crash if bomb is still in hands when explodes
 	if get_parent().get_parent().get_parent().is_in_group("CHARACTER"):
-		get_parent().get_parent().get_parent().damage(bomb_damage , damage_type , get_parent().get_parent().get_parent())
+		get_parent().get_parent().get_parent().damage(bomb_damage, damage_type, get_parent().get_parent().get_parent())
 		get_parent().get_parent().get_parent().drop_consumable(self)
 
 # this doesn't work - it doesn't timeout until apparently the queue_free

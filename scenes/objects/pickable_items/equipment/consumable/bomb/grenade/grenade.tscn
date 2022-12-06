@@ -66,7 +66,7 @@ anim_speed_random = 0.46
 anim_offset_random = 0.51
 
 [sub_resource type="SphereShape" id=26]
-radius = 2.5
+radius = 2.0
 
 [sub_resource type="ParticlesMaterial" id=6]
 direction = Vector3( 0, 0, 0 )
@@ -148,7 +148,7 @@ item_size = 0
 item_name = "Grenade"
 radius = 10
 fragments = 400
-bomb_damage = 300.0
+bomb_damage = 100.0
 damage_type = 2
 
 [node name="HoldPosition" type="Position3D" parent="."]

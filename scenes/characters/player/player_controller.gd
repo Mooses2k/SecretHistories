@@ -83,12 +83,18 @@ var target
 var current_object = null
 var wants_to_drop = false
 
+var is_movement_key1_held = false
+var is_movement_key2_held = false
+var is_movement_key3_held = false
+var is_movement_key4_held = false
+var movement_press_length = 0
 var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 
 
 func _ready():
+	owner.is_to_move = false
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin
@@ -116,7 +122,7 @@ func _physics_process(delta : float):
 	drop_grabbable()
 	empty_slot()
 	
-	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner._jumping)
+	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
 	if c != Vector3.ZERO:
 		_text.show()
 	else:
@@ -204,6 +210,20 @@ func _input(event):
 
 
 func _walk(delta) -> void:
+	if Input.is_action_pressed("move_right"):
+		is_movement_key1_held = true
+	if Input.is_action_pressed("move_left"):
+		is_movement_key2_held = true
+	if Input.is_action_pressed("move_down"):
+		is_movement_key3_held = true
+	if Input.is_action_pressed("move_up"):
+		is_movement_key4_held = true
+	
+	if Input.is_action_pressed("movement"):
+		movement_press_length += delta
+		if movement_press_length >= 0.15:
+			owner.is_to_move = true
+	
 	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
@@ -213,6 +233,20 @@ func _walk(delta) -> void:
 	else:
 		owner.do_sprint = false
 	HUDS.tired(owner.stamina);
+	
+	if Input.is_action_just_released("move_right"):
+		is_movement_key1_held = false
+	if Input.is_action_just_released("move_left"):
+		is_movement_key2_held = false
+	if Input.is_action_just_released("move_down"):
+		is_movement_key3_held = false
+	if Input.is_action_just_released("move_up"):
+		is_movement_key4_held = false
+	
+	if Input.is_action_just_released("movement"):
+		if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
+			movement_press_length = 0.0
+			owner.is_to_move = false
 
 #	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
 #		_audio_player.play_land_sound()

@@ -148,7 +148,7 @@ item_size = 0
 item_name = "Grenade"
 radius = 10
 fragments = 400
-bomb_damage = 80.0
+bomb_damage = 70.0
 damage_type = 2
 
 [node name="HoldPosition" type="Position3D" parent="."]

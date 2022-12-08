@@ -76,7 +76,7 @@ var clamber_destination : Vector3 = Vector3.ZERO
 var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
 var drag_object : RigidBody = null
-var _jumping : bool = false
+var is_jumping : bool = false
 var _clamber_m = null
 
 onready var _camera = get_node("FPSCamera")
@@ -117,6 +117,7 @@ var clamberable : RigidBody = null
 var move_dir = Vector3()
 var grounded = false
 
+var is_to_move : bool = true
 var do_sprint : bool = false
 var do_jump : bool = false
 var do_crouch : bool = false
@@ -261,7 +262,8 @@ func _physics_process(delta : float):
 			if d.length() < 0.1:
 				is_clambering = false
 				global_transform.origin = clamber_destination
-				clamberable_obj.mode = 0
+				if clamberable_obj:
+					clamberable_obj.mode = 0
 				
 				if is_crouching:
 					state = State.STATE_CROUCHING
@@ -341,7 +343,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	grounded = is_on_floor() or _ground_checker.is_colliding()
 	
-	if is_crouching and _jumping:
+	if is_crouching and is_jumping:
 		velocity = move_and_slide((velocity) + get_floor_velocity(),
 				Vector3.UP, true, 4, PI/4, false)
 	else:
@@ -356,7 +358,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		is_player_moving = true
 		emit_signal("is_moving", is_player_moving)
 	
-	if is_on_floor() and _jumping and _camera.stress < 0.1:
+	if is_on_floor() and is_jumping and _camera.stress < 0.1:
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
 	
@@ -368,7 +370,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	if grounded:
 		velocity.y -= 0.01
 		
-		_jumping = false
+		is_jumping = false
 		
 	if is_clambering:
 		return
@@ -379,10 +381,11 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		elif state != State.STATE_WALKING:
 			return
 		
-		var c = _clamber_m.attempt_clamber(is_crouching, _jumping)
+		var c = _clamber_m.attempt_clamber(is_crouching, is_jumping)
 		if c != Vector3.ZERO:
-			clamberable_obj = clamberable
-			clamberable_obj.mode = 1
+			if clamberable:
+				clamberable_obj = clamberable
+				clamberable_obj.mode = 1
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE
 			is_clambering = true
@@ -390,11 +393,12 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			do_jump = false
 			return
 			
-		if _jumping or !is_on_floor():
+		if is_jumping or !is_on_floor():
+			do_jump = false
 			return
 		
 		velocity.y = jump_force
-		_jumping = true
+		is_jumping = true
 		do_jump = false
 		return
 	
@@ -402,8 +406,11 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	_handle_player_sound_emission()
 	
-	if velocity.length() > 0.1 and grounded and not _audio_player.playing:
-		_audio_player.play_footstep_sound()
+	if velocity.length() > 0.1 and grounded and not _audio_player.playing and is_to_move:
+		if is_crouching:
+			_audio_player.play_footstep_sound(-10.0, 0.7)
+		else:
+			_audio_player.play_footstep_sound(-2.0, 1.0)
 
 
 func _crouch(delta : float) -> void:
@@ -419,7 +426,7 @@ func _crouch(delta : float) -> void:
 	from = offhand_equipment_root.transform.origin.y
 	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
-	if !is_on_floor() and !_jumping:
+	if !is_on_floor() and !is_jumping:
 		velocity.y -= 5 * (gravity * delta)
 	else:
 		velocity.y -= 0.05

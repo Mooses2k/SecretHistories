@@ -44,7 +44,9 @@ func load_sounds(sound_dir, type : int) -> void:
 		sound = snd_dir.get_next()
 
 
-func play_footstep_sound():
+func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0):
+	self.unit_db = rate
+	self.pitch_scale = pitch
 	if _footstep_sounds.size() > 0:
 		_footstep_sounds.shuffle()
 		stream = _footstep_sounds.front()

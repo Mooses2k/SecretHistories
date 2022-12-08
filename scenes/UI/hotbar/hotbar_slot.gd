@@ -17,17 +17,17 @@ export var is_bulky : bool  = false
 
 onready var fadeanimations=$"../../FadeAnim"
 
-var is_equipped_primary : bool = false 
+var is_equipped_mainhand : bool = false 
 var is_equipped_offhand : bool = false
-var is_equippable_primary : bool = false
+var is_equippable_mainhand : bool = false
 var is_equippable_offhand : bool = false
 
 
 func update_mainhand_indicator():
-	var final_color = can_equip_modulate if is_equippable_primary else can_not_equip_modulate
-	final_color = equipped_modulate if is_equipped_primary else final_color
+	var final_color = can_equip_modulate if is_equippable_mainhand else can_not_equip_modulate
+	final_color = equipped_modulate if is_equipped_mainhand else final_color
 	$UseIndicators/HBoxContainer/MainHandIndicator.modulate = final_color
-	if is_equipped_primary:
+	if is_equipped_mainhand:
 		is_equipped_offhand = false
 
 
@@ -108,14 +108,14 @@ func inventory_offhand_slot_changed(previous : int, current : int):
 
 func update_equipped_status():
 	if is_bulky:
-		is_equipped_primary = item != null and inventory.bulky_equipment == item
-		is_equipped_offhand = is_equipped_primary
-		is_equippable_primary = true
+		is_equipped_mainhand = item != null and inventory.bulky_equipment == item
+		is_equipped_offhand = is_equipped_mainhand
+		is_equippable_mainhand = true
 		is_equippable_offhand = true
 	else:
-		is_equippable_primary = true
+		is_equippable_mainhand = true
 		is_equippable_offhand = item == null or item.item_size == GlobalConsts.ItemSize.SIZE_SMALL
-		is_equipped_primary = index == inventory.current_mainhand_slot and inventory.bulky_equipment == null
+		is_equipped_mainhand = index == inventory.current_mainhand_slot and inventory.bulky_equipment == null
 		is_equipped_offhand = index == inventory.current_offhand_slot and inventory.bulky_equipment == null
 	update_mainhand_indicator()
 	update_offhand_indicator()
@@ -139,7 +139,7 @@ func update_item_data():
 
 
 func _physics_process(delta):
-	if is_equipped_primary or is_equipped_offhand:
+	if is_equipped_mainhand or is_equipped_offhand:
 		update_ammo_data()
 
 

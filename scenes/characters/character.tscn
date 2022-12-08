@@ -274,7 +274,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id=14]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -286,7 +286,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.2, 1.2, -0.3 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -302,7 +302,7 @@ tracks/1/keys = {
 resource_name = "polearm_cut_2"
 length = 0.4
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -314,7 +314,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0.2, 1.2, -0.3 ), Vector3( 0.2, 1.2, -0.3 ), Vector3( 0, 1, -1.297 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -330,7 +330,7 @@ tracks/1/keys = {
 resource_name = "polearm_cut_2_recovery"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -342,7 +342,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0.9, -1.297 ), Vector3( 0.2, 1.2, -0.3 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -358,7 +358,7 @@ tracks/1/keys = {
 resource_name = "polearm_recovery_from_right"
 length = 0.3
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -370,7 +370,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 1.5, -1.297 ), Vector3( 0, 0.9, -0.586993 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -386,7 +386,7 @@ tracks/1/keys = {
 resource_name = "polearm_thrust_from_right"
 length = 0.4
 tracks/0/type = "value"
-tracks/0/path = NodePath("Body/PrimaryEquipmentRoot:translation")
+tracks/0/path = NodePath("Body/MainHandEquipmentRoot:translation")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -398,7 +398,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0.9, -0.586993 ), Vector3( 0, 1.2, -0.461 ), Vector3( 0, 1.5, -1.297 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Body/PrimaryEquipmentRoot:rotation_degrees")
+tracks/1/path = NodePath("Body/MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false

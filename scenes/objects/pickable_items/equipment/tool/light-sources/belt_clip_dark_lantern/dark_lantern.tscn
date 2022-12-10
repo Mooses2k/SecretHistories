@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/tools/light_sources/belt_clip_dark_lantern/Lamp1.material" type="Material" id=4]
 
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "DarkLantern_meshId0_name008"
 surfaces/0 = {

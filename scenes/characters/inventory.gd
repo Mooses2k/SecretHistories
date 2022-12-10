@@ -197,7 +197,7 @@ func equip_bulky_item(item : EquipmentItem):
 		emit_signal("bulky_item_changed")
 		if item.get_parent():
 			item.get_parent().remove_child(item)
-		owner.primary_equipment_root.add_child(item)
+		owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
 	pass
 

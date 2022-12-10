@@ -6,6 +6,3 @@
 [node name="ToolItem" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 item_size = 0
-
-[node name="MeshInstance" parent="." index="0"]
-script = null

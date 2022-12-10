@@ -228,6 +228,7 @@ script = ExtResource( 3 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 skeleton = NodePath("")
+script = null
 
 [node name="CollisionShape52" type="CollisionShape" parent="." index="1"]
 shape = SubResource( 78 )

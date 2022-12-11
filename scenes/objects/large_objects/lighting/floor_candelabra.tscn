@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/large_objects/lighting/M_Candelabra2.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd" type="Script" id=3]
-[ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=4]
+[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -210,120 +210,53 @@ points = PoolVector3Array( 0.0267235, -0.393486, 0.00593707, -0.0150439, -0.9015
 [sub_resource type="ConvexPolygonShape" id=144]
 points = PoolVector3Array( 0.103039, -1.03598, 0.0378541, -0.00705475, -1.03579, -0.104421, -0.0333432, -1.03652, -0.0990198, -0.0111596, -0.9144, -0.0123484, -0.0716008, -1.03574, 0.0699877, 0.0893309, -1.00596, -0.0706228, 0.0267071, -1.00596, 0.103381, -0.0985404, -1.00596, -0.0218669, 0.0169112, -0.915768, 0.0155857, -0.0637615, -1.00596, 0.0824697, 0.103286, -1.00596, 0.040735, -0.0428506, -1.00596, -0.0984459, 0.0267071, -1.00596, -0.105402, 0.0767571, -1.03565, -0.0783619, -0.000644655, -1.03627, 0.103138, -0.0921884, -1.03654, -0.0402163, 0.0225653, -0.915373, -0.0121543, 0.110242, -1.00596, -0.0218669, -0.0915846, -1.00596, 0.0476908, 0.0684854, -1.01292, 0.089469, -0.00535256, -0.915075, 0.0157935, -0.0776513, -1.00596, -0.0706228, -0.0428506, -1.00596, 0.0964248, 0.10315, -1.03605, -0.0399211, -0.0975503, -1.03579, 0.0118922, 0.054552, -1.00596, -0.0984459, 0.0447692, -1.03607, 0.0963123, -0.00548168, -0.914428, -0.0180125, 0.0823969, -1.00596, 0.0755357, 0.0449826, -1.03642, -0.0988683, 0.110242, -1.00596, 0.0198459, -0.0985404, -1.00596, 0.0198459, -0.0150057, -1.00596, -0.105402, -0.0150057, -1.00596, 0.103381, -0.0915846, -1.00596, -0.0497118, 0.103286, -1.00596, -0.0497118, 0.109908, -1.03621, -0.0075002, -0.0110202, -0.914865, 0.0102303, 0.017038, -0.915133, -0.0178012, -0.0653706, -1.03592, -0.0786815, 0.0224242, -0.915844, 0.0100348, -0.0331298, -1.03617, 0.0964637, 0.0615078, -1.00596, 0.089469, 0.0827934, -1.03533, 0.0695411, -0.0920773, -1.03647, 0.0381495 )
 
-[sub_resource type="Curve" id=8]
-_data = [ Vector2( 0.0305677, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248908, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=80]
-curve = SubResource( 8 )
-
-[sub_resource type="ParticlesMaterial" id=16]
-emission_shape = 1
-emission_sphere_radius = 0.2
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 30.0
-angular_velocity_random = 1.0
-linear_accel = 4.0
-angle = 360.0
-angle_random = 1.0
-scale = 5.0
-scale_random = 0.3
-scale_curve = SubResource( 80 )
-color = Color( 0.760784, 0.364706, 0.0470588, 1 )
-
-[sub_resource type="SpatialMaterial" id=81]
-flags_transparent = true
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_blend_mode = 1
-params_billboard_mode = 3
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-albedo_texture = ExtResource( 4 )
-
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 81 )
-
 [sub_resource type="Animation" id=14]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 20.0 ]
-}
 
 [sub_resource type="Animation" id=15]
 resource_name = "flicker"
 length = 5.0
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
+
+[sub_resource type="CylinderMesh" id=145]
+top_radius = 0.0
+bottom_radius = 0.015
+height = 0.08
+radial_segments = 6
+rings = 1
+
+[sub_resource type="Shader" id=148]
+code = "shader_type spatial;
+render_mode blend_add, unshaded;
+
+const vec3 CENTER_OFFSET = vec3(0.0, -0.03, 0.0);
+const vec3 SCALE = vec3(50.0, 12.0, 50.0);
+
+uniform float INTENSITY = 1.0;
+uniform sampler2D COLOR_RAMP;
+varying vec2 XY_FACTOR;
+
+void vertex() {
+	vec3 v = (VERTEX - CENTER_OFFSET)*SCALE;
+	XY_FACTOR = vec2(v.x*v.x + v.z*v.z, v.y);
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 1, 1.4, 2.1, 3.1, 3.9, 4.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 1.0, 1.136, 0.803, 1.136, 1.136, 0.729, 1.136, 1.136 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.4, 3.1, 4.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 20.0, 22.314, 18.628, 19.983 ]
-}
+
+void fragment() {
+	ALBEDO.rgb = texture(COLOR_RAMP, vec2(XY_FACTOR.y)).rgb*INTENSITY;
+}"
+
+[sub_resource type="Gradient" id=146]
+offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=149]
+gradient = SubResource( 146 )
+width = 32
+
+[sub_resource type="ShaderMaterial" id=147]
+shader = SubResource( 148 )
+shader_param/INTENSITY = 4.0
+shader_param/COLOR_RAMP = SubResource( 149 )
 
 [node name="FloorCandelabra" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
@@ -602,25 +535,123 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00288502, 0 )
 wait_time = 300.0
 one_shot = true
 
-[node name="FireOrigin" type="Position3D" parent="." index="67"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.234613, 0 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="67"]
+anims/RESET = SubResource( 14 )
+anims/flicker = SubResource( 15 )
+
+[node name="FireOrigin8" type="Position3D" parent="." index="68"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103154, 0.585903, -0.107178 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="Particles" parent="FireOrigin" index="0"]
-transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0.203993, 0 )
-amount = 32
-process_material = SubResource( 16 )
-draw_pass_1 = SubResource( 7 )
+[node name="Fire" type="MeshInstance" parent="FireOrigin8" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin7")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin7" type="Position3D" parent="." index="69"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112444, 0.547287, -0.111578 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin7" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin6")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin6" type="Position3D" parent="." index="70"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117706, 0.56577, 0.108528 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin6" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin5")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin5" type="Position3D" parent="." index="71"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188207, 0.339789, -0.00112151 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin5" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin4")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin4" type="Position3D" parent="." index="72"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00840224, 0.324049, -0.190523 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin4" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin3")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin3" type="Position3D" parent="." index="73"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193048, 0.257107, 0 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin3" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin9")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin9" type="Position3D" parent="." index="74"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.108816, 0.593761, 0.112045 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin9" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin2")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin2" type="Position3D" parent="." index="75"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00589418, 0.296207, 0.196027 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin2" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
+
+[node name="FireOrigin" type="Position3D" parent="." index="76"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743802, 0 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 147 )
+script = ExtResource( 4 )
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
-transform = Transform( -5, -4.37114e-07, 0, 4.37114e-07, -5, 0, 0, 0, 5, 9.05025e-10, 0.0103521, 0 )
-light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
+light_color = Color( 0.980392, 0.529412, 0, 1 )
+light_energy = 0.2
 shadow_enabled = true
 omni_range = 20.0
 omni_attenuation = 7.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="68"]
-anims/RESET = SubResource( 14 )
-anims/flicker = SubResource( 15 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

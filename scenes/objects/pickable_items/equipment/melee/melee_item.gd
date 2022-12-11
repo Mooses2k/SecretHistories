@@ -131,7 +131,7 @@ func _use_secondary():
 # currently if changed away from and changed back to melee weapon, first swing does nothing
 #
 
-
+#make sure that this is always connected
 func _on_CooldownTimer_timeout() -> void:
 	on_cooldown = false
 

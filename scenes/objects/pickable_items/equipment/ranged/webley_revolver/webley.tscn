@@ -119,6 +119,7 @@ bones/6/bound_children = [  ]
 extra_cull_margin = 0.2
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
+material/0 = null
 script = ExtResource( 4 )
 
 [node name="CollisionShape" parent="." index="1"]

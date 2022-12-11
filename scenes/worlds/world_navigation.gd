@@ -122,7 +122,7 @@ func update_navigation():
 							door_inst.translation = pos
 							door_inst.rotation.y = -PI*0.5*dir;
 							door_inst.navmesh = navmesh_instance
-							call_deferred("add_child", door_inst)
+#							call_deferred("add_child", door_inst)
 							set_door_navmesh_instance(current, dir, navmesh_instance)
 				var pillar = gen_pillar_navmesh(current)
 				if pillar:

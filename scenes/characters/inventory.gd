@@ -34,7 +34,7 @@ var hotbar : Array
 var bulky_equipment : EquipmentItem = null
 
 # Information about the item equipped on the main hand
-var current_mainhand_slot : int = 0 setget set_primary_slot
+var current_mainhand_slot : int = 0 setget set_mainhand_slot
 var current_mainhand_equipment : EquipmentItem = null
 
 # Information about the item equipped on the offhand
@@ -292,7 +292,7 @@ func _drop_item(item : EquipmentItem):
 	pass
 
 
-func set_primary_slot(value : int):
+func set_mainhand_slot(value : int):
 	if value != current_mainhand_slot:
 		unequip_mainhand_item()
 		var previous_slot = current_mainhand_slot

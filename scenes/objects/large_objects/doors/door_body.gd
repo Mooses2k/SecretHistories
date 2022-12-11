@@ -1,7 +1,6 @@
 extends RigidBody
 class_name Door_body
 
-
 var min_angle = 0.0
 var max_angle = 90.0
 export var restitution = 0.5

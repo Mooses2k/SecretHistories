@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/trn_CandleFlame.png-536af8fac0483a7c15fb62d69b254b2c.stex"
+path="res://.import/trn_CandleFlame.png-333129e2494c13363ccfb1531d69c3ea.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/models/items/consumables/candle/trn_CandleFlame.png"
-dest_files=[ "res://.import/trn_CandleFlame.png-536af8fac0483a7c15fb62d69b254b2c.stex" ]
+source_file="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png"
+dest_files=[ "res://.import/trn_CandleFlame.png-333129e2494c13363ccfb1531d69c3ea.stex" ]
 
 [params]
 

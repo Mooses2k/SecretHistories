@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/trn_Candle_Half_COL.fbx-68af25a79a9904ba78314e729bcb674f.scn"
+path="res://.import/torch.glb-18b1b6416f22079b4c28d328bace5115.scn"
 
 [deps]
 
-source_file="res://resources/models/items/consumables/candle/trn_Candle_Half_COL.fbx"
-dest_files=[ "res://.import/trn_Candle_Half_COL.fbx-68af25a79a9904ba78314e729bcb674f.scn" ]
+source_file="res://resources/models/items/consumables/light_sources/torch/torch.glb"
+dest_files=[ "res://.import/torch.glb-18b1b6416f22079b4c28d328bace5115.scn" ]
 
 [params]
 

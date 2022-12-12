@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/trn_Candle_AlbedoTransparency.png-9a2f8ab69464d88de6db980ac108a8bf.s3tc.stex"
-path.etc2="res://.import/trn_Candle_AlbedoTransparency.png-9a2f8ab69464d88de6db980ac108a8bf.etc2.stex"
+path.s3tc="res://.import/trn_Candle_AlbedoTransparency.png-3275e8cc08f079191a7796f37af38de6.s3tc.stex"
+path.etc2="res://.import/trn_Candle_AlbedoTransparency.png-3275e8cc08f079191a7796f37af38de6.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/models/items/consumables/candle/trn_Candle_AlbedoTransparency.png"
-dest_files=[ "res://.import/trn_Candle_AlbedoTransparency.png-9a2f8ab69464d88de6db980ac108a8bf.s3tc.stex", "res://.import/trn_Candle_AlbedoTransparency.png-9a2f8ab69464d88de6db980ac108a8bf.etc2.stex" ]
+source_file="res://resources/models/items/consumables/light_sources/candle/trn_Candle_AlbedoTransparency.png"
+dest_files=[ "res://.import/trn_Candle_AlbedoTransparency.png-3275e8cc08f079191a7796f37af38de6.s3tc.stex", "res://.import/trn_Candle_AlbedoTransparency.png-3275e8cc08f079191a7796f37af38de6.etc2.stex" ]
 
 [params]
 

@@ -1,5 +1,6 @@
 extends KinematicBody
 
+
 const SPEED = 1.0  # quite slow
 
 var target = null
@@ -7,17 +8,17 @@ var vel = Vector3()
 var path = null
 var health = 200
 
-onready var fog = $Fog as Particles
+#onready var fog = $Fog as Particles
 onready var hitbox = $HitboxArea
-onready var game_world = get_parent()
-onready var player = game_world.get_node("Player")
-onready var navigation : Navigation = game_world.navigation
+onready var game_world = GameManager.game
+onready var player = game_world.player
+onready var navigation : Navigation = game_world.level.navigation
 
 
 func _ready():
 	self.set_physics_process(false)
 	
-	fog.emitting = true
+#	fog.emitting = true
 	
 	hitbox.connect("body_entered", self, "on_hit_player")
 	
@@ -34,7 +35,6 @@ func _process(delta):
 
 
 func _physics_process(delta):
-
 	self.look_at(target.global_transform.origin, Vector3.UP)
 	
 	if path.size() > 0:

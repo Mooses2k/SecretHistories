@@ -2,8 +2,6 @@ extends "res://scenes/characters/character.gd"
 class_name Player
 
 
-var stamina := 600.0
-
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer2/Viewport/GunCam

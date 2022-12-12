@@ -294,8 +294,8 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/thief_controller/scripts/player/player_camera.gd"
 }, {
-"base": "GunItem",
-"class": "ShotgunItem",
+"base": "ToolItem",
+"class": "Spike",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/spike.gd"
 }, {
@@ -392,7 +392,7 @@ _global_script_class_icons={
 "Rock": "",
 "SettingsClass": "",
 "ShakeCamera": "",
-"ShotgunItem": "",
+"Spike": "",
 "TinyItem": "",
 "TinyItemData": "",
 "ToolItem": "",

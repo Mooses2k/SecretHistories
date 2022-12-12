@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -10,15 +10,13 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/key/key_item.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/characters/enemies/cultist/cultist.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/characters/enemies/cultist/neophyte.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/padlock/padlock_item.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=14]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=15]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock2.tscn" type="PackedScene" id=18]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock3.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/dagger/dagger.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/mace/mace.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/pitchfork/pitchfork.tscn" type="PackedScene" id=22]
@@ -86,26 +84,110 @@ item_data = ExtResource( 15 )
 amount = 100
 
 [node name="khyber_pass_martini" parent="." index="11" instance=ExtResource( 26 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.70122, 5, 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.70122, 0.913799, 5 )
 
 [node name="ShotgunItem" parent="." index="12" instance=ExtResource( 27 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.913799, 5 )
 
 [node name="martini_henry_Rifle" parent="." index="13" instance=ExtResource( 28 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14632, 5, 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14632, 0.913799, 5 )
 
 [node name="Shotgun_sawed_item" parent="." index="14" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47887, 5, 5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47887, 0.913799, 5 )
 
-[node name="CavalrySabre" parent="." index="15" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.89856, 5.31467, 4.92483 )
+[node name="Webley" parent="." index="15" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16169, 0.463916, 3.70036 )
+detection_raycast = NodePath("")
 
-[node name="EnemySpawner" type="Node" parent="." index="16"]
+[node name="CavalrySabre" parent="." index="16" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.89856, 1.22847, 4.92483 )
+
+[node name="Candle3" parent="." index="17" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3119, 0.2, 7 )
+
+[node name="Candle5" parent="." index="18" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3119, 0.2, 16.1772 )
+
+[node name="Candle6" parent="." index="19" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20868, 0.2, 16.1772 )
+
+[node name="Candle8" parent="." index="20" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.69552, 0.2, 2.90634 )
+
+[node name="Candle9" parent="." index="21" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.69552, 0.2, 5.80186 )
+
+[node name="KeyItem" parent="." index="22" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
+
+[node name="PadlockItem" parent="." index="23" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
+
+[node name="Dagger" parent="." index="24" instance=ExtResource( 20 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56684, 0, 4.90412 )
+
+[node name="Mace" parent="." index="25" instance=ExtResource( 21 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6471, 0.0105126, 7.29076 )
+
+[node name="Halberd" parent="." index="26" instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.63936, 0.753099, 3.57064 )
+
+[node name="Hatchet" parent="." index="27" instance=ExtResource( 30 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6482, 0.0238928, 5.38725 )
+
+[node name="Crowbar" parent="." index="28" instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.52486, 0.0119464, 5.38336 )
+
+[node name="Shovel" parent="." index="29" instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94063, 0, 5.37948 )
+
+[node name="Pitchfork" parent="." index="30" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45495, 0.610462, 4.23118 )
+
+[node name="CandleLantern" parent="." index="31" instance=ExtResource( 35 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9555, 0.487767, 3.10195 )
+
+[node name="DarkLantern" parent="." index="32" instance=ExtResource( 36 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67872, 0.611856, 3.16504 )
+
+[node name="OilLantern" parent="." index="33" instance=ExtResource( 34 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53284, 0.360441, 2.541 )
+
+[node name="OldKnife" parent="." index="34" instance=ExtResource( 37 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.39623, 0.429975, 4.57898 )
+
+[node name="StarstuffLantern" parent="." index="35" instance=ExtResource( 38 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.69275, 0.109759, 17.8096 )
+
+[node name="Grenade" parent="." index="36" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.41982, 1.68845, 3.62622 )
+
+[node name="Dynamite" parent="." index="37" instance=ExtResource( 33 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.17112, 1.1198, 2.65638 )
+
+[node name="BullseyeLantern" parent="." index="38" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05785, 1.07747, 2.79109 )
+
+[node name="FloorCandelabraGothic" parent="." index="39" instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33639, 0.561284, 8.20251 )
+
+[node name="FloorCandelabra" parent="." index="40" instance=ExtResource( 39 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98031, 1.07749, 2.31026 )
+
+[node name="Brazier" parent="." index="41" instance=ExtResource( 40 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.22474, 0.815375, 8.02499 )
+
+[node name="EnemySpawner" type="Node" parent="." index="42"]
 script = ExtResource( 9 )
 enemy_scene = ExtResource( 11 )
 density = 0.01
 
-[node name="Bookcase" type="RigidBody" parent="." index="17"]
+[node name="EnemySpawner2" type="Node" parent="." index="43"]
+script = ExtResource( 9 )
+enemy_scene = ExtResource( 32 )
+density = 0.01
+
+[node name="Bookcase" type="RigidBody" parent="." index="44"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 7 )
 collision_layer = 5
 mass = 100.0
@@ -113,13 +195,13 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase2" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase2/CollisionShape" index="0"]
+[node name="MeshInstance" type="MeshInstance" parent="Bookcase/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase3" type="RigidBody" parent="." index="21" groups=["CLAMBERABLE"]]
+[node name="Bookcase3" type="RigidBody" parent="." index="45" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 1.12151, 0, 0, 0, 1, 6.52328, 1.1144, 8.30021 )
 collision_layer = 5
 mass = 100.0
@@ -133,7 +215,7 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase3/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase5" type="RigidBody" parent="." index="22" groups=["CLAMBERABLE"]]
+[node name="Bookcase5" type="RigidBody" parent="." index="46" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.648498, 0, 0, 0, 1, 6.52328, 0.641629, 6.97344 )
 collision_layer = 5
 mass = 65535.0
@@ -147,49 +229,7 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase5/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Bookcase8" type="RigidBody" parent="." index="23" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 0.759531, 0, 0, 0, 1, 6.95147, 0.750537, 4.27391 )
-collision_layer = 5
-mass = 100.0
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase8" index="0"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase8/CollisionShape" index="0"]
-mesh = SubResource( 2 )
-
-[node name="Bookcase9" type="RigidBody" parent="." index="24" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 0.837303, 0, 0, 0, 1, 5.54153, 0.830505, 4.27391 )
-collision_layer = 5
-mass = 100.0
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase9" index="0"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase9/CollisionShape" index="0"]
-mesh = SubResource( 2 )
-
-[node name="Bookcase6" type="RigidBody" parent="." index="25" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 0.648498, 0, 0, 0, 1, 8.83, 0.641602, 3.87439 )
-collision_layer = 5
-mass = 100.0
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase6" index="0"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase6/CollisionShape" index="0"]
-mesh = SubResource( 2 )
-
-[node name="Bookcase4" type="RigidBody" parent="." index="26" groups=["CLAMBERABLE"]]
+[node name="Bookcase4" type="RigidBody" parent="." index="47" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 0.869979, 0, 0, 0, 1, 4.78655, 0.865485, 8.45804 )
 collision_layer = 5
 mass = 100.0
@@ -203,133 +243,24 @@ shape = SubResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase4/CollisionShape" index="0"]
 mesh = SubResource( 2 )
 
-[node name="Candle2" parent="." index="27" instance=ExtResource( 12 )]
+[node name="Candle2" parent="." index="48" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
 
-[node name="KeyItem" parent="." index="28" instance=ExtResource( 10 )]
+[node name="KeyItem" parent="." index="49" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
-key_id = 0
 
-[node name="PadlockItem" parent="." index="29" instance=ExtResource( 13 )]
+[node name="PadlockItem" parent="." index="50" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
 
-[node name="Webley" parent="." index="30" instance=ExtResource( 14 )]
-transform = Transform( 0.711744, 0.702439, 0, -0.702439, 0.711744, 0, 0, 0, 1, 2.30643, 0.618492, 5.0266 )
-
-[node name="Torch" parent="." index="31" instance=ExtResource( 17 )]
+[node name="Torch" parent="." index="51" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91335, 0.750593, 5.72667 )
 
-[node name="Bookcase" type="RigidBody" parent="." index="32" groups=["CLAMBERABLE"]]
+[node name="Bookcase" type="RigidBody" parent="." index="52" groups=["CLAMBERABLE"]]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1.0793, 0, -1, 0, -4.37114e-08, 2.16859, 1.07566, 8.44387 )
 collision_layer = 5
 mass = 100.0
 __meta__ = {
 "_edit_group_": true
 }
-
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase" index="0"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase/CollisionShape" index="0"]
-mesh = SubResource( 2 )
-
-[node name="Candle2" parent="." index="18" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
-
-[node name="Candle3" parent="." index="19" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3119, 0.2, 7 )
-
-[node name="Candle5" parent="." index="20" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3119, 0.2, 16.1772 )
-
-[node name="Candle6" parent="." index="21" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20868, 0.2, 16.1772 )
-
-[node name="Candle4" parent="." index="22" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.23932, 0.2, 2.90634 )
-
-[node name="Candle7" parent="." index="23" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.46207, 0.288093, 2.90634 )
-
-[node name="Candle8" parent="." index="24" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.69552, 0.2, 2.90634 )
-
-[node name="Candle9" parent="." index="25" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.69552, 0.2, 5.80186 )
-
-[node name="KeyItem" parent="." index="26" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
-
-[node name="PadlockItem" parent="." index="27" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
-
-[node name="Webley" parent="." index="28" instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16169, 0.463916, 3.70036 )
-
-[node name="Rock1" parent="." index="29" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14887, 0.421084, 2.44898 )
-
-[node name="Rock3" parent="." index="30" instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.73767, 0, 4.27411 )
-
-[node name="Rock2" parent="." index="31" instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.7919, 0, 3.86273 )
-
-[node name="Dagger" parent="." index="32" instance=ExtResource( 20 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56684, 0, 4.90412 )
-
-[node name="Mace" parent="." index="33" instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6471, 0.0105126, 7.29076 )
-
-[node name="Halberd" parent="." index="34" instance=ExtResource( 31 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.63936, 0.753099, 3.57064 )
-
-[node name="Hatchet" parent="." index="35" instance=ExtResource( 30 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6482, 0.0238928, 5.38725 )
-
-[node name="Crowbar" parent="." index="36" instance=ExtResource( 29 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.52486, 0.0119464, 5.38336 )
-
-[node name="Shovel" parent="." index="37" instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94063, 0, 5.37948 )
-
-[node name="Pitchfork" parent="." index="38" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45495, 0.610462, 4.23118 )
-
-[node name="CandleLantern" parent="." index="39" instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9555, 0.487767, 3.10195 )
-
-[node name="DarkLantern" parent="." index="40" instance=ExtResource( 36 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67872, 0.611856, 3.16504 )
-
-[node name="OilLantern" parent="." index="41" instance=ExtResource( 34 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53284, 0.360441, 2.541 )
-
-[node name="OldKnife" parent="." index="42" instance=ExtResource( 37 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.39623, 0.429975, 4.57898 )
-
-[node name="StarstuffLantern" parent="." index="43" instance=ExtResource( 38 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.69275, 0.109759, 17.8096 )
-
-[node name="Grenade" parent="." index="44" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.41982, 1.68845, 3.62622 )
-
-[node name="Dynamite" parent="." index="45" instance=ExtResource( 33 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.17112, 1.1198, 2.65638 )
-
-[node name="Ghost" parent="." index="46" instance=ExtResource( 32 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.47317, -0.134371, 19.113 )
-
-[node name="BullseyeLantern" parent="." index="47" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05785, 1.07747, 2.79109 )
-
-[node name="FloorCandelabraGothic" parent="." index="48" instance=ExtResource( 25 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33639, 0.561284, 8.20251 )
-
-[node name="FloorCandelabra" parent="." index="49" instance=ExtResource( 39 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98031, 1.07749, 2.31026 )
-
-[node name="FloorCandelabraGothic2" parent="." index="50" instance=ExtResource( 40 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.22474, 0.815375, 8.02499 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

@@ -63,7 +63,7 @@ func apply_throw_logic(impulse):
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
-	character = get_parent().get_parent().get_parent()
+	character = get_parent().get_parent()
 	var melee_anim
 	if weapon_type == 3:
 		melee_anim = owner_character.find_node("SabreTechniques")
@@ -86,7 +86,7 @@ func attack_thrust():
 
 
 func attack_cut():
-	character = get_parent().get_parent().get_parent()
+	character = get_parent().get_parent()
 	var melee_anim
 	if weapon_type == 3:
 		melee_anim = owner_character.find_node("SabreTechniques")
@@ -101,11 +101,11 @@ func attack_cut():
 		melee_anim = owner_character.find_node("PolearmTechniques")
 		if not melee_anim.is_playing():
 			can_hit = true
-			melee_anim.play("polearm_cut_2") # WIP
+			melee_anim.play("polearm_cut_2") # WIP, AnimationPlayer got wiped during import_items merge
 			yield(melee_anim, "animation_finished")
 			character.stamina -= 50
 			can_hit = false
-			melee_anim.queue("polearm_cut_2_recovery") # WIP
+			melee_anim.queue("polearm_cut_2_recovery") # WIP, AnimationPlayer got wiped during import_items merge
 
 
 func _use_primary():

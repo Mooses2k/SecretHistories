@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/grab.png-15da032bc75a74338c05ce9ed35b06de.stex"
+path="res://.import/Grab.png-73192bbb6e0a7ac243db54cd68261c05.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/art/Ui/grab.png"
-dest_files=[ "res://.import/grab.png-15da032bc75a74338c05ce9ed35b06de.stex" ]
+source_file="res://resources/art/Ui/Grab.png"
+dest_files=[ "res://.import/Grab.png-73192bbb6e0a7ac243db54cd68261c05.stex" ]
 
 [params]
 

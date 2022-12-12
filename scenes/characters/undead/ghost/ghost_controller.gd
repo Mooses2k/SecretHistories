@@ -1,18 +1,18 @@
 extends Node
 
+
+var chasing : bool = false setget set_chasing
+
 onready var detection_area : Area = get_node("../DetectionArea") as Area
 onready var damage_area : Area = get_node("../DamageArea") as Area
 onready var character = owner
 
 onready var target_position : Vector3 = self.global_transform.origin
 
-var chasing : bool = false setget set_chasing
-
 
 func _process(delta):
 	self.update_target()
 	self.character.character_state.move_direction = target_position - self.global_transform.origin
-	pass # Replace with function body.
 
 
 func update_target():

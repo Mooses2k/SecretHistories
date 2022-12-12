@@ -209,6 +209,194 @@ func _input(event):
 		#character.inventory.current_mainhand_slot = 1
 
 
+func _walk(delta) -> void:
+	if Input.is_action_pressed("move_right"):
+		is_movement_key1_held = true
+	if Input.is_action_pressed("move_left"):
+		is_movement_key2_held = true
+	if Input.is_action_pressed("move_down"):
+		is_movement_key3_held = true
+	if Input.is_action_pressed("move_up"):
+		is_movement_key4_held = true
+	
+	if Input.is_action_pressed("movement"):
+		movement_press_length += delta
+		if movement_press_length >= 0.15:
+			owner.is_to_move = true
+	
+	var move_dir = Vector3()
+	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
+	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
+	character.character_state.move_direction = move_dir.normalized()
+	if Input.is_action_pressed("sprint"):
+		owner.do_sprint = true
+	else:
+		owner.do_sprint = false
+	HUDS.tired(owner.stamina);
+	
+	if Input.is_action_just_released("move_right"):
+		is_movement_key1_held = false
+	if Input.is_action_just_released("move_left"):
+		is_movement_key2_held = false
+	if Input.is_action_just_released("move_down"):
+		is_movement_key3_held = false
+	if Input.is_action_just_released("move_up"):
+		is_movement_key4_held = false
+	
+	if Input.is_action_just_released("movement"):
+		if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
+			movement_press_length = 0.0
+			owner.is_to_move = false
+
+#	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
+#		_audio_player.play_land_sound()
+##		_camera.add_stress(0.25)
+	
+	if Input.is_action_just_pressed("clamber"):
+		owner.do_jump = true
+		
+	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
+		_head_bob(delta)
+
+
+func _head_bob(delta : float) -> void:
+	if owner.velocity.length() == 0.0:
+		var br = Vector3(0, _bob_reset, 0)
+		_camera.global_transform.origin = owner.global_transform.origin + br
+
+	_bob_time += delta
+	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (speed / 1000.0)
+	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+	_camera.global_transform.origin.y += y_bob
+	_camera.rotation_degrees.z = z_bob
+
+
+func _crouch() -> void:
+	if owner.is_player_crouch_toggle:
+		if owner.do_sprint:
+			owner.do_crouch = false
+			return
+		
+		if Input.is_action_just_pressed("crouch"):
+			owner.do_crouch = !owner.do_crouch
+			if owner.do_crouch:
+				owner.state = owner.State.STATE_CROUCHING
+		
+		if owner.do_crouch:
+			var from = _camera.transform.origin.y
+			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+	
+	else:
+		if Input.is_action_pressed("crouch"):
+			if owner.do_sprint:
+				owner.do_crouch = false
+				return
+			
+			owner.do_crouch = true
+			owner.state = owner.State.STATE_CROUCHING
+		
+			var from = _camera.transform.origin.y
+			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+			
+		if !Input.is_action_pressed("crouch"):
+			owner.do_crouch = false
+
+
+#func _lean() -> void:
+#	var axis = (Input.get_action_strength("right") - Input.get_action_strength("left"))
+#
+#	var from = _camera.global_transform.origin
+#	var to = _camera_pos_normal + (_camera.global_transform.basis.x * 0.2 * axis)
+#	_camera.global_transform.origin = lerp(from, to, 0.1)
+#
+#	from = _camera.rotation_degrees.z
+#	to = max_lean * axis
+#	_camera.rotation_degrees.z = lerp(from, to, 0.1)
+#
+#	var diff = _camera.global_transform.origin - _camera_pos_normal
+#	if axis == 0 and diff.length() <= 0.01:
+#		state = State.STATE_WALKING
+#		return
+
+
+#func _process_frob_and_drag():
+#	if (Input.is_action_just_pressed("main_use_primary") 
+#		and _click_timer == 0.0 
+#		and drag_object != null):
+#		_click_timer = OS.get_ticks_msec()
+#
+#	if Input.is_action_pressed("main_use_primary"):
+#		if _click_timer + _throw_wait_time < OS.get_ticks_msec():
+#			if _click_timer == 0.0:
+#				return
+#
+##			_camera.set_crosshair_state("normal")
+#			_click_timer = 0.0
+#			_throw()
+#			drag_object = null
+#
+#	if _frob_raycast.is_colliding():
+#		var c = _frob_raycast.get_collider()
+#		if drag_object == null and c is RigidBody:
+#			if c.scale > (Vector3.ONE * 5):
+#				return
+#
+#			var w = owner.get_world().direct_space_state
+#			var r = w.intersect_ray(c.global_transform.origin,
+#					c.global_transform.origin + Vector3.UP * 0.5, [owner])
+#
+#			if r and r.collider == owner:
+#				return
+#
+##			_camera.set_crosshair_state("interact")
+#
+#			if Input.is_action_just_released("main_use_primary"):
+##				_camera.set_crosshair_state("dragging")
+#				drag_object = c
+#				drag_object.linear_velocity = Vector3.ZERO
+#
+#	if Input.is_action_just_released("main_use_primary"):	
+#		if drag_object != null:
+#			if _click_timer + _throw_wait_time > OS.get_ticks_msec():
+#				if _click_timer == 0.0:
+#					return
+#
+##				_camera.set_crosshair_state("normal")
+#				drag_object = null
+#				_click_timer = 0.0
+#
+#	if Input.is_action_just_pressed("main_use_secondary") and drag_object != null:
+#		drag_object.rotation_degrees.y += 45
+#		drag_object.rotation_degrees.x = 90
+#
+#	if drag_object:
+#		_drag()
+#
+#		var d = _camera.global_transform.origin.distance_to(drag_object.global_transform.origin)
+#		if  d > interact_distance + 0.35:
+#			drag_object = null
+#
+##	if !drag_object and not _frob_raycast.is_colliding():
+##		_camera.set_crosshair_state("normal")
+#
+#
+#func _drag(damping : float = 0.5, s2ms : int = 15) -> void:
+#	var d = _frob_raycast.global_transform.basis.z.normalized()
+#	var dest = _frob_raycast.global_transform.origin - d * interact_distance
+#	var d1 = (dest - drag_object.global_transform.origin)
+#	drag_object.angular_velocity = Vector3.ZERO
+#
+#	var v1 = velocity * damping + drag_object.linear_velocity * damping
+#	var v2 = (d1 * s2ms) * (1.0 - damping) / drag_object.mass
+#
+#	drag_object.linear_velocity = v1 + v2
+#
+#
+#func _throw(throw_force : float = 10.0) -> void:
+#	var d = -_camera.global_transform.basis.z.normalized()
+#	drag_object.apply_central_impulse(d * throw_force)
+#	_camera.add_stress(0.2)
+
 
 #func handle_misc_controls(_delta : float):
 #	if Input.is_action_just_pressed("toggle_perspective"):

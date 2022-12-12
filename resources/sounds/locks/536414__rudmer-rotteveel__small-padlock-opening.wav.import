@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/536414__rudmer-rotteveel__small-padlock-opening.wav-3d1f0c6d5813e17f4cacf810de6027bf.sample"
+
+[deps]
+
+source_file="res://resources/sounds/locks/536414__rudmer-rotteveel__small-padlock-opening.wav"
+dest_files=[ "res://.import/536414__rudmer-rotteveel__small-padlock-opening.wav-3d1f0c6d5813e17f4cacf810de6027bf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

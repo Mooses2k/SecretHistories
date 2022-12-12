@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://scenes/objects/items/pickable/equipment/equipment_item.gd" type="Script" id=1]
-
-[node name="Consumable" type="RigidBody"]
-script = ExtResource( 1 )

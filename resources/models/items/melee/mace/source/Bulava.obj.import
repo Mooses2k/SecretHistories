@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Bulava.obj-89c3955d30e6065c50aa0a8213c4c75c.mesh"
+
+[deps]
+
+files=[ "res://.import/Bulava.obj-89c3955d30e6065c50aa0a8213c4c75c.mesh" ]
+
+source_file="res://resources/models/items/melee/mace/source/Bulava.obj"
+dest_files=[ "res://.import/Bulava.obj-89c3955d30e6065c50aa0a8213c4c75c.mesh", "res://.import/Bulava.obj-89c3955d30e6065c50aa0a8213c4c75c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

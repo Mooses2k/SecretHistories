@@ -9,6 +9,9 @@ signal padlock_added()
 signal padlock_removed()
 signal padlock_unlocked()
 
+onready var jiggle_sound = $JiggleSound
+onready var add_padlock_sound = $AddPadlockSound
+
 
 func get_loop_position() -> Vector3:
 	return $LoopPosition.translation
@@ -29,6 +32,7 @@ func try_unlock_padlock(character) -> bool:
 			current_padlock.padlock_locked = false
 			emit_signal("padlock_unlocked")
 			return true
+	jiggle_sound.play()
 	return false
 
 
@@ -68,6 +72,7 @@ func _interact(character):
 			padlock.set_physics_equipped()
 			update_lock_position()
 			emit_signal("padlock_added")
+			add_padlock_sound.play()
 
 
 func _physics_process(delta):

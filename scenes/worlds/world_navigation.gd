@@ -1,5 +1,6 @@
 extends Navigation
 
+
 export var margin : float = 0.3
 export var wall_thickness : float = 0.15
 export var elevation : float = 0.2
@@ -7,14 +8,20 @@ export var elevation : float = 0.2
 var data : Resource setget set_data
 var walls_done = Dictionary()
 
-var door_scene = preload("res://scenes/objects/world_objects/doors/door.tscn")
+var door_scene = preload("res://scenes/objects/large_objects/doors/door.tscn")
 #stores the navmeshes for each door, similar to wall_meta on the WorldData resource
 var doors_x := Dictionary()
 var doors_z := Dictionary()
 
 
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
 func set_data(value : WorldData):
 	data = value
+
 
 #func set_doors_enabled(value : bool):
 #	doors_enabled = value
@@ -25,10 +32,6 @@ func set_data(value : WorldData):
 #		navmesh_set_transform(doors_x[idx], xform)
 #	for idx in doors_z.keys():
 #		navmesh_set_transform(doors_z[idx], xform)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
 
 
 func get_door_navmesh_instance(cell_index : int, direction : int) -> NavigationMeshInstance:

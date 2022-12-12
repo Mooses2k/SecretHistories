@@ -112,7 +112,12 @@ _global_script_classes=[ {
 "base": "ConsumableItem",
 "class": "BombItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/bomb/Bomb.gd"
+"path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd"
+}, {
+"base": "RigidBody",
+"class": "CandelabraItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
 "base": "Reference",
 "class": "CharacterState",
@@ -127,27 +132,32 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "ConsumableItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/consumable/consumable.gd"
+"path": "res://scenes/objects/pickable_items/equipment/consumable/consumable.gd"
 }, {
 "base": "Node",
 "class": "ControlMode",
 "language": "GDScript",
 "path": "res://scenes/characters/player/control_mode.gd"
 }, {
-"base": "MeleeItem",
-"class": "Dagger",
-"language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/Dagger/Dagger_item.gd"
-}, {
 "base": "Spatial",
 "class": "Door",
 "language": "GDScript",
-"path": "res://scenes/objects/world_objects/doors/door.gd"
+"path": "res://scenes/objects/large_objects/doors/door.gd"
 }, {
 "base": "RigidBody",
 "class": "Door_body",
 "language": "GDScript",
-"path": "res://scenes/objects/world_objects/doors/door_body.gd"
+"path": "res://scenes/objects/large_objects/doors/door_body.gd"
+}, {
+"base": "BombItem",
+"class": "Dynamite",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.gd"
+}, {
+"base": "Spatial",
+"class": "Effect",
+"language": "GDScript",
+"path": "res://scenes/effects/effects.gd"
 }, {
 "base": "Node",
 "class": "EnemySpawner",
@@ -157,7 +167,7 @@ _global_script_classes=[ {
 "base": "PickableItem",
 "class": "EquipmentItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/equipment_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/equipment_item.gd"
 }, {
 "base": "Node",
 "class": "Game",
@@ -174,6 +184,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://globals/global_consts.gd"
 }, {
+"base": "BombItem",
+"class": "Grenade",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd"
+}, {
 "base": "Node",
 "class": "Groups",
 "language": "GDScript",
@@ -182,7 +197,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "GunItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/ranged/gun_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/ranged/gun_item.gd"
 }, {
 "base": "Area",
 "class": "Hitbox",
@@ -197,7 +212,12 @@ _global_script_classes=[ {
 "base": "PickableItem",
 "class": "KeyItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/tiny/key/key_item.gd"
+"path": "res://scenes/objects/pickable_items/tiny/key/key_item.gd"
+}, {
+"base": "ToolItem",
+"class": "LanternItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd"
 }, {
 "base": "Spatial",
 "class": "LightDetector",
@@ -207,7 +227,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "MeleeItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/melee_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/melee/melee_item.gd"
 }, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
@@ -217,12 +237,12 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "PadlockItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/tool/padlock/padlock_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/tool/padlock/padlock_item.gd"
 }, {
 "base": "RigidBody",
 "class": "PickableItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/pickable_item.gd"
+"path": "res://scenes/objects/pickable_items/pickable_item.gd"
 }, {
 "base": "Area",
 "class": "PickupArea",
@@ -257,12 +277,12 @@ _global_script_classes=[ {
 "base": "GunItem",
 "class": "RevolverItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/ranged/webley_revolver/revolver_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd"
 }, {
-"base": "MeleeItem",
-"class": "SabreItem",
+"base": "EquipmentItem",
+"class": "Rock",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/melee/cavalry_sabre/cavalry_sabre_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
 }, {
 "base": "Node",
 "class": "SettingsClass",
@@ -274,15 +294,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/thief_controller/scripts/player/player_camera.gd"
 }, {
-"base": "GunItem",
-"class": "ShotgunItem",
+"base": "ToolItem",
+"class": "Spike",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/ranged/double-barrel_shotgun/shotgun_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/tool/spike.gd"
 }, {
 "base": "PickableItem",
 "class": "TinyItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/tiny/tiny_item.gd"
+"path": "res://scenes/objects/pickable_items/tiny/tiny_item.gd"
 }, {
 "base": "Resource",
 "class": "TinyItemData",
@@ -292,7 +312,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "ToolItem",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/tool/tool_item.gd"
+"path": "res://scenes/objects/pickable_items/equipment/tool/tool_item.gd"
 }, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
@@ -312,7 +332,7 @@ _global_script_classes=[ {
 "base": "EquipmentItem",
 "class": "empty_hand",
 "language": "GDScript",
-"path": "res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.gd"
+"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -336,23 +356,27 @@ _global_script_class_icons={
 "BT_Wait_Random": "",
 "BehaviorTree": "",
 "BombItem": "",
+"CandelabraItem": "",
 "CharacterState": "",
 "ClamberManager": "",
 "ConsumableItem": "",
 "ControlMode": "",
-"Dagger": "",
 "Door": "",
 "Door_body": "",
+"Dynamite": "",
+"Effect": "",
 "EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
 "GlobalConsts": "",
+"Grenade": "",
 "Groups": "",
 "GunItem": "",
 "Hitbox": "",
 "Interactable": "",
 "KeyItem": "",
+"LanternItem": "",
 "LightDetector": "",
 "MeleeItem": "",
 "MeshTransform": "",
@@ -365,10 +389,10 @@ _global_script_class_icons={
 "PlayerSensor": "",
 "PlayerSoundEmitter": "",
 "RevolverItem": "",
-"SabreItem": "",
+"Rock": "",
 "SettingsClass": "",
 "ShakeCamera": "",
-"ShotgunItem": "",
+"Spike": "",
 "TinyItem": "",
 "TinyItemData": "",
 "ToolItem": "",
@@ -592,12 +616,12 @@ journal={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":74,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
-Previous_weapon={
+previous_item={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":44,"unicode":0,"echo":false,"script":null)
  ]
 }
-Next_weapon={
+next_item={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":46,"unicode":0,"echo":false,"script":null)
  ]

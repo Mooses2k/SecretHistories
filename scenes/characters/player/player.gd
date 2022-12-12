@@ -26,6 +26,14 @@ func _process(delta):
 	grab_indicator()
 
 
+func drop_consumable(object):
+	$PlayerController.throw_consumable()
+
+
+func delete_bomb():
+	pass
+
+
 func grab_indicator():
 	var grabable_object=grab_cast.get_collider()
 	

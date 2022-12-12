@@ -8,7 +8,7 @@ signal is_moving(is_player_moving)
 
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
-export var move_speed : float = 8.0
+export var move_speed : float = 7.0
 export var acceleration : float = 32.0
 export var mass : float = 100.0
 
@@ -88,7 +88,7 @@ onready var _audio_player = get_node("Audio")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = get_node("Body/GroundChecker")
 
-var stamina := 125.0
+var stamina := 600.0
 var active_mode_index = 0
 #onready var active_mode : ControlMode = get_child(0)
 
@@ -156,6 +156,9 @@ var do_crouch : bool = false
 #	apply_central_impulse(velocity_correction*mass)
 
 
+func slow_down(state : PhysicsDirectBodyState):
+	state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), move_speed)
+
 func damage(value : float, type : int, on_hitbox : Hitbox):
 	#queue_free()
 	if self._alive:
@@ -170,7 +173,8 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 				collision_shape.disabled = true
 				skeleton.physical_bones_start_simulation()
 
-#for testing
+
+# for testing
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("kick"):
 		self.emit_signal("character_died")
@@ -327,7 +331,9 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 				state = State.STATE_WALKING
 			else:
 				return
-		move_dir *= 1.5;
+		# sprint speed is walk speed plus stamina * a number, so player slows down as runs longer
+		move_dir *= (1.2 + ((stamina / 500) * 0.3))
+#		move_dir *= 1.5;
 		change_stamina(-0.3)
 	else:
 		move_dir *= 0.8
@@ -442,7 +448,7 @@ func _crouch(delta : float) -> void:
 
 
 func change_stamina(amount: float) -> void:
-	stamina = min(125, max(0, stamina + amount));
+	stamina = min(600, max(0, stamina + amount));
 
 
 func _on_ClamberableChecker_body_entered(body):

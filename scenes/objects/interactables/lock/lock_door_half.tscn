@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://resources/models/items/tools/padlock/lock_padlock_LockLoop.mesh" type="ArrayMesh" id=1]
+[ext_resource path="res://resources/models/items/tools/locks_and_keys/lock_padlock_LockLoop.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/objects/interactables/interactable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/objects/interactables/lock/lock_door_half.gd" type="Script" id=3]
+[ext_resource path="res://resources/sounds/locks/164638__deleted-user-2104797__lock-rattle-3.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/sounds/locks/483605__raclure__mechanical-key.ogg" type="AudioStream" id=5]
+
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.05, 0.05, 0.05 )
@@ -20,3 +23,9 @@ shape = SubResource( 1 )
 
 [node name="LoopPosition" type="Position3D" parent="." index="2"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.1, -0.0193316, -0.035 )
+
+[node name="JiggleSound" type="AudioStreamPlayer3D" parent="." index="3"]
+stream = ExtResource( 4 )
+
+[node name="AddPadlockSound" type="AudioStreamPlayer3D" parent="." index="4"]
+stream = ExtResource( 5 )

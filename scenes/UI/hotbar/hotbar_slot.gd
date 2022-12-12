@@ -1,12 +1,11 @@
 extends Control
 
+
 const AMMO_COUNT_TEMPLATE = "%d+%d"
 
 export var can_equip_modulate : Color
 export var equipped_modulate : Color
 export var can_not_equip_modulate : Color
-
-
 
 var item : EquipmentItem = null setget set_item
 var tracking_tiny_item= null
@@ -14,13 +13,12 @@ var inventory = null setget set_inventory
 export var index : int = -1
 export var is_bulky : bool  = false
 
-
-onready var fadeanimations=$"../../FadeAnim"
-
 var is_equipped_mainhand : bool = false 
 var is_equipped_offhand : bool = false
 var is_equippable_mainhand : bool = false
 var is_equippable_offhand : bool = false
+
+onready var fadeanimations=$"../../FadeAnim"
 
 
 func update_mainhand_indicator():

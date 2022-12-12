@@ -117,8 +117,8 @@ func _physics_process(delta : float):
 	handle_grab_input(delta)
 	handle_grab(delta)
 	handle_inventory(delta)
-	next_weapon()
-	previous_weapon()
+	next_item()
+	previous_item()
 	drop_grabbable()
 	empty_slot()
 	
@@ -184,7 +184,7 @@ func _input(event):
 						if character.inventory.current_offhand_slot != 0:
 							character.inventory.current_mainhand_slot = 0
 						else:
-							character.inventory.current_primary_slot = 1
+							character.inventory.current_mainhand_slot = 1
 	
 	if event is InputEventMouseMotion:
 		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE 
@@ -551,19 +551,36 @@ func update_throw_state(delta : float):
 	pass
 
 
-
 func empty_slot():
 	var inv = character.inventory
 	if inv.hotbar != null:
-		var gun = preload("res://scenes/objects/items/pickable/equipment/empty_slot/empty_hand.tscn").instance()
+		var gun = preload("res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
 			inv.hotbar[10] = gun
 
 
+func throw_consumable():
+		var inv = character.inventory
+		var item : EquipmentItem = null
+		if throw_item == ItemSelection.ITEM_MAINHAND:
+			item = inv.get_mainhand_item()
+			inv.drop_mainhand_item()
+		else:
+			item = inv.get_offhand_item()
+			inv.drop_offhand_item()
+		if item:
+			var impulse = active_mode.get_aim_direction()*throw_strength
+			# At this point, the item is still equipped, so we wait until
+			# it exits the tree and is re inserted in the world
+			item.apply_central_impulse(impulse)
+
+
 func handle_inventory(delta : float):
 	var inv = character.inventory
-	# Primary slot selection
+
+	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
+		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
 			if i != inv.current_offhand_slot :
 				inv.current_mainhand_slot = i
@@ -609,7 +626,8 @@ func handle_inventory(delta : float):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
-
+#			if inv.get_mainhand_item() is ShotgunItem:
+#				print(inv.get_mainhand_item())
 	
 	if Input.is_action_just_pressed("offhand_use"):
 		if inv.get_offhand_item():
@@ -624,7 +642,7 @@ func handle_inventory(delta : float):
 			var origin : Vector3 = owner.drop_position_node.global_transform.origin
 			var end : Vector3 = active_mode.get_target_placement_position()
 			var dir : Vector3 = end - origin
-			dir = dir.normalized()*min(dir.length(), max_placement_distance)
+			dir = dir.normalized() * min(dir.length(), max_placement_distance)
 			var layers = item.collision_layer
 			var mask = item.collision_mask
 			item.collision_layer = item.dropped_layers
@@ -695,7 +713,8 @@ func handle_inventory(delta : float):
 				interaction_target = null
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
-	
+
+
 #	if Input.is_action_pressed("throw") and throw_state:
 #		throw_press_length += delta
 #	else:
@@ -721,17 +740,21 @@ func drop_grabbable():
 		wants_to_drop = false
 
 
-func previous_weapon():
-	if Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_mainhand_slot != 0:
+func previous_item():
+	if Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot != 0:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1 
 		
-	elif  Input.is_action_just_pressed("Previous_weapon") and character.inventory.current_mainhand_slot == 0:
+	elif  Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot == 0:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
 
-func next_weapon():
-	if Input.is_action_just_pressed("Next_weapon") and character.inventory.current_mainhand_slot != 10:
+func next_item():
+	if Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot != 10:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 		
-	elif  Input.is_action_just_pressed("Next_weapon") and character.inventory.current_mainhand_slot == 10:
+	elif  Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot == 10:
+		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0

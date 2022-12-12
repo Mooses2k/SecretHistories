@@ -13,7 +13,7 @@
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 [ext_resource path="res://scenes/characters/player/Indication_canvas.gd" type="Script" id=12]
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=13]
-[ext_resource path="res://resources/health/health.png" type="Texture" id=14]
+[ext_resource path="res://resources/art/health/health.png" type="Texture" id=14]
 [ext_resource path="res://addons/thief_controller/scripts/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
@@ -21,6 +21,7 @@
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/EffectOrigin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
+
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.462745, 0.733333, 1, 1 )

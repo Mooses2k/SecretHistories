@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/health.png-eed560272547871f3210be864af5d8bd.s3tc.stex"
-path.etc2="res://.import/health.png-eed560272547871f3210be864af5d8bd.etc2.stex"
+path.s3tc="res://.import/health.png-b063919037abcc92b63f775a31d716ac.s3tc.stex"
+path.etc2="res://.import/health.png-b063919037abcc92b63f775a31d716ac.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/health/health.png"
-dest_files=[ "res://.import/health.png-eed560272547871f3210be864af5d8bd.s3tc.stex", "res://.import/health.png-eed560272547871f3210be864af5d8bd.etc2.stex" ]
+source_file="res://resources/art/health/health.png"
+dest_files=[ "res://.import/health.png-b063919037abcc92b63f775a31d716ac.s3tc.stex", "res://.import/health.png-b063919037abcc92b63f775a31d716ac.etc2.stex" ]
 
 [params]
 

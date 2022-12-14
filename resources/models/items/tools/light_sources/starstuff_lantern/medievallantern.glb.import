@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/trn_Candle_full.fbx-df511dbb5658cf51c5c04a85a6b6878f.scn"
+path="res://.import/medievallantern.glb-beb27db0c1e1fa823b89b0f4858fdef9.scn"
 
 [deps]
 
-source_file="res://resources/models/items/consumables/candle/trn_Candle_full.fbx"
-dest_files=[ "res://.import/trn_Candle_full.fbx-df511dbb5658cf51c5c04a85a6b6878f.scn" ]
+source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/medievallantern.glb"
+dest_files=[ "res://.import/medievallantern.glb-beb27db0c1e1fa823b89b0f4858fdef9.scn" ]
 
 [params]
 

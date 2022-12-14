@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/skull4.glb-b0e800d6484bc77ded3ae28de5e2e1bb.scn"
+path="res://.import/trn_Candle_Full_COL.fbx-b495ceeb58dfca20f27f11cd2b069663.scn"
 
 [deps]
 
-source_file="res://resources/models/items/components/bones_and_bodies/skull4.glb"
-dest_files=[ "res://.import/skull4.glb-b0e800d6484bc77ded3ae28de5e2e1bb.scn" ]
+source_file="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Full_COL.fbx"
+dest_files=[ "res://.import/trn_Candle_Full_COL.fbx-b495ceeb58dfca20f27f11cd2b069663.scn" ]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/trn_Candle_Emission.png-ddc00c6e821e55549cb4efc3fd39f6f7.s3tc.stex"
-path.etc2="res://.import/trn_Candle_Emission.png-ddc00c6e821e55549cb4efc3fd39f6f7.etc2.stex"
+path.s3tc="res://.import/trn_Candle_Normal.png-ebf7e91988df3c18ef2bdc662ec4246d.s3tc.stex"
+path.etc2="res://.import/trn_Candle_Normal.png-ebf7e91988df3c18ef2bdc662ec4246d.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/models/items/consumables/candle/trn_Candle_Emission.png"
-dest_files=[ "res://.import/trn_Candle_Emission.png-ddc00c6e821e55549cb4efc3fd39f6f7.s3tc.stex", "res://.import/trn_Candle_Emission.png-ddc00c6e821e55549cb4efc3fd39f6f7.etc2.stex" ]
+source_file="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png"
+dest_files=[ "res://.import/trn_Candle_Normal.png-ebf7e91988df3c18ef2bdc662ec4246d.s3tc.stex", "res://.import/trn_Candle_Normal.png-ebf7e91988df3c18ef2bdc662ec4246d.etc2.stex" ]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
-compress/normal_map=0
+compress/normal_map=1
 flags/repeat=true
 flags/filter=true
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false

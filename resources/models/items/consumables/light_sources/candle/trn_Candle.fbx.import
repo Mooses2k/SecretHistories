@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/trn_CandleFlame.fbx-6d249163d3c6f0469de32890d5648aea.scn"
+path="res://.import/trn_Candle.fbx-28f3393acd9cab8cedcb5c4a317ca1f5.scn"
 
 [deps]
 
-source_file="res://resources/models/items/consumables/candle/trn_CandleFlame.fbx"
-dest_files=[ "res://.import/trn_CandleFlame.fbx-6d249163d3c6f0469de32890d5648aea.scn" ]
+source_file="res://resources/models/items/consumables/light_sources/candle/trn_Candle.fbx"
+dest_files=[ "res://.import/trn_Candle.fbx-28f3393acd9cab8cedcb5c4a317ca1f5.scn" ]
 
 [params]
 

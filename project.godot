@@ -114,7 +114,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd"
 }, {
-"base": "RigidBody",
+"base": "ToolItem",
 "class": "CandelabraItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"

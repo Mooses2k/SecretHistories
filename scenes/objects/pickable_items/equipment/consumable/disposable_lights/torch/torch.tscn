@@ -196,6 +196,7 @@ wait_time = 300.0
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+autoplay = "flicker"
 anims/RESET = SubResource( 14 )
 anims/flicker = SubResource( 15 )
 
@@ -206,7 +207,7 @@ script = ExtResource( 6 )
 [node name="Fire" type="Particles" parent="FireOrigin" index="0"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 emitting = false
-amount = 32
+amount = 64
 process_material = SubResource( 16 )
 draw_pass_1 = SubResource( 7 )
 

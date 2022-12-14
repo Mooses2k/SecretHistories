@@ -6,6 +6,8 @@ class_name CandelabraItem
 
 # function this out better, lots of duplicated lines
 
+# emission turn off doesn't work
+
 onready var firelight = $Candle1/FireOrigin/Fire/Light
 onready var durable_timer = $Durability
 
@@ -27,6 +29,7 @@ func _process(delta):
 			has_ever_been_on = true
 			$AnimationPlayer.play("flicker")
 			$Candle1/FireOrigin/Fire.visible = true
+#			$Candle1/MeshInstance.emission_enabled = true
 			if $Candle2 != null:
 				$Candle2/FireOrigin/Fire.visible = true
 			if $Candle3 != null:
@@ -42,6 +45,7 @@ func _use_primary():
 	if !durable_timer.is_stopped():
 		$AnimationPlayer.play("flicker")
 		$Candle1/FireOrigin/Fire.visible = not $Candle1/FireOrigin/Fire.visible
+#		$Candle1/MeshInstance.emission_enabled = not $Candle1/MeshInstance.emission_enabled
 		if $Candle2 != null:
 			$Candle2/FireOrigin/Fire.visible = not $Candle2/FireOrigin/Fire.visible
 		if $Candle3 != null:
@@ -51,6 +55,7 @@ func _use_primary():
 	else:
 		$AnimationPlayer.stop()
 		$Candle1/FireOrigin/Fire.visible = false
+#		$Candle1/MeshInstance.emission_enabled = false
 		if $Candle2 != null:
 			$Candle2/FireOrigin/Fire.visible = false
 		if $Candle3 != null:
@@ -62,6 +67,7 @@ func _use_primary():
 func _on_Durability_timeout():
 	$AnimationPlayer.stop()
 	$Candle1/FireOrigin/Fire.visible = false
+#	$Candle1/MeshInstance.emission_enabled = false
 	if $Candle2 != null:
 		$Candle2/FireOrigin/Fire.visible = false
 	if $Candle3 != null:

@@ -125,6 +125,7 @@ one_shot = true
 
 [node name="Light" type="SpotLight" parent="." index="4"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0253519, -0.0870413 )
+visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 spot_range = 20.0

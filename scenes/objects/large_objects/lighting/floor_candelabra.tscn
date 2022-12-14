@@ -639,9 +639,9 @@ material/0 = SubResource( 147 )
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 light_color = Color( 0.980392, 0.529412, 0, 1 )
-light_energy = 0.2
+light_energy = 0.4
 shadow_enabled = true
-omni_range = 20.0
+omni_range = 10.0
 omni_attenuation = 7.0
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

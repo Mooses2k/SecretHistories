@@ -1,11 +1,11 @@
 extends ToolItem
 
 
-onready var firelight = $FireOrigin/Fire/Light
-onready var durable_timer = $Durability
-
 var has_ever_been_on = false 
 var is_lit = true
+
+onready var firelight = $FireOrigin/Fire/Light
+onready var durable_timer = $Durability
 
 
 func _ready():
@@ -22,7 +22,8 @@ func _process(delta):
 			has_ever_been_on = true
 			firelight.visible = not firelight.visible
 			$AnimationPlayer.play("flicker")
-			$FireOrigin/Fire.visible = not $FireOrigin/Fire.visible
+			$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
+			$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 			is_lit = true
 	else:
 		is_lit = false
@@ -30,15 +31,17 @@ func _process(delta):
 
 func _use_primary():
 	if !durable_timer.is_stopped():
-		$FireOrigin/Fire.visible = not $FireOrigin/Fire.visible
+		$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
 		firelight.visible = not firelight.visible
+		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 	else:
 		$AnimationPlayer.stop()
-		$FireOrigin/Fire.visible = false
+		$FireOrigin/Fire.emitting = false
 		firelight.visible = false
-
+		$MeshInstance.cast_shadow = true
 
 func _on_Durability_timeout():
-	$FireOrigin/Fire.visible = false
+	$FireOrigin/Fire.emitting = false
 	firelight.visible = false
 	$AnimationPlayer.stop()
+	$MeshInstance.cast_shadow = true

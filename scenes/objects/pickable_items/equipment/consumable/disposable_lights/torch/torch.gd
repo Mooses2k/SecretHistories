@@ -1,15 +1,15 @@
 extends ToolItem
 
 
-onready var firelight = $FireOrigin/Fire/Light
-onready var durable_timer = $Durability
-
 var has_ever_been_on = false 
 var is_lit = false
 
+onready var firelight = $FireOrigin/Fire/Light
+onready var durable_timer = $Durability
+
 
 func _ready():
-	pass
+	durable_timer.start()
 
 
 func _process(delta):
@@ -25,6 +25,7 @@ func _process(delta):
 			$FireOrigin/EmberDrip.emitting = true
 			$FireOrigin/Smoke.emitting = true
 			firelight.visible = not firelight.visible
+			$MeshInstance.cast_shadow = false
 			is_lit = true
 	else:
 		is_lit = false
@@ -37,12 +38,14 @@ func _use_primary():
 		$FireOrigin/EmberDrip.emitting = not $FireOrigin/EmberDrip.emitting
 		$FireOrigin/Smoke.emitting = not $FireOrigin/Smoke
 		firelight.visible = not firelight.visible
+		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 	else:
 		$AnimationPlayer.stop()
 		$FireOrigin/Fire.emitting = false
 		$FireOrigin/EmberDrip.emitting = false
 		$FireOrigin/Smoke.emitting = false
 		firelight.visible = false
+		$MeshInstance.cast_shadow = true
 
 
 func _on_Durability_timeout():
@@ -51,3 +54,4 @@ func _on_Durability_timeout():
 	$FireOrigin/EmberDrip.emitting = false
 	$FireOrigin/Smoke.emitting = false
 	firelight.visible = false
+	$MeshInstance.cast_shadow = true

@@ -24,20 +24,12 @@ surfaces/0 = {
 }
 
 [sub_resource type="CylinderShape" id=50]
-height = 0.7
-radius = 0.05
+height = 0.42
+radius = 0.045
 
 [sub_resource type="CylinderShape" id=44]
 height = 0.2
 radius = 0.06
-
-[sub_resource type="Animation" id=4]
-length = 0.001
-
-[sub_resource type="Animation" id=5]
-resource_name = "flicker"
-length = 5.0
-loop = true
 
 [sub_resource type="ArrayMesh" id=43]
 blend_shape_mode = 0
@@ -95,6 +87,86 @@ shader = SubResource( 46 )
 shader_param/INTENSITY = 4.0
 shader_param/COLOR_RAMP = SubResource( 48 )
 
+[sub_resource type="Animation" id=51]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.1 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 6.0 ]
+}
+
+[sub_resource type="Animation" id=52]
+resource_name = "flicker"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4, 1, 1.4, 2.1, 3.1, 3.9, 4.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.2, 0.21, 0.19, 0.21, 0.2, 0.15, 0.21, 0.19 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.4, 3.9, 4.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 6.0, 7.0, 6.0, 5.0 ]
+}
+
 [node name="Candlestick" type="RigidBody"]
 collision_layer = 0
 collision_mask = 0
@@ -108,14 +180,14 @@ item_size = 0
 item_name = "Candlestick"
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.401113, 0 )
+transform = Transform( 0.7, 0, 0, 0, -3.0598e-08, 0.7, 0, -0.7, -3.0598e-08, 0, -0.401113, 0 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 script = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, -0.0442182, 0 )
+transform = Transform( 1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, -0.185072, 0 )
 shape = SubResource( 50 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
@@ -123,18 +195,14 @@ transform = Transform( 2, 0, 0, 0, 2, 3.48166e-13, 0, -3.48166e-13, 2, 0, 0.2974
 shape = SubResource( 44 )
 
 [node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.114776, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.251927, 0 )
 
 [node name="Durability" type="Timer" parent="."]
 wait_time = 300.0
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 4 )
-anims/flicker = SubResource( 5 )
-
 [node name="Candle1" type="Spatial" parent="."]
-transform = Transform( 8, 0, 0, 0, -3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0.180827, 0 )
+transform = Transform( 8, 0, 0, 0, -3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0.00960015, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle1"]
 mesh = SubResource( 43 )
@@ -148,6 +216,7 @@ script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle1/FireOrigin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+visible = false
 cast_shadow = 0
 mesh = SubResource( 45 )
 skeleton = NodePath("../../..")
@@ -160,7 +229,12 @@ visible = false
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.2
 shadow_enabled = true
-omni_range = 10.0
+omni_range = 6.0
 omni_attenuation = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "flicker"
+anims/RESET = SubResource( 51 )
+anims/flicker = SubResource( 52 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

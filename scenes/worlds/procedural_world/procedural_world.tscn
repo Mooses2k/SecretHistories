@@ -59,16 +59,16 @@ script = ExtResource( 18 )
 
 [node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="5"]
 script = ExtResource( 4 )
-pillar_tile = 7
+pillar_tile = 16
 
 [node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="6"]
 script = ExtResource( 21 )
-floor_tile = 9
-wall_tile = 6
-door_tile = 1
-double_door_tile = 0
-pillar_tile = 7
-ceiling_tile = 14
+floor_tile = 6
+wall_tile = 5
+door_tile = 19
+double_door_tile = 14
+pillar_tile = 16
+ceiling_tile = 10
 
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )

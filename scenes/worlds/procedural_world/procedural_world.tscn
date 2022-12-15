@@ -1,56 +1,28 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
-[ext_resource path="res://resources/world/generators/test_generator.tres" type="Resource" id=3]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shotgun_sawed_item.tscn" type="PackedScene" id=4]
-[ext_resource path="res://resources/tiny_items/ammunition/shotgun_shell.tres" type="Resource" id=5]
-[ext_resource path="res://scenes/objects/pickable_items/tiny/tiny_item.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" type="Script" id=3]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
+[ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
+[ext_resource path="res://scenes/characters/enemies/cultist/neophyte.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
-[ext_resource path="res://scenes/objects/pickable_items/tiny/key/key_item.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/characters/enemies/cultist/neophyte.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/padlock/padlock_item.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=14]
-[ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=15]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candlestick/candlestick.tscn" type="PackedScene" id=18]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/dagger/dagger.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/mace/mace.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/pitchfork/pitchfork.tscn" type="PackedScene" id=22]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/shovel/shovel.tscn" type="PackedScene" id=23]
-[ext_resource path="res://scenes/objects/pickable_items/tiny/hammer/hammer.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra_gothic.tscn" type="PackedScene" id=25]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/khyber_pass_martini.tscn" type="PackedScene" id=26]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn" type="PackedScene" id=27]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn" type="PackedScene" id=28]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/crowbar/crowbar.tscn" type="PackedScene" id=29]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/hatchet/hatchet.tscn" type="PackedScene" id=30]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/halberd/halberd.tscn" type="PackedScene" id=31]
-[ext_resource path="res://scenes/characters/undead/ghost/ghost.tscn" type="PackedScene" id=32]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.tscn" type="PackedScene" id=33]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=34]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candle_lantern/candle_lantern.tscn" type="PackedScene" id=35]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn" type="PackedScene" id=36]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/knife_old/knife_old.tscn" type="PackedScene" id=37]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/starstuff_lantern/starstuff_lantern.tscn" type="PackedScene" id=38]
-[ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra.tscn" type="PackedScene" id=39]
-[ext_resource path="res://scenes/objects/large_objects/lighting/brazier_tall_gothic.tscn" type="PackedScene" id=40]
-[ext_resource path="res://scenes/objects/large_objects/statuary/statue_angel_1.tscn" type="PackedScene" id=41]
+[ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=18]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" type="Script" id=19]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=20]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=21]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.5, 1, 0.25 )
-
-[sub_resource type="CubeMesh" id=2]
-size = Vector3( 1, 2, 0.5 )
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+vertex_color_use_as_albedo = true
 
 [node name="ProceduralWorld" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-world_generator = ExtResource( 3 )
+
+[node name="Gridmaps" parent="." index="0"]
+mesh_library = ExtResource( 5 )
 
 [node name="DirectionalLight" parent="." index="2"]
 visible = false
@@ -58,204 +30,49 @@ light_energy = 0.5
 shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
 
-[node name="TinyItem" parent="." index="5" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.1, 6 )
-item_data = ExtResource( 5 )
-amount = 10
+[node name="Navigation" parent="." index="4"]
+preview_material = SubResource( 3 )
 
-[node name="TinyItem2" parent="." index="6" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.1, 5 )
-item_data = ExtResource( 5 )
-amount = 10
-
-[node name="TinyItem3" parent="." index="7" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 5 )
-item_data = ExtResource( 15 )
-amount = 100
-
-[node name="Hammer" parent="." index="8" instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35332, 0.523156, 4.5602 )
-
-[node name="TinyItem4" parent="." index="9" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.20663, 0.5, 5 )
-item_data = ExtResource( 15 )
-amount = 100
-
-[node name="TinyItem5" parent="." index="10" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.97114, 0.5, 2 )
-item_data = ExtResource( 15 )
-amount = 100
-
-[node name="khyber_pass_martini" parent="." index="11" instance=ExtResource( 26 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.70122, 0.913799, 5 )
-
-[node name="ShotgunItem" parent="." index="12" instance=ExtResource( 27 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.913799, 5 )
-
-[node name="martini_henry_Rifle" parent="." index="13" instance=ExtResource( 28 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14632, 0.913799, 5 )
-
-[node name="Shotgun_sawed_item" parent="." index="14" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47887, 0.913799, 5 )
-
-[node name="Webley" parent="." index="15" instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16169, 0.463916, 3.70036 )
-detection_raycast = NodePath("")
-
-[node name="CavalrySabre" parent="." index="16" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, -0.0226175, -0.999744, 0, 0.999744, -0.0226175, 4.89856, 1.22847, 4.92483 )
-
-[node name="Candle3" parent="." index="17" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3119, 0.2, 7 )
-
-[node name="Candle5" parent="." index="18" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.3119, 0.2, 16.1772 )
-
-[node name="Candle6" parent="." index="19" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.20868, 0.2, 16.1772 )
-
-[node name="Candle8" parent="." index="20" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.69552, 0.2, 2.90634 )
-
-[node name="KeyItem" parent="." index="21" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
-
-[node name="PadlockItem" parent="." index="22" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
-
-[node name="Dagger" parent="." index="23" instance=ExtResource( 20 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.56684, 0, 4.90412 )
-
-[node name="Mace" parent="." index="24" instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6471, 0.0105126, 7.29076 )
-
-[node name="Halberd" parent="." index="25" instance=ExtResource( 31 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.63936, 0.753099, 3.57064 )
-
-[node name="Hatchet" parent="." index="26" instance=ExtResource( 30 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6482, 0.0238928, 5.38725 )
-
-[node name="Crowbar" parent="." index="27" instance=ExtResource( 29 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.52486, 0.0119464, 5.38336 )
-
-[node name="Shovel" parent="." index="28" instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.94063, 0, 5.37948 )
-
-[node name="Pitchfork" parent="." index="29" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.45495, 0.610462, 4.23118 )
-
-[node name="CandleLantern" parent="." index="30" instance=ExtResource( 35 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9555, 0.487767, 3.10195 )
-
-[node name="DarkLantern" parent="." index="31" instance=ExtResource( 36 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67872, 0.611856, 3.16504 )
-
-[node name="OilLantern" parent="." index="32" instance=ExtResource( 34 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.53284, 0.360441, 2.541 )
-
-[node name="OldKnife" parent="." index="33" instance=ExtResource( 37 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.39623, 0.429975, 4.57898 )
-
-[node name="StarstuffLantern" parent="." index="34" instance=ExtResource( 38 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.69275, 0.109759, 17.8096 )
-
-[node name="Grenade" parent="." index="35" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.41982, 1.68845, 3.62622 )
-
-[node name="Dynamite" parent="." index="36" instance=ExtResource( 33 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.17112, 1.1198, 2.65638 )
-
-[node name="StatueAngel1" parent="." index="37" instance=ExtResource( 41 )]
-transform = Transform( -0.567355, 0, -0.823474, 0, 1, 0, 0.823474, 0, -0.567355, 19.1579, 0.881117, 17.0643 )
-
-[node name="BullseyeLantern" parent="." index="38" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.05785, 1.07747, 2.79109 )
-
-[node name="FloorCandelabraGothic" parent="." index="39" instance=ExtResource( 25 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33639, 0.692405, 4.63397 )
-
-[node name="FloorCandelabra" parent="." index="40" instance=ExtResource( 39 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98031, 1.07749, 2.31026 )
-
-[node name="Brazier" parent="." index="41" instance=ExtResource( 40 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.81468, 1.11085, 7.71014 )
-
-[node name="EnemySpawner" type="Node" parent="." index="42"]
+[node name="EnemySpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
-enemy_scene = ExtResource( 11 )
+enemy_scene = ExtResource( 6 )
 density = 0.01
+max_count = 0
 
-[node name="EnemySpawner2" type="Node" parent="." index="43"]
-script = ExtResource( 9 )
-enemy_scene = ExtResource( 32 )
-density = 0.01
+[node name="GenerationManager" parent="." index="6"]
+world_size_x = 30
+world_size_z = 30
 
-[node name="Bookcase3" type="RigidBody" parent="." index="44" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 1.12151, 0, 0, 0, 1, 6.52328, 1.1144, 8.30021 )
-collision_layer = 5
-mass = 100.0
-__meta__ = {
-"_edit_group_": true
-}
+[node name="GenerateRooms" type="Node" parent="GenerationManager" index="0"]
+script = ExtResource( 17 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase3" index="0"]
-shape = SubResource( 1 )
+[node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="1"]
+script = ExtResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase3/CollisionShape" index="0"]
-mesh = SubResource( 2 )
+[node name="GenerateCorridors" type="Node" parent="GenerationManager" index="2"]
+script = ExtResource( 20 )
 
-[node name="Bookcase5" type="RigidBody" parent="." index="45" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 0.648498, 0, 0, 0, 1, 6.52328, 0.641629, 6.97344 )
-collision_layer = 5
-mass = 65535.0
-__meta__ = {
-"_edit_group_": true
-}
+[node name="GenerateHalls" type="Node" parent="GenerationManager" index="3"]
+script = ExtResource( 19 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase5" index="0"]
-shape = SubResource( 1 )
+[node name="GenerateWalls" type="Node" parent="GenerationManager" index="4"]
+script = ExtResource( 18 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase5/CollisionShape" index="0"]
-mesh = SubResource( 2 )
+[node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="5"]
+script = ExtResource( 4 )
+pillar_tile = 16
 
-[node name="Bookcase4" type="RigidBody" parent="." index="46" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 0.869979, 0, 0, 0, 1, 4.78655, 0.865485, 8.45804 )
-collision_layer = 5
-mass = 100.0
-__meta__ = {
-"_edit_group_": true
-}
+[node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="6"]
+script = ExtResource( 21 )
+floor_tile = 6
+wall_tile = 5
+door_tile = 19
+double_door_tile = 14
+pillar_tile = 16
+ceiling_tile = 10
 
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase4" index="0"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase4/CollisionShape" index="0"]
-mesh = SubResource( 2 )
-
-[node name="Candle2" parent="." index="47" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 7 )
-
-[node name="KeyItem" parent="." index="48" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2, 0.4, 6.6 )
-
-[node name="PadlockItem" parent="." index="49" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.2, 5 )
-
-[node name="Torch" parent="." index="50" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91335, 0.750593, 5.72667 )
-
-[node name="Bookcase" type="RigidBody" parent="." index="51" groups=["CLAMBERABLE"]]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1.0793, 0, -1, 0, -4.37114e-08, 2.16859, 1.07566, 8.44387 )
-collision_layer = 5
-mass = 100.0
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="Candlestick" parent="." index="52" instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.33205, 0.551455, 5.05822 )
-
-[node name="Candelabra" parent="." index="53" instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.14035, 0.864855, 5.47904 )
+[node name="ItemSpawner" type="Node" parent="." index="7"]
+script = ExtResource( 16 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
+[connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

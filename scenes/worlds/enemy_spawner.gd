@@ -41,7 +41,7 @@ export var enemy_scene : PackedScene
 #
 export(Array, Dictionary) var enemy_loadout : Array
 export var density = 0.05
-
+export var max_count = 10
 onready var enemies_root = Node.new()
 
 var data : WorldData
@@ -54,11 +54,15 @@ func _ready():
 func spawn_enemies():
 	for child in enemies_root.get_children():
 		child.queue_free()
+	var count = 0
 	print("Spawning enemies")
-	for i in data.world_size_x:
-		for j in data.world_size_z:
+	for i in data.get_size_x():
+		for j in data.get_size_z():
+			if count >= max_count:
+				return
 			var cell = data.get_cell_index_from_int_position(i, j)
-			if data.is_cell_free[cell] and randf()<density:
+			if data.get_cell_type(cell) == data.CellType.ROOM and randf()<density:
+				count += 1
 				var enemy = enemy_scene.instance() as Spatial
 				enemy.translation = GameManager.game.level.grid_to_world(Vector3(i, 0, j))
 				enemies_root.add_child(enemy)

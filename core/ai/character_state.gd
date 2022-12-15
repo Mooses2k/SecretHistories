@@ -5,7 +5,7 @@ extends Reference
 var move_direction : Vector3 = Vector3.ZERO setget set_move_direction
 var face_direction : Vector3 = Vector3.FORWARD setget set_face_direction
 var target_position : Vector3 = Vector3.ZERO setget set_target_position
-var path : Array = Array()
+var path : Array = Array() setget ,get_path
 var interaction_target : Node = null
 
 var character
@@ -26,10 +26,20 @@ func set_move_direction(value : Vector3):
 	value.y = 0.0
 	move_direction = value.normalized()*min(value.length(), 1.0)
 
+func get_path():
+	if path_needs_update:
+		var map = character.get_world().navigation_map
+		var nav = NavigationServer
+		path = nav.map_get_path(map, character.global_transform.origin, target_position, false)
+		path_needs_update = false
+	return path
+
+var path_needs_update : bool = false
 
 func set_target_position(value : Vector3):
-	var nav = GameManager.game.level.navigation as Navigation
-	value = nav.get_closest_point(value)
-	if not value.is_equal_approx(target_position):
+	var map = character.get_world().navigation_map
+	var nav = NavigationServer
+	value = nav.map_get_closest_point(map, value)
+	if not value.distance_squared_to(target_position) < 0.25:
 		target_position = value
-		path = nav.get_simple_path(character.global_transform.origin, target_position)
+		path_needs_update = true

@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd"
 }, {
+"base": "ArrayMesh",
+"class": "BoxOutlineMesh",
+"language": "GDScript",
+"path": "res://resources/mesh_libraries/cell_preview_mesh.gd"
+}, {
 "base": "ToolItem",
 "class": "CandelabraItem",
 "language": "GDScript",
@@ -179,6 +184,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
 }, {
+"base": "Node",
+"class": "GenerationManager",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/generation_steps/generation_manager.gd"
+}, {
+"base": "Node",
+"class": "GenerationStep",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/generation_steps/generation_step.gd"
+}, {
 "base": "Object",
 "class": "GlobalConsts",
 "language": "GDScript",
@@ -223,6 +238,11 @@ _global_script_classes=[ {
 "class": "LightDetector",
 "language": "GDScript",
 "path": "res://addons/thief_controller/scripts/player/light_detector.gd"
+}, {
+"base": "AStar2D",
+"class": "ManhattanAStar2D",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/ManhattanAStar2D.gd"
 }, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
@@ -324,11 +344,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://resources/world/world_data.gd"
 }, {
-"base": "Resource",
-"class": "WorldGenerator",
-"language": "GDScript",
-"path": "res://resources/world/world_generator.gd"
-}, {
 "base": "EquipmentItem",
 "class": "empty_hand",
 "language": "GDScript",
@@ -356,6 +371,7 @@ _global_script_class_icons={
 "BT_Wait_Random": "",
 "BehaviorTree": "",
 "BombItem": "",
+"BoxOutlineMesh": "",
 "CandelabraItem": "",
 "CharacterState": "",
 "ClamberManager": "",
@@ -369,6 +385,8 @@ _global_script_class_icons={
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
+"GenerationManager": "",
+"GenerationStep": "",
 "GlobalConsts": "",
 "Grenade": "",
 "Groups": "",
@@ -378,6 +396,7 @@ _global_script_class_icons={
 "KeyItem": "",
 "LanternItem": "",
 "LightDetector": "",
+"ManhattanAStar2D": "",
 "MeleeItem": "",
 "MeshTransform": "",
 "PadlockItem": "",
@@ -398,7 +417,6 @@ _global_script_class_icons={
 "ToolItem": "",
 "VisibilityMask": "",
 "WorldData": "",
-"WorldGenerator": "",
 "empty_hand": ""
 }
 
@@ -419,6 +437,7 @@ LoadQuotes="*res://globals/load_quotes.gd"
 Settings="*res://globals/settings.gd"
 AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
+TestSettings="*res://globals/settings/test_settings.gd"
 ChangeScene="*res://globals/change_scene.gd"
 
 [editor_plugins]

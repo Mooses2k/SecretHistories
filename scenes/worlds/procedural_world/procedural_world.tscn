@@ -5,8 +5,8 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" type="Script" id=3]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
 [ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
+[ext_resource path="res://scenes/characters/enemies/cultist/neophyte.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
-[ext_resource path="res://scenes/characters/enemies/cultist/Cultist.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=18]
@@ -35,7 +35,7 @@ preview_material = SubResource( 3 )
 
 [node name="EnemySpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
-enemy_scene = ExtResource( 11 )
+enemy_scene = ExtResource( 6 )
 density = 0.01
 max_count = 0
 

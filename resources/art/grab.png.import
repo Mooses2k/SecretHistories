@@ -2,24 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-<<<<<<<< HEAD:resources/art/Ui/Grab.png.import
-path="res://.import/Grab.png-73192bbb6e0a7ac243db54cd68261c05.stex"
-========
 path="res://.import/grab.png-2c1d5ea97205c5731ca30552aca6b14f.stex"
->>>>>>>> dev:resources/art/grab.png.import
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-<<<<<<<< HEAD:resources/art/Ui/Grab.png.import
-source_file="res://resources/art/Ui/Grab.png"
-dest_files=[ "res://.import/Grab.png-73192bbb6e0a7ac243db54cd68261c05.stex" ]
-========
 source_file="res://resources/art/grab.png"
 dest_files=[ "res://.import/grab.png-2c1d5ea97205c5731ca30552aca6b14f.stex" ]
->>>>>>>> dev:resources/art/grab.png.import
 
 [params]
 
@@ -30,7 +21,7 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=true
+flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true

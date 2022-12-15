@@ -9,6 +9,9 @@ signal padlock_added()
 signal padlock_removed()
 signal padlock_unlocked()
 
+onready var jiggle_sound = $JiggleSound
+onready var add_padlock_sound = $AddPadlockSound
+
 
 func get_loop_position() -> Vector3:
 	return $LoopPosition.translation
@@ -29,6 +32,7 @@ func try_unlock_padlock(character) -> bool:
 			current_padlock.padlock_locked = false
 			emit_signal("padlock_unlocked")
 			return true
+	jiggle_sound.play()
 	return false
 
 
@@ -52,22 +56,23 @@ func _interact(character):
 				padlock.get_parent().remove_child(padlock)
 				inventory._drop_item(padlock)
 	else: # Add a padlock to the loop
-		var padlock_primary = true
-		var padlock = inventory.get_primary_item() as PadlockItem
+		var padlock_mainhand = true
+		var padlock = inventory.get_mainhand_item() as PadlockItem
 		if not padlock or padlock.padlock_locked:
-			padlock = inventory.get_secondary_item() as PadlockItem
-			padlock_primary = false
+			padlock = inventory.get_offhand_item() as PadlockItem
+			padlock_mainhand = false
 		if padlock and not padlock.padlock_locked:
 			current_padlock = padlock
-			if padlock_primary:
-				inventory.drop_primary_item()
+			if padlock_mainhand:
+				inventory.drop_mainhand_item()
 			else:
-				inventory.drop_secondary_item()
+				inventory.drop_offhand_item()
 			padlock.get_parent().remove_child(padlock)
 			add_child(current_padlock)
 			padlock.set_physics_equipped()
 			update_lock_position()
 			emit_signal("padlock_added")
+			add_padlock_sound.play()
 
 
 func _physics_process(delta):

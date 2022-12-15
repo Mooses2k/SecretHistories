@@ -1,5 +1,5 @@
-class_name GameWorld
 extends Spatial
+class_name GameWorld
 
 
 signal generation_finished()

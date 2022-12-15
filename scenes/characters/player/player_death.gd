@@ -2,8 +2,8 @@ extends CanvasLayer
 
 
 var is_BW = false
-onready var main_cam = get_node("../Body/FPSCamera")
-onready var gun_cam = get_node("../Body/FPSCamera/ViewportContainer2/Viewport/GunCam")
+onready var main_cam = get_node("../FPSCamera")
+onready var gun_cam = get_node("../ViewportContainer2/Viewport/GunCam")
 onready var white_effect_rect = get_node("../Tinnitus/ScreenWhite/TextureRect")
 
 
@@ -15,6 +15,7 @@ func _input(event):
 func _on_Player_character_died():
 	GameManager.is_player_dead = true
 	get_tree().paused = true
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	$Death.play()
 	$ColorRect.show()
 	main_cam.transform.origin.z += 0.8

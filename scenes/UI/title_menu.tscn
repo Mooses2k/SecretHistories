@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/UI/title_menu.gd" type="Script" id=1]
-[ext_resource path="res://resources/title_screen_image.png" type="Texture" id=2]
+[ext_resource path="res://resources/art/title_screen_image.png" type="Texture" id=2]
 [ext_resource path="res://scenes/UI/settings_menu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/ui_themes/main_menu.tres" type="Theme" id=4]
 
@@ -23,7 +23,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer2"]
+[node name="GameName" type="Label" parent="VBoxContainer2"]
 margin_top = 173.0
 margin_right = 900.0
 margin_bottom = 226.0

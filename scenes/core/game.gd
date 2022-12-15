@@ -1,5 +1,6 @@
-class_name Game
 extends Node
+class_name Game
+
 
 signal level_loaded(level)
 signal player_spawned(player)
@@ -18,9 +19,11 @@ func _init():
 	GameManager.game = self
 	var _error = self.connect("level_loaded", self, "on_level_loaded")
 
+
 func _ready():
 	load_level(start_level_scn)
 	pass
+
 
 func load_level(packed : PackedScene):
 	self.level = packed.instance() as GameWorld
@@ -28,8 +31,10 @@ func load_level(packed : PackedScene):
 	yield(self.level, "ready")
 	self.emit_signal("level_loaded", self.level)
 
+
 func on_level_loaded(_level : GameWorld):
 	self.spawn_player()
+
 
 func spawn_player():
 	self.player = player_scn.instance()

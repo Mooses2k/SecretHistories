@@ -26,6 +26,7 @@ mesh_library = ExtResource( 5 )
 
 [node name="DirectionalLight" parent="." index="2"]
 visible = false
+light_energy = 0.5
 shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
 

@@ -4,10 +4,13 @@ extends Interactable
 signal lock_locked()
 signal lock_unlocked()
 
+var is_locked : bool = false setget set_locked
+
 export var _door_half : NodePath
 onready var other_half = get_node(_door_half) if not other_half else other_half
 
-var is_locked : bool = false setget set_locked
+onready var unlock_sound = $UnlockSound
+onready var lock_sound = $LockSound
 
 
 func _ready():
@@ -17,6 +20,7 @@ func _ready():
 func on_padlock_unlocked():
 	if self.is_locked:
 		self.is_locked = false
+		unlock_sound.play()
 
 
 func set_locked(value : bool):
@@ -24,6 +28,7 @@ func set_locked(value : bool):
 		is_locked = value
 		if is_locked:
 			emit_signal("lock_locked")
+			lock_sound.play()
 			$AnimationPlayer.play("lock")
 			owner.door_lock_count += 1
 		else:

@@ -1,5 +1,6 @@
 extends Spatial
 
+
 export var margin : float = 0.3
 export var wall_thickness : float = 0.15
 export var preview : bool = false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=1]
+[ext_resource path="res://scenes/effects/explosion/explosions.gd" type="Script" id=2]
 
 [sub_resource type="ParticlesMaterial" id=1]
 gravity = Vector3( 0, 0, 0 )
@@ -11,7 +12,10 @@ angular_velocity_random = 1.0
 linear_accel = -1.0
 angle_random = 1.0
 
-[sub_resource type="QuadMesh" id=2]
+[sub_resource type="QuadMesh" id=5]
+
+[sub_resource type="SphereShape" id=6]
+radius = 2.45528
 
 [node name="Explosion" type="Particles"]
 transform = Transform( 0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479 )
@@ -25,7 +29,20 @@ randomness = 0.84
 fixed_fps = 30
 visibility_aabb = AABB( -4, -4, -4.79199, 8, 8, 8 )
 process_material = SubResource( 1 )
-draw_pass_1 = SubResource( 2 )
+draw_pass_1 = SubResource( 5 )
+script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="BlastRadius" type="Area" parent="."]
+unique_name_in_owner = true
+collision_layer = 536870912
+collision_mask = 754
+
+[node name="CollisionShape" type="CollisionShape" parent="BlastRadius"]
+unique_name_in_owner = true
+shape = SubResource( 6 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

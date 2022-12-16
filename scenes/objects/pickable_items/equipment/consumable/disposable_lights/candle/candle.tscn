@@ -152,6 +152,7 @@ item_name = "Candle"
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 0, 0 )
+cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = ExtResource( 5 )
 
@@ -180,7 +181,7 @@ light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.1
 shadow_enabled = true
 omni_range = 6.0
-omni_attenuation = 10.0
+omni_attenuation = 7.0
 
 [node name="Durability" type="Timer" parent="." index="5"]
 wait_time = 900.0

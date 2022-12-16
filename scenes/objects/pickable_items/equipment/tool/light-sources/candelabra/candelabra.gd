@@ -35,7 +35,7 @@ func _process(delta):
 			if $Candle3 != null:
 				$Candle3/FireOrigin/Fire.visible = true
 			firelight.visible = true
-			$MeshInstance.cast_shadow = false
+#			$MeshInstance.cast_shadow = false
 			is_lit = true
 	else:
 		is_lit = false
@@ -51,7 +51,7 @@ func _use_primary():
 		if $Candle3 != null:
 			$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
 		firelight.visible = not firelight.visible
-		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
+#		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 	else:
 		$AnimationPlayer.stop()
 		$Candle1/FireOrigin/Fire.visible = false
@@ -61,7 +61,7 @@ func _use_primary():
 		if $Candle3 != null:
 			$Candle3/FireOrigin/Fire.visible = false
 		firelight.visible = false
-		$MeshInstance.cast_shadow = true
+#		$MeshInstance.cast_shadow = true
 
 
 func _on_Durability_timeout():
@@ -73,4 +73,4 @@ func _on_Durability_timeout():
 	if $Candle3 != null:
 		$Candle3/FireOrigin/Fire.visible = false
 	firelight.visible = false
-	$MeshInstance.cast_shadow = true
+#	$MeshInstance.cast_shadow = true

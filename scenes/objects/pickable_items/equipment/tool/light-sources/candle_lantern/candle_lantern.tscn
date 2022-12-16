@@ -63,7 +63,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.25 ]
+"values": [ 0.2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
@@ -75,7 +75,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 10.0 ]
+"values": [ 7.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -113,10 +113,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.4, 3.9, 4.6 ),
+"times": PoolRealArray( 0, 1.4, 3.9, 4.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 10.0, 11.0, 7.0, 9.0 ]
+"values": [ 7.0, 8.0, 6.0, 7.5 ]
 }
 
 [node name="CandleLantern" instance=ExtResource( 1 )]
@@ -144,10 +144,10 @@ one_shot = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185425, 0 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
-light_energy = 0.1
+light_energy = 0.2
 shadow_enabled = true
-omni_range = 6.0
-omni_attenuation = 10.0
+omni_range = 10.0
+omni_attenuation = 7.0
 
 [node name="Skeleton" type="Skeleton" parent="." index="5"]
 bones/0/name = "Handle"

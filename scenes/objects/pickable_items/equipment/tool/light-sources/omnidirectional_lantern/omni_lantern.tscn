@@ -145,7 +145,7 @@ visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 omni_range = 13.0
-omni_attenuation = 10.0
+omni_attenuation = 7.0
 
 [node name="Skeleton" type="Skeleton" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0709005, 0 )

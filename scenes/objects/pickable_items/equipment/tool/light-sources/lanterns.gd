@@ -6,7 +6,7 @@ var has_ever_been_on = false
 var is_lit = true # true for testing to provide some light
 
 onready var firelight = $Light
-onready var DurableTimer = $Durability
+onready var durable_timer = $Durability
 
 
 func _ready():
@@ -15,26 +15,30 @@ func _ready():
 
 func _process(delta):
 	if is_lit == true:
-		DurableTimer.pause_mode = false
+		durable_timer.pause_mode = false
 	else:
-		DurableTimer.pause_mode = true
+		durable_timer.pause_mode = true
 	if self.mode == equipped_mode and has_ever_been_on == false:
-			DurableTimer.start()
+			durable_timer.start()
 			has_ever_been_on = true
 			firelight.visible = true
 			is_lit = true
+			$MeshInstance.cast_shadow = false
 	else:
 		is_lit = false
 
 
 func _use_primary():
-	if !DurableTimer.is_stopped():
-		firelight.visible = not firelight.visible
+	if !durable_timer.is_stopped():
 		$AnimationPlayer.play("flicker")
+		firelight.visible = not firelight.visible
+		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 	else:
 		$AnimationPlayer.stop()
-
+		firelight.visible = false
+		$MeshInstance.cast_shadow = true
 
 func _on_Durability_timeout():
-	firelight.visible = false
 	$AnimationPlayer.stop()
+	firelight.visible = false
+	$MeshInstance.cast_shadow = true

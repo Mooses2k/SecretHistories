@@ -5,7 +5,6 @@
 [ext_resource path="res://resources/models/items/tools/light_sources/bullseye_lantern/M_DarkLantern3_Glass.material" type="Material" id=3]
 [ext_resource path="res://resources/models/items/tools/light_sources/bullseye_lantern/M_DarkLantern3.material" type="Material" id=4]
 
-
 [sub_resource type="ArrayMesh" id=5]
 resource_name = "bullseyelamp3_Early 1900s Railroad Oil Lamp Old Metallic True Glass"
 surfaces/0 = {
@@ -123,7 +122,7 @@ script = ExtResource( 2 )
 item_name = "Bullseye Lantern"
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
+transform = Transform( -0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 0, 0, 0 )
 cast_shadow = 0
 mesh = SubResource( 5 )
 
@@ -140,6 +139,7 @@ one_shot = true
 
 [node name="Light" type="SpotLight" parent="." index="4"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0141766, -0.0777957 )
+visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 spot_range = 20.0
@@ -148,6 +148,7 @@ spot_angle = 20.0
 spot_angle_attenuation = 32.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+autoplay = "flicker"
 anims/RESET = SubResource( 3 )
 anims/flicker = SubResource( 4 )
 

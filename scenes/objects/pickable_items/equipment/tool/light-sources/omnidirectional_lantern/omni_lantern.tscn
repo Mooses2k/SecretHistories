@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/omnidirectional_lantern/M_LampOIl.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=3]
-
+[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=4]
 
 [sub_resource type="ConvexPolygonShape" id=1]
 points = PoolVector3Array( 0.068966, 0.00112092, -0.0284782, -0.0731938, 0.00112092, -0.00897222, -0.0731938, 0.00112092, 0.00773911, 0.01041, 0.408083, -0.00339704, 0.0160068, 0.00112092, 0.0718465, -0.017429, 0.00669794, -0.0730796, -0.0592237, 0.366215, 0.00214976, 0.0578015, 0.363467, -0.00339704, 0.0633837, 0.00390944, 0.0383955, -0.0397291, 0.00390944, 0.0634767, 0.0187834, 0.00112092, -0.0730796, -0.017429, 0.2826, 0.0300398, -0.00907004, 0.2826, -0.0340534, -0.0564615, 0.00390944, -0.0507789, 0.0550248, 0.371792, 0.00214976, -0.0620293, 0.352273, -0.00339704, 0.0466659, 0.00390944, -0.0591346, 0.0745483, 0.00390944, 0.00216394, 0.00761891, 0.0708334, 0.0662855, -0.0648204, 0.00112092, 0.0356008, 0.0383069, 0.00669794, 0.0634767, 0.00761891, 0.2826, -0.0340534, 0.0159923, 0.2826, 0.0300256, -0.00907004, 0.408083, 0.00214976, 0.0605926, 0.346736, 0.00214976, -0.0536559, 0.380158, -0.00339704, -0.0397291, 0.00390944, -0.0647098, -0.0704027, 0.00112092, -0.0256977, -0.00627891, 0.0708334, 0.0662855, 0.0606071, 0.00390944, -0.0452037, -0.0620293, 0.352273, 0.00214976, 0.068966, 0.00112092, 0.0272451, -0.056447, 0.377409, 0.00214976, 0.0578159, 0.00669794, 0.0467511, 0.0327247, 0.00669794, -0.0675044, 0.0215746, 0.402466, 0.00214976, 0.0605926, 0.343947, -0.00339704, -0.0592526, 0.00669794, 0.0439706, -0.0174145, 0.405254, -0.00339704, -0.0704027, 0.00112092, 0.0244646, -0.017429, 0.00390944, 0.0718465, 0.0522337, 0.377409, -0.00339704, 0.0717571, 0.00390944, -0.0201226, -0.0481025, 0.388523, 0.00214976, 0.0717571, 0.00390944, 0.0188895, -0.0620293, 0.00390944, -0.0424091, 0.0327247, 0.00669794, 0.0662713, 0.049457, 0.00390944, 0.055121, 0.0160068, 0.00669794, -0.0730796, 0.0494425, 0.382946, 0.00214976, -0.017429, 0.00112092, -0.0730796, -0.056447, 0.374581, -0.00339704, 0.0745483, 0.00390944, -0.00339704, 0.0410691, 0.388523, -0.00339704, -0.0258024, 0.00390944, 0.0690518, -0.0425058, 0.391312, -0.00339704, -0.0425203, 0.00112092, 0.0606962, 0.01041, 0.408083, 0.00214976, 0.0383069, 0.00669794, -0.0647098, 0.0159923, 0.2826, -0.0312587, 0.068966, 0.00669794, -0.0284782, -0.0731938, 0.00669794, 0.00773911, 0.0550248, 0.371792, -0.00339704, -0.0731938, 0.00669794, -0.00897222 )
@@ -72,7 +72,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 20.0 ]
+"values": [ 13.0 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -110,10 +110,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.4, 3.1, 4.6 ),
+"times": PoolRealArray( 0, 1.4, 2.6, 4.2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 20.0, 22.314, 18.628, 19.983 ]
+"values": [ 13.0, 12.0, 13.0, 13.5 ]
 }
 
 [node name="OilLantern" instance=ExtResource( 1 )]
@@ -126,6 +126,7 @@ transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 
 visible = false
 mesh = null
 skeleton = NodePath("")
+script = null
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.0707697, 8.01446e-05 )
@@ -140,10 +141,11 @@ one_shot = true
 
 [node name="Light" type="OmniLight" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0673865, 0 )
+visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
-omni_range = 20.0
-omni_attenuation = 7.0
+omni_range = 13.0
+omni_attenuation = 10.0
 
 [node name="Skeleton" type="Skeleton" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0709005, 0 )
@@ -168,8 +170,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130157, 0 )
 cast_shadow = 0
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
+script = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+autoplay = "flicker"
 anims/RESET = SubResource( 4 )
 anims/flicker = SubResource( 5 )
 

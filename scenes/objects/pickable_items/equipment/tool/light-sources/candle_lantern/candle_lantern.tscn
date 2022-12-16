@@ -4,7 +4,6 @@
 [ext_resource path="res://resources/models/items/tools/light_sources/candle_lantern/lantern.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=3]
 
-
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.05, 0.15, 0.05 )
 
@@ -43,7 +42,7 @@ radius = 0.01
 [sub_resource type="Animation" id=5]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Light:light_color")
+tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -55,7 +54,7 @@ tracks/0/keys = {
 "values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Light:light_energy")
+tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -64,10 +63,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 1.0 ]
+"values": [ 0.2 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Light:omni_range")
+tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -76,7 +75,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 20.0 ]
+"values": [ 7.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -84,7 +83,7 @@ resource_name = "flicker"
 length = 5.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Light:light_color")
+tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -96,7 +95,7 @@ tracks/0/keys = {
 "values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Light:light_energy")
+tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -105,19 +104,19 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.4, 1, 1.4, 2.1, 3.1, 3.9, 4.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 1.0, 1.136, 0.803, 1.136, 1.136, 0.729, 1.136, 1.136 ]
+"values": [ 0.23, 0.26, 0.24, 0.26, 0.23, 0.25, 0.24, 0.236 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Light:omni_range")
+tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1.4, 3.1, 4.6 ),
+"times": PoolRealArray( 0, 1.4, 3.9, 4.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 20.0, 22.314, 18.628, 19.983 ]
+"values": [ 7.0, 8.0, 6.0, 7.5 ]
 }
 
 [node name="CandleLantern" instance=ExtResource( 1 )]
@@ -143,10 +142,12 @@ one_shot = true
 
 [node name="Light" type="OmniLight" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185425, 0 )
+visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+light_energy = 0.2
 shadow_enabled = true
-omni_range = 20.0
-omni_attenuation = 10.0
+omni_range = 10.0
+omni_attenuation = 7.0
 
 [node name="Skeleton" type="Skeleton" parent="." index="5"]
 bones/0/name = "Handle"
@@ -183,6 +184,7 @@ transform = Transform( 0.951782, -0.306775, 0, 0.306775, 0.951782, 0, 0, 0, 1, 0
 shape = SubResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+autoplay = "flicker"
 anims/RESET = SubResource( 5 )
 anims/flicker = SubResource( 6 )
 

@@ -35,8 +35,8 @@ func attach_setting(setting_name : String, _settings : SettingsClass):
 	_setting_name = setting_name
 	settings.connect("setting_changed", self, "on_setting_changed")
 	settings.connect("setting_removed", self, "on_setting_removed")
-	set_value(settings.get_setting(setting_name))
 	_on_setting_attached()
+	set_value(settings.get_setting(setting_name))
 
 func on_setting_changed(setting_name, old_value, new_value):
 	if setting_name == _setting_name:

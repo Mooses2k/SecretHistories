@@ -2,9 +2,9 @@
 
 [ext_resource path="res://scenes/worlds/game_world.gd" type="Script" id=1]
 [ext_resource path="res://scenes/worlds/gridmaps/gridmaps.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/world/generators/noise_generator.tres" type="Resource" id=3]
 [ext_resource path="res://resources/mesh_libraries/basic_grid_tiles.meshlib" type="MeshLibrary" id=4]
 [ext_resource path="res://scenes/worlds/world_navigation.gd" type="Script" id=5]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_manager.gd" type="Script" id=6]
 
 [sub_resource type="Environment" id=2]
 background_mode = 1
@@ -14,7 +14,6 @@ ambient_light_sky_contribution = 0.0
 
 [node name="GameWorld" type="Spatial"]
 script = ExtResource( 1 )
-world_generator = ExtResource( 3 )
 
 [node name="Gridmaps" parent="." instance=ExtResource( 2 )]
 mesh_library = ExtResource( 4 )
@@ -33,5 +32,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="Navigation" type="Navigation" parent="."]
+[node name="Navigation" type="Spatial" parent="."]
 script = ExtResource( 5 )
+
+[node name="GenerationManager" type="Node" parent="."]
+script = ExtResource( 6 )

@@ -59,7 +59,19 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 20.0 ]
+"values": [ 10.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Light:light_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.333333, 0.207843, 0.333333, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -85,10 +97,22 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.4, 3.1, 4.6 ),
+"times": PoolRealArray( 0.3, 1.7, 3.9, 4.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 20.0, 22.314, 18.628, 19.983 ]
+"values": [ 10.0, 11.0, 9.0, 10.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Light:light_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.333333, 0.207843, 0.333333, 1 ) ]
 }
 
 [node name="StarstuffLantern" instance=ExtResource( 1 )]
@@ -106,7 +130,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0623613, 8.0144
 shape = SubResource( 6 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30587, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477499, 0 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
 wait_time = 300.0
@@ -118,10 +142,11 @@ light_color = Color( 0.333333, 0.207843, 0.333333, 1 )
 light_specular = 16.0
 shadow_enabled = true
 shadow_color = Color( 0.835294, 0.0196078, 0.647059, 1 )
-omni_range = 20.0
+omni_range = 10.0
 omni_attenuation = 7.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+autoplay = "flicker"
 anims/RESET = SubResource( 4 )
 anims/flicker = SubResource( 5 )
 

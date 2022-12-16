@@ -9,7 +9,6 @@
 [ext_resource path="res://scenes/effects/martini_audio.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/effects.gd" type="Script" id=8]
 
-
 [sub_resource type="ArrayMesh" id=4]
 resource_name = "Sketchfab_Scene_Object_0"
 surfaces/0 = {
@@ -54,7 +53,7 @@ points = PoolVector3Array( -7.14324e-07, 0.0262614, -0.123588, -0.0129903, 0.029
 mass = 1.0
 continuous_cd = true
 item_size = 0
-item_name = "Khyber Pass Martini"
+item_name = "Sawed-off Martini pistol"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1

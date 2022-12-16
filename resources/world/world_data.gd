@@ -15,12 +15,19 @@ const ROTATE_RIGHT = [
 	Direction.WEST,
 	Direction.NORTH,
 ]
+
+func direction_rotate_cw(dir : int) -> int:
+	return ROTATE_RIGHT[dir]
+
 const ROTATE_LEFT = [
 	Direction.WEST,
 	Direction.NORTH,
 	Direction.EAST,
 	Direction.SOUTH,
 ]
+
+func direction_rotate_ccw(dir : int) -> int:
+	return ROTATE_LEFT[dir]
 
 const INVERSE = [
 	Direction.SOUTH,
@@ -29,51 +36,96 @@ const INVERSE = [
 	Direction.EAST,
 ]
 
+func direction_inverse(dir : int) -> int:
+	return INVERSE[dir]
+
+# This could be make dynamic in the future, to allow algorithms to use
+# many different cell types with different properties
+enum CellType {
+	# Empty Cell, which means the cell itself is out of bounds
+	EMPTY,
+	
+	# The cell belongs to a room
+	ROOM,
+	
+	# The cell belongs to a corridor
+	CORRIDOR,
+	
+	# The cell belongs to a Hall, which is an area enclosed by a corridor
+	HALL
+	
+	# The cell has a door in some direction, meta data is an Array of Directions
+	# indicating the directions, from this cell, where one can find a door
+	DOOR,
+}
+
 enum EdgeType {
 	#Impassable wall
 	WALL,
+	
 	#Centralized door, width stored on meta dict
 	DOOR,
+	
 	#Door offset towards the negative coordinate direction
 	# (i.e, if the door is along the x axis, the opening is on the corner with lower x value)
 	# width stored on meta dict
 	HALFDOOR_N,
+	
 	#Door offset towards the positive coordinate direction
 	# width stored on meta dict
 	HALFDOOR_P,
+	
 	#No wall
 	EMPTY
 }
 
+# Physical parameters of the world
 const CELL_SIZE : float = 1.5
 const WALL_SIZE : float = 3.0
 const WALL_DISTANCE : float = 0.15
 
-var world_size_x : int = 16 setget set_world_size_x
-var world_size_z : int = 16 setget set_world_size_z
+# The size of the world, as a number of cells
+var world_size_x : int = 16
+var world_size_z : int = 16
 var cell_count : int = world_size_x*world_size_z
 
-func set_world_size_x(value : int):
-	world_size_x = value
-	update_cell_count()
+func resize(size_x : int, size_z : int):
+	world_size_x = size_x
+	world_size_z = size_z
+	clear()
 
-func set_world_size_z(value : int):
-	world_size_z = value
-	update_cell_count()
+func get_size_x() -> int:
+	return world_size_x
 
-func update_cell_count():
+func get_size_z() -> int:
+	return world_size_z
+
+# Clears all the data, resetting everything back to default values
+func clear():
 	cell_count = world_size_x*world_size_z
-	is_cell_free.resize(cell_count)
-	wall_type_x.resize(cell_count + world_size_z)
-	wall_type_z.resize(cell_count + world_size_x)
+	cell_type.resize(cell_count)
 	ground_tile_index.resize(cell_count)
-	wall_tile_index_xn.resize(cell_count)
-	wall_tile_index_xp.resize(cell_count)
-	wall_tile_index_zn.resize(cell_count)
-	wall_tile_index_zp.resize(cell_count)
-	pillar_tile_index.resize((world_size_x + 1)*(world_size_z + 1))
 	ceiling_tile_index.resize(cell_count)
-	pass
+	pillar_tile_index.resize(cell_count)
+	for i in cell_count:
+		cell_type[i] = CellType.EMPTY
+		ground_tile_index[i] = -1
+		ceiling_tile_index[i] = -1
+		pillar_tile_index[i] = -1
+	
+	wall_tile_index.resize(4*cell_count)
+	for i in wall_tile_index.size():
+		wall_tile_index[i] = -1
+	
+	wall_type.resize(2*cell_count + world_size_x + world_size_z)
+	for i in wall_type.size():
+		wall_type[i] = EdgeType.EMPTY
+	
+	cell_meta.clear()
+	rooms.clear()
+	wall_meta.clear()
+	doors.clear()
+	pillar_radius.clear()
 
 
 # Room definitions, store as a dictionary as follows:
@@ -87,7 +139,8 @@ func update_cell_count():
 # a single room as a poolvector2array of points in grid space
 var rooms : Dictionary
 
-#Stores wether a given cell is free (walkable) or not, using the following indexing method
+# Stores the type of a cell as a variant of the CellType enum, following the
+# indexing below
 # ┌───┬───┬───┬─►X
 # │ 0 │ 2 │ 4 │
 # ├───┼───┼───┤
@@ -96,45 +149,40 @@ var rooms : Dictionary
 # │
 # ▼
 # Z
+var cell_type : PoolByteArray
 
-var is_cell_free : PoolByteArray
+# Stores meta data for any cell if required by the cell's type, (for example, a
+# Cell of type door would store the direction the door points toward)
+# the key is the cell index, the value depends on the cell type
+var cell_meta : Dictionary = Dictionary()
 
-#Stores wall types for edges that are X aligned (face the Z axis) , as in the following diagram
+#Stores wall types for all edges, following the indexing below
 # ┌─0─┬─3─┬─6─┬─►X
-# │   │   │   │
+# 9   11  13  15
 # ├─1─┼─4─┼─7─┤
-# │   │   │   │
+# 10  12  14  16
 # ├─2─┴─5─┴─8─┘
 # │
 # ▼
 # Z
-var wall_type_z : PoolByteArray
+# All X aligned walls are stored in sequence, and then all of the Z aligned walls
+# are stores in sequence after that
+var wall_type : PoolByteArray
 # additional data for wall type, stored as { id: value}, where id is the wall id on the type array
-var wall_meta_z : Dictionary
+var wall_meta : Dictionary
 # Stores a reference to the in-world door object relative to each wall that contains a door
-var doors_z : Dictionary
+var doors : Dictionary
 
-#Stores wall types for edges that are Z aligned (face the X axis), as in the following diagram
-# ┌───┬───┬───┬─►X
-# 0   2   4   6
-# ├───┼───┼───┤
-# 1   3   5   7
+# Stores the pillar radius for each corner index, as shown
+# Note that there are no indexes corresponding to any positions on the
+# East-most and South-most sides of the dungeon. World gen algorithms should
+# not generating any non-empty cells at the border of the world, so that doesn't
+# cause any issues
+# 0───2───4───┬─►X
+# │   │   │   │
+# 1───3───5───┤
+# │   │   │   │
 # ├───┴───┴───┘
-# │
-# ▼
-# Z
-var wall_type_x : PoolByteArray
-# additional data for wall type, stored as { id: value}, where id is the wall id on the type array
-var wall_meta_x : Dictionary
-# Stores a reference to the in-world door object relative to each wall that contains a door
-var doors_x : Dictionary
-
-#Stores the pillar radius for each corner index, as shown
-# 0───3───6───9─►X
-# │   │   │   │
-# 1───4───7──10
-# │   │   │   │
-# 2───5───8──11
 # │
 # ▼
 # Z
@@ -143,173 +191,11 @@ var pillar_radius : Dictionary
 
 #Stores the tiles used for each cell
 var ground_tile_index : PoolIntArray
-var wall_tile_index_xp : PoolIntArray
-var wall_tile_index_xn : PoolIntArray
-var wall_tile_index_zp : PoolIntArray
-var wall_tile_index_zn : PoolIntArray
+# the 4 tile indexes for the 4 walls of each cell are stored in sequence, following
+# the Direction enum values, so, for example, the North wall of cell I is at (4*I + North)
+var wall_tile_index : PoolIntArray
 var pillar_tile_index : PoolIntArray
 var ceiling_tile_index : PoolIntArray
-
-func get_cell_index_from_position(pos : Vector3) -> int:
-	pos /= CELL_SIZE
-	return get_cell_index_from_int_position(pos.x, pos.z)
-
-func get_cell_index_from_int_position(x : int, z : int) -> int:
-	return x*world_size_z + z
-
-func get_pillar_index_from_int_position(x : int, z : int) -> int:
-	return x*(world_size_z + 1) + z
-
-func set_pillar(pillar_index : int, tile_index : int = -1, radius = null):
-	pillar_tile_index[pillar_index] = tile_index
-	if radius == null:
-		if pillar_radius.has(pillar_index):
-			pillar_radius.erase(pillar_index)
-	else:
-		pillar_radius[pillar_index] = radius
-
-func get_int_position_from_cell_index(cell_index : int) -> Array:
-	return [int(cell_index/world_size_z), cell_index%world_size_z]
-
-func get_cell_position(cell_index : int) -> Vector3:
-	return Vector3(int(cell_index/world_size_z), 0, cell_index%world_size_z)*CELL_SIZE
-
-#TODO
-func get_north_wall_index(cell_index : int) -> int:
-	return cell_index
-
-func get_south_wall_index(cell_index : int) -> int:
-	return cell_index + 1
-
-func get_west_wall_index(cell_index : int) -> int:
-	var cell_x = int(cell_index/world_size_z)
-	var cell_z = cell_index%world_size_z
-	return cell_x*(world_size_z) + cell_z
-
-func get_east_wall_index(cell_index : int) -> int:
-	var cell_x = int(cell_index/world_size_z) + 1
-	var cell_z = cell_index%world_size_z
-	return cell_x*(world_size_z) + cell_z
-
-func get_wall_type(cell_index : int, direction : int) -> int:
-	var idx = 0
-	match direction:
-		Direction.NORTH:
-			idx = get_north_wall_index(cell_index)
-		Direction.SOUTH:
-			idx = get_south_wall_index(cell_index)
-		Direction.EAST:
-			idx = get_east_wall_index(cell_index)
-		Direction.WEST:
-			idx = get_west_wall_index(cell_index)
-	if direction == Direction.NORTH or direction == Direction.SOUTH:
-		return wall_type_z[idx]
-	return wall_type_x[idx]
-
-func set_wall_type(cell_index : int, direction : int, value : int):
-	var idx = 0
-	match direction:
-		Direction.NORTH:
-			idx = get_north_wall_index(cell_index)
-		Direction.SOUTH:
-			idx = get_south_wall_index(cell_index)
-		Direction.EAST:
-			idx = get_east_wall_index(cell_index)
-		Direction.WEST:
-			idx = get_west_wall_index(cell_index)
-	if direction == Direction.NORTH or direction == Direction.SOUTH:
-		wall_type_z[idx] = value
-	else:
-		wall_type_x[idx] = value
-
-func get_wall_meta(cell_index : int, direction : int) -> int:
-	var idx = 0
-	match direction:
-		Direction.NORTH:
-			idx = get_north_wall_index(cell_index)
-		Direction.SOUTH:
-			idx = get_south_wall_index(cell_index)
-		Direction.EAST:
-			idx = get_east_wall_index(cell_index)
-		Direction.WEST:
-			idx = get_west_wall_index(cell_index)
-	var dict : Dictionary = wall_meta_x
-	if direction == Direction.NORTH or direction == Direction.SOUTH:
-		dict = wall_meta_z
-	return dict.get(idx)
-
-func set_wall_meta(cell_index : int, direction : int, value = null):
-	var idx = 0
-	match direction:
-		Direction.NORTH:
-			idx = get_north_wall_index(cell_index)
-		Direction.SOUTH:
-			idx = get_south_wall_index(cell_index)
-		Direction.EAST:
-			idx = get_east_wall_index(cell_index)
-		Direction.WEST:
-			idx = get_west_wall_index(cell_index)
-	var dict : Dictionary = wall_meta_x
-	if direction == Direction.NORTH or direction == Direction.SOUTH:
-		dict = wall_meta_z
-	if value == null:
-		if dict.has(idx):
-			(dict as Dictionary).erase(idx)
-	else:
-		dict[idx] = value
-
-func get_wall_tile_index(cell_index : int, direction : int) -> int:
-	match direction:
-		Direction.NORTH:
-			return wall_tile_index_zn[cell_index]
-		Direction.EAST:
-			return wall_tile_index_xp[cell_index]
-		Direction.SOUTH:
-			return wall_tile_index_zp[cell_index]
-		Direction.WEST:
-			return wall_tile_index_xn[cell_index]
-	return -1
-
-func set_wall_tile_index(cell_index : int, direction : int, value : int):
-	match direction:
-		Direction.NORTH:
-			wall_tile_index_zn[cell_index] = value
-		Direction.EAST:
-			wall_tile_index_xp[cell_index] = value
-		Direction.SOUTH:
-			wall_tile_index_zp[cell_index] = value
-		Direction.WEST:
-			wall_tile_index_xn[cell_index] = value
-
-func set_wall(cell_index : int, direction : int, wall_type : int = EdgeType.EMPTY, tile_index : int = -1, meta_value = null):
-	set_wall_type(cell_index, direction, wall_type)
-	set_wall_meta(cell_index, direction, meta_value)
-	set_wall_tile_index(cell_index, direction, tile_index)
-	pass
-
-func get_north_cell(cell_index : int) -> int:
-	return cell_index - 1
-
-func get_south_cell(cell_index : int) -> int:
-	return cell_index + 1
-
-func get_west_cell(cell_index : int) -> int:
-	return cell_index - world_size_z
-
-func get_east_cell(cell_index : int) -> int:
-	return cell_index + world_size_z
-
-func get_neighbour_cell(cell_index : int, direction : int) -> int:
-	match direction:
-		Direction.NORTH:
-			return get_north_cell(cell_index)
-		Direction.SOUTH:
-			return get_south_cell(cell_index)
-		Direction.EAST:
-			return get_east_cell(cell_index)
-		Direction.WEST:
-			return get_west_cell(cell_index)
-	return cell_index
 
 func _get_property_list() -> Array:
 	return [
@@ -324,48 +210,40 @@ func _get_property_list() -> Array:
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
+			"name" : "cell_count",
+			"type" : TYPE_INT,
+			"usage" : PROPERTY_USAGE_STORAGE
+		},
+		{
 			"name" : "rooms",
 			"type" : TYPE_DICTIONARY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
-			"name" : "is_cell_free",
-			"type" : TYPE_RAW_ARRAY,
-			"usage" : PROPERTY_USAGE_STORAGE
-		},
-
-		{
-			"name" : "wall_type_x",
+			"name" : "cell_type",
 			"type" : TYPE_RAW_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
-			"name" : "wall_meta_x",
+			"name" : "cell_meta",
 			"type" : TYPE_DICTIONARY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
-			"name" : "doors_x",
-			"type" : TYPE_DICTIONARY,
-			"usage" : PROPERTY_USAGE_STORAGE
-		},
-
-		{
-			"name" : "wall_type_z",
+			"name" : "wall_type",
 			"type" : TYPE_RAW_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
-			"name" : "wall_meta_z",
+			"name" : "wall_meta",
 			"type" : TYPE_DICTIONARY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
-			"name" : "doors_z",
+			"name" : "doors",
 			"type" : TYPE_DICTIONARY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
-
 		{
 			"name" : "pillar_radius",
 			"type" : TYPE_DICTIONARY,
@@ -378,22 +256,7 @@ func _get_property_list() -> Array:
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
-			"name" : "wall_tile_index_xp",
-			"type" : TYPE_INT_ARRAY,
-			"usage" : PROPERTY_USAGE_STORAGE
-		},
-		{
-			"name" : "wall_tile_index_xn",
-			"type" : TYPE_INT_ARRAY,
-			"usage" : PROPERTY_USAGE_STORAGE
-		},
-		{
-			"name" : "wall_tile_index_zp",
-			"type" : TYPE_INT_ARRAY,
-			"usage" : PROPERTY_USAGE_STORAGE
-		},
-		{
-			"name" : "wall_tile_index_zn",
+			"name" : "wall_tile_index",
 			"type" : TYPE_INT_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
@@ -408,3 +271,163 @@ func _get_property_list() -> Array:
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 	]
+
+
+
+func get_cell_index_from_local_position(pos : Vector3) -> int:
+	pos /= CELL_SIZE
+	return get_cell_index_from_int_position(pos.x, pos.z)
+
+func get_cell_index_from_int_position(x : int, z : int) -> int:
+	if x < 0 or x >= world_size_x or z < 0 or z > world_size_z:
+		printerr("Position (", x, ", ", z, ") Is out of bounds")
+		return -1
+	return x*world_size_z + z
+
+func set_pillar(cell_index : int, tile_index : int = -1, radius : float = -1.0):
+	set_pillar_tile_index(cell_index, tile_index)
+	set_pillar_radius(cell_index, radius)
+
+func set_pillar_tile_index(cell_index : int, tile_index : int = -1):
+	pillar_tile_index[cell_index] = tile_index
+
+func get_pillar_tile_index(cell_index : int) -> int:
+	return pillar_tile_index[cell_index]
+
+func set_pillar_radius(cell_index : int, radius : float = -1.0):
+	if radius <= 0.0:
+		pillar_radius.erase(cell_index)
+	else:
+		pillar_radius[cell_index] = radius
+
+func get_pillar_radius(cell_index : int) -> float:
+	return pillar_radius.get(cell_index, -1.0)
+
+func set_ground_tile_index(cell_index : int, tile_index : int = -1):
+	ground_tile_index[cell_index] = tile_index
+
+func get_ground_tile_index(cell_index : int) -> int:
+	return ground_tile_index[cell_index]
+
+func set_ceiling_tile_index(cell_index : int, tile_index : int = -1):
+	ceiling_tile_index[cell_index] = tile_index
+
+func get_ceiling_tile_index(cell_index : int) -> int:
+	return ceiling_tile_index[cell_index]
+
+func get_int_position_from_cell_index(cell_index : int) -> Array:
+	return [int(cell_index/world_size_z), cell_index%world_size_z]
+
+func get_local_cell_position(cell_index : int) -> Vector3:
+	return Vector3(int(cell_index/world_size_z), 0, cell_index%world_size_z)*CELL_SIZE
+
+func get_cell_type(cell_index : int) -> int:
+	return cell_type[cell_index] if cell_index >= 0 else -1
+
+func set_cell_type(cell_index : int, value : int):
+	if cell_index >= 0:
+		cell_type[cell_index] = value
+
+func get_cell_meta(cell_index : int):
+	return cell_meta.get(cell_index)
+
+func set_cell_meta(cell_index : int, value = null):
+	if cell_index >= 0:
+		if value == null:
+			cell_meta.erase(cell_index)
+		else:
+			cell_meta[cell_index] = value
+
+func _get_north_wall_index(cell_index : int) -> int:
+	return cell_index + int(cell_index/world_size_z)
+
+func _get_south_wall_index(cell_index : int) -> int:
+	return _get_north_wall_index(cell_index) + 1
+
+func _get_west_wall_index(cell_index : int) -> int:
+	return cell_index + cell_count + world_size_x
+
+func _get_east_wall_index(cell_index : int) -> int:
+	return _get_west_wall_index(cell_index) + world_size_z
+
+func _get_wall_index(cell_index : int, direction : int) -> int:
+	if cell_index < 0:
+		return -1
+	match direction:
+		Direction.NORTH:
+			return _get_north_wall_index(cell_index)
+		Direction.SOUTH:
+			return _get_south_wall_index(cell_index)
+		Direction.EAST:
+			return _get_east_wall_index(cell_index)
+		Direction.WEST:
+			return _get_west_wall_index(cell_index)
+	return -1
+
+func get_wall_type(cell_index : int, direction : int) -> int:
+	var idx = _get_wall_index(cell_index, direction)
+	return wall_type[idx] if idx >= 0 else -1
+
+func set_wall_type(cell_index : int, direction : int, value : int):
+	var idx = _get_wall_index(cell_index, direction)
+	if idx >= 0:
+		wall_type[idx] = value
+
+func get_wall_meta(cell_index : int, direction : int):
+	var idx = _get_wall_index(cell_index, direction)
+	return wall_meta.get(idx)
+
+func set_wall_meta(cell_index : int, direction : int, value = null):
+	var idx = _get_wall_index(cell_index, direction)
+	if idx >= 0:
+		if value == null:
+			wall_meta.erase(idx)
+		else:
+			wall_meta[idx] = value
+
+func get_wall_tile_index(cell_index : int, direction : int) -> int:
+	return wall_tile_index[4*cell_index + direction]
+
+func set_wall_tile_index(cell_index : int, direction : int, value : int):
+	wall_tile_index[4*cell_index + direction] = value
+
+
+func set_wall(cell_index : int, direction : int, wall_type : int = EdgeType.EMPTY, tile_index : int = -1, meta_value = null):
+	set_wall_type(cell_index, direction, wall_type)
+	set_wall_meta(cell_index, direction, meta_value)
+	set_wall_tile_index(cell_index, direction, tile_index)
+	pass
+
+func _get_north_cell(cell_index : int) -> int:
+	if cell_index%world_size_z != 0:
+		return cell_index - 1
+	return -1
+		
+func _get_south_cell(cell_index : int) -> int:
+	if cell_index%world_size_z != world_size_z - 1:
+		return cell_index + 1
+	return -1
+
+func _get_west_cell(cell_index : int) -> int:
+	if cell_index > world_size_z:
+		return cell_index - world_size_z
+	return -1
+
+func _get_east_cell(cell_index : int) -> int:
+	if cell_index < cell_count - world_size_z:
+		return cell_index + world_size_z
+	return -1
+
+func get_neighbour_cell(cell_index : int, direction : int) -> int:
+	if cell_index < 0:
+		return -1
+	match direction:
+		Direction.NORTH:
+			return _get_north_cell(cell_index)
+		Direction.SOUTH:
+			return _get_south_cell(cell_index)
+		Direction.EAST:
+			return _get_east_cell(cell_index)
+		Direction.WEST:
+			return _get_west_cell(cell_index)
+	return -1

@@ -188,7 +188,7 @@ omni_range = 10.0
 omni_attenuation = 7.0
 
 [node name="FlashTimer" type="Timer" parent="Flash"]
-wait_time = 0.1
+wait_time = 0.05
 one_shot = true
 
 [node name="Effect" type="Spatial" parent="."]
@@ -198,5 +198,6 @@ sound_effect = ExtResource( 7 )
 [node name="SoundOrigin" type="Position3D" parent="Effect"]
 
 [connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]
+[connection signal="timeout" from="Flash/FlashTimer" to="." method="_on_FlashTimer_timeout"]
 
 [editable path="Explosion"]

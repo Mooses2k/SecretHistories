@@ -26,7 +26,7 @@ func initialize_hotbar():
 		var slot = $VBoxContainer.get_child(i)
 		slot.set_name(item_name)
 		slot.set_stack_size(str(item_amount))
-		if i != inventory.current_primary_slot or i != inventory.current_secondary_slot:
+		if i != inventory.current_mainhand_slot or i != inventory.current_offhand_slot:
 			slot.modulate.a = 0.6
 		else:
 			slot.modulate.a = 1

@@ -1,10 +1,13 @@
 class_name BT_ControlFlow
 extends BT_Node
 
+
 var child_nodes_bt = Array()
+
 
 func _ready():
 	_get_children_nodes()
+
 
 func _get_children_nodes():
 	child_nodes_bt.clear()

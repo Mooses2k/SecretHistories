@@ -1,8 +1,9 @@
 class_name BT_Gun_Equipped
 extends BT_Node
 
+
 func tick(state : CharacterState) -> int:
-	var equipment = state.character.inventory.current_equipment as GunItem
+	var equipment = state.character.inventory.current_mainhand_equipment as GunItem
 	if equipment:
 		return Status.SUCCESS
 	return Status.FAILURE

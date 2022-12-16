@@ -8,9 +8,6 @@ script = ExtResource( 1 )
 [node name="ground" type="GridMap" parent="."]
 cell_size = Vector3( 1.5, 3, 1.5 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }
@@ -18,9 +15,6 @@ __meta__ = {
 [node name="wall_xp" type="GridMap" parent="."]
 cell_size = Vector3( 1.5, 3, 1.5 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }
@@ -28,9 +22,6 @@ __meta__ = {
 [node name="wall_xn" type="GridMap" parent="."]
 cell_size = Vector3( 1.5, 3, 1.5 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }
@@ -38,9 +29,6 @@ __meta__ = {
 [node name="wall_zp" type="GridMap" parent="."]
 cell_size = Vector3( 1.5, 3, 1.5 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }
@@ -48,9 +36,6 @@ __meta__ = {
 [node name="wall_zn" type="GridMap" parent="."]
 cell_size = Vector3( 1.5, 3, 1.5 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }
@@ -58,9 +43,6 @@ __meta__ = {
 [node name="pillar" type="GridMap" parent="."]
 cell_size = Vector3( 1.5, 3, 1.5 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }
@@ -68,9 +50,6 @@ __meta__ = {
 [node name="ceiling" type="GridMap" parent="."]
 cell_size = Vector3( 1.5, 3, 1.5 )
 cell_center_y = false
-data = {
-"cells": PoolIntArray(  )
-}
 __meta__ = {
 "_editor_clip_": 0
 }

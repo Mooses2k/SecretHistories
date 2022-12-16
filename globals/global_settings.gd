@@ -1,10 +1,12 @@
 extends Node
 
+
 enum FullscreenMode {
 	FULLSCREEN = 0,
 	BORDERLESS_WINDOWED = 1,
 	WINDOWED = 2
 }
+
 var fullscreen_mode : int setget set_fullscreen_mode
 
 var vsync : bool
@@ -34,6 +36,7 @@ func _ready():
 #	get_child(0).visible = false
 #	pause_mode = Node.PAUSE_MODE_PROCESS
 
+
 func gen_dict_from_input_map() -> Dictionary:
 	var actions = InputMap.get_actions()
 	var result = Dictionary()
@@ -45,6 +48,7 @@ func gen_dict_from_input_map() -> Dictionary:
 			for event in InputMap.get_action_list(action):
 				result[action].push_back(event2str(event))
 	return result
+
 
 #func _process(delta):
 #	if(Input.is_action_just_pressed("ui_cancel")):
@@ -105,7 +109,6 @@ func setup_keys(key_dict : Dictionary):
 			InputMap.action_add_event(action, event)
 
 
-
 enum EventType {
 	KEY,
 	KEY_PHYSICAL,
@@ -130,6 +133,7 @@ func event2str(event : InputEvent) -> String:
 		print(var2str(event))
 	return "?"
 
+
 func str2event(string : String) -> InputEvent:
 	string = string.strip_edges()
 	for ev_type in event_prefixes.size():
@@ -148,6 +152,7 @@ func str2event(string : String) -> InputEvent:
 					event.physical_scancode = scancode
 					return event
 	return null
+
 
 func save_keys():
 	var key_dict = gen_dict_from_input_map()

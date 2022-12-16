@@ -1,0 +1,11 @@
+Model Information:
+* title:	Khyber Pass Martini Pistol
+* source:	https://sketchfab.com/3d-models/khyber-pass-martini-pistol-ab82a35af1e9440fac248b7de9880e81
+* author:	Kendarr (https://sketchfab.com/victor443)
+
+Model License:
+* license type:	CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)
+* requirements:	Author must be credited. Modified versions must have the same license. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Khyber Pass Martini Pistol" (https://sketchfab.com/3d-models/khyber-pass-martini-pistol-ab82a35af1e9440fac248b7de9880e81) by Kendarr (https://sketchfab.com/victor443) licensed under CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)

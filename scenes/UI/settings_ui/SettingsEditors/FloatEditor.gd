@@ -20,9 +20,9 @@ func _on_value_edited():
 
 #Override this function
 func _on_setting_attached():
-	$"%Value".min_value = settings.get_float_setting_min_value(_setting_name)
-	$"%Value".max_value = settings.get_float_setting_max_value(_setting_name)
-	$"%Value".step = settings.get_float_setting_step(_setting_name)
+	$"%Value".min_value = settings.get_setting_min_value(_setting_name)
+	$"%Value".max_value = settings.get_setting_max_value(_setting_name)
+	$"%Value".step = settings.get_setting_step(_setting_name)
 #	$"%Value".connect("value_changed", self, "on_value_edited")
 	$"%Name".text = _setting_name
 	$"%Display".text = str(get_value())

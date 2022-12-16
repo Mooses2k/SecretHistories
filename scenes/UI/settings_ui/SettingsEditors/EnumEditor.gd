@@ -21,7 +21,7 @@ func _on_value_edited():
 func _on_setting_attached():
 #	$"%Value".connect("value_changed", self, "on_value_edited")
 	$"%Name".text = _setting_name
-	var options = settings.get_enum_setting_values(_setting_name)
+	var options = settings.get_setting_variants(_setting_name)
 	for i in options.size():
 		$"%Value".add_item(options[i], i)
 	pass

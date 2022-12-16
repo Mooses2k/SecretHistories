@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/483605__raclure__mechanical-key.ogg-f6b822e2b567a65b689c22464fd17446.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/locks/483605__raclure__mechanical-key.ogg"
+dest_files=[ "res://.import/483605__raclure__mechanical-key.ogg-f6b822e2b567a65b689c22464fd17446.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

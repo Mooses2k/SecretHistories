@@ -1,6 +1,7 @@
 class_name PlayerSensor
 extends Spatial
 
+
 func is_player_detected() -> bool:
 	return false
 

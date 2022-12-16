@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+
 export var default_group_name = "Settings"
 
 const GroupScene = preload("SettingsGroup.tscn")
@@ -9,19 +10,23 @@ const SettingEditor = preload("SettingsEditors/SettingEditor.gd")
 const SettingsEditors = {
 	SettingsClass.SettingType.BOOL : preload("SettingsEditors/BoolEditor.tscn"),
 	SettingsClass.SettingType.FLOAT : preload("SettingsEditors/FloatEditor.tscn"),
-	SettingsClass.SettingType.ENUM : preload("SettingsEditors/EnumEditor.tscn")
+	SettingsClass.SettingType.ENUM : preload("SettingsEditors/EnumEditor.tscn"),
+	SettingsClass.SettingType.INT : preload("SettingsEditors/IntEditor.tscn")
 }
 
 var group_nodes : Dictionary = Dictionary()
 var settings : SettingsClass
 
+
 func _ready():
 	pass # Replace with function body.
+
 
 func attach_settings(s : SettingsClass):
 	clear_ui()
 	settings = s
 	generate_ui()
+
 
 func clear_ui():
 	for k in group_nodes.keys():
@@ -29,11 +34,13 @@ func clear_ui():
 	group_nodes.clear()
 	pass
 
+
 func generate_ui():
 	for _s in settings.get_settings_list():
 		var setting_name = _s as String
 		add_setting(setting_name)
 	pass
+
 
 func add_setting(setting_name : String):
 	var group_name = settings.get_setting_group(setting_name)
@@ -46,6 +53,7 @@ func add_setting(setting_name : String):
 	settings_group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
 
+
 func add_group(group_name : String) -> bool:
 	if group_nodes.has(group_name):
 		return false
@@ -55,9 +63,11 @@ func add_group(group_name : String) -> bool:
 	new_group.group_name = group_name
 	return true
 
+
 func has_group(group_name : String) -> bool:
 	return group_nodes.has(group_name)
 	pass
+
 
 func get_group_node(group_name : String) -> GroupClass:
 	return group_nodes.get(group_name)

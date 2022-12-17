@@ -10,15 +10,23 @@ _setting_type = 4
 
 [node name="Name" type="Label" parent="."]
 unique_name_in_owner = true
-margin_top = 533.0
-margin_right = 1842.0
-margin_bottom = 547.0
+margin_top = 293.0
+margin_right = 859.0
+margin_bottom = 307.0
 size_flags_horizontal = 3
 
 [node name="Value" type="SpinBox" parent="."]
 unique_name_in_owner = true
-margin_left = 1846.0
-margin_right = 1920.0
-margin_bottom = 1080.0
+margin_left = 863.0
+margin_right = 937.0
+margin_bottom = 600.0
+
+[node name="RandomizeButton" type="Button" parent="."]
+unique_name_in_owner = true
+margin_left = 941.0
+margin_right = 1024.0
+margin_bottom = 600.0
+text = "Randomize"
 
 [connection signal="value_changed" from="Value" to="." method="_on_Value_value_changed"]
+[connection signal="pressed" from="RandomizeButton" to="." method="_on_RandomizeButton_pressed"]

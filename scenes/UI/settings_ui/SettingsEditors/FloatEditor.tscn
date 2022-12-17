@@ -9,25 +9,25 @@ script = ExtResource( 1 )
 _setting_type = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 1920.0
+margin_right = 1024.0
 margin_bottom = 14.0
 
 [node name="Name" type="Label" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 1916.0
+margin_right = 1020.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 
 [node name="Display" type="Label" parent="HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 1920.0
-margin_right = 1920.0
+margin_left = 1024.0
+margin_right = 1024.0
 margin_bottom = 14.0
 
 [node name="Value" type="HSlider" parent="."]
 unique_name_in_owner = true
 margin_top = 18.0
-margin_right = 1920.0
+margin_right = 1024.0
 margin_bottom = 34.0
 
 [connection signal="value_changed" from="Value" to="." method="_on_Value_value_changed"]

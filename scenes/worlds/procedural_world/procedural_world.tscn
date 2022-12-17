@@ -14,7 +14,6 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=20]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=21]
 
-
 [sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
 vertex_color_use_as_albedo = true

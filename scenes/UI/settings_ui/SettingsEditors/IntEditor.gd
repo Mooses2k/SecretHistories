@@ -24,9 +24,15 @@ func _on_setting_attached():
 	$"%Value".step = settings.get_setting_step(_setting_name)
 #	$"%Value".connect("value_changed", self, "on_value_edited")
 	$"%Name".text = _setting_name
+	$"%RandomizeButton".visible = settings.has_setting_meta(_setting_name, settings._CAN_RANDOMIZE_FLAG)
 	pass
 
 
 func _on_Value_value_changed(value):
 	on_value_edited()
-	pass # Replace with function body.
+
+
+func _on_RandomizeButton_pressed() -> void:
+	var random_value = wrapi(randi()*$"%Value".step + $"%Value".min_value, $"%Value".min_value, $"%Value".max_value + 1)
+	settings.set_setting(_setting_name, random_value)
+

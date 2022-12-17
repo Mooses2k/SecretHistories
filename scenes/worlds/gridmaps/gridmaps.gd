@@ -1,5 +1,6 @@
 extends Spatial
 
+
 export var mesh_library : MeshLibrary
 
 var data : WorldData
@@ -13,6 +14,7 @@ onready var gridmaps = {
 	"pillar" : $pillar,
 	"ceiling" : $ceiling,
 }
+
 
 func update_gridmaps():
 	for slot in gridmaps.keys():
@@ -39,4 +41,3 @@ func update_gridmaps():
 		(gridmaps.wall_zp as GridMap).set_cell_item(coords[0], 0, coords[1], data.get_wall_tile_index(i, data.Direction.SOUTH), zp)
 		(gridmaps.ceiling as GridMap).set_cell_item(coords[0], 0, coords[1], data.get_ceiling_tile_index(i))
 		(gridmaps.pillar as GridMap).set_cell_item(coords[0], 0, coords[1], data.get_pillar_tile_index(i))
-	pass

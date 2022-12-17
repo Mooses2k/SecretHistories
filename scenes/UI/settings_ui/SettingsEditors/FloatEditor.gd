@@ -1,14 +1,17 @@
 extends "SettingEditor.gd"
 
+
 #Override this function
 func _get_value():
 	return $"%Value".value
 	pass
 
+
 #Override this function
 func _set_value(value):
 	$"%Value".value = value
 	pass
+
 
 #Override this function
 func _on_value_edited():
@@ -17,6 +20,7 @@ func _on_value_edited():
 	if new_value != settings.get_setting(_setting_name):
 		settings.set_setting(_setting_name, new_value)
 	pass
+
 
 #Override this function
 func _on_setting_attached():

@@ -197,6 +197,7 @@ var wall_tile_index : PoolIntArray
 var pillar_tile_index : PoolIntArray
 var ceiling_tile_index : PoolIntArray
 
+
 func _get_property_list() -> Array:
 	return [
 		{
@@ -278,21 +279,26 @@ func get_cell_index_from_local_position(pos : Vector3) -> int:
 	pos /= CELL_SIZE
 	return get_cell_index_from_int_position(pos.x, pos.z)
 
+
 func get_cell_index_from_int_position(x : int, z : int) -> int:
 	if x < 0 or x >= world_size_x or z < 0 or z > world_size_z:
 		printerr("Position (", x, ", ", z, ") Is out of bounds")
 		return -1
 	return x*world_size_z + z
 
+
 func set_pillar(cell_index : int, tile_index : int = -1, radius : float = -1.0):
 	set_pillar_tile_index(cell_index, tile_index)
 	set_pillar_radius(cell_index, radius)
 
+
 func set_pillar_tile_index(cell_index : int, tile_index : int = -1):
 	pillar_tile_index[cell_index] = tile_index
 
+
 func get_pillar_tile_index(cell_index : int) -> int:
 	return pillar_tile_index[cell_index]
+
 
 func set_pillar_radius(cell_index : int, radius : float = -1.0):
 	if radius <= 0.0:
@@ -300,36 +306,47 @@ func set_pillar_radius(cell_index : int, radius : float = -1.0):
 	else:
 		pillar_radius[cell_index] = radius
 
+
 func get_pillar_radius(cell_index : int) -> float:
 	return pillar_radius.get(cell_index, -1.0)
+
 
 func set_ground_tile_index(cell_index : int, tile_index : int = -1):
 	ground_tile_index[cell_index] = tile_index
 
+
 func get_ground_tile_index(cell_index : int) -> int:
 	return ground_tile_index[cell_index]
+
 
 func set_ceiling_tile_index(cell_index : int, tile_index : int = -1):
 	ceiling_tile_index[cell_index] = tile_index
 
+
 func get_ceiling_tile_index(cell_index : int) -> int:
 	return ceiling_tile_index[cell_index]
+
 
 func get_int_position_from_cell_index(cell_index : int) -> Array:
 	return [int(cell_index/world_size_z), cell_index%world_size_z]
 
+
 func get_local_cell_position(cell_index : int) -> Vector3:
 	return Vector3(int(cell_index/world_size_z), 0, cell_index%world_size_z)*CELL_SIZE
 
+
 func get_cell_type(cell_index : int) -> int:
 	return cell_type[cell_index] if cell_index >= 0 else -1
+
 
 func set_cell_type(cell_index : int, value : int):
 	if cell_index >= 0:
 		cell_type[cell_index] = value
 
+
 func get_cell_meta(cell_index : int):
 	return cell_meta.get(cell_index)
+
 
 func set_cell_meta(cell_index : int, value = null):
 	if cell_index >= 0:
@@ -338,17 +355,22 @@ func set_cell_meta(cell_index : int, value = null):
 		else:
 			cell_meta[cell_index] = value
 
+
 func _get_north_wall_index(cell_index : int) -> int:
 	return cell_index + int(cell_index/world_size_z)
+
 
 func _get_south_wall_index(cell_index : int) -> int:
 	return _get_north_wall_index(cell_index) + 1
 
+
 func _get_west_wall_index(cell_index : int) -> int:
 	return cell_index + cell_count + world_size_x
 
+
 func _get_east_wall_index(cell_index : int) -> int:
 	return _get_west_wall_index(cell_index) + world_size_z
+
 
 func _get_wall_index(cell_index : int, direction : int) -> int:
 	if cell_index < 0:
@@ -364,18 +386,22 @@ func _get_wall_index(cell_index : int, direction : int) -> int:
 			return _get_west_wall_index(cell_index)
 	return -1
 
+
 func get_wall_type(cell_index : int, direction : int) -> int:
 	var idx = _get_wall_index(cell_index, direction)
 	return wall_type[idx] if idx >= 0 else -1
+
 
 func set_wall_type(cell_index : int, direction : int, value : int):
 	var idx = _get_wall_index(cell_index, direction)
 	if idx >= 0:
 		wall_type[idx] = value
 
+
 func get_wall_meta(cell_index : int, direction : int):
 	var idx = _get_wall_index(cell_index, direction)
 	return wall_meta.get(idx)
+
 
 func set_wall_meta(cell_index : int, direction : int, value = null):
 	var idx = _get_wall_index(cell_index, direction)
@@ -385,8 +411,10 @@ func set_wall_meta(cell_index : int, direction : int, value = null):
 		else:
 			wall_meta[idx] = value
 
+
 func get_wall_tile_index(cell_index : int, direction : int) -> int:
 	return wall_tile_index[4*cell_index + direction]
+
 
 func set_wall_tile_index(cell_index : int, direction : int, value : int):
 	wall_tile_index[4*cell_index + direction] = value
@@ -396,27 +424,31 @@ func set_wall(cell_index : int, direction : int, wall_type : int = EdgeType.EMPT
 	set_wall_type(cell_index, direction, wall_type)
 	set_wall_meta(cell_index, direction, meta_value)
 	set_wall_tile_index(cell_index, direction, tile_index)
-	pass
+
 
 func _get_north_cell(cell_index : int) -> int:
 	if cell_index%world_size_z != 0:
 		return cell_index - 1
 	return -1
-		
+
+
 func _get_south_cell(cell_index : int) -> int:
 	if cell_index%world_size_z != world_size_z - 1:
 		return cell_index + 1
 	return -1
+
 
 func _get_west_cell(cell_index : int) -> int:
 	if cell_index > world_size_z:
 		return cell_index - world_size_z
 	return -1
 
+
 func _get_east_cell(cell_index : int) -> int:
 	if cell_index < cell_count - world_size_z:
 		return cell_index + world_size_z
 	return -1
+
 
 func get_neighbour_cell(cell_index : int, direction : int) -> int:
 	if cell_index < 0:

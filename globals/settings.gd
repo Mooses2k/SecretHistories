@@ -23,6 +23,9 @@ const _FIELD_STEP = "step"
 #enum only fields
 const _FIELD_VARIANTS = "variants"
 
+#UI specifiers
+const _CAN_RANDOMIZE_FLAG = "can_randomize"
+
 enum SettingType {
 	NIL,
 	FLOAT,
@@ -92,6 +95,21 @@ func set_setting(setting_name : String, value) -> bool:
 			else:
 				return false
 	return true
+
+func get_setting_meta(setting_name : String, meta_name : String):
+	var setting_data = _settings.get(setting_name)
+	return setting_data.get(meta_name) if setting_data else null
+
+func set_setting_meta(setting_name : String, meta_name : String, meta_value):
+	var setting_data = _settings.get(setting_name)
+	if not setting_data:
+		return
+	setting_data[meta_name] = meta_value
+	emit_signal("setting_meta_changed", setting_name)
+
+func has_setting_meta(setting_name : String, meta_name : String) -> bool:
+	var setting_data = _settings.get(setting_name)
+	return setting_data.has(meta_name) if setting_data else false
 
 # Gets the type of a setting, as a variant of the `SettingType` enum
 func get_setting_type(setting_name : String) -> int:

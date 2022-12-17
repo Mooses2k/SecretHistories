@@ -34,8 +34,8 @@ func _use_primary():
 
 
 func _on_Countdown_timeout():
-	flash.visible = true
 	flash.get_node("FlashTimer").start()
+	flash.visible = true
 	$Effect.handle_sound()
 	$Explosion.emitting = true
 	$Shrapnel.emitting = true

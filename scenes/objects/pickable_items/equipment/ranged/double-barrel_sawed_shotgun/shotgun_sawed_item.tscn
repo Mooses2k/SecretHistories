@@ -8,7 +8,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/gun_item.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/smoke.tscn" type="PackedScene" id=8]
 
-
 [sub_resource type="GDScript" id=9]
 script/source = "extends GunItem
 "
@@ -62,6 +61,7 @@ reload_time = 2.0
 damage_offset = -3
 dispersion_offset_degrees = 5
 cooldown = 0.1
+melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 

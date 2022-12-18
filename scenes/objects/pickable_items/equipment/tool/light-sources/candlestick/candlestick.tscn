@@ -216,7 +216,6 @@ script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle1/FireOrigin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-visible = false
 cast_shadow = 0
 mesh = SubResource( 45 )
 skeleton = NodePath("../../..")
@@ -225,7 +224,6 @@ script = ExtResource( 6 )
 
 [node name="Light" type="OmniLight" parent="Candle1/FireOrigin/Fire"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
-visible = false
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.2
 shadow_enabled = true

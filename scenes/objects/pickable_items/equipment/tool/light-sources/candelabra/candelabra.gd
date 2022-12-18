@@ -52,14 +52,19 @@ func _use_primary():
 			$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
 		firelight.visible = not firelight.visible
 #		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
+		$Candle1/MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled 
+		$Candle2/MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled 
+		$Candle3/MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled 
 	else:
 		$AnimationPlayer.stop()
 		$Candle1/FireOrigin/Fire.visible = false
-#		$Candle1/MeshInstance.emission_enabled = false
+		$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
 		if $Candle2 != null:
 			$Candle2/FireOrigin/Fire.visible = false
+			$Candle2/MeshInstance.get_surface_material(0).emission_enabled = false
 		if $Candle3 != null:
 			$Candle3/FireOrigin/Fire.visible = false
+			$Candle3/MeshInstance.get_surface_material(0).emission_enabled = false
 		firelight.visible = false
 #		$MeshInstance.cast_shadow = true
 
@@ -67,10 +72,13 @@ func _use_primary():
 func _on_Durability_timeout():
 	$AnimationPlayer.stop()
 	$Candle1/FireOrigin/Fire.visible = false
+	$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
 #	$Candle1/MeshInstance.emission_enabled = false
 	if $Candle2 != null:
 		$Candle2/FireOrigin/Fire.visible = false
+		$Candle2/MeshInstance.get_surface_material(0).emission_enabled = false
 	if $Candle3 != null:
 		$Candle3/FireOrigin/Fire.visible = false
+		$Candle3/MeshInstance.get_surface_material(0).emission_enabled = false
 	firelight.visible = false
 #	$MeshInstance.cast_shadow = true

@@ -7,8 +7,13 @@ var is_lit = true
 onready var firelight = $FireOrigin/Fire/Light
 onready var durable_timer = $Durability
 
+var material
+var newMat
 
 func _ready():
+	material = $MeshInstance.get_surface_material(0)
+	newMat = material.duplicate()
+	$MeshInstance.set_surface_material(0,newMat)
 	durable_timer.start()
 
 
@@ -23,6 +28,7 @@ func _process(delta):
 			firelight.visible = not firelight.visible
 			$AnimationPlayer.play("flicker")
 			$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
+			$MeshInstance.get_surface_material(0).emission_enabled = not  $MeshInstance.get_surface_material(0).emission_enabled
 #			$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 			is_lit = true
 	else:
@@ -34,14 +40,18 @@ func _use_primary():
 		$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
 		firelight.visible = not firelight.visible
 #		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
+		$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled 
 	else:
 		$AnimationPlayer.stop()
+		$MeshInstance.get_surface_material(0).emission_enabled = true
 		$FireOrigin/Fire.emitting = false
 		firelight.visible = false
-#		$MeshInstance.cast_shadow = true
+		$MeshInstance.cast_shadow = true
+		
 
 func _on_Durability_timeout():
 	$FireOrigin/Fire.emitting = false
 	firelight.visible = false
 	$AnimationPlayer.stop()
+	$MeshInstance.get_surface_material(0).emission_enabled = true
 #	$MeshInstance.cast_shadow = true

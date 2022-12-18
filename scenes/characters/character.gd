@@ -27,7 +27,6 @@ var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
 
-
 enum ItemSelection {
 	ITEM_MAINHAND,
 	ITEM_OFFHAND,
@@ -159,6 +158,7 @@ var do_crouch : bool = false
 func slow_down(state : PhysicsDirectBodyState):
 	state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), move_speed)
 
+
 func damage(value : float, type : int, on_hitbox : Hitbox):
 	#queue_free()
 	if self._alive:
@@ -172,12 +172,6 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			if self.name != "Player":
 				collision_shape.disabled = true
 				skeleton.physical_bones_start_simulation()
-
-
-# for testing
-func _input(event):
-	if event is InputEvent and event.is_action_pressed("kick"):
-		self.emit_signal("character_died")
 
 
 func _ready():

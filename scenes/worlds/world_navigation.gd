@@ -24,8 +24,10 @@ var point_viewer = MultiMeshInstance.new()
 #	for idx in doors_z.keys():
 #		navmesh_set_transform(doors_z[idx], xform)
 
+
 func set_door_navmesh_enabled(cell_index : int, direction : int, value : bool):
 	pass
+
 
 func is_door_navmesh_enabled(cell_index : int, direction : int) -> bool:
 	var navmesh = doors.get(data._get_wall_index(cell_index, direction)) as NavigationMeshInstance
@@ -33,8 +35,10 @@ func is_door_navmesh_enabled(cell_index : int, direction : int) -> bool:
 		return (navmesh as NavigationMeshInstance).enabled
 	return false
 
+
 func get_door_navmesh_instance(cell_index : int, direction : int) -> NavigationMeshInstance:
 	return doors.get(data._get_wall_index(cell_index, direction))
+
 
 func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 	var idx = data._get_wall_index(cell_index, direction)
@@ -42,6 +46,7 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 		doors.erase(idx)
 	else:
 		doors[idx] = value
+
 
 func update_navigation():
 	var cell_size = 0.1;
@@ -145,6 +150,7 @@ func update_navigation():
 	if not point_viewer.is_inside_tree():
 		add_child(point_viewer)
 
+
 func gen_pillar_navmesh(cell: int):
 	var pos = data.get_int_position_from_cell_index(cell)
 	var x = pos[0]
@@ -172,6 +178,7 @@ func gen_pillar_navmesh(cell: int):
 				vec = vec.rotated(2.0*PI/8.0)
 			return result
 	return null
+
 
 func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 	var vec_direction = PoolVector2Array()
@@ -274,7 +281,8 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 	for p in new_points:
 		result.push_back((p.x* cell_x + p.y*cell_y)*half_cell + offset)
 	return PoolVector2Array(result)
-	
+
+
 func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2Array:
 	var vec_direction = PoolVector2Array()
 	vec_direction.resize(WorldData.Direction.DIRECTION_MAX)

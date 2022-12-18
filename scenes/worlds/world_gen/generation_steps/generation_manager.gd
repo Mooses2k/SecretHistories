@@ -10,6 +10,9 @@ signal step_finished(data)
 signal generation_finished(data)
 
 func generate() -> WorldData:
+	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
+	if setting_generation_seed is int:
+		generation_seed = setting_generation_seed
 	var data : WorldData = WorldData.new()
 	data.resize(world_size_x, world_size_z)
 	

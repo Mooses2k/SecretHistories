@@ -1,10 +1,10 @@
 extends Node
 
 
-onready var label = get_node("Holder/Quote")
-
 var randomNumG = RandomNumberGenerator.new()
 var randomNum
+
+onready var label = get_node("Holder/Quote")
 
 
 func _input(event):

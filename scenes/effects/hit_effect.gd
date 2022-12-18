@@ -2,6 +2,8 @@ extends Particles
 
 
 var ready : bool = false
+
+
 func _ready():
 	ready = true
 	self.set_as_toplevel(true)

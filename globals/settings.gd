@@ -1,6 +1,7 @@
 extends Node
 class_name SettingsClass
 
+
 signal setting_added(setting_name)
 signal setting_removed(setting_name)
 signal setting_changed(setting_name, old_value, new_value)
@@ -23,6 +24,9 @@ const _FIELD_STEP = "step"
 #enum only fields
 const _FIELD_VARIANTS = "variants"
 
+#UI specifiers
+const _CAN_RANDOMIZE_FLAG = "can_randomize"
+
 enum SettingType {
 	NIL,
 	FLOAT,
@@ -41,13 +45,16 @@ enum SettingType {
 var _settings : Dictionary
 #var _settings_meta : Dictionary
 
+
 # Returns an array of all registered setting names
 func get_settings_list() -> Array:
 	return _settings.keys()
 
+
 # Returns wether a setting with the given name exists or not
 func has_setting(setting_name : String) -> bool:
 	return _settings.has(setting_name)
+
 
 # Returns the value of a setting, or ǹ`null` if the setting doesn't exist
 func get_setting(setting_name : String):
@@ -93,15 +100,36 @@ func set_setting(setting_name : String, value) -> bool:
 				return false
 	return true
 
+
+func get_setting_meta(setting_name : String, meta_name : String):
+	var setting_data = _settings.get(setting_name)
+	return setting_data.get(meta_name) if setting_data else null
+
+
+func set_setting_meta(setting_name : String, meta_name : String, meta_value):
+	var setting_data = _settings.get(setting_name)
+	if not setting_data:
+		return
+	setting_data[meta_name] = meta_value
+	emit_signal("setting_meta_changed", setting_name)
+
+
+func has_setting_meta(setting_name : String, meta_name : String) -> bool:
+	var setting_data = _settings.get(setting_name)
+	return setting_data.has(meta_name) if setting_data else false
+
+
 # Gets the type of a setting, as a variant of the `SettingType` enum
 func get_setting_type(setting_name : String) -> int:
 	var setting_data = _settings.get(setting_name)
 	return setting_data.get(_FIELD_TYPE) if setting_data else SettingType.NIL
 
+
 # Gets the group a setting belongs to
 func get_setting_group(setting_name : String):
 	var setting_data = _settings.get(setting_name)
 	return setting_data.get(_FIELD_GROUP) if setting_data else null
+
 
 # Sets the group a setting belongs to
 func set_setting_group(setting_name : String, group_name : String):
@@ -111,6 +139,7 @@ func set_setting_group(setting_name : String, group_name : String):
 	setting_data[_FIELD_GROUP] = group_name
 	emit_signal("setting_meta_changed", setting_name)
 
+
 # Takes a setting out of its group
 func clear_setting_group(setting_name : String):
 	var setting_data = _settings.get(setting_name)
@@ -119,10 +148,12 @@ func clear_setting_group(setting_name : String):
 	setting_data.erase("group")
 	emit_signal("setting_meta_changed", setting_name)
 
+
 # Gets the default value of a setting, or `null` if it doesn't exist
 func get_setting_default(setting_name : String):
 	var setting_data = _settings.get(setting_name)
 	return setting_data.get(_FIELD_DEFAULT) if setting_data else null
+
 
 # Removes a setting, returns `true` if the setting existed, `false` otherwise
 func remove_setting(setting_name : String) -> bool:
@@ -131,7 +162,8 @@ func remove_setting(setting_name : String) -> bool:
 		emit_signal("settings_list_changed")
 		return true
 	return false
-		
+
+
 # Add a setting that is a float value. The setting will have the default value.
 # Adding will fail if a setting of the same name already exists, returns `true`
 # if adding was successful, `false` otherwise
@@ -150,8 +182,10 @@ func add_float_setting(setting_name : String, min_value : float, max_value : flo
 	emit_signal("settings_list_changed")
 	return true
 
+
 func is_setting_float(setting_name : String) -> bool:
 	return get_setting_type(setting_name) == SettingType.FLOAT
+
 
 # Add a setting that is an int value. The setting will have the default value.
 # Adding will fail if a setting of the same name already exists, returns `true`
@@ -171,12 +205,15 @@ func add_int_setting(setting_name : String, min_value : int, max_value : int, st
 	emit_signal("settings_list_changed")
 	return true
 
+
 func is_setting_int(setting_name : String) -> bool:
 	return get_setting_type(setting_name) == SettingType.INT
+
 
 func get_setting_min_value(setting_name : String):
 	var setting_data = _settings.get(setting_name)
 	return setting_data.get(_FIELD_MIN) if setting_data else null
+
 
 func set_setting_min_value(setting_name : String, min_value):
 	var setting_data = _settings.get(setting_name)
@@ -191,9 +228,11 @@ func set_setting_min_value(setting_name : String, min_value):
 		return
 	setting_data[_FIELD_MIN] = min_value
 
+
 func get_setting_max_value(setting_name : String):
 	var setting_data = _settings.get(setting_name)
 	return setting_data.get(_FIELD_MAX) if setting_data else null
+
 
 func set_setting_max_value(setting_name : String, max_value):
 	var setting_data = _settings.get(setting_name)
@@ -208,9 +247,11 @@ func set_setting_max_value(setting_name : String, max_value):
 		return
 	setting_data[_FIELD_MAX] = max_value
 
+
 func get_setting_step(setting_name : String):
 	var setting_data = _settings.get(setting_name)
 	return setting_data.get(_FIELD_STEP) if setting_data else null
+
 
 func set_setting_step(setting_name : String, step):
 	var setting_data = _settings.get(setting_name)
@@ -224,6 +265,7 @@ func set_setting_step(setting_name : String, step):
 		printerr("Setting '", setting_name, "' has type int, but the given step value ", step, " has a different type")
 		return
 	setting_data[_FIELD_STEP] = step
+
 
 # Add a setting that is a bool value. The setting will have the default value.
 # Adding will fail if a setting of the same name already exists, returns `true`
@@ -244,6 +286,7 @@ func add_bool_setting(setting_name : String, default : bool) -> bool:
 func is_setting_bool(setting_name : String) -> bool:
 	return get_setting_type(setting_name) == SettingType.BOOL
 
+
 # Add a setting that is a enum value. The setting will have the default value.
 # Adding will fail if a setting of the same name already exists, returns `true`
 # if adding was successful, `false` otherwise
@@ -262,10 +305,12 @@ func add_enum_setting(setting_name : String, variants : PoolStringArray, default
 	emit_signal("settings_list_changed")
 	return true
 
+
 func get_setting_variants(setting_name : String) -> PoolStringArray:
 	var setting_data = _settings.get(setting_name)
 	var variants = setting_data.get(_FIELD_VARIANTS)
 	return variants if variants is PoolStringArray else PoolStringArray()
+
 
 func is_setting_enum(setting_name : String) -> bool:
 	return get_setting_type(setting_name) == SettingType.ENUM

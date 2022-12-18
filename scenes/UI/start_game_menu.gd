@@ -1,8 +1,10 @@
 extends Control
 
+
 const GAME_SCENE = preload("res://scenes/core/game.tscn")
 
 var game : Game
+
 
 func _ready() -> void:
 	game = GAME_SCENE.instance()

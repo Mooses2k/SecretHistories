@@ -1,6 +1,8 @@
 extends Node
 
+
 var free_cell = 0
+
 
 func get_next_free_cell(data : WorldData) -> bool:
 	free_cell += 1
@@ -10,8 +12,9 @@ func get_next_free_cell(data : WorldData) -> bool:
 	if free_cell >= data.cell_count:
 		return false
 
+
 func spawn_items(data : WorldData):
-	var tiny_item_scene = preload("res://scenes/objects/pickable_items/tiny/tiny_item.tscn")
+	var tiny_item_scene = preload("res://scenes/objects/pickable_items/tiny/_tiny_item.tscn")
 	var settings : SettingsClass = GameManager.game.local_settings
 	get_next_free_cell(data)
 	for s in settings.get_settings_list():

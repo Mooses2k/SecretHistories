@@ -459,6 +459,7 @@ one_shot = true
 transform = Transform( 8, 0, 0, 0, -3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0.260906, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle1"]
+cast_shadow = 0
 mesh = SubResource( 43 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
@@ -488,12 +489,13 @@ light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.2
 shadow_enabled = true
 omni_range = 10.0
-omni_attenuation = 10.0
+omni_attenuation = 7.0
 
 [node name="Candle2" type="Spatial" parent="."]
 transform = Transform( 8, 0, 0, 0, -3.49691e-07, 8, 0, -8, -3.49691e-07, 0.328868, 0.177055, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle2"]
+cast_shadow = 0
 mesh = SubResource( 43 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
@@ -520,6 +522,7 @@ script = ExtResource( 6 )
 transform = Transform( 8, 0, 0, 0, -3.49691e-07, 8, 0, -8, -3.49691e-07, -0.327482, 0.178501, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle3"]
+cast_shadow = 0
 mesh = SubResource( 43 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )

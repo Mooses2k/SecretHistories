@@ -50,7 +50,6 @@ func _process(delta):
 			self.global_rotation = normal_pos.global_rotation
 
 
-
 func apply_throw_logic(impulse):
 	if throw_logic:
 		self.global_rotation = throw_pos.global_rotation

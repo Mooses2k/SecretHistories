@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/tiny_items/ammunition/shotgun_shell.tres" type="Resource" id=4]
 [ext_resource path="res://scenes/effects/shotgun_audio.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/gun_item.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/smoke.tscn" type="PackedScene" id=8]
 
 
@@ -62,6 +62,7 @@ reload_time = 2.0
 damage_offset = -3
 dispersion_offset_degrees = 5
 cooldown = 0.1
+melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 

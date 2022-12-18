@@ -1,183 +1,63 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/UI/start_game_menu.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/start_game_settings.gd" type="Script" id=2]
+[ext_resource path="res://scenes/UI/settings_ui/SettingsUI.tscn" type="PackedScene" id=3]
 
-[node name="StartGameMenu" type="Control"]
+[node name="StartGameMenu" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_constants/margin_right = 128
+custom_constants/margin_top = 64
+custom_constants/margin_left = 128
+custom_constants/margin_bottom = 64
 script = ExtResource( 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -432.5
-margin_top = -280.0
-margin_right = 432.5
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = 128.0
+margin_top = 64.0
+margin_right = 896.0
+margin_bottom = 536.0
 
-[node name="Column" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 430.0
-margin_bottom = 560.0
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
+margin_right = 636.0
+margin_bottom = 472.0
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+scroll_horizontal_enabled = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Column"]
-margin_right = 430.0
-margin_bottom = 24.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Column/HBoxContainer"]
-margin_right = 57.0
-margin_bottom = 24.0
-alignment = 1
-
-[node name="MapSizeLabel" type="Label" parent="HBoxContainer/Column/HBoxContainer/VBoxContainer"]
-margin_top = 5.0
-margin_right = 57.0
-margin_bottom = 19.0
-text = "Map Size"
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/Column/HBoxContainer"]
-margin_left = 61.0
-margin_right = 119.0
-margin_bottom = 24.0
-alignment = 2
-
-[node name="MapSize" type="LineEdit" parent="HBoxContainer/Column/HBoxContainer/VBoxContainer2"]
-margin_right = 58.0
-margin_bottom = 24.0
-text = "000"
-max_length = 3
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="HBoxContainer/Column"]
-margin_top = 28.0
-margin_right = 430.0
-margin_bottom = 52.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Column/HBoxContainer5"]
-margin_right = 62.0
-margin_bottom = 24.0
-alignment = 1
-
-[node name="MapSeedLabel" type="Label" parent="HBoxContainer/Column/HBoxContainer5/VBoxContainer"]
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 19.0
-text = "Map Seed"
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/Column/HBoxContainer5"]
-margin_left = 66.0
-margin_right = 124.0
-margin_bottom = 24.0
-alignment = 2
-
-[node name="MapSeed" type="LineEdit" parent="HBoxContainer/Column/HBoxContainer5/VBoxContainer2"]
-margin_right = 58.0
-margin_bottom = 24.0
-text = "00000000"
-max_length = 8
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/Column"]
-margin_top = 56.0
-margin_right = 430.0
-margin_bottom = 72.0
-
-[node name="ZombieSpawnLabel" type="Label" parent="HBoxContainer/Column/HBoxContainer2"]
-margin_top = 1.0
-margin_right = 143.0
-margin_bottom = 15.0
-text = "Zombie Spawn Chance"
-align = 2
-
-[node name="ZombieSpawnChance" type="HSlider" parent="HBoxContainer/Column/HBoxContainer2"]
-margin_left = 147.0
-margin_right = 163.0
-margin_bottom = 16.0
-max_value = 20.0
-value = 5.0
-rounded = true
-scrollable = false
-tick_count = 1
-ticks_on_borders = true
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/Column"]
-margin_top = 76.0
-margin_right = 430.0
-margin_bottom = 92.0
-
-[node name="CultistSpawnLabel" type="Label" parent="HBoxContainer/Column/HBoxContainer3"]
-margin_top = 1.0
-margin_right = 135.0
-margin_bottom = 15.0
-text = "Cultist Spawn Chance"
-align = 2
-
-[node name="CultistSpawnChance" type="HSlider" parent="HBoxContainer/Column/HBoxContainer3"]
-margin_left = 139.0
-margin_right = 155.0
-margin_bottom = 16.0
-max_value = 20.0
-value = 5.0
-rounded = true
-scrollable = false
-tick_count = 1
-ticks_on_borders = true
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="HBoxContainer/Column"]
-margin_top = 96.0
-margin_right = 430.0
-margin_bottom = 112.0
-
-[node name="GhostDetectionLabel" type="Label" parent="HBoxContainer/Column/HBoxContainer4"]
-margin_top = 1.0
-margin_right = 147.0
-margin_bottom = 15.0
-text = "Ghost Detection Range"
-align = 2
-
-[node name="GhostDetectionRange" type="HSlider" parent="HBoxContainer/Column/HBoxContainer4"]
-margin_left = 151.0
-margin_right = 167.0
-margin_bottom = 16.0
-max_value = 20.0
-value = 20.0
-rounded = true
-scrollable = false
-tick_count = 1
-ticks_on_borders = true
+[node name="SettingsUI" parent="HBoxContainer/ScrollContainer" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 636.0
+size_flags_horizontal = 3
+custom_constants/separation = 16
 
 [node name="Column4" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 434.0
-margin_right = 865.0
-margin_bottom = 560.0
+margin_left = 640.0
+margin_right = 768.0
+margin_bottom = 472.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="StartGame" type="Button" parent="HBoxContainer/Column4"]
-margin_top = 516.0
-margin_right = 431.0
-margin_bottom = 536.0
+unique_name_in_owner = true
+margin_top = 428.0
+margin_right = 128.0
+margin_bottom = 448.0
 text = "Start Game"
 
 [node name="ReturnButton" type="Button" parent="HBoxContainer/Column4"]
-margin_top = 540.0
-margin_right = 431.0
-margin_bottom = 560.0
+unique_name_in_owner = true
+margin_top = 452.0
+margin_right = 128.0
+margin_bottom = 472.0
 text = "Return"
 
-[connection signal="value_changed" from="HBoxContainer/Column/HBoxContainer2/ZombieSpawnChance" to="." method="_on_ZombieSpawnChance_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/Column/HBoxContainer3/CultistSpawnChance" to="." method="_on_CultistSpawnChance_value_changed"]
-[connection signal="value_changed" from="HBoxContainer/Column/HBoxContainer4/GhostDetectionRange" to="." method="_on_GhostDetectionRange_value_changed"]
+[node name="StartGameSettings" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 2 )
+
 [connection signal="pressed" from="HBoxContainer/Column4/StartGame" to="." method="_on_StartGame_pressed"]
 [connection signal="pressed" from="HBoxContainer/Column4/ReturnButton" to="." method="_on_ReturnButton_pressed"]

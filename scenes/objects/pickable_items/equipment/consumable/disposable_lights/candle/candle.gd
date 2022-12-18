@@ -23,7 +23,7 @@ func _process(delta):
 			firelight.visible = not firelight.visible
 			$AnimationPlayer.play("flicker")
 			$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
-			$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
+#			$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 			is_lit = true
 	else:
 		is_lit = false
@@ -33,15 +33,15 @@ func _use_primary():
 	if !durable_timer.is_stopped():
 		$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
 		firelight.visible = not firelight.visible
-		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
+#		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 	else:
 		$AnimationPlayer.stop()
 		$FireOrigin/Fire.emitting = false
 		firelight.visible = false
-		$MeshInstance.cast_shadow = true
+#		$MeshInstance.cast_shadow = true
 
 func _on_Durability_timeout():
 	$FireOrigin/Fire.emitting = false
 	firelight.visible = false
 	$AnimationPlayer.stop()
-	$MeshInstance.cast_shadow = true
+#	$MeshInstance.cast_shadow = true

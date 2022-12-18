@@ -25,3 +25,4 @@ custom_constants/margin_left = 32
 unique_name_in_owner = true
 margin_left = 32.0
 margin_right = 1024.0
+custom_constants/separation = 16

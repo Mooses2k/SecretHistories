@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/gun_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
 [ext_resource path="res://resources/models/items/ranged/webley_revolver/Webley.material" type="Material" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=4]
@@ -9,7 +9,6 @@
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/effects/webley_audio.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/smoke.tscn" type="PackedScene" id=9]
-
 
 
 [sub_resource type="ArrayMesh" id=1]
@@ -60,6 +59,7 @@ mass = 1.0
 continuous_cd = true
 script = ExtResource( 6 )
 item_size = 0
+item_name = "Webley revolver"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 6
 reload_amount = 1
@@ -119,7 +119,6 @@ bones/6/bound_children = [  ]
 extra_cull_margin = 0.2
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
-material/0 = null
 script = ExtResource( 4 )
 
 [node name="CollisionShape" parent="." index="1"]

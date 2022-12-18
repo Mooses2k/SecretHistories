@@ -5,14 +5,13 @@ class_name GameWorld
 signal generation_finished()
 
 var world_data : WorldData
-export var world_generator : Resource
-
+onready var world_generator : GenerationManager = $GenerationManager
 onready var gridmaps = $Gridmaps
 onready var navigation = $Navigation
 
 
 func _ready() -> void:
-	world_data = world_generator.get_data()
+	world_data = world_generator.generate()
 	gridmaps.data = world_data
 	gridmaps.update_gridmaps()
 	navigation.data = world_data

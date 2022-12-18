@@ -34,8 +34,8 @@ func _use_primary():
 
 
 func _on_Countdown_timeout():
-	flash.visible = true
 	flash.get_node("FlashTimer").start()
+	flash.visible = true
 	$Effect.handle_sound()
 	$Explosion.emitting = true
 	$Shrapnel.emitting = true
@@ -49,6 +49,5 @@ func _on_Countdown_timeout():
 		get_parent().get_parent().get_parent().drop_consumable(self)
 
 
-# this doesn't work - it doesn't timeout until apparently the queue_free
 func _on_FlashTimer_timeout():
 	flash.visible = false

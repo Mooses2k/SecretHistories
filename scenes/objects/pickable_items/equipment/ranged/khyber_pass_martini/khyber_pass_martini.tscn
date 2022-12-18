@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/gun_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
 [ext_resource path="res://resources/models/items/ranged/martini-henry_pistol/HenryMartini.material" type="Material" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=4]
@@ -54,7 +54,7 @@ points = PoolVector3Array( -7.14324e-07, 0.0262614, -0.123588, -0.0129903, 0.029
 mass = 1.0
 continuous_cd = true
 item_size = 0
-item_name = "Khyber Pass Martini"
+item_name = "Sawed-off Martini pistol"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1

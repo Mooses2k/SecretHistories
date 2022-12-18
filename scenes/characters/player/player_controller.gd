@@ -216,6 +216,7 @@ func _walk(delta) -> void:
 		is_movement_key2_held = true
 	if Input.is_action_pressed("move_down"):
 		is_movement_key3_held = true
+		owner.is_moving_backwards = true
 	if Input.is_action_pressed("move_up"):
 		is_movement_key4_held = true
 	
@@ -240,6 +241,7 @@ func _walk(delta) -> void:
 		is_movement_key2_held = false
 	if Input.is_action_just_released("move_down"):
 		is_movement_key3_held = false
+		owner.is_moving_backwards = false
 	if Input.is_action_just_released("move_up"):
 		is_movement_key4_held = false
 	

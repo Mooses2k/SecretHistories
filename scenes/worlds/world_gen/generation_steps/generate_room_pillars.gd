@@ -1,5 +1,6 @@
 extends GenerationStep
 
+
 export var pillar_tile : int = -1
 export var min_room_dimension : int = 4
 
@@ -91,4 +92,3 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 				cells_with_pillar[cell] = true
 					
 	pass
-

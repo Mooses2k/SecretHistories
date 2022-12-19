@@ -1,13 +1,15 @@
 extends GenerationStep
 
+
 const CONNECTION_GRAPH_KEY = "connection_graph"
 const DELAUNAY_GRAPH_KEY = "delaunay_graph"
 
 export var edges_to_keep_min_ratio : float = 0.1
 export var edges_to_keep_max_ratio : float = 0.4
-export var edges_to_keep_abs_min : int = 1
+export var edges_to_keep_abs_min : int = 2
 
 const RoomGenerator = preload("generate_rooms.gd")
+
 
 # Generates a graph connecting rooms to each other, the graph is generated
 # as a Dictionary, where the key K represents the cell of index K, and the value
@@ -26,6 +28,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		add_extra_edges(delaunay, graph, random)
 		gen_data[CONNECTION_GRAPH_KEY] = graph
 	pass
+
 
 # gets all rooms as an Array of Rect2, returns an Array of Arrays of Rect2,
 # where each internal Array of Rect2 contains all rooms that mutually intersect
@@ -78,10 +81,12 @@ func group_intersecting_rooms(rooms : Array) -> Array:
 			groups[g][r] = rooms[groups[g][r]]
 	return groups
 
+
 func rooms_intersect(a : Rect2, b : Rect2) -> bool:
 	var a_border : Rect2 = a.grow(1)
 	var clip : Rect2 = a_border.clip(b)
 	return clip.size.x > 1 or clip.size.y > 1
+
 
 func get_delaunay_from_groupings(data : WorldData, groups : Array, random : RandomNumberGenerator) -> Dictionary:
 	var edges : Dictionary = Dictionary()
@@ -103,6 +108,7 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 		graph_add_edge(edges, cells[delaunay[3*i + 1]], cells[delaunay[3*i + 2]])
 		graph_add_edge(edges, cells[delaunay[3*i + 2]], cells[delaunay[3*i + 0]])
 	return edges
+
 
 func get_mst_from_delaunay(data : WorldData, delaunay : Dictionary) -> Dictionary:
 	var edges : Dictionary = Dictionary()
@@ -130,6 +136,7 @@ func get_mst_from_delaunay(data : WorldData, delaunay : Dictionary) -> Dictionar
 			vert_added = true
 	return edges
 
+
 func add_extra_edges(from : Dictionary, to : Dictionary, random : RandomNumberGenerator):
 	var edge_count = graph_edge_count(from)
 	var ratio = random.randf_range(edges_to_keep_min_ratio, edges_to_keep_max_ratio)
@@ -144,6 +151,7 @@ func add_extra_edges(from : Dictionary, to : Dictionary, random : RandomNumberGe
 		graph_remove_edge(from, a, b)
 	pass
 
+
 func graph_add_edge(graph : Dictionary, from : int, to : int):
 	if from != to:
 		var a = min(from, to)
@@ -152,6 +160,7 @@ func graph_add_edge(graph : Dictionary, from : int, to : int):
 			graph[a] = []
 		if not graph[a].has(b):
 			graph[a].push_back(b)
+
 
 func graph_remove_edge(graph : Dictionary, from : int, to : int):
 	if from != to:
@@ -171,6 +180,7 @@ func graph_has_edge(graph : Dictionary, from : int, to : int) -> bool:
 			return graph[a].has(b)
 	return false
 
+
 func graph_edge_count(graph : Dictionary) -> int:
 	var result = 0
 	# each edge is counted exactly once, since they are always stored
@@ -178,6 +188,7 @@ func graph_edge_count(graph : Dictionary) -> int:
 	for e in graph.values():
 		result += e.size()
 	return result
+
 
 func graph_get_edges(graph : Dictionary, from : int) -> Array:
 	var result = Array()

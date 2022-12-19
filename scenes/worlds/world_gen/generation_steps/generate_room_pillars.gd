@@ -1,8 +1,10 @@
 extends GenerationStep
 
 
+# puts pillars in bigger rooms
+
 export var pillar_tile : int = -1
-export var min_room_dimension : int = 4
+export var min_room_dimension : int = 5 # changing to 4 puts pillars in any room with 2+ on a side
 
 
 # Override this function

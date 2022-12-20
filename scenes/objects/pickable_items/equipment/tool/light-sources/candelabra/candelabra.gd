@@ -14,19 +14,28 @@ onready var durable_timer = $Durability
 var has_ever_been_on = false 
 var is_lit = false
 
+var material
+var new_material
 
 func _ready():
+	material = $Candle1/MeshInstance.get_surface_material(0)
+	new_material = material.duplicate()
+	$Candle1/MeshInstance.set_surface_material(0,new_material)
 	durable_timer.start()
-
+	if $Candle2 != null:
+		$Candle2/MeshInstance.set_surface_material(0,new_material)
+	if $Candle3 != null:
+		$Candle3/MeshInstance.set_surface_material(0,new_material)
 
 func _process(delta):
 	if is_lit == true:
 		durable_timer.pause_mode = false
 	else:
 		durable_timer.pause_mode = true
-	if has_ever_been_on == false:
+	if self.mode == equipped_mode and has_ever_been_on == false:
 			durable_timer.start()
 			has_ever_been_on = true
+#			firelight.visible = not firelight.visible
 			$AnimationPlayer.play("flicker")
 			$Candle1/FireOrigin/Fire.visible = true
 #			$Candle1/MeshInstance.emission_enabled = true
@@ -43,34 +52,43 @@ func _process(delta):
 
 func _use_primary():
 	if !durable_timer.is_stopped():
-		$AnimationPlayer.play("flicker")
 		$Candle1/FireOrigin/Fire.visible = not $Candle1/FireOrigin/Fire.visible
-#		$Candle1/MeshInstance.emission_enabled = not $Candle1/MeshInstance.emission_enabled
+		firelight.visible = not firelight.visible
+#		$Candle1/MeshInstance.cast_shadow = not $Candle1/MeshInstance.cast_shadow
+		$Candle1/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle1/MeshInstance.get_surface_material(0).emission_enabled 
 		if $Candle2 != null:
 			$Candle2/FireOrigin/Fire.visible = not $Candle2/FireOrigin/Fire.visible
+			$Candle2/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle2/MeshInstance.get_surface_material(0).emission_enabled 
 		if $Candle3 != null:
 			$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
+			$Candle3/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle3/MeshInstance.get_surface_material(0).emission_enabled 
 		firelight.visible = not firelight.visible
 #		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
 	else:
 		$AnimationPlayer.stop()
-		$Candle1/FireOrigin/Fire.visible = false
-#		$Candle1/MeshInstance.emission_enabled = false
+		$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
+		$Candle1/FireOrigin/Fire.emitting = false
+		firelight.visible = false
+		$Candle1/MeshInstance.cast_shadow = true
 		if $Candle2 != null:
 			$Candle2/FireOrigin/Fire.visible = false
+			$Candle2/MeshInstance.get_surface_material(0).emission_enabled = false
 		if $Candle3 != null:
 			$Candle3/FireOrigin/Fire.visible = false
+			$Candle3/MeshInstance.get_surface_material(0).emission_enabled = false
 		firelight.visible = false
 #		$MeshInstance.cast_shadow = true
 
-
 func _on_Durability_timeout():
+	$Candle1/FireOrigin/Fire.emitting = false
+	firelight.visible = false
 	$AnimationPlayer.stop()
-	$Candle1/FireOrigin/Fire.visible = false
+	$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
 #	$Candle1/MeshInstance.emission_enabled = false
 	if $Candle2 != null:
 		$Candle2/FireOrigin/Fire.visible = false
+		$Candle2/MeshInstance.get_surface_material(0).emission_enabled = false
 	if $Candle3 != null:
 		$Candle3/FireOrigin/Fire.visible = false
-	firelight.visible = false
+		$Candle3/MeshInstance.get_surface_material(0).emission_enabled = false
 #	$MeshInstance.cast_shadow = true

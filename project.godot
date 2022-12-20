@@ -269,7 +269,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/pickup_area.gd"
 }, {
-"base": "RigidBody",
+"base": "KinematicBody",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
@@ -439,13 +439,6 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 ChangeScene="*res://globals/change_scene.gd"
-
-[display]
-
-window/size/width=1920
-window/size/height=1080
-window/size/resizable=false
-window/size/fullscreen=true
 
 [editor_plugins]
 

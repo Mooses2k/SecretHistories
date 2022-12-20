@@ -15,12 +15,12 @@ var has_ever_been_on = false
 var is_lit = false
 
 var material
-var newMat
+var new_material
 
 func _ready():
 	material = $Candle1/MeshInstance.get_surface_material(0)
-	newMat = material.duplicate()
-	$Candle1/MeshInstance.set_surface_material(0,newMat)
+	new_material = material.duplicate()
+	$Candle1/MeshInstance.set_surface_material(0,new_material)
 	durable_timer.start()
 
 

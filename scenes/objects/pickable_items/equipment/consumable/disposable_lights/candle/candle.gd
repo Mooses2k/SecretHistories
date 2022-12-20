@@ -8,12 +8,12 @@ onready var firelight = $FireOrigin/Fire/Light
 onready var durable_timer = $Durability
 
 var material
-var newMat
+var new_material
 
 func _ready():
 	material = $MeshInstance.get_surface_material(0)
-	newMat = material.duplicate()
-	$MeshInstance.set_surface_material(0,newMat)
+	new_material = material.duplicate()
+	$MeshInstance.set_surface_material(0,new_material)
 	durable_timer.start()
 
 

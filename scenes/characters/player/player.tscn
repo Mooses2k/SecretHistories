@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -17,20 +17,10 @@
 [ext_resource path="res://addons/thief_controller/scripts/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
-[ext_resource path="res://resources/models/characters/player/animated_body/MainCharGameRig.glb" type="PackedScene" id=18]
-[ext_resource path="res://scenes/characters/player/Animations/walk_right-loop.tres" type="Animation" id=19]
 [ext_resource path="res://addons/thief_controller/texture/player ui/normal.png" type="Texture" id=20]
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/EffectOrigin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
-[ext_resource path="res://scenes/characters/player/Animations/run_forward-loop.tres" type="Animation" id=24]
-[ext_resource path="res://scenes/characters/player/Animations/walk_backward-loop.tres" type="Animation" id=25]
-[ext_resource path="res://scenes/characters/player/Animations/walk_left-loop.tres" type="Animation" id=26]
-[ext_resource path="res://scenes/characters/player/Animations/walk_forward_right-loop.tres" type="Animation" id=27]
-[ext_resource path="res://scenes/characters/player/Animations/walk_forward-loop.tres" type="Animation" id=28]
-[ext_resource path="res://scenes/characters/player/Animations/walk_back_left-loop.tres" type="Animation" id=29]
-[ext_resource path="res://scenes/characters/player/Animations/walk_back_right-loop.tres" type="Animation" id=30]
-[ext_resource path="res://scenes/characters/player/Animations/walk_forward_left-loop.tres" type="Animation" id=31]
 
 [sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0.462745, 0.733333, 1, 1 )
@@ -265,21 +255,9 @@ albedo_color = Color( 0, 0, 0, 1 )
 material = SubResource( 35 )
 size = Vector3( 0.3, 0.1, 0.5 )
 
-[sub_resource type="Animation" id=43]
-resource_name = "idle-loop"
+[sub_resource type="AnimationNodeTimeScale" id=52]
 
-[sub_resource type="AnimationNodeAnimation" id=55]
-animation = "run_forward-loop"
-
-[sub_resource type="AnimationNodeAnimation" id=56]
-animation = "walk_forward-loop"
-
-[sub_resource type="AnimationNodeAnimation" id=57]
-animation = "idle-loop"
-
-[sub_resource type="AnimationNodeTimeScale" id=53]
-
-[sub_resource type="AnimationNodeTransition" id=54]
+[sub_resource type="AnimationNodeTransition" id=53]
 input_count = 2
 xfade_time = 0.1
 input_0/name = "aiming"
@@ -287,81 +265,90 @@ input_0/auto_advance = false
 input_1/name = "not_aiming"
 input_1/auto_advance = false
 
-[sub_resource type="AnimationNodeBlend3" id=60]
-
-[sub_resource type="AnimationNodeTimeScale" id=59]
-
-[sub_resource type="AnimationNodeAnimation" id=44]
+[sub_resource type="AnimationNodeAnimation" id=54]
 animation = "idle-loop"
 
-[sub_resource type="AnimationNodeAnimation" id=45]
+[sub_resource type="AnimationNodeBlend3" id=59]
+
+[sub_resource type="AnimationNodeAnimation" id=55]
+animation = "run_forward-loop"
+
+[sub_resource type="AnimationNodeTimeScale" id=57]
+
+[sub_resource type="AnimationNodeAnimation" id=43]
+animation = "idle-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=44]
 animation = "walk_forward-loop"
 
-[sub_resource type="AnimationNodeAnimation" id=46]
+[sub_resource type="AnimationNodeAnimation" id=45]
 animation = "walk_backward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=46]
+animation = "walk_right-loop"
 
 [sub_resource type="AnimationNodeAnimation" id=47]
 animation = "walk_left-loop"
 
 [sub_resource type="AnimationNodeAnimation" id=48]
-animation = "walk_right-loop"
+animation = "walk_forward_right-loop"
 
 [sub_resource type="AnimationNodeAnimation" id=49]
-animation = "walk_forward_right-loop"
+animation = "walk_back_right-loop"
 
 [sub_resource type="AnimationNodeAnimation" id=50]
 animation = "walk_forward_left-loop"
 
 [sub_resource type="AnimationNodeAnimation" id=51]
-animation = "walk_back_right-loop"
-
-[sub_resource type="AnimationNodeAnimation" id=52]
 animation = "walk_back_left-loop"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id=42]
-blend_point_0/node = SubResource( 44 )
+[sub_resource type="AnimationNodeBlendSpace2D" id=41]
+blend_point_0/node = SubResource( 43 )
 blend_point_0/pos = Vector2( 0, 0 )
-blend_point_1/node = SubResource( 45 )
+blend_point_1/node = SubResource( 44 )
 blend_point_1/pos = Vector2( 0, 1 )
-blend_point_2/node = SubResource( 46 )
+blend_point_2/node = SubResource( 45 )
 blend_point_2/pos = Vector2( 0, -1 )
-blend_point_3/node = SubResource( 47 )
-blend_point_3/pos = Vector2( -1, 0 )
-blend_point_4/node = SubResource( 48 )
-blend_point_4/pos = Vector2( 1, 0 )
-blend_point_5/node = SubResource( 49 )
-blend_point_5/pos = Vector2( 1, 0.9 )
-blend_point_6/node = SubResource( 50 )
-blend_point_6/pos = Vector2( -1, 0.9 )
-blend_point_7/node = SubResource( 51 )
-blend_point_7/pos = Vector2( 1, -0.8 )
-blend_point_8/node = SubResource( 52 )
-blend_point_8/pos = Vector2( -1, -0.8 )
+blend_point_3/node = SubResource( 46 )
+blend_point_3/pos = Vector2( 1, 0 )
+blend_point_4/node = SubResource( 47 )
+blend_point_4/pos = Vector2( -1, 0 )
+blend_point_5/node = SubResource( 48 )
+blend_point_5/pos = Vector2( 1, 1 )
+blend_point_6/node = SubResource( 49 )
+blend_point_6/pos = Vector2( 1, -1 )
+blend_point_7/node = SubResource( 50 )
+blend_point_7/pos = Vector2( -1, 1 )
+blend_point_8/node = SubResource( 51 )
+blend_point_8/pos = Vector2( -1, -1 )
+
+[sub_resource type="AnimationNodeAnimation" id=56]
+animation = "walk_forward-loop"
 
 [sub_resource type="AnimationNodeTimeScale" id=58]
 
-[sub_resource type="AnimationNodeBlendTree" id=41]
-graph_offset = Vector2( 956.797, 357.693 )
-nodes/Animation/node = SubResource( 57 )
-nodes/Animation/position = Vector2( 580, 460 )
-"nodes/Animation 2/node" = SubResource( 55 )
-"nodes/Animation 2/position" = Vector2( 160, 500 )
-"nodes/Animation 3/node" = SubResource( 56 )
-"nodes/Animation 3/position" = Vector2( 240, 320 )
-nodes/TimeScale/node = SubResource( 53 )
-nodes/TimeScale/position = Vector2( 656.92, 249.496 )
-nodes/aim_transition/node = SubResource( 54 )
-nodes/aim_transition/position = Vector2( 820, 360 )
-nodes/iwr_blend/node = SubResource( 60 )
-nodes/iwr_blend/position = Vector2( 780, 680 )
-nodes/output/position = Vector2( 1120, 240 )
-nodes/run_scale/node = SubResource( 59 )
-nodes/run_scale/position = Vector2( 400, 700 )
-nodes/strafe/node = SubResource( 42 )
-nodes/strafe/position = Vector2( 440.803, 79.2216 )
+[sub_resource type="AnimationNodeBlendTree" id=42]
+graph_offset = Vector2( -560.398, 352.213 )
+nodes/TimeScale/node = SubResource( 52 )
+nodes/TimeScale/position = Vector2( 200, 180 )
+nodes/aim_transition/node = SubResource( 53 )
+nodes/aim_transition/position = Vector2( 380, 300 )
+nodes/idle/node = SubResource( 54 )
+nodes/idle/position = Vector2( 20, 340 )
+nodes/iwr_blend/node = SubResource( 59 )
+nodes/iwr_blend/position = Vector2( 240, 460 )
+nodes/output/position = Vector2( 580, 100 )
+nodes/run/node = SubResource( 55 )
+nodes/run/position = Vector2( -240, 560 )
+nodes/run_scale/node = SubResource( 57 )
+nodes/run_scale/position = Vector2( 20, 600 )
+nodes/strafe/node = SubResource( 41 )
+nodes/strafe/position = Vector2( 0, 40 )
+nodes/walk/node = SubResource( 56 )
+nodes/walk/position = Vector2( -240, 440 )
 nodes/walk_scale/node = SubResource( 58 )
-nodes/walk_scale/position = Vector2( 420, 520 )
-node_connections = [ "output", 0, "aim_transition", "iwr_blend", 0, "Animation", "iwr_blend", 1, "walk_scale", "iwr_blend", 2, "run_scale", "run_scale", 0, "Animation 2", "walk_scale", 0, "Animation 3", "aim_transition", 0, "TimeScale", "aim_transition", 1, "iwr_blend", "TimeScale", 0, "strafe" ]
+nodes/walk_scale/position = Vector2( 20, 460 )
+node_connections = [ "aim_transition", 0, "TimeScale", "aim_transition", 1, "iwr_blend", "TimeScale", 0, "strafe", "output", 0, "aim_transition", "iwr_blend", 0, "idle", "iwr_blend", 1, "walk_scale", "iwr_blend", 2, "run_scale", "walk_scale", 0, "walk", "run_scale", 0, "run" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -602,6 +589,11 @@ stream = ExtResource( 17 )
 volume_db = 20.263
 pitch_scale = 1.74
 
+[node name="SurfaceDetector" type="RayCast" parent="PlayerDeath/Death" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0378679, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.5, 0 )
+
 [node name="BW" type="ColorRect" parent="PlayerDeath" index="3"]
 visible = false
 material = SubResource( 34 )
@@ -609,7 +601,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="FPSCamera" parent="." index="21"]
+[node name="FPSCamera" parent="." index="20"]
 current = false
 script = ExtResource( 15 )
 
@@ -649,33 +641,16 @@ cast_shadow = 0
 mesh = SubResource( 17 )
 skeleton = NodePath("../..")
 
-[node name="mesh" type="Spatial" parent="." index="24"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-
-[node name="MainCharGameRig" parent="mesh" index="0" instance=ExtResource( 18 )]
-
-[node name="Characteranimations" type="AnimationPlayer" parent="." index="25"]
-root_node = NodePath("../mesh/MainCharGameRig")
-anims/idle-loop = SubResource( 43 )
-anims/run_forward-loop = ExtResource( 24 )
-anims/walk_back_left-loop = ExtResource( 29 )
-anims/walk_back_right-loop = ExtResource( 30 )
-anims/walk_backward-loop = ExtResource( 25 )
-anims/walk_forward-loop = ExtResource( 28 )
-anims/walk_forward_left-loop = ExtResource( 31 )
-anims/walk_forward_right-loop = ExtResource( 27 )
-anims/walk_left-loop = ExtResource( 26 )
-anims/walk_right-loop = ExtResource( 19 )
-
-[node name="AnimationTree" type="AnimationTree" parent="." index="26"]
-tree_root = SubResource( 41 )
-anim_player = NodePath("../Characteranimations")
+[node name="AnimationTree" type="AnimationTree" parent="." index="25"]
+tree_root = SubResource( 42 )
+anim_player = NodePath("../AnimationPlayer")
 active = true
+process_mode = 0
 parameters/TimeScale/scale = 1.0
 parameters/aim_transition/current = 1
 parameters/iwr_blend/blend_amount = 0.0
 parameters/run_scale/scale = 1.0
-parameters/strafe/blend_position = Vector2( 0.171244, 0.310345 )
+parameters/strafe/blend_position = Vector2( 0.201939, 0.491379 )
 parameters/walk_scale/scale = 1.0
 
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -6,7 +6,27 @@
 [ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
 [ext_resource path="res://scenes/characters/pickup_area.gd" type="Script" id=5]
 [ext_resource path="res://resources/models/characters/player/Hair.material" type="Material" id=6]
+[ext_resource path="res://resources/models/characters/player/animated_body/MainCharGameRig.glb" type="PackedScene" id=7]
+[ext_resource path="res://scenes/characters/player/Animations/walk_forward_right-loop.tres" type="Animation" id=8]
+[ext_resource path="res://scenes/characters/player/Animations/walk_left-loop.tres" type="Animation" id=9]
+[ext_resource path="res://scenes/characters/player/Animations/walk_right-loop.tres" type="Animation" id=10]
+[ext_resource path="res://scenes/characters/player/Animations/walk_forward_left-loop.tres" type="Animation" id=11]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_left-loop.tres" type="Animation" id=12]
+[ext_resource path="res://scenes/characters/player/Animations/walk_back_left-loop.tres" type="Animation" id=13]
+[ext_resource path="res://scenes/characters/player/Animations/walk_backward-loop.tres" type="Animation" id=14]
 [ext_resource path="res://resources/sounds/gunshots/Webley_shot_1.wav" type="AudioStream" id=15]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_back_right-loop.tres" type="Animation" id=16]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_back-loop.tres" type="Animation" id=17]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_forward-loop.tres" type="Animation" id=18]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_right-loop.tres" type="Animation" id=19]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_forward_left-loop.tres" type="Animation" id=20]
+[ext_resource path="res://scenes/characters/player/Animations/run_forward-loop.tres" type="Animation" id=21]
+[ext_resource path="res://scenes/characters/player/Animations/walk_forward-loop.tres" type="Animation" id=22]
+[ext_resource path="res://scenes/characters/player/Animations/idle-loop.tres" type="Animation" id=23]
+[ext_resource path="res://scenes/characters/player/Animations/walk_back_right-loop.tres" type="Animation" id=24]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_forward_right-loop.tres" type="Animation" id=25]
+[ext_resource path="res://scenes/characters/player/Animations/crouch_walk_back_left-loop.tres" type="Animation" id=26]
+[ext_resource path="res://scenes/characters/player/Animations/Kick.tres" type="Animation" id=27]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.3
@@ -393,5 +413,32 @@ collision_layer = 2
 script = ExtResource( 6 )
 
 [node name="CollisionShape" type="CollisionShape" parent="SoundEmitter"]
+
+[node name="mesh" type="Spatial" parent="."]
+
+[node name="MainCharGameRig" parent="mesh" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../mesh/MainCharGameRig")
+anims/Kick = ExtResource( 27 )
+anims/crouch_walk_back-loop = ExtResource( 17 )
+anims/crouch_walk_back_left-loop = ExtResource( 26 )
+anims/crouch_walk_back_right-loop = ExtResource( 16 )
+anims/crouch_walk_forward-loop = ExtResource( 18 )
+anims/crouch_walk_forward_left-loop = ExtResource( 20 )
+anims/crouch_walk_forward_right-loop = ExtResource( 25 )
+anims/crouch_walk_left-loop = ExtResource( 12 )
+anims/crouch_walk_right-loop = ExtResource( 19 )
+anims/idle-loop = ExtResource( 23 )
+anims/run_forward-loop = ExtResource( 21 )
+anims/walk_back_left-loop = ExtResource( 13 )
+anims/walk_back_right-loop = ExtResource( 24 )
+anims/walk_backward-loop = ExtResource( 14 )
+anims/walk_forward-loop = ExtResource( 22 )
+anims/walk_forward_left-loop = ExtResource( 11 )
+anims/walk_forward_right-loop = ExtResource( 8 )
+anims/walk_left-loop = ExtResource( 9 )
+anims/walk_right-loop = ExtResource( 10 )
 
 [connection signal="body_entered" from="ClamberableChecker" to="." method="_on_ClamberableChecker_body_entered"]

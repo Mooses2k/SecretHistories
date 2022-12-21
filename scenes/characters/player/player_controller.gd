@@ -228,6 +228,8 @@ func _walk(delta) -> void:
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	character.character_state.move_direction = move_dir.normalized()
+	
+	
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
 	else:

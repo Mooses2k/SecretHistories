@@ -61,7 +61,7 @@ func _process(delta):
 "
 
 [sub_resource type="CylinderShape" id=2]
-height = 0.12
+height = 0.098255
 radius = 0.04
 
 [sub_resource type="Animation" id=12]
@@ -197,7 +197,7 @@ material/0 = SubResource( 26 )
 script = SubResource( 27 )
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0614162, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0517279, 0 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
@@ -226,5 +226,9 @@ omni_attenuation = 7.0
 [node name="Durability" type="Timer" parent="." index="5"]
 wait_time = 900.0
 one_shot = true
+
+[node name="ignite" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.131584, 0 )
+collision_layer = 64
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

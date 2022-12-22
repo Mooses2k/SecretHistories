@@ -35,13 +35,18 @@ func delete_bomb():
 
 
 func grab_indicator():
-	var grabable_object=grab_cast.get_collider()
+	var grabable_object = grab_cast.get_collider()
 	
 	if grab_cast.is_colliding() and grabable_object is PickableItem:
-		if $PlayerController.is_grabbing==false:
+		if $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
 	else:
 			$Indication_canvas/Indication_system/Grab.hide()
+	if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
+		if $PlayerController.is_grabbing == false:
+			$Indication_canvas/Indication_system/Ignite.show()
+	else:
+			$Indication_canvas/Indication_system/Ignite.hide()
 
 
 func _on_GrabCastDot_body_entered(body):

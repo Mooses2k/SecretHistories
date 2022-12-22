@@ -43,7 +43,7 @@ func grab_indicator():
 	else:
 			$Indication_canvas/Indication_system/Grab.hide()
 	if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
-		if $PlayerController.is_grabbing == false:
+		if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 			$Indication_canvas/Indication_system/Ignite.show()
 			if Input.is_action_just_pressed("Left_Mouse_Button"):
 				grabable_object.get_parent()._use_primary()

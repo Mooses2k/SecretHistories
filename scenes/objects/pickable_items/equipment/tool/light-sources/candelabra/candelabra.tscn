@@ -274,7 +274,7 @@ shader_param/INTENSITY = 4.0
 shader_param/COLOR_RAMP = SubResource( 48 )
 
 [sub_resource type="BoxShape" id=52]
-extents = Vector3( 0.460384, 0.199869, 0.156747 )
+extents = Vector3( 0.432024, 0.175723, 0.130205 )
 
 [node name="Candelabra" type="RigidBody"]
 collision_layer = 0
@@ -545,7 +545,7 @@ material/0 = SubResource( 49 )
 script = ExtResource( 6 )
 
 [node name="ignite" type="Area" parent="." groups=["ignite"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0180047, 0.3947, -0.0186981 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00712366, 0.353032, -0.00613392 )
 
 [node name="CollisionShape" type="CollisionShape" parent="ignite"]
 shape = SubResource( 52 )

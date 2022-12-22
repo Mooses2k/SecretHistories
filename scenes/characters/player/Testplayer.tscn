@@ -602,6 +602,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="FPSCamera" parent="." index="21"]
+transform = Transform( 1, 0, 0, 0, 0.977209, 0.21228, 0, -0.21228, 0.977209, -7.45058e-09, 1.68873, 1.55173 )
 current = false
 script = ExtResource( 15 )
 

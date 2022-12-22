@@ -45,8 +45,11 @@ func grab_indicator():
 	if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
 		if $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Ignite.show()
+			if Input.is_action_just_pressed("Left_Mouse_Button"):
+				grabable_object.get_parent()._use_primary()
 	else:
 			$Indication_canvas/Indication_system/Ignite.hide()
+
 
 
 func _on_GrabCastDot_body_entered(body):

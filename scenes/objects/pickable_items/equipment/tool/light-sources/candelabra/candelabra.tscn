@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://resources/models/items/tools/light_sources/candelabra/trn_Candelabra_001.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd" type="Script" id=3]
@@ -273,6 +273,9 @@ shader = SubResource( 46 )
 shader_param/INTENSITY = 4.0
 shader_param/COLOR_RAMP = SubResource( 48 )
 
+[sub_resource type="BoxShape" id=52]
+extents = Vector3( 0.460384, 0.199869, 0.156747 )
+
 [node name="Candelabra" type="RigidBody"]
 collision_layer = 0
 collision_mask = 0
@@ -483,8 +486,8 @@ script = ExtResource( 6 )
 
 [node name="Light" type="OmniLight" parent="Candle1/FireOrigin/Fire"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
-light_color = Color( 0.980392, 0.529412, 0, 1 )
-light_energy = 0.2
+light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+light_energy = 0.25
 shadow_enabled = true
 omni_range = 10.0
 omni_attenuation = 7.0
@@ -540,5 +543,11 @@ mesh = SubResource( 45 )
 skeleton = NodePath("../../..")
 material/0 = SubResource( 49 )
 script = ExtResource( 6 )
+
+[node name="ignite" type="Area" parent="." groups=["ignite"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0180047, 0.3947, -0.0186981 )
+
+[node name="CollisionShape" type="CollisionShape" parent="ignite"]
+shape = SubResource( 52 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -37,13 +37,13 @@ func _process(delta):
 			has_ever_been_on = true
 #			firelight.visible = not firelight.visible
 			$AnimationPlayer.play("flicker")
-			$Candle1/FireOrigin/Fire.visible = true
-#			$Candle1/MeshInstance.emission_enabled = true
-			if $Candle2 != null:
-				$Candle2/FireOrigin/Fire.visible = true
-			if $Candle3 != null:
-				$Candle3/FireOrigin/Fire.visible = true
-			firelight.visible = true
+#			$Candle1/FireOrigin/Fire.visible = true
+##			$Candle1/MeshInstance.emission_enabled = true
+#			if $Candle2 != null:
+#				$Candle2/FireOrigin/Fire.visible = true
+#			if $Candle3 != null:
+#				$Candle3/FireOrigin/Fire.visible = true
+#			firelight.visible = true
 #			$MeshInstance.cast_shadow = false
 			is_lit = true
 	else:

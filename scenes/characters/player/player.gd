@@ -35,7 +35,7 @@ func delete_bomb():
 
 
 func grab_indicator():
-	var grabable_object=grab_cast.get_collider()
+	var grabable_object = grab_cast.get_collider()
 	
 	if grab_cast.is_colliding() and grabable_object is PickableItem:
 		if $PlayerController.is_grabbing==false:

@@ -77,3 +77,8 @@ func set_min_angle(value : float):
 	if not is_inside_tree():
 		yield(self, "tree_entered")
 	$DoorBody.min_angle = min_angle
+
+
+
+func damage(direction):
+	pass

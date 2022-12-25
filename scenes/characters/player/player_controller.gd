@@ -1,6 +1,8 @@
 extends Node
 
+
 signal is_moving(is_player_moving)
+
 var is_player_moving : bool = false
 
 onready var character = get_parent()
@@ -220,6 +222,7 @@ func _walk(delta) -> void:
 		is_movement_key3_held = true
 	if Input.is_action_pressed("move_up"):
 		is_movement_key4_held = true
+		owner.is_moving_forward = true
 	
 	if Input.is_action_pressed("movement"):
 		movement_press_length += delta
@@ -246,6 +249,7 @@ func _walk(delta) -> void:
 		is_movement_key3_held = false
 	if Input.is_action_just_released("move_up"):
 		is_movement_key4_held = false
+		owner.is_moving_forward = false
 	
 	if Input.is_action_just_released("movement"):
 		if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:

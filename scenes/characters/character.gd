@@ -116,6 +116,7 @@ var clamberable : RigidBody = null
 var move_dir = Vector3()
 var grounded = false
 
+var is_moving_forward : bool = false
 var is_to_move : bool = true
 var do_sprint : bool = false
 var do_jump : bool = false
@@ -311,7 +312,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
-	if do_sprint and stamina > 0 and GameManager.is_reloading == false:
+	if do_sprint and stamina > 0 and GameManager.is_reloading == false and is_moving_forward:
 		if is_crouching:
 #			if is_player_crouch_toggle:
 #				if !do_crouch:
@@ -409,7 +410,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	if velocity.length() > 0.1 and grounded and not _audio_player.playing and is_to_move:
 		if is_crouching:
 			_audio_player.play_footstep_sound(-10.0, 0.7)
-		elif do_sprint:
+		elif do_sprint and is_moving_forward:
 			_audio_player.play_footstep_sound(-2.0, 1.5)
 		else:
 			_audio_player.play_footstep_sound(-2.0, 1.0)

@@ -136,7 +136,7 @@ points = PoolVector3Array( 0.121188, 0.0580211, 0.000196137, -0.13071, -0.022788
 [sub_resource type="Animation" id=50]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
+tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -148,7 +148,7 @@ tracks/0/keys = {
 "values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/1/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -160,7 +160,7 @@ tracks/1/keys = {
 "values": [ 0.25 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
+tracks/2/path = NodePath("Candle1/FireOrigin/Fire/Light:omni_range")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -177,7 +177,7 @@ resource_name = "flicker"
 length = 5.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
+tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -189,7 +189,7 @@ tracks/0/keys = {
 "values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/1/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -201,7 +201,7 @@ tracks/1/keys = {
 "values": [ 0.23, 0.26, 0.24, 0.26, 0.23, 0.25, 0.24, 0.236 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("FireOrigin/Fire/Light:omni_range")
+tracks/2/path = NodePath("Candle1/FireOrigin/Fire/Light:omni_range")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -475,7 +475,6 @@ script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle1/FireOrigin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-visible = false
 cast_shadow = 0
 mesh = SubResource( 45 )
 skeleton = NodePath("../../..")
@@ -484,7 +483,6 @@ script = ExtResource( 6 )
 
 [node name="Light" type="OmniLight" parent="Candle1/FireOrigin/Fire"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
-visible = false
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.2
 shadow_enabled = true
@@ -511,7 +509,6 @@ script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle2/FireOrigin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-visible = false
 cast_shadow = 0
 mesh = SubResource( 45 )
 skeleton = NodePath("../../..")
@@ -538,7 +535,6 @@ script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle3/FireOrigin"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-visible = false
 cast_shadow = 0
 mesh = SubResource( 45 )
 skeleton = NodePath("../../..")

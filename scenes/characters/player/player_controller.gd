@@ -736,9 +736,7 @@ func damage_door():
 	if aimcast.is_colliding() and object.is_in_group("Door_hitbox"):
 		if is_grabbing == false:
 			if Input.is_action_just_pressed("kick"):
-				print("Kicked door")
-				object.get_parent().queue_free()
-				
+				object.get_parent().get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released

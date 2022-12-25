@@ -11,6 +11,9 @@ enum HingeSide {
 export var max_angle = 90.0 setget set_max_angle
 export var min_angle = 0.0 setget set_min_angle
 export var lock_angle_limit = 5.0
+export var door_health : int 
+export var kick_impulse : int 
+
 
 var navmesh : NavigationMeshInstance = null
 export var door_lock_count : int = 0 setget set_door_lock_count
@@ -18,6 +21,9 @@ var door_locked_transform : Transform
 
 onready var door_body : RigidBody = $DoorBody
 
+
+func _process(delta):
+	destroy_door()
 
 func set_door_lock_count(value : int):
 	if value == door_lock_count:
@@ -80,5 +86,13 @@ func set_min_angle(value : float):
 
 
 
-func damage(direction):
-	pass
+func damage(direction , damage_amount):
+	$DoorBody.apply_central_impulse(direction * kick_impulse) 
+	door_health -= damage_amount
+
+
+
+
+func destroy_door():
+	if door_health < 1:
+		queue_free()

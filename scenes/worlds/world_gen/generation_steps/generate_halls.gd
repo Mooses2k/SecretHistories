@@ -1,9 +1,11 @@
 extends GenerationStep
 
+
 export var max_hall_size : int = 8
 export var hall_creation_chance : float = 0.5
 
 export(Array, WorldData.CellType) var valid_neighbours = [WorldData.CellType.CORRIDOR]
+
 
 # Override this function
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
@@ -11,6 +13,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	random.seed = generation_seed
 	generate_halls(data, random)
 	pass
+
 
 func generate_halls(data : WorldData, random : RandomNumberGenerator):
 	var region_id : PoolIntArray = PoolIntArray()

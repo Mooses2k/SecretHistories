@@ -1,10 +1,12 @@
 extends GenerationStep
 
+
 # Generates walls based on certain adjacency rules
 
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	contour_walls(data)
 	pass
+
 
 func contour_walls(data : WorldData):
 	for x in range(1, data.world_size_x - 1):

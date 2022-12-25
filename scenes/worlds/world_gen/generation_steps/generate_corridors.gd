@@ -1,10 +1,13 @@
 extends GenerationStep
 
+
 export var existing_corridor_weight : float = 0.5
 export var existing_room_weight : float = 2.0
 export var room_edge_cost_multiplier : float = 1.5
 
 const GraphGenerator = preload("generate_room_graph.gd")
+
+
 # Override this function
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	var graph = gen_data.get(GraphGenerator.CONNECTION_GRAPH_KEY, Dictionary()) as Dictionary
@@ -22,6 +25,7 @@ func get_cell_mask(data : WorldData, cells : Array, value : int) -> int:
 	mask = mask | 0b0100*int(data.get_cell_type(cells[2]) == value)
 	mask = mask | 0b1000*int(data.get_cell_type(cells[3]) == value)
 	return mask
+
 
 func generate_double_a_star_grid(data : WorldData) -> AStar2D:
 	var astar = ManhattanAStar2D.new()
@@ -75,16 +79,19 @@ func generate_double_a_star_grid(data : WorldData) -> AStar2D:
 					astar.connect_points(i, n)
 	return astar
 
+
 func set_cells(data : WorldData, cells : Array, values : Array):
 	for i in cells.size():
 		if values [i] > data.get_cell_type(cells[i]):
 			data.set_cell_type(cells[i], values[i])
+
 
 func add_door_direction(data : WorldData, cell : int, value : int):
 	if not data.get_cell_meta(cell) is Array:
 		data.set_cell_meta(cell, Array())
 	if not data.get_cell_meta(cell).has(value):
 		data.get_cell_meta(cell).push_back(value)
+
 
 func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : int) -> bool:
 	var path : PoolIntArray = astar.get_id_path(a, b)

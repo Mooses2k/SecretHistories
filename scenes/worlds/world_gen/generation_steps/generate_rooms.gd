@@ -1,30 +1,31 @@
 extends GenerationStep
 
+
 const ROOM_ARRAY_KEY = "rooms"
 
-export var room_size_min : int = 2
-export var room_size_max : int = 3
+export var room_size_min : int = 1
+export var room_size_max : int = 4
 
-export var room_count_min : int = 12
-export var room_count_max : int = 16
+export var room_count_min : int = 32
+export var room_count_max : int = 32
 
 export var room_size_scale : int = 2
 
 export var room_min_distance : int = 1
-export var intersection_chance : float = 0.2
-export var min_intersection_size : int = 4
+export var intersection_chance : float = 1
+export var min_intersection_size : int = 3
 
 export(Array, WorldData.CellType) var override_cells : Array = [WorldData.CellType.EMPTY]
 
 var actual_room_max : int
 var actual_room_min : int
 
+
 # Randomly generates a set of rooms into data, stores the generated rooms
 # as an array of Rect2 into gen_data, under the ket ROOM_ARRAY_KEY
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	generate_rooms(data, gen_data, generation_seed)
 	fill_map_data(data, gen_data)
-
 
 
 func generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : int):
@@ -58,6 +59,7 @@ func generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : i
 			rooms.push_back(room)
 	gen_data[ROOM_ARRAY_KEY] = rooms
 
+
 func check_room_space(data : WorldData, room : Rect2) -> bool:
 	for x in range(room.position.x, room.end.x):
 		for y in range(room.position.y, room.end.y):
@@ -65,6 +67,7 @@ func check_room_space(data : WorldData, room : Rect2) -> bool:
 			if not override_cells.has(data.get_cell_type(i)):
 				return false
 	return true
+
 
 func fill_map_data(data : WorldData, gen_data : Dictionary):
 	var rooms : Array = gen_data.get(ROOM_ARRAY_KEY) as Array
@@ -75,6 +78,7 @@ func fill_map_data(data : WorldData, gen_data : Dictionary):
 				var i = data.get_cell_index_from_int_position(x, y)
 				data.set_cell_type(i, data.CellType.ROOM)
 				data.set_cell_meta(i, null)
+
 
 func _gen_room_rect(data : WorldData, random : RandomNumberGenerator) -> Rect2:
 	var s_x = int(random.randi_range(actual_room_min, actual_room_max)*room_size_scale)

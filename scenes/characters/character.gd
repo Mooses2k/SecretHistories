@@ -278,16 +278,12 @@ func _get_surface_texture() -> Dictionary:
 			if node is MeshInstance:
 				if node.mesh != null:
 					mesh = node
-		
 		if !mesh:
 			return {}
-		
 		if mesh.get_surface_material(0) != null:
 				var tex = mesh.get_surface_material(0).albedo_texture
-				
 				if !tex:
 					return {}
-				
 				var path = tex.resource_path.split("/")
 				var n = path[path.size() - 1].split(".")[0]
 				if TEXTURE_SOUND_LIB.has(n):

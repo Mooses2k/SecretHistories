@@ -10,7 +10,7 @@ onready var durable_timer = $Durability
 
 
 func _ready():
-	pass
+	durable_timer.start()
 
 
 func _process(delta):

@@ -469,7 +469,7 @@ func handle_grab_input(delta : float):
 		grab_press_length = 0.0
 		if is_grabbing==true:
 			is_grabbing = false
-			wanna_grab=false 
+			wanna_grab = false 
 			interaction_handled = true
 
 
@@ -523,16 +523,16 @@ func handle_grab(delta : float):
 		
 		# Impulse is based on how much the velocity needs to change
 		var velocity_delta = desired_velocity - local_velocity
-		var impulse_velocity = velocity_delta*grab_object.mass
+		var impulse_velocity = velocity_delta * grab_object.mass
 		
 		# Counteract gravity on the grabbed object (and other 
-		var impulse_forces = -(direct_state.total_gravity*grab_object.mass*delta)
+		var impulse_forces = -(direct_state.total_gravity * grab_object.mass*delta)
 		var total_impulse : Vector3 = impulse_velocity + impulse_forces
-		total_impulse = total_impulse.normalized()*min(total_impulse.length(), grab_strength)
+		total_impulse = total_impulse.normalized() * min(total_impulse.length(), grab_strength)
 		
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
-		direct_state.apply_torque_impulse(0.2*(grab_object_offset.cross(total_impulse)))
+		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
 		
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
@@ -736,7 +736,7 @@ func damage_door():
 	if aimcast.is_colliding() and object.is_in_group("Door_hitbox"):
 		if is_grabbing == false:
 			if Input.is_action_just_pressed("kick"):
-				object.get_parent().get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
+				object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
@@ -745,7 +745,7 @@ func drop_grabbable():
 		if grab_object != null :
 			is_grabbing = false
 			interaction_handled = true
-			var impulse = active_mode.get_aim_direction()*throw_strength
+			var impulse = active_mode.get_aim_direction() * throw_strength
 #			if current_object is MeleeItem :
 #				current_object.apply_throw_logic(impulse)
 #			else:

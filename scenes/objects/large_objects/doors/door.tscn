@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door_body.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/large_objects/doors/door.gd" type="Script" id=2]
@@ -35,9 +35,6 @@ top_radius = 0.02
 bottom_radius = 0.02
 height = 0.08
 radial_segments = 6
-
-[sub_resource type="BoxShape" id=10]
-extents = Vector3( 0.510501, 0.8469, 0.333448 )
 
 [node name="Door" type="Spatial"]
 script = ExtResource( 2 )
@@ -78,7 +75,7 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0 )
 shape = SubResource( 6 )
 
-[node name="DoorBody" type="RigidBody" parent="."]
+[node name="DoorBody" type="RigidBody" parent="." groups=["Door_hitbox"]]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 collision_layer = 5
@@ -112,14 +109,6 @@ skeleton = NodePath("../../Hinge")
 
 [node name="LockDoorHalf" parent="DoorBody" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0, -0.0848467 )
-
-[node name="Hitbox" type="Area" parent="DoorBody" groups=["Door_hitbox"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0269001, 0.075 )
-collision_layer = 512
-
-[node name="CollisionShape" type="CollisionShape" parent="DoorBody/Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.182954, 0 )
-shape = SubResource( 10 )
 
 [node name="Hinge" type="PinJoint" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0, -0.16 )

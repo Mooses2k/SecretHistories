@@ -38,7 +38,7 @@ func grab_indicator():
 	var grabable_object = grab_cast.get_collider()
 	
 	if grab_cast.is_colliding() and grabable_object is PickableItem:
-		if $PlayerController.is_grabbing==false:
+		if $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
 	else:
 			$Indication_canvas/Indication_system/Grab.hide()

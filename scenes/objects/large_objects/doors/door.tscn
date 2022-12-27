@@ -40,7 +40,7 @@ radial_segments = 6
 script = ExtResource( 2 )
 max_angle = 175.0
 door_health = 200
-kick_impulse = 60
+kick_impulse = 40
 
 [node name="LockWallHalf" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 1, -0.16 )

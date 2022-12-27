@@ -328,7 +328,7 @@ animation = "walk_forward-loop"
 [sub_resource type="AnimationNodeTimeScale" id=58]
 
 [sub_resource type="AnimationNodeBlendTree" id=42]
-graph_offset = Vector2( -536.325, 110.905 )
+graph_offset = Vector2( -622.407, 62.4405 )
 nodes/TimeScale/node = SubResource( 52 )
 nodes/TimeScale/position = Vector2( 200, 180 )
 nodes/aim_transition/node = SubResource( 53 )
@@ -348,7 +348,7 @@ nodes/walk/node = SubResource( 56 )
 nodes/walk/position = Vector2( -240, 440 )
 nodes/walk_scale/node = SubResource( 58 )
 nodes/walk_scale/position = Vector2( 20, 460 )
-node_connections = [ "TimeScale", 0, "strafe", "aim_transition", 0, "TimeScale", "aim_transition", 1, "iwr_blend", "walk_scale", 0, "walk", "run_scale", 0, "run", "iwr_blend", 0, "idle", "iwr_blend", 1, "walk_scale", "iwr_blend", 2, "run_scale", "output", 0, "aim_transition" ]
+node_connections = [ "output", 0, "aim_transition", "walk_scale", 0, "walk", "iwr_blend", 0, "idle", "iwr_blend", 1, "walk_scale", "iwr_blend", 2, "run_scale", "aim_transition", 0, "TimeScale", "aim_transition", 1, "iwr_blend", "TimeScale", 0, "strafe", "run_scale", 0, "run" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -360,9 +360,6 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.86
 [node name="CollisionShape2" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.316957, 0 )
 disabled = true
-
-[node name="MainHandEquipmentRoot" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="." index="4"]
 anchor_right = 1.0
@@ -642,13 +639,14 @@ mesh = SubResource( 17 )
 skeleton = NodePath("../..")
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="25"]
+unique_name_in_owner = true
 tree_root = SubResource( 42 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 process_mode = 0
 parameters/TimeScale/scale = 1.0
 parameters/aim_transition/current = 1
-parameters/iwr_blend/blend_amount = 0.0
+parameters/iwr_blend/blend_amount = -1.0
 parameters/run_scale/scale = 1.0
 parameters/strafe/blend_position = Vector2( 0.201939, 0.491379 )
 parameters/walk_scale/scale = 1.0

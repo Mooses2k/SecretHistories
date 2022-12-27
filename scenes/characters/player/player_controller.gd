@@ -235,7 +235,7 @@ func _walk(delta) -> void:
 	character.character_state.move_direction = move_dir.normalized()
 	
 	
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("sprint") and $AnimationTree.get("parameters/aim_transition/current") :
 		owner.do_sprint = true
 	else:
 		owner.do_sprint = false

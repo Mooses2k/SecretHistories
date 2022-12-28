@@ -10,11 +10,11 @@ Or<br>
 
 Simulationist dungeon delving
 
-* _Controls and some gameplay of Alien Swarm_
+* _Controls and some gameplay of Amnesia_
 * _Same for Delver_
 * _Gameplay of OSR D&D_
 * _Story and world, some gameplay, and stealth of Infra Arcana_
-* _World-building of SCP_
+* _World-building of SCP Foundation, specifically the work of qntm
 * _Time period, guns, & stealth of Hunt: Showdown_
 * _Fiddly gun mechanics of Receiver_
 * _Melee of Hellish Quart_

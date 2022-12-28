@@ -1,6 +1,7 @@
 extends "res://scenes/characters/character.gd"
 class_name Player
 
+signal change_equipment_out_done()
 
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
@@ -11,8 +12,8 @@ var colliding_pickable_items = []
 var colliding_interactable_items = []
 var mainhand_orig_origin = null
 var mainhand_orig_basis = null
-var is_change_equip : bool = false
-
+var is_change_equip_out : bool = false
+var is_change_equip_in : bool = false
 
 func _ready():
 	mainhand_orig_basis = mainhand_equipment_root.transform.basis
@@ -30,7 +31,7 @@ func _process(delta):
 		$Indication_canvas/Indication_system/Dot.show()
 	
 	grab_indicator()
-#	change_equipment_anim_in()
+	change_equipment_anim_in()
 	change_equipment_anim_out()
 
 
@@ -74,32 +75,50 @@ func _on_GrabCastDot_area_exited(area):
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
 
 
-func change_equipment_anim_out():
-	if(is_change_equip):
-#		var from = mainhand_equipment_root.transform.origin.y
-#		mainhand_equipment_root.transform.origin.y = lerp(from, mainhand_orig_origin.y - 0.3, 0.4)
-		
-		var from = mainhand_equipment_root.transform.origin.z
-		mainhand_equipment_root.transform.origin.z = lerp(from, mainhand_orig_origin.z + 0.2, 0.4)
+func change_equipment_out():
+	is_change_equip_in = false
+	mainhand_equipment_root.transform.origin.y = mainhand_orig_origin.y
+	mainhand_equipment_root.transform.origin.z = mainhand_orig_origin.z 
 	
-#		var from = hand.transform.basis.z.z
-#		hand.transform.basis.z.z = lerp(from, mainhand_orig_basis.z.z + 5, 0.05)
-		var d1 = mainhand_equipment_root.transform.origin.z - (mainhand_orig_origin.z + 0.2)
-		print(d1)
+	is_change_equip_out = true
+
+
+func change_equipment_anim_out():
+	if(is_change_equip_out):
+		var from = mainhand_equipment_root.transform.origin.y
+		mainhand_equipment_root.transform.origin.y = lerp(from, mainhand_orig_origin.y - 0.2, 0.3)
+		
+		from = mainhand_equipment_root.transform.origin.z
+		mainhand_equipment_root.transform.origin.z = lerp(from, mainhand_orig_origin.z + 0.8, 0.3)
+	
+		var d1 = mainhand_equipment_root.transform.origin.z - (mainhand_orig_origin.z + 0.8)
+		
 		if d1 > -0.02:
-			mainhand_equipment_root.transform.origin.y = mainhand_orig_origin.y
-			mainhand_equipment_root.transform.origin.z = mainhand_orig_origin.z
-			is_change_equip = false
-			print("yon")
+			is_change_equip_out = false
+			emit_signal("change_equipment_out_done")
+
+
+func change_equipment_in():
+	is_change_equip_out = false
+	mainhand_equipment_root.transform.origin.y = mainhand_orig_origin.y - 0.2
+	mainhand_equipment_root.transform.origin.z = mainhand_orig_origin.z + 0.8
+	
+	is_change_equip_in = true
 
 
 func change_equipment_anim_in():
-	var from = mainhand_equipment_root.transform.origin
-	mainhand_equipment_root.transform.origin = lerp(from, mainhand_orig_origin, 0.5)
+	if(is_change_equip_in):
+		var from = mainhand_equipment_root.transform.origin.y
+		mainhand_equipment_root.transform.origin.y = lerp(from, mainhand_orig_origin.y, 0.3)
+		
+		from = mainhand_equipment_root.transform.origin.z
+		mainhand_equipment_root.transform.origin.z = lerp(from, mainhand_orig_origin.z, 0.3)
 	
-	from = mainhand_equipment_root.transform.basis.x.x
-	mainhand_equipment_root.transform.basis.x.x = lerp(from, mainhand_orig_basis.x.x, 0.5)
-	
-#	var d1 = mainhand_equipment_root.transform.origin - mainhand_orig_origin
-#	var d2 = mainhand_equipment_root.transform.basis - mainhand_orig_basis
-#	if d1 > -0.02:
+#		var from = hand.transform.basis.z.z
+#		hand.transform.basis.z.z = lerp(from, mainhand_orig_basis.z.z + 5, 0.05)
+		var d1 = mainhand_equipment_root.transform.origin.z - (mainhand_orig_origin.z)
+		
+		if d1 < 0.02:
+			mainhand_equipment_root.transform.origin.y = mainhand_orig_origin.y
+			mainhand_equipment_root.transform.origin.z = mainhand_orig_origin.z
+			is_change_equip_in = false

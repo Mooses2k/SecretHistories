@@ -94,6 +94,7 @@ var movement_press_length = 0
 var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
+var item_up = false
 
 
 func _ready():
@@ -147,69 +148,80 @@ func _input(event):
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
-					if character.inventory.current_mainhand_slot != 0:
-						var total_inventory 
-						if  character.inventory.bulky_equipment:
-							total_inventory = 10
-						else:
-							total_inventory = character.inventory.current_mainhand_slot - 1
-						if total_inventory != character.inventory.current_offhand_slot:
-							character.inventory.current_mainhand_slot = total_inventory
-						else:
-							var plus_inventory 
+					item_up = true
+					owner.change_equipment_out()
+					yield(owner, "change_equipment_out_done")
+						
+					if item_up:
+						if character.inventory.current_mainhand_slot != 0:
+							var total_inventory 
 							if  character.inventory.bulky_equipment:
-								plus_inventory = 10
+								total_inventory = 10
 							else:
-								plus_inventory = total_inventory - 1
-							if plus_inventory != -1  :
-								character.inventory.current_mainhand_slot = plus_inventory
+								total_inventory = character.inventory.current_mainhand_slot - 1
+							if total_inventory != character.inventory.current_offhand_slot:
+								character.inventory.current_mainhand_slot = total_inventory
 							else:
-								character.inventory.current_mainhand_slot = 10
-					elif character.inventory.current_mainhand_slot == 0:
-						character.inventory.current_mainhand_slot = 10
-						
-						
+								var plus_inventory 
+								if  character.inventory.bulky_equipment:
+									plus_inventory = 10
+								else:
+									plus_inventory = total_inventory - 1
+								if plus_inventory != -1  :
+									character.inventory.current_mainhand_slot = plus_inventory
+								else:
+									character.inventory.current_mainhand_slot = 10
+						elif character.inventory.current_mainhand_slot == 0:
+							character.inventory.current_mainhand_slot = 10
+							
+						owner.change_equipment_in()
+				
 				BUTTON_WHEEL_DOWN:
-					owner.is_change_equip = true
-					
-					if character.inventory.current_mainhand_slot != 10 :
-						var total_inventory
-						if  character.inventory.bulky_equipment:
-							total_inventory = 0
-						else:
-							total_inventory = character.inventory.current_mainhand_slot + 1
-						if total_inventory != character.inventory.current_offhand_slot :
-							character.inventory.current_mainhand_slot = total_inventory
-						else:
-							var plus_inventory = total_inventory + 1
-							if character.inventory.current_offhand_slot != 10:
-								character.inventory.current_mainhand_slot = plus_inventory
+					item_up = false
+					owner.change_equipment_out()
+					yield(owner, "change_equipment_out_done")
+						
+					if !item_up:
+						if character.inventory.current_mainhand_slot != 10 :
+							var total_inventory
+							if  character.inventory.bulky_equipment:
+								total_inventory = 0
 							else:
-								character.inventory.current_mainhand_slot = 10
-					elif character.inventory.current_mainhand_slot == 10:
-						if character.inventory.current_offhand_slot != 0:
-							character.inventory.current_mainhand_slot = 0
-						else:
-							character.inventory.current_mainhand_slot = 1
+								total_inventory = character.inventory.current_mainhand_slot + 1
+							if total_inventory != character.inventory.current_offhand_slot :
+								character.inventory.current_mainhand_slot = total_inventory
+							else:
+								var plus_inventory = total_inventory + 1
+								if character.inventory.current_offhand_slot != 10:
+									character.inventory.current_mainhand_slot = plus_inventory
+								else:
+									character.inventory.current_mainhand_slot = 10
+						elif character.inventory.current_mainhand_slot == 10:
+							if character.inventory.current_offhand_slot != 0:
+								character.inventory.current_mainhand_slot = 0
+							else:
+								character.inventory.current_mainhand_slot = 1
+							
+						owner.change_equipment_in()
 	
 	if event is InputEventMouseMotion:
 		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE 
 			or owner.state == owner.State.STATE_CLAMBERING_RISE 
 			or owner.state == owner.State.STATE_CLAMBERING_VENT):
 			return
-		
+			
 		var m = 1.0
-		
+			
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
-		
+			
 		owner.rotation_degrees.y -= event.relative.x * mouse_sens * m
 #		owner.body.rotation_degrees.y -= event.relative.x * mouse_sens * m
-		
+			
 		if owner.state != owner.State.STATE_CRAWLING:
 			_camera.rotation_degrees.x -= event.relative.y * mouse_sens * m
 			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
-
+			
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 		
 		#character.inventory.current_mainhand_slot = 1

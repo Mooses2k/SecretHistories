@@ -27,6 +27,8 @@ onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 export var _aimcast : NodePath
 onready var aimcast : RayCast = get_node(_aimcast) as RayCast
 
+export(AttackTypes.Types) var kick_damage_type : int = 0
+
 #export var Player_path : NodePath
 #onready var player = get_node(Player_path)
 
@@ -126,7 +128,7 @@ func _physics_process(delta : float):
 	previous_item()
 	drop_grabbable()
 	empty_slot()
-	damage_door()
+	kick()
 	
 	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
 	if c != Vector3.ZERO:
@@ -730,13 +732,16 @@ func handle_inventory(delta : float):
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
 
-func damage_door():
+func kick():
 	var object = aimcast.get_collider()
 	
 	if aimcast.is_colliding() and object.is_in_group("Door_hitbox"):
 		if is_grabbing == false:
 			if Input.is_action_just_pressed("kick"):
 				object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
+	elif aimcast.is_colliding() and object.is_in_group("CHARACTER"):
+		if Input.is_action_just_pressed("kick"):
+			object.get_parent().damage(character.kick_damage , kick_damage_type , object)
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released

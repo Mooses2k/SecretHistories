@@ -1,6 +1,8 @@
 extends Node
 
+
 signal is_moving(is_player_moving)
+
 var is_player_moving : bool = false
 
 onready var character = get_parent()

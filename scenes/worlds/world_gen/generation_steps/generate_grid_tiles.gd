@@ -1,5 +1,6 @@
 extends GenerationStep
 
+
 export var floor_tile : int = -1
 export var wall_tile : int = -1
 export var double_wall_tile : int = -1
@@ -7,6 +8,7 @@ export var door_tile : int = -1
 export var double_door_tile : int = -1
 export var pillar_tile : int = -1
 export var ceiling_tile : int = -1
+
 
 # Override this function
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
@@ -16,15 +18,18 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	place_pillars(data)
 	pass
 
+
 func select_floor_tiles(data : WorldData):
 	for i in data.cell_count:
 		if data.get_cell_type(i) != data.CellType.EMPTY:
 			data.set_ground_tile_index(i, floor_tile)
 
+
 func select_ceiling_tiles(data : WorldData):
 	for i in data.cell_count:
 		if data.get_cell_type(i) != data.CellType.EMPTY:
 			data.set_ceiling_tile_index(i, ceiling_tile)
+
 
 func select_wall_tiles(data : WorldData):
 	for i in data.cell_count:
@@ -43,6 +48,7 @@ func select_wall_tiles(data : WorldData):
 					if dir == data.Direction.SOUTH or dir == data.Direction.WEST:
 						data.set_wall_tile_index(i, dir, double_door_tile)
 					data.set_wall_meta(i, dir, 0.8)
+
 
 func place_pillars(data : WorldData):
 	for x in range(1, data.get_size_x()):

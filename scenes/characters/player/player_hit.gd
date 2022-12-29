@@ -4,7 +4,6 @@ onready var opacity_target = [0.1, 0.2]
 var tween_speed = 0.7
 var is_fade_in = false
 
-
 #------>FOR TESTING<------
 var health = 100 
 

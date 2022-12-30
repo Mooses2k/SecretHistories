@@ -17,48 +17,48 @@ func _process(delta):
 		str(owner.is_on_floor()))
 
 
-func _input(event):
-	if event is InputEvent and event.is_action_pressed("kick"):
-		if not $ColorRect.is_visible_in_tree():
-			$ColorRect.show()
-		if $AnimationPlayer.is_playing():
-			$AnimationPlayer.stop()
-		$AnimationPlayer.play("hit_effect")
-		
-		health -= 5
-		
-		if health <= 5:
-			opacity_target[0] = 0.7
-			opacity_target[1] = 0.98
-		elif health <= 10:
-			tween_speed = 0.4
-			opacity_target[0] = 0.6
-			opacity_target[1] = 0.8
-		elif health <= 15:
-			opacity_target[0] = 0.5
-			opacity_target[1] = 0.7
-		elif health <= 20:
-			tween_speed = 0.5
-			opacity_target[0] = 0.4
-			opacity_target[1] = 0.6
-		elif health <= 25:
-			opacity_target[0] = 0.3
-			opacity_target[1] = 0.5
-		elif health <= 30:
-			tween_speed = 0.6
-			opacity_target[0] = 0.2
-			opacity_target[1] = 0.4
-		elif health <= 35:
-			opacity_target[0] = 0.1
-			opacity_target[1] = 0.3
-		elif health <= 40:
-			if not $TextureRect.is_visible_in_tree():
-				$TextureRect.show()
-			if not $Tween.is_active() and not $Tween.is_active():
-				_start_fade_in()
-			opacity_target[0] = 0.05
-			opacity_target[1] = 0.2
-#------>FOR TESTING<------
+#func _input(event):
+#	if event is InputEvent and event.is_action_pressed("kick"):
+#		if not $ColorRect.is_visible_in_tree():
+#			$ColorRect.show()
+#		if $AnimationPlayer.is_playing():
+#			$AnimationPlayer.stop()
+#		$AnimationPlayer.play("hit_effect")
+#
+#		health -= 5
+#
+#		if health <= 5:
+#			opacity_target[0] = 0.7
+#			opacity_target[1] = 0.98
+#		elif health <= 10:
+#			tween_speed = 0.4
+#			opacity_target[0] = 0.6
+#			opacity_target[1] = 0.8
+#		elif health <= 15:
+#			opacity_target[0] = 0.5
+#			opacity_target[1] = 0.7
+#		elif health <= 20:
+#			tween_speed = 0.5
+#			opacity_target[0] = 0.4
+#			opacity_target[1] = 0.6
+#		elif health <= 25:
+#			opacity_target[0] = 0.3
+#			opacity_target[1] = 0.5
+#		elif health <= 30:
+#			tween_speed = 0.6
+#			opacity_target[0] = 0.2
+#			opacity_target[1] = 0.4
+#		elif health <= 35:
+#			opacity_target[0] = 0.1
+#			opacity_target[1] = 0.3
+#		elif health <= 40:
+#			if not $TextureRect.is_visible_in_tree():
+#				$TextureRect.show()
+#			if not $Tween.is_active() and not $Tween.is_active():
+#				_start_fade_in()
+#			opacity_target[0] = 0.05
+#			opacity_target[1] = 0.2
+##------>FOR TESTING<------
 
 
 func _on_Player_is_hit(current_health):

@@ -15,6 +15,7 @@ var mainhand_orig_basis = null
 var is_change_equip_out : bool = false
 var is_change_equip_in : bool = false
 
+
 func _ready():
 	mainhand_orig_basis = mainhand_equipment_root.transform.basis
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin

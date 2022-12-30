@@ -39,6 +39,8 @@ radial_segments = 6
 [node name="Door" type="Spatial"]
 script = ExtResource( 2 )
 max_angle = 175.0
+door_health = 200
+kick_impulse = 40
 
 [node name="LockWallHalf" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 1, -0.16 )
@@ -73,7 +75,8 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0 )
 shape = SubResource( 6 )
 
-[node name="DoorBody" type="RigidBody" parent="."]
+[node name="DoorBody" type="RigidBody" parent="." groups=["Door_hitbox"]]
+unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 collision_layer = 5
 mass = 30.0

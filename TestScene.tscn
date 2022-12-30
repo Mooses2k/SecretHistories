@@ -87,6 +87,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.487249, 1.78328 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57244, 0.314143, 0 )
 
 [node name="Halberd" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63022, 1.27144, 0.00388288 )
 
 [node name="OldKnife" parent="." instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.470416, 1.28765 )

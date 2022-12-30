@@ -11,6 +11,7 @@ export var max_health : int = 100
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
 export var mass : float = 100.0
+export var kick_damage : int 
 
 onready var character_state : CharacterState = CharacterState.new(self)
 onready var current_health : float = self.max_health

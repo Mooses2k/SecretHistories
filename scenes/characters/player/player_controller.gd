@@ -12,6 +12,7 @@ export var throw_strength : float = 2
 
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 2.0
+export var kick_impulse : float = 20
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -23,6 +24,14 @@ var target_placement_position : Vector3 = Vector3.ZERO
 
 export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
+
+export var _aimcast : NodePath
+onready var aimcast : RayCast = get_node(_aimcast) as RayCast
+
+export var _legcast : NodePath
+onready var legcast : RayCast = get_node(_legcast) as RayCast
+
+export(AttackTypes.Types) var kick_damage_type : int = 0
 
 #export var Player_path : NodePath
 #onready var player = get_node(Player_path)
@@ -128,6 +137,7 @@ func _physics_process(delta : float):
 	drop_grabbable()
 	empty_slot()
 	_process_frob_and_drag()
+	kick()
 	
 	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
 	if c != Vector3.ZERO:
@@ -483,7 +493,7 @@ func handle_grab_input(delta : float):
 		grab_press_length = 0.0
 		if is_grabbing==true:
 			is_grabbing = false
-			wanna_grab=false 
+			wanna_grab = false 
 			interaction_handled = true
 
 
@@ -537,16 +547,16 @@ func handle_grab(delta : float):
 		
 		# Impulse is based on how much the velocity needs to change
 		var velocity_delta = desired_velocity - local_velocity
-		var impulse_velocity = velocity_delta*grab_object.mass
+		var impulse_velocity = velocity_delta * grab_object.mass
 		
 		# Counteract gravity on the grabbed object (and other 
-		var impulse_forces = -(direct_state.total_gravity*grab_object.mass*delta)
+		var impulse_forces = -(direct_state.total_gravity * grab_object.mass*delta)
 		var total_impulse : Vector3 = impulse_velocity + impulse_forces
-		total_impulse = total_impulse.normalized()*min(total_impulse.length(), grab_strength)
+		total_impulse = total_impulse.normalized() * min(total_impulse.length(), grab_strength)
 		
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
-		direct_state.apply_torque_impulse(0.2*(grab_object_offset.cross(total_impulse)))
+		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
 		
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
@@ -744,6 +754,21 @@ func handle_inventory(delta : float):
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
 
+func kick():
+	var kick_object = legcast.get_collider()
+	
+	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+		if is_grabbing == false:
+			if Input.is_action_just_pressed("kick"):
+				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
+				
+	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
+		if Input.is_action_just_pressed("kick"):
+			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
+			
+	elif legcast.is_colliding() and kick_object is RigidBody:
+		if Input.is_action_just_pressed("kick"):
+			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
@@ -752,7 +777,7 @@ func drop_grabbable():
 		if grab_object != null :
 			is_grabbing = false
 			interaction_handled = true
-			var impulse = active_mode.get_aim_direction()*throw_strength
+			var impulse = active_mode.get_aim_direction() * throw_strength
 #			if current_object is MeleeItem :
 #				current_object.apply_throw_logic(impulse)
 #			else:

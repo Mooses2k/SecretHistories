@@ -12,6 +12,7 @@ export var throw_strength : float = 2
 
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 2.0
+export var kick_impulse : float = 20
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -26,6 +27,9 @@ onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
 export var _aimcast : NodePath
 onready var aimcast : RayCast = get_node(_aimcast) as RayCast
+
+export var _legcast : NodePath
+onready var legcast : RayCast = get_node(_legcast) as RayCast
 
 export(AttackTypes.Types) var kick_damage_type : int = 0
 
@@ -733,15 +737,20 @@ func handle_inventory(delta : float):
 #		throw_state = true
 
 func kick():
-	var object = aimcast.get_collider()
+	var kick_object = legcast.get_collider()
 	
-	if aimcast.is_colliding() and object.is_in_group("Door_hitbox"):
+	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
 		if is_grabbing == false:
 			if Input.is_action_just_pressed("kick"):
-				object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-	elif aimcast.is_colliding() and object.is_in_group("CHARACTER"):
+				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
+				
+	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 		if Input.is_action_just_pressed("kick"):
-			object.get_parent().damage(character.kick_damage , kick_damage_type , object)
+			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
+			
+	elif legcast.is_colliding() and kick_object is RigidBody:
+		if Input.is_action_just_pressed("kick"):
+			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released

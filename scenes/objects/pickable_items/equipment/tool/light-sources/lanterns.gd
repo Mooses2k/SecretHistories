@@ -27,9 +27,6 @@ func _process(delta):
 			$MeshInstance.cast_shadow = false
 	else:
 		is_lit = false
-#	if can_attach:
-#		if item_state == GlobalConsts.ItemState.INVENTORY:
-#			visible = true
 
 func _use_primary():
 	if !durable_timer.is_stopped():

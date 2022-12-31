@@ -25,11 +25,7 @@ surfaces/0 = {
 
 [sub_resource type="CylinderShape" id=50]
 height = 0.35
-radius = 0.045
-
-[sub_resource type="CylinderShape" id=44]
-height = 0.070978
-radius = 0.0247159
+radius = 0.1
 
 [sub_resource type="ArrayMesh" id=43]
 blend_shape_mode = 0
@@ -86,6 +82,10 @@ width = 32
 shader = SubResource( 46 )
 shader_param/INTENSITY = 4.0
 shader_param/COLOR_RAMP = SubResource( 48 )
+
+[sub_resource type="CylinderShape" id=44]
+height = 0.1
+radius = 0.05
 
 [sub_resource type="Animation" id=51]
 length = 0.001
@@ -193,29 +193,26 @@ script = ExtResource( 6 )
 transform = Transform( 1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, -0.0614703, 0 )
 shape = SubResource( 50 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 3.48166e-13, 0, -3.48166e-13, 2, 0, 0.0496396, -7.10543e-15 )
-shape = SubResource( 44 )
-
 [node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.251927, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0560944, 0 )
 
 [node name="Durability" type="Timer" parent="."]
 wait_time = 300.0
 one_shot = true
 
 [node name="Candle1" type="Spatial" parent="."]
-transform = Transform( 8, 0, 0, 0, -3.49691e-07, 8, 0, -8, -3.49691e-07, 0, 0.105539, 0 )
+transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 0.105539, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle1"]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.70368e-11, 0.00153363 )
+cast_shadow = 0
 mesh = SubResource( 43 )
 skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
 script = ExtResource( 6 )
 
 [node name="FireOrigin" type="Position3D" parent="Candle1"]
-transform = Transform( 0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, -8.27289e-10, 0.0189262 )
+transform = Transform( 0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, -1.37043e-09, 0.0313518 )
 script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle1/FireOrigin"]
@@ -233,6 +230,10 @@ light_energy = 0.1
 shadow_enabled = true
 omni_range = 6.0
 omni_attenuation = 7.0
+
+[node name="CollisionShape2" type="CollisionShape" parent="Candle1"]
+transform = Transform( 0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, -7.26779e-10, 0.0166268 )
+shape = SubResource( 44 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "flicker"

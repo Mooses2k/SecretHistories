@@ -9,9 +9,10 @@
 [ext_resource path="res://resources/models/items/ranged/martini-henry_rifle/Material_006.material" type="Material" id=7]
 [ext_resource path="res://resources/models/items/ranged/martini-henry_rifle/Material_004.material" type="Material" id=8]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/smoke.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/effects/martini_audio.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/effects.gd" type="Script" id=12]
+
 
 
 

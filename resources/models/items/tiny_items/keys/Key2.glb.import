@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Key1.glb-9f99989cf546b3e5aa599da9843bd79c.scn"
+path="res://.import/Key2.glb-b34c30e971f2324c3182293470df0a73.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tools/locks_and_keys/OldLockAndKey/Key1.glb"
-dest_files=[ "res://.import/Key1.glb-9f99989cf546b3e5aa599da9843bd79c.scn" ]
+source_file="res://resources/models/items/tiny_items/keys/Key2.glb"
+dest_files=[ "res://.import/Key2.glb-b34c30e971f2324c3182293470df0a73.scn" ]
 
 [params]
 

@@ -122,6 +122,7 @@ extents = Vector3( 0.221695, 0.224011, 0.242223 )
 mass = 0.2
 script = ExtResource( 3 )
 item_name = "Starstuff Lantern"
+can_attach = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0650012, 0 )
@@ -159,4 +160,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050121, 0 )
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 7 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -92,3 +92,8 @@ func _on_Durability_timeout():
 		$Candle3/FireOrigin/Fire.visible = false
 		$Candle3/MeshInstance.get_surface_material(0).emission_enabled = false
 #	$MeshInstance.cast_shadow = true
+
+
+func _item_state_changed(previous_state, current_state):
+	if current_state == GlobalConsts.ItemState.INVENTORY:
+		print("in inventory")

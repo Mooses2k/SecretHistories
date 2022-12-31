@@ -1,7 +1,7 @@
 extends ToolItem
 class_name LanternItem
 
-
+export (bool) var can_attach = true
 var has_ever_been_on = false 
 var is_lit = true # true for testing to provide some light
 
@@ -14,6 +14,7 @@ func _ready():
 
 
 func _process(delta):
+
 	if is_lit == true:
 		durable_timer.pause_mode = false
 	else:
@@ -26,7 +27,9 @@ func _process(delta):
 			$MeshInstance.cast_shadow = false
 	else:
 		is_lit = false
-
+#	if can_attach:
+#		if item_state == GlobalConsts.ItemState.INVENTORY:
+#			visible = true
 
 func _use_primary():
 	if !durable_timer.is_stopped():
@@ -42,3 +45,23 @@ func _on_Durability_timeout():
 	$AnimationPlayer.stop()
 	firelight.visible = false
 	$MeshInstance.cast_shadow = true
+
+
+func _item_state_changed(previous_state, current_state):
+	if current_state == GlobalConsts.ItemState.INVENTORY:
+		switch_away()
+
+
+func switch_away():
+	if not can_attach:
+		$AnimationPlayer.stop()
+		firelight.visible = false
+		$MeshInstance.cast_shadow = false
+		is_lit = false
+	else:
+		attach_to_belt()
+
+
+func attach_to_belt():
+	get_parent().owner.attach_to_belt(self)
+

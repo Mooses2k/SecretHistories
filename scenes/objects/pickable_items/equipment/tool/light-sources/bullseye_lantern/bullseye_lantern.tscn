@@ -123,6 +123,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
 mass = 0.2
 script = ExtResource( 2 )
 item_name = "Bullseye Lantern"
+can_attach = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 0, 0, 0 )
@@ -161,4 +162,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.08
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 9 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

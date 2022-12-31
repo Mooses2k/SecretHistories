@@ -109,6 +109,7 @@ extents = Vector3( 0.0634562, 0.0615375, 0.047019 )
 mass = 0.2
 script = ExtResource( 2 )
 item_name = "Dark Lantern"
+can_attach = true
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, 0, 0 )
@@ -147,4 +148,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.07
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 5 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -550,4 +550,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00712366, 0.353032, -0.0061
 [node name="CollisionShape" type="CollisionShape" parent="ignite"]
 shape = SubResource( 52 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

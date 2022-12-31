@@ -170,7 +170,12 @@ func equip_mainhand_item():
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
-		owner.mainhand_equipment_root.add_child(item)
+		if item.is_in_belt == true:
+			item.get_parent().remove_child(item)
+			owner.mainhand_equipment_root.add_child(item)
+			item.is_in_belt = false
+		else:
+			owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
 
 
@@ -182,7 +187,12 @@ func unequip_mainhand_item():
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 #	emit_signal("UpdateHud")
-	item.get_parent().remove_child(item)
+	
+	if item.can_attach == true:
+		put_in_belt(item)
+	else:
+		item.get_parent().remove_child(item)
+	
 
 
 func equip_bulky_item(item : EquipmentItem):
@@ -288,7 +298,11 @@ func _drop_item(item : EquipmentItem):
 	item.item_state = GlobalConsts.ItemState.DROPPED
 	if GameManager.game.level:
 		item.global_transform = drop_position_node.global_transform
-		GameManager.game.level.add_child(item)
+		if item.can_attach == true:
+			item.get_parent().remove_child(item)
+			GameManager.game.level.add_child(item)
+		else:
+			GameManager.game.level.add_child(item)
 	pass
 
 
@@ -320,3 +334,7 @@ func set_offhand_slot(value : int):
 
 func _on_Player_character_died():
 	emit_signal("PlayerDead")
+
+func put_in_belt(item):
+	item.get_parent().remove_child(item)
+	$"%Beltposition".add_child(item)

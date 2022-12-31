@@ -1,7 +1,6 @@
 extends ToolItem
 class_name LanternItem
 
-export (bool) var can_attach = true
 var has_ever_been_on = false 
 var is_lit = true # true for testing to provide some light
 
@@ -60,5 +59,6 @@ func switch_away():
 
 
 func attach_to_belt():
-	get_parent().owner.attach_to_belt(self)
+	is_in_belt = true
+#	get_parent().owner.attach_to_belt(self)
 

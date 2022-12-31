@@ -237,4 +237,5 @@ collision_layer = 64
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 28 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -1,11 +1,10 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/consumables/light_sources/torch/M_Torch.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" type="Script" id=3]
 [ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
-
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Torch_torch_lp"
@@ -174,6 +173,9 @@ color_ramp = SubResource( 11 )
 [sub_resource type="QuadMesh" id=13]
 material = SubResource( 5 )
 
+[sub_resource type="BoxShape" id=17]
+extents = Vector3( 0.0423184, 0.0407008, 0.0435631 )
+
 [node name="Torch" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0542236, 0 )
 script = ExtResource( 3 )
@@ -237,4 +239,11 @@ local_coords = false
 process_material = SubResource( 12 )
 draw_pass_1 = SubResource( 13 )
 
+[node name="ignite" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210801, 0 )
+
+[node name="CollisionShape" parent="ignite" index="0"]
+shape = SubResource( 17 )
+
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

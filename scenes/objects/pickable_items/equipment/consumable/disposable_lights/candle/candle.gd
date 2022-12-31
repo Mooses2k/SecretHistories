@@ -55,3 +55,16 @@ func _on_Durability_timeout():
 	$AnimationPlayer.stop()
 	$MeshInstance.get_surface_material(0).emission_enabled = false
 #	$MeshInstance.cast_shadow = true
+
+
+func _item_state_changed(previous_state, current_state):
+	if current_state == GlobalConsts.ItemState.INVENTORY:
+		switch_away()
+
+
+func switch_away():
+	$FireOrigin/Fire.emitting = false
+	firelight.visible = false
+	$AnimationPlayer.stop()
+	$MeshInstance.get_surface_material(0).emission_enabled = false
+	is_lit = false

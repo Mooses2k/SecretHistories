@@ -26,7 +26,6 @@ collision_layer = 512
 mass = 200.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-cast_shadow = 0
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 

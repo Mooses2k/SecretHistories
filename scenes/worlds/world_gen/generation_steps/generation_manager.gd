@@ -1,13 +1,15 @@
 extends Node
 class_name GenerationManager
 
-export var world_size_x : int = 16
-export var world_size_z : int = 16
+
+export var world_size_x : int = 40
+export var world_size_z : int = 40
 export var generation_seed : int = 0
 
 signal generation_started(data, gen_data)
 signal step_finished(data)
 signal generation_finished(data)
+
 
 func generate() -> WorldData:
 	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
@@ -30,4 +32,3 @@ func generate() -> WorldData:
 			emit_signal("step_finished", data, gen_data)
 	emit_signal("generation_finished", data, gen_data)
 	return data
-

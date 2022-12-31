@@ -11,6 +11,7 @@ export var max_health : int = 100
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
 export var mass : float = 100.0
+export var kick_damage : int 
 
 onready var character_state : CharacterState = CharacterState.new(self)
 onready var current_health : float = self.max_health
@@ -26,7 +27,6 @@ onready var collision_shape = $CollisionShape
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
-
 
 enum ItemSelection {
 	ITEM_MAINHAND,
@@ -117,6 +117,7 @@ var clamberable : RigidBody = null
 var move_dir = Vector3()
 var grounded = false
 
+var is_moving_forward : bool = false
 var is_to_move : bool = true
 var do_sprint : bool = false
 var do_jump : bool = false
@@ -159,6 +160,7 @@ var do_crouch : bool = false
 func slow_down(state : PhysicsDirectBodyState):
 	state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), move_speed)
 
+
 func damage(value : float, type : int, on_hitbox : Hitbox):
 	#queue_free()
 	if self._alive:
@@ -172,12 +174,6 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			if self.name != "Player":
 				collision_shape.disabled = true
 				skeleton.physical_bones_start_simulation()
-
-
-# for testing
-func _input(event):
-	if event is InputEvent and event.is_action_pressed("kick"):
-		self.emit_signal("character_died")
 
 
 func _ready():
@@ -317,7 +313,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
-	if do_sprint and stamina > 0 and GameManager.is_reloading == false:
+	if do_sprint and stamina > 0 and GameManager.is_reloading == false and is_moving_forward:
 		if is_crouching:
 #			if is_player_crouch_toggle:
 #				if !do_crouch:
@@ -415,7 +411,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	if velocity.length() > 0.1 and grounded and not _audio_player.playing and is_to_move:
 		if is_crouching:
 			_audio_player.play_footstep_sound(-10.0, 0.7)
-		elif do_sprint:
+		elif do_sprint and is_moving_forward:
 			_audio_player.play_footstep_sound(-2.0, 1.5)
 		else:
 			_audio_player.play_footstep_sound(-2.0, 1.0)

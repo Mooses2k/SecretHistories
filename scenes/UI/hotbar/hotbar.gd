@@ -1,5 +1,6 @@
 extends MarginContainer
 
+
 var inventory : Node = null
 
 
@@ -14,6 +15,7 @@ func _ready():
 		yield(player, "ready")
 		inventory = player.inventory
 	initialize_hotbar()
+
 
 func initialize_hotbar():
 	inventory.connect("hotbar_changed", self, "hotbar_changed")
@@ -31,6 +33,7 @@ func initialize_hotbar():
 		else:
 			slot.modulate.a = 1
 
+
 func hotbar_changed(slot):
 	#from that number, get_child (0 is hotbar 1)
 	#set visible when changed, not always, on timer, with fade, later (modulation)
@@ -41,6 +44,7 @@ func hotbar_changed(slot):
 	var hotbar_slot = $VBoxContainer.get_child(slot)
 	hotbar_slot.set_name(item_name)
 	hotbar_slot.set_stack_size(str(item_amount))
+
 
 func current_slot_changed(previous, current):
 	#set all modulates to 0.6, then current to 1.0

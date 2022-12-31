@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 var is_BW = false
+
 onready var main_cam = get_node("../FPSCamera")
 onready var gun_cam = get_node("../ViewportContainer2/Viewport/GunCam")
 onready var white_effect_rect = get_node("../Tinnitus/ScreenWhite/TextureRect")

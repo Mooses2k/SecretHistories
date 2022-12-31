@@ -1,14 +1,17 @@
 extends "SettingEditor.gd"
 
+
 #Override this function
 func _get_value():
 	return $"%Value".selected
 	pass
 
+
 #Override this function
 func _set_value(value):
 	$"%Value".selected = value
 	pass
+
 
 #Override this function
 func _on_value_edited():
@@ -16,6 +19,7 @@ func _on_value_edited():
 	if new_value != settings.get_setting(_setting_name):
 		settings.set_setting(_setting_name, new_value)
 	pass
+
 
 #Override this function
 func _on_setting_attached():
@@ -25,6 +29,7 @@ func _on_setting_attached():
 	for i in options.size():
 		$"%Value".add_item(options[i], i)
 	pass
+
 
 func _on_Value_item_selected(index):
 	on_value_edited()

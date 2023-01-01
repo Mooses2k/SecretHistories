@@ -32,10 +32,6 @@ onready var melee_hitbox = $Hitbox as Area
 
 var can_hit = false
 var on_cooldown = false
-#
-#export (NodePath) var player_path
-#
-#onready var player = get_node(player_path)
 
 onready var character = get_parent()
 
@@ -64,20 +60,22 @@ func apply_throw_logic(impulse):
 func attack_thrust():
 	character = get_parent().get_parent()
 	var melee_anim
-	if weapon_type == 3:
+	if weapon_type == WeaponType.COMPLEX_HILT_ONE_HAND:
 		melee_anim = owner_character.find_node("SabreTechniques")
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("ThrustFromTierce")
+			$Sounds/ThrustSound.play()
 			yield(melee_anim, "animation_finished")
 			character.stamina -= 50
 			can_hit = false
 			melee_anim.queue("RecoveryThrustToTierce")
-	if weapon_type == 6:
+	if weapon_type == WeaponType.POLEARM:
 		melee_anim = owner_character.find_node("PolearmTechniques")
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("polearm_thrust_from_right")
+			$Sounds/CutSound.play()
 			yield(melee_anim, "animation_finished")
 #			character.stamina -= 50 # this is bugged with halberd
 			can_hit = false
@@ -92,6 +90,7 @@ func attack_cut():
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("Swing1FromTierce")
+			$Sounds/ThrustSound.play()
 			yield(melee_anim, "animation_finished")
 			character.stamina -= 50
 			can_hit = false
@@ -101,6 +100,7 @@ func attack_cut():
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("polearm_cut_2") # WIP, AnimationPlayer got wiped during import_items merge
+			$Sounds/CutSound.play()
 			yield(melee_anim, "animation_finished")
 			character.stamina -= 50
 			can_hit = false

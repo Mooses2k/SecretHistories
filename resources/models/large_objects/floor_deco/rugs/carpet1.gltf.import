@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Key1.glb-9f99989cf546b3e5aa599da9843bd79c.scn"
+path="res://.import/carpet1.gltf-84c86630579404aec97e62b5f7cff20b.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tools/locks_and_keys/OldLockAndKey/Key1.glb"
-dest_files=[ "res://.import/Key1.glb-9f99989cf546b3e5aa599da9843bd79c.scn" ]
+source_file="res://resources/models/large_objects/floor_deco/rugs/carpet1.gltf"
+dest_files=[ "res://.import/carpet1.gltf-84c86630579404aec97e62b5f7cff20b.scn" ]
 
 [params]
 

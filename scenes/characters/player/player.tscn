@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -23,16 +23,6 @@
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/EffectOrigin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
-
-[sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.462745, 0.733333, 1, 1 )
-
-[sub_resource type="CapsuleMesh" id=18]
-material = SubResource( 3 )
-radius = 0.3
-mid_height = 1.2
-radial_segments = 16
-rings = 4
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
@@ -248,14 +238,9 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=34]
 shader = SubResource( 33 )
 
-[sub_resource type="BoxShape" id=36]
-
-[sub_resource type="SpatialMaterial" id=35]
-albedo_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="CubeMesh" id=17]
-material = SubResource( 35 )
-size = Vector3( 0.3, 0.1, 0.5 )
+[sub_resource type="CylinderShape" id=41]
+height = 1.5
+radius = 2.0
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -298,21 +283,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0185888, 0 )
 [node name="Listener" type="Listener" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
 
-[node name="BodyMesh" type="MeshInstance" parent="Body" index="2"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
-visible = false
-mesh = SubResource( 18 )
-skeleton = NodePath("../..")
+[node name="Equipment" type="Spatial" parent="Body" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
-[node name="DropPosition" parent="Body" index="3"]
+[node name="Equipment" type="Spatial" parent="Body" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
+
+[node name="DropPosition" parent="Body" index="4"]
 visible = true
 
-[node name="EffectOrigin" type="Position3D" parent="Body" index="5"]
+[node name="EffectOrigin" type="Position3D" parent="Body" index="6"]
 script = ExtResource( 22 )
 material = ExtResource( 23 )
 uniform_name_position = "EFFECT_POSITION"
 
-[node name="RippleEffect" type="MeshInstance" parent="Body" index="6"]
+[node name="RippleEffect" type="MeshInstance" parent="Body" index="7"]
 visible = false
 material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
@@ -698,14 +683,8 @@ input_ray_pickable = false
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="FPSCamera/GrabCastDot" index="0"]
-shape = SubResource( 36 )
-
-[node name="Sunglasses" type="MeshInstance" parent="FPSCamera" index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 9.89437e-06, 0.002 )
-visible = false
-cast_shadow = 0
-mesh = SubResource( 17 )
-skeleton = NodePath("../..")
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.260906 )
+shape = SubResource( 41 )
 
 [node name="Legs" parent="." index="24"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0379716, 0 )

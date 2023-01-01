@@ -8,7 +8,8 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd" type="Script" id=6]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/effects/webley_audio.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/smoke.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" type="PackedScene" id=9]
+
 
 
 [sub_resource type="ArrayMesh" id=1]

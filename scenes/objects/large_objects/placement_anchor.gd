@@ -6,12 +6,14 @@ enum PlacementTags {
 # generic placement
 	SURFACE, # has a flattish space to set something
 	HANGING, # something can hang from here
+	STACKABLE_VERTICAL, # looks good if the same thing is stacked on top
+	STACKABLE_HORIZONTAL, # looks good if the same thing is stacked next to it
 # characters can sit on these
 	SEATING, # can reasonable sit on these
-	CHAIR,
-	BENCH,
+	CHAIR, # place only single-seat seating here
+	STOOL, # place small single-seal seating here
+	BENCH, # can place multi-seat seating here
 	PEW, # or should this be BENCH & RELIGIOUS or SEATING & LARGE & RELIGIOUS?
-	STOOL,
 # relating to eating
 	COMESTIBLE, # food, drink, consumables you can put in your mouth
 	POTION,
@@ -52,8 +54,6 @@ enum PlacementTags {
 	STATUE,
 	SHELF,
 	BOOKCASE,
-	FOUNTAIN, # fonts and fountains; large, bowl-like containers of liquid that may also spit that liquid into the bowl
-	WELL, # deep hole leading to liquid
 # containers
 	STORAGE,
 	CONTAINER,

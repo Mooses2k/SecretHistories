@@ -98,3 +98,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 
 [node name="khyber_pass_martini" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.288, 0.23561, 1.17322 )
+can_attach = false

@@ -237,6 +237,11 @@ func equip_offhand_item():
 		# Waits for the item to exit the tree, if necessary
 		item.transform = item.get_hold_transform()
 		owner.offhand_equipment_root.add_child(item)
+		if item.is_in_belt == true:
+			item.get_parent().remove_child(item)
+			owner.offhand_equipment_root.add_child(item)
+		else:
+			owner.offhand_equipment_root.add_child(item)
 	pass
 
 
@@ -247,7 +252,10 @@ func unequip_offhand_item():
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = current_offhand_equipment
 	current_offhand_equipment = null
-	item.get_parent().remove_child(item)
+	if item.can_attach == true:
+		pass
+	else:
+		item.get_parent().remove_child(item)
 	pass
 
 
@@ -288,6 +296,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 		if item_node:
 			if item_node.can_attach == true:
 				item_node.get_parent().remove_child(item_node)
+				item_node.is_in_belt = false
 				_drop_item(item_node)
 			else:
 				_drop_item(item_node)

@@ -4,9 +4,6 @@ class_name Player
 signal change_off_equipment_out_done()
 signal change_main_equipment_out_done()
 
-var colliding_pickable_items = []
-var colliding_interactable_items = []
-
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer2/Viewport/GunCam

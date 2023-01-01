@@ -27,6 +27,7 @@ func _process(delta):
 	else:
 		is_lit = false
 
+
 func _use_primary():
 	if !durable_timer.is_stopped():
 		$AnimationPlayer.play("flicker")
@@ -60,5 +61,6 @@ func switch_away():
 
 func attach_to_belt():
 	is_in_belt = true
-#	get_parent().owner.attach_to_belt(self)
+	get_parent().owner.attach_to_belt(self)
+
 

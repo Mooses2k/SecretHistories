@@ -173,7 +173,6 @@ func equip_mainhand_item():
 		if item.is_in_belt == true:
 			item.get_parent().remove_child(item)
 			owner.mainhand_equipment_root.add_child(item)
-			item.is_in_belt = false
 		else:
 			owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
@@ -186,10 +185,10 @@ func unequip_mainhand_item():
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
+#	item.get_parent().remove_child(item)
 #	emit_signal("UpdateHud")
-	
 	if item.can_attach == true:
-		put_in_belt(item)
+		pass
 	else:
 		item.get_parent().remove_child(item)
 	
@@ -287,7 +286,11 @@ func drop_hotbar_slot(slot : int) -> Node:
 		elif current_offhand_equipment == item_node:
 			unequip_offhand_item()
 		if item_node:
-			_drop_item(item_node)
+			if item_node.can_attach == true:
+				item_node.get_parent().remove_child(item_node)
+				_drop_item(item_node)
+			else:
+				_drop_item(item_node)
 		emit_signal("hotbar_changed", slot)
 	return item
 
@@ -299,7 +302,7 @@ func _drop_item(item : EquipmentItem):
 	if GameManager.game.level:
 		item.global_transform = drop_position_node.global_transform
 		if item.can_attach == true:
-			item.get_parent().remove_child(item)
+#			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
@@ -335,6 +338,4 @@ func set_offhand_slot(value : int):
 func _on_Player_character_died():
 	emit_signal("PlayerDead")
 
-func put_in_belt(item):
-	item.get_parent().remove_child(item)
-	$"%Beltposition".add_child(item)
+

@@ -26,6 +26,10 @@ background_sky = SubResource( 6 )
 [node name="Spatial" type="Spatial"]
 
 [node name="StaticBody2" type="StaticBody" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody2"]
 transform = Transform( 29.1975, 0, 0, 0, 1, 0, 0, 0, 24.3736, 0, 17.3386, 0 )
@@ -38,6 +42,10 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 3 )
 
 [node name="StaticBody3" type="StaticBody" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.4616 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody3"]
 transform = Transform( 30.0196, 0, 0, 0, 12.3214, 0, 0, 0, 1, 0, 8.06885, 23.4947 )
@@ -49,6 +57,10 @@ mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 
 [node name="StaticBody4" type="StaticBody" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.9789 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody4"]
 transform = Transform( 30.0196, 0, 0, 0, 12.3214, 0, 0, 0, 1, 0, 8.06885, -24.0445 )
@@ -60,6 +72,10 @@ mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 
 [node name="StaticBody5" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.8, 0, 0, 0, 0.5, 15.3574, 3.16847, 0 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody5"]
 transform = Transform( -1.3122e-06, 0, 1, 0, 12.3214, 0, -30.0196, 0, -4.37114e-08, -29.614, 8.06885, 1.83201 )
@@ -71,6 +87,10 @@ mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 
 [node name="StaticBody6" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.8, 0, 0, 0, 0.5, -16.1417, 3.03471, 0 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody6"]
 transform = Transform( -1.3122e-06, 0, 1, 0, 12.3214, 0, -30.0196, 0, -4.37114e-08, 29.945, 8.06885, 1.83201 )
@@ -82,6 +102,10 @@ mesh = SubResource( 4 )
 skeleton = NodePath("../..")
 
 [node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 0, 0, 0 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 29.1975, 0, 0, 0, 1, 0, 0, 0, 24.3736, 0, 0, 0 )
@@ -99,11 +123,11 @@ environment = SubResource( 7 )
 [node name="SpotLight" type="OmniLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.69891, 7.41702 )
 light_energy = 1.312
-omni_range = 37.795
+omni_range = 42.291
 omni_attenuation = 3.24901
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.763023, 5.9368, 4.46903 )
 
 [node name="Cultist" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6171, 5.43159, 3.0975 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.20873, 5.43159, -9.97855 )

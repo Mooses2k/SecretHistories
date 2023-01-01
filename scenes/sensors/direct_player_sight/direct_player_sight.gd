@@ -26,6 +26,7 @@ func is_player_detected() -> bool:
 func get_measured_position() -> Vector3:
 	if not sensor_up_to_date:
 		update_sensor()
+	print(player_position)
 	return player_position
 
 

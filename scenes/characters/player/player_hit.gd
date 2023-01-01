@@ -10,7 +10,7 @@ var health = 100
 
 func _process(delta):
 	$RichTextLabel.text = (" player light_level = " + str(owner.light_level) + 
-		" \nplayer y-pos = " + str(owner.global_transform.origin.y) + " \nplayer on floor = " + 
+		" \nplayer pos = " + str(owner.global_transform.origin) + " \nplayer on floor = " + 
 		str(owner.is_on_floor()))
 
 

@@ -1,19 +1,16 @@
 extends CanvasLayer
 
-export var light_node_path : NodePath
-onready var light_node = get_node(light_node_path)
 onready var opacity_target = [0.1, 0.2]
 var tween_speed = 0.7
 var is_fade_in = false
-
 
 #------>FOR TESTING<------
 var health = 100 
 
 
 func _process(delta):
-	$RichTextLabel.text = (" player light_level=" + str(light_node.light_level) + 
-		" \nplayer y-pos=" + str(owner.global_transform.origin.y) + " \nplayer on floor=" + 
+	$RichTextLabel.text = (" player light_level = " + str(owner.light_level) + 
+		" \nplayer pos = " + str(owner.global_transform.origin) + " \nplayer on floor = " + 
 		str(owner.is_on_floor()))
 
 

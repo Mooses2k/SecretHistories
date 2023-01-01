@@ -9,6 +9,8 @@ export var threshold_factor : float = 1.5
 var target_distance : float = 0.0
 var target_reached : bool = false
 var ticks_since_active : int = 0
+
+
 func idle():
 	ticks_since_active += 1
 	if ticks_since_active > 1:
@@ -33,9 +35,3 @@ func tick(state : CharacterState) -> int:
 
 func _ready():
 	get_tree().connect("physics_frame", self, "idle")
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

@@ -236,7 +236,6 @@ func equip_offhand_item():
 		current_offhand_equipment = item
 		# Waits for the item to exit the tree, if necessary
 		item.transform = item.get_hold_transform()
-		owner.offhand_equipment_root.add_child(item)
 		if item.is_in_belt == true:
 			item.get_parent().remove_child(item)
 			owner.offhand_equipment_root.add_child(item)

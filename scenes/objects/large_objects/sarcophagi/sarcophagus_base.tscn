@@ -41,7 +41,6 @@ collision_layer = 512
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0794037, 8.01446e-05 )
-cast_shadow = 0
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 

@@ -2,14 +2,14 @@ extends "res://scenes/characters/character.gd"
 class_name Player
 
 
+var colliding_pickable_items = []
+var colliding_interactable_items = []
+
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer2/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
 onready var belt_position = $"%Beltposition"
-
-var colliding_pickable_items = []
-var colliding_interactable_items = []
 
 
 #func _ready():

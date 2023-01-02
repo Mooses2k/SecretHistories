@@ -6,7 +6,6 @@
 [ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
 
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Torch_torch_lp"
 surfaces/0 = {
@@ -236,5 +235,8 @@ lifetime = 2.0
 local_coords = false
 process_material = SubResource( 12 )
 draw_pass_1 = SubResource( 13 )
+
+[node name="CollisionShape" parent="ignite" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0250299, 0 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

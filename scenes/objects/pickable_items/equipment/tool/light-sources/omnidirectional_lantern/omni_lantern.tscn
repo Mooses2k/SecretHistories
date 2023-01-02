@@ -117,7 +117,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.107405, 0.103933, 0.0809816 )
+extents = Vector3( 0.1, 0.1, 0.1 )
 
 [node name="OilLantern" instance=ExtResource( 1 )]
 mass = 0.2
@@ -183,6 +183,7 @@ anims/flicker = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0567762, 0.00329563 )
 
 [node name="CollisionShape" parent="ignite" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015177, 0 )
 shape = SubResource( 6 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

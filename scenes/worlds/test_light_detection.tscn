@@ -121,10 +121,9 @@ material/0 = SubResource( 3 )
 environment = SubResource( 7 )
 
 [node name="SpotLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.69891, 7.41702 )
-light_energy = 1.312
-omni_range = 42.291
-omni_attenuation = 3.24901
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.67754, 7.69891, -9.09825 )
+omni_range = 25.0
+omni_attenuation = 4.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.763023, 5.9368, 4.46903 )

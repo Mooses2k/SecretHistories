@@ -466,6 +466,6 @@ func _on_ClamberableChecker_body_entered(body):
 
 func move_effect():
 	if move_dir:
-		additional_animations.play("Belt_bob")
+		additional_animations.play("Belt_bob", 0, move_speed / 6)
 
 

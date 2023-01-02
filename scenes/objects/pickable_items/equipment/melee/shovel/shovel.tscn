@@ -1,10 +1,12 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/melee/shovel/M_Shovel.material" type="Material" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=4]
-
+[ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=6]
+[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=7]
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.431874
@@ -114,9 +116,6 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.681336, 0.00937342 )
 shape = SubResource( 3 )
 
-[node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.548287, -0.0154864 )
-
 [node name="SM_Shovel" type="MeshInstance" parent="."]
 transform = Transform( -1.2, 1.81195e-07, 0, -1.81195e-07, -1.2, 0, 0, 0, 1.2, 0, 0.80422, 0 )
 mesh = SubResource( 4 )
@@ -199,11 +198,29 @@ shape = SubResource( 42 )
 transform = Transform( -0.8, 1.20797e-07, 0, -1.20797e-07, -0.8, 0, 0, 0, 0.8, 0.00456691, 0.363439, -0.00885463 )
 shape = SubResource( 24 )
 
+[node name="HoldPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.548287, -0.0154864 )
+
 [node name="NormalPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.66244, 0 )
 
 [node name="ThrowPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.945974, 0 )
+
+[node name="Sounds" type="Spatial" parent="."]
+
+[node name="UnsheathSound" type="AudioStreamPlayer3D" parent="Sounds"]
+
+[node name="SheathSound" type="AudioStreamPlayer3D" parent="Sounds"]
+
+[node name="ThrustSound" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 6 )
+
+[node name="CutSound" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 7 )
+
+[node name="ParrySound" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 5 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

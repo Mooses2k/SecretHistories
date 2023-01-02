@@ -429,6 +429,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Secret Histories"
+config/description="An entirely forgettable game"
 run/main_scene="res://scenes/UI/title_menu.tscn"
 run/flush_stdout_on_print=true
 config/icon="res://icon.png"
@@ -445,6 +446,10 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 ChangeScene="*res://globals/change_scene.gd"
+
+[editor]
+
+description="An entirely forgettable game"
 
 [editor_plugins]
 

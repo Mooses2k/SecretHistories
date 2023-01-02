@@ -55,7 +55,7 @@ enum State {
 const TEXTURE_SOUND_LIB = {
 	"checkerboard" : {
 		"amplifier" : 5.0,
-		"sfx_folder" : "addons/thief_controller/sfx/footsteps"
+		"sfx_folder" : "resources/sounds/player/sfx/footsteps"
 	}
 }
 
@@ -185,9 +185,9 @@ func _ready():
 		
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
-	_audio_player.load_sounds("addons/thief_controller/sfx/footsteps", 0)
-	_audio_player.load_sounds("addons/thief_controller/sfx/breathe", 1)
-	_audio_player.load_sounds("addons/thief_controller/sfx/landing", 2)
+	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
+	_audio_player.load_sounds("resources/sounds/player/sfx/breathe", 1)
+	_audio_player.load_sounds("resources/sounds/player/sfx/landing", 2)
 #	active_mode.set_deferred("is_active", true)
 
 

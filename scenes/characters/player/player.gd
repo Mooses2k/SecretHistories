@@ -75,6 +75,3 @@ func _on_GrabCastDot_area_exited(area):
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
 
 
-#func attach_to_belt(item):
-#	item.get_parent().remove_child(item)
-#	belt_position.add_child(item)

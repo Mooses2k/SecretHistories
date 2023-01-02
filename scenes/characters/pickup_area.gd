@@ -1,6 +1,8 @@
 extends Area
 class_name PickupArea
 
+# old top-down mode pickup area
+
 
 var up_to_date: bool = false
 var item_list : Array

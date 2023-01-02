@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Key2.glb-e97568c100496356f897c0f1704aecac.scn"
+path="res://.import/table_chairs.glb-fc3525bad957946bfb048bd05b4df672.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tools/locks_and_keys/Key2.glb"
-dest_files=[ "res://.import/Key2.glb-e97568c100496356f897c0f1704aecac.scn" ]
+source_file="res://resources/models/large_objects/seating/table_chairs.glb"
+dest_files=[ "res://.import/table_chairs.glb-fc3525bad957946bfb048bd05b4df672.scn" ]
 
 [params]
 

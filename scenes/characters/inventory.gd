@@ -346,4 +346,6 @@ func set_offhand_slot(value : int):
 func _on_Player_character_died():
 	emit_signal("PlayerDead")
 
-
+func attach_to_belt(item):
+	item.get_parent().remove_child(item)
+	owner.belt_position.add_child(item)

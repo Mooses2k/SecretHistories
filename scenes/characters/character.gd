@@ -20,6 +20,7 @@ onready var inventory = $Inventory
 onready var pickup_area = $PickupArea
 onready var mainhand_equipment_root = $MainHandEquipmentRoot
 onready var offhand_equipment_root = $OffHandEquipmentRoot
+onready var belt_position = $"%Beltposition"
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"

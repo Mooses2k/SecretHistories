@@ -9,7 +9,7 @@ onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer2/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
-onready var belt_position = $"%Beltposition"
+
 
 
 #func _ready():
@@ -75,6 +75,6 @@ func _on_GrabCastDot_area_exited(area):
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
 
 
-func attach_to_belt(item):
-	item.get_parent().remove_child(item)
-	belt_position.add_child(item)
+#func attach_to_belt(item):
+#	item.get_parent().remove_child(item)
+#	belt_position.add_child(item)

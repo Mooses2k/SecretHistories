@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/heavy_breath.wav-7cbc25c8a97c455ebd4329a08dc9d629.sample"
+path="res://.import/whispers.wav-7f063c4874605525d328a629302cdea6.sample"
 
 [deps]
 
-source_file="res://resources/sounds/heavy_breath.wav"
-dest_files=[ "res://.import/heavy_breath.wav-7cbc25c8a97c455ebd4329a08dc9d629.sample" ]
+source_file="res://resources/sounds/ghost/whispers.wav"
+dest_files=[ "res://.import/whispers.wav-7f063c4874605525d328a629302cdea6.sample" ]
 
 [params]
 

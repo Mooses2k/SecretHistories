@@ -7,7 +7,7 @@
 [ext_resource path="res://resources/effects/whiteScreen.png" type="Texture" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
 [ext_resource path="res://resources/art/grab.png" type="Texture" id=7]
-[ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/player/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/FPS_control_mode.gd" type="Script" id=10]
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
@@ -23,6 +23,7 @@
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/EffectOrigin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
+
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )

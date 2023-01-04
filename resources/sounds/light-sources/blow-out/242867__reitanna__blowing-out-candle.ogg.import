@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/242867__reitanna__blowing-out-candle.ogg-b22dc3f3fd9ec6f116e5957f9b06ae9c.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg"
+dest_files=[ "res://.import/242867__reitanna__blowing-out-candle.ogg-b22dc3f3fd9ec6f116e5957f9b06ae9c.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

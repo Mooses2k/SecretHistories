@@ -2324,7 +2324,6 @@ mass = 0.2
 weight = 1.96
 bone_name = "DEF-pelvis.L"
 joint_constraints/angular_limit_enabled = true
-joint_constraints/angular_limit_upper = 1.0
 joint_constraints/angular_limit_lower = -1.0
 joint_constraints/angular_limit_bias = 0.3
 joint_constraints/angular_limit_softness = 0.9

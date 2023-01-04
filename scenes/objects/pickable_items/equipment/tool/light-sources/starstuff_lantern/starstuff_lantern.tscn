@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/starstuff_lantern/M_LampMedieval.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/tools/light_sources/starstuff_lantern/M_LampMed_Crystal.material" type="Material" id=4]
+[ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "medievallantern_Mesh"
@@ -116,7 +118,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="BoxShape" id=7]
-extents = Vector3( 0.221695, 0.224011, 0.242223 )
+extents = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="StarstuffLantern" instance=ExtResource( 1 )]
 mass = 0.2
@@ -137,8 +139,9 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477499, 0 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
-wait_time = 300.0
+wait_time = 60000.0
 one_shot = true
+autostart = true
 
 [node name="Light" type="OmniLight" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.123883, 0 )
@@ -158,7 +161,18 @@ anims/flicker = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050121, 0 )
 
 [node name="CollisionShape" parent="ignite" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0654465, 0 )
 shape = SubResource( 7 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
+stream = ExtResource( 5 )
+unit_db = 40.0
+max_db = 6.0
+
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
+stream = ExtResource( 6 )
+
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

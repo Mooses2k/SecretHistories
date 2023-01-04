@@ -1,10 +1,12 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/consumables/light_sources/torch/M_Torch.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" type="Script" id=3]
 [ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=4]
+[ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
+[ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Torch_torch_lp"
@@ -21,8 +23,8 @@ surfaces/0 = {
 "vertex_count": 603
 }
 
-[sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( -0.0478889, 0.162624, 0.002302, -0.0449181, 0.16086, -0.0113414, -0.0265016, -0.464256, -0.000671782, -0.0448696, 0.163359, 0.0170267, -0.0449861, 0.192311, 0.0129806, -0.0456754, 0.189298, -0.00284354, -0.0374719, 0.155643, -0.0237862, -0.0190069, -0.464256, -0.0187668, -0.035239, 0.227876, -0.0242908, -0.0397825, 0.182611, -0.0190281, -0.0143567, -0.473808, -0.0135041, -0.0199098, -0.472633, -8.60356e-05, -0.0141819, -0.473882, 0.0132239, -0.0190069, -0.464256, 0.0174142, -0.0372195, 0.186065, 0.0295256, -0.0333654, 0.159317, 0.033788, -0.0370642, 0.225231, 0.0147919, -0.0362584, 0.24948, 0.000418607, -0.0417727, 0.224276, -0.00581732, -0.0318994, 0.176879, -0.0288326, -0.0241134, 0.154908, -0.0355912, -0.000920475, -0.464256, -0.0262553, -0.000939891, -0.474176, -0.0190642, -0.0192205, 0.17203, -0.0383577, -0.0276472, 0.252493, -0.0205691, -0.028851, 0.236033, -0.0269852, -0.0201233, 0.232138, -0.0375377, 0.0122148, -0.475866, -0.013396, -0.000988431, -0.475058, -8.60356e-05, 0.00307931, -0.475425, 0.0158552, -0.000939891, -0.475058, 0.0178648, -0.00745411, -0.47447, 0.0184596, -0.000920475, -0.46477, 0.0249118, -0.0142304, 0.156672, 0.0451695, -0.0236377, 0.179745, 0.0406998, -0.028851, 0.217001, 0.0295346, -0.0240358, 0.25242, 0.0237583, -0.0176477, 0.2691, 0.0130527, -0.0240552, 0.267189, 0.000319481, 0.0171757, -0.464256, -0.0187668, -0.00388148, 0.156231, -0.0426742, -0.000629228, 0.22457, -0.0449181, 0.00889454, 0.2098, -0.0453326, 0.0236122, 0.196793, -0.0403492, -0.0112791, 0.217442, -0.0415658, -0.0190846, 0.268145, -0.0109809, -0.0152304, 0.255579, -0.0270393, -0.0140654, 0.238458, -0.0368618, -0.00198838, 0.236915, -0.0431608, 0.0178844, -0.475719, -8.60356e-05, 0.0123701, -0.475719, 0.0132239, 0.0171757, -0.464256, 0.0174142, 0.0262625, 0.200026, 0.0426013, 0.000545468, 0.160787, 0.0467285, 0.00780722, 0.211416, 0.0451064, -0.00549305, 0.222365, 0.0418803, -0.0093375, 0.23809, 0.0365095, -0.0117451, 0.256094, 0.0306881, -0.00492026, 0.271745, 0.0172791, -0.00605612, 0.274758, 0.000959292, 0.0246704, -0.464256, -0.000671782, 0.0276702, 0.213547, -0.0391237, 0.0373105, 0.197528, -0.0329328, 0.0462227, 0.198263, -0.020488, 0.00990419, 0.229346, -0.0430166, -0.00559013, 0.27079, -0.0151532, -0.00314366, 0.258592, -0.0286253, 0.0167582, 0.243381, -0.0379792, 0.0490963, 0.180113, 0.0191985, 0.0443781, 0.20326, 0.0312018, 0.0405822, 0.190547, 0.0346622, 0.030971, 0.207154, 0.04079, 0.0248549, 0.215384, 0.0426103, 0.0147777, 0.237282, 0.0387443, 0.0127972, 0.241985, 0.037699, 0.0038851, 0.241618, 0.0372755, -0.0052018, 0.236106, 0.0382037, -0.00066806, 0.259547, 0.0312738, 0.00632186, 0.274832, 0.0123047, 0.0196318, 0.26572, 0.0218208, 0.00997215, 0.274464, 0.00200462, 0.00568112, 0.273068, -0.00906145, 0.0508535, 0.183272, -7.70241e-05, 0.0512904, 0.195911, 0.0138998, 0.0440577, 0.215311, -0.0225786, 0.0244083, 0.233902, -0.0369609, 0.0492613, 0.21994, 0.00101336, 0.00875862, 0.260723, -0.0251739, 0.017729, 0.263074, -0.0177034, 0.0309225, 0.247202, -0.0255434, 0.0470867, 0.221189, 0.0242269, 0.0331845, 0.218324, 0.0390057, 0.0287576, 0.23449, 0.0348784, 0.0288935, 0.24757, 0.0293364, 0.0217871, 0.248157, 0.0313189, 0.0259325, 0.266675, 0.0026895, 0.037495, 0.249701, 0.0122326, 0.0379804, 0.24948, -0.00726817, 0.0422714, 0.238899, -0.0046188 )
+[sub_resource type="BoxShape" id=17]
+extents = Vector3( 0.05, 0.37, 0.05 )
 
 [sub_resource type="Animation" id=14]
 length = 0.001
@@ -173,8 +175,8 @@ color_ramp = SubResource( 11 )
 [sub_resource type="QuadMesh" id=13]
 material = SubResource( 5 )
 
-[sub_resource type="BoxShape" id=17]
-extents = Vector3( 0.0423184, 0.0407008, 0.0435631 )
+[sub_resource type="BoxShape" id=18]
+extents = Vector3( 0.1, 0.1, 0.1 )
 
 [node name="Torch" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0542236, 0 )
@@ -188,15 +190,16 @@ mesh = SubResource( 1 )
 skeleton = NodePath("")
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
-shape = SubResource( 2 )
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0181382, 8.01446e-05 )
+shape = SubResource( 17 )
 
 [node name="HoldPosition" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00288502, 0 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
-wait_time = 300.0
+wait_time = 10000.0
 one_shot = true
+autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "flicker"
@@ -209,14 +212,12 @@ script = ExtResource( 6 )
 
 [node name="Fire" type="Particles" parent="FireOrigin" index="0"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-emitting = false
 amount = 64
 process_material = SubResource( 16 )
 draw_pass_1 = SubResource( 7 )
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( -5, -4.37114e-07, 0, 4.37114e-07, -5, 0, 0, 0, 5, 9.05025e-10, 0.0103521, 0 )
-visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 omni_range = 13.0
@@ -224,7 +225,6 @@ omni_attenuation = 7.0
 
 [node name="EmberDrip" type="Particles" parent="FireOrigin" index="1"]
 transform = Transform( 0.2, -3.49692e-08, 0, 3.49692e-08, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-emitting = false
 amount = 4
 randomness = 1.0
 process_material = SubResource( 6 )
@@ -232,18 +232,21 @@ draw_pass_1 = SubResource( 7 )
 
 [node name="Smoke" type="Particles" parent="FireOrigin" index="2"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-emitting = false
 amount = 32
 lifetime = 2.0
 local_coords = false
 process_material = SubResource( 12 )
 draw_pass_1 = SubResource( 13 )
 
-[node name="ignite" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.210801, 0 )
-
 [node name="CollisionShape" parent="ignite" index="0"]
-shape = SubResource( 17 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0250299, 0 )
+shape = SubResource( 18 )
 
-[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
+stream = ExtResource( 5 )
+
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
+stream = ExtResource( 7 )
+
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

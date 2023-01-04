@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/59992__qubodup__swosh-sword-swing.ogg-613745c1f1ef93ae5920b9fdfdbf0b2b.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg"
+dest_files=[ "res://.import/59992__qubodup__swosh-sword-swing.ogg-613745c1f1ef93ae5920b9fdfdbf0b2b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

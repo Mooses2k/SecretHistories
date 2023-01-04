@@ -7,7 +7,7 @@
 [ext_resource path="res://resources/effects/whiteScreen.png" type="Texture" id=5]
 [ext_resource path="res://scenes/characters/player/player_controller.gd" type="Script" id=6]
 [ext_resource path="res://resources/art/grab.png" type="Texture" id=7]
-[ext_resource path="res://resources/sounds/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/player/377206__tnturner__tinnitus.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/characters/player/tinnitus.gd" type="Script" id=9]
 [ext_resource path="res://scenes/characters/player/FPS_control_mode.gd" type="Script" id=10]
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
@@ -17,11 +17,13 @@
 [ext_resource path="res://addons/thief_controller/scripts/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
-[ext_resource path="res://resources/art/flame-xxl.png" type="Texture" id=18]
+[ext_resource path="res://scenes/characters/player/light_detection.tscn" type="PackedScene" id=18]
+[ext_resource path="res://resources/art/flame-xxl.png" type="Texture" id=19]
 [ext_resource path="res://addons/thief_controller/texture/player ui/normal.png" type="Texture" id=20]
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/EffectOrigin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
+
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
@@ -276,8 +278,8 @@ current = true
 [node name="Body" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 
-[node name="Listener" type="Listener" parent="Body" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
+[node name="light_detection" parent="Body" index="0" instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0185888, 0 )
 
 [node name="Listener" type="Listener" parent="Body" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
@@ -393,9 +395,10 @@ joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.25849e-07, 7.63685e-08, 0
 body_offset = Transform( -0.911482, -0.372297, -0.174938, -1.84216e-06, 0.425279, -0.905065, 0.411349, -0.82495, -0.387634, 0.00893676, 0.0462324, 0.0198009 )
 
 [node name="Physical Bone DEF-pelvisL" parent="Body/Skeleton" index="18"]
-transform = Transform( 0.0103968, -0.609805, -0.792478, -0.578527, 0.64275, -0.502173, 0.815598, 0.463693, -0.346101, 0.0495841, 0.932337, -0.0302736 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.40636e-08, -2.84985e-07, 0.0553794 )
-body_offset = Transform( 0.859965, 0.479616, 0.17444, -1.78814e-07, 0.341802, -0.939765, -0.510354, 0.808171, 0.293935, -0.00966033, 0.0520437, -0.0162777 )
+transform = Transform( 0.0103967, -0.609805, -0.792479, -0.578526, 0.64275, -0.502174, 0.815598, 0.463693, -0.346102, 0.0495841, 0.932337, -0.0302736 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.49949e-08, -2.6077e-07, 0.0553794 )
+body_offset = Transform( 0.859965, 0.479616, 0.17444, -1.49012e-07, 0.341802, -0.939766, -0.510354, 0.808171, 0.293935, -0.00966033, 0.0520437, -0.0162777 )
+joint_constraints/angular_limit_upper = 90.0
 
 [node name="Physical Bone DEF-thighL" parent="Body/Skeleton" index="19"]
 transform = Transform( 0.891998, -0.443383, -0.0880437, 0.0445856, -0.107528, 0.993202, -0.449835, -0.88986, -0.0761447, 0.104087, 0.840398, -0.00192554 )
@@ -524,7 +527,6 @@ expand = true
 
 [node name="HitEffect" type="CanvasLayer" parent="." index="16"]
 script = ExtResource( 3 )
-light_node_path = NodePath("../PlayerController")
 
 [node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]
 visible = false
@@ -591,7 +593,7 @@ margin_top = -14.0
 margin_right = 20.0
 margin_bottom = 25.0
 mouse_filter = 2
-texture = ExtResource( 18 )
+texture = ExtResource( 19 )
 expand = true
 
 [node name="Dot" type="TextureRect" parent="Indication_canvas/Indication_system" index="2"]

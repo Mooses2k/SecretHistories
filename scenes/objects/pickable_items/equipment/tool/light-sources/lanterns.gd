@@ -1,47 +1,49 @@
 extends ToolItem
 class_name LanternItem
 
-var has_ever_been_on = false 
-var is_lit = true # true for testing to provide some light
+
+#var has_ever_been_on = true # starts on
+var is_lit = true # starts on
 
 onready var firelight = $Light
-onready var durable_timer = $Durability
+onready var burn_time = $Durability
 
 
-func _ready():
-	durable_timer.start()
+#func _ready():
+#	burn_time.start()     # done in Inspector
 
 
 func _process(delta):
 
 	if is_lit == true:
-		durable_timer.pause_mode = false
+		burn_time.pause_mode = false
 	else:
-		durable_timer.pause_mode = true
-	if self.mode == equipped_mode and has_ever_been_on == false:
-			durable_timer.start()
-			has_ever_been_on = true
-			firelight.visible = true
-			is_lit = true
-			$MeshInstance.cast_shadow = false
-	else:
-		is_lit = false
+		burn_time.pause_mode = true
+	
+#	if self.mode == equipped_mode and has_ever_been_on == false:
+##			burn_time.start()   # done in Inspector
+#			has_ever_been_on = true
+#			firelight.visible = true
+#			$MeshInstance.cast_shadow = false
+#			is_lit = true
+#	else:
+#		is_lit = false
 
 
-func _use_primary():
-	if !durable_timer.is_stopped():
-		$AnimationPlayer.play("flicker")
-		firelight.visible = not firelight.visible
-		$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
-	else:
-		$AnimationPlayer.stop()
-		firelight.visible = false
-		$MeshInstance.cast_shadow = true
+func light():
+	$AnimationPlayer.play("flicker")
+	$LightSound.play()
+	firelight.visible = true
+	$MeshInstance.cast_shadow = false
+	is_lit = true
 
-func _on_Durability_timeout():
+
+func unlight():
 	$AnimationPlayer.stop()
+	$BlowOutSound.play()
 	firelight.visible = false
 	$MeshInstance.cast_shadow = true
+	is_lit = false
 
 
 func _item_state_changed(previous_state, current_state):
@@ -64,3 +66,14 @@ func attach_to_belt():
 	get_parent().owner.inventory.attach_to_belt(self)
 
 
+
+
+func _use_primary():
+	if is_lit == false:
+		light()
+	else:
+		unlight()
+
+
+func _on_Durability_timeout():
+	unlight()

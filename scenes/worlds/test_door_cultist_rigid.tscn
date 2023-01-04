@@ -53,6 +53,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67079, -0.0378679, 0 )
 
 [node name="Bookcase" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.59865, 1.65813, 3.77069 )
+mass = 100.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase"]
 transform = Transform( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, 0, 0 )

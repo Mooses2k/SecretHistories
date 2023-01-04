@@ -798,9 +798,3 @@ collision_layer = 8
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 visible = false
-
-[node name="CollisionShape" parent="PickupArea" index="0"]
-visible = false
-
-[node name="testCamera" parent="." index="10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52649, -0.2 )

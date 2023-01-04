@@ -33,12 +33,14 @@ func get_measured_position() -> Vector3:
 func update_sensor():
 	player_visible = false
 	for body in area.get_overlapping_bodies():
-		if body is Player:
+		if body is Player and body.light_level > 0.04:
+			print("detected")
 			var target = body.global_transform.origin
 			target.y = raycast.global_transform.origin.y
 			raycast.look_at(target, Vector3.UP)
 			raycast.force_raycast_update()
-			if raycast.is_colliding() and raycast.get_collider() is Player:
+			if raycast.is_colliding() and raycast.get_collider() is Player and raycast.get_collider().light_level > 0.04:
+				print("panduha detected")
 				player_visible = true
 				player_position = body.global_transform.origin
 				return

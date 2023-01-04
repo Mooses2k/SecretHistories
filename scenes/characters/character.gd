@@ -17,7 +17,6 @@ onready var character_state : CharacterState = CharacterState.new(self)
 onready var current_health : float = self.max_health
 
 onready var inventory = $Inventory
-onready var pickup_area = $PickupArea
 onready var mainhand_equipment_root = $MainHandEquipmentRoot
 onready var offhand_equipment_root = $OffHandEquipmentRoot
 onready var drop_position_node = $Body/DropPosition

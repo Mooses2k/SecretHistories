@@ -150,7 +150,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.07
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 5 )
 
-[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
 stream = ExtResource( 3 )
 
@@ -158,4 +157,5 @@ stream = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 5 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -620,10 +620,12 @@ anims/fadeOut = SubResource( 30 )
 
 [node name="MeshInstance" type="MeshInstance" parent="HP" index="2"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0298637, 0 )
+layers = 4
 mesh = SubResource( 26 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="HP" index="3"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0298637, 0 )
+layers = 4
 mesh = SubResource( 29 )
 
 [node name="Timer" type="Timer" parent="HP" index="4"]

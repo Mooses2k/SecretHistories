@@ -8,9 +8,9 @@ func _process(delta):
 	var meshInstance := get_node("MeshInstance")
 	var meshInstance2 := get_node("MeshInstance2")
 	get_node("ViewportContainer/Viewport/Camera").global_transform.origin = (
-			Vector3(meshInstance.global_transform.origin.x,
-			meshInstance.global_transform.origin.y + .3, 
-			meshInstance.global_transform.origin.z))
+			Vector3(meshInstance2.global_transform.origin.x,
+			meshInstance2.global_transform.origin.y - .3, 
+			meshInstance2.global_transform.origin.z))
 	get_node("ViewportContainer2/Viewport/Camera").global_transform.origin = (
 			Vector3(meshInstance2.global_transform.origin.x,
 			meshInstance2.global_transform.origin.y + .3, 
@@ -29,7 +29,7 @@ func _process(delta):
 	level1 = average(floats)
 	
 	image = get_node("ViewportContainer2/Viewport").get_texture().get_data() as Image
-	floats = []
+	floats.empty()
 	image.lock()
 		
 	for y in range(0, image.get_height()):

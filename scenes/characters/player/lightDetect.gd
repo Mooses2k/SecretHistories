@@ -1,5 +1,6 @@
 extends Spatial
 
+var level1 : float
 var level : float
 
 
@@ -25,16 +26,23 @@ func _process(delta):
 			var light_value = (pixel.r + pixel.g + pixel.b) / 3
 			floats.append(light_value)
 		
-	image = get_node("ViewportContainer2/Viewport").get_texture().get_data() as Image
-	image.lock()
+	level1 = average(floats)
 	
+	image = get_node("ViewportContainer2/Viewport").get_texture().get_data() as Image
+	floats = []
+	image.lock()
+		
 	for y in range(0, image.get_height()):
 		for x in range(0, image.get_width()):
 			var pixel = image.get_pixel(x,y)
 			var light_value = (pixel.r + pixel.g + pixel.b) / 3
 			floats.append(light_value)
-	
+		
 	level = average(floats)
+	
+	if (level1 > level):
+		level = level1
+	
 	if owner.state == owner.State.STATE_CROUCHING:
 		level *= (1 - pow(1 - level, 5))
 	owner.light_level = level

@@ -459,6 +459,9 @@ body_offset = Transform( 1, -1.45519e-09, -2.85858e-07, -2.80037e-07, 8.9407e-08
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 collision_layer = 4
 
+[node name="PlayerStandChecker" parent="." index="9"]
+monitorable = true
+
 [node name="CollisionShape" parent="PlayerStandChecker" index="0"]
 shape = SubResource( 39 )
 

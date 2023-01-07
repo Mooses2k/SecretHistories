@@ -55,6 +55,9 @@ func grab_indicator():
 	if grab_cast.is_colliding() and grabable_object is PickableItem:
 		if $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
+	elif grab_cast.is_colliding() and grabable_object.is_in_group("Door_hitbox"):
+		if $PlayerController.is_grabbing == false:
+			$Indication_canvas/Indication_system/Grab.show()
 	else:
 			$Indication_canvas/Indication_system/Grab.hide()
 	if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
@@ -64,8 +67,11 @@ func grab_indicator():
 				grabable_object.get_parent()._use_primary()
 	else:
 			$Indication_canvas/Indication_system/Ignite.hide()
+			
 
 
+			
+#is_in_group("Door_hitbox")
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body:
 		if !colliding_pickable_items.has(body):

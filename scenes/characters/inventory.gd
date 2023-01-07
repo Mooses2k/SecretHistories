@@ -43,6 +43,7 @@ var current_offhand_equipment : EquipmentItem = null
 
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
+onready var Animations : AnimationPlayer = $"%Additional_animations"  as AnimationPlayer
 
 
 func _ready():
@@ -347,5 +348,9 @@ func _on_Player_character_died():
 	emit_signal("PlayerDead")
 
 func attach_to_belt(item):
-	item.get_parent().remove_child(item)
-	owner.belt_position.add_child(item)
+	if item.get_parent() != owner.belt_position :
+		item.get_parent().remove_child(item)
+		owner.belt_position.add_child(item)
+#		$"%Additional_animations".play("Belt_Equip")
+
+

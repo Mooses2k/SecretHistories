@@ -461,7 +461,10 @@ func _on_ClamberableChecker_body_entered(body):
 
 
 func move_effect():
-	if move_dir:
-		additional_animations.play("Belt_bob", -1, move_speed / 7)
+	if velocity != Vector3.ZERO:
+		additional_animations.play("Belt_bob", -1, velocity.length() / 2)
+
+
+
 
 

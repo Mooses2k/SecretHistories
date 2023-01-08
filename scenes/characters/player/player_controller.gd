@@ -95,6 +95,9 @@ var grab_distance : float = 0
 var target
 var current_object = null
 var wants_to_drop = false
+var _click_timer : float = 0.0
+var _throw_wait_time : float = 400
+var drag_object : RigidBody = null
 
 var is_movement_key1_held = false
 var is_movement_key2_held = false
@@ -104,6 +107,7 @@ var movement_press_length = 0
 var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
+var item_up = false
 
 
 func _ready():
@@ -134,6 +138,7 @@ func _physics_process(delta : float):
 	previous_item()
 	drop_grabbable()
 	empty_slot()
+#	_process_frob_and_drag()
 	kick()
 	
 	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
@@ -157,67 +162,80 @@ func _input(event):
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
-					if character.inventory.current_mainhand_slot != 0:
-						var total_inventory 
-						if  character.inventory.bulky_equipment:
-							total_inventory = 10
-						else:
-							total_inventory = character.inventory.current_mainhand_slot - 1
-						if total_inventory != character.inventory.current_offhand_slot:
-							character.inventory.current_mainhand_slot = total_inventory
-						else:
-							var plus_inventory 
+					item_up = true
+					owner.change_equipment_out(true)
+					yield(owner, "change_main_equipment_out_done")
+						
+					if item_up:
+						if character.inventory.current_mainhand_slot != 0:
+							var total_inventory 
 							if  character.inventory.bulky_equipment:
-								plus_inventory = 10
+								total_inventory = 10
 							else:
-								plus_inventory = total_inventory - 1
-							if plus_inventory != -1  :
-								character.inventory.current_mainhand_slot = plus_inventory
+								total_inventory = character.inventory.current_mainhand_slot - 1
+							if total_inventory != character.inventory.current_offhand_slot:
+								character.inventory.current_mainhand_slot = total_inventory
 							else:
-								character.inventory.current_mainhand_slot = 10
-					elif character.inventory.current_mainhand_slot == 0:
-						character.inventory.current_mainhand_slot = 10
-						
-						
+								var plus_inventory 
+								if  character.inventory.bulky_equipment:
+									plus_inventory = 10
+								else:
+									plus_inventory = total_inventory - 1
+								if plus_inventory != -1  :
+									character.inventory.current_mainhand_slot = plus_inventory
+								else:
+									character.inventory.current_mainhand_slot = 10
+						elif character.inventory.current_mainhand_slot == 0:
+							character.inventory.current_mainhand_slot = 10
+							
+						owner.change_equipment_in(true)
+				
 				BUTTON_WHEEL_DOWN:
-					if character.inventory.current_mainhand_slot != 10 :
-						var total_inventory
-						if  character.inventory.bulky_equipment:
-							total_inventory = 0
-						else:
-							total_inventory = character.inventory.current_mainhand_slot + 1
-						if total_inventory != character.inventory.current_offhand_slot :
-							character.inventory.current_mainhand_slot = total_inventory
-						else:
-							var plus_inventory = total_inventory + 1
-							if character.inventory.current_offhand_slot != 10:
-								character.inventory.current_mainhand_slot = plus_inventory
+					item_up = false
+					owner.change_equipment_out(true)
+					yield(owner, "change_main_equipment_out_done")
+						
+					if !item_up:
+						if character.inventory.current_mainhand_slot != 10 :
+							var total_inventory
+							if  character.inventory.bulky_equipment:
+								total_inventory = 0
 							else:
-								character.inventory.current_mainhand_slot = 10
-					elif character.inventory.current_mainhand_slot == 10:
-						if character.inventory.current_offhand_slot != 0:
-							character.inventory.current_mainhand_slot = 0
-						else:
-							character.inventory.current_mainhand_slot = 1
+								total_inventory = character.inventory.current_mainhand_slot + 1
+							if total_inventory != character.inventory.current_offhand_slot :
+								character.inventory.current_mainhand_slot = total_inventory
+							else:
+								var plus_inventory = total_inventory + 1
+								if character.inventory.current_offhand_slot != 10:
+									character.inventory.current_mainhand_slot = plus_inventory
+								else:
+									character.inventory.current_mainhand_slot = 10
+						elif character.inventory.current_mainhand_slot == 10:
+							if character.inventory.current_offhand_slot != 0:
+								character.inventory.current_mainhand_slot = 0
+							else:
+								character.inventory.current_mainhand_slot = 1
+							
+						owner.change_equipment_in(true)
 	
 	if event is InputEventMouseMotion:
 		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE 
 			or owner.state == owner.State.STATE_CLAMBERING_RISE 
 			or owner.state == owner.State.STATE_CLAMBERING_VENT):
 			return
-		
+			
 		var m = 1.0
-		
+			
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
-		
+			
 		owner.rotation_degrees.y -= event.relative.x * mouse_sens * m
 #		owner.body.rotation_degrees.y -= event.relative.x * mouse_sens * m
-		
+			
 		if owner.state != owner.State.STATE_CRAWLING:
 			_camera.rotation_degrees.x -= event.relative.y * mouse_sens * m
 			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
-
+			
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 		
 		#character.inventory.current_mainhand_slot = 1
@@ -595,14 +613,17 @@ func throw_consumable():
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
-
+	
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
 			if i != inv.current_offhand_slot :
+				owner.change_equipment_out(true)
+				yield(owner, "change_main_equipment_out_done")
 				inv.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
+				owner.change_equipment_in(true)
 	
 	# Offhand slot selection
 		
@@ -622,9 +643,12 @@ func handle_inventory(delta : float):
 				
 				new_slot = (new_slot + 1)%inv.hotbar.size()
 		if start_slot != new_slot:
+			owner.change_equipment_out(false)
+			yield(owner, "change_off_equipment_out_done")
 			inv.current_offhand_slot = new_slot
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
+			owner.change_equipment_in(false)
 	
 	if Input.is_action_just_pressed("hotbar_11"):
 		if inv.current_offhand_slot != 10:

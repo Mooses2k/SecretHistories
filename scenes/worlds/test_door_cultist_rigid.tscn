@@ -1,0 +1,100 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/pitchfork/pitchfork.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/crowbar/crowbar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/khyber_pass_martini.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/halberd/halberd.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/knife_old/knife_old.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/dagger/dagger.tscn" type="PackedScene" id=13]
+
+[sub_resource type="PlaneMesh" id=1]
+size = Vector2( 50, 50 )
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( 25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25 )
+
+[sub_resource type="CubeMesh" id=3]
+
+[sub_resource type="ConvexPolygonShape" id=4]
+points = PoolVector3Array( 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1 )
+
+[sub_resource type="ProceduralSky" id=6]
+
+[sub_resource type="Environment" id=5]
+background_mode = 2
+background_sky = SubResource( 6 )
+
+[node name="TestWorld" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+
+[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Door" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0252524, -1.79481 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762986, 3.9354 )
+
+[node name="Cultist" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67079, -0.0378679, 0 )
+
+[node name="Bookcase" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.59865, 1.65813, 3.77069 )
+mass = 100.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Bookcase"]
+transform = Transform( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, 0, 0 )
+mesh = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Bookcase"]
+transform = Transform( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 4 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 5 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0 )
+light_energy = 0.344
+
+[node name="DarkLantern" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128181, 0 )
+
+[node name="BullseyeLantern" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9072, 0.209178, 0.360246 )
+
+[node name="CavalrySabre" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.396395, 0.324721, 0.657561 )
+
+[node name="Candelabra" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0317, 0.426447, 0.07644 )
+
+[node name="Crowbar" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.487249, 1.78328 )
+
+[node name="Dagger" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57244, 0.314143, 0 )
+
+[node name="Halberd" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63022, 1.27144, 0.00388288 )
+
+[node name="OldKnife" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.470416, 1.28765 )
+
+[node name="Pitchfork" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
+
+[node name="khyber_pass_martini" parent="." instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.288, 0.23561, 1.17322 )

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/508261__aerolus__match.mp3-316937ccb70f4f8b3efde4df95307bbb.mp3str"
+
+[deps]
+
+source_file="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3"
+dest_files=[ "res://.import/508261__aerolus__match.mp3-316937ccb70f4f8b3efde4df95307bbb.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

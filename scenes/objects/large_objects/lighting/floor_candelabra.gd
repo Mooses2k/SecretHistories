@@ -4,7 +4,7 @@ extends RigidBody
 
 
 #onready var firelight = $FireOrigin/Fire/Light
-#onready var durable_timer = $Durability
+#onready var burn_time = $Durability
 #
 #var has_ever_been_on = false 
 #var is_lit = false
@@ -12,11 +12,11 @@ extends RigidBody
 #
 #func _process(delta):
 #	if is_lit == true:
-#		durable_timer.pause_mode = false
+#		burn_time.pause_mode = false
 #	else:
-#		durable_timer.pause_mode = true
+#		burn_time.pause_mode = true
 #	if has_ever_been_on == false:
-#			durable_timer.start()
+#			burn_time.start()
 #			has_ever_been_on = true
 #			firelight.visible = not firelight.visible
 #			$AnimationPlayer.play("flicker")
@@ -29,7 +29,7 @@ extends RigidBody
 #
 #
 #func _use_primary():
-#	if !durable_timer.is_stopped():
+#	if !burn_time.is_stopped():
 #		firelight.visible = not firelight.visible
 #		$AnimationPlayer.play("flicker")
 #		$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting

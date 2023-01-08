@@ -10,20 +10,13 @@ onready var _cam_bottom = $Viewport2/CameraBottom
 export var light_detect_interval : float = 0.25
 var _last_time_since_detect : float = 0.0
 
-export var _player_path : NodePath
-onready var _player = get_node(_player_path)
-#var _player : Player1 = null
-#
-#func _ready() -> void:
-#	_player = get_parent()
-
 
 func _get_time() -> float:
 	return OS.get_ticks_msec() / 1000.0
 
 
 func _process(_delta) -> void:
-	var new_pos = _player.owner.global_transform.origin + Vector3.UP * 0.5
+	var new_pos = owner.global_transform.origin + Vector3.UP * 0.5
 	
 	_octahedron.global_transform.origin = new_pos
 	_cam_top.global_transform.origin = new_pos
@@ -35,9 +28,9 @@ func _process(_delta) -> void:
 	var thl = get_light_level(true)
 	var bhl = get_light_level(false)
 	var level = max(thl, bhl)
-	if _player.state == _player.State.STATE_CROUCHING:
-		level *= (1 - pow(1 - level, 3))
-	_player.light_level = level
+	if owner.state == owner.State.STATE_CROUCHING:
+		level *= (1 - pow(1 - level, 5))
+	owner.light_level = level
 	_last_time_since_detect = _get_time()
 
 
@@ -52,12 +45,15 @@ func get_light_level(top : bool = true) -> float:
 	img.lock()
 	
 	var p0 = img.get_pixel(0, 0)
-	var hl = 0.2126 * p0.r + 0.7152 * p0.g + 0.0722 * p0.b
+#	var hl = 0.2126 * p0.r + 0.7152 * p0.g + 0.0722 * p0.b
+	var hl = 0.6 * p0.r + 1.1 * p0.g + 0.4 * p0.b
+	
 	
 	for y in img.get_height():
 		for x in img.get_width():
 			var p = img.get_pixel(x, y)
-			var l = 0.2126 * p.r + 0.7152 * p.g + 0.0722 * p.b
+#			var l = 0.2126 * p.r + 0.7152 * p.g + 0.0722 * p.b
+			var l = 0.6 * p.r + 1.1 * p.g + 0.4 * p.b
 			if l > hl:
 				hl = l
 	

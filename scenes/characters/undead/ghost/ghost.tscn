@@ -1,10 +1,11 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/characters/undead/ghost/ghost.gd" type="Script" id=1]
-[ext_resource path="res://resources/sounds/whispers.wav" type="AudioStream" id=2]
+[ext_resource path="res://resources/sounds/ghost/whispers.wav" type="AudioStream" id=2]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=4]
 [ext_resource path="res://scenes/characters/undead/ghost/ghost_controller.gd" type="Script" id=5]
 [ext_resource path="res://scenes/characters/undead/ghost/damage_area.gd" type="Script" id=6]
+
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 1, 0.776471, 0.776471, 1 )

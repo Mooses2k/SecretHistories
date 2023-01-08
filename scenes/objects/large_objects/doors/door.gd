@@ -25,6 +25,7 @@ onready var door_body : RigidBody = $DoorBody
 func _process(delta):
 	destroy_door()
 
+
 func set_door_lock_count(value : int):
 	if value == door_lock_count:
 		return
@@ -85,14 +86,18 @@ func set_min_angle(value : float):
 	$DoorBody.min_angle = min_angle
 
 
-
 func damage(direction , damage_amount):
 	$DoorBody.apply_central_impulse(direction * kick_impulse) 
+	if damage_amount < 10:
+		$Sounds/DoorKickIneffectiveSound.play()
+	else:
+		$Sounds/DoorKickEffectiveSound.play()
 	door_health -= damage_amount
 
 
-
-
+# this is temporary, needs real coding done on it
 func destroy_door():
 	if door_health < 1:
-		queue_free()
+		$Sounds/DoorBreakSound.play()
+		$DoorBody.visible = false
+		$DoorBody/CollisionShape.disabled = true

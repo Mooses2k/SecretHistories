@@ -55,7 +55,7 @@ func grab_indicator():
 	if grabable_object != null:
 		if grab_cast.is_colliding() and grabable_object is PickableItem and  $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
-		elif grab_cast.is_colliding() and grabable_object.is_in_group("Door_hitbox")  and  $PlayerController.is_grabbing == false:
+		elif grab_cast.is_colliding() and grabable_object is RigidBody  and  $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
 		else:
 				$Indication_canvas/Indication_system/Grab.hide()

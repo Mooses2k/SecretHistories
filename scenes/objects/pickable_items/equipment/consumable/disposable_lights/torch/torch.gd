@@ -1,7 +1,7 @@
 extends ToolItem
 
 
-#var has_ever_been_on = false 
+#var has_ever_been_on = false
 var is_lit = true
 
 onready var firelight = $FireOrigin/Fire/Light
@@ -17,7 +17,7 @@ func _process(delta):
 		burn_time.pause_mode = false
 	else:
 		burn_time.pause_mode = true
-	
+
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 #			burn_time.start()
 #			has_ever_been_on = true

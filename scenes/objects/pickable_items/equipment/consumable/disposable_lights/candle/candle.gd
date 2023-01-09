@@ -1,7 +1,7 @@
 extends ToolItem
 
 
-#var has_ever_been_on = false 
+#var has_ever_been_on = false
 var is_lit = true
 
 var material
@@ -23,7 +23,7 @@ func _process(delta):
 		burn_time.pause_mode = false
 	else:
 		burn_time.pause_mode = true
-	
+
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 #			burn_time.start()
 #			has_ever_been_on = true
@@ -43,7 +43,7 @@ func light():
 	$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
 	firelight.visible = not firelight.visible
 	$MeshInstance.cast_shadow = false
-	$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled 
+	$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled
 
 
 func unlight():

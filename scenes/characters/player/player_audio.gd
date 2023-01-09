@@ -13,22 +13,22 @@ var _current_sound_dir : String = ""
 func load_sounds(sound_dir, type : int) -> void:
 	if sound_dir == "":
 		return
-		
+
 	if _current_sound_dir == sound_dir:
 		return
-		
+
 	_current_sound_dir = sound_dir
-	
+
 	if sound_dir.ends_with("/"):
 		sound_dir.erase(sound_dir.length() - 1, 1)
-		
+
 	if not "res://" in sound_dir:
 		sound_dir = "res://" + sound_dir
-	
+
 	var snd_dir = Directory.new()
 	snd_dir.open(sound_dir)
 	snd_dir.list_dir_begin(true)
-	
+
 	var sound = snd_dir.get_next()
 	while sound != "":
 		if not sound.ends_with(".import") and sound.ends_with(".wav"):

@@ -52,7 +52,7 @@ func shoot():
 	var ammo_type = current_ammo_type as AmmunitionData
 	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0
 	var total_damage : int = damage_offset + ammo_type.damage
-	
+
 	var raycast_range = raycast.cast_to.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)

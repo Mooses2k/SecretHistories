@@ -308,7 +308,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 
-	if do_sprint and stamina > 0 and GameManager.is_reloading == false and is_moving_forward:
+	if do_sprint and stamina > 0 and GameManager.is_reloading == false and is_moving_forward and !is_jumping:
 		if is_crouching:
 #			if is_player_crouch_toggle:
 #				if !do_crouch:

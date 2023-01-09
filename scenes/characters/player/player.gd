@@ -29,9 +29,9 @@ func _ready():
 func _process(delta):
 	gun_cam.global_transform = fps_camera.global_transform
 	
-	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
+	if colliding_pickable_items.empty() and colliding_interactable_items.empty()  :
 		$Indication_canvas/Indication_system/Dot.hide()
-	else:
+	else :
 		$Indication_canvas/Indication_system/Dot.show()
 	
 	grab_indicator()
@@ -39,14 +39,14 @@ func _process(delta):
 	change_maindhand_equipment_out()
 	change_offhhand_equipment_out()
 	change_offhand_equipment_in()
-
+	#this notifies the dot if something if the player is currently grabbing something
+	if $PlayerController.is_grabbing == true:
+		$Indication_canvas/Indication_system/Dot.hide()
 
 func drop_consumable(object):
 	$PlayerController.throw_consumable()
 
 
-func delete_bomb():
-	pass
 
 
 func grab_indicator():
@@ -64,17 +64,17 @@ func grab_indicator():
 				$Indication_canvas/Indication_system/Ignite.show()
 				if Input.is_action_just_pressed("interact"):
 					grabable_object.get_parent()._use_primary()
-		else:
+			else:
 				$Indication_canvas/Indication_system/Ignite.hide()
 	else:
 		$Indication_canvas/Indication_system/Grab.hide()
-
+		$Indication_canvas/Indication_system/Ignite.hide()
 
 
 			
 #is_in_group("Door_hitbox")
 func _on_GrabCastDot_body_entered(body):
-	if body is PickableItem or body is Door_body:
+	if body is PickableItem or body is Door_body :
 		if !colliding_pickable_items.has(body):
 			colliding_pickable_items.append(body)
 
@@ -85,7 +85,7 @@ func _on_GrabCastDot_body_exited(body):
 
 
 func _on_GrabCastDot_area_entered(area):
-	if area is Interactable:
+	if area is Interactable :
 		if !colliding_interactable_items.has(area):
 			colliding_interactable_items.append(area)
 

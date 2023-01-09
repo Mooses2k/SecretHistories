@@ -124,6 +124,7 @@ extents = Vector3( 0.2, 0.2, 0.2 )
 mass = 0.2
 script = ExtResource( 3 )
 item_name = "Starstuff Lantern"
+can_attach = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0650012, 0 )
@@ -163,6 +164,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.050121, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0654465, 0 )
 shape = SubResource( 7 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 5 )

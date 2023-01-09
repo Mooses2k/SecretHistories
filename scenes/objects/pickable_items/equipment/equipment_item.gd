@@ -6,9 +6,11 @@ signal used_primary()
 signal used_secondary()
 signal used_reload()
 
+export (bool) var can_attach = false
 export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM
 
 export var item_name : String = "Equipment"
+var is_in_belt = false
 
 
 # Override this function for (Left-Click and E, typically) use actions

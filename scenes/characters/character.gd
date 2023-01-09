@@ -19,10 +19,13 @@ onready var current_health : float = self.max_health
 onready var inventory = $Inventory
 onready var mainhand_equipment_root = $MainHandEquipmentRoot
 onready var offhand_equipment_root = $OffHandEquipmentRoot
+onready var belt_position = $"%Beltposition"
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
+onready var additional_animations  = $Additional_animations
+
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
@@ -269,7 +272,7 @@ func _physics_process(delta : float):
 					return
 				state = State.STATE_WALKING
 				return
-
+	move_effect()
 
 func _get_surface_texture() -> Dictionary:
 	if _surface_detector.get_collider():
@@ -454,3 +457,13 @@ func _on_ClamberableChecker_body_entered(body):
 #			$AnimationTree.tree_root.get_node("cs_transition").xfade_time = (velocity.length() + 1.5)/ 15.0
 #			crouch_stand_target = 1 - crouch_stand_target
 #			$AnimationTree.set(cs_transition, crouch_stand_target)
+
+
+func move_effect():
+	if velocity != Vector3.ZERO:
+		additional_animations.play("Belt_bob", -1, velocity.length() / 2)
+
+
+
+
+

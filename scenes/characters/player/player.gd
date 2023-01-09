@@ -31,7 +31,7 @@ func _process(delta):
 
 	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
 		$Indication_canvas/Indication_system/Dot.hide()
-	else:
+	else :
 		$Indication_canvas/Indication_system/Dot.show()
 
 	grab_indicator()
@@ -39,35 +39,42 @@ func _process(delta):
 	change_maindhand_equipment_out()
 	change_offhhand_equipment_out()
 	change_offhand_equipment_in()
-
+	#this notifies the dot if something if the player is currently grabbing something
+	if $PlayerController.is_grabbing == true:
+		$Indication_canvas/Indication_system/Dot.hide()
 
 func drop_consumable(object):
 	$PlayerController.throw_consumable()
 
 
-func delete_bomb():
-	pass
 
 
 func grab_indicator():
 	var grabable_object = grab_cast.get_collider()
-
-	if grab_cast.is_colliding() and grabable_object is PickableItem:
-		if $PlayerController.is_grabbing == false:
+	
+	if grabable_object != null:
+		if grab_cast.is_colliding() and grabable_object is PickableItem and  $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
+		elif grab_cast.is_colliding() and grabable_object is RigidBody  and  $PlayerController.is_grabbing == false:
+			$Indication_canvas/Indication_system/Grab.show()
+		else:
+				$Indication_canvas/Indication_system/Grab.hide()
+		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
+			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
+				$Indication_canvas/Indication_system/Ignite.show()
+				if Input.is_action_just_pressed("interact"):
+					grabable_object.get_parent()._use_primary()
+			else:
+				$Indication_canvas/Indication_system/Ignite.hide()
 	else:
-			$Indication_canvas/Indication_system/Grab.hide()
-	if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
-		if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
-			$Indication_canvas/Indication_system/Ignite.show()
-			if Input.is_action_just_pressed("interact"):
-				grabable_object.get_parent()._use_primary()
-	else:
-			$Indication_canvas/Indication_system/Ignite.hide()
+		$Indication_canvas/Indication_system/Grab.hide()
+		$Indication_canvas/Indication_system/Ignite.hide()
 
 
+			
+#is_in_group("Door_hitbox")
 func _on_GrabCastDot_body_entered(body):
-	if body is PickableItem or body is Door_body:
+	if body is PickableItem or body is Door_body :
 		if !colliding_pickable_items.has(body):
 			colliding_pickable_items.append(body)
 
@@ -78,7 +85,7 @@ func _on_GrabCastDot_body_exited(body):
 
 
 func _on_GrabCastDot_area_entered(area):
-	if area is Interactable:
+	if area is Interactable :
 		if !colliding_interactable_items.has(area):
 			colliding_interactable_items.append(area)
 

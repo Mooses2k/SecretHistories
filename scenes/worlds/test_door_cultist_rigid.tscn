@@ -30,6 +30,7 @@ points = PoolVector3Array( 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1,
 [sub_resource type="Environment" id=5]
 background_mode = 2
 background_sky = SubResource( 6 )
+background_energy = 0.05
 
 [node name="TestWorld" type="Spatial"]
 
@@ -98,3 +99,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 
 [node name="khyber_pass_martini" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.288, 0.23561, 1.17322 )
+can_attach = false

@@ -43,6 +43,7 @@ var current_offhand_equipment : EquipmentItem = null
 
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
+onready var Animations : AnimationPlayer = $"%Additional_animations"  as AnimationPlayer
 
 
 func _ready():
@@ -170,7 +171,11 @@ func equip_mainhand_item():
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
-		owner.mainhand_equipment_root.add_child(item)
+		if item.is_in_belt == true:
+			item.get_parent().remove_child(item)
+			owner.mainhand_equipment_root.add_child(item)
+		else:
+			owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
 
 
@@ -181,8 +186,13 @@ func unequip_mainhand_item():
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
+#	item.get_parent().remove_child(item)
 #	emit_signal("UpdateHud")
-	item.get_parent().remove_child(item)
+	if item.can_attach == true:
+		pass
+	else:
+		item.get_parent().remove_child(item)
+	
 
 
 func equip_bulky_item(item : EquipmentItem):
@@ -227,7 +237,11 @@ func equip_offhand_item():
 		current_offhand_equipment = item
 		# Waits for the item to exit the tree, if necessary
 		item.transform = item.get_hold_transform()
-		owner.offhand_equipment_root.add_child(item)
+		if item.is_in_belt == true:
+			item.get_parent().remove_child(item)
+			owner.offhand_equipment_root.add_child(item)
+		else:
+			owner.offhand_equipment_root.add_child(item)
 	pass
 
 
@@ -238,7 +252,10 @@ func unequip_offhand_item():
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = current_offhand_equipment
 	current_offhand_equipment = null
-	item.get_parent().remove_child(item)
+	if item.can_attach == true:
+		pass
+	else:
+		item.get_parent().remove_child(item)
 	pass
 
 
@@ -277,7 +294,12 @@ func drop_hotbar_slot(slot : int) -> Node:
 		elif current_offhand_equipment == item_node:
 			unequip_offhand_item()
 		if item_node:
-			_drop_item(item_node)
+			if item_node.can_attach == true:
+				item_node.get_parent().remove_child(item_node)
+				item_node.is_in_belt = false
+				_drop_item(item_node)
+			else:
+				_drop_item(item_node)
 		emit_signal("hotbar_changed", slot)
 	return item
 
@@ -288,7 +310,11 @@ func _drop_item(item : EquipmentItem):
 	item.item_state = GlobalConsts.ItemState.DROPPED
 	if GameManager.game.level:
 		item.global_transform = drop_position_node.global_transform
-		GameManager.game.level.add_child(item)
+		if item.can_attach == true:
+#			item.get_parent().remove_child(item)
+			GameManager.game.level.add_child(item)
+		else:
+			GameManager.game.level.add_child(item)
 	pass
 
 
@@ -320,3 +346,11 @@ func set_offhand_slot(value : int):
 
 func _on_Player_character_died():
 	emit_signal("PlayerDead")
+
+func attach_to_belt(item):
+	if item.get_parent() != owner.belt_position :
+		item.get_parent().remove_child(item)
+		owner.belt_position.add_child(item)
+		$"%Additional_animations".play("Belt_Equip")
+
+

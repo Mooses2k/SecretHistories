@@ -132,7 +132,7 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "ClamberManager",
 "language": "GDScript",
-"path": "res://addons/thief_controller/scripts/player/clamber_manager.gd"
+"path": "res://scenes/characters/player/clamber_manager.gd"
 }, {
 "base": "EquipmentItem",
 "class": "ConsumableItem",
@@ -234,11 +234,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd"
 }, {
-"base": "Spatial",
-"class": "LightDetector",
-"language": "GDScript",
-"path": "res://addons/thief_controller/scripts/player/light_detector.gd"
-}, {
 "base": "AStar2D",
 "class": "ManhattanAStar2D",
 "language": "GDScript",
@@ -279,15 +274,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
 }, {
-"base": "KinematicBody",
-"class": "Player1",
-"language": "GDScript",
-"path": "res://addons/thief_controller/scripts/player/player.gd"
-}, {
 "base": "AudioStreamPlayer3D",
 "class": "PlayerAudio",
 "language": "GDScript",
-"path": "res://addons/thief_controller/scripts/player/player_audio.gd"
+"path": "res://scenes/characters/player/player_audio.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerSensor",
@@ -297,7 +287,7 @@ _global_script_classes=[ {
 "base": "Area",
 "class": "PlayerSoundEmitter",
 "language": "GDScript",
-"path": "res://addons/thief_controller/scripts/player/player_sound_emitter.gd"
+"path": "res://scenes/characters/player/player_sound_emitter.gd"
 }, {
 "base": "GunItem",
 "class": "RevolverItem",
@@ -317,7 +307,7 @@ _global_script_classes=[ {
 "base": "Camera",
 "class": "ShakeCamera",
 "language": "GDScript",
-"path": "res://addons/thief_controller/scripts/player/player_camera.gd"
+"path": "res://scenes/characters/player/player_camera.gd"
 }, {
 "base": "ToolItem",
 "class": "Spike",
@@ -400,7 +390,6 @@ _global_script_class_icons={
 "Interactable": "",
 "KeyItem": "",
 "LanternItem": "",
-"LightDetector": "",
 "ManhattanAStar2D": "",
 "MeleeItem": "",
 "MeshTransform": "",
@@ -409,7 +398,6 @@ _global_script_class_icons={
 "PickupArea": "",
 "PlacementAnchor": "",
 "Player": "",
-"Player1": "",
 "PlayerAudio": "",
 "PlayerSensor": "",
 "PlayerSoundEmitter": "",

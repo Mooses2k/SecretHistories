@@ -14,12 +14,12 @@
 [ext_resource path="res://scenes/characters/player/Indication_canvas.gd" type="Script" id=12]
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=13]
 [ext_resource path="res://resources/art/health/health.png" type="Texture" id=14]
-[ext_resource path="res://addons/thief_controller/scripts/player/player_camera.gd" type="Script" id=15]
+[ext_resource path="res://scenes/characters/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
 [ext_resource path="res://scenes/characters/player/light_detection.tscn" type="PackedScene" id=18]
 [ext_resource path="res://resources/art/flame-xxl.png" type="Texture" id=19]
-[ext_resource path="res://addons/thief_controller/texture/player ui/normal.png" type="Texture" id=20]
+[ext_resource path="res://resources/art/player ui/normal.png" type="Texture" id=20]
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
 [ext_resource path="res://scenes/characters/player/EffectOrigin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
@@ -459,6 +459,9 @@ body_offset = Transform( 1, -1.45519e-09, -2.85858e-07, -2.80037e-07, 8.9407e-08
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 collision_layer = 4
 
+[node name="PlayerStandChecker" parent="." index="9"]
+monitorable = true
+
 [node name="CollisionShape" parent="PlayerStandChecker" index="0"]
 shape = SubResource( 39 )
 
@@ -617,10 +620,12 @@ anims/fadeOut = SubResource( 30 )
 
 [node name="MeshInstance" type="MeshInstance" parent="HP" index="2"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0298637, 0 )
+layers = 4
 mesh = SubResource( 26 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="HP" index="3"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0298637, 0 )
+layers = 4
 mesh = SubResource( 29 )
 
 [node name="Timer" type="Timer" parent="HP" index="4"]

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/land_1.wav-951ce5986cf6e0b6f7234b9e90fabe37.sample"
+path="res://.import/footstep_3.wav-f4fe0e3cfc9caf0fd56541f1e7578b4b.sample"
 
 [deps]
 
-source_file="res://addons/thief_controller/sfx/landing/land_1.wav"
-dest_files=[ "res://.import/land_1.wav-951ce5986cf6e0b6f7234b9e90fabe37.sample" ]
+source_file="res://resources/sounds/player/sfx/footsteps/footstep_3.wav"
+dest_files=[ "res://.import/footstep_3.wav-f4fe0e3cfc9caf0fd56541f1e7578b4b.sample" ]
 
 [params]
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://addons/thief_controller/scripts/player/player_audio.gd" type="Script" id=3]
+[ext_resource path="res://scenes/characters/player/player_audio.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
 [ext_resource path="res://resources/models/characters/player/Hair.material" type="Material" id=6]
 [ext_resource path="res://resources/models/characters/player/Hair_002.material" type="Material" id=7]

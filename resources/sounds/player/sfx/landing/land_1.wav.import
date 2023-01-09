@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/in_1.wav-3d912016944bc905e896e5a54e0b90d7.sample"
+path="res://.import/land_1.wav-329e95d304f63633d6e51cd2b2b9c258.sample"
 
 [deps]
 
-source_file="res://addons/thief_controller/sfx/breathe/in_1.wav"
-dest_files=[ "res://.import/in_1.wav-3d912016944bc905e896e5a54e0b90d7.sample" ]
+source_file="res://resources/sounds/player/sfx/landing/land_1.wav"
+dest_files=[ "res://.import/land_1.wav-329e95d304f63633d6e51cd2b2b9c258.sample" ]
 
 [params]
 

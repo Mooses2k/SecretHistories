@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/footstep_3.wav-4e05fa88175d4e06123c2b644ab40070.sample"
+path="res://.import/footstep_2.wav-ceae7a65cf536b3e32752a19827fd27b.sample"
 
 [deps]
 
-source_file="res://addons/thief_controller/sfx/footsteps/footstep_3.wav"
-dest_files=[ "res://.import/footstep_3.wav-4e05fa88175d4e06123c2b644ab40070.sample" ]
+source_file="res://resources/sounds/player/sfx/footsteps/footstep_2.wav"
+dest_files=[ "res://.import/footstep_2.wav-ceae7a65cf536b3e32752a19827fd27b.sample" ]
 
 [params]
 

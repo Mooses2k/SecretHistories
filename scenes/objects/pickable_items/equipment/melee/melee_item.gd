@@ -42,7 +42,7 @@ func _ready():
 
 func _process(delta):
 	if throw_logic == true :
-		if item_state == GlobalConsts.ItemState.EQUIPPED: 
+		if item_state == GlobalConsts.ItemState.EQUIPPED:
 			self.global_rotation = normal_pos.global_rotation
 
 

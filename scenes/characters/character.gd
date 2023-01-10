@@ -11,7 +11,7 @@ export var max_health : int = 100
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
 export var mass : float = 100.0
-export var kick_damage : int 
+export var kick_damage : int
 
 onready var character_state : CharacterState = CharacterState.new(self)
 onready var current_health : float = self.max_health
@@ -169,11 +169,11 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value
 		self.emit_signal("is_hit", current_health)
-		
+
 		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")
-			
+
 			if self.name != "Player":
 				collision_shape.disabled = true
 				skeleton.physical_bones_start_simulation()
@@ -185,7 +185,7 @@ func _ready():
 		_type_damage_multiplier[i] = 1
 	for immunity in self.immunities:
 		_type_damage_multiplier[immunity] = 0
-		
+
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
 	_audio_player.load_sounds("addons/thief_controller/sfx/footsteps", 0)
@@ -199,7 +199,7 @@ func _physics_process(delta : float):
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
 			can_stand = false
-	
+
 #	active_mode.update()
 #	movement_basis = active_mode.get_movement_basis()
 #	interaction_target = active_mode.get_interaction_target()
@@ -214,22 +214,22 @@ func _physics_process(delta : float):
 #	previous_weapon()
 #	drop_grabbable()
 #	empty_slot()
-	
+
 	if wanna_stand:
 		if _collider.disabled:
 			_collider.set_deferred("disabled", false)
 			_crouch_collider.set_deferred("disabled", true)
-			
+
 		var from = mainhand_equipment_root.transform.origin.y
 		mainhand_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
-		
+
 		from = offhand_equipment_root.transform.origin.y
 		offhand_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
 		var d1 = mainhand_equipment_root.transform.origin.y - equipment_orig_pos
 		if d1 > -0.04:
 			mainhand_equipment_root.transform.origin.y = equipment_orig_pos
 			offhand_equipment_root.transform.origin.y = equipment_orig_pos
-		
+
 	match state:
 		State.STATE_WALKING:
 			_walk(delta)
@@ -241,7 +241,7 @@ func _physics_process(delta : float):
 					wanna_stand = true
 					state = State.STATE_WALKING
 					return
-				
+
 			is_crouching = true
 			_crouch(delta)
 			_walk(delta, 0.65)
@@ -250,7 +250,7 @@ func _physics_process(delta : float):
 			var pos = global_transform.origin
 			var target = Vector3(pos.x, clamber_destination.y, pos.z)
 			global_transform.origin = lerp(pos, target, 0.1)
-			
+
 			var d = pos - target
 			if d.length() < 0.1:
 				state = State.STATE_CLAMBERING_LEDGE
@@ -260,14 +260,14 @@ func _physics_process(delta : float):
 			#_audio_player.play_clamber_sound(false)
 			var pos = global_transform.origin
 			global_transform.origin = lerp(pos, clamber_destination, 0.1)
-			
+
 			var d = global_transform.origin - clamber_destination
 			if d.length() < 0.1:
 				is_clambering = false
 				global_transform.origin = clamber_destination
 				if clamberable_obj:
 					clamberable_obj.mode = 0
-				
+
 				if is_crouching:
 					state = State.STATE_CROUCHING
 					return
@@ -292,18 +292,18 @@ func _get_surface_texture() -> Dictionary:
 				var n = path[path.size() - 1].split(".")[0]
 				if TEXTURE_SOUND_LIB.has(n):
 					return TEXTURE_SOUND_LIB[n]
-					
+
 	return {}
 
 
 func _handle_player_sound_emission() -> void:
 	var result = _get_surface_texture()
-	
+
 	if result.size() == 0:
 		return
-	
+
 	_sound_emitter.radius = result["amplifier"]
-	
+
 	if result.sfx_folder != "":
 		_audio_player.load_sounds(result.sfx_folder, 0)
 
@@ -311,7 +311,7 @@ func _handle_player_sound_emission() -> void:
 func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
-	
+
 	if do_sprint and stamina > 0 and GameManager.is_reloading == false and is_moving_forward:
 		if is_crouching:
 #			if is_player_crouch_toggle:
@@ -334,54 +334,54 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		move_dir *= 0.8
 		if !do_sprint:
 			change_stamina(0.3)
-	
+
 	var y_velo = velocity.y
-	
+
 	var v1 = speed * move_dir - velocity * Vector3(move_drag, 0, move_drag)
 	var v2 = Vector3.DOWN * gravity * delta
-	
+
 	velocity += v1 + v2
-	
+
 	grounded = is_on_floor() or _ground_checker.is_colliding()
-	
+
 	if is_crouching and is_jumping:
 		velocity = move_and_slide((velocity) + get_floor_velocity(),
 				Vector3.UP, true, 4, PI/4, false)
 	else:
 		velocity = move_and_slide((velocity * speed_mod) + get_floor_velocity(),
 				Vector3.UP, true, 4, PI/4, false)
-			
-	
+
+
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
 		emit_signal("is_moving", is_player_moving)
 	else:
 		is_player_moving = true
 		emit_signal("is_moving", is_player_moving)
-	
+
 	if is_on_floor() and is_jumping and _camera.stress < 0.1:
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
-	
+
 	grounded = is_on_floor()
-	
+
 	if !grounded and y_velo < velocity.y:
 		velocity.y = y_velo
-		
+
 	if grounded:
 		velocity.y -= 0.01
-		
+
 		is_jumping = false
-		
+
 	if is_clambering:
 		return
-	
+
 	if do_jump:
 		if is_crouching:
 			pass
 		elif state != State.STATE_WALKING:
 			return
-		
+
 		var c = _clamber_m.attempt_clamber(is_crouching, is_jumping)
 		if c != Vector3.ZERO:
 			if clamberable:
@@ -393,20 +393,20 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			_audio_player.play_clamber_sound(true)
 			do_jump = false
 			return
-			
+
 		if is_jumping or !is_on_floor():
 			do_jump = false
 			return
-		
+
 		velocity.y = jump_force
 		is_jumping = true
 		do_jump = false
 		return
-	
+
 	do_jump = false
-	
+
 	_handle_player_sound_emission()
-	
+
 	if velocity.length() > 0.1 and grounded and not _audio_player.playing and is_to_move:
 		if is_crouching:
 			_audio_player.play_footstep_sound(-10.0, 0.7)
@@ -422,21 +422,21 @@ func _crouch(delta : float) -> void:
 	if !_collider.disabled:
 		_crouch_collider.set_deferred("disabled", false)
 		_collider.set_deferred("disabled", true)
-	
+
 	var from = mainhand_equipment_root.transform.origin.y
 	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
-	
+
 	from = offhand_equipment_root.transform.origin.y
 	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
-	
+
 	if !is_on_floor() and !is_jumping:
 		velocity.y -= 5 * (gravity * delta)
 	else:
 		velocity.y -= 0.05
-	
+
 	if is_player_crouch_toggle:
 		return
-	
+
 	if do_sprint or (!do_crouch and state == State.STATE_CROUCHING):
 		if can_stand:
 			state = State.STATE_WALKING

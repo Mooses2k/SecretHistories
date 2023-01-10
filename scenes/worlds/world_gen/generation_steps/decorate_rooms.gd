@@ -2,7 +2,7 @@ extends Node
 
 
 enum PlacementTags {
-# tags for objects: 
+# tags for objects:
 	CENTERPIECE, # looks best near center of room, wall, surface, etc
 	CORNERPIECE, # looks best in a corner
 	BACK_AGAINST_WALL, # only place with back to wall

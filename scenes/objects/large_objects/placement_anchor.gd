@@ -106,7 +106,7 @@ enum PlacementTags {
 	MUMMY, # long dead, preserved
 	SKELETON, # long dead, unpreserved
 	TOMB, # tomb contents, burial goods, found in a tomb
-	BATHTUB, 
+	BATHTUB,
 # aspect of object
 	LARGE, # a large plate would be a serving platter; a big bed would be a two-person bed
 	SMALL, # a small plate would be a small, side plate; a small bed would be a single

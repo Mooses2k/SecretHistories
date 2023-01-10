@@ -19,7 +19,7 @@ func _process(delta):
 		burn_time.pause_mode = false
 	else:
 		burn_time.pause_mode = true
-	
+
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 ##			burn_time.start()   # done in Inspector
 #			has_ever_been_on = true

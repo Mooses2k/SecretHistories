@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -25,11 +25,9 @@ data = PoolVector3Array( 25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, 
 [sub_resource type="ConvexPolygonShape" id=4]
 points = PoolVector3Array( 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1 )
 
-[sub_resource type="ProceduralSky" id=6]
-
 [sub_resource type="Environment" id=5]
 background_mode = 2
-background_sky = SubResource( 6 )
+ambient_light_sky_contribution = 0.0
 
 [node name="TestWorld" type="Spatial"]
 
@@ -98,3 +96,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 
 [node name="khyber_pass_martini" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.288, 0.23561, 1.17322 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -0.945615, 0, 0.325288, 0, 1, 0, -0.325288, 0, -0.945615, 2.3965, 1.17852, -4.6069 )
+current = true
+fov = 41.1

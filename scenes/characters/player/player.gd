@@ -174,3 +174,13 @@ func change_offhand_equipment_in():
 			offhand_equipment_root.transform.origin.y = offhand_orig_origin.y
 			offhand_equipment_root.transform.origin.z = offhand_orig_origin.z
 			is_change_off_equip_in = false
+
+
+
+#Hint for 8 directional movements
+#onready var animation_tree = get_node("AnimationTree")
+#onready var animation_mode = animation_tree.get("parameters/playback")
+#
+#if direction.length() > 0:
+#		animation_mode.travel("Run")
+#		animation_tree.set("parameters/Run/blend_position",Vector2(direction.x,direction.z))

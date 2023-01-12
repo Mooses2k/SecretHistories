@@ -24,6 +24,9 @@ onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
+onready var animation_tree = $AnimationTree
+
+
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
 var _alive : bool = true
@@ -351,12 +354,16 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
+		animation_tree.set("parameters/state/current",0)
 		emit_signal("is_moving", is_player_moving)
 	else:
 		is_player_moving = true
+		animation_tree.set("parameters/state/current",1)
 		emit_signal("is_moving", is_player_moving)
+		
 	
 	if is_on_floor() and is_jumping and _camera.stress < 0.1:
+		animation_tree.set("parameters/Land/active",true)
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
 	
@@ -394,6 +401,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if is_jumping or !is_on_floor():
 			do_jump = false
 			return
+		animation_tree.set("parameters/jump/active",true)
 		
 		velocity.y = jump_force
 		is_jumping = true

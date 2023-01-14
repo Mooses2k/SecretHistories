@@ -459,12 +459,16 @@ func check_state_animation():
 	elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
 		animation_tree.set("parameters/state/current",4)
 		
-	elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+	elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
 		animation_tree.set("parameters/state/current",1)
 		
-	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING:
+	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
 		animation_tree.set("parameters/state/current",5)
 		
+	elif not move_dir == Vector3.ZERO and  do_sprint == true:
+		animation_tree.set("parameters/state/current",2)
+		
+
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));
 

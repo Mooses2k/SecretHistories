@@ -195,6 +195,7 @@ func _ready():
 
 
 func _physics_process(delta : float):
+	check_state_animation()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -243,6 +244,7 @@ func _physics_process(delta : float):
 					return
 				
 			is_crouching = true
+			
 			_crouch(delta)
 			_walk(delta, 0.65)
 
@@ -354,11 +356,9 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
-		animation_tree.set("parameters/state/current",0)
 		emit_signal("is_moving", is_player_moving)
 	else:
 		is_player_moving = true
-		animation_tree.set("parameters/state/current",1)
 		emit_signal("is_moving", is_player_moving)
 		
 	
@@ -402,7 +402,6 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			do_jump = false
 			return
 		animation_tree.set("parameters/jump/active",true)
-		
 		velocity.y = jump_force
 		is_jumping = true
 		do_jump = false
@@ -449,6 +448,23 @@ func _crouch(delta : float) -> void:
 			return
 
 
+func check_state_animation():
+	if state == State.STATE_CROUCHING:
+		animation_tree.set("parameters/state/current",2)
+		
+		
+	if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+		animation_tree.set("parameters/state/current",0)
+		
+	elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+		animation_tree.set("parameters/state/current",4)
+		
+	elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+		animation_tree.set("parameters/state/current",1)
+		
+	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING:
+		animation_tree.set("parameters/state/current",5)
+		
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));
 

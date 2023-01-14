@@ -74,7 +74,6 @@ onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../PlayerStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
-
 var _camera_orig_pos : Vector3
 var _camera_orig_rotation : Vector3
 #stealth player controller addon -->
@@ -263,8 +262,9 @@ func _walk(delta) -> void:
 	character.character_state.move_direction = move_dir.normalized()
 	
 	
-	if Input.is_action_pressed("sprint") and $AnimationTree.get("parameters/aim_transition/current") :
+	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
+#		animation_tree.set("parameters/state/current",2)
 	else:
 		owner.do_sprint = false
 	HUDS.tired(owner.stamina);

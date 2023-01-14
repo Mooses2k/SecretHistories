@@ -466,6 +466,7 @@ func check_state_animation():
 		
 	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
 		animation_tree.set("parameters/state/current",5)
+		animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(-move_dir.x, move_dir.z))
 		
 	elif not move_dir == Vector3.ZERO and  do_sprint == true:
 		animation_tree.set("parameters/state/current",2)

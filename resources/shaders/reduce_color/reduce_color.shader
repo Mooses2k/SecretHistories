@@ -1,13 +1,14 @@
 /* 
-This shader is under MIT license. Feel free to use, improve and 
-change this shader according to your needs and consider sharing 
-the modified result to godotshaders.com.
+The shader code and all code snippets in this post are under CC0 license and can be used freely 
+without the author's permission. 
+Adapted from: https://godotshaders.com/shader/color-reduction-and-dither/
 */
 
 shader_type spatial;
 render_mode unshaded;
 
-uniform int pixelSize = 4;
+uniform float colors : hint_range(1.0, 16.0);
+uniform float dither : hint_range(0.0, 0.5);
 
 
 void vertex()
@@ -18,20 +19,18 @@ void vertex()
 
 void fragment()
 {
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV);
 	
-	ivec2 size = textureSize(SCREEN_TEXTURE, 0);
+//	float a = floor(mod(UV.x / TEXTURE_PIXEL_SIZE.x, 2.0));
+//	float b = floor(mod(UV.y / TEXTURE_PIXEL_SIZE.y, 2.0));	
+//	float c = mod(a + b, 2.0);
+	float c = mod(2.0, 2.0);
 	
-	int xRes = size.x;
-	int yRes = size.y;
-	
-	float xFactor = float(xRes) / float(pixelSize);
-	float yFactor = float(yRes) / float(pixelSize);
-	
-	float grid_uv_x = round(SCREEN_UV.x * xFactor) / xFactor;
-	float grid_uv_y = round(SCREEN_UV.y * yFactor) / yFactor;
-	
-	vec4 text = texture(SCREEN_TEXTURE, vec2(grid_uv_x, grid_uv_y));
-	
-//	COLOR = text;
-	ALBEDO = text.rgb;
+	ALBEDO.r = (round(color.r * colors + dither) / colors) * c;
+	ALBEDO.g = (round(color.g * colors + dither) / colors) * c;
+	ALBEDO.b = (round(color.b * colors + dither) / colors) * c;
+	c = 1.0 - c;
+	ALBEDO.r += (round(color.r * colors - dither) / colors) * c;
+	ALBEDO.g += (round(color.g * colors - dither) / colors) * c;
+	ALBEDO.b += (round(color.b * colors - dither) / colors) * c;
 }

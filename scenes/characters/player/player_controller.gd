@@ -700,18 +700,13 @@ func handle_inventory(delta : float):
 			$"../FPSCamera/ScreenFilter".visible = false
 		if current_screen_filter == ScreenFilter.PIXELATE:
 			$"../FPSCamera/ScreenFilter".visible = true
-			# not working
-#			ProjectSettings.set_setting("display/window/size/width", 256)
-#			ProjectSettings.set_setting("display/window/size/height", 150)
-			# shader attempt
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
-			# set pixel size needed?
 		if current_screen_filter == ScreenFilter.DITHER:
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
 			$"../FPSCamera/ScreenFilter".visible = true
-			pass
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
 
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = inv.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_offhand_item()

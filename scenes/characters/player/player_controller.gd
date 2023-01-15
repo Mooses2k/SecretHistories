@@ -702,9 +702,17 @@ func handle_inventory(delta : float):
 #			ProjectSettings.set_setting("display/window/size/height", 150)
 			# shader attempt
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.shader"))
+			# set pixel size needed?
 		if current_screen_filter == ScreenFilter.DITHER:
 			$"../FPSCamera/ScreenFilter".visible = true
-			pass
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/shader/dither.shader"))
+			# set shader params here:  set_shader_param(param: String, value: Variant) - DOESN'T WORK
+			$"../FPSCamera/ScreenFilter".get_active_material(0).set_shader_param("u_bit_depth", 32)
+			$"../FPSCamera/ScreenFilter".get_active_material(0).set_shader_param("u_contrast", 1)
+			$"../FPSCamera/ScreenFilter".get_active_material(0).set_shader_param("u_offset", 0.1)
+			$"../FPSCamera/ScreenFilter".get_active_material(0).set_shader_param("u_dither_size", 2)
+			$"../FPSCamera/ScreenFilter".get_active_material(0).set_shader_param("u_dither_tex", preload("res://resources/shaders/dither/assets/bayer2tile16.png"))
+			$"../FPSCamera/ScreenFilter".get_active_material(0).set_shader_param("u_color_tex", preload("res://resources/shaders/dither/assets/palette_moonlight.png"))
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
 			$"../FPSCamera/ScreenFilter".visible = true
 			pass

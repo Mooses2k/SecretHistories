@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/ranged/lee-metford_rifle/M_LeeMetford.material" type="Material" id=2]
@@ -48,6 +48,9 @@ bind/6/name = "neutral_bone"
 bind/6/bone = -1
 bind/6/pose = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, -8.6873e-06, 0.0410387, 0.00667445 )
 
+[sub_resource type="ConvexPolygonShape" id=3]
+points = PoolVector3Array( -0.00889741, -0.144837, 0.603807, 0.0106393, -0.144837, 0.603807, 0.00672808, -0.000160143, -0.631761, 0.0419293, -0.0158136, 0.2832, -0.0245554, -0.00798686, -0.174404, -0.0126577, -0.0393758, 0.626509, 0.0106393, -0.0353534, -0.506634, -0.00499917, 0.0389375, -0.600479, -0.0167264, -0.0197179, -0.510591, 0.0184553, -0.0353894, 0.631132, -0.00818355, 0.0276684, 0.275265, -0.0167329, -0.140915, 0.619386, 0.0184618, 0.0193797, -0.510591, 0.0145441, 0.0350331, 0.232258, 0.0184553, -0.133088, 0.60764, 0.0419293, -0.000160143, 0.294946, 0.0184618, -0.0157956, -0.510591, -0.00891042, -0.0353534, -0.506634, -0.0155, -0.0362411, 0.600505, -0.0128152, 0.00764858, -0.631761, -0.0142521, 0.0193837, 0.110816, 0.0106393, 0.0193797, -0.631761, 0.0184553, -0.117453, 0.623342, 0.0301891, 0.0154753, 0.290989, -0.0148383, -0.0294382, 0.584068, -0.0245554, -0.00798686, -0.189983, 0.0184618, -0.0118912, -0.526293, -0.0133, 0.0129887, 0.248227, -0.0153199, 0.0116883, -0.497183, 0.0145441, -0.140915, 0.619386, 0.0184618, 0.00764858, -0.522213, -0.0167264, -0.0157956, -0.526293, -0.0104337, 0.0252884, 0.196164, -0.0137698, 0.017881, -0.444233, -0.0142521, 0.0193837, 0.0825869 )
+
 [node name="Lee-Metford rifle" instance=ExtResource( 1 )]
 mass = 1.0
 continuous_cd = true
@@ -57,7 +60,6 @@ ammo_types = [ ExtResource( 3 ) ]
 ammunition_capacity = 10
 reload_amount = 1
 reload_time = 2.0
-cooldown = 0.1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
@@ -68,7 +70,7 @@ sound_effect = ExtResource( 5 )
 hit_effect = ExtResource( 9 )
 
 [node name="Flash" type="OmniLight" parent="Effects" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.676111 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 5.0
@@ -80,10 +82,10 @@ omni_attenuation = 7.0
 one_shot = true
 
 [node name="SmokeOrigin" type="Position3D" parent="Effects" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.38389 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000626314, -0.677195 )
 
 [node name="SoundOrigin" type="Position3D" parent="Effects" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00682367, -0.674933 )
 
 [node name="MeshInstance" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0 )
@@ -132,10 +134,10 @@ mesh = SubResource( 1 )
 skin = SubResource( 2 )
 
 [node name="CollisionShape" parent="." index="2"]
-transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )
+shape = SubResource( 3 )
 
 [node name="RayCast" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1399 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00202578, -0.1399 )
 
 [node name="HoldPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0151194, 0.198463 )

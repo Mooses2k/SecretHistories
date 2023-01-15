@@ -172,9 +172,19 @@ func check_word():
 		temp = temp.replace("[Binoculars key]", keys)
 		return true
 
+	elif "[Change look key]" in temp:
+		keys = ""
+		for actionKey in InputMap.get_action_list("change_screen_filter"):
+			if actionKey is InputEventKey:
+				if not keys.empty():
+					keys += " or "
+				keys += OS.get_scancode_string(actionKey.scancode)
+		temp = temp.replace("[Change look key]", keys)
+		return true
+
 	elif "[" in temp:
 		printerr(temp) # this will catch wrong writing in list and mouse events (not implemented)
-	
+
 	return false
 
 
@@ -189,7 +199,7 @@ func load_files():
 			list1.append(temp)
 			print(temp)
 	f.close()
-	
+
 	f.open(file2, File.READ)
 	while not f.eof_reached(): # iterate through all lines until the end of file is reached
 		temp = f.get_line()

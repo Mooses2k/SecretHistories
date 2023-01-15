@@ -58,6 +58,7 @@ Note: For a light-source in your main hand, hit Left-Click or, for the off-hand,
 Note: Press Middle-Mouse Button to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
 Note: Press the [Map key] key to open your map.
 Note: Press the [Binoculars key] key to see through your spyglass.
+Note: Press the [Change look key] key to change the look of the game (dithering, pixelation, various retro flavor).
 Note: Violence is always an answer, but not always the answer.
 Note: Conserve your ammo. You're going to need it.
 Note: Where no humans have tread, no ammo is to be found.

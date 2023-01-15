@@ -17,4 +17,3 @@ func _process(delta: float) -> void:
 	if is_instance_valid(material):
 		material.set_shader_param(uniform_name_transform, global_transform.affine_inverse())
 		material.set_shader_param(uniform_name_position, global_translation)
-#	pass

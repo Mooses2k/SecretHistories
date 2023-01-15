@@ -1,6 +1,7 @@
 extends AudioStreamPlayer3D
 class_name PlayerAudio
 
+
 var _footstep_sounds : Array = []
 var _landing_sounds : Array = []
 var _clamber_sounds : Dictionary = {
@@ -9,6 +10,7 @@ var _clamber_sounds : Dictionary = {
 }
 
 var _current_sound_dir : String = ""
+
 
 func load_sounds(sound_dir, type : int) -> void:
 	if sound_dir == "":

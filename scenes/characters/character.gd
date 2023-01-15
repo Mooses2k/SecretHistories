@@ -90,6 +90,8 @@ onready var _audio_player = get_node("Audio")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = get_node("Body/GroundChecker")
 
+onready var _speech_player = get_node("Speech")
+
 var stamina := 600.0
 var active_mode_index = 0
 #onready var active_mode : ControlMode = get_child(0)
@@ -467,3 +469,7 @@ func move_effect():
 
 
 
+
+
+func speak():
+	pass

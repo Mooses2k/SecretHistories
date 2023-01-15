@@ -1,13 +1,9 @@
 extends "res://scenes/characters/character.gd"
 class_name Player
 
+
 signal change_off_equipment_out_done()
 signal change_main_equipment_out_done()
-
-onready var tinnitus = $Tinnitus
-onready var fps_camera = $FPSCamera
-onready var gun_cam = $ViewportContainer2/Viewport/GunCam
-onready var grab_cast = $FPSCamera/GrabCast
 
 var colliding_pickable_items = []
 var colliding_interactable_items = []
@@ -17,6 +13,11 @@ var is_change_main_equip_out : bool = false
 var is_change_main_equip_in : bool = false
 var is_change_off_equip_out : bool = false
 var is_change_off_equip_in : bool = false
+
+onready var tinnitus = $Tinnitus
+onready var fps_camera = $FPSCamera
+onready var gun_cam = $ViewportContainer2/Viewport/GunCam
+onready var grab_cast = $FPSCamera/GrabCast
 
 
 func _ready():

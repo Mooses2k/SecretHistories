@@ -65,7 +65,7 @@ func attack_thrust():
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("ThrustFromTierce")
-			$Sounds/ThrustSound.play()
+			$Sounds/Thrust.play()
 			yield(melee_anim, "animation_finished")
 			character.stamina -= 50
 			can_hit = false
@@ -75,7 +75,7 @@ func attack_thrust():
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("polearm_thrust_from_right")
-			$Sounds/CutSound.play()
+			$Sounds/Thrust.play()
 			yield(melee_anim, "animation_finished")
 #			character.stamina -= 50 # this is bugged with halberd
 			can_hit = false
@@ -90,7 +90,7 @@ func attack_cut():
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("Swing1FromTierce")
-			$Sounds/ThrustSound.play()
+			$Sounds/Cut.play()
 			yield(melee_anim, "animation_finished")
 			character.stamina -= 50
 			can_hit = false
@@ -100,7 +100,7 @@ func attack_cut():
 		if not melee_anim.is_playing():
 			can_hit = true
 			melee_anim.play("polearm_cut_2") # WIP, AnimationPlayer got wiped during import_items merge
-			$Sounds/CutSound.play()
+			$Sounds/Cut.play()
 			yield(melee_anim, "animation_finished")
 			character.stamina -= 50
 			can_hit = false

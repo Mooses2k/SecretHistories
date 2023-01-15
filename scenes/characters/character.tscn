@@ -4,6 +4,7 @@
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/player_audio.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
+[ext_resource path="res://scenes/characters/character_speech.gd" type="Script" id=5]
 [ext_resource path="res://resources/models/characters/player/Hair.material" type="Material" id=6]
 [ext_resource path="res://resources/models/characters/player/Hair_002.material" type="Material" id=7]
 [ext_resource path="res://resources/models/characters/player/LongCoat.material" type="Material" id=8]
@@ -2606,6 +2607,10 @@ cast_to = Vector3( 0, -0.5, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 1.51721, -0.2 )
 cull_mask = 1048573
 current = true
+
+[node name="Speech" type="AudioStreamPlayer3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.61486, -0.0874758 )
+script = ExtResource( 5 )
 
 [node name="Audio" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 15 )

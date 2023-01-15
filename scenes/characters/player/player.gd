@@ -44,10 +44,9 @@ func _process(delta):
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
 
+
 func drop_consumable(object):
 	$PlayerController.throw_consumable()
-
-
 
 
 func grab_indicator():
@@ -72,7 +71,6 @@ func grab_indicator():
 		$Indication_canvas/Indication_system/Ignite.hide()
 
 
-			
 #is_in_group("Door_hitbox")
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body :

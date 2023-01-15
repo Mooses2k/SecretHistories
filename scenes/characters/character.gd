@@ -309,6 +309,9 @@ func _handle_player_sound_emission() -> void:
 		_audio_player.load_sounds(result.sfx_folder, 0)
 
 
+#codes for surface identifier
+#var i = GameManager.game.level.world_data.get_cell_index_from_local_position(transform.origin)
+#print(GameManager.game.level.world_data.get_cell_surfacetype(i))
 func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)

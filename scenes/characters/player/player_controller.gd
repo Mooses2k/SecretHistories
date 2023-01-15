@@ -54,7 +54,7 @@ export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
-export var mouse_sens : float = 0.5
+#export var mouse_sens : float = 0.5   # duplicates GlobalSettings.mouse_sensitivity and caused a bug
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
 
@@ -227,11 +227,11 @@ func _input(event):
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
 			
-		owner.rotation_degrees.y -= event.relative.x * mouse_sens * m
+		owner.rotation_degrees.y -= event.relative.x * GlobalSettings.mouse_sensitivity * m
 #		owner.body.rotation_degrees.y -= event.relative.x * mouse_sens * m
 			
 		if owner.state != owner.State.STATE_CRAWLING:
-			_camera.rotation_degrees.x -= event.relative.y * mouse_sens * m
+			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
 			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 			
 		_camera._camera_rotation_reset = _camera.rotation_degrees

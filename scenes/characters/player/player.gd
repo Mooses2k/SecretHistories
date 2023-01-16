@@ -52,7 +52,7 @@ func drop_consumable(object):
 
 func grab_indicator():
 	var grabable_object = grab_cast.get_collider()
-	
+
 	if grabable_object != null:
 		if grab_cast.is_colliding() and grabable_object is PickableItem and  $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
@@ -72,7 +72,7 @@ func grab_indicator():
 		$Indication_canvas/Indication_system/Ignite.hide()
 
 
-			
+
 #is_in_group("Door_hitbox")
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body :

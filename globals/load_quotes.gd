@@ -174,7 +174,7 @@ func check_word():
 
 	elif "[" in temp:
 		printerr(temp) # this will catch wrong writing in list and mouse events (not implemented)
-	
+
 	return false
 
 
@@ -189,7 +189,7 @@ func load_files():
 			list1.append(temp)
 			print(temp)
 	f.close()
-	
+
 	f.open(file2, File.READ)
 	while not f.eof_reached(): # iterate through all lines until the end of file is reached
 		temp = f.get_line()

@@ -66,7 +66,7 @@ func get_voice_volume() -> float:
 func set_volume(idx : int, value : float):
 	AudioServer.set_bus_volume_db(idx, linear2db(value/MAX_VALUE))
 	pass
-	
+
 func get_volume(idx : int) -> float:
 	return db2linear(AudioServer.get_bus_volume_db(idx))*MAX_VALUE
 	pass

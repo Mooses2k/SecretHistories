@@ -114,13 +114,13 @@ func _ready():
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-	
+
 	active_mode.set_deferred("is_active", true)
 
 
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
-	
+
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
@@ -138,13 +138,13 @@ func _physics_process(delta : float):
 	empty_slot()
 #	_process_frob_and_drag()
 	kick()
-	
+
 	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
 	if c != Vector3.ZERO:
 		_text.show()
 	else:
 		_text.hide()
-	
+
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
 		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, 0.08)
@@ -163,10 +163,10 @@ func _input(event):
 					item_up = true
 					owner.change_equipment_out(true)
 					yield(owner, "change_main_equipment_out_done")
-						
+
 					if item_up:
 						if character.inventory.current_mainhand_slot != 0:
-							var total_inventory 
+							var total_inventory
 							if  character.inventory.bulky_equipment:
 								total_inventory = 10
 							else:
@@ -174,7 +174,7 @@ func _input(event):
 							if total_inventory != character.inventory.current_offhand_slot:
 								character.inventory.current_mainhand_slot = total_inventory
 							else:
-								var plus_inventory 
+								var plus_inventory
 								if  character.inventory.bulky_equipment:
 									plus_inventory = 10
 								else:
@@ -185,14 +185,14 @@ func _input(event):
 									character.inventory.current_mainhand_slot = 10
 						elif character.inventory.current_mainhand_slot == 0:
 							character.inventory.current_mainhand_slot = 10
-							
+
 						owner.change_equipment_in(true)
-				
+
 				BUTTON_WHEEL_DOWN:
 					item_up = false
 					owner.change_equipment_out(true)
 					yield(owner, "change_main_equipment_out_done")
-						
+
 					if !item_up:
 						if character.inventory.current_mainhand_slot != 10 :
 							var total_inventory
@@ -213,29 +213,29 @@ func _input(event):
 								character.inventory.current_mainhand_slot = 0
 							else:
 								character.inventory.current_mainhand_slot = 1
-							
+
 						owner.change_equipment_in(true)
-	
+
 	if event is InputEventMouseMotion:
-		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE 
-			or owner.state == owner.State.STATE_CLAMBERING_RISE 
+		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE
+			or owner.state == owner.State.STATE_CLAMBERING_RISE
 			or owner.state == owner.State.STATE_CLAMBERING_VENT):
 			return
-			
+
 		var m = 1.0
-			
+
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
-			
+
 		owner.rotation_degrees.y -= event.relative.x * GlobalSettings.mouse_sensitivity * m
 #		owner.body.rotation_degrees.y -= event.relative.x * mouse_sens * m
-			
+
 		if owner.state != owner.State.STATE_CRAWLING:
 			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
 			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
-			
+
 		_camera._camera_rotation_reset = _camera.rotation_degrees
-		
+
 		#character.inventory.current_mainhand_slot = 1
 
 
@@ -249,12 +249,12 @@ func _walk(delta) -> void:
 	if Input.is_action_pressed("move_up"):
 		is_movement_key4_held = true
 		owner.is_moving_forward = true
-	
+
 	if Input.is_action_pressed("movement"):
 		movement_press_length += delta
 		if movement_press_length >= 0.15:
 			owner.is_to_move = true
-	
+
 	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
@@ -264,7 +264,7 @@ func _walk(delta) -> void:
 	else:
 		owner.do_sprint = false
 	HUDS.tired(owner.stamina);
-	
+
 	if Input.is_action_just_released("move_right"):
 		is_movement_key1_held = false
 	if Input.is_action_just_released("move_left"):
@@ -274,7 +274,7 @@ func _walk(delta) -> void:
 	if Input.is_action_just_released("move_up"):
 		is_movement_key4_held = false
 		owner.is_moving_forward = false
-	
+
 	if Input.is_action_just_released("movement"):
 		if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 			movement_press_length = 0.0
@@ -283,10 +283,10 @@ func _walk(delta) -> void:
 #	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
 #		_audio_player.play_land_sound()
 ##		_camera.add_stress(0.25)
-	
+
 	if Input.is_action_just_pressed("clamber"):
 		owner.do_jump = true
-		
+
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
 		_head_bob(delta)
 
@@ -308,28 +308,28 @@ func _crouch() -> void:
 		if owner.do_sprint:
 			owner.do_crouch = false
 			return
-		
+
 		if Input.is_action_just_pressed("crouch"):
 			owner.do_crouch = !owner.do_crouch
 			if owner.do_crouch:
 				owner.state = owner.State.STATE_CROUCHING
-		
+
 		if owner.do_crouch:
 			var from = _camera.transform.origin.y
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
-	
+
 	else:
 		if Input.is_action_pressed("crouch"):
 			if owner.do_sprint:
 				owner.do_crouch = false
 				return
-			
+
 			owner.do_crouch = true
 			owner.state = owner.State.STATE_CROUCHING
-		
+
 			var from = _camera.transform.origin.y
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
-			
+
 		if !Input.is_action_pressed("crouch"):
 			owner.do_crouch = false
 
@@ -352,8 +352,8 @@ func _crouch() -> void:
 
 
 #func _process_frob_and_drag():
-#	if (Input.is_action_just_pressed("main_use_primary") 
-#		and _click_timer == 0.0 
+#	if (Input.is_action_just_pressed("main_use_primary")
+#		and _click_timer == 0.0
 #		and drag_object != null):
 #		_click_timer = OS.get_ticks_msec()
 #
@@ -387,7 +387,7 @@ func _crouch() -> void:
 #				drag_object = c
 #				drag_object.linear_velocity = Vector3.ZERO
 #
-#	if Input.is_action_just_released("main_use_primary"):	
+#	if Input.is_action_just_released("main_use_primary"):
 #		if drag_object != null:
 #			if _click_timer + _throw_wait_time > OS.get_ticks_msec():
 #				if _click_timer == 0.0:
@@ -468,7 +468,7 @@ func handle_grab_input(delta : float):
 	if is_grabbing:
 		wanna_grab = true
 	else:
-		wanna_grab = false 
+		wanna_grab = false
 	if Input.is_action_pressed("interact") and is_grabbing == false:
 		grab_press_length += delta
 		if grab_press_length >= 0.15 :
@@ -480,36 +480,36 @@ func handle_grab_input(delta : float):
 #		if Input.is_action_just_released("interact") :
 #			wanna_grab = true
 #			interaction_handled = true
-			
+
 #	else:
 #		wanna_grab = false
 #		if Input.is_action_just_released("interact") and grab_press_length >= hold_time_to_grab:
 #		if Input.is_action_just_released("interact") :
 #			wanna_grab = true
 #			interaction_handled = true
-		
+
 #		grab_press_length = 0.0
 	if Input.is_action_just_released("interact"):
 		grab_press_length = 0.0
 		if is_grabbing==true:
 			is_grabbing = false
-			wanna_grab = false 
+			wanna_grab = false
 			interaction_handled = true
 
 
 func handle_grab(delta : float):
 	if wants_to_drop == false :
 		if wanna_grab and not is_grabbing:
-			
+
 			var object = active_mode.get_grab_target()
-			
+
 			if object:
 				var grab_position = active_mode.get_grab_global_position()
 				grab_relative_object_position = object.to_local(grab_position)
 				grab_distance = owner.fps_camera.global_transform.origin.distance_to(grab_position)
 				grab_object = object
 				is_grabbing = true
-			
+
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
@@ -521,14 +521,14 @@ func handle_grab(delta : float):
 		var grab_target_global : Vector3 = active_mode.get_grab_target_position(grab_distance)
 		# The position the object was grabbed at, in object local space
 		var grab_object_local : Vector3 = grab_relative_object_position
-		
+
 		# The position the object was grabbed at, in global space
 		var grab_object_global : Vector3 = direct_state.transform.xform(grab_object_local)
-		
+
 		# The offset from the center of the object to where it is being grabbed, in global space
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
-		
+
 		# Some visualization stuff
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
@@ -537,27 +537,27 @@ func handle_grab(delta : float):
 			interaction_handled = true
 		#local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
-		
+
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
 		var desired_velocity : Vector3 = 32.0*(grab_target_global - grab_object_global)
 		desired_velocity = desired_velocity.normalized()*min(desired_velocity.length(), 2.0)
-		
+
 		# Desired velocity follows the player character
 		desired_velocity += velocity
-		
+
 		# Impulse is based on how much the velocity needs to change
 		var velocity_delta = desired_velocity - local_velocity
 		var impulse_velocity = velocity_delta * grab_object.mass
-		
-		# Counteract gravity on the grabbed object (and other 
+
+		# Counteract gravity on the grabbed object (and other
 		var impulse_forces = -(direct_state.total_gravity * grab_object.mass*delta)
 		var total_impulse : Vector3 = impulse_velocity + impulse_forces
 		total_impulse = total_impulse.normalized() * min(total_impulse.length(), grab_strength)
-		
+
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
 		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
-		
+
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
 
@@ -609,7 +609,7 @@ func throw_consumable():
 
 func handle_inventory(delta : float):
 	var inv = character.inventory
-	
+
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
@@ -620,23 +620,23 @@ func handle_inventory(delta : float):
 				inv.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 				owner.change_equipment_in(true)
-	
+
 	# Offhand slot selection
-		
+
 	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
 		var start_slot = inv.current_offhand_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
 			and (
 					(
-						
+
 						inv.hotbar[new_slot] != null \
 						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
 					)\
 					or new_slot == inv.current_mainhand_slot \
 					or inv.hotbar[new_slot] == null \
 				):
-				
+
 				new_slot = (new_slot + 1)%inv.hotbar.size()
 		if start_slot != new_slot:
 			owner.change_equipment_out(false)
@@ -645,7 +645,7 @@ func handle_inventory(delta : float):
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
 			owner.change_equipment_in(false)
-	
+
 	if Input.is_action_just_pressed("hotbar_11"):
 		if inv.current_offhand_slot != 10:
 			inv.current_offhand_slot = 10
@@ -654,28 +654,28 @@ func handle_inventory(delta : float):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_primary()
 			throw_state = ThrowState.IDLE
-	
+
 	if Input.is_action_just_pressed("main_use_secondary"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_secondary()
 			throw_state = ThrowState.IDLE
-	
+
 	if Input.is_action_just_pressed("reload"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
 #			if inv.get_mainhand_item() is ShotgunItem:
 #				print(inv.get_mainhand_item())
-	
+
 	if Input.is_action_just_pressed("offhand_use"):
 		if inv.get_offhand_item():
 			inv.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE
-	
+
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = inv.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_offhand_item()
 		if item:
-			
+
 			# Calculates where to place the item
 			var origin : Vector3 = owner.drop_position_node.global_transform.origin
 			var end : Vector3 = active_mode.get_target_placement_position()
@@ -696,7 +696,7 @@ func handle_inventory(delta : float):
 				else:
 					inv.drop_offhand_item()
 				item.call_deferred("global_translate", result.motion)
-		
+
 	elif throw_state == ThrowState.SHOULD_THROW:
 		var item : EquipmentItem = null
 		if throw_item == ItemSelection.ITEM_MAINHAND:
@@ -710,14 +710,14 @@ func handle_inventory(delta : float):
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
 			var x_pos = item.global_transform.origin.x
-			#Applies unique throw  logic to item if its a melee item 
+			#Applies unique throw  logic to item if its a melee item
 			if item is MeleeItem :
 				item.apply_throw_logic(impulse)
 			else:
 				item.apply_central_impulse(impulse)
-	
+
 	update_throw_state(delta)
-	
+
 #	if Input.is_action_just_released("throw") and throw_state:
 #		throw_state = false
 #		var item = inv.get_mainhand_item()
@@ -762,16 +762,16 @@ func handle_inventory(delta : float):
 
 func kick():
 	var kick_object = legcast.get_collider()
-	
+
 	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
 		if is_grabbing == false:
 			if Input.is_action_just_pressed("kick"):
 				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-				
+
 	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 		if Input.is_action_just_pressed("kick"):
 			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-			
+
 	elif legcast.is_colliding() and kick_object is RigidBody:
 		if Input.is_action_just_pressed("kick"):
 			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
@@ -796,8 +796,8 @@ func drop_grabbable():
 func previous_item():
 	if Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot != 0:
 		character.inventory.drop_bulky_item()
-		character.inventory.current_mainhand_slot -=1 
-		
+		character.inventory.current_mainhand_slot -=1
+
 	elif  Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot == 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
@@ -807,7 +807,7 @@ func next_item():
 	if Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot != 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
-		
+
 	elif  Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0

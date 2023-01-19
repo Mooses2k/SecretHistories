@@ -23,9 +23,9 @@ func select_floor_tiles(data : WorldData):
 	for i in data.cell_count:
 		if data.get_cell_type(i) != data.CellType.EMPTY:
 			if data.get_cell_type(i) == data.CellType.ROOM:
-				data.set_cell_surfacetype(i, data.SurfaceType.WOOD)
+				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
 			elif data.get_cell_type(i) == data.CellType.CORRIDOR:
-				data.set_cell_surfacetype(i, data.SurfaceType.ROCK)
+				data.set_cell_surfacetype(i, data.SurfaceType.CARPET)
 			data.set_ground_tile_index(i, floor_tile)
 
 

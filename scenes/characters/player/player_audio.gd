@@ -3,6 +3,12 @@ class_name PlayerAudio
 
 
 var _footstep_sounds : Array = []
+var _stone_footstep_sounds : Array = []
+var _wood_footstep_sounds : Array = []
+var _carpet_footstep_sounds : Array = []
+var _water_footstep_sounds : Array = []
+var _gravel_footstep_sounds : Array = []
+
 var _landing_sounds : Array = []
 var _clamber_sounds : Dictionary = {
 	"in" : [],
@@ -34,15 +40,31 @@ func load_sounds(sound_dir, type : int) -> void:
 	var sound = snd_dir.get_next()
 	while sound != "":
 		if not sound.ends_with(".import") and sound.ends_with(".wav"):
-			if type == 0:
-				_footstep_sounds.append(load(sound_dir + "/" + sound))
-			elif type == 1:
-				if "in" in sound:
-					_clamber_sounds["in"].append(load(sound_dir + "/" + sound))
-				elif "out" in sound:
-					_clamber_sounds["out"].append(load(sound_dir + "/" + sound))
-			elif type == 2:
-				_landing_sounds.append(load(sound_dir + "/" + sound))
+			match type:
+				1:
+					if "in" in sound:
+						_clamber_sounds["in"].append(load(sound_dir + "/" + sound))
+					elif "out" in sound:
+						_clamber_sounds["out"].append(load(sound_dir + "/" + sound))
+				
+				2:
+					_landing_sounds.append(load(sound_dir + "/" + sound))
+				
+				3:
+					_stone_footstep_sounds.append(load(sound_dir + "/" + sound))
+				
+				4:
+					_wood_footstep_sounds.append(load(sound_dir + "/" + sound))
+				
+				5:
+					_water_footstep_sounds.append(load(sound_dir + "/" + sound))
+				
+				6:
+					_gravel_footstep_sounds.append(load(sound_dir + "/" + sound))
+				
+				7:
+					_carpet_footstep_sounds.append(load(sound_dir + "/" + sound))
+				
 		sound = snd_dir.get_next()
 
 

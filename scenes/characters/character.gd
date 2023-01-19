@@ -42,6 +42,14 @@ enum ThrowState {
 	SHOULD_THROW,
 }
 
+enum SurfaceType {
+	WOOD,
+	CARPET,
+	STONE,
+	WATER,
+	GRAVEL,
+}
+
 #stealth player controller addon -->
 enum State {
 	STATE_WALKING,
@@ -189,9 +197,14 @@ func _ready():
 
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
-	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
+	_audio_player.load_sounds("resources/sounds/player/sfx/stone_footsteps", 3)
+	_audio_player.load_sounds("resources/sounds/player/sfx/wood_footsteps", 4)
+	_audio_player.load_sounds("resources/sounds/player/sfx/water_footsteps", 5)
+	_audio_player.load_sounds("resources/sounds/player/sfx/gravel_footsteps", 6)
+	_audio_player.load_sounds("resources/sounds/player/sfx/carpet_footsteps", 7)
 	_audio_player.load_sounds("resources/sounds/player/sfx/breathe", 1)
 	_audio_player.load_sounds("resources/sounds/player/sfx/landing", 2)
+	_audio_player._footstep_sounds = _audio_player._stone_footstep_sounds
 #	active_mode.set_deferred("is_active", true)
 
 
@@ -276,37 +289,33 @@ func _physics_process(delta : float):
 				return
 	move_effect()
 
-func _get_surface_texture() -> Dictionary:
-	if _surface_detector.get_collider():
-		var mesh = null
-		for node in _surface_detector.get_collider().get_children():
-			if node is MeshInstance:
-				if node.mesh != null:
-					mesh = node
-		if !mesh:
-			return {}
-		if mesh.get_surface_material(0) != null:
-				var tex = mesh.get_surface_material(0).albedo_texture
-				if !tex:
-					return {}
-				var path = tex.resource_path.split("/")
-				var n = path[path.size() - 1].split(".")[0]
-				if TEXTURE_SOUND_LIB.has(n):
-					return TEXTURE_SOUND_LIB[n]
 
-	return {}
+func _get_surface_type() -> Array:
+	var cell_index = GameManager.game.level.world_data.get_cell_index_from_local_position(transform.origin)
+	var floor_type = GameManager.game.level.world_data.get_cell_surfacetype(cell_index)
+	
+	match floor_type:
+		
+		SurfaceType.WOOD:
+			return _audio_player._wood_footstep_sounds
+
+		SurfaceType.CARPET:
+			return _audio_player._carpet_footstep_sounds
+
+		SurfaceType.STONE:
+			return _audio_player._stone_footstep_sounds
+
+		SurfaceType.WATER:
+			return _audio_player._water_footstep_sounds
+
+		SurfaceType.GRAVEL:
+			return _audio_player._gravel_footstep_sounds
+
+	return _audio_player._footstep_sounds
 
 
 func _handle_player_sound_emission() -> void:
-	var result = _get_surface_texture()
-
-	if result.size() == 0:
-		return
-
-	_sound_emitter.radius = result["amplifier"]
-
-	if result.sfx_folder != "":
-		_audio_player.load_sounds(result.sfx_folder, 0)
+	_audio_player._footstep_sounds = _get_surface_type()
 
 
 #codes for surface identifier
@@ -413,11 +422,11 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 
 	if velocity.length() > 0.1 and grounded and not _audio_player.playing and is_to_move:
 		if is_crouching:
-			_audio_player.play_footstep_sound(-10.0, 0.7)
+			_audio_player.play_footstep_sound(-1.0, 0.8)
 		elif do_sprint and is_moving_forward:
-			_audio_player.play_footstep_sound(-2.0, 1.5)
+			_audio_player.play_footstep_sound(5.0, 1.5)
 		else:
-			_audio_player.play_footstep_sound(-2.0, 1.0)
+			_audio_player.play_footstep_sound(5.0, 1.0)
 
 
 func _crouch(delta : float) -> void:

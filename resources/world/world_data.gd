@@ -81,10 +81,10 @@ enum EdgeType {
 
 enum SurfaceType {
 	WOOD,
-	GRASS,
-	SAND,
+	CARPET,
+	STONE,
 	WATER,
-	ROCK,
+	GRAVEL,
 }
 
 var cell_surface_type : PoolByteArray

@@ -118,6 +118,7 @@ var clamberable_obj : RigidBody
 var clamberable : RigidBody = null
 
 var move_dir = Vector3()
+var anim_dir = Vector3()
 var grounded = false
 
 var is_moving_forward : bool = false
@@ -125,7 +126,7 @@ var is_to_move : bool = true
 var do_sprint : bool = false
 var do_jump : bool = false
 var do_crouch : bool = false
-
+var anim_lerp =  Vector3.ZERO
 
 #func _integrate_forces(state):
 #	handle_elevation(state)
@@ -195,7 +196,7 @@ func _ready():
 
 
 func _physics_process(delta : float):
-	check_state_animation()
+	check_state_animation(delta)
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -448,8 +449,23 @@ func _crouch(delta : float) -> void:
 			return
 
 
-func check_state_animation():
+func check_state_animation(delta):
+	
+	anim_dir = Vector3(Input.get_action_strength("move_left") - Input.get_action_strength("move_right"),
+					0,
+					Input.get_action_strength("move_up") - Input.get_action_strength("move_down"))
+	
 #	print(move_dir)
+
+#	var mov_dir = anim_dir.normalized()
+#	var h_rot = get_rotation().y
+#	var blend_pos 
+#	var b_pos = Vector3.ZERO
+#	b_pos = mov_dir.rotated(Vector3.UP, h_rot).normalized()
+#	blend_pos = Vector2(b_pos.x, b_pos.z)
+	
+	
+	anim_lerp = lerp(anim_lerp, anim_dir, 0.1)
 	if state == State.STATE_CROUCHING:
 		animation_tree.set("parameters/state/current",2)
 		
@@ -462,11 +478,11 @@ func check_state_animation():
 		
 	elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
 		animation_tree.set("parameters/state/current",1)
-		animation_tree.set("parameters/walk_strafe/blend_position", Vector2(-move_dir.x, move_dir.z))
+		animation_tree.set("parameters/walk_strafe/blend_position", Vector2(-anim_lerp.x, anim_lerp.z))
 		
 	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
 		animation_tree.set("parameters/state/current",5)
-		animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(-move_dir.x, move_dir.z))
+		animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(-anim_lerp.x, anim_lerp.z))
 		
 	elif not move_dir == Vector3.ZERO and  do_sprint == true:
 		animation_tree.set("parameters/state/current",2)

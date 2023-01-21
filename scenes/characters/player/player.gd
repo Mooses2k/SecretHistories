@@ -51,7 +51,7 @@ func drop_consumable(object):
 
 func grab_indicator():
 	var grabable_object = grab_cast.get_collider()
-	
+
 	if grabable_object != null:
 		if grab_cast.is_colliding() and grabable_object is PickableItem and  $PlayerController.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()

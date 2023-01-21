@@ -77,8 +77,7 @@ export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
-export var mouse_sens : float = 0.5
-export var lock_mouse : bool = true
+export var lock_mouse : bool = true   # why is this needed here if not on a player?
 export var head_bob_enabled : bool = true
 
 var state = State.STATE_WALKING

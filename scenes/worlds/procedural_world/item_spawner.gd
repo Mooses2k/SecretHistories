@@ -27,7 +27,7 @@ func spawn_items(data : WorldData):
 				if not get_next_free_cell(data):
 					return
 				var pos = data.get_local_cell_position(free_cell) + Vector3(0.75, 1.0, 0.75)
-				
+
 				var item
 				if not is_cultist_spawned:
 					is_cultist_spawned = true
@@ -35,7 +35,7 @@ func spawn_items(data : WorldData):
 				else:
 					item = item_scene.instance()
 				(item as Spatial).translation = pos
-				
+
 				owner.add_child(item)
 		elif g == "Tiny Items":
 			var amount = settings.get_setting(s)

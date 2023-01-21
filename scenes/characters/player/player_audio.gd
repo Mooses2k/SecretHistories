@@ -73,7 +73,7 @@ func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0):
 	self.pitch_scale = pitch
 	if _footstep_sounds.size() > 0:
 		_footstep_sounds.shuffle()
-		stream = _footstep_sounds.front()
+		self.stream = _footstep_sounds.front()
 		play()
 
 

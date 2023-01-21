@@ -37,6 +37,7 @@ onready var character = get_parent()
 
 
 func _ready():
+	connect("body_entered", self, "play_drop_sound")
 	pass
 
 

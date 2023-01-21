@@ -24,11 +24,17 @@ export var max_speed : float = 12.0
 #onready var mesh_instance = $MeshInstance
 var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
-
+onready var audio_player = get_node("DropSound")
+export var item_drop_sound : AudioStream
 
 func _enter_tree():
+	if not audio_player:
+		var drop_sound = AudioStreamPlayer3D.new()
+		drop_sound.name = "DropSound"
+		add_child(drop_sound)
+	
 	match self.item_state:
-		GlobalConsts.ItemState.DROPPED:	
+		GlobalConsts.ItemState.DROPPED:
 			set_physics_dropped()
 		GlobalConsts.ItemState.INVENTORY:
 			set_physics_equipped()
@@ -40,6 +46,13 @@ func set_item_state(value : int) :
 	var previous = item_state
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
+
+
+func play_drop_sound(body):
+	if self.item_drop_sound and self.audio_player:
+		self.audio_player.stream = self.item_drop_sound
+		self.audio_player.unit_db = 10
+		self.audio_player.play()
 
 
 func set_physics_dropped():

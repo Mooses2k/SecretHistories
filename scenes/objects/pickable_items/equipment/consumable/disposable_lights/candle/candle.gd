@@ -40,23 +40,27 @@ func _process(delta):
 func light():
 	$AnimationPlayer.play("flicker")
 	$LightSound.play()
-	$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
+#	$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
+	$FireOrigin/Fire.visible = not $FireOrigin/Fire.visible
 	firelight.visible = not firelight.visible
 	$MeshInstance.cast_shadow = false
 	$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled
+	is_lit = true
 
 
 func unlight():
 	$AnimationPlayer.stop()
 	$BlowOutSound.play()
 	$MeshInstance.get_surface_material(0).emission_enabled = false
-	$FireOrigin/Fire.emitting = false
+#	$FireOrigin/Fire.emitting = false
+	$FireOrigin/Fire.visible = false
 	firelight.visible = false
 	$MeshInstance.cast_shadow = true
+	is_lit = false
 
 
 func _use_primary():
-	if !burn_time.is_stopped():
+	if is_lit == false:
 		light()
 	else:
 		unlight()
@@ -72,7 +76,8 @@ func _item_state_changed(previous_state, current_state):
 
 
 func switch_away():
-	$FireOrigin/Fire.emitting = false
+#	$FireOrigin/Fire.emitting = false
+	$FireOrigin/Fire.visible = false
 	firelight.visible = false
 	$AnimationPlayer.stop()
 	$MeshInstance.get_surface_material(0).emission_enabled = false

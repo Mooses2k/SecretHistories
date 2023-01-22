@@ -463,7 +463,8 @@ func check_state_animation(delta):
 #	var b_pos = Vector3.ZERO
 #	b_pos = mov_dir.rotated(Vector3.UP, h_rot).normalized()
 #	blend_pos = Vector2(b_pos.x, b_pos.z)
-	
+	var forwards_velocity = -global_transform.basis.z.dot(velocity)
+	var sidew_velocity = global_transform.basis.x.dot(velocity)
 	
 	anim_lerp = lerp(anim_lerp, anim_dir, 0.1)
 	if state == State.STATE_CROUCHING:
@@ -478,11 +479,11 @@ func check_state_animation(delta):
 		
 	elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
 		animation_tree.set("parameters/state/current",1)
-		animation_tree.set("parameters/walk_strafe/blend_position", Vector2(-anim_lerp.x, anim_lerp.z))
+		animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sidew_velocity, forwards_velocity))
 		
 	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
 		animation_tree.set("parameters/state/current",5)
-		animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(-anim_lerp.x, anim_lerp.z))
+		animation_tree.set("parameters/crouch_strafe/blend_position",  Vector2(sidew_velocity, forwards_velocity))
 		
 	elif not move_dir == Vector3.ZERO and  do_sprint == true:
 		animation_tree.set("parameters/state/current",2)

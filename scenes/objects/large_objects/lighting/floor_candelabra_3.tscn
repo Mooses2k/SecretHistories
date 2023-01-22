@@ -800,98 +800,153 @@ anims/RESET = SubResource( 14 )
 anims/flicker = SubResource( 15 )
 
 [node name="FireOrigin8" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103154, 0.585903, -0.107178 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.084689, 0.498309, -0.000910819 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../../FireOrigin7")
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin7" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112444, 0.547287, -0.111578 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000172269, 0.504074, -0.0860304 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../../FireOrigin6")
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin6" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117706, 0.56577, 0.108528 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0871745, 0.502577, -0.00257983 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../../FireOrigin5")
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin5" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188207, 0.339789, -0.00112151 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16034, 0.299164, -0.076471 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin4")
+material/0 = SubResource( 147 )
+
+[node name="FireOrigin15" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.160094, 0.307402, -0.0829053 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin15"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin4")
+material/0 = SubResource( 147 )
+
+[node name="FireOrigin16" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0783156, 0.306821, -0.161833 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin16"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin4")
+material/0 = SubResource( 147 )
+
+[node name="FireOrigin10" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16034, 0.299164, 0.0696632 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin10"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin4")
+material/0 = SubResource( 147 )
+
+[node name="FireOrigin11" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0772993, 0.299164, 0.168107 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin11"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
+cast_shadow = 0
+mesh = SubResource( 145 )
+skeleton = NodePath("../../FireOrigin4")
+material/0 = SubResource( 147 )
+
+[node name="FireOrigin12" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0772993, -3.52322, -0.668468 )
+script = ExtResource( 6 )
+
+[node name="Fire" type="MeshInstance" parent="FireOrigin12"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../../FireOrigin4")
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin4" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00840224, 0.324049, -0.190523 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0825897, 0.307284, -0.16139 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../../FireOrigin3")
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193048, 0.257107, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.164351, 0.310945, 0.0761278 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../../FireOrigin9")
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin9" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00162077, 0.515582, 0.0882052 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00162077, 0.50311, 0.0836929 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../../FireOrigin2")
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin2" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0893586, 0.328067, 0.160131 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0809766, 0.304712, 0.160205 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 material/0 = SubResource( 147 )
 
 [node name="FireOrigin" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623797, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.608734, 0 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.03, 0 )
 cast_shadow = 0
 mesh = SubResource( 145 )
 skeleton = NodePath("../..")

@@ -1,6 +1,7 @@
 class_name ShakeCamera
 extends Camera
 
+
 enum CameraState {
 	STATE_NORMAL,
 	STATE_ZOOM

@@ -9,9 +9,9 @@ var is_fade_in = false
 var health = 100 
 
 
-#func _process(delta):
-#	$RichTextLabel.text = (" player light_level = " + str(owner.light_level) + " \nplayer on floor = " + 
-#		str(owner.is_on_floor()))
+func _process(delta):
+	$RichTextLabel.text = (" player light_level = " + str(owner.light_level) + " \nplayer on floor = " + 
+		str(owner.is_on_floor()))
 
 
 func _input(event):

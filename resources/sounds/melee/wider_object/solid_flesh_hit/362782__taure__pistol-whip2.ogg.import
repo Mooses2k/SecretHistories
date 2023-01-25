@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/362782__taure__pistol-whip2.ogg-077c942d6a5bcf3cdb3cebf15dfcdeca.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg"
+dest_files=[ "res://.import/362782__taure__pistol-whip2.ogg-077c942d6a5bcf3cdb3cebf15dfcdeca.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

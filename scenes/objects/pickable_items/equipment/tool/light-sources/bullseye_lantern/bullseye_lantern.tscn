@@ -125,6 +125,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
 mass = 0.2
 script = ExtResource( 2 )
 item_name = "Bullseye Lantern"
+can_attach = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 0, 0, 0 )
@@ -170,4 +171,5 @@ stream = ExtResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 6 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

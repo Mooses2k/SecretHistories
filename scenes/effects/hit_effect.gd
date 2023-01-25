@@ -8,7 +8,8 @@ func _ready():
 	ready = true
 	self.set_as_toplevel(true)
 	self.emitting = true
-	pass # Replace with function body.
+	# choose material type then play sound, for now, always a neutral thud
+	$Sounds/Stone.play()
 
 
 func set_orientation(position : Vector3, normal : Vector3):

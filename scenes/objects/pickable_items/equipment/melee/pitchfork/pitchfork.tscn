@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=7]
+[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=9]
 
 [sub_resource type="ArrayMesh" id=4]
 blend_shape_mode = 0
@@ -139,18 +141,24 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202506, 0 )
 
 [node name="Sounds" type="Spatial" parent="."]
 
-[node name="UnsheathSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
 
-[node name="SheathSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
 
-[node name="ThrustSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 6 )
 
-[node name="CutSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 7 )
 
-[node name="ParrySound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 5 )
+
+[node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 8 )
+
+[node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 9 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

@@ -72,7 +72,7 @@ func add_tiny_items():
 		else:
 			if full_path.ends_with(".tres") and not full_path.get_file().begins_with("_"):
 				_settings.add_int_setting(full_path, 0, 999, 1, 999)
-				_settings.set_setting_group(full_path, "Tiny Items") 
+				_settings.set_setting_group(full_path, "Tiny Items")
 
 
 func path_from_parts(a : String, b : String) -> String:

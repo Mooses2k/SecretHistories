@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=4]
 [ext_resource path="res://resources/models/items/melee/crowbar/M_Crowbar.material" type="Material" id=5]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=6]
+[ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=7]
+[ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=8]
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.2
@@ -116,17 +118,23 @@ transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.33
 
 [node name="Sounds" type="Spatial" parent="."]
 
-[node name="UnsheathSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
 
-[node name="SheathSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
 
-[node name="ThrustSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 4 )
 
-[node name="CutSound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 6 )
 
-[node name="ParrySound" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
+
+[node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 8 )
+
+[node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 7 )
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

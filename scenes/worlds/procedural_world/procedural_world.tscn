@@ -73,6 +73,7 @@ ceiling_tile = 10
 
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )
+cultist = ExtResource( 6 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

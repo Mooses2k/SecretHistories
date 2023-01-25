@@ -565,6 +565,24 @@ bind/170/name = "DEF-breast.R"
 bind/170/bone = -1
 bind/170/pose = Transform( -0.904146, 1.36522e-07, -1.25064e-13, -1.15852e-13, -6.73642e-09, 0.904147, 1.36522e-07, 0.904146, -1.6841e-08, -0.0973186, 0.0203067, -1.21982 )
 
+[sub_resource type="ArrayMesh" id=3]
+resource_name = "CultistNeophyteNoCape_Cube013"
+surfaces/0 = {
+"aabb": AABB( -0.0598687, 1.55435, 0.117193, 0.130682, 0.15726, 0.0380806 ),
+"array_data": PoolByteArray( 101, 66, 7, 189, 201, 244, 198, 63, 240, 2, 240, 61, 0, 0, 126, 63, 0, 0, 0, 60, 56, 89, 51, 17, 243, 214, 152, 30, 161, 8, 210, 1, 135, 22, 52, 61, 199, 244, 198, 63, 246, 2, 240, 61, 0, 0, 126, 63, 0, 60, 0, 60, 53, 87, 51, 17, 202, 167, 122, 51, 197, 28, 245, 7, 90, 76, 34, 189, 221, 21, 219, 63, 244, 2, 240, 61, 229, 19, 90, 67, 0, 0, 0, 0, 98, 94, 89, 0, 36, 220, 103, 29, 114, 6, 0, 0, 187, 32, 79, 61, 219, 21, 219, 63, 237, 2, 240, 61, 27, 19, 124, 46, 0, 60, 0, 0, 95, 94, 0, 0, 88, 241, 166, 14, 0, 0, 0, 0, 217, 56, 117, 189, 221, 81, 207, 63, 240, 2, 240, 61, 221, 250, 89, 63, 0, 0, 0, 56, 89, 98, 102, 0, 64, 251, 121, 2, 68, 2, 0, 0, 157, 6, 145, 61, 219, 81, 207, 63, 239, 2, 240, 61, 35, 250, 126, 44, 0, 60, 0, 56, 87, 95, 102, 0, 4, 251, 228, 2, 22, 2, 0, 0, 167, 247, 69, 189, 140, 18, 202, 63, 242, 2, 240, 61, 246, 226, 110, 64, 0, 0, 0, 58, 89, 56, 17, 0, 48, 193, 135, 49, 70, 13, 0, 0, 202, 203, 114, 61, 139, 18, 202, 63, 244, 2, 240, 61, 10, 226, 122, 71, 0, 60, 0, 58, 87, 53, 17, 51, 139, 180, 228, 57, 210, 14, 188, 2, 97, 87, 179, 59, 199, 244, 198, 63, 244, 2, 240, 61, 0, 0, 126, 63, 0, 56, 0, 60, 51, 53, 17, 56, 162, 145, 148, 43, 58, 36, 142, 30, 109, 85, 179, 59, 218, 21, 219, 63, 248, 2, 240, 61, 0, 25, 122, 61, 0, 56, 0, 0, 94, 95, 98, 0, 144, 221, 122, 17, 244, 16, 0, 0, 109, 85, 179, 59, 221, 81, 207, 63, 19, 0, 31, 62, 0, 249, 126, 63, 0, 56, 0, 56, 102, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 133, 81, 179, 59, 139, 18, 202, 63, 242, 2, 240, 61, 0, 230, 124, 61, 0, 56, 0, 58, 17, 51, 56, 87, 93, 130, 112, 64, 102, 32, 202, 28, 34, 54, 133, 61, 52, 178, 204, 63, 240, 2, 240, 61, 24, 222, 123, 81, 0, 60, 0, 57, 87, 53, 17, 0, 199, 249, 211, 3, 100, 2, 0, 0, 226, 151, 93, 189, 52, 178, 204, 63, 239, 2, 240, 61, 232, 222, 89, 65, 0, 0, 0, 57, 89, 56, 0, 0, 194, 255, 60, 0, 0, 0, 0, 0, 133, 81, 179, 59, 51, 178, 204, 63, 140, 115, 15, 62, 0, 214, 121, 59, 0, 56, 0, 57, 17, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0 ),
+"array_index_data": PoolByteArray( 10, 0, 3, 0, 5, 0, 10, 0, 9, 0, 3, 0, 14, 0, 5, 0, 12, 0, 14, 0, 10, 0, 5, 0, 8, 0, 7, 0, 1, 0, 8, 0, 11, 0, 7, 0, 0, 0, 11, 0, 8, 0, 0, 0, 6, 0, 11, 0, 13, 0, 10, 0, 14, 0, 13, 0, 4, 0, 10, 0, 4, 0, 9, 0, 10, 0, 4, 0, 2, 0, 9, 0, 6, 0, 14, 0, 11, 0, 6, 0, 13, 0, 14, 0, 11, 0, 12, 0, 7, 0, 11, 0, 14, 0, 12, 0 ),
+"blend_shape_data": [  ],
+"format": 2194903,
+"index_count": 48,
+"material": ExtResource( 16 ),
+"primitive": 4,
+"skeleton_aabb": [ AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( -0.0483319, 1.55435, 0.117193, 0.113377, 0.0448433, 0.0228961 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( -0.0330223, 1.55435, 0.117193, 0.0922987, 0.0243459, 9.99868e-06 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0.00547306, 1.55435, 0.117193, 0.0595716, 0.0448433, 1.00434e-05 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( -0.0540999, 1.55435, 0.117193, 0.059573, 0.0448433, 1.00061e-05 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0.00547236, 1.55435, 0.117193, 0.065341, 0.0653405, 1.00508e-05 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( -0.0598687, 1.55435, 0.117193, 0.0268564, 0.157259, 1.00061e-05 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( -0.0396236, 1.7116, 0.117193, 0.0901919, 1.03712e-05, 1.00508e-05 ), AABB( 0.00547283, 1.61969, 0.117193, 0.0653406, 0.091929, 9.99868e-06 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( -0.0598687, 1.61969, 0.117193, 0.0653415, 0.091929, 1.00285e-05 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( 0, 0, 0, -1, -1, -1 ), AABB( -0.0598687, 1.61969, 0.117193, 0.130682, 1.0252e-05, 0.0380806 ) ],
+"vertex_count": 15
+}
+
+[sub_resource type="SphereShape" id=4]
+radius = 3.5
+
 [node name="Cultist" instance=ExtResource( 1 )]
 max_health = 50
 move_speed = 3.0
@@ -1662,3 +1680,53 @@ bones/170/bound_children = [  ]
 [node name="Cube012" type="MeshInstance" parent="Robed cultist Model/rig_deform/Skeleton" index="0"]
 mesh = SubResource( 2 )
 skin = SubResource( 3 )
+
+[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
+script = ExtResource( 8 )
+
+[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
+script = ExtResource( 13 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
+script = ExtResource( 12 )
+
+[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
+script = ExtResource( 14 )
+
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
+script = ExtResource( 10 )
+
+[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="3"]
+script = ExtResource( 2 )
+
+[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="4"]
+script = ExtResource( 3 )
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
+script = ExtResource( 9 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
+script = ExtResource( 12 )
+
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
+script = ExtResource( 10 )
+
+[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
+script = ExtResource( 7 )
+
+[node name="Hitbox" parent="." index="6" groups=["CHARACTER"]]
+collision_layer = 8
+
+[node name="CollisionShape" parent="Hitbox" index="0"]
+visible = false
+
+[node name="PlayerDetector" type="Area" parent="." index="16"]
+collision_layer = 2
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerDetector" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]
+[connection signal="body_exited" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_exited"]

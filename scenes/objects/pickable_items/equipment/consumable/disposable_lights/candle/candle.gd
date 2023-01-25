@@ -1,7 +1,7 @@
 extends ToolItem
 
 
-#var has_ever_been_on = false 
+#var has_ever_been_on = false
 var is_lit = true
 
 var material
@@ -23,7 +23,7 @@ func _process(delta):
 		burn_time.pause_mode = false
 	else:
 		burn_time.pause_mode = true
-	
+
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 #			burn_time.start()
 #			has_ever_been_on = true
@@ -40,23 +40,27 @@ func _process(delta):
 func light():
 	$AnimationPlayer.play("flicker")
 	$LightSound.play()
-	$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
+#	$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
+	$FireOrigin/Fire.visible = not $FireOrigin/Fire.visible
 	firelight.visible = not firelight.visible
 	$MeshInstance.cast_shadow = false
-	$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled 
+	$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled
+	is_lit = true
 
 
 func unlight():
 	$AnimationPlayer.stop()
 	$BlowOutSound.play()
 	$MeshInstance.get_surface_material(0).emission_enabled = false
-	$FireOrigin/Fire.emitting = false
+#	$FireOrigin/Fire.emitting = false
+	$FireOrigin/Fire.visible = false
 	firelight.visible = false
 	$MeshInstance.cast_shadow = true
+	is_lit = false
 
 
 func _use_primary():
-	if !burn_time.is_stopped():
+	if is_lit == false:
 		light()
 	else:
 		unlight()
@@ -64,3 +68,17 @@ func _use_primary():
 
 func _on_Durability_timeout():
 	unlight()
+
+
+func _item_state_changed(previous_state, current_state):
+	if current_state == GlobalConsts.ItemState.INVENTORY:
+		switch_away()
+
+
+func switch_away():
+#	$FireOrigin/Fire.emitting = false
+	$FireOrigin/Fire.visible = false
+	firelight.visible = false
+	$AnimationPlayer.stop()
+	$MeshInstance.get_surface_material(0).emission_enabled = false
+	is_lit = false

@@ -243,7 +243,7 @@ height = 0.08
 radial_segments = 6
 rings = 1
 
-[sub_resource type="Shader" id=46]
+[sub_resource type="Shader" id=127]
 code = "shader_type spatial;
 render_mode blend_add, unshaded;
 
@@ -267,14 +267,14 @@ void fragment() {
 offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
 colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=48]
+[sub_resource type="GradientTexture" id=128]
 gradient = SubResource( 47 )
 width = 32
 
 [sub_resource type="ShaderMaterial" id=49]
-shader = SubResource( 46 )
+shader = SubResource( 127 )
 shader_param/INTENSITY = 4.0
-shader_param/COLOR_RAMP = SubResource( 48 )
+shader_param/COLOR_RAMP = SubResource( 128 )
 
 [sub_resource type="BoxShape" id=89]
 extents = Vector3( 0.27, 0.05, 0.05 )
@@ -562,4 +562,5 @@ stream = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 7 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -1,7 +1,7 @@
 extends ToolItem
 
 
-#var has_ever_been_on = false 
+#var has_ever_been_on = false
 var is_lit = true
 
 onready var firelight = $FireOrigin/Fire/Light
@@ -17,7 +17,7 @@ func _process(delta):
 		burn_time.pause_mode = false
 	else:
 		burn_time.pause_mode = true
-	
+
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 #			burn_time.start()
 #			has_ever_been_on = true
@@ -46,6 +46,20 @@ func light():
 func unlight():
 	$AnimationPlayer.stop()
 	$BlowOutSound.play()
+	$FireOrigin/Fire.emitting = false
+	$FireOrigin/EmberDrip.emitting = false
+	$FireOrigin/Smoke.emitting = false
+	firelight.visible = false
+	$MeshInstance.cast_shadow = true
+	is_lit = false
+
+
+func _item_state_changed(previous_state, current_state):
+	if current_state == GlobalConsts.ItemState.INVENTORY:
+		switch_away()
+
+func switch_away():
+	$AnimationPlayer.stop()
 	$FireOrigin/Fire.emitting = false
 	$FireOrigin/EmberDrip.emitting = false
 	$FireOrigin/Smoke.emitting = false

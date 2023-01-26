@@ -56,6 +56,7 @@ export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
+export var crouch_cam_target_pos = 0.98
 #export var mouse_sens : float = 0.5   # duplicates GlobalSettings.mouse_sensitivity and caused a bug
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
@@ -104,7 +105,6 @@ var is_movement_key3_held = false
 var is_movement_key4_held = false
 var movement_press_length = 0
 var crouch_target_pos = -0.55
-var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 var item_up = false
 

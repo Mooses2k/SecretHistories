@@ -110,6 +110,7 @@ var item_up = false
 
 
 func _ready():
+	
 	owner.is_to_move = false
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
@@ -765,20 +766,12 @@ func handle_inventory(delta : float):
 #		throw_state = true
 
 func kick():
-	var kick_object = legcast.get_collider()
+	if Input.is_action_just_pressed("kick"):
+		character.kick_animation()
+		print("Kick")
+#		$"%AnimationTree".set("parameters/Ki/active",true)
 
-	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-		if is_grabbing == false:
-			if Input.is_action_just_pressed("kick"):
-				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-
-	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-		if Input.is_action_just_pressed("kick"):
-			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-
-	elif legcast.is_colliding() and kick_object is RigidBody:
-		if Input.is_action_just_pressed("kick"):
-			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+	
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released

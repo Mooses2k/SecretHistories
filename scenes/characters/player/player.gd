@@ -34,7 +34,7 @@ func _process(delta):
 		$Indication_canvas/Indication_system/Dot.hide()
 	else :
 		$Indication_canvas/Indication_system/Dot.show()
-
+	
 	grab_indicator()
 	change_mainhand_equipment_in()
 	change_maindhand_equipment_out()
@@ -181,7 +181,8 @@ func change_offhand_equipment_in():
 			offhand_equipment_root.transform.origin.z = offhand_orig_origin.z
 			is_change_off_equip_in = false
 
-
+func kick_animation():
+	apply_Kick()
 
 #Hint for 8 directional movements
 #onready var animation_tree = get_node("AnimationTree")

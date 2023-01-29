@@ -74,6 +74,10 @@ export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
 export var lock_mouse : bool = true   # why is this needed here if not on a player?
 export var head_bob_enabled : bool = true
+export var _legcast : NodePath
+export(AttackTypes.Types) var damage_type : int = 0
+export (float) var kick_impulse
+
 
 var state = State.STATE_WALKING
 var clamber_destination : Vector3 = Vector3.ZERO
@@ -91,7 +95,7 @@ onready var _sound_emitter = get_node("SoundEmitter")
 onready var _audio_player = get_node("Audio")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = get_node("Body/GroundChecker")
-
+onready var legcast : RayCast = get_node(_legcast) as RayCast
 onready var _speech_player = get_node("Speech")
 
 var stamina := 600.0
@@ -128,6 +132,8 @@ var is_to_move : bool = true
 var do_sprint : bool = false
 var do_jump : bool = false
 var do_crouch : bool = false
+
+
 
 
 #func _integrate_forces(state):
@@ -366,6 +372,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 
 	if is_on_floor() and is_jumping and _camera.stress < 0.1:
 		animation_tree.set("parameters/Land/active",true)
+		
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
 
@@ -403,7 +410,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if is_jumping or !is_on_floor():
 			do_jump = false
 			return
-		animation_tree.set("parameters/jump/active",true)
+#		animation_tree.set("parameters/jump/active",true)
 		velocity.y = jump_force
 		is_jumping = true
 		do_jump = false
@@ -449,7 +456,10 @@ func _crouch(delta : float) -> void:
 			wanna_stand = true
 			return
 
-
+func apply_Kick():
+	#applies the kick animation from the animationblend tree
+#	animation_tree.set("parameters/Land/active",true)
+	animation_tree.set("parameters/Kick/active",true)
 func check_state_animation(delta):
 	
 	var forwards_velocity = -global_transform.basis.z.dot(velocity)
@@ -499,7 +509,17 @@ func move_effect():
 
 
 
-
+func apply_kick_damage():
+	var kick_object = legcast.get_collider()
+	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+#		if is_grabbing == false:
+		kick_object.get_parent().damage( -global_transform.basis.z , kick_damage)
+	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
+		kick_object.get_parent().damage(kick_damage , damage_type , kick_object)
+		
+	elif legcast.is_colliding() and kick_object is RigidBody:
+		kick_object.apply_central_impulse( -global_transform.basis.z * kick_impulse)
+		
 
 
 

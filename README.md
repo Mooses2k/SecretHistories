@@ -14,7 +14,7 @@ Simulationist dungeon delving
 * _Same for Delver_
 * _Gameplay of OSR D&D_
 * _Story and world, some gameplay, and stealth of Infra Arcana_
-* _World-building of SCP Foundation, specifically the work of qntm
+* _World-building of SCP Foundation, specifically the work of qntm_
 * _Time period, guns, & stealth of Hunt: Showdown_
 * _Fiddly gun mechanics of Receiver_
 * _Melee of Hellish Quart_

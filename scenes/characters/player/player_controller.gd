@@ -768,8 +768,7 @@ func handle_inventory(delta : float):
 func kick():
 	if Input.is_action_just_pressed("kick"):
 		character.kick_animation()
-		print("Kick")
-#		$"%AnimationTree".set("parameters/Ki/active",true)
+	
 
 	
 

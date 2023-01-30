@@ -11,6 +11,8 @@ onready var burn_time = $Durability
 
 #func _ready():
 #	burn_time.start()     # done in Inspector
+func _ready():
+	connect("body_entered", self, "play_drop_sound")
 
 
 func _process(delta):
@@ -64,8 +66,6 @@ func switch_away():
 func attach_to_belt():
 	is_in_belt = true
 	get_parent().owner.inventory.attach_to_belt(self)
-
-
 
 
 func _use_primary():

@@ -317,9 +317,6 @@ func _handle_player_sound_emission() -> void:
 	_audio_player._footstep_sounds = _get_surface_type()
 
 
-#codes for surface identifier
-#var i = GameManager.game.level.world_data.get_cell_index_from_local_position(transform.origin)
-#print(GameManager.game.level.world_data.get_cell_surfacetype(i))
 func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
@@ -417,7 +414,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 
 	do_jump = false
 
-	_handle_player_sound_emission()
+#	_handle_player_sound_emission()
 
 	if velocity.length() > 0.1 and grounded and not _audio_player.playing and is_to_move:
 		if is_crouching:

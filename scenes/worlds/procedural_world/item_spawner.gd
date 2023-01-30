@@ -1,7 +1,7 @@
 extends Node
 
 export var cultist : PackedScene
-var is_cultist_spawned = true
+var is_cultist_spawned = false
 var free_cell = 0
 
 

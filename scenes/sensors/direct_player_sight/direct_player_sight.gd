@@ -17,6 +17,9 @@ var player_visible : bool = false
 var player_position : Vector3 = Vector3.ZERO
 var player_near : bool = false
 var player_seen : bool = false
+var player_far : bool = true
+var player_close : bool = false
+var item_inside_listener = []
 
 
 func is_player_detected() -> bool:
@@ -35,7 +38,7 @@ func get_measured_position() -> Vector3:
 func update_sensor():
 	player_visible = false
 	for body in area.get_overlapping_bodies():
-		if body is Player and (body.light_level > 0.04 or (player_near and player_seen)):
+		if body is Door and (body.light_level > 0.04 or (player_near and player_seen)):
 			if not player_seen and player_near:
 				player_seen = true
 			var target = body.global_transform.origin
@@ -48,6 +51,14 @@ func update_sensor():
 				player_visible = true
 				player_position = body.global_transform.origin
 				return
+		
+	if not player_visible:
+		if check_sound_around():
+			player_visible = true
+			player_position = check_sound_around()
+			print(check_sound_around())
+			return
+	
 	sensor_up_to_date = true
 
 
@@ -86,8 +97,24 @@ func _ready():
 	get_tree().connect("idle_frame", self, "clear_sensor")
 
 
+func check_sound_around():
+	for item in item_inside_listener:
+		if obj_sound_loud_enough(item):
+			return item.global_transform.origin
+	
+	return null
+
+
+func obj_sound_loud_enough(item):
+	if item.noise_level > 0:
+		return true 
+	return false
+
+
 func _on_PlayerDetector_body_entered(body):
 	if body is Player:
+		player_close = true
+		player_far = false
 		player_near = true
 		if body.light_level > 0.04:
 			player_seen = true
@@ -95,5 +122,25 @@ func _on_PlayerDetector_body_entered(body):
 
 func _on_PlayerDetector_body_exited(body):
 	if body is Player:
+		player_close = false
+		player_far = true
 		player_near = false
 		player_seen = false
+
+
+func _on_FarSoundDetector_body_entered(body):
+	if body is Player:
+		player_far = true
+		
+	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
+		if !item_inside_listener.has(body):
+			item_inside_listener.append(body)
+
+
+func _on_FarSoundDetector_body_exited(body):
+	if body is Player:
+		player_far = false
+	
+	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
+		if item_inside_listener.has(body):
+			item_inside_listener.remove(item_inside_listener.find(body))

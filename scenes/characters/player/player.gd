@@ -43,6 +43,7 @@ func _process(delta):
 	#this notifies the dot if something if the player is currently grabbing something
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
+	
 
 
 func drop_consumable(object):

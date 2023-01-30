@@ -30,6 +30,7 @@ func _integrate_forces(state):
 #		print(ang_vel.y)
 		if sign(ang_vel.y) != sign(angle_diff):
 			ang_vel.y *= -restitution
+		$AudioStreamPlayer3D.play()
 		state.angular_velocity = ang_vel
 		state.linear_velocity = ang_vel.cross(hinge_arm)
 		state.transform.basis = get_parent().global_transform.basis.rotated(Vector3.UP, target_angle)

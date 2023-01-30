@@ -27,6 +27,8 @@ var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 onready var audio_player = get_node("DropSound")
 export var item_drop_sound : AudioStream
 var noise_level = 0
+var item_max_noise_level = 5
+var item_sound_level = 10
 
 func _enter_tree():
 	if not audio_player:
@@ -58,9 +60,9 @@ func set_item_state(value : int) :
 func play_drop_sound(body):
 	if self.item_drop_sound and self.audio_player:
 		self.audio_player.stream = self.item_drop_sound
-		self.audio_player.unit_db = 10
+		self.audio_player.unit_db = item_sound_level
 		self.audio_player.play()
-		self.noise_level = 5
+		self.noise_level = item_max_noise_level
 
 
 func set_physics_dropped():

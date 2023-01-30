@@ -38,7 +38,7 @@ func get_measured_position() -> Vector3:
 func update_sensor():
 	player_visible = false
 	for body in area.get_overlapping_bodies():
-		if body is Door and (body.light_level > 0.04 or (player_near and player_seen)):
+		if body is Player and (body.light_level > 0.04 or (player_near and player_seen)):
 			if not player_seen and player_near:
 				player_seen = true
 			var target = body.global_transform.origin
@@ -131,9 +131,10 @@ func _on_PlayerDetector_body_exited(body):
 func _on_FarSoundDetector_body_entered(body):
 	if body is Player:
 		player_far = true
-		
+	
 	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
-		if !item_inside_listener.has(body):
+		print(body.name)
+		if not item_inside_listener.has(body):
 			item_inside_listener.append(body)
 
 

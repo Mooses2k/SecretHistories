@@ -46,6 +46,7 @@ func _process(delta):
 	
 
 
+
 func drop_consumable(object):
 	$PlayerController.throw_consumable()
 

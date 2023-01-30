@@ -38,16 +38,22 @@ func _unhandled_input(event):
 		pitch_yaw.y = wrapf(pitch_yaw.y, -PI, PI)
 
 
+# this is most likely causing the suddenly look-at jumping/stuttering behavior with equipped items
 func update():
 	owner.body.rotation.y = pitch_yaw.y # horizontal
 	camera.rotation.x = pitch_yaw.x # vertical, you don't want to rotate the whole scene, just camera
-	if aimcast.is_colliding():
-		owner.mainhand_equipment_root.look_at(aimcast.get_collision_point(), Vector3.UP)
-		owner.offhand_equipment_root.look_at(aimcast.get_collision_point(), Vector3.UP)
-	else:
-		owner.mainhand_equipment_root.global_transform.basis = camera.global_transform.basis
-		owner.offhand_equipment_root.global_transform.basis = camera.global_transform.basis
-	pass
+
+
+# This code allows things like guns and directional lanterns to point with the camera, but leads to
+# a weird stuttering bug; probably needs to be lerped, example:
+# _camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+#	if aimcast.is_colliding():
+##		owner.mainhand_equipment_root.look_at(aimcast.get_collision_point(), Vector3.UP)
+#		owner.mainhand_equipment_root.look_at(lerp(owner.mainhand_equipment_root.global_rotation, aimcast.get_collision_point(), 0.01), Vector3.UP)
+##		owner.offhand_equipment_root.look_at(aimcast.get_collision_point(), Vector3.UP)
+#	else:
+	owner.mainhand_equipment_root.global_transform.basis = camera.global_transform.basis
+	owner.offhand_equipment_root.global_transform.basis = camera.global_transform.basis
 
 
 func get_movement_basis() -> Basis:

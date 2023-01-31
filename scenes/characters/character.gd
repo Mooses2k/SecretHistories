@@ -410,7 +410,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if is_jumping or !is_on_floor():
 			do_jump = false
 			return
-#		animation_tree.set("parameters/jump/active",true)
+		animation_tree.set("parameters/jump/active",true)
 		velocity.y = jump_force
 		is_jumping = true
 		do_jump = false

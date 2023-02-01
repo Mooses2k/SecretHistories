@@ -75,6 +75,7 @@ export var interact_distance : float = 0.75
 export var lock_mouse : bool = true   # why is this needed here if not on a player?
 export var head_bob_enabled : bool = true
 export var _legcast : NodePath
+export var _middle_detection : NodePath
 export(AttackTypes.Types) var damage_type : int = 0
 export (float) var kick_impulse
 
@@ -96,6 +97,7 @@ onready var _audio_player = get_node("Audio")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = get_node("Body/GroundChecker")
 onready var legcast : RayCast = get_node(_legcast) as RayCast
+onready var middle_detection : RayCast = get_node(_middle_detection) as RayCast
 onready var _speech_player = get_node("Speech")
 
 var stamina := 600.0
@@ -132,7 +134,7 @@ var is_to_move : bool = true
 var do_sprint : bool = false
 var do_jump : bool = false
 var do_crouch : bool = false
-
+var low_kick : bool = false
 
 
 
@@ -205,6 +207,7 @@ func _ready():
 
 func _physics_process(delta : float):
 	check_state_animation(delta)
+	check_kick_type()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -459,7 +462,10 @@ func _crouch(delta : float) -> void:
 func apply_Kick():
 	#applies the kick animation from the animationblend tree
 #	animation_tree.set("parameters/Land/active",true)
-	animation_tree.set("parameters/Kick/active",true)
+	if low_kick:
+		animation_tree.set("parameters/Low_Kick/active",true)
+	else:
+		animation_tree.set("parameters/High_kick/active",true)
 func check_state_animation(delta):
 	
 	var forwards_velocity = -global_transform.basis.z.dot(velocity)
@@ -507,16 +513,49 @@ func move_effect():
 	if velocity != Vector3.ZERO:
 		additional_animations.play("Belt_bob", -1, velocity.length() / 2)
 
+func check_kick_type():
+	
+	var kick_object = legcast.get_collider()
+	var higher_kick_object = middle_detection.get_collider()
+	var low_detection_value = null
+	var high_detection_value = null
+	
+	#lower kick detection code
+	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+		low_detection_value = legcast.get_collider()
+	
+	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
+		low_detection_value = legcast.get_collider()
+	
+	elif legcast.is_colliding() and kick_object is RigidBody:
+		low_detection_value = legcast.get_collider()
+
+#Higher kick detection code
+	if middle_detection.is_colliding() and higher_kick_object.is_in_group("Door_hitbox"):
+		high_detection_value = middle_detection.get_collider()
+	
+	elif middle_detection.is_colliding() and higher_kick_object.is_in_group("CHARACTER"):
+		high_detection_value = middle_detection.get_collider()
+	
+	elif middle_detection.is_colliding() and higher_kick_object is RigidBody:
+		high_detection_value = middle_detection.get_collider()
+		
+
+	if high_detection_value == null and low_detection_value != null:
+		low_kick = true
+	elif high_detection_value != null and low_detection_value != null:
+		low_kick = true
+	elif high_detection_value  != null and low_detection_value == null:
+		low_kick = false
 
 
 func apply_kick_damage():
 	var kick_object = legcast.get_collider()
+	
 	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-#		if is_grabbing == false:
 		kick_object.get_parent().damage( -global_transform.basis.z , kick_damage)
 	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 		kick_object.get_parent().damage(kick_damage , damage_type , kick_object)
-		
 	elif legcast.is_colliding() and kick_object is RigidBody:
 		kick_object.apply_central_impulse( -global_transform.basis.z * kick_impulse)
 		

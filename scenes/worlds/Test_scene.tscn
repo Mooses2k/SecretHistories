@@ -1,15 +1,15 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/objects/large_objects/seating/chair_victorian_fancy.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/starstuff_lantern/starstuff_lantern.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/objects/large_objects/seating/church_pew.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/objects/large_objects/seating/church_pew.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/objects/large_objects/seating/chair_victorian_fancy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/starstuff_lantern/starstuff_lantern.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -40,33 +40,33 @@ environment = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0 )
 light_energy = 0.6
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
+[node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12669, -0.808794 )
 
-[node name="ChairVictorianFancy" parent="." instance=ExtResource( 9 )]
+[node name="ChairVictorianFancy" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.984208, 3.35166 )
 
-[node name="CavalrySabre" parent="." instance=ExtResource( 5 )]
+[node name="CavalrySabre" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97634, 0.793353, 0 )
 
-[node name="BullseyeLantern" parent="." instance=ExtResource( 10 )]
+[node name="BullseyeLantern" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.10318, 0.287585, 3.33943 )
 
-[node name="DarkLantern" parent="." instance=ExtResource( 13 )]
+[node name="DarkLantern" parent="." instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.06867, 0.720663, 0 )
 
-[node name="StarstuffLantern" parent="." instance=ExtResource( 12 )]
+[node name="StarstuffLantern" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.94965, 1.20846, 0 )
 
-[node name="OilLantern" parent="." instance=ExtResource( 14 )]
+[node name="OilLantern" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.844433, -8.20272 )
 
-[node name="GunItem" parent="." instance=ExtResource( 11 )]
+[node name="GunItem" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.71292, 1.41094, 0 )
 can_attach = false
 
-[node name="Cultist" parent="." instance=ExtResource( 15 )]
+[node name="Cultist" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91343, -0.0378679, -2.84752 )
 
-[node name="ChurchPew" parent="." instance=ExtResource( 16 )]
+[node name="ChurchPew" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863582, -2.16709 )

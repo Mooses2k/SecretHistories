@@ -55,8 +55,8 @@ export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
-export var interact_distance : float = 0.75
-export var crouch_cam_target_pos = 0.98
+export var interact_distance : float = 0.98
+export var crouch_cam_target_pos = 0.1
 #export var mouse_sens : float = 0.5   # duplicates GlobalSettings.mouse_sensitivity and caused a bug
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
@@ -321,7 +321,10 @@ func _crouch() -> void:
 
 		if owner.do_crouch:
 			var from = _camera.transform.origin.y
+			var from_z = _camera.transform.origin.z
+			print(from_z)
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+			_camera.transform.origin.z = lerp(from_z, -0.3, 0.08)
 
 	else:
 		if Input.is_action_pressed("crouch"):

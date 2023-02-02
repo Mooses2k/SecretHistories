@@ -150,6 +150,8 @@ func _physics_process(delta : float):
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
 		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, 0.08)
+		var from_z = _camera.transform.origin.z
+		_camera.transform.origin.z = lerp(from_z, -0.2, 0.08)
 		var d1 = _camera.transform.origin.y - _camera_orig_pos.y
 		if d1 > -0.02:
 			_camera.transform.origin.y = _camera_orig_pos.y
@@ -265,9 +267,17 @@ func _walk(delta) -> void:
 	
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
+		var from_z = _camera.transform.origin.z
+		_camera.transform.origin.z = lerp(from_z, -0.6, 0.08)
 #		animation_tree.set("parameters/state/current",2)
 	else:
+		if not owner.do_crouch:
+			var from_z = _camera.transform.origin.z
+			_camera.transform.origin.z = lerp(from_z, -0.2, 0.08)
+#		var from_z = _camera.transform.origin.z
+#		_camera.transform.origin.z = lerp(from_z, -0.19, 0.08)
 		owner.do_sprint = false
+
 	HUDS.tired(owner.stamina);
 
 	if Input.is_action_just_released("move_right"):
@@ -322,13 +332,17 @@ func _crouch() -> void:
 		if owner.do_crouch:
 			var from = _camera.transform.origin.y
 			var from_z = _camera.transform.origin.z
-			print(from_z)
+
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
 			_camera.transform.origin.z = lerp(from_z, -0.3, 0.08)
 
 	else:
 		if Input.is_action_pressed("crouch"):
 			if owner.do_sprint:
+				var from = _camera.transform.origin.y
+				var from_z = _camera.transform.origin.z
+				_camera.transform.origin.y = lerp(from, 1.35, 0.08)
+				_camera.transform.origin.z = lerp(from_z, -0.4, 0.08)
 				owner.do_crouch = false
 				return
 
@@ -336,7 +350,10 @@ func _crouch() -> void:
 			owner.state = owner.State.STATE_CROUCHING
 
 			var from = _camera.transform.origin.y
+			var from_z = _camera.transform.origin.z
+
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+			_camera.transform.origin.z = lerp(from_z, -0.3, 0.08)
 
 		if !Input.is_action_pressed("crouch"):
 			owner.do_crouch = false

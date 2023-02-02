@@ -430,7 +430,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			_audio_player.play_footstep_sound(-2.0, 1.5)
 		else:
 			_audio_player.play_footstep_sound(-2.0, 1.0)
-
+	
 
 func _crouch(delta : float) -> void:
 	wanna_stand = false

@@ -551,6 +551,7 @@ func check_kick_type():
 
 func apply_kick_damage():
 	var kick_object = legcast.get_collider()
+	var higher_kick_object = middle_detection.get_collider()
 	
 	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
 		kick_object.get_parent().damage( -global_transform.basis.z , kick_damage)
@@ -560,6 +561,14 @@ func apply_kick_damage():
 		kick_object.apply_central_impulse( -global_transform.basis.z * kick_impulse)
 		
 
+	if middle_detection.is_colliding() and higher_kick_object.is_in_group("Door_hitbox"):
+		higher_kick_object.get_parent().damage( -global_transform.basis.z , kick_damage + 3)
+	
+	elif middle_detection.is_colliding() and higher_kick_object.is_in_group("CHARACTER"):
+		higher_kick_object.get_parent().damage(kick_damage + 3 , damage_type , higher_kick_object)
+	
+	elif middle_detection.is_colliding() and higher_kick_object is RigidBody:
+		higher_kick_object.apply_central_impulse( -global_transform.basis.z * kick_impulse * 3)
 
 
 func speak():

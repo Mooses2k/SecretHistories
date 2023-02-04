@@ -17,9 +17,12 @@ var player_visible : bool = false
 var player_position : Vector3 = Vector3.ZERO
 var player_near : bool = false
 var player_seen : bool = false
-var player_far : bool = true
+var player_inside_listener : bool = false
 var player_close : bool = false
 var item_inside_listener = []
+var item_too_near = []
+var player_body : Object
+
 
 
 func is_player_detected() -> bool:
@@ -46,17 +49,17 @@ func update_sensor():
 			raycast.look_at(target, Vector3.UP)
 			raycast.force_raycast_update()
 			
-			if (raycast.is_colliding() and raycast.get_collider().owner is Player and 
+			if (raycast.is_colliding() and raycast.get_collider().owner is Door and 
 					(raycast.get_collider().owner.light_level > 0.04 or (player_near and player_seen))):
 				player_visible = true
 				player_position = body.global_transform.origin
 				return
 		
 	if not player_visible:
-		if check_sound_around():
+		var pos = check_sound_around()
+		if pos:
 			player_visible = true
-			player_position = check_sound_around()
-			print(check_sound_around())
+			player_position = pos
 			return
 	
 	sensor_up_to_date = true
@@ -98,49 +101,81 @@ func _ready():
 
 
 func check_sound_around():
+	if player_inside_listener:
+		if obj_sound_loud_enough(player_body, check_if_behind_wall(player_body), player_near):
+			print("player heared!")
+			return player_body.global_transform.origin
+	
 	for item in item_inside_listener:
-		if obj_sound_loud_enough(item):
+		if obj_sound_loud_enough(item, check_if_behind_wall(item), item_is_near(item)):
+			print("object heared!")
 			return item.global_transform.origin
 	
 	return null
 
 
-func obj_sound_loud_enough(item):
-	if item.noise_level > 0:
+func obj_sound_loud_enough(item, behind_wall : bool, is_near : bool):
+	if behind_wall and not is_near:
+		item.noise_level /= 2
+	
+	if item.noise_level >= 4:
 		return true 
 	return false
 
 
+func item_is_near(item):
+	if item_too_near.has(item):
+		return true
+	
+	return false
+
+
+func check_if_behind_wall(obj : Object):
+	var space_state = owner.get_world().direct_space_state
+	var result = (space_state.intersect_ray(owner.global_transform.origin + Vector3.UP * 1.5, 
+			obj.global_transform.origin, [owner]))
+	if result:
+		if (result["collider"].name == "wall_xp" or result["collider"].name == "wall_zp" or 
+				result["collider"].name == "wall_xn" or result["collider"].name == "wall_zn"):
+			return true
+	return false
+
 func _on_PlayerDetector_body_entered(body):
 	if body is Player:
 		player_close = true
-		player_far = false
 		player_near = true
 		if body.light_level > 0.04:
 			player_seen = true
+	
+	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
+		if not item_too_near.has(body):
+			item_too_near.append(body)
 
 
 func _on_PlayerDetector_body_exited(body):
 	if body is Player:
 		player_close = false
-		player_far = true
 		player_near = false
 		player_seen = false
+		
+	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
+		if item_too_near.has(body):
+			item_too_near.remove(item_too_near.find(body))
 
 
 func _on_FarSoundDetector_body_entered(body):
 	if body is Player:
-		player_far = true
+		player_body = body
+		player_inside_listener = true
 	
 	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
-		print(body.name)
 		if not item_inside_listener.has(body):
 			item_inside_listener.append(body)
 
 
 func _on_FarSoundDetector_body_exited(body):
 	if body is Player:
-		player_far = false
+		player_inside_listener = false
 	
 	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
 		if item_inside_listener.has(body):

@@ -18,6 +18,7 @@ onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer2/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
+var noise_level = 0
 
 
 func _ready():

@@ -106,7 +106,6 @@ var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 var item_up = false
-var player_noise_value = 0
 
 
 func _ready():
@@ -121,7 +120,7 @@ func _ready():
 
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
-	player_noise_value = 0
+	owner.noise_level = 0
 
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
@@ -301,7 +300,10 @@ func check_movement_key(delta):
 		if movement_press_length >= 0.25:
 			owner.is_to_move = true
 			if !owner.is_crouching:
-				player_noise_value = 5
+				if owner.do_sprint:
+					owner.noise_level = 8
+				else:
+					owner.noise_level = 5
 	
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 		movement_press_length = 0.0

@@ -474,10 +474,5 @@ func move_effect():
 		additional_animations.play("Belt_bob", -1, velocity.length() / 2)
 
 
-
-
-
-
-
 func speak():
 	pass

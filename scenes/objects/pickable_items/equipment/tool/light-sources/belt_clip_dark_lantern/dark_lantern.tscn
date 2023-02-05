@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=3]
 [ext_resource path="res://resources/models/items/tools/light_sources/belt_clip_dark_lantern/Lamp1.material" type="Material" id=4]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "DarkLantern_meshId0_name008"
@@ -109,7 +110,10 @@ extents = Vector3( 0.0634562, 0.0615375, 0.047019 )
 
 [node name="DarkLantern" instance=ExtResource( 1 )]
 mass = 0.2
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 2 )
+item_drop_sound = ExtResource( 6 )
 can_attach = true
 item_name = "Dark Lantern"
 

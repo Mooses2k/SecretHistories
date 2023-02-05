@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
@@ -8,8 +8,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/_smoke.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/effects/martini_audio.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/effects.gd" type="Script" id=8]
-
-
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=9]
 
 [sub_resource type="ArrayMesh" id=4]
 resource_name = "Sketchfab_Scene_Object_0"
@@ -54,6 +53,9 @@ points = PoolVector3Array( -7.14324e-07, 0.0262614, -0.123588, -0.0129903, 0.029
 [node name="khyber_pass_martini" instance=ExtResource( 1 )]
 mass = 1.0
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
+item_drop_sound = ExtResource( 9 )
 item_size = 0
 item_name = "Sawed-off Martini pistol"
 ammo_types = [ ExtResource( 2 ) ]

@@ -304,6 +304,8 @@ func check_movement_key(delta):
 					owner.noise_level = 8
 				else:
 					owner.noise_level = 5
+			else:
+				owner.noise_level = 3
 	
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 		movement_press_length = 0.0

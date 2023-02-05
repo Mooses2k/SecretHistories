@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/effects/webley_audio.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" type="PackedScene" id=9]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=10]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Webley_Plane002"
@@ -56,7 +57,10 @@ points = PoolVector3Array( -0.105969, 0.0480101, -0.00572485, 0.108835, 0.164206
 [node name="Webley revolver" instance=ExtResource( 1 )]
 mass = 1.0
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 6 )
+item_drop_sound = ExtResource( 10 )
 can_attach = false
 item_size = 0
 item_name = "Webley revolver"

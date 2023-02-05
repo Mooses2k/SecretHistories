@@ -103,12 +103,10 @@ func _ready():
 func check_sound_around():
 	if player_inside_listener:
 		if obj_sound_loud_enough(player_body, check_if_behind_wall(player_body), player_near):
-			print("player heared!")
 			return player_body.global_transform.origin
 	
 	for item in item_inside_listener:
 		if obj_sound_loud_enough(item, check_if_behind_wall(item), item_is_near(item)):
-			print("object heared!")
 			return item.global_transform.origin
 	
 	return null

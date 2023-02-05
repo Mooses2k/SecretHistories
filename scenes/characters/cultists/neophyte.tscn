@@ -815,7 +815,7 @@ shape = SubResource( 4 )
 
 [node name="FarSoundDetector" type="Area" parent="." index="17"]
 collision_layer = 0
-collision_mask = 65
+collision_mask = 67
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="FarSoundDetector" index="0"]

@@ -122,7 +122,8 @@ func _ready():
 
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
-	_camera.transform.origin.y = $"%head_tracker".transform.origin.y + 0.07
+	_camera.transform.origin.y = $"%head_tracker".transform.origin.y + 0.05
+
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
@@ -150,8 +151,9 @@ func _physics_process(delta : float):
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
 		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, 0.08)
-		var from_z = _camera.transform.origin.z
-		_camera.transform.origin.z = lerp(from_z, -0.2, 0.08)
+#		var from_z = _camera.transform.origin.z
+#		_camera.transform.origin.z = lerp(from_z, -0.2, 0.1)
+#		_camera.transform.origin.z = -0.2
 		var d1 = _camera.transform.origin.y - _camera_orig_pos.y
 		if d1 > -0.02:
 			_camera.transform.origin.y = _camera_orig_pos.y
@@ -267,15 +269,13 @@ func _walk(delta) -> void:
 	
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
-		var from_z = _camera.transform.origin.z
-		_camera.transform.origin.z = lerp(from_z, -0.6, 0.08)
-#		animation_tree.set("parameters/state/current",2)
+		if move_dir != Vector3.ZERO:
+			var from_z = _camera.transform.origin.z
+			_camera.transform.origin.z = lerp(from_z, -0.6, 0.08)
 	else:
 		if not owner.do_crouch:
 			var from_z = _camera.transform.origin.z
-			_camera.transform.origin.z = lerp(from_z, -0.2, 0.08)
-#		var from_z = _camera.transform.origin.z
-#		_camera.transform.origin.z = lerp(from_z, -0.19, 0.08)
+			_camera.transform.origin.z = lerp(from_z, -0.2, 0.15)
 		owner.do_sprint = false
 
 	HUDS.tired(owner.stamina);
@@ -301,9 +301,19 @@ func _walk(delta) -> void:
 
 	if Input.is_action_just_pressed("clamber"):
 		owner.do_jump = true
-
+#		_camera.transform.origin.z = $"%head_tracker".transform.origin.z - 0.8
+#		_camera.transform.origin.z = lerp(_camera.transform.origin.z, $"%head_tracker".transform.origin.z - 0.9, 0.08)
+		
+	if !owner.do_crouch and !owner.do_sprint and !owner.grounded:
+		_camera.transform.origin.z = $"%head_tracker".transform.origin.z - 0.7
+		
+	if $"%AnimationTree".get("parameters/Land/active"):
+		_camera.transform.origin.z = $"%head_tracker".transform.origin.z - 0.7
+		
+		
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
-		_head_bob(delta)
+		pass
+#		_head_bob(delta)
 
 #	if owner.is_jumping:
 ##		_camera.transform.origin.y = 1.5
@@ -338,7 +348,7 @@ func _crouch() -> void:
 			var from_z = _camera.transform.origin.z
 
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
-			_camera.transform.origin.z = lerp(from_z, -0.3, 0.08)
+			_camera.transform.origin.z = lerp(from_z, -0.4, 0.08)
 
 	else:
 		if Input.is_action_pressed("crouch"):

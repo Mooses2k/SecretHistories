@@ -374,7 +374,8 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		emit_signal("is_moving", is_player_moving)
 
 	if is_on_floor() and is_jumping and _camera.stress < 0.1:
-		animation_tree.set("parameters/Land/active",true)
+		if !do_crouch:
+			animation_tree.set("parameters/Land/active",true)
 		
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
@@ -492,6 +493,11 @@ func check_state_animation(delta):
 	elif not move_dir == Vector3.ZERO and  do_sprint == true:
 		animation_tree.set("parameters/state/current",2)
 		
+		
+	if !grounded and !$"%GroundCheck".is_colliding():
+		animation_tree.set("parameters/Falling/active",true)
+	else:
+		animation_tree.set("parameters/Falling/active",false)
 
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));

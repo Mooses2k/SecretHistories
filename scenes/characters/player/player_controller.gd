@@ -122,7 +122,7 @@ func _ready():
 
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
-
+	_camera.transform.origin.y = $"%head_tracker".transform.origin.y + 0.07
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
@@ -304,6 +304,10 @@ func _walk(delta) -> void:
 
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
 		_head_bob(delta)
+
+#	if owner.is_jumping:
+##		_camera.transform.origin.y = 1.5
+#		_camera.transform.origin.y = $"%head_tracker".transform.origin.y + 0.07
 
 
 func _head_bob(delta : float) -> void:

@@ -41,7 +41,7 @@ transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107,
 light_energy = 0.6
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12669, -0.808794 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8067, -0.808794 )
 
 [node name="ChairVictorianFancy" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.984208, 3.35166 )
@@ -70,3 +70,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91343, -0.0378679, -2.84752
 
 [node name="ChurchPew" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863582, -2.16709 )
+
+[node name="PreviewCamera" type="Camera" parent="."]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.58653, 1.11265, -0.439275 )

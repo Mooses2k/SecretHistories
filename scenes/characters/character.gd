@@ -176,6 +176,7 @@ func slow_down(state : PhysicsDirectBodyState):
 
 
 func damage(value : float, type : int, on_hitbox : Hitbox):
+	print("is Damaging")
 	#queue_free()
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value
@@ -561,7 +562,7 @@ func apply_kick_damage():
 	
 	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
 		kick_object.get_parent().damage( -global_transform.basis.z , kick_damage)
-	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
+	elif legcast.is_colliding() and kick_object.is_in_group("Enemy"):
 		kick_object.get_parent().damage(kick_damage , damage_type , kick_object)
 	elif legcast.is_colliding() and kick_object is RigidBody:
 		kick_object.apply_central_impulse( -global_transform.basis.z * kick_impulse)
@@ -570,7 +571,7 @@ func apply_kick_damage():
 	if middle_detection.is_colliding() and higher_kick_object.is_in_group("Door_hitbox"):
 		higher_kick_object.get_parent().damage( -global_transform.basis.z , kick_damage + 3)
 	
-	elif middle_detection.is_colliding() and higher_kick_object.is_in_group("CHARACTER"):
+	elif middle_detection.is_colliding() and higher_kick_object.is_in_group("Enemy"):
 		higher_kick_object.get_parent().damage(kick_damage + 3 , damage_type , higher_kick_object)
 	
 	elif middle_detection.is_colliding() and higher_kick_object is RigidBody:

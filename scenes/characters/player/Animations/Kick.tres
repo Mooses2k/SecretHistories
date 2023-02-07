@@ -1207,7 +1207,7 @@ tracks/171/loop_wrap = true
 tracks/171/imported = false
 tracks/171/enabled = true
 tracks/171/keys = {
-"times": PoolRealArray( 0.7 ),
+"times": PoolRealArray( 0.65 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],

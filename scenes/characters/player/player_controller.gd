@@ -240,6 +240,14 @@ func _input(event):
 		#character.inventory.current_mainhand_slot = 1
 
 
+func _on_player_landed():
+	print("yown")
+	if !owner.is_crouching:
+		owner.noise_level = 8
+	else:
+		owner.noise_level = 3
+
+
 func _walk(delta) -> void:
 	if Input.is_action_just_pressed("move_right"):
 		is_movement_key1_held = true
@@ -251,7 +259,7 @@ func _walk(delta) -> void:
 		is_movement_key4_held = true
 		owner.is_moving_forward = true
 	
-	check_movement_key(delta)
+	_check_movement_key(delta)
 
 #	if Input.is_action_pressed("movement"):
 ##		print("movement pressed")
@@ -281,7 +289,7 @@ func _walk(delta) -> void:
 		is_movement_key4_held = false
 		owner.is_moving_forward = false
 	
-	check_movement_key(delta)
+	_check_movement_key(delta)
 
 #	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
 #		_audio_player.play_land_sound()
@@ -294,7 +302,7 @@ func _walk(delta) -> void:
 		_head_bob(delta)
 
 
-func check_movement_key(delta):
+func _check_movement_key(delta):
 	if is_movement_key1_held or is_movement_key2_held or is_movement_key3_held or is_movement_key4_held:
 		movement_press_length += delta
 		if movement_press_length >= 0.25:

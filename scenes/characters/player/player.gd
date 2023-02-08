@@ -22,6 +22,7 @@ var noise_level = 0
 
 
 func _ready():
+	connect("player_landed", $PlayerController, "_on_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 

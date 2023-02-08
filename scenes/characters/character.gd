@@ -5,6 +5,7 @@ extends KinematicBody
 signal character_died()
 signal is_hit(current_health)
 signal is_moving(is_player_moving)
+signal player_landed()
 
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
@@ -363,12 +364,13 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
-		emit_signal("is_moving", is_player_moving)
+		self.emit_signal("is_moving", is_player_moving)
 	else:
 		is_player_moving = true
-		emit_signal("is_moving", is_player_moving)
+		self.emit_signal("is_moving", is_player_moving)
 
 	if is_on_floor() and is_jumping and _camera.stress < 0.1:
+		self.emit_signal("player_landed")
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
 

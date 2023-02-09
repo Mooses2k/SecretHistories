@@ -17,13 +17,16 @@ onready var character_state : CharacterState = CharacterState.new(self)
 onready var current_health : float = self.max_health
 
 onready var inventory = $Inventory
-onready var mainhand_equipment_root = $MainHandEquipmentRoot
-onready var offhand_equipment_root = $OffHandEquipmentRoot
+onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
+onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
 onready var belt_position = $"%Beltposition"
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
+onready var animation_tree = $AnimationTree
+
+
 onready var additional_animations  = $Additional_animations
 
 var _current_velocity : Vector3 = Vector3.ZERO
@@ -71,6 +74,11 @@ export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
 export var lock_mouse : bool = true   # why is this needed here if not on a player?
 export var head_bob_enabled : bool = true
+export var _legcast : NodePath
+export var _middle_detection : NodePath
+export(AttackTypes.Types) var damage_type : int = 0
+export (float) var kick_impulse
+
 
 var state = State.STATE_WALKING
 var clamber_destination : Vector3 = Vector3.ZERO
@@ -88,7 +96,8 @@ onready var _sound_emitter = get_node("SoundEmitter")
 onready var _audio_player = get_node("Audio")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = get_node("Body/GroundChecker")
-
+onready var legcast : RayCast = get_node(_legcast) as RayCast
+onready var middle_detection : RayCast = get_node(_middle_detection) as RayCast
 onready var _speech_player = get_node("Speech")
 
 var stamina := 600.0
@@ -125,6 +134,8 @@ var is_to_move : bool = true
 var do_sprint : bool = false
 var do_jump : bool = false
 var do_crouch : bool = false
+var low_kick : bool = false
+
 
 
 #func _integrate_forces(state):
@@ -165,6 +176,7 @@ func slow_down(state : PhysicsDirectBodyState):
 
 
 func damage(value : float, type : int, on_hitbox : Hitbox):
+	print("is Damaging")
 	#queue_free()
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type]*value
@@ -195,6 +207,8 @@ func _ready():
 
 
 func _physics_process(delta : float):
+	check_state_animation(delta)
+	check_kick_type()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -243,6 +257,7 @@ func _physics_process(delta : float):
 					return
 
 			is_crouching = true
+			
 			_crouch(delta)
 			_walk(delta, 0.65)
 
@@ -360,6 +375,9 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		emit_signal("is_moving", is_player_moving)
 
 	if is_on_floor() and is_jumping and _camera.stress < 0.1:
+		if !do_crouch:
+			animation_tree.set("parameters/Land/active",true)
+		
 		_audio_player.play_land_sound()
 #		_camera.add_stress(0.25)
 
@@ -397,7 +415,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if is_jumping or !is_on_floor():
 			do_jump = false
 			return
-
+		animation_tree.set("parameters/jump/active",true)
 		velocity.y = jump_force
 		is_jumping = true
 		do_jump = false
@@ -414,7 +432,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			_audio_player.play_footstep_sound(-2.0, 1.5)
 		else:
 			_audio_player.play_footstep_sound(-2.0, 1.0)
-
+	
 
 func _crouch(delta : float) -> void:
 	wanna_stand = false
@@ -443,6 +461,44 @@ func _crouch(delta : float) -> void:
 			wanna_stand = true
 			return
 
+func apply_Kick():
+	#applies the kick animation from the animationblend tree
+#	animation_tree.set("parameters/Land/active",true)
+	if low_kick:
+		animation_tree.set("parameters/Low_Kick/active",true)
+	else:
+		animation_tree.set("parameters/High_kick/active",true)
+func check_state_animation(delta):
+	
+	var forwards_velocity = -global_transform.basis.z.dot(velocity)
+	var sideways_velocity = global_transform.basis.x.dot(velocity)
+	
+	if state == State.STATE_CROUCHING:
+		animation_tree.set("parameters/state/current",2)
+		
+		
+	if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+		animation_tree.set("parameters/state/current",0)
+		
+	elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+		animation_tree.set("parameters/state/current",4)
+		
+	elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
+		animation_tree.set("parameters/state/current",1)
+		animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
+		
+	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
+		animation_tree.set("parameters/state/current",5)
+		animation_tree.set("parameters/crouch_strafe/blend_position",  Vector2(sideways_velocity, forwards_velocity))
+		
+	elif not move_dir == Vector3.ZERO and  do_sprint == true:
+		animation_tree.set("parameters/state/current",2)
+		
+		
+	if !grounded and !$"%GroundCheck".is_colliding():
+		animation_tree.set("parameters/Falling/active",true)
+	else:
+		animation_tree.set("parameters/Falling/active",false)
 
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));
@@ -464,10 +520,62 @@ func move_effect():
 	if velocity != Vector3.ZERO:
 		additional_animations.play("Belt_bob", -1, velocity.length() / 2)
 
+func check_kick_type():
+	
+	var kick_object = legcast.get_collider()
+	var higher_kick_object = middle_detection.get_collider()
+	var low_detection_value = null
+	var high_detection_value = null
+	
+	#lower kick detection code
+	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+		low_detection_value = legcast.get_collider()
+	
+	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
+		low_detection_value = legcast.get_collider()
+	
+	elif legcast.is_colliding() and kick_object is RigidBody:
+		low_detection_value = legcast.get_collider()
+
+#Higher kick detection code
+	if middle_detection.is_colliding() and higher_kick_object.is_in_group("Door_hitbox"):
+		high_detection_value = middle_detection.get_collider()
+	
+	elif middle_detection.is_colliding() and higher_kick_object.is_in_group("CHARACTER"):
+		high_detection_value = middle_detection.get_collider()
+	
+	elif middle_detection.is_colliding() and higher_kick_object is RigidBody:
+		high_detection_value = middle_detection.get_collider()
+		
+
+	if high_detection_value == null and low_detection_value != null:
+		low_kick = true
+	elif high_detection_value != null and low_detection_value != null:
+		low_kick = true
+	elif high_detection_value  != null and low_detection_value == null:
+		low_kick = false
 
 
+func apply_kick_damage():
+	var kick_object = legcast.get_collider()
+	var higher_kick_object = middle_detection.get_collider()
+	
+	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+		kick_object.get_parent().damage( -global_transform.basis.z , kick_damage)
+	elif legcast.is_colliding() and kick_object.is_in_group("Enemy"):
+		kick_object.get_parent().damage(kick_damage , damage_type , kick_object)
+	elif legcast.is_colliding() and kick_object is RigidBody:
+		kick_object.apply_central_impulse( -global_transform.basis.z * kick_impulse)
+		
 
-
+	if middle_detection.is_colliding() and higher_kick_object.is_in_group("Door_hitbox"):
+		higher_kick_object.get_parent().damage( -global_transform.basis.z , kick_damage + 3)
+	
+	elif middle_detection.is_colliding() and higher_kick_object.is_in_group("Enemy"):
+		higher_kick_object.get_parent().damage(kick_damage + 3 , damage_type , higher_kick_object)
+	
+	elif middle_detection.is_colliding() and higher_kick_object is RigidBody:
+		higher_kick_object.apply_central_impulse( -global_transform.basis.z * kick_impulse * 3)
 
 
 func speak():

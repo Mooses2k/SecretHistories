@@ -65,6 +65,7 @@ points = PoolVector3Array( 0.342914, 1.70677, 0.0841442, 0.271237, 1.30743, -0.2
 [node name="ChairVictorianFancy" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 513
+mass = 10.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.571454, 0 )

@@ -34,7 +34,7 @@ func _process(delta):
 		$Indication_canvas/Indication_system/Dot.hide()
 	else :
 		$Indication_canvas/Indication_system/Dot.show()
-
+	
 	grab_indicator()
 	change_mainhand_equipment_in()
 	change_maindhand_equipment_out()
@@ -59,12 +59,12 @@ func grab_indicator():
 			$Indication_canvas/Indication_system/Grab.show()
 		else:
 				$Indication_canvas/Indication_system/Grab.hide()
-		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
-			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
+		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite") and  $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
+#			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 				$Indication_canvas/Indication_system/Ignite.show()
 				if Input.is_action_just_pressed("interact"):
 					grabable_object.get_parent()._use_primary()
-			else:
+		else:
 				$Indication_canvas/Indication_system/Ignite.hide()
 	else:
 		$Indication_canvas/Indication_system/Grab.hide()
@@ -180,3 +180,14 @@ func change_offhand_equipment_in():
 			offhand_equipment_root.transform.origin.y = offhand_orig_origin.y
 			offhand_equipment_root.transform.origin.z = offhand_orig_origin.z
 			is_change_off_equip_in = false
+
+func kick_animation():
+	apply_Kick()
+
+#Hint for 8 directional movements
+#onready var animation_tree = get_node("AnimationTree")
+#onready var animation_mode = animation_tree.get("parameters/playback")
+#
+#if direction.length() > 0:
+#		animation_mode.travel("Run")
+#		animation_tree.set("parameters/Run/blend_position",Vector2(direction.x,direction.z))

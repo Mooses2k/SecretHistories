@@ -351,6 +351,6 @@ func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position :
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
-		$"%Additional_animations".play("Belt_Equip")
+#		$"%Additional_animations".play("Belt_Equip")
 
 

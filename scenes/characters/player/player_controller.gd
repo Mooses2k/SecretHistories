@@ -21,6 +21,8 @@ export var kick_impulse : float = 20
 var movement_basis : Basis = Basis.IDENTITY
 var interaction_target : Node = null
 var target_placement_position : Vector3 = Vector3.ZERO
+var strafe_dir = Vector3.ZERO
+var strafe = Vector3.ZERO
 
 export var _grabcast : NodePath
 onready var grabcast : RayCast = get_node(_grabcast) as RayCast
@@ -53,7 +55,8 @@ export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
-export var interact_distance : float = 0.75
+export var interact_distance : float = 0.98
+export var crouch_cam_target_pos = 0.1
 #export var mouse_sens : float = 0.5   # duplicates GlobalSettings.mouse_sensitivity and caused a bug
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
@@ -72,7 +75,6 @@ onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../PlayerStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
-
 var _camera_orig_pos : Vector3
 var _camera_orig_rotation : Vector3
 #stealth player controller addon -->
@@ -103,12 +105,12 @@ var is_movement_key3_held = false
 var is_movement_key4_held = false
 var movement_press_length = 0
 var crouch_target_pos = -0.55
-var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 var item_up = false
 
 
 func _ready():
+	
 	owner.is_to_move = false
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
@@ -120,6 +122,7 @@ func _ready():
 
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
+	_camera.transform.origin.y = $"%head_tracker".transform.origin.y + 0.05
 
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
@@ -148,6 +151,9 @@ func _physics_process(delta : float):
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
 		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, 0.08)
+#		var from_z = _camera.transform.origin.z
+#		_camera.transform.origin.z = lerp(from_z, -0.2, 0.1)
+#		_camera.transform.origin.z = -0.2
 		var d1 = _camera.transform.origin.y - _camera_orig_pos.y
 		if d1 > -0.02:
 			_camera.transform.origin.y = _camera_orig_pos.y
@@ -259,10 +265,19 @@ func _walk(delta) -> void:
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	character.character_state.move_direction = move_dir.normalized()
+	
+	
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
+		if move_dir != Vector3.ZERO:
+			var from_z = _camera.transform.origin.z
+			_camera.transform.origin.z = lerp(from_z, -0.6, 0.08)
 	else:
+		if not owner.do_crouch:
+			var from_z = _camera.transform.origin.z
+			_camera.transform.origin.z = lerp(from_z, -0.2, 0.15)
 		owner.do_sprint = false
+
 	HUDS.tired(owner.stamina);
 
 	if Input.is_action_just_released("move_right"):
@@ -286,9 +301,23 @@ func _walk(delta) -> void:
 
 	if Input.is_action_just_pressed("clamber"):
 		owner.do_jump = true
-
+#		_camera.transform.origin.z = $"%head_tracker".transform.origin.z - 0.8
+#		_camera.transform.origin.z = lerp(_camera.transform.origin.z, $"%head_tracker".transform.origin.z - 0.9, 0.08)
+		
+	if !owner.do_crouch and !owner.do_sprint and !owner.grounded:
+		_camera.transform.origin.z = $"%head_tracker".transform.origin.z - 0.7
+		
+	if $"%AnimationTree".get("parameters/Land/active"):
+		_camera.transform.origin.z = $"%head_tracker".transform.origin.z - 0.7
+		
+		
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
-		_head_bob(delta)
+		pass
+#		_head_bob(delta)
+
+#	if owner.is_jumping:
+##		_camera.transform.origin.y = 1.5
+#		_camera.transform.origin.y = $"%head_tracker".transform.origin.y + 0.07
 
 
 func _head_bob(delta : float) -> void:
@@ -316,11 +345,18 @@ func _crouch() -> void:
 
 		if owner.do_crouch:
 			var from = _camera.transform.origin.y
+			var from_z = _camera.transform.origin.z
+
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+			_camera.transform.origin.z = lerp(from_z, -0.4, 0.08)
 
 	else:
 		if Input.is_action_pressed("crouch"):
 			if owner.do_sprint:
+				var from = _camera.transform.origin.y
+				var from_z = _camera.transform.origin.z
+				_camera.transform.origin.y = lerp(from, 1.35, 0.08)
+				_camera.transform.origin.z = lerp(from_z, -0.4, 0.08)
 				owner.do_crouch = false
 				return
 
@@ -328,7 +364,10 @@ func _crouch() -> void:
 			owner.state = owner.State.STATE_CROUCHING
 
 			var from = _camera.transform.origin.y
+			var from_z = _camera.transform.origin.z
+
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+			_camera.transform.origin.z = lerp(from_z, -0.3, 0.08)
 
 		if !Input.is_action_pressed("crouch"):
 			owner.do_crouch = false
@@ -761,20 +800,11 @@ func handle_inventory(delta : float):
 #		throw_state = true
 
 func kick():
-	var kick_object = legcast.get_collider()
+	if Input.is_action_just_pressed("kick"):
+		character.kick_animation()
+	
 
-	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-		if is_grabbing == false:
-			if Input.is_action_just_pressed("kick"):
-				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-
-	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-		if Input.is_action_just_pressed("kick"):
-			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-
-	elif legcast.is_colliding() and kick_object is RigidBody:
-		if Input.is_action_just_pressed("kick"):
-			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+	
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released

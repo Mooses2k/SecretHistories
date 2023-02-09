@@ -49,7 +49,7 @@ func update_sensor():
 			raycast.look_at(target, Vector3.UP)
 			raycast.force_raycast_update()
 			
-			if (raycast.is_colliding() and raycast.get_collider().owner is Player and 
+			if (raycast.is_colliding() and raycast.get_collider().owner is Door and 
 					(raycast.get_collider().owner.light_level > 0.04 or (player_near and player_seen))):
 				player_visible = true
 				player_position = body.global_transform.origin

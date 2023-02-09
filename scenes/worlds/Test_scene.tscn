@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/seating/church_pew.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/starstuff_lantern/starstuff_lantern.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -77,3 +78,9 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.58653
 
 [node name="Door" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50456, 0.036952, 7.2492 )
+
+[node name="Grenade" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.18834, 0.138636, 0 )
+
+[node name="Grenade2" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.18834, 0.138636, 2.92252 )

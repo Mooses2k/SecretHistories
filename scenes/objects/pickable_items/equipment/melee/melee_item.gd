@@ -58,7 +58,8 @@ func apply_throw_logic(impulse):
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
-	character = get_parent().get_parent()
+	character = owner_character
+	print(character)
 	var melee_anim
 	if weapon_type == WeaponType.COMPLEX_HILT_ONE_HAND:
 		melee_anim = owner_character.find_node("SabreTechniques")

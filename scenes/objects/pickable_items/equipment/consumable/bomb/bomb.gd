@@ -29,7 +29,7 @@ func _use_primary():
 		countdown_timer.start()
 		$Fuse.emitting = true
 	else:
-		get_parent().get_parent().drop_consumable(self)
+		owner_character.drop_consumable(self)
 		pass
 
 

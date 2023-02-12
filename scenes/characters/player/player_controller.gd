@@ -241,7 +241,6 @@ func _input(event):
 
 
 func _on_player_landed():
-	print("yown")
 	if !owner.is_crouching:
 		owner.noise_level = 8
 	else:
@@ -523,6 +522,9 @@ func handle_grab_input(delta : float):
 	if Input.is_action_just_released("interact"):
 		grab_press_length = 0.0
 		if is_grabbing==true:
+			if grab_object.has_method("dragging"):
+				print("stop")
+				grab_object.audio_player.stop()
 			is_grabbing = false
 			wanna_grab = false
 			interaction_handled = true
@@ -591,6 +593,8 @@ func handle_grab(delta : float):
 
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
+		
+		grab_object.dragging()
 
 
 func update_throw_state(delta : float):

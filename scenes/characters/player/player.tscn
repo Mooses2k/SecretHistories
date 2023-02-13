@@ -407,8 +407,8 @@ body_offset = Transform( 1, 2.04309e-08, -1.39565e-06, -1.37516e-06, 4.47035e-07
 
 [node name="Physical Bone DEF-pelvisR" parent="Body/Skeleton" index="24"]
 transform = Transform( 0.0103912, 0.609802, 0.792485, 0.578523, 0.642759, -0.502174, -0.8156, 0.463692, -0.346106, -0.0381906, 0.932337, -0.0302733 )
-joint_offset = Transform( -0.8156, -0.578522, 0.010392, 0.463688, -0.642753, 0.609805, -0.346106, 0.502175, 0.792484, -1.58325e-07, 1.11759e-08, 0.05538 )
-body_offset = Transform( 0.859968, -0.479611, -0.174439, 2.38419e-07, 0.341809, -0.939771, 0.510348, 0.808175, 0.29394, 0.00966057, 0.0520445, -0.0162783 )
+joint_offset = Transform( -0.8156, -0.578522, 0.010392, 0.463688, -0.642753, 0.609805, -0.346106, 0.502175, 0.792484, -1.58325e-07, 8.3819e-09, 0.05538 )
+body_offset = Transform( 0.859968, -0.479611, -0.174439, 2.08616e-07, 0.341809, -0.939771, 0.510348, 0.808175, 0.29394, 0.00966057, 0.0520445, -0.0162783 )
 
 [node name="Physical Bone DEF-thighR" parent="Body/Skeleton" index="25"]
 transform = Transform( 0.891999, 0.443381, 0.0880431, -0.044586, -0.107526, 0.9932, 0.449835, -0.889861, -0.0761444, -0.0926926, 0.840398, -0.00192557 )
@@ -732,10 +732,6 @@ cast_to = Vector3( 0, -1, 0 )
 
 [node name="MainCharGameRig" parent="." index="26"]
 visible = true
-
-[node name="Skeleton" parent="MainCharGameRig/rig_deform" index="0"]
-bones/124/bound_children = [  ]
-bones/149/bound_children = [  ]
 
 [node name="Face002" parent="MainCharGameRig/rig_deform/Skeleton" index="2"]
 visible = false

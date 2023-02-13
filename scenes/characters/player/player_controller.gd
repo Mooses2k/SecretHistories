@@ -139,6 +139,7 @@ func _physics_process(delta : float):
 	previous_item()
 	drop_grabbable()
 	empty_slot()
+	ads()
 #	_process_frob_and_drag()
 	kick()
 
@@ -804,7 +805,13 @@ func kick():
 		character.kick_animation()
 	
 
-	
+func ads():
+	if Input.is_action_pressed("ADS"):
+		var main_hand_item = character.inventory.current_mainhand_slot
+		if character.inventory.current_mainhand_slot != null:
+#			print(character.inventory.hotbar[main_hand_item])
+			if character.inventory.hotbar[main_hand_item] is GunItem:
+				print("Can ADs equipment")
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released

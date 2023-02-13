@@ -500,6 +500,7 @@ func check_state_animation(delta):
 	else:
 		animation_tree.set("parameters/Falling/active",false)
 
+
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));
 

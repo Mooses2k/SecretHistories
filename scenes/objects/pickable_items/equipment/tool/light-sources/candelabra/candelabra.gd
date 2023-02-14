@@ -65,7 +65,6 @@ func light():
 		$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
 		$Candle3/MeshInstance.cast_shadow = false
 		$Candle3/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle3/MeshInstance.get_surface_material(0).emission_enabled
-
 	firelight.visible = true
 	$MeshInstance.cast_shadow = false
 	is_lit = true
@@ -107,16 +106,4 @@ func _item_state_changed(previous_state, current_state):
 
 
 func switch_away():
-#	$Candle1/FireOrigin/Fire.emitting = false
-	firelight.visible = false
-	$Candle1/FireOrigin/Fire.visible = false
-	$AnimationPlayer.stop()
-	$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
-#	$Candle1/MeshInstance.emission_enabled = false
-	if $Candle2 != null:
-		$Candle2/FireOrigin/Fire.visible = false
-		$Candle2/MeshInstance.get_surface_material(0).emission_enabled = false
-	if $Candle3 != null:
-		$Candle3/FireOrigin/Fire.visible = false
-		$Candle3/MeshInstance.get_surface_material(0).emission_enabled = false
-	is_lit = false
+	pass

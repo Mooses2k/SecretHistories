@@ -53,10 +53,8 @@ func _item_state_changed(previous_state, current_state):
 
 func switch_away():
 	if not can_attach:
-		$AnimationPlayer.stop()
-		firelight.visible = false
-		$MeshInstance.cast_shadow = false
-		is_lit = false
+#		unlight()
+		pass
 	else:
 		attach_to_belt()
 
@@ -64,8 +62,6 @@ func switch_away():
 func attach_to_belt():
 	is_in_belt = true
 	get_parent().owner.inventory.attach_to_belt(self)
-
-
 
 
 func _use_primary():

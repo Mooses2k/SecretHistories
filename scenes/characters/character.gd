@@ -208,6 +208,7 @@ func _ready():
 
 func _physics_process(delta : float):
 	check_state_animation(delta)
+	check_curent_weapon()
 	check_kick_type()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
@@ -500,6 +501,11 @@ func check_state_animation(delta):
 	else:
 		animation_tree.set("parameters/Falling/active",false)
 
+func check_curent_weapon():
+		var main_hand_item = inventory.current_mainhand_slot
+		var off_hand_item = inventory.current_offhand_slot
+		if inventory.hotbar[main_hand_item] is GunItem or inventory.hotbar[off_hand_item] is GunItem :
+			print("Carried Gun")
 
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));

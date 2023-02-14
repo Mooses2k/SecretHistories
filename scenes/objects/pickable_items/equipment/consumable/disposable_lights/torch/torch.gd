@@ -34,7 +34,8 @@ func _process(delta):
 
 func light():
 	$AnimationPlayer.play("flicker")
-	$LightSound.play()
+	$Sounds/LightSound.play()
+	$Sounds/Burning.play()
 	$FireOrigin/Fire.emitting = true
 	$FireOrigin/EmberDrip.emitting = true
 	$FireOrigin/Smoke.emitting = true
@@ -45,7 +46,8 @@ func light():
 
 func unlight():
 	$AnimationPlayer.stop()
-	$BlowOutSound.play()
+	$Sounds/BlowOutSound.play()
+	$Sounds/Burning.stop()
 	$FireOrigin/Fire.emitting = false
 	$FireOrigin/EmberDrip.emitting = false
 	$FireOrigin/Smoke.emitting = false
@@ -58,14 +60,10 @@ func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
 		switch_away()
 
+
 func switch_away():
-	$AnimationPlayer.stop()
-	$FireOrigin/Fire.emitting = false
-	$FireOrigin/EmberDrip.emitting = false
-	$FireOrigin/Smoke.emitting = false
-	firelight.visible = false
-	$MeshInstance.cast_shadow = true
-	is_lit = false
+	pass
+#	unlight()
 
 
 func _use_primary():

@@ -84,6 +84,12 @@ func _use_primary():
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 		emit_signal("on_shoot")
+	if (not is_reloading) and (not on_cooldown) and current_ammo == 0:
+		dryfire()
+
+
+func dryfire():
+	$Sounds/Dryfire.play()
 
 
 func _use_reload():

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/412297__jaklocke__gun-trigger-pull-2.wav-41fa2d226ca28faeefd27c5f8182e042.sample"
+
+[deps]
+
+source_file="res://resources/sounds/dryfire/412297__jaklocke__gun-trigger-pull-2.wav"
+dest_files=[ "res://.import/412297__jaklocke__gun-trigger-pull-2.wav-41fa2d226ca28faeefd27c5f8182e042.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

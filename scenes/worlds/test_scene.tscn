@@ -96,7 +96,6 @@ can_attach = false
 
 [node name="ShotgunItem" parent="." instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.56912, 1.47731, 0 )
-can_attach = false
 
 [node name="Lee-Metford rifle" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93082, 1.91304, 0 )

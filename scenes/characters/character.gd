@@ -502,10 +502,14 @@ func check_state_animation(delta):
 		animation_tree.set("parameters/Falling/active",false)
 
 func check_curent_weapon():
-		var main_hand_item = inventory.current_mainhand_slot
-		var off_hand_item = inventory.current_offhand_slot
-		if inventory.hotbar[main_hand_item] is GunItem or inventory.hotbar[off_hand_item] is GunItem :
-			print("Carried Gun")
+		var main_hand_object= inventory.current_mainhand_slot
+		var off_hand_object = inventory.current_offhand_slot
+		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
+			
+			if inventory.hotbar[main_hand_object].item_size == 0:
+				print("Carried Small Gun")
+			else:
+				print("Carried large gun")
 
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));

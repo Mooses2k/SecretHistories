@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://resources/models/large_objects/seating/M_FancyTable.material" type="Material" id=1]
+[ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "table_chairs_Test-material"
@@ -87,5 +88,393 @@ shape = SubResource( 10 )
 [node name="Durability" type="Timer" parent="."]
 wait_time = 300.0
 one_shot = true
+
+[node name="Anchors" type="Spatial" parent="."]
+
+[node name="Dining" type="Spatial" parent="Anchors"]
+transform = Transform( -6.55671e-08, 0, 1.5, 0, 1, 0, -1.5, 0, -6.55671e-08, -1.6272, 0, 0 )
+visible = false
+
+[node name="Bench" type="Position3D" parent="Anchors/Dining"]
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Chair2" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.442644, 0.000793874, 0 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Chair" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505124, -0.0129426, 0 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Bench2" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.84472 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Chair3" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46057, 0.000793874, 1.84472 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Chair5" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.31287, 0.000793874, 1.08898 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Chair6" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3719, 0.000793874, 1.08898 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Chair4" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505124, -0.0129426, 1.84472 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="PlaceSetting" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.374847, 0.588387, 0.733507 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="PlaceSetting2" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505124, 0.588387, 0.733507 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="PlaceSetting3" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505124, 0.588387, 1.20188 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="PlaceSetting4" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368123, 0.588387, 1.20188 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
+
+[node name="Centerpiece" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00462723, 0.588387, 0.967074 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.4
+min_quantity_wanted = 0
+
+[node name="ServingPlates" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.814552, 0.588387, 0.957055 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates2" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.314674, 0.588387, 0.957055 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates3" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.230069, 0.588387, 0.957055 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates4" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.755688, 0.588387, 0.957055 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates5" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.755688, 0.588387, 0.578763 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates6" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.755688, 0.588387, 1.22341 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates7" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0119834, 0.588387, 1.22341 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates8" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.878247, 0.588387, 1.22341 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates9" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.878247, 0.588387, 0.615827 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="ServingPlates10" type="Position3D" parent="Anchors/Dining"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00611258, 0.588387, 0.615827 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.1
+min_quantity_wanted = 0
+
+[node name="LibraryTable" type="Spatial" parent="Anchors"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.646026, 0, 0 )
+visible = false
+
+[node name="Bench" type="Position3D" parent="Anchors/LibraryTable"]
+script = ExtResource( 2 )
+anchor_fill_probability = 0.3
+min_quantity_wanted = 0
+
+[node name="Chair2" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.442644, 0.000793874, 0 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.3
+min_quantity_wanted = 0
+
+[node name="Chair" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505124, -0.0129426, 0 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.3
+min_quantity_wanted = 0
+
+[node name="Bench2" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.84472 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.3
+min_quantity_wanted = 0
+
+[node name="Chair3" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.46057, 0.000793874, 1.84472 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.3
+min_quantity_wanted = 0
+
+[node name="Chair4" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.505124, -0.0129426, 1.84472 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.3
+min_quantity_wanted = 0
+
+[node name="Stuff" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.374847, 0.588387, 0.733507 )
+script = ExtResource( 2 )
+
+[node name="Stuff2" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.374847, 0.588387, 0.872477 )
+script = ExtResource( 2 )
+
+[node name="Stuff3" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.729417, 0.588387, 0.872477 )
+script = ExtResource( 2 )
+
+[node name="Stuff4" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.729417, 0.588387, 0.62699 )
+script = ExtResource( 2 )
+
+[node name="Stuff5" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.998007, 0.588387, 0.62699 )
+script = ExtResource( 2 )
+
+[node name="Stuff6" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.998007, 0.588387, 1.03683 )
+script = ExtResource( 2 )
+
+[node name="Stuff7" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0679331, 0.588387, 1.03683 )
+script = ExtResource( 2 )
+
+[node name="Stuff8" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0679331, 0.588387, 0.716052 )
+script = ExtResource( 2 )
+
+[node name="Stuff9" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0679331, 0.588387, 0.564523 )
+script = ExtResource( 2 )
+
+[node name="Stuff10" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25998, 0.588387, 0.564523 )
+script = ExtResource( 2 )
+
+[node name="Stuff11" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25998, 0.588387, 1.14906 )
+script = ExtResource( 2 )
+
+[node name="Stuff12" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574778, 0.588387, 1.14906 )
+script = ExtResource( 2 )
+
+[node name="Stuff13" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574778, 0.588387, 0.752401 )
+script = ExtResource( 2 )
+
+[node name="Stuff14" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.905341, 0.588387, 0.752401 )
+script = ExtResource( 2 )
+
+[node name="Stuff15" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.905341, 0.588387, 0.54178 )
+script = ExtResource( 2 )
+
+[node name="Stuff16" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.905341, 0.588387, 1.22237 )
+script = ExtResource( 2 )
+
+[node name="Stuff17" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.611417, 0.588387, 1.22237 )
+script = ExtResource( 2 )
+
+[node name="Stuff18" type="Position3D" parent="Anchors/LibraryTable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.251985, 0.588387, 1.22237 )
+script = ExtResource( 2 )
+
+[node name="Desk" type="Spatial" parent="Anchors"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.737135, 0, 0 )
+visible = false
+
+[node name="Chair" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0125445, -0.0129426, 0 )
+script = ExtResource( 2 )
+
+[node name="Work" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0248325, 0.588387, 0.611814 )
+script = ExtResource( 2 )
+
+[node name="Work2" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0723597, 0.588387, 0.611814 )
+script = ExtResource( 2 )
+
+[node name="Work3" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.129169, 0.588387, 0.611814 )
+script = ExtResource( 2 )
+
+[node name="Work4" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.244716, 0.588387, 0.739832 )
+script = ExtResource( 2 )
+
+[node name="Work5" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.202866, 0.588387, 0.739832 )
+script = ExtResource( 2 )
+
+[node name="Work6" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.202866, 0.588387, 0.739832 )
+script = ExtResource( 2 )
+
+[node name="Work7" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.369402, 0.588387, 0.622984 )
+script = ExtResource( 2 )
+
+[node name="Work8" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.382285, 0.588387, 0.622984 )
+script = ExtResource( 2 )
+
+[node name="Work9" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.382285, 0.588387, 0.830089 )
+script = ExtResource( 2 )
+
+[node name="Work10" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.396872, 0.588387, 0.830089 )
+script = ExtResource( 2 )
+
+[node name="Stuff" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.374847, 0.588387, 1.21336 )
+script = ExtResource( 2 )
+
+[node name="Stuff2" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.235891, 0.588387, 1.1344 )
+script = ExtResource( 2 )
+
+[node name="Stuff3" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.729417, 0.588387, 0.872477 )
+script = ExtResource( 2 )
+
+[node name="Stuff4" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.665665, 0.588387, 1.07165 )
+script = ExtResource( 2 )
+
+[node name="Stuff5" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.998007, 0.588387, 1.18922 )
+script = ExtResource( 2 )
+
+[node name="Stuff6" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.998007, 0.588387, 1.03683 )
+script = ExtResource( 2 )
+
+[node name="Stuff7" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0679331, 0.588387, 1.21104 )
+script = ExtResource( 2 )
+
+[node name="Stuff8" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.794843, 0.588387, 1.08458 )
+script = ExtResource( 2 )
+
+[node name="Stuff9" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0709481, 0.588387, 1.03486 )
+script = ExtResource( 2 )
+
+[node name="Stuff10" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.466678, 0.588387, 1.03561 )
+script = ExtResource( 2 )
+
+[node name="Stuff11" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25998, 0.588387, 1.14906 )
+script = ExtResource( 2 )
+
+[node name="Stuff12" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574778, 0.588387, 1.14906 )
+script = ExtResource( 2 )
+
+[node name="Stuff13" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.777301, 0.588387, 0.897837 )
+script = ExtResource( 2 )
+
+[node name="Stuff14" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.905341, 0.588387, 0.752401 )
+script = ExtResource( 2 )
+
+[node name="Stuff15" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.905341, 0.588387, 0.54178 )
+script = ExtResource( 2 )
+
+[node name="Stuff16" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.905341, 0.588387, 1.22237 )
+script = ExtResource( 2 )
+
+[node name="Stuff17" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.611417, 0.588387, 1.22237 )
+script = ExtResource( 2 )
+
+[node name="Stuff18" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.251985, 0.588387, 1.22237 )
+script = ExtResource( 2 )
+
+[node name="Stuff19" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.998007, 0.588387, 0.652839 )
+script = ExtResource( 2 )
+
+[node name="Stuff20" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.998007, 0.588387, 0.784845 )
+script = ExtResource( 2 )
+
+[node name="Chair2" type="Position3D" parent="Anchors/Desk"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180196, -0.0129426, 2.01848 )
+script = ExtResource( 2 )
+anchor_fill_probability = 0.8
+min_quantity_wanted = 0
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

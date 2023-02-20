@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" type="AudioStream" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/_smoke.tscn" type="PackedScene" id=8]
+[ext_resource path="res://resources/sounds/reloading/shotgun/522289__filmmakersmanual__loading-shell-shotgun-4.wav" type="AudioStream" id=9]
 
 [sub_resource type="GDScript" id=6]
 script/source = "extends GunItem
@@ -110,6 +111,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0552596 )
 
 [node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 2 )
+
+[node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
+stream = ExtResource( 9 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

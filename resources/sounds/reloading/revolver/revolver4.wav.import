@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/revolver4.wav-a2f58d08351e425d3aa8bc326184a8a2.sample"
+
+[deps]
+
+source_file="res://resources/sounds/reloading/revolver/revolver4.wav"
+dest_files=[ "res://.import/revolver4.wav-a2f58d08351e425d3aa8bc326184a8a2.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

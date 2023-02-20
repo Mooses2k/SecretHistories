@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/effects/webley_audio.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resources/sounds/dryfire/412297__jaklocke__gun-trigger-pull-2.wav" type="AudioStream" id=10]
+[ext_resource path="res://resources/sounds/reloading/revolver/revolver5.wav" type="AudioStream" id=11]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Webley_Plane002"
@@ -164,6 +165,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.2 )
 
 [node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 10 )
+
+[node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
+stream = ExtResource( 11 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_RevolverItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_RevolverItem_target_hit"]

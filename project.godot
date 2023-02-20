@@ -418,8 +418,9 @@ _global_script_class_icons={
 
 config/name="Secret Histories"
 config/description="An entirely forgettable game"
-run/main_scene="res://scenes/UI/title_menu.tscn"
+run/main_scene="res://scenes/UI/opening_screens.tscn"
 run/flush_stdout_on_print=true
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]

@@ -5,6 +5,7 @@ func _ready():
 	if LoadQuotes.list2.empty() and LoadQuotes.list1.empty():
 		LoadQuotes.load_files()
 
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	$VBoxContainer/ContinueButton.grab_focus()
 
 

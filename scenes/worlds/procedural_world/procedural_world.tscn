@@ -33,13 +33,7 @@ directional_shadow_normal_bias = 0.2
 [node name="Navigation" parent="." index="4"]
 preview_material = SubResource( 3 )
 
-[node name="EnemySpawner" type="Node" parent="." index="5"]
-script = ExtResource( 9 )
-enemy_scene = ExtResource( 6 )
-density = 0.01
-max_count = 0
-
-[node name="GenerationManager" parent="." index="6"]
+[node name="GenerationManager" parent="." index="5"]
 world_size_x = 30
 world_size_z = 30
 
@@ -71,9 +65,15 @@ double_door_tile = 14
 pillar_tile = 16
 ceiling_tile = 10
 
-[node name="ItemSpawner" type="Node" parent="." index="7"]
+[node name="ItemSpawner" type="Node" parent="." index="6"]
 script = ExtResource( 16 )
 cultist = ExtResource( 6 )
+
+[node name="EnemySpawner" type="Node" parent="." index="7"]
+script = ExtResource( 9 )
+enemy_scene = ExtResource( 6 )
+density = 0.01
+max_count = 0
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

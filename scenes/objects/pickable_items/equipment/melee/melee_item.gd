@@ -14,7 +14,18 @@ enum WeaponType {
 }
 
 export(WeaponType) var weapon_type : int = 0
-export var melee_damage = 0
+
+# primary and secondary here refer to primary use (L-Click) and secondary use (R-Click)
+export(AttackTypes.Types) var primary_damage_type1 : int = 0
+export var primary_damage1 = 0
+export(AttackTypes.Types) var primary_damage_type2 : int = 0
+export var primary_damage2 = 0
+export(AttackTypes.Types) var secondary_damage_type1 : int = 0
+export var secondary_damage1 = 0
+export(AttackTypes.Types) var secondary_damage_type2 : int = 0
+export var secondary_damage2 = 0
+
+onready var melee_hitbox = $Hitbox as Area
 export var cooldown = 0.01
 
 export var throw_logic : bool
@@ -26,9 +37,6 @@ export var normal_pos_path : NodePath
 onready var normal_pos = get_node(normal_pos_path)
 export var throw_pos_path : NodePath
 onready var throw_pos = get_node(throw_pos_path)
-
-export(AttackTypes.Types) var melee_damage_type : int = 0
-onready var melee_hitbox = $Hitbox as Area
 
 var can_hit = false
 var on_cooldown = false
@@ -137,13 +145,25 @@ func _on_CooldownTimer_timeout() -> void:
 
 func _on_Hitbox_hit(other):
 	if can_hit and other.owner != owner_character and other.owner.has_method("damage"):
-		other.owner.damage(melee_damage, melee_damage_type, other)
+		other.owner.damage(primary_damage1, primary_damage_type1, other)
+		other.owner.damage(primary_damage2, primary_damage_type2, other)
+		other.owner.damage(secondary_damage1, secondary_damage_type1, other)
+		other.owner.damage(secondary_damage1, secondary_damage_type2, other)
 
 
 func _on_Hitbox_body_entered(body):
-	if melee_damage_type == 0:
-		melee_damage / 2
-	else:
-		melee_damage = melee_damage
+	if primary_damage_type1 == 0:
+		primary_damage1 / 2
+	elif primary_damage_type2 == 0:
+		primary_damage2 / 2
+	elif secondary_damage_type1 == 0:
+		secondary_damage1 / 2
+	elif secondary_damage_type2 == 0:
+		secondary_damage2 / 2
+#	else:
+#		melee_damage = melee_damage
 	if body is RigidBody and can_hit == true:
-		body.apply_central_impulse(-character.global_transform.basis.z * melee_damage)
+		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage1)
+		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage2)
+		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage1)
+		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage2)

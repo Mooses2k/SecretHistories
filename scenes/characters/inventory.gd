@@ -16,6 +16,7 @@ signal UpdateHud
 #Emitted to hide the HUD UI when player dies
 signal PlayerDead
 
+
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int= 11
 

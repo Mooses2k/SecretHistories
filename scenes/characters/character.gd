@@ -57,6 +57,16 @@ enum State {
 	STATE_NOCLIP,
 }
 
+enum Animation_state {
+	EQUIPPED,
+	NOT_EQUIPPED,
+}
+
+enum hold_states {
+	GUN_ITEM,
+	MELEE_ITEM,
+	LANTERN_ITEM,
+}
 const TEXTURE_SOUND_LIB = {
 	"checkerboard" : {
 		"amplifier" : 5.0,
@@ -136,7 +146,9 @@ var do_jump : bool = false
 var do_crouch : bool = false
 var low_kick : bool = false
 
+var mainhand_animation = Animation_state.NOT_EQUIPPED
 
+var current_mainhand_item_animation = hold_states.MELEE_ITEM
 
 #func _integrate_forces(state):
 #	handle_elevation(state)
@@ -469,47 +481,67 @@ func apply_Kick():
 		animation_tree.set("parameters/Low_Kick/active",true)
 	else:
 		animation_tree.set("parameters/High_kick/active",true)
+		
+		
 func check_state_animation(delta):
 	
 	var forwards_velocity = -global_transform.basis.z.dot(velocity)
 	var sideways_velocity = global_transform.basis.x.dot(velocity)
 	
-	if state == State.STATE_CROUCHING:
-		animation_tree.set("parameters/state/current",2)
+	if current_mainhand_item_animation == hold_states.MELEE_ITEM:
 		
-		
-	if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
-		animation_tree.set("parameters/state/current",0)
-		
-	elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
-		animation_tree.set("parameters/state/current",4)
-		
-	elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
-		animation_tree.set("parameters/state/current",1)
-		animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
-		
-	elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
-		animation_tree.set("parameters/state/current",5)
-		animation_tree.set("parameters/crouch_strafe/blend_position",  Vector2(sideways_velocity, forwards_velocity))
-		
-	elif not move_dir == Vector3.ZERO and  do_sprint == true:
-		animation_tree.set("parameters/state/current",2)
-		
-		
-	if !grounded and !$"%GroundCheck".is_colliding():
-		animation_tree.set("parameters/Falling/active",true)
-	else:
-		animation_tree.set("parameters/Falling/active",false)
+		if state == State.STATE_CROUCHING:
+			animation_tree.set("parameters/Equipped_state/current",1)
+			animation_tree.set("parameters/Normal_state/current",4)
+			
+			
+			
+		if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			animation_tree.set("parameters/Equipped_state/current",1)
+			animation_tree.set("parameters/Normal_state/current",0)
+			
+		elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+			animation_tree.set("parameters/Equipped_state/current",1)
+			animation_tree.set("parameters/Normal_state/current",4)
+			
+		elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
+			animation_tree.set("parameters/Equipped_state/current",1)
+			animation_tree.set("parameters/Normal_state/current",1)
+			animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
+			
+		elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
+			animation_tree.set("parameters/Equipped_state/current",1)
+			animation_tree.set("parameters/Normal_state/current",5)
+			animation_tree.set("parameters/crouch_strafe/blend_position",  Vector2(sideways_velocity, forwards_velocity))
+			
+		elif not move_dir == Vector3.ZERO and  do_sprint == true:
+			animation_tree.set("parameters/Equipped_state/current",1)
+			animation_tree.set("parameters/Normal_state/current",2)
+			
+			
+		if !grounded and !$"%GroundCheck".is_colliding():
+			animation_tree.set("parameters/Falling/active",true)
+		else:
+			animation_tree.set("parameters/Falling/active",false)
+
+
 
 func check_curent_weapon():
-		var main_hand_object= inventory.current_mainhand_slot
+		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
+		
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
 			
 			if inventory.hotbar[main_hand_object].item_size == 0:
 				print("Carried Small Gun")
 			else:
 				print("Carried large gun")
+				
+		elif  inventory.hotbar[main_hand_object] is LanternItem  or inventory.hotbar[off_hand_object] is LanternItem:
+			print("Carried Lantern")
+		elif  inventory.hotbar[main_hand_object] is MeleeItem  or inventory.hotbar[off_hand_object] is MeleeItem:
+			print("Melee Item")
+
 
 func change_stamina(amount: float) -> void:
 	stamina = min(600, max(0, stamina + amount));

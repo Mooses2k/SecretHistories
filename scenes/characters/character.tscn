@@ -1,4 +1,4 @@
-[gd_scene load_steps=172 format=2]
+[gd_scene load_steps=222 format=2]
 
 [ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -1061,6 +1061,44 @@ radius = 0.6
 [sub_resource type="Animation" id=86]
 length = 0.001
 
+[sub_resource type="AnimationNodeTransition" id=172]
+input_count = 4
+xfade_time = 0.2
+input_0/name = "ADS_Pistol_Idle"
+input_0/auto_advance = false
+input_1/name = "ADS_Pistol_walk"
+input_1/auto_advance = false
+input_2/name = "ADS_Pistol_Run"
+input_2/auto_advance = false
+input_3/name = "ADS_Pistol_Crouch"
+input_3/auto_advance = false
+
+[sub_resource type="AnimationNodeBlend2" id=182]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeTransition" id=171]
+input_count = 4
+xfade_time = 0.2
+input_0/name = "ADS_Rifle_Idle"
+input_0/auto_advance = false
+input_1/name = "ADS_Rifle_walk"
+input_1/auto_advance = false
+input_2/name = "ADS_Rifle_Run"
+input_2/auto_advance = false
+input_3/name = "ADS_Rifle_Crouch"
+input_3/auto_advance = false
+
+[sub_resource type="AnimationNodeTransition" id=170]
+input_count = 3
+xfade_time = 0.2
+input_0/name = "Rifle_ADS"
+input_0/auto_advance = false
+input_1/name = "Pistol_ADS"
+input_1/auto_advance = false
+input_2/name = "Not_ADS"
+input_2/auto_advance = false
+
 [sub_resource type="AnimationNodeAnimation" id=129]
 animation = "run_forward-loop"
 
@@ -1079,6 +1117,53 @@ input_3/auto_advance = false
 [sub_resource type="AnimationNodeBlend2" id=130]
 filter_enabled = true
 filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeAnimation" id=188]
+animation = "crouch_loop"
+
+[sub_resource type="AnimationNodeAnimation" id=189]
+animation = "crouch_walk_forward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=190]
+animation = "crouch_walk_back-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=191]
+animation = "crouch_walk_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=192]
+animation = "crouch_walk_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=193]
+animation = "crouch_walk_forward_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=194]
+animation = "crouch_walk_back_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=195]
+animation = "crouch_walk_forward_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=196]
+animation = "crouch_walk_back_left-loop"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=187]
+blend_point_0/node = SubResource( 188 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 189 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 190 )
+blend_point_2/pos = Vector2( 0, -1 )
+blend_point_3/node = SubResource( 191 )
+blend_point_3/pos = Vector2( 1, 0 )
+blend_point_4/node = SubResource( 192 )
+blend_point_4/pos = Vector2( -1, 0 )
+blend_point_5/node = SubResource( 193 )
+blend_point_5/pos = Vector2( 1, 1 )
+blend_point_6/node = SubResource( 194 )
+blend_point_6/pos = Vector2( 1, -1 )
+blend_point_7/node = SubResource( 195 )
+blend_point_7/pos = Vector2( -1, 1 )
+blend_point_8/node = SubResource( 196 )
+blend_point_8/pos = Vector2( -1, -1 )
 
 [sub_resource type="AnimationNodeAnimation" id=149]
 animation = "crouch_loop"
@@ -1167,11 +1252,103 @@ animation = "Landing"
 
 [sub_resource type="AnimationNodeOneShot" id=95]
 
+[sub_resource type="AnimationNodeTransition" id=88]
+input_count = 6
+xfade_time = 0.2
+input_0/name = "idle"
+input_0/auto_advance = false
+input_1/name = "walk"
+input_1/auto_advance = false
+input_2/name = "run"
+input_2/auto_advance = false
+input_3/name = "air"
+input_3/auto_advance = false
+input_4/name = "crouch_idle"
+input_4/auto_advance = false
+input_5/name = "crouch_walk"
+input_5/auto_advance = false
+
+[sub_resource type="AnimationNodeBlend2" id=219]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=218]
+
+[sub_resource type="AnimationNodeAnimation" id=201]
+animation = "One_Handed_ADS_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=202]
+animation = "One_Handed_ADS_Idle"
+
+[sub_resource type="AnimationNodeBlend2" id=216]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-f_index.01.L", "rig_deform/Skeleton:DEF-f_index.02.L", "rig_deform/Skeleton:DEF-f_index.03.L", "rig_deform/Skeleton:DEF-f_middle.01.L", "rig_deform/Skeleton:DEF-f_middle.02.L", "rig_deform/Skeleton:DEF-f_middle.03.L", "rig_deform/Skeleton:DEF-f_pinky.01.L", "rig_deform/Skeleton:DEF-f_pinky.02.L", "rig_deform/Skeleton:DEF-f_pinky.03.L", "rig_deform/Skeleton:DEF-f_ring.01.L", "rig_deform/Skeleton:DEF-f_ring.02.L", "rig_deform/Skeleton:DEF-f_ring.03.L", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-forearm.L", "rig_deform/Skeleton:DEF-forearm.L.001", "rig_deform/Skeleton:DEF-hand.L", "rig_deform/Skeleton:DEF-palm.01.L", "rig_deform/Skeleton:DEF-palm.02.L", "rig_deform/Skeleton:DEF-palm.03.L", "rig_deform/Skeleton:DEF-palm.04.L", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-shoulder.L", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-thumb.01.L", "rig_deform/Skeleton:DEF-thumb.02.L", "rig_deform/Skeleton:DEF-thumb.03.L", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R", "rig_deform/Skeleton:DEF-upper_arm.L", "rig_deform/Skeleton:DEF-upper_arm.L.001" ]
+
+[sub_resource type="AnimationNodeAnimation" id=215]
+animation = "run_forward-loop"
+
+[sub_resource type="AnimationNodeBlend2" id=203]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-f_index.01.L", "rig_deform/Skeleton:DEF-f_index.02.L", "rig_deform/Skeleton:DEF-f_index.03.L", "rig_deform/Skeleton:DEF-f_middle.01.L", "rig_deform/Skeleton:DEF-f_middle.02.L", "rig_deform/Skeleton:DEF-f_middle.03.L", "rig_deform/Skeleton:DEF-f_pinky.01.L", "rig_deform/Skeleton:DEF-f_pinky.02.L", "rig_deform/Skeleton:DEF-f_pinky.03.L", "rig_deform/Skeleton:DEF-f_ring.01.L", "rig_deform/Skeleton:DEF-f_ring.02.L", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-forearm.L", "rig_deform/Skeleton:DEF-forearm.L.001", "rig_deform/Skeleton:DEF-hand.L", "rig_deform/Skeleton:DEF-palm.01.L", "rig_deform/Skeleton:DEF-palm.02.L", "rig_deform/Skeleton:DEF-palm.03.L", "rig_deform/Skeleton:DEF-palm.04.L", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-shoulder.L", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-thumb.01.L", "rig_deform/Skeleton:DEF-thumb.02.L", "rig_deform/Skeleton:DEF-thumb.03.L", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R", "rig_deform/Skeleton:DEF-upper_arm.L", "rig_deform/Skeleton:DEF-upper_arm.L.001" ]
+
+[sub_resource type="AnimationNodeAnimation" id=205]
+animation = "One_Handed_ADS_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=206]
+animation = "walk_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=207]
+animation = "walk_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=208]
+animation = "walk_forward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=209]
+animation = "walk_backward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=210]
+animation = "walk_forward_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=211]
+animation = "walk_back_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=212]
+animation = "walk_forward_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=213]
+animation = "walk_back_right-loop"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=204]
+blend_point_0/node = SubResource( 205 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 206 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 207 )
+blend_point_2/pos = Vector2( -1, 0 )
+blend_point_3/node = SubResource( 208 )
+blend_point_3/pos = Vector2( 0, 1 )
+blend_point_4/node = SubResource( 209 )
+blend_point_4/pos = Vector2( 0, -1 )
+blend_point_5/node = SubResource( 210 )
+blend_point_5/pos = Vector2( 1, 1 )
+blend_point_6/node = SubResource( 211 )
+blend_point_6/pos = Vector2( 1, -1 )
+blend_point_7/node = SubResource( 212 )
+blend_point_7/pos = Vector2( -1, 1 )
+blend_point_8/node = SubResource( 213 )
+blend_point_8/pos = Vector2( -1, -1 )
+
 [sub_resource type="AnimationNodeAnimation" id=131]
 animation = "One_Handed_Hip_Idle"
 
 [sub_resource type="AnimationNodeAnimation" id=159]
 animation = "One_Handed_Hip_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=217]
+animation = "One_Handed_ADS_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=214]
+animation = "One_Handed_ADS_Idle"
 
 [sub_resource type="AnimationNodeBlend2" id=161]
 filter_enabled = true
@@ -1204,6 +1381,76 @@ blend_point_3/pos = Vector2( 1, 0 )
 blend_point_4/node = SubResource( 166 )
 blend_point_4/pos = Vector2( -1, 0 )
 
+[sub_resource type="AnimationNodeBlend2" id=186]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeAnimation" id=185]
+animation = "ADS_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=183]
+animation = "ADS_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=184]
+animation = "run_forward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=175]
+animation = "ADS_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=173]
+animation = "ADS_Idle"
+
+[sub_resource type="AnimationNodeBlend2" id=174]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeAnimation" id=177]
+animation = "ADS_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=178]
+animation = "walk_forward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=179]
+animation = "walk_backward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=180]
+animation = "walk_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=181]
+animation = "walk_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=197]
+animation = "walk_forward_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=198]
+animation = "walk_back_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=199]
+animation = "walk_forward_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=200]
+animation = "walk_back_left-loop"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=176]
+blend_point_0/node = SubResource( 177 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 178 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 179 )
+blend_point_2/pos = Vector2( 0, -1 )
+blend_point_3/node = SubResource( 180 )
+blend_point_3/pos = Vector2( 1, 0 )
+blend_point_4/node = SubResource( 181 )
+blend_point_4/pos = Vector2( -1, 0 )
+blend_point_5/node = SubResource( 197 )
+blend_point_5/pos = Vector2( 1, 1 )
+blend_point_6/node = SubResource( 198 )
+blend_point_6/pos = Vector2( 1, -0.9 )
+blend_point_7/node = SubResource( 199 )
+blend_point_7/pos = Vector2( -1, 1 )
+blend_point_8/node = SubResource( 200 )
+blend_point_8/pos = Vector2( -1, -1 )
+
 [sub_resource type="AnimationNodeAnimation" id=134]
 animation = "Hip_Idle"
 
@@ -1213,7 +1460,7 @@ filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.
 
 [sub_resource type="AnimationNodeBlend2" id=147]
 filter_enabled = true
-filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
 
 [sub_resource type="AnimationNodeAnimation" id=137]
 animation = "walk_forward-loop"
@@ -1353,22 +1600,6 @@ animation = "run_forward-loop"
 filter_enabled = true
 filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-brow.B.L", "rig_deform/Skeleton:DEF-brow.B.L.001", "rig_deform/Skeleton:DEF-brow.B.L.002", "rig_deform/Skeleton:DEF-brow.B.L.003", "rig_deform/Skeleton:DEF-brow.B.L.004", "rig_deform/Skeleton:DEF-brow.B.R", "rig_deform/Skeleton:DEF-brow.B.R.001", "rig_deform/Skeleton:DEF-brow.B.R.002", "rig_deform/Skeleton:DEF-brow.B.R.003", "rig_deform/Skeleton:DEF-brow.B.R.004", "rig_deform/Skeleton:DEF-brow.T.L", "rig_deform/Skeleton:DEF-brow.T.L.001", "rig_deform/Skeleton:DEF-brow.T.L.002", "rig_deform/Skeleton:DEF-brow.T.L.003", "rig_deform/Skeleton:DEF-brow.T.R", "rig_deform/Skeleton:DEF-brow.T.R.001", "rig_deform/Skeleton:DEF-brow.T.R.002", "rig_deform/Skeleton:DEF-brow.T.R.003", "rig_deform/Skeleton:DEF-cheek.B.L", "rig_deform/Skeleton:DEF-cheek.B.L.001", "rig_deform/Skeleton:DEF-cheek.B.R", "rig_deform/Skeleton:DEF-cheek.B.R.001", "rig_deform/Skeleton:DEF-cheek.T.L", "rig_deform/Skeleton:DEF-cheek.T.L.001", "rig_deform/Skeleton:DEF-cheek.T.R", "rig_deform/Skeleton:DEF-cheek.T.R.001", "rig_deform/Skeleton:DEF-chin", "rig_deform/Skeleton:DEF-chin.001", "rig_deform/Skeleton:DEF-chin.L", "rig_deform/Skeleton:DEF-chin.R", "rig_deform/Skeleton:DEF-ear.L", "rig_deform/Skeleton:DEF-ear.L.001", "rig_deform/Skeleton:DEF-ear.L.002", "rig_deform/Skeleton:DEF-ear.L.003", "rig_deform/Skeleton:DEF-ear.L.004", "rig_deform/Skeleton:DEF-ear.R", "rig_deform/Skeleton:DEF-ear.R.001", "rig_deform/Skeleton:DEF-ear.R.002", "rig_deform/Skeleton:DEF-ear.R.003", "rig_deform/Skeleton:DEF-ear.R.004", "rig_deform/Skeleton:DEF-eye.L", "rig_deform/Skeleton:DEF-eye.R", "rig_deform/Skeleton:DEF-eye_iris.L", "rig_deform/Skeleton:DEF-eye_iris.R", "rig_deform/Skeleton:DEF-eye_master.L", "rig_deform/Skeleton:DEF-eye_master.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-forehead.L", "rig_deform/Skeleton:DEF-forehead.L.001", "rig_deform/Skeleton:DEF-forehead.L.002", "rig_deform/Skeleton:DEF-forehead.R", "rig_deform/Skeleton:DEF-forehead.R.001", "rig_deform/Skeleton:DEF-forehead.R.002", "rig_deform/Skeleton:DEF-jaw", "rig_deform/Skeleton:DEF-jaw.L", "rig_deform/Skeleton:DEF-jaw.L.001", "rig_deform/Skeleton:DEF-jaw.R", "rig_deform/Skeleton:DEF-jaw.R.001", "rig_deform/Skeleton:DEF-jaw_master", "rig_deform/Skeleton:DEF-lid.B.L", "rig_deform/Skeleton:DEF-lid.B.L.001", "rig_deform/Skeleton:DEF-lid.B.L.002", "rig_deform/Skeleton:DEF-lid.B.L.003", "rig_deform/Skeleton:DEF-lid.B.R", "rig_deform/Skeleton:DEF-lid.B.R.001", "rig_deform/Skeleton:DEF-lid.B.R.002", "rig_deform/Skeleton:DEF-lid.B.R.003", "rig_deform/Skeleton:DEF-lid.T.L", "rig_deform/Skeleton:DEF-lid.T.L.001", "rig_deform/Skeleton:DEF-lid.T.L.002", "rig_deform/Skeleton:DEF-lid.T.L.003", "rig_deform/Skeleton:DEF-lid.T.R", "rig_deform/Skeleton:DEF-lid.T.R.001", "rig_deform/Skeleton:DEF-lid.T.R.002", "rig_deform/Skeleton:DEF-lid.T.R.003", "rig_deform/Skeleton:DEF-lip.B.L", "rig_deform/Skeleton:DEF-lip.B.L.001", "rig_deform/Skeleton:DEF-lip.B.R", "rig_deform/Skeleton:DEF-lip.B.R.001", "rig_deform/Skeleton:DEF-lip.T.L", "rig_deform/Skeleton:DEF-lip.T.L.001", "rig_deform/Skeleton:DEF-lip.T.R", "rig_deform/Skeleton:DEF-lip.T.R.001", "rig_deform/Skeleton:DEF-nose", "rig_deform/Skeleton:DEF-nose.001", "rig_deform/Skeleton:DEF-nose.002", "rig_deform/Skeleton:DEF-nose.003", "rig_deform/Skeleton:DEF-nose.004", "rig_deform/Skeleton:DEF-nose.L", "rig_deform/Skeleton:DEF-nose.L.001", "rig_deform/Skeleton:DEF-nose.R", "rig_deform/Skeleton:DEF-nose.R.001", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-teeth.B", "rig_deform/Skeleton:DEF-teeth.T", "rig_deform/Skeleton:DEF-temple.L", "rig_deform/Skeleton:DEF-temple.R", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R", "rig_deform/Skeleton:DEF-tongue", "rig_deform/Skeleton:DEF-tongue.001", "rig_deform/Skeleton:DEF-tongue.002" ]
 
-[sub_resource type="AnimationNodeTransition" id=88]
-input_count = 6
-xfade_time = 0.2
-input_0/name = "idle"
-input_0/auto_advance = false
-input_1/name = "walk"
-input_1/auto_advance = false
-input_2/name = "run"
-input_2/auto_advance = false
-input_3/name = "air"
-input_3/auto_advance = false
-input_4/name = "crouch_idle"
-input_4/auto_advance = false
-input_5/name = "crouch_walk"
-input_5/auto_advance = false
-
 [sub_resource type="AnimationNodeAnimation" id=96]
 animation = "idle-loop"
 
@@ -1417,17 +1648,27 @@ blend_point_8/node = SubResource( 105 )
 blend_point_8/pos = Vector2( -1, -1 )
 
 [sub_resource type="AnimationNodeBlendTree" id=82]
-graph_offset = Vector2( -1567.19, 1116.31 )
+graph_offset = Vector2( -766.571, 132.569 )
+nodes/ADS_Pistol_state/node = SubResource( 172 )
+nodes/ADS_Pistol_state/position = Vector2( 280, 1920 )
+nodes/ADS_Rifle_Run/node = SubResource( 182 )
+nodes/ADS_Rifle_Run/position = Vector2( 880, 1420 )
+nodes/ADS_Rifle_state/node = SubResource( 171 )
+nodes/ADS_Rifle_state/position = Vector2( 1440, 1100 )
+nodes/ADS_State/node = SubResource( 170 )
+nodes/ADS_State/position = Vector2( 260, 580 )
 nodes/Animation/node = SubResource( 129 )
 nodes/Animation/position = Vector2( -240, 1360 )
 nodes/Big_guns_transition/node = SubResource( 132 )
-nodes/Big_guns_transition/position = Vector2( 260, 780 )
+nodes/Big_guns_transition/position = Vector2( 140, 860 )
 nodes/Blend2/node = SubResource( 130 )
 nodes/Blend2/position = Vector2( 120, 1120 )
+nodes/BlendSpace2D/node = SubResource( 187 )
+nodes/BlendSpace2D/position = Vector2( 1060, 1760 )
 nodes/Crouch_Rifle/node = SubResource( 148 )
 nodes/Crouch_Rifle/position = Vector2( 40, 1440 )
 nodes/Equipped_state/node = SubResource( 126 )
-nodes/Equipped_state/position = Vector2( -60, 420 )
+nodes/Equipped_state/position = Vector2( -60, 240 )
 nodes/Falling/node = SubResource( 124 )
 nodes/Falling/position = Vector2( 1220, 480 )
 nodes/Falling_anim/node = SubResource( 123 )
@@ -1452,14 +1693,52 @@ nodes/Land_anim/node = SubResource( 120 )
 nodes/Land_anim/position = Vector2( 580, 540 )
 nodes/Low_Kick/node = SubResource( 95 )
 nodes/Low_Kick/position = Vector2( 380, 240 )
+nodes/Normal_state/node = SubResource( 88 )
+nodes/Normal_state/position = Vector2( -260, 160 )
+nodes/One_Handed_ADS_Crouch/node = SubResource( 219 )
+nodes/One_Handed_ADS_Crouch/position = Vector2( -300, 2460 )
+nodes/One_Handed_ADS_Crouch_Vector/node = SubResource( 218 )
+nodes/One_Handed_ADS_Crouch_Vector/position = Vector2( -620, 2600 )
+nodes/One_Handed_ADS_Idle/node = SubResource( 201 )
+nodes/One_Handed_ADS_Idle/position = Vector2( -220, 1660 )
+nodes/One_Handed_ADS_Idle_Strafe/node = SubResource( 202 )
+nodes/One_Handed_ADS_Idle_Strafe/position = Vector2( -600, 1780 )
+nodes/One_Handed_ADS_Run/node = SubResource( 216 )
+nodes/One_Handed_ADS_Run/position = Vector2( -220, 2100 )
+nodes/One_Handed_ADS_Run_loop/node = SubResource( 215 )
+nodes/One_Handed_ADS_Run_loop/position = Vector2( -700, 2260 )
+nodes/One_Handed_ADS_Strafe/node = SubResource( 203 )
+nodes/One_Handed_ADS_Strafe/position = Vector2( -220, 1820 )
+nodes/One_Handed_ADS_Strafe_Vector/node = SubResource( 204 )
+nodes/One_Handed_ADS_Strafe_Vector/position = Vector2( -600, 1940 )
 nodes/One_Handed_Idle/node = SubResource( 131 )
 nodes/One_Handed_Idle/position = Vector2( -1100, 780 )
 nodes/One_Handed_Idle2/node = SubResource( 159 )
 nodes/One_Handed_Idle2/position = Vector2( -1380, 860 )
+nodes/One_Handed_Idle_ADS_Crouch/node = SubResource( 217 )
+nodes/One_Handed_Idle_ADS_Crouch/position = Vector2( -651.554, 2455.32 )
+nodes/One_Handed_Idle_ADS_Run/node = SubResource( 214 )
+nodes/One_Handed_Idle_ADS_Run/position = Vector2( -700, 2120 )
 nodes/Pistol_strafe/node = SubResource( 161 )
 nodes/Pistol_strafe/position = Vector2( -1020, 900 )
 nodes/Pistol_strafe_vector/node = SubResource( 160 )
 nodes/Pistol_strafe_vector/position = Vector2( -1380, 1000 )
+nodes/Rifle_ADS_Crouch/node = SubResource( 186 )
+nodes/Rifle_ADS_Crouch/position = Vector2( 1300, 1700 )
+nodes/Rifle_ADS_Idle/node = SubResource( 173 )
+nodes/Rifle_ADS_Idle/position = Vector2( 980, 1020 )
+"nodes/Rifle_ADS_Idle _Crouch/node" = SubResource( 185 )
+"nodes/Rifle_ADS_Idle _Crouch/position" = Vector2( 1060, 1580 )
+"nodes/Rifle_ADS_Idle _Run/node" = SubResource( 183 )
+"nodes/Rifle_ADS_Idle _Run/position" = Vector2( 600, 1400 )
+"nodes/Rifle_ADS_Idle _Run_Loop/node" = SubResource( 184 )
+"nodes/Rifle_ADS_Idle _Run_Loop/position" = Vector2( 580, 1580 )
+"nodes/Rifle_ADS_Idle _Walk/node" = SubResource( 175 )
+"nodes/Rifle_ADS_Idle _Walk/position" = Vector2( 720, 1060 )
+nodes/Rifle_ADS_strafe/node = SubResource( 174 )
+nodes/Rifle_ADS_strafe/position = Vector2( 980, 1160 )
+nodes/Rifle_ADS_strafe_vector/node = SubResource( 176 )
+nodes/Rifle_ADS_strafe_vector/position = Vector2( 720, 1180 )
 nodes/Rifle_Idle_walk/node = SubResource( 134 )
 nodes/Rifle_Idle_walk/position = Vector2( -280, 940 )
 nodes/Rifle_Strafe/node = SubResource( 136 )
@@ -1491,11 +1770,9 @@ nodes/small_gun_run/node = SubResource( 168 )
 nodes/small_gun_run/position = Vector2( -1260, 1360 )
 nodes/small_gun_run_blend/node = SubResource( 169 )
 nodes/small_gun_run_blend/position = Vector2( -940, 1080 )
-nodes/state/node = SubResource( 88 )
-nodes/state/position = Vector2( -260, 160 )
 nodes/walk_strafe/node = SubResource( 101 )
 nodes/walk_strafe/position = Vector2( -720, 120 )
-node_connections = [ "state", 0, "idle_anim", "state", 1, "walk_strafe", "state", 2, "run_anim", "state", 3, "air_anim", "state", 4, "crouch_idle", "state", 5, "crouch_strafe", "output", 0, "Falling", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "Transition", 0, "Small_guns_transitions", "Transition", 1, "Big_guns_transition", "Equipped_state", 0, "Transition", "Equipped_state", 1, "state", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Blend2", "Big_guns_transition", 3, "Rifle_crouch", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "Pistol_strafe", "Small_guns_transitions", 2, "small_gun_run_blend", "Pistol_strafe", 0, "One_Handed_Idle2", "Pistol_strafe", 1, "Pistol_strafe_vector", "Blend2", 0, "Hip_ildle_anim", "Blend2", 1, "Animation" ]
+node_connections = [ "output", 0, "Falling", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Transition", "Blend2", 0, "Hip_ildle_anim", "Blend2", 1, "Animation", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_strafe", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "One_Handed_ADS_Strafe", 0, "One_Handed_ADS_Idle_Strafe", "One_Handed_ADS_Strafe", 1, "One_Handed_ADS_Strafe_Vector", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Blend2", "Big_guns_transition", 3, "Rifle_crouch", "Transition", 0, "Small_guns_transitions", "Transition", 1, "Big_guns_transition", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "Rifle_ADS_strafe", 0, "Rifle_ADS_Idle _Walk", "Rifle_ADS_strafe", 1, "Rifle_ADS_strafe_vector", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "Pistol_strafe", "Small_guns_transitions", 2, "small_gun_run_blend", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle", "Pistol_strafe", 0, "One_Handed_Idle2", "Pistol_strafe", 1, "Pistol_strafe_vector", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe" ]
 
 [sub_resource type="Animation" id=117]
 resource_name = "Belt_bob"
@@ -2455,10 +2732,10 @@ bones/170/enabled = true
 bones/170/bound_children = [  ]
 
 [node name="Physical Bone DEF-spine" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 1, -7.81597e-14, -2.13163e-14, -4.29466e-16, -0.24964, -0.968339, 5.68434e-14, 0.968339, -0.24964, 0.00569725, 0.970537, -0.0324162 )
+transform = Transform( 1, -7.81597e-14, -2.13163e-14, -4.29466e-16, -0.24964, -0.968339, 5.68434e-14, 0.968339, -0.24964, 0.00569725, 0.970537, -0.0324155 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45263e-15, -6.48878e-06, 0.0681703 )
-body_offset = Transform( 1, -7.81597e-14, -2.13163e-14, 1.42109e-14, -1.19209e-07, -1, 5.68434e-14, 1, -1.19209e-07, 0, 0.0681703, 6.49691e-06 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45258e-15, -7.17423e-06, 0.0681705 )
+body_offset = Transform( 1, -7.81597e-14, -2.13163e-14, 1.42109e-14, -1.19209e-07, -1, 5.68434e-14, 1, -1.19209e-07, 0, 0.0681705, 7.18236e-06 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine"
@@ -2474,10 +2751,10 @@ transform = Transform( 1, 6.39488e-14, -2.66454e-14, 0, 0.999999, 0, 0, 0, 0.999
 shape = SubResource( 75 )
 
 [node name="Physical Bone DEF-spine001" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 1, 1.81899e-12, -2.61124e-13, -2.56631e-15, -0.122953, -0.992408, 7.10543e-14, 0.992408, -0.122953, 0.00569713, 1.09727, -0.00788177 )
+transform = Transform( 1, 1.98241e-12, -2.81553e-13, -2.56631e-15, -0.122953, -0.992408, 7.10543e-14, 0.992408, -0.122953, 0.00569712, 1.09727, -0.00788177 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22003e-07, 1.36772e-09, 0.0611903 )
-body_offset = Transform( 1, 1.81899e-12, -2.61124e-13, 6.21725e-15, -2.23517e-08, -0.999995, 7.10543e-14, 0.999995, -2.23517e-08, -1.22003e-07, 0.06119, 0 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.32713e-07, 1.36772e-09, 0.0611903 )
+body_offset = Transform( 1, 1.98241e-12, -2.81553e-13, 6.21725e-15, -2.23517e-08, -0.999995, 7.10543e-14, 0.999995, -2.23517e-08, -1.32713e-07, 0.06119, 0 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.001"
@@ -2493,10 +2770,10 @@ transform = Transform( 1, 2.13163e-14, -2.66454e-15, 0, 1, 2.23517e-08, 0, -2.23
 shape = SubResource( 76 )
 
 [node name="Physical Bone DEF-spine002" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 1, -7.81597e-14, -2.22045e-15, -1.93151e-16, 0.0318129, -0.999495, 4.9738e-14, 0.999495, 0.0318129, 0.00569737, 1.23538, -0.00282136 )
+transform = Transform( 1, -7.81597e-14, -2.22045e-15, -1.93151e-16, 0.0318129, -0.999495, 4.9738e-14, 0.999495, 0.0318129, 0.00569738, 1.23538, -0.00282136 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19675e-07, 3.15086e-08, 0.0774242 )
-body_offset = Transform( 1, -7.81597e-14, -2.22045e-15, -1.77636e-15, 2.6077e-08, -1, 4.9738e-14, 1, 2.6077e-08, 1.19675e-07, 0.0774242, -3.35276e-08 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30385e-07, 3.15086e-08, 0.0774242 )
+body_offset = Transform( 1, -7.81597e-14, -2.22045e-15, -1.77636e-15, 2.6077e-08, -1, 4.9738e-14, 1, 2.6077e-08, 1.30385e-07, 0.0774242, -3.35276e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.002"
@@ -2512,10 +2789,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25963e-09, 0.0368584, 0.001
 shape = SubResource( 77 )
 
 [node name="Physical Bone DEF-spine003" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 1, -4.9738e-14, 5.44009e-14, -5.05358e-14, 0.0285608, -0.999594, 5.68434e-14, 0.999594, 0.0285608, 0.00569725, 1.39898, -0.00774802 )
+transform = Transform( 1, -4.9738e-14, 5.9508e-14, -5.05358e-14, 0.0285608, -0.999594, 5.68434e-14, 0.999594, 0.0285608, 0.00569725, 1.39898, -0.00774806 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.67251e-15, 4.55449e-07, 0.0862427 )
-body_offset = Transform( 1, -4.9738e-14, 5.41789e-14, -5.21805e-14, 0, -1, 5.68434e-14, 1, -1.11759e-08, 0, 0.0862427, -4.54485e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.11295e-15, 4.9829e-07, 0.0862427 )
+body_offset = Transform( 1, -4.9738e-14, 5.92859e-14, -5.21805e-14, 0, -1, 5.68434e-14, 1, -1.11759e-08, 0, 0.0862427, -4.97326e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.003"
@@ -2549,10 +2826,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 21 )
 
 [node name="Physical Bone DEF-spine005" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 1, 4.74746e-07, 1.92378e-06, 1.97346e-06, -0.151267, -0.988494, -1.7828e-07, 0.988494, -0.151267, 0.00569742, 1.57451, 0.0168833 )
+transform = Transform( 1, 4.74747e-07, 1.92378e-06, 1.97346e-06, -0.151267, -0.988494, -1.7828e-07, 0.988494, -0.151267, 0.00569742, 1.57451, 0.0168833 )
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.27707e-09, 1.12119e-07, 0.0346406 )
-body_offset = Transform( 1, 4.3201e-12, 1.92378e-06, 1.92378e-06, -6.55651e-07, -1, -3.72324e-12, 1, -6.55651e-07, -6.89179e-08, 0.0346406, -8.9407e-08 )
+body_offset = Transform( 1, 4.88853e-12, 1.92378e-06, 1.92378e-06, -6.55651e-07, -1, -3.72324e-12, 1, -6.55651e-07, -6.89179e-08, 0.0346406, -8.9407e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.005"
@@ -2571,10 +2848,10 @@ transform = Transform( 1, 1.98952e-13, 1.81188e-13, -1.13687e-13, 1, -1.49012e-0
 shape = SubResource( 79 )
 
 [node name="Physical Bone DEF-shoulderL" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 0.473871, -0.0863712, -0.876376, 0.356962, 0.928613, 0.1015, 0.805021, -0.360925, 0.470869, 0.101355, 1.42848, 0.0186738 )
+transform = Transform( 0.473872, -0.0863713, -0.876377, 0.356962, 0.928613, 0.1015, 0.805021, -0.360925, 0.470869, 0.101355, 1.42848, 0.0186738 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.14343e-05, -2.90908e-05, 0.0904456 )
-body_offset = Transform( 0.93411, -0.354944, -0.0385764, -8.9407e-08, 0.108051, -0.994173, 0.35703, 0.928647, 0.10093, 0.00348942, 0.0899217, -0.00909758 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2421e-05, -3.16417e-05, 0.0904453 )
+body_offset = Transform( 0.934111, -0.354944, -0.0385764, -5.96046e-08, 0.108051, -0.994174, 0.35703, 0.928648, 0.10093, 0.00348943, 0.0899218, -0.00909483 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shoulder.L"
@@ -2607,10 +2884,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 25 )
 
 [node name="Physical Bone DEF-upper_armL001" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( -0.0344296, -0.0417456, -0.998528, -0.948215, -0.314288, 0.045835, -0.315741, 0.948407, -0.028764, 0.394341, 1.40945, -0.0177571 )
+transform = Transform( -0.0344296, -0.0417455, -0.998527, -0.948215, -0.314288, 0.045835, -0.315741, 0.948407, -0.0287639, 0.394341, 1.40945, -0.0177571 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.33503e-07, -2.47456e-07, 0.0713459 )
-body_offset = Transform( 0.999994, -9.53674e-07, -6.89179e-08, 3.50177e-07, 7.37607e-07, -0.999993, -2.38419e-07, 0.999997, 1.2666e-07, 2.38419e-07, 0.0713454, 2.38419e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32905e-07, -2.47589e-07, 0.0713459 )
+body_offset = Transform( 0.999994, -8.9407e-07, -7.72998e-08, 3.3807e-07, 8.06525e-07, -0.999993, -2.68221e-07, 0.999996, 1.28523e-07, 2.38419e-07, 0.0713454, 2.38419e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.L.001"
@@ -2625,10 +2902,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 26 )
 
 [node name="Physical Bone DEF-forearmL" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( -0.0348729, -0.0630529, -0.9974, -0.951505, -0.303137, 0.0524316, -0.305655, 0.95086, -0.0494244, 0.533388, 1.40259, -0.0123535 )
+transform = Transform( -0.0348729, -0.0630529, -0.9974, -0.951505, -0.303137, 0.0524316, -0.305655, 0.95086, -0.0494244, 0.533387, 1.40259, -0.0123544 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65486e-05, 4.2425e-07, 0.0679849 )
-body_offset = Transform( 1, 8.9407e-08, -5.15953e-07, -8.07457e-07, 3.72529e-07, -1, 3.27826e-07, 1, 3.35276e-07, 2.65837e-05, 0.0679849, -4.47035e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86944e-05, 6.32867e-07, 0.0679837 )
+body_offset = Transform( 1, 8.9407e-08, -5.15953e-07, -8.07457e-07, 3.72529e-07, -1, 3.27826e-07, 1, 3.35276e-07, 2.87294e-05, 0.0679837, -6.55651e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-forearm.L"
@@ -2645,8 +2922,8 @@ shape = SubResource( 27 )
 [node name="Physical Bone DEF-forearmL001" type="PhysicalBone" parent="Body/Skeleton"]
 transform = Transform( -0.0342762, -0.0633797, -0.997397, -0.948604, -0.312097, 0.0524318, -0.314607, 0.947936, -0.0494244, 0.669032, 1.39549, -0.0056234 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48535e-06, 4.43742e-07, 0.0679946 )
-body_offset = Transform( 1, 1.2219e-06, -8.06525e-07, -2.12342e-07, -3.50177e-07, -0.999997, 2.68221e-07, 1, 4.84288e-08, -1.43051e-06, 0.0679944, -4.47035e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48877e-06, 4.45008e-07, 0.0679946 )
+body_offset = Transform( 1, 1.2219e-06, -8.56817e-07, -2.12342e-07, -3.46452e-07, -0.999997, 2.68221e-07, 1, 2.98023e-08, -1.43051e-06, 0.0679944, -4.47035e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-forearm.L.001"
@@ -2663,7 +2940,7 @@ shape = SubResource( 28 )
 [node name="Physical Bone DEF-handL" type="PhysicalBone" parent="Body/Skeleton"]
 transform = Transform( -0.197002, 0.287713, -0.937236, 0.977503, -0.0158735, -0.210338, -0.0753936, -0.957586, -0.278113, 0.784723, 1.40267, 0.0119436 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.47035e-08, 2.98023e-07, 0.0510809 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.56348e-08, 2.96161e-07, 0.0510809 )
 body_offset = Transform( -0.911478, 0.372301, 0.17494, 9.12696e-08, 0.425279, -0.905063, -0.411354, -0.824942, -0.387631, -0.00893617, 0.0462313, 0.0198008 )
 mass = 0.2
 weight = 1.96
@@ -2681,8 +2958,8 @@ shape = SubResource( 80 )
 [node name="Physical Bone DEF-shoulderR" type="PhysicalBone" parent="Body/Skeleton"]
 transform = Transform( 0.473861, 0.0863736, 0.876364, -0.356969, 0.928609, 0.101499, -0.805005, -0.360927, 0.470859, -0.0899601, 1.42848, 0.0186741 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.11065e-05, -2.91895e-05, 0.0904462 )
-body_offset = Transform( 0.934091, 0.354947, 0.0385784, 9.83477e-07, 0.10805, -0.994157, -0.357037, 0.928643, 0.100929, -0.00348929, 0.0899209, -0.00909758 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.20932e-05, -3.17479e-05, 0.090446 )
+body_offset = Transform( 0.934091, 0.354947, 0.0385784, 9.83477e-07, 0.10805, -0.994157, -0.357037, 0.928644, 0.100929, -0.00348929, 0.0899209, -0.00909483 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shoulder.R"
@@ -2717,8 +2994,8 @@ shape = SubResource( 41 )
 [node name="Physical Bone DEF-upper_armR001" type="PhysicalBone" parent="Body/Skeleton"]
 transform = Transform( -0.0344326, 0.0417442, 0.998535, 0.948222, -0.314291, 0.045837, 0.315743, 0.94841, -0.0287617, -0.382947, 1.40945, -0.0177583 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.12955e-08, 7.71811e-08, 0.0713448 )
-body_offset = Transform( 1, -7.15256e-07, 9.99309e-07, 9.83477e-07, 2.36556e-07, -1, 5.96046e-08, 1, 1.71363e-07, 0, 0.0713448, -8.9407e-08 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.12954e-08, 7.71811e-08, 0.0713448 )
+body_offset = Transform( 1, -7.15256e-07, 9.99309e-07, 9.73232e-07, 2.36556e-07, -1, 5.96046e-08, 1, 1.71363e-07, 0, 0.0713448, -8.9407e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.R.001"
@@ -2733,10 +3010,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 42 )
 
 [node name="Physical Bone DEF-forearmR" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( -0.0348714, 0.063054, 0.997399, 0.951507, -0.303126, 0.0524312, 0.305653, 0.950864, -0.0494264, -0.522005, 1.40262, -0.0123456 )
+transform = Transform( -0.0348714, 0.063054, 0.997399, 0.951507, -0.303126, 0.0524312, 0.305653, 0.950865, -0.0494264, -0.522005, 1.40262, -0.0123456 )
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.01513e-07, -1.32126e-07, 0.067994 )
-body_offset = Transform( 1, 1.17123e-05, -6.45407e-07, -1.11479e-06, 1.30385e-07, -0.999999, -2.95043e-06, 1, 1.8999e-07, -3.57628e-07, 0.0679939, 1.19209e-07 )
+body_offset = Transform( 1, 1.2517e-05, -6.45407e-07, -1.12597e-06, 1.45286e-07, -0.999999, -3.03984e-06, 1, 1.8999e-07, -3.57628e-07, 0.0679939, 1.19209e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-forearm.R"
@@ -2769,10 +3046,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 44 )
 
 [node name="Physical Bone DEF-handR" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( -0.196999, -0.28771, 0.937237, -0.977514, -0.0158671, -0.210336, 0.0753912, -0.957599, -0.278114, -0.77333, 1.40267, 0.0119436 )
+transform = Transform( -0.196999, -0.28771, 0.937237, -0.977514, -0.0158672, -0.210336, 0.0753912, -0.957599, -0.278114, -0.77333, 1.40267, 0.0119436 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.09902e-07, 7.61822e-07, 0.0510817 )
-body_offset = Transform( -0.911489, -0.372298, -0.174938, -4.67245e-06, 0.425279, -0.905063, 0.411353, -0.824957, -0.387633, 0.00893724, 0.0462318, 0.0198012 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.18284e-07, 7.54371e-07, 0.0510817 )
+body_offset = Transform( -0.911489, -0.372298, -0.174938, -4.6771e-06, 0.425279, -0.905063, 0.411353, -0.824957, -0.387633, 0.00893724, 0.0462318, 0.0198012 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-hand.R"
@@ -2787,10 +3064,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 81 )
 
 [node name="Physical Bone DEF-pelvisL" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 0.0103967, -0.609805, -0.792474, -0.578526, 0.64275, -0.502172, 0.815598, 0.463693, -0.346099, 0.0495841, 0.932337, -0.0302736 )
+transform = Transform( 0.0103968, -0.609805, -0.792473, -0.578527, 0.64275, -0.502172, 0.815598, 0.463693, -0.346099, 0.0495841, 0.932337, -0.0302736 )
 joint_type = 3
-joint_offset = Transform( 0.815599, 0.578524, 0.010397, 0.463692, -0.642751, -0.609803, -0.346104, 0.502175, -0.792486, 3.53903e-08, -2.06754e-07, 0.0553797 )
-body_offset = Transform( 0.859965, 0.479616, 0.17444, -1.49012e-07, 0.341802, -0.939761, -0.510354, 0.808171, 0.293932, -0.00966036, 0.0520437, -0.0162777 )
+joint_offset = Transform( 0.815599, 0.578524, 0.010397, 0.463692, -0.642751, -0.609803, -0.346104, 0.502175, -0.792486, 1.86265e-08, -1.91852e-07, 0.0553797 )
+body_offset = Transform( 0.859965, 0.479616, 0.17444, -1.49012e-07, 0.341802, -0.93976, -0.510354, 0.808171, 0.293931, -0.00966036, 0.0520437, -0.0162777 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-pelvis.L"
@@ -2811,7 +3088,7 @@ transform = Transform( 0.815599, 0.578524, 0.010397, 0.463692, -0.642751, -0.609
 [node name="Physical Bone DEF-thighL" type="PhysicalBone" parent="Body/Skeleton"]
 transform = Transform( 0.891998, -0.443383, -0.088044, 0.0445856, -0.107528, 0.9932, -0.449835, -0.88986, -0.0761443, 0.104087, 0.840398, -0.00192559 )
 joint_type = 3
-joint_offset = Transform( -0.891998, 0.0445849, 0.449835, 0.443382, -0.107527, 0.889859, 0.0880437, 0.993203, 0.0761457, 8.18003e-08, -8.29689e-09, 0.120569 )
+joint_offset = Transform( -0.891998, 0.0445849, 0.449835, 0.443382, -0.107527, 0.889859, 0.0880437, 0.993203, 0.0761457, 8.18004e-08, -8.29691e-09, 0.120569 )
 body_offset = Transform( 1, -2.14577e-06, -1.2964e-06, -7.63685e-07, 9.38773e-07, -0.999998, 5.96046e-08, 1, 4.39584e-07, 7.45058e-08, 0.120569, -4.47035e-08 )
 mass = 0.2
 weight = 1.96
@@ -2830,7 +3107,7 @@ shape = SubResource( 57 )
 transform = Transform( 0.891998, -0.443384, -0.0880431, 0.0445858, -0.107527, 0.993202, -0.449834, -0.88986, -0.0761443, 0.125317, 0.600894, 0.0164359 )
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94725e-07, -4.92423e-07, 0.120574 )
-body_offset = Transform( 0.999999, -2.35438e-06, -2.71946e-07, -8.56817e-07, -2.5332e-07, -1, -4.17233e-07, 1, -3.65078e-07, -4.61936e-07, 0.120574, 5.36442e-07 )
+body_offset = Transform( 0.999999, -2.35438e-06, -2.71946e-07, -8.45641e-07, -2.5332e-07, -1, -4.17233e-07, 1, -3.65078e-07, -4.61936e-07, 0.120574, 5.36442e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-thigh.L.001"
@@ -2845,10 +3122,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 58 )
 
 [node name="Physical Bone DEF-shinL" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 0.891999, -0.452036, 7.40461e-07, 0.0445859, 0.087981, 0.995118, -0.449833, -0.887648, 0.0986345, 0.135933, 0.379939, 0.0155846 )
+transform = Transform( 0.891999, -0.452036, 7.40506e-07, 0.0445859, 0.087981, 0.995118, -0.449833, -0.887647, 0.0986345, 0.135933, 0.379939, 0.0155846 )
 joint_type = 3
-joint_offset = Transform( -5.25266e-07, 0.40273, 0.915319, -2.11596e-06, 0.91532, -0.402731, -1, -1.05053e-06, -8.94535e-07, -3.48519e-07, 1.57861e-08, 0.101707 )
-body_offset = Transform( 1, -2.08616e-07, -1.40816e-06, -1.04681e-06, 3.72529e-07, -0.999994, -1.19209e-07, 0.999998, -8.19564e-08, 4.91738e-07, 0.101706, -7.45058e-09 )
+joint_offset = Transform( -5.25266e-07, 0.40273, 0.915319, -2.11596e-06, 0.91532, -0.402731, -1, -1.05053e-06, -8.94535e-07, -3.4814e-07, 1.65439e-08, 0.101707 )
+body_offset = Transform( 1, -2.38419e-07, -1.41189e-06, -1.04681e-06, 3.50177e-07, -0.999994, -1.19209e-07, 0.999998, -8.9407e-08, 4.91738e-07, 0.101706, -7.45058e-09 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shin.L"
@@ -2866,10 +3143,10 @@ shape = SubResource( 59 )
 transform = Transform( -5.25266e-07, 0.40273, 0.915319, -2.11596e-06, 0.91532, -0.402731, -1, -1.05053e-06, -8.94535e-07, -0.232341, 0.117743, -2.98023e-07 )
 
 [node name="Physical Bone DEF-shinL001" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 0.891999, -0.452035, 2.7157e-06, 0.0445852, 0.0879816, 0.995124, -0.449834, -0.88765, 0.0986342, 0.135933, 0.17752, -0.00447863 )
+transform = Transform( 0.891999, -0.452035, 2.75549e-06, 0.0445852, 0.0879816, 0.995125, -0.449834, -0.88765, 0.0986342, 0.135933, 0.17752, -0.00447863 )
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.97147e-08, 1.54097e-08, 0.101706 )
-body_offset = Transform( 1, 1.51992e-06, 6.85453e-07, -2.79397e-07, -7.45058e-08, -1, 1.46031e-06, 1, -2.98023e-07, 0, 0.101706, 1.49012e-08 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.50191e-08, 1.38941e-08, 0.101706 )
+body_offset = Transform( 1, 1.51992e-06, 7.37607e-07, -2.79397e-07, -7.45058e-08, -1, 1.46031e-06, 1, -2.83122e-07, 0, 0.101706, 1.49012e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shin.L.001"
@@ -2884,10 +3161,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 60 )
 
 [node name="Physical Bone DEF-footL" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 0.999999, -0.00117084, -2.86038e-06, -0.000990285, -0.847999, 0.529996, -0.000622879, -0.529997, -0.847999, 0.135933, 0.0456345, 0.0345716 )
+transform = Transform( 0.999999, -0.00117084, -2.86172e-06, -0.000990283, -0.847999, 0.529996, -0.000622876, -0.529997, -0.847999, 0.135933, 0.0456345, 0.0345716 )
 joint_type = 3
-joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -8.28873e-08, -9.24438e-08, 0.0578797 )
-body_offset = Transform( 1, 2.98605e-08, -1.39989e-06, -1.3705e-06, 4.47035e-07, -1, -3.65544e-08, 1, 1.49012e-07, 1.63913e-07, 0.0578797, 8.3819e-08 )
+joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -8.28098e-08, -9.24438e-08, 0.0578797 )
+body_offset = Transform( 1, 3.25381e-08, -1.40123e-06, -1.36945e-06, 4.47035e-07, -1, -3.98722e-08, 1, 1.49012e-07, 1.63913e-07, 0.0578797, 8.3819e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-foot.L"
@@ -2905,8 +3182,8 @@ shape = SubResource( 67 )
 [node name="Physical Bone DEF-pelvisR" type="PhysicalBone" parent="Body/Skeleton"]
 transform = Transform( 0.0103912, 0.609802, 0.792485, 0.578523, 0.642758, -0.502174, -0.8156, 0.463692, -0.346106, -0.0381902, 0.932337, -0.0302733 )
 joint_type = 3
-joint_offset = Transform( -0.8156, -0.578522, 0.010392, 0.463688, -0.642753, 0.609805, -0.346106, 0.502175, 0.792484, -3.81842e-08, -4.19095e-08, 0.0553795 )
-body_offset = Transform( 0.859968, -0.479611, -0.174439, 2.38419e-07, 0.341808, -0.939771, 0.510348, 0.808174, 0.29394, 0.00966036, 0.0520441, -0.0162782 )
+joint_offset = Transform( -0.8156, -0.578522, 0.010392, 0.463688, -0.642753, 0.609805, -0.346106, 0.502175, 0.792484, -3.63216e-08, -5.21541e-08, 0.0553795 )
+body_offset = Transform( 0.859968, -0.479611, -0.174439, 2.08616e-07, 0.341808, -0.939771, 0.510348, 0.808174, 0.29394, 0.00966036, 0.0520441, -0.0162782 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-pelvis.R"
@@ -2958,10 +3235,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 64 )
 
 [node name="Physical Bone DEF-shinR" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 0.891999, 0.452037, 1.09722e-07, -0.0445865, 0.0879799, 0.995125, 0.449834, -0.88765, 0.0986328, -0.124539, 0.379938, 0.0155851 )
+transform = Transform( 0.891999, 0.452037, 1.09767e-07, -0.0445865, 0.0879799, 0.995125, 0.449834, -0.88765, 0.0986328, -0.124539, 0.379938, 0.0155851 )
 joint_type = 3
-joint_offset = Transform( -4.09782e-08, -0.5, 0.866026, -7.45058e-09, 0.866025, 0.5, -1, 2.23517e-08, -3.72529e-08, -9.98974e-08, -7.91838e-08, 0.101705 )
-body_offset = Transform( 1, 0, 9.08971e-07, 8.3819e-07, 7.6741e-07, -1, -5.96046e-08, 1, 5.58794e-07, 7.45058e-09, 0.101705, 2.23517e-08 )
+joint_offset = Transform( -4.09782e-08, -0.5, 0.866026, -7.45058e-09, 0.866025, 0.5, -1, 2.23517e-08, -3.72529e-08, -9.95185e-08, -7.99416e-08, 0.101705 )
+body_offset = Transform( 1, 0, 9.05246e-07, 8.3819e-07, 7.6741e-07, -1, -5.96046e-08, 1, 5.66244e-07, 7.45058e-09, 0.101705, 2.23517e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shin.R"
@@ -2994,10 +3271,10 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 66 )
 
 [node name="Physical Bone DEF-footR" type="PhysicalBone" parent="Body/Skeleton"]
-transform = Transform( 0.999999, 0.00117043, 3.29875e-07, 0.000991544, -0.848, 0.529996, 0.000621508, -0.529996, -0.848001, -0.124537, 0.0456329, 0.0345727 )
+transform = Transform( 1, 0.00117043, 3.28536e-07, 0.000991544, -0.848, 0.529996, 0.000621509, -0.529996, -0.848001, -0.124537, 0.0456329, 0.0345727 )
 joint_type = 3
-joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -1.87531e-06, -2.9527e-08, 0.0578799 )
-body_offset = Transform( 1, -1.45519e-09, -2.96044e-07, -2.77418e-07, 8.9407e-08, -1, -1.30385e-08, 1, 5.96046e-08, 1.89245e-06, 0.0578799, 2.6077e-08 )
+joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -2.0466e-06, -2.9527e-08, 0.0578799 )
+body_offset = Transform( 1, -1.45519e-09, -2.97383e-07, -2.76952e-07, 8.9407e-08, -1, -1.37661e-08, 1, 5.96046e-08, 2.06381e-06, 0.0578799, 2.6077e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-foot.R"
@@ -3143,44 +3420,53 @@ unique_name_in_owner = true
 tree_root = SubResource( 82 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/Big_guns_transition/current = 3
+parameters/ADS_Pistol_state/current = 1
+parameters/ADS_Rifle_Run/blend_amount = 0.0
+parameters/ADS_Rifle_state/current = 0
+parameters/ADS_State/current = 1
+parameters/Big_guns_transition/current = 0
 parameters/Blend2/blend_amount = 1.0
+parameters/BlendSpace2D/blend_position = Vector2( 0.99262, -0.991379 )
 parameters/Crouch_Rifle/blend_position = Vector2( 0, 0.0344827 )
-parameters/Equipped_state/current = 0
+parameters/Equipped_state/current = 1
 parameters/Falling/active = false
 parameters/High_kick/active = false
 parameters/Land/active = false
 parameters/Low_Kick/active = false
+parameters/Normal_state/current = 0
+parameters/One_Handed_ADS_Crouch/blend_amount = 0.0
+parameters/One_Handed_ADS_Crouch_Vector/blend_position = Vector2( 0, 0 )
+parameters/One_Handed_ADS_Run/blend_amount = 1.0
+parameters/One_Handed_ADS_Strafe/blend_amount = 0.0
+parameters/One_Handed_ADS_Strafe_Vector/blend_position = Vector2( 0, 1.32759 )
 parameters/Pistol_strafe/blend_amount = 1.0
 parameters/Pistol_strafe_vector/blend_position = Vector2( 0, 0.0172414 )
+parameters/Rifle_ADS_Crouch/blend_amount = 1.0
+parameters/Rifle_ADS_strafe/blend_amount = 1.0
+parameters/Rifle_ADS_strafe_vector/blend_position = Vector2( -0.590406, 0.0344827 )
 parameters/Rifle_Strafe/blend_amount = 1.0
-parameters/Rifle_crouch/blend_amount = 1.0
+parameters/Rifle_crouch/blend_amount = 0.0
 parameters/Rifle_strafe_vector/blend_position = Vector2( 0.001845, 0.0172414 )
 parameters/Small_guns_transitions/current = 2
-parameters/Transition/current = 0
+parameters/Transition/current = 1
 parameters/crouch_strafe/blend_position = Vector2( -0.00552487, -0.0258621 )
 parameters/jump/active = false
 parameters/small_gun_run_blend/blend_amount = 0.0
-parameters/state/current = 0
 parameters/walk_strafe/blend_position = Vector2( 0.000919938, -0.0172414 )
 
 [node name="MainCharGameRig" parent="." instance=ExtResource( 5 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Skeleton" parent="MainCharGameRig/rig_deform" index="0"]
-bones/124/bound_children = [ NodePath("BoneAttachment") ]
-bones/149/bound_children = [ NodePath("MainHandEquipmentRoot") ]
-
 [node name="MainHandEquipmentRoot" type="BoneAttachment" parent="MainCharGameRig/rig_deform/Skeleton" index="4"]
-transform = Transform( -0.922191, 0.0355121, 0.385096, 0.374951, -0.161781, 0.912817, 0.0947177, 0.986187, 0.135878, -0.0533427, 1.06781, 0.297136 )
+transform = Transform( -0.984752, -0.157074, -0.0747755, 0.153488, -0.986805, 0.0515424, -0.0818847, 0.0392793, 0.995867, -0.224907, 0.793318, 0.11988 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="MainCharGameRig/rig_deform/Skeleton/MainHandEquipmentRoot"]
 unique_name_in_owner = true
-transform = Transform( 0.99994, -0.0108555, 0.00118716, 0.0108457, 0.999906, 0.00810014, -0.00127501, -0.00808652, 0.999967, -0.0150313, 0.0714665, 0.00806122 )
+transform = Transform( 0.99994, -0.0108555, 0.00118689, 0.0108457, 0.999905, 0.00810015, -0.00127496, -0.00808646, 0.999965, -0.0290502, 0.0583683, 0.0424626 )
 
 [node name="BoneAttachment" type="BoneAttachment" parent="MainCharGameRig/rig_deform/Skeleton" index="5"]
-transform = Transform( -0.99856, -0.00229643, 0.0535541, 0.018831, -0.95043, 0.310363, 0.0501869, 0.310925, 0.949108, 0.22819, 0.859062, -0.0567005 )
+transform = Transform( -0.987339, 0.143716, 0.0671376, -0.147536, -0.987476, -0.0558851, 0.0582652, -0.0650827, 0.996178, 0.225694, 0.802273, 0.12416 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="MainCharGameRig/rig_deform/Skeleton/BoneAttachment"]

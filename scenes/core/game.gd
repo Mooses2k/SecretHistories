@@ -22,8 +22,8 @@ func _init():
 
 
 func _ready():
+	yield(get_tree().create_timer(1), "timeout")
 	load_level(start_level_scn)
-	pass
 
 
 func load_level(packed : PackedScene):
@@ -43,3 +43,4 @@ func spawn_player():
 	world_root.call_deferred("add_child", self.player)
 	yield(self.player, "ready")
 	self.emit_signal("player_spawned", self.player)
+	LoadScreen.emit_signal("scene_loaded")

@@ -30,6 +30,5 @@ func _ready():
 
 
 func on_scene_loaded():
-	get_tree().paused = false
 	is_loading = false
 	$Label.text = "Click to Continue"

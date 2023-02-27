@@ -13,10 +13,12 @@ func _ready() -> void:
 func setup_loadscreen() -> void:
 	get_tree().current_scene.add_child(loadscreen)
 	move_child(get_tree().current_scene.get_node("/Loading"), 0)
+	get_tree().paused = true
 
 
 func remove_loadscreen() -> void:
 	get_tree().current_scene.remove_child(loadscreen)
+	get_tree().paused = false
 
 
 func change_scene(path) -> void:

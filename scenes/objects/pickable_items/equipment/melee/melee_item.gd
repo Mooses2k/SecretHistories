@@ -12,7 +12,6 @@ enum WeaponType {
 	POLEARM,
 	COUNT
 }
-
 export(WeaponType) var weapon_type : int = 0
 
 # primary and secondary here refer to primary use (L-Click) and secondary use (R-Click)
@@ -138,7 +137,8 @@ func _use_secondary():
 # currently if changed away from and changed back to melee weapon, first swing does nothing
 #
 
-#make sure that this is always connected
+
+# Make sure that this is always connected from each individual weapon's scene
 func _on_CooldownTimer_timeout() -> void:
 	on_cooldown = false
 
@@ -160,8 +160,8 @@ func _on_Hitbox_body_entered(body):
 		secondary_damage1 / 2
 	elif secondary_damage_type2 == 0:
 		secondary_damage2 / 2
-#	else:
-#		melee_damage = melee_damage
+	
+	# This pushes the hit object if it's a RigidBody
 	if body is RigidBody and can_hit == true:
 		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage1)
 		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage2)

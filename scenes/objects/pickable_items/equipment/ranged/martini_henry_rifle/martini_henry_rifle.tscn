@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
@@ -12,7 +12,9 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/effects/martini_audio.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/effects.gd" type="Script" id=12]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=13]
+[ext_resource path="res://resources/sounds/dryfire/171211__brianhanson2nd__dry-fire.wav" type="AudioStream" id=13]
+[ext_resource path="res://resources/sounds/reloading/lever-action/long1.wav" type="AudioStream" id=14]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=15]
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "martini_henry_Mesh_0"
@@ -231,6 +233,18 @@ shape = SubResource( 14 )
 [node name="CollisionShape4" type="CollisionShape" parent="." index="9"]
 transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 0, -3.81922e-07, 1.47639, 2.13242e-07, -3.36236, 16.297, -5.8838e-05 )
 shape = SubResource( 15 )
+
+[node name="Sounds" type="Spatial" parent="." index="10"]
+
+[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
+
+[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
+
+[node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
+stream = ExtResource( 13 )
+
+[node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
+stream = ExtResource( 14 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

@@ -107,6 +107,10 @@ var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 var item_up = false
 
+# For tracking short or long press of cycle_offhand_slot
+var _cycle_offhand_timer : float = 0.0
+var _swap_hands_wait_time : float = 500
+
 
 func _ready():
 	owner.is_to_move = false
@@ -491,7 +495,7 @@ func handle_grab_input(delta : float):
 #		grab_press_length = 0.0
 	if Input.is_action_just_released("interact"):
 		grab_press_length = 0.0
-		if is_grabbing==true:
+		if is_grabbing == true:
 			is_grabbing = false
 			wanna_grab = false
 			interaction_handled = true
@@ -539,8 +543,8 @@ func handle_grab(delta : float):
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
-		var desired_velocity : Vector3 = 32.0*(grab_target_global - grab_object_global)
-		desired_velocity = desired_velocity.normalized()*min(desired_velocity.length(), 2.0)
+		var desired_velocity : Vector3 = 32.0 * (grab_target_global - grab_object_global)
+		desired_velocity = desired_velocity.normalized() * min(desired_velocity.length(), 2.0)
 
 		# Desired velocity follows the player character
 		desired_velocity += velocity
@@ -586,9 +590,9 @@ func update_throw_state(delta : float):
 func empty_slot():
 	var inv = character.inventory
 	if inv.hotbar != null:
-		var gun = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
+		var hand = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
-			inv.hotbar[10] = gun
+			inv.hotbar[10] = hand
 
 
 func throw_consumable():
@@ -612,8 +616,8 @@ func handle_inventory(delta : float):
 
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
-		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
+		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in InputMap
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false:
 			if i != inv.current_offhand_slot :
 				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
@@ -621,57 +625,67 @@ func handle_inventory(delta : float):
 				throw_state = ThrowState.IDLE
 				owner.change_equipment_in(true)
 
-	# Offhand slot selection
+	## Offhand slot selection or swap items in hands based on length of press of cycle_offhand_slot
+	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false and _cycle_offhand_timer == 0.0 and is_grabbing == false:
+		_cycle_offhand_timer = Time.get_ticks_msec()
 
-	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
-		var start_slot = inv.current_offhand_slot
-		var new_slot = (start_slot + 1)%inv.hotbar.size()
-		while new_slot != start_slot \
-			and (
-					(
-
-						inv.hotbar[new_slot] != null \
-						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
-					)\
-					or new_slot == inv.current_mainhand_slot \
-					or inv.hotbar[new_slot] == null \
-				):
-
-				new_slot = (new_slot + 1)%inv.hotbar.size()
-		if start_slot != new_slot:
-			owner.change_equipment_out(false)
-			yield(owner, "change_off_equipment_out_done")
-			inv.current_offhand_slot = new_slot
-			print("Offhand slot cycled to ", new_slot)
-			throw_state = ThrowState.IDLE
-			owner.change_equipment_in(false)
-
+	if Input.is_action_just_released("cycle_offhand_slot") and GameManager.is_reloading == false:
+		# If it's a long press, swap hands, if not, cycle slot
+		if _cycle_offhand_timer + _swap_hands_wait_time < Time.get_ticks_msec():
+			if _cycle_offhand_timer == 0.0:
+				return
+			# Player intends to swap
+			inv.swap_hands()
+			_cycle_offhand_timer = 0.0
+		# Player intends to cycle slot
+		else:
+			_cycle_offhand_timer = 0.0
+			var start_slot = inv.current_offhand_slot
+			var new_slot = (start_slot + 1)%inv.hotbar.size()
+			while new_slot != start_slot \
+				and (
+						(
+							inv.hotbar[new_slot] != null \
+							and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
+						)\
+						or new_slot == inv.current_mainhand_slot \
+						or inv.hotbar[new_slot] == null \
+					):
+					new_slot = (new_slot + 1)%inv.hotbar.size()
+			if start_slot != new_slot:
+				owner.change_equipment_out(false)
+				yield(owner, "change_off_equipment_out_done")
+				inv.current_offhand_slot = new_slot
+				print("Offhand slot cycled to ", new_slot)
+				throw_state = ThrowState.IDLE
+				owner.change_equipment_in(false)
+	
+	# This annoying hack exists for emptying the offhand slot
 	if Input.is_action_just_pressed("hotbar_11"):
 		if inv.current_offhand_slot != 10:
 			inv.current_offhand_slot = 10
+	
 	## Item Usage
-	if Input.is_action_just_pressed("main_use_primary"):
+	if Input.is_action_just_pressed("main_use_primary") and GameManager.is_reloading == false:
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_primary()
 			throw_state = ThrowState.IDLE
-
-	if Input.is_action_just_pressed("main_use_secondary"):
+	
+	if Input.is_action_just_pressed("main_use_secondary") and GameManager.is_reloading == false:
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_secondary()
 			throw_state = ThrowState.IDLE
-
+	
 	if Input.is_action_just_pressed("reload"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
-#			if inv.get_mainhand_item() is ShotgunItem:
-#				print(inv.get_mainhand_item())
-
-	if Input.is_action_just_pressed("offhand_use"):
+	
+	if Input.is_action_just_pressed("offhand_use") and GameManager.is_reloading == false:
 		if inv.get_offhand_item():
 			inv.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE
-
+	
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = inv.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_offhand_item()
 		if item:
@@ -696,7 +710,7 @@ func handle_inventory(delta : float):
 				else:
 					inv.drop_offhand_item()
 				item.call_deferred("global_translate", result.motion)
-
+	
 	elif throw_state == ThrowState.SHOULD_THROW:
 		var item : EquipmentItem = null
 		if throw_item == ItemSelection.ITEM_MAINHAND:
@@ -760,6 +774,7 @@ func handle_inventory(delta : float):
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
 
+
 func kick():
 	var kick_object = legcast.get_collider()
 
@@ -775,6 +790,7 @@ func kick():
 	elif legcast.is_colliding() and kick_object is RigidBody:
 		if Input.is_action_just_pressed("kick"):
 			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released
@@ -798,7 +814,7 @@ func previous_item():
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 
-	elif  Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot == 0:
+	elif Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot == 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
@@ -808,6 +824,6 @@ func next_item():
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 
-	elif  Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot == 10:
+	elif Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0

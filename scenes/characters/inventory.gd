@@ -17,7 +17,7 @@ signal UpdateHud
 signal PlayerDead
 
 # 0 is 1, 10 is empty_hands
-const HOTBAR_SIZE : int= 11
+const HOTBAR_SIZE : int = 11
 
 # Items tracked exclusively by ammount, don't contribute to weight,
 # don't show in hotbar
@@ -40,6 +40,9 @@ var current_mainhand_equipment : EquipmentItem = null
 # Information about the item equipped on the offhand
 var current_offhand_slot : int = 0 setget set_offhand_slot
 var current_offhand_equipment : EquipmentItem = null
+
+# Are we currently in the middle of swapping hands?
+var are_swapping : bool = false
 
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
@@ -128,7 +131,6 @@ func add_item(item : PickableItem) -> bool:
 				elif current_offhand_slot == slot and not bulky_equipment:
 					equip_offhand_item()
 				
-
 	return true
 
 
@@ -181,7 +183,6 @@ func equip_mainhand_item():
 
 func unequip_mainhand_item():
 	if current_mainhand_equipment == null: # No item equipped
-		
 		return
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
@@ -192,7 +193,6 @@ func unequip_mainhand_item():
 		pass
 	else:
 		item.get_parent().remove_child(item)
-	
 
 
 func equip_bulky_item(item : EquipmentItem):
@@ -209,7 +209,6 @@ func equip_bulky_item(item : EquipmentItem):
 			item.get_parent().remove_child(item)
 		owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
-	pass
 
 
 func drop_bulky_item():
@@ -221,7 +220,6 @@ func drop_bulky_item():
 	emit_signal("bulky_item_changed")
 	item.get_parent().remove_child(item)
 	_drop_item(item)
-	pass
 
 
 func equip_offhand_item():
@@ -242,7 +240,6 @@ func equip_offhand_item():
 			owner.offhand_equipment_root.add_child(item)
 		else:
 			owner.offhand_equipment_root.add_child(item)
-	pass
 
 
 func unequip_offhand_item():
@@ -256,7 +253,6 @@ func unequip_offhand_item():
 		pass
 	else:
 		item.get_parent().remove_child(item)
-	pass
 
 
 func drop_mainhand_item():
@@ -264,7 +260,6 @@ func drop_mainhand_item():
 		drop_bulky_item()
 	else:
 		drop_hotbar_slot(current_mainhand_slot)
-	pass
 
 
 func get_mainhand_item() -> EquipmentItem:
@@ -281,7 +276,6 @@ func has_bulky_item() -> bool:
 
 func drop_offhand_item():
 	drop_hotbar_slot(current_offhand_slot)
-	pass
 
 
 func drop_hotbar_slot(slot : int) -> Node:
@@ -315,11 +309,11 @@ func _drop_item(item : EquipmentItem):
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
-	pass
 
 
 func set_mainhand_slot(value : int):
 	if value != current_mainhand_slot:
+#		if are_swapping == false:
 		unequip_mainhand_item()
 		var previous_slot = current_mainhand_slot
 		current_mainhand_slot = value
@@ -337,6 +331,7 @@ func set_mainhand_slot(value : int):
 func set_offhand_slot(value : int):
 	if value != current_offhand_slot:
 		var previous_slot = current_offhand_slot
+#		if are_swapping == false:
 		unequip_offhand_item()
 		current_offhand_slot = value
 		equip_offhand_item()
@@ -344,13 +339,46 @@ func set_offhand_slot(value : int):
 		emit_signal("UpdateHud")
 
 
+func swap_hands():
+	print("swap hands attempt")
+	# If bulky, don't do anything
+	if bulky_equipment:
+		return
+	# If medium item in mainhand, can't do anything since medium items can't be in offhand
+	if hotbar[current_mainhand_slot] and hotbar[current_mainhand_slot].item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+		return
+	# there's probably a bug in here about light-sources staying lit, relating to unequipping items
+	are_swapping = true
+	var previous_mainhand = current_mainhand_slot
+	var previous_offhand = current_offhand_slot
+	print("Mainhand slot: ", current_mainhand_slot)
+	print("Offhand slot: ", current_offhand_slot)
+
+	# Avoids a bug if offhand is empty when swap where you can't pick anything up anymore after it 
+	if current_offhand_slot == 10:
+		if current_mainhand_slot == 0:
+			previous_offhand = 1
+			set_mainhand_slot(previous_offhand)
+		else:
+			previous_offhand = 0
+			set_mainhand_slot(previous_offhand)
+
+		set_offhand_slot(previous_mainhand)
+		unequip_mainhand_item()
+	
+	else:
+		set_mainhand_slot(previous_offhand)
+		set_offhand_slot(previous_mainhand)
+
+	are_swapping = false
+
+
 func _on_Player_character_died():
 	emit_signal("PlayerDead")
+
 
 func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position :
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
 		$"%Additional_animations".play("Belt_Equip")
-
-

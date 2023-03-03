@@ -8,6 +8,8 @@ var _wood_footstep_sounds : Array = []
 var _carpet_footstep_sounds : Array = []
 var _water_footstep_sounds : Array = []
 var _gravel_footstep_sounds : Array = []
+var _metal_footstep_sounds : Array = []
+var _tile_footstep_sounds : Array = []
 
 var _landing_sounds : Array = []
 var _clamber_sounds : Dictionary = {
@@ -64,6 +66,12 @@ func load_sounds(sound_dir, type : int) -> void:
 				
 				7:
 					_carpet_footstep_sounds.append(load(sound_dir + "/" + sound))
+					
+				8:
+					_metal_footstep_sounds.append(load(sound_dir + "/" + sound))
+					
+				9:
+					_tile_footstep_sounds.append(load(sound_dir + "/" + sound))
 				
 		sound = snd_dir.get_next()
 

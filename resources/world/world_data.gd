@@ -85,6 +85,8 @@ enum SurfaceType {
 	STONE,
 	WATER,
 	GRAVEL,
+	METAL, 
+	TILE
 }
 
 var cell_surface_type : PoolByteArray

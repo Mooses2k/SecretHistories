@@ -45,7 +45,6 @@ func dragging():
 	pos = self.global_transform.origin
 
 
-
 func play_drop_sound(body):
 	if self.item_drop_sound and self.audio_player:
 		if self.audio_player.is_playing():

@@ -136,43 +136,6 @@ var do_jump : bool = false
 var do_crouch : bool = false
 
 
-#func _integrate_forces(state):
-#	handle_elevation(state)
-#	handle_movement(state)
-#	var vertical_velocity = self._current_velocity.y
-#	self._current_velocity.y = 0
-#
-#	self.move_direction.y = 0
-#	self.move_direction = self.move_direction.normalized()*min(1.0, self.move_direction.length())
-#	var target_velocity : Vector3 = self.move_direction*self.move_speed
-#	var velocity_diff = target_velocity - self._current_velocity
-#	var velocity_correction = velocity_diff.normalized()*min(self.acceleration*delta, velocity_diff.length())
-#	self._current_velocity += velocity_correction
-#
-#	self._current_velocity = self.move_and_slide(self._current_velocity, Vector3.UP)
-
-
-#Stays at y = 0, raycast later
-#func handle_elevation(state : PhysicsDirectBodyState):
-#	var diff_correction = -Vector3.UP*state.transform.origin.y*mass/state.step
-#	var speed_correction = -Vector3.UP*state.linear_velocity.y*mass
-#	var gravity_correction = -state.total_gravity*mass*state.step
-#	apply_central_impulse(diff_correction + speed_correction + gravity_correction)
-
-
-#func handle_movement(state : PhysicsDirectBodyState):
-#	var planar_velocity = state.linear_velocity
-#	planar_velocity.y = 0
-#	var target_velocity : Vector3 = character_state.move_direction*move_speed
-#	var velocity_diff = target_velocity - planar_velocity
-#	var velocity_correction = velocity_diff.normalized()*min(acceleration*state.step, velocity_diff.length())
-#	apply_central_impulse(velocity_correction*mass)
-
-
-func slow_down(state : PhysicsDirectBodyState):
-	state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), move_speed)
-
-
 func damage(value : float, type : int, on_hitbox : Hitbox):
 	#queue_free()
 	if self._alive:
@@ -214,13 +177,8 @@ func _physics_process(delta : float):
 		if body is RigidBody:
 			can_stand = false
 
-#	active_mode.update()
-#	movement_basis = active_mode.get_movement_basis()
-#	interaction_target = active_mode.get_interaction_target()
-#	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
 #	current_object = active_mode.get_grab_target()
-	#handle_movement(delta)
 #	handle_grab_input(delta)
 #	handle_grab(delta)
 #	handle_inventory(delta)

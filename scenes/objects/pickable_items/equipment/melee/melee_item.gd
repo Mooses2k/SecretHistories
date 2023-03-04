@@ -36,11 +36,6 @@ var on_cooldown = false
 onready var character = get_parent()
 
 
-func _ready():
-	connect("body_entered", self, "play_drop_sound")
-	pass
-
-
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED:

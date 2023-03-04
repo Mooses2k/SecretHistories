@@ -8,10 +8,6 @@ export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var player=get_node(player_path)
 
 
-func _ready():
-	connect("body_entered", self, "play_drop_sound")
-
-
 func _on_Hitbox_hit(other):
 	pass
 

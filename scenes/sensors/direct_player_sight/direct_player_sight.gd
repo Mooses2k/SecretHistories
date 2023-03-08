@@ -2,6 +2,10 @@ tool
 extends PlayerSensor
 
 
+# Whatever you do, for the love of Cthulhu please don't set Mask 1 for the DirectSightArea
+# You will lag so hard
+
+
 const DetectionArea = preload("res://scenes/sensors/direct_player_sight/direct_sight_area.gd")
 
 export var character : NodePath
@@ -75,7 +79,6 @@ func queue_update():
 func _update():
 	area.update_mesh(FOV, distance)
 	raycast.cast_to.z = -distance
-	pass
 
 
 func _ready():

@@ -22,6 +22,7 @@ func _ready():
 func is_sound_detected() -> bool:
 	if not sensor_up_to_date:
 		update_sensor()
+	
 	return sound_detected
 
 
@@ -51,10 +52,14 @@ func clear_sensor():
 func check_sound_around():
 	if player_inside_listener:
 		if obj_sound_loud_enough(player_body, check_if_behind_wall(player_body), player_near):
+			print("player heared")
+			player_sight_sensor.
 			return player_body.global_transform.origin
 	
 	for item in item_inside_listener:
+		print(item.noise_level)
 		if obj_sound_loud_enough(item, check_if_behind_wall(item), item_is_near(item)):
+			print(str(item.name) + " heared")
 			return item.global_transform.origin
 	
 	return null

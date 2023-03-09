@@ -46,9 +46,9 @@ func _enter_tree():
 
 
 func _process(delta):
-	if noise_level > 0:
+	if self.noise_level > 0:
 		yield(get_tree().create_timer(0.2), "timeout")
-		noise_level = 0
+		self.noise_level = 0
 
 
 func set_item_state(value : int) :

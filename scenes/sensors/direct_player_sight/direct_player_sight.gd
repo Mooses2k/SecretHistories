@@ -24,7 +24,6 @@ var player_seen : bool = false
 var player_close : bool = false
 
 
-
 func is_player_detected() -> bool:
 	if not sensor_up_to_date:
 		update_sensor()

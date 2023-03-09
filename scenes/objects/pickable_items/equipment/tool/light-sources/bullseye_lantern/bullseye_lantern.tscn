@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/tools/light_sources/bullseye_lantern/M_DarkLantern3_Glass.material" type="Material" id=3]
 [ext_resource path="res://resources/models/items/tools/light_sources/bullseye_lantern/M_DarkLantern3.material" type="Material" id=4]
+[ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=6]
 
 [sub_resource type="ArrayMesh" id=5]
 resource_name = "bullseyelamp3_Early 1900s Railroad Oil Lamp Old Metallic True Glass"
@@ -123,6 +125,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
 mass = 0.2
 script = ExtResource( 2 )
 item_name = "Bullseye Lantern"
+can_attach = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 0, 0, 0 )
@@ -137,12 +140,12 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00540176, 0.0626888 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
-wait_time = 300.0
+wait_time = 30000.0
 one_shot = true
+autostart = true
 
 [node name="Light" type="SpotLight" parent="." index="4"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0141766, -0.0777957 )
-visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.5
 shadow_enabled = true
@@ -161,4 +164,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.08
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 9 )
 
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
+stream = ExtResource( 5 )
+
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
+stream = ExtResource( 6 )
+
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/46265__phreaksaccount__coachgun_dry_fire.wav-187c3676b5ce7c4c3b5d200512bff792.sample"
+
+[deps]
+
+source_file="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav"
+dest_files=[ "res://.import/46265__phreaksaccount__coachgun_dry_fire.wav-187c3676b5ce7c4c3b5d200512bff792.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

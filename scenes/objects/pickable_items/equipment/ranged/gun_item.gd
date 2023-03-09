@@ -52,7 +52,7 @@ func shoot():
 	var ammo_type = current_ammo_type as AmmunitionData
 	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0
 	var total_damage : int = damage_offset + ammo_type.damage
-	
+
 	var raycast_range = raycast.cast_to.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)
@@ -84,12 +84,19 @@ func _use_primary():
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 		emit_signal("on_shoot")
+	if (not is_reloading) and (not on_cooldown) and current_ammo == 0:
+		dryfire()
+
+
+func dryfire():
+	$Sounds/Dryfire.play()
 
 
 func _use_reload():
 	reload()
 
 
+# needs more code for revolvers and bolt-actions as they're more complicated
 func reload():
 	if owner_character and current_ammo < ammunition_capacity and not is_reloading:
 		var inventory = owner_character.inventory
@@ -110,6 +117,10 @@ func reload():
 					_queued_reload_type = ammo_type
 					is_reloading = true
 					GameManager.is_reloading = true
+					
+					# eventually randomize which reload sound it uses
+					$Sounds/Reload.play()
+					
 					return
 
 

@@ -72,11 +72,11 @@ func set_setting(setting_name : String, value) -> bool:
 				value is int and type == SettingType.INT):
 				var min_value = get_setting_min_value(setting_name)
 				var max_value = get_setting_max_value(setting_name)
-				
+
 				# Manual clamp to preserve types
 				var new_value = min_value if value < min_value else value
 				new_value = max_value if value > max_value else value
-				
+
 				var old_value = _settings[setting_name][_FIELD_VALUE]
 				_settings[setting_name][_FIELD_VALUE] = new_value
 				emit_signal("setting_changed", setting_name, old_value, new_value)

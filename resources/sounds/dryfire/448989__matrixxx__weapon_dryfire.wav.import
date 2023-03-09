@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/448989__matrixxx__weapon_dryfire.wav-d7e02f86000d3e38f9eecbf33457f089.sample"
+
+[deps]
+
+source_file="res://resources/sounds/dryfire/448989__matrixxx__weapon_dryfire.wav"
+dest_files=[ "res://.import/448989__matrixxx__weapon_dryfire.wav-d7e02f86000d3e38f9eecbf33457f089.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

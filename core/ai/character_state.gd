@@ -10,6 +10,8 @@ var interaction_target : Node = null
 
 var character
 
+var path_needs_update : bool = false
+
 
 func _init(_character):
 	character = _character
@@ -26,6 +28,7 @@ func set_move_direction(value : Vector3):
 	value.y = 0.0
 	move_direction = value.normalized()*min(value.length(), 1.0)
 
+
 func get_path():
 	if path_needs_update:
 		var map = character.get_world().navigation_map
@@ -34,7 +37,6 @@ func get_path():
 		path_needs_update = false
 	return path
 
-var path_needs_update : bool = false
 
 func set_target_position(value : Vector3):
 	var map = character.get_world().navigation_map

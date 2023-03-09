@@ -20,7 +20,7 @@ margin_right = 896.0
 margin_bottom = 536.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
-margin_right = 636.0
+margin_right = 624.0
 margin_bottom = 472.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
@@ -30,28 +30,35 @@ scroll_horizontal_enabled = false
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 636.0
+margin_right = 624.0
 size_flags_horizontal = 3
 custom_constants/separation = 16
 
 [node name="Column4" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 640.0
+margin_left = 628.0
 margin_right = 768.0
 margin_bottom = 472.0
 size_flags_horizontal = 3
 alignment = 2
 
+[node name="LightNotice" type="Label" parent="HBoxContainer/Column4"]
+margin_top = 410.0
+margin_right = 140.0
+margin_bottom = 424.0
+text = "Take at least one light"
+align = 1
+
 [node name="StartGame" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
 margin_top = 428.0
-margin_right = 128.0
+margin_right = 140.0
 margin_bottom = 448.0
 text = "Start Game"
 
 [node name="ReturnButton" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
 margin_top = 452.0
-margin_right = 128.0
+margin_right = 140.0
 margin_bottom = 472.0
 text = "Return"
 

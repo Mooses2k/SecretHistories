@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/363697__pfranzen__kicking-a-door.ogg-6536fb8b84c0eaff4b03cc357e49bbce.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/doors/damage/ineffective/363697__pfranzen__kicking-a-door.ogg"
+dest_files=[ "res://.import/363697__pfranzen__kicking-a-door.ogg-6536fb8b84c0eaff4b03cc357e49bbce.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

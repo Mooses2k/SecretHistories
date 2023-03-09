@@ -18,9 +18,7 @@ func update_mesh(FOV : float, distance : float):
 	_mesh_instance.transform.origin.z = -distance*0.5
 	_collision_shape.shape = _mesh.create_convex_shape()
 	_collision_shape.transform.origin.z = -distance*0.5
-	pass
 
 
 func _ready():
 	_mesh_instance.mesh = _mesh
-	pass # Replace with function body.

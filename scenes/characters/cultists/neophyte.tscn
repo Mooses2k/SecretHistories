@@ -607,6 +607,7 @@ script = ExtResource( 8 )
 
 [node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
 script = ExtResource( 13 )
+listener = NodePath("../../../../../../Body/SoundListener")
 
 [node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
 script = ExtResource( 12 )

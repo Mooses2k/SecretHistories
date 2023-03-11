@@ -13,35 +13,49 @@ var player_inside_listener : bool = false
 var item_inside_listener = []
 var item_too_near = []
 var player_body : Object
+var item_heared : Object
+var sound_was_heared : bool = false
 
 
 func _ready():
+	queue_update()
 	get_tree().connect("idle_frame", self, "clear_sensor")
 
 
+func queue_update():
+	if not is_inside_tree():
+		yield(self, "ready")
+	if not get_tree().is_connected("idle_frame", self, "_update"):
+		get_tree().connect("idle_frame", self, "_update", [], CONNECT_ONESHOT)
+
+
+func _update():
+	set_fov()
+
+
+func set_fov():
+	queue_update()
+
+
 func is_sound_detected() -> bool:
-	if not sensor_up_to_date:
-		update_sensor()
+	if not sound_was_heared:
+		if not sensor_up_to_date:
+			update_sensor()
 	
 	return sound_detected
 
 
 func get_measured_position() -> Vector3:
-	if not sensor_up_to_date:
-		update_sensor()
+	if not sound_was_heared:
+		if not sensor_up_to_date:
+			update_sensor()
 	
 	return sound_position
 
 
 func update_sensor():
 	sound_detected = false
-	
-	var pos = check_sound_around()
-	if pos:
-		sound_position = pos
-		sound_detected = true
-		return
-	
+	check_sound_around()
 	sensor_up_to_date = true
 
 
@@ -51,22 +65,20 @@ func clear_sensor():
 
 func check_sound_around():
 	if player_inside_listener:
-		if obj_sound_loud_enough(player_body, check_if_behind_wall(player_body), player_near):
-			print("player heared")
-			player_sight_sensor.
-			return player_body.global_transform.origin
+		if obj_sound_loud_enough(player_body, check_if_behind_wall(player_body)):
+			sound_detected = true
+			sound_was_heared = true
+			sound_position = player_body.global_transform.origin
 	
 	for item in item_inside_listener:
-		print(item.noise_level)
-		if obj_sound_loud_enough(item, check_if_behind_wall(item), item_is_near(item)):
-			print(str(item.name) + " heared")
-			return item.global_transform.origin
-	
-	return null
+		if obj_sound_loud_enough(item, check_if_behind_wall(item)):
+			sound_detected = true
+			sound_was_heared = true
+			sound_position = item.global_transform.origin
 
 
-func obj_sound_loud_enough(item, behind_wall : bool, is_near : bool):
-	if behind_wall and not is_near:
+func obj_sound_loud_enough(item, behind_wall : bool):
+	if behind_wall:
 		item.noise_level /= 2
 	
 	if item.noise_level >= 4:
@@ -74,14 +86,10 @@ func obj_sound_loud_enough(item, behind_wall : bool, is_near : bool):
 	return false
 
 
-func item_is_near(item):
-	if item_too_near.has(item):
-		return true
-	
-	return false
-
-
 func check_if_behind_wall(obj : Object):
+	if item_too_near.has(obj):
+		return false
+		
 	var space_state = owner.get_world().direct_space_state
 	var result = (space_state.intersect_ray(owner.global_transform.origin + Vector3.UP * 1.5, 
 			obj.global_transform.origin, [owner]))
@@ -112,18 +120,12 @@ func _on_FarSoundDetector_body_exited(body):
 
 
 func _on_PlayerDetector_body_entered(body):
-	if body is Player:
-		player_near = true
-
 	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
 		if not item_too_near.has(body):
 			item_too_near.append(body)
 
 
 func _on_PlayerDetector_body_exited(body):
-	if body is Player:
-		player_near = false
-
 	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
 		if item_too_near.has(body):
 			item_too_near.remove(item_too_near.find(body))

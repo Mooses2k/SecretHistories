@@ -125,7 +125,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
 mass = 0.2
 script = ExtResource( 2 )
 item_name = "Bullseye Lantern"
-can_attach = false
+is_oil_based = true
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 0, 0, 0 )
@@ -139,12 +139,7 @@ shape = SubResource( 6 )
 [node name="HoldPosition" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00540176, 0.0626888 )
 
-[node name="Durability" type="Timer" parent="." index="3"]
-wait_time = 30000.0
-one_shot = true
-autostart = true
-
-[node name="Light" type="SpotLight" parent="." index="4"]
+[node name="Light" type="SpotLight" parent="." index="3"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0141766, -0.0777957 )
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.5
@@ -154,22 +149,21 @@ spot_attenuation = 4.0
 spot_angle = 20.0
 spot_angle_attenuation = 32.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 anims/RESET = SubResource( 7 )
 anims/flicker = SubResource( 8 )
 
-[node name="ignite" parent="." index="6"]
+[node name="ignite" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0843059 )
 
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 9 )
 
-[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="6"]
 stream = ExtResource( 5 )
 
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 6 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

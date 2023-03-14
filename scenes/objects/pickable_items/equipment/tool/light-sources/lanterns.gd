@@ -4,21 +4,24 @@ class_name LanternItem
 
 #var has_ever_been_on = true # starts on
 var is_lit = true # starts on
-
 onready var firelight = $Light
-onready var burn_time = $Durability
 
 
-#func _ready():
-#	burn_time.start()     # done in Inspector
-
-
-func _process(delta):
-
-	if is_lit == true:
-		burn_time.pause_mode = false
+func _ready():
+	self.light_timer.connect("timeout", self, "light_depleted")
+	if self.is_oil_based:
+		self.burn_time = 1800.0
 	else:
-		burn_time.pause_mode = true
+		self.burn_time = 3600.0
+	self.light_timer.set_wait_time(self.burn_time)
+	self.light_timer.start()
+
+
+#func _process(delta):
+#	if is_lit == true:
+#		light_timer.pause_mode = false
+#	else:
+#		light_timer.pause_mode = true
 
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 ##			burn_time.start()   # done in Inspector
@@ -31,19 +34,26 @@ func _process(delta):
 
 
 func light():
-	$AnimationPlayer.play("flicker")
-	$LightSound.play()
-	firelight.visible = true
-	$MeshInstance.cast_shadow = false
-	is_lit = true
+	if not self.is_depleted:
+		$AnimationPlayer.play("flicker")
+		$LightSound.play()
+		firelight.visible = true
+		$MeshInstance.cast_shadow = false
+		
+		is_lit = true
+		self.light_timer.set_wait_time(self.burn_time)
+		self.light_timer.start()
 
 
 func unlight():
-	$AnimationPlayer.stop()
-	$BlowOutSound.play()
-	firelight.visible = false
-	$MeshInstance.cast_shadow = true
-	is_lit = false
+	if not self.is_depleted:
+		$AnimationPlayer.stop()
+		$BlowOutSound.play()
+		firelight.visible = false
+		$MeshInstance.cast_shadow = true
+		
+		is_lit = false
+		self.turnoff_light()
 
 
 func _item_state_changed(previous_state, current_state):
@@ -69,7 +79,3 @@ func _use_primary():
 		light()
 	else:
 		unlight()
-
-
-func _on_Durability_timeout():
-	unlight()

@@ -5,19 +5,21 @@ extends ToolItem
 var is_lit = true
 
 onready var firelight = $FireOrigin/Fire/Light
-onready var burn_time = $Durability
 
 
-#func _ready():
-#	burn_time.start()
+func _ready():
+	self.light_timer.connect("timeout", self, "light_depleted")
+	self.burn_time = 600.0
+	self.light_timer.set_wait_time(self.burn_time)
+	self.light_timer.start()
 
 
-func _process(delta):
-	if is_lit == true:
-		burn_time.pause_mode = false
-	else:
-		burn_time.pause_mode = true
-
+#func _process(delta):
+#	if is_lit == true:
+#		light_timer.pause_mode = false
+#	else:
+#		light_timer.pause_mode = true
+#	
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 #			burn_time.start()
 #			has_ever_been_on = true
@@ -33,27 +35,34 @@ func _process(delta):
 
 
 func light():
-	$AnimationPlayer.play("flicker")
-	$Sounds/LightSound.play()
-	$Sounds/Burning.play()
-	$FireOrigin/Fire.emitting = true
-	$FireOrigin/EmberDrip.emitting = true
-	$FireOrigin/Smoke.emitting = true
-	firelight.visible = true
-	$MeshInstance.cast_shadow = false
-	is_lit = true
+	if not self.is_depleted:
+		$AnimationPlayer.play("flicker")
+		$Sounds/LightSound.play()
+		$Sounds/Burning.play()
+		$FireOrigin/Fire.emitting = true
+		$FireOrigin/EmberDrip.emitting = true
+		$FireOrigin/Smoke.emitting = true
+		firelight.visible = true
+		$MeshInstance.cast_shadow = false
+		
+		is_lit = true
+		self.light_timer.set_wait_time(self.burn_time)
+		self.light_timer.start()
 
 
 func unlight():
-	$AnimationPlayer.stop()
-	$Sounds/BlowOutSound.play()
-	$Sounds/Burning.stop()
-	$FireOrigin/Fire.emitting = false
-	$FireOrigin/EmberDrip.emitting = false
-	$FireOrigin/Smoke.emitting = false
-	firelight.visible = false
-	$MeshInstance.cast_shadow = true
-	is_lit = false
+	if not self.is_depleted:
+		$AnimationPlayer.stop()
+		$Sounds/BlowOutSound.play()
+		$Sounds/Burning.stop()
+		$FireOrigin/Fire.emitting = false
+		$FireOrigin/EmberDrip.emitting = false
+		$FireOrigin/Smoke.emitting = false
+		firelight.visible = false
+		$MeshInstance.cast_shadow = true
+		
+		is_lit = false
+		self.turnoff_light()
 
 
 func _item_state_changed(previous_state, current_state):
@@ -71,7 +80,3 @@ func _use_primary():
 		light()
 	else:
 		unlight()
-
-
-func _on_Durability_timeout():
-	unlight()

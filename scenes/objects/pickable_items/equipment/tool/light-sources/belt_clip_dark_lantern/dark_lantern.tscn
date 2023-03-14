@@ -112,6 +112,7 @@ mass = 0.2
 script = ExtResource( 2 )
 can_attach = true
 item_name = "Dark Lantern"
+is_oil_based = true
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, 0, 0 )
@@ -125,12 +126,7 @@ shape = SubResource( 2 )
 [node name="HoldPosition" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0335044, 0.0744317 )
 
-[node name="Durability" type="Timer" parent="." index="3"]
-wait_time = 30000.0
-one_shot = true
-autostart = true
-
-[node name="Light" type="SpotLight" parent="." index="4"]
+[node name="Light" type="SpotLight" parent="." index="3"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0253519, -0.0870413 )
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.5
@@ -140,22 +136,19 @@ spot_attenuation = 4.0
 spot_angle = 20.0
 spot_angle_attenuation = 32.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 anims/RESET = SubResource( 3 )
 anims/flicker = SubResource( 4 )
 
-[node name="ignite" parent="." index="6"]
+[node name="ignite" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0755849 )
 
 [node name="CollisionShape" parent="ignite" index="0"]
 shape = SubResource( 5 )
 
-[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="6"]
 stream = ExtResource( 3 )
 
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 5 )
-
-[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -8,10 +8,11 @@ onready var firelight = $FireOrigin/Fire/Light
 
 
 func _ready():
-	self.light_timer.connect("timeout", self, "light_depleted")
-	self.burn_time = 600.0
-	self.light_timer.set_wait_time(self.burn_time)
-	self.light_timer.start()
+	light_timer = $Timer
+	light_timer.connect("timeout", self, "light_depleted")
+	burn_time = 600.0
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
 
 
 #func _process(delta):
@@ -35,7 +36,7 @@ func _ready():
 
 
 func light():
-	if not self.is_depleted:
+	if not is_depleted:
 		$AnimationPlayer.play("flicker")
 		$Sounds/LightSound.play()
 		$Sounds/Burning.play()
@@ -46,12 +47,12 @@ func light():
 		$MeshInstance.cast_shadow = false
 		
 		is_lit = true
-		self.light_timer.set_wait_time(self.burn_time)
-		self.light_timer.start()
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
 
 
 func unlight():
-	if not self.is_depleted:
+	if not is_depleted:
 		$AnimationPlayer.stop()
 		$Sounds/BlowOutSound.play()
 		$Sounds/Burning.stop()
@@ -62,7 +63,7 @@ func unlight():
 		$MeshInstance.cast_shadow = true
 		
 		is_lit = false
-		self.turnoff_light()
+		stop_light_timer()
 
 
 func _item_state_changed(previous_state, current_state):

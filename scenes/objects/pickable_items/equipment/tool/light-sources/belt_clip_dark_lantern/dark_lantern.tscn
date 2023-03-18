@@ -113,6 +113,8 @@ script = ExtResource( 2 )
 can_attach = true
 item_name = "Dark Lantern"
 is_oil_based = true
+life_percentage_lose = 0.1
+prob_going_out = 0.5
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, 0, 0 )

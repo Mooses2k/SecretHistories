@@ -8,13 +8,18 @@ onready var firelight = $Light
 
 
 func _ready():
-	self.light_timer.connect("timeout", self, "light_depleted")
-	if self.is_oil_based:
-		self.burn_time = 1800.0
+	light_timer = $Timer
+	
+	light_timer.connect("timeout", self, "light_depleted")
+	if is_oil_based:
+		burn_time = 1800.0
 	else:
-		self.burn_time = 3600.0
-	self.light_timer.set_wait_time(self.burn_time)
-	self.light_timer.start()
+		burn_time = 3600.0
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
+	
+	if self.name == "BullseyeLantern":
+		print("burn time is = " + str(burn_time))
 
 
 #func _process(delta):
@@ -34,26 +39,26 @@ func _ready():
 
 
 func light():
-	if not self.is_depleted:
+	if not is_depleted:
 		$AnimationPlayer.play("flicker")
 		$LightSound.play()
 		firelight.visible = true
 		$MeshInstance.cast_shadow = false
 		
 		is_lit = true
-		self.light_timer.set_wait_time(self.burn_time)
-		self.light_timer.start()
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
 
 
 func unlight():
-	if not self.is_depleted:
+	if not is_depleted:
 		$AnimationPlayer.stop()
 		$BlowOutSound.play()
 		firelight.visible = false
 		$MeshInstance.cast_shadow = true
 		
 		is_lit = false
-		self.turnoff_light()
+		stop_light_timer()
 
 
 func _item_state_changed(previous_state, current_state):

@@ -195,6 +195,8 @@ continuous_cd = false
 script = ExtResource( 3 )
 can_attach = false
 item_name = "Candle"
+life_percentage_lose = 0.2
+prob_going_out = 0.9
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 0, 0 )

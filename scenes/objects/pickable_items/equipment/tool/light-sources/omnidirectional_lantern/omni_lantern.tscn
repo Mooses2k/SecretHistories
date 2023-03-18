@@ -126,6 +126,8 @@ mass = 0.2
 script = ExtResource( 3 )
 item_name = "Oil Lantern"
 is_oil_based = true
+life_percentage_lose = 0.1
+prob_going_out = 0.5
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )

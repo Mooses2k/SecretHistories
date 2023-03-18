@@ -11,10 +11,12 @@ onready var firelight = $FireOrigin/Fire/Light
 
 
 func _ready():
-	self.light_timer.connect("timeout", self, "light_depleted")
-	self.burn_time = 3600.0
-	self.light_timer.set_wait_time(self.burn_time)
-	self.light_timer.start()
+	light_timer = $Timer
+	light_timer.connect("timeout", self, "light_depleted")
+	burn_time = 3600.0
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
+	
 	material = $MeshInstance.get_surface_material(0)
 	new_material = material.duplicate()
 	$MeshInstance.set_surface_material(0,new_material)
@@ -40,7 +42,7 @@ func _ready():
 
 
 func light():
-	if not self.is_depleted:
+	if not is_depleted:
 		$AnimationPlayer.play("flicker")
 		$LightSound.play()
 	#	$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
@@ -50,12 +52,12 @@ func light():
 		$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled
 		
 		is_lit = true
-		self.light_timer.set_wait_time(self.burn_time)
-		self.light_timer.start()
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
 
 
 func unlight():
-	if not self.is_depleted:
+	if not is_depleted:
 		$AnimationPlayer.stop()
 		$BlowOutSound.play()
 		$MeshInstance.get_surface_material(0).emission_enabled = false
@@ -65,7 +67,7 @@ func unlight():
 		$MeshInstance.cast_shadow = true
 		
 		is_lit = false
-		self.turnoff_light()
+		stop_light_timer()
 
 
 func _use_primary():

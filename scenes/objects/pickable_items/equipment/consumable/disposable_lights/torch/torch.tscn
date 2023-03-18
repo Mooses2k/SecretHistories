@@ -184,6 +184,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0542236, 0 )
 script = ExtResource( 3 )
 can_attach = false
 item_name = "Torch"
+life_percentage_lose = 0.2
+prob_going_out = 0.1
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )

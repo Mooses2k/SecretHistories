@@ -13,6 +13,8 @@ extents = Vector3( 0.157328, 0.236264, 0.160202 )
 script = ExtResource( 2 )
 item_size = 0
 is_oil_based = false
+life_percentage_lose = 0.0
+prob_going_out = 0.0
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = SubResource( 1 )

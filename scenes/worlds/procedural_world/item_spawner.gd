@@ -1,7 +1,9 @@
 extends Node
 
 export var cultist : PackedScene
+var weapon_resource = preload("res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn")
 var is_cultist_spawned = false
+var shotgun_spawned = false
 var free_cell = 0
 
 
@@ -33,7 +35,11 @@ func spawn_items(data : WorldData):
 					is_cultist_spawned = true
 					item = cultist.instance()
 				else:
-					item = item_scene.instance()
+					if not shotgun_spawned:
+						item = weapon_resource.instance()
+						shotgun_spawned = true
+					else:
+						item = item_scene.instance()
 				(item as Spatial).translation = pos
 
 				owner.add_child(item)

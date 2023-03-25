@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/ai/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
@@ -16,6 +16,10 @@
 [ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
 [ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Material_003.material" type="Material" id=15]
 [ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Darkness.material" type="Material" id=16]
+[ext_resource path="res://scenes/characters/cultists/enemy_equipment_pickup.gd" type="Script" id=17]
+[ext_resource path="res://core/ai/check_nodes/bt_gun_has_ammo.gd" type="Script" id=18]
+[ext_resource path="res://core/ai/check_nodes/bt_inventory_has_ammo.gd" type="Script" id=19]
+[ext_resource path="res://core/ai/action_nodes/bt_reload_gun.gd" type="Script" id=20]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "CultistNeophyteNoCape_Cube012"
@@ -567,6 +571,8 @@ surfaces/0 = {
 [sub_resource type="SphereShape" id=4]
 radius = 3.5
 
+[sub_resource type="CylinderShape" id=5]
+
 [node name="Cultist" instance=ExtResource( 1 )]
 max_health = 50
 move_speed = 3.0
@@ -576,7 +582,69 @@ mass = 8.0
 [node name="MainHandEquipmentRoot" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
-[node name="Body" parent="." index="4"]
+[node name="BehaviorTree" type="Node" parent="." index="5"]
+script = ExtResource( 6 )
+bt_root = NodePath("BT_Selector")
+
+[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
+script = ExtResource( 8 )
+
+[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
+script = ExtResource( 9 )
+
+[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
+script = ExtResource( 11 )
+sensor = NodePath("../../../../Body/DirectPlayerSight")
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
+script = ExtResource( 9 )
+
+[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
+script = ExtResource( 8 )
+
+[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
+script = ExtResource( 13 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
+script = ExtResource( 12 )
+
+[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
+script = ExtResource( 14 )
+
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
+script = ExtResource( 10 )
+
+[node name="BT_Selector2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="3"]
+script = ExtResource( 8 )
+
+[node name="BT_Gun_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector2" index="0"]
+script = ExtResource( 18 )
+
+[node name="BT_Inventory_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector2" index="1"]
+script = ExtResource( 19 )
+
+[node name="BT_Reload_Gun" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector2" index="2"]
+script = ExtResource( 20 )
+
+[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="4"]
+script = ExtResource( 2 )
+
+[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="5"]
+script = ExtResource( 3 )
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
+script = ExtResource( 9 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
+script = ExtResource( 12 )
+
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
+script = ExtResource( 10 )
+
+[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
+script = ExtResource( 7 )
+
+[node name="Body" parent="." index="6"]
 script = ExtResource( 4 )
 
 [node name="DirectPlayerSight" parent="Body" index="2" instance=ExtResource( 5 )]
@@ -746,57 +814,7 @@ mesh = SubResource( 3 )
 skin = SubResource( 2 )
 skeleton = NodePath("../Skeleton")
 
-[node name="BehaviorTree" type="Node" parent="." index="5"]
-script = ExtResource( 6 )
-bt_root = NodePath("BT_Selector")
-
-[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
-script = ExtResource( 8 )
-
-[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
-script = ExtResource( 9 )
-
-[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
-script = ExtResource( 11 )
-sensor = NodePath("../../../../Body/DirectPlayerSight")
-
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
-script = ExtResource( 9 )
-
-[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
-script = ExtResource( 8 )
-
-[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
-script = ExtResource( 13 )
-
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
-script = ExtResource( 12 )
-
-[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
-script = ExtResource( 14 )
-
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
-script = ExtResource( 10 )
-
-[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="3"]
-script = ExtResource( 2 )
-
-[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="4"]
-script = ExtResource( 3 )
-
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
-script = ExtResource( 9 )
-
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
-script = ExtResource( 12 )
-
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
-script = ExtResource( 10 )
-
-[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
-script = ExtResource( 7 )
-
-[node name="Hitbox" parent="." index="6" groups=["CHARACTER"]]
+[node name="Hitbox" parent="." index="7" groups=["CHARACTER"]]
 collision_layer = 8
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
@@ -809,6 +827,15 @@ monitorable = false
 [node name="CollisionShape" type="CollisionShape" parent="PlayerDetector" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
 shape = SubResource( 4 )
+
+[node name="EquipmentPickupRange" type="Area" parent="." index="20"]
+collision_layer = 0
+collision_mask = 64
+monitorable = false
+script = ExtResource( 17 )
+
+[node name="CollisionShape" type="CollisionShape" parent="EquipmentPickupRange" index="0"]
+shape = SubResource( 5 )
 
 [connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_exited"]

@@ -28,7 +28,7 @@ var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 
 func _enter_tree():
 	match self.item_state:
-		GlobalConsts.ItemState.DROPPED:	
+		GlobalConsts.ItemState.DROPPED:
 			set_physics_dropped()
 		GlobalConsts.ItemState.INVENTORY:
 			set_physics_equipped()

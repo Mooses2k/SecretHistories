@@ -2,7 +2,6 @@
 
 [ext_resource path="res://scenes/characters/player/light_detect.gd" type="Script" id=1]
 
-
 [sub_resource type="SphereMesh" id=1]
 radius = 0.3
 height = 0.5

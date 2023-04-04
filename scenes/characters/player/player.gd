@@ -16,7 +16,7 @@ var is_change_off_equip_in : bool = false
 
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
-onready var gun_cam = $ViewportContainer2/Viewport/GunCam
+onready var gun_cam = $ViewportContainer/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
 
 

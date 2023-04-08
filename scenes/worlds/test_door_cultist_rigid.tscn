@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,9 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/halberd/halberd.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/knife_old/knife_old.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/dagger/dagger.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/lee-metford_rifle.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=16]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 50, 50 )
@@ -71,10 +74,10 @@ transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107,
 light_energy = 0.344
 
 [node name="DarkLantern" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.128181, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0335044, -0.0744317 )
 
 [node name="BullseyeLantern" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9072, 0.209178, 0.360246 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00540176, -0.0626888 )
 
 [node name="CavalrySabre" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.396395, 0.324721, 0.657561 )
@@ -98,5 +101,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.470416, 1.28765 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 
 [node name="khyber_pass_martini" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.288, 0.23561, 1.17322 )
-can_attach = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125584, -0.0662795 )
+
+[node name="Lee-Metford rifle" parent="." instance=ExtResource( 14 )]
+transform = Transform( 0.998828, 0.0237524, -0.0471979, -0.0248179, 1.0054, -0.0385252, 0.0346958, 0.0299514, 0.993736, 0.0259521, 0.0331585, -0.285098 )
+
+[node name="Martini-Henry rifle" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99258, 0.236158, -0.400841 )
+
+[node name="Webley revolver" parent="." instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0288613, -0.0769493 )

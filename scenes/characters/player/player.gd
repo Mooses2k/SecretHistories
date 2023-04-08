@@ -59,12 +59,12 @@ func grab_indicator():
 			$Indication_canvas/Indication_system/Grab.show()
 		else:
 				$Indication_canvas/Indication_system/Grab.hide()
-		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
-			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
+		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite") and  $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
+#			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 				$Indication_canvas/Indication_system/Ignite.show()
 				if Input.is_action_just_pressed("interact"):
 					grabable_object.get_parent()._use_primary()
-			else:
+		else:
 				$Indication_canvas/Indication_system/Ignite.hide()
 	else:
 		$Indication_canvas/Indication_system/Grab.hide()

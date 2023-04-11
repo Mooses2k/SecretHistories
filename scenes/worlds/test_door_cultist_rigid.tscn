@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/lee-metford_rifle.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shotgun_sawed_item.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn" type="PackedScene" id=18]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 50, 50 )
@@ -104,10 +106,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125584, -0.0662795 )
 
 [node name="Lee-Metford rifle" parent="." instance=ExtResource( 14 )]
-transform = Transform( 0.998828, 0.0237524, -0.0471979, -0.0248179, 1.0054, -0.0385252, 0.0346958, 0.0299514, 0.993736, 0.0259521, 0.0331585, -0.285098 )
 
 [node name="Martini-Henry rifle" parent="." instance=ExtResource( 15 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99258, 0.236158, -0.400841 )
+transform = Transform( 0.975277, -0.171566, -0.139283, 0.170611, 0.985158, -0.0188537, 0.14045, -0.00537559, 0.990073, 0.0407875, 0.0105244, -0.30313 )
 
 [node name="Webley revolver" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0288613, -0.0769493 )
+
+[node name="Shotgun_sawed_item" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0290546, -0.101385 )
+
+[node name="ShotgunItem" parent="." instance=ExtResource( 18 )]
+transform = Transform( 0.967347, -0.200553, -0.154979, 0.204731, 0.978753, 0.0113183, 0.149416, -0.0426778, 0.987853, -0.00463274, 0.040694, -0.0993858 )

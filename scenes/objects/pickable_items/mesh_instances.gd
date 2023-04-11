@@ -7,8 +7,7 @@ onready var parent = get_owner()
 # Tracking the objects state, in order to prevent clipping into walls when equipped
 func _process(delta):
 	if parent.mode == parent.equipped_mode:
-		pass
-#		layers = 2
+
+		layers = 2
 	else:
-		pass
-#		layers = 1
+		layers = 1

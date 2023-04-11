@@ -62,9 +62,7 @@ func ads():
 				$"%AdsTween".start()
 				if get_parent().inventory.hotbar[main_hand_item].item_size == 0:
 					_camera.fov  = lerp(_camera.fov, 65, 0.5)
-#					get_parent().current_mainhand_item_animation = get_parent().hold_states.SMALL_GUN_ADS
 				else:
-#					pass
 					_camera.fov  = lerp(_camera.fov, 60, 0.5)
 
 

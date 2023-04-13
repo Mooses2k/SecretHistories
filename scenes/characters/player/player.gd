@@ -26,10 +26,11 @@ func _ready():
 
 #	body.add_collision_exception_with()
 
+func _physics_process(delta):
+	gun_cam.global_transform = fps_camera.global_transform
+	
 
 func _process(delta):
-	gun_cam.global_transform = fps_camera.global_transform
-
 	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
 		$Indication_canvas/Indication_system/Dot.hide()
 	else :

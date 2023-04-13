@@ -13,7 +13,7 @@ enum hold_states {
 
 onready var inventory = $"../Inventory"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
-var current_mainhand_item_animation = hold_states.MELEE_ITEM
+var current_mainhand_item_animation 
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
 
@@ -22,14 +22,14 @@ func _process(delta):
 	check_curent_weapon()
 
 func _physics_process(delta):
-
 	ads()
 	
 func _on_Inventory_mainhand_slot_changed(previous, current):
 	if inventory.hotbar[current] is GunItem:
 		pass
 	else:
-		current_mainhand_item_animation = hold_states.MELEE_ITEM
+		pass
+#		current_mainhand_item_animation = hold_states.MELEE_ITEM
 
 func check_curent_weapon():
 		var main_hand_object = inventory.current_mainhand_slot
@@ -44,9 +44,9 @@ func check_curent_weapon():
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
 				
 		elif  inventory.hotbar[main_hand_object] is LanternItem  or inventory.hotbar[off_hand_object] is LanternItem:
-			print("Carried Lantern")
+			current_mainhand_item_animation = hold_states.LANTERN_ITEM
 		elif  inventory.hotbar[main_hand_object] is MeleeItem  or inventory.hotbar[off_hand_object] is MeleeItem:
-			print("Melee Item")
+			current_mainhand_item_animation = hold_states.MELEE_ITEM
 		else:
 			$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
@@ -80,13 +80,18 @@ func check_player_animation():
 	if current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 2)
+		
 	elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 1)
 		
 		
-	else:
+	elif current_mainhand_item_animation == hold_states.MELEE_ITEM or current_mainhand_item_animation == hold_states.LANTERN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.172), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%AdsTween".start()
+	
+	else:
+		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
+#		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)

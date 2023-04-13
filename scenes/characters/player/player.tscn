@@ -23650,21 +23650,21 @@ input_2/name = "Pistol"
 input_2/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -140.178, 86 )
+graph_offset = Vector2( -350.829, 12.2738 )
 nodes/Animation/node = SubResource( 370 )
 nodes/Animation/position = Vector2( -6.41376, 181.733 )
 nodes/Animation_State/node = SubResource( 364 )
 nodes/Animation_State/position = Vector2( 440, 60 )
 nodes/Idle_Animation/node = SubResource( 367 )
-nodes/Idle_Animation/position = Vector2( 232.79, 60.8625 )
+nodes/Idle_Animation/position = Vector2( 0, 60 )
 nodes/Pistol_Anim/node = SubResource( 369 )
 nodes/Pistol_Anim/position = Vector2( -100, 440 )
 nodes/Rifle_Anim/node = SubResource( 368 )
-nodes/Rifle_Anim/position = Vector2( -80, 280 )
+nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "output", 0, "Animation_State" ]
+node_connections = [ "output", 0, "Animation_State", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -24002,7 +24002,7 @@ mesh = SubResource( 3 )
 skin = SubResource( 2 )
 
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.914869, -0.246748, 0.319587, 0.347899, -0.0800489, 0.934112, -0.204907, 0.965775, 0.159077, -2.35162, 14.8249, 3.26885 )
+transform = Transform( -0.914866, -0.246747, 0.319587, 0.347899, -0.0800483, 0.934109, -0.204906, 0.965769, 0.159076, -2.35161, 14.8249, 3.26883 )
 
 [node name="AnimationPlayer" parent="FPSCamera/MainCharOnlyArmsGameRig" index="3"]
 anims/CrouchWalkBackwards002 = SubResource( 4 )

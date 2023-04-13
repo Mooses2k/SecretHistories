@@ -846,7 +846,7 @@ nodes/small_gun_run_blend/node = SubResource( 169 )
 nodes/small_gun_run_blend/position = Vector2( -1400, 1160 )
 nodes/walk_strafe/node = SubResource( 101 )
 nodes/walk_strafe/position = Vector2( -720, 120 )
-node_connections = [ "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "Pistol_crouch_strafe_vector", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_strafe", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "Pistol_strafe", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "output", 0, "Falling", "One_Handed_ADS_Strafe", 0, "One_Handed_ADS_Idle_Strafe", "One_Handed_ADS_Strafe", 1, "One_Handed_ADS_Strafe_Vector", "Pistol_strafe", 0, "One_Handed_Idle2", "Pistol_strafe", 1, "Pistol_strafe_vector", "Rifle_ADS_strafe", 0, "Rifle_ADS_Idle _Walk", "Rifle_ADS_strafe", 1, "Rifle_ADS_strafe_vector" ]
+node_connections = [ "output", 0, "Falling", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_strafe", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "Pistol_strafe", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "Pistol_crouch_strafe_vector", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "One_Handed_ADS_Strafe", 0, "One_Handed_ADS_Idle_Strafe", "One_Handed_ADS_Strafe", 1, "One_Handed_ADS_Strafe_Vector", "Rifle_ADS_strafe", 0, "Rifle_ADS_Idle _Walk", "Rifle_ADS_strafe", 1, "Rifle_ADS_strafe_vector", "Pistol_strafe", 0, "One_Handed_Idle2", "Pistol_strafe", 1, "Pistol_strafe_vector" ]
 
 [sub_resource type="AnimationNodeTransition" id=324]
 input_count = 4
@@ -1675,7 +1675,7 @@ nodes/small_gun_run_blend/node = SubResource( 464 )
 nodes/small_gun_run_blend/position = Vector2( -1400, 1160 )
 nodes/walk_strafe/node = SubResource( 474 )
 nodes/walk_strafe/position = Vector2( -720, 120 )
-node_connections = [ "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "Pistol_crouch_strafe_vector", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_strafe", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "Pistol_strafe", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "output", 0, "Falling", "One_Handed_ADS_Strafe", 0, "One_Handed_ADS_Idle_Strafe", "One_Handed_ADS_Strafe", 1, "One_Handed_ADS_Strafe_Vector", "Pistol_strafe", 0, "One_Handed_Idle2", "Pistol_strafe", 1, "Pistol_strafe_vector", "Rifle_ADS_strafe", 0, "Rifle_ADS_Idle _Walk", "Rifle_ADS_strafe", 1, "Rifle_ADS_strafe_vector" ]
+node_connections = [ "output", 0, "Falling", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_strafe", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "Pistol_strafe", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "Pistol_crouch_strafe_vector", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "One_Handed_ADS_Strafe", 0, "One_Handed_ADS_Idle_Strafe", "One_Handed_ADS_Strafe", 1, "One_Handed_ADS_Strafe_Vector", "Rifle_ADS_strafe", 0, "Rifle_ADS_Idle _Walk", "Rifle_ADS_strafe", 1, "Rifle_ADS_strafe_vector", "Pistol_strafe", 0, "One_Handed_Idle2", "Pistol_strafe", 1, "Pistol_strafe_vector" ]
 
 [node name="Cultist" instance=ExtResource( 1 )]
 max_health = 50
@@ -1683,57 +1683,7 @@ move_speed = 3.0
 acceleration = 6.0
 mass = 8.0
 
-[node name="BehaviorTree" type="Node" parent="." index="5"]
-script = ExtResource( 6 )
-bt_root = NodePath("BT_Selector")
-
-[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
-script = ExtResource( 8 )
-
-[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
-script = ExtResource( 9 )
-
-[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
-script = ExtResource( 11 )
-sensor = NodePath("../../../../Body/DirectPlayerSight")
-
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
-script = ExtResource( 9 )
-
-[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
-script = ExtResource( 8 )
-
-[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
-script = ExtResource( 13 )
-
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
-script = ExtResource( 12 )
-
-[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
-script = ExtResource( 14 )
-
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
-script = ExtResource( 10 )
-
-[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="3"]
-script = ExtResource( 2 )
-
-[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="4"]
-script = ExtResource( 3 )
-
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
-script = ExtResource( 9 )
-
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
-script = ExtResource( 12 )
-
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
-script = ExtResource( 10 )
-
-[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
-script = ExtResource( 7 )
-
-[node name="Body" parent="." index="6"]
+[node name="Body" parent="." index="5"]
 script = ExtResource( 4 )
 
 [node name="DirectPlayerSight" parent="Body" index="2" instance=ExtResource( 5 )]
@@ -1744,7 +1694,7 @@ FOV = 120.0
 [node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Hitbox" parent="." index="7" groups=["CHARACTER"]]
+[node name="Hitbox" parent="." index="6" groups=["CHARACTER"]]
 collision_layer = 8
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
@@ -1753,10 +1703,13 @@ visible = false
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0"]
 visible = false
 
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
+
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
 transform = Transform( -0.0640363, -0.989469, -0.129808, 0.99632, -0.0708156, 0.0482957, -0.0569795, -0.126237, 0.990364, -9.50363, 18.0616, -0.60081 )
 
-[node name="PlayerDetector" type="Area" parent="." index="16"]
+[node name="PlayerDetector" type="Area" parent="." index="15"]
 collision_layer = 2
 monitorable = false
 
@@ -1764,10 +1717,10 @@ monitorable = false
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
 shape = SubResource( 4 )
 
-[node name="AnimationPlayer" parent="." index="20"]
+[node name="AnimationPlayer" parent="." index="19"]
 root_node = NodePath("../Body/CultistNeophyteNoCape")
 
-[node name="AnimationTree_Reserve" type="AnimationTree" parent="." index="21"]
+[node name="AnimationTree_Reserve" type="AnimationTree" parent="." index="20"]
 unique_name_in_owner = true
 tree_root = SubResource( 323 )
 anim_player = NodePath("../AnimationPlayer")
@@ -1810,7 +1763,7 @@ parameters/small_gun_crouch_idle/blend_amount = 1.0
 parameters/small_gun_run_blend/blend_amount = 0.0
 parameters/walk_strafe/blend_position = Vector2( 0.000919938, -0.0172414 )
 
-[node name="AnimationTree" parent="." index="22"]
+[node name="AnimationTree" parent="." index="21"]
 tree_root = SubResource( 475 )
 parameters/Big_guns_transition/current = 4
 parameters/One_Handed_ADS_Strafe/blend_amount = 0
@@ -1821,6 +1774,90 @@ parameters/Pistol_strafe_vector/blend_position = Vector2( 0, 0 )
 parameters/Rifle_ADS_strafe/blend_amount = 0
 parameters/Rifle_ADS_strafe_vector/blend_position = Vector2( 0, 0 )
 parameters/Small_guns_transitions/current = 0
+
+[node name="BehaviorTree" type="Node" parent="." index="22"]
+script = ExtResource( 6 )
+bt_root = NodePath("BT_Selector")
+
+[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
+script = ExtResource( 8 )
+
+[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
+script = ExtResource( 9 )
+
+[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
+script = ExtResource( 11 )
+sensor = NodePath("../../../../Body/DirectPlayerSight")
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
+script = ExtResource( 9 )
+
+[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
+script = ExtResource( 8 )
+
+[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
+script = ExtResource( 13 )
+threshold_factor = 2.0
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
+script = ExtResource( 12 )
+
+[node name="BT_Approach_Random_Distance2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="2"]
+script = ExtResource( 13 )
+
+[node name="BT_Go_To_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="3"]
+script = ExtResource( 12 )
+
+[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
+script = ExtResource( 14 )
+
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
+script = ExtResource( 10 )
+
+[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="3"]
+script = ExtResource( 2 )
+
+[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="4"]
+script = ExtResource( 3 )
+
+[node name="BT_Selector2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="5"]
+script = ExtResource( 8 )
+
+[node name="BT_Look_At_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="6"]
+script = ExtResource( 14 )
+
+[node name="BT_Wait_Random2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="7"]
+script = ExtResource( 10 )
+
+[node name="BT_Gun_Cooldown2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="8"]
+script = ExtResource( 2 )
+
+[node name="BT_Shoot2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="9"]
+script = ExtResource( 3 )
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
+script = ExtResource( 9 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
+script = ExtResource( 12 )
+
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
+script = ExtResource( 10 )
+
+[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
+script = ExtResource( 7 )
+
+[node name="BT_Go_To_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="3"]
+script = ExtResource( 12 )
+
+[node name="BT_Wait_Random2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="4"]
+script = ExtResource( 10 )
+
+[node name="BT_Select_Random_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="5"]
+script = ExtResource( 7 )
+
+[node name="BT_Sequence3" type="Node" parent="BehaviorTree/BT_Selector" index="2"]
+script = ExtResource( 9 )
 
 [connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -31,6 +31,9 @@
 [ext_resource path="res://scenes/characters/player/Animations/Hip_Idle.tres" type="Animation" id=29]
 [ext_resource path="res://scenes/characters/player/Player_Animations.gd" type="Script" id=30]
 [ext_resource path="res://scenes/characters/player/Animations/idle-loop.tres" type="Animation" id=31]
+[ext_resource path="res://scenes/characters/player/Animations/ItemHolding.tres" type="Animation" id=32]
+[ext_resource path="res://scenes/characters/player/Animations/ItemHoldingHorizontal.tres" type="Animation" id=33]
+[ext_resource path="res://scenes/characters/player/Animations/ItemHoldingVertical.tres" type="Animation" id=34]
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
@@ -23617,7 +23620,7 @@ tracks/170/enabled = true
 tracks/170/keys = PoolRealArray( 0, 1, -0.398595, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699, 0.133333, 1, -0.379708, -1.27896, -2.27884, 0.01446, 0.248581, -0.0764079, 0.965485, 0.993498, 1.00744, 1.05647, 0.2, 1, -0.383556, -1.27493, -2.27527, 0.0137788, 0.248332, -0.0775478, 0.965468, 0.993482, 1.00753, 1.05639, 0.4, 1, -0.421885, -1.23557, -2.22601, 0.0150329, 0.24879, -0.0754489, 0.965497, 0.99351, 1.00737, 1.05653, 0.466667, 1, -0.434914, -1.22456, -2.20895, 0.0154501, 0.248942, -0.0747507, 0.965506, 0.99352, 1.00731, 1.05658, 0.533333, 1, -0.46015, -1.21881, -2.17535, 0.0142754, 0.248513, -0.0767172, 0.96548, 0.993493, 1.00746, 1.05645, 0.666667, 1, -0.535388, -1.22477, -2.07368, 0.00871446, 0.246458, -0.0860114, 0.96529, 0.993354, 1.00819, 1.05584, 0.733333, 1, -0.518843, -1.22797, -2.09467, 0.00997396, 0.246928, -0.0839077, 0.965343, 0.993388, 1.00803, 1.05597, 0.933333, 1, -0.4283, -1.24718, -2.21059, 0.0168511, 0.249449, -0.0724049, 0.96553, 0.993549, 1.00713, 1.05673, 1, 1, -0.398596, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699 )
 
 [sub_resource type="AnimationNodeAnimation" id=370]
-animation = "idle-loop"
+animation = "ItemHoldingVertical"
 
 [sub_resource type="AnimationNodeTransition" id=364]
 input_count = 2
@@ -23647,7 +23650,7 @@ input_2/name = "Pistol"
 input_2/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -187.948, 48.3333 )
+graph_offset = Vector2( -140.178, 86 )
 nodes/Animation/node = SubResource( 370 )
 nodes/Animation/position = Vector2( -6.41376, 181.733 )
 nodes/Animation_State/node = SubResource( 364 )
@@ -23661,7 +23664,7 @@ nodes/Rifle_Anim/position = Vector2( -80, 280 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "output", 0, "Animation_State", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim" ]
+node_connections = [ "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "output", 0, "Animation_State" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -23999,7 +24002,7 @@ mesh = SubResource( 3 )
 skin = SubResource( 2 )
 
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.994611, -0.0945515, 0.0425259, 0.0644651, -0.242783, 0.967937, -0.0811951, 0.965462, 0.24757, -2.02463, 15.7176, 2.21184 )
+transform = Transform( -0.914869, -0.246748, 0.319587, 0.347899, -0.0800489, 0.934112, -0.204907, 0.965775, 0.159077, -2.35162, 14.8249, 3.26885 )
 
 [node name="AnimationPlayer" parent="FPSCamera/MainCharOnlyArmsGameRig" index="3"]
 anims/CrouchWalkBackwards002 = SubResource( 4 )
@@ -24044,6 +24047,9 @@ parameters/crouch_strafe/blend_position = Vector2( -0.006, -0.662 )
 [node name="Players_Animation" type="AnimationPlayer" parent="." index="28"]
 root_node = NodePath("../FPSCamera/MainCharOnlyArmsGameRig")
 anims/Hip_Idle = ExtResource( 29 )
+anims/ItemHolding = ExtResource( 32 )
+anims/ItemHoldingHorizontal = ExtResource( 33 )
+anims/ItemHoldingVertical = ExtResource( 34 )
 anims/One_Handed_Hip_Idle = ExtResource( 28 )
 anims/idle-loop = ExtResource( 31 )
 
@@ -24056,7 +24062,7 @@ tree_root = SubResource( 365 )
 anim_player = NodePath("../Players_Animation")
 active = true
 parameters/Animation_State/current = 1
-parameters/Weapon_states/current = 1
+parameters/Weapon_states/current = 0
 
 [node name="AdsTween" type="Tween" parent="." index="31"]
 unique_name_in_owner = true

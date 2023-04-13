@@ -62,6 +62,7 @@ func ads():
 				$"%AdsTween".start()
 				if get_parent().inventory.hotbar[main_hand_item].item_size == 0:
 					_camera.fov  = lerp(_camera.fov, 65, 0.5)
+					
 				else:
 					_camera.fov  = lerp(_camera.fov, 60, 0.5)
 
@@ -79,6 +80,13 @@ func check_player_animation():
 	if current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 2)
-	else:
+	elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 1)
+		
+		
+	else:
+		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
+		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.172), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%AdsTween".start()

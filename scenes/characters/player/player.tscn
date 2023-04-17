@@ -23650,7 +23650,7 @@ input_2/name = "Pistol"
 input_2/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -350.829, 12.2738 )
+graph_offset = Vector2( 7.37213, 111.397 )
 nodes/Animation/node = SubResource( 370 )
 nodes/Animation/position = Vector2( -6.41376, 181.733 )
 nodes/Animation_State/node = SubResource( 364 )
@@ -24002,7 +24002,7 @@ mesh = SubResource( 3 )
 skin = SubResource( 2 )
 
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.914866, -0.246747, 0.319587, 0.347899, -0.0800483, 0.934109, -0.204906, 0.965769, 0.159076, -2.35161, 14.8249, 3.26883 )
+transform = Transform( -0.979718, -0.147231, -0.135923, 0.144114, -0.989026, 0.0325552, -0.139224, 0.0123067, 0.990186, -3.08824, 11.3686, 0.151041 )
 
 [node name="AnimationPlayer" parent="FPSCamera/MainCharOnlyArmsGameRig" index="3"]
 anims/CrouchWalkBackwards002 = SubResource( 4 )
@@ -24061,7 +24061,7 @@ _cam_path = NodePath("../FPSCamera")
 tree_root = SubResource( 365 )
 anim_player = NodePath("../Players_Animation")
 active = true
-parameters/Animation_State/current = 1
+parameters/Animation_State/current = 0
 parameters/Weapon_states/current = 0
 
 [node name="AdsTween" type="Tween" parent="." index="31"]

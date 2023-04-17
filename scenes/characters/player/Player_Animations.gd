@@ -8,6 +8,7 @@ enum hold_states {
 	LANTERN_ITEM,
 	SMALL_GUN_ADS,
 	LARGE_GUNS_ADS,
+	UNEQUIPPED
 }
 
 
@@ -28,8 +29,7 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	if inventory.hotbar[current] is GunItem:
 		pass
 	else:
-		pass
-#		current_mainhand_item_animation = hold_states.MELEE_ITEM
+		current_mainhand_item_animation = hold_states.MELEE_ITEM
 
 func check_curent_weapon():
 		var main_hand_object = inventory.current_mainhand_slot

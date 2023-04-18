@@ -58,6 +58,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762986, 3.9354 )
 
 [node name="Cultist" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67079, -0.0378679, 0 )
+_legcast = NodePath("")
 
 [node name="Bookcase" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.59865, 1.65813, 3.77069 )

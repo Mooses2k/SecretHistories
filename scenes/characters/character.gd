@@ -223,8 +223,8 @@ func _ready():
 
 
 func _physics_process(delta : float):
-#	check_state_animation(delta)
-#	check_curent_weapon()
+	check_state_animation(delta)
+	check_curent_weapon()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:

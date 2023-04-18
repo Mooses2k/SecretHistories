@@ -23664,7 +23664,7 @@ nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "output", 0, "Animation_State", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim" ]
+node_connections = [ "output", 0, "Animation_State", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states" ]
 
 [sub_resource type="Animation" id=371]
 resource_name = "idle"
@@ -24023,6 +24023,7 @@ shape = SubResource( 41 )
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="4"]
 unique_name_in_owner = true
 transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.015, -1.474, 0.124 )
+visible = true
 
 [node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
 bones/137/bound_children = [  ]
@@ -24036,7 +24037,7 @@ mesh = SubResource( 3 )
 skin = SubResource( 2 )
 
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.0640363, -0.989469, -0.129808, 0.99632, -0.0708156, 0.0482957, -0.0569795, -0.126237, 0.990364, -9.50363, 18.0616, -0.60081 )
+transform = Transform( -0.914866, -0.246747, 0.319587, 0.347899, -0.0800483, 0.934109, -0.204906, 0.965769, 0.159076, -2.35161, 14.8249, 3.26883 )
 
 [node name="AnimationPlayer" parent="FPSCamera/MainCharOnlyArmsGameRig" index="3"]
 anims/CrouchWalkBackwards002 = SubResource( 4 )

@@ -51,12 +51,12 @@ func check_curent_weapon():
 		elif inventory.hotbar[main_hand_object] is ConsumableItem  or inventory.hotbar[off_hand_object] is ConsumableItem:
 			$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
-			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.165), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.130), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%AdsTween".start()
 		elif inventory.hotbar[main_hand_object] is ToolItem  or inventory.hotbar[off_hand_object] is ToolItem:
 			$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
-			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.165), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.130), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%AdsTween".start()
 			
 		else:
@@ -98,7 +98,7 @@ func check_player_animation():
 	elif current_mainhand_item_animation == hold_states.MELEE_ITEM or current_mainhand_item_animation == hold_states.LANTERN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
-		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.165), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.110), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%AdsTween".start()
 	
 		

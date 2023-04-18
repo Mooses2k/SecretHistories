@@ -23664,7 +23664,7 @@ nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "output", 0, "Animation_State", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states" ]
+node_connections = [ "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "output", 0, "Animation_State" ]
 
 [sub_resource type="Animation" id=371]
 resource_name = "idle"

@@ -21,7 +21,7 @@ onready var _camera : ShakeCamera = get_node(_cam_path)
 func _process(delta):
 	check_player_animation()
 	check_curent_weapon()
-
+	
 func _physics_process(delta):
 	ads()
 	
@@ -29,12 +29,11 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	if inventory.hotbar[current] is GunItem:
 		pass
 	else:
-		current_mainhand_item_animation = hold_states.MELEE_ITEM
+		current_mainhand_item_animation = hold_states.UNEQUIPPED
 
 func check_curent_weapon():
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
-
 
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
 			
@@ -45,16 +44,28 @@ func check_curent_weapon():
 				
 		elif  inventory.hotbar[main_hand_object] is LanternItem  or inventory.hotbar[off_hand_object] is LanternItem:
 			current_mainhand_item_animation = hold_states.LANTERN_ITEM
+			
 		elif  inventory.hotbar[main_hand_object] is MeleeItem  or inventory.hotbar[off_hand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
-		else:
+			
+		elif inventory.hotbar[main_hand_object] is ConsumableItem  or inventory.hotbar[off_hand_object] is ConsumableItem:
 			$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.165), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+			$"%AdsTween".start()
+		elif inventory.hotbar[main_hand_object] is ToolItem  or inventory.hotbar[off_hand_object] is ToolItem:
+			$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
+			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.165), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+			$"%AdsTween".start()
+			
+		else:
+			$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
+#			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 
 func ads():
+	var main_hand_item = get_parent().inventory.current_mainhand_slot
 	if Input.is_action_pressed("ADS"):
-		var main_hand_item = get_parent().inventory.current_mainhand_slot
-		
 		if get_parent().inventory.current_mainhand_slot != null:
 			
 			if get_parent().inventory.hotbar[main_hand_item] is GunItem:
@@ -68,13 +79,12 @@ func ads():
 
 
 	else:
-		if Input.is_action_just_released("ADS"):
+		if Input.is_action_just_released("ADS") and get_parent().inventory.hotbar[main_hand_item] is GunItem:
 			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%AdsTween".start()
 			_camera.fov  = lerp(_camera.fov, 70, 0.5)
 			
-			
-			
+
 
 func check_player_animation():
 	if current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
@@ -84,14 +94,17 @@ func check_player_animation():
 	elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 1)
-		
-		
+
 	elif current_mainhand_item_animation == hold_states.MELEE_ITEM or current_mainhand_item_animation == hold_states.LANTERN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
-		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.172), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.165), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%AdsTween".start()
 	
+		
 	else:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
-#		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%AdsTween".start()
+
+

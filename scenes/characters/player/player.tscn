@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -23650,7 +23650,7 @@ input_2/name = "Pistol"
 input_2/auto_advance = false
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 7.37213, 111.397 )
+graph_offset = Vector2( -232.389, 7.88889 )
 nodes/Animation/node = SubResource( 370 )
 nodes/Animation/position = Vector2( -6.41376, 181.733 )
 nodes/Animation_State/node = SubResource( 364 )
@@ -23664,7 +23664,39 @@ nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "output", 0, "Animation_State", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim" ]
+node_connections = [ "output", 0, "Animation_State", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states" ]
+
+[sub_resource type="Animation" id=371]
+resource_name = "idle"
+
+[sub_resource type="Animation" id=372]
+resource_name = "walk"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("FPSCamera/MainCharOnlyArmsGameRig:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0.015, -1.474, 0.124 ), Vector3( 0.015, -1.484, 0.124 ), Vector3( 0.015, -1.474, 0.124 ), Vector3( 0.015, -1.484, 0.124 ), Vector3( 0.015, -1.474, 0.124 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FPSCamera/MainCharOnlyArmsGameRig:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 180, 0 ), Vector3( -1, 185, 0 ), Vector3( 0, 180, 0 ), Vector3( -1, 180, 0 ), Vector3( 0, 180, 0 ) ]
+}
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -23991,7 +24023,7 @@ shape = SubResource( 41 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="4"]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.015, -1.474, 0.124 )
+transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.015, -1.474, 0.124 )
 
 [node name="Body003" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 mesh = SubResource( 1 )
@@ -24002,7 +24034,7 @@ mesh = SubResource( 3 )
 skin = SubResource( 2 )
 
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.979718, -0.147231, -0.135923, 0.144114, -0.989026, 0.0325552, -0.139224, 0.0123067, 0.990186, -3.08824, 11.3686, 0.151041 )
+transform = Transform( -0.914866, -0.246747, 0.319587, 0.347899, -0.0800483, 0.934109, -0.204906, 0.965769, 0.159076, -2.35161, 14.8249, 3.26883 )
 
 [node name="AnimationPlayer" parent="FPSCamera/MainCharOnlyArmsGameRig" index="3"]
 anims/CrouchWalkBackwards002 = SubResource( 4 )
@@ -24061,11 +24093,15 @@ _cam_path = NodePath("../FPSCamera")
 tree_root = SubResource( 365 )
 anim_player = NodePath("../Players_Animation")
 active = true
-parameters/Animation_State/current = 0
+parameters/Animation_State/current = 1
 parameters/Weapon_states/current = 0
 
 [node name="AdsTween" type="Tween" parent="." index="31"]
 unique_name_in_owner = true
+
+[node name="Body_Animation" type="AnimationPlayer" parent="." index="32"]
+anims/idle = SubResource( 371 )
+anims/walk = SubResource( 372 )
 
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]

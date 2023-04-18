@@ -152,7 +152,7 @@ bomb_damage = 70.0
 damage_type = 2
 
 [node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000498295, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0410383, 0.0608321 )
 
 [node name="Mesh" type="MeshInstance" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 8.17944e-05, 0.0494444, -7.06701e-05 )

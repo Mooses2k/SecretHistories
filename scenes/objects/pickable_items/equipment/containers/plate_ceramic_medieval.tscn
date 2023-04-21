@@ -2,7 +2,7 @@
 
 [ext_resource path="res://resources/models/items/containers/dining/bowls/trn_Plates_002.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/models/items/tools/dining/plates/trn_Plates_003.material" type="Material" id=3]
+[ext_resource path="res://resources/models/items/containers/dining/plates/trn_Plates_003.material" type="Material" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0

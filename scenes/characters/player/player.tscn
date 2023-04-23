@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -44,210 +44,6 @@ height = 1.2
 
 [sub_resource type="SphereShape" id=40]
 radius = 0.5
-
-[sub_resource type="CubeMesh" id=19]
-size = Vector3( 0.05, 0.05, 0.05 )
-
-[sub_resource type="SpatialMaterial" id=20]
-flags_unshaded = true
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="SpatialMaterial" id=21]
-flags_unshaded = true
-albedo_color = Color( 0.219608, 1, 0, 1 )
-
-[sub_resource type="Curve" id=16]
-min_value = -100.0
-max_value = 0.0
-_data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="Animation" id=22]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=23]
-resource_name = "hit_effect"
-length = 0.9
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.9 ),
-"transitions": PoolRealArray( 2.46229, 1.6245 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="DynamicFont" id=37]
-size = 25
-font_data = ExtResource( 21 )
-
-[sub_resource type="Animation" id=32]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=31]
-resource_name = "rotate"
-length = 15.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -360, 0 ) ]
-}
-
-[sub_resource type="Animation" id=27]
-length = 0.001
-
-[sub_resource type="Animation" id=24]
-resource_name = "fadeIn"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:mesh:material:albedo_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance2:mesh:material:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=30]
-resource_name = "fadeOut"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance2:mesh:material:albedo_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance:mesh:material:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="SpatialMaterial" id=25]
-flags_transparent = true
-albedo_color = Color( 1, 1, 1, 0 )
-albedo_texture = ExtResource( 14 )
-emission_enabled = true
-emission = Color( 1, 1, 1, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="PlaneMesh" id=26]
-material = SubResource( 25 )
-
-[sub_resource type="SpatialMaterial" id=28]
-flags_transparent = true
-albedo_color = Color( 1, 1, 1, 0 )
-albedo_texture = ExtResource( 14 )
-emission_enabled = true
-emission = Color( 1, 1, 1, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="PlaneMesh" id=29]
-material = SubResource( 28 )
-
-[sub_resource type="Shader" id=33]
-code = "shader_type canvas_item;
-
-void fragment() {
-	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
-	COLOR.rgb = vec3(COLOR.r + COLOR.g + COLOR.b) / 3.0;
-}"
-
-[sub_resource type="ShaderMaterial" id=34]
-shader = SubResource( 33 )
 
 [sub_resource type="CylinderShape" id=41]
 height = 1.5
@@ -23619,6 +23415,210 @@ tracks/170/imported = false
 tracks/170/enabled = true
 tracks/170/keys = PoolRealArray( 0, 1, -0.398595, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699, 0.133333, 1, -0.379708, -1.27896, -2.27884, 0.01446, 0.248581, -0.0764079, 0.965485, 0.993498, 1.00744, 1.05647, 0.2, 1, -0.383556, -1.27493, -2.27527, 0.0137788, 0.248332, -0.0775478, 0.965468, 0.993482, 1.00753, 1.05639, 0.4, 1, -0.421885, -1.23557, -2.22601, 0.0150329, 0.24879, -0.0754489, 0.965497, 0.99351, 1.00737, 1.05653, 0.466667, 1, -0.434914, -1.22456, -2.20895, 0.0154501, 0.248942, -0.0747507, 0.965506, 0.99352, 1.00731, 1.05658, 0.533333, 1, -0.46015, -1.21881, -2.17535, 0.0142754, 0.248513, -0.0767172, 0.96548, 0.993493, 1.00746, 1.05645, 0.666667, 1, -0.535388, -1.22477, -2.07368, 0.00871446, 0.246458, -0.0860114, 0.96529, 0.993354, 1.00819, 1.05584, 0.733333, 1, -0.518843, -1.22797, -2.09467, 0.00997396, 0.246928, -0.0839077, 0.965343, 0.993388, 1.00803, 1.05597, 0.933333, 1, -0.4283, -1.24718, -2.21059, 0.0168511, 0.249449, -0.0724049, 0.96553, 0.993549, 1.00713, 1.05673, 1, 1, -0.398596, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699 )
 
+[sub_resource type="CubeMesh" id=19]
+size = Vector3( 0.05, 0.05, 0.05 )
+
+[sub_resource type="SpatialMaterial" id=20]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=21]
+flags_unshaded = true
+albedo_color = Color( 0.219608, 1, 0, 1 )
+
+[sub_resource type="Curve" id=16]
+min_value = -100.0
+max_value = 0.0
+_data = [ Vector2( 0, -100 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "hit_effect"
+length = 0.9
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 2.46229, 1.6245 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=37]
+size = 25
+font_data = ExtResource( 21 )
+
+[sub_resource type="Animation" id=32]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "rotate"
+length = 15.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -360, 0 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+length = 0.001
+
+[sub_resource type="Animation" id=24]
+resource_name = "fadeIn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance2:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "fadeOut"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("MeshInstance2:mesh:material:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=25]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0 )
+albedo_texture = ExtResource( 14 )
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="PlaneMesh" id=26]
+material = SubResource( 25 )
+
+[sub_resource type="SpatialMaterial" id=28]
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0 )
+albedo_texture = ExtResource( 14 )
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 3.0
+emission_operator = 0
+emission_on_uv2 = false
+
+[sub_resource type="PlaneMesh" id=29]
+material = SubResource( 28 )
+
+[sub_resource type="Shader" id=33]
+code = "shader_type canvas_item;
+
+void fragment() {
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV);
+	COLOR.rgb = vec3(COLOR.r + COLOR.g + COLOR.b) / 3.0;
+}"
+
+[sub_resource type="ShaderMaterial" id=34]
+shader = SubResource( 33 )
+
 [sub_resource type="AnimationNodeAnimation" id=370]
 animation = "ItemHoldingVertical"
 
@@ -23664,44 +23664,13 @@ nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "output", 0, "Animation_State", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states" ]
-
-[sub_resource type="Animation" id=371]
-resource_name = "idle"
-
-[sub_resource type="Animation" id=372]
-resource_name = "walk"
-length = 1.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("FPSCamera/MainCharOnlyArmsGameRig:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0.015, -1.474, 0.124 ), Vector3( 0.015, -1.484, 0.124 ), Vector3( 0.015, -1.474, 0.124 ), Vector3( 0.015, -1.484, 0.124 ), Vector3( 0.015, -1.474, 0.124 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("FPSCamera/MainCharOnlyArmsGameRig:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 180, 0 ), Vector3( -1, 185, 0 ), Vector3( 0, 180, 0 ), Vector3( -1, 180, 0 ), Vector3( 0, 180, 0 ) ]
-}
+node_connections = [ "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "output", 0, "Animation_State" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
 script = ExtResource( 2 )
 kick_damage = 40
+_legcast = NodePath("Legs/Feet")
 
 [node name="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -23710,23 +23679,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.86
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.316957, 0 )
 disabled = true
 
-[node name="ViewportContainer" type="ViewportContainer" parent="." index="5"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-stretch = true
-
-[node name="Viewport" type="Viewport" parent="ViewportContainer" index="0"]
-size = Vector2( 1024, 600 )
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 3
-
-[node name="GunCam" type="Camera" parent="ViewportContainer/Viewport" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.517, -0.2 )
-cull_mask = 2
-
-[node name="Body" parent="." index="6"]
+[node name="Body" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 
 [node name="light_detection" parent="Body" index="0" instance=ExtResource( 18 )]
@@ -23756,11 +23709,27 @@ material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
 mesh = SubResource( 38 )
 
-[node name="Hitbox" parent="." index="7" groups=["PLAYER"]]
+[node name="ViewportContainer" type="ViewportContainer" parent="." index="5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+stretch = true
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer" index="0"]
+size = Vector2( 1024, 600 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="GunCam" type="Camera" parent="ViewportContainer/Viewport" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.517, -0.2 )
+cull_mask = 2
+
+[node name="Hitbox" parent="." index="6" groups=["PLAYER"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 collision_layer = 4
 
-[node name="PlayerStandChecker" parent="." index="10"]
+[node name="PlayerStandChecker" parent="." index="9"]
 monitorable = true
 
 [node name="CollisionShape" parent="PlayerStandChecker" index="0"]
@@ -23768,6 +23737,80 @@ shape = SubResource( 39 )
 
 [node name="CollisionShape" parent="ClamberableChecker" index="0"]
 shape = SubResource( 40 )
+
+[node name="FPSCamera" parent="." index="12"]
+current = false
+script = ExtResource( 15 )
+shakeReduction = 1.5
+
+[node name="AimCast" type="RayCast" parent="FPSCamera" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -1.7 )
+collision_mask = 585
+collide_with_areas = true
+
+[node name="GrabCast" type="RayCast" parent="FPSCamera" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -1.7 )
+collision_mask = 65
+collide_with_areas = true
+
+[node name="GroundCast" type="RayCast" parent="FPSCamera" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -4.47035e-08 )
+enabled = true
+cast_to = Vector3( 0, 0, -1.6 )
+collision_mask = 65
+debug_shape_thickness = 3
+
+[node name="GrabCastDot" type="Area" parent="FPSCamera" index="3"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.7, 7.45058e-09, 0, -0.805458 )
+collision_layer = 2
+collision_mask = 577
+input_ray_pickable = false
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="FPSCamera/GrabCastDot" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.260906 )
+shape = SubResource( 41 )
+
+[node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="4"]
+unique_name_in_owner = true
+transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.015, -1.474, 0.124 )
+visible = true
+
+[node name="Body003" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
+mesh = SubResource( 1 )
+skin = SubResource( 2 )
+
+[node name="InnerShirtLP002" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="1"]
+mesh = SubResource( 3 )
+skin = SubResource( 2 )
+
+[node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
+transform = Transform( -0.914866, -0.246747, 0.319587, 0.347899, -0.0800483, 0.934109, -0.204906, 0.965769, 0.159076, -2.35161, 14.8249, 3.26883 )
+
+[node name="AnimationPlayer" parent="FPSCamera/MainCharOnlyArmsGameRig" index="3"]
+anims/CrouchWalkBackwards002 = SubResource( 4 )
+anims/CrouchWalkBackwardsLeft002 = SubResource( 5 )
+anims/CrouchWalkBackwardsRight002 = SubResource( 6 )
+anims/CrouchWalkForward002 = SubResource( 7 )
+anims/CrouchWalkForwardLeft002 = SubResource( 8 )
+anims/CrouchWalkForwardRight002 = SubResource( 9 )
+anims/CrouchWalkLeft002 = SubResource( 10 )
+anims/CrouchWalkRight002 = SubResource( 11 )
+anims/Idle = SubResource( 12 )
+anims/Kick = SubResource( 13 )
+anims/Runloopforward002 = SubResource( 14 )
+anims/WalkBackwards002 = SubResource( 15 )
+anims/WalkBackwardsLeft002 = SubResource( 359 )
+anims/WalkBackwardsRight002 = SubResource( 17 )
+anims/WalkForwardRight002 = SubResource( 18 )
+anims/WalkForwards002 = SubResource( 360 )
+anims/WalkForwardsLeft002 = SubResource( 361 )
+anims/WalkRight002 = SubResource( 362 )
+anims/Walkleft002 = SubResource( 363 )
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="13"]
 visible = false
@@ -23983,84 +24026,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="FPSCamera" parent="." index="20"]
-current = false
-script = ExtResource( 15 )
-shakeReduction = 1.5
-
-[node name="AimCast" type="RayCast" parent="FPSCamera" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, -1.7 )
-collision_mask = 585
-collide_with_areas = true
-
-[node name="GrabCast" type="RayCast" parent="FPSCamera" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
-enabled = true
-cast_to = Vector3( 0, 0, -1.7 )
-collision_mask = 65
-collide_with_areas = true
-
-[node name="GroundCast" type="RayCast" parent="FPSCamera" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -4.47035e-08 )
-enabled = true
-cast_to = Vector3( 0, 0, -1.6 )
-collision_mask = 65
-debug_shape_thickness = 3
-
-[node name="GrabCastDot" type="Area" parent="FPSCamera" index="3"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.7, 7.45058e-09, 0, -0.805458 )
-collision_layer = 2
-collision_mask = 577
-input_ray_pickable = false
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="FPSCamera/GrabCastDot" index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.260906 )
-shape = SubResource( 41 )
-
-[node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="4"]
-unique_name_in_owner = true
-transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.015, -1.474, 0.124 )
-visible = true
-
-[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
-bones/137/bound_children = [  ]
-
-[node name="Body003" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
-mesh = SubResource( 1 )
-skin = SubResource( 2 )
-
-[node name="InnerShirtLP002" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="1"]
-mesh = SubResource( 3 )
-skin = SubResource( 2 )
-
-[node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.914866, -0.246747, 0.319587, 0.347899, -0.0800483, 0.934109, -0.204906, 0.965769, 0.159076, -2.35161, 14.8249, 3.26883 )
-
-[node name="AnimationPlayer" parent="FPSCamera/MainCharOnlyArmsGameRig" index="3"]
-anims/CrouchWalkBackwards002 = SubResource( 4 )
-anims/CrouchWalkBackwardsLeft002 = SubResource( 5 )
-anims/CrouchWalkBackwardsRight002 = SubResource( 6 )
-anims/CrouchWalkForward002 = SubResource( 7 )
-anims/CrouchWalkForwardLeft002 = SubResource( 8 )
-anims/CrouchWalkForwardRight002 = SubResource( 9 )
-anims/CrouchWalkLeft002 = SubResource( 10 )
-anims/CrouchWalkRight002 = SubResource( 11 )
-anims/Idle = SubResource( 12 )
-anims/Kick = SubResource( 13 )
-anims/Runloopforward002 = SubResource( 14 )
-anims/WalkBackwards002 = SubResource( 15 )
-anims/WalkBackwardsLeft002 = SubResource( 359 )
-anims/WalkBackwardsRight002 = SubResource( 17 )
-anims/WalkForwardRight002 = SubResource( 18 )
-anims/WalkForwards002 = SubResource( 360 )
-anims/WalkForwardsLeft002 = SubResource( 361 )
-anims/WalkRight002 = SubResource( 362 )
-anims/Walkleft002 = SubResource( 363 )
-
-[node name="Legs" parent="." index="24"]
+[node name="Legs" parent="." index="23"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0379716, 0 )
 
 [node name="Feet" parent="Legs" index="0"]
@@ -24068,10 +24034,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 cast_to = Vector3( 0, -1, 0 )
 collide_with_areas = true
 
-[node name="AnimationPlayer" parent="." index="26"]
+[node name="AnimationPlayer" parent="." index="25"]
 anims/One_Handed_ADS_Idle = ExtResource( 24 )
 
-[node name="AnimationTree" parent="." index="27"]
+[node name="AnimationTree" parent="." index="26"]
 active = false
 parameters/ADS_State/current = 2
 parameters/Big_guns_transition/current = 0
@@ -24079,7 +24045,7 @@ parameters/Gun_transition/current = 0
 parameters/Small_guns_transitions/current = 0
 parameters/crouch_strafe/blend_position = Vector2( -0.006, -0.662 )
 
-[node name="Players_Animation" type="AnimationPlayer" parent="." index="28"]
+[node name="Players_Animation" type="AnimationPlayer" parent="." index="27"]
 root_node = NodePath("../FPSCamera/MainCharOnlyArmsGameRig")
 anims/Hip_Idle = ExtResource( 29 )
 anims/ItemHolding = ExtResource( 32 )
@@ -24088,23 +24054,19 @@ anims/ItemHoldingVertical = ExtResource( 34 )
 anims/One_Handed_Hip_Idle = ExtResource( 28 )
 anims/idle-loop = ExtResource( 31 )
 
-[node name="Player_Animations" type="Node" parent="." index="29"]
+[node name="Player_Animations" type="Node" parent="." index="28"]
 script = ExtResource( 30 )
 _cam_path = NodePath("../FPSCamera")
 
-[node name="Player_Animation_tree" type="AnimationTree" parent="." index="30"]
+[node name="Player_Animation_tree" type="AnimationTree" parent="." index="29"]
 tree_root = SubResource( 365 )
 anim_player = NodePath("../Players_Animation")
 active = true
 parameters/Animation_State/current = 1
 parameters/Weapon_states/current = 0
 
-[node name="AdsTween" type="Tween" parent="." index="31"]
+[node name="AdsTween" type="Tween" parent="." index="30"]
 unique_name_in_owner = true
-
-[node name="Body_Animation" type="AnimationPlayer" parent="." index="32"]
-anims/idle = SubResource( 371 )
-anims/walk = SubResource( 372 )
 
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
@@ -24114,11 +24076,11 @@ anims/walk = SubResource( 372 )
 [connection signal="is_moving" from="." to="HP" method="_on_Player_is_moving"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_Hitbox_area_entered"]
 [connection signal="mainhand_slot_changed" from="Inventory" to="Player_Animations" method="_on_Inventory_mainhand_slot_changed"]
-[connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
-[connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]
-[connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
-[connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]
 [connection signal="body_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_exited"]
+[connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
+[connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]
+[connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
+[connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]

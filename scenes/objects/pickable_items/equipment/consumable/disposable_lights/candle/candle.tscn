@@ -193,7 +193,6 @@ extents = Vector3( 0.02, 0.02, 0.02 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0646212, 0 )
 continuous_cd = false
 script = ExtResource( 3 )
-can_attach = false
 item_name = "Candle"
 
 [node name="MeshInstance" parent="." index="0"]

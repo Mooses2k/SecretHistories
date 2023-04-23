@@ -88,7 +88,6 @@ export var interact_distance : float = 0.75
 export var lock_mouse : bool = true   # why is this needed here if not on a player?
 export var head_bob_enabled : bool = true
 export var _legcast : NodePath
-export var _middle_detection : NodePath
 export(AttackTypes.Types) var damage_type : int = 0
 export (float) var kick_impulse
 
@@ -110,7 +109,6 @@ onready var _audio_player = get_node("Audio")
 onready var _player_hitbox = get_node("PlayerStandChecker")
 onready var _ground_checker = $"%GroundChecker"
 onready var legcast : RayCast = get_node(_legcast) as RayCast
-onready var middle_detection : RayCast = get_node(_middle_detection) as RayCast
 onready var _speech_player = get_node("Speech")
 
 var stamina := 600.0

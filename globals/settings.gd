@@ -7,6 +7,7 @@ signal setting_removed(setting_name)
 signal setting_changed(setting_name, old_value, new_value)
 signal setting_meta_changed(setting_name)
 signal settings_list_changed()
+signal keys_saved(setting_name, old_value, new_value)
 
 #required fields
 const _FIELD_VALUE = "value"
@@ -33,6 +34,7 @@ enum SettingType {
 	BOOL,
 	ENUM,
 	INT,
+	STRING
 }
 
 # The list of settings as an array of { SettingName : SettingData}
@@ -95,6 +97,13 @@ func set_setting(setting_name : String, value) -> bool:
 					return false
 				var old_value = _settings[setting_name][_FIELD_VALUE]
 				_settings[setting_name][_FIELD_VALUE] = value
+				emit_signal("setting_changed", setting_name, old_value, value)
+			else:
+				return false
+		SettingType.STRING:
+			if value is InputEvent:
+				var old_value = _settings[setting_name][_FIELD_VALUE]
+#				_settings[setting_name][_FIELD_VALUE] = value
 				emit_signal("setting_changed", setting_name, old_value, value)
 			else:
 				return false
@@ -314,3 +323,20 @@ func get_setting_variants(setting_name : String) -> PoolStringArray:
 
 func is_setting_enum(setting_name : String) -> bool:
 	return get_setting_type(setting_name) == SettingType.ENUM
+
+
+func add_string_setting(setting_name : String, default : PoolStringArray) -> bool:
+	if _settings.has(setting_name):
+		return false
+	_settings[setting_name] = {
+		_FIELD_TYPE : SettingType.STRING,
+		_FIELD_DEFAULT : default,
+		_FIELD_VALUE : default
+	}
+	emit_signal("setting_added", setting_name)
+	emit_signal("settings_list_changed")
+	return true
+
+
+func is_setting_string(setting_name : String) -> bool:
+	return get_setting_type(setting_name) == SettingType.STRING

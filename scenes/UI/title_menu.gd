@@ -4,7 +4,7 @@ extends Control
 func _ready():
 	if LoadQuotes.list2.empty() and LoadQuotes.list1.empty():
 		LoadQuotes.load_files()
-
+	
 	$VBoxContainer/ContinueButton.grab_focus()
 
 

@@ -15,7 +15,7 @@ var setting_mouse_sensitivity : float setget set_mouse_sensitivity, get_mouse_se
 func _ready():
 	Settings.add_float_setting(SETTING_MOUSE_SENSITIVITY, MIN_VALUE, MAX_VALUE, STEP_VALUE, 0.5)
 	Settings.set_setting_group(SETTING_MOUSE_SENSITIVITY, GROUP_NAME)
-
+	
 	Settings.connect("setting_changed", self, "on_setting_changed")
 
 

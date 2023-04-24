@@ -11,15 +11,12 @@ const SettingsEditors = {
 	SettingsClass.SettingType.BOOL : preload("SettingsEditors/BoolEditor.tscn"),
 	SettingsClass.SettingType.FLOAT : preload("SettingsEditors/FloatEditor.tscn"),
 	SettingsClass.SettingType.ENUM : preload("SettingsEditors/EnumEditor.tscn"),
-	SettingsClass.SettingType.INT : preload("SettingsEditors/IntEditor.tscn")
+	SettingsClass.SettingType.INT : preload("SettingsEditors/IntEditor.tscn"),
+	SettingsClass.SettingType.STRING : preload("SettingsEditors/StringEditor.tscn")
 }
 
 var group_nodes : Dictionary = Dictionary()
 var settings : SettingsClass
-
-
-func _ready():
-	pass # Replace with function body.
 
 
 func attach_settings(s : SettingsClass):

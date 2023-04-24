@@ -41,11 +41,18 @@ func gen_dict_from_input_map() -> Dictionary:
 	var actions = InputMap.get_actions()
 	var result = Dictionary()
 	for _action in actions:
+		if _action == "reload":
+			print("action " + str(_action))
 		var action : String = _action as String
 		# ignore built in ui actions
 		if not action.begins_with("ui_"):
 			result[action] = Array()
 			for event in InputMap.get_action_list(action):
+				if action == "reload":
+					if event.physical_scancode:
+						print("event " + str(OS.get_scancode_string(event.physical_scancode)))
+					else:
+						print("event " + str(OS.get_scancode_string(event.scancode)))
 				result[action].push_back(event2str(event))
 	return result
 
@@ -95,17 +102,21 @@ func setup_keys(key_dict : Dictionary):
 #				j.text = OS.get_scancode_string(key_dict[i])
 		var has_invalid : bool = false
 		var events = Array()
-		print("action : ", action)
+		if action == "reload":
+			print("action : ", action)
 		for event_str in key_dict[action]:
 			var event = str2event(event_str)
-			print("\tevent: ", var2str(event))
+
 			if event:
+				if action == "reload":
+					print("\tevent: ", str(OS.get_scancode_string(event.scancode)))
 				events.push_back(event)
 			else:
 				has_invalid = true
 		if not has_invalid:
 			InputMap.action_erase_events(action)
 		for event in events:
+			print("keys loaded succes")
 			InputMap.action_add_event(action, event)
 
 

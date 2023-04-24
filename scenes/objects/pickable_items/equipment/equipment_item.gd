@@ -11,7 +11,7 @@ export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_M
 
 export var item_name : String = "Equipment"
 var is_in_belt = false
-
+var has_equipped = false
 
 # Override this function for (Left-Click and E, typically) use actions
 func _use_primary():
@@ -52,7 +52,7 @@ func get_hold_transform() -> Transform:
 
 
 # WORKAROUND for https://github.com/godotengine/godot/issues/62435
-func _process(delta):
+func _physics_process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		transform = get_hold_transform()
 

@@ -127,6 +127,8 @@ omni_attenuation = 4.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.763023, 5.9368, 4.46903 )
+_legcast = NodePath("")
 
 [node name="Cultist" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.20873, 5.43159, -9.97855 )
+_legcast = NodePath("")

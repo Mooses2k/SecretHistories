@@ -12,6 +12,7 @@ var ticks_since_active : int = 0
 
 
 func idle():
+	pass
 	ticks_since_active += 1
 	if ticks_since_active > 1:
 		target_distance = rand_range(min_distance, max_distance)
@@ -22,7 +23,7 @@ func tick(state : CharacterState) -> int:
 	ticks_since_active = 0
 	var distance : float = state.character.global_transform.origin.distance_to(state.target_position)
 	if target_reached:
-		if distance > target_distance*threshold_factor:
+		if distance > target_distance * threshold_factor:
 			target_reached = false
 			return Status.FAILURE
 		return Status.SUCCESS

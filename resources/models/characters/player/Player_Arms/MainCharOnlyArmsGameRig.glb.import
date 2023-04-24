@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/MainCharGameRig.glb-f24176f7ddc5b6fc33a01f382edb7f17.scn"
+path="res://.import/MainCharOnlyArmsGameRig.glb-5f598c0ff3b9b2cf9e3e5b5dd666ed1d.scn"
 
 [deps]
 
-source_file="res://resources/models/characters/player/MainCharGameRig.glb"
-dest_files=[ "res://.import/MainCharGameRig.glb-f24176f7ddc5b6fc33a01f382edb7f17.scn" ]
+source_file="res://resources/models/characters/player/Player_Arms/MainCharOnlyArmsGameRig.glb"
+dest_files=[ "res://.import/MainCharOnlyArmsGameRig.glb-5f598c0ff3b9b2cf9e3e5b5dd666ed1d.scn" ]
 
 [params]
 

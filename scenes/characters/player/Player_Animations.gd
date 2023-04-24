@@ -1,6 +1,7 @@
 extends Node
 
 
+#Different hold states depending on the item equipped
 enum hold_states {
 	SMALL_GUN_ITEM,
 	LARGE_GUN_ITEM,
@@ -25,13 +26,11 @@ func _process(delta):
 func _physics_process(delta):
 	ads()
 	
-func _on_Inventory_mainhand_slot_changed(previous, current):
-	if inventory.hotbar[current] is GunItem:
-		pass
-	else:
-		current_mainhand_item_animation = hold_states.UNEQUIPPED
+
 
 func check_curent_weapon():
+	
+	#This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
 
@@ -61,10 +60,12 @@ func check_curent_weapon():
 			
 		else:
 			$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
-#			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+
 
 func ads():
 	var main_hand_item = get_parent().inventory.current_mainhand_slot
+	
+	#This checks if the Ads mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to it's normal position
 	if Input.is_action_pressed("ADS"):
 		if get_parent().inventory.current_mainhand_slot != null:
 			
@@ -87,6 +88,7 @@ func ads():
 
 
 func check_player_animation():
+	#This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree
 	if current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 2)
@@ -95,16 +97,22 @@ func check_player_animation():
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 1)
 
+#the tween functions make sure that the items are visible by moving the hand a bit forward
 	elif current_mainhand_item_animation == hold_states.MELEE_ITEM or current_mainhand_item_animation == hold_states.LANTERN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%AdsTween".start()
-	
-		
+
 	else:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
 		$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%AdsTween".start()
 
 
+func _on_Inventory_mainhand_slot_changed(previous, current):
+	#checks if there is something currently equipped, else does nothing
+	if inventory.hotbar[current] != null:
+		pass
+	else:
+		current_mainhand_item_animation = hold_states.UNEQUIPPED

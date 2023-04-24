@@ -23780,6 +23780,9 @@ unique_name_in_owner = true
 transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.015, -1.474, 0.124 )
 visible = true
 
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/137/bound_children = [  ]
+
 [node name="Body003" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 mesh = SubResource( 1 )
 skin = SubResource( 2 )

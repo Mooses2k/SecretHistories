@@ -24,7 +24,7 @@ func _ready():
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 
-#	body.add_collision_exception_with()
+
 
 func _physics_process(delta):
 	gun_cam.global_transform = fps_camera.global_transform

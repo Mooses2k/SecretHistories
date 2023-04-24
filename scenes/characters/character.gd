@@ -56,7 +56,7 @@ enum State {
 	STATE_CLAMBERING_VENT,
 	STATE_NOCLIP,
 }
-
+#checks if the player is equipping something or not 
 enum Animation_state {
 	EQUIPPED,
 	NOT_EQUIPPED,
@@ -472,10 +472,15 @@ func _crouch(delta : float) -> void:
 			return
 
 func check_state_animation(delta):
+	
 	var forwards_velocity
 	var sideways_velocity
+	#if the character is moving sets the velocity to it's movement blendspace2D to create a strafing effect
+	
 	forwards_velocity = -global_transform.basis.z.dot(velocity)
 	sideways_velocity = global_transform.basis.x.dot(velocity)
+	
+	#This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 	if self.name == "Cultist":
 		if current_mainhand_item_animation == hold_states.MELEE_ITEM:
 			
@@ -556,7 +561,6 @@ func check_state_animation(delta):
 
 
 		elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM:
-	#		$MainCharGameRig/rig_deform/Skeleton/MainhandIK.start()
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
@@ -619,7 +623,6 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
-	#			animation_tree.set("parameters/Big_guns_transition/current",4)
 				
 			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -659,7 +662,6 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",4)
-	#			animation_tree.set("parameters/Big_guns_transition/current",4)
 				
 			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -680,37 +682,32 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",2)
 				animation_tree.set("parameters/One_Handed_ADS_Run/blend_amount",1)
-			
-			
-		
-				
-				
-				
+
+#checks if the character is on the ground if not plays the falling animation
 	if !grounded and !_ground_checker.is_colliding():
 		animation_tree.set("parameters/Falling/active",true)
 	else:
 		animation_tree.set("parameters/Falling/active",false)
 
 func check_curent_weapon():
+		#This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
 		
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
 			
 			if inventory.hotbar[main_hand_object].item_size == 0:
-#				mainhand_equipment_root.translation = Vector3(-0.052, 0.13, 0.057 )
-#				mainhand_equipment_root.rotation_degrees = Vector3(66.179, 118.34, 104.57 )
 				
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:
-#				mainhand_equipment_root.translation = Vector3(-0.039, 0.134, 0.055)
-#				mainhand_equipment_root.rotation_degrees = Vector3(80.359, -145.675, -164.747 )
 				
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
 				
 		elif  inventory.hotbar[main_hand_object] is LanternItem  or inventory.hotbar[off_hand_object] is LanternItem:
 			print("Carried Lantern")
+			#update this to work for items animations
 		elif  inventory.hotbar[main_hand_object] is MeleeItem  or inventory.hotbar[off_hand_object] is MeleeItem:
+			#update this to work for items animations
 			print("Melee Item")
 
 
@@ -731,6 +728,7 @@ func _on_ClamberableChecker_body_entered(body):
 
 
 func move_effect():
+	#plays the belt bobbing animation if the player is moving 
 	if velocity != Vector3.ZERO:
 		additional_animations.play("Belt_bob", -1, velocity.length() / 2)
 
@@ -745,7 +743,8 @@ func speak():
 
 
 func _on_Inventory_mainhand_slot_changed(previous, current):
-	if inventory.hotbar[current] is GunItem:
+	#checks if there is something currently equipped, else does nothing
+	if inventory.hotbar[current] != null :
 		pass
 		
 	else:

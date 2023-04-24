@@ -125,7 +125,9 @@ extents = Vector3( 0.1, 0.1, 0.1 )
 mass = 0.2
 script = ExtResource( 3 )
 item_name = "Oil Lantern"
-can_attach = false
+is_oil_based = true
+life_percentage_lose = 0.1
+prob_going_out = 0.5
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
@@ -189,7 +191,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0567762, 0.00329563 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015177, 0 )
 shape = SubResource( 6 )
 
-[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." index="8"]
 stream = ExtResource( 5 )
 unit_db = 30.0
@@ -198,4 +199,5 @@ unit_db = 30.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 6 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

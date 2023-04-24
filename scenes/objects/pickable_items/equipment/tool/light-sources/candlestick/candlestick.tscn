@@ -183,6 +183,8 @@ dropped_mask = 1
 equipped_mode = 3
 item_size = 0
 item_name = "Candlestick"
+life_percentage_lose = 0.2
+prob_going_out = 0.9
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, 0, -0.243053, 0 )
@@ -255,6 +257,8 @@ stream = ExtResource( 7 )
 [node name="BlowOutSound" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 8 )
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

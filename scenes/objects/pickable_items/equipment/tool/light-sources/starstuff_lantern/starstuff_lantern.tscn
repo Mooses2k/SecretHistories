@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/starstuff_lantern/M_LampMedieval.material" type="Material" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://resources/models/items/tools/light_sources/starstuff_lantern/M_LampMed_Crystal.material" type="Material" id=4]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=6]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "medievallantern_Mesh"
@@ -122,7 +123,11 @@ extents = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="StarstuffLantern" instance=ExtResource( 1 )]
 mass = 0.2
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 3 )
+item_drop_sound = ExtResource( 7 )
+can_attach = false
 item_name = "Starstuff Lantern"
 can_attach = false
 life_percentage_lose = 0.1

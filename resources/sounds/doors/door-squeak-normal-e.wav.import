@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/footstep_6.wav-acae5cfe011df08daf8ad3aee5c0f540.sample"
+path="res://.import/door-squeak-normal-e.wav-3eb22be8d783d8c82438fd95f3e9e4c6.sample"
 
 [deps]
 
-source_file="res://resources/sounds/player/sfx/footsteps/footstep_6.wav"
-dest_files=[ "res://.import/footstep_6.wav-acae5cfe011df08daf8ad3aee5c0f540.sample" ]
+source_file="res://resources/sounds/doors/door-squeak-normal-e.wav"
+dest_files=[ "res://.import/door-squeak-normal-e.wav-3eb22be8d783d8c82438fd95f3e9e4c6.sample" ]
 
 [params]
 

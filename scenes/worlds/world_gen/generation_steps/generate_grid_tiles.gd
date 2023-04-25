@@ -33,6 +33,11 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 	for i in data.cell_count:
 		if data.get_cell_type(i) != data.CellType.EMPTY:
+			if data.get_cell_type(i) == data.CellType.ROOM:
+				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
+			elif data.get_cell_type(i) == data.CellType.CORRIDOR:
+				data.set_cell_surfacetype(i, data.SurfaceType.CARPET)
+			data.set_ground_tile_index(i, floor_tile)
 			var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
 			if not is_pillar_room:
 				data.set_ground_tile_index(i, floor_tile)

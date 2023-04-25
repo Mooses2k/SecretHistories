@@ -84,6 +84,18 @@ enum EdgeType {
 	EMPTY
 }
 
+enum SurfaceType {
+	WOOD,
+	CARPET,
+	STONE,
+	WATER,
+	GRAVEL,
+	METAL, 
+	TILE
+}
+
+var cell_surface_type : PoolByteArray
+
 # Physical parameters of the world
 const CELL_SIZE : float = 1.5
 const WALL_SIZE : float = 3.0
@@ -109,6 +121,7 @@ func get_size_z() -> int:
 func clear():
 	cell_count = world_size_x*world_size_z
 	cell_type.resize(cell_count)
+	cell_surface_type.resize(cell_count)
 	ground_tile_index.resize(cell_count)
 	ceiling_tile_index.resize(cell_count)
 	pillar_tile_index.resize(cell_count)
@@ -347,6 +360,15 @@ func get_cell_type(cell_index : int) -> int:
 func set_cell_type(cell_index : int, value : int):
 	if cell_index >= 0:
 		cell_type[cell_index] = value
+
+
+func get_cell_surfacetype(cell_index : int) -> int:
+	return cell_surface_type[cell_index] if cell_index >= 0 else -1
+
+
+func set_cell_surfacetype(cell_index : int, value : int):
+	if cell_index >= 0:
+		cell_surface_type[cell_index] = value
 
 
 func get_cell_meta(cell_index : int, key, default = null):

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/footstep_5.wav-338c92767b7e3adc703c45800b1d6d1b.sample"
+path="res://.import/footstep_1.wav-c05a26afad105c4c7319d8b3d1ad39ed.sample"
 
 [deps]
 
-source_file="res://resources/sounds/player/sfx/footsteps/footstep_5.wav"
-dest_files=[ "res://.import/footstep_5.wav-338c92767b7e3adc703c45800b1d6d1b.sample" ]
+source_file="res://resources/sounds/player/sfx/stone_footsteps/footstep_1.wav"
+dest_files=[ "res://.import/footstep_1.wav-c05a26afad105c4c7319d8b3d1ad39ed.sample" ]
 
 [params]
 

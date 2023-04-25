@@ -18,9 +18,11 @@ onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
+var noise_level = 0
 
 
 func _ready():
+	connect("player_landed", $PlayerController, "_on_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 
@@ -44,6 +46,8 @@ func _process(delta):
 	#this notifies the dot if something if the player is currently grabbing something
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
+	
+
 
 
 func drop_consumable(object):

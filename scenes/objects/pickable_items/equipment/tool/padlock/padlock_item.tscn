@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/padlock/padlock_item.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/tools/locks_and_keys/OldLockAndKey/M_Lock_1.material" type="Material" id=3]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "Lock1_meshId1_name"
@@ -20,7 +21,10 @@ surfaces/0 = {
 }
 
 [node name="PadlockItem" instance=ExtResource( 1 )]
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 2 )
+item_drop_sound = ExtResource( 4 )
 item_size = 0
 item_name = "Padlock"
 padlock_id = 0

@@ -36,10 +36,6 @@ var on_cooldown = false
 onready var character = get_parent()
 
 
-func _ready():
-	pass
-
-
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED:

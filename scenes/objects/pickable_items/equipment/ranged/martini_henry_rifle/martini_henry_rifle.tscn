@@ -14,6 +14,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/effects.gd" type="Script" id=12]
 [ext_resource path="res://resources/sounds/dryfire/171211__brianhanson2nd__dry-fire.wav" type="AudioStream" id=13]
 [ext_resource path="res://resources/sounds/reloading/lever-action/long1.wav" type="AudioStream" id=14]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=15]
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "martini_henry_Mesh_0"
@@ -103,6 +104,10 @@ points = PoolVector3Array( 10.1372, -0.404484, -2.0994, 10.1486, -0.352186, -2.1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001, 0.015, -0.401 )
 mass = 1.0
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
+item_drop_sound = ExtResource( 13 )
+can_attach = false
 item_name = "Martini-Henry rifle"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1

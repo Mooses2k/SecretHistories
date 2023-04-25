@@ -13,8 +13,8 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/halberd/halberd.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/knife_old/knife_old.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/dagger/dagger.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/lee-metford_rifle.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_base.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_knight.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shotgun_sawed_item.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn" type="PackedScene" id=18]
@@ -109,10 +109,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 [node name="khyber_pass_martini" parent="." instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125584, -0.0662795 )
 
-[node name="Lee-Metford rifle" parent="." instance=ExtResource( 14 )]
+[node name="SarcophagusBase" parent="." instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62943, -0.0815325, -3.93372 )
 
-[node name="Martini-Henry rifle" parent="." instance=ExtResource( 15 )]
-transform = Transform( 0.975277, -0.171566, -0.139283, 0.170611, 0.985158, -0.0188537, 0.14045, -0.00537559, 0.990073, 0.0407875, 0.0105244, -0.30313 )
+[node name="SarcophagusLidKnight" parent="." instance=ExtResource( 15 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64973, 0.616052, -3.94115 )
+mass = 60.0
+contacts_reported = 4
+contact_monitor = true
 
 [node name="Webley revolver" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0288613, -0.0769493 )

@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resources/sounds/dryfire/412297__jaklocke__gun-trigger-pull-2.wav" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/reloading/revolver/revolver5.wav" type="AudioStream" id=11]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=12]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Webley_Plane002"
@@ -59,7 +60,11 @@ points = PoolVector3Array( -0.105969, 0.0480101, -0.00572485, 0.108835, 0.164206
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.2 )
 mass = 1.0
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 6 )
+item_drop_sound = ExtResource( 10 )
+can_attach = false
 item_size = 0
 item_name = "Webley revolver"
 ammo_types = [ ExtResource( 2 ) ]

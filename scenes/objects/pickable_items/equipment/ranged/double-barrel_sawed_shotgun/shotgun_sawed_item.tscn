@@ -53,7 +53,11 @@ points = PoolVector3Array( -0.0874182, 0.0817786, 0.00620462, -0.0874182, 0.0811
 
 [node name="Shotgun_sawed_item" instance=ExtResource( 7 )]
 mass = 3.0
+contacts_reported = 2
+contact_monitor = true
 script = SubResource( 9 )
+item_drop_sound = ExtResource( 2 )
+can_attach = false
 item_size = 0
 item_name = "Sawed-off shotgun"
 ammo_types = [ ExtResource( 4 ) ]

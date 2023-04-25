@@ -13,6 +13,10 @@ export var item_name : String = "Equipment"
 var is_in_belt = false
 var has_equipped = false
 
+func _ready():
+	connect("body_entered", self, "play_drop_sound")
+
+
 # Override this function for (Left-Click and E, typically) use actions
 func _use_primary():
 	print("use primary")

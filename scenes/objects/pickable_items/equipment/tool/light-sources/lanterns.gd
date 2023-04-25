@@ -8,6 +8,7 @@ onready var firelight = $Light
 
 
 func _ready():
+	connect("body_entered", self, "play_drop_sound")
 	light_timer = $Timer
 	
 	light_timer.connect("timeout", self, "light_depleted")

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/491790__hidrolion__42-golpe-metal-1.ogg-dc2044d3b5b0
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

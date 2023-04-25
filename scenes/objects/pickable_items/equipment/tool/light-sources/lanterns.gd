@@ -4,21 +4,30 @@ class_name LanternItem
 
 #var has_ever_been_on = true # starts on
 var is_lit = true # starts on
-
 onready var firelight = $Light
-onready var burn_time = $Durability
 
 
-#func _ready():
-#	burn_time.start()     # done in Inspector
-
-
-func _process(delta):
-
-	if is_lit == true:
-		burn_time.pause_mode = false
+func _ready():
+	connect("body_entered", self, "play_drop_sound")
+	light_timer = $Timer
+	
+	light_timer.connect("timeout", self, "light_depleted")
+	if is_oil_based:
+		burn_time = 1800.0
 	else:
-		burn_time.pause_mode = true
+		burn_time = 3600.0
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
+	
+	if self.name == "BullseyeLantern":
+		print("burn time is = " + str(burn_time))
+
+
+#func _process(delta):
+#	if is_lit == true:
+#		light_timer.pause_mode = false
+#	else:
+#		light_timer.pause_mode = true
 
 #	if self.mode == equipped_mode and has_ever_been_on == false:
 ##			burn_time.start()   # done in Inspector
@@ -31,19 +40,26 @@ func _process(delta):
 
 
 func light():
-	$AnimationPlayer.play("flicker")
-	$LightSound.play()
-	firelight.visible = true
-	$MeshInstance.cast_shadow = false
-	is_lit = true
+	if not is_depleted:
+		$AnimationPlayer.play("flicker")
+		$LightSound.play()
+		firelight.visible = true
+		$MeshInstance.cast_shadow = false
+		
+		is_lit = true
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
 
 
 func unlight():
-	$AnimationPlayer.stop()
-	$BlowOutSound.play()
-	firelight.visible = false
-	$MeshInstance.cast_shadow = true
-	is_lit = false
+	if not is_depleted:
+		$AnimationPlayer.stop()
+		$BlowOutSound.play()
+		firelight.visible = false
+		$MeshInstance.cast_shadow = true
+		
+		is_lit = false
+		stop_light_timer()
 
 
 func _item_state_changed(previous_state, current_state):
@@ -69,7 +85,3 @@ func _use_primary():
 		light()
 	else:
 		unlight()
-
-
-func _on_Durability_timeout():
-	unlight()

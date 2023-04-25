@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=9]
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.165698
@@ -34,10 +35,13 @@ surfaces/0 = {
 [node name="Dagger" type="RigidBody"]
 collision_layer = 64
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
+item_drop_sound = ExtResource( 9 )
 item_size = 0
 item_name = "Dagger"
 weapon_type = 1
@@ -74,7 +78,7 @@ skeleton = NodePath("../..")
 script = ExtResource( 3 )
 
 [node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.0807962, 0 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0790088, 0 )
 
 [node name="NormalPosition" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125598, 0 )

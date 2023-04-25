@@ -24,7 +24,7 @@ var voice_volume : float
 
 var file_name = "%s://keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
 
-var mouse_sensitivity : float = 0.5
+var mouse_sensitivity : float = 1
 
 
 func _ready():

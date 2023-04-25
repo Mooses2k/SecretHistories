@@ -480,6 +480,7 @@ ambient_light_color = Color( 1, 1, 1, 1 )
 
 [node name="Wall_Double_Door_Open" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.74, 0.01, 0.74 )
+visible = false
 mesh = SubResource( 1 )
 
 [node name="StaticBody2" type="StaticBody" parent="Wall_Double_Door_Open"]
@@ -499,6 +500,7 @@ shape = SubResource( 47 )
 
 [node name="Wall_Arch_Open" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, -0.01, 0.74 )
+visible = false
 mesh = SubResource( 2 )
 
 [node name="StaticBody" type="StaticBody" parent="Wall_Arch_Open"]
@@ -520,6 +522,7 @@ shape = SubResource( 50 )
 
 [node name="Wall_Arch_Gate" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, 0, 0.74 )
+visible = false
 mesh = SubResource( 3 )
 
 [node name="StaticBody2" type="StaticBody" parent="Wall_Arch_Gate"]
@@ -534,6 +537,7 @@ shape = SubResource( 51 )
 
 [node name="Wall_Arch_Closed" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.01, 0.75 )
+visible = false
 mesh = SubResource( 4 )
 
 [node name="StaticBody3" type="StaticBody" parent="Wall_Arch_Closed"]
@@ -548,6 +552,7 @@ shape = SubResource( 51 )
 
 [node name="Wall_3x3" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, 0, 0.74 )
+visible = false
 mesh = SubResource( 5 )
 
 [node name="StaticBody3" type="StaticBody" parent="Wall_3x3"]
@@ -559,6 +564,7 @@ shape = SubResource( 51 )
 
 [node name="Wall_115x3" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.15 )
+visible = false
 mesh = SubResource( 6 )
 
 [node name="StaticBody2" type="StaticBody" parent="Wall_115x3"]
@@ -569,6 +575,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.5, 0 )
 shape = SubResource( 52 )
 
 [node name="Floor_15m" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 18 )
 
 [node name="StaticBody2" type="StaticBody" parent="Floor_15m"]
@@ -580,6 +587,7 @@ shape = SubResource( 58 )
 
 [node name="Floor-3x3" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75 )
+visible = false
 mesh = SubResource( 19 )
 
 [node name="StaticBody3" type="StaticBody" parent="Floor-3x3"]
@@ -591,6 +599,7 @@ shape = SubResource( 59 )
 
 [node name="Ceiling_Steps_Open" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75 )
+visible = false
 mesh = SubResource( 20 )
 
 [node name="StaticBody" type="StaticBody" parent="Ceiling_Steps_Open"]
@@ -604,6 +613,7 @@ shape = SubResource( 59 )
 
 [node name="Ceiling_Steps_Grated" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75 )
+visible = false
 mesh = SubResource( 21 )
 
 [node name="StaticBody" type="StaticBody" parent="Ceiling_Steps_Grated"]
@@ -617,6 +627,7 @@ shape = SubResource( 61 )
 
 [node name="Ceiling_15m" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0.01, 0.01 )
+visible = false
 mesh = SubResource( 22 )
 
 [node name="StaticBody" type="StaticBody" parent="Ceiling_15m"]
@@ -630,6 +641,7 @@ shape = SubResource( 58 )
 
 [node name="Ceiling_15_Grated" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0.01, 0.01 )
+visible = false
 mesh = SubResource( 23 )
 
 [node name="StaticBody" type="StaticBody" parent="Ceiling_15_Grated"]
@@ -643,6 +655,7 @@ shape = SubResource( 58 )
 
 [node name="Wall_Grate_Seamless" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.01, 0.715 )
+visible = false
 mesh = SubResource( 26 )
 
 [node name="StaticBody2" type="StaticBody" parent="Wall_Grate_Seamless"]
@@ -654,6 +667,7 @@ shape = SubResource( 51 )
 
 [node name="Wall_Grate_Doorway" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.01, 0.715 )
+visible = false
 mesh = SubResource( 27 )
 
 [node name="StaticBody3" type="StaticBody" parent="Wall_Grate_Doorway"]
@@ -673,6 +687,7 @@ shape = SubResource( 47 )
 
 [node name="Wall_3x3_Doorway" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, 0, 0.74 )
+visible = false
 mesh = SubResource( 33 )
 
 [node name="StaticBody4" type="StaticBody" parent="Wall_3x3_Doorway"]
@@ -692,6 +707,7 @@ shape = SubResource( 47 )
 
 [node name="SM_square_pillar_short" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, -0.75 )
+visible = false
 mesh = SubResource( 39 )
 
 [node name="StaticBody2" type="StaticBody" parent="SM_square_pillar_short"]
@@ -702,6 +718,7 @@ shape = SubResource( 66 )
 
 [node name="SM_square_pillar_tall" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, -0.75 )
+visible = false
 mesh = SubResource( 40 )
 
 [node name="StaticBody3" type="StaticBody" parent="SM_square_pillar_tall"]
@@ -712,6 +729,7 @@ shape = SubResource( 67 )
 
 [node name="SM_Pillar_Short" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, -0.75 )
+visible = false
 mesh = SubResource( 41 )
 
 [node name="StaticBody3" type="StaticBody" parent="SM_Pillar_Short"]
@@ -729,7 +747,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0 )
 shape = SubResource( 69 )
 
 [node name="SM_Arched_Ceiling" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.001, 0.75, 2.626, 0.75 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 2.626, 0.75 )
 mesh = SubResource( 42 )
 
 [node name="StaticBody" type="StaticBody" parent="SM_Arched_Ceiling"]
@@ -738,11 +756,12 @@ mesh = SubResource( 42 )
 shape = SubResource( 70 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="SM_Arched_Ceiling/StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.999001, 0, 0.974, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.974, 0 )
 shape = SubResource( 71 )
 
 [node name="Wall_Door_115x3" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6 )
+visible = false
 mesh = SubResource( 44 )
 
 [node name="StaticBody2" type="StaticBody" parent="Wall_Door_115x3"]

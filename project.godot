@@ -100,6 +100,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/action_nodes/bt_shoot.gd"
 }, {
 "base": "BT_Node",
+"class": "BT_Sound_Listener",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_sound_listener.gd"
+}, {
+"base": "BT_Node",
 "class": "BT_Wait_Random",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_wait_random.gd"
@@ -309,6 +314,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/player_camera.gd"
 }, {
+"base": "Node",
+"class": "SoundListener",
+"language": "GDScript",
+"path": "res://scenes/sensors/sound_listener.gd"
+}, {
 "base": "ToolItem",
 "class": "Spike",
 "language": "GDScript",
@@ -363,6 +373,7 @@ _global_script_class_icons={
 "BT_Selector": "",
 "BT_Sequence": "",
 "BT_Shoot": "",
+"BT_Sound_Listener": "",
 "BT_Wait_Random": "",
 "BehaviorTree": "",
 "BombItem": "",
@@ -405,6 +416,7 @@ _global_script_class_icons={
 "Rock": "",
 "SettingsClass": "",
 "ShakeCamera": "",
+"SoundListener": "",
 "Spike": "",
 "TinyItem": "",
 "TinyItemData": "",
@@ -435,7 +447,12 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 LoadScreen="*res://globals/load_screen.gd"
+ChangeScene="*res://globals/change_scene.gd"
 KeyInputSettings="*res://globals/settings/key_input_settings.gd"
+
+[display]
+
+window/size/fullscreen=true
 
 [editor]
 
@@ -671,6 +688,11 @@ movement={
 help_info={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777244,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ADS={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 

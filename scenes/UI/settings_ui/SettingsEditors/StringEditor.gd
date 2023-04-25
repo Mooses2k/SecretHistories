@@ -44,6 +44,8 @@ func _on_Value_value_changed(value):
 func _input(event):
 	if is_waiting_input:
 		if not event is InputEventMouseMotion:
+			get_viewport().set_input_as_handled()
+			
 			if event is InputEventMouseButton:
 				print("Mouse Button " + str(event.get_button_index()))
 			elif event is InputEventJoypadButton:
@@ -62,10 +64,8 @@ func _input(event):
 			get_parent().get_parent().get_parent().get_parent().owner.get_node("Panel").hide()
 			is_waiting_input = false
 			settings.set_setting(_setting_name, event)
-#			find_scancode_from_string
 
 
 func _on_TextEdit_pressed():
 	get_parent().get_parent().get_parent().get_parent().owner.get_node("Panel").show()
 	is_waiting_input = true
-	

@@ -26,8 +26,6 @@ var file_name = "%s://keybinding.dict" % ("user" if OS.has_feature("standalone")
 
 var mouse_sensitivity : float = 0.5
 
-var setting_key = false
-
 
 func _ready():
 	pass
@@ -48,11 +46,6 @@ func gen_dict_from_input_map() -> Dictionary:
 		if not action.begins_with("ui_"):
 			result[action] = Array()
 			for event in InputMap.get_action_list(action):
-				if action == "reload":
-					if event.physical_scancode:
-						print("event " + str(OS.get_scancode_string(event.physical_scancode)))
-					else:
-						print("event " + str(OS.get_scancode_string(event.scancode)))
 				result[action].push_back(event2str(event))
 	return result
 

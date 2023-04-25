@@ -19,9 +19,6 @@
 [sub_resource type="SphereShape" id=4]
 radius = 3.5
 
-[sub_resource type="SphereShape" id=5]
-radius = 8.425
-
 [node name="Cultist" instance=ExtResource( 1 )]
 max_health = 50
 move_speed = 3.0
@@ -32,62 +29,7 @@ _legcast = NodePath("Legs/Feet")
 [node name="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, -0.04 )
 
-[node name="BehaviorTree" type="Node" parent="." index="5"]
-script = ExtResource( 6 )
-bt_root = NodePath("BT_Selector")
-
-[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
-script = ExtResource( 8 )
-
-[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
-script = ExtResource( 9 )
-
-[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
-script = ExtResource( 11 )
-sensor = NodePath("../../../../Body/DirectPlayerSight")
-
-[node name="BT_Sound_Listener" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
-script = ExtResource( 18 )
-listener = NodePath("../../../../Body/SoundListener")
-
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="2"]
-script = ExtResource( 9 )
-
-[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
-script = ExtResource( 8 )
-
-[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
-script = ExtResource( 13 )
-listener = NodePath("../../../../../../Body/SoundListener")
-
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
-script = ExtResource( 12 )
-
-[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
-script = ExtResource( 14 )
-
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
-script = ExtResource( 10 )
-
-[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="3"]
-script = ExtResource( 2 )
-
-[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="4"]
-script = ExtResource( 3 )
-
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
-script = ExtResource( 9 )
-
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
-script = ExtResource( 12 )
-
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
-script = ExtResource( 10 )
-
-[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
-script = ExtResource( 7 )
-
-[node name="Body" parent="." index="6"]
+[node name="Body" parent="." index="4"]
 script = ExtResource( 4 )
 
 [node name="DirectPlayerSight" parent="Body" index="2" instance=ExtResource( 5 )]
@@ -205,8 +147,4 @@ root_node = NodePath("../Body/CultistNeophyteNoCape")
 parameters/Equipped_state/current = 1
 
 [connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]
-[connection signal="body_entered" from="PlayerDetector" to="Body/SoundListener" method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_exited"]
-[connection signal="body_exited" from="PlayerDetector" to="Body/SoundListener" method="_on_PlayerDetector_body_exited"]
-[connection signal="body_entered" from="FarSoundDetector" to="Body/SoundListener" method="_on_FarSoundDetector_body_entered"]
-[connection signal="body_exited" from="FarSoundDetector" to="Body/SoundListener" method="_on_FarSoundDetector_body_exited"]

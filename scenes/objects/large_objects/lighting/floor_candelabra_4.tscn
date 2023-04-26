@@ -1,8 +1,8 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=44 format=2]
 
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/large_objects/lighting/M_Candelabra4.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "floor_candelabra4_Cylinder016_0"
@@ -137,49 +137,6 @@ length = 0.001
 resource_name = "flicker"
 length = 5.0
 loop = true
-
-[sub_resource type="CylinderMesh" id=145]
-top_radius = 0.0
-bottom_radius = 0.015
-height = 0.08
-radial_segments = 6
-rings = 1
-
-[sub_resource type="Shader" id=148]
-code = "shader_type spatial;
-render_mode blend_add, unshaded;
-
-const vec3 CENTER_OFFSET = vec3(0.0, -0.03, 0.0);
-const vec3 SCALE = vec3(50.0, 12.0, 50.0);
-
-uniform float INTENSITY = 1.0;
-uniform sampler2D COLOR_RAMP;
-varying vec2 XY_FACTOR;
-
-void vertex() {
-	vec3 v = (VERTEX - CENTER_OFFSET)*SCALE;
-	XY_FACTOR = vec2(v.x*v.x + v.z*v.z, v.y);
-}
-
-void fragment() {
-	ALBEDO.rgb = texture(COLOR_RAMP, vec2(XY_FACTOR.y)).rgb*INTENSITY;
-}"
-
-[sub_resource type="Gradient" id=146]
-offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
-colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=149]
-gradient = SubResource( 146 )
-width = 32
-
-[sub_resource type="ShaderMaterial" id=147]
-shader = SubResource( 148 )
-shader_param/INTENSITY = 4.0
-shader_param/COLOR_RAMP = SubResource( 149 )
-
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.157328, 0.236264, 0.160202 )
 
 [node name="FloorCandelabra3" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
@@ -351,81 +308,17 @@ one_shot = true
 anims/RESET = SubResource( 14 )
 anims/flicker = SubResource( 15 )
 
-[node name="FireOrigin5" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188207, 0.339789, -0.00112151 )
-script = ExtResource( 6 )
+[node name="Candle" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.553686, 0 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin4")
-material/0 = SubResource( 147 )
+[node name="Candle2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.232268, 0.52588, 0 )
 
-[node name="FireOrigin4" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00840224, 0.324049, -0.190523 )
-script = ExtResource( 6 )
+[node name="Candle3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.113726, 0.496463, 0 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin3")
-material/0 = SubResource( 147 )
+[node name="Candle4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123655, 0.496414, -0.0037699 )
 
-[node name="FireOrigin3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193048, 0.257107, 0 )
-script = ExtResource( 6 )
-
-[node name="Fire" type="MeshInstance" parent="FireOrigin3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin9")
-material/0 = SubResource( 147 )
-
-[node name="FireOrigin9" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00162077, 0.515582, 0.0882052 )
-script = ExtResource( 6 )
-
-[node name="Fire" type="MeshInstance" parent="FireOrigin9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin2")
-material/0 = SubResource( 147 )
-
-[node name="FireOrigin2" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0893586, 0.328067, 0.160131 )
-script = ExtResource( 6 )
-
-[node name="Fire" type="MeshInstance" parent="FireOrigin2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-cast_shadow = 0
-mesh = SubResource( 145 )
-material/0 = SubResource( 147 )
-
-[node name="FireOrigin" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623797, 0 )
-script = ExtResource( 6 )
-
-[node name="Fire" type="MeshInstance" parent="FireOrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
-cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../..")
-material/0 = SubResource( 147 )
-
-[node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
-light_color = Color( 0.980392, 0.529412, 0, 1 )
-light_energy = 0.4
-shadow_enabled = true
-omni_range = 10.0
-omni_attenuation = 7.0
-
-[node name="ignite" type="Area" parent="." groups=["ignite"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="ignite"]
-shape = SubResource( 2 )
+[node name="Candle5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.230569, 0.524937, 0 )

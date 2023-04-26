@@ -1,11 +1,11 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png" type="Texture" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/material/candle.tres" type="Material" id=5]
-[ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/flame_05.png" type="Texture" id=6]
+[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=6]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_MetallicSmoothness.png" type="Texture" id=7]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=8]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_AlbedoTransparency.png" type="Texture" id=9]
@@ -66,45 +66,45 @@ func _process(delta):
 height = 0.1
 radius = 0.05
 
-[sub_resource type="Gradient" id=14]
-offsets = PoolRealArray( 0, 0.0967742, 0.606452, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 0.956863, 0.631373, 1, 0.760784, 0.364706, 0.0470588, 1, 0.908081, 0.231616, 0, 1 )
+[sub_resource type="CylinderMesh" id=49]
+top_radius = 0.0
+bottom_radius = 0.015
+height = 0.08
+radial_segments = 6
+rings = 1
 
-[sub_resource type="GradientTexture" id=15]
-gradient = SubResource( 14 )
+[sub_resource type="Shader" id=46]
+code = "shader_type spatial;
+render_mode blend_add, unshaded;
 
-[sub_resource type="Curve" id=8]
-_data = [ Vector2( 0.0305677, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248908, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+const vec3 CENTER_OFFSET = vec3(0.0, -0.03, 0.0);
+const vec3 SCALE = vec3(50.0, 12.0, 50.0);
 
-[sub_resource type="CurveTexture" id=9]
-curve = SubResource( 8 )
+uniform float INTENSITY = 1.0;
+uniform sampler2D COLOR_RAMP;
+varying vec2 XY_FACTOR;
 
-[sub_resource type="ParticlesMaterial" id=16]
-lifetime_randomness = 0.3
-direction = Vector3( 0, 1, 0 )
-spread = 0.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 0.01
-angle = 5.0
-angle_random = 0.5
-scale_random = 0.3
-scale_curve = SubResource( 9 )
-color_ramp = SubResource( 15 )
+void vertex() {
+	vec3 v = (VERTEX - CENTER_OFFSET)*SCALE;
+	XY_FACTOR = vec2(v.x*v.x + v.z*v.z, v.y);
+}
 
-[sub_resource type="SpatialMaterial" id=5]
-flags_transparent = true
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_blend_mode = 1
-params_billboard_mode = 3
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-albedo_texture = ExtResource( 6 )
+void fragment() {
+	ALBEDO.rgb = texture(COLOR_RAMP, vec2(XY_FACTOR.y)).rgb*INTENSITY;
+}"
 
-[sub_resource type="QuadMesh" id=17]
-material = SubResource( 5 )
-size = Vector2( 0.1, 0.1 )
+[sub_resource type="Gradient" id=50]
+offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=48]
+gradient = SubResource( 50 )
+width = 32
+
+[sub_resource type="ShaderMaterial" id=51]
+shader = SubResource( 46 )
+shader_param/INTENSITY = 4.0
+shader_param/COLOR_RAMP = SubResource( 48 )
 
 [sub_resource type="Animation" id=29]
 length = 0.001
@@ -193,8 +193,9 @@ extents = Vector3( 0.02, 0.02, 0.02 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0646212, 0 )
 continuous_cd = false
 script = ExtResource( 3 )
-can_attach = false
 item_name = "Candle"
+life_percentage_lose = 0.2
+prob_going_out = 0.9
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 0, 0 )
@@ -216,19 +217,21 @@ autostart = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286937, 0.134186, 0 )
 script = ExtResource( 2 )
 
-[node name="Fire" type="Particles" parent="FireOrigin" index="0"]
-amount = 32
-lifetime = 0.2
-process_material = SubResource( 16 )
-draw_pass_1 = SubResource( 17 )
+[node name="Fire" type="MeshInstance" parent="FireOrigin" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00112008, 0.0137497, 0 )
+cast_shadow = 0
+mesh = SubResource( 49 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 51 )
+script = ExtResource( 6 )
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00294918, 0.0116895, 0.00256381 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
-light_energy = 0.1
+light_energy = 0.25
 shadow_enabled = true
-omni_range = 6.0
-omni_attenuation = 4.0
+omni_range = 10.0
+omni_attenuation = 7.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 autoplay = "flicker"

@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+
 onready var opacity_target = [0.1, 0.2]
 var tween_speed = 0.7
 var is_fade_in = false
@@ -13,7 +14,9 @@ func _process(delta):
 		str(owner.is_on_floor()))
 
 
-#func _input(event):
+func _input(event):
+	if event is InputEvent and event.is_action_pressed("help_info"):
+		$KeybindDefaults.visible = !$KeybindDefaults.visible
 #	if event is InputEvent and event.is_action_pressed("kick"):
 #		if not $ColorRect.is_visible_in_tree():
 #			$ColorRect.show()

@@ -30,9 +30,8 @@ func _on_setting_attached():
 #	$"%Value".connect("value_changed", self, "on_value_edited")
 	$"%Name".text = _setting_name
 	$"%Display".text = str(get_value())
-	pass
+	$"%Value".connect("value_changed", self, "_on_Value_value_changed")   # in order to respect default value
 
 
 func _on_Value_value_changed(value):
 	on_value_edited()
-	pass # Replace with function body.

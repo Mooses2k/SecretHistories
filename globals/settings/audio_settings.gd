@@ -2,6 +2,7 @@ extends Node
 
 
 const GROUP_NAME : String = "Audio Settings"
+
 const SETTING_MASTER_VOLUME : String = "Master Volume"
 const SETTING_MUSIC_VOLUME : String = "Music Volume"
 const SETTING_EFFECTS_VOLUME : String = "Effects Volume"
@@ -22,27 +23,6 @@ var setting_effects_volume : float setget set_effects_volume, get_effects_volume
 var setting_voice_volume : float setget set_voice_volume, get_voice_volume
 
 
-func set_master_volume(value : float):
-	Settings.set_setting(SETTING_MASTER_VOLUME, value)
-func get_master_volume() -> float:
-	return Settings.get_setting(SETTING_MASTER_VOLUME)
-
-func set_music_volume(value : float):
-	Settings.set_setting(SETTING_MUSIC_VOLUME, value)
-func get_music_volume() -> float:
-	return Settings.get_setting(SETTING_MUSIC_VOLUME)
-
-func set_effects_volume(value : float):
-	Settings.set_setting(SETTING_EFFECTS_VOLUME, value)
-func get_effects_volume() -> float:
-	return Settings.get_setting(SETTING_EFFECTS_VOLUME)
-
-func set_voice_volume(value : float):
-	Settings.set_setting(SETTING_VOICE_VOLUME, value)
-func get_voice_volume() -> float:
-	return Settings.get_setting(SETTING_VOICE_VOLUME)
-
-
 func _ready():
 	Settings.add_float_setting(SETTING_MASTER_VOLUME, MIN_VALUE, MAX_VALUE, STEP_VALUE, get_volume(bus_master))
 	Settings.set_setting_group(SETTING_MASTER_VOLUME, GROUP_NAME)
@@ -55,6 +35,43 @@ func _ready():
 	Settings.connect("setting_changed", self, "on_setting_changed")
 
 
+func set_master_volume(value : float):
+	Settings.set_setting(SETTING_MASTER_VOLUME, value)
+
+func get_master_volume() -> float:
+	return Settings.get_setting(SETTING_MASTER_VOLUME)
+
+
+func set_music_volume(value : float):
+	Settings.set_setting(SETTING_MUSIC_VOLUME, value)
+
+func get_music_volume() -> float:
+	return Settings.get_setting(SETTING_MUSIC_VOLUME)
+
+
+func set_effects_volume(value : float):
+	Settings.set_setting(SETTING_EFFECTS_VOLUME, value)
+
+func get_effects_volume() -> float:
+	return Settings.get_setting(SETTING_EFFECTS_VOLUME)
+
+
+func set_voice_volume(value : float):
+	Settings.set_setting(SETTING_VOICE_VOLUME, value)
+
+func get_voice_volume() -> float:
+	return Settings.get_setting(SETTING_VOICE_VOLUME)
+
+
+func set_volume(idx : int, value : float):
+	AudioServer.set_bus_volume_db(idx, linear2db(value/MAX_VALUE))
+	pass
+
+func get_volume(idx : int) -> float:
+	return db2linear(AudioServer.get_bus_volume_db(idx))*MAX_VALUE
+	pass
+
+
 func on_setting_changed(setting_name, old_value, new_value):
 	match setting_name:
 		SETTING_MASTER_VOLUME:
@@ -65,14 +82,4 @@ func on_setting_changed(setting_name, old_value, new_value):
 			set_volume(bus_effects, new_value)
 		SETTING_VOICE_VOLUME:
 			set_volume(bus_voice, new_value)
-	pass
-
-
-func get_volume(idx : int) -> float:
-	return db2linear(AudioServer.get_bus_volume_db(idx))*MAX_VALUE
-	pass
-
-
-func set_volume(idx : int, value : float):
-	AudioServer.set_bus_volume_db(idx, linear2db(value/MAX_VALUE))
 	pass

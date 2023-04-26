@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
@@ -9,8 +9,9 @@
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/effects/webley_audio.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" type="PackedScene" id=9]
-
-
+[ext_resource path="res://resources/sounds/dryfire/412297__jaklocke__gun-trigger-pull-2.wav" type="AudioStream" id=10]
+[ext_resource path="res://resources/sounds/reloading/revolver/revolver5.wav" type="AudioStream" id=11]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=12]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Webley_Plane002"
@@ -55,10 +56,15 @@ bind/6/pose = Transform( 1, 0, 0, 0, -1, 0, 0, 0, -1, 0.0858358, 0.0126394, -0.0
 [sub_resource type="ConvexPolygonShape" id=3]
 points = PoolVector3Array( -0.105969, 0.0480101, -0.00572485, 0.108835, 0.164206, 0.00162803, 0.125326, 0.149206, 0.00912317, -0.0275015, 0.162685, 0.0106196, -0.0139961, 0.123721, -0.0223494, -0.084462, -0.00213382, 0.00911437, -0.084462, -0.00213382, -0.0103563, 0.125326, 0.135728, -0.00885988, -0.0139961, 0.126714, 0.0226127, -0.0244925, 0.16419, -0.0103563, -0.0739889, 0.110226, 0.0121203, -0.104848, 0.0236309, 0.0117447, 0.0249338, 0.123721, -0.022345, 0.125326, 0.137216, 0.00912317, -0.0754817, 0.111714, -0.0103563, 0.0249338, 0.120727, 0.0211075, -0.105298, 0.0234075, -0.0115242, 0.125326, 0.150694, -0.00885988, -0.084462, -0.00661549, 0.00312002, -0.0665015, 0.0233515, 0.0136167, -0.0574979, 0.144708, 0.00462521, 0.0249338, 0.138704, 0.0211075, -0.112919, 0.0218465, 0.00612159, -0.084462, 0.00234785, -0.0118527, 0.0240939, 0.137455, -0.0199035, -0.078444, 0.111714, 0.00612159, 0.125326, 0.134223, 0.006126, -0.084462, -0.00661549, -0.00435751, -0.0215069, 0.16419, 0.0106196, -0.0900342, 0.0645459, -0.0127, -0.112919, 0.0218465, -0.0058539, -0.0982616, 0.0685633, 0.00597242, -0.0560051, 0.143186, -0.0058539, 0.108835, 0.164206, -0.00136474, -0.100759, 0.0256719, -0.0127891, -0.0709799, 0.108721, 0.0136167, -0.0129548, 0.132777, -0.0211904, 0.125326, 0.134223, -0.0058627, -0.0985354, 0.0685365, -0.00572013, -0.102294, 0.0467532, 0.0103248, 0.0054805, 0.126714, 0.0226127, -0.10231, 0.0482116, -0.010063, -0.0874476, -0.00661549, -0.00435751, -0.0275015, 0.162685, -0.0103563, -0.0977545, 0.0271643, 0.0126894, 0.0054805, 0.132718, 0.0226127, -0.0874476, 0.00234785, 0.0106196, -0.0874476, -0.00512717, 0.00612159, -0.0874476, -0.00213382, -0.0103563, -0.109933, 0.0173481, 0.00612159, -0.084462, -0.00512717, -0.00735469, -0.084462, -0.00512717, 0.00612159, -0.0215069, 0.16419, -0.0103563, -0.100505, 0.0329435, -0.0127583, -0.099914, 0.0455975, 0.0116823, 0.113337, 0.162685, 0.00162803, -0.105613, 0.0481077, 0.00597387, -0.109933, 0.0173481, -0.0058539, -0.0871932, 0.0716587, -0.0127, -0.0874476, 0.00234785, -0.0118527, -0.0949369, 0.0686049, -0.0100534, -0.0130914, 0.137443, -0.0199089, -0.0874476, -0.00213382, 0.00911437, -0.0244925, 0.16419, 0.0106196 )
 
-[node name="Webley" instance=ExtResource( 1 )]
+[node name="Webley revolver" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -0.2 )
 mass = 1.0
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 6 )
+item_drop_sound = ExtResource( 10 )
+can_attach = false
 item_size = 0
 item_name = "Webley revolver"
 ammo_types = [ ExtResource( 2 ) ]
@@ -154,7 +160,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0460132, -0.0354128 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0481794, 0 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.2 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0288613, 0.0769493 )
+
+[node name="Sounds" type="Spatial" parent="." index="7"]
+
+[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
+
+[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
+
+[node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
+stream = ExtResource( 10 )
+
+[node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
+stream = ExtResource( 11 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_RevolverItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_RevolverItem_target_hit"]

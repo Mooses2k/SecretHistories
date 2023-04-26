@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/candelabra/trn_Candelabra_001.material" type="Material" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=6]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=7]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=8]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -243,7 +244,7 @@ height = 0.08
 radial_segments = 6
 rings = 1
 
-[sub_resource type="Shader" id=46]
+[sub_resource type="Shader" id=127]
 code = "shader_type spatial;
 render_mode blend_add, unshaded;
 
@@ -267,14 +268,14 @@ void fragment() {
 offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
 colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=48]
+[sub_resource type="GradientTexture" id=128]
 gradient = SubResource( 47 )
 width = 32
 
 [sub_resource type="ShaderMaterial" id=49]
-shader = SubResource( 46 )
+shader = SubResource( 127 )
 shader_param/INTENSITY = 4.0
-shader_param/COLOR_RAMP = SubResource( 48 )
+shader_param/COLOR_RAMP = SubResource( 128 )
 
 [sub_resource type="BoxShape" id=89]
 extents = Vector3( 0.27, 0.05, 0.05 )
@@ -284,12 +285,17 @@ collision_layer = 0
 collision_mask = 0
 mass = 0.2
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 3 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
+item_drop_sound = ExtResource( 8 )
 item_size = 0
 item_name = "Candelabra"
+life_percentage_lose = 0.2
+prob_going_out = 0.9
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
@@ -454,11 +460,6 @@ autoplay = "flicker"
 anims/RESET = SubResource( 50 )
 anims/flicker = SubResource( 51 )
 
-[node name="Durability" type="Timer" parent="."]
-wait_time = 60000.0
-one_shot = true
-autostart = true
-
 [node name="Candle1" type="Spatial" parent="."]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0.133646, 0 )
 
@@ -555,7 +556,6 @@ transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.051268, 0 )
 shape = SubResource( 89 )
 
-[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [node name="LightSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 1 )
 
@@ -563,4 +563,10 @@ stream = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 7 )
 
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Timer2" type="Timer" parent="."]
+
+[node name="Timer3" type="Timer" parent="."]
+
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

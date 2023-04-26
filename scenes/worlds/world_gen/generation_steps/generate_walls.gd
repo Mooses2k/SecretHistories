@@ -36,24 +36,24 @@ func contour_walls(data : WorldData):
 						var w = data.get_neighbour_cell(this, data.Direction.WEST)
 						match other:
 							data.CellType.ROOM:
-								if data.get_cell_meta(this).has(dir):
+								if data.get_cell_meta(this, data.CellMetaKeys.META_DOOR_DIRECTIONS).has(dir):
 									var extends_right = false
 									var extends_left = false
 									var r = data.get_neighbour_cell(this, data.direction_rotate_cw(dir))
 									var l = data.get_neighbour_cell(this, data.direction_rotate_ccw(dir))
 									if data.get_cell_type(r) == data.CellType.DOOR:
-										if data.get_cell_meta(r).has(dir):
+										if data.get_cell_meta(r, data.CellMetaKeys.META_DOOR_DIRECTIONS).has(dir):
 											extends_right = true
 									if data.get_cell_type(l) == data.CellType.DOOR:
-										if data.get_cell_meta(l).has(dir):
+										if data.get_cell_meta(l, data.CellMetaKeys.META_DOOR_DIRECTIONS).has(dir):
 											extends_left = true
 									if extends_right and extends_left:
 										extends_right = r < l
 										extends_left = not extends_right
 										var remove_door = max(r, l)
-										(data.get_cell_meta(remove_door) as Array).erase(dir)
-										if (data.get_cell_meta(remove_door) as Array).empty():
-											data.set_cell_meta(remove_door, null)
+										(data.get_cell_meta(remove_door, data.CellMetaKeys.META_DOOR_DIRECTIONS) as Array).erase(dir)
+										if (data.get_cell_meta(remove_door, data.CellMetaKeys.META_DOOR_DIRECTIONS) as Array).empty():
+											data.set_cell_meta(remove_door, data.CellMetaKeys.META_DOOR_DIRECTIONS, null)
 											data.set_cell_type(remove_door, data.CellType.CORRIDOR)
 									if not extends_right and not extends_left:
 										data.set_wall(this, dir, data.EdgeType.DOOR)

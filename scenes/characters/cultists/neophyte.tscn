@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/ai/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
@@ -15,9 +15,14 @@
 [ext_resource path="res://core/ai/check_nodes/bt_approach_distance.gd" type="Script" id=13]
 [ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
 [ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/CultistNeophyteNoCape.glb" type="PackedScene" id=15]
+[ext_resource path="res://scenes/sensors/sound_listener.tscn" type="PackedScene" id=16]
+[ext_resource path="res://core/ai/check_nodes/bt_sound_listener.gd" type="Script" id=17]
 
 [sub_resource type="SphereShape" id=4]
 radius = 3.5
+
+[sub_resource type="SphereShape" id=5]
+radius = 8.425
 
 [node name="Cultist" instance=ExtResource( 1 )]
 max_health = 50
@@ -40,6 +45,9 @@ FOV = 120.0
 [node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
+[node name="SoundListener" parent="Body" index="4" instance=ExtResource( 16 )]
+sensor = NodePath("../DirectPlayerSight")
+
 [node name="BehaviorTree" type="Node" parent="." index="5"]
 script = ExtResource( 6 )
 bt_root = NodePath("BT_Selector")
@@ -54,7 +62,11 @@ script = ExtResource( 9 )
 script = ExtResource( 11 )
 sensor = NodePath("../../../../Body/DirectPlayerSight")
 
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
+[node name="BT_Sound_Listener" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
+script = ExtResource( 17 )
+listener = NodePath("../../../../Body/SoundListener")
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="2"]
 script = ExtResource( 9 )
 
 [node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
@@ -62,6 +74,7 @@ script = ExtResource( 8 )
 
 [node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
 script = ExtResource( 13 )
+listener = NodePath("../../../../../../Body/SoundListener")
 
 [node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
 script = ExtResource( 12 )
@@ -129,6 +142,9 @@ collision_layer = 8
 [node name="CollisionShape" parent="Hitbox" index="0"]
 visible = false
 
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
+
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
 transform = Transform( -0.0640363, -0.989469, -0.129808, 0.99632, -0.0708156, 0.0482957, -0.0569795, -0.126237, 0.990364, -9.50363, 18.0616, -0.60081 )
 
@@ -140,10 +156,19 @@ monitorable = false
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
 shape = SubResource( 4 )
 
-[node name="AnimationPlayer" parent="." index="19"]
+[node name="FarSoundDetector" type="Area" parent="." index="17"]
+collision_layer = 0
+collision_mask = 67
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="FarSoundDetector" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
+shape = SubResource( 5 )
+
+[node name="AnimationPlayer" parent="." index="20"]
 root_node = NodePath("../Body/CultistNeophyteNoCape")
 
-[node name="AnimationTree" parent="." index="20"]
+[node name="AnimationTree" parent="." index="21"]
 parameters/Equipped_state/current = 1
 
 [connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]

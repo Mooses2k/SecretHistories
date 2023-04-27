@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://resources/models/large_objects/sarcophagi/M_SarcoLidClean.material" type="Material" id=1]
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/dragging_sound.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Sarcophagus_Clean_Plane016"
@@ -24,6 +25,9 @@ points = PoolVector3Array( 0.782934, 0.0723, 0.355712, -0.809155, -0.0635, -0.38
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 512
 mass = 200.0
+contacts_reported = 4
+contact_monitor = true
+script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )

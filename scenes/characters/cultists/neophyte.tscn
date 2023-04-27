@@ -14,12 +14,15 @@
 [ext_resource path="res://core/ai/action_nodes/bt_go_to_target.gd" type="Script" id=12]
 [ext_resource path="res://core/ai/check_nodes/bt_approach_distance.gd" type="Script" id=13]
 [ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
-[ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Material_003.material" type="Material" id=15]
-[ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Darkness.material" type="Material" id=16]
-[ext_resource path="res://scenes/characters/cultists/enemy_equipment_pickup.gd" type="Script" id=17]
-[ext_resource path="res://core/ai/check_nodes/bt_gun_has_ammo.gd" type="Script" id=18]
-[ext_resource path="res://core/ai/check_nodes/bt_inventory_has_ammo.gd" type="Script" id=19]
-[ext_resource path="res://core/ai/action_nodes/bt_reload_gun.gd" type="Script" id=20]
+[ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/CultistNeophyteNoCape.glb" type="PackedScene" id=15]
+[ext_resource path="res://scenes/sensors/sound_listener.tscn" type="PackedScene" id=16]
+[ext_resource path="res://core/ai/check_nodes/bt_sound_listener.gd" type="Script" id=17]
+[ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Material_003.material" type="Material" id=18]
+[ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Darkness.material" type="Material" id=19]
+[ext_resource path="res://scenes/characters/cultists/enemy_equipment_pickup.gd" type="Script" id=20]
+[ext_resource path="res://core/ai/check_nodes/bt_gun_has_ammo.gd" type="Script" id=21]
+[ext_resource path="res://core/ai/check_nodes/bt_inventory_has_ammo.gd" type="Script" id=22]
+[ext_resource path="res://core/ai/action_nodes/bt_reload_gun.gd" type="Script" id=23]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "CultistNeophyteNoCape_Cube012"
@@ -568,19 +571,24 @@ surfaces/0 = {
 "vertex_count": 15
 }
 
+
 [sub_resource type="SphereShape" id=4]
 radius = 3.5
 
-[sub_resource type="CylinderShape" id=5]
+[sub_resource type="SphereShape" id=5]
+radius = 8.425
+
+[sub_resource type="CylinderShape" id=6]
 
 [node name="Cultist" instance=ExtResource( 1 )]
 max_health = 50
 move_speed = 3.0
 acceleration = 6.0
 mass = 8.0
+_legcast = NodePath("Legs/Feet")
 
-[node name="MainHandEquipmentRoot" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
+[node name="CollisionShape" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, -0.04 )
 
 [node name="BehaviorTree" type="Node" parent="." index="5"]
 script = ExtResource( 6 )
@@ -652,173 +660,111 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6969, 0 )
 character = NodePath("../..")
 FOV = 120.0
 
-[node name="Physical Bone DEF-spine" parent="Body/Skeleton" index="0"]
-transform = Transform( 1, -7.81597e-14, -1.06581e-14, -4.29466e-16, -0.24964, -0.968339, 5.68434e-14, 0.968339, -0.24964, 0.00569725, 0.97055, -0.0324215 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.26836e-16, 1.88567e-06, 0.0681815 )
-body_offset = Transform( 1, -7.81597e-14, -1.06581e-14, 1.42109e-14, -1.19209e-07, -1, 5.68434e-14, 1, -1.19209e-07, 0, 0.0681815, -1.87755e-06 )
+[node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Physical Bone DEF-spine001" parent="Body/Skeleton" index="1"]
-transform = Transform( 1, 8.52651e-14, -3.37508e-14, -2.56631e-15, -0.122954, -0.992412, 7.10543e-14, 0.992412, -0.122954, 0.00569723, 1.09727, -0.00788226 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53668e-08, 3.82872e-07, 0.0611893 )
-body_offset = Transform( 1, 8.52651e-14, -3.28626e-14, 6.21725e-15, 7.45058e-08, -0.999999, 7.10543e-14, 0.999999, 7.45058e-08, -1.53668e-08, 0.0611892, -3.8743e-07 )
+[node name="SoundListener" parent="Body" index="4" instance=ExtResource( 16 )]
+sensor = NodePath("../DirectPlayerSight")
 
-[node name="Physical Bone DEF-spine002" parent="Body/Skeleton" index="2"]
-transform = Transform( 1, -7.81597e-14, -2.22045e-15, -1.93151e-16, 0.0318129, -0.999495, 4.9738e-14, 0.999495, 0.0318129, 0.00569726, 1.23537, -0.00282119 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30385e-08, 4.11489e-07, 0.077407 )
-body_offset = Transform( 1, -7.81597e-14, -2.22045e-15, -1.77636e-15, 2.6077e-08, -1, 4.9738e-14, 1, 2.6077e-08, 1.30385e-08, 0.077407, -4.13507e-07 )
+[node name="BehaviorTree" type="Node" parent="." index="5"]
+script = ExtResource( 6 )
+bt_root = NodePath("BT_Selector")
 
-[node name="Physical Bone DEF-spine003" parent="Body/Skeleton" index="3"]
-transform = Transform( 1, -4.9738e-14, 3.55271e-15, -5.47905e-15, 0.0285608, -0.999594, 5.68434e-14, 0.999594, 0.0285608, 0.00569725, 1.39898, -0.00774796 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.87265e-16, 1.63014e-07, 0.0862508 )
-body_offset = Transform( 1, -4.9738e-14, 3.33067e-15, -7.10543e-15, 0, -1, 5.68434e-14, 1, -1.11759e-08, 0, 0.0862508, -1.6205e-07 )
+[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
+script = ExtResource( 8 )
 
-[node name="Physical Bone DEF-spine004" parent="Body/Skeleton" index="4"]
-transform = Transform( 1, 3.95772e-12, -4.02326e-06, -3.73969e-06, -0.368784, -0.929517, -1.48371e-06, 0.929517, -0.368784, 0.00569737, 1.51273, 0.000717952 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.70138e-10, -1.27642e-06, 0.0296311 )
-body_offset = Transform( 1, 3.95772e-12, -4.02326e-06, -4.02326e-06, 8.34465e-07, -1, 9.09495e-13, 1, 8.34465e-07, 1.18744e-07, 0.0296311, 1.2517e-06 )
+[node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
+script = ExtResource( 9 )
 
-[node name="Physical Bone DEF-spine005" parent="Body/Skeleton" index="5"]
-transform = Transform( 1, 4.74743e-07, 1.92378e-06, 1.97346e-06, -0.151267, -0.988494, -1.78277e-07, 0.988494, -0.151267, 0.00569742, 1.57453, 0.0168854 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77675e-09, 6.84496e-07, 0.0346586 )
-body_offset = Transform( 1, 5.68434e-13, 1.92378e-06, 1.92378e-06, -4.02331e-07, -1, -1.36424e-12, 1, -4.02331e-07, -6.84522e-08, 0.0346586, -6.70552e-07 )
+[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
+script = ExtResource( 11 )
+sensor = NodePath("../../../../Body/DirectPlayerSight")
 
-[node name="Physical Bone DEF-shoulderL" parent="Body/Skeleton" index="6"]
-transform = Transform( 0.473864, -0.0863697, -0.876357, 0.356962, 0.928592, 0.1015, 0.805008, -0.360923, 0.470856, 0.101354, 1.42847, 0.0186744 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.22172e-06, -2.40579e-05, 0.0904469 )
-body_offset = Transform( 0.934096, -0.354941, -0.0385776, 8.9407e-08, 0.108051, -0.99415, 0.35703, 0.928627, 0.10093, 0.0034893, 0.0899204, -0.00910318 )
+[node name="BT_Sound_Listener" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
+script = ExtResource( 17 )
+listener = NodePath("../../../../Body/SoundListener")
 
-[node name="Physical Bone DEF-upper_armL" parent="Body/Skeleton" index="7"]
-transform = Transform( -0.0339849, -0.0421099, -0.998535, -0.944829, -0.324339, 0.0458353, -0.325795, 0.945004, -0.0287646, 0.25186, 1.41598, -0.0218631 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.60368e-06, -1.75638e-06, 0.0713459 )
-body_offset = Transform( 0.999998, -2.38419e-07, -7.32951e-07, -8.08388e-07, -4.28408e-07, -1, -5.96046e-07, 1, -4.45172e-07, 9.65595e-06, 0.0713459, 1.78814e-06 )
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="2"]
+script = ExtResource( 9 )
 
-[node name="Physical Bone DEF-upper_armL001" parent="Body/Skeleton" index="8"]
-transform = Transform( -0.0344296, -0.0417462, -0.998532, -0.948217, -0.314289, 0.0458348, -0.315742, 0.948408, -0.0287643, 0.394341, 1.40947, -0.0177559 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64207e-05, 4.01814e-06, 0.0713456 )
-body_offset = Transform( 0.999997, -1.49012e-07, 4.23752e-07, 4.54485e-07, 1.546e-07, -0.999998, -2.98023e-07, 0.999998, 7.26432e-08, -1.64509e-05, 0.0713454, -4.02331e-06 )
+[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
+script = ExtResource( 8 )
 
-[node name="Physical Bone DEF-forearmL" parent="Body/Skeleton" index="9"]
-transform = Transform( -0.0348728, -0.0630529, -0.9974, -0.951505, -0.303137, 0.0524317, -0.305655, 0.95086, -0.0494244, 0.533397, 1.40262, -0.0123452 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.50609e-06, 1.55511e-07, 0.0679928 )
-body_offset = Transform( 1, 8.9407e-08, -6.41681e-07, -7.32951e-07, 3.72529e-07, -1, 2.98023e-07, 1, 3.42727e-07, 1.54972e-06, 0.0679928, -1.78814e-07 )
+[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="0"]
+script = ExtResource( 13 )
+listener = NodePath("../../../../../../Body/SoundListener")
 
-[node name="Physical Bone DEF-forearmL001" parent="Body/Skeleton" index="10"]
-transform = Transform( -0.0342762, -0.0633795, -0.997398, -0.948604, -0.312096, 0.0524314, -0.314607, 0.947936, -0.0494247, 0.669034, 1.39548, -0.0056271 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.08258e-05, 4.19769e-07, 0.0679974 )
-body_offset = Transform( 1, 8.9407e-07, -3.27826e-07, -2.34693e-07, -1.67638e-07, -0.999998, 2.68221e-07, 1, -3.72529e-08, 1.0848e-05, 0.0679972, -4.17233e-07 )
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="1"]
+script = ExtResource( 12 )
 
-[node name="Physical Bone DEF-handL" parent="Body/Skeleton" index="11"]
-transform = Transform( -0.197002, 0.287713, -0.937236, 0.977502, -0.0158735, -0.210338, -0.0753939, -0.957586, -0.278113, 0.784725, 1.40266, 0.0119465 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91621e-06, 2.35811e-06, 0.0510831 )
-body_offset = Transform( -0.911477, 0.372301, 0.17494, -4.65661e-08, 0.425279, -0.905063, -0.411354, -0.824942, -0.387631, -0.00893378, 0.0462324, 0.0198049 )
+[node name="BT_Approach_Random_Distance2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="2"]
+script = ExtResource( 13 )
 
-[node name="Physical Bone DEF-shoulderR" parent="Body/Skeleton" index="12"]
-transform = Transform( 0.473861, 0.0863736, 0.876356, -0.356969, 0.928589, 0.101499, -0.805005, -0.360927, 0.470855, -0.0899597, 1.42847, 0.0186744 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.1535e-06, -2.40169e-05, 0.0904472 )
-body_offset = Transform( 0.934091, 0.354947, 0.0385781, 6.25849e-07, 0.10805, -0.994148, -0.357037, 0.928624, 0.100929, -0.00348931, 0.0899205, -0.00910318 )
+[node name="BT_Go_To_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector" index="3"]
+script = ExtResource( 12 )
 
-[node name="Physical Bone DEF-upper_armR" parent="Body/Skeleton" index="13"]
-transform = Transform( -0.0339866, 0.0421073, 0.998535, 0.944831, -0.32434, 0.045836, 0.325795, 0.945002, -0.028762, -0.240467, 1.41602, -0.0218573 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28268e-05, 2.59998e-06, 0.0713449 )
-body_offset = Transform( 1, 0, 8.10251e-07, 1.02073e-06, -4.09782e-08, -1, 0, 0.999999, -1.00583e-07, 2.2769e-05, 0.0713449, -2.5928e-06 )
+[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
+script = ExtResource( 14 )
 
-[node name="Physical Bone DEF-upper_armR001" parent="Body/Skeleton" index="14"]
-transform = Transform( -0.0344326, 0.0417442, 0.998535, 0.948222, -0.314291, 0.045837, 0.315743, 0.94841, -0.0287617, -0.382947, 1.40948, -0.0177523 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.2258e-05, 4.39865e-06, 0.0713438 )
-body_offset = Transform( 1, -7.7486e-07, 1.00303e-06, 1.00955e-06, 1.69501e-07, -1, 5.96046e-08, 1, 1.69501e-07, 3.21865e-05, 0.0713438, -4.41074e-06 )
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="2"]
+script = ExtResource( 10 )
 
-[node name="Physical Bone DEF-forearmR" parent="Body/Skeleton" index="15"]
-transform = Transform( -0.0348716, 0.0630543, 0.997398, 0.951506, -0.303136, 0.0524312, 0.305655, 0.950861, -0.0494263, -0.522005, 1.40262, -0.0123425 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.16906e-07, -3.11236e-06, 0.0679942 )
-body_offset = Transform( 1, 1.3411e-06, -5.9884e-07, -7.59959e-07, 2.27243e-07, -0.999998, -3.57628e-07, 1, 1.8999e-07, 3.57628e-07, 0.0679941, 3.09944e-06 )
+[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="3"]
+script = ExtResource( 2 )
 
-[node name="Physical Bone DEF-forearmR001" parent="Body/Skeleton" index="16"]
-transform = Transform( -0.0342763, 0.0633808, 0.9974, 0.948605, -0.312095, 0.0524321, 0.314606, 0.947936, -0.0494267, -0.657639, 1.39548, -0.00562792 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.08458e-05, 3.39984e-07, 0.0679944 )
-body_offset = Transform( 1, -5.36442e-07, 3.25963e-08, 4.47035e-08, -9.31323e-08, -1, -2.98023e-08, 1, -1.78814e-07, -1.0848e-05, 0.0679944, -3.27826e-07 )
+[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="4"]
+script = ExtResource( 3 )
 
-[node name="Physical Bone DEF-handR" parent="Body/Skeleton" index="17"]
-transform = Transform( -0.197001, -0.287712, 0.937238, -0.977502, -0.0158698, -0.210337, 0.0753907, -0.957588, -0.278113, -0.773331, 1.40268, 0.0119421 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22171e-05, -8.04663e-07, 0.0510847 )
-body_offset = Transform( -0.911478, -0.372297, -0.174938, -6.0536e-07, 0.425278, -0.905064, 0.411349, -0.824946, -0.387632, 0.00894749, 0.0462353, 0.0197964 )
+[node name="BT_Selector2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="5"]
+script = ExtResource( 8 )
 
-[node name="Physical Bone DEF-pelvisL" parent="Body/Skeleton" index="18"]
-transform = Transform( 0.0103967, -0.609805, -0.792482, -0.578526, 0.64275, -0.502175, 0.815598, 0.463693, -0.346104, 0.0495828, 0.932358, -0.0302716 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04252e-05, -1.52122e-05, 0.0553892 )
-body_offset = Transform( 0.859965, 0.479616, 0.17444, -1.78814e-07, 0.341802, -0.93977, -0.510354, 0.808171, 0.293937, -0.00966376, 0.0520583, -0.0162633 )
+[node name="BT_Look_At_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="6"]
+script = ExtResource( 14 )
 
-[node name="Physical Bone DEF-thighL" parent="Body/Skeleton" index="19"]
-transform = Transform( 0.891998, -0.443382, -0.0880436, 0.0445856, -0.107527, 0.9932, -0.449835, -0.88986, -0.0761445, 0.104088, 0.840394, -0.00192336 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39402e-07, 2.04537e-06, 0.120574 )
-body_offset = Transform( 1, -6.85453e-07, -9.08971e-07, -7.63685e-07, 7.07805e-07, -0.999998, 5.96046e-08, 1, 4.61936e-07, -2.98023e-08, 0.120574, -2.10106e-06 )
+[node name="BT_Wait_Random2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="7"]
+script = ExtResource( 10 )
 
-[node name="Physical Bone DEF-thighL001" parent="Body/Skeleton" index="20"]
-transform = Transform( 0.891997, -0.443382, -0.0880431, 0.0445854, -0.107527, 0.993202, -0.449834, -0.88986, -0.0761443, 0.125317, 0.600905, 0.0164352 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11601e-07, -2.83811e-07, 0.120563 )
-body_offset = Transform( 0.999999, -8.64267e-07, -2.71946e-07, -4.4331e-07, -2.01166e-07, -1, 1.49012e-07, 1, -3.65078e-07, -1.78814e-07, 0.120563, 3.27826e-07 )
+[node name="BT_Gun_Cooldown2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="8"]
+script = ExtResource( 2 )
 
-[node name="Physical Bone DEF-shinL" parent="Body/Skeleton" index="21"]
-transform = Transform( 0.891999, -0.452036, 6.3934e-07, 0.0445862, 0.087981, 0.995121, -0.449833, -0.887647, 0.0986346, 0.135934, 0.379944, 0.0155834 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.48177e-06, -1.27134e-06, 0.101701 )
-body_offset = Transform( 1, -2.08616e-07, -1.40071e-06, -1.32993e-06, 3.12924e-07, -0.999998, -1.19209e-07, 0.999998, 1.56462e-07, 1.62423e-06, 0.101701, 1.25542e-06 )
+[node name="BT_Shoot2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="9"]
+script = ExtResource( 3 )
 
-[node name="Physical Bone DEF-shinL001" parent="Body/Skeleton" index="22"]
-transform = Transform( 0.892, -0.452036, 2.20733e-06, 0.0445848, 0.0879817, 0.995124, -0.449833, -0.887651, 0.0986345, 0.135931, 0.177536, -0.0044792 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.99587e-07, -2.72192e-06, 0.10169 )
-body_offset = Transform( 1, 1.51992e-06, 1.11759e-07, 2.23517e-08, -1.19209e-07, -1, -1.19209e-07, 1, -3.05474e-07, -6.10948e-07, 0.10169, 2.75299e-06 )
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
+script = ExtResource( 9 )
 
-[node name="Physical Bone DEF-footL" parent="Body/Skeleton" index="23"]
-transform = Transform( 0.999999, -0.00117087, -2.84787e-06, -0.000990305, -0.847999, 0.529996, -0.000622907, -0.529997, -0.847999, 0.135932, 0.045639, 0.034569 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.99504e-07, 2.37742e-06, 0.0578751 )
-body_offset = Transform( 1, 3.43425e-09, -1.38738e-06, -1.38354e-06, 4.47035e-07, -1, -4.88944e-09, 1, 1.49012e-07, -1.19209e-07, 0.0578751, -2.38605e-06 )
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
+script = ExtResource( 12 )
 
-[node name="Physical Bone DEF-pelvisR" parent="Body/Skeleton" index="24"]
-transform = Transform( 0.0103912, 0.609802, 0.792485, 0.578523, 0.642756, -0.502174, -0.8156, 0.463691, -0.346106, -0.0381908, 0.932343, -0.0302742 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.83332e-06, -2.69152e-06, 0.0553824 )
-body_offset = Transform( 0.859968, -0.479611, -0.174439, 2.08616e-07, 0.341806, -0.939771, 0.510348, 0.808173, 0.29394, 0.00966287, 0.0520477, -0.016275 )
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
+script = ExtResource( 10 )
 
-[node name="Physical Bone DEF-thighR" parent="Body/Skeleton" index="25"]
-transform = Transform( 0.891999, 0.443381, 0.0880432, -0.044586, -0.107526, 0.993201, 0.449835, -0.88986, -0.0761444, -0.092691, 0.84041, -0.00192586 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.11343e-07, 2.55646e-07, 0.120557 )
-body_offset = Transform( 1, 7.15256e-07, 5.1409e-07, 4.73112e-07, -1.49012e-08, -0.999999, -3.57628e-07, 1, 1.04308e-07, 8.49366e-07, 0.120557, -2.68221e-07 )
+[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
+script = ExtResource( 7 )
 
-[node name="Physical Bone DEF-thighR001" parent="Body/Skeleton" index="26"]
-transform = Transform( 0.891999, 0.443381, 0.0880431, -0.044586, -0.107526, 0.993202, 0.449835, -0.889861, -0.0761442, -0.113923, 0.600905, 0.0164353 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85865e-07, -1.12552e-07, 0.120562 )
-body_offset = Transform( 1, 2.68221e-07, 6.14673e-07, 6.51926e-07, 1.2666e-07, -1, -1.49012e-07, 1, -1.78814e-07, 1.11759e-07, 0.120562, 1.3411e-07 )
+[node name="BT_Go_To_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="3"]
+script = ExtResource( 12 )
 
-[node name="Physical Bone DEF-shinR" parent="Body/Skeleton" index="27"]
-transform = Transform( 0.891999, 0.452037, 1.09857e-07, -0.0445865, 0.0879799, 0.995125, 0.449834, -0.88765, 0.0986328, -0.124539, 0.379943, 0.0155858 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79035e-08, 2.76174e-07, 0.1017 )
-body_offset = Transform( 1, 0, 8.97795e-07, 8.3819e-07, 7.6741e-07, -1, -5.96046e-08, 1, 5.81145e-07, -1.19209e-07, 0.1017, -3.35276e-07 )
+[node name="BT_Wait_Random2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="4"]
+script = ExtResource( 10 )
 
-[node name="Physical Bone DEF-shinR001" parent="Body/Skeleton" index="28"]
-transform = Transform( 0.891999, 0.452037, -4.74456e-07, -0.0445862, 0.0879807, 0.995124, 0.449833, -0.88765, 0.0986332, -0.124539, 0.177521, -0.00447879 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.52694e-07, -1.02161e-06, 0.101703 )
-body_offset = Transform( 1, 2.98023e-08, 1.14739e-06, 1.16229e-06, 2.16067e-07, -1, -1.19209e-07, 1, 8.19564e-08, -4.69387e-07, 0.101703, 1.01328e-06 )
+[node name="BT_Select_Random_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="5"]
+script = ExtResource( 7 )
 
-[node name="Physical Bone DEF-footR" parent="Body/Skeleton" index="29"]
-transform = Transform( 1, 0.00117042, 3.43088e-07, 0.000991537, -0.848, 0.529996, 0.000621499, -0.529996, -0.848001, -0.124539, 0.0456237, 0.0345763 )
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.54991e-07, -5.97509e-06, 0.0578879 )
-body_offset = Transform( 1, -1.68802e-09, -2.82831e-07, -2.80852e-07, 8.9407e-08, -1, -2.67755e-09, 1, 5.96046e-08, 1.71363e-07, 0.0578879, 5.97164e-06 )
+[node name="BT_Sequence3" type="Node" parent="BehaviorTree/BT_Selector" index="2"]
+script = ExtResource( 9 )
 
-[node name="Cube011" type="MeshInstance" parent="Body" index="8"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-mesh = SubResource( 1 )
-skin = SubResource( 2 )
-skeleton = NodePath("../Skeleton")
-
-[node name="Cube012" type="MeshInstance" parent="Body" index="9"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-mesh = SubResource( 3 )
-skin = SubResource( 2 )
-skeleton = NodePath("../Skeleton")
-
-[node name="Hitbox" parent="." index="7" groups=["CHARACTER"]]
+[node name="Hitbox" parent="." index="6" groups=["CHARACTER"]]
 collision_layer = 8
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 visible = false
+
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
+
+[node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
+transform = Transform( -0.0640363, -0.989469, -0.129808, 0.99632, -0.0708156, 0.0482957, -0.0569795, -0.126237, 0.990364, -9.50363, 18.0616, -0.60081 )
 
 [node name="PlayerDetector" type="Area" parent="." index="16"]
 collision_layer = 2
@@ -828,14 +774,20 @@ monitorable = false
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
 shape = SubResource( 4 )
 
-[node name="EquipmentPickupRange" type="Area" parent="." index="20"]
+[node name="FarSoundDetector" type="Area" parent="." index="17"]
 collision_layer = 0
-collision_mask = 64
+collision_mask = 67
 monitorable = false
-script = ExtResource( 17 )
 
-[node name="CollisionShape" type="CollisionShape" parent="EquipmentPickupRange" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="FarSoundDetector" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
 shape = SubResource( 5 )
+
+[node name="AnimationPlayer" parent="." index="20"]
+root_node = NodePath("../Body/CultistNeophyteNoCape")
+
+[node name="AnimationTree" parent="." index="21"]
+parameters/Equipped_state/current = 1
 
 [connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_exited"]

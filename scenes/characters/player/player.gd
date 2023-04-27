@@ -16,20 +16,23 @@ var is_change_off_equip_in : bool = false
 
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
-onready var gun_cam = $ViewportContainer2/Viewport/GunCam
+onready var gun_cam = $ViewportContainer/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
+var noise_level = 0
 
 
 func _ready():
+	connect("player_landed", $PlayerController, "_on_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 
-#	body.add_collision_exception_with()
 
+
+func _physics_process(delta):
+	gun_cam.global_transform = fps_camera.global_transform
+	
 
 func _process(delta):
-	gun_cam.global_transform = fps_camera.global_transform
-
 	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
 		$Indication_canvas/Indication_system/Dot.hide()
 	else :
@@ -43,6 +46,8 @@ func _process(delta):
 	#this notifies the dot if something if the player is currently grabbing something
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
+	
+
 
 
 func drop_consumable(object):
@@ -59,12 +64,12 @@ func grab_indicator():
 			$Indication_canvas/Indication_system/Grab.show()
 		else:
 				$Indication_canvas/Indication_system/Grab.hide()
-		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
-			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
+		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite") and  $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
+#			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 				$Indication_canvas/Indication_system/Ignite.show()
 				if Input.is_action_just_pressed("interact"):
 					grabable_object.get_parent()._use_primary()
-			else:
+		else:
 				$Indication_canvas/Indication_system/Ignite.hide()
 	else:
 		$Indication_canvas/Indication_system/Grab.hide()

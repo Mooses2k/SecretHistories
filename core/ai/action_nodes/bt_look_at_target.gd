@@ -3,6 +3,7 @@ extends BT_Node
 
 
 func tick(state : CharacterState) -> int:
+#	state.face_direction = state.target_position - state.character.global_transform.origin
 	state.face_direction = state.target_position - state.character.global_transform.origin
 
 	return Status.SUCCESS

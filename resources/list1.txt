@@ -34,7 +34,7 @@
 "Monsters are real, and ghosts are real too. They live inside of us, and sometimes, they win." --Stephen King
 "Even in dark times, we cannot relinquish the things that make us human."
 "In the vast emptiness, my understanding deepens." --Ryokan
-"We all go a little mad sometimes." --Norman Bates, Psycho
+"We all go a little mad sometimes." --Norman Bates
 "The world outside had its own rules, and those rules were not human." --Michel Houellebecq, "The Elementary Particles"
 "Horror is like a serpent; always shedding its skin, always changing. And it will always come back." --Dario Argento
 “I knew nothing but shadows and I thought them to be real.” --Oscar Wilde, “The Picture of Dorian Gray”
@@ -58,7 +58,6 @@ Note: Melee attacks, jumping, mantling, climbing, and running all affect your st
 Note: Hold [Interact key] to drag things around. Bookcases, corpses, and doors are things.
 Note: Press the [Off-hand switch key] key to cycle through items that can be held in the off-hand. Hold [Off-hand switch key] to swap items between hands.
 Note: Look at the lightable portion of a light-source and hit [Interact key] to light it. Look at the holdable part of a light-source and hit [Interact key] to take it.
-Note: Light is your primary resource.
 Note: You must judge whether it's best to light up a room or keep it shrouded in merciful darkness.
 Note: Don't let them spot you first. 
 Note: Nobody likes a camper...because ambushes are highly effective.
@@ -84,3 +83,17 @@ Note: Astrology is not the same as astronomy despite having a similar name.
 Note: Astronomers sometimes omit the truth to protect you.
 Note: You will die eventually. Make sure to learn from it.
 What improvements to your strategy and tactics could you make next time? What safety policies should you follow? What should you always do? What should you never do?
+Light is your primary resource.
+Time is your primary resource.
+Ammo is your primary resource.
+Your life is your primary resource.
+Resourcefulness if your primary resource.
+Returning the game for a full refund is your primary recourse.
+"The real war will never get in the books." --Walt Whitman
+"We are like the spider. We weave our life and then move along in it. We are like the dreamer who dreams and then lives in the dream. This is true for the entire universe." --The Upanishads
+"Man is free, but everywhere in chains." --Rousseau
+"Here on the horizon was everything Gideon did not know." --Jenna Helland
+"There was a darkness outside reality, they say - a darkness full of things. Hungry, nasty things with no shape or form, not as long as they were out there." --Kurt Busiek, "Storms of the Heart", Astro City
+"It hurts so bad to look at it. And then it talks, and it all hurts worse." --SCP-3004
+"When it went to sleep, I think it thought it was a hibernation, or like, a birth. Like it laid an egg and made itself." --SCP-3004
+"Yesterday upon the stair - I met a man who wasn't there. He wasn't there again today - Oh how I wish he'd go away." --Hughes Mearns

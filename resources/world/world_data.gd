@@ -59,6 +59,11 @@ enum CellType {
 	DOOR,
 }
 
+enum CellMetaKeys {
+	META_DOOR_DIRECTIONS,
+	META_PILLAR_ROOM,
+}
+
 enum EdgeType {
 	#Impassable wall
 	WALL,
@@ -78,6 +83,18 @@ enum EdgeType {
 	#No wall
 	EMPTY
 }
+
+enum SurfaceType {
+	WOOD,
+	CARPET,
+	STONE,
+	WATER,
+	GRAVEL,
+	METAL, 
+	TILE
+}
+
+var cell_surface_type : PoolByteArray
 
 # Physical parameters of the world
 const CELL_SIZE : float = 1.5
@@ -104,6 +121,7 @@ func get_size_z() -> int:
 func clear():
 	cell_count = world_size_x*world_size_z
 	cell_type.resize(cell_count)
+	cell_surface_type.resize(cell_count)
 	ground_tile_index.resize(cell_count)
 	ceiling_tile_index.resize(cell_count)
 	pillar_tile_index.resize(cell_count)
@@ -344,17 +362,44 @@ func set_cell_type(cell_index : int, value : int):
 		cell_type[cell_index] = value
 
 
-func get_cell_meta(cell_index : int):
-	return cell_meta.get(cell_index)
+func get_cell_surfacetype(cell_index : int) -> int:
+	return cell_surface_type[cell_index] if cell_index >= 0 else -1
 
 
-func set_cell_meta(cell_index : int, value = null):
+func set_cell_surfacetype(cell_index : int, value : int):
 	if cell_index >= 0:
-		if value == null:
-			cell_meta.erase(cell_index)
-		else:
-			cell_meta[cell_index] = value
+		cell_surface_type[cell_index] = value
 
+
+func get_cell_meta(cell_index : int, key, default = null):
+	var meta = cell_meta.get(cell_index, Dictionary()) as Dictionary
+	if meta:
+		return meta.get(key, default)
+	return default
+
+func set_cell_meta(cell_index : int, key, value):
+	if cell_index >= 0:
+		var meta = cell_meta.get(cell_index, Dictionary()) as Dictionary
+		if value == null:
+			meta.erase(key)
+		else:
+			meta[key] = value
+		if meta.empty():
+			cell_meta.erase(cell_index)
+		cell_meta[cell_index] = meta
+			
+
+func has_cell_meta(cell_index : int, key):
+	var meta = cell_meta.get(cell_index, Dictionary()) as Dictionary
+	if meta:
+		return meta.has(key)
+	return false
+
+func cell_meta_get_keys(cell_index : int) -> Array:
+	return (cell_meta.get(cell_index, Dictionary()) as Dictionary).keys()
+
+func clear_cell_meta(cell_index : int):
+	cell_meta.erase(cell_index)
 
 func _get_north_wall_index(cell_index : int) -> int:
 	return cell_index + int(cell_index/world_size_z)

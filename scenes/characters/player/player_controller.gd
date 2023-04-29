@@ -122,8 +122,10 @@ func _ready():
 	active_mode.set_deferred("is_active", true)
 
 
+
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
+	owner.noise_level = 0
 
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
@@ -243,21 +245,33 @@ func _input(event):
 		#character.inventory.current_mainhand_slot = 1
 
 
+func _on_player_landed():
+	if !owner.is_crouching:
+		owner.noise_level = 8
+	else:
+		owner.noise_level = 3
+
+
 func _walk(delta) -> void:
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_just_pressed("move_right"):
 		is_movement_key1_held = true
-	if Input.is_action_pressed("move_left"):
+	if Input.is_action_just_pressed("move_left"):
 		is_movement_key2_held = true
-	if Input.is_action_pressed("move_down"):
+	if Input.is_action_just_pressed("move_down"):
 		is_movement_key3_held = true
-	if Input.is_action_pressed("move_up"):
+	if Input.is_action_just_pressed("move_up"):
 		is_movement_key4_held = true
 		owner.is_moving_forward = true
+	
+	_check_movement_key(delta)
 
-	if Input.is_action_pressed("movement"):
-		movement_press_length += delta
-		if movement_press_length >= 0.15:
-			owner.is_to_move = true
+#	if Input.is_action_pressed("movement"):
+##		print("movement pressed")
+#		movement_press_length += delta
+#		if movement_press_length >= 0.15:
+#			owner.is_to_move = true
+#			if !owner.is_crouching:
+#				player_noise_value = 5
 
 	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
@@ -278,11 +292,8 @@ func _walk(delta) -> void:
 	if Input.is_action_just_released("move_up"):
 		is_movement_key4_held = false
 		owner.is_moving_forward = false
-
-	if Input.is_action_just_released("movement"):
-		if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
-			movement_press_length = 0.0
-			owner.is_to_move = false
+	
+	_check_movement_key(delta)
 
 #	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
 #		_audio_player.play_land_sound()
@@ -293,6 +304,26 @@ func _walk(delta) -> void:
 
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
 		_head_bob(delta)
+
+
+func _check_movement_key(delta):
+	if is_movement_key1_held or is_movement_key2_held or is_movement_key3_held or is_movement_key4_held:
+		movement_press_length += delta
+		if movement_press_length >= 0.25:
+			owner.is_to_move = true
+			if !owner.is_crouching:
+				if owner.do_sprint:
+					owner.noise_level = 8
+				else:
+					owner.noise_level = 5
+			else:
+				owner.noise_level = 3
+	
+	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
+		movement_press_length = 0.0
+		owner.is_to_move = false
+		
+
 
 
 func _head_bob(delta : float) -> void:

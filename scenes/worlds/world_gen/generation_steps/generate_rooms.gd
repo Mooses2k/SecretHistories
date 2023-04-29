@@ -77,7 +77,7 @@ func fill_map_data(data : WorldData, gen_data : Dictionary):
 			for y in range(room.position.y, room.end.y):
 				var i = data.get_cell_index_from_int_position(x, y)
 				data.set_cell_type(i, data.CellType.ROOM)
-				data.set_cell_meta(i, null)
+				data.clear_cell_meta(i)
 
 
 func _gen_room_rect(data : WorldData, random : RandomNumberGenerator) -> Rect2:

@@ -91,6 +91,7 @@ func damage(direction , damage_amount):
 	if damage_amount < 10:
 		$Sounds/DoorKickIneffectiveSound.play()
 	else:
+		$DoorBody/AudioStreamPlayer3D.play()
 		$Sounds/DoorKickEffectiveSound.play()
 	door_health -= damage_amount
 
@@ -101,3 +102,4 @@ func destroy_door():
 		$Sounds/DoorBreakSound.play()
 		$DoorBody.visible = false
 		$DoorBody/CollisionShape.disabled = true
+		$DoorBody/AudioStreamPlayer3D.stop()

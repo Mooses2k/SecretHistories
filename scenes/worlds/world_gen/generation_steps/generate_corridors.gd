@@ -87,10 +87,10 @@ func set_cells(data : WorldData, cells : Array, values : Array):
 
 
 func add_door_direction(data : WorldData, cell : int, value : int):
-	if not data.get_cell_meta(cell) is Array:
-		data.set_cell_meta(cell, Array())
-	if not data.get_cell_meta(cell).has(value):
-		data.get_cell_meta(cell).push_back(value)
+	if not data.has_cell_meta(cell, data.CellMetaKeys.META_DOOR_DIRECTIONS):
+		data.set_cell_meta(cell, data.CellMetaKeys.META_DOOR_DIRECTIONS, Array())
+	if not data.get_cell_meta(cell, data.CellMetaKeys.META_DOOR_DIRECTIONS).has(value):
+		data.get_cell_meta(cell, data.CellMetaKeys.META_DOOR_DIRECTIONS).push_back(value)
 
 
 func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : int) -> bool:

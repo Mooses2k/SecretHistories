@@ -110,10 +110,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125584, -0.0662795 )
 
 [node name="SarcophagusBase" parent="." instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62943, -0.0815325, -3.93372 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0325782, -0.0815325, -5.41452 )
 
 [node name="SarcophagusLidKnight" parent="." instance=ExtResource( 15 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64973, 0.616052, -3.94115 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0729333, 1.04594, -5.42579 )
 mass = 60.0
 contacts_reported = 4
 contact_monitor = true
@@ -134,4 +134,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3765, 0.679409, 3.13212 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5429, 0.42392, 0 )
 
 [node name="Torch" parent="." instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.639007, -3.17716 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72904, 0.639007, -3.17716 )

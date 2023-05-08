@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/omnidirectional_lantern/M_LampOIl.material" type="Material" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=4]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=6]
@@ -126,9 +125,7 @@ extents = Vector3( 0.1, 0.1, 0.1 )
 mass = 0.2
 contacts_reported = 2
 contact_monitor = true
-script = ExtResource( 3 )
 item_drop_sound = ExtResource( 7 )
-can_attach = false
 item_name = "Oil Lantern"
 is_oil_based = true
 life_percentage_lose = 0.1
@@ -189,10 +186,10 @@ autoplay = "flicker"
 anims/RESET = SubResource( 4 )
 anims/flicker = SubResource( 5 )
 
-[node name="ignite" parent="." index="7"]
+[node name="Ignite" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0567762, 0.00329563 )
 
-[node name="CollisionShape" parent="ignite" index="0"]
+[node name="CollisionShape" parent="Ignite" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015177, 0 )
 shape = SubResource( 6 )
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=3]
 [ext_resource path="res://resources/models/items/tools/light_sources/belt_clip_dark_lantern/Lamp1.material" type="Material" id=4]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=5]
@@ -106,15 +105,15 @@ tracks/2/keys = {
 }
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.0634562, 0.0615375, 0.047019 )
+extents = Vector3( 0.05, 0.05, 0.05 )
 
 [node name="DarkLantern" instance=ExtResource( 1 )]
 mass = 0.2
 contacts_reported = 2
 contact_monitor = true
-script = ExtResource( 2 )
 item_drop_sound = ExtResource( 6 )
 can_attach = true
+item_size = 0
 item_name = "Dark Lantern"
 is_oil_based = true
 life_percentage_lose = 0.1
@@ -133,7 +132,7 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0335044, 0.0744317 )
 
 [node name="Light" type="SpotLight" parent="." index="3"]
-transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0253519, -0.0870413 )
+transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0232877, -0.0910649 )
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.5
 shadow_enabled = true
@@ -146,10 +145,11 @@ spot_angle_attenuation = 32.0
 anims/RESET = SubResource( 3 )
 anims/flicker = SubResource( 4 )
 
-[node name="ignite" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0755849 )
+[node name="Ignite" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0612894 )
 
-[node name="CollisionShape" parent="ignite" index="0"]
+[node name="CollisionShape" parent="Ignite" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00687889, 0.00708632 )
 shape = SubResource( 5 )
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." index="6"]

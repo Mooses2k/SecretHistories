@@ -960,8 +960,8 @@ shadow_enabled = true
 omni_range = 10.0
 omni_attenuation = 7.0
 
-[node name="ignite" type="Area" parent="." groups=["ignite"]]
+[node name="Ignite" type="Area" parent="." groups=["Ignite"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="ignite"]
+[node name="CollisionShape" type="CollisionShape" parent="Ignite"]
 shape = SubResource( 2 )

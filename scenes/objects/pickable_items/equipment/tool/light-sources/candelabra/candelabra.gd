@@ -6,6 +6,16 @@ class_name CandelabraItem
 
 # function this out better, lots of duplicated lines
 
+signal item_is_dropped
+var burn_time : float
+var is_depleted : bool = false
+var is_dropped: bool = false
+var is_just_dropped: bool = true
+var light_timer
+var random_number
+export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
+export(float, 0.0, 1.0) var prob_going_out : float = 0.0
+
 var material
 var new_material
 
@@ -28,7 +38,7 @@ func _ready():
 	print(light_timer)
 	if light_timer == null:
 		print(self.name)
-	self.connect("item_is_dropped", self, "light_dropped")
+	self.connect("item_is_dropped", self, "light_dropped") # this current fails, is bugged
 	light_timer.connect("timeout", self, "light_depleted_copy")
 	burn_time = 1000.0
 	light_timer.set_wait_time(burn_time)
@@ -117,7 +127,8 @@ func light():
 func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		$BlowOutSound.play()
+		if !is_dropped:
+			$BlowOutSound.play()
 		$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
 		$Candle1/FireOrigin/Fire.visible = false
 		$Candle1/MeshInstance.cast_shadow = true
@@ -192,6 +203,7 @@ func unlight_candle_3():
 
 
 func light_dropped():
+	print("light_dropped called")
 	if $Candle3 != null:
 		stop_light_timer_2()
 		stop_light_timer_3()
@@ -209,3 +221,29 @@ func light_dropped():
 		light_timer_3.start()
 		if random_number_2_3 < prob_going_out:
 			unlight_candle_3()
+
+
+func light_depleted():
+	burn_time = 0
+	unlight()
+	is_depleted = true
+
+
+func stop_light_timer():
+	burn_time = light_timer.get_time_left()
+	print("current burn time " + str(burn_time))
+	light_timer.stop()
+
+
+# currently not working to put out light when thrown
+func item_drop():
+	stop_light_timer()
+	burn_time -= (burn_time * life_percentage_lose)
+	print("reduced burn time " + str(burn_time))
+	random_number = rand_range(0.0, 1.0)
+	
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
+	
+	if random_number < prob_going_out:
+		unlight()

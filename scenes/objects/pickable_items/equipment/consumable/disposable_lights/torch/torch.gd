@@ -1,14 +1,23 @@
-extends ToolItem
+extends ConsumableItem
 
 
 #var has_ever_been_on = false
+signal item_is_dropped
 var is_lit = true
+var burn_time : float
+var is_depleted : bool = false
+var is_dropped: bool = false
+var is_just_dropped: bool = true
+var light_timer
+var random_number
+export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
+export(float, 0.0, 1.0) var prob_going_out : float = 0.0
 
 onready var firelight = $FireOrigin/Fire/Light
 
 
 func _ready():
-	light_timer = $Timer
+	light_timer = $BurnTime
 	light_timer.connect("timeout", self, "light_depleted")
 	burn_time = 600.0
 	light_timer.set_wait_time(burn_time)
@@ -54,7 +63,8 @@ func light():
 func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		$Sounds/BlowOutSound.play()
+		if !is_dropped:
+			$Sounds/BlowOutSound.play()
 		$Sounds/Burning.stop()
 		$FireOrigin/Fire.emitting = false
 		$FireOrigin/EmberDrip.emitting = false
@@ -80,4 +90,29 @@ func _use_primary():
 	if is_lit == false:
 		light()
 	else:
+		unlight()
+
+
+func light_depleted():
+	burn_time = 0
+	unlight()
+	is_depleted = true
+
+
+func stop_light_timer():
+	burn_time = light_timer.get_time_left()
+	print("current burn time " + str(burn_time))
+	light_timer.stop()
+
+
+func item_drop():
+	stop_light_timer()
+	burn_time -= (burn_time * life_percentage_lose)
+	print("reduced burn time " + str(burn_time))
+	random_number = rand_range(0.0, 1.0)
+	
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
+	
+	if random_number < prob_going_out:
 		unlight()

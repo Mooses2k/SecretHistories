@@ -30,6 +30,7 @@ var noise_level = 0
 var item_max_noise_level = 5
 var item_sound_level = 10
 
+
 func _enter_tree():
 	if not audio_player:
 		var drop_sound = AudioStreamPlayer3D.new()
@@ -80,6 +81,8 @@ func set_physics_equipped():
 func _integrate_forces(state):
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), max_speed)
+
+
 #func pickup(by : Node):
 #	self.item_state = ItemState.INVENTORY
 #	if self.is_inside_tree():

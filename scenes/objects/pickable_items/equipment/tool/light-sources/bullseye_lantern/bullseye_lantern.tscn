@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/bullseye_lantern/M_DarkLantern3_Glass.material" type="Material" id=3]
 [ext_resource path="res://resources/models/items/tools/light_sources/bullseye_lantern/M_DarkLantern3.material" type="Material" id=4]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
@@ -35,8 +34,8 @@ surfaces/1 = {
 "vertex_count": 10160
 }
 
-[sub_resource type="ConvexPolygonShape" id=6]
-points = PoolVector3Array( 0.01735, -0.0825767, -0.120126, 0.00663365, -0.00577127, 0.121309, -0.00667339, -0.00567749, 0.121177, 0.00344298, 0.275432, -0.0297359, -0.0730383, 0.059933, -0.0123562, 0.0729779, 0.059933, 0.0223515, -0.00350336, 0.240671, 0.0779821, -0.0695508, -0.103463, 0.0223515, 0.0660173, -0.110438, 0.0119289, 0.0208231, 0.0494897, -0.137531, -0.0208835, -0.0686649, -0.137531, -0.0556296, -0.0165244, 0.0988016, -0.00350336, 0.22676, -0.0853665, 0.0368538, -0.0431551, 0.111939, 0.0694904, 0.059933, -0.0262703, -0.0173818, -0.110438, 0.0675595, 0.0555835, -0.013056, 0.0988016, -0.0173818, -0.110438, -0.0575383, 0.0208231, -0.0686649, -0.137531, -0.0730383, 0.059933, 0.0188859, -0.00350336, 0.278938, 0.025843, -0.0236507, -0.0575748, 0.112772, 0.00344298, 0.240671, -0.0784094, 0.00344298, 0.240671, 0.0779821, 0.0660173, -0.110438, -0.00542498, -0.00350336, 0.275432, -0.0297359, -0.0695508, 0.059933, -0.0262444, 0.00344298, 0.275432, 0.0362656, -0.0613323, -0.0932341, -0.0215355, 0.0202049, -0.0608031, 0.112626, -0.0172624, 0.0555257, -0.114591, -0.0266373, -0.0122014, 0.117673, 0.0729779, 0.059933, -0.0158218, 0.0263745, -0.00812583, 0.116674, 0.0138625, -0.110438, -0.0610297, -0.00350336, 0.26152, -0.0575383, -0.0695508, 0.059933, 0.0327742, -0.0625902, -0.110438, 0.0153945, -0.00350336, 0.264988, 0.0571368, 0.00344298, 0.216354, 0.0849392, 0.0101037, -0.040823, 0.12306, -0.0173961, -0.0791083, -0.127083, 0.046989, -0.0534337, 0.095272, 0.0729779, 0.0634014, 0.00843741, -0.0401446, -0.0527721, 0.101527, -0.00350336, 0.216354, 0.0849392, 0.0164993, -0.101061, 0.0640443, 0.0694904, 0.059933, 0.0327742, -0.0269165, -0.0367683, 0.118964, -0.0101463, -0.0644524, 0.112852, -0.0641942, -0.089, -0.0150207, 0.0402103, -0.0632756, 0.0951032, -0.00350336, 0.278938, -0.0158476, -0.00350336, 0.216354, -0.0888321, -0.00350336, 0.240671, -0.0784094, -0.0167796, -0.0164119, 0.122097, 0.0640957, -0.0920963, -0.015015, 0.0534344, -0.0427131, 0.0914921, 0.00344298, 0.247608, -0.0714782, -0.0535917, -0.0396344, 0.0916428, 0.0202283, -0.0677094, 0.106004, 0.0133094, -0.00918218, 0.121422, -0.0208835, -0.0756398, -0.130574, -0.0302659, -0.0568869, 0.108823 )
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 0.0715996, 0.0863779, 0.0562214 )
 
 [sub_resource type="Animation" id=7]
 length = 0.001
@@ -118,17 +117,12 @@ tracks/2/keys = {
 "values": [ 20.0, 22.314, 18.628, 19.983 ]
 }
 
-[sub_resource type="BoxShape" id=9]
-extents = Vector3( 0.0715996, 0.0863779, 0.0562214 )
-
 [node name="BullseyeLantern" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
 mass = 0.2
 contacts_reported = 2
 contact_monitor = true
-script = ExtResource( 2 )
 item_drop_sound = ExtResource( 7 )
-can_attach = false
 item_name = "Bullseye Lantern"
 is_oil_based = true
 life_percentage_lose = 0.1
@@ -139,9 +133,9 @@ transform = Transform( -0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 0
 cast_shadow = 0
 mesh = SubResource( 5 )
 
-[node name="CollisionShape" parent="." index="1"]
+[node name="ignite@CollisionShape" type="CollisionShape" parent="." index="1"]
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 9 )
 
 [node name="HoldPosition" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00540176, 0.0626888 )
@@ -160,11 +154,8 @@ spot_angle_attenuation = 32.0
 anims/RESET = SubResource( 7 )
 anims/flicker = SubResource( 8 )
 
-[node name="ignite" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0843059 )
-
-[node name="CollisionShape" parent="ignite" index="0"]
-shape = SubResource( 9 )
+[node name="CollisionShape" parent="Ignite" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.209202, -0.0324289 )
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." index="6"]
 stream = ExtResource( 5 )

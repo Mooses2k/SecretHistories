@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" type="AudioStream" id=2]
@@ -52,7 +52,6 @@ mass = 3.0
 contacts_reported = 2
 contact_monitor = true
 script = SubResource( 9 )
-item_drop_sound = ExtResource( 2 )
 can_attach = false
 item_size = 0
 item_name = "Sawed-off shotgun"

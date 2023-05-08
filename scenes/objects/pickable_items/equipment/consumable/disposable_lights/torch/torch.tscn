@@ -1,6 +1,6 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/_consumable.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/consumables/light_sources/torch/M_Torch.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" type="Script" id=3]
 [ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=4]
@@ -25,8 +25,8 @@ surfaces/0 = {
 "vertex_count": 603
 }
 
-[sub_resource type="BoxShape" id=17]
-extents = Vector3( 0.05, 0.37, 0.05 )
+[sub_resource type="BoxShape" id=18]
+extents = Vector3( 0.1, 0.1, 0.1 )
 
 [sub_resource type="Animation" id=14]
 length = 0.001
@@ -177,43 +177,35 @@ color_ramp = SubResource( 11 )
 [sub_resource type="QuadMesh" id=13]
 material = SubResource( 5 )
 
-[sub_resource type="BoxShape" id=18]
-extents = Vector3( 0.1, 0.1, 0.1 )
-
 [node name="Torch" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0542236, 0 )
 contacts_reported = 2
 contact_monitor = true
 script = ExtResource( 3 )
+dropped_layers = 64
+dropped_mask = 1
+equipped_mode = 3
 item_drop_sound = ExtResource( 9 )
+item_size = 0
 item_name = "Torch"
 life_percentage_lose = 0.2
 prob_going_out = 0.1
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
-cast_shadow = 0
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 
-[node name="CollisionShape" parent="." index="1"]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0181382, 8.01446e-05 )
-shape = SubResource( 17 )
+[node name="Ignite@CollisionShape" type="CollisionShape" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0250299, 0 )
+shape = SubResource( 18 )
 
-[node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00288502, -0.00173661 )
-
-[node name="Durability" type="Timer" parent="." index="3"]
-wait_time = 10000.0
-one_shot = true
-autostart = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 autoplay = "flicker"
 anims/RESET = SubResource( 14 )
 anims/flicker = SubResource( 15 )
 
-[node name="FireOrigin" type="Position3D" parent="." index="5"]
+[node name="FireOrigin" type="Position3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.193638, 0 )
 script = ExtResource( 6 )
 
@@ -245,11 +237,9 @@ local_coords = false
 process_material = SubResource( 12 )
 draw_pass_1 = SubResource( 13 )
 
-[node name="CollisionShape" parent="ignite" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0250299, 0 )
-shape = SubResource( 18 )
+[node name="BurnTime" type="Timer" parent="." index="5"]
 
-[node name="Sounds" type="Spatial" parent="." index="7"]
+[node name="Sounds" type="Spatial" parent="." index="6"]
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 stream = ExtResource( 5 )
@@ -260,5 +250,4 @@ stream = ExtResource( 7 )
 
 [node name="Burning" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 8 )
-
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]
+unit_db = 20.0

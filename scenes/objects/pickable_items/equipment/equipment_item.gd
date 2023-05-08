@@ -13,6 +13,7 @@ export var item_name : String = "Equipment"
 var is_in_belt = false
 var has_equipped = false
 
+
 func _ready():
 	connect("body_entered", self, "play_drop_sound")
 
@@ -21,6 +22,7 @@ func _ready():
 func _use_primary():
 	print("use primary")
 	pass
+
 
 # Right-click, typically
 func _use_secondary():

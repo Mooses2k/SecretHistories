@@ -36,7 +36,7 @@ func _ready():
 
 func _process(delta):
 	if item_state == GlobalConsts.ItemState.DROPPED:
-		$ignite/CollisionShape.disabled = false
+		$Ignite/CollisionShape.disabled = false
 		is_dropped = true
 		
 		if is_dropped and not is_just_dropped:
@@ -44,7 +44,7 @@ func _process(delta):
 			self.emit_signal("item_is_dropped")
 			item_drop()
 	else:
-		$ignite/CollisionShape.disabled = true
+		$Ignite/CollisionShape.disabled = true
 		is_dropped = false
 		is_just_dropped = false
 

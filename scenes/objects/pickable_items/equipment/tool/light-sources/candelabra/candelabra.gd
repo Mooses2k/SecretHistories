@@ -5,6 +5,8 @@ class_name CandelabraItem
 # eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...not that you'd ever care to do that
 
 # function this out better, lots of duplicated lines
+
+signal item_is_dropped
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false

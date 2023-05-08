@@ -2,6 +2,7 @@ extends ConsumableItem
 
 
 #var has_ever_been_on = false
+signal item_is_dropped
 var is_lit = true
 var burn_time : float
 var is_depleted : bool = false

@@ -350,6 +350,11 @@ _global_script_classes=[ {
 "path": "res://resources/world/world_data.gd"
 }, {
 "base": "EquipmentItem",
+"class": "WritingItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
+}, {
+"base": "EquipmentItem",
 "class": "empty_hand",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
@@ -423,6 +428,7 @@ _global_script_class_icons={
 "ToolItem": "",
 "VisibilityMask": "",
 "WorldData": "",
+"WritingItem": "",
 "empty_hand": ""
 }
 

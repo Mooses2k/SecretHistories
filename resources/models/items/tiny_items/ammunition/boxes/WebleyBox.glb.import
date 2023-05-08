@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/WebleyAmmo.glb-bf5c2bf6d4feff681a53a28dedbc554c.scn"
+path="res://.import/WebleyBox.glb-45bf4156aa5771ef1327adf09195f28e.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tiny_items/ammunition/boxes/WebleyAmmo.glb"
-dest_files=[ "res://.import/WebleyAmmo.glb-bf5c2bf6d4feff681a53a28dedbc554c.scn" ]
+source_file="res://resources/models/items/tiny_items/ammunition/boxes/WebleyBox.glb"
+dest_files=[ "res://.import/WebleyBox.glb-45bf4156aa5771ef1327adf09195f28e.scn" ]
 
 [params]
 

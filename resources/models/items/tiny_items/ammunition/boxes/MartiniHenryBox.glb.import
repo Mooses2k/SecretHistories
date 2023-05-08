@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/12Gauge.glb-7756421129d780a9fb57e7a2b67182d8.scn"
+path="res://.import/MartiniHenryBox.glb-d1c79f3df9a081dbccc89ec6b04641b5.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tiny_items/ammunition/boxes/12Gauge.glb"
-dest_files=[ "res://.import/12Gauge.glb-7756421129d780a9fb57e7a2b67182d8.scn" ]
+source_file="res://resources/models/items/tiny_items/ammunition/boxes/MartiniHenryBox.glb"
+dest_files=[ "res://.import/MartiniHenryBox.glb-d1c79f3df9a081dbccc89ec6b04641b5.scn" ]
 
 [params]
 

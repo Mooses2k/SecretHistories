@@ -1,10 +1,10 @@
 extends Node
-class_name EnemySpawner
+class_name characterSpawner
 
 
-export var enemy_scene : PackedScene
+export var character_scene : PackedScene
 
-# Represents the possible enemy loadouts, with the following structure:
+# Represents the possible character loadouts, with the following structure:
 # Loadout:
 # [
 #	set 1,
@@ -39,23 +39,24 @@ export var enemy_scene : PackedScene
 # Guns, for example, will be added to the inventory loaded with
 # a random amount of ammunition within the selected range
 #
-export(Array, Dictionary) var enemy_loadout : Array
+export(Array, Dictionary) var character_loadout : Array
 export var density = 0.05
-export var max_count = 10
-onready var enemies_root = Node.new()
+export var max_count = 5
 
 var data : WorldData
 
+onready var characters_root = Node.new()
+
 
 func _ready():
-	add_child(enemies_root)
+	add_child(characters_root)
 
 
-func spawn_enemies():
-	for child in enemies_root.get_children():
+func spawn_characters():
+	for child in characters_root.get_children():
 		child.queue_free()
 	var count = 0
-	print("Spawning enemies")
+	print("Spawning characters")
 	for i in data.get_size_x():
 		for j in data.get_size_z():
 			if count >= max_count:
@@ -63,14 +64,14 @@ func spawn_enemies():
 			var cell = data.get_cell_index_from_int_position(i, j)
 			if data.get_cell_type(cell) == data.CellType.ROOM and randf()<density:
 				count += 1
-				var enemy = enemy_scene.instance() as Spatial
-				enemy.translation = GameManager.game.level.grid_to_world(Vector3(i, 0, j))
-				enemies_root.add_child(enemy)
-				var inventory = enemy.get_node("Inventory")
-				for set_index in enemy_loadout.size():
+				var character = character_scene.instance() as Spatial
+				character.translation = GameManager.game.level.grid_to_world(Vector3(i, 0, j))
+				characters_root.add_child(character)
+				var inventory = character.get_node("Inventory")
+				for set_index in character_loadout.size():
 					var total_weight = 0
-					for pack in (enemy_loadout[set_index] as Dictionary).keys():
-						total_weight += enemy_loadout[set_index][pack]
+					for pack in (character_loadout[set_index] as Dictionary).keys():
+						total_weight += character_loadout[set_index][pack]
 					if total_weight == 0:
 						continue
 
@@ -78,8 +79,8 @@ func spawn_enemies():
 
 					var cummulative_weight = 0
 					var chosen_pack = null
-					for pack in (enemy_loadout[set_index] as Dictionary).keys():
-						cummulative_weight += enemy_loadout[set_index][pack]
+					for pack in (character_loadout[set_index] as Dictionary).keys():
+						cummulative_weight += character_loadout[set_index][pack]
 						if rng < cummulative_weight:
 							chosen_pack = pack
 							break
@@ -107,4 +108,4 @@ func spawn_enemies():
 
 func _on_ProceduralWorld_generation_finished():
 	data = owner.world_data
-	spawn_enemies()
+	spawn_characters()

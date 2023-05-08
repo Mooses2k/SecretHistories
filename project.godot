@@ -164,11 +164,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/effects/effects.gd"
 }, {
-"base": "Node",
-"class": "EnemySpawner",
-"language": "GDScript",
-"path": "res://scenes/worlds/enemy_spawner.gd"
-}, {
 "base": "PickableItem",
 "class": "EquipmentItem",
 "language": "GDScript",
@@ -340,6 +335,16 @@ _global_script_classes=[ {
 "path": "res://resources/world/world_data.gd"
 }, {
 "base": "EquipmentItem",
+"class": "WritingItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
+}, {
+"base": "Node",
+"class": "characterSpawner",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/character_spawner.gd"
+}, {
+"base": "EquipmentItem",
 "class": "empty_hand",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
@@ -376,7 +381,6 @@ _global_script_class_icons={
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",
-"EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
@@ -411,6 +415,8 @@ _global_script_class_icons={
 "ToolItem": "",
 "VisibilityMask": "",
 "WorldData": "",
+"WritingItem": "",
+"characterSpawner": "",
 "empty_hand": ""
 }
 

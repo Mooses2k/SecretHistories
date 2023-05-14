@@ -13,13 +13,6 @@ export(int, LAYERS_3D_PHYSICS) var equipped_mask : int = 0
 export(int, "Rigid", "Static", "Character", "Kinematic") var equipped_mode : int = MODE_KINEMATIC
 
 export var max_speed : float = 12.0
-#export(int, LAYERS_3D_PHYSICS) var dropped_layers : int
-#export(int, LAYERS_3D_PHYSICS) var dropped_mask : int
-#export(int, "Rigid", "Static", "Character", "Kinematic") var dropped_mode : int
-#
-#export(int, LAYERS_3D_PHYSICS) var equipped_layers
-#export(int, LAYERS_3D_PHYSICS) var equipped_mask
-#export(int, "Rigid", "Static", "Character", "Kinematic") var equipped_mode : int
 
 #onready var mesh_instance = $MeshInstance
 var owner_character : Node = null

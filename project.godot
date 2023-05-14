@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
+"base": "KinematicBody",
+"class": "Character",
+"language": "GDScript",
+"path": "res://scenes/characters/character.gd"
+}, {
 "base": "Node",
 "class": "CharacterSpawner",
 "language": "GDScript",
@@ -153,6 +158,11 @@ _global_script_classes=[ {
 "class": "ControlMode",
 "language": "GDScript",
 "path": "res://scenes/characters/player/control_mode.gd"
+}, {
+"base": "Character",
+"class": "Cultist",
+"language": "GDScript",
+"path": "res://scenes/characters/cultists/cultist.gd"
 }, {
 "base": "Spatial",
 "class": "Door",
@@ -274,7 +284,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/placement_anchor.gd"
 }, {
-"base": "KinematicBody",
+"base": "Character",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
@@ -384,11 +394,13 @@ _global_script_class_icons={
 "BombItem": "",
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
+"Character": "",
 "CharacterSpawner": "",
 "CharacterState": "",
 "ClamberManager": "",
 "ConsumableItem": "",
 "ControlMode": "",
+"Cultist": "",
 "Door": "",
 "Door_body": "",
 "Dynamite": "",

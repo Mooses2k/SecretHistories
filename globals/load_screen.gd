@@ -1,9 +1,10 @@
 extends Node
 
-const LOADSCREEN = preload("res://scenes/UI/loadscreen/load_screen.tscn")
-var loadscreen : Node
 
 signal scene_loaded
+
+const LOADSCREEN = preload("res://scenes/UI/loadscreen/load_screen.tscn")
+var loadscreen : Node
 
 
 func _ready() -> void:

@@ -198,7 +198,7 @@ mesh = SubResource( 1 )
 skeleton = NodePath("")
 
 [node name="Ignite@CollisionShape" type="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0250299, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.194718, 0 )
 shape = SubResource( 18 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
@@ -212,12 +212,14 @@ script = ExtResource( 6 )
 
 [node name="Fire" type="Particles" parent="FireOrigin" index="0"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+emitting = false
 amount = 64
 process_material = SubResource( 16 )
 draw_pass_1 = SubResource( 7 )
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( -5, -4.37114e-07, 0, 4.37114e-07, -5, 0, 0, 0, 5, 9.05025e-10, 0.0103521, 0 )
+visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 omni_range = 13.0
@@ -225,6 +227,7 @@ omni_attenuation = 7.0
 
 [node name="EmberDrip" type="Particles" parent="FireOrigin" index="1"]
 transform = Transform( 0.2, -3.49692e-08, 0, 3.49692e-08, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+emitting = false
 amount = 4
 randomness = 1.0
 process_material = SubResource( 6 )
@@ -232,6 +235,7 @@ draw_pass_1 = SubResource( 7 )
 
 [node name="Smoke" type="Particles" parent="FireOrigin" index="2"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+emitting = false
 amount = 32
 lifetime = 2.0
 local_coords = false

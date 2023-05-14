@@ -1,4 +1,4 @@
-extends "res://scenes/characters/character.gd"
+extends Character
 class_name Player
 
 
@@ -27,7 +27,6 @@ func _ready():
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 
 
-
 func _physics_process(delta):
 	gun_cam.global_transform = fps_camera.global_transform
 	
@@ -46,8 +45,6 @@ func _process(delta):
 	#this notifies the dot if something if the player is currently grabbing something
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
-	
-
 
 
 func drop_consumable(object):

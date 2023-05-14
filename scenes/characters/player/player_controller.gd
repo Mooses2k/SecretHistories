@@ -158,7 +158,7 @@ func _physics_process(delta : float):
 
 
 func _input(event):
-	if event is InputEventMouseButton and GameManager.is_reloading == false :
+	if event is InputEventMouseButton and owner.is_reloading == false:
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
@@ -476,7 +476,7 @@ func _crouch() -> void:
 #	direction = movement_basis.xform(direction)
 #	direction = direction.normalized()*min(1.0, direction.length())
 #
-#	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
+#	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading == false:
 #		direction *= 0.5;
 #		change_stamina(-0.3)
 #	else:
@@ -596,11 +596,11 @@ func handle_grab(delta : float):
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
-			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_mainhand_item() and is_grabbing == false and GameManager.is_reloading == false:
+			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_mainhand_item() and is_grabbing == false and owner.is_reloading == false:
 				throw_item = ItemSelection.ITEM_MAINHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_offhand_item() and is_grabbing == false  and GameManager.is_reloading == false:
+			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_offhand_item() and is_grabbing == false and owner.is_reloading == false:
 				throw_item = ItemSelection.ITEM_OFFHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
@@ -644,7 +644,7 @@ func handle_inventory(delta : float):
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false  :
 			if i != inv.current_offhand_slot :
 				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
@@ -654,7 +654,7 @@ func handle_inventory(delta : float):
 
 	# Offhand slot selection
 
-	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
+	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:
 		var start_slot = inv.current_offhand_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \

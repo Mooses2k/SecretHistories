@@ -3,7 +3,8 @@ extends ConsumableItem
 
 #var has_ever_been_on = false
 signal item_is_dropped
-var is_lit = true
+
+var is_lit = false
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false
@@ -20,8 +21,8 @@ func _ready():
 	light_timer = $BurnTime
 	light_timer.connect("timeout", self, "light_depleted")
 	burn_time = 600.0
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
+#	light_timer.set_wait_time(burn_time)
+#	light_timer.start()
 
 
 #func _process(delta):
@@ -63,7 +64,7 @@ func light():
 func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		if !is_dropped:
+		if !is_dropped and burn_time > 0:
 			$Sounds/BlowOutSound.play()
 		$Sounds/Burning.stop()
 		$FireOrigin/Fire.emitting = false

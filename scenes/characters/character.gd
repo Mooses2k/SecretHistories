@@ -1,5 +1,5 @@
 extends KinematicBody
-#class_name Character
+class_name Character
 
 
 signal character_died()
@@ -23,10 +23,9 @@ onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
 onready var belt_position = $"%Beltposition"
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
-#onready var skeleton = $"%Skeleton"
+onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
 onready var animation_tree = $AnimationTree
-
 
 onready var additional_animations  = $Additional_animations
 
@@ -102,7 +101,6 @@ export var _legcast : NodePath
 export(AttackTypes.Types) var damage_type : int = 0
 export (float) var kick_impulse
 
-
 var state = State.STATE_WALKING
 var clamber_destination : Vector3 = Vector3.ZERO
 var light_level : float = 0.0
@@ -162,6 +160,8 @@ var mainhand_animation = Animation_state.NOT_EQUIPPED
 
 var current_mainhand_item_animation = hold_states.MELEE_ITEM
 
+var is_reloading = false
+
 
 #func _integrate_forces(state):
 #	handle_elevation(state)
@@ -196,26 +196,6 @@ var current_mainhand_item_animation = hold_states.MELEE_ITEM
 #	apply_central_impulse(velocity_correction*mass)
 
 
-func slow_down(state : PhysicsDirectBodyState):
-	state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), move_speed)
-
-
-func damage(value : float, type : int, on_hitbox : Hitbox):
-	#queue_free()
-	if self._alive:
-		self.current_health -= self._type_damage_multiplier[type]*value
-		self.emit_signal("is_hit", current_health)
-	
-		if self.current_health <= 0:
-			self._alive = false
-			self.emit_signal("character_died")
-	
-			if self.name != "Player":
-				pass
-#				collision_shape.disabled = true
-#				skeleton.physical_bones_start_simulation()
-
-
 func _ready():
 	_type_damage_multiplier.resize(AttackTypes.Types._COUNT)
 	for i in _type_damage_multiplier.size():
@@ -236,7 +216,6 @@ func _ready():
 	_audio_player.load_sounds("resources/sounds/player/sfx/landing", 2)
 	_audio_player._footstep_sounds = _audio_player._stone_footstep_sounds
 #	active_mode.set_deferred("is_active", true)
-
 
 
 func _physics_process(delta : float):
@@ -318,6 +297,26 @@ func _physics_process(delta : float):
 	move_effect()
 
 
+func slow_down(state : PhysicsDirectBodyState):
+	state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), move_speed)
+
+
+func damage(value : float, type : int, on_hitbox : Hitbox):
+	#queue_free()
+	if self._alive:
+		self.current_health -= self._type_damage_multiplier[type]*value
+		self.emit_signal("is_hit", current_health)
+	
+		if self.current_health <= 0:
+			self._alive = false
+			self.emit_signal("character_died")
+	
+			if self.name != "Player":
+#				pass
+				collision_shape.disabled = true
+				skeleton.physical_bones_start_simulation()
+
+
 func _get_surface_type() -> Array:
 	var cell_index = GameManager.game.level.world_data.get_cell_index_from_local_position(transform.origin)
 	var floor_type = GameManager.game.level.world_data.get_cell_surfacetype(cell_index)
@@ -356,7 +355,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
-	if do_sprint and stamina > 0 and GameManager.is_reloading == false and is_moving_forward and !is_jumping:
+	if do_sprint and stamina > 0 and is_reloading == false and is_moving_forward and !is_jumping:
 		if is_crouching:
 			if can_stand:
 				is_crouching = false
@@ -388,7 +387,6 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	else:
 		velocity = move_and_slide((velocity * speed_mod) + get_floor_velocity(),
 				Vector3.UP, true, 4, PI/4, false)
-	
 	
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
@@ -480,8 +478,8 @@ func _crouch(delta : float) -> void:
 			wanna_stand = true
 			return
 
+
 func check_state_animation(delta):
-	
 	var forwards_velocity
 	var sideways_velocity
 	#if the character is moving sets the velocity to it's movement blendspace2D to create a strafing effect
@@ -496,8 +494,6 @@ func check_state_animation(delta):
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
-				
-				
 				
 			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
@@ -521,17 +517,13 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",2)
 				
-				
-
 		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
-
+			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
-				
-				
 				
 			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -568,15 +560,13 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Small_guns_transitions/current",2)
 				animation_tree.set("parameters/small_gun_run_blend/blend_amount",1)
 
-
 		elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM:
+			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
-				
-				
 				
 			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -613,15 +603,12 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Big_guns_transition/current",2)
 				animation_tree.set("parameters/Rifle_gun_run_blend/blend_amount",1)
 				
-				
 		elif current_mainhand_item_animation == hold_states.LARGE_GUNS_ADS:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
-				
-				
 				
 			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -660,8 +647,6 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",4)
 				
-				
-				
 			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
@@ -697,6 +682,7 @@ func check_state_animation(delta):
 		animation_tree.set("parameters/Falling/active",true)
 	else:
 		animation_tree.set("parameters/Falling/active",false)
+
 
 func check_curent_weapon():
 		#This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree

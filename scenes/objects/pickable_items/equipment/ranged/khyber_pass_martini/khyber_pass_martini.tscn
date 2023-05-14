@@ -57,7 +57,6 @@ continuous_cd = true
 contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 9 )
-can_attach = false
 item_size = 0
 item_name = "Sawed-off Martini pistol"
 ammo_types = [ ExtResource( 2 ) ]

@@ -25,7 +25,7 @@ enum stamina_values\\
 
 func tired(amount: float) -> void:
 	# convert stamina percentage to db:
-	var volume = ((amount / 100) * -stamina_values.maximum)+24;
+	var volume = ((amount / 100) * -stamina_values.maximum) + 14;
 	if Stamina.playing != (volume > stamina_values.minimum):
 		Stamina.playing = volume > stamina_values.minimum;
 	Stamina.volume_db = volume;

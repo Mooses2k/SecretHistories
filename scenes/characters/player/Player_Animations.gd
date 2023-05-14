@@ -12,20 +12,20 @@ enum hold_states {
 	UNEQUIPPED
 }
 
-
 onready var inventory = $"../Inventory"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 var current_mainhand_item_animation 
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
 
+
 func _process(delta):
 	check_player_animation()
 	check_curent_weapon()
-	
+
+
 func _physics_process(delta):
 	ads()
-	
 
 
 func check_curent_weapon():

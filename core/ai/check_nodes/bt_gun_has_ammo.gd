@@ -5,6 +5,10 @@ extends BT_Node
 func tick(state : CharacterState) -> int:
 	var equipment = state.character.inventory.current_mainhand_equipment as GunItem
 	if equipment:
-		if equipment.current_ammo > 0 || equipment.is_reloading:
+#		if equipment.current_ammo > 0 || equipment.is_reloading:
+		if state.character.is_reloading:
+			return Status.RUNNING
+		if equipment.current_ammo > 0:
 			return Status.SUCCESS
+		print(state.character, " gun empty or reloading")
 	return Status.FAILURE

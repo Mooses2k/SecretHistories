@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
+"base": "Node",
+"class": "CharacterSpawner",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/character_spawner.gd"
+}, {
 "base": "Reference",
 "class": "CharacterState",
 "language": "GDScript",
@@ -168,11 +173,6 @@ _global_script_classes=[ {
 "class": "Effect",
 "language": "GDScript",
 "path": "res://scenes/effects/effects.gd"
-}, {
-"base": "Node",
-"class": "EnemySpawner",
-"language": "GDScript",
-"path": "res://scenes/worlds/enemy_spawner.gd"
 }, {
 "base": "PickableItem",
 "class": "EquipmentItem",
@@ -384,6 +384,7 @@ _global_script_class_icons={
 "BombItem": "",
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
+"CharacterSpawner": "",
 "CharacterState": "",
 "ClamberManager": "",
 "ConsumableItem": "",
@@ -392,7 +393,6 @@ _global_script_class_icons={
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",
-"EnemySpawner": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",

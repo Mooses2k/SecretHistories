@@ -3,6 +3,7 @@ class_name LanternItem
 
 
 signal item_is_dropped
+
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false
@@ -108,12 +109,13 @@ func switch_away():
 #		unlight()
 		pass
 	else:
+		print("switch_away reached in lanterns.gd")
 		attach_to_belt()
 
 
 func attach_to_belt():
-	is_in_belt = true
 	get_parent().owner.inventory.attach_to_belt(self)
+	is_in_belt = true
 
 
 func _use_primary():

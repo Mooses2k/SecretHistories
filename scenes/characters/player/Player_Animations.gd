@@ -21,14 +21,14 @@ onready var _camera : ShakeCamera = get_node(_cam_path)
 
 func _process(delta):
 	check_player_animation()
-	check_curent_weapon()
+	check_current_item_animation()
 
 
 func _physics_process(delta):
 	ads()
 
 
-func check_curent_weapon():
+func check_current_item_animation():
 	
 	#This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 		var main_hand_object = inventory.current_mainhand_slot
@@ -41,18 +41,18 @@ func check_curent_weapon():
 			else:
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
 				
-		elif  inventory.hotbar[main_hand_object] is LanternItem  or inventory.hotbar[off_hand_object] is LanternItem:
+		elif  inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
 			current_mainhand_item_animation = hold_states.LANTERN_ITEM
 			
-		elif  inventory.hotbar[main_hand_object] is MeleeItem  or inventory.hotbar[off_hand_object] is MeleeItem:
+		elif  inventory.hotbar[main_hand_object] is MeleeItem or inventory.hotbar[off_hand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
 			
-		elif inventory.hotbar[main_hand_object] is ConsumableItem  or inventory.hotbar[off_hand_object] is ConsumableItem:
+		elif inventory.hotbar[main_hand_object] is ConsumableItem or inventory.hotbar[off_hand_object] is ConsumableItem:
 			$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%AdsTween".start()
-		elif inventory.hotbar[main_hand_object] is ToolItem  or inventory.hotbar[off_hand_object] is ToolItem:
+		elif inventory.hotbar[main_hand_object] is ToolItem or inventory.hotbar[off_hand_object] is ToolItem:
 			$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 			$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
@@ -74,7 +74,6 @@ func ads():
 				$"%AdsTween".start()
 				if get_parent().inventory.hotbar[main_hand_item].item_size == 0:
 					_camera.fov  = lerp(_camera.fov, 65, 0.5)
-					
 				else:
 					_camera.fov  = lerp(_camera.fov, 60, 0.5)
 
@@ -84,7 +83,6 @@ func ads():
 			$"%AdsTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%AdsTween".start()
 			_camera.fov  = lerp(_camera.fov, 70, 0.5)
-			
 
 
 func check_player_animation():
@@ -97,7 +95,7 @@ func check_player_animation():
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 1)
 
-#the tween functions make sure that the items are visible by moving the hand a bit forward
+# The tween functions make sure that the items are visible by moving the hand a bit forward
 	elif current_mainhand_item_animation == hold_states.MELEE_ITEM or current_mainhand_item_animation == hold_states.LANTERN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
@@ -111,8 +109,8 @@ func check_player_animation():
 
 
 func _on_Inventory_mainhand_slot_changed(previous, current):
-	#checks if there is something currently equipped, else does nothing
-	if inventory.hotbar[current] != null:
+	# Checks if there is something currently equipped, else does nothing
+	if inventory.hotbar[current] != null:   # this code may be insufficient to handle can_attach!
 		pass
 	else:
 		current_mainhand_item_animation = hold_states.UNEQUIPPED

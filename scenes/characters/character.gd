@@ -20,14 +20,13 @@ onready var current_health : float = self.max_health
 onready var inventory = $Inventory
 onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
 onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
-onready var belt_position = $"%Beltposition"
+onready var belt_position = $"%BeltPosition"
 onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
 onready var animation_tree = $AnimationTree
-
-onready var additional_animations  = $Additional_animations
+onready var additional_animations  = $AdditionalAnimations
 
 var _current_velocity : Vector3 = Vector3.ZERO
 var _type_damage_multiplier : PoolByteArray
@@ -55,7 +54,7 @@ enum SurfaceType {
 	TILE
 }
 
-#stealth player controller addon -->
+# Stealth player controller addon -->
 enum State {
 	STATE_WALKING,
 	STATE_LEANING,
@@ -66,7 +65,8 @@ enum State {
 	STATE_CLAMBERING_VENT,
 	STATE_NOCLIP,
 }
-#checks if the player is equipping something or not 
+
+# Checks if the player is equipping something or not 
 enum Animation_state {
 	EQUIPPED,
 	NOT_EQUIPPED,
@@ -80,6 +80,10 @@ enum hold_states {
 	SMALL_GUN_ADS,
 	LARGE_GUNS_ADS,
 }
+
+var mainhand_animation = Animation_state.NOT_EQUIPPED
+var current_mainhand_item_animation = hold_states.MELEE_ITEM
+
 const TEXTURE_SOUND_LIB = {
 	"checkerboard" : {
 		"amplifier" : 5.0,
@@ -143,8 +147,8 @@ var equipment_orig_pos : float
 
 var is_player_moving : bool = false
 var is_player_crouch_toggle : bool = true
-var clamberable_obj : RigidBody
-var clamberable : RigidBody = null
+var clamberable_obj # : RigidBody      # commented to allow static bodies too
+var clamberable # : RigidBody = null   # commented to allow static bodies too
 
 var move_dir = Vector3()
 var grounded = false
@@ -156,13 +160,10 @@ var do_jump : bool = false
 var do_crouch : bool = false
 var low_kick : bool = false
 
-var mainhand_animation = Animation_state.NOT_EQUIPPED
-
-var current_mainhand_item_animation = hold_states.MELEE_ITEM
-
 var is_reloading = false
 
 
+# KEEP THIS STUFF AS IT'S FROM PREVIOUS RIGIDBODY PLAYER CONTROLLER
 #func _integrate_forces(state):
 #	handle_elevation(state)
 #	handle_movement(state)
@@ -220,7 +221,7 @@ func _ready():
 
 func _physics_process(delta : float):
 	check_state_animation(delta)
-	check_curent_weapon()
+	check_current_item_animation()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -286,7 +287,7 @@ func _physics_process(delta : float):
 			if d.length() < 0.1:
 				is_clambering = false
 				global_transform.origin = clamber_destination
-				if clamberable_obj:
+				if clamberable_obj and clamberable_obj is RigidBody:   # altered to allow statics
 					clamberable_obj.mode = 0
 
 				if is_crouching:
@@ -312,7 +313,6 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			self.emit_signal("character_died")
 	
 			if self.name != "Player":
-#				pass
 				collision_shape.disabled = true
 				skeleton.physical_bones_start_simulation()
 
@@ -423,7 +423,8 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if c != Vector3.ZERO:
 			if clamberable:
 				clamberable_obj = clamberable
-				clamberable_obj.mode = 1
+				if clamberable_obj is RigidBody: # to allow static objects
+					clamberable_obj.mode = 1
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE
 			is_clambering = true
@@ -487,7 +488,7 @@ func check_state_animation(delta):
 	forwards_velocity = -global_transform.basis.z.dot(velocity)
 	sideways_velocity = global_transform.basis.x.dot(velocity)
 	
-	#This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
+	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 	if self.name == "Cultist":
 		if current_mainhand_item_animation == hold_states.MELEE_ITEM:
 			
@@ -499,21 +500,21 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",0)
 				
-			elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
+			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",1)
 				animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
+			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",5)
-				animation_tree.set("parameters/crouch_strafe/blend_position",  Vector2(sideways_velocity, forwards_velocity))
+				animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif not move_dir == Vector3.ZERO and  do_sprint == true:
+			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",2)
 				
@@ -531,13 +532,13 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",0)
 				
-			elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
+			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -545,15 +546,15 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Pistol_strafe/blend_amount",1)
 				animation_tree.set("parameters/Pistol_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
+			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",3)
 				animation_tree.set("parameters/Pistol_crouch_strafe/blend_amount",1)
-				animation_tree.set("parameters/Pistol_crouch_strafe_vector/blend_position",  Vector2(sideways_velocity, forwards_velocity))
+				animation_tree.set("parameters/Pistol_crouch_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif not move_dir == Vector3.ZERO and  do_sprint == true:
+			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -574,13 +575,13 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",0)
 				
-			elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
+			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -588,15 +589,15 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Rifle_Strafe/blend_amount",1)
 				animation_tree.set("parameters/Rifle_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
+			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",3)
 				animation_tree.set("parameters/Rifle_crouch/blend_amount",1)
-				animation_tree.set("parameters/Crouch_Rifle_vector/blend_position",  Vector2(sideways_velocity, forwards_velocity))
+				animation_tree.set("parameters/Crouch_Rifle_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif not move_dir == Vector3.ZERO and  do_sprint == true:
+			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -615,26 +616,26 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",0)
 				
-			elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
+			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",1)
 				animation_tree.set("parameters/Rifle_ADS_strafe/blend_amount",1)
 				animation_tree.set("parameters/Rifle_ADS_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
+			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",3)
 				animation_tree.set("parameters/Rifle_ADS_crouch/blend_amount", 1)
-				animation_tree.set("parameters/Rifle_ADS_crouch_vector/blend_position",  Vector2(sideways_velocity, forwards_velocity))
+				animation_tree.set("parameters/Rifle_ADS_crouch_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif not move_dir == Vector3.ZERO and  do_sprint == true:
+			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",2)
@@ -652,26 +653,26 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",0)
 				
-			elif move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING :
+			elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and  do_sprint == false:
+			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",1)
 				animation_tree.set("parameters/One_Handed_ADS_Strafe/blend_amount",1)
 				animation_tree.set("parameters/One_Handed_ADS_Strafe_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and  state == State.STATE_CROUCHING and  do_sprint == false:
+			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",3)
 				animation_tree.set("parameters/One_Handed_ADS_Crouch/blend_amount", 1)
-				animation_tree.set("parameters/One_Handed_ADS_Crouch_Vector/blend_position",  Vector2(sideways_velocity, forwards_velocity))
+				animation_tree.set("parameters/One_Handed_ADS_Crouch_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif not move_dir == Vector3.ZERO and  do_sprint == true:
+			elif not move_dir == Vector3.ZERO and do_sprint == true:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",2)
@@ -684,25 +685,21 @@ func check_state_animation(delta):
 		animation_tree.set("parameters/Falling/active",false)
 
 
-func check_curent_weapon():
-		#This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree
+func check_current_item_animation():
+		# This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
 		
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
-			
 			if inventory.hotbar[main_hand_object].item_size == 0:
-				
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:
-				
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
-				
-		elif  inventory.hotbar[main_hand_object] is LanternItem  or inventory.hotbar[off_hand_object] is LanternItem:
-			print("Carried Lantern")
+#		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
+#			print("Carried Lantern")
 			#update this to work for items animations
-		elif  inventory.hotbar[main_hand_object] is MeleeItem  or inventory.hotbar[off_hand_object] is MeleeItem:
-			#update this to work for items animations
+		elif inventory.hotbar[main_hand_object] is MeleeItem or inventory.hotbar[off_hand_object] is MeleeItem:
+			current_mainhand_item_animation = hold_states.MELEE_ITEM
 			print("Melee Item")
 
 
@@ -723,7 +720,7 @@ func _on_ClamberableChecker_body_entered(body):
 
 
 func move_effect():
-	#plays the belt bobbing animation if the player is moving 
+	# Plays the belt bobbing animation if the player is moving 
 	if velocity != Vector3.ZERO:
 		additional_animations.play("Belt_bob", -1, velocity.length() / 2)
 
@@ -733,9 +730,10 @@ func speak():
 
 
 func _on_Inventory_mainhand_slot_changed(previous, current):
-	#checks if there is something currently equipped, else does nothing
+	# Checks if there is something currently equipped, else does nothing
 	if inventory.hotbar[current] != null :
 		pass
-		
 	else:
+		print("_on_Inventory_mainhand_slot_changed() reached in character.gd")
 		current_mainhand_item_animation = hold_states.MELEE_ITEM
+		mainhand_animation = Animation_state.NOT_EQUIPPED

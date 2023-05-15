@@ -23664,7 +23664,7 @@ nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "output", 0, "Animation_State" ]
+node_connections = [ "output", 0, "Animation_State", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -23686,24 +23686,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0185888, 0 )
 visible = false
 
-[node name="Listener" type="Listener" parent="Body" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
+[node name="Equipment" type="Spatial" parent="Body" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
 [node name="Equipment" type="Spatial" parent="Body" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
-[node name="Equipment" type="Spatial" parent="Body" index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
-
-[node name="DropPosition" parent="Body" index="4"]
+[node name="DropPosition" parent="Body" index="3"]
 visible = true
 
-[node name="EffectOrigin" type="Position3D" parent="Body" index="6"]
+[node name="EffectOrigin" type="Position3D" parent="Body" index="5"]
 script = ExtResource( 22 )
 material = ExtResource( 23 )
 uniform_name_position = "EFFECT_POSITION"
 
-[node name="RippleEffect" type="MeshInstance" parent="Body" index="7"]
+[node name="RippleEffect" type="MeshInstance" parent="Body" index="6"]
 visible = false
 material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
@@ -23780,9 +23777,6 @@ unique_name_in_owner = true
 transform = Transform( -1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0.015, -1.474, 0.124 )
 visible = true
 
-[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
-bones/137/bound_children = [  ]
-
 [node name="Body003" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
@@ -23814,6 +23808,9 @@ anims/WalkForwards002 = SubResource( 360 )
 anims/WalkForwardsLeft002 = SubResource( 361 )
 anims/WalkRight002 = SubResource( 362 )
 anims/Walkleft002 = SubResource( 363 )
+
+[node name="Listener" type="Listener" parent="FPSCamera" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="13"]
 visible = false

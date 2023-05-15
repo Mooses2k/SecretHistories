@@ -1,12 +1,13 @@
 extends RigidBody
 
-var sound_vol : float = 2
-onready var audio_player = get_node("DragDropSound")
+
+var sound_vol : float = 10
+var noise_level : float = 0
+var item_max_noise_level : float = 80
+var item_sound_level : float = 60
 export var item_drag_sound : AudioStream
 export var item_drop_sound : AudioStream
-var noise_level = 0
-var item_max_noise_level = 5
-var item_sound_level = 10
+onready var audio_player = get_node("DragDropSound")
 
 
 func _enter_tree():
@@ -22,6 +23,7 @@ func _ready():
 	connect("body_entered", self, "play_drop_sound")
 
 
+# needs to be able to detect hits instead of just scrapes
 func _integrate_forces(state):
 	if self.audio_player.stream != self.item_drag_sound:
 		self.audio_player.stream = self.item_drag_sound
@@ -34,8 +36,8 @@ func _integrate_forces(state):
 			else:
 				sound_vol *= 10
 			
-			self.audio_player.unit_db = clamp(sound_vol, -4.0, 2.0)
-			noise_level = 3 * self.audio_player.unit_db
+			self.audio_player.unit_db = clamp(sound_vol, 40.0, 60.0)
+			noise_level = 3 * self.audio_player.unit_db     # noise is detection by enemies
 			
 			if not self.audio_player.is_playing():
 				self.audio_player.play()

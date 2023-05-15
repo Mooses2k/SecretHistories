@@ -186,16 +186,13 @@ tracks/2/keys = {
 extents = Vector3( 0.07, 0.07, 0.07 )
 
 [node name="CandleLantern" instance=ExtResource( 1 )]
-mass = 0.2
 contacts_reported = 2
 contact_monitor = true
 script = ExtResource( 7 )
-equipped_mode = 0
 item_drop_sound = ExtResource( 9 )
-item_size = 0
 item_name = "Candle Lantern"
-life_percentage_lose = 0.0
-prob_going_out = 0.0
+life_percentage_lose = 0.2
+prob_going_out = 0.9
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )

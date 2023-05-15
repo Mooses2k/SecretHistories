@@ -522,7 +522,7 @@ func handle_grab_input(delta : float):
 #		grab_press_length = 0.0
 	if Input.is_action_just_released("interact"):
 		grab_press_length = 0.0
-		if is_grabbing==true:
+		if is_grabbing == true:
 			is_grabbing = false
 			wanna_grab = false
 			interaction_handled = true
@@ -570,8 +570,8 @@ func handle_grab(delta : float):
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
-		var desired_velocity : Vector3 = 32.0*(grab_target_global - grab_object_global)
-		desired_velocity = desired_velocity.normalized()*min(desired_velocity.length(), 2.0)
+		var desired_velocity : Vector3 = 32.0 * (grab_target_global - grab_object_global)
+		desired_velocity = desired_velocity.normalized() * min(desired_velocity.length(), 2.0)
 
 		# Desired velocity follows the player character
 		desired_velocity += velocity
@@ -590,7 +590,7 @@ func handle_grab(delta : float):
 		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
 
 		# Limits the angular velocity to prevent some issues
-		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
+		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
 
 
 func update_throw_state(delta : float):

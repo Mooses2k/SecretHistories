@@ -10,7 +10,13 @@ size = Vector3( 0.2, 0.2, 0.2 )
 extents = Vector3( 0.157328, 0.236264, 0.160202 )
 
 [node name="LanternItem" instance=ExtResource( 1 )]
+mass = 0.2
 script = ExtResource( 2 )
+item_size = 0
+item_name = "Lantern"
+is_oil_based = false
+life_percentage_lose = 0.0
+prob_going_out = 0.0
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = SubResource( 1 )

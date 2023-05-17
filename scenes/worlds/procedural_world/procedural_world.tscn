@@ -36,7 +36,6 @@ preview_material = SubResource( 3 )
 
 [node name="EnemySpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
-enemy_scene = ExtResource( 6 )
 density = 0.01
 max_count = 0
 
@@ -80,9 +79,6 @@ pillar_tile = 16
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )
 cultist = ExtResource( 6 )
-
-[node name="DirectionalLight2" type="DirectionalLight" parent="." index="8"]
-transform = Transform( -1, 6.18173e-08, 6.18173e-08, 0, 0.707107, -0.707107, -8.74228e-08, -0.707107, -0.707107, 0, 0, 0 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

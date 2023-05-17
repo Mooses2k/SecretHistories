@@ -1,5 +1,6 @@
-class_name ShakeCamera
 extends Camera
+class_name ShakeCamera
+
 
 
 enum CameraState {

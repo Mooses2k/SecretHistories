@@ -107,6 +107,19 @@ var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 var item_up = false
 
+# Screen filter section
+enum ScreenFilter {
+	NONE,
+	PIXELATE,
+	DITHER,
+	REDUCE_COLOR,
+	DEBUG_LIGHT
+}
+var current_screen_filter : int = ScreenFilter.NONE
+#export var pixelated_material : Material
+#export var dither_material : Material
+#export var reduce_color_material : Material
+
 
 func _ready():
 	owner.is_to_move = false
@@ -117,6 +130,7 @@ func _ready():
 
 	active_mode.set_deferred("is_active", true)
 
+	$"../FPSCamera/ScreenFilter".visible = false
 
 
 func _physics_process(delta : float):
@@ -653,7 +667,6 @@ func handle_inventory(delta : float):
 				owner.change_equipment_in(true)
 
 	# Offhand slot selection
-
 	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:
 		var start_slot = inv.current_offhand_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
@@ -680,7 +693,8 @@ func handle_inventory(delta : float):
 	if Input.is_action_just_pressed("hotbar_11"):
 		if inv.current_offhand_slot != 10:
 			inv.current_offhand_slot = 10
-	## Item Usage
+
+	# Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_primary()
@@ -702,6 +716,32 @@ func handle_inventory(delta : float):
 		if inv.get_offhand_item():
 			inv.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE
+
+	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+	if Input.is_action_just_pressed("change_screen_filter"):
+		# move to next filter
+		current_screen_filter += 1
+
+		# Cycle through list of filters, starting with 0
+		if current_screen_filter > 4:   # This number should be # of filters - 1
+				current_screen_filter = 0
+
+		# Check which filter is current and implement it
+		if current_screen_filter == ScreenFilter.NONE:
+			$"../FPSCamera/ScreenFilter".visible = false
+			$"../FPSCamera/DebugLight".visible = false
+		if current_screen_filter == ScreenFilter.PIXELATE:
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
+		if current_screen_filter == ScreenFilter.DITHER:
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
+		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
+		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			$"../FPSCamera/ScreenFilter".visible = false
+			$"../FPSCamera/DebugLight".visible = true
 
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = inv.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_offhand_item()

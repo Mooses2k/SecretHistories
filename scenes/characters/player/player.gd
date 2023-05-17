@@ -73,6 +73,7 @@ func grab_indicator():
 		$Indication_canvas/Indication_system/Ignite.hide()
 
 
+
 #is_in_group("Door_hitbox")
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body :

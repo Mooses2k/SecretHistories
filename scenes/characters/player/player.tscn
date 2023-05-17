@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -23415,6 +23415,9 @@ tracks/170/imported = false
 tracks/170/enabled = true
 tracks/170/keys = PoolRealArray( 0, 1, -0.398595, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699, 0.133333, 1, -0.379708, -1.27896, -2.27884, 0.01446, 0.248581, -0.0764079, 0.965485, 0.993498, 1.00744, 1.05647, 0.2, 1, -0.383556, -1.27493, -2.27527, 0.0137788, 0.248332, -0.0775478, 0.965468, 0.993482, 1.00753, 1.05639, 0.4, 1, -0.421885, -1.23557, -2.22601, 0.0150329, 0.24879, -0.0754489, 0.965497, 0.99351, 1.00737, 1.05653, 0.466667, 1, -0.434914, -1.22456, -2.20895, 0.0154501, 0.248942, -0.0747507, 0.965506, 0.99352, 1.00731, 1.05658, 0.533333, 1, -0.46015, -1.21881, -2.17535, 0.0142754, 0.248513, -0.0767172, 0.96548, 0.993493, 1.00746, 1.05645, 0.666667, 1, -0.535388, -1.22477, -2.07368, 0.00871446, 0.246458, -0.0860114, 0.96529, 0.993354, 1.00819, 1.05584, 0.733333, 1, -0.518843, -1.22797, -2.09467, 0.00997396, 0.246928, -0.0839077, 0.965343, 0.993388, 1.00803, 1.05597, 0.933333, 1, -0.4283, -1.24718, -2.21059, 0.0168511, 0.249449, -0.0724049, 0.96553, 0.993549, 1.00713, 1.05673, 1, 1, -0.398596, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699 )
 
+[sub_resource type="QuadMesh" id=371]
+size = Vector2( 2, 2 )
+
 [sub_resource type="CubeMesh" id=19]
 size = Vector3( 0.05, 0.05, 0.05 )
 
@@ -23665,6 +23668,7 @@ nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
 node_connections = [ "output", 0, "Animation_State", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states" ]
+node_connections = [ "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "output", 0, "Animation_State" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -23811,6 +23815,22 @@ anims/Walkleft002 = SubResource( 363 )
 
 [node name="Listener" type="Listener" parent="FPSCamera" index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
+
+[node name="Listener" type="Listener" parent="FPSCamera" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
+
+[node name="ScreenFilter" type="MeshInstance" parent="FPSCamera" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3428 )
+visible = false
+layers = 128
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource( 371 )
+
+[node name="DebugLight" type="SpotLight" parent="FPSCamera" index="7"]
+visible = false
+layers = 131
+spot_range = 20.0
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="13"]
 visible = false

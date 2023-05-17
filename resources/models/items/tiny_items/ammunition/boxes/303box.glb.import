@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/303Box.glb-fd9a8771841d9c4741d47553ab7e4078.scn"
+path="res://.import/303box.glb-008d05c914a0a022b1d9d1f753d7053b.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tiny_items/ammunition/boxes/303Box.glb"
-dest_files=[ "res://.import/303Box.glb-fd9a8771841d9c4741d47553ab7e4078.scn" ]
+source_file="res://resources/models/items/tiny_items/ammunition/boxes/303box.glb"
+dest_files=[ "res://.import/303box.glb-008d05c914a0a022b1d9d1f753d7053b.scn" ]
 
 [params]
 

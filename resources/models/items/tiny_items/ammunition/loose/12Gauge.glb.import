@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/12GaugeAmmo.glb-81bb3fdcf62430f0d0d17fed80c1245c.scn"
+path="res://.import/12Gauge.glb-871eacf2e5c57abee6bc5442db4e56f0.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tiny_items/ammunition/loose/12GaugeAmmo.glb"
-dest_files=[ "res://.import/12GaugeAmmo.glb-81bb3fdcf62430f0d0d17fed80c1245c.scn" ]
+source_file="res://resources/models/items/tiny_items/ammunition/loose/12Gauge.glb"
+dest_files=[ "res://.import/12Gauge.glb-871eacf2e5c57abee6bc5442db4e56f0.scn" ]
 
 [params]
 

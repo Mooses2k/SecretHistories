@@ -1,4 +1,4 @@
-extends "res://scenes/characters/character.gd"
+extends Character
 class_name Player
 
 
@@ -27,10 +27,9 @@ func _ready():
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 
 
-
 func _physics_process(delta):
 	gun_cam.global_transform = fps_camera.global_transform
-	
+
 
 func _process(delta):
 	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
@@ -43,11 +42,9 @@ func _process(delta):
 	change_maindhand_equipment_out()
 	change_offhhand_equipment_out()
 	change_offhand_equipment_in()
-	#this notifies the dot if something if the player is currently grabbing something
+	# This notifies the dot if something if the player is currently grabbing something
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
-	
-
 
 
 func drop_consumable(object):

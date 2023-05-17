@@ -57,7 +57,6 @@ contacts_reported = 2
 contact_monitor = true
 script = SubResource( 9 )
 item_drop_sound = ExtResource( 2 )
-can_attach = false
 item_size = 0
 item_name = "Sawed-off shotgun"
 ammo_types = [ ExtResource( 4 ) ]

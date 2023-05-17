@@ -34,7 +34,7 @@
 "Monsters are real, and ghosts are real too. They live inside of us, and sometimes, they win." --Stephen King
 "Even in dark times, we cannot relinquish the things that make us human."
 "In the vast emptiness, my understanding deepens." --Ryokan
-"We all go a little mad sometimes." --Norman Bates, Psycho
+"We all go a little mad sometimes." --Norman Bates
 "The world outside had its own rules, and those rules were not human." --Michel Houellebecq, "The Elementary Particles"
 "Horror is like a serpent; always shedding its skin, always changing. And it will always come back." --Dario Argento
 “I knew nothing but shadows and I thought them to be real.” --Oscar Wilde, “The Picture of Dorian Gray”
@@ -51,37 +51,52 @@ Store this game in a cool, dark place.
 Warning: explosion risk.
 Slowly... Quietly...
 Don't speak while playing this game. They might hear you.
-Note: If you crouch and walk quietly, you make it easier for them to catch you.
-Note: You can sprint with the [Sprint key] key, but it won't save you.
-Note: You can kick by pressing [Melee key]. You can melee attack with your weapon by holding [Main-hand secondary key] then pressing [Melee key].
-Note: Melee attacks, jumping, mantling, climbing, and running all affect your stamina.
-Note: Hold [Interact key] to drag things around. Bookcases, corpses, and doors are things.
-Note: Press the [Off-hand switch key] key to cycle through items that can be held in the off-hand. Hold [Off-hand switch key] to swap items between hands.
-Note: Look at the lightable portion of a light-source and hit [Interact key] to light it. Look at the holdable part of a light-source and hit [Interact key] to take it.
-Note: Light is your primary resource.
-Note: You must judge whether it's best to light up a room or keep it shrouded in merciful darkness.
-Note: Don't let them spot you first. 
-Note: Nobody likes a camper...because ambushes are highly effective.
-Note: For a light-source in your main hand, hit Left-Click or, for the off-hand, hit [Off-hand use key] to light or douse it. Right-Click holds it forwards or swings it.
-Note: Press Middle-Mouse Button to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
-Note: Press the [Map key] key to open your map.
-Note: Press the [Binoculars key] key to see through your spyglass.
+If you crouch and walk quietly, you make it easier for them to catch you.
+You can sprint with the [Sprint key] key, but it won't save you.
+You can kick by pressing [Melee key]. You can melee attack with your weapon by holding [Main-hand secondary key] then pressing [Melee key].
+Melee attacks, jumping, mantling, climbing, and running all affect your stamina.
+Hold [Interact key] to drag things around. Bookcases, corpses, and doors are things.
+Press the [Off-hand switch key] key to cycle through items that can be held in the off-hand. Hold [Off-hand switch key] to swap items between hands.
+Look at the lightable portion of a light-source and hit [Interact key] to light it. Look at the holdable part of a light-source and hit [Interact key] to take it.
+You must judge whether it's best to light up a room or keep it shrouded in merciful darkness.
+Don't let them spot you first. 
+Nobody likes a camper...because ambushes are highly effective.
+For a light-source in your main hand, hit Left-Click or, for the off-hand, hit [Off-hand use key] to light or douse it. Right-Click holds it forwards or swings it.
+Press Middle-Mouse Button to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
+Press the [Map key] key to open your map.
+Press the [Binoculars key] key to see through your spyglass.
 Note: Press the [Change look key] key to change the look of the game (dithering, pixelation, various retro flavor).
-Note: Violence is always an answer, but not always the answer.
-Note: Conserve your ammo. You're going to need it.
-Note: Where no humans have tread, no ammo is to be found.
+Violence is always an answer, but not always the answer.
+Conserve your ammo. You're going to need it.
+Where no humans have tread, no ammo is to be found.
 Have you considered: leaving the situation?
 Have you considered: killing it with fire?
-Note: If you can't accept a situation or change it, then leave it.
-Note: Torches give off a lot of smoke and wreck your night-vision.
-Note: Green slime will outlive us all.
-Note: Swords don't really make a schink sound when you draw them.
-Note: Leather armor is bullshit.
-Note: Wear a helmet.
-Note: Be sure to use protection.
-Note: A gambeson can keep you warm despite the ravages of a cold, dead Earth.
-Note: Running away like a coward is a valid option for cowards.
-Note: Astrology is not the same as astronomy despite having a similar name.
-Note: Astronomers sometimes omit the truth to protect you.
-Note: You will die eventually. Make sure to learn from it.
+If you can't accept a situation or change it, then leave it.
+Torches give off a lot of smoke and wreck your night-vision.
+Green slime will outlive us all.
+Swords don't really make a schink sound when you draw them.
+Leather armor is bullshit.
+Wear a helmet.
+Be sure to use protection.
+A gambeson can keep you warm despite the ravages of a cold, dead Earth.
+Running away like a coward is a valid option for cowards.
+Astrology is not the same as astronomy despite having a similar name.
+Astronomers sometimes omit the truth to protect you.
+You will die eventually. Make sure to learn from it.
 What improvements to your strategy and tactics could you make next time? What safety policies should you follow? What should you always do? What should you never do?
+Light is your primary resource.
+Time is your primary resource.
+Ammo is your primary resource.
+Your life is your primary resource.
+Resourcefulness if your primary resource.
+Returning the game for a full refund is your primary recourse.
+"The real war will never get in the books." --Walt Whitman
+"We are like the spider. We weave our life and then move along in it. We are like the dreamer who dreams and then lives in the dream. This is true for the entire universe." --The Upanishads
+"Man is free, but everywhere in chains." --Rousseau
+"Here on the horizon was everything Gideon did not know." --Jenna Helland
+"There was a darkness outside reality, they say - a darkness full of things. Hungry, nasty things with no shape or form, not as long as they were out there." --Kurt Busiek, "Storms of the Heart", Astro City
+"It hurts so bad to look at it. And then it talks, and it all hurts worse." --SCP-3004
+"When it went to sleep, I think it thought it was a hibernation, or like, a birth. Like it laid an egg and made itself." --SCP-3004
+"Yesterday upon the stair - I met a man who wasn't there. He wasn't there again today - Oh how I wish he'd go away." --Hughes Mearns
+"Nobody joins a cult. Nobody joins something they think is going to hurt them. You  join a religious organization, you join a political movement, and you join with people that you really like." --Deborah Layton, Peoples Temple member
+“Adventurer” is defined as “one who looks for trouble,” and “Adventure” is defined as “The trouble an adventurer finds.” --James Edward Raggi IV

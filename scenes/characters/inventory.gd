@@ -14,7 +14,7 @@ signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
 signal UpdateHud
 #Emitted to hide the HUD UI when player dies
-signal PlayerDead
+signal player_died
 
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int= 11
@@ -43,7 +43,7 @@ var current_offhand_equipment : EquipmentItem = null
 
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
-onready var Animations : AnimationPlayer = $"%Additional_animations"  as AnimationPlayer
+onready var Animations : AnimationPlayer = $"%AdditionalAnimations"  as AnimationPlayer
 
 
 func _ready():
@@ -128,7 +128,6 @@ func add_item(item : PickableItem) -> bool:
 				elif current_offhand_slot == slot and not bulky_equipment:
 					equip_offhand_item()
 				
-
 	return true
 
 
@@ -181,7 +180,6 @@ func equip_mainhand_item():
 
 func unequip_mainhand_item():
 	if current_mainhand_equipment == null: # No item equipped
-		
 		return
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
@@ -192,7 +190,6 @@ func unequip_mainhand_item():
 		pass
 	else:
 		item.get_parent().remove_child(item)
-	
 
 
 func equip_bulky_item(item : EquipmentItem):
@@ -209,7 +206,6 @@ func equip_bulky_item(item : EquipmentItem):
 			item.get_parent().remove_child(item)
 		owner.mainhand_equipment_root.add_child(item)
 		emit_signal("UpdateHud")
-	pass
 
 
 func drop_bulky_item():
@@ -221,7 +217,6 @@ func drop_bulky_item():
 	emit_signal("bulky_item_changed")
 	item.get_parent().remove_child(item)
 	_drop_item(item)
-	pass
 
 
 func equip_offhand_item():
@@ -242,7 +237,6 @@ func equip_offhand_item():
 			owner.offhand_equipment_root.add_child(item)
 		else:
 			owner.offhand_equipment_root.add_child(item)
-	pass
 
 
 func unequip_offhand_item():
@@ -256,7 +250,6 @@ func unequip_offhand_item():
 		pass
 	else:
 		item.get_parent().remove_child(item)
-	pass
 
 
 func drop_mainhand_item():
@@ -308,14 +301,17 @@ func drop_hotbar_slot(slot : int) -> Node:
 # note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
 	item.item_state = GlobalConsts.ItemState.DROPPED
-	if GameManager.game.level:
+	if !GameManager.game:   # this is here for test scenes
+		item.global_transform = drop_position_node.global_transform
+		find_parent("TestWorld").add_child(item)
+		return
+	if GameManager.game.level:   # this is for the real game
 		item.global_transform = drop_position_node.global_transform
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
-	pass
 
 
 func set_mainhand_slot(value : int):
@@ -344,13 +340,13 @@ func set_offhand_slot(value : int):
 		emit_signal("UpdateHud")
 
 
-func _on_Player_character_died():
-	emit_signal("PlayerDead")
-
 func attach_to_belt(item):
-	if item.get_parent() != owner.belt_position :
+	if item.get_parent() != owner.belt_position:
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
-		$"%Additional_animations".play("Belt_Equip")
+		$"%AdditionalAnimations".play("Belt_Equip")
+		print("Attached to belt in inventory.gd")
 
 
+func _on_Player_character_died():
+	emit_signal("player_died")

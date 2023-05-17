@@ -72,15 +72,15 @@ func set_inventory(value : Node):
 	inventory.connect("tiny_item_changed", self, "inventory_tiny_item_changed")
 	inventory.connect("mainhand_slot_changed", self, "inventory_mainhand_slot_changed")
 	inventory.connect("offhand_slot_changed", self, "inventory_offhand_slot_changed")
-	inventory.connect("UpdateHud",self, "Hud_visibility")
-	inventory.connect("PlayerDead",self, "hide_HUD")
+	inventory.connect("UpdateHud",self, "hud_visibility")
+	inventory.connect("player_died",self, "hide_hud")
 
 
-func hide_HUD():
+func hide_hud():
 	self.owner.visible = false
 
 
-func Hud_visibility():
+func hud_visibility():
 		fadeanimations.play("Fade_in")
 		$"../..".show()
 

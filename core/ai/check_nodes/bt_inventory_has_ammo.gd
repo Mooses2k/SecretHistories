@@ -8,5 +8,7 @@ func tick(state : CharacterState) -> int:
 	if equipment:
 		for ammo_type in equipment.ammo_types:
 			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
-				return Status.SUCCESS
-	return Status.FAILURE
+				print("Cultist's inventory has relevant ammo: ", inventory.tiny_items[ammo_type])
+				return Status.FAILURE # fails because this is a selector, fail means check next item
+		return Status.RUNNING
+	return Status.SUCCESS

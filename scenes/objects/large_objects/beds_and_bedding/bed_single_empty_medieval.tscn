@@ -41,7 +41,7 @@ points = PoolVector3Array( -0.336752, 0.366428, 0.785239, -0.584567, -0.283888, 
 [sub_resource type="ConvexPolygonShape" id=12]
 points = PoolVector3Array( -0.541496, -0.109, -0.961615, 0.576935, 0.0103129, 0.73876, -0.584454, 0.0103129, 0.73876, 0.576935, 0.0103129, -1.02692, 0.533977, -0.109, 0.67345, -0.584454, 0.0103129, -1.02692, 0.533977, -0.109, -0.961615, -0.541496, -0.109, 0.67345 )
 
-[node name="BedSingleEmptyMedieval" type="RigidBody"]
+[node name="BedSingleEmptyMedieval" type="RigidBody" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 513
 mass = 50.0

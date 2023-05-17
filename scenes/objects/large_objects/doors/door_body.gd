@@ -27,7 +27,7 @@ func _integrate_forces(state):
 		if sound_vol < 1.5:
 			sound_vol = -(2 / sound_vol)
 			
-		$AudioStreamPlayer3D.unit_db = clamp(sound_vol, -5.0, 2.0)
+		$AudioStreamPlayer3D.unit_db = clamp(sound_vol, 00.0, 40.0)
 		
 		if not $AudioStreamPlayer3D.playing:
 			$AudioStreamPlayer3D.play()

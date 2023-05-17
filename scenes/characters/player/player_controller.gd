@@ -113,6 +113,7 @@ enum ScreenFilter {
 	PIXELATE,
 	DITHER,
 	REDUCE_COLOR,
+	DEBUG_LIGHT
 }
 var current_screen_filter : int = ScreenFilter.NONE
 #export var pixelated_material : Material
@@ -171,7 +172,7 @@ func _physics_process(delta : float):
 
 
 func _input(event):
-	if event is InputEventMouseButton and GameManager.is_reloading == false :
+	if event is InputEventMouseButton and owner.is_reloading == false:
 		if event.pressed:
 			match event.button_index:
 				BUTTON_WHEEL_UP:
@@ -489,7 +490,7 @@ func _crouch() -> void:
 #	direction = movement_basis.xform(direction)
 #	direction = direction.normalized()*min(1.0, direction.length())
 #
-#	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading==false:
+#	if Input.is_action_pressed("sprint") and stamina > 0 and GameManager.is_reloading == false:
 #		direction *= 0.5;
 #		change_stamina(-0.3)
 #	else:
@@ -535,7 +536,7 @@ func handle_grab_input(delta : float):
 #		grab_press_length = 0.0
 	if Input.is_action_just_released("interact"):
 		grab_press_length = 0.0
-		if is_grabbing==true:
+		if is_grabbing == true:
 			is_grabbing = false
 			wanna_grab = false
 			interaction_handled = true
@@ -583,8 +584,8 @@ func handle_grab(delta : float):
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
-		var desired_velocity : Vector3 = 32.0*(grab_target_global - grab_object_global)
-		desired_velocity = desired_velocity.normalized()*min(desired_velocity.length(), 2.0)
+		var desired_velocity : Vector3 = 32.0 * (grab_target_global - grab_object_global)
+		desired_velocity = desired_velocity.normalized() * min(desired_velocity.length(), 2.0)
 
 		# Desired velocity follows the player character
 		desired_velocity += velocity
@@ -603,17 +604,17 @@ func handle_grab(delta : float):
 		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
 
 		# Limits the angular velocity to prevent some issues
-		direct_state.angular_velocity = direct_state.angular_velocity.normalized()*min(direct_state.angular_velocity.length(), 4.0)
+		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
 
 
 func update_throw_state(delta : float):
 	match throw_state:
 		ThrowState.IDLE:
-			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_mainhand_item() and is_grabbing == false and GameManager.is_reloading == false:
+			if Input.is_action_just_pressed("main_throw") and owner.inventory.get_mainhand_item() and is_grabbing == false and owner.is_reloading == false:
 				throw_item = ItemSelection.ITEM_MAINHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
-			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_offhand_item() and is_grabbing == false  and GameManager.is_reloading == false:
+			elif Input.is_action_just_pressed("offhand_throw") and owner.inventory.get_offhand_item() and is_grabbing == false and owner.is_reloading == false:
 				throw_item = ItemSelection.ITEM_OFFHAND
 				throw_state = ThrowState.PRESSING
 				throw_press_length = 0.0
@@ -657,7 +658,7 @@ func handle_inventory(delta : float):
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and GameManager.is_reloading == false  :
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false  :
 			if i != inv.current_offhand_slot :
 				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
@@ -666,8 +667,7 @@ func handle_inventory(delta : float):
 				owner.change_equipment_in(true)
 
 	# Offhand slot selection
-
-	if Input.is_action_just_pressed("cycle_offhand_slot") and GameManager.is_reloading == false:
+	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:
 		var start_slot = inv.current_offhand_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
@@ -694,7 +694,7 @@ func handle_inventory(delta : float):
 		if inv.current_offhand_slot != 10:
 			inv.current_offhand_slot = 10
 
-	## Item Usage
+	# Item Usage
 	if Input.is_action_just_pressed("main_use_primary"):
 		if inv.get_mainhand_item():
 			inv.get_mainhand_item().use_primary()
@@ -717,18 +717,19 @@ func handle_inventory(delta : float):
 			inv.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE
 
-	# change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("change_screen_filter"):
 		# move to next filter
 		current_screen_filter += 1
 
-		# cycle through list of filters
-		if current_screen_filter > 3:
+		# Cycle through list of filters, starting with 0
+		if current_screen_filter > 4:   # This number should be # of filters - 1
 				current_screen_filter = 0
 
-		# check which filter is current and implement it
+		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
 			$"../FPSCamera/ScreenFilter".visible = false
+			$"../FPSCamera/DebugLight".visible = false
 		if current_screen_filter == ScreenFilter.PIXELATE:
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
@@ -738,6 +739,9 @@ func handle_inventory(delta : float):
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
+		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			$"../FPSCamera/ScreenFilter".visible = false
+			$"../FPSCamera/DebugLight".visible = true
 
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = inv.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_offhand_item()

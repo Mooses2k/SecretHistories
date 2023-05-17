@@ -29,8 +29,7 @@ func _use_primary():
 		countdown_timer.start()
 		$Fuse.emitting = true
 	else:
-		get_parent().get_parent().drop_consumable(self)
-		pass
+		find_parent("Player").drop_consumable(self)  # fix this shit, won't work with non-players, should probably be a signal?
 
 
 func _on_Countdown_timeout():
@@ -43,7 +42,7 @@ func _on_Countdown_timeout():
 	$Mesh.visible = false
 	$Explosion._on_Bomb_explosion()
 	countdown_started = true
-	# below lines fix crash if bomb is still in hands when explodes
+	# below lines fix crash if bomb is still in hands when explodes, this is sooooo messy, breaks in test scenes too
 	if get_parent().get_parent().get_parent().is_in_group("CHARACTER"):
 		get_parent().get_parent().get_parent().damage(bomb_damage, damage_type, get_parent().get_parent().get_parent())
 		get_parent().get_parent().get_parent().drop_consumable(self)

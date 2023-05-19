@@ -570,3 +570,39 @@ func get_neighbour_cell(cell_index : int, direction : int) -> int:
 		Direction.WEST:
 			return _get_west_cell(cell_index)
 	return -1
+
+
+###################################################################################################
+### Debug Methods #################################################################################
+###################################################################################################
+
+func print_world_map() -> void:
+	var line := ""
+	
+	var title = "--- Generated World Map "
+	var append_title = "-".repeat(world_size_x - title.length())
+	print("\n" + title + append_title)
+	
+	for index in cell_count:
+		var type := get_cell_type(index)
+		match type:
+			CellType.EMPTY:
+				line += "."
+			CellType.STARTING_ROOM:
+				line += "S"
+			CellType.ROOM:
+				line += "R"
+			CellType.CORRIDOR:
+				line += "="
+			CellType.HALL:
+				line += "H"
+			CellType.DOOR:
+				line += "D"
+			_:
+				push_error("Unregistered CellType: %s"%[type])
+		
+		if (index + 1) % world_size_x == 0:
+			print(line)
+			line = ""
+	
+	print("-".repeat(world_size_x)+"\n")

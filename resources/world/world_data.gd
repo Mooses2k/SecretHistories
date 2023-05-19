@@ -45,6 +45,9 @@ enum CellType {
 	# Empty Cell, which means the cell itself is out of bounds
 	EMPTY,
 	
+	# The cell belongs to the starting room
+	STARTING_ROOM,
+	
 	# The cell belongs to a room
 	ROOM,
 	
@@ -215,6 +218,15 @@ var wall_tile_index : PoolIntArray
 var pillar_tile_index : PoolIntArray
 var ceiling_tile_index : PoolIntArray
 
+# You can use `is_spawn_position_valid` before using `player_spawn_position`
+const INVALID_STARTING_CELL = Vector2.ONE * -1
+var player_spawn_position := INVALID_STARTING_CELL
+
+# Stores a arrays of cell indexes already filtered by cell type.
+# Private variable, use `get_cells_for(p_type: int)` to access the arrays.
+# ex: { CellType.STARTING_ROOM = [15, 16, 17, 25, 26 ...], CellType.ROOM = [...], ... }
+var _cell_indexes_by_cell_type := {}
+
 
 func _get_property_list() -> Array:
 	return [
@@ -289,8 +301,27 @@ func _get_property_list() -> Array:
 			"type" : TYPE_INT_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
+		{
+			"name" : "player_spawn_position",
+			"type" : TYPE_VECTOR2,
+			"usage" : PROPERTY_USAGE_STORAGE
+		},
+		{
+			"name" : "_cell_indexes_by_cell_type",
+			"type" : TYPE_DICTIONARY,
+			"usage" : PROPERTY_USAGE_STORAGE
+		},
 	]
 
+
+func is_spawn_position_valid() -> bool:
+	return player_spawn_position != INVALID_STARTING_CELL
+
+
+func is_room_cell(p_index: int) -> bool:
+	var type := get_cell_type(p_index)
+	var value: bool = type == CellType.ROOM or type == CellType.STARTING_ROOM
+	return value
 
 
 func get_cell_index_from_local_position(pos : Vector3) -> int:
@@ -303,6 +334,13 @@ func get_cell_index_from_int_position(x : int, z : int) -> int:
 		printerr("Position (", x, ", ", z, ") Is out of bounds")
 		return -1
 	return x*world_size_z + z
+
+
+func get_player_spawn_position_as_index() -> int:
+	return get_cell_index_from_int_position(
+		player_spawn_position.x,
+		player_spawn_position.y
+	)
 
 
 func set_pillar(cell_index : int, tile_index : int = -1, radius : float = -1.0):
@@ -360,6 +398,30 @@ func get_cell_type(cell_index : int) -> int:
 func set_cell_type(cell_index : int, value : int):
 	if cell_index >= 0:
 		cell_type[cell_index] = value
+		
+		if not _cell_indexes_by_cell_type.has(value):
+			_cell_indexes_by_cell_type[value] = []
+		
+		for type in _cell_indexes_by_cell_type:
+			var type_array = _cell_indexes_by_cell_type[type] as Array
+			if type_array.has(cell_index):
+				print("overwriting cell type: %s at %s for %s"%[type, cell_index, value])
+				type_array.erase(cell_index)
+		
+		_cell_indexes_by_cell_type[value].append(cell_index)
+
+
+# Takes a CellType as parameter, and returns an array with all cell indexes for that CellType.
+# The returned Array is already sorted and a duplicate, so that modifications to it don't affect
+# the original Array.
+func get_cells_for(p_type: int) -> Array:
+	var value := []
+	
+	if _cell_indexes_by_cell_type.has(p_type):
+		value = _cell_indexes_by_cell_type[p_type].duplicate()
+		value.sort()
+	
+	return value
 
 
 func get_cell_surfacetype(cell_index : int) -> int:

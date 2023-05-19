@@ -36,8 +36,13 @@ preview_material = SubResource( 3 )
 
 [node name="EnemySpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
-density = 0.01
-max_count = 0
+character_scene = ExtResource( 6 )
+max_count = 1
+_density_by_type = {
+2: 0.005,
+3: 0.0025,
+4: 0
+}
 
 [node name="GenerationManager" parent="." index="6"]
 world_size_x = 30
@@ -78,7 +83,6 @@ pillar_tile = 16
 
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )
-cultist = ExtResource( 6 )
 starting_light = ExtResource( 7 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]

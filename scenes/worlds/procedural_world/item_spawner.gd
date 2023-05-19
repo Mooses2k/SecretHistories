@@ -2,7 +2,6 @@ extends Node
 
 const ITEM_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
 
-export var cultist : PackedScene
 # TODO: I've put this here like this just to be able to test the changes to spawning character 
 # in a starting room. It will probably be best to move this to the world settings, with a setting
 # for "initial light" separate from the equipments settings, and wich gives as choice one of the
@@ -10,7 +9,6 @@ export var cultist : PackedScene
 # for the player
 export var starting_light: PackedScene
 
-var is_cultist_spawned = true
 var free_cell = 0
 
 
@@ -61,6 +59,7 @@ func _spawn_starting_light(data : WorldData) -> void:
 	
 	var random_cell_index := randi() % staring_cells.size() as int
 	var spawn_cell = staring_cells[random_cell_index]
+	print("light spawned at: %s"%[data.get_int_position_from_cell_index(spawn_cell)])
 	var local_pos = data.get_local_cell_position(spawn_cell)
 	_spawn_item(starting_light.resource_path, local_pos)
 
@@ -69,12 +68,8 @@ func _spawn_item(scene_path: String, cell_pos: Vector3) -> void:
 	var pos = cell_pos + ITEM_POSITION_OFFSET
 	
 	var item
-	if not is_cultist_spawned:
-		is_cultist_spawned = true
-		item = cultist.instance()
-	else:
-		var item_scene : PackedScene = load(scene_path)
-		item = item_scene.instance()
+	var item_scene : PackedScene = load(scene_path)
+	item = item_scene.instance()
 	(item as Spatial).translation = pos
 	
 	owner.add_child(item)

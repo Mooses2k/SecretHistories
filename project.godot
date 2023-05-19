@@ -437,6 +437,10 @@ VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 ChangeScene="*res://globals/change_scene.gd"
 
+[display]
+
+window/size/fullscreen=true
+
 [editor]
 
 description="An entirely forgettable game"

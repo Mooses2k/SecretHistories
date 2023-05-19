@@ -26,6 +26,10 @@ func _on_MadeWithGodot_pressed():
 	$CenterContainer/MadeWithGodot.visible = false
 
 
+func _on_GPL_pressed():
+	$CenterContainer/GPL.visible = false
+
+
 func _on_Help_pressed():
 	$CenterContainer/Help.visible = false
 
@@ -37,6 +41,8 @@ func _on_Winners_pressed():
 func _on_Timer_timeout():
 	if $CenterContainer/MadeWithGodot.visible == true:
 		$CenterContainer/MadeWithGodot.visible = false
+	elif $CenterContainer/GPL.visible == true:
+		$CenterContainer/GPL.visible = false
 	elif $CenterContainer/Help.visible == true:
 		$CenterContainer/Help.visible = false
 	elif $CenterContainer/Winners.visible == true:

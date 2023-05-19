@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/UI/opening_screens.gd" type="Script" id=1]
 [ext_resource path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together.png" type="Texture" id=2]
 [ext_resource path="res://resources/art/opening_screens/NFTStab.jpg" type="Texture" id=3]
 [ext_resource path="res://resources/ui_themes/main_menu.tres" type="Theme" id=4]
 [ext_resource path="res://resources/art/opening_screens/loadscreen_1_godot.png" type="Texture" id=5]
+[ext_resource path="res://resources/art/opening_screens/gpl_artboard_1.png" type="Texture" id=6]
 
 [node name="OpeningScreens" type="Control"]
 rect_min_size = Vector2( 1024, 600 )
@@ -39,11 +40,12 @@ texture_normal = ExtResource( 2 )
 expand = true
 
 [node name="GPL" type="TextureButton" parent="CenterContainer"]
-visible = false
-margin_left = 960.0
-margin_top = 540.0
-margin_right = 960.0
-margin_bottom = 540.0
+margin_left = 448.0
+margin_top = 240.0
+margin_right = 1472.0
+margin_bottom = 840.0
+rect_min_size = Vector2( 1024, 600 )
+texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="MadeWithGodot" type="TextureButton" parent="CenterContainer"]
@@ -61,5 +63,6 @@ autostart = true
 
 [connection signal="pressed" from="CenterContainer/Winners" to="." method="_on_Winners_pressed"]
 [connection signal="pressed" from="CenterContainer/Help" to="." method="_on_Help_pressed"]
+[connection signal="pressed" from="CenterContainer/GPL" to="." method="_on_GPL_pressed"]
 [connection signal="pressed" from="CenterContainer/MadeWithGodot" to="." method="_on_MadeWithGodot_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

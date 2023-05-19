@@ -52,6 +52,9 @@ func spawn_items(data : WorldData):
 
 
 func _spawn_starting_light(data : WorldData) -> void:
+	if starting_light == null:
+		return
+	
 	var staring_cells = data.get_cells_for(data.CellType.STARTING_ROOM)
 	if data.is_spawn_position_valid():
 		var player_index := data.get_player_spawn_position_as_index()

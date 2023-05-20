@@ -695,28 +695,30 @@ func handle_inventory(delta : float):
 			inv.current_offhand_slot = 10
 
 	# Item Usage
-	if Input.is_action_just_pressed("main_use_primary"):
-		if inv.get_mainhand_item():
-			inv.get_mainhand_item().use_primary()
-			throw_state = ThrowState.IDLE
+	# temporary hack (issue #409)
+	if is_instance_valid(inv.get_mainhand_item()):
+		if Input.is_action_just_pressed("main_use_primary"):
+			if inv.get_mainhand_item():
+				inv.get_mainhand_item().use_primary()
+				throw_state = ThrowState.IDLE
 
-	if Input.is_action_just_pressed("main_use_secondary"):
-		# This means R-Click can be used to interact when pointing at an interactable
-		if inv.get_mainhand_item() and interaction_target == null:
-			inv.get_mainhand_item().use_secondary()
-			throw_state = ThrowState.IDLE
+		if Input.is_action_just_pressed("main_use_secondary"):
+			# This means R-Click can be used to interact when pointing at an interactable
+			if inv.get_mainhand_item() and interaction_target == null:
+				inv.get_mainhand_item().use_secondary()
+				throw_state = ThrowState.IDLE
 
-	if Input.is_action_just_pressed("reload"):
-		if inv.get_mainhand_item():
-			inv.get_mainhand_item().use_reload()
-			throw_state = ThrowState.IDLE
-#			if inv.get_mainhand_item() is ShotgunItem:
-#				print(inv.get_mainhand_item())
+		if Input.is_action_just_pressed("reload"):
+			if inv.get_mainhand_item():
+				inv.get_mainhand_item().use_reload()
+				throw_state = ThrowState.IDLE
+	#			if inv.get_mainhand_item() is ShotgunItem:
+	#				print(inv.get_mainhand_item())
 
-	if Input.is_action_just_pressed("offhand_use"):
-		if inv.get_offhand_item():
-			inv.get_offhand_item().use_primary()
-			throw_state = ThrowState.IDLE
+		if Input.is_action_just_pressed("offhand_use"):
+			if inv.get_offhand_item():
+				inv.get_offhand_item().use_primary()
+				throw_state = ThrowState.IDLE
 
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("change_screen_filter"):

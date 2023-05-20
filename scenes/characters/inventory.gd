@@ -158,8 +158,13 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_mainhand_item():
+	# temporary hack (issue #409)
+	if not is_instance_valid(current_mainhand_equipment):
+		current_mainhand_equipment = null
+	
 	if current_mainhand_equipment != null: # Item already equipped
 		return
+		
 	var item : EquipmentItem = hotbar[current_mainhand_slot] as EquipmentItem
 	if item:
 		# Can't Equip a Bulky Item simultaneously with a normal item
@@ -179,8 +184,13 @@ func equip_mainhand_item():
 
 
 func unequip_mainhand_item():
+	# temporary hack (issue #409)
+	if not is_instance_valid(current_mainhand_equipment):
+		current_mainhand_equipment = null
+	
 	if current_mainhand_equipment == null: # No item equipped
 		return
+	
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null

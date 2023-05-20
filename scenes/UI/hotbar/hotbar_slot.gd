@@ -146,6 +146,10 @@ func update_name():
 
 
 func update_ammo_data():
+	# temporary hack (issue #409)
+	if not is_instance_valid(item):
+		item = null
+	
 	if item is GunItem:
 		var current_ammo = item.current_ammo
 		var ammo_type = item.current_ammo_type if item.current_ammo_type != null else item.ammo_types.front()

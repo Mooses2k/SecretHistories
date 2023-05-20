@@ -1,9 +1,6 @@
 extends Control
 
 
-#var help_screen
-
-
 func _ready():
 # TODO: choose which of three random Help screens
 #	randi() % 3

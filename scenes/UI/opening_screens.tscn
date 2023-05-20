@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/UI/opening_screens.gd" type="Script" id=1]
-[ext_resource path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together.png" type="Texture" id=2]
+[ext_resource path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together (orange).png" type="Texture" id=2]
 [ext_resource path="res://resources/art/opening_screens/NFTStab.jpg" type="Texture" id=3]
 [ext_resource path="res://resources/ui_themes/main_menu.tres" type="Theme" id=4]
 [ext_resource path="res://resources/art/opening_screens/loadscreen_1_godot.png" type="Texture" id=5]

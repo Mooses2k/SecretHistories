@@ -37,9 +37,9 @@ func check_current_item_animation():
 		# temporary hack (issue #409)
 		if not is_instance_valid(inventory.hotbar[main_hand_object]):
 			inventory.hotbar[main_hand_object] = null
+			return
 
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
-			
 			if inventory.hotbar[main_hand_object].item_size == 0:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:

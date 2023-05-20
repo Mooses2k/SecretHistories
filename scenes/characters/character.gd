@@ -206,6 +206,8 @@ func _ready():
 	
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
+
+	# Movement audio	
 	_audio_player.load_sounds("resources/sounds/player/sfx/stone_footsteps", 3)
 	_audio_player.load_sounds("resources/sounds/player/sfx/wood_footsteps", 4)
 	_audio_player.load_sounds("resources/sounds/player/sfx/water_footsteps", 5)
@@ -213,9 +215,31 @@ func _ready():
 	_audio_player.load_sounds("resources/sounds/player/sfx/carpet_footsteps", 7)
 	_audio_player.load_sounds("resources/sounds/player/sfx/metal_footsteps", 8)
 	_audio_player.load_sounds("resources/sounds/player/sfx/tile_footsteps", 9)
+#	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
 	_audio_player.load_sounds("resources/sounds/player/sfx/breathe", 1)
 	_audio_player.load_sounds("resources/sounds/player/sfx/landing", 2)
 	_audio_player._footstep_sounds = _audio_player._stone_footstep_sounds
+		
+	# Speech audio - these should eventually be moved to each enemy's script or character audio
+	# and the paths adjusted to the correct voice
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/idle", 13)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/alert", 14)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/detection", 15)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush", 16)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/chase", 17)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fight", 18)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/reload", 19)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/flee", 20)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q", 21)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a", 22)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence", 23)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised", 24)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fire", 25)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/snake", 26)
+	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb", 27)
+	
+	
+	
 #	active_mode.set_deferred("is_active", true)
 
 

@@ -17,7 +17,7 @@
 [ext_resource path="res://scenes/characters/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
-[ext_resource path="res://scenes/characters/player/light_detection.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/characters/light_detection.tscn" type="PackedScene" id=18]
 [ext_resource path="res://resources/art/flame-xxl.png" type="Texture" id=19]
 [ext_resource path="res://resources/art/player ui/normal.png" type="Texture" id=20]
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
@@ -34,6 +34,7 @@
 [ext_resource path="res://scenes/characters/player/Animations/ItemHolding.tres" type="Animation" id=32]
 [ext_resource path="res://scenes/characters/player/Animations/ItemHoldingHorizontal.tres" type="Animation" id=33]
 [ext_resource path="res://scenes/characters/player/Animations/ItemHoldingVertical.tres" type="Animation" id=34]
+
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )

@@ -53,7 +53,7 @@ Slowly... Quietly...
 Don't speak while playing this game. They might hear you.
 If you crouch and walk quietly, you make it easier for them to catch you.
 You can sprint with the [Sprint key] key, but it won't save you.
-You can kick by pressing [Melee key]. You can melee attack with your weapon by holding [Main-hand secondary key] then pressing [Melee key].
+You can kick by pressing [Melee key]. You can melee attack with your weapon by holding Right-Click then pressing [Melee key].
 Melee attacks, jumping, mantling, climbing, and running all affect your stamina.
 Hold [Interact key] to drag things around. Bookcases, corpses, and doors are things.
 Press the [Off-hand switch key] key to cycle through items that can be held in the off-hand. Hold [Off-hand switch key] to swap items between hands.

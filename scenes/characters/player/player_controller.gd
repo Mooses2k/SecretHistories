@@ -514,7 +514,7 @@ func handle_grab_input(delta : float):
 		wanna_grab = true
 	else:
 		wanna_grab = false
-	if Input.is_action_pressed("interact") and is_grabbing == false:
+	if Input.is_action_pressed("interact") or Input.is_action_pressed("main_use_secondary") and is_grabbing == false:
 		grab_press_length += delta
 		if grab_press_length >= 0.15 :
 			wanna_grab = true
@@ -534,7 +534,7 @@ func handle_grab_input(delta : float):
 #			interaction_handled = true
 
 #		grab_press_length = 0.0
-	if Input.is_action_just_released("interact"):
+	if Input.is_action_just_released("interact") or Input.is_action_just_released("main_use_secondary") :
 		grab_press_length = 0.0
 		if is_grabbing == true:
 			is_grabbing = false
@@ -701,7 +701,8 @@ func handle_inventory(delta : float):
 			throw_state = ThrowState.IDLE
 
 	if Input.is_action_just_pressed("main_use_secondary"):
-		if inv.get_mainhand_item():
+		# This means R-Click can be used to interact when pointing at an interactable
+		if inv.get_mainhand_item() and interaction_target == null:
 			inv.get_mainhand_item().use_secondary()
 			throw_state = ThrowState.IDLE
 
@@ -815,7 +816,7 @@ func handle_inventory(delta : float):
 #					if item:
 #						item.call_deferred("global_translate", result.motion)
 #
-	if Input.is_action_just_released("interact") and not (wanna_grab or is_grabbing or interaction_handled):
+	if Input.is_action_just_released("interact") or Input.is_action_just_released("main_use_secondary") and not (wanna_grab or is_grabbing or interaction_handled):
 		if interaction_target != null:
 			if interaction_target is PickableItem and character.inventory.current_mainhand_slot != 10:
 				character.inventory.add_item(interaction_target)
@@ -830,6 +831,7 @@ func handle_inventory(delta : float):
 #		throw_press_length = 0.0
 #	if Input.is_action_just_pressed("throw"):
 #		throw_state = true
+
 
 func kick():
 	var kick_object = legcast.get_collider()
@@ -846,6 +848,7 @@ func kick():
 	elif legcast.is_colliding() and kick_object is RigidBody:
 		if Input.is_action_just_pressed("kick"):
 			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+
 
 func drop_grabbable():
 	#when the drop button or keys are pressed , grabable objects are released

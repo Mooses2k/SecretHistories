@@ -23667,8 +23667,7 @@ nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "output", 0, "Animation_State", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states" ]
-node_connections = [ "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "output", 0, "Animation_State" ]
+node_connections = [ "output", 0, "Animation_State", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -23816,9 +23815,6 @@ anims/Walkleft002 = SubResource( 363 )
 [node name="Listener" type="Listener" parent="FPSCamera" index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
 
-[node name="Listener" type="Listener" parent="FPSCamera" index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
-
 [node name="ScreenFilter" type="MeshInstance" parent="FPSCamera" index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3428 )
 visible = false
@@ -23831,6 +23827,9 @@ mesh = SubResource( 371 )
 visible = false
 layers = 131
 spot_range = 20.0
+
+[node name="Listener" type="Listener" parent="FPSCamera" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="13"]
 visible = false
@@ -23927,7 +23926,7 @@ LAlt or C - toggle crouch
 LShift - sprint
 
 L-Click - main-hand primary use
-R-Click - main-hand secondary use
+R-Click - main-hand secondary use (interact if close)
 Number row & mouse-wheel - cycle main-hand item
 Scroll-wheel Click - throw main-hand item
 
@@ -23936,8 +23935,12 @@ Q - cycle off-hand items
 T - throw off-hand item
 R - reload
 
-F - interact with object in world
-Ctrl - kick"
+F or R-Click - interact with object in world
+(hold to grab and drag)
+
+Ctrl - kick
+
+L - cycle look (shaders and debug light)"
 
 [node name="Indication_canvas" type="CanvasLayer" parent="." index="17"]
 pause_mode = 2

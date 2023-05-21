@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/anarchists.wav"
+dest_files=[ "res://.import/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

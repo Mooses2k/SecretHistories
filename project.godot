@@ -134,6 +134,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/character.gd"
 }, {
+"base": "Spatial",
+"class": "CharacterAudio",
+"language": "GDScript",
+"path": "res://scenes/character_audio.gd"
+}, {
 "base": "Node",
 "class": "CharacterSpawner",
 "language": "GDScript",
@@ -147,7 +152,7 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "ClamberManager",
 "language": "GDScript",
-"path": "res://scenes/characters/player/clamber_manager.gd"
+"path": "res://scenes/characters/clamber_manager.gd"
 }, {
 "base": "EquipmentItem",
 "class": "ConsumableItem",
@@ -289,11 +294,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
 }, {
-"base": "AudioStreamPlayer3D",
-"class": "PlayerAudio",
-"language": "GDScript",
-"path": "res://scenes/characters/player/player_audio.gd"
-}, {
 "base": "Spatial",
 "class": "PlayerSensor",
 "language": "GDScript",
@@ -395,6 +395,7 @@ _global_script_class_icons={
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
 "Character": "",
+"CharacterAudio": "",
 "CharacterSpawner": "",
 "CharacterState": "",
 "ClamberManager": "",
@@ -426,7 +427,6 @@ _global_script_class_icons={
 "PickupArea": "",
 "PlacementAnchor": "",
 "Player": "",
-"PlayerAudio": "",
 "PlayerSensor": "",
 "PlayerSoundEmitter": "",
 "RevolverItem": "",

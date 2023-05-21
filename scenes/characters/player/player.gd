@@ -18,7 +18,6 @@ onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
-var noise_level = 0
 
 
 func _ready():
@@ -42,11 +41,13 @@ func _process(delta):
 	change_maindhand_equipment_out()
 	change_offhhand_equipment_out()
 	change_offhand_equipment_in()
+	
 	# This notifies the dot if something if the player is currently grabbing something
 	if $PlayerController.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
 
 
+# Eventually this needs to be possible for character
 func drop_consumable(object):
 	$PlayerController.throw_consumable()
 
@@ -73,8 +74,7 @@ func grab_indicator():
 		$Indication_canvas/Indication_system/Ignite.hide()
 
 
-
-#is_in_group("Door_hitbox")
+# Is_in_group("Door_hitbox")   # Please rename this group to DOOR_HITBOX after door merge
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body :
 		if !colliding_pickable_items.has(body):
@@ -96,6 +96,8 @@ func _on_GrabCastDot_area_exited(area):
 	if area is Interactable:
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
 
+
+### These six functions below should maybe be in character?
 
 func change_equipment_out(var is_mainhand : bool):
 	if(is_mainhand):

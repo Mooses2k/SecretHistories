@@ -5,6 +5,7 @@ class_name Cultist
 var weapon_resource = preload("res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn")
 var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell.tres")
 
+
 #enum #LOADOUT PACKAGES FOR NEOPHYTES:
 #(# in parentheses is probability weight) {
 #    (50) Double-barrel shotgun + 2 loaded + 1-3 spare + old knife
@@ -28,3 +29,6 @@ func _ready():
 	inventory.insert_tiny_item(ammo_resource, 10)
 	print("cultist.gd added ammo")
 	inventory.equip_mainhand_item()
+
+	# override for purpose ot ragdoll, still not working
+	skeleton = $FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton

@@ -2,15 +2,15 @@ extends EquipmentItem
 class_name GunItem
 
 
+signal target_hit(target, position, direction, normal)
+signal on_shoot()
+
 enum MeleeStyle {
 	BUTT_STRIKE,
 	PISTOL_WHIP,
 	BAYONET,
 	COUNT
 }
-
-signal target_hit(target, position, direction, normal)
-signal on_shoot()
 
 export(Array, Resource) var ammo_types
 

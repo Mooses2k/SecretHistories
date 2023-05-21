@@ -72,15 +72,15 @@ func set_inventory(value : Node):
 	inventory.connect("tiny_item_changed", self, "inventory_tiny_item_changed")
 	inventory.connect("mainhand_slot_changed", self, "inventory_mainhand_slot_changed")
 	inventory.connect("offhand_slot_changed", self, "inventory_offhand_slot_changed")
-	inventory.connect("UpdateHud",self, "Hud_visibility")
-	inventory.connect("PlayerDead",self, "hide_HUD")
+	inventory.connect("inventory_changed",self, "hud_visibility")
+	inventory.connect("player_died",self, "hide_hud")
 
 
-func hide_HUD():
+func hide_hud():
 	self.owner.visible = false
 
 
-func Hud_visibility():
+func hud_visibility():
 		fadeanimations.play("Fade_in")
 		$"../..".show()
 
@@ -146,6 +146,10 @@ func update_name():
 
 
 func update_ammo_data():
+	# temporary hack (issue #409)
+	if not is_instance_valid(item):
+		item = null
+	
 	if item is GunItem:
 		var current_ammo = item.current_ammo
 		var ammo_type = item.current_ammo_type if item.current_ammo_type != null else item.ammo_types.front()

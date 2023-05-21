@@ -1,5 +1,7 @@
 extends Area
 class_name Hitbox
+
+
 # This class represents a generic hitbox
 # If this hitbox can initiate interactions with other hitboxes,
 # For example, if it belongs to a melee weapon,

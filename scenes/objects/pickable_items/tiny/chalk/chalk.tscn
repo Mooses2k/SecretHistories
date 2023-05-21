@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/_pickable_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/chalk/chalk.gd" type="Script" id=3]
 
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "chalk_Circle002"
 surfaces/0 = {
@@ -25,6 +24,8 @@ points = PoolVector3Array( -0.00558647, -0.000109812, -0.000364829, -0.00558647,
 
 [node name="Chalk" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.023677, 0 )
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 3 )
 dropped_layers = 0
 dropped_mask = 0

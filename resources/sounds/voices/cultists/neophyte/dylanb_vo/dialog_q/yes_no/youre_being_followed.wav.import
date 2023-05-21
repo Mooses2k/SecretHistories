@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/youre_being_followed.wav-a801e5fe4d9b4d9064be06d47521694a.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/youre_being_followed.wav"
+dest_files=[ "res://.import/youre_being_followed.wav-a801e5fe4d9b4d9064be06d47521694a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

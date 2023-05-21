@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/signs_point_to_no.wav-3679b9e1f932681861d933cc81a3c4b0.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/yes_no/signs_point_to_no.wav"
+dest_files=[ "res://.import/signs_point_to_no.wav-3679b9e1f932681861d933cc81a3c4b0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

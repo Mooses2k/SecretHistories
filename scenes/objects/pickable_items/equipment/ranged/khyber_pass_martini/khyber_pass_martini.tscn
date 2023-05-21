@@ -54,7 +54,9 @@ points = PoolVector3Array( -7.14324e-07, 0.0262614, -0.123588, -0.0129903, 0.029
 [node name="khyber_pass_martini" instance=ExtResource( 1 )]
 mass = 1.0
 continuous_cd = true
-can_attach = false
+contacts_reported = 2
+contact_monitor = true
+item_drop_sound = ExtResource( 9 )
 item_size = 0
 item_name = "Sawed-off Martini pistol"
 ammo_types = [ ExtResource( 2 ) ]
@@ -142,8 +144,11 @@ script = ExtResource( 4 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0893607, -0.0235785 )
 shape = SubResource( 6 )
 
+[node name="RayCast" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0363873, -0.0374446 )
+
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0774746, 0.177475 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0125584, 0.0662795 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

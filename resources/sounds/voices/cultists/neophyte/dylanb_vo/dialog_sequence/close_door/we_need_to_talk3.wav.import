@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/we_need_to_talk3.wav-8bd6a7420e3b4a4d00464823805715ee.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/close_door/we_need_to_talk3.wav"
+dest_files=[ "res://.import/we_need_to_talk3.wav-8bd6a7420e3b4a4d00464823805715ee.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

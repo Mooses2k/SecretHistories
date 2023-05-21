@@ -8,3 +8,6 @@ func get_player_spawn_position() -> Vector3:
 			if world_data.get_cell_type(cell) == world_data.CellType.ROOM:
 				return self.grid_to_world(Vector3(i, 0, j))
 	return Vector3(world_data.world_size_x, 0.0, world_data.world_size_z)*world_data.CELL_SIZE*0.5
+
+func toggle_directional_light():
+	$DirectionalLight.visible = !$DirectionalLight.visible

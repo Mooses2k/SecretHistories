@@ -285,9 +285,10 @@ func _on_BT_Wait_Random_cultist_idled():
 
 # Movement
 
-func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0):
+func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float = 0.0):
 	movement_audio.unit_db = rate
 	movement_audio.pitch_scale = pitch
+	movement_audio.unit_db = volume
 	if _footstep_sounds.size() > 0:
 		_footstep_sounds.shuffle()
 		movement_audio.stream = _footstep_sounds.front()

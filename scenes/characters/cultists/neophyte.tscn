@@ -126,6 +126,8 @@ script = ExtResource( 12 )
 
 [node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
 script = ExtResource( 10 )
+max_time = 10.0
+min_time = 5.0
 
 [node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
 script = ExtResource( 7 )
@@ -138,6 +140,11 @@ visible = false
 
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
 transform = Transform( -0.0640363, -0.989469, -0.129808, 0.99632, -0.0708156, 0.0482957, -0.0569795, -0.126237, 0.990364, -9.50363, 18.0616, -0.60081 )
+
+[node name="Speech" parent="Audio" index="0"]
+unit_db = 10.0
+unit_size = 4.0
+max_db = 6.0
 
 [node name="PlayerDetector" type="Area" parent="." index="16"]
 collision_layer = 2

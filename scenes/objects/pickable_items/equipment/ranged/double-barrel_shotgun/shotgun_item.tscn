@@ -150,7 +150,7 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0
 shape = SubResource( 378 )
 
 [node name="RayCast" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000195906, 0.0165546, -0.503174 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000195906, 0.0165546, -0.119145 )
 
 [node name="HoldPosition" parent="." index="6"]
 transform = Transform( 0.967347, 0.204731, 0.149416, -0.200553, 0.978753, -0.0426778, -0.154979, 0.0113183, 0.987853, 0.011, -0.0501159, 0.147841 )

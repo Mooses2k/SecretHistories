@@ -72,7 +72,7 @@ func set_inventory(value : Node):
 	inventory.connect("tiny_item_changed", self, "inventory_tiny_item_changed")
 	inventory.connect("mainhand_slot_changed", self, "inventory_mainhand_slot_changed")
 	inventory.connect("offhand_slot_changed", self, "inventory_offhand_slot_changed")
-	inventory.connect("UpdateHud",self, "hud_visibility")
+	inventory.connect("inventory_changed",self, "hud_visibility")
 	inventory.connect("player_died",self, "hide_hud")
 
 

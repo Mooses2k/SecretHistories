@@ -133,10 +133,14 @@ min_time = 5.0
 script = ExtResource( 7 )
 
 [node name="Hitbox" parent="." index="6" groups=["CHARACTER"]]
+visible = true
 collision_layer = 8
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 visible = false
+
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/137/bound_children = [  ]
 
 [node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
 transform = Transform( -0.0640363, -0.989469, -0.129808, 0.99632, -0.0708156, 0.0482957, -0.0569795, -0.126237, 0.990364, -9.50363, 18.0616, -0.60081 )

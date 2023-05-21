@@ -4,6 +4,7 @@ extends PlayerSensor
 
 # Whatever you do, for the love of Cthulhu please don't set Mask 1 for the DirectSightArea
 # You will lag so hard
+# Don't remove this comment :)
 
 
 const DetectionArea = preload("res://scenes/sensors/direct_player_sight/direct_sight_area.gd")

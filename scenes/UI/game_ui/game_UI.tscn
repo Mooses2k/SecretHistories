@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/UI/game_ui/UI_root.gd" type="Script" id=7]
 
 
+
 [node name="GameUI" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 2 )

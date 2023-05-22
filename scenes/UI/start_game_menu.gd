@@ -30,8 +30,15 @@ func _on_GhostDetectionRange_value_changed(value: float) -> void:
 
 
 func _on_StartGame_pressed() -> void:
-	GameManager.is_player_dead = false
 #	var _error = get_tree().change_scene("res://scenes/core/game.tscn")
+	# Visible the GameIntro scene here, it goes invis after click or timeout of last screen
+	$HBoxContainer.visible = false
+	$GameIntro.show_intro()
+
+
+func _on_GameIntro_intro_done():
+	GameManager.is_player_dead = false
+	GameManager.act = 1
 	LoadScreen.change_scene(game)
 
 

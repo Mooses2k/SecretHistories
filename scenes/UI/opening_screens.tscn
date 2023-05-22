@@ -8,7 +8,9 @@
 [ext_resource path="res://resources/art/opening_screens/gpl_artboard_1.png" type="Texture" id=6]
 
 [node name="OpeningScreens" type="Control"]
-rect_min_size = Vector2( 1024, 600 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1920, 1080 )
 theme = ExtResource( 4 )
 script = ExtResource( 1 )
 

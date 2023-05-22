@@ -1,13 +1,15 @@
 extends Control
 
 
+signal intro_done
+
+
 func _ready():
 # TODO: choose which of three random Help screens
 #	randi() % 3
 #	$CenterContainer/Help.texture_normal = help_screen
 	
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-# TODO: size the center container to screen or window res
 
 
 func _input(event):
@@ -19,28 +21,36 @@ func _input(event):
 		_on_Timer_timeout()
 
 
-func _on_MadeWithGodot_pressed():
-	$CenterContainer/MadeWithGodot.visible = false
+func show_intro():
+	$GameIntro.visible = true
+	$Timer.start(1)
 
 
-func _on_GPL_pressed():
-	$CenterContainer/GPL.visible = false
+# TODO: Attach this signal
+func _on_anything_pressed():
+	queue_free()
 
 
-func _on_Help_pressed():
-	$CenterContainer/Help.visible = false
+func _change_slide(next_slide, next_slide_wait_time):
+	pass
 
 
-func _on_Winners_pressed():
-	var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
+func _start_game():
+	emit_signal("intro_done")
 
 
 func _on_Timer_timeout():
-	if $CenterContainer/MadeWithGodot.visible == true:
-		$CenterContainer/MadeWithGodot.visible = false
-	elif $CenterContainer/GPL.visible == true:
-		$CenterContainer/GPL.visible = false
-	elif $CenterContainer/Help.visible == true:
-		$CenterContainer/Help.visible = false
-	elif $CenterContainer/Winners.visible == true:
-		var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
+#	match slide:
+#		n:
+#			_change_slide(n+1, 1 or 3)
+#		final:
+			_start_game()
+			queue_free()
+
+#	if $CenterContainer/MadeWithGodot.visible == true:
+#		$CenterContainer/MadeWithGodot.visible = false
+#	elif $CenterContainer/GPL.visible == true:
+#		$CenterContainer/GPL.visible = false
+#	elif $CenterContainer/Help.visible == true:
+#		$CenterContainer/Help.visible = false
+#	elif $last one.visible == true:

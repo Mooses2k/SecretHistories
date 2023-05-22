@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/art/opening_screens/NFTStab.jpg" type="Texture" id=3]
+[ext_resource path="res://scenes/UI/game_intro.gd" type="Script" id=5]
+
+[node name="GameIntro" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 1024, 600 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="1" type="TextureButton" parent="CenterContainer"]
+margin_left = 448.0
+margin_top = 240.0
+margin_right = 1472.0
+margin_bottom = 840.0
+rect_min_size = Vector2( 1024, 600 )
+texture_normal = ExtResource( 3 )
+expand = true
+
+[node name="Timer" type="Timer" parent="."]

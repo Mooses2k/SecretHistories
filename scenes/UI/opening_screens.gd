@@ -7,7 +7,6 @@ func _ready():
 #	$CenterContainer/Help.texture_normal = help_screen
 	
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-# TODO: size the center container to screen or window res
 
 
 func _input(event):

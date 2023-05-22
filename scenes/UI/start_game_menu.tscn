@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/UI/start_game_menu.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/start_game_settings.gd" type="Script" id=2]
 [ext_resource path="res://scenes/UI/settings_ui/SettingsUI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/UI/game_intro.tscn" type="PackedScene" id=4]
 
 [node name="StartGameMenu" type="MarginContainer"]
 anchor_right = 1.0
@@ -16,12 +17,12 @@ script = ExtResource( 1 )
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 128.0
 margin_top = 64.0
-margin_right = 896.0
-margin_bottom = 536.0
+margin_right = 1792.0
+margin_bottom = 1016.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
-margin_right = 624.0
-margin_bottom = 472.0
+margin_right = 1383.0
+margin_bottom = 952.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 scroll_horizontal_enabled = false
@@ -30,41 +31,51 @@ scroll_horizontal_enabled = false
 unique_name_in_owner = true
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 624.0
+margin_right = 1383.0
 size_flags_horizontal = 3
 custom_constants/separation = 16
 
 [node name="Column4" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 628.0
-margin_right = 768.0
-margin_bottom = 472.0
+margin_left = 1387.0
+margin_right = 1664.0
+margin_bottom = 952.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="LightNotice" type="Label" parent="HBoxContainer/Column4"]
-margin_top = 410.0
-margin_right = 140.0
-margin_bottom = 424.0
+margin_top = 890.0
+margin_right = 277.0
+margin_bottom = 904.0
 text = "Take at least one light"
 align = 1
 
 [node name="StartGame" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
-margin_top = 428.0
-margin_right = 140.0
-margin_bottom = 448.0
+margin_top = 908.0
+margin_right = 277.0
+margin_bottom = 928.0
 text = "Start Game"
 
 [node name="ReturnButton" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
-margin_top = 452.0
-margin_right = 140.0
-margin_bottom = 472.0
+margin_top = 932.0
+margin_right = 277.0
+margin_bottom = 952.0
 text = "Return"
 
 [node name="StartGameSettings" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource( 2 )
 
+[node name="GameIntro" parent="." instance=ExtResource( 4 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 128.0
+margin_top = 64.0
+margin_right = 1792.0
+margin_bottom = 1016.0
+
 [connection signal="pressed" from="HBoxContainer/Column4/StartGame" to="." method="_on_StartGame_pressed"]
 [connection signal="pressed" from="HBoxContainer/Column4/ReturnButton" to="." method="_on_ReturnButton_pressed"]
+[connection signal="intro_done" from="GameIntro" to="." method="_on_GameIntro_intro_done"]

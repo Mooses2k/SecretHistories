@@ -86,10 +86,10 @@ func spawn_characters():
 		if count >= max_count:
 			break
 		
-		var cell_type = data.get_cell_type(cell_index)
+		var cell_type = data.get_cell_type(64)
 		if randf() < _density_by_type[cell_type]:
 			count += 1
-			_spawn_character_at(cell_index)
+			_spawn_character_at(64)
 	
 	print("Total Characters Spawned: %s"%[count])
 
@@ -97,7 +97,7 @@ func spawn_characters():
 func _spawn_character_at(cell_index: int) -> void:
 	var character = character_scene.instance() as Spatial
 	var cell_coordinates := data.get_local_cell_position(cell_index)
-	character.translation = GameManager.game.level.grid_to_world(cell_coordinates)
+	character.translation = cell_coordinates
 	characters_root.add_child(character)
 	_set_random_loadout(character)
 
@@ -150,7 +150,7 @@ func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 
 func _on_ProceduralWorld_generation_finished():
 	data = owner.world_data
-	spawn_characters()
+	call_deferred("spawn_characters")
 
 ###################################################################################################
 ### Editor Code ###################################################################################

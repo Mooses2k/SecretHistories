@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/slide_projector3.ogg-892ce89d4143f4db1df5960209a89303.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/slide_projector/slide_projector3.ogg"
+dest_files=[ "res://.import/slide_projector3.ogg-892ce89d4143f4db1df5960209a89303.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

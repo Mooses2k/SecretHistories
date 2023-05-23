@@ -760,4 +760,5 @@ common/physics_interpolation=true
 
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
+quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/463693__garuda1982__slide-projector-with-ventilation-field-recording.ogg-94f7f17571fb7156da65f31e1f011e10.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/slide_projector/463693__garuda1982__slide-projector-with-ventilation-field-recording.ogg"
+dest_files=[ "res://.import/463693__garuda1982__slide-projector-with-ventilation-field-recording.ogg-94f7f17571fb7156da65f31e1f011e10.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -16,6 +16,7 @@ func _ready() -> void:
 	gridmaps.update_gridmaps()
 	navigation.data = world_data
 	navigation.update_navigation()
+	world_data.print_world_map()
 	emit_signal("generation_finished")
 
 

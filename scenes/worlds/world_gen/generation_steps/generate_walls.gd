@@ -17,7 +17,7 @@ func contour_walls(data : WorldData):
 			for dir in data.Direction.DIRECTION_MAX:
 				var other = data.get_cell_type(data.get_neighbour_cell(this, dir))
 				match data.get_cell_type(this):
-					data.CellType.ROOM:
+					data.CellType.ROOM, data.CellType.STARTING_ROOM:
 						match other:
 							data.CellType.EMPTY, data.CellType.CORRIDOR, data.CellType.HALL:
 								data.set_wall(this, dir, data.EdgeType.WALL)
@@ -25,7 +25,7 @@ func contour_walls(data : WorldData):
 								pass
 					data.CellType.CORRIDOR, data.CellType.HALL:
 						match other:
-							data.CellType.EMPTY, data.CellType.ROOM:
+							data.CellType.EMPTY, data.CellType.ROOM, data.CellType.STARTING_ROOM:
 								data.set_wall(this, dir, data.EdgeType.WALL)
 							_:
 								pass
@@ -35,7 +35,7 @@ func contour_walls(data : WorldData):
 						var s = data.get_neighbour_cell(this, data.Direction.SOUTH)
 						var w = data.get_neighbour_cell(this, data.Direction.WEST)
 						match other:
-							data.CellType.ROOM:
+							data.CellType.ROOM, data.CellType.STARTING_ROOM:
 								if data.get_cell_meta(this, data.CellMetaKeys.META_DOOR_DIRECTIONS).has(dir):
 									var extends_right = false
 									var extends_left = false

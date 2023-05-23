@@ -39,7 +39,7 @@ script = ExtResource( 9 )
 character_scene = ExtResource( 6 )
 max_count = 1
 _density_by_type = {
-2: 0.005,
+2: 0.02,
 3: 0.0025,
 4: 0
 }

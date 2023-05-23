@@ -55,6 +55,7 @@ var _density_by_type := {
 }
 var _total_weights_by_set := []
 
+
 func _ready():
 	if Engine.editor_hint:
 		return

@@ -33,7 +33,7 @@ func add_equipment():
 	while not dir_stack.empty():
 		var top : Directory = dir_stack[-1]
 		var next : String = top.get_next()
-		var full_path = path_from_parts(top.get_current_dir(), next)
+		var full_path = top.get_current_dir().plus_file(next)
 		if next.empty():
 			dir_stack.pop_back()
 			continue
@@ -59,7 +59,7 @@ func add_tiny_items():
 	while not dir_stack.empty():
 		var top : Directory = dir_stack[-1]
 		var next : String = top.get_next()
-		var full_path = path_from_parts(top.get_current_dir(), next)
+		var full_path = top.get_current_dir().plus_file(next)
 		if next.empty():
 			dir_stack.pop_back()
 			continue
@@ -73,9 +73,3 @@ func add_tiny_items():
 			if full_path.ends_with(".tres") and not full_path.get_file().begins_with("_"):
 				_settings.add_int_setting(full_path, 0, 999, 1, 999)
 				_settings.set_setting_group(full_path, "Tiny Items")
-
-
-func path_from_parts(a : String, b : String) -> String:
-	if not a.ends_with("/"):
-		return a + "/" + b
-	return a + b

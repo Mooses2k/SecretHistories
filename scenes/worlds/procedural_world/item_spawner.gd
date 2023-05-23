@@ -55,13 +55,13 @@ func _spawn_starting_light(data : WorldData) -> void:
 	if starting_light == null:
 		return
 	
-	var staring_cells = data.get_cells_for(data.CellType.STARTING_ROOM)
+	var starting_cells = data.get_cells_for(data.CellType.STARTING_ROOM)
 	if data.is_spawn_position_valid():
 		var player_index := data.get_player_spawn_position_as_index()
-		staring_cells.erase(player_index)
+		starting_cells.erase(player_index)
 	
-	var random_cell_index := randi() % staring_cells.size() as int
-	var spawn_cell = staring_cells[random_cell_index]
+	var random_cell_index := randi() % starting_cells.size() as int
+	var spawn_cell = starting_cells[random_cell_index]
 	print("light spawned at: %s"%[data.get_int_position_from_cell_index(spawn_cell)])
 	var local_pos = data.get_local_cell_position(spawn_cell)
 	_spawn_item(starting_light.resource_path, local_pos)

@@ -30,9 +30,13 @@ func _on_GhostDetectionRange_value_changed(value: float) -> void:
 
 
 func _on_StartGame_pressed() -> void:
-#	var _error = get_tree().change_scene("res://scenes/core/game.tscn")
-	# Visible the GameIntro scene here, it goes invis after click or timeout of last screen
 	$HBoxContainer.visible = false
+	BackgroundMusic.stop()
+	$AudioStreamPlayer.play()
+	$Timer.start(3)
+
+
+func _on_Timer_timeout():
 	$GameIntro.show_intro()
 
 

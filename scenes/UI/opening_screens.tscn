@@ -60,7 +60,7 @@ texture_normal = ExtResource( 5 )
 expand = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 5.9
 autostart = true
 
 [connection signal="pressed" from="CenterContainer/Winners" to="." method="_on_Winners_pressed"]

@@ -7,6 +7,8 @@ func _ready():
 #	$CenterContainer/Help.texture_normal = help_screen
 	
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
+	BackgroundMusic.play()
 
 
 func _input(event):

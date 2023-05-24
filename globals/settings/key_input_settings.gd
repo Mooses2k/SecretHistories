@@ -7,7 +7,12 @@ var setting_key_inputs : String = ""
 var is_waiting_input : bool = false
 var events : PoolStringArray
 var actions : PoolStringArray
-
+var actions_copy : PoolStringArray
+var flag : int = 1
+var index : int = 0
+var is_done : bool = false
+var key_removed : bool = false
+var hotbar_num : int = 1
 
 const MAX_VALUE = 4.0
 const STEP_VALUE = 0.05
@@ -19,26 +24,76 @@ var setting_action_event : float setget set_action_event, get_action_event
 func _ready():
 	GlobalSettings.load_keys()
 	
-	for action in InputMap.get_actions():
-		if not "ui_" in action or "movement" == action:
-			for event in InputMap.get_action_list(action):
-				if event is InputEventMouseButton:
-					events.insert(0, "Mouse Button " + str(event.button_index))
-	#				print("action " + str(action) + " event mouse == " + str(event.button_index))
-				elif event is InputEventJoypadButton:
-					events.insert(0, "Joypad Button " + str(event.button_index))
-				else:
-					if event.physical_scancode:
-						events.insert(0, str(OS.get_scancode_string(event.physical_scancode)))
-					else:
-						events.insert(0, str(OS.get_scancode_string(event.scancode)))
+	actions_copy.append_array(InputMap.get_actions())
+	flag = 1
+	hotbar_num = 1
+		
+	while not is_done:
+		key_removed = false
+		for x in range(0, actions_copy.size()):
+			if not "ui_" in actions_copy[x] or "movement" == actions_copy[x]:
+				match flag:
+					1:
+						if "movement|" in actions_copy[x]:
+							set_keys(x)
+					2:
+						if "player|" in actions_copy[x]:
+							set_keys(x)
+					3:
+						if "playerhand|" in actions_copy[x]:
+							set_keys(x)
+					4:
+						if "misc|" in actions_copy[x]:
+							set_keys(x)
+					5:
+						if "hotbar_" in actions_copy[x]:
+							if str(hotbar_num) in actions_copy[x]:
+								set_keys(x)
+								hotbar_num += 1
+					_:
+						actions_copy.remove(actions_copy.find(actions_copy[x]))
+						key_removed = true
+						x = 0
+			else:
+				actions_copy.remove(actions_copy.find(actions_copy[x]))
+				index = x
+				break
 			
-			actions.append(action)
-			Settings.add_string_setting(action, events)
-			Settings.set_setting_group(action, GROUP_NAME)
-			events.resize(0)
+			index = x
+			if key_removed:
+				break
+			
+		
+		if index == actions_copy.size() - 1: 
+			flag += 1
+			
+			if flag == 6 and not hotbar_num == 12:
+				flag = 5
+		
+		if actions_copy.size() <= 1:
+			is_done = true
+		Settings.connect("setting_changed", self, "on_setting_changed")
+
+
+func set_keys(x):
+	for event in InputMap.get_action_list(actions_copy[x]):
+		if event is InputEventMouseButton:
+			events.insert(0, "Mouse Button " + str(event.button_index))
+		elif event is InputEventJoypadButton:
+			events.insert(0, "Joypad Button " + str(event.button_index))
+		else:
+			if event.physical_scancode:
+				events.insert(0, str(OS.get_scancode_string(event.physical_scancode)))
+			else:
+				events.insert(0, str(OS.get_scancode_string(event.scancode)))
 	
-	Settings.connect("setting_changed", self, "on_setting_changed")
+	print("actions " + actions_copy[x])
+	actions.append(actions_copy[x])
+	Settings.add_string_setting(actions_copy[x], events)
+	Settings.set_setting_group(actions_copy[x], GROUP_NAME)
+	actions_copy.remove(actions_copy.find(actions_copy[x]))
+	events.resize(0)
+	key_removed = true
 
 
 func _input(event):

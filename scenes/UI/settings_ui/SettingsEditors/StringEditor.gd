@@ -1,6 +1,7 @@
 extends "SettingEditor.gd"
 
 var is_waiting_input : bool = false
+var temp_setting_name : String = ""
 
 
 #Override this function
@@ -33,7 +34,21 @@ func _on_value_edited():
 #Override this function
 func _on_setting_attached():
 #	$"%Value".connect("value_changed", self, "on_value_edited")
-	$"%Name".text = _setting_name
+	temp_setting_name = _setting_name
+	
+	if "movement|" in temp_setting_name:
+		temp_setting_name.erase(0, 9)
+		
+	elif "player|" in temp_setting_name:
+		temp_setting_name.erase(0, 7)
+		
+	elif "playerhand|" in temp_setting_name:
+		temp_setting_name.erase(0, 11)
+		
+	elif "misc|" in temp_setting_name:
+		temp_setting_name.erase(0, 5)
+		
+	$"%Name".text = temp_setting_name
 	pass
 
 

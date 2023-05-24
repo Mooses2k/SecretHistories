@@ -169,7 +169,8 @@ root_node = NodePath("../Body/CultistNeophyteNoCape")
 
 [node name="AnimationTree" parent="." index="20"]
 active = true
-parameters/Equipped_state/current = 1
+parameters/ADS_State/current = 2
+parameters/Rifle_strafe_vector/blend_position = Vector2( 0, -0.0172414 )
 
 [connection signal="cultist_idled" from="BehaviorTree/BT_Selector/BT_Sequence/BT_Wait_Random" to="Audio" method="_on_BT_Wait_Random_cultist_idled"]
 [connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]

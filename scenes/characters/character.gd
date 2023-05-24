@@ -568,6 +568,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Big_guns_transition/current",4)
 				
 			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+				print("character is working !")
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)

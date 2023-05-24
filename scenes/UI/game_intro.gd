@@ -4,11 +4,6 @@ extends Control
 signal intro_done
 
 
-func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	show_intro()
-
-
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
 		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
@@ -19,7 +14,8 @@ func _input(event):
 
 
 func show_intro():
-#	$GameIntro.visible = true
+	self.visible = true
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 #	BackgroundMusic.stop
 	$AnimationPlayer.play("Intro")
 

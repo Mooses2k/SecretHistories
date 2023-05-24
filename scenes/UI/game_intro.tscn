@@ -530,8 +530,8 @@ margin_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 1024, 600 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 5
+size_flags_vertical = 5
 
 [node name="1" type="TextureRect" parent="CenterContainer"]
 margin_left = 448.0
@@ -539,6 +539,8 @@ margin_top = 240.0
 margin_right = 1472.0
 margin_bottom = 840.0
 rect_min_size = Vector2( 1024, 600 )
+size_flags_horizontal = 5
+size_flags_vertical = 5
 texture = ExtResource( 28 )
 stretch_mode = 6
 

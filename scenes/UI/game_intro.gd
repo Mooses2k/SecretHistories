@@ -22,3 +22,7 @@ func show_intro():
 
 func _start_game():
 	emit_signal("intro_done")
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	emit_signal("intro_done")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://resources/art/game_intro/black.png" type="Texture" id=1]
 [ext_resource path="res://resources/sounds/infrasound/infrasound.wav" type="AudioStream" id=2]
@@ -31,6 +31,8 @@
 [ext_resource path="res://resources/sounds/ambience/doombeat.ogg" type="AudioStream" id=29]
 [ext_resource path="res://resources/art/game_intro/04-dream/00842-3674100213.png" type="Texture" id=30]
 [ext_resource path="res://resources/art/game_intro/04-dream/00907-1192118418.png" type="Texture" id=31]
+[ext_resource path="res://resources/sounds/continuous-static.wav" type="AudioStream" id=32]
+[ext_resource path="res://resources/art/game_intro/04-dream/00909-4150087078.png" type="Texture" id=33]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Intro"
@@ -42,10 +44,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 4, 9, 12, 15, 20, 23, 26, 29, 32, 37, 42, 47, 54, 60, 63, 66, 68.8, 71.7, 72.4, 73.2, 73.9, 74.6, 78.6, 79.4, 80.4, 81.6 ),
+"times": PoolRealArray( 0, 4, 9, 12, 15, 20, 23, 26, 29, 32, 37, 42, 47, 54, 60, 63, 65.9, 68.8, 71.7, 72.4, 73.2, 73.9, 74.6, 78.9, 79, 86.5, 89.8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 20 ), ExtResource( 13 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 18 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 19 ), ExtResource( 1 ), ExtResource( 26 ), ExtResource( 24 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 31 ), ExtResource( 22 ), ExtResource( 28 ), ExtResource( 30 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 22 ), ExtResource( 25 ), ExtResource( 1 ) ]
+"values": [ ExtResource( 1 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 20 ), ExtResource( 13 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 18 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 11 ), ExtResource( 19 ), ExtResource( 1 ), ExtResource( 26 ), ExtResource( 24 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 31 ), ExtResource( 22 ), ExtResource( 28 ), ExtResource( 30 ), ExtResource( 27 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 25 ), ExtResource( 1 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SlideClick:stream")
@@ -114,10 +116,10 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 74.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 74.6, 90.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ false, true, false ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Doom:playing")
@@ -126,7 +128,7 @@ tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0, 60, 82.7 ),
+"times": PoolRealArray( 0, 60, 89.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -138,7 +140,7 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 60, 74.8, 75.3, 81.5, 82.7 ),
+"times": PoolRealArray( 0, 60, 74.8, 75.3, 88.6, 89.9 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 10.0, 10.0, 15.0, 10.0, -80.0 ]
@@ -162,7 +164,7 @@ tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0, 60, 81.5 ),
+"times": PoolRealArray( 0, 60, 89.8 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
 "values": [ false, true, false ]
@@ -198,10 +200,10 @@ tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
 tracks/13/keys = {
-"times": PoolRealArray( 32, 54.8 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 32, 54.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false, true, false ]
 }
 tracks/14/type = "value"
 tracks/14/path = NodePath("Train:volume_db")
@@ -234,10 +236,34 @@ tracks/16/loop_wrap = true
 tracks/16/imported = false
 tracks/16/enabled = true
 tracks/16/keys = {
-"times": PoolRealArray( 74.6, 100 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 74.6, 100 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 10.0, 10.0 ]
+"values": [ 10.0, 10.0, 10.0 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Static:volume_db")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 74.6, 74.601, 76 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -10.0 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Static:playing")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0, 74.6, 89.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -518,6 +544,30 @@ tracks/22/keys = {
 "update": 0,
 "values": [ 10.0 ]
 }
+tracks/23/type = "value"
+tracks/23/path = NodePath("Static:volume_db")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/24/type = "value"
+tracks/24/path = NodePath("Static:playing")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [node name="GameIntro" type="Control"]
 anchor_right = 1.0
@@ -525,23 +575,19 @@ anchor_bottom = 1.0
 script = ExtResource( 5 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 1024, 600 )
-size_flags_horizontal = 5
-size_flags_vertical = 5
+rect_min_size = Vector2( 512, 512 )
 
 [node name="1" type="TextureRect" parent="CenterContainer"]
-margin_left = 448.0
-margin_top = 240.0
-margin_right = 1472.0
-margin_bottom = 840.0
-rect_min_size = Vector2( 1024, 600 )
-size_flags_horizontal = 5
-size_flags_vertical = 5
-texture = ExtResource( 28 )
+margin_left = 691.0
+margin_top = 271.0
+margin_right = 1228.0
+margin_bottom = 808.0
+rect_min_size = Vector2( 512, 512 )
+texture = ExtResource( 1 )
 stretch_mode = 6
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CenterContainer"]
@@ -566,6 +612,9 @@ stream = ExtResource( 17 )
 [node name="NumberStation" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = 10.0
+
+[node name="Static" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 32 )
 
 [node name="Clop" type="AudioStreamPlayer" parent="."]
 

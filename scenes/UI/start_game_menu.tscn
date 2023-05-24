@@ -69,8 +69,6 @@ script = ExtResource( 2 )
 
 [node name="GameIntro" parent="." instance=ExtResource( 4 )]
 visible = false
-anchor_right = 0.0
-anchor_bottom = 0.0
 margin_left = 128.0
 margin_top = 64.0
 margin_right = 1792.0

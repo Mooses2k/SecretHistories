@@ -7,6 +7,78 @@ var _weights := []
 var _min_amounts := []
 var _max_amounts := []
 
+var _current_paths := []
+var _current_weights := []
+var _current_min_amounts := []
+var _current_max_amounts := []
+
+var _current_total_weight := 0
+
+var _rng: RandomNumberGenerator = null
+
+### Public Methods --------------------------------------------------------------------------------
+
+func draw_random_loot() -> LootData:
+	var loot_data: LootData = LootData.new()
+	
+	if _current_paths.empty():
+		_initialize_current_arrays()
+	
+	var random_value = randi() % _current_total_weight
+	var index := 0
+	for value in _current_weights:
+		var weight := value as int
+		if random_value < weight:
+			break
+		else:
+			random_value -= weight
+			index += 1
+	
+	loot_data.scene_path = _current_paths[index]
+	loot_data.amount = _rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
+	
+	_exclude_used_index(index)
+	_current_total_weight = _calculate_total_weight()
+	
+	return loot_data
+
+### -----------------------------------------------------------------------------------------------
+
+
+### Private Methods -------------------------------------------------------------------------------
+
+func _initialize_current_arrays() -> void:
+	_current_paths = _paths.duplicate()
+	_current_weights = _weights.duplicate()
+	_current_min_amounts = _min_amounts.duplicate()
+	_current_max_amounts = _max_amounts.duplicate()
+	_rng = RandomNumberGenerator.new()
+	_rng.randomize()
+	
+	_current_total_weight = _calculate_total_weight()
+
+
+func _exclude_used_index(p_index: int) -> void:
+	_current_paths.remove(p_index)
+	_current_weights.remove(p_index)
+	_current_min_amounts.remove(p_index)
+	_current_max_amounts.remove(p_index)
+
+
+func _calculate_total_weight() -> int:
+	var value := 0
+	
+	for weight in _current_weights:
+		value += weight
+	
+	return value
+
+### -----------------------------------------------------------------------------------------------
+
+class LootData extends Reference:
+	var scene_path: String = ""
+	var amount: int = 0
+
 ###################################################################################################
 # Editor Methods ##################################################################################
 ###################################################################################################

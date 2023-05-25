@@ -58,10 +58,16 @@ func _spawn_initial_loot(data : WorldData) -> void:
 		_used_cell_indexes.append(cell_index)
 		possible_cells.remove(cell_index)
 		
-		var position := data.get_local_cell_position(cell_index) + ITEM_POSITION_OFFSET
 		for _loot_i in loot_data.amount:
-			_spawn_item(loot_data.scene_path, position)
-			print("item spawned: %s | at: %s"%[loot_data.scene_path, position])
+			var angle := _rng.randf_range(0.0, TAU)
+			# get random positions in a radius from 10% to 30% away from center.
+			var cell_radius := data.CELL_SIZE * 0.5
+			var position := _get_random_position_in_cell(
+					data.get_local_cell_position(cell_index),
+					cell_radius*0.1, cell_radius*0.30,
+					angle
+			)
+			_spawn_item(loot_data.scene_path, position, angle)
 
 
 func _remove_used_cells(p_array: Array) -> Array:
@@ -69,6 +75,21 @@ func _remove_used_cells(p_array: Array) -> Array:
 		p_array.erase(cell_index)
 	
 	return p_array
+
+
+# This calculates the center position of the cell and then tries to find a random position 
+# around it
+func _get_random_position_in_cell(
+		cell_position: Vector3, min_radius: float, max_radius: float, angle: float
+) -> Vector3:
+	var center_position := cell_position + ITEM_POSITION_OFFSET
+	
+	var radius := _rng.randf_range(min_radius, max_radius)
+	var random_direction := Vector3(cos(angle), 0.0, sin(angle)).normalized()
+	var polar_coordinate := random_direction * radius
+	
+	var value := center_position + polar_coordinate
+	return value
 
 
 func _spawn_initial_settings_items(data : WorldData):
@@ -107,13 +128,17 @@ func _get_next_free_cell(data : WorldData) -> bool:
 		return false
 
 
-func _spawn_item(scene_path: String, position: Vector3) -> void:
+# angle is in radians
+func _spawn_item(scene_path: String, position: Vector3, angle := 0.0) -> void:
 	var item
 	var item_scene : PackedScene = load(scene_path)
 	item = item_scene.instance()
-	(item as Spatial).translation = position
+	if item is Spatial:
+		(item as Spatial).translation = position
+		(item as Spatial).rotate_y(angle)
 	
 	owner.add_child(item)
+	print("item spawned: %s | at: %s | rotated y by: %s"%[scene_path, position, angle])
 
 
 func _spawn_tiny_item(item_data_path: String, amount: int, position: Vector3) -> void:
@@ -137,7 +162,6 @@ func _spawn_starting_light(data : WorldData) -> void:
 	var random_cell_index := randi() % starting_cells.size() as int
 	var spawn_cell = starting_cells[random_cell_index]
 	_used_cell_indexes.append(spawn_cell)
-	print("light spawned at: %s"%[data.get_int_position_from_cell_index(spawn_cell)])
 	
 	var local_pos = data.get_local_cell_position(spawn_cell) + ITEM_POSITION_OFFSET
 	_spawn_item(starting_light.resource_path, local_pos)

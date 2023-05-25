@@ -254,6 +254,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd"
 }, {
+"base": "Resource",
+"class": "LootSpawnList",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/loot_spawn_list.gd"
+}, {
 "base": "AStar2D",
 "class": "ManhattanAStar2D",
 "language": "GDScript",
@@ -419,6 +424,7 @@ _global_script_class_icons={
 "Interactable": "",
 "KeyItem": "",
 "LanternItem": "",
+"LootSpawnList": "",
 "ManhattanAStar2D": "",
 "MeleeItem": "",
 "MeshTransform": "",

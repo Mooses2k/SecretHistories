@@ -26,6 +26,19 @@ var file_name = "%s://keybinding.dict" % ("user" if OS.has_feature("standalone")
 
 var mouse_sensitivity : float = 1
 
+var setting_key = false
+
+enum EventType {
+	KEY,
+	KEY_PHYSICAL,
+	MOUSE_BUTTON,
+}
+
+var event_prefixes = [
+	"key", # KEY
+	"pkey", # KEY_PHYSICAL
+]
+
 
 func _ready():
 	pass
@@ -50,12 +63,6 @@ func gen_dict_from_input_map() -> Dictionary:
 	return result
 
 
-#func _process(delta):
-#	if(Input.is_action_just_pressed("ui_cancel")):
-#		get_tree().paused = !get_tree().paused
-#		get_child(0).visible = get_tree().paused
-
-
 func set_fullscreen_mode(value : int):
 	fullscreen_mode = value
 	match fullscreen_mode:
@@ -70,7 +77,7 @@ func set_fullscreen_mode(value : int):
 			OS.window_borderless = false
 
 
-#We'll use this when the game loads
+# We'll use this when the game loads
 func load_keys():
 	var file = File.new()
 	if(file.file_exists(file_name)):
@@ -111,18 +118,6 @@ func setup_keys(key_dict : Dictionary):
 		for event in events:
 			print("keys loaded succes")
 			InputMap.action_add_event(action, event)
-
-
-enum EventType {
-	KEY,
-	KEY_PHYSICAL,
-	MOUSE_BUTTON,
-}
-
-var event_prefixes = [
-	"key", # KEY
-	"pkey", # KEY_PHYSICAL
-]
 
 
 func event2str(event : InputEvent) -> String:

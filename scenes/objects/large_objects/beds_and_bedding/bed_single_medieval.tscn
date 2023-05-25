@@ -93,7 +93,7 @@ surfaces/0 = {
 "vertex_count": 1452
 }
 
-[node name="BedSingleMedieval" type="RigidBody"]
+[node name="BedSingleMedieval" type="RigidBody" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 513
 mass = 70.0

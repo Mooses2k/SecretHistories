@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -6,7 +6,8 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
 [ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
 [ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/worlds/enemy_spawner.gd" type="Script" id=9]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/worlds/procedural_world/character_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=18]
@@ -35,9 +36,13 @@ preview_material = SubResource( 3 )
 
 [node name="EnemySpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
-enemy_scene = ExtResource( 6 )
-density = 0.01
-max_count = 0
+character_scene = ExtResource( 6 )
+max_count = 1
+_density_by_type = {
+2: 0.02,
+3: 0.0025,
+4: 0
+}
 
 [node name="GenerationManager" parent="." index="6"]
 world_size_x = 30
@@ -78,10 +83,7 @@ pillar_tile = 16
 
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )
-cultist = ExtResource( 6 )
-
-[node name="DirectionalLight2" type="DirectionalLight" parent="." index="8"]
-transform = Transform( -1, 6.18173e-08, 6.18173e-08, 0, 0.707107, -0.707107, -8.74228e-08, -0.707107, -0.707107, 0, 0, 0 )
+starting_light = ExtResource( 7 )
 
 [connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

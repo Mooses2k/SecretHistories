@@ -17,7 +17,7 @@
 [ext_resource path="res://scenes/characters/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
-[ext_resource path="res://scenes/characters/player/light_detection.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/characters/light_detection.tscn" type="PackedScene" id=18]
 [ext_resource path="res://resources/art/flame-xxl.png" type="Texture" id=19]
 [ext_resource path="res://resources/art/player ui/normal.png" type="Texture" id=20]
 [ext_resource path="res://resources/fonts/conjuring.ttf" type="DynamicFontData" id=21]
@@ -29,7 +29,7 @@
 [ext_resource path="res://resources/models/characters/player/Player_Arms/Cape.material" type="Material" id=27]
 [ext_resource path="res://scenes/characters/player/Animations/One_Handed_Hip_Idle.tres" type="Animation" id=28]
 [ext_resource path="res://scenes/characters/player/Animations/Hip_Idle.tres" type="Animation" id=29]
-[ext_resource path="res://scenes/characters/player/Player_Animations.gd" type="Script" id=30]
+[ext_resource path="res://scenes/characters/player/player_anims.gd" type="Script" id=30]
 [ext_resource path="res://scenes/characters/player/Animations/idle-loop.tres" type="Animation" id=31]
 [ext_resource path="res://scenes/characters/player/Animations/ItemHolding.tres" type="Animation" id=32]
 [ext_resource path="res://scenes/characters/player/Animations/ItemHoldingHorizontal.tres" type="Animation" id=33]
@@ -37,10 +37,6 @@
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
-
-[sub_resource type="CapsuleShape" id=39]
-radius = 0.3
-height = 1.2
 
 [sub_resource type="SphereShape" id=40]
 radius = 0.5
@@ -23415,6 +23411,9 @@ tracks/170/imported = false
 tracks/170/enabled = true
 tracks/170/keys = PoolRealArray( 0, 1, -0.398595, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699, 0.133333, 1, -0.379708, -1.27896, -2.27884, 0.01446, 0.248581, -0.0764079, 0.965485, 0.993498, 1.00744, 1.05647, 0.2, 1, -0.383556, -1.27493, -2.27527, 0.0137788, 0.248332, -0.0775478, 0.965468, 0.993482, 1.00753, 1.05639, 0.4, 1, -0.421885, -1.23557, -2.22601, 0.0150329, 0.24879, -0.0754489, 0.965497, 0.99351, 1.00737, 1.05653, 0.466667, 1, -0.434914, -1.22456, -2.20895, 0.0154501, 0.248942, -0.0747507, 0.965506, 0.99352, 1.00731, 1.05658, 0.533333, 1, -0.46015, -1.21881, -2.17535, 0.0142754, 0.248513, -0.0767172, 0.96548, 0.993493, 1.00746, 1.05645, 0.666667, 1, -0.535388, -1.22477, -2.07368, 0.00871446, 0.246458, -0.0860114, 0.96529, 0.993354, 1.00819, 1.05584, 0.733333, 1, -0.518843, -1.22797, -2.09467, 0.00997396, 0.246928, -0.0839077, 0.965343, 0.993388, 1.00803, 1.05597, 0.933333, 1, -0.4283, -1.24718, -2.21059, 0.0168511, 0.249449, -0.0724049, 0.96553, 0.993549, 1.00713, 1.05673, 1, 1, -0.398596, -1.25786, -2.24802, 0.0191166, 0.250263, -0.0686081, 0.965555, 0.993594, 1.00684, 1.05699 )
 
+[sub_resource type="QuadMesh" id=371]
+size = Vector2( 2, 2 )
+
 [sub_resource type="CubeMesh" id=19]
 size = Vector3( 0.05, 0.05, 0.05 )
 
@@ -23664,7 +23663,7 @@ nodes/Rifle_Anim/position = Vector2( -60, 320 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 260, 220 )
 nodes/output/position = Vector2( 760, 40 )
-node_connections = [ "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "output", 0, "Animation_State" ]
+node_connections = [ "output", 0, "Animation_State", "Animation_State", 0, "Idle_Animation", "Animation_State", 1, "Weapon_states", "Weapon_states", 0, "Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim" ]
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 18
@@ -23686,24 +23685,21 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0185888, 0 )
 visible = false
 
-[node name="Listener" type="Listener" parent="Body" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003488, 1.34281, 0 )
+[node name="Equipment" type="Spatial" parent="Body" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
 [node name="Equipment" type="Spatial" parent="Body" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
 
-[node name="Equipment" type="Spatial" parent="Body" index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -0.4 )
-
-[node name="DropPosition" parent="Body" index="4"]
+[node name="DropPosition" parent="Body" index="3"]
 visible = true
 
-[node name="EffectOrigin" type="Position3D" parent="Body" index="6"]
+[node name="EffectOrigin" type="Position3D" parent="Body" index="5"]
 script = ExtResource( 22 )
 material = ExtResource( 23 )
 uniform_name_position = "EFFECT_POSITION"
 
-[node name="RippleEffect" type="MeshInstance" parent="Body" index="7"]
+[node name="RippleEffect" type="MeshInstance" parent="Body" index="6"]
 visible = false
 material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
@@ -23728,12 +23724,6 @@ cull_mask = 2
 [node name="Hitbox" parent="." index="6" groups=["PLAYER"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 collision_layer = 4
-
-[node name="PlayerStandChecker" parent="." index="9"]
-monitorable = true
-
-[node name="CollisionShape" parent="PlayerStandChecker" index="0"]
-shape = SubResource( 39 )
 
 [node name="CollisionShape" parent="ClamberableChecker" index="0"]
 shape = SubResource( 40 )
@@ -23814,6 +23804,25 @@ anims/WalkForwards002 = SubResource( 360 )
 anims/WalkForwardsLeft002 = SubResource( 361 )
 anims/WalkRight002 = SubResource( 362 )
 anims/Walkleft002 = SubResource( 363 )
+
+[node name="Listener" type="Listener" parent="FPSCamera" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
+
+[node name="ScreenFilter" type="MeshInstance" parent="FPSCamera" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3428 )
+visible = false
+layers = 128
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource( 371 )
+
+[node name="DebugLight" type="SpotLight" parent="FPSCamera" index="7"]
+visible = false
+layers = 131
+spot_range = 20.0
+
+[node name="Listener" type="Listener" parent="FPSCamera" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
 
 [node name="PlayerAimPoint" type="Spatial" parent="." index="13"]
 visible = false
@@ -23910,7 +23919,7 @@ LAlt or C - toggle crouch
 LShift - sprint
 
 L-Click - main-hand primary use
-R-Click - main-hand secondary use
+R-Click - main-hand secondary use (interact if close)
 Number row & mouse-wheel - cycle main-hand item
 Scroll-wheel Click - throw main-hand item
 
@@ -23919,8 +23928,12 @@ Q - cycle off-hand items
 T - throw off-hand item
 R - reload
 
-F - interact with object in world
-Ctrl - kick"
+F or R-Click - interact with object in world
+(hold to grab and drag)
+
+Ctrl - kick
+
+L - cycle look (shaders and debug light)"
 
 [node name="Indication_canvas" type="CanvasLayer" parent="." index="17"]
 pause_mode = 2
@@ -24029,7 +24042,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="Legs" parent="." index="23"]
+[node name="Legs" parent="." index="22"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0379716, 0 )
 
 [node name="Feet" parent="Legs" index="0"]
@@ -24037,10 +24050,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 cast_to = Vector3( 0, -1, 0 )
 collide_with_areas = true
 
-[node name="AnimationPlayer" parent="." index="25"]
+[node name="AnimationPlayer" parent="." index="24"]
 anims/One_Handed_ADS_Idle = ExtResource( 24 )
 
-[node name="AnimationTree" parent="." index="26"]
+[node name="AnimationTree" parent="." index="25"]
 active = false
 parameters/ADS_State/current = 2
 parameters/Big_guns_transition/current = 0
@@ -24048,7 +24061,7 @@ parameters/Gun_transition/current = 0
 parameters/Small_guns_transitions/current = 0
 parameters/crouch_strafe/blend_position = Vector2( -0.006, -0.662 )
 
-[node name="Players_Animation" type="AnimationPlayer" parent="." index="27"]
+[node name="Players_Animation" type="AnimationPlayer" parent="." index="26"]
 root_node = NodePath("../FPSCamera/MainCharOnlyArmsGameRig")
 anims/Hip_Idle = ExtResource( 29 )
 anims/ItemHolding = ExtResource( 32 )
@@ -24057,19 +24070,16 @@ anims/ItemHoldingVertical = ExtResource( 34 )
 anims/One_Handed_Hip_Idle = ExtResource( 28 )
 anims/idle-loop = ExtResource( 31 )
 
-[node name="Player_Animations" type="Node" parent="." index="28"]
+[node name="Player_Animations" type="Node" parent="." index="27"]
 script = ExtResource( 30 )
 _cam_path = NodePath("../FPSCamera")
 
-[node name="Player_Animation_tree" type="AnimationTree" parent="." index="29"]
+[node name="Player_Animation_tree" type="AnimationTree" parent="." index="28"]
 tree_root = SubResource( 365 )
 anim_player = NodePath("../Players_Animation")
 active = true
 parameters/Animation_State/current = 1
 parameters/Weapon_states/current = 0
-
-[node name="AdsTween" type="Tween" parent="." index="30"]
-unique_name_in_owner = true
 
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]

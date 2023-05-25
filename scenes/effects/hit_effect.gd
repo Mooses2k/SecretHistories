@@ -22,4 +22,3 @@ func set_orientation(position : Vector3, normal : Vector3):
 
 func _on_Timer_timeout():
 	queue_free()
-	pass # Replace with function body.

@@ -1,5 +1,6 @@
 extends GenerationStep
 
+
 # An array of rect2 containing all the pillar room boundaries will be
 # added to the gen_data by this step under the following key
 const PILLAR_ROOMS_KEY = "pillar_rooms"
@@ -28,7 +29,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	# on the room_rects array as a Rect2, and an array of the cells belonging
 	# to each room is stored on the cells_in_room array
 	for i in data.cell_count:
-		if room_index[i] == 0 and data.get_cell_type(i) == data.CellType.ROOM:
+		if room_index[i] == 0 and data.is_room_cell(i):
 			var queue = Array()
 			queue.push_back(i)
 			var queue_index = 0
@@ -42,10 +43,9 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 				cell_pos_int = data.get_int_position_from_cell_index(cell)
 				var cell_rect = Rect2(cell_pos_int[0], cell_pos_int[1], 1, 1)
 				room_rect = room_rect.merge(cell_rect)
-				for dir in data.Direction.DIRECTION_MAX:
+				for dir in data.Direction.size():
 					var neighbour = data.get_neighbour_cell(cell, dir)
-					var neighbour_type = data.get_cell_type(neighbour)
-					if room_index[neighbour] == 0 and neighbour_type == data.CellType.ROOM:
+					if room_index[neighbour] == 0 and data.is_room_cell(neighbour):
 						room_index[neighbour] = current_room_index
 						queue.push_back(neighbour)
 				queue_index += 1

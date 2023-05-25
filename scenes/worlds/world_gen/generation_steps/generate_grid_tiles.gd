@@ -27,20 +27,18 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	select_pillar_room_walls(data, pillar_rooms)
 	place_pillars(data)
 	place_pillar_room_pillars(data, pillar_rooms)
-	pass
 
 
 func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 	for i in data.cell_count:
-		if data.get_cell_type(i) != data.CellType.EMPTY:
-			if data.get_cell_type(i) == data.CellType.ROOM:
+		var cell_type = data.get_cell_type(i)
+		var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
+		if cell_type != data.CellType.EMPTY and not is_pillar_room:
+			if cell_type == data.CellType.ROOM or cell_type == data.CellType.STARTING_ROOM:
 				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
-			elif data.get_cell_type(i) == data.CellType.CORRIDOR:
+			elif cell_type == data.CellType.CORRIDOR:
 				data.set_cell_surfacetype(i, data.SurfaceType.CARPET)
 			data.set_ground_tile_index(i, floor_tile)
-			var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
-			if not is_pillar_room:
-				data.set_ground_tile_index(i, floor_tile)
 	for _room in pillar_rooms:
 		var room : Rect2 = _room as Rect2
 		print(room)
@@ -48,6 +46,7 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 			for j in room.size.y/2:
 				var cell = data.get_cell_index_from_int_position(room.position.x + 2*i, room.position.y + 2*j)
 				data.set_ground_tile_index(cell, pillar_room_double_floor_tile)
+
 
 func select_ceiling_tiles(data : WorldData, pillar_rooms : Array):
 	for i in data.cell_count:
@@ -91,7 +90,8 @@ func select_wall_tiles(data : WorldData):
 						if dir == data.Direction.SOUTH or dir == data.Direction.WEST:
 							data.set_wall_tile_index(i, dir, double_door_tile)
 						data.set_wall_meta(i, dir, 0.8)
-		
+
+
 func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 	for _room_rect in pillar_rooms:
 		var room_rect : Rect2 = _room_rect as Rect2
@@ -170,6 +170,7 @@ func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 					_:
 						pass
 
+
 func place_pillars(data : WorldData):
 	for x in range(1, data.get_size_x()):
 		for z in range(1, data.get_size_z()):
@@ -204,6 +205,7 @@ func place_pillars(data : WorldData):
 #					place_pillar = randf() < 0.05
 			if place_pillar:
 				data.set_pillar(i, pillar_tile, 0.3)
+
 
 func place_pillar_room_pillars(data : WorldData, pillar_rooms : Array):
 	for _room_rect in pillar_rooms:
@@ -245,4 +247,3 @@ func place_pillar_room_pillars(data : WorldData, pillar_rooms : Array):
 ##					place_pillar = randf() < 0.05
 #			if place_pillar:
 #				data.set_pillar(i, pillar_tile, 0.3)
-

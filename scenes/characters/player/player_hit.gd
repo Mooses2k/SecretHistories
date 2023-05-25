@@ -17,7 +17,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("help_info"):
 		$KeybindDefaults.visible = !$KeybindDefaults.visible
-#	if event is InputEvent and event.is_action_pressed("kick"):
+#	if event is InputEvent and event.is_action_pressed("player|kick"):
 #		if not $ColorRect.is_visible_in_tree():
 #			$ColorRect.show()
 #		if $AnimationPlayer.is_playing():

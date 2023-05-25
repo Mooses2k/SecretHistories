@@ -1,8 +1,8 @@
 extends Object
 class_name ClamberManager
 
-# Having clamber as a seperate class let's any object use the clamber function,
-# it just needs a clamber manager.
+# Having player|clamber as a seperate class let's any object use the player|clamber function,
+# it just needs a player|clamber manager.
 
 var _camera : Camera = null
 var _world : World = null

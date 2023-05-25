@@ -39,7 +39,7 @@ func gen_dict_from_input_map() -> Dictionary:
 	var actions = InputMap.get_actions()
 	var result = Dictionary()
 	for _action in actions:
-		if _action == "reload":
+		if _action == "player|reload":
 			print("action " + str(_action))
 		var action : String = _action as String
 		# ignore built in ui actions
@@ -95,13 +95,13 @@ func setup_keys(key_dict : Dictionary):
 #				j.text = OS.get_scancode_string(key_dict[i])
 		var has_invalid : bool = false
 		var events = Array()
-		if action == "reload":
+		if action == "player|reload":
 			print("action : ", action)
 		for event_str in key_dict[action]:
 			var event = str2event(event_str)
 
 			if event:
-				if action == "reload":
+				if action == "player|reload":
 					print("\tevent: ", str(OS.get_scancode_string(event.scancode)))
 				events.push_back(event)
 			else:

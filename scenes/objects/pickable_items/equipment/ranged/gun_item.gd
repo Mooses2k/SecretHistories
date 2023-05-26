@@ -21,6 +21,8 @@ export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 
+export var handling = 1.0
+
 export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
@@ -73,8 +75,6 @@ func shoot():
 	raycast.cast_to = Vector3.FORWARD*raycast_range
 	current_ammo -= 1
 	apply_damage(total_damage)
-#	if current_ammo == 0:
-#		current_ammo_type = null
 
 
 func _use_primary():

@@ -115,6 +115,8 @@ var current_screen_filter : int = ScreenFilter.NONE
 #export var dither_material : Material
 #export var reduce_color_material : Material
 
+var up_recoil = 0
+
 
 func _ready():
 	owner.is_to_move = false
@@ -129,7 +131,7 @@ func _ready():
 
 
 func _physics_process(delta : float):
-	_camera.rotation_degrees = _camera_orig_rotation
+#	_camera.rotation_degrees = _camera_orig_rotation
 	owner.noise_level = 0
 
 	active_mode.update()
@@ -239,9 +241,9 @@ func _input(event):
 
 		owner.rotation_degrees.y -= event.relative.x * GlobalSettings.mouse_sensitivity * m
 
-		if owner.state != owner.State.STATE_CRAWLING:
-			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
-			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
+#		if owner.state != owner.State.STATE_CRAWLING:
+#			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
+#			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
@@ -287,10 +289,6 @@ func _walk(delta) -> void:
 		owner.is_moving_forward = false
 	
 	_check_movement_key(delta)
-
-#	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
-#		_audio_player.play_land_sound()
-##		_camera.add_stress(0.25)
 
 	if Input.is_action_just_pressed("clamber"):
 		owner.do_jump = true
@@ -537,6 +535,8 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_pressed("main_use_primary"):
 			if inv.get_mainhand_item():
 				inv.get_mainhand_item().use_primary()
+				if inv.get_mainhand_item() is GunItem and !inv.get_mainhand_item().on_cooldown == false and owner.is_reloading == false:
+					_recoil(inv.get_mainhand_item(), delta)
 				throw_state = ThrowState.IDLE
 
 		if Input.is_action_just_pressed("main_use_secondary"):
@@ -553,6 +553,8 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_pressed("offhand_use"):
 			if inv.get_offhand_item():
 				inv.get_offhand_item().use_primary()
+				if inv.get_offhand_item() is GunItem and !inv.get_offhand_item().on_cooldown == false and owner.is_reloading == false:
+					_recoil(inv.get_offhand_item(), delta)
 				throw_state = ThrowState.IDLE
 
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
@@ -633,6 +635,19 @@ func handle_inventory(delta : float):
 				interaction_target = null
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
+
+
+func _recoil(item, delta):
+	var side_recoil = rand_range(-5, 5)
+	var recoil = rand_range(5 - item.handling, 10 - item.handling)
+	up_recoil += recoil * delta
+	# Horiztontal recoil
+	owner.rotation_degrees.y = lerp(owner.rotation_degrees.y, deg2rad(side_recoil), delta)
+	# Vertical recoil
+	if _camera:   # For now, no vertical recoil for cultists
+		_camera.rotation_degrees.x = lerp(_camera.rotation_degrees.x, deg2rad(_camera.rotation_degrees.x + up_recoil), delta)
+	if up_recoil >= 35:
+		up_recoil = 35
 
 
 func kick():

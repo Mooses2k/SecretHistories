@@ -2,7 +2,6 @@ extends Camera
 class_name ShakeCamera
 
 
-
 enum CameraState {
 	STATE_NORMAL,
 	STATE_ZOOM
@@ -30,6 +29,7 @@ func _physics_process(_delta):
 	if stress == 0.0:
 		_camera_rotation_reset = rotation_degrees
 
+	# Should be optional since can bug some people
 #	rotation_degrees = _process_shake(_camera_rotation_reset, _delta)
 
 

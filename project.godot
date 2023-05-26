@@ -472,10 +472,6 @@ VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
 
-[display]
-
-window/size/fullscreen=true
-
 [editor]
 
 description="An entirely forgettable game"

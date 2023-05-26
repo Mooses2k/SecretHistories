@@ -39,19 +39,9 @@ _legcast = NodePath("Legs/Feet")
 [node name="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, -0.04 )
 
-[node name="Body" parent="." index="4"]
-script = ExtResource( 4 )
-
-[node name="DirectPlayerSight" parent="Body" index="2" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6969, 0 )
-character = NodePath("../..")
-FOV = 120.0
-
-[node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
-
-[node name="SoundListener" parent="Body" index="4" instance=ExtResource( 16 )]
-sensor = NodePath("../DirectPlayerSight")
+[node name="MainHandEquipmentRoot" parent="." index="3"]
+unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BehaviorTree" type="Node" parent="." index="5"]
 script = ExtResource( 6 )
@@ -132,18 +122,34 @@ min_time = 5.0
 [node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
 script = ExtResource( 7 )
 
-[node name="Hitbox" parent="." index="6" groups=["CHARACTER"]]
+[node name="Body" parent="." index="6"]
+script = ExtResource( 4 )
+
+[node name="DirectPlayerSight" parent="Body" index="2" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6969, 0 )
+character = NodePath("../..")
+FOV = 120.0
+
+[node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
+transform = Transform( -0.819955, 0.561055, 0.11462, -0.0145919, -0.220573, 0.975302, 0.572468, 0.798025, 0.188991, -0.101431, 15.1052, 2.96105 )
+bone_name = "DEF-hand.R"
+
+[node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
+unique_name_in_owner = true
+transform = Transform( 10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0 )
+
+[node name="SoundListener" parent="Body" index="4" instance=ExtResource( 16 )]
+sensor = NodePath("../DirectPlayerSight")
+
+[node name="Hitbox" parent="." index="7" groups=["CHARACTER"]]
 visible = true
 collision_layer = 8
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 visible = false
-
-[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
-bones/137/bound_children = [  ]
-
-[node name="MainHandAttachement" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.0640363, -0.989469, -0.129808, 0.99632, -0.0708156, 0.0482957, -0.0569795, -0.126237, 0.990364, -9.50363, 18.0616, -0.60081 )
 
 [node name="Speech" parent="Audio" index="0"]
 unit_db = 10.0
@@ -171,10 +177,14 @@ shape = SubResource( 5 )
 root_node = NodePath("../Body/CultistNeophyteNoCape")
 
 [node name="AnimationTree" parent="." index="20"]
-parameters/Equipped_state/current = 1
+active = true
+parameters/ADS_State/current = 2
+parameters/Rifle_strafe_vector/blend_position = Vector2( 0, -0.0172414 )
 
 [connection signal="cultist_idled" from="BehaviorTree/BT_Selector/BT_Sequence/BT_Wait_Random" to="Audio" method="_on_BT_Wait_Random_cultist_idled"]
 [connection signal="body_entered" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_entered"]
 [connection signal="body_exited" from="PlayerDetector" to="Body/DirectPlayerSight" method="_on_PlayerDetector_body_exited"]
 [connection signal="body_entered" from="FarSoundDetector" to="Body/SoundListener" method="_on_FarSoundDetector_body_entered"]
 [connection signal="body_exited" from="FarSoundDetector" to="Body/SoundListener" method="_on_FarSoundDetector_body_exited"]
+
+[editable path="Body/CultistNeophyteNoCape"]

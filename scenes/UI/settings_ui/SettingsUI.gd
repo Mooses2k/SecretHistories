@@ -1,8 +1,9 @@
 extends VBoxContainer
 
 
-export var default_group_name = "Settings"
+export var default_group_name = "Game Settings"
 
+const BlankRowScene = preload("BlankRow.tscn")
 const GroupScene = preload("SettingsGroup.tscn")
 const GroupClass = preload("SettingsGroup.gd")
 const SettingEditor = preload("SettingsEditors/SettingEditor.gd")
@@ -54,11 +55,17 @@ func add_setting(setting_name : String):
 func add_group(group_name : String) -> bool:
 	if group_nodes.has(group_name):
 		return false
+	add_blank_row()
 	var new_group = GroupScene.instance()
 	add_child(new_group)
 	group_nodes[group_name] = new_group
-	new_group.group_name = group_name
+	new_group.group_name = str(group_name) + "\n"
 	return true
+
+
+func add_blank_row() -> void:
+	var new_group = BlankRowScene.instance()
+	add_child(new_group)
 
 
 func has_group(group_name : String) -> bool:

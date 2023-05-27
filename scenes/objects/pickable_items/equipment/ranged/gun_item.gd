@@ -44,7 +44,7 @@ onready var raycast = get_node(detection_raycast)
 func set_range(value : Vector2):
 	var amount : int = value.x
 	if value.y > value.x:
-		amount += randi()%(int(1 + value.y - value.x))
+		amount += randi() % (int(1 + value.y - value.x))
 	current_ammo = clamp(amount, 0, ammunition_capacity)
 	current_ammo_type = ammo_types[0]
 
@@ -52,7 +52,7 @@ func set_range(value : Vector2):
 func shoot():
 	print("shoot")
 	var ammo_type = current_ammo_type as AmmunitionData
-	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0
+	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion) / 2.0
 	var total_damage : int = damage_offset + ammo_type.damage
 
 	var raycast_range = raycast.cast_to.length()
@@ -72,9 +72,13 @@ func shoot():
 			if target is Hitbox and target.owner.has_method("damage"):
 				target.owner.damage(total_damage, ammo_type.attack_type, target)
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
-	raycast.cast_to = Vector3.FORWARD*raycast_range
+	raycast.cast_to = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
 	apply_damage(total_damage)
+	
+	# Cultists can't recoil for now
+	if owner_character.get_node("PlayerController"):
+		owner_character.player_controller.active_mode.recoil(self)   # Should also send delta
 
 
 func _use_primary():

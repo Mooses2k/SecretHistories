@@ -115,8 +115,6 @@ var current_screen_filter : int = ScreenFilter.NONE
 #export var dither_material : Material
 #export var reduce_color_material : Material
 
-var up_recoil = 0
-
 
 func _ready():
 	owner.is_to_move = false
@@ -134,7 +132,7 @@ func _physics_process(delta : float):
 #	_camera.rotation_degrees = _camera_orig_rotation
 	owner.noise_level = 0
 
-	active_mode.update()
+	active_mode.update(delta)   # added delta when doing programming recoil
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
@@ -473,19 +471,19 @@ func empty_slot():
 
 
 func throw_consumable():
-		var inv = character.inventory
-		var item : EquipmentItem = null
-		if throw_item == ItemSelection.ITEM_MAINHAND:
-			item = inv.get_mainhand_item()
-			inv.drop_mainhand_item()
-		else:
-			item = inv.get_offhand_item()
-			inv.drop_offhand_item()
-		if item:
-			var impulse = active_mode.get_aim_direction()*throw_strength
+	var inv = character.inventory
+	var item : EquipmentItem = null
+	if throw_item == ItemSelection.ITEM_MAINHAND:
+		item = inv.get_mainhand_item()
+		inv.drop_mainhand_item()
+	else:
+		item = inv.get_offhand_item()
+		inv.drop_offhand_item()
+	if item:
+		var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
-			item.apply_central_impulse(impulse)
+		item.apply_central_impulse(impulse)
 
 
 func handle_inventory(delta : float):
@@ -508,12 +506,12 @@ func handle_inventory(delta : float):
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
 			and (
-					(
-						inv.hotbar[new_slot] != null \
-						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
-					)\
-					or new_slot == inv.current_mainhand_slot \
-					or inv.hotbar[new_slot] == null \
+				(
+					inv.hotbar[new_slot] != null \
+					and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
+				)\
+				or new_slot == inv.current_mainhand_slot \
+				or inv.hotbar[new_slot] == null \
 				):
 
 				new_slot = (new_slot + 1)%inv.hotbar.size()
@@ -532,11 +530,16 @@ func handle_inventory(delta : float):
 	# Item Usage
 	# temporary hack (issue #409)
 	if is_instance_valid(inv.get_mainhand_item()):
+		
+#		# Recoil
+#		if inv.get_mainhand_item() is GunItem and !inv.get_mainhand_item().on_cooldown:
+#			active_mode.up_recoil = 0
+#		if inv.get_offhand_item() is GunItem and !inv.get_offhand_item().on_cooldown:
+#			active_mode.up_recoil = 0
+			
 		if Input.is_action_just_pressed("main_use_primary"):
 			if inv.get_mainhand_item():
 				inv.get_mainhand_item().use_primary()
-				if inv.get_mainhand_item() is GunItem and !inv.get_mainhand_item().on_cooldown == false and owner.is_reloading == false:
-					_recoil(inv.get_mainhand_item(), delta)
 				throw_state = ThrowState.IDLE
 
 		if Input.is_action_just_pressed("main_use_secondary"):
@@ -553,8 +556,6 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_pressed("offhand_use"):
 			if inv.get_offhand_item():
 				inv.get_offhand_item().use_primary()
-				if inv.get_offhand_item() is GunItem and !inv.get_offhand_item().on_cooldown == false and owner.is_reloading == false:
-					_recoil(inv.get_offhand_item(), delta)
 				throw_state = ThrowState.IDLE
 
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
@@ -564,7 +565,7 @@ func handle_inventory(delta : float):
 
 		# Cycle through list of filters, starting with 0
 		if current_screen_filter > 4:   # This number should be # of filters - 1
-				current_screen_filter = 0
+			current_screen_filter = 0
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
@@ -635,19 +636,6 @@ func handle_inventory(delta : float):
 				interaction_target = null
 			elif interaction_target is Interactable:
 				interaction_target.interact(owner)
-
-
-func _recoil(item, delta):
-	var side_recoil = rand_range(-5, 5)
-	var recoil = rand_range(5 - item.handling, 10 - item.handling)
-	up_recoil += recoil * delta
-	# Horiztontal recoil
-	owner.rotation_degrees.y = lerp(owner.rotation_degrees.y, deg2rad(side_recoil), delta)
-	# Vertical recoil
-	if _camera:   # For now, no vertical recoil for cultists
-		_camera.rotation_degrees.x = lerp(_camera.rotation_degrees.x, deg2rad(_camera.rotation_degrees.x + up_recoil), delta)
-	if up_recoil >= 35:
-		up_recoil = 35
 
 
 func kick():

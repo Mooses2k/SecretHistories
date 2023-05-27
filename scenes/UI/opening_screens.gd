@@ -28,11 +28,11 @@ func _on_GPL_pressed():
 	$CenterContainer/GPL.visible = false
 
 
-func _on_Help_pressed():
-	$CenterContainer/Help.visible = false
-
-
 func _on_Winners_pressed():
+	$CenterContainer/Winners.visible = false
+
+
+func _on_Help_pressed():
 	var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
 
 

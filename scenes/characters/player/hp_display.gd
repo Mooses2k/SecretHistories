@@ -5,7 +5,7 @@ extends Spatial
 #onready var input_label = $Viewport/HBoxContainer/InputPrompt
 #onready var character = owner
 export var raycast : NodePath
-onready var pointCast = get_node(raycast)
+onready var pointcast = get_node(raycast)
 var is_hp_triggered : bool = false
 var is_hp_visible : bool = false
 var is_moving : bool = false
@@ -23,8 +23,8 @@ func _physics_process(delta):
 	#health_label.text = str(character.current_health)
 	#input_label.visible = owner.pickup_area.get_item_list().size() > 0
 	if not player_health < 40:
-		if pointCast.is_colliding():
-			if pointCast.get_collider().name == "ground" and owner.colliding_pickable_items.empty():
+		if pointcast.is_colliding():
+			if pointcast.get_collider().name == "ground" and owner.colliding_pickable_items.empty():
 				if not is_moving:
 					if not is_hp_triggered:
 						$Timer.stop()

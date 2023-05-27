@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/already_won.wav-b0ffb34eb9970ccb4d1f68294a3a706c.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/already_won.wav"
+dest_files=[ "res://.import/already_won.wav-b0ffb34eb9970ccb4d1f68294a3a706c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

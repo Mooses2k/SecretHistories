@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/too_farfetched2.wav-f1e5e372d71e715fb8b1cfb2a56ec848.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/too_farfetched2.wav"
+dest_files=[ "res://.import/too_farfetched2.wav-f1e5e372d71e715fb8b1cfb2a56ec848.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -6,3 +6,6 @@
 background_mode = 2
 background_sky = SubResource( 1 )
 tonemap_mode = 4
+ssao_enabled = true
+ssao_light_affect = 1.0
+ssao_ao_channel_affect = 1.0

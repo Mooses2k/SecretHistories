@@ -15,7 +15,6 @@ onready var _listener : SoundListener = get_node(listener) as SoundListener
 
 
 func idle():
-	pass
 	ticks_since_active += 1
 	if ticks_since_active > 1:
 		target_distance = rand_range(min_distance, max_distance)

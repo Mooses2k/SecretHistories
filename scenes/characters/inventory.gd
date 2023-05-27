@@ -12,9 +12,9 @@ signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
-signal UpdateHud
+signal inventory_changed
 #Emitted to hide the HUD UI when player dies
-signal PlayerDead
+signal player_died
 
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int = 11
@@ -46,7 +46,7 @@ var are_swapping : bool = false
 
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
-onready var Animations : AnimationPlayer = $"%Additional_animations"  as AnimationPlayer
+onready var Animations : AnimationPlayer = $"%AdditionalAnimations"  as AnimationPlayer
 
 
 func _ready():
@@ -123,7 +123,7 @@ func add_item(item : PickableItem) -> bool:
 					item.get_parent().remove_child(item)
 				
 				emit_signal("hotbar_changed", slot)
-				emit_signal("UpdateHud")
+				emit_signal("inventory_changed")
 				# Autoequip if possible
 				if current_mainhand_slot == slot and not bulky_equipment:
 					equip_mainhand_item()
@@ -161,8 +161,13 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_mainhand_item():
+	# temporary hack (issue #409)
+	if not is_instance_valid(current_mainhand_equipment):
+		current_mainhand_equipment = null
+	
 	if current_mainhand_equipment != null: # Item already equipped
 		return
+		
 	var item : EquipmentItem = hotbar[current_mainhand_slot] as EquipmentItem
 	if item:
 		# Can't Equip a Bulky Item simultaneously with a normal item
@@ -178,17 +183,20 @@ func equip_mainhand_item():
 			owner.mainhand_equipment_root.add_child(item)
 		else:
 			owner.mainhand_equipment_root.add_child(item)
-		emit_signal("UpdateHud")
+		emit_signal("inventory_changed")
 
 
 func unequip_mainhand_item():
+	# temporary hack (issue #409)
+	if not is_instance_valid(current_mainhand_equipment):
+		current_mainhand_equipment = null
+	
 	if current_mainhand_equipment == null: # No item equipped
 		return
+	
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
-#	item.get_parent().remove_child(item)
-#	emit_signal("UpdateHud")
 	if item.can_attach == true:
 		pass
 	else:
@@ -208,7 +216,7 @@ func equip_bulky_item(item : EquipmentItem):
 		if item.get_parent():
 			item.get_parent().remove_child(item)
 		owner.mainhand_equipment_root.add_child(item)
-		emit_signal("UpdateHud")
+		emit_signal("inventory_changed")
 
 
 func drop_bulky_item():
@@ -302,7 +310,11 @@ func drop_hotbar_slot(slot : int) -> Node:
 # note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
 	item.item_state = GlobalConsts.ItemState.DROPPED
-	if GameManager.game.level:
+	if !GameManager.game:   # this is here for test scenes
+		item.global_transform = drop_position_node.global_transform
+		find_parent("TestWorld").add_child(item)
+		return
+	if GameManager.game.level:   # this is for the real game
 		item.global_transform = drop_position_node.global_transform
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
@@ -319,10 +331,10 @@ func set_mainhand_slot(value : int):
 		current_mainhand_slot = value
 		equip_mainhand_item()
 		emit_signal("mainhand_slot_changed", previous_slot, value)
-		emit_signal("UpdateHud")
+		emit_signal("inventory_changed")
 	else:
 		if get_mainhand_item() == hotbar[current_mainhand_slot]:
-			emit_signal("UpdateHud")
+			emit_signal("inventory_changed")
 			unequip_mainhand_item()
 		else:
 			equip_mainhand_item()
@@ -336,7 +348,7 @@ func set_offhand_slot(value : int):
 		current_offhand_slot = value
 		equip_offhand_item()
 		emit_signal("offhand_slot_changed", previous_slot, value)
-		emit_signal("UpdateHud")
+		emit_signal("inventory_changed")
 
 
 func swap_hands():
@@ -373,12 +385,13 @@ func swap_hands():
 	are_swapping = false
 
 
-func _on_Player_character_died():
-	emit_signal("PlayerDead")
-
-
 func attach_to_belt(item):
-	if item.get_parent() != owner.belt_position :
+	if item.get_parent() != owner.belt_position:
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
-		$"%Additional_animations".play("Belt_Equip")
+		$"%AdditionalAnimations".play("Belt_Equip")
+		print("Attached to belt in inventory.gd")
+
+
+func _on_Player_character_died():
+	emit_signal("player_died")

@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://resources/shaders/dither/shader/dither.shader" type="Shader" id=1]
+
+[resource]
+render_priority = -5
+shader = ExtResource( 1 )
+shader_param/u_bit_depth = 32
+shader_param/u_contrast = 1.0
+shader_param/u_offset = 0.21
+shader_param/u_dither_size = 4

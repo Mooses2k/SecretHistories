@@ -14,7 +14,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/effects.gd" type="Script" id=12]
 [ext_resource path="res://resources/sounds/dryfire/171211__brianhanson2nd__dry-fire.wav" type="AudioStream" id=13]
 [ext_resource path="res://resources/sounds/reloading/lever-action/long1.wav" type="AudioStream" id=14]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=15]
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "martini_henry_Mesh_0"
@@ -107,7 +106,6 @@ continuous_cd = true
 contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 13 )
-can_attach = false
 item_name = "Martini-Henry rifle"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
@@ -215,7 +213,7 @@ transform = Transform( 1.43221e-07, 6.4535e-08, -1.6019, -1.6019, -2.63999e-07, 
 shape = SubResource( 12 )
 
 [node name="RayCast" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0403607, -0.1399 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0403607, 0.140579 )
 
 [node name="HoldPosition" parent="." index="6"]
 transform = Transform( 0.975277, 0.170611, 0.14045, -0.171566, 0.985158, -0.00537559, -0.139283, -0.0188537, 0.990073, 0.001, -0.005, 0.306 )

@@ -27,7 +27,8 @@ enum PlacementTags {
 # characters can lay on these
 	BED,
 	BUNKBED,
-	MAKES_SMOKE, # larger fire that will smoke up a place if not vented
+# other factors
+	MAKES_SMOKE # larger fire that will smoke up a place if not vented
 }
 
 export var place_first = false # important for room; any of these are placed before other things

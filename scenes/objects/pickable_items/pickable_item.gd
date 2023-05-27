@@ -13,22 +13,16 @@ export(int, LAYERS_3D_PHYSICS) var equipped_mask : int = 0
 export(int, "Rigid", "Static", "Character", "Kinematic") var equipped_mode : int = MODE_KINEMATIC
 
 export var max_speed : float = 12.0
-#export(int, LAYERS_3D_PHYSICS) var dropped_layers : int
-#export(int, LAYERS_3D_PHYSICS) var dropped_mask : int
-#export(int, "Rigid", "Static", "Character", "Kinematic") var dropped_mode : int
-#
-#export(int, LAYERS_3D_PHYSICS) var equipped_layers
-#export(int, LAYERS_3D_PHYSICS) var equipped_mask
-#export(int, "Rigid", "Static", "Character", "Kinematic") var equipped_mode : int
 
 #onready var mesh_instance = $MeshInstance
 var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 onready var audio_player = get_node("DropSound")
 export var item_drop_sound : AudioStream
-var noise_level = 0
+var noise_level = 0   # noise detectable by characters
 var item_max_noise_level = 5
 var item_sound_level = 10
+
 
 func _enter_tree():
 	if not audio_player:
@@ -80,6 +74,8 @@ func set_physics_equipped():
 func _integrate_forces(state):
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), max_speed)
+
+
 #func pickup(by : Node):
 #	self.item_state = ItemState.INVENTORY
 #	if self.is_inside_tree():

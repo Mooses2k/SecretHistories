@@ -2,15 +2,15 @@ extends EquipmentItem
 class_name GunItem
 
 
+signal target_hit(target, position, direction, normal)
+signal on_shoot()
+
 enum MeleeStyle {
 	BUTT_STRIKE,
 	PISTOL_WHIP,
 	BAYONET,
 	COUNT
 }
-
-signal target_hit(target, position, direction, normal)
-signal on_shoot()
 
 export(Array, Resource) var ammo_types
 
@@ -29,7 +29,7 @@ onready var player = get_node(player_path)
 var current_ammo : int = 0
 var current_ammo_type : Resource = null
 
-var is_reloading = false
+#var is_reloading = false    # This has been changed to a character trait
 var on_cooldown = false
 
 var _queued_reload_type : Resource = null
@@ -79,12 +79,12 @@ func shoot():
 
 func _use_primary():
 #	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
-	if (not is_reloading) and (not on_cooldown) and current_ammo > 0:
+	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 		emit_signal("on_shoot")
-	if (not is_reloading) and (not on_cooldown) and current_ammo == 0:
+	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo == 0:
 		dryfire()
 
 
@@ -98,7 +98,7 @@ func _use_reload():
 
 # needs more code for revolvers and bolt-actions as they're more complicated
 func reload():
-	if owner_character and current_ammo < ammunition_capacity and not is_reloading:
+	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
 		var inventory = owner_character.inventory
 		for ammo_type in ammo_types:
 			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
@@ -111,12 +111,11 @@ func reload():
 					current_ammo_type = null
 				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
 				if _reload_amount > 0:
-#					print("Reload queued")
 					$ReloadTimer.start(reload_time)
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
-					is_reloading = true
-					GameManager.is_reloading = true
+					owner_character.is_reloading = true
+#					GameManager.is_reloading = true # this is bullshit, all guns sharing same var?
 					
 					# eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
@@ -124,7 +123,6 @@ func reload():
 					return
 
 
-#
 #	TODO: Changing the status of the weapon (dropping the weapon or unequiping it)
 # while one of these timers is active should appropriately reset the timer and deal any of it's side effects
 
@@ -138,18 +136,17 @@ func apply_damage(total_damage):
 
 
 func _on_ReloadTimer_timeout() -> void:
-	if owner_character and is_reloading and (current_ammo_type == null or current_ammo_type == _queued_reload_type):
+	if owner_character and owner_character.is_reloading and (current_ammo_type == null or current_ammo_type == _queued_reload_type):
 		var inventory = owner_character.inventory
 		if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
 			var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
 			inventory.remove_tiny_item(_queued_reload_type, reload_amount)
 			current_ammo_type = _queued_reload_type
 			current_ammo += reload_amount
-	is_reloading = false
-	GameManager.is_reloading = false
+	owner_character.is_reloading = false
+#	GameManager.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 
 
 func _on_CooldownTimer_timeout() -> void:
 	on_cooldown = false
-	pass # Replace with function body.

@@ -11,7 +11,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resources/sounds/dryfire/412297__jaklocke__gun-trigger-pull-2.wav" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/reloading/revolver/revolver5.wav" type="AudioStream" id=11]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=12]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Webley_Plane002"
@@ -64,7 +63,6 @@ contacts_reported = 2
 contact_monitor = true
 script = ExtResource( 6 )
 item_drop_sound = ExtResource( 10 )
-can_attach = false
 item_size = 0
 item_name = "Webley revolver"
 ammo_types = [ ExtResource( 2 ) ]
@@ -157,7 +155,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0535101, -0.150913 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0460132, -0.0354128 )
 
 [node name="RayCast" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0481794, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0481794, -0.0297382 )
 
 [node name="HoldPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0288613, 0.0769493 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=9]
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.2
@@ -51,10 +52,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, -0.13599, 0.003882
 collision_layer = 64
 mass = 2.0
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
+item_drop_sound = ExtResource( 9 )
 item_name = "Crowbar"
 weapon_type = 2
 primary_damage1 = 30

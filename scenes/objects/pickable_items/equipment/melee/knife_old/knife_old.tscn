@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/sounds/melee/blade/attack/525182__sophia-c__longsword-swing-2-poor-edge-alignment.wav" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=9]
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.165698
@@ -35,10 +36,13 @@ points = PoolVector3Array( -0.0866853, 0.000792582, -0.00313829, 0.00822016, 0.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0130187, 0 )
 collision_layer = 64
 continuous_cd = true
+contacts_reported = 2
+contact_monitor = true
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
+item_drop_sound = ExtResource( 9 )
 item_size = 0
 item_name = "Knife"
 weapon_type = 1
@@ -69,7 +73,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.376374, 0 )
 shape = SubResource( 3 )
 
 [node name="SM_oldknife" type="MeshInstance" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.0289248, 0 )
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.0289248, 0 )
 mesh = SubResource( 4 )
 script = ExtResource( 3 )
 

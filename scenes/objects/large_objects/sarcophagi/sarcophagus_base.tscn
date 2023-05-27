@@ -18,29 +18,30 @@ surfaces/0 = {
 }
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.93, 0.05, 0.46 )
+extents = Vector3( 1.86, 0.1, 0.92 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.88, 0.05, 0.4 )
+extents = Vector3( 1.76, 0.1, 0.8 )
 
 [sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.88, 0.15, 0.05 )
+extents = Vector3( 1.76, 0.3, 0.1 )
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.35, 0.15, 0.05 )
+extents = Vector3( 0.7, 0.3, 0.1 )
 
 [sub_resource type="BoxShape" id=7]
-extents = Vector3( 0.35, 0.15, 0.05 )
+extents = Vector3( 0.7, 0.3, 0.1 )
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.88, 0.15, 0.05 )
+extents = Vector3( 1.76, 0.3, 0.1 )
 
 [node name="SarcophagusBase" type="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
-collision_layer = 512
+collision_layer = 513
+collision_mask = 513
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0794037, 8.01446e-05 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.000979346, 0.0794037, 8.01446e-05 )
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 
@@ -49,23 +50,23 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.129254, 8.01446
 shape = SubResource( 2 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.255249, 8.01446e-05 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.337394, 8.01446e-05 )
 shape = SubResource( 3 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00612223, 0.3946, 0.353039 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00612223, 0.731168, 0.70038 )
 shape = SubResource( 4 )
 
 [node name="CollisionShape5" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.833931, 0.3946, -0.0217973 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.69438, 0.735397, -0.0217973 )
 shape = SubResource( 6 )
 
 [node name="CollisionShape6" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.845344, 0.3946, -0.00534615 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.67061, 0.736146, -0.00534615 )
 shape = SubResource( 7 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00612223, 0.3946, -0.366178 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00612223, 0.741889, -0.672906 )
 shape = SubResource( 5 )
 
 [node name="Durability" type="Timer" parent="."]

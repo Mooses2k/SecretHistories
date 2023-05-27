@@ -45,6 +45,9 @@ enum CellType {
 	# Empty Cell, which means the cell itself is out of bounds
 	EMPTY,
 	
+	# The cell belongs to the starting room
+	STARTING_ROOM,
+	
 	# The cell belongs to a room
 	ROOM,
 	
@@ -57,6 +60,11 @@ enum CellType {
 	# The cell has a door in some direction, meta data is an Array of Directions
 	# indicating the directions, from this cell, where one can find a door
 	DOOR,
+}
+
+enum CellMetaKeys {
+	META_DOOR_DIRECTIONS,
+	META_PILLAR_ROOM,
 }
 
 enum EdgeType {
@@ -78,6 +86,18 @@ enum EdgeType {
 	#No wall
 	EMPTY
 }
+
+enum SurfaceType {
+	WOOD,
+	CARPET,
+	STONE,
+	WATER,
+	GRAVEL,
+	METAL, 
+	TILE
+}
+
+var cell_surface_type : PoolByteArray
 
 # Physical parameters of the world
 const CELL_SIZE : float = 1.5
@@ -104,6 +124,7 @@ func get_size_z() -> int:
 func clear():
 	cell_count = world_size_x*world_size_z
 	cell_type.resize(cell_count)
+	cell_surface_type.resize(cell_count)
 	ground_tile_index.resize(cell_count)
 	ceiling_tile_index.resize(cell_count)
 	pillar_tile_index.resize(cell_count)
@@ -197,6 +218,15 @@ var wall_tile_index : PoolIntArray
 var pillar_tile_index : PoolIntArray
 var ceiling_tile_index : PoolIntArray
 
+# You can use `is_spawn_position_valid` before using `player_spawn_position`
+const INVALID_STARTING_CELL = Vector2.ONE * -1
+var player_spawn_position := INVALID_STARTING_CELL
+
+# Stores a arrays of cell indexes already filtered by cell type.
+# Private variable, use `get_cells_for(p_type: int)` to access the arrays.
+# ex: { CellType.STARTING_ROOM = [15, 16, 17, 25, 26 ...], CellType.ROOM = [...], ... }
+var _cell_indexes_by_cell_type := {}
+
 
 func _get_property_list() -> Array:
 	return [
@@ -271,8 +301,27 @@ func _get_property_list() -> Array:
 			"type" : TYPE_INT_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
+		{
+			"name" : "player_spawn_position",
+			"type" : TYPE_VECTOR2,
+			"usage" : PROPERTY_USAGE_STORAGE
+		},
+		{
+			"name" : "_cell_indexes_by_cell_type",
+			"type" : TYPE_DICTIONARY,
+			"usage" : PROPERTY_USAGE_STORAGE
+		},
 	]
 
+
+func is_spawn_position_valid() -> bool:
+	return player_spawn_position != INVALID_STARTING_CELL
+
+
+func is_room_cell(p_index: int) -> bool:
+	var type := get_cell_type(p_index)
+	var value: bool = type == CellType.ROOM or type == CellType.STARTING_ROOM
+	return value
 
 
 func get_cell_index_from_local_position(pos : Vector3) -> int:
@@ -285,6 +334,13 @@ func get_cell_index_from_int_position(x : int, z : int) -> int:
 		printerr("Position (", x, ", ", z, ") Is out of bounds")
 		return -1
 	return x*world_size_z + z
+
+
+func get_player_spawn_position_as_index() -> int:
+	return get_cell_index_from_int_position(
+		player_spawn_position.x,
+		player_spawn_position.y
+	)
 
 
 func set_pillar(cell_index : int, tile_index : int = -1, radius : float = -1.0):
@@ -342,19 +398,70 @@ func get_cell_type(cell_index : int) -> int:
 func set_cell_type(cell_index : int, value : int):
 	if cell_index >= 0:
 		cell_type[cell_index] = value
+		
+		if not _cell_indexes_by_cell_type.has(value):
+			_cell_indexes_by_cell_type[value] = []
+		
+		for type in _cell_indexes_by_cell_type:
+			var type_array = _cell_indexes_by_cell_type[type] as Array
+			if type_array.has(cell_index):
+				print("overwriting cell type: %s at %s for %s"%[type, cell_index, value])
+				type_array.erase(cell_index)
+		
+		_cell_indexes_by_cell_type[value].append(cell_index)
 
 
-func get_cell_meta(cell_index : int):
-	return cell_meta.get(cell_index)
+# Takes a CellType as parameter, and returns an array with all cell indexes for that CellType.
+# The returned Array is already sorted and a duplicate, so that modifications to it don't affect
+# the original Array.
+func get_cells_for(p_type: int) -> Array:
+	var value := []
+	
+	if _cell_indexes_by_cell_type.has(p_type):
+		value = _cell_indexes_by_cell_type[p_type].duplicate()
+		value.sort()
+	
+	return value
 
 
-func set_cell_meta(cell_index : int, value = null):
+func get_cell_surfacetype(cell_index : int) -> int:
+	return cell_surface_type[cell_index] if cell_index >= 0 else -1
+
+
+func set_cell_surfacetype(cell_index : int, value : int):
 	if cell_index >= 0:
-		if value == null:
-			cell_meta.erase(cell_index)
-		else:
-			cell_meta[cell_index] = value
+		cell_surface_type[cell_index] = value
 
+
+func get_cell_meta(cell_index : int, key, default = null):
+	var meta = cell_meta.get(cell_index, Dictionary()) as Dictionary
+	if meta:
+		return meta.get(key, default)
+	return default
+
+func set_cell_meta(cell_index : int, key, value):
+	if cell_index >= 0:
+		var meta = cell_meta.get(cell_index, Dictionary()) as Dictionary
+		if value == null:
+			meta.erase(key)
+		else:
+			meta[key] = value
+		if meta.empty():
+			cell_meta.erase(cell_index)
+		cell_meta[cell_index] = meta
+			
+
+func has_cell_meta(cell_index : int, key):
+	var meta = cell_meta.get(cell_index, Dictionary()) as Dictionary
+	if meta:
+		return meta.has(key)
+	return false
+
+func cell_meta_get_keys(cell_index : int) -> Array:
+	return (cell_meta.get(cell_index, Dictionary()) as Dictionary).keys()
+
+func clear_cell_meta(cell_index : int):
+	cell_meta.erase(cell_index)
 
 func _get_north_wall_index(cell_index : int) -> int:
 	return cell_index + int(cell_index/world_size_z)
@@ -463,3 +570,39 @@ func get_neighbour_cell(cell_index : int, direction : int) -> int:
 		Direction.WEST:
 			return _get_west_cell(cell_index)
 	return -1
+
+
+###################################################################################################
+### Debug Methods #################################################################################
+###################################################################################################
+
+func print_world_map() -> void:
+	var line := ""
+	
+	var title = "--- Generated World Map "
+	var append_title = "-".repeat(world_size_x - title.length())
+	print("\n" + title + append_title)
+	
+	for index in cell_count:
+		var type := get_cell_type(index)
+		match type:
+			CellType.EMPTY:
+				line += "."
+			CellType.STARTING_ROOM:
+				line += "S"
+			CellType.ROOM:
+				line += "R"
+			CellType.CORRIDOR:
+				line += "="
+			CellType.HALL:
+				line += "H"
+			CellType.DOOR:
+				line += "D"
+			_:
+				push_error("Unregistered CellType: %s"%[type])
+		
+		if (index + 1) % world_size_x == 0:
+			print(line)
+			line = ""
+	
+	print("-".repeat(world_size_x)+"\n")

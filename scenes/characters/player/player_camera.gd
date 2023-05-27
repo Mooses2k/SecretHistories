@@ -1,5 +1,6 @@
-class_name ShakeCamera
 extends Camera
+class_name ShakeCamera
+
 
 
 enum CameraState {
@@ -25,7 +26,7 @@ var _crosshair_textures : Dictionary = {}
 
 
 # TODO: Add in some sort of rotation reset.
-func _process(_delta):
+func _physics_process(_delta):
 	if stress == 0.0:
 		_camera_rotation_reset = rotation_degrees
 

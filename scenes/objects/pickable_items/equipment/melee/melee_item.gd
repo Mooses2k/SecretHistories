@@ -43,10 +43,6 @@ var on_cooldown = false
 onready var character = get_parent()
 
 
-func _ready():
-	pass
-
-
 func _process(delta):
 	if throw_logic == true :
 		if item_state == GlobalConsts.ItemState.EQUIPPED:
@@ -65,7 +61,6 @@ func apply_throw_logic(impulse):
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
-	character = get_parent().get_parent()
 	var melee_anim
 	if weapon_type == WeaponType.COMPLEX_HILT_ONE_HAND:
 		melee_anim = owner_character.find_node("SabreTechniques")
@@ -74,7 +69,7 @@ func attack_thrust():
 			melee_anim.play("ThrustFromTierce")
 			$Sounds/Thrust.play()
 			yield(melee_anim, "animation_finished")
-			character.stamina -= 50
+			owner_character.stamina -= 50
 			can_hit = false
 			melee_anim.queue("RecoveryThrustToTierce")
 	if weapon_type == WeaponType.POLEARM:
@@ -90,7 +85,6 @@ func attack_thrust():
 
 
 func attack_cut():
-	character = get_parent().get_parent()
 	var melee_anim
 	if weapon_type == 3:
 		melee_anim = owner_character.find_node("SabreTechniques")
@@ -99,7 +93,7 @@ func attack_cut():
 			melee_anim.play("Swing1FromTierce")
 			$Sounds/Cut.play()
 			yield(melee_anim, "animation_finished")
-			character.stamina -= 50
+			owner_character.stamina -= 50
 			can_hit = false
 			melee_anim.queue("Recovery1ToTierce")
 	if weapon_type == 6:

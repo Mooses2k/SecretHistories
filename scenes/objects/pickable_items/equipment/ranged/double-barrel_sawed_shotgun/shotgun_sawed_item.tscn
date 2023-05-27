@@ -53,8 +53,10 @@ points = PoolVector3Array( -0.0874182, 0.0817786, 0.00620462, -0.0874182, 0.0811
 
 [node name="Shotgun_sawed_item" instance=ExtResource( 7 )]
 mass = 3.0
+contacts_reported = 2
+contact_monitor = true
 script = SubResource( 9 )
-can_attach = false
+item_drop_sound = ExtResource( 2 )
 item_size = 0
 item_name = "Sawed-off shotgun"
 ammo_types = [ ExtResource( 4 ) ]
@@ -102,7 +104,7 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0
 shape = SubResource( 8 )
 
 [node name="RayCast" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0240571, -0.388302 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0240571, -0.106174 )
 
 [node name="HoldPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0290546, 0.101385 )

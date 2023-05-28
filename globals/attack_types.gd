@@ -1,5 +1,5 @@
-extends Object
 class_name AttackTypes
+extends Object
 
 
 enum Types {

@@ -1,5 +1,5 @@
-extends Object
 class_name ClamberManager
+extends Object
 
 
 # Having clamber as a seperate class let's any object use the clamber function,

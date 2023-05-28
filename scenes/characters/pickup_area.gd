@@ -1,7 +1,7 @@
-extends Area
 class_name PickupArea
+extends Area
 
-# old top-down mode pickup area
+### Old top-down mode pickup area
 
 
 var up_to_date: bool = false

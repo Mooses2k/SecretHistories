@@ -264,6 +264,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/ManhattanAStar2D.gd"
 }, {
+"base": "ConsumableItem",
+"class": "MedicalItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/medical/medical.gd"
+}, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
 "language": "GDScript",
@@ -426,6 +431,7 @@ _global_script_class_icons={
 "LanternItem": "",
 "LootSpawnList": "",
 "ManhattanAStar2D": "",
+"MedicalItem": "",
 "MeleeItem": "",
 "MeshTransform": "",
 "PadlockItem": "",
@@ -471,6 +477,12 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
 
 [editor]
 

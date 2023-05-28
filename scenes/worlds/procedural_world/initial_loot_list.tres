@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scenes/worlds/procedural_world/loot_spawn_list.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+_paths = [ "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn", "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.tscn", "res://scenes/objects/pickable_items/equipment/tool/light-sources/candlestick/candlestick.tscn", "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.tscn", "res://scenes/objects/pickable_items/equipment/tool/light-sources/candle_lantern/candle_lantern.tscn", "res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn", "res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn", "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn", "res://scenes/objects/pickable_items/tiny/ammo/webley/webley_box.tscn", "res://scenes/objects/pickable_items/equipment/containers/bottle_long_medieval.tscn", "res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shotgun_sawed_item.tscn", "res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn", "res://scenes/objects/pickable_items/tiny/ammo/shotgun_shells/12-gauge_box.tscn", "res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn", "res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_box.tscn", "res://scenes/objects/pickable_items/equipment/components/bones_and_bodies/skull1.tscn", "res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.tscn", "res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" ]
+_weights = [ 1000, 250, 100, 50, 25, 10, 5, 5, 5, 50, 10, 20, 5, 20, 5, 20, 5, 1 ]
+_min_amounts = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+_max_amounts = [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]

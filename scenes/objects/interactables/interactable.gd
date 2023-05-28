@@ -1,5 +1,5 @@
-extends Area
 class_name Interactable
+extends Area
 
 
 signal character_interacted(character)

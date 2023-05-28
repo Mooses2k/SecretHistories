@@ -1,5 +1,5 @@
-extends Node
 class_name ControlMode
+extends Node
 
 
 export var _camera : NodePath

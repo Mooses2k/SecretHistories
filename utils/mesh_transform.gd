@@ -1,6 +1,6 @@
 tool
-extends ArrayMesh
 class_name MeshTransform
+extends ArrayMesh
 
 
 export var mesh : Mesh
@@ -11,7 +11,6 @@ export var regenerate : bool = false setget set_regenerate
 func set_regenerate(value : bool):
 	if value and Engine.editor_hint:
 		mesh_transform()
-		pass
 
 
 func mesh_transform():

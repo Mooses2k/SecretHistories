@@ -10,7 +10,6 @@ func _ready() -> void:
 	game = GAME_SCENE.instance()
 	$"%StartGameSettings".attach_settings(game.get_node("%LocalSettings"))
 	$"%SettingsUI".attach_settings(game.get_node("%LocalSettings"))
-	pass # Replace with function body.
 
 
 func _input(event):

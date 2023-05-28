@@ -1,5 +1,6 @@
-extends TinyItemData
 class_name AmmunitionData
+extends TinyItemData
+
 
 export(AttackTypes.Types) var attack_type = 0
 export var damage = 0

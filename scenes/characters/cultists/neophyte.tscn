@@ -26,7 +26,7 @@
 radius = 3.5
 
 [sub_resource type="SphereShape" id=5]
-radius = 8.425
+radius = 30.0
 
 [node name="Cultist" instance=ExtResource( 1 )]
 script = ExtResource( 18 )
@@ -132,11 +132,8 @@ FOV = 120.0
 [node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
-bones/137/bound_children = [ NodePath("MainHandAttachment") ]
-
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.82013, 0.560806, 0.114636, -0.0144779, -0.22054, 0.975312, 0.572229, 0.798216, 0.188932, -0.102002, 15.1074, 2.96133 )
+transform = Transform( -0.820184, 0.560794, 0.114602, -0.0144487, -0.220449, 0.975335, 0.572209, 0.798289, 0.188837, -0.103486, 15.1065, 2.96159 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

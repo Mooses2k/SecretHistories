@@ -25,4 +25,4 @@ func _start_game():
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	emit_signal("intro_done")
+	_start_game()

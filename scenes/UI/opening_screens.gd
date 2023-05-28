@@ -7,8 +7,6 @@ func _ready():
 #	$CenterContainer/Help.texture_normal = help_screen
 	
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	
-	BackgroundMusic.play()
 
 
 func _input(event):
@@ -18,6 +16,11 @@ func _input(event):
 	elif event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):
 		$Timer.start()
 		_on_Timer_timeout()
+
+
+func _on_PreMusicTimer_timeout():
+	BackgroundMusic.play()
+	$Timer.start()
 
 
 func _on_MadeWithGodot_pressed():
@@ -41,7 +44,8 @@ func _on_Timer_timeout():
 		$CenterContainer/MadeWithGodot.visible = false
 	elif $CenterContainer/GPL.visible == true:
 		$CenterContainer/GPL.visible = false
-	elif $CenterContainer/Help.visible == true:
-		$CenterContainer/Help.visible = false
 	elif $CenterContainer/Winners.visible == true:
+		$CenterContainer/Winners.visible = false
+	elif $CenterContainer/Help.visible == true:
 		var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
+

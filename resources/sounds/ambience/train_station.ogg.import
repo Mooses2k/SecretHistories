@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/train_station.ogg-fc92d8998ea4fee78fb01c5fd9318d6b.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/ambience/train_station.ogg"
+dest_files=[ "res://.import/train_station.ogg-fc92d8998ea4fee78fb01c5fd9318d6b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

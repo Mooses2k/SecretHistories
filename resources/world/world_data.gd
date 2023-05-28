@@ -1,5 +1,6 @@
-extends Resource
 class_name WorldData
+extends Resource
+
 
 enum Direction {
 	NORTH,
@@ -109,16 +110,20 @@ var world_size_x : int = 16
 var world_size_z : int = 16
 var cell_count : int = world_size_x*world_size_z
 
+
 func resize(size_x : int, size_z : int):
 	world_size_x = size_x
 	world_size_z = size_z
 	clear()
 
+
 func get_size_x() -> int:
 	return world_size_x
 
+
 func get_size_z() -> int:
 	return world_size_z
+
 
 # Clears all the data, resetting everything back to default values
 func clear():
@@ -457,11 +462,14 @@ func has_cell_meta(cell_index : int, key):
 		return meta.has(key)
 	return false
 
+
 func cell_meta_get_keys(cell_index : int) -> Array:
 	return (cell_meta.get(cell_index, Dictionary()) as Dictionary).keys()
 
+
 func clear_cell_meta(cell_index : int):
 	cell_meta.erase(cell_index)
+
 
 func _get_north_wall_index(cell_index : int) -> int:
 	return cell_index + int(cell_index/world_size_z)

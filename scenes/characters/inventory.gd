@@ -1,5 +1,5 @@
-extends Node
 #class_name Inventory
+extends Node
 
 
 signal bulky_item_changed()

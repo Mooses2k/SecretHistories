@@ -62,9 +62,6 @@ func _process(delta):
 		layers = 1
 "
 
-[sub_resource type="BoxShape" id=28]
-extents = Vector3( 0.02, 0.02, 0.02 )
-
 [sub_resource type="CylinderShape" id=52]
 height = 0.23
 radius = 0.08
@@ -189,6 +186,9 @@ tracks/2/keys = {
 "values": [ 6.0, 7.0, 6.0, 5.0 ]
 }
 
+[sub_resource type="BoxShape" id=53]
+extents = Vector3( 0.02, 0.02, 0.02 )
+
 [node name="Candle" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 dropped_layers = 64
@@ -205,15 +205,11 @@ mesh = SubResource( 25 )
 material/0 = SubResource( 26 )
 script = SubResource( 27 )
 
-[node name="Ignite@CollisionShape" type="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12503, 0 )
-shape = SubResource( 28 )
-
-[node name="CollisionShape" parent="." index="2"]
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0.000979346, 0.00391581, 8.01446e-05 )
 shape = SubResource( 52 )
 
-[node name="FireOrigin" type="Position3D" parent="." index="3"]
+[node name="FireOrigin" type="Position3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286937, 0.0777436, 0 )
 script = ExtResource( 2 )
 
@@ -233,14 +229,14 @@ shadow_enabled = true
 omni_range = 10.0
 omni_attenuation = 7.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 autoplay = "flicker"
 anims/RESET = SubResource( 29 )
 anims/flicker = SubResource( 30 )
 
-[node name="BurnTime" type="Timer" parent="." index="5"]
+[node name="BurnTime" type="Timer" parent="." index="4"]
 
-[node name="Sounds" type="Spatial" parent="." index="6"]
+[node name="Sounds" type="Spatial" parent="." index="5"]
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 stream = ExtResource( 8 )
@@ -249,7 +245,13 @@ stream = ExtResource( 8 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 10 )
 
-[node name="HoldPosition" parent="." index="7"]
+[node name="HoldPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0 )
+
+[node name="Ignite" type="Area" parent="." index="7" groups=["IGNITE"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0742746, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ignite" index="0"]
+shape = SubResource( 53 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

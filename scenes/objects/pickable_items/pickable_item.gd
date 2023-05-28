@@ -1,5 +1,5 @@
-extends RigidBody
 class_name PickableItem
+extends RigidBody
 
 
 signal item_state_changed(previous_state, current_state)

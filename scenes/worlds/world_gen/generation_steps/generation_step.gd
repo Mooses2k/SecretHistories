@@ -1,5 +1,5 @@
-extends Node
 class_name GenerationStep
+extends Node
 
 
 # Override this function

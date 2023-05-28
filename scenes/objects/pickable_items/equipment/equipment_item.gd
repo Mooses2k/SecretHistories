@@ -1,5 +1,5 @@
-extends PickableItem
 class_name EquipmentItem
+extends PickableItem
 
 
 signal used_primary()

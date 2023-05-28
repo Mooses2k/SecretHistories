@@ -1,5 +1,5 @@
-extends EquipmentItem
 class_name GunItem
+extends EquipmentItem
 
 
 signal target_hit(target, position, direction, normal)
@@ -50,6 +50,10 @@ func set_range(value : Vector2):
 func shoot():
 	print("shoot")
 	var ammo_type = current_ammo_type as AmmunitionData
+
+	# The reason it's MINUS damage_offset (thus louder) is more of the powder is exploding outside the barrel
+	noise_level = ammo_type.damage - damage_offset   # damage_offset is a negative so this is a addition operation
+
 	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0
 	var total_damage : int = damage_offset + ammo_type.damage
 
@@ -149,4 +153,5 @@ func _on_ReloadTimer_timeout() -> void:
 
 
 func _on_CooldownTimer_timeout() -> void:
+	noise_level = 0   # Simple place to put this
 	on_cooldown = false

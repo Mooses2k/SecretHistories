@@ -250,7 +250,7 @@ func _on_player_landed():
 	if !owner.is_crouching:
 		owner.noise_level = 8
 	else:
-		owner.noise_level = 3
+		owner.noise_level = 5
 
 
 func _walk(delta) -> void:
@@ -306,7 +306,7 @@ func _check_movement_key(delta):
 			owner.is_to_move = true
 			if !owner.is_crouching:
 				if owner.do_sprint:
-					owner.noise_level = 8
+					owner.noise_level = 12
 				else:
 					owner.noise_level = 5
 			else:

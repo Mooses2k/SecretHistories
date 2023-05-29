@@ -1,5 +1,5 @@
-extends Spatial
 class_name CharacterAudio
+extends Spatial
 
 
 var _footstep_sounds : Array = []

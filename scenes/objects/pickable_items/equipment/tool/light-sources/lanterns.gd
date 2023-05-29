@@ -1,5 +1,5 @@
-extends ToolItem
 class_name LanternItem
+extends ToolItem
 
 
 signal item_is_dropped

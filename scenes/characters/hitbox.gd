@@ -1,5 +1,5 @@
-extends Area
 class_name Hitbox
+extends Area
 
 
 # This class represents a generic hitbox

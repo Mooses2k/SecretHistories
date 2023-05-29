@@ -549,10 +549,10 @@ skeleton = NodePath("../../..")
 material/0 = SubResource( 49 )
 script = ExtResource( 6 )
 
-[node name="ignite" type="Area" parent="." groups=["ignite"]]
+[node name="Ignite" type="Area" parent="." groups=["IGNITE"]]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00712366, 0.353032, -0.00613392 )
 
-[node name="CollisionShape" type="CollisionShape" parent="ignite"]
+[node name="CollisionShape" type="CollisionShape" parent="Ignite"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.051268, 0 )
 shape = SubResource( 89 )
 

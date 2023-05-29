@@ -1,6 +1,6 @@
 tool
-extends Node
 class_name CharacterSpawner
+extends Node
 
 
 export var character_scene : PackedScene
@@ -87,7 +87,7 @@ func spawn_characters():
 			break
 		
 		var cell_type = data.get_cell_type(64)
-		if randf() < _density_by_type[cell_type]:
+		if randf() < _density_by_type[cell_type]:   # Known bug with random seed, fixed soon by eh_jogos, just try another seed
 			count += 1
 			_spawn_character_at(64)
 	
@@ -152,12 +152,14 @@ func _on_ProceduralWorld_generation_finished():
 	data = owner.world_data
 	call_deferred("spawn_characters")
 
+
 ###################################################################################################
 ### Editor Code ###################################################################################
 ###################################################################################################
 
 const GROUP_PREFIX_DENSITY = "density_"
 const PERCENT_CONVERSION = 100.0
+
 
 func _get_property_list() -> Array:
 	var properties := [

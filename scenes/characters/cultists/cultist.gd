@@ -1,5 +1,5 @@
-extends Character
 class_name Cultist
+extends Character
 
 
 var weapon_resource = preload("res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn")
@@ -22,7 +22,7 @@ var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell
 
 
 func _ready():
-#	._ready()
+#	._ready()   # Not needed
 	print("Cultist ready function:")
 	inventory.add_item(weapon_resource.instance())
 	print("cultist.gd added shotgun")
@@ -32,5 +32,5 @@ func _ready():
 	
 	print(max_health)
 
-	# override for purpose ot ragdoll, still not working
+	# This override is for purpose of ragdoll, but still not working
 	skeleton = $FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton

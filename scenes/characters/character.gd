@@ -1,5 +1,5 @@
-extends KinematicBody
 class_name Character
+extends KinematicBody
 
 
 signal character_died()

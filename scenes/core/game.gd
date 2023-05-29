@@ -1,5 +1,5 @@
-extends Node
 class_name Game
+extends Node
 
 
 signal level_loaded(level)

@@ -31,25 +31,6 @@ func _ready():
 	$MeshInstance.set_surface_material(0,new_material)
 
 
-#func _process(delta):
-#	if is_lit == true:
-#		light_timer.pause_mode = false
-#	else:
-#		light_timer.pause_mode = true
-
-#	if self.mode == equipped_mode and has_ever_been_on == false:
-#			burn_time.start()
-#			has_ever_been_on = true
-##			firelight.visible = not firelight.visible
-#			$AnimationPlayer.play("flicker")
-##			$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
-##			$MeshInstance.get_surface_material(0).emission_enabled = not  $MeshInstance.get_surface_material(0).emission_enabled
-##			$MeshInstance.cast_shadow = not $MeshInstance.cast_shadow
-#			is_lit = true
-#	else:
-#		is_lit = false
-
-
 func light():
 	if not is_depleted:
 		$AnimationPlayer.play("flicker")
@@ -93,12 +74,7 @@ func _item_state_changed(previous_state, current_state):
 
 
 func switch_away():
-#	$FireOrigin/Fire.emitting = false
-	$FireOrigin/Fire.visible = false
-	firelight.visible = false
-	$AnimationPlayer.stop()
-	$MeshInstance.get_surface_material(0).emission_enabled = false
-	is_lit = false
+	unlight()
 
 
 func light_depleted():
@@ -113,6 +89,7 @@ func stop_light_timer():
 	light_timer.stop()
 
 
+# Not working
 func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)

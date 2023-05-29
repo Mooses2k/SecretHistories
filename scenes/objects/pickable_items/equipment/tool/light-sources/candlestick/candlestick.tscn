@@ -248,10 +248,10 @@ autoplay = "flicker"
 anims/RESET = SubResource( 51 )
 anims/flicker = SubResource( 52 )
 
-[node name="ignite" type="Area" parent="." groups=["ignite"]]
+[node name="Ignite" type="Area" parent="." groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276111, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="ignite"]
+[node name="CollisionShape" type="CollisionShape" parent="Ignite"]
 shape = SubResource( 53 )
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="."]

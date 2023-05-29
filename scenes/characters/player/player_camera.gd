@@ -29,7 +29,7 @@ func _physics_process(_delta):
 		_camera_rotation_reset = rotation_degrees
 
 	# Should be optional since can bug some people
-#	rotation_degrees = _process_shake(_camera_rotation_reset, _delta)
+	rotation_degrees = _process_shake(_camera_rotation_reset, _delta)
 
 
 func _process_shake(angle_center : Vector3, delta : float) -> Vector3:

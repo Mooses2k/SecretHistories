@@ -129,7 +129,7 @@ func _ready():
 
 
 func _physics_process(delta : float):
-#	_camera.rotation_degrees = _camera_orig_rotation
+	_camera.rotation_degrees = _camera_orig_rotation   # this doing anything?
 	owner.noise_level = 0
 
 	active_mode.update(delta)   # added delta when doing programming recoil

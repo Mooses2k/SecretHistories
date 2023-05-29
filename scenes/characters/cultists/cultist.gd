@@ -22,13 +22,15 @@ var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell
 
 
 func _ready():
-	._ready()
+#	._ready()
 	print("Cultist ready function:")
 	inventory.add_item(weapon_resource.instance())
 	print("cultist.gd added shotgun")
 	inventory.insert_tiny_item(ammo_resource, 10)
 	print("cultist.gd added ammo")
 	inventory.equip_mainhand_item()
+	
+	print(max_health)
 
 	# override for purpose ot ragdoll, still not working
 	skeleton = $FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton

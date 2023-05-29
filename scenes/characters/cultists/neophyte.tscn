@@ -30,9 +30,9 @@ radius = 8.425
 
 [node name="Cultist" instance=ExtResource( 1 )]
 script = ExtResource( 18 )
-max_health = 50
-move_speed = 2.0
-acceleration = 6.0
+max_health = 40
+move_speed = 1.5
+acceleration = 5.0
 mass = 70.0
 _legcast = NodePath("Legs/Feet")
 
@@ -137,12 +137,12 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0
 bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.820667, 0.560119, 0.114527, -0.0142399, -0.220297, 0.975373, 0.571537, 0.798816, 0.188688, -0.106374, 15.1067, 2.9623 )
+transform = Transform( -0.827408, 0.550318, 0.11355, -0.00989264, -0.216322, 0.976316, 0.56183, 0.806679, 0.184352, -0.14291, 15.1242, 2.97564 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
 unique_name_in_owner = true
-transform = Transform( 9.84312, 1.41968, 1.97025, 1.08242, -4.04725, -8.79715, -0.0239304, 9.46895, -3.86264, -0.605485, 0.873144, 0.218197 )
+transform = Transform( 9.98225, 1.1919, 1.09886, 0.20972, -3.56583, -9.0807, -0.219928, 9.68847, -3.29175, -0.648272, 0.879297, 0.206675 )
 
 [node name="SoundListener" parent="Body" index="4" instance=ExtResource( 16 )]
 sensor = NodePath("../DirectPlayerSight")
@@ -156,8 +156,8 @@ visible = false
 
 [node name="Speech" parent="Audio" index="0"]
 unit_db = 10.0
-unit_size = 4.0
 max_db = 6.0
+max_distance = 12.0
 
 [node name="PlayerDetector" type="Area" parent="." index="16"]
 collision_layer = 2

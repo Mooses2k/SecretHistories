@@ -21,7 +21,7 @@ export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 
-export var handling = 1.0
+export var handling = 5.0
 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
@@ -75,10 +75,11 @@ func shoot():
 	raycast.cast_to = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
 	apply_damage(total_damage)
+	print(total_damage)
 	
 	# Cultists can't recoil for now
 	if owner_character.get_node("PlayerController"):
-		owner_character.player_controller.active_mode.recoil(self)   # Should also send delta
+		owner_character.player_controller.active_mode.recoil(self, total_damage, handling)   # Should also send delta
 
 
 func _use_primary():
@@ -100,7 +101,7 @@ func _use_reload():
 	reload()
 
 
-# needs more code for revolvers and bolt-actions as they're more complicated
+# Needs more code for revolvers and bolt-actions as they're more complicated
 func reload():
 	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
 		var inventory = owner_character.inventory
@@ -119,9 +120,8 @@ func reload():
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
 					owner_character.is_reloading = true
-#					GameManager.is_reloading = true # this is bullshit, all guns sharing same var?
 					
-					# eventually randomize which reload sound it uses
+					# Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
 					
 					return
@@ -133,7 +133,7 @@ func reload():
 
 func apply_damage(total_damage):
 	if raycast.is_colliding():
-		var object_detected=raycast.get_collider()
+		var object_detected = raycast.get_collider()
 		if object_detected is RigidBody and has_method("apply_damage") :
 			print("detected rigidbody")
 			object_detected.apply_central_impulse(-player.global_transform.basis.z * total_damage * 5)
@@ -148,7 +148,6 @@ func _on_ReloadTimer_timeout() -> void:
 			current_ammo_type = _queued_reload_type
 			current_ammo += reload_amount
 	owner_character.is_reloading = false
-#	GameManager.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 
 

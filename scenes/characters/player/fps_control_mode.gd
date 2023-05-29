@@ -43,11 +43,12 @@ func _unhandled_input(event):
 		pitch_yaw.y = wrapf(pitch_yaw.y, -PI, PI)
 
 
-func recoil(item):
+func recoil(item, damage, handling):
 	side_recoil = rand_range(-5, 5)
 #	var recoil = rand_range(250 - item.handling, 500 - item.handling)
 #	up_recoil += recoil * delta
-	up_recoil += 1 # maybe just replace with damage - handling 
+#	up_recoil += 1 
+	up_recoil += damage / handling
 
 
 func update(delta):

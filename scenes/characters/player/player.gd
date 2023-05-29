@@ -46,6 +46,11 @@ func _process(delta):
 	# This notifies the dot if something if the player is currently grabbing something
 	if player_controller.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
+		
+	if is_reloading == true:
+		noise_level = 8
+	else:
+		noise_level = 0
 
 
 # Eventually this needs to be possible for character

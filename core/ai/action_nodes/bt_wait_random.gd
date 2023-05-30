@@ -2,7 +2,7 @@ class_name BT_Wait_Random
 extends BT_Node
 
 
-signal cultist_idled
+signal character_idled
 
 export var max_time : float = 2.0
 export var min_time : float = 1.0
@@ -38,7 +38,7 @@ func tick(state : CharacterState) -> int:
 func reset_timer():
 	var speech_chance = randf()
 	if (speech_chance > 0.95):
-		emit_signal("cultist_idled")
+		emit_signal("character_idled")
 		print("Idle speech signalled")
 	time_left = rand_range(min_time, max_time)
 	reset = true

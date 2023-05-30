@@ -101,8 +101,6 @@ func light():
 func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		if !is_dropped:
-			$BlowOutSound.play()
 		$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
 		$Candle1/FireOrigin/Fire.visible = false
 		$Candle1/MeshInstance.cast_shadow = true
@@ -129,6 +127,7 @@ func _use_primary():
 		light()
 	else:
 		unlight()
+		$BlowOutSound.play()
 
 
 func _item_state_changed(previous_state, current_state):

@@ -528,11 +528,11 @@ func set_wall_meta(cell_index : int, direction : int, value = null):
 
 
 func get_wall_tile_index(cell_index : int, direction : int) -> int:
-	return wall_tile_index[4*cell_index + direction]
+	return wall_tile_index[4 * cell_index + direction]
 
 
 func set_wall_tile_index(cell_index : int, direction : int, value : int):
-	wall_tile_index[4*cell_index + direction] = value
+	wall_tile_index[4 * cell_index + direction] = value
 
 
 func set_wall(cell_index : int, direction : int, wall_type : int = EdgeType.EMPTY, tile_index : int = -1, meta_value = null):

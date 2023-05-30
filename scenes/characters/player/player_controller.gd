@@ -54,7 +54,6 @@ export var interact_distance : float = 0.75
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
 
-var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
 var _bob_time : float = 0.0
 var _clamber_m = null
@@ -469,9 +468,9 @@ func update_throw_state(delta : float):
 func empty_slot():
 	var inv = character.inventory
 	if inv.hotbar != null:
-		var gun = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
+		var item = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
 		if  !inv.hotbar.has(10):
-			inv.hotbar[10] = gun
+			inv.hotbar[10] = item
 
 
 func throw_consumable():
@@ -484,7 +483,7 @@ func throw_consumable():
 			item = inv.get_offhand_item()
 			inv.drop_offhand_item()
 		if item:
-			var impulse = active_mode.get_aim_direction()*throw_strength
+			var impulse = active_mode.get_aim_direction() * throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
 			item.apply_central_impulse(impulse)
@@ -504,7 +503,7 @@ func handle_inventory(delta : float):
 				throw_state = ThrowState.IDLE
 				owner.change_equipment_in(true)
 
-	# Offhand slot selection
+	# Off-hand slot selection
 	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:
 		var start_slot = inv.current_offhand_slot
 		var new_slot = (start_slot + 1)%inv.hotbar.size()

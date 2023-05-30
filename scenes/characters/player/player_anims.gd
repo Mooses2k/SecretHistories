@@ -30,7 +30,7 @@ func _physics_process(delta):
 
 func check_current_item_animation():
 	
-	#This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
+	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
 

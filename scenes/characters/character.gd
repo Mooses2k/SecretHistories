@@ -104,7 +104,9 @@ export(AttackTypes.Types) var damage_type : int = 0
 export (float) var kick_impulse
 
 var state = State.STATE_WALKING
+
 var light_level : float = 0.0
+
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
 
@@ -720,6 +722,5 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	if inventory.hotbar[current] != null :
 		pass
 	else:
-		print("_on_Inventory_mainhand_slot_changed() reached in character.gd")
 		current_mainhand_item_animation = hold_states.MELEE_ITEM
 		mainhand_animation = Animation_state.NOT_EQUIPPED

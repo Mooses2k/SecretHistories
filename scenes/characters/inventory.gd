@@ -106,27 +106,31 @@ func add_item(item : PickableItem) -> bool:
 			
 			### Probably can be cleaned up - part 1 is to put lights offhand, part 2 is everything else
 			# Checks if something is in offhand; if not, and this is a light, put it there
-			if current_offhand_equipment == null:
+			if current_offhand_equipment == null or current_offhand_equipment == EmptyHand:
+				print("Offhand null or empty hands")
 				if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
+					print("...and is a light")
 					if hotbar[slot] != null and !current_mainhand_slot:
+						print ("...slot isn't empty and it's not the mainhand one")
 						slot = current_offhand_slot
 					if hotbar[slot] != null:
 						slot = hotbar.find(null)
-						if slot == current_mainhand_slot:
-							slot += 1
-							if slot != 10:
-								hotbar[slot] = item
-								# Schedule the item removal from the world
-								if item.is_inside_tree():
-									item.get_parent().remove_child(item)
-								
-								emit_signal("hotbar_changed", slot)
-								emit_signal("inventory_changed")
-								
-								if not bulky_equipment:
-									set_offhand_slot(slot)   # This is what puts it in off-hand
-									equip_offhand_item()
-									return true
+					if slot == current_mainhand_slot:
+						slot += 1
+					if slot != 10:
+						hotbar[slot] = item
+						print("Light-source going to slot ", slot)
+						# Schedule the item removal from the world
+						if item.is_inside_tree():
+							item.get_parent().remove_child(item)
+						
+						emit_signal("hotbar_changed", slot)
+						emit_signal("inventory_changed")
+						
+						if not bulky_equipment:
+							set_offhand_slot(slot)   # This is what puts it in off-hand
+							equip_offhand_item()
+							return true
 					
 			### Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
 			slot = current_mainhand_slot

@@ -349,6 +349,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
 }, {
+"base": "Resource",
+"class": "RoomData",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/helper_objects/room_data.gd"
+}, {
 "base": "Node",
 "class": "SettingsClass",
 "language": "GDScript",
@@ -478,6 +483,7 @@ _global_script_class_icons={
 "PlayerSoundEmitter": "",
 "RevolverItem": "",
 "RockItem": "",
+"RoomData": "",
 "SettingsClass": "",
 "ShakeCamera": "",
 "SoundListener": "",

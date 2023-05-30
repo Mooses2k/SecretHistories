@@ -152,17 +152,19 @@ func clear():
 	wall_meta.clear()
 	doors.clear()
 	pillar_radius.clear()
+	
+	player_spawn_position = INVALID_STARTING_CELL
+	_cell_indexes_by_cell_type.clear()
 
 
 # Room definitions, store as a dictionary as follows:
 # {
-# 	room_type_1 : [polygon_1, polygon_2, ...]
-#	room_type_2 : [polygon_1, polygon_2, ...]
+# 	room_type_1 : [RoomData_1, RoomData_2, ...]
+#	room_type_2 : [RoomData_1, RoomData_2, ...]
 #	...
 # }
 # where each room_type key is a string defining the type of the rooms (i.e., "armory")
-# and each associated value containing an array of polygons, each representing
-# a single room as a poolvector2array of points in grid space
+# and each associated value contains an object of RoomData
 var rooms : Dictionary
 
 # Stores the type of a cell as a variant of the CellType enum, following the
@@ -329,6 +331,35 @@ func is_room_cell(p_index: int) -> bool:
 	return value
 
 
+func set_room(type: String, p_room_data: RoomData) -> void:
+	if not rooms.has(type):
+		rooms[type] = []
+	
+	rooms[type].append(p_room_data)
+
+
+# Returns an Array of all RoomData
+func get_all_rooms() -> Array:
+	var value := []
+	
+	for data_array in rooms.values():
+		value.append_array(data_array)
+	
+	return value
+
+
+# Returns an Array of RoomData from the specified "type" 
+func get_rooms_of_type(p_type: String) -> Array:
+	var value := []
+	
+	if rooms.has(p_type):
+		value = rooms[p_type]
+	else:
+		push_error("Type of room not found: %s. Available types: %s"%[p_type, rooms.keys()])
+	
+	return value
+
+
 func get_cell_index_from_local_position(pos : Vector3) -> int:
 	pos /= CELL_SIZE
 	return get_cell_index_from_int_position(pos.x, pos.z)
@@ -405,7 +436,8 @@ func set_cell_type(cell_index : int, value : int):
 		if cell_type[cell_index] == CellType.STARTING_ROOM and value == CellType.ROOM:
 			# Both are equivalent as ROOMs but STARTING_ROOM is used for some special
 			# spawning rules, like avoiding to spawn enemies at starting room, so 
-			# we gotta keep it.
+			# we gotta keep it. And changing the logic that tries to overwrite this on
+			# generate_corridors.gd would be harder than blocking it here.
 			return
 		
 		cell_type[cell_index] = value

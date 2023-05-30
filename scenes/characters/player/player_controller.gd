@@ -549,10 +549,10 @@ func handle_inventory(delta : float):
 				inv.get_mainhand_item().use_reload()
 				throw_state = ThrowState.IDLE
 
-		if Input.is_action_just_pressed("offhand_use"):
-			if inv.get_offhand_item():
-				inv.get_offhand_item().use_primary()
-				throw_state = ThrowState.IDLE
+	if Input.is_action_just_pressed("offhand_use"):
+		if inv.get_offhand_item():
+			inv.get_offhand_item().use_primary()
+			throw_state = ThrowState.IDLE
 
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("change_screen_filter"):

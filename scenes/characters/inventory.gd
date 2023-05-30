@@ -197,9 +197,9 @@ func equip_mainhand_item():
 		
 	var item : EquipmentItem = hotbar[current_mainhand_slot] as EquipmentItem
 	if item:
-		# Can't Equip a Bulky Item simultaneously with a normal item
+		# Can't equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
-		# Can't Equip item on both hands
+		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED

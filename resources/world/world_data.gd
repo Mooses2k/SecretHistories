@@ -402,6 +402,12 @@ func get_cell_type(cell_index : int) -> int:
 
 func set_cell_type(cell_index : int, value : int):
 	if cell_index >= 0:
+		if cell_type[cell_index] == CellType.STARTING_ROOM and value == CellType.ROOM:
+			# Both are equivalent as ROOMs but STARTING_ROOM is used for some special
+			# spawning rules, like avoiding to spawn enemies at starting room, so 
+			# we gotta keep it.
+			return
+		
 		cell_type[cell_index] = value
 		
 		if not _cell_indexes_by_cell_type.has(value):
@@ -410,7 +416,8 @@ func set_cell_type(cell_index : int, value : int):
 		for type in _cell_indexes_by_cell_type:
 			var type_array = _cell_indexes_by_cell_type[type] as Array
 			if type_array.has(cell_index):
-				print("overwriting cell type: %s at %s for %s"%[type, cell_index, value])
+				var keys := CellType.keys()
+#				print("overwriting cell type: %s at %s for %s"%[keys[type], cell_index, keys[value]])
 				type_array.erase(cell_index)
 		
 		_cell_indexes_by_cell_type[value].append(cell_index)
@@ -591,26 +598,28 @@ func print_world_map() -> void:
 	var append_title = "-".repeat(world_size_x - title.length())
 	print("\n" + title + append_title)
 	
-	for index in cell_count:
-		var type := get_cell_type(index)
-		match type:
-			CellType.EMPTY:
-				line += "."
-			CellType.STARTING_ROOM:
-				line += "S"
-			CellType.ROOM:
-				line += "R"
-			CellType.CORRIDOR:
-				line += "="
-			CellType.HALL:
-				line += "H"
-			CellType.DOOR:
-				line += "D"
-			_:
-				push_error("Unregistered CellType: %s"%[type])
+	for y in range(0, world_size_z):
+		for x in range(0, world_size_x):
+			var index := get_cell_index_from_int_position(x, y)
+			var type := get_cell_type(index)
+			match type:
+				CellType.EMPTY:
+					line += "."
+				CellType.STARTING_ROOM:
+					line += "S"
+				CellType.ROOM:
+					line += "R"
+				CellType.CORRIDOR:
+					line += "="
+				CellType.HALL:
+					line += "H"
+				CellType.DOOR:
+					line += "D"
+				_:
+					push_error("Unregistered CellType: %s"%[type])
 		
-		if (index + 1) % world_size_x == 0:
-			print(line)
-			line = ""
+			if x + 1 == world_size_x:
+				print(line)
+				line = ""
 	
 	print("-".repeat(world_size_x)+"\n")

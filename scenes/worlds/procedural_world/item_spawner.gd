@@ -42,6 +42,7 @@ func _on_ProceduralWorld_generation_finished() -> void:
 	_spawn_starting_light(data)
 	_spawn_initial_settings_items(data)
 	_spawn_initial_loot(data)
+	_spawn_world_data_objects(data)
 
 
 func _spawn_initial_loot(data : WorldData) -> void:
@@ -81,6 +82,15 @@ func _remove_used_cells(p_array: Array) -> Array:
 		p_array.erase(cell_index)
 	
 	return p_array
+
+
+func _spawn_world_data_objects(data: WorldData) -> void:
+	var objects_to_spawn := data.get_objects_to_spawn()
+	for cell_index in objects_to_spawn:
+		var spawn_data := objects_to_spawn[cell_index] as SpawnData
+		for _i in spawn_data.amount:
+			var position := data.get_local_cell_position(cell_index) + ITEM_POSITION_OFFSET
+			_spawn_item(spawn_data.scene_path, position)
 
 
 # This calculates the center position of the cell and then tries to find a random position 

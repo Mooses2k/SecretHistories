@@ -86,10 +86,10 @@ func spawn_characters():
 		if count >= max_count:
 			break
 		
-		var cell_type = data.get_cell_type(64)
-		if randf() < _density_by_type[cell_type]:   # Known bug with random seed, fixed soon by eh_jogos, just try another seed
+		var cell_type = data.get_cell_type(cell_index)
+		if randf() < _density_by_type[cell_type]:
 			count += 1
-			_spawn_character_at(64)
+			_spawn_character_at(cell_index)
 	
 	print("Total Characters Spawned: %s"%[count])
 

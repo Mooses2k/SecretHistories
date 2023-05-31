@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
 [ext_resource path="res://scenes/worlds/procedural_world/character_spawner.gd" type="Script" id=9]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=11]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=12]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=18]
@@ -78,6 +81,16 @@ pillar_room_double_ceiling_tile = 18
 pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
+
+[node name="PopulateRooms" type="Node" parent="GenerationManager" index="7"]
+script = ExtResource( 10 )
+
+[node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
+script = ExtResource( 10 )
+
+[node name="GenerateCandelabra" type="Node" parent="GenerationManager/PopulateRooms/IlluminationGroup" index="0"]
+script = ExtResource( 11 )
+_spawn_list_resource = ExtResource( 12 )
 
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )

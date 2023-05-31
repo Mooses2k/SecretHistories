@@ -154,6 +154,7 @@ func clear():
 	pillar_radius.clear()
 	
 	player_spawn_position = INVALID_STARTING_CELL
+	_objects_to_spawn.clear()
 	_cell_indexes_by_cell_type.clear()
 
 
@@ -228,6 +229,14 @@ var ceiling_tile_index : PoolIntArray
 # You can use `is_spawn_position_valid` before using `player_spawn_position`
 const INVALID_STARTING_CELL = Vector2.ONE * -1
 var player_spawn_position := INVALID_STARTING_CELL
+
+# Dictionary in the format:
+#{
+#	cell_index_1: SpawnData,
+#	cell_index_2: SpawnData,
+#	cell_index_3: SpawnData,
+#}
+var _objects_to_spawn := {}
 
 # Stores a arrays of cell indexes already filtered by cell type.
 # Private variable, use `get_cells_for(p_type: int)` to access the arrays.
@@ -466,6 +475,38 @@ func get_cells_for(p_type: int) -> Array:
 		value.sort()
 	
 	return value
+
+
+# Returns and Array of cell indexes that are already set to spawn something after world generation
+# ends, and so shouldn't be used for spawning anything else.
+func get_occupied_cells() -> Array:
+	var value := []
+	
+	if player_spawn_position != INVALID_STARTING_CELL:
+		value.append(player_spawn_position)
+	
+	value.append_array(_objects_to_spawn.keys())
+	
+	return value
+
+
+# Checks if a cell index is free
+func is_cell_free(cell_index: int) -> bool:
+	var occupied_cells := get_occupied_cells()
+	var value = not cell_index in occupied_cells
+	return value
+
+
+func set_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
+	if _objects_to_spawn.has(cell_index):
+		push_error("Aborting. Cell %s is already occupied with: %s"%[cell_index, spawn_data])
+		return
+	
+	_objects_to_spawn[cell_index] = spawn_data
+
+
+func get_objects_to_spawn() -> Dictionary:
+	return _objects_to_spawn
 
 
 func get_cell_surfacetype(cell_index : int) -> int:

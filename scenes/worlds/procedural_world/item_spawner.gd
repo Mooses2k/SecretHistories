@@ -45,13 +45,17 @@ func _on_ProceduralWorld_generation_finished() -> void:
 
 
 func _spawn_initial_loot(data : WorldData) -> void:
-	var loot_list := _loot_list_resource as LootSpawnList
+	var loot_list := _loot_list_resource as ObjectSpawnList
+	if loot_list == null:
+		assert(loot_list != null, "No resource, or invalid resource, on _loot_list_resource property")
+		return
+	
 	var draw_amount := _rng.randi_range(_min_loot, _max_loot)
 	var possible_cells := data.get_cells_for(data.CellType.ROOM)
 	possible_cells = _remove_used_cells(possible_cells)
 	
 	for _i in draw_amount:
-		var loot_data := loot_list.draw_random_loot()
+		var loot_data := loot_list.get_random_spawn_data()
 		if possible_cells.empty():
 			return
 		

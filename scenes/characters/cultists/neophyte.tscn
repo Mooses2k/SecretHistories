@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/ai/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
@@ -22,6 +22,9 @@
 [ext_resource path="res://core/ai/check_nodes/bt_gun_has_ammo.gd" type="Script" id=20]
 [ext_resource path="res://core/ai/action_nodes/bt_reload_gun.gd" type="Script" id=21]
 
+[sub_resource type="CapsuleShape" id=6]
+radius = 0.4
+
 [sub_resource type="SphereShape" id=4]
 radius = 3.5
 
@@ -37,7 +40,8 @@ mass = 70.0
 _legcast = NodePath("Legs/Feet")
 
 [node name="CollisionShape" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, -0.04 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.947582, -0.158151 )
+shape = SubResource( 6 )
 
 [node name="MainHandEquipmentRoot" parent="." index="3"]
 unique_name_in_owner = false
@@ -140,7 +144,7 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0
 bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.824783, 0.554134, 0.113921, -0.0117036, -0.218051, 0.97591, 0.56561, 0.803572, 0.18626, -0.128081, 15.1181, 2.97011 )
+transform = Transform( -0.826811, 0.551101, 0.113634, -0.0104032, -0.21689, 0.976181, 0.562608, 0.805929, 0.185006, -0.138101, 15.1215, 2.97395 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

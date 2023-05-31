@@ -58,11 +58,11 @@ var _bomb_sounds : Array = []
 
 var _current_sound_dir : String = ""
 
-onready var speech_audio = $Speech
-onready var manipulation_audio = $Manipulation
-onready var movement_audio = $Movement
+onready var speech_audio = $Speech as AudioStreamPlayer3D
+onready var manipulation_audio = $Manipulation as AudioStreamPlayer3D
+onready var movement_audio = $Movement as AudioStreamPlayer3D
 
-onready var last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
+onready var last_speech_line   # Tracked to avoid repeating the same line
 
 
 func _ready():
@@ -160,15 +160,16 @@ func choose_voice():
 
 
 func play_idle_sound():
-	# Don't replay the last line
-	if last_speech_line == speech_audio.stream:
-		return
 	# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
-	if speech_audio.playing == true:
+	if speech_audio.is_playing() == true:
+		print("Sound already playing (idle called this)")
 		return
 	# Tracked to avoid repeating the same line
 	_idle_sounds.shuffle()
 	speech_audio.stream = _idle_sounds.front()
+	# Don't replay the last line
+	if last_speech_line == speech_audio.stream:
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = SpeechType.IDLE
 	speech_audio.play()
@@ -176,14 +177,15 @@ func play_idle_sound():
 
 
 func play_alert_sound():
-	if last_speech_line == speech_audio.stream:   # This is not working to stop duplicate lines =/
-		return 
 	if last_speech_type == SpeechType.ALERT or last_speech_type == SpeechType.DETECTION or last_speech_type == SpeechType.FIGHT:
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
-		if speech_audio.playing == true:
+		if speech_audio.is_playing() == true:
+			print("Sounds already playing (alert called this)")
 			return
 	_alert_sounds.shuffle()
 	speech_audio.stream = _alert_sounds.front()
+	if last_speech_line == speech_audio.stream:   # This is not working to stop duplicate lines =/
+		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = SpeechType.ALERT
 	speech_audio.play()
@@ -191,14 +193,15 @@ func play_alert_sound():
 	
 
 func play_detection_sound():
-	if last_speech_line == speech_audio.stream:
-		return 
 	if last_speech_type == SpeechType.ALERT or last_speech_type == SpeechType.DETECTION or last_speech_type == SpeechType.FIGHT:
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
-		if speech_audio.playing == true:
+		if speech_audio.is_playing() == true:
+			print("Sounds already playing (detection called this)")
 			return
 	_detection_sounds.shuffle()
 	speech_audio.stream = _detection_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = SpeechType.DETECTION
 	speech_audio.play()
@@ -226,14 +229,14 @@ func play_chase_sound():
 
 
 func play_fight_sound():
-	if last_speech_line == speech_audio.stream:
-		return 
 	if !last_speech_type == SpeechType.FIGHT:   # Anything but fight
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
-		if speech_audio.playing == true:
+		if speech_audio.is_playing() == true:
 			return
 	_fight_sounds.shuffle()
 	speech_audio.stream = _fight_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = SpeechType.FIGHT
 	speech_audio.play()
@@ -244,7 +247,7 @@ func play_reload_sound():
 	if last_speech_line == speech_audio.stream:
 		return 
 	# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
-	if speech_audio.playing == true:
+	if speech_audio.is_playing() == true:
 		return
 	_reload_sounds.shuffle()
 	speech_audio.stream = _reload_sounds.front()

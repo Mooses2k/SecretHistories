@@ -114,6 +114,8 @@ var current_screen_filter : int = ScreenFilter.NONE
 #export var dither_material : Material
 #export var reduce_color_material : Material
 
+onready var noise_timer = $"../Audio/NoiseTimer"
+
 
 func _ready():
 	owner.is_to_move = false
@@ -129,7 +131,6 @@ func _ready():
 
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
-	owner.noise_level = 0
 
 	active_mode.update()
 	movement_basis = active_mode.get_movement_basis()
@@ -245,13 +246,6 @@ func _input(event):
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
 
-func _on_player_landed():
-	if !owner.is_crouching:
-		owner.noise_level = 8
-	else:
-		owner.noise_level = 5
-
-
 func _walk(delta) -> void:
 	if Input.is_action_just_pressed("move_right"):
 		is_movement_key1_held = true
@@ -305,11 +299,17 @@ func _check_movement_key(delta):
 			owner.is_to_move = true
 			if !owner.is_crouching:
 				if owner.do_sprint:
-					owner.noise_level = 12
+					if owner.noise_level < 12:
+						owner.noise_level = 12
+						noise_timer.start()
 				else:
-					owner.noise_level = 5
+					if owner.noise_level < 5:
+						owner.noise_level = 5
+						noise_timer.start()
 			else:
-				owner.noise_level = 3
+				if owner.noise_level < 3:
+					owner.noise_level = 3
+					noise_timer.start()
 	
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 		movement_press_length = 0.0
@@ -418,7 +418,7 @@ func handle_grab(delta : float):
 		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
 			is_grabbing = false
 			interaction_handled = true
-		#local velocity of the object at the grabbing point, used to cancel the objects movement
+		# Local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
@@ -683,3 +683,20 @@ func next_item():
 	elif  Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
+
+
+func _on_Player_player_landed():   # Dupe of this in character...maybe a timer needed so this lasts longer
+	if !owner.is_crouching:
+		if owner.noise_level < 8:
+			owner.noise_level = 8
+			noise_timer.start()
+	else:
+		if owner.noise_level < 5:
+			owner.noise_level = 5
+			noise_timer.start()
+
+
+func _on_NoiseTimer_timeout():
+	# The only reset of noise_level - should probably go in character
+	# This is here instead of _process because instant sounds like jump won't get caught by sensors otherwise
+	owner.noise_level = 0

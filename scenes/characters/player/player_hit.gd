@@ -20,6 +20,7 @@ func _process(delta):
 	var player := owner as Player
 	debug_label.text = (
 		"player light_level = " + str(player.light_level) + "\n"
+		+ "player noise_level = " + str(player.noise_level) + "\n"
 		+ "player on floor = " +  str(player.is_on_floor()) + "\n"
 		+ "player position = " +  str(player.translation) + "\n"
 	)

@@ -24,6 +24,7 @@ func _init():
 func _ready():
 	yield(get_tree().create_timer(1), "timeout")
 	load_level(start_level_scn)
+	BackgroundMusic.stop()   # Just in case
 
 
 func load_level(packed : PackedScene):

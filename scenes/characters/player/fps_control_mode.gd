@@ -45,11 +45,15 @@ func _unhandled_input(event):
 
 func recoil(item, damage, handling):
 	side_recoil = rand_range(-5, 5)
-#	var recoil = rand_range(250 - item.handling, 500 - item.handling)
-#	up_recoil += recoil * delta
-#	up_recoil += 1 
-	up_recoil += damage / handling
+#    var recoil = rand_range(250 - item.handling, 500 - item.handling)
+#    up_recoil += recoil * delta
+#    up_recoil += 1 
+	#compensate for delta application
+	up_recoil += 60 * damage / (handling)
 
+const MAX_RECOIL = 35 * 60
+const DAMPENING_FACTOR = 6 * 60;
+const DAMPENING_POWER = 0.0;
 
 func update(delta):
 	if up_recoil > 0:
@@ -57,12 +61,15 @@ func update(delta):
 		# Horiztontal recoil
 		pitch_yaw.y = lerp(pitch_yaw.y, deg2rad(side_recoil), delta)
 		# Vertical recoil
+	
+#        if up_recoil >= 35:
+#            up_recoil = 35
+		up_recoil = min(up_recoil, MAX_RECOIL)
 		if camera:   # For now, no vertical recoil for cultists
-#			pitch_yaw.x = lerp(pitch_yaw.x, deg2rad(pitch_yaw.x + up_recoil), delta)
-			pitch_yaw.x += deg2rad(up_recoil)
-		if up_recoil >= 35:
-			up_recoil = 35
-		up_recoil -= 0.1
+			pitch_yaw.x += deg2rad(up_recoil) * delta
+			pitch_yaw.x = min(pitch_yaw.x, PI * 0.5)
+#            pitch_yaw.x = lerp(pitch_yaw.x, deg2rad(pitch_yaw.x + up_recoil), delta)
+		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER)*delta
 
 	owner.body.rotation.y = pitch_yaw.y   # Horizontal
 	camera.rotation.x = pitch_yaw.x   # Vertical, you don't want to rotate the whole scene, just camera

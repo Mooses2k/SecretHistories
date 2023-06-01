@@ -129,10 +129,10 @@ func _ready():
 
 
 func _physics_process(delta : float):
-	_camera.rotation_degrees = _camera_orig_rotation
+	_camera.rotation_degrees = _camera_orig_rotation   # this doing anything?
 	owner.noise_level = 0
 
-	active_mode.update()
+	active_mode.update(delta)   # added delta when doing programming recoil
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
@@ -239,9 +239,9 @@ func _input(event):
 
 		owner.rotation_degrees.y -= event.relative.x * GlobalSettings.mouse_sensitivity * m
 
-		if owner.state != owner.State.STATE_CRAWLING:
-			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
-			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
+#		if owner.state != owner.State.STATE_CRAWLING:
+#			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
+#			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
@@ -287,10 +287,6 @@ func _walk(delta) -> void:
 		owner.is_moving_forward = false
 	
 	_check_movement_key(delta)
-
-#	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
-#		_audio_player.play_land_sound()
-##		_camera.add_stress(0.25)
 
 	if Input.is_action_just_pressed("clamber"):
 		owner.do_jump = true
@@ -475,19 +471,19 @@ func empty_slot():
 
 
 func throw_consumable():
-		var inv = character.inventory
-		var item : EquipmentItem = null
-		if throw_item == ItemSelection.ITEM_MAINHAND:
-			item = inv.get_mainhand_item()
-			inv.drop_mainhand_item()
-		else:
-			item = inv.get_offhand_item()
-			inv.drop_offhand_item()
-		if item:
-			var impulse = active_mode.get_aim_direction()*throw_strength
+	var inv = character.inventory
+	var item : EquipmentItem = null
+	if throw_item == ItemSelection.ITEM_MAINHAND:
+		item = inv.get_mainhand_item()
+		inv.drop_mainhand_item()
+	else:
+		item = inv.get_offhand_item()
+		inv.drop_offhand_item()
+	if item:
+		var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
-			item.apply_central_impulse(impulse)
+		item.apply_central_impulse(impulse)
 
 
 func handle_inventory(delta : float):
@@ -510,12 +506,12 @@ func handle_inventory(delta : float):
 		var new_slot = (start_slot + 1)%inv.hotbar.size()
 		while new_slot != start_slot \
 			and (
-					(
-						inv.hotbar[new_slot] != null \
-						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
-					)\
-					or new_slot == inv.current_mainhand_slot \
-					or inv.hotbar[new_slot] == null \
+				(
+					inv.hotbar[new_slot] != null \
+					and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
+				)\
+				or new_slot == inv.current_mainhand_slot \
+				or inv.hotbar[new_slot] == null \
 				):
 
 				new_slot = (new_slot + 1)%inv.hotbar.size()
@@ -534,6 +530,13 @@ func handle_inventory(delta : float):
 	# Item Usage
 	# temporary hack (issue #409)
 	if is_instance_valid(inv.get_mainhand_item()):
+		
+#		# Recoil
+#		if inv.get_mainhand_item() is GunItem and !inv.get_mainhand_item().on_cooldown:
+#			active_mode.up_recoil = 0
+#		if inv.get_offhand_item() is GunItem and !inv.get_offhand_item().on_cooldown:
+#			active_mode.up_recoil = 0
+			
 		if Input.is_action_just_pressed("main_use_primary"):
 			if inv.get_mainhand_item():
 				inv.get_mainhand_item().use_primary()
@@ -562,7 +565,7 @@ func handle_inventory(delta : float):
 
 		# Cycle through list of filters, starting with 0
 		if current_screen_filter > 4:   # This number should be # of filters - 1
-				current_screen_filter = 0
+			current_screen_filter = 0
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:

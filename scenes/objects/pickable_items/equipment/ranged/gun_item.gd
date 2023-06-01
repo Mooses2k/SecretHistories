@@ -21,6 +21,8 @@ export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 
+export var handling = 5.0
+
 export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
@@ -42,7 +44,7 @@ onready var raycast = get_node(detection_raycast)
 func set_range(value : Vector2):
 	var amount : int = value.x
 	if value.y > value.x:
-		amount += randi()%(int(1 + value.y - value.x))
+		amount += randi() % (int(1 + value.y - value.x))
 	current_ammo = clamp(amount, 0, ammunition_capacity)
 	current_ammo_type = ammo_types[0]
 
@@ -54,7 +56,7 @@ func shoot():
 	# The reason it's MINUS damage_offset (thus louder) is more of the powder is exploding outside the barrel
 	noise_level = ammo_type.damage - damage_offset   # damage_offset is a negative so this is a addition operation
 
-	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion)/2.0
+	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion) / 2.0
 	var total_damage : int = damage_offset + ammo_type.damage
 
 	var raycast_range = raycast.cast_to.length()
@@ -74,11 +76,14 @@ func shoot():
 			if target is Hitbox and target.owner.has_method("damage"):
 				target.owner.damage(total_damage, ammo_type.attack_type, target)
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
-	raycast.cast_to = Vector3.FORWARD*raycast_range
+	raycast.cast_to = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
 	apply_damage(total_damage)
-#	if current_ammo == 0:
-#		current_ammo_type = null
+	print(total_damage)
+	
+	# Cultists can't recoil for now
+	if owner_character.get_node("PlayerController"):
+		owner_character.player_controller.active_mode.recoil(self, total_damage, handling)   # Should also send delta
 
 
 func _use_primary():
@@ -100,7 +105,7 @@ func _use_reload():
 	reload()
 
 
-# needs more code for revolvers and bolt-actions as they're more complicated
+# Needs more code for revolvers and bolt-actions as they're more complicated
 func reload():
 	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
 		var inventory = owner_character.inventory
@@ -119,9 +124,8 @@ func reload():
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
 					owner_character.is_reloading = true
-#					GameManager.is_reloading = true # this is bullshit, all guns sharing same var?
 					
-					# eventually randomize which reload sound it uses
+					# Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
 					
 					return
@@ -133,7 +137,7 @@ func reload():
 
 func apply_damage(total_damage):
 	if raycast.is_colliding():
-		var object_detected=raycast.get_collider()
+		var object_detected = raycast.get_collider()
 		if object_detected is RigidBody and has_method("apply_damage") :
 			print("detected rigidbody")
 			object_detected.apply_central_impulse(-player.global_transform.basis.z * total_damage * 5)
@@ -148,7 +152,6 @@ func _on_ReloadTimer_timeout() -> void:
 			current_ammo_type = _queued_reload_type
 			current_ammo += reload_amount
 	owner_character.is_reloading = false
-#	GameManager.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 
 

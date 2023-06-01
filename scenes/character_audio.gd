@@ -142,9 +142,14 @@ func choose_voice():
 func play_idle_sound():
 	_idle_sounds.shuffle()
 	speech_audio.stream = _idle_sounds.front()
+	# Don't replay the last line
 	if last_speech_line == speech_audio.stream:
-		return # instead of playing
-	last_speech_line = speech_audio.stream # tracked to avoid repeating the same line
+		return
+	# This means he doesn't interrupt itself - for detection lines, they should, but not idles
+	if speech_audio.playing == true:
+		return
+	# Tracked to avoid repeating the same line
+	last_speech_line = speech_audio.stream
 	speech_audio.play()
 	print("played idle sound")
 

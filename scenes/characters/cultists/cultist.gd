@@ -29,6 +29,8 @@ func _ready():
 	inventory.insert_tiny_item(ammo_resource, 10)
 	print("cultist.gd added ammo")
 	inventory.equip_mainhand_item()
+	
+	print(max_health)
 
 	# This override is for purpose of ragdoll, but still not working
 	skeleton = $FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton

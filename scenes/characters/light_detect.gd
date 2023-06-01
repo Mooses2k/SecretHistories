@@ -1,5 +1,6 @@
 extends Spatial
 
+
 var level1 : float
 var level : float
 
@@ -43,6 +44,25 @@ func _process(delta):
 	if (level1 > level):
 		level = level1
 	
+	# If holding a lit light-source, no crouching and hiding for you
+	# So messy how this nest is required for this
+	if owner.inventory.get_mainhand_item():
+		if owner.inventory.get_mainhand_item() is EmptyHand:
+			return
+		if owner.inventory.get_mainhand_item() is CandleItem or owner.inventory.get_mainhand_item() is TorchItem or owner.inventory.get_mainhand_item() is CandelabraItem or owner.inventory.get_mainhand_item() is LanternItem:
+			if owner.inventory.get_mainhand_item().is_lit == true:
+				owner.light_level = level
+				return
+	if owner.inventory.get_offhand_item():
+		if owner.inventory.get_offhand_item() is EmptyHand:
+			return
+		if owner.inventory.get_offhand_item() is CandleItem or owner.inventory.get_offhand_item() is TorchItem or owner.inventory.get_offhand_item() is CandelabraItem or owner.inventory.get_offhand_item() is LanternItem:
+#			print("Offhand is Candle, Torch, Candelabra, or Lantern")
+			if owner.inventory.get_offhand_item().is_lit == true:
+				owner.light_level = level
+				return
+
+	# Okay, you're crouching without a lit light-source in hand; that's cool
 	if owner.state == owner.State.STATE_CROUCHING:
 		level *= (1 - pow(1 - level, 5))
 	owner.light_level = level

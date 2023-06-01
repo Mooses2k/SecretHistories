@@ -5,6 +5,8 @@ extends Character
 var weapon_resource = preload("res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn")
 var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell.tres")
 
+onready var direct_player_sight_sensor : Node = $Body/DirectPlayerSight
+
 
 #enum #LOADOUT PACKAGES FOR NEOPHYTES:
 #(# in parentheses is probability weight) {

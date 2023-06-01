@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
+"base": "ConsumableItem",
+"class": "CandleItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd"
+}, {
 "base": "KinematicBody",
 "class": "Character",
 "language": "GDScript",
@@ -188,6 +193,11 @@ _global_script_classes=[ {
 "class": "Effect",
 "language": "GDScript",
 "path": "res://scenes/effects/effects.gd"
+}, {
+"base": "EquipmentItem",
+"class": "EmptyHand",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 }, {
 "base": "PickableItem",
 "class": "EquipmentItem",
@@ -359,6 +369,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/tool_item.gd"
 }, {
+"base": "ConsumableItem",
+"class": "TorchItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
@@ -373,11 +388,6 @@ _global_script_classes=[ {
 "class": "WritingItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
-}, {
-"base": "EquipmentItem",
-"class": "empty_hand",
-"language": "GDScript",
-"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -404,6 +414,7 @@ _global_script_class_icons={
 "BombItem": "",
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
+"CandleItem": "",
 "Character": "",
 "CharacterAudio": "",
 "CharacterSpawner": "",
@@ -416,6 +427,7 @@ _global_script_class_icons={
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",
+"EmptyHand": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
@@ -450,10 +462,10 @@ _global_script_class_icons={
 "TinyItem": "",
 "TinyItemData": "",
 "ToolItem": "",
+"TorchItem": "",
 "VisibilityMask": "",
 "WorldData": "",
-"WritingItem": "",
-"empty_hand": ""
+"WritingItem": ""
 }
 
 [application]

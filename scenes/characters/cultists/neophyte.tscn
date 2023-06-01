@@ -140,11 +140,8 @@ character = NodePath("../..")
 [node name="CultistNeophyteNoCape" parent="Body" index="2" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
-bones/137/bound_children = [ NodePath("MainHandAttachment") ]
-
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.827408, 0.550318, 0.11355, -0.00989264, -0.216322, 0.976316, 0.56183, 0.806679, 0.184352, -0.14291, 15.1242, 2.97564 )
+transform = Transform( -0.823696, 0.555674, 0.114079, -0.0123361, -0.218612, 0.975775, 0.567138, 0.802327, 0.186866, -0.12172, 15.1146, 2.96808 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

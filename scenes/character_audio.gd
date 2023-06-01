@@ -162,7 +162,7 @@ func choose_voice():
 func play_idle_sound():
 	# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 	if speech_audio.is_playing() == true:
-		print("Sound already playing (idle called this)")
+#		print("Sound already playing (idle called this)")
 		return
 	# Tracked to avoid repeating the same line
 	_idle_sounds.shuffle()
@@ -180,7 +180,7 @@ func play_alert_sound():
 	if last_speech_type == SpeechType.ALERT or last_speech_type == SpeechType.DETECTION or last_speech_type == SpeechType.FIGHT:
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
-			print("Sounds already playing (alert called this)")
+#			print("Sounds already playing (alert called this)")
 			return
 	_alert_sounds.shuffle()
 	speech_audio.stream = _alert_sounds.front()
@@ -196,7 +196,7 @@ func play_detection_sound():
 	if last_speech_type == SpeechType.ALERT or last_speech_type == SpeechType.DETECTION or last_speech_type == SpeechType.FIGHT:
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
-			print("Sounds already playing (detection called this)")
+#			print("Sounds already playing (detection called this)")
 			return
 	_detection_sounds.shuffle()
 	speech_audio.stream = _detection_sounds.front()

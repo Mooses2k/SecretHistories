@@ -49,6 +49,7 @@ func check_current_item_animation():
 		elif  inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
 			if inventory.hotbar[main_hand_object].horizontal_holding == true:
 				current_mainhand_item_animation = hold_states.LANTERN_ITEM_HORIZONTAL
+#				current_mainhand_item_animation = hold_states.LANTERN_ITEM_VERTICAL
 			else:
 				current_mainhand_item_animation = hold_states.LANTERN_ITEM_VERTICAL
 			

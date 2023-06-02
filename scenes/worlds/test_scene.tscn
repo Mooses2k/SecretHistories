@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/seating/church_pew.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/lee-metford_rifle.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shotgun_sawed_item.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candle_lantern/candle_lantern.tscn" type="PackedScene" id=18]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -107,3 +108,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462241, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297211, 0 )
+
+[node name="CandleLantern" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91329, 0.516777, 0 )
+
+[node name="OilLantern2" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.69012, 2.33684, -3.26007 )

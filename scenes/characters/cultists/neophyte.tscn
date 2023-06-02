@@ -141,7 +141,7 @@ character = NodePath("../..")
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.823696, 0.555674, 0.114079, -0.0123361, -0.218612, 0.975775, 0.567138, 0.802327, 0.186866, -0.12172, 15.1146, 2.96808 )
+transform = Transform( -0.824612, 0.554375, 0.113945, -0.0118027, -0.218139, 0.975889, 0.565849, 0.803376, 0.186355, -0.127082, 15.1176, 2.96979 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

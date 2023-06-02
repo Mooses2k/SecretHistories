@@ -194,6 +194,7 @@ contact_monitor = true
 script = ExtResource( 7 )
 item_drop_sound = ExtResource( 9 )
 item_name = "Candle Lantern"
+horizontal_holding = true
 life_percentage_lose = 0.2
 prob_going_out = 0.9
 

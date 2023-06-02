@@ -6,7 +6,8 @@ enum hold_states {
 	SMALL_GUN_ITEM,
 	LARGE_GUN_ITEM,
 	MELEE_ITEM,
-	LANTERN_ITEM,
+	LANTERN_ITEM_HORIZONTAL,
+	LANTERN_ITEM_VERTICAL,
 	SMALL_GUN_ADS,
 	LARGE_GUNS_ADS,
 	UNEQUIPPED
@@ -46,7 +47,11 @@ func check_current_item_animation():
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
 				
 		elif  inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
-			current_mainhand_item_animation = hold_states.LANTERN_ITEM
+			if inventory.hotbar[main_hand_object].horizontal_holding == true:
+				current_mainhand_item_animation = hold_states.LANTERN_ITEM_HORIZONTAL
+			else:
+				current_mainhand_item_animation = hold_states.LANTERN_ITEM_VERTICAL
+			
 			
 		elif  inventory.hotbar[main_hand_object] is MeleeItem or inventory.hotbar[off_hand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
@@ -100,18 +105,30 @@ func check_player_animation():
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 1)
 
 # The tween functions make sure that the items are visible by moving the hand a bit forward
-	elif current_mainhand_item_animation == hold_states.MELEE_ITEM or current_mainhand_item_animation == hold_states.LANTERN_ITEM :
+	elif current_mainhand_item_animation == hold_states.MELEE_ITEM:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 0)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
+		
 
-	else:
+	elif current_mainhand_item_animation == hold_states.LANTERN_ITEM_VERTICAL:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
+		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 0)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
+		print("LANTERN_ITEM_VERTICAL")
 
-
+	elif current_mainhand_item_animation == hold_states.LANTERN_ITEM_HORIZONTAL:
+		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
+		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
+		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 1)
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%ADSTween".start()
+		print("LANTERN_ITEM_HORIZONTAL")
+		
 func _on_Inventory_mainhand_slot_changed(previous, current):
 	# Checks if there is something currently equipped, else does nothing
 	if inventory.hotbar[current] != null:   # this code may be insufficient to handle can_attach!

@@ -126,6 +126,7 @@ contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 7 )
 item_name = "Oil Lantern"
+horizontal_holding = true
 is_oil_based = true
 life_percentage_lose = 0.1
 prob_going_out = 0.5

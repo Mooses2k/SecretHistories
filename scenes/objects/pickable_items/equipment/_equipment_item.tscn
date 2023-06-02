@@ -8,5 +8,6 @@ script = ExtResource( 2 )
 can_attach = false
 item_size = 1
 item_name = "Equipment"
+horizontal_holding = false
 
 [node name="HoldPosition" type="Position3D" parent="." index="2"]

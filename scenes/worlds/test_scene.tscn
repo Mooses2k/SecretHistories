@@ -67,6 +67,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.844433, -8.20272 )
 
 [node name="GunItem" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.71292, 1.41094, 0 )
+handling = 5.0
 
 [node name="Cultist" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91343, -0.0378679, -2.84752 )

@@ -10,9 +10,10 @@ export (bool) var can_attach = false
 export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM
 
 export var item_name : String = "Equipment"
+export var horizontal_holding : bool = false
+
 var is_in_belt = false
 var has_equipped = false
-
 
 func _ready():
 	connect("body_entered", self, "play_drop_sound")

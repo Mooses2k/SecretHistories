@@ -37,7 +37,7 @@ var _rng := RandomNumberGenerator.new()
 
 ### Private Methods -------------------------------------------------------------------------------
 
-func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
+func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
 	_rng.seed = generation_seed
 	
 	var all_rooms := data.get_all_rooms()
@@ -55,7 +55,7 @@ func _get_valid_rooms(p_array: Array) -> Array:
 		if room_data.is_min_dimension_greater_or_equal_to(_size_threshold):
 			valid_rooms.append(room_data)
 	
-	print("valid rooms for candelabra: %s"%[valid_rooms])
+#	print("valid rooms for candelabra: %s"%[valid_rooms])
 	
 	return valid_rooms
 
@@ -63,11 +63,16 @@ func _get_valid_rooms(p_array: Array) -> Array:
 func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 	var spawn_list := _spawn_list_resource as ObjectSpawnList
 	
-	var corners := room_data.get_corner_position_vectors()
+	var corners := room_data.get_corners_data()
 	for key in corners.corner_positions:
 		var corner := corners.corner_positions[key] as Vector2
-		var corner_index := world_data.get_cell_index_from_int_position(corner.x, corner.y)
-		if not world_data.is_cell_free(corner_index):
+		var corner_index := world_data.get_cell_index_from_int_position(int(corner.x), int(corner.y))
+		var corner_direction := corners.get_facing_vector_for(key)
+		
+		if (
+				not world_data.is_cell_free(corner_index) 
+				or _is_corner_next_to_door(world_data, corner, corner_direction)
+		):
 			continue
 		
 		var cell_position := world_data.get_local_cell_position(corner_index)
@@ -80,10 +85,27 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 				var facing_angle := corners.get_facing_angle_for(key)
 				spawn_data.set_y_rotation(facing_angle)
 			
-			print("spawning candelabra at: %s | %s"%[corner_index, spawn_data.scene_path])
 			world_data.set_spawn_data_to_cell(corner_index, spawn_data)
 		else:
-			print("No candelabra to spawn in this corner: %s"%[corner_index])
+#			print("No candelabra to spawn in this corner: %s"%[corner_index])
+			pass
+
+
+func _is_corner_next_to_door(
+		world_data: WorldData, corner_position: Vector2, corner_direction: Vector2
+) -> bool:
+	var value := false
+	
+	for direction in [Vector2(corner_direction.x, 0), Vector2(0, corner_direction.y)]:
+		var neighbour_position = corner_position + direction
+		var neighbour_index := world_data.get_cell_index_from_int_position(
+				neighbour_position.x, neighbour_position.y
+		)
+		if world_data.get_cell_type(neighbour_index) == world_data.CellType.DOOR:
+			value = true
+			break
+	
+	return value
 
 ### -----------------------------------------------------------------------------------------------
 

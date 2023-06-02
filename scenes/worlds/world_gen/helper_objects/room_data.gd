@@ -58,7 +58,7 @@ func is_min_dimension_greater_or_equal_to(p_threshold: int) -> bool:
 
 
 # Returns a CornerData object.
-func get_corner_position_vectors() -> CornerData:
+func get_corners_data() -> CornerData:
 	var value := CornerData.new(rect2)
 	return value
 
@@ -91,6 +91,16 @@ class CornerData extends Reference:
 			CORNER_BOTTOM_RIGHT: rect2.end - Vector2.ONE,
 			CORNER_BOTTOM_LEFT: rect2.position + Vector2(0, rect2.size.y - 1)
 		}
+	
+	
+	func get_facing_vector_for(corner_type) -> Vector2:
+		var value := Vector2.ZERO
+		if corner_type in FACING_DIRECTIONS:
+			value = FACING_DIRECTIONS[corner_type]
+		else:
+			push_error("Invalid corner_type: %s"%[corner_type])
+		
+		return value
 	
 	
 	func get_facing_angle_for(corner_type: int) -> float:

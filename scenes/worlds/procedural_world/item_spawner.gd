@@ -29,8 +29,6 @@ var _used_cell_indexes := []
 func _ready() -> void:
 	if Engine.editor_hint:
 		return
-	
-	_rng.randomize()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -38,6 +36,10 @@ func _ready() -> void:
 ### Private Methods -------------------------------------------------------------------------------
 
 func _on_ProceduralWorld_generation_finished() -> void:
+	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
+	if setting_generation_seed is int:
+		_rng.seed = setting_generation_seed
+	
 	var data := owner.world_data as WorldData
 	_spawn_starting_light(data)
 	_spawn_initial_settings_items(data)
@@ -60,7 +62,7 @@ func _spawn_initial_loot(data : WorldData) -> void:
 		if possible_cells.empty():
 			return
 		
-		var lucky_index = randi() % possible_cells.size()
+		var lucky_index = _rng.randi() % possible_cells.size()
 		var cell_index := possible_cells[lucky_index] as int
 		_used_cell_indexes.append(cell_index)
 		possible_cells.remove(cell_index)
@@ -174,7 +176,7 @@ func _spawn_starting_light(data : WorldData) -> void:
 		var player_index := data.get_player_spawn_position_as_index()
 		starting_cells.erase(player_index)
 	
-	var random_cell_index := randi() % starting_cells.size() as int
+	var random_cell_index := _rng.randi() % starting_cells.size() as int
 	var spawn_cell = starting_cells[random_cell_index]
 	_used_cell_indexes.append(spawn_cell)
 	

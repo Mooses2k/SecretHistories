@@ -114,21 +114,26 @@ func check_player_animation():
 		
 
 	elif current_mainhand_item_animation == hold_states.LANTERN_ITEM_VERTICAL:
-		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
+		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 0)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
-		print("LANTERN_ITEM_VERTICAL")
+#		print("LANTERN_ITEM_VERTICAL")
 
 	elif current_mainhand_item_animation == hold_states.LANTERN_ITEM_HORIZONTAL:
-		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
+		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 1)
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%ADSTween".start()
+#		print("LANTERN_ITEM_HORIZONTAL")
+
+
+	else:
+		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
-		print("LANTERN_ITEM_HORIZONTAL")
-		
 func _on_Inventory_mainhand_slot_changed(previous, current):
 	# Checks if there is something currently equipped, else does nothing
 	if inventory.hotbar[current] != null:   # this code may be insufficient to handle can_attach!

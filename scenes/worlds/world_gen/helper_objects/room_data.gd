@@ -57,13 +57,9 @@ func is_min_dimension_greater_or_equal_to(p_threshold: int) -> bool:
 	return min_dimension >= p_threshold
 
 
-# Returns an Array of Vector2 positions for the four corners of the Room, in clockwise order.
-func get_corner_position_vectors() -> Array:
-	var top_left := rect2.position
-	var top_right := rect2.position + Vector2(rect2.size.x - 1, 0)
-	var bottom_right := rect2.end - Vector2.ONE
-	var bottom_left := rect2.position + Vector2(0, rect2.size.y - 1)
-	var value := [top_left, top_right, bottom_right, bottom_left]
+# Returns a CornerData object.
+func get_corner_position_vectors() -> CornerData:
+	var value := CornerData.new(rect2)
 	return value
 
 ### -----------------------------------------------------------------------------------------------
@@ -77,3 +73,31 @@ func get_corner_position_vectors() -> Array:
 ### Signal Callbacks ------------------------------------------------------------------------------
 
 ### -----------------------------------------------------------------------------------------------
+
+class CornerData extends Reference:
+	const FACING_DIRECTIONS := {
+		CORNER_TOP_LEFT: Vector2(-1, -1),
+		CORNER_TOP_RIGHT: Vector2(1, -1),
+		CORNER_BOTTOM_RIGHT: Vector2(1, 1),
+		CORNER_BOTTOM_LEFT: Vector2(-1, 1)
+	}
+	
+	var corner_positions := {}
+	
+	func _init(rect2: Rect2) -> void:
+		corner_positions = {
+			CORNER_TOP_LEFT: rect2.position,
+			CORNER_TOP_RIGHT: rect2.position + Vector2(rect2.size.x - 1, 0),
+			CORNER_BOTTOM_RIGHT: rect2.end - Vector2.ONE,
+			CORNER_BOTTOM_LEFT: rect2.position + Vector2(0, rect2.size.y - 1)
+		}
+	
+	
+	func get_facing_angle_for(corner_type: int) -> float:
+		var value := 0.0
+		if corner_type in FACING_DIRECTIONS:
+			value = (FACING_DIRECTIONS[corner_type] as Vector2).angle()
+		else:
+			push_error("Invalid corner_type: %s"%[corner_type])
+		
+		return value

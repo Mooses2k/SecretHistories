@@ -89,8 +89,7 @@ func _spawn_world_data_objects(data: WorldData) -> void:
 	for cell_index in objects_to_spawn:
 		var spawn_data := objects_to_spawn[cell_index] as SpawnData
 		for _i in spawn_data.amount:
-			var position := data.get_local_cell_position(cell_index) + ITEM_POSITION_OFFSET
-			_spawn_item(spawn_data.scene_path, position)
+			spawn_data.spawn_item_in(owner)
 
 
 # This calculates the center position of the cell and then tries to find a random position 

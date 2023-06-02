@@ -8,6 +8,8 @@ extends GenerationStep
 
 #--- constants ------------------------------------------------------------------------------------
 
+const UNLIT_KEYWORD = "unlit"
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 #--- private variables - order: export > normal var > onready -------------------------------------
@@ -62,14 +64,22 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 	var spawn_list := _spawn_list_resource as ObjectSpawnList
 	
 	var corners := room_data.get_corner_position_vectors()
-	for entry in corners:
-		var corner := entry as Vector2
+	for key in corners.corner_positions:
+		var corner := corners.corner_positions[key] as Vector2
 		var corner_index := world_data.get_cell_index_from_int_position(corner.x, corner.y)
 		if not world_data.is_cell_free(corner_index):
 			continue
 		
+		var cell_position := world_data.get_local_cell_position(corner_index)
 		var spawn_data := spawn_list.get_random_spawn_data()
 		if not spawn_data.scene_path.empty():
+			spawn_data.set_center_position_in_cell(cell_position)
+			if spawn_data.scene_path.find(UNLIT_KEYWORD) != -1:
+				spawn_data.set_random_rotation_in_all_axis(_rng)
+			else:
+				var facing_angle := corners.get_facing_angle_for(key)
+				spawn_data.set_y_rotation(facing_angle)
+			
 			print("spawning candelabra at: %s | %s"%[corner_index, spawn_data.scene_path])
 			world_data.set_spawn_data_to_cell(corner_index, spawn_data)
 		else:

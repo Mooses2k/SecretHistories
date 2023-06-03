@@ -287,7 +287,7 @@ anims/RESET = SubResource( 5 )
 anims/flicker = SubResource( 6 )
 
 [node name="HoldPosition" parent="." index="9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.203924, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.243062, 0 )
 
 [node name="Ignite" parent="." index="10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0231552, 0 )

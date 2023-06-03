@@ -11,3 +11,4 @@ item_name = "Equipment"
 horizontal_holding = false
 
 [node name="HoldPosition" type="Position3D" parent="." index="2"]
+unique_name_in_owner = true

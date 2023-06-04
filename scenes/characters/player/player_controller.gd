@@ -470,16 +470,16 @@ func empty_slot():
 
 
 func throw_consumable():
-		var inv = character.inventory
-		var item : EquipmentItem = null
-		if throw_item == ItemSelection.ITEM_MAINHAND:
-			item = inv.get_mainhand_item()
-			inv.drop_mainhand_item()
-		else:
-			item = inv.get_offhand_item()
-			inv.drop_offhand_item()
-		if item:
-			var impulse = active_mode.get_aim_direction() * throw_strength
+	var inv = character.inventory
+	var item : EquipmentItem = null
+	if throw_item == ItemSelection.ITEM_MAINHAND:
+		item = inv.get_mainhand_item()
+		inv.drop_mainhand_item()
+	else:
+		item = inv.get_offhand_item()
+		inv.drop_offhand_item()
+	if item:
+		var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
 		item.apply_central_impulse(impulse)

@@ -49,8 +49,9 @@ func _process(delta):
 		
 	if is_reloading == true:
 		noise_level = 8
-	else:
-		noise_level = 0
+		$Audio/NoiseTimer.start()
+#	else:
+#		noise_level = 0
 
 
 # Eventually this needs to be possible for character

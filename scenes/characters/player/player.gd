@@ -1,5 +1,5 @@
-extends Character
 class_name Player
+extends Character
 
 
 signal change_off_equipment_out_done()
@@ -14,6 +14,7 @@ var is_change_main_equip_in : bool = false
 var is_change_off_equip_out : bool = false
 var is_change_off_equip_in : bool = false
 
+onready var player_controller = $PlayerController
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer/Viewport/GunCam
@@ -21,7 +22,7 @@ onready var grab_cast = $FPSCamera/GrabCast
 
 
 func _ready():
-	connect("player_landed", $PlayerController, "_on_player_landed")
+	connect("player_landed", player_controller, "_on_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 
@@ -43,26 +44,33 @@ func _process(delta):
 	change_offhand_equipment_in()
 	
 	# This notifies the dot if something if the player is currently grabbing something
-	if $PlayerController.is_grabbing == true:
+	if player_controller.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
+		
+	if is_reloading == true:
+		if noise_level < 8:
+			noise_level = 8
+			$Audio/NoiseTimer.start()
+#	else:
+#		noise_level = 0
 
 
 # Eventually this needs to be possible for character
 func drop_consumable(object):
-	$PlayerController.throw_consumable()
+	player_controller.throw_consumable()
 
 
 func grab_indicator():
 	var grabable_object = grab_cast.get_collider()
 
 	if grabable_object != null:
-		if grab_cast.is_colliding() and grabable_object is PickableItem and  $PlayerController.is_grabbing == false:
+		if grab_cast.is_colliding() and grabable_object is PickableItem and  player_controller.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
-		elif grab_cast.is_colliding() and grabable_object is RigidBody  and  $PlayerController.is_grabbing == false:
+		elif grab_cast.is_colliding() and grabable_object is RigidBody  and  player_controller.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
 		else:
 				$Indication_canvas/Indication_system/Grab.hide()
-		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite") and  $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
+		if grab_cast.is_colliding() and grabable_object.is_in_group("IGNITE") and  $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
 #			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 				$Indication_canvas/Indication_system/Ignite.show()
 				if Input.is_action_just_pressed("interact"):

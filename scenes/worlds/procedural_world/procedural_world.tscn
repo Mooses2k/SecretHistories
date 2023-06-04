@@ -6,8 +6,8 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
 [ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
 [ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/worlds/procedural_world/intial_loot_list.tres" type="Resource" id=8]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
 [ext_resource path="res://scenes/worlds/procedural_world/character_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
@@ -35,10 +35,10 @@ directional_shadow_normal_bias = 0.2
 [node name="Navigation" parent="." index="4"]
 preview_material = SubResource( 3 )
 
-[node name="EnemySpawner" type="Node" parent="." index="5"]
+[node name="CharacterSpawner" type="Node" parent="." index="5"]
 script = ExtResource( 9 )
 character_scene = ExtResource( 6 )
-max_count = 1
+max_count = 3
 _density_by_type = {
 2: 0.02,
 3: 0.0025,
@@ -87,5 +87,5 @@ script = ExtResource( 16 )
 starting_light = ExtResource( 7 )
 _loot_list_resource = ExtResource( 8 )
 
-[connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
+[connection signal="generation_finished" from="." to="CharacterSpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

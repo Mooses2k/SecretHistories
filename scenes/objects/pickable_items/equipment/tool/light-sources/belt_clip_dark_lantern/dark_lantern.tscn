@@ -105,7 +105,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.05, 0.05, 0.05 )
+extents = Vector3( 0.04, 0.04, 0.04 )
 
 [node name="DarkLantern" instance=ExtResource( 1 )]
 contacts_reported = 2
@@ -143,18 +143,18 @@ spot_angle_attenuation = 32.0
 anims/RESET = SubResource( 3 )
 anims/flicker = SubResource( 4 )
 
-[node name="Ignite" parent="." index="5"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="5"]
+stream = ExtResource( 3 )
+
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
+stream = ExtResource( 5 )
+
+[node name="Ignite" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0612894 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00687889, 0.00708632 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00126629, 0.00708632 )
 shape = SubResource( 5 )
-
-[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="6"]
-stream = ExtResource( 3 )
-
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
-stream = ExtResource( 5 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

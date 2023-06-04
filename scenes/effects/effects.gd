@@ -1,5 +1,5 @@
-extends Spatial
 class_name Effect
+extends Spatial
 
 
 export var light_duration = 0.05

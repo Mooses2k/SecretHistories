@@ -1,3 +1,4 @@
+class_name TorchItem
 extends ConsumableItem
 
 
@@ -23,26 +24,6 @@ func _ready():
 	burn_time = 600.0
 #	light_timer.set_wait_time(burn_time)
 #	light_timer.start()
-
-
-#func _process(delta):
-#	if is_lit == true:
-#		light_timer.pause_mode = false
-#	else:
-#		light_timer.pause_mode = true
-#	
-#	if self.mode == equipped_mode and has_ever_been_on == false:
-#			burn_time.start()
-#			has_ever_been_on = true
-#			$AnimationPlayer.play("flicker")
-#			$FireOrigin/Fire.emitting = true
-#			$FireOrigin/EmberDrip.emitting = true
-#			$FireOrigin/Smoke.emitting = true
-#			firelight.visible = not firelight.visible
-#			$MeshInstance.cast_shadow = false
-#			is_lit = true
-#	else:
-#		is_lit = false
 
 
 func light():
@@ -83,8 +64,7 @@ func _item_state_changed(previous_state, current_state):
 
 
 func switch_away():
-	pass
-#	unlight()
+	unlight()
 
 
 func _use_primary():

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/doombeat.ogg-6810ff99df7509841ea89e690e06f36e.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/ambience/doombeat.ogg"
+dest_files=[ "res://.import/doombeat.ogg-6810ff99df7509841ea89e690e06f36e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,5 +1,5 @@
-extends KinematicBody
 class_name Character
+extends KinematicBody
 
 
 signal character_died()
@@ -104,7 +104,9 @@ export(AttackTypes.Types) var damage_type : int = 0
 export (float) var kick_impulse
 
 var state = State.STATE_WALKING
+
 var light_level : float = 0.0
+
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
 
@@ -673,22 +675,22 @@ func check_state_animation(delta):
 
 func check_current_item_animation():
 		# This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree
-		var main_hand_object = inventory.current_mainhand_slot
-		var off_hand_object = inventory.current_offhand_slot
+		var mainhand_object = inventory.current_mainhand_slot
+		var offhand_object = inventory.current_offhand_slot
 		
-		# temporary hack (issue #409)
-		if not is_instance_valid(inventory.hotbar[main_hand_object]):
-			inventory.hotbar[main_hand_object] = null
+		# temporary hack (issue #409) - not sure it's necessary
+#		if not is_instance_valid(inventory.hotbar[mainhand_object]):
+#			inventory.hotbar[mainhand_object] = null
 		
-		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
-			if inventory.hotbar[main_hand_object].item_size == 0:
+		if inventory.hotbar[mainhand_object] is GunItem:
+			if inventory.hotbar[mainhand_object].item_size == 0:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
 #		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
 #			print("Carried Lantern")
 			#update this to work for items animations
-		elif inventory.hotbar[main_hand_object] is MeleeItem or inventory.hotbar[off_hand_object] is MeleeItem:
+		elif inventory.hotbar[mainhand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
 			print("Melee Item")
 
@@ -720,6 +722,5 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	if inventory.hotbar[current] != null :
 		pass
 	else:
-		print("_on_Inventory_mainhand_slot_changed() reached in character.gd")
 		current_mainhand_item_animation = hold_states.MELEE_ITEM
 		mainhand_animation = Animation_state.NOT_EQUIPPED

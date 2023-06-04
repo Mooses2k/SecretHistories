@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
+"base": "ConsumableItem",
+"class": "CandleItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd"
+}, {
 "base": "KinematicBody",
 "class": "Character",
 "language": "GDScript",
@@ -188,6 +193,11 @@ _global_script_classes=[ {
 "class": "Effect",
 "language": "GDScript",
 "path": "res://scenes/effects/effects.gd"
+}, {
+"base": "EquipmentItem",
+"class": "EmptyHand",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 }, {
 "base": "PickableItem",
 "class": "EquipmentItem",
@@ -263,6 +273,11 @@ _global_script_classes=[ {
 "class": "ManhattanAStar2D",
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/ManhattanAStar2D.gd"
+}, {
+"base": "ConsumableItem",
+"class": "MedicalItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/medical/medical.gd"
 }, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
@@ -354,6 +369,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/tool_item.gd"
 }, {
+"base": "ConsumableItem",
+"class": "TorchItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
@@ -368,11 +388,6 @@ _global_script_classes=[ {
 "class": "WritingItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
-}, {
-"base": "EquipmentItem",
-"class": "empty_hand",
-"language": "GDScript",
-"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -399,6 +414,7 @@ _global_script_class_icons={
 "BombItem": "",
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
+"CandleItem": "",
 "Character": "",
 "CharacterAudio": "",
 "CharacterSpawner": "",
@@ -411,6 +427,7 @@ _global_script_class_icons={
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",
+"EmptyHand": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
@@ -426,6 +443,7 @@ _global_script_class_icons={
 "LanternItem": "",
 "LootSpawnList": "",
 "ManhattanAStar2D": "",
+"MedicalItem": "",
 "MeleeItem": "",
 "MeshTransform": "",
 "PadlockItem": "",
@@ -444,18 +462,19 @@ _global_script_class_icons={
 "TinyItem": "",
 "TinyItemData": "",
 "ToolItem": "",
+"TorchItem": "",
 "VisibilityMask": "",
 "WorldData": "",
-"WritingItem": "",
-"empty_hand": ""
+"WritingItem": ""
 }
 
 [application]
 
 config/name="Secret Histories"
 config/description="An entirely forgettable game"
-run/main_scene="res://scenes/UI/title_menu.tscn"
+run/main_scene="res://scenes/UI/opening_screens.tscn"
 run/flush_stdout_on_print=true
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -471,6 +490,15 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
+BackgroundMusic="*res://scenes/core/background_music.tscn"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [editor]
 
@@ -758,4 +786,5 @@ common/physics_interpolation=true
 
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
+quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"

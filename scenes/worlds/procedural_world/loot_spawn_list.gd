@@ -2,6 +2,7 @@ tool
 class_name LootSpawnList
 extends Resource
 
+
 var _paths := []
 var _weights := []
 var _min_amounts := []
@@ -15,6 +16,7 @@ var _current_max_amounts := []
 var _current_total_weight := 0
 
 var _rng: RandomNumberGenerator = null
+
 
 ### Public Methods --------------------------------------------------------------------------------
 
@@ -75,15 +77,18 @@ func _calculate_total_weight() -> int:
 
 ### -----------------------------------------------------------------------------------------------
 
+
 class LootData extends Reference:
 	var scene_path: String = ""
 	var amount: int = 0
+
 
 ###################################################################################################
 # Editor Methods ##################################################################################
 ###################################################################################################
 
 const LOOT_PREFIX = "loot_"
+
 
 ### Custom Inspector built in functions -----------------------------------------------------------
 
@@ -163,7 +168,6 @@ func _get_property_list() -> Array:
 			hint_string = "1,2,1,or_greater"
 		})
 		
-	
 	return properties
 
 

@@ -3,7 +3,7 @@ extends RigidBody
 
 var sound_vol : float = 10
 var noise_level : float = 0
-var item_max_noise_level : float = 80
+var item_max_noise_level : int = 40
 var item_sound_level : float = 60
 export var item_drag_sound : AudioStream
 export var item_drop_sound : AudioStream

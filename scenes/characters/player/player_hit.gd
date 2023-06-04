@@ -20,6 +20,7 @@ func _process(delta):
 	var player := owner as Player
 	debug_label.text = (
 		"player light_level = " + str(player.light_level) + "\n"
+		+ "player noise_level = " + str(player.noise_level) + "\n"
 		+ "player on floor = " +  str(player.is_on_floor()) + "\n"
 		+ "player position = " +  str(player.translation) + "\n"
 	)
@@ -28,6 +29,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("help_info"):
 		keybind_defaults.visible = !keybind_defaults.visible
+		debug_label.visible = !debug_label.visible
 #	if event is InputEvent and event.is_action_pressed("kick"):
 #		if not color_rect.is_visible_in_tree():
 #			color_rect.show()

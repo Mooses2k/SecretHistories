@@ -1,5 +1,5 @@
-extends PickableItem
 class_name EquipmentItem
+extends PickableItem
 
 
 signal used_primary()
@@ -38,19 +38,19 @@ func _use_reload():
 func use_primary():
 	_use_primary()
 	emit_signal("used_primary")
-	pass
+
 
 
 func use_secondary():
 	_use_secondary()
 	emit_signal("used_secondary")
-	pass
+
 
 
 func use_reload():
 	_use_reload()
 	emit_signal("used_reload")
-	pass
+
 
 
 func get_hold_transform() -> Transform:

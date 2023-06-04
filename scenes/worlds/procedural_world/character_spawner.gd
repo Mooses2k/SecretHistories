@@ -1,6 +1,6 @@
 tool
-extends Node
 class_name CharacterSpawner
+extends Node
 
 
 export var character_scene : PackedScene
@@ -86,10 +86,10 @@ func spawn_characters():
 		if count >= max_count:
 			break
 		
-		var cell_type = data.get_cell_type(64)
+		var cell_type = data.get_cell_type(cell_index)
 		if randf() < _density_by_type[cell_type]:
 			count += 1
-			_spawn_character_at(64)
+			_spawn_character_at(cell_index)
 	
 	print("Total Characters Spawned: %s"%[count])
 
@@ -152,12 +152,14 @@ func _on_ProceduralWorld_generation_finished():
 	data = owner.world_data
 	call_deferred("spawn_characters")
 
+
 ###################################################################################################
 ### Editor Code ###################################################################################
 ###################################################################################################
 
 const GROUP_PREFIX_DENSITY = "density_"
 const PERCENT_CONVERSION = 100.0
+
 
 func _get_property_list() -> Array:
 	var properties := [

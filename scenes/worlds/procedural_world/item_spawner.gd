@@ -1,6 +1,7 @@
 tool
 extends Node
 
+
 # This is a tool so that `_min_loot` and `_max_loot` setters can act as data validators when
 # changing values in the editor
 
@@ -17,7 +18,7 @@ var free_cell = 0
 
 export var _loot_list_resource: Resource = null
 export var _min_loot := 5 setget _set_min_loot
-export var _max_loot := 8 setget _set_max_loot
+export var _max_loot := 10 setget _set_max_loot
 
 var _rng := RandomNumberGenerator.new()
 var _used_cell_indexes := []
@@ -32,6 +33,7 @@ func _ready() -> void:
 	_rng.randomize()
 
 ### -----------------------------------------------------------------------------------------------
+
 
 ### Private Methods -------------------------------------------------------------------------------
 
@@ -60,7 +62,7 @@ func _spawn_initial_loot(data : WorldData) -> void:
 		
 		for _loot_i in loot_data.amount:
 			var angle := _rng.randf_range(0.0, TAU)
-			# get random positions in a radius from 10% to 30% away from center.
+			# Get random positions in a radius from 10% to 30% away from center.
 			var cell_radius := data.CELL_SIZE * 0.5
 			var position := _get_random_position_in_cell(
 					data.get_local_cell_position(cell_index),
@@ -128,7 +130,7 @@ func _get_next_free_cell(data : WorldData) -> bool:
 		return false
 
 
-# angle is in radians
+# Angle is in radians
 func _spawn_item(scene_path: String, position: Vector3, angle := 0.0) -> void:
 	var item
 	var item_scene : PackedScene = load(scene_path)

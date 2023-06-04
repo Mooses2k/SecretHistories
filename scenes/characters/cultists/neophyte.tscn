@@ -142,6 +142,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6969, 0 )
 character = NodePath("../..")
 
 [node name="SoundListener" parent="Body" index="1" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 
 [node name="CultistNeophyteNoCape" parent="Body" index="2" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
@@ -150,7 +151,7 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0
 bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.82026, 0.560721, 0.114569, -0.0144927, -0.220484, 0.975327, 0.572129, 0.798352, 0.188898, -0.105106, 15.1046, 2.96158 )
+transform = Transform( -0.819924, 0.56109, 0.11465, -0.0145659, -0.220572, 0.975302, 0.572508, 0.797998, 0.188971, -0.10056, 15.1042, 2.96105 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
@@ -158,6 +159,7 @@ unique_name_in_owner = true
 transform = Transform( 9.98225, 1.1919, 1.09886, 0.20972, -3.56583, -9.0807, -0.219928, 9.68847, -3.29175, -0.648272, 0.879297, 0.206675 )
 
 [node name="NearSoundDetector" type="Area" parent="." index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62089, 0 )
 collision_layer = 0
 collision_mask = 66
 monitorable = false
@@ -167,6 +169,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.93
 shape = SubResource( 4 )
 
 [node name="FarSoundDetector" type="Area" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.587, 0 )
 collision_layer = 0
 collision_mask = 66
 monitorable = false

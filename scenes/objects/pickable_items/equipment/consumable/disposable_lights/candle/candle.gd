@@ -1,5 +1,5 @@
 class_name CandleItem
-extends ConsumableItem
+extends DisposableLightItem
 
 
 signal item_is_dropped

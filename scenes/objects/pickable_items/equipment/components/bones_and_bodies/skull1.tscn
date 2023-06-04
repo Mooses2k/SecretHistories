@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resources/models/items/components/bones_and_bodies/M_Skull.material" type="Material" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/equipment_item.gd" type="Script" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "skull1_skull"
@@ -26,6 +27,11 @@ radius = 0.101082
 
 [node name="Skull1" type="RigidBody"]
 collision_layer = 64
+script = ExtResource( 3 )
+dropped_layers = 64
+dropped_mask = 1
+item_size = 0
+item_name = "Skull"
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
@@ -49,7 +55,3 @@ shape = SubResource( 8 )
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-
-[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
-[connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

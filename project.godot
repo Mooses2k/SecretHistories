@@ -129,7 +129,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
-"base": "ConsumableItem",
+"base": "DisposableLightItem",
 "class": "CandleItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd"
@@ -173,6 +173,11 @@ _global_script_classes=[ {
 "class": "Cultist",
 "language": "GDScript",
 "path": "res://scenes/characters/cultists/cultist.gd"
+}, {
+"base": "ConsumableItem",
+"class": "DisposableLightItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.gd"
 }, {
 "base": "Spatial",
 "class": "Door",
@@ -369,7 +374,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/tool_item.gd"
 }, {
-"base": "ConsumableItem",
+"base": "DisposableLightItem",
 "class": "TorchItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
@@ -423,6 +428,7 @@ _global_script_class_icons={
 "ConsumableItem": "",
 "ControlMode": "",
 "Cultist": "",
+"DisposableLightItem": "",
 "Door": "",
 "Door_body": "",
 "Dynamite": "",

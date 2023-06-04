@@ -1,8 +1,9 @@
+class_name CandleItem
 extends ConsumableItem
 
 
-#var has_ever_been_on = false
 signal item_is_dropped
+
 var is_lit = true
 var burn_time : float
 var is_depleted : bool = false
@@ -21,14 +22,25 @@ onready var firelight = $FireOrigin/Fire/Light
 
 func _ready():
 	light_timer = $BurnTime
-	light_timer.connect("timeout", self, "light_depleted")
+	self.connect("item_is_dropped", self, "item_drop")
+	light_timer.connect("timeout", self, "_light_depleted")
 	burn_time = 3600.0
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
-	
-	material = $MeshInstance.get_surface_material(0)
-	new_material = material.duplicate()
-	$MeshInstance.set_surface_material(0,new_material)
+	light()
+
+
+func _process(delta):
+	if item_state == GlobalConsts.ItemState.DROPPED:
+		$Ignite/CollisionShape.disabled = false
+		is_dropped = true
+		
+		if is_dropped and not is_just_dropped:
+			is_just_dropped = true
+			self.emit_signal("item_is_dropped")
+			item_drop()
+	else:
+		$Ignite/CollisionShape.disabled = true
+		is_dropped = false
+		is_just_dropped = false
 
 
 func light():
@@ -39,7 +51,7 @@ func light():
 		$FireOrigin/Fire.visible = not $FireOrigin/Fire.visible
 		firelight.visible = not firelight.visible
 		$MeshInstance.cast_shadow = false
-		$MeshInstance.get_surface_material(0).emission_enabled  = not $MeshInstance.get_surface_material(0).emission_enabled
+		$MeshInstance.get_surface_material(0).emission_enabled = true
 		
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
@@ -49,8 +61,6 @@ func light():
 func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		if !is_dropped:
-			$Sounds/BlowOutSound.play()
 		$MeshInstance.get_surface_material(0).emission_enabled = false
 	#	$FireOrigin/Fire.emitting = false
 		$FireOrigin/Fire.visible = false
@@ -62,22 +72,28 @@ func unlight():
 
 
 func _use_primary():
+	print("Lit state before use_primary: ", is_lit)
 	if is_lit == false:
 		light()
 	else:
 		unlight()
+		$Sounds/BlowOutSound.play()
 
 
 func _item_state_changed(previous_state, current_state):
-	if current_state == GlobalConsts.ItemState.INVENTORY:
-		switch_away()
+#	if previous_state == GlobalConsts.ItemState.EQUIPPED and current_state == GlobalConsts.ItemState.DROPPED:
+#		unlight()
+#		return
+#	if previous_state == GlobalConsts.ItemState.EQUIPPED:  
+#		unlight()
+#		$Sounds/BlowOutSound.play()   # This is the messed one, all jacked with the sound etc
+#	if previous_state == GlobalConsts.ItemState.EQUIPPED and current_state == GlobalConsts.ItemState.INVENTORY:
+#		$Sounds/BlowOutSound.play()
+#		unlight()
+	pass
 
 
-func switch_away():
-	unlight()
-
-
-func light_depleted():
+func _light_depleted():
 	burn_time = 0
 	unlight()
 	is_depleted = true

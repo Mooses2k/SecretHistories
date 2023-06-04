@@ -30,7 +30,7 @@ func _physics_process(delta):
 
 func check_current_item_animation():
 	
-	#This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
+	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
 
@@ -71,7 +71,8 @@ func ads():
 	var main_hand_item = get_parent().inventory.current_mainhand_slot
 	
 	# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
-	if Input.is_action_pressed("ADS"):
+	if Input.is_action_pressed("ADS") and owner.do_sprint == false:
+
 		if get_parent().inventory.current_mainhand_slot != null:
 			
 			if get_parent().inventory.hotbar[main_hand_item] is GunItem:
@@ -83,7 +84,7 @@ func ads():
 					_camera.fov  = lerp(_camera.fov, 60, 0.5)
 
 	else:
-		if Input.is_action_just_released("ADS") and get_parent().inventory.hotbar[main_hand_item] is GunItem:
+		if Input.is_action_just_released("ADS") and get_parent().inventory.hotbar[main_hand_item] is GunItem or owner.do_sprint == true:
 			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%ADSTween".start()
 			_camera.fov  = lerp(_camera.fov, 70, 0.5)

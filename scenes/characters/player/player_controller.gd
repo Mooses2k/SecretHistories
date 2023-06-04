@@ -479,9 +479,9 @@ func throw_consumable():
 		item = inv.get_offhand_item()
 		inv.drop_offhand_item()
 	if item:
-		var impulse = active_mode.get_aim_direction()*throw_strength
-			# At this point, the item is still equipped, so we wait until
-			# it exits the tree and is re inserted in the world
+		var impulse = active_mode.get_aim_direction() * throw_strength
+		# At this point, the item is still equipped, so we wait until
+		# it exits the tree and is re inserted in the world
 		item.apply_central_impulse(impulse)
 
 

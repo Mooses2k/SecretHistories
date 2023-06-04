@@ -105,16 +105,16 @@ func _ready():
 #		player_near = false
 #		player_seen = false
 
-
-func _on_DirectSightArea_body_entered(body):
-	if body is Player:
-		player_near = true
-		if body.light_level > 0.03:
-			print("Player seen")   # Why does this show immediately at start? Seeing before walls are there?
-			player_seen = true
-
-
-func _on_DirectSightArea_body_exited(body):
-	if body is Player:
-		player_near = false
-		player_seen = false
+#
+#func _on_DirectSightArea_body_entered(body):
+#	if body is Player:
+#		player_near = true
+#		if body.light_level > 0.03:
+#			print("Player seen")   # Why does this show immediately at start? Seeing before walls are there?
+#			player_seen = true
+#
+#
+#func _on_DirectSightArea_body_exited(body):
+#	if body is Player:
+#		player_near = false
+#		player_seen = false

@@ -57,19 +57,22 @@ script = ExtResource( 8 )
 [node name="BT_Sequence2" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
 script = ExtResource( 9 )
 
-[node name="BT_Sound_Listener" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
-script = ExtResource( 17 )
-direct_player_sight = NodePath("../../../../Body/DirectPlayerSight")
-listener = NodePath("../../../../Body/SoundListener")
+[node name="BT_Selector_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="0"]
+script = ExtResource( 8 )
 
-[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
+[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Selector_Sensor" index="0"]
 script = ExtResource( 11 )
-sensor = NodePath("../../../../Body/DirectPlayerSight")
+sensor = NodePath("../../../../../Body/DirectPlayerSight")
 
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="2"]
+[node name="BT_Sound_Listener" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Selector_Sensor" index="1"]
+script = ExtResource( 17 )
+direct_player_sight = NodePath("../../../../../Body/DirectPlayerSight")
+listener = NodePath("../../../../../Body/SoundListener")
+
+[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2" index="1"]
 script = ExtResource( 9 )
 
-[node name="BT_Look_At_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
+[node name="BT_Look_At_Target3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="0"]
 script = ExtResource( 14 )
 
 [node name="BT_Selector2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence" index="1"]
@@ -117,15 +120,18 @@ min_time = 0.8
 [node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
 script = ExtResource( 9 )
 
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
+[node name="BT_Look_At_Target4" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="0"]
+script = ExtResource( 14 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
 script = ExtResource( 12 )
 
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="1"]
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
 script = ExtResource( 10 )
 max_time = 10.0
 min_time = 5.0
 
-[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="2"]
+[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence" index="3"]
 script = ExtResource( 7 )
 
 [node name="Body" parent="." index="6"]
@@ -140,8 +146,11 @@ character = NodePath("../..")
 [node name="CultistNeophyteNoCape" parent="Body" index="2" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
+[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
+bones/137/bound_children = [ NodePath("MainHandAttachment") ]
+
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.823696, 0.555674, 0.114079, -0.0123361, -0.218612, 0.975775, 0.567138, 0.802327, 0.186866, -0.12172, 15.1146, 2.96808 )
+transform = Transform( -0.82026, 0.560721, 0.114569, -0.0144927, -0.220484, 0.975327, 0.572129, 0.798352, 0.188898, -0.105106, 15.1046, 2.96158 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
@@ -186,8 +195,8 @@ active = true
 parameters/ADS_State/current = 2
 parameters/Rifle_strafe_vector/blend_position = Vector2( 0, -0.0172414 )
 
-[connection signal="unseen_sound_heard" from="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sound_Listener" to="Audio" method="_on_BT_Sound_Listener_unseen_sound_heard"]
-[connection signal="character_detected" from="BehaviorTree/BT_Selector/BT_Sequence2/BT_Player_Sensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
+[connection signal="character_detected" from="BehaviorTree/BT_Selector/BT_Sequence2/BT_Selector_Sensor/BT_Player_Sensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
+[connection signal="unseen_sound_heard" from="BehaviorTree/BT_Selector/BT_Sequence2/BT_Selector_Sensor/BT_Sound_Listener" to="Audio" method="_on_BT_Sound_Listener_unseen_sound_heard"]
 [connection signal="character_reloaded" from="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector2/BT_Reload_Gun" to="Audio" method="_on_BT_Reload_Gun_character_reloaded"]
 [connection signal="plans_to_approach" from="BehaviorTree/BT_Selector/BT_Sequence2/BT_Sequence/BT_Selector/BT_Go_To_Target" to="Audio" method="_on_BT_Go_To_Target_plans_to_approach"]
 [connection signal="character_idled" from="BehaviorTree/BT_Selector/BT_Sequence/BT_Wait_Random" to="Audio" method="_on_BT_Wait_Random_character_idled"]

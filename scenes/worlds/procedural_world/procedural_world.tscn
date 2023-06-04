@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
 [ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
 [ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
 [ext_resource path="res://scenes/worlds/procedural_world/character_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
@@ -42,15 +42,12 @@ max_count = 3
 _density_by_type = {
 2: 0.02,
 3: 0.0025,
-4: 0
+4: 0.005
 }
-
-[node name="GenerationManager" parent="." index="6"]
-world_size_x = 30
-world_size_z = 30
 
 [node name="GenerateRooms" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 17 )
+room_size_max = 3
 
 [node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="1"]
 script = ExtResource( 3 )
@@ -86,6 +83,8 @@ pillar_tile = 16
 script = ExtResource( 16 )
 starting_light = ExtResource( 7 )
 _loot_list_resource = ExtResource( 8 )
+_min_loot = 10
+_max_loot = 15
 
 [connection signal="generation_finished" from="." to="CharacterSpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

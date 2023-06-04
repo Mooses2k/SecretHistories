@@ -12,13 +12,13 @@ albedo_color = Color( 0.6, 0.2, 0.1, 1 )
 
 [sub_resource type="CylinderMesh" id=2]
 top_radius = 0.0
-bottom_radius = 31.6878
+bottom_radius = 78.3837
 height = 32.0
 radial_segments = 4
 rings = 0
 
 [sub_resource type="ConvexPolygonShape" id=3]
-points = PoolVector3Array( 0, -16, -31.6878, -31.6878, -16, 0, 0, 16, 0, 31.6878, -16, 0, 0, -16, 31.6878 )
+points = PoolVector3Array( -0.0153427, -16, -78.3837, -78.3837, -16, -0.0153427, -0.0153427, 16, -0.0153427, 78.3683, -16, -0.0153427, -0.0153427, -16, 78.3683 )
 
 [node name="DirectPlayerSight" type="Spatial"]
 script = ExtResource( 2 )

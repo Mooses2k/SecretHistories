@@ -187,11 +187,7 @@ collision_mask = 0
 mass = 0.5
 continuous_cd = true
 script = ExtResource( 3 )
-dropped_layers = 64
-dropped_mask = 1
-equipped_mode = 3
 item_drop_sound = ExtResource( 9 )
-item_size = 0
 item_name = "Torch"
 life_percentage_lose = 0.2
 prob_going_out = 0.1
@@ -229,7 +225,7 @@ visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 omni_range = 13.0
-omni_attenuation = 7.0
+omni_attenuation = 4.0
 
 [node name="EmberDrip" type="Particles" parent="FireOrigin"]
 transform = Transform( 0.2, -3.49692e-08, 0, 3.49692e-08, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )

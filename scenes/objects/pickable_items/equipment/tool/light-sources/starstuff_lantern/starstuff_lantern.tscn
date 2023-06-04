@@ -121,12 +121,10 @@ tracks/2/keys = {
 extents = Vector3( 0.15, 0.15, 0.15 )
 
 [node name="StarstuffLantern" instance=ExtResource( 1 )]
-mass = 0.2
 contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 7 )
 item_name = "Starstuff Lantern"
-is_oil_based = false
 life_percentage_lose = 0.1
 prob_going_out = 0.5
 
@@ -154,7 +152,7 @@ light_specular = 16.0
 shadow_enabled = true
 shadow_color = Color( 0.835294, 0.0196078, 0.647059, 1 )
 omni_range = 10.0
-omni_attenuation = 7.0
+omni_attenuation = 4.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 autoplay = "flicker"

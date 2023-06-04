@@ -48,8 +48,9 @@ func _process(delta):
 		$Indication_canvas/Indication_system/Dot.hide()
 		
 	if is_reloading == true:
-		noise_level = 8
-		$Audio/NoiseTimer.start()
+		if noise_level < 8:
+			noise_level = 8
+			$Audio/NoiseTimer.start()
 #	else:
 #		noise_level = 0
 

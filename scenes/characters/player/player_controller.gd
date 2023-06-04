@@ -294,7 +294,7 @@ func _check_movement_key(delta):
 		if movement_press_length >= 0.25:
 			owner.is_to_move = true
 			if !owner.is_crouching:
-				if owner.do_sprint:
+				if owner.do_sprint and is_movement_key4_held == true:   # Only if sprinting forward
 					if owner.noise_level < 12:
 						owner.noise_level = 12
 						noise_timer.start()

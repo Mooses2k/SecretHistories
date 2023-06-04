@@ -4,8 +4,19 @@ extends Spatial
 var level1 : float
 var level : float
 
+export var light_detect_interval : float = 0.25   # For performance, only check about 4 times a second
+var _last_time_since_detect : float = 0.00
+
+
+func _get_time() -> float:
+	return OS.get_ticks_msec() / 1000.0
+
 
 func _process(delta):
+	# For performance, only check about 4 times a second
+	if _last_time_since_detect + light_detect_interval > _get_time() and _last_time_since_detect != 0.0:
+		return
+
 	var meshInstance := get_node("MeshInstance")
 	var meshInstance2 := get_node("MeshInstance2")
 	get_node("ViewportContainer/Viewport/Camera").global_transform.origin = (
@@ -66,6 +77,8 @@ func _process(delta):
 	if owner.state == owner.State.STATE_CROUCHING:
 		level *= (1 - pow(1 - level, 5))
 	owner.light_level = level
+	
+	_last_time_since_detect = _get_time()   # Tracked to reduce calls of this function for performance
 
 
 func average(numbers: Array) -> float:

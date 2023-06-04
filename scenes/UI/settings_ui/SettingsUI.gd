@@ -3,10 +3,12 @@ extends VBoxContainer
 
 export var default_group_name = "Game Settings"
 
+const SetDefaultKeyBtn = preload("SetDefaultKeys.tscn")
 const BlankRowScene = preload("BlankRow.tscn")
 const GroupScene = preload("SettingsGroup.tscn")
 const GroupClass = preload("SettingsGroup.gd")
 const SettingEditor = preload("SettingsEditors/SettingEditor.gd")
+
 
 const SettingsEditors = {
 	SettingsClass.SettingType.BOOL : preload("SettingsEditors/BoolEditor.tscn"),
@@ -18,6 +20,8 @@ const SettingsEditors = {
 
 var group_nodes : Dictionary = Dictionary()
 var settings : SettingsClass
+var is_first_settings : bool = true
+var is_first_key_settings : bool = true
 
 
 func attach_settings(s : SettingsClass):
@@ -34,6 +38,9 @@ func clear_ui():
 
 
 func generate_ui():
+	is_first_settings = true
+	is_first_key_settings = true
+	
 	for _s in settings.get_settings_list():
 		var setting_name = _s as String
 		add_setting(setting_name)
@@ -47,6 +54,11 @@ func add_setting(setting_name : String):
 	if settings_group == null:
 		add_group(group_name)
 		settings_group = get_group_node(group_name)
+	
+	if group_name == "Input Key Settings" and is_first_key_settings:
+		is_first_key_settings = false
+		settings_group.add_editor(SetDefaultKeyBtn.instance())
+	
 	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instance() as SettingEditor
 	settings_group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
@@ -55,7 +67,12 @@ func add_setting(setting_name : String):
 func add_group(group_name : String) -> bool:
 	if group_nodes.has(group_name):
 		return false
-	add_blank_row()
+	
+	if is_first_settings:
+		is_first_settings = false
+	else:
+		add_blank_row()
+	
 	var new_group = GroupScene.instance()
 	add_child(new_group)
 	group_nodes[group_name] = new_group

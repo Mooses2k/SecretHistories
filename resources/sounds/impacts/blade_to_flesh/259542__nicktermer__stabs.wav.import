@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/259542__nicktermer__stabs.wav-b8fbc754db6907e61b3c43d2818e0640.sample"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/blade_to_flesh/259542__nicktermer__stabs.wav"
+dest_files=[ "res://.import/259542__nicktermer__stabs.wav-b8fbc754db6907e61b3c43d2818e0640.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

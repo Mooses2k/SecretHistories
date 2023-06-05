@@ -3,7 +3,8 @@ extends ToolItem
 
 ### Eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...not that you'd ever care to do that
 
-# function this out better, lots of duplicated lines
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candle,gd
+
 
 signal item_is_dropped
 var burn_time : float
@@ -31,6 +32,8 @@ var is_depleted_2 : bool = false
 var is_depleted_3 : bool = false
 var random_number_2_3
 
+export var number_of_candles : int = 1
+
 
 func _ready():
 	light_timer = $Timer
@@ -43,7 +46,13 @@ func _ready():
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
 	
-	if $Candle3 != null:
+	material = $Candle1/MeshInstance.get_surface_material(0)
+	new_material = material.duplicate()
+	$Candle1/MeshInstance.set_surface_material(0,new_material)
+
+	if number_of_candles > 1:   # TODO: Switch other parts of this script to use this to avoid red debug errors
+		$Candle2/MeshInstance.set_surface_material(0,new_material)
+		$Candle3/MeshInstance.set_surface_material(0,new_material)
 		light_timer_2 = $Timer2
 		light_timer_2.connect("timeout", self, "light_depleted_2")
 		
@@ -58,14 +67,6 @@ func _ready():
 		light_timer_3.set_wait_time(burn_time_3)
 		light_timer_3.start()
 	
-	material = $Candle1/MeshInstance.get_surface_material(0)
-	new_material = material.duplicate()
-	$Candle1/MeshInstance.set_surface_material(0,new_material)
-	if $Candle2 != null:
-		$Candle2/MeshInstance.set_surface_material(0,new_material)
-	if $Candle3 != null:
-		$Candle3/MeshInstance.set_surface_material(0,new_material)
-
 
 func light():
 	if not is_depleted:
@@ -208,7 +209,6 @@ func stop_light_timer():
 	light_timer.stop()
 
 
-# Currently not working to put out light when thrown
 func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)

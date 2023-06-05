@@ -289,6 +289,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/melee/melee_item.gd"
 }, {
+"base": "MeshInstance",
+"class": "MeshInstanceLayered",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/mesh_instances.gd"
+}, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
 "language": "GDScript",
@@ -384,6 +389,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/visibility_mask/visibility_mask.gd"
 }, {
+"base": "MeshInstanceLayered",
+"class": "VisualFlame",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd"
+}, {
 "base": "Resource",
 "class": "WorldData",
 "language": "GDScript",
@@ -451,6 +461,7 @@ _global_script_class_icons={
 "ManhattanAStar2D": "",
 "MedicalItem": "",
 "MeleeItem": "",
+"MeshInstanceLayered": "",
 "MeshTransform": "",
 "PadlockItem": "",
 "PickableItem": "",
@@ -470,6 +481,7 @@ _global_script_class_icons={
 "ToolItem": "",
 "TorchItem": "",
 "VisibilityMask": "",
+"VisualFlame": "",
 "WorldData": "",
 "WritingItem": ""
 }

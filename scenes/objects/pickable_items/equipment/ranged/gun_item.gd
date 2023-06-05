@@ -20,6 +20,7 @@ export var reload_time = 0.0
 export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
+
 export var handling = 5.0
 
 export(AttackTypes.Types) var melee_damage_type : int = 0

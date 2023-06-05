@@ -2,7 +2,7 @@ class_name BT_Go_To_Target
 extends BT_Node
 
 
-signal plans_to_approach
+signal plans_to_approach   # For signalling speech
 
 export var threshold : float = 0.5 setget set_threshold
 var _thresold_squared : float = 0.25
@@ -31,4 +31,4 @@ func tick(state : CharacterState) -> int:
 		state.face_direction = state.move_direction
 		return Status.RUNNING
 
-	return Status.SUCCESS
+	return Status.FAILURE

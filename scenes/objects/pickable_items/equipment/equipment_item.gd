@@ -30,6 +30,7 @@ func _use_secondary():
 	pass
 
 
+# Reloads can only happen in main-hand
 func _use_reload():
 	print("use reload")
 	pass

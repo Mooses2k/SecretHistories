@@ -1,7 +1,7 @@
 class_name VisualFlame
 extends MeshInstanceLayered
 
-# This script serves the purpose of providing  more advanced features that 
+# This script serves the purpose of providing more advanced features that 
 # requires more than GLSL can offer, such as the top having a delay to follow 
 # the bottom and randomizing the seed of the noise offset.
 

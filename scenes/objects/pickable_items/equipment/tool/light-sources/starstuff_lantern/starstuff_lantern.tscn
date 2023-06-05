@@ -153,7 +153,7 @@ light_specular = 16.0
 shadow_enabled = true
 shadow_color = Color( 0.835294, 0.0196078, 0.647059, 1 )
 omni_range = 10.0
-omni_attenuation = 7.0
+omni_attenuation = 4.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 autoplay = "flicker"

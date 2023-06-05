@@ -635,8 +635,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.4
 shadow_enabled = true
-omni_range = 10.0
-omni_attenuation = 7.0
+omni_range = 9.0
+omni_attenuation = 4.0
 
 [node name="Ignite" type="Area" parent="." groups=["Ignite"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )

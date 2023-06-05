@@ -16,7 +16,7 @@ func generate_settings():
 
 
 func add_generation_settings():
-	_settings.add_int_setting("World Seed", -55555, 55555, 1, 0)
+	_settings.add_int_setting("World Seed", -55555, 55555, 1, randi() % 111110 - 55555)
 	_settings.set_setting_group("World Seed", "Generation Settings")
 	_settings.set_setting_meta("World Seed", _settings._CAN_RANDOMIZE_FLAG, true)
 

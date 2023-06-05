@@ -23,7 +23,6 @@ func _ready():
 	connect("body_entered", self, "play_drop_sound")
 
 
-# needs to be able to detect hits instead of just scrapes
 func _integrate_forces(state):
 	if self.audio_player.stream != self.item_drag_sound:
 		self.audio_player.stream = self.item_drag_sound

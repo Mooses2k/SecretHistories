@@ -15,7 +15,9 @@ var item_inside_listener = []
 var item_too_near = []
 var player_body : Object
 var item_heared : Object
-var sound_was_heared : bool = false
+#var sound_was_heared : bool = false
+
+export var hearing_sensitivity = 4   # Lower levels for more acute hearing
 
 
 func _ready():
@@ -30,16 +32,8 @@ func queue_update():
 		get_tree().connect("idle_frame", self, "_update", [], CONNECT_ONESHOT)
 
 
-func _update():
-	set_fov()
-
-
-func set_fov():
-	queue_update()
-
-
 func is_sound_detected() -> bool:
-	if not sound_was_heared:
+	if not sound_detected:
 		if not sensor_up_to_date:
 			update_sensor()
 	
@@ -47,7 +41,7 @@ func is_sound_detected() -> bool:
 
 
 func get_measured_position() -> Vector3:
-	if not sound_was_heared:
+	if not sound_detected:
 		if not sensor_up_to_date:
 			update_sensor()
 	
@@ -68,13 +62,13 @@ func check_sound_around():
 	if player_inside_listener:
 		if obj_sound_loud_enough(player_body, check_if_behind_wall(player_body)):
 			sound_detected = true
-			sound_was_heared = true
+#			sound_was_heared = true
 			sound_position = player_body.global_transform.origin
 	
 	for item in item_inside_listener:
 		if obj_sound_loud_enough(item, check_if_behind_wall(item)):
 			sound_detected = true
-			sound_was_heared = true
+#			sound_was_heared = true
 			sound_position = item.global_transform.origin
 
 
@@ -84,11 +78,11 @@ func obj_sound_loud_enough(item, behind_wall : int):
 		item.noise_level /= behind_wall
 		if item.noise_level > 0:
 			print(item.noise_level, " noise after passing through wall(s)")
-	if item.noise_level >= 4:
+	if item.noise_level >= hearing_sensitivity:
 		if player_inside_near_listener == true or !item_too_near.empty():
 			print("Player or object near and heard")
 			return true
-	if item.noise_level >= 10:
+	if item.noise_level >= hearing_sensitivity * 2.5:
 		if player_inside_listener == true or item_inside_listener == true:
 			return true
 	return false

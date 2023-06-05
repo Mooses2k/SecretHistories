@@ -8,9 +8,10 @@ func _input(event):
 #	if event.is_action_pressed("fullscreen"):
 #		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
 		# Size the center container to screen size
-	if event.is_action_pressed("ui_cancel"):
-		_start_game()
-		queue_free()
+	if self.visible == true:
+		if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_accept"):
+			_start_game()
+			queue_free()
 
 
 func show_intro():

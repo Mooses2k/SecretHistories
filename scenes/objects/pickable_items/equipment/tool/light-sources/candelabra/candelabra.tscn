@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/candelabra/trn_Candelabra_001.material" type="Material" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=6]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=8]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=9]
+[ext_resource path="res://resources/shaders/items/consumables/light_sources/candle/flame.material" type="Material" id=10]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -140,7 +142,7 @@ radius = 0.2
 [sub_resource type="Animation" id=50]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_color")
+tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -149,31 +151,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
 "values": [ 0.25 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Candle1/FireOrigin/Fire/Light:omni_range")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 10.0 ]
 }
 
 [sub_resource type="Animation" id=51]
@@ -181,40 +159,16 @@ resource_name = "flicker"
 length = 5.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_color")
+tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 1.7, 3.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.760784, 0.364706, 0.0470588, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.4, 1, 1.4, 2.1, 3.1, 3.9, 4.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 0.23, 0.26, 0.24, 0.26, 0.23, 0.25, 0.24, 0.236 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Candle1/FireOrigin/Fire/Light:omni_range")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.4, 3.9, 4.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ 10.0, 11.0, 7.0, 9.0 ]
+"values": [ 0.3, 0.32, 0.26 ]
 }
 
 [sub_resource type="ArrayMesh" id=43]
@@ -237,45 +191,8 @@ surfaces/0 = {
 height = 0.15
 radius = 0.05
 
-[sub_resource type="CylinderMesh" id=45]
-top_radius = 0.0
-bottom_radius = 0.015
-height = 0.08
-radial_segments = 6
-rings = 1
-
-[sub_resource type="Shader" id=127]
-code = "shader_type spatial;
-render_mode blend_add, unshaded;
-
-const vec3 CENTER_OFFSET = vec3(0.0, -0.03, 0.0);
-const vec3 SCALE = vec3(50.0, 12.0, 50.0);
-
-uniform float INTENSITY = 1.0;
-uniform sampler2D COLOR_RAMP;
-varying vec2 XY_FACTOR;
-
-void vertex() {
-	vec3 v = (VERTEX - CENTER_OFFSET)*SCALE;
-	XY_FACTOR = vec2(v.x*v.x + v.z*v.z, v.y);
-}
-
-void fragment() {
-	ALBEDO.rgb = texture(COLOR_RAMP, vec2(XY_FACTOR.y)).rgb*INTENSITY;
-}"
-
-[sub_resource type="Gradient" id=47]
-offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
-colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=128]
-gradient = SubResource( 47 )
-width = 32
-
-[sub_resource type="ShaderMaterial" id=49]
-shader = SubResource( 127 )
-shader_param/INTENSITY = 4.0
-shader_param/COLOR_RAMP = SubResource( 128 )
+[sub_resource type="QuadMesh" id=127]
+size = Vector2( 0.033, 0.1 )
 
 [sub_resource type="BoxShape" id=89]
 extents = Vector3( 0.27, 0.05, 0.05 )
@@ -476,24 +393,25 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1.6
 shape = SubResource( 44 )
 
 [node name="FireOrigin" type="Position3D" parent="Candle1"]
-transform = Transform( 0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, -5.24627e-09, 0.120021 )
+transform = Transform( 0.25, 3.59529e-24, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 1.0604e-22, -5.27296e-09, 0.120631 )
 script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle1/FireOrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, 0, 0, 0 )
 cast_shadow = 0
-mesh = SubResource( 45 )
-skeleton = NodePath("../../..")
-material/0 = SubResource( 49 )
-script = ExtResource( 6 )
+mesh = SubResource( 127 )
+material/0 = ExtResource( 10 )
+script = ExtResource( 9 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Light" type="OmniLight" parent="Candle1/FireOrigin/Fire"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.25
 shadow_enabled = true
-omni_range = 10.0
-omni_attenuation = 7.0
+omni_attenuation = 4.0
 
 [node name="Candle2" type="Spatial" parent="."]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00296439, 0.0710616, -0.201684 )
@@ -511,16 +429,18 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.1
 shape = SubResource( 44 )
 
 [node name="FireOrigin" type="Position3D" parent="Candle2"]
-transform = Transform( 0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, -5.29959e-09, 0.121241 )
+transform = Transform( 0.25, 3.59529e-24, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0.00416718, -7.68341e-09, 0.118424 )
 script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle2/FireOrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, 0, 0, 0 )
 cast_shadow = 0
-mesh = SubResource( 45 )
-skeleton = NodePath("../../..")
-material/0 = SubResource( 49 )
-script = ExtResource( 6 )
+mesh = SubResource( 127 )
+material/0 = ExtResource( 10 )
+script = ExtResource( 9 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Candle3" type="Spatial" parent="."]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.000640959, 0.0715551, 0.194067 )
@@ -538,16 +458,18 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.6
 shape = SubResource( 44 )
 
 [node name="FireOrigin" type="Position3D" parent="Candle3"]
-transform = Transform( 0.25, 0, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0, -5.37004e-09, 0.122852 )
+transform = Transform( 0.25, 3.59529e-24, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0.00225089, -5.2969e-09, 0.119121 )
 script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle3/FireOrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, 0, 0, 0 )
 cast_shadow = 0
-mesh = SubResource( 45 )
-skeleton = NodePath("../../..")
-material/0 = SubResource( 49 )
-script = ExtResource( 6 )
+mesh = SubResource( 127 )
+material/0 = ExtResource( 10 )
+script = ExtResource( 9 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Ignite" type="Area" parent="." groups=["IGNITE"]]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00712366, 0.353032, -0.00613392 )

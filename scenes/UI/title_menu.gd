@@ -7,6 +7,9 @@ func _ready():
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	$VBoxContainer/ContinueButton.grab_focus()
+	
+	if !BackgroundMusic.is_playing():
+		BackgroundMusic.play()
 
 
 func _input(event):

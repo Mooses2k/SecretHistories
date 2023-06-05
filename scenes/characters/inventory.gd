@@ -102,7 +102,7 @@ func add_item(item : PickableItem) -> bool:
 			unequip_offhand_item()
 			equip_bulky_item(item)
 		else:
-			var slot = 10   # Defaulting to empty hands
+			var slot = 0
 			
 			### Probably can be cleaned up - part 1 is to put lights offhand, part 2 is everything else
 			# Checks if something is in offhand; if not, and this is a light, put it there

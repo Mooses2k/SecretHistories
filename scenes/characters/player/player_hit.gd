@@ -29,6 +29,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("help_info"):
 		keybind_defaults.visible = !keybind_defaults.visible
+		debug_label.visible = !debug_label.visible
 #	if event is InputEvent and event.is_action_pressed("kick"):
 #		if not color_rect.is_visible_in_tree():
 #			color_rect.show()

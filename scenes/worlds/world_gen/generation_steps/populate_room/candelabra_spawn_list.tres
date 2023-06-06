@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 _paths = [ "res://scenes/objects/large_objects/lighting/floor_candelabra.tscn", "res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn", "" ]
-_weights = [ 80, 10, 10 ]
+_weights = [ 85, 10, 5 ]
 _min_amounts = [ 1, 1, 1 ]
 _max_amounts = [ 1, 1, 1 ]

@@ -16,7 +16,7 @@ const UNLIT_KEYWORD = "unlit"
 
 # Rooms must have both sides greater or equal to this value to be considered 
 # for spawning candelabra
-export var _size_threshold := 6
+export var _single_tile_size_threshold := 6
 export(float, 0.0,1.0,0.01) var _room_chance := 0.6
 export var _spawn_list_resource: Resource = null
 
@@ -52,7 +52,7 @@ func _get_valid_rooms(p_array: Array) -> Array:
 	
 	for entry in p_array:
 		var room_data := entry as RoomData
-		if room_data.is_min_dimension_greater_or_equal_to(_size_threshold):
+		if room_data.is_min_dimension_greater_or_equal_to(_single_tile_size_threshold):
 			valid_rooms.append(room_data)
 	
 #	print("valid rooms for candelabra: %s"%[valid_rooms])

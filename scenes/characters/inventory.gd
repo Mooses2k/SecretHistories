@@ -1,5 +1,5 @@
-extends Node
 #class_name Inventory
+extends Node
 
 
 signal bulky_item_changed()
@@ -12,9 +12,9 @@ signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
-signal UpdateHud
+signal inventory_changed
 #Emitted to hide the HUD UI when player dies
-signal PlayerDead
+signal player_died
 
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int= 11
@@ -43,7 +43,7 @@ var current_offhand_equipment : EquipmentItem = null
 
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
-onready var Animations : AnimationPlayer = $"%Additional_animations"  as AnimationPlayer
+onready var Animations : AnimationPlayer = $"%AdditionalAnimations"  as AnimationPlayer
 
 
 func _ready():
@@ -102,17 +102,45 @@ func add_item(item : PickableItem) -> bool:
 			unequip_offhand_item()
 			equip_bulky_item(item)
 		else:
-			# Select an empty slot, prioritizing the current one, if empty
-			var slot : int = current_mainhand_slot
-			# Then the offhand
+			var slot = 0
 			
+			### Probably can be cleaned up - part 1 is to put lights offhand, part 2 is everything else
+			# Checks if something is in offhand; if not, and this is a light, put it there
+			if current_offhand_equipment == null or current_offhand_equipment == EmptyHand:
+				print("Offhand null or empty hands")
+				if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
+					print("...and is a light")
+					if hotbar[slot] != null and !current_mainhand_slot:
+						print ("...slot isn't empty and it's not the mainhand one")
+						slot = current_offhand_slot
+					if hotbar[slot] != null:
+						slot = hotbar.find(null)
+					if slot == current_mainhand_slot:
+						slot += 1
+					if slot != 10:
+						hotbar[slot] = item
+						print("Light-source going to slot ", slot)
+						# Schedule the item removal from the world
+						if item.is_inside_tree():
+							item.get_parent().remove_child(item)
+						
+						emit_signal("hotbar_changed", slot)
+						emit_signal("inventory_changed")
+						
+						if not bulky_equipment:
+							set_offhand_slot(slot)   # This is what puts it in off-hand
+							equip_offhand_item()
+							return true
+					
+			### Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
+			slot = current_mainhand_slot
+			# Then the offhand, preferring this slot for lights
 			if hotbar[slot] != null:
 				slot = current_offhand_slot
-				
 			# Then the first empty slot
 			if hotbar[slot] != null:
 				slot = hotbar.find(null)
-			# This checks if the slot to add the item isnt the item free slot then Adds the item to the slot
+			# This checks if the slot to add the item isn't the item free slot then adds the item to the slot
 			if slot != 10:
 				hotbar[slot] = item
 				# Schedule the item removal from the world
@@ -120,15 +148,16 @@ func add_item(item : PickableItem) -> bool:
 					item.get_parent().remove_child(item)
 				
 				emit_signal("hotbar_changed", slot)
-				emit_signal("UpdateHud")
+				emit_signal("inventory_changed")
+				
 				# Autoequip if possible
+				# Everything else including another light-source, just put it in the main-hand
 				if current_mainhand_slot == slot and not bulky_equipment:
 					equip_mainhand_item()
-
+				
 				elif current_offhand_slot == slot and not bulky_equipment:
 					equip_offhand_item()
-				
-
+					
 	return true
 
 
@@ -159,13 +188,18 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_mainhand_item():
+	# temporary hack (issue #409)
+	if not is_instance_valid(current_mainhand_equipment):
+		current_mainhand_equipment = null
+	
 	if current_mainhand_equipment != null: # Item already equipped
 		return
+		
 	var item : EquipmentItem = hotbar[current_mainhand_slot] as EquipmentItem
 	if item:
-		# Can't Equip a Bulky Item simultaneously with a normal item
+		# Can't equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
-		# Can't Equip item on both hands
+		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
@@ -176,23 +210,24 @@ func equip_mainhand_item():
 			owner.mainhand_equipment_root.add_child(item)
 		else:
 			owner.mainhand_equipment_root.add_child(item)
-		emit_signal("UpdateHud")
+		emit_signal("inventory_changed")
 
 
 func unequip_mainhand_item():
+	# temporary hack (issue #409)
+	if not is_instance_valid(current_mainhand_equipment):
+		current_mainhand_equipment = null
+	
 	if current_mainhand_equipment == null: # No item equipped
-		
 		return
+	
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
-#	item.get_parent().remove_child(item)
-#	emit_signal("UpdateHud")
 	if item.can_attach == true:
 		pass
 	else:
 		item.get_parent().remove_child(item)
-	
 
 
 func equip_bulky_item(item : EquipmentItem):
@@ -208,8 +243,7 @@ func equip_bulky_item(item : EquipmentItem):
 		if item.get_parent():
 			item.get_parent().remove_child(item)
 		owner.mainhand_equipment_root.add_child(item)
-		emit_signal("UpdateHud")
-	pass
+		emit_signal("inventory_changed")
 
 
 func drop_bulky_item():
@@ -221,7 +255,6 @@ func drop_bulky_item():
 	emit_signal("bulky_item_changed")
 	item.get_parent().remove_child(item)
 	_drop_item(item)
-	pass
 
 
 func equip_offhand_item():
@@ -242,7 +275,6 @@ func equip_offhand_item():
 			owner.offhand_equipment_root.add_child(item)
 		else:
 			owner.offhand_equipment_root.add_child(item)
-	pass
 
 
 func unequip_offhand_item():
@@ -256,7 +288,6 @@ func unequip_offhand_item():
 		pass
 	else:
 		item.get_parent().remove_child(item)
-	pass
 
 
 func drop_mainhand_item():
@@ -308,14 +339,17 @@ func drop_hotbar_slot(slot : int) -> Node:
 # note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
 	item.item_state = GlobalConsts.ItemState.DROPPED
-	if GameManager.game.level:
+	if !GameManager.game:   # This is here for test scenes
+		item.global_transform = drop_position_node.global_transform
+		find_parent("TestWorld").add_child(item)
+		return
+	if GameManager.game.level:   # This is for the real game
 		item.global_transform = drop_position_node.global_transform
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
-	pass
 
 
 func set_mainhand_slot(value : int):
@@ -325,10 +359,10 @@ func set_mainhand_slot(value : int):
 		current_mainhand_slot = value
 		equip_mainhand_item()
 		emit_signal("mainhand_slot_changed", previous_slot, value)
-		emit_signal("UpdateHud")
+		emit_signal("inventory_changed")
 	else:
 		if get_mainhand_item() == hotbar[current_mainhand_slot]:
-			emit_signal("UpdateHud")
+			emit_signal("inventory_changed")
 			unequip_mainhand_item()
 		else:
 			equip_mainhand_item()
@@ -341,16 +375,16 @@ func set_offhand_slot(value : int):
 		current_offhand_slot = value
 		equip_offhand_item()
 		emit_signal("offhand_slot_changed", previous_slot, value)
-		emit_signal("UpdateHud")
+		emit_signal("inventory_changed")
+
+
+func attach_to_belt(item):
+	if item.get_parent() != owner.belt_position:
+		item.get_parent().remove_child(item)
+		owner.belt_position.add_child(item)
+		$"%AdditionalAnimations".play("Belt_Equip")
+		print("Attached to belt in inventory.gd")
 
 
 func _on_Player_character_died():
-	emit_signal("PlayerDead")
-
-func attach_to_belt(item):
-	if item.get_parent() != owner.belt_position :
-		item.get_parent().remove_child(item)
-		owner.belt_position.add_child(item)
-		$"%Additional_animations".play("Belt_Equip")
-
-
+	emit_signal("player_died")

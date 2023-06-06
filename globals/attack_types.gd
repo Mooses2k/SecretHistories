@@ -1,15 +1,15 @@
-extends Object
 class_name AttackTypes
+extends Object
 
 
 enum Types {
-	BLUDGEONING, # Blunt
+	BLUDGEONING,   # Blunt
 	SLASHING,
 	PIERCING,
-	BALLISTIC,
+	BALLISTIC,   # Bullets
 	FIRE,
 	SPECIAL,
-	_COUNT, # Not a type, helper value for the ammount of types
+	_COUNT,   # Not a type, helper value for the ammount of types
 }
 
 

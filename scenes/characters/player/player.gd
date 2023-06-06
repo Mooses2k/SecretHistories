@@ -1,5 +1,5 @@
-extends "res://scenes/characters/character.gd"
 class_name Player
+extends Character
 
 
 signal change_off_equipment_out_done()
@@ -14,22 +14,24 @@ var is_change_main_equip_in : bool = false
 var is_change_off_equip_out : bool = false
 var is_change_off_equip_in : bool = false
 
+onready var player_controller = $PlayerController
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
-onready var gun_cam = $ViewportContainer2/Viewport/GunCam
+onready var gun_cam = $ViewportContainer/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
 
 
 func _ready():
+	connect("player_landed", player_controller, "_on_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 
-#	body.add_collision_exception_with()
+
+func _physics_process(delta):
+	gun_cam.global_transform = fps_camera.global_transform
 
 
 func _process(delta):
-	gun_cam.global_transform = fps_camera.global_transform
-
 	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
 		$Indication_canvas/Indication_system/Dot.hide()
 	else :
@@ -40,38 +42,47 @@ func _process(delta):
 	change_maindhand_equipment_out()
 	change_offhhand_equipment_out()
 	change_offhand_equipment_in()
-	#this notifies the dot if something if the player is currently grabbing something
-	if $PlayerController.is_grabbing == true:
+	
+	# This notifies the dot if something if the player is currently grabbing something
+	if player_controller.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
+		
+	if is_reloading == true:
+		if noise_level < 8:
+			noise_level = 8
+			$Audio/NoiseTimer.start()
+#	else:
+#		noise_level = 0
 
 
+# Eventually this needs to be possible for character
 func drop_consumable(object):
-	$PlayerController.throw_consumable()
+	player_controller.throw_consumable()
 
 
 func grab_indicator():
 	var grabable_object = grab_cast.get_collider()
 
 	if grabable_object != null:
-		if grab_cast.is_colliding() and grabable_object is PickableItem and  $PlayerController.is_grabbing == false:
+		if grab_cast.is_colliding() and grabable_object is PickableItem and  player_controller.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
-		elif grab_cast.is_colliding() and grabable_object is RigidBody  and  $PlayerController.is_grabbing == false:
+		elif grab_cast.is_colliding() and grabable_object is RigidBody  and  player_controller.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
 		else:
 				$Indication_canvas/Indication_system/Grab.hide()
-		if grab_cast.is_colliding() and grabable_object.is_in_group("ignite"):
-			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
+		if grab_cast.is_colliding() and grabable_object.is_in_group("IGNITE") and  $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
+#			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 				$Indication_canvas/Indication_system/Ignite.show()
 				if Input.is_action_just_pressed("interact"):
 					grabable_object.get_parent()._use_primary()
-			else:
+		else:
 				$Indication_canvas/Indication_system/Ignite.hide()
 	else:
 		$Indication_canvas/Indication_system/Grab.hide()
 		$Indication_canvas/Indication_system/Ignite.hide()
 
 
-#is_in_group("Door_hitbox")
+# Is_in_group("Door_hitbox")   # Please rename this group to DOOR_HITBOX after door merge
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body :
 		if !colliding_pickable_items.has(body):
@@ -93,6 +104,8 @@ func _on_GrabCastDot_area_exited(area):
 	if area is Interactable:
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
 
+
+### These six functions below should maybe be in character?
 
 func change_equipment_out(var is_mainhand : bool):
 	if(is_mainhand):

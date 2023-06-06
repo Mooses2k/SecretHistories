@@ -1,5 +1,5 @@
-extends MeshInstance
 class_name VisibilityMask
+extends MeshInstance
 
 
 export var wall_height : float = 16.0

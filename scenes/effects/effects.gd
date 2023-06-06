@@ -1,5 +1,5 @@
-extends Spatial
 class_name Effect
+extends Spatial
 
 
 export var light_duration = 0.05
@@ -18,7 +18,8 @@ func handle_sound():
 	var sound_instance = sound_effect.instance()
 	sound_instance.set_as_toplevel(true)
 	sound_instance.transform.origin = sound_origin.global_transform.origin
-	GameManager.game.level.call_deferred("add_child", sound_instance)
+	if GameManager.game:   # this is here so test worlds work
+		GameManager.game.level.call_deferred("add_child", sound_instance)
 
 
 func handle_flash():

@@ -1,5 +1,5 @@
-extends AStar2D
 class_name ManhattanAStar2D
+extends AStar2D
 
 
 func _compute_cost(from_id: int, to_id: int) -> float:

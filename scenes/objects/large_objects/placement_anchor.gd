@@ -1,5 +1,5 @@
-extends Position3D
 class_name PlacementAnchor
+extends Position3D
 
 
 enum PlacementTags {

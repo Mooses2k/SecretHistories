@@ -42,10 +42,10 @@ points = PoolVector3Array( -0.934509, 1.00932, -0.0136081, -0.934509, 1.00932, 1
 [sub_resource type="ConvexPolygonShape" id=10]
 points = PoolVector3Array( -0.934509, 1.00932, -1.27237, -0.934509, 1.00932, -0.0138595, 0.549224, 0.81292, -1.32388, 0.765319, 1.1251, -1.21107, -0.448243, 0.8463, -0.0958731, -0.772628, 1.1251, -0.075155, -0.553348, 0.813951, -1.31975, 0.440769, 0.8463, -0.0958731, -0.772628, 1.1251, -1.21107, 0.765319, 1.1251, -0.075155, 0.927035, 1.00932, -0.0138595, 0.927035, 1.00932, -1.27237 )
 
-[node name="TableVictorianFancy" type="RigidBody"]
+[node name="TableVictorianFancy" type="RigidBody" groups=["CLAMBERABLE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 513
-mass = 50.0
+mass = 70.0
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.784806, 0 )

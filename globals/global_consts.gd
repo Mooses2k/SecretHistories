@@ -1,5 +1,5 @@
-extends Object
 class_name GlobalConsts
+extends Object
 
 
 # Keeping enums/conts on a centralized location helps prevent cyclic

@@ -10,7 +10,6 @@ func _ready() -> void:
 	game = GAME_SCENE.instance()
 	$"%StartGameSettings".attach_settings(game.get_node("%LocalSettings"))
 	$"%SettingsUI".attach_settings(game.get_node("%LocalSettings"))
-	pass # Replace with function body.
 
 
 func _input(event):
@@ -31,9 +30,20 @@ func _on_GhostDetectionRange_value_changed(value: float) -> void:
 
 
 func _on_StartGame_pressed() -> void:
+	$HBoxContainer.visible = false
+	BackgroundMusic.stop()
+	$AudioStreamPlayer.play()
+	$Timer.start(3)
+
+
+func _on_Timer_timeout():
+	$GameIntro.show_intro()
+
+
+func _on_GameIntro_intro_done():
 	GameManager.is_player_dead = false
-	ChangeScene.change_to_instance(game)
-	# ChangeScene._change_to_scene("res://scenes/core/game.tscn")
+	GameManager.act = 1
+	LoadScreen.change_scene(game)
 
 
 func _on_ReturnButton_pressed() -> void:

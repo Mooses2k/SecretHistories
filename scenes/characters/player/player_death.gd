@@ -4,7 +4,7 @@ extends CanvasLayer
 var is_BW = false
 
 onready var main_cam = get_node("../FPSCamera")
-onready var gun_cam = get_node("../ViewportContainer2/Viewport/GunCam")
+onready var gun_cam = get_node("../ViewportContainer/Viewport/GunCam")
 onready var white_effect_rect = get_node("../Tinnitus/ScreenWhite/TextureRect")
 
 
@@ -32,11 +32,11 @@ func _move_cam():
 	$Tween.interpolate_property($ColorRect, "modulate:a", 1, 0, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.interpolate_property(main_cam, "translation", 
 			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y, main_cam.transform.origin.z), 
-			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y + 1, main_cam.transform.origin.z + 1.8), 
+			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y + 1, main_cam.transform.origin.z),   # Previously z+1.8
 			8, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.interpolate_property(main_cam, "rotation_degrees", 
 			Vector3(main_cam.transform.basis.x.x, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
-			Vector3(main_cam.transform.basis.x.x-45, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
+			Vector3(main_cam.transform.basis.x.x-90, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z),   # Previously x-45
 			5, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()
 

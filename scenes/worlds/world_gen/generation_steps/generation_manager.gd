@@ -1,5 +1,5 @@
-extends Node
 class_name GenerationManager
+extends Node
 
 
 export var world_size_x : int = 40

@@ -1,5 +1,5 @@
-extends PickableItem
 class_name TinyItem
+extends PickableItem
 
 
 export var item_data : Resource

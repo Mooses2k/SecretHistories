@@ -1,25 +1,34 @@
-extends Node
+extends CanvasLayer
 
 
-var randomNumG = RandomNumberGenerator.new()
-var randomNum
+var random_num_gen = RandomNumberGenerator.new()
+var random_num
 
 onready var label = get_node("Holder/Quote")
+var is_loading = true
 
 
 func _input(event):
-	if event is InputEvent and event.is_pressed():
-		var _error = get_tree().change_scene(ChangeScene.next_scene)
+	if event is InputEvent and event.is_pressed() and not is_loading:
+#		var _error = get_tree().change_scene(LoadScreen.next_scene)
+		LoadScreen.remove_loadscreen()
 
 
 func _ready():
-	randomNumG.randomize()
+#	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	LoadScreen.connect("scene_loaded", self, "on_scene_loaded")
 
+	random_num_gen.randomize()
 	if GameManager.act > 2:
 		#late game
-		randomNum = randomNumG.randi_range(0, LoadQuotes.list2.size()-1)
-		label.text = LoadQuotes.list2[randomNum]
+		random_num = random_num_gen.randi_range(0, LoadQuotes.list2.size()-1)
+		label.text = LoadQuotes.list2[random_num]
 	else:
 		#early game
-		randomNum = randomNumG.randi_range(0, LoadQuotes.list1.size()-1)
-		label.text = LoadQuotes.list1[randomNum]
+		random_num = random_num_gen.randi_range(0, LoadQuotes.list1.size()-1)
+		label.text = LoadQuotes.list1[random_num]
+
+
+func on_scene_loaded():
+	is_loading = false
+	$Label.text = "Click to Continue"

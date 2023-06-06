@@ -10,6 +10,9 @@ var target_distance : float = 0.0
 var target_reached : bool = false
 var ticks_since_active : int = 0
 
+#export var listener : NodePath
+#onready var _listener : SoundListener = get_node(listener) as SoundListener
+
 
 func idle():
 	ticks_since_active += 1
@@ -22,13 +25,15 @@ func tick(state : CharacterState) -> int:
 	ticks_since_active = 0
 	var distance : float = state.character.global_transform.origin.distance_to(state.target_position)
 	if target_reached:
-		if distance > target_distance*threshold_factor:
+		if distance > target_distance * threshold_factor:
 			target_reached = false
 			return Status.FAILURE
+#		_listener.sound_was_heared = false
 		return Status.SUCCESS
 	else:
 		if distance < target_distance:
 			target_reached = true
+#			_listener.sound_was_heared = false
 			return Status.SUCCESS
 		return Status.FAILURE
 

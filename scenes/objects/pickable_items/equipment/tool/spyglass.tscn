@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/models/items/tools/M_Spyglass.material" type="Material" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/spyglass.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "spyglass_Mesh001"
@@ -37,10 +37,14 @@ bind/3/pose = Transform( 1, -7.18951e-17, 5.7693e-10, 5.7693e-10, 2.49234e-07, -
 [sub_resource type="ConvexPolygonShape" id=3]
 points = PoolVector3Array( -0.0309703, -0.00904638, -0.405578, 0.0323377, 0.0019594, -0.422112, 0.02958, 0.0129652, -0.405578, 0.0130652, -0.0173007, 0.384405, -0.00894019, 0.0184681, 0.384405, -0.0144493, 0.02948, -0.422112, 0.0103137, -0.0310703, -0.422112, -0.00618874, -0.0200522, 0.384405, 0.0103075, 0.0184681, 0.384405, -0.0172007, 0.0129652, 0.384405, -0.0172069, -0.0283127, -0.422112, 0.0185743, 0.0267286, -0.427676, -0.0199522, -0.00628874, 0.384405, -0.0309703, 0.0102137, -0.422112, 0.0185681, 0.0102075, 0.384405, 0.0268348, -0.0145493, -0.182605, 0.00480464, 0.02948, -0.182605, 0.0240771, -0.0228098, -0.422112, -0.0254674, -0.0173007, -0.182605, 0.0185681, -0.00904018, 0.384405, -0.00894638, -0.0310703, -0.427676, -0.0254612, 0.0212257, -0.422112, 0.0240833, 0.0184681, -0.182605, 0.02958, 0.00745609, -0.185388, -0.0144493, 0.0267348, -0.182605, 0.00205939, 0.0322377, -0.422112, -0.0282127, -0.0173069, -0.427676, 0.02958, -0.00628874, -0.182605, -0.00618874, 0.02948, -0.182605, -0.011704, -0.0283127, -0.182605, 0.02958, -0.0145493, -0.422112, 0.0158104, -0.0255674, -0.182605, 0.0130714, 0.0267348, -0.182605, 0.02958, 0.0129652, -0.427676, -0.0254674, 0.0157166, -0.182605, -0.0227098, 0.0239771, -0.40836, -0.0309703, -0.00904638, -0.427676, 0.00756228, -0.0310703, -0.405578, -0.0309703, 0.00746229, -0.405578, 0.0185743, 0.0267286, -0.405578, 0.0158166, -0.0283127, -0.405578, -0.00894638, -0.0310703, -0.405578, -0.0199584, -0.0255612, -0.405578, -0.0282127, 0.0157166, -0.405578 )
 
-[node name="Spyglass" type="RigidBody"]
-script = ExtResource( 2 )
+[node name="Spyglass" instance=ExtResource( 2 )]
+mass = 0.3
+item_name = "Spyglass"
 
-[node name="Skeleton" type="Skeleton" parent="."]
+[node name="MeshInstance" parent="." index="0"]
+mesh = null
+
+[node name="Skeleton" type="Skeleton" parent="." index="1"]
 bones/0/name = "1"
 bones/0/parent = -1
 bones/0/rest = Transform( 1, 0, 0, 0, 0.00223571, 0.999998, 0, -0.999998, 0.00223571, -1.74623e-10, -9.44997e-05, 0.382279 )
@@ -62,11 +66,11 @@ bones/3/rest = Transform( 1, 5.76929e-10, -1.11022e-16, -1.11022e-16, 3.57628e-0
 bones/3/enabled = true
 bones/3/bound_children = [  ]
 
-[node name="SKM_Spyglass" type="MeshInstance" parent="Skeleton"]
+[node name="SKM_Spyglass" type="MeshInstance" parent="Skeleton" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0265765 )
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 
-[node name="CollisionShapeOpen" type="CollisionShape" parent="."]
+[node name="CollisionShapeOpen" type="CollisionShape" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0265765 )
 shape = SubResource( 3 )

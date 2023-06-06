@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/check_nodes/bt_approach_distance.gd"
 }, {
+"base": "BT_Player_Sensor",
+"class": "BT_Collision_Sensor",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_collision_sensor.gd"
+}, {
 "base": "BT_Node",
 "class": "BT_ControlFlow",
 "language": "GDScript",
@@ -100,6 +105,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/action_nodes/bt_shoot.gd"
 }, {
 "base": "BT_Node",
+"class": "BT_Sound_Listener",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_sound_listener.gd"
+}, {
+"base": "BT_Node",
 "class": "BT_Wait_Random",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_wait_random.gd"
@@ -124,6 +134,26 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
+"base": "DisposableLightItem",
+"class": "CandleItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd"
+}, {
+"base": "KinematicBody",
+"class": "Character",
+"language": "GDScript",
+"path": "res://scenes/characters/character.gd"
+}, {
+"base": "Spatial",
+"class": "CharacterAudio",
+"language": "GDScript",
+"path": "res://scenes/character_audio.gd"
+}, {
+"base": "Node",
+"class": "CharacterSpawner",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/character_spawner.gd"
+}, {
 "base": "Reference",
 "class": "CharacterState",
 "language": "GDScript",
@@ -132,7 +162,7 @@ _global_script_classes=[ {
 "base": "Object",
 "class": "ClamberManager",
 "language": "GDScript",
-"path": "res://scenes/characters/player/clamber_manager.gd"
+"path": "res://scenes/characters/clamber_manager.gd"
 }, {
 "base": "EquipmentItem",
 "class": "ConsumableItem",
@@ -143,6 +173,16 @@ _global_script_classes=[ {
 "class": "ControlMode",
 "language": "GDScript",
 "path": "res://scenes/characters/player/control_mode.gd"
+}, {
+"base": "Character",
+"class": "Cultist",
+"language": "GDScript",
+"path": "res://scenes/characters/cultists/cultist.gd"
+}, {
+"base": "ConsumableItem",
+"class": "DisposableLightItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.gd"
 }, {
 "base": "Spatial",
 "class": "Door",
@@ -164,6 +204,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/effects/effects.gd"
 }, {
+"base": "EquipmentItem",
+"class": "EmptyHand",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
+}, {
 "base": "PickableItem",
 "class": "EquipmentItem",
 "language": "GDScript",
@@ -178,6 +223,11 @@ _global_script_classes=[ {
 "class": "GameWorld",
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
+}, {
+"base": "GenerationStep",
+"class": "GenerationGroup",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/generation_steps/generation_group.gd"
 }, {
 "base": "Node",
 "class": "GenerationManager",
@@ -234,15 +284,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/ManhattanAStar2D.gd"
 }, {
+"base": "ConsumableItem",
+"class": "MedicalItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/medical/medical.gd"
+}, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/melee/melee_item.gd"
 }, {
+"base": "MeshInstance",
+"class": "MeshInstanceLayered",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/mesh_instances.gd"
+}, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
 "language": "GDScript",
 "path": "res://utils/mesh_transform.gd"
+}, {
+"base": "Resource",
+"class": "ObjectSpawnList",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/object_spawn_list.gd"
 }, {
 "base": "EquipmentItem",
 "class": "PadlockItem",
@@ -264,15 +329,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/placement_anchor.gd"
 }, {
-"base": "KinematicBody",
+"base": "Character",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
-}, {
-"base": "AudioStreamPlayer3D",
-"class": "PlayerAudio",
-"language": "GDScript",
-"path": "res://scenes/characters/player/player_audio.gd"
 }, {
 "base": "Spatial",
 "class": "PlayerSensor",
@@ -290,9 +350,14 @@ _global_script_classes=[ {
 "path": "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd"
 }, {
 "base": "EquipmentItem",
-"class": "Rock",
+"class": "RockItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
+}, {
+"base": "Resource",
+"class": "RoomData",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/helper_objects/room_data.gd"
 }, {
 "base": "Node",
 "class": "SettingsClass",
@@ -303,6 +368,16 @@ _global_script_classes=[ {
 "class": "ShakeCamera",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player_camera.gd"
+}, {
+"base": "Node",
+"class": "SoundListener",
+"language": "GDScript",
+"path": "res://scenes/sensors/sound_listener.gd"
+}, {
+"base": "Resource",
+"class": "SpawnData",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/spawn_data.gd"
 }, {
 "base": "ToolItem",
 "class": "Spike",
@@ -324,10 +399,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/tool_item.gd"
 }, {
+"base": "DisposableLightItem",
+"class": "TorchItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
 "path": "res://scenes/worlds/visibility_mask/visibility_mask.gd"
+}, {
+"base": "MeshInstanceLayered",
+"class": "VisualFlame",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd"
 }, {
 "base": "Resource",
 "class": "WorldData",
@@ -338,21 +423,12 @@ _global_script_classes=[ {
 "class": "WritingItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
-}, {
-"base": "Node",
-"class": "characterSpawner",
-"language": "GDScript",
-"path": "res://scenes/worlds/procedural_world/character_spawner.gd"
-}, {
-"base": "EquipmentItem",
-"class": "empty_hand",
-"language": "GDScript",
-"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
 "AttackTypes": "",
 "BT_Approach_Random_Distance": "",
+"BT_Collision_Sensor": "",
 "BT_ControlFlow": "",
 "BT_Equip_Next_Gun": "",
 "BT_Go_To_Target": "",
@@ -368,22 +444,31 @@ _global_script_class_icons={
 "BT_Selector": "",
 "BT_Sequence": "",
 "BT_Shoot": "",
+"BT_Sound_Listener": "",
 "BT_Wait_Random": "",
 "BehaviorTree": "",
 "BombItem": "",
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
+"CandleItem": "",
+"Character": "",
+"CharacterAudio": "",
+"CharacterSpawner": "",
 "CharacterState": "",
 "ClamberManager": "",
 "ConsumableItem": "",
 "ControlMode": "",
+"Cultist": "",
+"DisposableLightItem": "",
 "Door": "",
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",
+"EmptyHand": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
+"GenerationGroup": "",
 "GenerationManager": "",
 "GenerationStep": "",
 "GlobalConsts": "",
@@ -395,37 +480,43 @@ _global_script_class_icons={
 "KeyItem": "",
 "LanternItem": "",
 "ManhattanAStar2D": "",
+"MedicalItem": "",
 "MeleeItem": "",
+"MeshInstanceLayered": "",
 "MeshTransform": "",
+"ObjectSpawnList": "",
 "PadlockItem": "",
 "PickableItem": "",
 "PickupArea": "",
 "PlacementAnchor": "",
 "Player": "",
-"PlayerAudio": "",
 "PlayerSensor": "",
 "PlayerSoundEmitter": "",
 "RevolverItem": "",
-"Rock": "",
+"RockItem": "",
+"RoomData": "",
 "SettingsClass": "",
 "ShakeCamera": "",
+"SoundListener": "",
+"SpawnData": "",
 "Spike": "",
 "TinyItem": "",
 "TinyItemData": "",
 "ToolItem": "",
+"TorchItem": "",
 "VisibilityMask": "",
+"VisualFlame": "",
 "WorldData": "",
-"WritingItem": "",
-"characterSpawner": "",
-"empty_hand": ""
+"WritingItem": ""
 }
 
 [application]
 
 config/name="Secret Histories"
 config/description="An entirely forgettable game"
-run/main_scene="res://scenes/UI/title_menu.tscn"
+run/main_scene="res://scenes/UI/opening_screens.tscn"
 run/flush_stdout_on_print=true
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -433,14 +524,21 @@ config/icon="res://icon.png"
 GameManager="*res://globals/game_manager.gd"
 Save="*res://globals/save.gd"
 GlobalSettings="*res://globals/global_settings.gd"
-HUDS="*res://globals/HUD.tscn"
+LoadScreen="*res://globals/load_screen.gd"
 LoadQuotes="*res://globals/load_quotes.gd"
 Settings="*res://globals/settings.gd"
 InputSettings="*res://globals/settings/input_settings.gd"
 AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
-ChangeScene="*res://globals/change_scene.gd"
+HUDS="*res://globals/HUD.tscn"
+BackgroundMusic="*res://scenes/core/background_music.tscn"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
 
 [editor]
 
@@ -452,6 +550,13 @@ enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg" )
 
 [input]
 
+ui_cancel={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":1,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
 move_up={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
@@ -490,17 +595,17 @@ jump={
 }
 main_use_primary={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 main_throw={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":3,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 main_use_secondary={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 interact={
@@ -650,6 +755,11 @@ fullscreen={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":true,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777221,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+change_screen_filter={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":76,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 Left_Mouse_Button={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
@@ -676,6 +786,16 @@ movement={
 help_info={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777244,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ADS={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+esc_menu={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
@@ -706,4 +826,5 @@ common/physics_interpolation=true
 
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
+quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"

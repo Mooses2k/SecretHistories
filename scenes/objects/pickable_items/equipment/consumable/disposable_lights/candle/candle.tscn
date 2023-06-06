@@ -1,11 +1,11 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/shaders/items/consumables/light_sources/candle/flame.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png" type="Texture" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/material/candle.tres" type="Material" id=5]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=6]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=6]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_MetallicSmoothness.png" type="Texture" id=7]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=8]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_AlbedoTransparency.png" type="Texture" id=9]
@@ -62,49 +62,15 @@ func _process(delta):
 		layers = 1
 "
 
-[sub_resource type="CylinderShape" id=2]
-height = 0.1
-radius = 0.05
+[sub_resource type="CylinderShape" id=52]
+height = 0.23
+radius = 0.06
 
-[sub_resource type="CylinderMesh" id=49]
-top_radius = 0.0
-bottom_radius = 0.015
-height = 0.08
-radial_segments = 6
-rings = 1
+[sub_resource type="BoxShape" id=54]
+extents = Vector3( 0.05, 0.1, 0.05 )
 
-[sub_resource type="Shader" id=46]
-code = "shader_type spatial;
-render_mode blend_add, unshaded;
-
-const vec3 CENTER_OFFSET = vec3(0.0, -0.03, 0.0);
-const vec3 SCALE = vec3(50.0, 12.0, 50.0);
-
-uniform float INTENSITY = 1.0;
-uniform sampler2D COLOR_RAMP;
-varying vec2 XY_FACTOR;
-
-void vertex() {
-	vec3 v = (VERTEX - CENTER_OFFSET)*SCALE;
-	XY_FACTOR = vec2(v.x*v.x + v.z*v.z, v.y);
-}
-
-void fragment() {
-	ALBEDO.rgb = texture(COLOR_RAMP, vec2(XY_FACTOR.y)).rgb*INTENSITY;
-}"
-
-[sub_resource type="Gradient" id=50]
-offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
-colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=48]
-gradient = SubResource( 50 )
-width = 32
-
-[sub_resource type="ShaderMaterial" id=51]
-shader = SubResource( 46 )
-shader_param/INTENSITY = 4.0
-shader_param/COLOR_RAMP = SubResource( 48 )
+[sub_resource type="QuadMesh" id=8]
+size = Vector2( 0.033, 0.1 )
 
 [sub_resource type="Animation" id=29]
 length = 0.001
@@ -130,7 +96,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.1 ]
+"values": [ 0.25 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Candle1/FireOrigin/Fire/Light:omni_range")
@@ -171,7 +137,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.4, 1, 1.4, 2.1, 3.1, 3.9, 4.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.2, 0.21, 0.19, 0.21, 0.2, 0.15, 0.21, 0.19 ]
+"values": [ 0.25, 0.27, 0.24, 0.26, 0.25, 0.24, 0.27, 0.19 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Candle1/FireOrigin/Fire/Light:omni_range")
@@ -186,70 +152,84 @@ tracks/2/keys = {
 "values": [ 6.0, 7.0, 6.0, 5.0 ]
 }
 
-[sub_resource type="BoxShape" id=28]
+[sub_resource type="BoxShape" id=53]
 extents = Vector3( 0.02, 0.02, 0.02 )
 
-[node name="Candle" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0646212, 0 )
-continuous_cd = false
+[node name="Candle" type="RigidBody"]
+collision_layer = 0
+collision_mask = 0
+mass = 0.1
+continuous_cd = true
 script = ExtResource( 3 )
-can_attach = false
+dropped_layers = 64
+dropped_mask = 1
+equipped_mode = 3
+item_size = 0
 item_name = "Candle"
+life_percentage_lose = 0.2
+prob_going_out = 0.9
 
-[node name="MeshInstance" parent="." index="0"]
-transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 0, 0 )
-cast_shadow = 0
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, -0.0564424, 0 )
 mesh = SubResource( 25 )
 material/0 = SubResource( 26 )
 script = SubResource( 27 )
 
-[node name="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0517279, 0 )
-shape = SubResource( 2 )
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0.000979346, 0.00391581, 8.01446e-05 )
+shape = SubResource( 52 )
 
-[node name="Durability" type="Timer" parent="." index="2"]
-wait_time = 60000.0
-one_shot = true
-autostart = true
+[node name="CollisionShapeStopRolling" type="CollisionShape" parent="."]
+transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0.000979346, 0.00391581, 8.01446e-05 )
+shape = SubResource( 54 )
 
-[node name="FireOrigin" type="Position3D" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286937, 0.134186, 0 )
+[node name="FireOrigin" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286937, 0.0672564, 0 )
 script = ExtResource( 2 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00112008, 0.0137497, 0 )
+[node name="Fire" type="MeshInstance" parent="FireOrigin"]
+visible = false
 cast_shadow = 0
-mesh = SubResource( 49 )
-skeleton = NodePath("../../..")
-material/0 = SubResource( 51 )
+mesh = SubResource( 8 )
+material/0 = ExtResource( 1 )
 script = ExtResource( 6 )
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
+[node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
+visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.25
 shadow_enabled = true
-omni_range = 10.0
-omni_attenuation = 7.0
+omni_range = 4.5
+omni_attenuation = 4.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "flicker"
 anims/RESET = SubResource( 29 )
 anims/flicker = SubResource( 30 )
 
-[node name="ignite" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00184491, 0.134815, 0 )
-collision_layer = 64
+[node name="BurnTime" type="Timer" parent="."]
 
-[node name="CollisionShape" parent="ignite" index="0"]
-shape = SubResource( 28 )
+[node name="Sounds" type="Spatial" parent="."]
 
-[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 8 )
 
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="Sounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 10 )
 
+[node name="HoldPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0 )
+
+[node name="Ignite" type="Area" parent="." groups=["IGNITE"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0742746, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ignite"]
+shape = SubResource( 53 )
+
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]
+[connection signal="timeout" from="BurnTime" to="." method="_light_depleted"]

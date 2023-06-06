@@ -1,28 +1,41 @@
 extends CanvasLayer
 
 
-onready var opacity_target = [0.1, 0.2]
 var tween_speed = 0.7
 var is_fade_in = false
+
+onready var opacity_target = [0.1, 0.2]
+onready var debug_label: RichTextLabel = $RichTextLabel
+onready var keybind_defaults: RichTextLabel = $KeybindDefaults
+onready var color_rect: TextureRect = $ColorRect
+onready var texture_rect: TextureRect = $TextureRect
+onready var animation_player: AnimationPlayer = $AnimationPlayer
+onready var tween: Tween = $Tween
 
 #------>FOR TESTING<------
 var health = 100 
 
 
 func _process(delta):
-	$RichTextLabel.text = (" player light_level = " + str(owner.light_level) + " \nplayer on floor = " + 
-		str(owner.is_on_floor()))
+	var player := owner as Player
+	debug_label.text = (
+		"player light_level = " + str(player.light_level) + "\n"
+		+ "player noise_level = " + str(player.noise_level) + "\n"
+		+ "player on floor = " +  str(player.is_on_floor()) + "\n"
+		+ "player position = " +  str(player.translation) + "\n"
+	)
 
 
 func _input(event):
 	if event is InputEvent and event.is_action_pressed("help_info"):
-		$KeybindDefaults.visible = !$KeybindDefaults.visible
+		keybind_defaults.visible = !keybind_defaults.visible
+		debug_label.visible = !debug_label.visible
 #	if event is InputEvent and event.is_action_pressed("kick"):
-#		if not $ColorRect.is_visible_in_tree():
-#			$ColorRect.show()
-#		if $AnimationPlayer.is_playing():
-#			$AnimationPlayer.stop()
-#		$AnimationPlayer.play("hit_effect")
+#		if not color_rect.is_visible_in_tree():
+#			color_rect.show()
+#		if animation_player.is_playing():
+#			animation_player.stop()
+#		animation_player.play("hit_effect")
 #
 #		health -= 5
 #
@@ -51,9 +64,9 @@ func _input(event):
 #			opacity_target[0] = 0.1
 #			opacity_target[1] = 0.3
 #		elif health <= 40:
-#			if not $TextureRect.is_visible_in_tree():
-#				$TextureRect.show()
-#			if not $Tween.is_active() and not $Tween.is_active():
+#			if not texture_rect.is_visible_in_tree():
+#				texture_rect.show()
+#			if not tween.is_active() and not tween.is_active():
 #				_start_fade_in()
 #			opacity_target[0] = 0.05
 #			opacity_target[1] = 0.2
@@ -61,12 +74,12 @@ func _input(event):
 
 
 func _on_Player_is_hit(current_health):
-	if not $ColorRect.is_visible_in_tree():
-		$ColorRect.show()
+	if not color_rect.is_visible_in_tree():
+		color_rect.show()
 	
-	if $AnimationPlayer.is_playing():
-		$AnimationPlayer.stop()
-	$AnimationPlayer.play("hit_effect")
+	if animation_player.is_playing():
+		animation_player.stop()
+	animation_player.play("hit_effect")
 	
 	if current_health <= 5:
 		opacity_target[0] = 0.7
@@ -93,10 +106,10 @@ func _on_Player_is_hit(current_health):
 		opacity_target[0] = 0.1
 		opacity_target[1] = 0.3
 	elif current_health <= 40:
-		if not $TextureRect.is_visible_in_tree():
-			$TextureRect.show()
+		if not texture_rect.is_visible_in_tree():
+			texture_rect.show()
 		
-		if not $Tween.is_active() and not $Tween.is_active():
+		if not tween.is_active() and not tween.is_active():
 			_start_fade_in()
 		opacity_target[0] = 0.05
 		opacity_target[1] = 0.2
@@ -104,16 +117,16 @@ func _on_Player_is_hit(current_health):
 
 func _start_fade_in():
 	is_fade_in = true
-	$Tween.interpolate_property($TextureRect, "modulate", 
+	tween.interpolate_property(texture_rect, "modulate", 
 			Color(1, 1, 1, opacity_target[0]), Color(1, 1, 1, opacity_target[1]), tween_speed, Tween.TRANS_SINE, Tween.EASE_OUT)    
-	$Tween.start()
+	tween.start()
 
 
 func _start_fade_out():
 	is_fade_in = false
-	$Tween.interpolate_property($TextureRect, "modulate", 
+	tween.interpolate_property(texture_rect, "modulate", 
 			Color(1, 1, 1, opacity_target[1]), Color(1, 1, 1, opacity_target[0]), tween_speed, Tween.TRANS_SINE, Tween.EASE_IN)    
-	$Tween.start()
+	tween.start()
 
 
 func _on_Tween_tween_completed(object, key):
@@ -124,5 +137,5 @@ func _on_Tween_tween_completed(object, key):
 
 
 func _on_Player_character_died():
-	$TextureRect.hide()
-	$ColorRect.hide()
+	texture_rect.hide()
+	color_rect.hide()

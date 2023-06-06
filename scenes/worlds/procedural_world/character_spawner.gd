@@ -48,6 +48,8 @@ var data : WorldData
 
 onready var characters_root = Node.new()
 
+var _rng := RandomNumberGenerator.new()
+
 var _density_by_type := {
 	WorldData.CellType.ROOM: 0.005,
 	WorldData.CellType.CORRIDOR: 0.0025,
@@ -87,7 +89,7 @@ func spawn_characters():
 			break
 		
 		var cell_type = data.get_cell_type(cell_index)
-		if randf() < _density_by_type[cell_type]:
+		if _rng.randf() < _density_by_type[cell_type]:
 			count += 1
 			_spawn_character_at(cell_index)
 	
@@ -115,7 +117,7 @@ func _set_random_loadout(character: Spatial) -> void:
 			var max_amount := chosen_pack[item].y as int
 			var amount = min_amount
 			if max_amount > min_amount:
-				amount = randi() % (max_amount - min_amount) +  min_amount
+				amount = _rng.randi() % (max_amount - min_amount) +  min_amount
 			
 			if item is TinyItemData:
 				if not inventory.tiny_items.has(item):
@@ -137,7 +139,7 @@ func _set_random_loadout(character: Spatial) -> void:
 func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 	var value := {}
 	
-	var rng = randi()%total_weight
+	var rng = _rng.randi()%total_weight
 	var cummulative_weight = 0
 	for pack in (character_loadout[set_index] as Dictionary).keys():
 		cummulative_weight += character_loadout[set_index][pack]
@@ -149,6 +151,10 @@ func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 
 
 func _on_ProceduralWorld_generation_finished():
+	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
+	if setting_generation_seed is int:
+		_rng.seed = setting_generation_seed
+	
 	data = owner.world_data
 	call_deferred("spawn_characters")
 

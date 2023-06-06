@@ -77,20 +77,23 @@ func fill_map_data(data : WorldData, gen_data : Dictionary):
 	var rooms : Array = gen_data.get(ROOM_ARRAY_KEY) as Array
 	
 	var starting_room := rooms[0] as Rect2
-	_fill_room_data(data, starting_room, data.CellType.STARTING_ROOM)
+	_fill_room_data(data, starting_room, data.CellType.STARTING_ROOM, "starting_room")
 	data.player_spawn_position = starting_room.position + starting_room_player_offset
 	
 	for index in range(1, rooms.size()):
 		var room : Rect2 = rooms[index] as Rect2
-		_fill_room_data(data, room, data.CellType.ROOM)
+		_fill_room_data(data, room, data.CellType.ROOM, "generic")
 
 
-func _fill_room_data(data: WorldData, room: Rect2, cell_type: int) -> void:
+func _fill_room_data(data: WorldData, room: Rect2, cell_type: int, p_type: String) -> void:
+	var room_data := RoomData.new(p_type, room)
+	data.set_room(p_type, room_data)
 	for x in range(room.position.x, room.end.x):
 		for y in range(room.position.y, room.end.y):
 			var i = data.get_cell_index_from_int_position(x, y)
 			data.set_cell_type(i, cell_type)
 			data.clear_cell_meta(i)
+			room_data.add_cell_index(i)
 
 
 func _gen_room_rect(

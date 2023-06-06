@@ -29,8 +29,6 @@ var _used_cell_indexes := []
 func _ready() -> void:
 	if Engine.editor_hint:
 		return
-	
-	_rng.randomize()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -38,24 +36,33 @@ func _ready() -> void:
 ### Private Methods -------------------------------------------------------------------------------
 
 func _on_ProceduralWorld_generation_finished() -> void:
+	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
+	if setting_generation_seed is int:
+		_rng.seed = setting_generation_seed
+	
 	var data := owner.world_data as WorldData
 	_spawn_starting_light(data)
 	_spawn_initial_settings_items(data)
 	_spawn_initial_loot(data)
+	_spawn_world_data_objects(data)
 
 
 func _spawn_initial_loot(data : WorldData) -> void:
-	var loot_list := _loot_list_resource as LootSpawnList
+	var loot_list := _loot_list_resource as ObjectSpawnList
+	if loot_list == null:
+		assert(loot_list != null, "No resource, or invalid resource, on _loot_list_resource property")
+		return
+	
 	var draw_amount := _rng.randi_range(_min_loot, _max_loot)
 	var possible_cells := data.get_cells_for(data.CellType.ROOM)
 	possible_cells = _remove_used_cells(possible_cells)
 	
 	for _i in draw_amount:
-		var loot_data := loot_list.draw_random_loot()
+		var loot_data := loot_list.get_random_spawn_data()
 		if possible_cells.empty():
 			return
 		
-		var lucky_index = randi() % possible_cells.size()
+		var lucky_index = _rng.randi() % possible_cells.size()
 		var cell_index := possible_cells[lucky_index] as int
 		_used_cell_indexes.append(cell_index)
 		possible_cells.remove(cell_index)
@@ -77,6 +84,14 @@ func _remove_used_cells(p_array: Array) -> Array:
 		p_array.erase(cell_index)
 	
 	return p_array
+
+
+func _spawn_world_data_objects(data: WorldData) -> void:
+	var objects_to_spawn := data.get_objects_to_spawn()
+	for cell_index in objects_to_spawn:
+		var spawn_data := objects_to_spawn[cell_index] as SpawnData
+		for _i in spawn_data.amount:
+			spawn_data.spawn_item_in(owner)
 
 
 # This calculates the center position of the cell and then tries to find a random position 
@@ -161,7 +176,7 @@ func _spawn_starting_light(data : WorldData) -> void:
 		var player_index := data.get_player_spawn_position_as_index()
 		starting_cells.erase(player_index)
 	
-	var random_cell_index := randi() % starting_cells.size() as int
+	var random_cell_index := _rng.randi() % starting_cells.size() as int
 	var spawn_cell = starting_cells[random_cell_index]
 	_used_cell_indexes.append(spawn_cell)
 	

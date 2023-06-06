@@ -1,5 +1,5 @@
 tool
-class_name LootSpawnList
+class_name ObjectSpawnList
 extends Resource
 
 
@@ -20,8 +20,8 @@ var _rng: RandomNumberGenerator = null
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func draw_random_loot() -> LootData:
-	var loot_data: LootData = LootData.new()
+func get_random_spawn_data() -> SpawnData:
+	var spawn_data: SpawnData = SpawnData.new()
 	
 	if _current_paths.empty():
 		_initialize_current_arrays()
@@ -36,13 +36,13 @@ func draw_random_loot() -> LootData:
 			random_value -= weight
 			index += 1
 	
-	loot_data.scene_path = _current_paths[index]
-	loot_data.amount = _rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
+	spawn_data.scene_path = _current_paths[index]
+	spawn_data.amount = _rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
 	
 	_exclude_used_index(index)
 	_current_total_weight = _calculate_total_weight()
 	
-	return loot_data
+	return spawn_data
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -77,17 +77,11 @@ func _calculate_total_weight() -> int:
 
 ### -----------------------------------------------------------------------------------------------
 
-
-class LootData extends Reference:
-	var scene_path: String = ""
-	var amount: int = 0
-
-
 ###################################################################################################
 # Editor Methods ##################################################################################
 ###################################################################################################
 
-const LOOT_PREFIX = "loot_"
+const GROUP_PREFIX = "object_"
 
 
 ### Custom Inspector built in functions -----------------------------------------------------------
@@ -128,7 +122,7 @@ func _get_property_list() -> Array:
 	})
 	
 	for index in _paths.size():
-		var group_name = LOOT_PREFIX + str(index)
+		var group_name = GROUP_PREFIX + str(index)
 		properties.append({
 			name = group_name,
 			type = TYPE_NIL,
@@ -176,8 +170,8 @@ func _get(property: String):
 	
 	if property == "total_items":
 		value = _paths.size()
-	elif property.begins_with(LOOT_PREFIX):
-		var prop_data := property.replace(LOOT_PREFIX, "").split("_", false, 1) as PoolStringArray
+	elif property.begins_with(GROUP_PREFIX):
+		var prop_data := property.replace(GROUP_PREFIX, "").split("_", false, 1) as PoolStringArray
 		var index := (prop_data[0] as String).to_int()
 		var key := prop_data[1] as String
 		match key:
@@ -211,8 +205,8 @@ func _set(property: String, value) -> bool:
 			var array := item as Array
 			array.resize(value)
 			property_list_changed_notify()
-	elif property.begins_with(LOOT_PREFIX):
-		var prop_data := property.replace(LOOT_PREFIX, "").split("_", false, 1) as PoolStringArray
+	elif property.begins_with(GROUP_PREFIX):
+		var prop_data := property.replace(GROUP_PREFIX, "").split("_", false, 1) as PoolStringArray
 		var index := (prop_data[0] as String).to_int()
 		var key := prop_data[1] as String
 		match key:

@@ -23,10 +23,6 @@ extends GenerationStep
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
-	_execute_step(data, gen_data, generation_seed)
-	pass
-
 ### -----------------------------------------------------------------------------------------------
 
 

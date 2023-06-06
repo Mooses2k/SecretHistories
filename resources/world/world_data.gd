@@ -46,11 +46,11 @@ enum CellType {
 	# Empty Cell, which means the cell itself is out of bounds
 	EMPTY,
 	
-	# The cell belongs to the starting room
-	STARTING_ROOM,
-	
 	# The cell belongs to a room
 	ROOM,
+	
+	# The cell belongs to the starting room
+	STARTING_ROOM,
 	
 	# The cell belongs to a corridor
 	CORRIDOR,
@@ -363,8 +363,6 @@ func get_rooms_of_type(p_type: String) -> Array:
 	
 	if rooms.has(p_type):
 		value = rooms[p_type]
-	else:
-		push_error("Type of room not found: %s. Available types: %s"%[p_type, rooms.keys()])
 	
 	return value
 
@@ -442,13 +440,6 @@ func get_cell_type(cell_index : int) -> int:
 
 func set_cell_type(cell_index : int, value : int):
 	if cell_index >= 0:
-		if cell_type[cell_index] == CellType.STARTING_ROOM and value == CellType.ROOM:
-			# Both are equivalent as ROOMs but STARTING_ROOM is used for some special
-			# spawning rules, like avoiding to spawn enemies at starting room, so 
-			# we gotta keep it. And changing the logic that tries to overwrite this on
-			# generate_corridors.gd would be harder than blocking it here.
-			return
-		
 		cell_type[cell_index] = value
 		
 		if not _cell_indexes_by_cell_type.has(value):
@@ -477,23 +468,21 @@ func get_cells_for(p_type: int) -> Array:
 	return value
 
 
-# Returns and Array of cell indexes that are already set to spawn something after world generation
-# ends, and so shouldn't be used for spawning anything else.
-func get_occupied_cells() -> Array:
-	var value := []
-	
-	if player_spawn_position != INVALID_STARTING_CELL:
-		value.append(player_spawn_position)
-	
-	value.append_array(_objects_to_spawn.keys())
-	
-	return value
-
-
 # Checks if a cell index is free
 func is_cell_free(cell_index: int) -> bool:
-	var occupied_cells := get_occupied_cells()
-	var value = not cell_index in occupied_cells
+	var value := true
+	
+	var player_starting_cell := get_cell_index_from_int_position(
+			player_spawn_position.x,
+			player_spawn_position.y
+	)
+	
+	if cell_index == player_starting_cell:
+		value = false
+	else:
+		if _objects_to_spawn.has(cell_index):
+			value = false
+	
 	return value
 
 

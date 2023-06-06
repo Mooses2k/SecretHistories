@@ -67,11 +67,11 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 	for key in corners.corner_positions:
 		var corner := corners.corner_positions[key] as Vector2
 		var corner_index := world_data.get_cell_index_from_int_position(int(corner.x), int(corner.y))
-		var corner_direction := corners.get_facing_vector_for(key)
+		var corner_directions := _get_walls_world_data_directions_for(key)
 		
 		if (
 				not world_data.is_cell_free(corner_index) 
-				or _is_corner_next_to_door(world_data, corner, corner_direction)
+				or _is_corner_next_to_door(world_data, corner_index, corner_directions)
 		):
 			continue
 		
@@ -91,17 +91,34 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 			pass
 
 
+func _get_walls_world_data_directions_for(corner_type: int) -> Array:
+		var value := []
+		
+		match corner_type:
+			CORNER_TOP_LEFT:
+				value = [WorldData.Direction.NORTH, WorldData.Direction.WEST]
+			CORNER_TOP_RIGHT:
+				value = [WorldData.Direction.NORTH, WorldData.Direction.EAST]
+			CORNER_BOTTOM_RIGHT:
+				value = [WorldData.Direction.SOUTH, WorldData.Direction.EAST]
+			CORNER_BOTTOM_LEFT:
+				value = [WorldData.Direction.SOUTH, WorldData.Direction.WEST]
+			_:
+				push_error("Invalid corner_type: %s"%[corner_type])
+		
+		return value
+
+
 func _is_corner_next_to_door(
-		world_data: WorldData, corner_position: Vector2, corner_direction: Vector2
+		world_data: WorldData, corner_index: int, corner_directions: Array
 ) -> bool:
 	var value := false
 	
-	for direction in [Vector2(corner_direction.x, 0), Vector2(0, corner_direction.y)]:
-		var neighbour_position = corner_position + direction
-		var neighbour_index := world_data.get_cell_index_from_int_position(
-				neighbour_position.x, neighbour_position.y
-		)
-		if world_data.get_cell_type(neighbour_index) == world_data.CellType.DOOR:
+	world_data
+	
+	for direction in corner_directions:
+		var wall_type := world_data.get_wall_type(corner_index, direction)
+		if wall_type == world_data.EdgeType.DOOR:
 			value = true
 			break
 	

@@ -93,16 +93,6 @@ class CornerData extends Reference:
 		}
 	
 	
-	func get_facing_vector_for(corner_type) -> Vector2:
-		var value := Vector2.ZERO
-		if corner_type in FACING_DIRECTIONS:
-			value = FACING_DIRECTIONS[corner_type]
-		else:
-			push_error("Invalid corner_type: %s"%[corner_type])
-		
-		return value
-	
-	
 	func get_facing_angle_for(corner_type: int) -> float:
 		var value := 0.0
 		if corner_type in FACING_DIRECTIONS:

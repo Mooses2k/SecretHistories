@@ -124,7 +124,7 @@ contact_monitor = true
 item_drop_sound = ExtResource( 7 )
 item_name = "Bullseye Lantern"
 is_oil_based = true
-life_percentage_lose = 0.1
+life_percentage_lose = 0.5
 prob_going_out = 0.5
 
 [node name="MeshInstance" parent="." index="0"]

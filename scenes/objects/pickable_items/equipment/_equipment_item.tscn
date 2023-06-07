@@ -5,6 +5,8 @@
 
 [node name="EquipmentItem" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+equipped_layers = 64
+equipped_mask = 1
 can_attach = false
 item_size = 1
 item_name = "Equipment"

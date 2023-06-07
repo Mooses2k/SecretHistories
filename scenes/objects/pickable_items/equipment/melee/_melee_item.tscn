@@ -12,6 +12,7 @@
 collision_layer = 64
 collision_mask = 1
 script = ExtResource( 2 )
+horizontal_holding = false
 ammo_types = [  ]
 ammunition_capacity = 0
 reload_amount = 0
@@ -19,6 +20,7 @@ reload_time = 0.0
 damage_offset = 0
 dispersion_offset_degrees = 0
 cooldown = 1.0
+handling = 5.0
 melee_damage_type = 0
 melee_style = 0
 player_path = NodePath("")

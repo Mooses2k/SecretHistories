@@ -125,6 +125,7 @@ contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 7 )
 item_name = "Starstuff Lantern"
+horizontal_holding = true
 life_percentage_lose = 0.1
 prob_going_out = 0.5
 
@@ -138,7 +139,7 @@ transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.000979346, 0.0623613, 
 shape = SubResource( 6 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477499, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00515129, 0.397815, 0 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
 wait_time = 60000.0

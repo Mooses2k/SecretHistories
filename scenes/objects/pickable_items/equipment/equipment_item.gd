@@ -10,11 +10,14 @@ export (bool) var can_attach = false
 export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM
 
 export var item_name : String = "Equipment"
+export var horizontal_holding : bool = false
+
 var is_in_belt = false
 var has_equipped = false
 
-
 func _ready():
+	if horizontal_holding == true:
+		$"%HoldPosition".rotation_degrees.z = 90
 	connect("body_entered", self, "play_drop_sound")
 
 
@@ -59,7 +62,7 @@ func get_hold_transform() -> Transform:
 
 
 # WORKAROUND for https://github.com/godotengine/godot/issues/62435
-func _physics_process(delta):
+func _process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		transform = get_hold_transform()
 

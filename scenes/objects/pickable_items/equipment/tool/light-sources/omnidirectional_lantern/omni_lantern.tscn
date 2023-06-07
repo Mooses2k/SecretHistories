@@ -126,6 +126,7 @@ contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 7 )
 item_name = "Oil Lantern"
+horizontal_holding = true
 is_oil_based = true
 life_percentage_lose = 0.1
 prob_going_out = 0.5
@@ -141,7 +142,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0709005, 0 )
 shape = SubResource( 7 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30587, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315746, -0.0179318 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
 wait_time = 30000.0

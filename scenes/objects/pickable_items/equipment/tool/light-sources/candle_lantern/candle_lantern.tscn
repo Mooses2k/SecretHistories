@@ -12,9 +12,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=10]
 [ext_resource path="res://resources/shaders/items/consumables/light_sources/candle/flame.material" type="Material" id=11]
 
-[sub_resource type="BoxShape" id=135]
-extents = Vector3( 0.06, 0.15, 0.06 )
-
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "LanternCandle_Plane001"
 surfaces/0 = {
@@ -42,6 +39,9 @@ bind/1/pose = Transform( -1, 8.20097e-10, 1.51816e-07, -8.20098e-10, -1, -4.5012
 bind/2/name = "neutral_bone"
 bind/2/bone = -1
 bind/2/pose = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, -1.84994e-10, -0.0516959, -0.0816382 )
+
+[sub_resource type="BoxShape" id=135]
+extents = Vector3( 0.06, 0.15, 0.06 )
 
 [sub_resource type="CylinderShape" id=4]
 height = 0.07
@@ -147,14 +147,17 @@ contact_monitor = true
 script = ExtResource( 7 )
 item_drop_sound = ExtResource( 9 )
 item_name = "Candle Lantern"
+horizontal_holding = true
 life_percentage_lose = 0.2
 prob_going_out = 0.9
+number_of_candles = 1
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0885747, 0 )
 cast_shadow = 0
-mesh = null
-skeleton = NodePath("")
+mesh = SubResource( 2 )
+skin = SubResource( 3 )
+skeleton = NodePath("../Skeleton")
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00892887, 0 )
@@ -181,12 +184,6 @@ bones/2/parent = -1
 bones/2/rest = Transform( 1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0 )
 bones/2/enabled = true
 bones/2/bound_children = [  ]
-
-[node name="SM_LanternCandle" type="MeshInstance" parent="Skeleton" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0885747, 0 )
-cast_shadow = 0
-mesh = SubResource( 2 )
-skin = SubResource( 3 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="." index="4"]
 transform = Transform( 0.950375, 0.311108, 0, -0.311108, 0.950375, 0, 0, 0, 1, -0.0535977, 0.1944, 0 )
@@ -241,7 +238,7 @@ anims/RESET = SubResource( 5 )
 anims/flicker = SubResource( 6 )
 
 [node name="HoldPosition" parent="." index="9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.203924, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209246, -0.0167484 )
 
 [node name="Ignite" parent="." index="10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0231552, 0 )

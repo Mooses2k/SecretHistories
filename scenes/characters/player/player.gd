@@ -56,8 +56,8 @@ func _process(delta):
 
 
 # Eventually this needs to be possible for character
-func drop_consumable(object):
-	player_controller.throw_consumable()
+func drop_consumable(item):
+	player_controller.throw_consumable(item)
 
 
 func grab_indicator():

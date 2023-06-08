@@ -312,7 +312,6 @@ func has_bulky_item() -> bool:
 
 func drop_offhand_item():
 	drop_hotbar_slot(current_offhand_slot)
-	pass
 
 
 func drop_hotbar_slot(slot : int) -> Node:
@@ -336,7 +335,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 
 
 # Drops the item, it must be unequipped first
-# note that the drop is done in a deferred manner
+# Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
 	item.item_state = GlobalConsts.ItemState.DROPPED
 	if !GameManager.game:   # This is here for test scenes

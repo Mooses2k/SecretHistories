@@ -497,7 +497,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Normal_state/current",1)
 				animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",5)
 				animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
@@ -534,7 +534,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Pistol_strafe/blend_amount",1)
 				animation_tree.set("parameters/Pistol_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -577,7 +577,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Rifle_Strafe/blend_amount",1)
 				animation_tree.set("parameters/Rifle_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -616,7 +616,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Rifle_ADS_strafe/blend_amount",1)
 				animation_tree.set("parameters/Rifle_ADS_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",3)
@@ -653,7 +653,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/One_Handed_ADS_Strafe/blend_amount",1)
 				animation_tree.set("parameters/One_Handed_ADS_Strafe_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",3)
@@ -666,7 +666,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_Pistol_state/current",2)
 				animation_tree.set("parameters/One_Handed_ADS_Run/blend_amount",1)
 
-#checks if the character is on the ground if not plays the falling animation
+# Checks if the character is on the ground if not plays the falling animation
 	if !grounded and !_ground_checker.is_colliding():
 		animation_tree.set("parameters/Falling/active",true)
 	else:

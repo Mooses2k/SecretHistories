@@ -144,10 +144,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/character.gd"
 }, {
-"base": "Spatial",
+"base": "Reference",
 "class": "CharacterAudio",
 "language": "GDScript",
-"path": "res://scenes/character_audio.gd"
+"path": "res://scenes/characters/character_audio.gd"
 }, {
 "base": "Node",
 "class": "CharacterSpawner",

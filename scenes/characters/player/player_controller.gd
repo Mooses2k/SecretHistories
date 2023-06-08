@@ -467,13 +467,13 @@ func empty_slot():
 		character.inventory.hotbar[10] = empty_hand
 
 
-func throw_consumable():
-	var item : EquipmentItem = null
+func throw_consumable(item):
+#	var item : EquipmentItem = null
 	if throw_item == ItemSelection.ITEM_MAINHAND:
-		item = character.inventory.get_mainhand_item()
+#		item = character.inventory.get_mainhand_item()
 		character.inventory.drop_mainhand_item()
 	else:
-		item = character.inventory.get_offhand_item()
+#		item = character.inventory.get_offhand_item()
 		character.inventory.drop_offhand_item()
 	if item:
 		var impulse = active_mode.get_aim_direction() * throw_strength

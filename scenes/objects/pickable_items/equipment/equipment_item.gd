@@ -15,6 +15,7 @@ export var horizontal_holding : bool = false
 var is_in_belt = false
 var has_equipped = false
 
+
 func _ready():
 	if horizontal_holding == true:
 		$"%HoldPosition".rotation_degrees.z = 90

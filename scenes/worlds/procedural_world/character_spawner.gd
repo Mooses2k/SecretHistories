@@ -51,9 +51,9 @@ onready var characters_root = Node.new()
 var _rng := RandomNumberGenerator.new()
 
 var _density_by_type := {
-	WorldData.CellType.ROOM: 0.005,
+	WorldData.CellType.ROOM: 0.01,
 	WorldData.CellType.CORRIDOR: 0.0025,
-	WorldData.CellType.HALL: 0,
+	WorldData.CellType.HALL: 0.005,
 }
 var _total_weights_by_set := []
 

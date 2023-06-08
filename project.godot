@@ -465,6 +465,7 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
+LoadScreen="*res://globals/load_screen.gd"
 ChangeScene="*res://globals/change_scene.gd"
 KeyInputSettings="*res://globals/settings/key_input_settings.gd"
 

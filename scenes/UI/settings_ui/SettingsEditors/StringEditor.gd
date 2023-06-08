@@ -48,7 +48,7 @@ func _on_setting_attached():
 	elif "misc|" in temp_setting_name:
 		temp_setting_name.erase(0, 5)
 		
-	$"%Name".text = temp_setting_name
+	$"%Name".text = temp_setting_name.replace("_", " ")
 	pass
 
 
@@ -81,6 +81,10 @@ func _input(event):
 			settings.set_setting(_setting_name, event)
 
 
-func _on_TextEdit_pressed():
+func _on_Clear_pressed():
+	pass # Replace with function body.
+
+
+func _on_Change_pressed():
 	get_parent().get_parent().get_parent().get_parent().owner.get_node("Panel").show()
 	is_waiting_input = true

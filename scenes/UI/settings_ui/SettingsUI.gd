@@ -28,6 +28,7 @@ func attach_settings(s : SettingsClass):
 	clear_ui()
 	settings = s
 	generate_ui()
+	sort_setting_groups()
 
 
 func clear_ui():
@@ -44,6 +45,25 @@ func generate_ui():
 	for _s in settings.get_settings_list():
 		var setting_name = _s as String
 		add_setting(setting_name)
+	pass
+
+
+func sort_setting_groups():
+	for child in get_children():
+
+		match child.group_name:
+			"Game Settings":
+				pass
+			"Video Settings":
+				pass
+			"Audio Settings":
+				pass
+			"Input Settings":
+				pass
+			"Input Key Settings":
+				pass
+			_:
+				pass
 	pass
 
 

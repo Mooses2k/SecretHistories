@@ -11,23 +11,31 @@ _setting_type = 5
 [node name="Name" type="Label" parent="."]
 unique_name_in_owner = true
 margin_top = 293.0
-margin_right = 446.0
+margin_right = 455.0
 margin_bottom = 307.0
 size_flags_horizontal = 3
 
 [node name="Value" type="Label" parent="."]
 unique_name_in_owner = true
-margin_left = 450.0
+margin_left = 459.0
 margin_top = 293.0
-margin_right = 896.0
+margin_right = 914.0
 margin_bottom = 307.0
 size_flags_horizontal = 3
 
-[node name="TextEdit" type="Button" parent="."]
+[node name="Change" type="Button" parent="."]
 unique_name_in_owner = true
-margin_left = 900.0
+margin_left = 918.0
+margin_right = 976.0
+margin_bottom = 600.0
+text = "Change"
+
+[node name="Clear" type="Button" parent="."]
+unique_name_in_owner = true
+margin_left = 980.0
 margin_right = 1024.0
 margin_bottom = 600.0
-text = "Change Event Key"
+text = "Clear"
 
-[connection signal="pressed" from="TextEdit" to="." method="_on_TextEdit_pressed"]
+[connection signal="pressed" from="Change" to="." method="_on_Change_pressed"]
+[connection signal="pressed" from="Clear" to="." method="_on_Clear_pressed"]

@@ -138,7 +138,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		for cell in cell_list:
 			data.set_cell_meta(cell, data.CellMetaKeys.META_PILLAR_ROOM, true)
 		pillar_rooms.push_back(room_rect)
-		print(pillar_rooms)
+		print("pillar rooms: %s"%[pillar_rooms])
 #		var cells_with_pillar : Dictionary = Dictionary()
 #		for cell in cells_in_room[room]:
 #			var cell_coords = data.get_int_position_from_cell_index(cell)

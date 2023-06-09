@@ -617,6 +617,19 @@ func set_wall_meta(cell_index : int, direction : int, value = null):
 			wall_meta[idx] = value
 
 
+func has_door(cell_index: int, direction: int) -> bool:
+	var wall_type = get_wall_type(cell_index, direction)
+	var value := false
+	if (
+			wall_type == EdgeType.DOOR
+			or wall_type == EdgeType.HALFDOOR_N
+			or wall_type == EdgeType.HALFDOOR_P
+	):
+		value = true
+	
+	return value
+
+
 func get_wall_tile_index(cell_index : int, direction : int) -> int:
 	return wall_tile_index[4 * cell_index + direction]
 

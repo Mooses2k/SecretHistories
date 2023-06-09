@@ -117,8 +117,7 @@ func _is_corner_next_to_door(
 	world_data
 	
 	for direction in corner_directions:
-		var wall_type := world_data.get_wall_type(corner_index, direction)
-		if wall_type == world_data.EdgeType.DOOR:
+		if world_data.has_door(corner_index, direction):
 			value = true
 			break
 	

@@ -38,7 +38,7 @@ func _spawn_world_data_objects(data: WorldData) -> void:
 	var objects_to_spawn := data.get_objects_to_spawn()
 	for cell_index in objects_to_spawn:
 		var spawn_data := objects_to_spawn[cell_index] as SpawnData
-		spawn_data.spawn_item_in(owner, true)
+		spawn_data.spawn_item_in(owner)
 
 
 func _spawn_initial_settings_items(data : WorldData):

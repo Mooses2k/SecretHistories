@@ -90,7 +90,6 @@ func set_random_position_in_cell(
 		
 		if angle == INF:
 			angle = rng.randf_range(0.0, TAU)
-			print("angle #%s: %s"%[i, angle])
 		
 		var radius := rng.randf_range(min_radius, max_radius)
 		var random_direction := Vector3(cos(angle), 0.0, sin(angle)).normalized()

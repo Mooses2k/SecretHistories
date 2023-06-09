@@ -58,7 +58,6 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			count += 1
 			var local_position := data.get_local_cell_position(cell_index)
 			var spawn_data := CharacterSpawnData.new()
-			print("spawn_data: %s"%[spawn_data])
 			spawn_data.scene_path = _character_scene_path
 			spawn_data.set_center_position_in_cell(local_position)
 			data.set_character_spawn_data_to_cell(cell_index, spawn_data)

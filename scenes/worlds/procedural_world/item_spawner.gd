@@ -16,10 +16,6 @@ export var starting_light: PackedScene
 
 var free_cell = 0
 
-export var _loot_list_resource: Resource = null
-export var _min_loot := 5 setget _set_min_loot
-export var _max_loot := 10 setget _set_max_loot
-
 var _rng := RandomNumberGenerator.new()
 var _used_cell_indexes := []
 
@@ -43,47 +39,7 @@ func _on_ProceduralWorld_generation_finished() -> void:
 	var data := owner.world_data as WorldData
 	_spawn_starting_light(data)
 	_spawn_initial_settings_items(data)
-	_spawn_initial_loot(data)
 	_spawn_world_data_objects(data)
-
-
-func _spawn_initial_loot(data : WorldData) -> void:
-	var loot_list := _loot_list_resource as ObjectSpawnList
-	if loot_list == null:
-		assert(loot_list != null, "No resource, or invalid resource, on _loot_list_resource property")
-		return
-	
-	var draw_amount := _rng.randi_range(_min_loot, _max_loot)
-	var possible_cells := data.get_cells_for(data.CellType.ROOM)
-	possible_cells = _remove_used_cells(possible_cells)
-	
-	for _i in draw_amount:
-		var loot_data := loot_list.get_random_spawn_data()
-		if possible_cells.empty():
-			return
-		
-		var lucky_index = _rng.randi() % possible_cells.size()
-		var cell_index := possible_cells[lucky_index] as int
-		_used_cell_indexes.append(cell_index)
-		possible_cells.remove(cell_index)
-		
-		for _loot_i in loot_data.amount:
-			var angle := _rng.randf_range(0.0, TAU)
-			# Get random positions in a radius from 10% to 30% away from center.
-			var cell_radius := data.CELL_SIZE * 0.5
-			var position := _get_random_position_in_cell(
-					data.get_local_cell_position(cell_index),
-					cell_radius*0.1, cell_radius*0.30,
-					angle
-			)
-			_spawn_item(loot_data.scene_path, position, angle)
-
-
-func _remove_used_cells(p_array: Array) -> Array:
-	for cell_index in _used_cell_indexes:
-		p_array.erase(cell_index)
-	
-	return p_array
 
 
 func _spawn_world_data_objects(data: WorldData) -> void:
@@ -155,7 +111,7 @@ func _spawn_item(scene_path: String, position: Vector3, angle := 0.0) -> void:
 		(item as Spatial).rotate_y(angle)
 	
 	owner.add_child(item)
-	print("item spawned: %s | at: %s | rotated y by: %s"%[scene_path, position, angle])
+#	print("item spawned: %s | at: %s | rotated y by: %s"%[scene_path, position, angle])
 
 
 func _spawn_tiny_item(item_data_path: String, amount: int, position: Vector3) -> void:
@@ -171,7 +127,8 @@ func _spawn_starting_light(data : WorldData) -> void:
 	if starting_light == null:
 		return
 	
-	var starting_cells = data.get_cells_for(data.CellType.STARTING_ROOM)
+	var starting_room := data.get_starting_room_data()
+	var starting_cells = starting_room.cell_indexes
 	if data.is_spawn_position_valid():
 		var player_index := data.get_player_spawn_position_as_index()
 		starting_cells.erase(player_index)
@@ -182,13 +139,5 @@ func _spawn_starting_light(data : WorldData) -> void:
 	
 	var local_pos = data.get_local_cell_position(spawn_cell) + ITEM_POSITION_OFFSET
 	_spawn_item(starting_light.resource_path, local_pos)
-
-
-func _set_min_loot(value: int) -> void:
-	_min_loot = clamp(value, 0, _max_loot)
-
-
-func _set_max_loot(value: int) -> void:
-	_max_loot = max(value, _min_loot)
 
 ### -----------------------------------------------------------------------------------------------

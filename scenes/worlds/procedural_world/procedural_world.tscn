@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -12,13 +12,13 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=11]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=12]
+[ext_resource path="res://scenes/worlds/procedural_world/generate_starting_room.gd" type="Script" id=13]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=18]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" type="Script" id=19]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=20]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=21]
-
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
@@ -49,27 +49,30 @@ _density_by_type = {
 4: 0.005
 }
 
-[node name="GenerateRooms" type="Node" parent="GenerationManager" index="0"]
+[node name="GenerateStartingRoom" type="Node" parent="GenerationManager" index="0"]
+script = ExtResource( 13 )
+
+[node name="GenerateRooms" type="Node" parent="GenerationManager" index="1"]
 script = ExtResource( 17 )
 room_size_max = 3
 
-[node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="1"]
+[node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="2"]
 script = ExtResource( 3 )
 
-[node name="GenerateCorridors" type="Node" parent="GenerationManager" index="2"]
+[node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 20 )
 
-[node name="GenerateHalls" type="Node" parent="GenerationManager" index="3"]
+[node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
 script = ExtResource( 19 )
 
-[node name="GenerateWalls" type="Node" parent="GenerationManager" index="4"]
+[node name="GenerateWalls" type="Node" parent="GenerationManager" index="5"]
 script = ExtResource( 18 )
 
-[node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="5"]
+[node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="6"]
 script = ExtResource( 4 )
 pillar_tile = 16
 
-[node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="6"]
+[node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="7"]
 script = ExtResource( 21 )
 floor_tile = 6
 wall_tile = 5
@@ -83,7 +86,7 @@ pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
 
-[node name="PopulateRooms" type="Node" parent="GenerationManager" index="7"]
+[node name="PopulateRooms" type="Node" parent="GenerationManager" index="8"]
 script = ExtResource( 10 )
 
 [node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="0"]

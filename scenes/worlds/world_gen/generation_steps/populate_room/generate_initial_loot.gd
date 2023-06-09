@@ -77,7 +77,7 @@ func _generate_initial_light_data(data: WorldData) -> void:
 	var chosen_index = starting_cells[random_cell_index]
 	var local_pos = data.get_local_cell_position(chosen_index)
 	spawn_data.set_center_position_in_cell(local_pos)
-	data.set_spawn_data_to_cell(chosen_index, spawn_data)
+	data.set_object_spawn_data_to_cell(chosen_index, spawn_data)
 
 
 func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnList) -> void:
@@ -104,7 +104,7 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 				cell_radius * _max_radius_multiplier
 		)
 		
-		data.set_spawn_data_to_cell(cell_index, spawn_data)
+		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
 
 
 func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:

@@ -152,6 +152,7 @@ func clear():
 	
 	player_spawn_position = INVALID_STARTING_CELL
 	_objects_to_spawn.clear()
+	_characters_to_spawn.clear()
 	_cell_indexes_by_cell_type.clear()
 
 
@@ -234,6 +235,7 @@ var player_spawn_position := INVALID_STARTING_CELL
 #	cell_index_3: SpawnData,
 #}
 var _objects_to_spawn := {}
+var _characters_to_spawn := {}
 
 # Stores a arrays of cell indexes already filtered by cell type.
 # Private variable, use `get_cells_for(p_type: int)` to access the arrays.
@@ -487,11 +489,13 @@ func is_cell_free(cell_index: int) -> bool:
 	else:
 		if _objects_to_spawn.has(cell_index):
 			value = false
+		elif _characters_to_spawn.has(cell_index):
+			value = false
 	
 	return value
 
 
-func set_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
+func set_object_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
 	if _objects_to_spawn.has(cell_index):
 		push_error("Aborting. Cell %s is already occupied with: %s"%[cell_index, spawn_data])
 		return
@@ -501,6 +505,18 @@ func set_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
 
 func get_objects_to_spawn() -> Dictionary:
 	return _objects_to_spawn
+
+
+func set_character_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
+	if _characters_to_spawn.has(cell_index):
+		push_error("Aborting. Cell %s is already occupied with: %s"%[cell_index, spawn_data])
+		return
+	
+	_characters_to_spawn[cell_index] = spawn_data
+
+
+func get_characters_to_spawn() -> Dictionary:
+	return _characters_to_spawn
 
 
 func get_cell_surfacetype(cell_index : int) -> int:

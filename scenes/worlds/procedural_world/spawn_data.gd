@@ -10,7 +10,7 @@ extends Resource
 
 #--- constants ------------------------------------------------------------------------------------
 
-const CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
+const ITEM_CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -31,7 +31,9 @@ func _init() -> void:
 
 
 func _to_string() -> String:
-	var msg := "[SpawnData:%s | amount: %s scene_path: %s]"%[get_instance_id(), amount, scene_path]
+	var msg := "[SpawnData:%s | amount: %s scene_path: %s tranforms: %s]"%[
+			get_instance_id(), amount, scene_path, _transforms
+	]
 	return msg
 
 ### -----------------------------------------------------------------------------------------------
@@ -61,7 +63,7 @@ func set_center_position_in_cell(cell_position: Vector3, instance_index := INF) 
 		if instance_index != INF and i != instance_index:
 			continue
 		
-		var transform := Transform.IDENTITY.translated(cell_position + CENTER_POSITION_OFFSET)
+		var transform := Transform.IDENTITY.translated(cell_position + _get_center_offset())
 		_transforms[i] = transform
 
 
@@ -84,7 +86,7 @@ func set_random_position_in_cell(
 		
 		var transform := _transforms[i] as Transform
 		var angle := p_angle
-		var center_position := cell_position + CENTER_POSITION_OFFSET
+		var center_position := cell_position + _get_center_offset()
 		
 		if angle == INF:
 			angle = rng.randf_range(0.0, TAU)
@@ -137,6 +139,10 @@ func _set_amount(value: int) -> void:
 	for index in _transforms.size():
 		if index < old_tranforms.size() and _transforms[index] != old_tranforms[index]:
 			_transforms[index] = old_tranforms[index]
+
+
+func _get_center_offset() -> Vector3:
+	return ITEM_CENTER_POSITION_OFFSET
 
 ### -----------------------------------------------------------------------------------------------
 

@@ -85,7 +85,7 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 				var facing_angle := corners.get_facing_angle_for(key)
 				spawn_data.set_y_rotation(facing_angle)
 			
-			world_data.set_spawn_data_to_cell(corner_index, spawn_data)
+			world_data.set_object_spawn_data_to_cell(corner_index, spawn_data)
 		else:
 #			print("No candelabra to spawn in this corner: %s"%[corner_index])
 			pass

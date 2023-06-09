@@ -26,6 +26,10 @@ export var _transforms: Array
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
+func _init() -> void:
+	_set_amount(1)
+
+
 func _to_string() -> String:
 	var msg := "[SpawnData:%s | amount: %s scene_path: %s]"%[get_instance_id(), amount, scene_path]
 	return msg

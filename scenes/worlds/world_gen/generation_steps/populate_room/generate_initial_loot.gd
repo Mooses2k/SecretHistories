@@ -19,6 +19,13 @@ export var _max_loot := 10 setget _set_max_loot
 export var _min_radius_multiplier := 0.1
 export var _max_radius_multiplier := 0.3
 
+# TODO: I've put this here like this just to be able to test the changes to spawning character 
+# in a starting room. It will probably be best to move this to the world settings, with a setting
+# for "initial light" separate from the equipments settings, and wich gives as choice one of the
+# available lights. Until then, just change this export var to change the initial light available
+# for the player
+export(String, FILE, "*.tscn") var _path_starting_light_scene := ""
+
 var _rng := RandomNumberGenerator.new()
 
 ### -----------------------------------------------------------------------------------------------
@@ -40,7 +47,7 @@ func _ready() -> void:
 
 ### Private Methods -------------------------------------------------------------------------------
 
-func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
+func _execute_step(data: WorldData, gen_data : Dictionary, generation_seed : int):
 	if Engine.editor_hint:
 		return
 	elif _loot_list_resource == null or not _loot_list_resource is ObjectSpawnList:
@@ -48,10 +55,32 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		return
 	
 	_rng.seed = generation_seed
+	
+	_generate_initial_light_data(data)
 	_generate_initial_loot_spawn_data(data, _loot_list_resource)
 
 
-func _generate_initial_loot_spawn_data(data : WorldData, loot_list: ObjectSpawnList) -> void:
+func _generate_initial_light_data(data: WorldData) -> void:
+	if _path_starting_light_scene.empty():
+		return
+	
+	var spawn_data := SpawnData.new()
+	spawn_data.scene_path = _path_starting_light_scene
+	
+	var starting_room := data.get_starting_room_data()
+	var starting_cells = starting_room.cell_indexes
+	if data.is_spawn_position_valid():
+		var player_index := data.get_player_spawn_position_as_index()
+		starting_cells.erase(player_index)
+	
+	var random_cell_index := _rng.randi() % starting_cells.size() as int
+	var chosen_index = starting_cells[random_cell_index]
+	var local_pos = data.get_local_cell_position(chosen_index)
+	spawn_data.set_center_position_in_cell(local_pos)
+	data.set_spawn_data_to_cell(chosen_index, spawn_data)
+
+
+func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnList) -> void:
 	var draw_amount := _rng.randi_range(_min_loot, _max_loot)
 	var possible_cells := data.get_cells_for(data.CellType.ROOM)
 	possible_cells = _remove_used_cells_from(possible_cells, data)

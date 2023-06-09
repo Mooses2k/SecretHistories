@@ -102,10 +102,10 @@ script = ExtResource( 14 )
 _loot_list_resource = ExtResource( 8 )
 _min_loot = 10
 _max_loot = 15
+_path_starting_light_scene = "res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn"
 
 [node name="ItemSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 16 )
-starting_light = ExtResource( 7 )
 
 [connection signal="generation_finished" from="." to="CharacterSpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]

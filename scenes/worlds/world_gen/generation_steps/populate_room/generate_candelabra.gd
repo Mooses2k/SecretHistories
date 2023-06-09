@@ -76,7 +76,7 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 			continue
 		
 		var cell_position := world_data.get_local_cell_position(corner_index)
-		var spawn_data := spawn_list.get_random_spawn_data()
+		var spawn_data := spawn_list.get_random_spawn_data(_rng)
 		if not spawn_data.scene_path.empty():
 			spawn_data.set_center_position_in_cell(cell_position)
 			if spawn_data.scene_path.find(UNLIT_KEYWORD) != -1:

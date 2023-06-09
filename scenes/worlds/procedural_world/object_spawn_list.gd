@@ -15,18 +15,15 @@ var _current_max_amounts := []
 
 var _current_total_weight := 0
 
-var _rng: RandomNumberGenerator = null
-
-
 ### Public Methods --------------------------------------------------------------------------------
 
-func get_random_spawn_data() -> SpawnData:
+func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 	var spawn_data: SpawnData = SpawnData.new()
 	
 	if _current_paths.empty():
 		_initialize_current_arrays()
 	
-	var random_value = randi() % _current_total_weight
+	var random_value = rng.randi() % _current_total_weight
 	var index := 0
 	for value in _current_weights:
 		var weight := value as int
@@ -37,7 +34,7 @@ func get_random_spawn_data() -> SpawnData:
 			index += 1
 	
 	spawn_data.scene_path = _current_paths[index]
-	spawn_data.amount = _rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
+	spawn_data.amount = rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
 	
 	_exclude_used_index(index)
 	_current_total_weight = _calculate_total_weight()
@@ -54,8 +51,6 @@ func _initialize_current_arrays() -> void:
 	_current_weights = _weights.duplicate()
 	_current_min_amounts = _min_amounts.duplicate()
 	_current_max_amounts = _max_amounts.duplicate()
-	_rng = RandomNumberGenerator.new()
-	_rng.randomize()
 	
 	_current_total_weight = _calculate_total_weight()
 

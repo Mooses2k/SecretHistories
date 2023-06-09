@@ -29,7 +29,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	# on the room_rects array as a Rect2, and an array of the cells belonging
 	# to each room is stored on the cells_in_room array
 	for i in data.cell_count:
-		if room_index[i] == 0 and data.is_room_cell(i):
+		if room_index[i] == 0 and data.get_cell_type(i) == data.CellType.ROOM:
 			var queue = Array()
 			queue.push_back(i)
 			var queue_index = 0
@@ -45,7 +45,10 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 				room_rect = room_rect.merge(cell_rect)
 				for dir in data.Direction.size():
 					var neighbour = data.get_neighbour_cell(cell, dir)
-					if room_index[neighbour] == 0 and data.is_room_cell(neighbour):
+					if (
+							room_index[neighbour] == 0 
+							and data.get_cell_type(neighbour) == data.CellType.ROOM
+					):
 						room_index[neighbour] = current_room_index
 						queue.push_back(neighbour)
 				queue_index += 1
@@ -138,7 +141,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		for cell in cell_list:
 			data.set_cell_meta(cell, data.CellMetaKeys.META_PILLAR_ROOM, true)
 		pillar_rooms.push_back(room_rect)
-		print(pillar_rooms)
+		print("pillar rooms: %s"%[pillar_rooms])
 #		var cells_with_pillar : Dictionary = Dictionary()
 #		for cell in cells_in_room[room]:
 #			var cell_coords = data.get_int_position_from_cell_index(cell)

@@ -35,7 +35,7 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 		var cell_type = data.get_cell_type(i)
 		var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
 		if cell_type != data.CellType.EMPTY and not is_pillar_room:
-			if cell_type == data.CellType.ROOM or cell_type == data.CellType.STARTING_ROOM:
+			if cell_type == data.CellType.ROOM:
 				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
 			elif cell_type == data.CellType.CORRIDOR:
 				data.set_cell_surfacetype(i, data.SurfaceType.CARPET)

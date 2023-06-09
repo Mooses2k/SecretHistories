@@ -49,9 +49,6 @@ enum CellType {
 	# The cell belongs to a room
 	ROOM,
 	
-	# The cell belongs to the starting room
-	STARTING_ROOM,
-	
 	# The cell belongs to a corridor
 	CORRIDOR,
 	
@@ -240,7 +237,7 @@ var _objects_to_spawn := {}
 
 # Stores a arrays of cell indexes already filtered by cell type.
 # Private variable, use `get_cells_for(p_type: int)` to access the arrays.
-# ex: { CellType.STARTING_ROOM = [15, 16, 17, 25, 26 ...], CellType.ROOM = [...], ... }
+# ex: { CellType.ROOM = [15, 16, 17, 25, 26 ...], CellType.CORRIDOR = [...], ... }
 var _cell_indexes_by_cell_type := {}
 
 
@@ -334,12 +331,6 @@ func is_spawn_position_valid() -> bool:
 	return player_spawn_position != INVALID_STARTING_CELL
 
 
-func is_room_cell(p_index: int) -> bool:
-	var type := get_cell_type(p_index)
-	var value: bool = type == CellType.ROOM or type == CellType.STARTING_ROOM
-	return value
-
-
 func set_room(type: String, p_room_data: RoomData) -> void:
 	if not rooms.has(type):
 		rooms[type] = []
@@ -364,6 +355,20 @@ func get_rooms_of_type(p_type: String) -> Array:
 	if rooms.has(p_type):
 		value = rooms[p_type]
 	
+	return value
+
+
+func get_starting_room_data() -> RoomData:
+	var value: RoomData = null
+	
+	var starting_rooms := get_rooms_of_type("starting_room")
+	if rooms.empty():
+		push_error("No starting room found.")
+		return value
+	elif rooms.size() > 1:
+		push_warning("There should only be one starting room, only the first will be used")
+	
+	value = starting_rooms[0]
 	return value
 
 
@@ -660,6 +665,8 @@ func print_world_map() -> void:
 	var append_title = "-".repeat(world_size_x - title.length())
 	print("\n" + title + append_title)
 	
+	var starting_room := get_starting_room_data()
+	var starting_cells := starting_room.cell_indexes.duplicate()
 	for y in range(0, world_size_z):
 		for x in range(0, world_size_x):
 			var index := get_cell_index_from_int_position(x, y)
@@ -667,10 +674,15 @@ func print_world_map() -> void:
 			match type:
 				CellType.EMPTY:
 					line += "."
-				CellType.STARTING_ROOM:
-					line += "S"
 				CellType.ROOM:
-					line += "R"
+					var room_value := "R"
+					if not starting_cells.empty():
+						var cell_index := get_cell_index_from_int_position(x, y)
+						var starting_cell_index := starting_cells.find(cell_index)
+						if starting_cell_index != -1:
+							room_value = "S"
+							starting_cells.remove(starting_cell_index)
+					line += room_value
 				CellType.CORRIDOR:
 					line += "="
 				CellType.HALL:

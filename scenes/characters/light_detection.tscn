@@ -8,7 +8,7 @@ height = 0.5
 radial_segments = 13
 rings = 3
 
-[node name="Light_detection" type="Spatial"]
+[node name="LightDetection" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

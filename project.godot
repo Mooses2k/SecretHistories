@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/check_nodes/bt_approach_distance.gd"
 }, {
+"base": "BT_Player_Sensor",
+"class": "BT_Collision_Sensor",
+"language": "GDScript",
+"path": "res://core/ai/check_nodes/bt_collision_sensor.gd"
+}, {
 "base": "BT_Node",
 "class": "BT_ControlFlow",
 "language": "GDScript",
@@ -129,6 +134,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd"
 }, {
+"base": "DisposableLightItem",
+"class": "CandleItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd"
+}, {
 "base": "KinematicBody",
 "class": "Character",
 "language": "GDScript",
@@ -137,7 +147,12 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "CharacterAudio",
 "language": "GDScript",
-"path": "res://scenes/character_audio.gd"
+"path": "res://scenes/characters/character_audio.gd"
+}, {
+"base": "SpawnData",
+"class": "CharacterSpawnData",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/character_spawn_data.gd"
 }, {
 "base": "Node",
 "class": "CharacterSpawner",
@@ -169,6 +184,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/cultists/cultist.gd"
 }, {
+"base": "ConsumableItem",
+"class": "DisposableLightItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.gd"
+}, {
 "base": "Spatial",
 "class": "Door",
 "language": "GDScript",
@@ -189,6 +209,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/effects/effects.gd"
 }, {
+"base": "EquipmentItem",
+"class": "EmptyHand",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
+}, {
 "base": "PickableItem",
 "class": "EquipmentItem",
 "language": "GDScript",
@@ -203,6 +228,11 @@ _global_script_classes=[ {
 "class": "GameWorld",
 "language": "GDScript",
 "path": "res://scenes/worlds/game_world.gd"
+}, {
+"base": "GenerationStep",
+"class": "GenerationGroup",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/generation_steps/generation_group.gd"
 }, {
 "base": "Node",
 "class": "GenerationManager",
@@ -259,15 +289,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/ManhattanAStar2D.gd"
 }, {
+"base": "ConsumableItem",
+"class": "MedicalItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/medical/medical.gd"
+}, {
 "base": "EquipmentItem",
 "class": "MeleeItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/melee/melee_item.gd"
 }, {
+"base": "MeshInstance",
+"class": "MeshInstanceLayered",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/mesh_instances.gd"
+}, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
 "language": "GDScript",
 "path": "res://utils/mesh_transform.gd"
+}, {
+"base": "Resource",
+"class": "ObjectSpawnList",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/object_spawn_list.gd"
 }, {
 "base": "EquipmentItem",
 "class": "PadlockItem",
@@ -310,9 +355,14 @@ _global_script_classes=[ {
 "path": "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd"
 }, {
 "base": "EquipmentItem",
-"class": "Rock",
+"class": "RockItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
+}, {
+"base": "Resource",
+"class": "RoomData",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/helper_objects/room_data.gd"
 }, {
 "base": "Node",
 "class": "SettingsClass",
@@ -328,6 +378,11 @@ _global_script_classes=[ {
 "class": "SoundListener",
 "language": "GDScript",
 "path": "res://scenes/sensors/sound_listener.gd"
+}, {
+"base": "Resource",
+"class": "SpawnData",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/spawn_data.gd"
 }, {
 "base": "ToolItem",
 "class": "Spike",
@@ -349,10 +404,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/tool_item.gd"
 }, {
+"base": "DisposableLightItem",
+"class": "TorchItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
 "path": "res://scenes/worlds/visibility_mask/visibility_mask.gd"
+}, {
+"base": "MeshInstanceLayered",
+"class": "VisualFlame",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd"
 }, {
 "base": "Resource",
 "class": "WorldData",
@@ -363,16 +428,12 @@ _global_script_classes=[ {
 "class": "WritingItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
-}, {
-"base": "EquipmentItem",
-"class": "empty_hand",
-"language": "GDScript",
-"path": "res://scenes/objects/pickable_items/equipment/empty_slot/empty_hand.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
 "AttackTypes": "",
 "BT_Approach_Random_Distance": "",
+"BT_Collision_Sensor": "",
 "BT_ControlFlow": "",
 "BT_Equip_Next_Gun": "",
 "BT_Go_To_Target": "",
@@ -394,21 +455,26 @@ _global_script_class_icons={
 "BombItem": "",
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
+"CandleItem": "",
 "Character": "",
 "CharacterAudio": "",
+"CharacterSpawnData": "",
 "CharacterSpawner": "",
 "CharacterState": "",
 "ClamberManager": "",
 "ConsumableItem": "",
 "ControlMode": "",
 "Cultist": "",
+"DisposableLightItem": "",
 "Door": "",
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",
+"EmptyHand": "",
 "EquipmentItem": "",
 "Game": "",
 "GameWorld": "",
+"GenerationGroup": "",
 "GenerationManager": "",
 "GenerationStep": "",
 "GlobalConsts": "",
@@ -420,8 +486,11 @@ _global_script_class_icons={
 "KeyItem": "",
 "LanternItem": "",
 "ManhattanAStar2D": "",
+"MedicalItem": "",
 "MeleeItem": "",
+"MeshInstanceLayered": "",
 "MeshTransform": "",
+"ObjectSpawnList": "",
 "PadlockItem": "",
 "PickableItem": "",
 "PickupArea": "",
@@ -430,27 +499,30 @@ _global_script_class_icons={
 "PlayerSensor": "",
 "PlayerSoundEmitter": "",
 "RevolverItem": "",
-"Rock": "",
+"RockItem": "",
 "RoomData": "",
 "SettingsClass": "",
 "ShakeCamera": "",
 "SoundListener": "",
+"SpawnData": "",
 "Spike": "",
 "TinyItem": "",
 "TinyItemData": "",
 "ToolItem": "",
+"TorchItem": "",
 "VisibilityMask": "",
+"VisualFlame": "",
 "WorldData": "",
-"WritingItem": "",
-"empty_hand": ""
+"WritingItem": ""
 }
 
 [application]
 
 config/name="Secret Histories"
 config/description="An entirely forgettable game"
-run/main_scene="res://scenes/UI/title_menu.tscn"
+run/main_scene="res://scenes/UI/opening_screens.tscn"
 run/flush_stdout_on_print=true
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -467,9 +539,12 @@ TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
 KeyInputSettings="*res://globals/settings/key_input_settings.gd"
 LoadScene="*res://globals/load_scene.gd"
+BackgroundMusic="*res://scenes/core/background_music.tscn"
 
 [display]
 
+window/size/width=1920
+window/size/height=1080
 window/size/fullscreen=true
 
 [editor]
@@ -758,4 +833,5 @@ common/physics_interpolation=true
 
 quality/directional_shadow/size=8192
 environment/default_clear_color=Color( 0, 0, 0, 1 )
+quality/filters/use_fxaa=true
 environment/default_environment="res://default_env.tres"

@@ -1,5 +1,5 @@
-extends Node
 class_name SettingsClass
+extends Node
 
 
 signal setting_added(setting_name)

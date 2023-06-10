@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/gun_item.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/melee/blade/attack/525182__sophia-c__longsword-swing-2-poor-edge-alignment.wav" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" type="AudioStream" id=5]
@@ -11,18 +11,17 @@
 [node name="MeleeItem" instance=ExtResource( 1 )]
 collision_layer = 64
 collision_mask = 1
+mass = 1.0
 script = ExtResource( 2 )
-ammo_types = [  ]
-ammunition_capacity = 0
-reload_amount = 0
-reload_time = 0.0
-damage_offset = 0
-dispersion_offset_degrees = 0
-cooldown = 1.0
+item_name = "Melee Item"
+weapon_type = 0
+melee_damage = 0
+cooldown = 0.01
+throw_logic = true
+can_spin = false
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
 melee_damage_type = 0
-melee_style = 0
-player_path = NodePath("")
-detection_raycast = NodePath("RayCast")
 
 [node name="ReloadTimer" type="Timer" parent="." index="2"]
 one_shot = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://resources/models/large_objects/lighting/M_Candelabra2.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra.gd" type="Script" id=3]
@@ -210,11 +210,63 @@ points = PoolVector3Array( 0.103039, -1.03598, 0.0378541, -0.00705475, -1.03579,
 
 [sub_resource type="Animation" id=14]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireOrigin/Fire:material/0:shader_param/INTENSITY")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.4 ]
+}
 
 [sub_resource type="Animation" id=15]
 resource_name = "flicker"
 length = 5.0
 loop = true
+
+[sub_resource type="Animation" id=213]
+resource_name = "unlit"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireOrigin/Fire:material/0:shader_param/INTENSITY")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="CylinderMesh" id=145]
 top_radius = 0.0
@@ -252,6 +304,7 @@ gradient = SubResource( 146 )
 width = 32
 
 [sub_resource type="ShaderMaterial" id=147]
+resource_local_to_scene = true
 shader = SubResource( 148 )
 shader_param/INTENSITY = 4.0
 shader_param/COLOR_RAMP = SubResource( 149 )
@@ -262,6 +315,7 @@ extents = Vector3( 0.157328, 0.236264, 0.160202 )
 [node name="FloorCandelabra" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 512
+collision_mask = 3
 mass = 30.0
 continuous_cd = true
 script = ExtResource( 3 )
@@ -531,6 +585,7 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 14 )
 anims/flicker = SubResource( 15 )
+anims/unlit = SubResource( 213 )
 
 [node name="FireOrigin8" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103154, 0.585903, -0.107178 )
@@ -635,8 +690,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.4
 shadow_enabled = true
-omni_range = 10.0
-omni_attenuation = 7.0
+omni_range = 9.0
+omni_attenuation = 4.0
 
 [node name="Ignite" type="Area" parent="." groups=["Ignite"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )

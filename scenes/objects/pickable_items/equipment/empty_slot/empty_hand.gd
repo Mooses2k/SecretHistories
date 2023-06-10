@@ -1,2 +1,2 @@
+class_name EmptyHand
 extends EquipmentItem
-class_name empty_hand

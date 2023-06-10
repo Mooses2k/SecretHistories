@@ -534,12 +534,6 @@ TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
 BackgroundMusic="*res://scenes/core/background_music.tscn"
 
-[display]
-
-window/size/width=1920
-window/size/height=1080
-window/size/fullscreen=true
-
 [editor]
 
 description="An entirely forgettable game"

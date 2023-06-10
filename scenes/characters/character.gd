@@ -11,6 +11,7 @@ var _alive : bool = true
 var _type_damage_multiplier : PoolByteArray
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
+export (NodePath) var animation_tree_path 
 onready var current_health : float = self.max_health
 
 export var kick_damage : int
@@ -29,7 +30,7 @@ onready var drop_position_node = $Body/DropPosition
 onready var body = $Body
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
-onready var animation_tree = $AnimationTree
+onready var animation_tree = $"%AnimationTree"
 onready var additional_animations  = $AdditionalAnimations
 
 enum ItemSelection {
@@ -214,8 +215,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
-	check_state_animation(delta)
-	check_current_item_animation()
+	if animation_tree != null:
+		check_state_animation(delta)
+		check_current_item_animation()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:

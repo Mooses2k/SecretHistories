@@ -80,6 +80,7 @@ reload_amount = 2
 reload_time = 2.0
 cooldown = 0.1
 handling = 8.0
+animation_reload_sequence = 0
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
@@ -107,6 +108,7 @@ one_shot = true
 
 [node name="MeshInstance" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.00976729, 0 )
+visible = true
 layers = 0
 mesh = null
 skin = SubResource( 375 )

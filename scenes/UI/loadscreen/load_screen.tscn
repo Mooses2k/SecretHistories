@@ -15,6 +15,7 @@ font_data = ExtResource( 2 )
 [node name="Loading" type="CanvasLayer"]
 pause_mode = 2
 layer = 2
+visible = false
 script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]

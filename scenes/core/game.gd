@@ -43,4 +43,4 @@ func spawn_player():
 	world_root.call_deferred("add_child", self.player)
 	yield(self.player, "ready")
 	self.emit_signal("player_spawned", self.player)
-	LoadScreen.emit_signal("scene_loaded")
+	LoadScene.emit_signal("scene_loaded")

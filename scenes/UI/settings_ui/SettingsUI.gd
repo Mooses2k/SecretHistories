@@ -50,20 +50,20 @@ func generate_ui():
 
 func sort_setting_groups():
 	for child in get_children():
-
-		match child.group_name:
-			"Game Settings":
-				pass
-			"Video Settings":
-				pass
-			"Audio Settings":
-				pass
-			"Input Settings":
-				pass
-			"Input Key Settings":
-				pass
-			_:
-				pass
+		print("groups " + str(child))
+#		match child.group_name:
+#			"Game Settings":
+#				pass
+#			"Video Settings":
+#				pass
+#			"Audio Settings":
+#				pass
+#			"Input Settings":
+#				pass
+#			"Input Key Settings":
+#				pass
+#			_:
+#				pass
 	pass
 
 

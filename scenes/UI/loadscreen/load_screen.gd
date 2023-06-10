@@ -10,12 +10,12 @@ var is_loading = true
 
 func _input(event):
 	if event is InputEvent and event.is_pressed() and not is_loading:
-#		var _error = get_tree().change_scene(LoadScreen.next_scene)
-		LoadScreen.remove_loadscreen()
+#		var _error = get_tree().change_scene(LoadScene.next_scene)
+		LoadScene.remove_loadscreen()
 
 
 func _ready():
-	LoadScreen.connect("scene_loaded", self, "on_scene_loaded")
+	LoadScene.connect("scene_loaded", self, "on_scene_loaded")
 	
 	randomNumG.randomize()
 

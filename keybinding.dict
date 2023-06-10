@@ -1,6 +1,8 @@
 {
 "ADS": [ "?" ],
 "Left_Mouse_Button": [ "?" ],
+"change_screen_filter": [ "key(L)" ],
+"esc_menu": [ "key(Escape)" ],
 "hotbar_1": [ "key(1)" ],
 "hotbar_10": [ "key(0)" ],
 "hotbar_11": [ "key(H)" ],

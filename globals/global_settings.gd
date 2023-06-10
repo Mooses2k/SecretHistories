@@ -102,21 +102,16 @@ func setup_keys(key_dict : Dictionary):
 #				j.text = OS.get_scancode_string(key_dict[i])
 		var has_invalid : bool = false
 		var events = Array()
-		if action == "player|reload":
-			print("action : ", action)
 		for event_str in key_dict[action]:
 			var event = str2event(event_str)
 
 			if event:
-				if action == "player|reload":
-					print("\tevent: ", str(OS.get_scancode_string(event.scancode)))
 				events.push_back(event)
 			else:
 				has_invalid = true
 		if not has_invalid:
 			InputMap.action_erase_events(action)
 		for event in events:
-			print("keys loaded succes")
 			InputMap.action_add_event(action, event)
 
 

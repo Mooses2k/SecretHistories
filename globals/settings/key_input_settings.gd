@@ -72,7 +72,8 @@ func _ready():
 		
 		if actions_copy.size() <= 1:
 			is_done = true
-		Settings.connect("setting_changed", self, "on_setting_changed")
+		
+	Settings.connect("setting_changed", self, "on_setting_changed")
 
 
 func set_keys(x):

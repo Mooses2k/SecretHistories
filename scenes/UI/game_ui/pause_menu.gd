@@ -32,14 +32,12 @@ func exit_state():
 	get_tree().paused = false
 	self.gui_state = PauseMenuState.ESC_MENU
 	self.visible = false
-	pass
 
 
 func enter_state():
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	self.visible = true
-	pass
 
 
 func _input(event: InputEvent) -> void:
@@ -59,13 +57,14 @@ func _on_EscMenu_button_pressed(button) -> void:
 			
 		esc_menu.EscMenuButtons.SETTINGS:
 			self.gui_state = PauseMenuState.SETTINGS_MENU
-
+		
+		esc_menu.EscMenuButtons.HELP:
+			get_node("/root/Game/World/Player/HitEffect").keybind_defaults.visible = !get_node("/root/Game/World/Player/HitEffect").keybind_defaults.visible
+			get_node("/root/Game/World/Player/HitEffect").debug_label.visible = !get_node("/root/Game/World/Player/HitEffect").debug_label.visible
+		
 		esc_menu.EscMenuButtons.QUIT:
 			get_tree().quit()
-
-	pass # Replace with function body.
 
 
 func _on_SettingsMenu_settings_menu_exited() -> void:
 	self.gui_state = PauseMenuState.ESC_MENU
-	pass # Replace with function body.

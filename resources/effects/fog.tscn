@@ -20,10 +20,13 @@ gravity = Vector3( 0, -0.84, 0 )
 [sub_resource type="QuadMesh" id=3]
 
 [node name="Fog" type="Particles"]
-transform = Transform( -2, 1.74846e-07, 1.74846e-07, -1.74846e-07, -2, 1.74846e-07, 1.74846e-07, 1.74846e-07, 2, 0, 0, 0 )
+transform = Transform( -1.5, 3.01992e-08, 1.31134e-07, -2.26494e-07, -0.2, 1.31134e-07, 1.31134e-07, 1.74846e-08, 1.5, 0, 0, 0 )
 material_override = SubResource( 1 )
 use_in_baked_light = true
-amount = 240
+amount = 256
 speed_scale = 0.1
 process_material = SubResource( 2 )
 draw_pass_1 = SubResource( 3 )
+__meta__ = {
+"apply_volumetrics": false
+}

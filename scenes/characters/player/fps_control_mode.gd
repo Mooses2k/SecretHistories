@@ -71,7 +71,7 @@ func update(delta):
 #            pitch_yaw.x = lerp(pitch_yaw.x, deg2rad(pitch_yaw.x + up_recoil), delta)
 		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER)*delta
 
-	owner.body.rotation.y = pitch_yaw.y   # Horizontal
+	owner.character_body.rotation.y = pitch_yaw.y   # Horizontal
 	camera.rotation.x = pitch_yaw.x   # Vertical, you don't want to rotate the whole scene, just camera
 
 

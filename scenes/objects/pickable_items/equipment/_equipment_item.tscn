@@ -10,11 +10,5 @@ item_size = 1
 item_name = "Equipment"
 horizontal_holding = false
 
-[node name="MeshInstance" parent="." index="0"]
-visible = false
-
-[node name="CollisionShape" parent="." index="1"]
-visible = false
-
 [node name="HoldPosition" type="Position3D" parent="." index="2"]
 unique_name_in_owner = true

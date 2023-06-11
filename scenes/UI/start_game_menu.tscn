@@ -43,19 +43,18 @@ margin_bottom = 952.0
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="LightNotice" type="Label" parent="HBoxContainer/Column4"]
-margin_top = 890.0
-margin_right = 277.0
-margin_bottom = 904.0
-text = "Take at least one light"
-align = 1
-
 [node name="StartGame" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
-margin_top = 908.0
+margin_top = 890.0
+margin_right = 277.0
+margin_bottom = 910.0
+text = "Start Game"
+
+[node name="LightNotice" type="Label" parent="HBoxContainer/Column4"]
+margin_top = 914.0
 margin_right = 277.0
 margin_bottom = 928.0
-text = "Start Game"
+align = 1
 
 [node name="ReturnButton" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true

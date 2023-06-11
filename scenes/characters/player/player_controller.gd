@@ -687,7 +687,7 @@ func next_item():
 		character.inventory.current_mainhand_slot = 0
 
 
-func _on_Player_player_landed():   # Dupe of this in character...maybe a timer needed so this lasts longer
+func _on_Player_player_landed():
 	if !owner.is_crouching:
 		if owner.noise_level < 8:
 			owner.noise_level = 8

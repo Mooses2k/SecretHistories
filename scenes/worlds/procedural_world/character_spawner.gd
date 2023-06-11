@@ -71,7 +71,7 @@ func spawn_characters():
 	var characters_by_index := data.get_characters_to_spawn()
 	for cell_index in characters_by_index:
 		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
-		var cell_coordinates := data.get_local_cell_position(cell_index)
+		var cell_coordinates := data.get_local_cell_position(cell_index)   # var never used
 		var character := spawn_data.spawn_character_in(characters_root)
 		_set_random_loadout(character)
 	

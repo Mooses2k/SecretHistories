@@ -23,7 +23,8 @@ onready var hit_effect = $HitEffect
 
 
 func _ready():
-	connect("player_landed", player_controller, "_on_player_landed")
+	if not is_connected("player_landed", player_controller, "_on_Player_player_landed"):
+		connect("player_landed", player_controller, "_on_Player_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 

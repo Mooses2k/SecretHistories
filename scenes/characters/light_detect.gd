@@ -17,7 +17,7 @@ func _process(delta):
 	if _last_time_since_detect + light_detect_interval > _get_time() and _last_time_since_detect != 0.0:
 		return
 
-	var meshInstance := get_node("MeshInstance")
+#	var meshInstance := get_node("MeshInstance")
 	var meshInstance2 := get_node("MeshInstance2")
 	get_node("ViewportContainer/Viewport/Camera").global_transform.origin = (
 			Vector3(meshInstance2.global_transform.origin.x,

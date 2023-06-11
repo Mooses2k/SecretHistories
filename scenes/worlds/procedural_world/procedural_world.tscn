@@ -39,6 +39,10 @@ directional_shadow_normal_bias = 0.2
 [node name="Navigation" parent="." index="4"]
 preview_material = SubResource( 3 )
 
+[node name="GenerationManager" parent="." index="5"]
+world_size_x = 32
+world_size_z = 32
+
 [node name="GenerateStartingRoom" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 13 )
 

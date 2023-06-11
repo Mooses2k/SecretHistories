@@ -15,21 +15,13 @@ var item_inside_listener = []
 var item_too_near = []
 var player_body : Object
 var item_heared : Object
-#var sound_was_heared : bool = false
+#var sound_was_heared : bool = false   # Dupe usage of sound_detected
 
-export var hearing_sensitivity = 4   # Lower levels for more acute hearing
+export var hearing_sensitivity = 4   # Lower levels for more acute hearing, with 1 able to hear player's normal breathing
 
 
 func _ready():
-	queue_update()
-	get_tree().connect("idle_frame", self, "clear_sensor")
-
-
-func queue_update():
-	if not is_inside_tree():
-		yield(self, "ready")
-	if not get_tree().is_connected("idle_frame", self, "_update"):
-		get_tree().connect("idle_frame", self, "_update", [], CONNECT_ONESHOT)
+	get_tree().connect("idle_frame", self, "clear_sensor")   # Makes sensor not up to date after each frame
 
 
 func is_sound_detected() -> bool:
@@ -74,9 +66,8 @@ func check_sound_around():
 
 func obj_sound_loud_enough(item, behind_wall : int):
 	if behind_wall > 0:
-#		item.noise_level /= 2
 		item.noise_level /= behind_wall
-		if item.noise_level > 0:
+		if item.noise_level >= 4:   # If a normal-hearing-detectable amount of noise
 			print(item.noise_level, " noise after passing through wall(s)")
 	if item.noise_level >= hearing_sensitivity:
 		if player_inside_near_listener == true or !item_too_near.empty():
@@ -98,22 +89,16 @@ func check_if_behind_wall(obj : Object):
 	var passes : int = 0
 	if result:
 		# TODO make this more general by group maybe?
-#		if (result["collider"].name == "wall_xp" or result["collider"].name == "wall_zp" or 
-#		result["collider"].name == "wall_xn" or result["collider"].name == "wall_zn"):
-#			print("Sound passing through wall")
-#			return true
 		for each in result:
 			if (result["collider"].name == "wall_xp" or result["collider"].name == "wall_zp" or
 			 result["collider"].name == "wall_xn" or result["collider"].name == "wall_zn" or
 			 result["collider"].name == "ceiling" or result["collider"].name == "ground"):
 				passes += 1
-#				print(passes, " passes through walls on way to listener")
 		return passes
 	return false
 
 
 func _on_NearSoundDetector_body_entered(body):
-	print(body, " entered near sound alert range")
 	if body is Player:
 		player_body = body
 		player_inside_listener = true

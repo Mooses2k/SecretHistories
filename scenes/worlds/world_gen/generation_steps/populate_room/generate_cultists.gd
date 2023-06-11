@@ -17,9 +17,9 @@ export(String, FILE, "*.tscn") var _character_scene_path := ""
 export var _max_count = 5
 
 var _density_by_type := {
-	WorldData.CellType.ROOM: 0.01,
-	WorldData.CellType.CORRIDOR: 0.0025,
-	WorldData.CellType.HALL: 0.005,
+	WorldData.CellType.ROOM: 0.025,
+	WorldData.CellType.CORRIDOR: 0.0,
+	WorldData.CellType.HALL: 0.0,
 }
 
 var _rng := RandomNumberGenerator.new()

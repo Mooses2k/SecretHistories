@@ -1,5 +1,5 @@
-extends ToolItem
 class_name LanternItem
+extends ToolItem
 
 
 signal item_is_dropped
@@ -31,8 +31,8 @@ func _ready():
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
 	
-	if self.name == "BullseyeLantern":
-		print("burn time is = " + str(burn_time))
+#	if self.name == "BullseyeLantern":
+#		print("burn time is = " + str(burn_time))
 
 
 func _process(delta):

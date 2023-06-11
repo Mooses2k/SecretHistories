@@ -1,5 +1,5 @@
-extends Position3D
 class_name PlacementAnchor
+extends Position3D
 
 
 enum PlacementTags {
@@ -97,7 +97,7 @@ enum PlacementTags {
 	ARMOR, # these worn items protect more than modesty
 	WEAPON, # melee or ranged
 	MELEE,
-	RANGED, # firearms, thrown weapons, bows and throwers
+	RANGED, # firearms, thrown weapons, bows, and throwers
 	FIREARM,
 	CLOCK, # can tell the time
 	RUBBLE, # trash, ruin, collapse, broken furniture, animal remains, dirt, etc
@@ -108,7 +108,7 @@ enum PlacementTags {
 	TOMB, # tomb contents, burial goods, found in a tomb
 	BATHTUB,
 # aspect of object
-	LARGE, # a large plate would be a serving platter; a big bed would be a two-person bed
+	LARGE, # a large plate would be a serving platter; a big bed would be a double/queen/king bed
 	SMALL, # a small plate would be a small, side plate; a small bed would be a single
 	VALUABLE,
 	ROTTEN,

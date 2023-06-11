@@ -1,5 +1,5 @@
-extends EquipmentItem
 class_name MeleeItem
+extends EquipmentItem
 
 
 enum WeaponType {

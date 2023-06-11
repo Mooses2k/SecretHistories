@@ -112,6 +112,7 @@ ammunition_capacity = 1
 reload_amount = 1
 reload_time = 2.0
 cooldown = 0.1
+handling = 13.0
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 

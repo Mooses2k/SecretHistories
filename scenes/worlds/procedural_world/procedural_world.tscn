@@ -1,12 +1,18 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" type="Script" id=3]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
 [ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
-[ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
 [ext_resource path="res://scenes/worlds/procedural_world/character_spawner.gd" type="Script" id=9]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=11]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=12]
+[ext_resource path="res://scenes/worlds/procedural_world/generate_starting_room.gd" type="Script" id=13]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_initial_loot.gd" type="Script" id=14]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_cultists.gd" type="Script" id=15]
 [ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=16]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=18]
@@ -33,35 +39,30 @@ directional_shadow_normal_bias = 0.2
 [node name="Navigation" parent="." index="4"]
 preview_material = SubResource( 3 )
 
-[node name="EnemySpawner" type="Node" parent="." index="5"]
-script = ExtResource( 9 )
-density = 0.01
-max_count = 0
+[node name="GenerateStartingRoom" type="Node" parent="GenerationManager" index="0"]
+script = ExtResource( 13 )
 
-[node name="GenerationManager" parent="." index="6"]
-world_size_x = 30
-world_size_z = 30
-
-[node name="GenerateRooms" type="Node" parent="GenerationManager" index="0"]
+[node name="GenerateRooms" type="Node" parent="GenerationManager" index="1"]
 script = ExtResource( 17 )
+room_size_max = 3
 
-[node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="1"]
+[node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="2"]
 script = ExtResource( 3 )
 
-[node name="GenerateCorridors" type="Node" parent="GenerationManager" index="2"]
+[node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 20 )
 
-[node name="GenerateHalls" type="Node" parent="GenerationManager" index="3"]
+[node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
 script = ExtResource( 19 )
 
-[node name="GenerateWalls" type="Node" parent="GenerationManager" index="4"]
+[node name="GenerateWalls" type="Node" parent="GenerationManager" index="5"]
 script = ExtResource( 18 )
 
-[node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="5"]
+[node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="6"]
 script = ExtResource( 4 )
 pillar_tile = 16
 
-[node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="6"]
+[node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="7"]
 script = ExtResource( 21 )
 floor_tile = 6
 wall_tile = 5
@@ -75,9 +76,37 @@ pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
 
-[node name="ItemSpawner" type="Node" parent="." index="7"]
-script = ExtResource( 16 )
-cultist = ExtResource( 6 )
+[node name="PopulateRooms" type="Node" parent="GenerationManager" index="8"]
+script = ExtResource( 10 )
 
-[connection signal="generation_finished" from="." to="EnemySpawner" method="_on_ProceduralWorld_generation_finished"]
+[node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
+script = ExtResource( 10 )
+
+[node name="GenerateCandelabra" type="Node" parent="GenerationManager/PopulateRooms/IlluminationGroup" index="0"]
+script = ExtResource( 11 )
+_spawn_list_resource = ExtResource( 12 )
+
+[node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
+script = ExtResource( 14 )
+_loot_list_resource = ExtResource( 8 )
+_min_loot = 10
+_max_loot = 15
+_path_starting_light_scene = "res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn"
+
+[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="2"]
+script = ExtResource( 15 )
+_character_scene_path = "res://scenes/characters/cultists/neophyte.tscn"
+_density_by_type = {
+1: 0.005,
+2: 0.0025,
+3: 0
+}
+
+[node name="ItemSpawner" type="Node" parent="." index="6"]
+script = ExtResource( 16 )
+
+[node name="CharacterSpawner" type="Node" parent="." index="7"]
+script = ExtResource( 9 )
+
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]
+[connection signal="generation_finished" from="." to="CharacterSpawner" method="_on_ProceduralWorld_generation_finished"]

@@ -17,6 +17,7 @@ export var pillar_tile : int = -1
 
 const PillarRoomGenerator = preload("res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd")
 
+
 # Override this function
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	var pillar_rooms = gen_data.get(PillarRoomGenerator.PILLAR_ROOMS_KEY, Array())
@@ -31,19 +32,20 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 
 func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 	for i in data.cell_count:
+		var cell_type = data.get_cell_type(i)
 		var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
-		if data.get_cell_type(i) != data.CellType.EMPTY and not is_pillar_room:
-			if data.get_cell_type(i) == data.CellType.ROOM:
+		if cell_type != data.CellType.EMPTY and not is_pillar_room:
+			if cell_type == data.CellType.ROOM:
 				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
-			elif data.get_cell_type(i) == data.CellType.CORRIDOR:
+			elif cell_type == data.CellType.CORRIDOR:
 				data.set_cell_surfacetype(i, data.SurfaceType.CARPET)
 			data.set_ground_tile_index(i, floor_tile)
 	for _room in pillar_rooms:
 		var room : Rect2 = _room as Rect2
 		print(room)
-		for i in room.size.x/2:
-			for j in room.size.y/2:
-				var cell = data.get_cell_index_from_int_position(room.position.x + 2*i, room.position.y + 2*j)
+		for i in room.size.x / 2:
+			for j in room.size.y / 2:
+				var cell = data.get_cell_index_from_int_position(room.position.x + 2 * i, room.position.y + 2 * j)
 				data.set_ground_tile_index(cell, pillar_room_double_floor_tile)
 
 
@@ -55,9 +57,9 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array):
 				data.set_ceiling_tile_index(i, ceiling_tile)
 	for _room in pillar_rooms:
 		var room : Rect2 = _room as Rect2
-		for i in room.size.x/2:
-			for j in room.size.y/2:
-				var cell = data.get_cell_index_from_int_position(room.position.x + 2*i, room.position.y + 2*j)
+		for i in room.size.x / 2:
+			for j in room.size.y / 2:
+				var cell = data.get_cell_index_from_int_position(room.position.x + 2 * i, room.position.y + 2 * j)
 				data.set_ceiling_tile_index(cell, pillar_room_double_ceiling_tile)
 
 
@@ -94,12 +96,12 @@ func select_wall_tiles(data : WorldData):
 func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 	for _room_rect in pillar_rooms:
 		var room_rect : Rect2 = _room_rect as Rect2
-		for i in room_rect.size.x/2:
+		for i in room_rect.size.x / 2:
 				# North
 				var dir = data.Direction.NORTH
 				var side = data.direction_rotate_cw(dir)
 				var inv_dir = data.direction_inverse(dir)
-				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2*i, room_rect.position.y)
+				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y)
 				var wall_type = data.get_wall_type(cell, dir)
 				match wall_type:
 					data.EdgeType.WALL:
@@ -117,7 +119,7 @@ func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 				dir = data.Direction.SOUTH
 				side = data.direction_rotate_cw(dir)
 				inv_dir = data.direction_inverse(dir)
-				cell = data.get_cell_index_from_int_position(room_rect.position.x + 2*i + 1, room_rect.position.y + room_rect.size.y - 1)
+				cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i + 1, room_rect.position.y + room_rect.size.y - 1)
 				wall_type = data.get_wall_type(cell, dir)
 				match wall_type:
 					data.EdgeType.WALL:
@@ -131,12 +133,12 @@ func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 						data.set_wall_tile_index(other_cell, inv_dir, pillar_room_double_door_tile)
 					_:
 						pass
-		for i in room_rect.size.y/2:
+		for i in room_rect.size.y / 2:
 				# West
 				var dir = data.Direction.WEST
 				var side = data.direction_rotate_cw(dir)
 				var inv_dir = data.direction_inverse(dir)
-				var cell = data.get_cell_index_from_int_position(room_rect.position.x, room_rect.position.y + 2*i + 1)
+				var cell = data.get_cell_index_from_int_position(room_rect.position.x, room_rect.position.y + 2 * i + 1)
 				var wall_type = data.get_wall_type(cell, dir)
 				match wall_type:
 					data.EdgeType.WALL:
@@ -154,7 +156,7 @@ func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 				dir = data.Direction.EAST
 				side = data.direction_rotate_cw(dir)
 				inv_dir = data.direction_inverse(dir)
-				cell = data.get_cell_index_from_int_position(room_rect.position.x + room_rect.size.x - 1 , room_rect.position.y + 2*i)
+				cell = data.get_cell_index_from_int_position(room_rect.position.x + room_rect.size.x - 1 , room_rect.position.y + 2 * i)
 				wall_type = data.get_wall_type(cell, dir)
 				match wall_type:
 					data.EdgeType.WALL:
@@ -209,9 +211,9 @@ func place_pillars(data : WorldData):
 func place_pillar_room_pillars(data : WorldData, pillar_rooms : Array):
 	for _room_rect in pillar_rooms:
 		var room_rect : Rect2 = _room_rect as Rect2
-		for i in (room_rect.size.x/2 - 1):
-			for j in (room_rect.size.y/2 - 1):
-				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2*(i+1), room_rect.position.y + 2*(j+1))
+		for i in (room_rect.size.x / 2 - 1):
+			for j in (room_rect.size.y / 2 - 1):
+				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * (i + 1), room_rect.position.y + 2 * (j+1))
 				data.set_pillar(cell, pillar_room_pillar_tile, 0.3)
 #	for x in range(1, data.get_size_x()):
 #		for z in range(1, data.get_size_z()):

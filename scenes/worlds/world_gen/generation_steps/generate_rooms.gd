@@ -1,8 +1,5 @@
 extends GenerationStep
 
-
-const ROOM_ARRAY_KEY = "rooms"
-
 export var room_size_min : int = 1
 export var room_size_max : int = 4
 
@@ -71,20 +68,32 @@ func check_room_space(data : WorldData, room : Rect2) -> bool:
 
 func fill_map_data(data : WorldData, gen_data : Dictionary):
 	var rooms : Array = gen_data.get(ROOM_ARRAY_KEY) as Array
-	for _r in rooms:
-		var room : Rect2 = _r as Rect2
-		for x in range(room.position.x, room.end.x):
-			for y in range(room.position.y, room.end.y):
-				var i = data.get_cell_index_from_int_position(x, y)
-				data.set_cell_type(i, data.CellType.ROOM)
-				data.clear_cell_meta(i)
+	
+	for index in range(1, rooms.size()):
+		var room : Rect2 = rooms[index] as Rect2
+		_fill_room_data(data, room, data.CellType.ROOM, "generic")
+
+
+func _fill_room_data(data: WorldData, room: Rect2, cell_type: int, p_type: String) -> void:
+	var room_data := RoomData.new(p_type, room)
+	data.set_room(p_type, room_data)
+	for x in range(room.position.x, room.end.x):
+		for y in range(room.position.y, room.end.y):
+			var i = data.get_cell_index_from_int_position(x, y)
+			data.set_cell_type(i, cell_type)
+			data.clear_cell_meta(i)
+			room_data.add_cell_index(i)
 
 
 func _gen_room_rect(data : WorldData, random : RandomNumberGenerator) -> Rect2:
+	var value := Rect2()
+	
 	var s_x = int(random.randi_range(actual_room_min, actual_room_max)*room_size_scale)
 	var s_z = int(random.randi_range(actual_room_min, actual_room_max)*room_size_scale)
 	
 	var p_x = random.randi_range(1, data.get_size_x() - 1 - s_x)
 	var p_z = random.randi_range(1, data.get_size_z() - 1 - s_z)
-
-	return Rect2(p_x, p_z, s_x, s_z)
+	
+	value = Rect2(p_x, p_z, s_x, s_z)
+	
+	return value

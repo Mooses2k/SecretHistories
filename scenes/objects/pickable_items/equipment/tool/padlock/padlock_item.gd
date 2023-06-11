@@ -1,5 +1,5 @@
-extends EquipmentItem
 class_name PadlockItem
+extends EquipmentItem
 
 
 export var padlock_id : int = 0

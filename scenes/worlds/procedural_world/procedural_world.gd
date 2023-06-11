@@ -2,12 +2,15 @@ extends GameWorld
 
 
 func get_player_spawn_position() -> Vector3:
-	for i in world_data.world_size_x:
-		for j in world_data.world_size_z:
-			var cell = world_data.get_cell_index_from_int_position(i, j)
-			if world_data.get_cell_type(cell) == world_data.CellType.ROOM:
-				return self.grid_to_world(Vector3(i, 0, j))
-	return Vector3(world_data.world_size_x, 0.0, world_data.world_size_z)*world_data.CELL_SIZE*0.5
+	if world_data.is_spawn_position_valid():
+		var grid_position = Vector3(
+				world_data.player_spawn_position.x, 
+				0, 
+				world_data.player_spawn_position.y
+		)
+		return grid_to_world(grid_position)
+	else:
+		return Vector3(world_data.world_size_x, 0.0, world_data.world_size_z) * world_data.CELL_SIZE * 0.5
 
 func toggle_directional_light():
 	$DirectionalLight.visible = !$DirectionalLight.visible

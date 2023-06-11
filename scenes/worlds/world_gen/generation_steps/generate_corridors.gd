@@ -18,7 +18,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	pass
 
 
-func get_cell_mask(data : WorldData, cells : Array, value : int) -> int:
+func get_cell_mask(data : WorldData, cells : Array, value: int) -> int:
 	var mask = 0b0000
 	mask = mask | 0b0001*int(data.get_cell_type(cells[0]) == value)
 	mask = mask | 0b0010*int(data.get_cell_type(cells[1]) == value)

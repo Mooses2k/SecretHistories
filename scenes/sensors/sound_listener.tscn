@@ -1,6 +1,37 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/sensors/sound_listener.gd" type="Script" id=1]
 
+[sub_resource type="SphereShape" id=1]
+radius = 3.5
+
+[sub_resource type="SphereShape" id=2]
+radius = 100.0
+
 [node name="SoundListener" type="Spatial"]
 script = ExtResource( 1 )
+
+[node name="NearSoundDetector" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62089, 0 )
+collision_layer = 0
+collision_mask = 66
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="NearSoundDetector"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
+shape = SubResource( 1 )
+
+[node name="FarSoundDetector" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.587, 0 )
+collision_layer = 0
+collision_mask = 66
+monitorable = false
+
+[node name="CollisionShape" type="CollisionShape" parent="FarSoundDetector"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.938325, 0 )
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="NearSoundDetector" to="." method="_on_NearSoundDetector_body_entered"]
+[connection signal="body_exited" from="NearSoundDetector" to="." method="_on_NearSoundDetector_body_exited"]
+[connection signal="body_entered" from="FarSoundDetector" to="." method="_on_FarSoundDetector_body_entered"]
+[connection signal="body_exited" from="FarSoundDetector" to="." method="_on_FarSoundDetector_body_exited"]

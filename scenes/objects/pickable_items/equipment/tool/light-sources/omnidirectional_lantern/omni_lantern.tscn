@@ -126,6 +126,7 @@ contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 7 )
 item_name = "Oil Lantern"
+horizontal_holding = true
 is_oil_based = true
 life_percentage_lose = 0.1
 prob_going_out = 0.5
@@ -141,7 +142,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0709005, 0 )
 shape = SubResource( 7 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30587, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315746, -0.0179318 )
 
 [node name="Durability" type="Timer" parent="." index="3"]
 wait_time = 30000.0
@@ -153,7 +154,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0673865, 0 )
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 omni_range = 13.0
-omni_attenuation = 7.0
+omni_attenuation = 4.0
 
 [node name="Skeleton" type="Skeleton" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0709005, 0 )
@@ -185,20 +186,20 @@ autoplay = "flicker"
 anims/RESET = SubResource( 4 )
 anims/flicker = SubResource( 5 )
 
-[node name="Ignite" parent="." index="7"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="7"]
+stream = ExtResource( 5 )
+unit_db = 30.0
+
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
+stream = ExtResource( 6 )
+
+[node name="Ignite" parent="." index="9"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0567762, 0.00329563 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015177, 0 )
 shape = SubResource( 6 )
-
-[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="8"]
-stream = ExtResource( 5 )
-unit_db = 30.0
-
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
-stream = ExtResource( 6 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

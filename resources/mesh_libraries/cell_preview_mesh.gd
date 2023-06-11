@@ -1,19 +1,24 @@
 tool
-extends ArrayMesh
 class_name BoxOutlineMesh
+extends ArrayMesh
+
+
 export var size : Vector3 = Vector3.ONE setget set_size
+
 
 func set_size(value : Vector3):
 	size = value
 	regenerate()
 
+
 func _init():
 	regenerate()
 	pass
 
+
 func regenerate():
 	clear_surfaces()
-	var e = size*0.5;
+	var e = size * 0.5;
 	var vertices = PoolVector3Array([
 		Vector3(-e.x, -e.y, -e.z), # 0 ---
 		Vector3(-e.x, -e.y, +e.z), # 1 --+
@@ -43,4 +48,3 @@ func regenerate():
 	arrays[ARRAY_VERTEX] = vertices
 	arrays[ARRAY_INDEX] = indices
 	add_surface_from_arrays(Mesh.PRIMITIVE_LINES, arrays)
-	pass

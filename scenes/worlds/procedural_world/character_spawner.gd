@@ -1,8 +1,6 @@
-extends Node
 class_name CharacterSpawner
+extends Node
 
-
-export var character_scene : PackedScene
 
 # Represents the possible character loadouts, with the following structure:
 # Loadout:
@@ -40,72 +38,96 @@ export var character_scene : PackedScene
 # a random amount of ammunition within the selected range
 #
 export(Array, Dictionary) var character_loadout : Array
-export var density = 0.05
-export var max_count = 5
 
 var data : WorldData
 
 onready var characters_root = Node.new()
 
+var _rng := RandomNumberGenerator.new()
+
+var _total_weights_by_set := []
+
 
 func _ready():
+	if Engine.editor_hint:
+		return
+	
 	add_child(characters_root)
+	
+	_total_weights_by_set.resize(character_loadout.size())
+	for set_index in character_loadout.size():
+		var set_weight := 0
+		for pack in (character_loadout[set_index] as Dictionary).keys():
+			set_weight += character_loadout[set_index][pack]
+		
+		_total_weights_by_set[set_index] = set_weight
 
 
 func spawn_characters():
 	for child in characters_root.get_children():
 		child.queue_free()
-	var count = 0
+	
 	print("Spawning characters")
-	for i in data.get_size_x():
-		for j in data.get_size_z():
-			if count >= max_count:
-				return
-			var cell = data.get_cell_index_from_int_position(i, j)
-			if data.get_cell_type(cell) == data.CellType.ROOM and randf()<density:
-				count += 1
-				var character = character_scene.instance() as Spatial
-				character.translation = GameManager.game.level.grid_to_world(Vector3(i, 0, j))
-				characters_root.add_child(character)
-				var inventory = character.get_node("Inventory")
-				for set_index in character_loadout.size():
-					var total_weight = 0
-					for pack in (character_loadout[set_index] as Dictionary).keys():
-						total_weight += character_loadout[set_index][pack]
-					if total_weight == 0:
-						continue
+	var characters_by_index := data.get_characters_to_spawn()
+	for cell_index in characters_by_index:
+		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
+		var cell_coordinates := data.get_local_cell_position(cell_index)
+		var character := spawn_data.spawn_character_in(characters_root)
+		_set_random_loadout(character)
+	
+	print("Total Characters Spawned: %s"%[characters_by_index.size()])
 
-					var rng = randi()%total_weight
 
-					var cummulative_weight = 0
-					var chosen_pack = null
-					for pack in (character_loadout[set_index] as Dictionary).keys():
-						cummulative_weight += character_loadout[set_index][pack]
-						if rng < cummulative_weight:
-							chosen_pack = pack
-							break
-					chosen_pack = chosen_pack as Dictionary
-					for item in chosen_pack.keys():
-						var amount : int = chosen_pack[item].x
-						if chosen_pack[item].y > chosen_pack[item].x:
-							amount += randi()%(int(1 + chosen_pack[item].y - chosen_pack[item].x))
-						if item is TinyItemData:
-							if not inventory.tiny_items.has(item):
-								inventory.tiny_items[item] = 0
-							inventory.tiny_items[item] += amount
-							pass
-						elif item is PackedScene:
-							var instanced = item.instance()
-							if instanced is PickableItem:
-								inventory.add_item(instanced)
-								instanced.set_range(chosen_pack[item])
-#								print("Added to hotbar")
-							else:
-								instanced.free()
-#				print(inventory.hotbar)
-#				print(inventory.tiny_items)
+func _set_random_loadout(character: Spatial) -> void:
+	var inventory = character.get_node("Inventory")
+	for set_index in character_loadout.size():
+		var total_weight := _total_weights_by_set[set_index] as int
+		if total_weight == 0:
+			continue
+		
+		var chosen_pack := _get_chosen_pack(total_weight, set_index)
+		for item in chosen_pack.keys():
+			var min_amount := chosen_pack[item].x as int
+			var max_amount := chosen_pack[item].y as int
+			var amount = min_amount
+			if max_amount > min_amount:
+				amount = _rng.randi() % (max_amount - min_amount) +  min_amount
+			
+			if item is TinyItemData:
+				if not inventory.tiny_items.has(item):
+					inventory.tiny_items[item] = 0
+				inventory.tiny_items[item] += amount
+				pass
+			elif item is PackedScene:
+				var instanced = item.instance()
+				if instanced is PickableItem:
+					inventory.add_item(instanced)
+					instanced.set_range(chosen_pack[item])
+#					print("Added to hotbar")
+				else:
+					instanced.free()
+#	print(inventory.hotbar)
+#	print(inventory.tiny_items)
+
+
+func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
+	var value := {}
+	
+	var rng = _rng.randi()%total_weight
+	var cummulative_weight = 0
+	for pack in (character_loadout[set_index] as Dictionary).keys():
+		cummulative_weight += character_loadout[set_index][pack]
+		if rng < cummulative_weight:
+			value = pack
+			break
+	
+	return value
 
 
 func _on_ProceduralWorld_generation_finished():
+	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
+	if setting_generation_seed is int:
+		_rng.seed = setting_generation_seed
+	
 	data = owner.world_data
-	spawn_characters()
+	call_deferred("spawn_characters")

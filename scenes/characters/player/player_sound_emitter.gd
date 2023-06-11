@@ -1,7 +1,9 @@
-extends Area
 class_name PlayerSoundEmitter
+extends Area
+
 
 var radius = 1.0
+
 
 func _process(_delta):
 	if not $CollisionShape.shape is SphereShape:
@@ -13,4 +15,3 @@ func _process(_delta):
 	
 	if $CollisionShape.shape:
 		$CollisionShape.shape.radius = radius
-	

@@ -11,8 +11,10 @@ var damage_coordinates
 var distance
 var collisions
 
+
 func _physics_process(delta):
 	pass
+
 
 func _on_Bomb_explosion():
 	collisions = blastradius.get_overlapping_bodies()
@@ -42,13 +44,3 @@ func _on_Bomb_explosion():
 							
 						elif !bodies.collider.is_in_group("CHARACTER") and bodies.collider is RigidBody:  
 							bodies.collider.apply_central_impulse(+ bodies.collider.global_transform.origin * damage_coordinates)
-
-
-
-
-
-
-
-
-
-

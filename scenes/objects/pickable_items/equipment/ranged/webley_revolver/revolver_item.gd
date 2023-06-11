@@ -1,4 +1,4 @@
-extends GunItem
 class_name RevolverItem
+extends GunItem
 
-# should have a double-action delay before firing, done with animationtree
+### Should have a double-action delay before firing, done with AnimationTree

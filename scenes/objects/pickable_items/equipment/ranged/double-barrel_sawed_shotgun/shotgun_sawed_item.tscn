@@ -66,6 +66,7 @@ reload_time = 2.0
 damage_offset = -3
 dispersion_offset_degrees = 5
 cooldown = 0.1
+handling = 5.0
 melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")

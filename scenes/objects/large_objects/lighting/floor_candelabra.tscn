@@ -1,7 +1,9 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=75 format=2]
 
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=1]
 [ext_resource path="res://resources/models/large_objects/lighting/M_Candelabra2.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra.gd" type="Script" id=3]
+[ext_resource path="res://resources/shaders/items/consumables/light_sources/candle/flame.material" type="Material" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -210,51 +212,42 @@ points = PoolVector3Array( 0.103039, -1.03598, 0.0378541, -0.00705475, -1.03579,
 
 [sub_resource type="Animation" id=14]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.4 ]
+}
 
 [sub_resource type="Animation" id=15]
 resource_name = "flicker"
 length = 5.0
 loop = true
 
-[sub_resource type="CylinderMesh" id=145]
-top_radius = 0.0
-bottom_radius = 0.015
-height = 0.08
-radial_segments = 6
-rings = 1
-
-[sub_resource type="Shader" id=148]
-code = "shader_type spatial;
-render_mode blend_add, unshaded;
-
-const vec3 CENTER_OFFSET = vec3(0.0, -0.03, 0.0);
-const vec3 SCALE = vec3(50.0, 12.0, 50.0);
-
-uniform float INTENSITY = 1.0;
-uniform sampler2D COLOR_RAMP;
-varying vec2 XY_FACTOR;
-
-void vertex() {
-	vec3 v = (VERTEX - CENTER_OFFSET)*SCALE;
-	XY_FACTOR = vec2(v.x*v.x + v.z*v.z, v.y);
+[sub_resource type="Animation" id=213]
+resource_name = "unlit"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
-void fragment() {
-	ALBEDO.rgb = texture(COLOR_RAMP, vec2(XY_FACTOR.y)).rgb*INTENSITY;
-}"
-
-[sub_resource type="Gradient" id=146]
-offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
-colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
-
-[sub_resource type="GradientTexture" id=149]
-gradient = SubResource( 146 )
-width = 32
-
-[sub_resource type="ShaderMaterial" id=147]
-shader = SubResource( 148 )
-shader_param/INTENSITY = 4.0
-shader_param/COLOR_RAMP = SubResource( 149 )
+[sub_resource type="QuadMesh" id=214]
+size = Vector2( 0.033, 0.1 )
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.157328, 0.236264, 0.160202 )
@@ -262,6 +255,7 @@ extents = Vector3( 0.157328, 0.236264, 0.160202 )
 [node name="FloorCandelabra" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 512
+collision_mask = 3
 mass = 30.0
 continuous_cd = true
 script = ExtResource( 3 )
@@ -531,112 +525,141 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 14 )
 anims/flicker = SubResource( 15 )
+anims/unlit = SubResource( 213 )
 
 [node name="FireOrigin8" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103154, 0.585903, -0.107178 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin7")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin7" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112444, 0.547287, -0.111578 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00948143, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin6")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin6" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117706, 0.56577, 0.108528 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117706, 0.576186, 0.108528 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin5")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin5" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188207, 0.339789, -0.00112151 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188207, 0.343174, -0.00112151 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0140193, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin4")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin4" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00840224, 0.324049, -0.190523 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00988299, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin3")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin3" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193048, 0.257107, 0 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0179245, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin9")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin9" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.108816, 0.593761, 0.112045 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00945556, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../../FireOrigin2")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin2" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00589418, 0.296207, 0.196027 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0135171, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="FireOrigin" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743802, 0 )
 script = ExtResource( 6 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00492221, 0 )
 cast_shadow = 0
-mesh = SubResource( 145 )
-skeleton = NodePath("../..")
-material/0 = SubResource( 147 )
+mesh = SubResource( 214 )
+material/0 = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0305131, 0 )
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.4
 shadow_enabled = true
-omni_range = 10.0
-omni_attenuation = 7.0
+omni_range = 9.0
+omni_attenuation = 4.0
 
 [node name="Ignite" type="Area" parent="." groups=["Ignite"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )

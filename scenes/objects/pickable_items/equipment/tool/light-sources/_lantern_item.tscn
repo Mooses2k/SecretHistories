@@ -21,7 +21,7 @@ prob_going_out = 0.0
 [node name="MeshInstance" parent="." index="0"]
 mesh = SubResource( 1 )
 
-[node name="Ignite" type="Area" parent="." index="3" groups=["ignite"]]
+[node name="Ignite" type="Area" parent="." index="3" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ignite" index="0"]

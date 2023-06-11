@@ -1,5 +1,5 @@
-extends Spatial
 class_name Door
+extends Spatial
 
 
 enum HingeSide {

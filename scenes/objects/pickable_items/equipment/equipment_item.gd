@@ -1,5 +1,5 @@
-extends PickableItem
 class_name EquipmentItem
+extends PickableItem
 
 
 signal used_primary()
@@ -10,11 +10,15 @@ export (bool) var can_attach = false
 export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM
 
 export var item_name : String = "Equipment"
+export var horizontal_holding : bool = false
+
 var is_in_belt = false
 var has_equipped = false
 
 
 func _ready():
+	if horizontal_holding == true:
+		$"%HoldPosition".rotation_degrees.z = 90
 	connect("body_entered", self, "play_drop_sound")
 
 
@@ -30,6 +34,7 @@ func _use_secondary():
 	pass
 
 
+# Reloads can only happen in main-hand
 func _use_reload():
 	print("use reload")
 	pass
@@ -38,19 +43,19 @@ func _use_reload():
 func use_primary():
 	_use_primary()
 	emit_signal("used_primary")
-	pass
+
 
 
 func use_secondary():
 	_use_secondary()
 	emit_signal("used_secondary")
-	pass
+
 
 
 func use_reload():
 	_use_reload()
 	emit_signal("used_reload")
-	pass
+
 
 
 func get_hold_transform() -> Transform:
@@ -58,7 +63,7 @@ func get_hold_transform() -> Transform:
 
 
 # WORKAROUND for https://github.com/godotengine/godot/issues/62435
-func _physics_process(delta):
+func _process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		transform = get_hold_transform()
 

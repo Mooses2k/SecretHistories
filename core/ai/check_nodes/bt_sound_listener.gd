@@ -17,7 +17,7 @@ func tick(state : CharacterState) -> int:
 #			return Status.FAILURE
 	if _listener.is_sound_detected():
 		emit_signal("unseen_sound_heard")
-		print("Unseen sound heard")
+#		print("Unseen sound heard")
 		state.target_position = _listener.get_measured_position()
 		return Status.SUCCESS
 	

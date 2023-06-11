@@ -19,6 +19,7 @@ onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $ViewportContainer/Viewport/GunCam
 onready var grab_cast = $FPSCamera/GrabCast
+onready var hit_effect = $HitEffect
 
 
 func _ready():

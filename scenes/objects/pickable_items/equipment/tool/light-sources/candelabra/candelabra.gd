@@ -25,9 +25,9 @@ onready var firelight = $Candle1/FireOrigin/Fire/Light
 var is_lit = true
 var burn_time_2 = 0.0
 var burn_time_3 = 0.0
-var light_timer_base
-var light_timer_2
-var light_timer_3
+onready var light_timer_base : Node = $Timer
+onready var light_timer_2 : Node = $Timer2
+onready var light_timer_3 : Node = $Timer3
 var is_depleted_2 : bool = false
 var is_depleted_3 : bool = false
 var random_number_2_3

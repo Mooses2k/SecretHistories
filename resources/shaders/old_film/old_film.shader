@@ -32,7 +32,6 @@ void fragment() {
 	//v *= v;
 
 	float f = 1.0 / fps;
-	// Changing the UV to SCREEN_UV below doesn't fix it
 	float g = make_grain(TIME - mod(TIME, f), UV);
 	g = max(g, make_grain(TIME - mod(TIME, f) + f, UV) * 0.5);
 	g = max(g, make_grain(TIME - mod(TIME, f) + f * 2.0, UV) * 0.25);

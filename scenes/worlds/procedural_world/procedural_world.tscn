@@ -1,10 +1,12 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" type="Script" id=3]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=4]
 [ext_resource path="res://resources/mesh_libraries/modular_pieces.meshlib" type="MeshLibrary" id=5]
+[ext_resource path="res://addons/silicon.vfx.volumetrics/volumetric_fog.gd" type="Script" id=6]
+[ext_resource path="res://addons/silicon.vfx.volumetrics/volume_proxy.gd" type="Script" id=7]
 [ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
 [ext_resource path="res://scenes/worlds/procedural_world/character_spawner.gd" type="Script" id=9]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
@@ -19,10 +21,21 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" type="Script" id=19]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=20]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=21]
+[ext_resource path="res://addons/silicon.vfx.volumetrics/material/volumetric_material.gd" type="Script" id=22]
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 22 )
+scatter_color = Color( 0.745098, 0.745098, 0.745098, 1 )
+density = 1.0
+absorption_color = Color( 0, 0, 0, 1 )
+anisotropy = 0.0
+emission_enabled = false
+uvw_scale = Vector3( 1, 1, 1 )
+uvw_offset = Vector3( 0, 0, 0 )
 
 [node name="ProceduralWorld" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -35,6 +48,9 @@ visible = false
 light_energy = 0.5
 shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
+__meta__ = {
+"_vol_id": 183
+}
 
 [node name="Navigation" parent="." index="4"]
 preview_material = SubResource( 3 )
@@ -107,6 +123,27 @@ script = ExtResource( 16 )
 
 [node name="CharacterSpawner" type="Node" parent="." index="7"]
 script = ExtResource( 9 )
+
+[node name="VolumetricFog" type="Node" parent="." index="8"]
+script = ExtResource( 6 )
+start = 0.1
+end = 9.0
+tile_size = 2
+samples = 1
+distribution = 0.9
+temporal_blending = 0.0
+volumetric_shadows = false
+shadow_atlas_size = 1024
+ambient_light_color = Color( 0, 0, 0, 1 )
+ambient_light_energy = 1.0
+cull_mask = 1048575
+
+[node name="VolumeProxy" type="Spatial" parent="." index="9"]
+script = ExtResource( 7 )
+material = SubResource( 4 )
+bounds_mode = 1
+extents = Vector3( 50, 1, 50 )
+bounds_fade = Vector3( 0, 0, 0 )
 
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="generation_finished" from="." to="CharacterSpawner" method="_on_ProceduralWorld_generation_finished"]

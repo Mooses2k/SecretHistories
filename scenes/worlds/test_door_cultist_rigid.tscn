@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -22,6 +22,9 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/objects/large_objects/tables/table_round_medieval.tscn" type="PackedScene" id=22]
+[ext_resource path="res://addons/silicon.vfx.volumetrics/material/volumetric_material.gd" type="Script" id=23]
+[ext_resource path="res://addons/silicon.vfx.volumetrics/volume_proxy.gd" type="Script" id=24]
+[ext_resource path="res://addons/silicon.vfx.volumetrics/volumetric_fog.gd" type="Script" id=25]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 50, 50 )
@@ -42,10 +45,23 @@ background_mode = 2
 background_sky = SubResource( 6 )
 background_energy = 0.05
 
+[sub_resource type="Resource" id=8]
+script = ExtResource( 23 )
+scatter_color = Color( 0.745098, 0.745098, 0.745098, 1 )
+density = 1.0
+absorption_color = Color( 0, 0, 0, 1 )
+anisotropy = 0.0
+emission_enabled = false
+uvw_scale = Vector3( 1, 1, 1 )
+uvw_offset = Vector3( 0, 0, 0 )
+
 [node name="TestWorld" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
+__meta__ = {
+"_vol_id": 95
+}
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance"]
 
@@ -72,6 +88,9 @@ mass = 100.0
 [node name="MeshInstance" type="MeshInstance" parent="Bookcase"]
 transform = Transform( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, -0.869383, 0 )
 mesh = SubResource( 3 )
+__meta__ = {
+"_vol_id": 124
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="Bookcase"]
 transform = Transform( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, -0.869383, 0 )
@@ -83,6 +102,9 @@ environment = SubResource( 5 )
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0 )
 light_energy = 0.344
+__meta__ = {
+"_vol_id": 125
+}
 
 [node name="DarkLantern" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0335044, -0.0744317 )
@@ -141,3 +163,26 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5429, 0.42392, 0 )
 
 [node name="Torch" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72904, 0.639007, -3.17716 )
+
+[node name="VolumetricFog" type="Node" parent="."]
+script = ExtResource( 25 )
+start = 0.1
+end = 9.0
+tile_size = 2
+samples = 1
+distribution = 0.0
+temporal_blending = 0.0
+volumetric_shadows = false
+shadow_atlas_size = 1024
+ambient_light_color = Color( 0, 0, 0, 1 )
+ambient_light_energy = 1.0
+cull_mask = 1048575
+
+[node name="VolumeProxy" type="Spatial" parent="."]
+script = ExtResource( 24 )
+material = SubResource( 8 )
+bounds_mode = 1
+extents = Vector3( 20, 1, 20 )
+bounds_fade = Vector3( 0, 0, 0 )
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="VolumeProxy"]

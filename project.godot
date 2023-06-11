@@ -219,6 +219,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/equipment_item.gd"
 }, {
+"base": "Reference",
+"class": "FrustumAABBIntersection",
+"language": "GDScript",
+"path": "res://addons/silicon.vfx.volumetrics/utilities/frustum_aabb_intersection.gd"
+}, {
 "base": "Node",
 "class": "Game",
 "language": "GDScript",
@@ -264,6 +269,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/ranged/gun_item.gd"
 }, {
+"base": "Reference",
+"class": "Halton",
+"language": "GDScript",
+"path": "res://addons/silicon.vfx.volumetrics/utilities/halton.gd"
+}, {
 "base": "Area",
 "class": "Hitbox",
 "language": "GDScript",
@@ -288,6 +298,11 @@ _global_script_classes=[ {
 "class": "ManhattanAStar2D",
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/ManhattanAStar2D.gd"
+}, {
+"base": "Reference",
+"class": "Matrix4",
+"language": "GDScript",
+"path": "res://addons/silicon.vfx.volumetrics/utilities/matrix4.gd"
 }, {
 "base": "ConsumableItem",
 "class": "MedicalItem",
@@ -365,6 +380,11 @@ _global_script_classes=[ {
 "path": "res://scenes/worlds/world_gen/helper_objects/room_data.gd"
 }, {
 "base": "Node",
+"class": "SceneBounds",
+"language": "GDScript",
+"path": "res://addons/silicon.vfx.volumetrics/utilities/scene_bounds.gd"
+}, {
+"base": "Node",
 "class": "SettingsClass",
 "language": "GDScript",
 "path": "res://globals/settings.gd"
@@ -409,6 +429,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
 }, {
+"base": "ShaderMaterial",
+"class": "TransparentVolumeOverlay",
+"language": "GDScript",
+"path": "res://addons/silicon.vfx.volumetrics/material/transparent_volume_overlayer.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
@@ -418,6 +443,11 @@ _global_script_classes=[ {
 "class": "VisualFlame",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd"
+}, {
+"base": "Resource",
+"class": "VolumetricMaterial",
+"language": "GDScript",
+"path": "res://addons/silicon.vfx.volumetrics/material/volumetric_material.gd"
 }, {
 "base": "Resource",
 "class": "WorldData",
@@ -472,6 +502,7 @@ _global_script_class_icons={
 "Effect": "",
 "EmptyHand": "",
 "EquipmentItem": "",
+"FrustumAABBIntersection": "",
 "Game": "",
 "GameWorld": "",
 "GenerationGroup": "",
@@ -481,11 +512,13 @@ _global_script_class_icons={
 "Grenade": "",
 "Groups": "",
 "GunItem": "",
+"Halton": "",
 "Hitbox": "",
 "Interactable": "",
 "KeyItem": "",
 "LanternItem": "",
 "ManhattanAStar2D": "",
+"Matrix4": "",
 "MedicalItem": "",
 "MeleeItem": "",
 "MeshInstanceLayered": "",
@@ -501,6 +534,7 @@ _global_script_class_icons={
 "RevolverItem": "",
 "RockItem": "",
 "RoomData": "",
+"SceneBounds": "",
 "SettingsClass": "",
 "ShakeCamera": "",
 "SoundListener": "",
@@ -510,8 +544,10 @@ _global_script_class_icons={
 "TinyItemData": "",
 "ToolItem": "",
 "TorchItem": "",
+"TransparentVolumeOverlay": "",
 "VisibilityMask": "",
 "VisualFlame": "",
+"VolumetricMaterial": "res://addons/silicon.vfx.volumetrics/material/volumetric_material.svg",
 "WorldData": "",
 "WritingItem": ""
 }
@@ -539,6 +575,7 @@ VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
 BackgroundMusic="*res://scenes/core/background_music.tscn"
+VolumetricServer="*res://addons/silicon.vfx.volumetrics/volumetric_server.gd"
 
 [display]
 
@@ -552,7 +589,7 @@ description="An entirely forgettable game"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg", "res://addons/silicon.vfx.volumetrics/plugin.cfg" )
 
 [input]
 

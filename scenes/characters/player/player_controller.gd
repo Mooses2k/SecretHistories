@@ -559,7 +559,7 @@ func handle_inventory(delta : float):
 		current_screen_filter += 1
 
 		# Cycle through list of filters, starting with 0
-		if current_screen_filter > 4:   # This number should be # of filters - 1
+		if current_screen_filter > (ScreenFilter.size() - 1):   # This number should be # of filters - 1
 			current_screen_filter = 0
 
 		# Check which filter is current and implement it

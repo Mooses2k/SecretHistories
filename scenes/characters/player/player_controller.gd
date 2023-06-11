@@ -104,6 +104,7 @@ var item_up = false
 # Screen filter section
 enum ScreenFilter {
 	NONE,
+	OLD_FILM,
 	PIXELATE,
 	DITHER,
 	REDUCE_COLOR,
@@ -565,6 +566,9 @@ func handle_inventory(delta : float):
 		if current_screen_filter == ScreenFilter.NONE:
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = false
+		if current_screen_filter == ScreenFilter.OLD_FILM:
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
 		if current_screen_filter == ScreenFilter.PIXELATE:
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))

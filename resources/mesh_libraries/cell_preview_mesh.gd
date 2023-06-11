@@ -18,7 +18,7 @@ func _init():
 
 func regenerate():
 	clear_surfaces()
-	var e = size * 0.5;
+	var e = size * 0.5
 	var vertices = PoolVector3Array([
 		Vector3(-e.x, -e.y, -e.z), # 0 ---
 		Vector3(-e.x, -e.y, +e.z), # 1 --+

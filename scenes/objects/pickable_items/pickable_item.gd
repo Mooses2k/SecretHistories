@@ -19,7 +19,7 @@ var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 onready var audio_player = get_node("DropSound")
 export var item_drop_sound : AudioStream
-var noise_level = 0   # Noise detectable by characters
+var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 5
 var item_sound_level = 10
 

@@ -2,7 +2,7 @@ tool
 extends Position3D
 
 
-export var material : ShaderMaterial;
+export var material : ShaderMaterial
 export var uniform_name_transform : String = "EFFECT_TRANSFORM"
 export var uniform_name_position : String = "EFFECT_ORIGIN"
 

@@ -166,7 +166,7 @@ var is_jumping : bool = false
 
 var low_kick : bool = false
 
-var noise_level = 0
+var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 
 var is_reloading = false
 
@@ -696,7 +696,7 @@ func check_current_item_animation():
 
 
 func change_stamina(amount: float) -> void:
-	stamina = min(600, max(0, stamina + amount));
+	stamina = min(600, max(0, stamina + amount))
 
 
 func _on_ClamberableChecker_body_entered(body):

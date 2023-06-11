@@ -263,11 +263,15 @@ func _walk(delta) -> void:
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	character.character_state.move_direction = move_dir.normalized()
+
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
 	else:
 		owner.do_sprint = false
-	HUDS.tired(owner.stamina);
+	HUDS.tired(owner.stamina)
+	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
 
 	if Input.is_action_just_released("move_right"):
 		is_movement_key1_held = false

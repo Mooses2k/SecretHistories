@@ -1,7 +1,7 @@
 extends ControlMode
 
 
-#const RAD_DEG = rad2deg(1.0);
+#const RAD_DEG = rad2deg(1.0)
 
 export var _aimcast : NodePath
 onready var aimcast : RayCast = get_node(_aimcast) as RayCast
@@ -52,8 +52,8 @@ func recoil(item, damage, handling):
 	up_recoil += 60 * damage / (handling)
 
 const MAX_RECOIL = 35 * 60
-const DAMPENING_FACTOR = 6 * 60;
-const DAMPENING_POWER = 0.0;
+const DAMPENING_FACTOR = 6 * 60
+const DAMPENING_POWER = 0.0
 
 func update(delta):
 	if up_recoil > 0:

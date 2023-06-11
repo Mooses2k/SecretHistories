@@ -72,7 +72,7 @@ func _get_next_free_cell(data : WorldData) -> bool:
 	free_cell += 1
 	while data.get_cell_type(free_cell) == data.CellType.EMPTY and free_cell < data.cell_count:
 		free_cell += 1
-	return true
+	return true   # TODO: Unrecahable code, probably should be indented one tab further
 	if free_cell >= data.cell_count:
 		return false
 

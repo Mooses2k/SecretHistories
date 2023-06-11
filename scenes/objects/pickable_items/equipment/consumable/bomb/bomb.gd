@@ -34,6 +34,8 @@ func _use_primary():
 
 
 func _on_Countdown_timeout():
+	item_max_noise_level = 80
+	noise_level = 80   # Noise detectable by characters
 	flash.get_node("FlashTimer").start()
 	flash.visible = true
 	$Effect.handle_sound()

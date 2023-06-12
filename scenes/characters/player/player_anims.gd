@@ -1,13 +1,16 @@
 extends Node
 
 
-# Different hold states depending on the item equipped
+# Different hold states depending on the item equipped and the hand equipped on 
 enum hold_states {
 	SMALL_GUN_ITEM,
+	SMALL_GUN_ITEM_LEFT,
 	LARGE_GUN_ITEM,
 	MELEE_ITEM,
 	ITEM_HORIZONTAL,
 	ITEM_VERTICAL,
+	ITEM_HORIZONTAL_LEFT,
+	ITEM_VERTICAL_LEFT,
 	SMALL_GUN_ADS,
 	LARGE_GUNS_ADS,
 	UNEQUIPPED
@@ -37,38 +40,36 @@ func check_current_item_animation():
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
 
+
+		if inventory.hotbar[off_hand_object] == null:
+			print("Equipped offhand object")
 		# temporary hack (issue #409)
 		if not is_instance_valid(inventory.hotbar[main_hand_object]):
 			inventory.hotbar[main_hand_object] = null
 			return
 
-		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
+		if inventory.hotbar[main_hand_object] is GunItem:
+			
 			if inventory.hotbar[main_hand_object].item_size == 0:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
 				
-		elif inventory.hotbar[main_hand_object] is EquipmentItem or inventory.hotbar[off_hand_object] is EquipmentItem:
+		elif inventory.hotbar[main_hand_object] is EquipmentItem:
+			
 			if inventory.hotbar[main_hand_object].horizontal_holding == true:
 				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
 			else:
 				current_mainhand_item_animation = hold_states.ITEM_VERTICAL
 			
-		elif inventory.hotbar[main_hand_object] is MeleeItem or inventory.hotbar[off_hand_object] is MeleeItem:
+		elif inventory.hotbar[main_hand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
 			
-		elif inventory.hotbar[main_hand_object] is ConsumableItem or inventory.hotbar[off_hand_object] is ConsumableItem:
-			animation_tree.set("parameters/Animation_State/current", 1)
-			animation_tree.set("parameters/Weapon_states/current", 0)
-			animation_tree.set("parameters/Hold_Animation/current", 0)
-			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-			$"%ADSTween".start()
+		elif inventory.hotbar[main_hand_object] is ConsumableItem:
+			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
 			
-		elif inventory.hotbar[main_hand_object] is ToolItem or inventory.hotbar[off_hand_object] is ToolItem:
-			animation_tree.set("parameters/Animation_State/current", 1)
-			animation_tree.set("parameters/Weapon_states/current", 0)
-			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-			$"%ADSTween".start()
+		elif inventory.hotbar[main_hand_object] is ToolItem:
+			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
 			
 		else:
 			animation_tree.set("parameters/Animation_State/current", 0)

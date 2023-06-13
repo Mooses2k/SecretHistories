@@ -582,6 +582,12 @@ func handle_inventory(delta : float):
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 
+	# Zoom in/out like binoculars or spyglass
+	if Input.is_action_just_pressed("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_ZOOM
+	if Input.is_action_just_released("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_NORMAL
+		
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		if item:

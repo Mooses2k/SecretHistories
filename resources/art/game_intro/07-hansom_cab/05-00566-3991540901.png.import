@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/05-00566-3991540901.png-0f356d12a175896ed0219f872672fa42.stex"
+path="res://.import/05-00566-3991540901.png-ff1aa4291c05613342f285980420fb7f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/art/game_intro/07-hanson_cab/05-00566-3991540901.png"
-dest_files=[ "res://.import/05-00566-3991540901.png-0f356d12a175896ed0219f872672fa42.stex" ]
+source_file="res://resources/art/game_intro/07-hansom_cab/05-00566-3991540901.png"
+dest_files=[ "res://.import/05-00566-3991540901.png-ff1aa4291c05613342f285980420fb7f.stex" ]
 
 [params]
 

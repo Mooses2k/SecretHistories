@@ -84,15 +84,18 @@ func ads():
 				$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(-0.097, -1.444, 0.108), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 				$"%ADSTween".start()
 				if get_parent().inventory.hotbar[main_hand_item].item_size == 0:
-					_camera.fov  = lerp(_camera.fov, 65, 0.5)
+					if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
+						_camera.fov  = lerp(_camera.fov, 65, 0.5)
 				else:
-					_camera.fov  = lerp(_camera.fov, 60, 0.5)
+					if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
+						_camera.fov  = lerp(_camera.fov, 60, 0.5)
 	
 	else:
 		if Input.is_action_just_released("ADS") and get_parent().inventory.hotbar[main_hand_item] is GunItem or owner.do_sprint == true:
 			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%ADSTween".start()
-			_camera.fov  = lerp(_camera.fov, 70, 0.5)
+			if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
+				_camera.fov  = lerp(_camera.fov, 70, 0.5)
 
 
 func check_player_animation():

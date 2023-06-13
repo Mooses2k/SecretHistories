@@ -25,10 +25,10 @@ func _ready():
 
 
 func is_sound_detected() -> bool:
-	if not sound_detected:
-		if not sensor_up_to_date:
-			update_sensor()
-	
+#	if not sound_detected:
+	if not sensor_up_to_date:   # Ahh, once it detects a sound, it never checks sensor_up_to_date again
+		update_sensor()
+
 	return sound_detected
 
 
@@ -54,24 +54,23 @@ func check_sound_around():
 	if player_inside_listener:
 		if obj_sound_loud_enough(player_body, check_if_behind_wall(player_body)):
 			sound_detected = true
-#			sound_was_heared = true
+			print("Player heard")
 			sound_position = player_body.global_transform.origin
 	
 	for item in item_inside_listener:
 		if obj_sound_loud_enough(item, check_if_behind_wall(item)):
 			sound_detected = true
-#			sound_was_heared = true
+			print("Object near and heard: ", item)
 			sound_position = item.global_transform.origin
 
 
 func obj_sound_loud_enough(item, behind_wall : int):
 	if behind_wall > 0:
 		item.noise_level /= behind_wall
-		if item.noise_level >= 4:   # If a normal-hearing-detectable amount of noise
+		if item.noise_level >= hearing_sensitivity:
 			print(item.noise_level, " noise after passing through wall(s)")
 	if item.noise_level >= hearing_sensitivity:
 		if player_inside_near_listener == true or !item_too_near.empty():
-			print("Player or object near and heard")
 			return true
 	if item.noise_level >= hearing_sensitivity * 2.5:
 		if player_inside_listener == true or item_inside_listener == true:
@@ -101,9 +100,7 @@ func check_if_behind_wall(obj : Object):
 func _on_NearSoundDetector_body_entered(body):
 	if body is Player:
 		player_body = body
-		player_inside_listener = true
 		player_inside_near_listener = true
-		print("Player entered near sound alert range!")
 	
 	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:
 		if not item_too_near.has(body):
@@ -112,7 +109,6 @@ func _on_NearSoundDetector_body_entered(body):
 
 func _on_NearSoundDetector_body_exited(body):
 	if body is Player:
-		player_inside_listener = false
 		player_inside_near_listener = false
 	
 	if body is ToolItem or body is GunItem or body is MeleeItem or body is EquipmentItem or body is BombItem:

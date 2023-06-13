@@ -37,7 +37,6 @@ export var number_of_candles : int = 1
 
 func _ready():
 	light_timer = $Timer
-	print(light_timer)
 	if light_timer == null:
 		print(self.name)
 	self.connect("item_is_dropped", self, "light_dropped") # this current fails, is bugged

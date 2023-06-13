@@ -38,8 +38,6 @@ enum SpeechType {
 	BOMB
 }
 
-var last_speech_type
-
 var _idle_sounds : Array = []
 var _alert_sounds : Array = []
 var _detection_sounds : Array = []
@@ -62,6 +60,7 @@ onready var speech_audio = $Speech as AudioStreamPlayer3D
 onready var manipulation_audio = $Manipulation as AudioStreamPlayer3D
 onready var movement_audio = $Movement as AudioStreamPlayer3D
 
+var last_speech_type   # Tracked to avoid interrupting self to say same type of thing
 onready var last_speech_line   # Tracked to avoid repeating the same line
 
 
@@ -352,7 +351,7 @@ func _on_BT_Player_Sensor_character_detected():
 	play_detection_sound()
 
 
-func _on_BT_Go_To_Target_plans_to_approach():
+func _on_BT_Shoot_fighting():
 	play_fight_sound()
 
 

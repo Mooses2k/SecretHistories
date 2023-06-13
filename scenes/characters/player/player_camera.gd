@@ -24,11 +24,6 @@ var state = CameraState.STATE_NORMAL
 var _camera_rotation_reset : Vector3 = Vector3()
 #var _crosshair_textures : Dictionary = {}
 
-# Zoom settings
-#var zoomed_in: bool = false
-var zoom_distance: float = 4.0   # What is this in this context?
-var zoom_speed: float = 2.0
-
 
 # TODO: Add in some sort of rotation reset.
 func _physics_process(_delta):

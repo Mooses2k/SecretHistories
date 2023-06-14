@@ -41,8 +41,28 @@ func check_current_item_animation():
 		var off_hand_object = inventory.current_offhand_slot
 
 
-		if inventory.hotbar[off_hand_object] == null:
-			print("Equipped offhand object")
+		if inventory.hotbar[off_hand_object].name != "empty_hand"  and inventory.hotbar[off_hand_object] != null:
+			
+			if inventory.hotbar[off_hand_object] is GunItem:
+				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM_LEFT
+				
+			elif inventory.hotbar[off_hand_object] is EquipmentItem:
+				
+				if inventory.hotbar[off_hand_object].horizontal_holding == true:
+					current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+				else:
+					current_mainhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+				
+			elif inventory.hotbar[off_hand_object] is MeleeItem:
+				current_mainhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+				
+			elif inventory.hotbar[off_hand_object] is ConsumableItem:
+				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+				
+			elif inventory.hotbar[off_hand_object] is ToolItem:
+				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+
+
 		# temporary hack (issue #409)
 		if not is_instance_valid(inventory.hotbar[main_hand_object]):
 			inventory.hotbar[main_hand_object] = null
@@ -63,7 +83,7 @@ func check_current_item_animation():
 				current_mainhand_item_animation = hold_states.ITEM_VERTICAL
 			
 		elif inventory.hotbar[main_hand_object] is MeleeItem:
-			current_mainhand_item_animation = hold_states.MELEE_ITEM
+			current_mainhand_item_animation = hold_states.ITEM_VERTICAL
 			
 		elif inventory.hotbar[main_hand_object] is ConsumableItem:
 			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
@@ -132,6 +152,8 @@ func check_player_animation():
 		animation_tree.set("parameters/Hold_Animation/current", 1)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
+
+
 
 	else:
 		animation_tree.set("parameters/Animation_State/current", 0)

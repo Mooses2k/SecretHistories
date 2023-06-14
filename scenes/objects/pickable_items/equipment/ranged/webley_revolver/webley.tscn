@@ -77,7 +77,6 @@ detection_raycast = NodePath("RayCast")
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.108676, 0 )
-visible = true
 mesh = null
 script = null
 
@@ -131,7 +130,6 @@ script = ExtResource( 4 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.108676, 0 )
-visible = true
 shape = SubResource( 3 )
 
 [node name="Effects" type="Spatial" parent="." index="2"]

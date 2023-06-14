@@ -42,28 +42,43 @@ shader_param/COLOR_RAMP = SubResource( 149 )
 autoplay = "unlit"
 
 [node name="Fire" parent="FireOrigin8" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin7" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin6" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin5" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin4" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin3" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin9" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin2" index="0"]
+visible = false
 material/0 = SubResource( 150 )
 
 [node name="Fire" parent="FireOrigin" index="0"]
+visible = false
 material/0 = SubResource( 150 )
+
+[node name="Light" parent="FireOrigin/Fire" index="0"]
+visible = false
+
+[node name="Ignite" parent="." index="75"]
+visible = false

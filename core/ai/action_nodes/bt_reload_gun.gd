@@ -7,7 +7,6 @@ signal character_reloaded   # For signalling speech
 
 func tick(state : CharacterState) -> int:
 	var equipment = state.character.inventory.current_mainhand_equipment as GunItem
-	print(equipment)
 	if equipment:
 		print("Cultist reloading")
 		equipment.reload()

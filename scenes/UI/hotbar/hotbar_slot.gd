@@ -8,7 +8,7 @@ export var equipped_modulate : Color
 export var can_not_equip_modulate : Color
 
 var item : EquipmentItem = null setget set_item
-var tracking_tiny_item= null
+var tracking_tiny_item = null
 var inventory = null setget set_inventory
 export var index : int = -1
 export var is_bulky : bool  = false
@@ -127,7 +127,6 @@ func inventory_slot_changed(slot : int):
 func inventory_tiny_item_changed(tiny_item : TinyItemData, previous : int, current : int):
 	if tiny_item == tracking_tiny_item:
 		update_ammo_data()
-	pass
 
 
 func update_item_data():

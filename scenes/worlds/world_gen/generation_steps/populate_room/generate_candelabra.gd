@@ -76,7 +76,7 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 			continue
 		
 		var cell_position := world_data.get_local_cell_position(corner_index)
-		var spawn_data := spawn_list.get_random_spawn_data()
+		var spawn_data := spawn_list.get_random_spawn_data(_rng)
 		if not spawn_data.scene_path.empty():
 			spawn_data.set_center_position_in_cell(cell_position)
 			if spawn_data.scene_path.find(UNLIT_KEYWORD) != -1:
@@ -85,7 +85,7 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 				var facing_angle := corners.get_facing_angle_for(key)
 				spawn_data.set_y_rotation(facing_angle)
 			
-			world_data.set_spawn_data_to_cell(corner_index, spawn_data)
+			world_data.set_object_spawn_data_to_cell(corner_index, spawn_data)
 		else:
 #			print("No candelabra to spawn in this corner: %s"%[corner_index])
 			pass
@@ -117,8 +117,7 @@ func _is_corner_next_to_door(
 	world_data
 	
 	for direction in corner_directions:
-		var wall_type := world_data.get_wall_type(corner_index, direction)
-		if wall_type == world_data.EdgeType.DOOR:
+		if world_data.has_door(corner_index, direction):
 			value = true
 			break
 	

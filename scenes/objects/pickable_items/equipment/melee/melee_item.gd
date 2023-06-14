@@ -136,7 +136,7 @@ func _on_Hitbox_hit(other):
 
 func _on_Hitbox_body_entered(body):
 	if melee_damage_type == 0:
-		melee_damage / 2
+		melee_damage /= 2
 	else:
 		melee_damage = melee_damage
 	if body is RigidBody and can_hit == true:

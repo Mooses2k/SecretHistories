@@ -34,13 +34,13 @@
 "Monsters are real, and ghosts are real too. They live inside of us, and sometimes, they win." --Stephen King
 "Even in dark times, we cannot relinquish the things that make us human."
 "In the vast emptiness, my understanding deepens." --Ryokan
-"We all go a little mad sometimes." --Norman Bates
-"The world outside had its own rules, and those rules were not human." --Michel Houellebecq, "The Elementary Particles"
+"We all go a little mad sometimes." --Norman Bates, Psycho
+"The world outside had its own rules, and those rules were not human." --Michel Houellebecq, The Elementary Particles
 "Horror is like a serpent; always shedding its skin, always changing. And it will always come back." --Dario Argento
 “I knew nothing but shadows and I thought them to be real.” --Oscar Wilde, “The Picture of Dorian Gray”
-“A deep sleep fell upon me - a sleep like that of death.” --Edgar Allan Poe, “The Pit and the Pendulum”
+“A deep sleep fell upon me - a sleep like that of death.” --Edgar Allan Poe, The Pit and the Pendulum
 “He’s not like us. He smiles a lot. But I think there might be worms inside him, making him smile.” --Stephen King, “The Stand”
-“Something bumped into me - something soft and plump. It must have been the rats; the vicious, gelatinous, ravenous army that feast on the dead and the living.” --H.P. Lovecraft, “The Rats in the Walls”
+“Something bumped into me - something soft and plump. It must have been the rats; the vicious, gelatinous, ravenous army that feast on the dead and the living.” --H.P. Lovecraft, The Rats in the Walls
 "The things that came for him in the daylight resembled heat waves, mirages, and when they were done with him, he could no longer properly be considered a person." --Unattributed
 The sun is no longer in its splendor - you are not protected by its rays.
 Even the sun at its zenith cannot protect you from the Knowledge.
@@ -100,3 +100,11 @@ Returning the game for a full refund is your primary recourse.
 "Yesterday upon the stair - I met a man who wasn't there. He wasn't there again today - Oh how I wish he'd go away." --Hughes Mearns
 "Nobody joins a cult. Nobody joins something they think is going to hurt them. You  join a religious organization, you join a political movement, and you join with people that you really like." --Deborah Layton, Peoples Temple member
 “Adventurer” is defined as “one who looks for trouble,” and “Adventure” is defined as “The trouble an adventurer finds.” --James Edward Raggi IV
+"The world breaks everyone and afterward many are strong in the broken places. But those that will not break it kills. It kills the very good, and the very gentle, and the very brave, impartially." --Ernest Hemingway, A Farewell to Arms
+"Any Future not shaped by a goal system with detailed reliable inheritance from human morals and metamorals will contain almost nothing of worth." --Eliezer Yudkowsky
+"Man plans, God laughs." --old Yiddish adage
+"Everyone complains about the laws of physics, but no one does anything about them." --Rasmah, Schild's Ladder
+“In the meantime, cling tooth and nail to the following rule: not to give in to adversity, not to trust prosperity, and always take full note of fortune’s habit of behaving just as she pleases.” -- Seneca
+"Beware, demon!" he intoned hollowly.  "I am not without defenses." "Oh yeah?  Name three." --Robert Asprin, Another Fine Myth
+"I once fought in a war, so I find the idea of paying to be scared shameful." --The Onion
+"What you seek is seeking you." --Rumi

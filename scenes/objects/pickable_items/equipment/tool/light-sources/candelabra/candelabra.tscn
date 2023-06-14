@@ -213,6 +213,7 @@ item_size = 0
 item_name = "Candelabra"
 life_percentage_lose = 0.2
 prob_going_out = 0.9
+number_of_candles = 3
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
@@ -366,7 +367,7 @@ transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -
 shape = SubResource( 125 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.243473, 0 )
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.246153, 0 )
 shape = SubResource( 126 )
 
 [node name="HoldPosition" type="Position3D" parent="."]

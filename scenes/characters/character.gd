@@ -27,7 +27,7 @@ onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
 onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
 onready var belt_position = $"%BeltPosition"
 onready var drop_position_node = $Body/DropPosition
-onready var body = $Body
+onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
 onready var animation_tree = $"%AnimationTree"
@@ -165,9 +165,9 @@ var grounded = false
 var do_jump : bool = false
 var is_jumping : bool = false
 
-var low_kick : bool = false
+var low_kick : bool = false   # Should we do a low kick instead of a stomp kick?
 
-var noise_level = 0
+var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 
 var is_reloading = false
 
@@ -181,7 +181,8 @@ func _ready():
 	
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
-
+	
+	# TODO: Move all this to character_audio.gd
 	# Movement audio	
 	_audio_player.load_sounds("resources/sounds/footsteps/stone_footsteps", 3)
 	_audio_player.load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
@@ -275,7 +276,7 @@ func _physics_process(delta : float):
 			if d.length() < 0.1:
 				is_clambering = false
 				global_transform.origin = clamber_destination
-				if clamberable_obj and clamberable_obj is RigidBody:   # altered to allow statics
+				if clamberable_obj and clamberable_obj is RigidBody:   # Altered to allow statics
 					clamberable_obj.mode = 0
 
 				if is_crouching:
@@ -412,7 +413,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if c != Vector3.ZERO:
 			if is_clamberable:
 				clamberable_obj = is_clamberable
-				if clamberable_obj is RigidBody: # to allow static objects
+				if clamberable_obj is RigidBody:   # To allow static objects
 					clamberable_obj.mode = 1
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE
@@ -698,7 +699,7 @@ func check_current_item_animation():
 
 
 func change_stamina(amount: float) -> void:
-	stamina = min(600, max(0, stamina + amount));
+	stamina = min(600, max(0, stamina + amount))
 
 
 func _on_ClamberableChecker_body_entered(body):

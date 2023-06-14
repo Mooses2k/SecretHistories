@@ -263,11 +263,15 @@ func _walk(delta) -> void:
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	character.character_state.move_direction = move_dir.normalized()
+
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
 	else:
 		owner.do_sprint = false
-	HUDS.tired(owner.stamina);
+	HUDS.tired(owner.stamina)
+	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
 
 	if Input.is_action_just_released("move_right"):
 		is_movement_key1_held = false
@@ -281,7 +285,7 @@ func _walk(delta) -> void:
 	
 	_check_movement_key(delta)
 
-	if Input.is_action_just_pressed("clamber"):
+	if Input.is_action_just_pressed("jump"):
 		owner.do_jump = true
 
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
@@ -486,8 +490,9 @@ func handle_inventory(delta : float):
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false  :
-			if i != character.inventory.current_offhand_slot :
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
+			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
+			if i != character.inventory.current_offhand_slot and i != 10:
 				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
 				character.inventory.current_mainhand_slot = i
@@ -497,7 +502,7 @@ func handle_inventory(delta : float):
 	# Off-hand slot selection
 	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:
 		var start_slot = character.inventory.current_offhand_slot
-		var new_slot = (start_slot + 1)%character.inventory.hotbar.size()
+		var new_slot = (start_slot + 1) % character.inventory.hotbar.size()
 		while new_slot != start_slot \
 			and (
 				(
@@ -508,7 +513,7 @@ func handle_inventory(delta : float):
 				or character.inventory.hotbar[new_slot] == null \
 				):
 
-				new_slot = (new_slot + 1)%character.inventory.hotbar.size()
+				new_slot = (new_slot + 1) % character.inventory.hotbar.size()
 		if start_slot != new_slot:
 			owner.change_equipment_out(false)
 			yield(owner, "change_off_equipment_out_done")
@@ -578,6 +583,12 @@ func handle_inventory(delta : float):
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 
+	# Zoom in/out like binoculars or spyglass
+	if Input.is_action_just_pressed("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_ZOOM
+	if Input.is_action_just_released("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_NORMAL
+		
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		if item:
@@ -683,7 +694,7 @@ func next_item():
 		character.inventory.current_mainhand_slot = 0
 
 
-func _on_Player_player_landed():   # Dupe of this in character...maybe a timer needed so this lasts longer
+func _on_Player_player_landed():
 	if !owner.is_crouching:
 		if owner.noise_level < 8:
 			owner.noise_level = 8

@@ -83,6 +83,8 @@ func add_item(item : PickableItem) -> bool:
 		# To make sure the item can't be interacted with again
 		item.item_state = GlobalConsts.ItemState.BUSY
 		item.queue_free()
+		emit_signal("inventory_changed")
+	
 	
 	if item is KeyItem:
 		if not keychain.has(item.key_id):
@@ -93,7 +95,7 @@ func add_item(item : PickableItem) -> bool:
 		item.queue_free()
 	
 	elif item is EquipmentItem:
-
+	
 		# Update the inventory info immediately
 		# This is a bulky item, or there is no space on the hotbar
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):

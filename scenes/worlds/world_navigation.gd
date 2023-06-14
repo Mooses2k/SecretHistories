@@ -49,7 +49,7 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 
 
 func update_navigation():
-	var cell_size = 0.1;
+	var cell_size = 0.1
 	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
 	var cell_height = NavigationServer.map_get_cell_height(get_world().navigation_map)
 	var all_points = Array()

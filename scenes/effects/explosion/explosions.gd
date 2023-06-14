@@ -30,7 +30,7 @@ func _on_Bomb_explosion():
 					damage_coordinates = 1 / global_transform.origin.distance_to(bodies.collider.global_transform.origin) * get_parent().bomb_damage
 				else:
 					damage_coordinates = get_parent().bomb_damage
-				if bodies.collider != body and  bodies.collider  is RigidBody:
+				if bodies.collider != body and  bodies.collider is RigidBody:
 					if body.is_in_group("CHARACTER"):
 						body.damage(damage_coordinates * 2, get_parent().damage_type, body)
 						body.apply_central_impulse( + body.global_transform.origin * 1 / global_transform.origin.distance_to(body.global_transform.origin) * get_parent().bomb_damage)

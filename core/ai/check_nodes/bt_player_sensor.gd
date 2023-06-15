@@ -9,8 +9,10 @@ onready var _sensor : PlayerSensor = get_node(sensor) as PlayerSensor
 
 
 func tick(state : CharacterState) -> int:
+	var speech_chance = randf()
 	if _sensor.is_player_detected():
 		state.target_position = _sensor.get_measured_position()
-		emit_signal("character_detected")
+		if (speech_chance > 0.99):
+			emit_signal("character_detected")
 		return Status.SUCCESS
 	return Status.FAILURE

@@ -23,7 +23,8 @@ onready var firelight = $FireOrigin/Fire/Light
 func _ready():
 	light_timer = $BurnTime
 	self.connect("item_is_dropped", self, "item_drop")
-	light_timer.connect("timeout", self, "_light_depleted")
+	if not light_timer.is_connected("timeout", self, "_light_depleted"):
+		light_timer.connect("timeout", self, "_light_depleted")
 	burn_time = 3600.0
 	light()
 

@@ -114,7 +114,7 @@ func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : in
 		# room mask as 3210 (clockwise order from lower bit)
 		var rooms = get_cell_mask(data, cells, data.CellType.ROOM)
 		
-		var is_edge = false
+		var is_edge = false   # Yellow warning in editor; var never used
 		var is_room = false
 		match rooms:
 			0b0000:

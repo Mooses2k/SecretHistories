@@ -34,13 +34,15 @@ func _use_primary():
 
 
 func _on_Countdown_timeout():
+	item_max_noise_level = 80
+	noise_level = 80   # Noise detectable by characters
 	flash.get_node("FlashTimer").start()
 	flash.visible = true
 	$Effect.handle_sound()
 	$Explosion.emitting = true
 	$Shrapnel.emitting = true
 	$Fuse.emitting = false
-	$Mesh.visible = false
+	$MeshInstance.visible = false
 	$Explosion._on_Bomb_explosion()
 	countdown_started = true
 	# If it blows up in hand

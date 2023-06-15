@@ -56,11 +56,35 @@ radius = 0.05
 
 [sub_resource type="Animation" id=51]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.25 ]
+}
 
 [sub_resource type="Animation" id=52]
 resource_name = "flicker"
 length = 5.0
 loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 2.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.25, 0.27, 0.23 ]
+}
 
 [sub_resource type="BoxShape" id=53]
 extents = Vector3( 0.0642877, 0.0986133, 0.0627713 )

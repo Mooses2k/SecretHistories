@@ -30,6 +30,7 @@ func contour_walls(data : WorldData):
 							_:
 								pass
 					data.CellType.DOOR:
+						# Yellow editor warning; these four vars are never used
 						var n = data.get_neighbour_cell(this, data.Direction.NORTH)
 						var e = data.get_neighbour_cell(this, data.Direction.EAST)
 						var s = data.get_neighbour_cell(this, data.Direction.SOUTH)

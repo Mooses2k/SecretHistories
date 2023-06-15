@@ -3,7 +3,7 @@ extends ControlMode
 export(int, LAYERS_3D_PHYSICS) var raycast_mask : int
 export(float, 0.0, 1.0) var shift_intensity : float = 0.5
 export var _aim : NodePath
-onready var aim : Spatial = get_node(_aim) as Spatial;
+onready var aim : Spatial = get_node(_aim) as Spatial
 
 func set_active(value : bool):
 	.set_active(value)

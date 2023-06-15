@@ -59,8 +59,8 @@ func _on_EscMenu_button_pressed(button) -> void:
 			self.gui_state = PauseMenuState.SETTINGS_MENU
 		
 		esc_menu.EscMenuButtons.HELP:
-			get_node("/root/Game/World/Player/HitEffect").keybind_defaults.visible = !get_node("/root/Game/World/Player/HitEffect").keybind_defaults.visible
-			get_node("/root/Game/World/Player/HitEffect").debug_label.visible = !get_node("/root/Game/World/Player/HitEffect").debug_label.visible
+			GameManager.game.player.hit_effect.keybind_defaults.visible = !GameManager.game.player.hit_effect.keybind_defaults.visible
+			GameManager.game.player.hit_effect.debug_label.visible = !GameManager.game.player.hit_effect.debug_label.visible
 		
 		esc_menu.EscMenuButtons.QUIT:
 			get_tree().quit()

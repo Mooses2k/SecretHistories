@@ -562,7 +562,7 @@ func clear_cell_meta(cell_index : int):
 
 
 func _get_north_wall_index(cell_index : int) -> int:
-	return cell_index + int(cell_index/world_size_z)
+	return cell_index + int(cell_index / world_size_z)
 
 
 func _get_south_wall_index(cell_index : int) -> int:

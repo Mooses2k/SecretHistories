@@ -45,7 +45,6 @@ enum ThrowState {
 	SHOULD_THROW,
 }
 
-export var speed : float = 0.5
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
@@ -267,7 +266,10 @@ func _walk(delta) -> void:
 		owner.do_sprint = true
 	else:
 		owner.do_sprint = false
-	HUDS.tired(owner.stamina);
+	HUDS.tired(owner.stamina)
+	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
 
 	if Input.is_action_just_released("movement|move_right"):
 		is_movement_key1_held = false
@@ -281,7 +283,7 @@ func _walk(delta) -> void:
 	
 	_check_movement_key(delta)
 
-	if Input.is_action_just_pressed("player|clamber"):
+	if Input.is_action_just_pressed("player|jump"):
 		owner.do_jump = true
 
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
@@ -295,16 +297,16 @@ func _check_movement_key(delta):
 			owner.is_to_move = true
 			if !owner.is_crouching:
 				if owner.do_sprint and is_movement_key4_held == true:   # Only if sprinting forward
-					if owner.noise_level < 12:
-						owner.noise_level = 12
+					if owner.noise_level < 10 + (character.inventory.encumbrance):
+						owner.noise_level = 10 + (character.inventory.encumbrance)
 						noise_timer.start()
 				else:
-					if owner.noise_level < 5:
-						owner.noise_level = 5
+					if owner.noise_level < 5 + (character.inventory.encumbrance):
+						owner.noise_level = 5 + (character.inventory.encumbrance)
 						noise_timer.start()
 			else:
-				if owner.noise_level < 3:
-					owner.noise_level = 3
+				if owner.noise_level < 3 + (character.inventory.encumbrance):
+					owner.noise_level = 3 + (character.inventory.encumbrance)
 					noise_timer.start()
 	
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
@@ -318,10 +320,12 @@ func _head_bob(delta : float) -> void:
 		_camera.global_transform.origin = owner.global_transform.origin + br
 
 	_bob_time += delta
-	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (speed / 1000.0)
-	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (0.5 / 1000.0)
 	_camera.global_transform.origin.y += y_bob
-	_camera.rotation_degrees.z = z_bob
+
+	# Removed since it's not good to do head rotation unless take camera control away from player (simulation sickness)
+#	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+#	_camera.rotation_degrees.z = z_bob
 
 
 func _crouch() -> void:
@@ -387,6 +391,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 
+	# These are debug indicators for intitial and current grab points
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
@@ -408,12 +413,13 @@ func handle_grab(delta : float):
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 
-		# Some visualization stuff
+		# Some debug visualization stuff for grabbing
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
 		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
 			is_grabbing = false
 			interaction_handled = true
+		
 		# Local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
@@ -485,9 +491,10 @@ func throw_consumable(item):
 func handle_inventory(delta : float):
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
-		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to playerhand|holster_offhand in Input Map
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false  :
-			if i != character.inventory.current_offhand_slot :
+		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
+			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
+			if i != character.inventory.current_offhand_slot and i != 10:
 				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
 				character.inventory.current_mainhand_slot = i
@@ -497,7 +504,7 @@ func handle_inventory(delta : float):
 	# Off-hand slot selection
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		var start_slot = character.inventory.current_offhand_slot
-		var new_slot = (start_slot + 1)%character.inventory.hotbar.size()
+		var new_slot = (start_slot + 1) % character.inventory.hotbar.size()
 		while new_slot != start_slot \
 			and (
 				(
@@ -508,7 +515,7 @@ func handle_inventory(delta : float):
 				or character.inventory.hotbar[new_slot] == null \
 				):
 
-				new_slot = (new_slot + 1)%character.inventory.hotbar.size()
+				new_slot = (new_slot + 1) % character.inventory.hotbar.size()
 		if start_slot != new_slot:
 			owner.change_equipment_out(false)
 			yield(owner, "change_off_equipment_out_done")
@@ -578,6 +585,12 @@ func handle_inventory(delta : float):
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 
+	# Zoom in/out like binoculars or spyglass
+	if Input.is_action_just_pressed("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_ZOOM
+	if Input.is_action_just_released("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_NORMAL
+		
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		if item:
@@ -683,14 +696,14 @@ func next_item():
 		character.inventory.current_mainhand_slot = 0
 
 
-func _on_Player_player_landed():   # Dupe of this in character...maybe a timer needed so this lasts longer
+func _on_Player_player_landed():
 	if !owner.is_crouching:
-		if owner.noise_level < 8:
-			owner.noise_level = 8
+		if owner.noise_level < 8 + (character.inventory.encumbrance):
+			owner.noise_level = 8 + (character.inventory.encumbrance)
 			noise_timer.start()
 	else:
-		if owner.noise_level < 5:
-			owner.noise_level = 5
+		if owner.noise_level < 5 + (character.inventory.encumbrance):
+			owner.noise_level = 5 + (character.inventory.encumbrance)
 			noise_timer.start()
 
 

@@ -20,7 +20,8 @@ onready var firelight = $Light
 
 
 func _ready():
-	connect("body_entered", self, "play_drop_sound")
+	if not is_connected("body_entered", self, "play_drop_sound"):
+		connect("body_entered", self, "play_drop_sound")
 	light_timer = $Timer
 	
 	light_timer.connect("timeout", self, "light_depleted")
@@ -30,9 +31,6 @@ func _ready():
 		burn_time = 3600.0
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
-	
-#	if self.name == "BullseyeLantern":
-#		print("burn time is = " + str(burn_time))
 
 
 func _process(delta):

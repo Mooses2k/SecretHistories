@@ -139,6 +139,7 @@ func check_player_animation():
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
 
+
 	elif current_mainhand_item_animation == hold_states.ITEM_VERTICAL:
 		animation_tree.set("parameters/Animation_State/current", 1)
 		animation_tree.set("parameters/Weapon_states/current", 0)
@@ -147,12 +148,37 @@ func check_player_animation():
 		$"%ADSTween".start()
 
 	elif current_mainhand_item_animation == hold_states.ITEM_HORIZONTAL:
+		pass
 		animation_tree.set("parameters/Animation_State/current", 1)
 		animation_tree.set("parameters/Weapon_states/current", 0)
 		animation_tree.set("parameters/Hold_Animation/current", 1)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
 
+	elif current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM_LEFT:
+		
+		animation_tree.set("parameters/Animation_State/current", 1)
+		animation_tree.set("parameters/Hand_Transition/current", 1)
+		animation_tree.set("parameters/OffHand_Weapon_States/current", 1)
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%ADSTween".start()
+#		animation_tree.set("parameters/Hold_Animation/current", 1)
+	elif current_mainhand_item_animation == hold_states.ITEM_VERTICAL_LEFT:
+		
+		animation_tree.set("parameters/Animation_State/current", 1)
+		animation_tree.set("parameters/Hand_Transition/current", 1)
+		animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
+		animation_tree.set("parameters/Offhand_Hold_Animation/current", 0)
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%ADSTween".start()
+		
+	elif current_mainhand_item_animation == hold_states.ITEM_HORIZONTAL_LEFT:
+		animation_tree.set("parameters/Animation_State/current", 1)
+		animation_tree.set("parameters/Hand_Transition/current", 1)
+		animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
+		animation_tree.set("parameters/Offhand_Hold_Animation/current", 1)
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%ADSTween".start()
 
 
 	else:

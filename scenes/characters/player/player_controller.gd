@@ -285,7 +285,7 @@ func _walk(delta) -> void:
 	
 	_check_movement_key(delta)
 
-	if Input.is_action_just_pressed("clamber"):
+	if Input.is_action_just_pressed("jump"):
 		owner.do_jump = true
 
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:

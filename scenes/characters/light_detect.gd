@@ -1,6 +1,7 @@
 extends Spatial
 
 
+# TODO: Needs commenting
 var level1 : float
 var level : float
 
@@ -68,17 +69,22 @@ func _process(delta):
 		if owner.inventory.get_offhand_item() is EmptyHand:
 			return
 		if owner.inventory.get_offhand_item() is CandleItem or owner.inventory.get_offhand_item() is TorchItem or owner.inventory.get_offhand_item() is CandelabraItem or owner.inventory.get_offhand_item() is LanternItem:
-#			print("Offhand is Candle, Torch, Candelabra, or Lantern")
 			if owner.inventory.get_offhand_item().is_lit == true:
 				owner.light_level = level
 				return
 
-	# Okay, you're crouching without a lit light-source in hand; that's cool
+	# Okay, you're crouching without a lit light-source in hand; that's cool, you're less visible
 	if owner.state == owner.State.STATE_CROUCHING:
 		level *= (1 - pow(1 - level, 5))
+	
+	# Now we multiply your light level by your encumbrance value (have medium and/or bulky items)
+	if owner.inventory.encumbrance > 0:
+		level *= 1 + (owner.inventory.encumbrance * 0.1)   # Typical range would be from 1.0 to 1.5
+	
+	# Finally we set the character's light_level
 	owner.light_level = level
 	
-	_last_time_since_detect = _get_time()   # Tracked to reduce calls of this function for performance
+	_last_time_since_detect = _get_time()   # Tracked to reduce function calls for performance
 
 
 func average(numbers: Array) -> float:

@@ -92,7 +92,6 @@ var current_mainhand_item_animation = hold_states.MELEE_ITEM
 #	}
 #}
 
-export var speed : float = 0.5
 export var gravity : float = 10.0
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
@@ -150,8 +149,9 @@ var clamber_destination : Vector3 = Vector3.ZERO
 var _clamber_m = null
 var clamber_target
 var is_clambering : bool = false
-var clamberable_obj # : RigidBody      # commented to allow static bodies too
-var is_clamberable # : RigidBody = null   # commented to allow static bodies too
+var clamberable_obj # : RigidBody      # Commented to allow static bodies too
+var is_clamberable # : RigidBody = null   # Commented to allow static bodies too
+var default_clamber_speed : float = 0.1   # Added to allow encumbrance to slow clambering.
 
 var is_player_moving : bool = false
 var is_moving_forward : bool = false
@@ -180,38 +180,6 @@ func _ready():
 	
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
-	
-	# TODO: Move all this to character_audio.gd
-	# Movement audio	
-	_audio_player.load_sounds("resources/sounds/footsteps/stone_footsteps", 3)
-	_audio_player.load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
-	_audio_player.load_sounds("resources/sounds/footsteps/water_footsteps", 5)
-	_audio_player.load_sounds("resources/sounds/footsteps/gravel_footsteps", 6)
-	_audio_player.load_sounds("resources/sounds/footsteps/carpet_footsteps", 7)
-	_audio_player.load_sounds("resources/sounds/footsteps/metal_footsteps", 8)
-	_audio_player.load_sounds("resources/sounds/footsteps/tile_footsteps", 9)
-#	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
-	_audio_player.load_sounds("resources/sounds/breathing/breathe", 1)
-	_audio_player.load_sounds("resources/sounds/jumping_landing/landing", 2)
-	_audio_player._footstep_sounds = _audio_player._stone_footstep_sounds
-		
-	# Speech audio - these should eventually be moved to each enemy's script or character audio
-	# and the paths adjusted to the correct voice
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/idle", 13)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/alert", 14)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/detection", 15)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush", 16)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/chase", 17)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fight", 18)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/reload", 19)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/flee", 20)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q", 21)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a", 22)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence", 23)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised", 24)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fire", 25)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/snake", 26)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb", 27)
 
 
 func _physics_process(delta : float):
@@ -258,7 +226,9 @@ func _physics_process(delta : float):
 		State.STATE_CLAMBERING_RISE:
 			var pos = global_transform.origin
 			var clamber_target = Vector3(pos.x, clamber_destination.y, pos.z)
-			global_transform.origin = lerp(pos, clamber_target, 0.1)
+			# Clamber speed affected by encumbrance
+			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
+			global_transform.origin = lerp(pos, clamber_target, clamber_speed)
 	
 			var d = pos - clamber_target
 			if d.length() < 0.1:
@@ -268,7 +238,9 @@ func _physics_process(delta : float):
 		State.STATE_CLAMBERING_LEDGE:
 			#_audio_player.play_clamber_sound(false)
 			var pos = global_transform.origin
-			global_transform.origin = lerp(pos, clamber_destination, 0.1)
+			# Clamber speed affected by encumbrance
+			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
+			global_transform.origin = lerp(pos, clamber_destination, clamber_speed)
 
 			var d = global_transform.origin - clamber_destination
 			if d.length() < 0.1:
@@ -305,6 +277,7 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 #				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
 
 
+# This maybe shouldn't be here, also is not currently used
 func _get_surface_type() -> Array:
 	var cell_index = GameManager.game.level.world_data.get_cell_index_from_local_position(transform.origin)
 	var floor_type = GameManager.game.level.world_data.get_cell_surfacetype(cell_index)
@@ -335,11 +308,6 @@ func _get_surface_type() -> Array:
 	return _audio_player._footstep_sounds
 
 
-# Apparently not used
-#func _handle_player_sound_emission() -> void:
-#	_audio_player._footstep_sounds = _get_surface_type()
-
-
 func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
@@ -356,6 +324,10 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		# Sprint speed is walk speed plus stamina * a number, so player slows down as runs longer
 		move_dir *= (1.2 + ((stamina / 500) * 0.3))
 		change_stamina(-0.3)
+		# Additionally, if encumbered, drain stamina more
+		if inventory.encumbrance > 0:
+			print("Draining additional stamina: ", (inventory.encumbrance / 10))
+			change_stamina(-(inventory.encumbrance / 10))
 	else:
 		move_dir *= 0.8
 		if !do_sprint:
@@ -363,11 +335,12 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	var y_velo = velocity.y
 	
-	var v1 = speed * move_dir - velocity * Vector3(move_drag, 0, move_drag)
+	var v1 = 0.5 * move_dir - velocity * Vector3(move_drag, 0, move_drag)
 	var v2 = Vector3.DOWN * gravity * delta
 	
 	velocity += v1 + v2
 	
+	# This kinda just a double-check?
 	grounded = is_on_floor() or _ground_checker.is_colliding()
 	
 	if is_crouching and is_jumping:
@@ -428,6 +401,13 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		velocity.y = jump_force
 		is_jumping = true
 		do_jump = false
+		
+		# Jumping takes stamina, more if you're encumbered
+		change_stamina(-30)
+		if inventory.encumbrance > 0:
+			print("Draining additional stamina on jump: ", (inventory.encumbrance * 10))
+			change_stamina(-(inventory.encumbrance * 10))
+		
 		return
 	
 	do_jump = false
@@ -684,7 +664,7 @@ func check_current_item_animation():
 #			inventory.hotbar[mainhand_object] = null
 		
 		if inventory.hotbar[mainhand_object] is GunItem:
-			if inventory.hotbar[mainhand_object].item_size == 0:
+			if inventory.hotbar[mainhand_object].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
@@ -693,7 +673,6 @@ func check_current_item_animation():
 			#update this to work for items animations
 		elif inventory.hotbar[mainhand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
-			print("Melee Item")
 
 
 func change_stamina(amount: float) -> void:

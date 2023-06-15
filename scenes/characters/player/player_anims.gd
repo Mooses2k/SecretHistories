@@ -41,7 +41,7 @@ func check_current_item_animation():
 			return
 
 		if inventory.hotbar[main_hand_object] is GunItem or inventory.hotbar[off_hand_object] is GunItem :
-			if inventory.hotbar[main_hand_object].item_size == 0:
+			if inventory.hotbar[main_hand_object].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
@@ -83,7 +83,7 @@ func ads():
 			if get_parent().inventory.hotbar[main_hand_item] is GunItem:
 				$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(-0.097, -1.444, 0.108), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 				$"%ADSTween".start()
-				if get_parent().inventory.hotbar[main_hand_item].item_size == 0:
+				if get_parent().inventory.hotbar[main_hand_item].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 					if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
 						_camera.fov  = lerp(_camera.fov, 65, 0.5)
 				else:

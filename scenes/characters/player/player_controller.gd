@@ -45,7 +45,6 @@ enum ThrowState {
 	SHOULD_THROW,
 }
 
-export var speed : float = 0.5
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
@@ -299,16 +298,16 @@ func _check_movement_key(delta):
 			owner.is_to_move = true
 			if !owner.is_crouching:
 				if owner.do_sprint and is_movement_key4_held == true:   # Only if sprinting forward
-					if owner.noise_level < 12:
-						owner.noise_level = 12
+					if owner.noise_level < 10 + (character.inventory.encumbrance):
+						owner.noise_level = 10 + (character.inventory.encumbrance)
 						noise_timer.start()
 				else:
-					if owner.noise_level < 5:
-						owner.noise_level = 5
+					if owner.noise_level < 5 + (character.inventory.encumbrance):
+						owner.noise_level = 5 + (character.inventory.encumbrance)
 						noise_timer.start()
 			else:
-				if owner.noise_level < 3:
-					owner.noise_level = 3
+				if owner.noise_level < 3 + (character.inventory.encumbrance):
+					owner.noise_level = 3 + (character.inventory.encumbrance)
 					noise_timer.start()
 	
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
@@ -322,10 +321,12 @@ func _head_bob(delta : float) -> void:
 		_camera.global_transform.origin = owner.global_transform.origin + br
 
 	_bob_time += delta
-	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (speed / 1000.0)
-	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (0.5 / 1000.0)
 	_camera.global_transform.origin.y += y_bob
-	_camera.rotation_degrees.z = z_bob
+
+	# Removed since it's not good to do head rotation unless take camera control away from player (simulation sickness)
+#	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+#	_camera.rotation_degrees.z = z_bob
 
 
 func _crouch() -> void:
@@ -391,6 +392,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 
+	# These are debug indicators for intitial and current grab points
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
@@ -412,12 +414,13 @@ func handle_grab(delta : float):
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 
-		# Some visualization stuff
+		# Some debug visualization stuff for grabbing
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
 		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
 			is_grabbing = false
 			interaction_handled = true
+		
 		# Local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
@@ -696,12 +699,12 @@ func next_item():
 
 func _on_Player_player_landed():
 	if !owner.is_crouching:
-		if owner.noise_level < 8:
-			owner.noise_level = 8
+		if owner.noise_level < 8 + (character.inventory.encumbrance):
+			owner.noise_level = 8 + (character.inventory.encumbrance)
 			noise_timer.start()
 	else:
-		if owner.noise_level < 5:
-			owner.noise_level = 5
+		if owner.noise_level < 5 + (character.inventory.encumbrance):
+			owner.noise_level = 5 + (character.inventory.encumbrance)
 			noise_timer.start()
 
 

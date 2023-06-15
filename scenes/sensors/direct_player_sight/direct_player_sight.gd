@@ -41,7 +41,7 @@ func get_measured_position() -> Vector3:
 func update_sensor():
 	player_visible = false
 	for body in area.get_overlapping_bodies():
-		if body is Player and (body.light_level > 0.03 or (player_near and player_seen)):
+		if body is Player and (body.light_level > 0.01 or (player_near and player_seen)):
 			if not player_seen and player_near:
 				player_seen = true
 			var target = body.global_transform.origin
@@ -50,7 +50,7 @@ func update_sensor():
 			raycast.force_raycast_update()
 			
 			if (raycast.is_colliding() and raycast.get_collider().owner is Player and 
-					(raycast.get_collider().owner.light_level > 0.03 or (player_near and player_seen))):
+					(raycast.get_collider().owner.light_level > 0.01 or (player_near and player_seen))):
 				player_visible = true
 				player_position = body.global_transform.origin
 				return

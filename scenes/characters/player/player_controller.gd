@@ -298,16 +298,16 @@ func _check_movement_key(delta):
 			owner.is_to_move = true
 			if !owner.is_crouching:
 				if owner.do_sprint and is_movement_key4_held == true:   # Only if sprinting forward
-					if owner.noise_level < 12:
-						owner.noise_level = 12
+					if owner.noise_level < 10 + (character.inventory.encumbrance):
+						owner.noise_level = 10 + (character.inventory.encumbrance)
 						noise_timer.start()
 				else:
-					if owner.noise_level < 5:
-						owner.noise_level = 5
+					if owner.noise_level < 5 + (character.inventory.encumbrance):
+						owner.noise_level = 5 + (character.inventory.encumbrance)
 						noise_timer.start()
 			else:
-				if owner.noise_level < 3:
-					owner.noise_level = 3
+				if owner.noise_level < 3 + (character.inventory.encumbrance):
+					owner.noise_level = 3 + (character.inventory.encumbrance)
 					noise_timer.start()
 	
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
@@ -699,12 +699,12 @@ func next_item():
 
 func _on_Player_player_landed():
 	if !owner.is_crouching:
-		if owner.noise_level < 8:
-			owner.noise_level = 8
+		if owner.noise_level < 8 + (character.inventory.encumbrance):
+			owner.noise_level = 8 + (character.inventory.encumbrance)
 			noise_timer.start()
 	else:
-		if owner.noise_level < 5:
-			owner.noise_level = 5
+		if owner.noise_level < 5 + (character.inventory.encumbrance):
+			owner.noise_level = 5 + (character.inventory.encumbrance)
 			noise_timer.start()
 
 

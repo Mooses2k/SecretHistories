@@ -17,7 +17,7 @@ var player_body : Object
 var item_heared : Object
 #var sound_was_heared : bool = false   # Dupe usage of sound_detected
 
-export var hearing_sensitivity = 4   # Lower levels for more acute hearing, with 1 able to hear player's normal breathing
+export var hearing_sensitivity = 5   # Lower levels for more acute hearing, with 1 able to hear player's normal breathing
 
 
 func _ready():

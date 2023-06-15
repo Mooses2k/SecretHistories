@@ -149,8 +149,9 @@ var clamber_destination : Vector3 = Vector3.ZERO
 var _clamber_m = null
 var clamber_target
 var is_clambering : bool = false
-var clamberable_obj # : RigidBody      # commented to allow static bodies too
-var is_clamberable # : RigidBody = null   # commented to allow static bodies too
+var clamberable_obj # : RigidBody      # Commented to allow static bodies too
+var is_clamberable # : RigidBody = null   # Commented to allow static bodies too
+var default_clamber_speed : float = 0.1   # Added to allow encumbrance to slow clambering.
 
 var is_player_moving : bool = false
 var is_moving_forward : bool = false
@@ -225,7 +226,9 @@ func _physics_process(delta : float):
 		State.STATE_CLAMBERING_RISE:
 			var pos = global_transform.origin
 			var clamber_target = Vector3(pos.x, clamber_destination.y, pos.z)
-			global_transform.origin = lerp(pos, clamber_target, 0.1)
+			# Clamber speed affected by encumbrance
+			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
+			global_transform.origin = lerp(pos, clamber_target, clamber_speed)
 	
 			var d = pos - clamber_target
 			if d.length() < 0.1:
@@ -235,7 +238,9 @@ func _physics_process(delta : float):
 		State.STATE_CLAMBERING_LEDGE:
 			#_audio_player.play_clamber_sound(false)
 			var pos = global_transform.origin
-			global_transform.origin = lerp(pos, clamber_destination, 0.1)
+			# Clamber speed affected by encumbrance
+			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
+			global_transform.origin = lerp(pos, clamber_destination, clamber_speed)
 
 			var d = global_transform.origin - clamber_destination
 			if d.length() < 0.1:
@@ -319,6 +324,10 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		# Sprint speed is walk speed plus stamina * a number, so player slows down as runs longer
 		move_dir *= (1.2 + ((stamina / 500) * 0.3))
 		change_stamina(-0.3)
+		# Additionally, if encumbered, drain stamina more
+		if inventory.encumbrance > 0:
+			print("Draining additional stamina: ", (inventory.encumbrance / 10))
+			change_stamina(-(inventory.encumbrance / 10))
 	else:
 		move_dir *= 0.8
 		if !do_sprint:
@@ -392,6 +401,13 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		velocity.y = jump_force
 		is_jumping = true
 		do_jump = false
+		
+		# Jumping takes stamina, more if you're encumbered
+		change_stamina(-30)
+		if inventory.encumbrance > 0:
+			print("Draining additional stamina on jump: ", (inventory.encumbrance * 10))
+			change_stamina(-(inventory.encumbrance * 10))
+		
 		return
 	
 	do_jump = false
@@ -648,7 +664,7 @@ func check_current_item_animation():
 #			inventory.hotbar[mainhand_object] = null
 		
 		if inventory.hotbar[mainhand_object] is GunItem:
-			if inventory.hotbar[mainhand_object].item_size == 0:
+			if inventory.hotbar[mainhand_object].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
 			else:
 				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
@@ -657,7 +673,6 @@ func check_current_item_animation():
 			#update this to work for items animations
 		elif inventory.hotbar[mainhand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
-			print("Melee Item")
 
 
 func change_stamina(amount: float) -> void:

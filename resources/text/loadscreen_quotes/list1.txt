@@ -66,6 +66,7 @@ Press Middle-Mouse Button to throw your main-hand item. Press [Off-hand throw ke
 Press the [Map key] key to open your map.
 Press the [Binoculars key] key to see through your spyglass.
 Note: Press the [Change look key] key to change the look of the game (dithering, pixelation, various retro flavor).
+The more encumbering items you're carrying, like swords and long-guns, the noisier and more visible you will be.
 Violence is always an answer, but not always the answer.
 Conserve your ammo. You're going to need it.
 Where no humans have tread, no ammo is to be found.

@@ -64,7 +64,7 @@ func get_hold_transform() -> Transform:
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
 # Trying to remove this to fix jittering items in mainhand, but shotgun floats out of cultist hands
-func _process(delta):
+func _physics_process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		transform = get_hold_transform()
 

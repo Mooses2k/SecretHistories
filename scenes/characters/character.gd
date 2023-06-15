@@ -277,6 +277,12 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 #				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
 
 
+func heal(amount):
+	current_health += amount
+	if current_health > max_health:
+		current_health = max_health
+
+
 # This maybe shouldn't be here, also is not currently used
 func _get_surface_type() -> Array:
 	var cell_index = GameManager.game.level.world_data.get_cell_index_from_local_position(transform.origin)
@@ -662,17 +668,17 @@ func check_current_item_animation():
 		# temporary hack (issue #409) - not sure it's necessary
 #		if not is_instance_valid(inventory.hotbar[mainhand_object]):
 #			inventory.hotbar[mainhand_object] = null
-		
-		if inventory.hotbar[mainhand_object] is GunItem:
-			if inventory.hotbar[mainhand_object].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
-			else:
-				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
-#		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
-#			print("Carried Lantern")
-			#update this to work for items animations
-		elif inventory.hotbar[mainhand_object] is MeleeItem:
-			current_mainhand_item_animation = hold_states.MELEE_ITEM
+		if is_instance_valid(inventory.hotbar[mainhand_object]):
+			if inventory.hotbar[mainhand_object] is GunItem:
+				if inventory.hotbar[mainhand_object].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+					current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
+				else:
+					current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
+	#		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
+	#			print("Carried Lantern")
+				#update this to work for items animations
+			elif inventory.hotbar[mainhand_object] is MeleeItem:
+				current_mainhand_item_animation = hold_states.MELEE_ITEM
 
 
 func change_stamina(amount: float) -> void:

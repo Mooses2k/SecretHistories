@@ -490,8 +490,9 @@ func handle_inventory(delta : float):
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false  :
-			if i != character.inventory.current_offhand_slot :
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
+			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
+			if i != character.inventory.current_offhand_slot and i != 10:
 				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
 				character.inventory.current_mainhand_slot = i
@@ -501,7 +502,7 @@ func handle_inventory(delta : float):
 	# Off-hand slot selection
 	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:
 		var start_slot = character.inventory.current_offhand_slot
-		var new_slot = (start_slot + 1)%character.inventory.hotbar.size()
+		var new_slot = (start_slot + 1) % character.inventory.hotbar.size()
 		while new_slot != start_slot \
 			and (
 				(
@@ -512,7 +513,7 @@ func handle_inventory(delta : float):
 				or character.inventory.hotbar[new_slot] == null \
 				):
 
-				new_slot = (new_slot + 1)%character.inventory.hotbar.size()
+				new_slot = (new_slot + 1) % character.inventory.hotbar.size()
 		if start_slot != new_slot:
 			owner.change_equipment_out(false)
 			yield(owner, "change_off_equipment_out_done")

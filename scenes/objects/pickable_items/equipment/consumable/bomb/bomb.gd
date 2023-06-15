@@ -42,7 +42,7 @@ func _on_Countdown_timeout():
 	$Explosion.emitting = true
 	$Shrapnel.emitting = true
 	$Fuse.emitting = false
-	$Mesh.visible = false
+	$MeshInstance.visible = false
 	$Explosion._on_Bomb_explosion()
 	countdown_started = true
 	# If it blows up in hand

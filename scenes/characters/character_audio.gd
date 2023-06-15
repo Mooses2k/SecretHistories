@@ -1,8 +1,8 @@
 class_name CharacterAudio
 extends Spatial
 
-
-var _footstep_sounds : Array = []
+# TODO: Eventually get working or ensure working different footstep sounds
+onready var _footstep_sounds : Array = _stone_footstep_sounds   # Unsure if onready needed
 var _stone_footstep_sounds : Array = []
 var _wood_footstep_sounds : Array = []
 var _carpet_footstep_sounds : Array = []
@@ -65,7 +65,19 @@ onready var last_speech_line   # Tracked to avoid repeating the same line
 
 
 func _ready():
-	choose_voice()
+	# Movement audio	
+	load_sounds("resources/sounds/footsteps/stone_footsteps", 3)
+	load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
+	load_sounds("resources/sounds/footsteps/water_footsteps", 5)
+	load_sounds("resources/sounds/footsteps/gravel_footsteps", 6)
+	load_sounds("resources/sounds/footsteps/carpet_footsteps", 7)
+	load_sounds("resources/sounds/footsteps/metal_footsteps", 8)
+	load_sounds("resources/sounds/footsteps/tile_footsteps", 9)
+#	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
+	load_sounds("resources/sounds/breathing/breathe", 1)
+	load_sounds("resources/sounds/jumping_landing/landing", 2)
+
+	choose_voice()   # Choose one from the appropriate voices for this character
 
 
 func load_sounds(sound_dir, type : int) -> void:
@@ -153,9 +165,27 @@ func load_sounds(sound_dir, type : int) -> void:
 
 #Speech
 
-# Once per character, randomly choose one of the appropriate voices for this character
+# Once per character, randomly choose an appropriate voice for this character
 func choose_voice():
-	pass
+	# Hard-coded to the one we've included for now
+	
+	# Speech audio - these should eventually be moved to each enemy's script or character audio
+	# and the paths adjusted to the correct voice
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/idle", 13)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/alert", 14)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/detection", 15)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush", 16)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/chase", 17)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fight", 18)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/reload", 19)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/flee", 20)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q", 21)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a", 22)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence", 23)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised", 24)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fire", 25)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/snake", 26)
+	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb", 27)
 
 
 func play_idle_sound():

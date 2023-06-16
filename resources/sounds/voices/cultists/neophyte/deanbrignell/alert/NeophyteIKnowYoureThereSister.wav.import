@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteIKnowYoureThereSister.wav-274029fd2d84cd836abff97080953c16.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteIKnowYoureThereSister.wav"
+dest_files=[ "res://.import/NeophyteIKnowYoureThereSister.wav-274029fd2d84cd836abff97080953c16.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

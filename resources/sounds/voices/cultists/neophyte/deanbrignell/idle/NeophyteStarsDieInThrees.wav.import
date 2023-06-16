@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteStarsDieInThrees.wav-1ce0b2e914d00aeaaa0ca05bfcc0ef1c.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteStarsDieInThrees.wav"
+dest_files=[ "res://.import/NeophyteStarsDieInThrees.wav-1ce0b2e914d00aeaaa0ca05bfcc0ef1c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

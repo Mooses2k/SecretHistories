@@ -27,7 +27,7 @@ func _ready():
 
 
 func _set_starting_charges():
-	charges_held = randi() % max_charges_held + 1
+	charges_held = randi() % (max_charges_held + 1)
 
 
 func _use_primary():

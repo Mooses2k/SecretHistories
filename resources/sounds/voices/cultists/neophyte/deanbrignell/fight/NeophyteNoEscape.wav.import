@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteNoEscape.wav-f1ffe2f59e60dcf8576b70090b4f9d28.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteNoEscape.wav"
+dest_files=[ "res://.import/NeophyteNoEscape.wav-f1ffe2f59e60dcf8576b70090b4f9d28.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

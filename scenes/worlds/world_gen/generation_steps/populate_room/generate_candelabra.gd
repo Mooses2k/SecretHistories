@@ -9,6 +9,8 @@ extends GenerationStep
 #--- constants ------------------------------------------------------------------------------------
 
 const UNLIT_KEYWORD = "unlit"
+const MAX_X_UNLIT_ROTATION = deg2rad(30)
+const MAX_Z_UNLIT_ROTATION = deg2rad(30)
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -80,7 +82,12 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 		if not spawn_data.scene_path.empty():
 			spawn_data.set_center_position_in_cell(cell_position)
 			if spawn_data.scene_path.find(UNLIT_KEYWORD) != -1:
-				spawn_data.set_random_rotation_in_all_axis(_rng)
+				spawn_data.set_random_rotation_in_all_axis(
+						_rng, 
+						MAX_X_UNLIT_ROTATION, 
+						TAU, 
+						MAX_Z_UNLIT_ROTATION
+				)
 			else:
 				var facing_angle := corners.get_facing_angle_for(key)
 				spawn_data.set_y_rotation(facing_angle)

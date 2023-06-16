@@ -69,49 +69,49 @@ script = ExtResource( 17 )
 direct_player_sight = NodePath("../../../../../Body/DirectPlayerSight")
 listener = NodePath("../../../../../Body/SoundListener")
 
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active" index="1"]
+[node name="BT_Sequence_Engage" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active" index="1"]
 script = ExtResource( 9 )
 
-[node name="BT_Selector_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="0"]
+[node name="BT_Selector_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="0"]
 script = ExtResource( 8 )
 
-[node name="BT_Gun_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector_Ammo" index="0"]
+[node name="BT_Gun_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage/BT_Selector_Ammo" index="0"]
 script = ExtResource( 20 )
 
-[node name="BT_Inventory_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector_Ammo" index="1"]
+[node name="BT_Inventory_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage/BT_Selector_Ammo" index="1"]
 script = ExtResource( 19 )
 
-[node name="BT_Reload_Gun" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector_Ammo" index="2"]
+[node name="BT_Reload_Gun" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage/BT_Selector_Ammo" index="2"]
 script = ExtResource( 21 )
 
-[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="1"]
+[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="1"]
 script = ExtResource( 8 )
 
-[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector" index="0"]
+[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage/BT_Selector" index="0"]
 script = ExtResource( 13 )
 listener = NodePath("../../../../../../Body/SoundListener")
 
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector" index="1"]
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage/BT_Selector" index="1"]
 script = ExtResource( 12 )
 
-[node name="BT_Look_At_Target3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="2"]
+[node name="BT_Look_At_Target3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="2"]
 script = ExtResource( 14 )
 
-[node name="BT_Wait_Random3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="3"]
+[node name="BT_Wait_Random3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="3"]
 script = ExtResource( 10 )
 max_time = 1.6
 min_time = 0.8
 
-[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="4"]
+[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="4"]
 script = ExtResource( 2 )
 
-[node name="BT_Look_At_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="5"]
+[node name="BT_Look_At_Target2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="5"]
 script = ExtResource( 14 )
 
-[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="6"]
+[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="6"]
 script = ExtResource( 3 )
 
-[node name="BT_Wait_Random2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="7"]
+[node name="BT_Wait_Random2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage" index="7"]
 script = ExtResource( 10 )
 max_time = 1.6
 min_time = 0.8
@@ -149,11 +149,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 [node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
-bones/137/bound_children = [ NodePath("MainHandAttachment") ]
-
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.82014, 0.560886, 0.114588, -0.0145037, -0.220466, 0.975331, 0.572294, 0.798236, 0.188868, -0.103657, 15.1075, 2.96151 )
+transform = Transform( -0.81989, 0.561139, 0.114649, -0.0145915, -0.220587, 0.975299, 0.572556, 0.797958, 0.18899, -0.100491, 15.1043, 2.96099 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
@@ -182,7 +179,7 @@ parameters/Rifle_strafe_vector/blend_position = Vector2( 0, -0.0172414 )
 
 [connection signal="character_detected" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor/BT_Player_Sensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
 [connection signal="unseen_sound_heard" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor/BT_Sound_Listener" to="Audio" method="_on_BT_Sound_Listener_unseen_sound_heard"]
-[connection signal="fighting" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Shoot" to="Audio" method="_on_BT_Shoot_fighting"]
+[connection signal="fighting" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Engage/BT_Shoot" to="Audio" method="_on_BT_Shoot_fighting"]
 [connection signal="character_idled" from="BehaviorTree/BT_Selector/BT_Sequence_Idle/BT_Wait_Random" to="Audio" method="_on_BT_Wait_Random_character_idled"]
 
 [editable path="Body/CultistNeophyteNoCape"]

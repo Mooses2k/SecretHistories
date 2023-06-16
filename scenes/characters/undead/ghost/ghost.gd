@@ -1,7 +1,8 @@
-extends KinematicBody
+class_name Ghost
+extends Character
 
 
-const SPEED = 1.0  # quite slow
+const SPEED = 1.0    # Quite slow
 
 var target = null
 var vel = Vector3()
@@ -12,21 +13,19 @@ var health = 200
 onready var hitbox = $HitboxArea
 onready var game_world = GameManager.game
 onready var player = game_world.player
-onready var navigation : Navigation = game_world.level.navigation
+#onready var navigation : Navigation = game_world.level.navigation
 
 
 func _ready():
 	self.set_physics_process(false)
 	
-#	fog.emitting = true
-	
 	hitbox.connect("body_entered", self, "on_hit_player")
 	
-	var timer = Timer.new()
-	timer.wait_time = 0.1
-	add_child(timer)
-	timer.connect("timeout", self, "find_path_timer")
-	timer.start()
+#	var timer = Timer.new()
+#	timer.wait_time = 0.1
+#	add_child(timer)
+#	timer.connect("timeout", self, "find_path_timer")
+#	timer.start()
 
 
 func _process(delta):
@@ -36,25 +35,25 @@ func _process(delta):
 
 func _physics_process(delta):
 	self.look_at(target.global_transform.origin, Vector3.UP)
-	
-	if path.size() > 0:
-		move_along_path(path)
+
+#	if path.size() > 0:
+#		move_along_path(path)
+
+#
+#func move_along_path(path):
+#	if global_transform.origin.distance_to(path[0]) < 0.1:
+#		path.remove(0)
+#		if path.size() == 0:
+#			return
+#
+#	vel = (path[0] - global_transform.origin).normalized() * SPEED
+#	vel = move_and_slide(vel)
 
 
-func move_along_path(path):
-	if global_transform.origin.distance_to(path[0]) < 0.1:
-		path.remove(0)
-		if path.size() == 0:
-			return
-	
-	vel = (path[0] - global_transform.origin).normalized() * SPEED
-	vel = move_and_slide(vel)
-
-
-func set_target(target):
-	self.target = target
-	self.set_physics_process(true)
-#	find_path_timer()
+#func set_target(target):
+#	self.target = target
+#	self.set_physics_process(true)
+##	find_path_timer()
 
 
 #func on_hit_player(body):
@@ -64,8 +63,7 @@ func set_target(target):
 #		$Growl.play()
 
 
-func find_path_timer():
-	self.set_target(player)
-	path = navigation.get_simple_path(global_transform.origin, target.global_transform.origin)
-	path.remove(0)
-#	path = path_finder.find_path(global_transform.origin, target.global_transform.origin)
+#func find_path_timer():
+#	self.set_target(player)
+#	path = navigation.get_simple_path(global_transform.origin, target.global_transform.origin)
+#	path.remove(0)

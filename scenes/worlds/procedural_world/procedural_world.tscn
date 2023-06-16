@@ -102,7 +102,17 @@ script = ExtResource( 15 )
 _character_scene_path = "res://scenes/characters/cultists/neophyte.tscn"
 _density_by_type = {
 1: 0.005,
-2: 0.0025,
+2: 0.0,
+3: 0
+}
+
+[node name="GenerationGhost" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
+script = ExtResource( 15 )
+_character_scene_path = "res://scenes/characters/undead/ghost/ghost.tscn"
+_max_count = 1
+_density_by_type = {
+1: 0.1,
+2: 0.0,
 3: 0
 }
 

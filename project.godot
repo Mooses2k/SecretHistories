@@ -110,6 +110,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/check_nodes/bt_sound_listener.gd"
 }, {
 "base": "BT_Node",
+"class": "BT_Target_Defend",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_target_defend.gd"
+}, {
+"base": "BT_Node",
 "class": "BT_Wait_Random",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_wait_random.gd"
@@ -243,6 +248,11 @@ _global_script_classes=[ {
 "class": "GenerationStep",
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/generation_steps/generation_step.gd"
+}, {
+"base": "Character",
+"class": "Ghost",
+"language": "GDScript",
+"path": "res://scenes/characters/undead/ghost/ghost.gd"
 }, {
 "base": "Object",
 "class": "GlobalConsts",
@@ -450,6 +460,7 @@ _global_script_class_icons={
 "BT_Sequence": "",
 "BT_Shoot": "",
 "BT_Sound_Listener": "",
+"BT_Target_Defend": "",
 "BT_Wait_Random": "",
 "BehaviorTree": "",
 "BombItem": "",
@@ -477,6 +488,7 @@ _global_script_class_icons={
 "GenerationGroup": "",
 "GenerationManager": "",
 "GenerationStep": "",
+"Ghost": "",
 "GlobalConsts": "",
 "Grenade": "",
 "Groups": "",

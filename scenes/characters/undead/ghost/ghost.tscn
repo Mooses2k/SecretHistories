@@ -1,11 +1,20 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/characters/undead/ghost/ghost.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/ghost/whispers.wav" type="AudioStream" id=2]
+[ext_resource path="res://scenes/sensors/touch_sensor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=4]
-[ext_resource path="res://scenes/characters/undead/ghost/ghost_controller.gd" type="Script" id=5]
 [ext_resource path="res://scenes/characters/undead/ghost/damage_area.gd" type="Script" id=6]
-
+[ext_resource path="res://scenes/sensors/direct_player_sight/direct_player_sight.tscn" type="PackedScene" id=7]
+[ext_resource path="res://core/ai/action_nodes/bt_go_to_target.gd" type="Script" id=8]
+[ext_resource path="res://core/ai/action_nodes/bt_target_defend.gd" type="Script" id=9]
+[ext_resource path="res://core/ai/action_nodes/bt_wait_random.gd" type="Script" id=10]
+[ext_resource path="res://core/ai/behavior_tree.gd" type="Script" id=12]
+[ext_resource path="res://core/ai/flow_nodes/bt_selector.gd" type="Script" id=13]
+[ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
+[ext_resource path="res://core/ai/flow_nodes/bt_sequence.gd" type="Script" id=17]
+[ext_resource path="res://core/ai/check_nodes/bt_player_sensor.gd" type="Script" id=18]
+[ext_resource path="res://core/ai/check_nodes/bt_collision_sensor.gd" type="Script" id=21]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 1, 0.776471, 0.776471, 1 )
@@ -23,11 +32,8 @@ rings = 4
 [sub_resource type="CapsuleShape" id=3]
 radius = 0.8
 
-[sub_resource type="SphereShape" id=4]
-radius = 32.0
-
 [sub_resource type="SphereShape" id=5]
-radius = 2.0
+radius = 1.5
 
 [node name="Ghost" type="KinematicBody" groups=["Enemy"]]
 collision_layer = 8
@@ -36,8 +42,14 @@ script = ExtResource( 1 )
 [node name="Body" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.13678, 0 )
 
+[node name="TouchSensor" parent="Body" instance=ExtResource( 3 )]
+character = NodePath("../..")
+
+[node name="DirectPlayerSight" parent="Body" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.406271, -0.618656 )
+character = NodePath("../..")
+
 [node name="Eyes" type="Spatial" parent="Body"]
-visible = false
 
 [node name="MeshInstance" type="MeshInstance" parent="Body/Eyes"]
 transform = Transform( 0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, 0.182021, -0.593601, -0.681859 )
@@ -46,6 +58,54 @@ mesh = SubResource( 2 )
 [node name="MeshInstance2" type="MeshInstance" parent="Body/Eyes"]
 transform = Transform( 0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, -0.201965, -0.593601, -0.681859 )
 mesh = SubResource( 2 )
+
+[node name="BehaviorTree" type="Node" parent="."]
+script = ExtResource( 12 )
+bt_root = NodePath("BT_Selector")
+
+[node name="BT_Selector" type="Node" parent="BehaviorTree"]
+script = ExtResource( 13 )
+
+[node name="BT_Sequence_Active" type="Node" parent="BehaviorTree/BT_Selector"]
+script = ExtResource( 17 )
+
+[node name="BT_Selector_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active"]
+script = ExtResource( 13 )
+
+[node name="BT_Collision_Sensor2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor"]
+script = ExtResource( 21 )
+sensor = NodePath("../../../../../Body/TouchSensor")
+
+[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor"]
+script = ExtResource( 18 )
+sensor = NodePath("../../../../../Body/DirectPlayerSight")
+
+[node name="BT_Sequence_Chase" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active"]
+script = ExtResource( 17 )
+
+[node name="BT_Look_At_Target3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Chase"]
+script = ExtResource( 14 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence_Chase"]
+script = ExtResource( 8 )
+
+[node name="BT_Sequence_Idle" type="Node" parent="BehaviorTree/BT_Selector"]
+script = ExtResource( 17 )
+
+[node name="BT_Target_Defend" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle"]
+script = ExtResource( 9 )
+minimum_radius = 1.0
+
+[node name="BT_Look_At_Target4" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle"]
+script = ExtResource( 14 )
+
+[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle"]
+script = ExtResource( 8 )
+
+[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle"]
+script = ExtResource( 10 )
+max_time = 20.0
+min_time = 10.0
 
 [node name="HitboxArea" type="Area" parent="."]
 collision_layer = 0
@@ -56,23 +116,6 @@ script = ExtResource( 4 )
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.16376, 0 )
 shape = SubResource( 3 )
 
-[node name="Whisper" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 2 )
-unit_size = 3.0
-autoplay = true
-max_distance = 10.0
-
-[node name="GhostController" type="Spatial" parent="."]
-script = ExtResource( 5 )
-
-[node name="DetectionArea" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="DetectionArea"]
-shape = SubResource( 4 )
-
 [node name="DamageArea" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 2
@@ -82,3 +125,15 @@ script = ExtResource( 6 )
 [node name="CollisionShape" type="CollisionShape" parent="DamageArea"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 shape = SubResource( 5 )
+
+[node name="Whisper" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 2 )
+unit_size = 3.0
+autoplay = true
+max_distance = 10.0
+
+[node name="MainHandEquipmentRoot" type="Position3D" parent="."]
+unique_name_in_owner = true
+
+[node name="OffHandEquipmentRoot2" type="Position3D" parent="."]
+unique_name_in_owner = true

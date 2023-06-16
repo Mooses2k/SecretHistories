@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteThankTheStarsItsFriday.wav-3f47e5b735b13261d89e2b7f3544bec1.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhen/NeophyteThankTheStarsItsFriday.wav"
+dest_files=[ "res://.import/NeophyteThankTheStarsItsFriday.wav-3f47e5b735b13261d89e2b7f3544bec1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

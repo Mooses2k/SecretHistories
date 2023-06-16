@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav-6a47a7384e4cddee77d2a25293f74625.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav"
+dest_files=[ "res://.import/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav-6a47a7384e4cddee77d2a25293f74625.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -18,7 +18,7 @@ var _clamber_sounds : Dictionary = {
 }
 
 # Speech
-export var character_voice_path : String = "res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"   # "res:// path to folder structure of this voice pack?"
+export var character_voice_path : String = ""   # "res:// path to folder structure of this voice pack"
 
 enum SpeechType {
 	IDLE,
@@ -45,6 +45,7 @@ var _ambush_sounds : Array = []
 var _chase_sounds : Array = []
 var _fight_sounds : Array = []
 var _reload_sounds : Array = []
+var _out_of_ammo_sounds : Array = []
 var _flee_sounds : Array = []
 var _dialog_q_sounds : Array = []
 var _dialog_a_sounds : Array = []
@@ -144,20 +145,22 @@ func load_sounds(sound_dir, type : int) -> void:
 				19:
 					_reload_sounds.append(load(sound_dir + "/" + sound))
 				20:
-					_flee_sounds.append(load(sound_dir + "/" + sound))
+					_out_of_ammo_sounds.append(load(sound_dir + "/" + sound))
 				21:
-					_dialog_q_sounds.append(load(sound_dir + "/" + sound))
+					_flee_sounds.append(load(sound_dir + "/" + sound))
 				22:
-					_dialog_a_sounds.append(load(sound_dir + "/" + sound))
+					_dialog_q_sounds.append(load(sound_dir + "/" + sound))
 				23:
-					_dialog_sequence_sounds.append(load(sound_dir + "/" + sound))
+					_dialog_a_sounds.append(load(sound_dir + "/" + sound))
 				24:
-					_surprised_sounds.append(load(sound_dir + "/" + sound))
+					_dialog_sequence_sounds.append(load(sound_dir + "/" + sound))
 				25:
-					_fire_sounds.append(load(sound_dir + "/" + sound))
+					_surprised_sounds.append(load(sound_dir + "/" + sound))
 				26:
-					_snake_sounds.append(load(sound_dir + "/" + sound))
+					_fire_sounds.append(load(sound_dir + "/" + sound))
 				27:
+					_snake_sounds.append(load(sound_dir + "/" + sound))
+				28:
 					_bomb_sounds.append(load(sound_dir + "/" + sound))
 					
 		sound = snd_dir.get_next()
@@ -168,24 +171,33 @@ func load_sounds(sound_dir, type : int) -> void:
 # Once per character, randomly choose an appropriate voice for this character
 func choose_voice():
 	# Hard-coded to the one we've included for now
+	if owner is Cultist:   # Later: Neophyte
 	
-	# Speech audio - these should eventually be moved to each enemy's script or character audio
-	# and the paths adjusted to the correct voice
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/idle", 13)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/alert", 14)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/detection", 15)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush", 16)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/chase", 17)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fight", 18)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/reload", 19)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/flee", 20)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q", 21)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a", 22)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence", 23)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised", 24)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fire", 25)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/snake", 26)
-	load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb", 27)
+		var choose = randi() % 2
+		match choose:
+			0:
+				character_voice_path = "res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"
+			1:
+				character_voice_path = "res://resources/sounds/voices/cultists/neophyte/deanbrignell/"
+		
+		# Speech audio - these should eventually be moved to each enemy's script or character audio
+		# and the paths adjusted to the correct voice
+		load_sounds(character_voice_path + "idle", 13)
+		load_sounds(character_voice_path + "alert", 14)
+		load_sounds(character_voice_path + "detection", 15)
+		load_sounds(character_voice_path + "ambush", 16)
+		load_sounds(character_voice_path + "chase", 17)
+		load_sounds(character_voice_path + "fight", 18)
+		load_sounds(character_voice_path + "reload", 19)
+		load_sounds(character_voice_path + "out_of_ammo", 20)
+		load_sounds(character_voice_path + "flee", 21)
+		load_sounds(character_voice_path + "dialog_q", 22)
+		load_sounds(character_voice_path + "dialog_a", 23)
+		load_sounds(character_voice_path + "dialog_sequence", 24)
+		load_sounds(character_voice_path + "surprised", 25)
+		load_sounds(character_voice_path + "fire", 26)
+		load_sounds(character_voice_path + "snake", 27)
+		load_sounds(character_voice_path + "bomb", 28)
 
 
 func play_idle_sound():

@@ -5,14 +5,16 @@ const GROUP_NAME : String = "Input Key Settings"
 
 var setting_key_inputs : String = ""
 var is_waiting_input : bool = false
-var events : PoolStringArray
-var actions : PoolStringArray
+var events : PoolStringArray = []
+var actions : PoolStringArray = []
 var actions_copy : PoolStringArray
 var flag : int = 1
 var index : int = 0
 var is_done : bool = false
 var key_removed : bool = false
 var hotbar_num : int = 1
+var arr_size : int = 0
+var counter : int = 0
 
 const MAX_VALUE = 4.0
 const STEP_VALUE = 0.05
@@ -22,15 +24,15 @@ var setting_action_event : float setget set_action_event, get_action_event
 
 
 func _ready():
-	GlobalSettings.load_keys()
-	
 	actions_copy.append_array(InputMap.get_actions())
-	flag = 1
-	hotbar_num = 1
-		
+	
 	while not is_done:
+		counter += 1
 		key_removed = false
-		for x in range(0, actions_copy.size()):
+		arr_size = actions_copy.size()
+		index = -1
+		
+		for x in range(arr_size):
 			if not "ui_" in actions_copy[x] or "movement" == actions_copy[x]:
 				match flag:
 					1:
@@ -47,30 +49,28 @@ func _ready():
 							set_keys(x)
 					5:
 						if "hotbar_" in actions_copy[x]:
-							if str(hotbar_num) in actions_copy[x]:
+							if str(hotbar_num) in actions_copy[x] and hotbar_num < 11:
 								set_keys(x)
 								hotbar_num += 1
 					_:
 						actions_copy.remove(actions_copy.find(actions_copy[x]))
 						key_removed = true
-						x = 0
 			else:
 				actions_copy.remove(actions_copy.find(actions_copy[x]))
-				index = x
-				break
+				key_removed = true
 			
 			index = x
 			if key_removed:
 				break
 			
 		
-		if index == actions_copy.size() - 1: 
+		if index == arr_size - 1: 
 			flag += 1
 			
-			if flag == 6 and not hotbar_num == 12:
+			if flag == 6 and not hotbar_num == 11:
 				flag = 5
 		
-		if actions_copy.size() <= 1:
+		if actions_copy.size() < 1 or counter > 100:
 			is_done = true
 		
 	Settings.connect("setting_changed", self, "on_setting_changed")
@@ -88,7 +88,6 @@ func set_keys(x):
 			else:
 				events.insert(0, str(OS.get_scancode_string(event.scancode)))
 	
-	print("actions " + actions_copy[x])
 	actions.append(actions_copy[x])
 	Settings.add_string_setting(actions_copy[x], events)
 	Settings.set_setting_group(actions_copy[x], GROUP_NAME)

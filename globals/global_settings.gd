@@ -41,8 +41,7 @@ var event_prefixes = [
 
 
 func _ready():
-	pass
-#	load_keys()
+	load_keys()
 # leftovers from tutorial version
 #	get_child(0).visible = false
 #	pause_mode = Node.PAUSE_MODE_PROCESS
@@ -104,7 +103,6 @@ func setup_keys(key_dict : Dictionary):
 		var events = Array()
 		for event_str in key_dict[action]:
 			var event = str2event(event_str)
-
 			if event:
 				events.push_back(event)
 			else:

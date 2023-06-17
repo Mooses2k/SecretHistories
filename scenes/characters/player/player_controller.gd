@@ -122,9 +122,9 @@ func _ready():
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-
+	
 	active_mode.set_deferred("is_active", true)
-
+	
 	$"../FPSCamera/ScreenFilter".visible = false
 
 
@@ -648,23 +648,31 @@ func handle_inventory(delta : float):
 
 func kick():
 	var kick_object = legcast.get_collider()
-
-	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-		if is_grabbing == false:
+	
+	print(character.kick_timer.get_time_left())
+	if character.kick_timer.is_stopped():
+		
+		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+			if is_grabbing == false:
+				if Input.is_action_just_pressed("kick"):
+					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
+					character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 			if Input.is_action_just_pressed("kick"):
-				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-
-	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-		if Input.is_action_just_pressed("kick"):
-			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-
-	elif legcast.is_colliding() and kick_object is RigidBody:
-		if Input.is_action_just_pressed("kick"):
-			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
+				character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if Input.is_action_just_pressed("kick"):
+				if kick_object is Area:
+					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
+				character.kick_timer.start(1)
 
 
 func drop_grabbable():
-	# when the drop button or keys are pressed , grabable objects are released
+	# When the drop button or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("main_throw") or Input.is_action_just_pressed("offhand_throw") and is_grabbing == true:
 		wants_to_drop = true
 		if grab_object != null :

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteIveBeenWaitingForYou.wav-7a74e1d9f395d8fc90dc7123a98a168a.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteIveBeenWaitingForYou.wav"
+dest_files=[ "res://.import/NeophyteIveBeenWaitingForYou.wav-7a74e1d9f395d8fc90dc7123a98a168a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

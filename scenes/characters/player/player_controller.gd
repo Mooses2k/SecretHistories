@@ -677,21 +677,21 @@ func drop_grabbable():
 
 
 func previous_item():
-	if Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot != 0:
+	if Input.is_action_just_pressed("itm|previous_item") and character.inventory.current_mainhand_slot != 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 
-	elif  Input.is_action_just_pressed("previous_item") and character.inventory.current_mainhand_slot == 0:
+	elif  Input.is_action_just_pressed("itm|previous_item") and character.inventory.current_mainhand_slot == 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
 
 func next_item():
-	if Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot != 10:
+	if Input.is_action_just_pressed("itm|next_item") and character.inventory.current_mainhand_slot != 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 
-	elif  Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot == 10:
+	elif  Input.is_action_just_pressed("itm|next_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
 

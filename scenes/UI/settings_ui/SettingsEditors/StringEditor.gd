@@ -46,6 +46,15 @@ func _on_setting_attached():
 		
 	elif "misc|" in temp_setting_name:
 		temp_setting_name.erase(0, 5)
+		
+	elif "itm|" in temp_setting_name:
+		temp_setting_name.erase(0, 4)
+		
+	elif "ablty|" in temp_setting_name:
+		temp_setting_name.erase(0, 6)
+		
+	elif "com|" in temp_setting_name:
+		temp_setting_name.erase(0, 4)
 	
 	temp_setting_name = temp_setting_name.replace("_", " ")
 	$"%Name".text = temp_setting_name[0].to_upper() + temp_setting_name.substr(1,-1)

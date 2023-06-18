@@ -45,7 +45,7 @@ func _ready():
 						if "playerhand|" in actions_copy[x]:
 							set_keys(x)
 					4:
-						if "misc|" in actions_copy[x]:
+						if "itm|" in actions_copy[x]:
 							set_keys(x)
 					5:
 						if "hotbar_" in actions_copy[x]:
@@ -55,6 +55,15 @@ func _ready():
 								else:
 									set_keys(x)
 									hotbar_num += 1
+					6:
+						if "ablty|" in actions_copy[x]:
+							set_keys(x)
+					7:
+						if "com|" in actions_copy[x]:
+							set_keys(x)
+					8:
+						if "misc|" in actions_copy[x]:
+							set_keys(x)
 					_:
 						actions_copy.remove(actions_copy.find(actions_copy[x]))
 						key_removed = true

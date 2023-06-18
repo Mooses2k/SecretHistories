@@ -112,12 +112,16 @@ func get_action_event() -> float:
 
 
 func set_event(setting_name, old_value, new_value):
-	events.resize(0)
-	var events_setting = InputMap.get_action_list(setting_name)
-	if events_setting.size() > 1:
-		InputMap.action_erase_event(setting_name, events_setting[0])
-	InputMap.action_add_event(setting_name, new_value)
+	if new_value == null:
+		InputMap.action_erase_events(setting_name)
+	else:
+		var events_setting = InputMap.get_action_list(setting_name)
+		if events_setting.size() > 1:
+			InputMap.action_erase_event(setting_name, events_setting[0])
+		InputMap.action_add_event(setting_name, new_value)
+	
 	GlobalSettings.save_keys()
+	events.resize(0)
 	print("successfuly added " + str(new_value) + " to " + setting_name)
 	print("\n")
 	

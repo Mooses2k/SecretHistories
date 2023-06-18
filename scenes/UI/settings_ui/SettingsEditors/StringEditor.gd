@@ -13,6 +13,9 @@ func _get_value():
 #Override this function
 func _set_value(value):
 	$"%Value".text = ""
+	if value == null:
+		return
+	
 	for event in value:
 		$"%Value".text += event
 		if value.find(event) != (value.size() - 1):
@@ -47,8 +50,9 @@ func _on_setting_attached():
 		
 	elif "misc|" in temp_setting_name:
 		temp_setting_name.erase(0, 5)
-		
-	$"%Name".text = temp_setting_name.replace("_", " ")
+	
+	temp_setting_name = temp_setting_name.replace("_", " ")
+	$"%Name".text = temp_setting_name[0].to_upper() + temp_setting_name.substr(1,-1)
 	pass
 
 
@@ -82,7 +86,7 @@ func _input(event):
 
 
 func _on_Clear_pressed():
-	pass # Replace with function body.
+	settings.set_setting(_setting_name, null)
 
 
 func _on_Change_pressed():

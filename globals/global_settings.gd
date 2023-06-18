@@ -23,10 +23,13 @@ var music_volume : float
 var voice_volume : float
 
 var file_name = "%s://keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
+var file_name_default = "%s://defaultKeys.dict" % ("user" if OS.has_feature("standalone") else "res")
 
 var mouse_sensitivity : float = 1
 
 var setting_key = false
+
+var keys_default : Dictionary
 
 enum EventType {
 	KEY,
@@ -91,6 +94,17 @@ func load_keys():
 	else:
 		#NoFile, so lets save the default keys now
 		save_keys()
+		save_default_keys()
+	
+	file = File.new()
+	file.open(file_name_default, File.READ)
+	var file_str = file.get_as_text()
+	file.close()
+	var data = str2var(file_str)
+	if(typeof(data) == TYPE_DICTIONARY):
+		keys_default = data
+	else:
+		printerr("corrupted data!")
 	pass
 
 
@@ -149,7 +163,16 @@ func str2event(string : String) -> InputEvent:
 func save_keys():
 	var key_dict = gen_dict_from_input_map()
 	var file = File.new()
-	file.open(file_name,File.WRITE)
+	file.open(file_name, File.WRITE)
+	file.store_string(var2str(key_dict))
+	file.close()
+	print("saved keys")
+
+
+func save_default_keys():
+	var key_dict = gen_dict_from_input_map()
+	var file = File.new()
+	file.open(file_name_default, File.WRITE)
 	file.store_string(var2str(key_dict))
 	file.close()
 	print("saved keys")

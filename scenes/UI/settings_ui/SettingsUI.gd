@@ -57,42 +57,36 @@ func sort_setting_groups():
 		counter = 0
 		
 		for child in get_children():
-			print("groups name == " + str(child))
 			index += 1
 			
 			if child.has_method("get_group_name"):
 				if "Game" in str(child.group_name):
 					if index != 0:
 						swap_child(child, 0, index)
-						print("Game settings")
 						break
 					else:
 						counter += 1
 				elif "Video" in str(child.group_name):
 					if index != 2:
 						swap_child(child, 2, index)
-						print("Video settings")
 						break
 					else:
 						counter += 1
 				elif "Audio" in str(child.group_name):
 					if index != 4:
 						swap_child(child, 4, index)
-						print("Audio settings")
 						break
 					else:
 						counter += 1
 				elif "Input" in str(child.group_name) and not "Key" in str(child.group_name):
 					if index != 6:
 						swap_child(child, 6, index)
-						print("Input settings")
 						break
 					else:
 						counter += 1
 				elif "Input Key" in str(child.group_name):
 					if index != 8:
 						swap_child(child, 8, index)
-						print("Input Key settings")
 						break
 					else:
 						counter += 1
@@ -119,6 +113,7 @@ func add_setting(setting_name : String):
 	if group_name == "Input Key Settings" and is_first_key_settings:
 		is_first_key_settings = false
 		settings_group.add_editor(SetDefaultKeyBtn.instance())
+		settings_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed", get_parent().owner.get_node("ResetPanel"), "toggle_panel")
 	
 	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instance() as SettingEditor
 	settings_group.add_editor(setting_editor)

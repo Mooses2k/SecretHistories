@@ -51,6 +51,8 @@ func attach_setting(setting_name : String, _settings : SettingsClass):
 
 func on_setting_changed(setting_name, old_value, new_value):
 	if setting_name == _setting_name:
+		if new_value is String and new_value == "all":
+			return
 		_on_setting_changed(old_value, new_value)
 
 

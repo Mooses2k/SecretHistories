@@ -105,6 +105,8 @@ func set_setting(setting_name : String, value) -> bool:
 				var old_value = _settings[setting_name][_FIELD_VALUE]
 #				_settings[setting_name][_FIELD_VALUE] = value
 				emit_signal("setting_changed", setting_name, old_value, value)
+			elif value == "all":
+				emit_signal("setting_changed", setting_name, null, value)
 			elif value == null:
 				var old_value = _settings[setting_name][_FIELD_VALUE]
 				emit_signal("setting_changed", setting_name, old_value, value)

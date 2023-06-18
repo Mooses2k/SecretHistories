@@ -20,10 +20,6 @@ func _set_value(value):
 		$"%Value".text += event
 		if value.find(event) != (value.size() - 1):
 			$"%Value".text += ", "
-#	if value.physical_scancode:
-#		$"%Value".text = str(OS.get_scancode_string(value.physical_scancode))
-#	else:
-#		$"%Value".text = str(OS.get_scancode_string(value.scancode))
 
 
 #Override this function
@@ -80,7 +76,7 @@ func _input(event):
 						return
 				print(str(OS.get_scancode_string(event.physical_scancode)))
 			
-			get_parent().get_parent().get_parent().get_parent().owner.get_node("Panel").hide()
+			get_parent().get_parent().get_parent().get_parent().owner.get_node("ChangeKeyPanel").hide()
 			is_waiting_input = false
 			settings.set_setting(_setting_name, event)
 
@@ -90,5 +86,5 @@ func _on_Clear_pressed():
 
 
 func _on_Change_pressed():
-	get_parent().get_parent().get_parent().get_parent().owner.get_node("Panel").show()
+	get_parent().get_parent().get_parent().get_parent().owner.get_node("ChangeKeyPanel").show()
 	is_waiting_input = true

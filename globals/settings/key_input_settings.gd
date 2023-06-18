@@ -50,8 +50,11 @@ func _ready():
 					5:
 						if "hotbar_" in actions_copy[x]:
 							if str(hotbar_num) in actions_copy[x] and hotbar_num < 11:
-								set_keys(x)
-								hotbar_num += 1
+								if hotbar_num == 1 and ( "11" in actions_copy[x] or "10" in actions_copy[x]):
+									pass
+								else:
+									set_keys(x)
+									hotbar_num += 1
 					_:
 						actions_copy.remove(actions_copy.find(actions_copy[x]))
 						key_removed = true
@@ -121,14 +124,15 @@ func set_event(setting_name, old_value, new_value):
 		InputMap.action_add_event(setting_name, new_value)
 	
 	GlobalSettings.save_keys()
-	events.resize(0)
-	print("successfuly added " + str(new_value) + " to " + setting_name)
-	print("\n")
 	
+	save_keys(setting_name, old_value)
+
+
+func save_keys(setting_name : String, old_value):
+	events.resize(0)
 	for event in InputMap.get_action_list(setting_name):
 		if event is InputEventMouseButton:
 			events.insert(0, "Mouse Button " + str(event.button_index))
-#				print("action " + str(action) + " event mouse == " + str(event.button_index))
 		elif event is InputEventJoypadButton:
 			events.insert(0, "Joypad Button " + str(event.button_index))
 		else:
@@ -137,17 +141,38 @@ func set_event(setting_name, old_value, new_value):
 			else:
 				events.insert(0, str(OS.get_scancode_string(event.scancode)))
 	
+	if old_value == null:
+		old_value = Settings._settings[setting_name][Settings._FIELD_VALUE]
+	
 	Settings._settings[setting_name][Settings._FIELD_VALUE] = events
 	Settings.emit_signal("keys_saved", setting_name, old_value, events)
 	events.resize(0)
 
 
-
 func on_setting_changed(setting_name, old_value, new_value):
-#	match setting_name:
-#		setting_key_inputs:
-#			pass
-#	pass
-	
-	if actions.has(setting_name):
+	if new_value is String and new_value == "all":
+		reset_actions()
+	elif actions.has(setting_name):
 		set_event(setting_name, old_value, new_value)
+
+
+func reset_actions():
+	for action in actions:
+		InputMap.action_erase_events(action)
+		
+		var has_invalid : bool = false
+		var events_arr = Array()
+		for event_str in GlobalSettings.keys_default[action]:
+			var event = GlobalSettings.str2event(event_str)
+			if event:
+				events_arr.push_back(event)
+			else:
+				has_invalid = true
+		if not has_invalid:
+			InputMap.action_erase_events(action)
+		for event in events_arr:
+			InputMap.action_add_event(action, event)
+		
+		save_keys(action, null)
+	
+	GlobalSettings.save_keys()

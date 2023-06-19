@@ -7,10 +7,10 @@
 [resource]
 render_priority = -5
 shader = ExtResource( 1 )
-shader_param/base = null
-shader_param/grain_strength = 0.3
+shader_param/base = Color( 0.984314, 0.619608, 0.235294, 1 )
+shader_param/grain_strength = 0.1
 shader_param/fps = 12.0
 shader_param/stretch = 0.5
-shader_param/flashing = 0.01
+shader_param/flashing = 0.001
 shader_param/grain = ExtResource( 2 )
 shader_param/vignette = ExtResource( 3 )

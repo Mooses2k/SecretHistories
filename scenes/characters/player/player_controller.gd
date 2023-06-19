@@ -564,23 +564,29 @@ func handle_inventory(delta : float):
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
+			print("Screen Flter: NONE")
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = false
 		if current_screen_filter == ScreenFilter.PIXELATE:
+			print("Screen Flter: PIXELATE")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
 		if current_screen_filter == ScreenFilter.DITHER:
+			print("Screen Flter: DITHER")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
+			print("Screen Flter: REDUCE_COLOR")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
 		# This one doesn't play well with stuff that's too dark, also we're not implementing the mesh shader yet
 		if current_screen_filter == ScreenFilter.PSX:
+			print("Screen Flter: PSX")
 			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/ps1_post_processing.tres"))
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
 			GameManager.game.level.toggle_directional_light()
 		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			print("Screen Flter: DEBUG_LIGHT")
 			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true

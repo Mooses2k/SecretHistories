@@ -103,6 +103,7 @@ var item_up = false
 # Screen filter section
 enum ScreenFilter {
 	NONE,
+	OLD_FILM,
 	PIXELATE,
 	DITHER,
 	REDUCE_COLOR,
@@ -566,23 +567,32 @@ func handle_inventory(delta : float):
 		current_screen_filter += 1
 
 		# Cycle through list of filters, starting with 0
-		if current_screen_filter > 4:   # This number should be # of filters - 1
+		if current_screen_filter > (ScreenFilter.size() - 1):   # This number should be # of filters - 1
 			current_screen_filter = 0
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
+			print("Screen Flter: NONE")
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = false
+		if current_screen_filter == ScreenFilter.OLD_FILM:
+			print("Screen Flter: OLD_FILM")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
 		if current_screen_filter == ScreenFilter.PIXELATE:
+			print("Screen Flter: PIXELATE")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
 		if current_screen_filter == ScreenFilter.DITHER:
+			print("Screen Flter: DITHER")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
+			print("Screen Flter: REDUCE_COLOR")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
 		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			print("Screen Flter: DEBUG_LIGHT")
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 

@@ -695,7 +695,7 @@ func check_current_item_animation():
 			#update this to work for items animations
 		elif inventory.hotbar[mainhand_object] is MeleeItem:
 			current_mainhand_item_animation = hold_states.MELEE_ITEM
-			print("Melee Item")
+
 
 
 func change_stamina(amount: float) -> void:

@@ -17,7 +17,6 @@ enum hold_states {
 }
 
 export var _cam_path : NodePath
-var current_mainhand_item_animation 
 onready var inventory = $"../Inventory"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 onready var _camera : ShakeCamera = get_node(_cam_path)
@@ -25,6 +24,11 @@ onready var animation_tree = $"%AnimationTree"
 
 var offhand_active = false
 var mainhand_active = false
+
+
+
+var current_mainhand_item_animation 
+var current_offhand_item_animation 
 
 func _process(delta):
 	if not $"..".is_reloading:
@@ -46,27 +50,27 @@ func check_current_item_animation():
 	if inventory.hotbar[off_hand_object].name != "empty_hand"  and inventory.hotbar[off_hand_object] != null:
 		offhand_active = true
 		if inventory.hotbar[off_hand_object] is GunItem:
-			current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM_LEFT
+			current_offhand_item_animation = hold_states.SMALL_GUN_ITEM_LEFT
 			
 		elif inventory.hotbar[off_hand_object] is EquipmentItem:
-			
 			if inventory.hotbar[off_hand_object].horizontal_holding == true:
-				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+				current_offhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
 			else:
-				current_mainhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+				current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
 			
 		elif inventory.hotbar[off_hand_object] is MeleeItem:
-			current_mainhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+			current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+			inventory.hotbar[off_hand_object].rotation_degrees.z = 90
 			
 		elif inventory.hotbar[off_hand_object] is ConsumableItem:
-			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+			current_offhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
 			
 		elif inventory.hotbar[off_hand_object] is ToolItem:
-			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+			current_offhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+			
 	else:
-		if mainhand_active == false:
-			offhand_active = false
-			animation_tree.set("parameters/Animation_State/current", 0)
+		offhand_active = false
+
 
 		# temporary hack (issue #409)
 	if not is_instance_valid(inventory.hotbar[main_hand_object]):
@@ -98,10 +102,9 @@ func check_current_item_animation():
 		elif inventory.hotbar[main_hand_object] is ToolItem:
 			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
 			
-		else:
-			if offhand_active == false:
-				mainhand_active = false
-				animation_tree.set("parameters/Animation_State/current", 0)
+	else:
+		mainhand_active = false
+
 
 
 func ads():
@@ -121,7 +124,7 @@ func ads():
 				else:
 					if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
 						_camera.fov  = lerp(_camera.fov, 60, 0.5)
-	
+
 	else:
 		if Input.is_action_just_released("main_use_secondary") and get_parent().inventory.hotbar[main_hand_item] is GunItem or owner.do_sprint == true:
 			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
@@ -133,67 +136,79 @@ func ads():
 func check_player_animation():
 	# This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree
 	if current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Weapon_states/current", 2)
 		
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+		animation_tree.set("parameters/Weapon_states/current",2)
+		adjust_arm()
+		
+
 	elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM :
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Weapon_states/current", 1)
-
-	# The tween functions make sure that the items are visible by moving the hand a bit forward
-	elif current_mainhand_item_animation == hold_states.MELEE_ITEM:
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Weapon_states/current", 0)
-		animation_tree.set("parameters/Hold_Animation/current", 0)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
-
+		
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+		animation_tree.set("parameters/Weapon_states/current",1)
 
 	elif current_mainhand_item_animation == hold_states.ITEM_VERTICAL:
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Weapon_states/current", 0)
-		animation_tree.set("parameters/Hold_Animation/current", 0)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
+		
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+		animation_tree.set("parameters/Weapon_states/current",0)
+		animation_tree.set("parameters/Hold_Animation/current",0)
+		adjust_arm()
 
 	elif current_mainhand_item_animation == hold_states.ITEM_HORIZONTAL:
-		pass
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Weapon_states/current", 0)
-		animation_tree.set("parameters/Hold_Animation/current", 1)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
+		
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+		animation_tree.set("parameters/Weapon_states/current",0)
+		animation_tree.set("parameters/Hold_Animation/current",1)
+		adjust_arm()
 
-	elif current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM_LEFT:
+	elif current_offhand_item_animation == hold_states.SMALL_GUN_ITEM_LEFT:
 		
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Hand_Transition/current", 1)
-		animation_tree.set("parameters/OffHand_Weapon_States/current", 1)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
-#		animation_tree.set("parameters/Hold_Animation/current", 1)
-	elif current_mainhand_item_animation == hold_states.ITEM_VERTICAL_LEFT:
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+		animation_tree.set("parameters/Weapon_states/current",4)
+		animation_tree.set("parameters/OffHand_Weapon_States/current",1)
+#		animation_tree.set("parameters/Hold_Animation/current",1)
+		adjust_arm()
 		
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Hand_Transition/current", 1)
-		animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
-		animation_tree.set("parameters/Offhand_Hold_Animation/current", 0)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
+	elif current_offhand_item_animation == hold_states.ITEM_VERTICAL_LEFT:
 		
-	elif current_mainhand_item_animation == hold_states.ITEM_HORIZONTAL_LEFT:
-		animation_tree.set("parameters/Animation_State/current", 1)
-		animation_tree.set("parameters/Hand_Transition/current", 1)
-		animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
-		animation_tree.set("parameters/Offhand_Hold_Animation/current", 1)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+		animation_tree.set("parameters/Weapon_states/current",4)
+		animation_tree.set("parameters/OffHand_Weapon_States/current",0)
+		animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
+		
+		adjust_arm()
+		
+	elif current_offhand_item_animation == hold_states.ITEM_HORIZONTAL_LEFT:
+		
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+		animation_tree.set("parameters/Weapon_states/current",4)
+		animation_tree.set("parameters/OffHand_Weapon_States/current",0)
+		animation_tree.set("parameters/Offhand_Hold_Animation/current",1)
+		adjust_arm()
+
+	if offhand_active == true and mainhand_active == true:
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+#		animation_tree.set("parameters/Weapon_states/current",0)
+#		animation_tree.set("parameters/Hold_Animation/current",1)
 
 
 	else:
 		animation_tree.set("parameters/Animation_State/current", 0)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
+
+func adjust_arm():
+	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+	$"%ADSTween".start()
+
 
 
 func _on_Inventory_mainhand_slot_changed(previous, current):

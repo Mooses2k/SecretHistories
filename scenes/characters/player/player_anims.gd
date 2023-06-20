@@ -23,6 +23,8 @@ onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 onready var _camera : ShakeCamera = get_node(_cam_path)
 onready var animation_tree = $"%AnimationTree"
 
+var offhand_active = false
+var mainhand_active = false
 
 func _process(delta):
 	if not $"..".is_reloading:
@@ -37,37 +39,42 @@ func _physics_process(delta):
 func check_current_item_animation():
 	
 	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
-		var main_hand_object = inventory.current_mainhand_slot
-		var off_hand_object = inventory.current_offhand_slot
+	var main_hand_object = inventory.current_mainhand_slot
+	var off_hand_object = inventory.current_offhand_slot
 
 
-		if inventory.hotbar[off_hand_object].name != "empty_hand"  and inventory.hotbar[off_hand_object] != null:
+	if inventory.hotbar[off_hand_object].name != "empty_hand"  and inventory.hotbar[off_hand_object] != null:
+		offhand_active = true
+		if inventory.hotbar[off_hand_object] is GunItem:
+			current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM_LEFT
 			
-			if inventory.hotbar[off_hand_object] is GunItem:
-				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM_LEFT
-				
-			elif inventory.hotbar[off_hand_object] is EquipmentItem:
-				
-				if inventory.hotbar[off_hand_object].horizontal_holding == true:
-					current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
-				else:
-					current_mainhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
-				
-			elif inventory.hotbar[off_hand_object] is MeleeItem:
+		elif inventory.hotbar[off_hand_object] is EquipmentItem:
+			
+			if inventory.hotbar[off_hand_object].horizontal_holding == true:
+				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+			else:
 				current_mainhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
-				
-			elif inventory.hotbar[off_hand_object] is ConsumableItem:
-				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
-				
-			elif inventory.hotbar[off_hand_object] is ToolItem:
-				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
-
+			
+		elif inventory.hotbar[off_hand_object] is MeleeItem:
+			current_mainhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+			
+		elif inventory.hotbar[off_hand_object] is ConsumableItem:
+			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+			
+		elif inventory.hotbar[off_hand_object] is ToolItem:
+			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+	else:
+		if mainhand_active == false:
+			offhand_active = false
+			animation_tree.set("parameters/Animation_State/current", 0)
 
 		# temporary hack (issue #409)
-		if not is_instance_valid(inventory.hotbar[main_hand_object]):
-			inventory.hotbar[main_hand_object] = null
-			return
+	if not is_instance_valid(inventory.hotbar[main_hand_object]):
+		inventory.hotbar[main_hand_object] = null
+		return
 
+	if inventory.hotbar[main_hand_object] != null :
+		mainhand_active = true
 		if inventory.hotbar[main_hand_object] is GunItem:
 			
 			if inventory.hotbar[main_hand_object].item_size == 0:
@@ -92,7 +99,9 @@ func check_current_item_animation():
 			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
 			
 		else:
-			animation_tree.set("parameters/Animation_State/current", 0)
+			if offhand_active == false:
+				mainhand_active = false
+				animation_tree.set("parameters/Animation_State/current", 0)
 
 
 func ads():

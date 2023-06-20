@@ -98,7 +98,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
 
 [node name="MeshInstance" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0 )
-visible = true
 mesh = null
 
 [node name="HenryPistolARM_6" type="Spatial" parent="MeshInstance" index="0"]

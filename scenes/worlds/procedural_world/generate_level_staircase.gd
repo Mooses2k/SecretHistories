@@ -62,7 +62,7 @@ func _fill_map_data(data : WorldData, gen_data : Dictionary):
 	var rooms : Array = gen_data.get(ROOM_ARRAY_KEY) as Array
 	
 	var starting_room := rooms[0] as Rect2
-	_fill_room_data(data, starting_room, data.CellType.ROOM, "starting_room")
+	_fill_room_data(data, starting_room, data.CellType.ROOM, "level_staircase")
 	data.player_spawn_position = starting_room.position + player_offset
 
 

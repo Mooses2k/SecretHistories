@@ -363,7 +363,7 @@ func get_rooms_of_type(p_type: String) -> Array:
 func get_starting_room_data() -> RoomData:
 	var value: RoomData = null
 	
-	var starting_rooms := get_rooms_of_type("starting_room")
+	var starting_rooms := get_rooms_of_type("level_staircase")
 	if rooms.empty():
 		push_error("No starting room found.")
 		return value

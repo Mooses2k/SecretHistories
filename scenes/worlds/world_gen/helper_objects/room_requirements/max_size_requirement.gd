@@ -1,6 +1,6 @@
 # Requirements for maximum size of room. Properties are expressed in single tiles.
 tool
-class_name MaxSizeRequirements
+class_name RequirementMaxSize
 extends RoomRequirements
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -27,7 +27,7 @@ var max_y_tiles := 1
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func has_requirements(room_data: RoomData) -> bool:
+func has_fulfilled_requirement(room_data: RoomData) -> bool:
 	var value := false
 	
 	value = (

@@ -1,6 +1,6 @@
 # Requirements for minimum size of room. Properties are expressed in single tiles.
 tool
-class_name MinSizeRequirements
+class_name RequirementMinSize
 extends RoomRequirements
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -27,7 +27,7 @@ var min_y_tiles := 0
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func has_requirements(room_data: RoomData) -> bool:
+func has_fulfilled_requirement(room_data: RoomData) -> bool:
 	var value := false
 	
 	value = (

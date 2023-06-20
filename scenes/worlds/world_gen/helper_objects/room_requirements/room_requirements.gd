@@ -24,7 +24,7 @@ extends Resource
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func has_requirements(room_data: RoomData) -> bool:
+func has_fulfilled_requirement(room_data: RoomData) -> bool:
 	push_warning("Calling virtual function directly, this should be overriden in child class.")
 	return false
 

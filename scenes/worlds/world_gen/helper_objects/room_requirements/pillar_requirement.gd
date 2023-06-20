@@ -1,5 +1,5 @@
 # Write your doc string for this file here
-class_name PillarRequirements
+class_name RequirementPillar
 extends RoomRequirements
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -25,7 +25,7 @@ export var should_have_pillars := true
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func has_requirements(room_data: RoomData) -> bool:
+func has_fulfilled_requirement(room_data: RoomData) -> bool:
 	var value := should_have_pillars == room_data.has_pillars
 	return value
 

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" type="Script" id=1]
+[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+min_x_tiles = 6
+min_y_tiles = 6
+
+[resource]
+script = ExtResource( 1 )
+purpose_id = "fountain_room"
+max_amount = 1
+requirements = [ SubResource( 1 ) ]

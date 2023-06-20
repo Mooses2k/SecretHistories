@@ -32,7 +32,7 @@ var _rng := RandomNumberGenerator.new()
 
 ### Private Methods -------------------------------------------------------------------------------
 
-func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
+func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
 	_rng.seed = generation_seed
 	for value in purpose_resources:
 		var purpose = value as RoomPurpose
@@ -47,11 +47,11 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		for c_value in chosen_rooms:
 			var room := c_value as RoomData
 			room.type = purpose.purpose_id
-			data.change_room_type("empty", room.type, room)
+			data.change_room_type(RoomData.OriginalPurpose.EMPTY, room.type, room)
 	
 	print("\n-- data.rooms:")
 	for key in data.rooms:
-		print("\t%s: %s"%[key, data.rooms[key].size()])
+		print("\t%s: %s"%[RoomData.OriginalPurpose.keys()[key], data.rooms[key].size()])
 	print("-- END OF data.rooms\n")
 
 ### -----------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 func _get_valid_rooms(data: WorldData, purpose: RoomPurpose) -> Array:
 	var valid_rooms := []
 	
-	var empty_rooms := data.get_rooms_of_type("empty")
+	var empty_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.EMPTY)
 	for value in empty_rooms:
 		var empty_room := value as RoomData
 		if purpose.is_compatible(empty_room):

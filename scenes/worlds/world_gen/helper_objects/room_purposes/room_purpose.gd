@@ -12,7 +12,7 @@ extends Resource
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var purpose_id := ""
+var purpose_id := ""
 
 # a value of 0 means "unlimited"
 var max_amount := 0
@@ -64,6 +64,15 @@ func is_compatible(room_data: RoomData) -> bool:
 
 func _get_property_list() -> Array:
 	var properties: = []
+	
+	var enum_hint := (RoomData.OriginalPurpose.keys() as PoolStringArray).join(",")
+	properties.append({
+		name = "purpose_id",
+		type = TYPE_INT,
+		usage = PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
+		hint = PROPERTY_HINT_ENUM,
+		hint_string = enum_hint
+	})
 	
 	properties.append({
 		name = "max_amount",

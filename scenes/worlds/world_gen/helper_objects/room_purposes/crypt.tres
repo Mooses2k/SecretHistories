@@ -21,6 +21,6 @@ should_have_pillars = false
 
 [resource]
 script = ExtResource( 1 )
-purpose_id = "crypt"
+purpose_id = "1"
 max_amount = -1
 requirements = [ SubResource( 1 ), SubResource( 3 ), SubResource( 2 ) ]

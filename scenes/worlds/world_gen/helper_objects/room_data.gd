@@ -7,11 +7,18 @@ extends Resource
 
 #--- enums ----------------------------------------------------------------------------------------
 
+enum OriginalPurpose {
+	EMPTY,
+	CRYPT,
+	FOUNTAIN,
+	LEVEL_STAIRCASE,
+}
+
 #--- constants ------------------------------------------------------------------------------------
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var type := ""
+export var type := OriginalPurpose.EMPTY
 export var rect2 := Rect2()
 export var cell_indexes: Array
 export var polygons: Array
@@ -19,7 +26,10 @@ export var has_pillars := false
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-func _init(p_type := "", p_rect2 := Rect2()) -> void:
+func _init(p_type := OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
+	var invalid_type_msg := "invalid type: %s, valid values are: %s"%[p_type, OriginalPurpose.keys()]
+	assert(p_type in OriginalPurpose.values(), invalid_type_msg)
+	
 	type = p_type
 	rect2 = p_rect2
 	cell_indexes = []

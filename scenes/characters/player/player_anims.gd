@@ -47,7 +47,7 @@ func check_current_item_animation():
 	var off_hand_object = inventory.current_offhand_slot
 
 
-	if inventory.hotbar[off_hand_object].name != "empty_hand"  and inventory.hotbar[off_hand_object] != null:
+	if inventory.hotbar[off_hand_object].name != "empty_hand"  and inventory.hotbar[off_hand_object] != null and inventory.hotbar[off_hand_object].item_state == GlobalConsts.ItemState.EQUIPPED:
 		offhand_active = true
 		if inventory.hotbar[off_hand_object] is GunItem:
 			current_offhand_item_animation = hold_states.SMALL_GUN_ITEM_LEFT
@@ -69,6 +69,10 @@ func check_current_item_animation():
 			current_offhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
 			
 	else:
+		if mainhand_active != true:
+			animation_tree.set("parameters/Hand_Transition/current",0)
+			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+		
 		offhand_active = false
 
 
@@ -77,7 +81,7 @@ func check_current_item_animation():
 		inventory.hotbar[main_hand_object] = null
 		return
 
-	if inventory.hotbar[main_hand_object] != null :
+	if inventory.hotbar[main_hand_object] != null and inventory.hotbar[main_hand_object].item_state == GlobalConsts.ItemState.EQUIPPED:
 		mainhand_active = true
 		if inventory.hotbar[main_hand_object] is GunItem:
 			
@@ -103,6 +107,10 @@ func check_current_item_animation():
 			current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
 			
 	else:
+		if offhand_active != false:
+			animation_tree.set("parameters/Hand_Transition/current",0)
+			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+			animation_tree.set("parameters/Weapon_states/current",4)
 		mainhand_active = false
 
 

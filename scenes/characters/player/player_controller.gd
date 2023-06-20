@@ -310,7 +310,7 @@ func _check_movement_key(delta):
 				if owner.noise_level < 3:
 					owner.noise_level = 3
 					noise_timer.start()
-	
+
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 		movement_press_length = 0.0
 		owner.is_to_move = false

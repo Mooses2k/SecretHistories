@@ -350,6 +350,15 @@ func get_all_rooms() -> Array:
 	return value
 
 
+func get_total_rooms_count() -> int:
+	var value := 0
+	
+	for data_array in rooms.values():
+		value += data_array.size()
+	
+	return value
+
+
 # Returns an Array of RoomData from the specified "type" 
 func get_rooms_of_type(p_type: String) -> Array:
 	var value := []

@@ -336,8 +336,22 @@ func is_spawn_position_valid() -> bool:
 func set_room(type: String, p_room_data: RoomData) -> void:
 	if not rooms.has(type):
 		rooms[type] = []
+	elif rooms[type].has(p_room_data):
+		push_warning("room data already on rooms[%s]: %s"%[type, p_room_data])
+		return
 	
 	rooms[type].append(p_room_data)
+
+
+func change_room_type(old_type: String, new_type: String, p_room_data: RoomData) -> void:
+	if not rooms.has(new_type):
+		rooms[new_type] = []
+	
+	if rooms.has(old_type) and rooms[old_type].has(p_room_data):
+		rooms[old_type].erase(p_room_data)
+	
+	if not rooms[new_type].has(p_room_data):
+		rooms[new_type].append(p_room_data)
 
 
 # Returns an Array of all RoomData

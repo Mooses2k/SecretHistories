@@ -1,5 +1,5 @@
-extends ConsumableItem
 class_name BombItem
+extends ConsumableItem
 
 
 export var radius = 5 # meters
@@ -29,23 +29,31 @@ func _use_primary():
 		countdown_timer.start()
 		$Fuse.emitting = true
 	else:
-		find_parent("Player").drop_consumable(self)  # fix this shit, won't work with non-players, should probably be a signal?
+		print("Trying to throw bomb")
+		owner_character.drop_consumable(self)
 
 
 func _on_Countdown_timeout():
+	item_max_noise_level = 80
+	noise_level = 80   # Noise detectable by characters
 	flash.get_node("FlashTimer").start()
 	flash.visible = true
 	$Effect.handle_sound()
 	$Explosion.emitting = true
 	$Shrapnel.emitting = true
 	$Fuse.emitting = false
-	$Mesh.visible = false
+	$MeshInstance.visible = false
 	$Explosion._on_Bomb_explosion()
 	countdown_started = true
-	# below lines fix crash if bomb is still in hands when explodes, this is sooooo messy, breaks in test scenes too
-	if get_parent().get_parent().get_parent().is_in_group("CHARACTER"):
-		get_parent().get_parent().get_parent().damage(bomb_damage, damage_type, get_parent().get_parent().get_parent())
-		get_parent().get_parent().get_parent().drop_consumable(self)
+	# If it blows up in hand
+	if owner_character.is_in_group("CHARACTER") and !item_state == GlobalConsts.ItemState.DROPPED:
+		print("Bomb blew up in ", owner_character, "'s hand for ", fragments / 4 * bomb_damage, " damage.")
+		owner_character.damage(fragments / 4 * bomb_damage, damage_type, owner_character)
+		owner_character.drop_consumable(self)
+	
+	# Camera shake, untested
+	if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies(owner_character):
+		owner_character.fps_camera.add_stress(0.5)   # Eventually maybe based on distance from explosion
 
 
 func _on_FlashTimer_timeout():

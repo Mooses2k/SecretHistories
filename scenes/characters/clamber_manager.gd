@@ -1,5 +1,5 @@
-extends Object
 class_name ClamberManager
+extends Object
 
 
 # Having clamber as a seperate class let's any object use the clamber function,
@@ -21,6 +21,13 @@ func _get_world():
 
 
 func attempt_clamber(is_crouching:bool, is_jumping:bool) -> Vector3:
+	var v = _test_clamber_vent()
+	
+	# If user has a bulky item, don't allow clambering, TODO: UNTESTED
+	if _user.inventory.has_bulky_item():
+		print("Trying to clamber with a bulky item - this should not work.")
+		return Vector3.ZERO
+	
 #	if _camera.rotation_degrees.x < 20.0:
 #		var v = _test_clamber_vent()
 #		if v != Vector3.ZERO:
@@ -37,7 +44,6 @@ func attempt_clamber(is_crouching:bool, is_jumping:bool) -> Vector3:
 #			return v
 #	return Vector3.ZERO
 	
-	var v = _test_clamber_vent()
 	if v == Vector3.ZERO:
 		v = _test_clamber_ledge()
 		if v == Vector3.ZERO:

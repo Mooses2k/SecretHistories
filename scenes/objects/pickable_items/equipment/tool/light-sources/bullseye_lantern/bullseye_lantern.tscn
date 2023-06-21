@@ -119,13 +119,12 @@ extents = Vector3( 0.08, 0.08, 0.08 )
 
 [node name="BullseyeLantern" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
-mass = 0.2
 contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 7 )
 item_name = "Bullseye Lantern"
 is_oil_based = true
-life_percentage_lose = 0.1
+life_percentage_lose = 0.5
 prob_going_out = 0.5
 
 [node name="MeshInstance" parent="." index="0"]

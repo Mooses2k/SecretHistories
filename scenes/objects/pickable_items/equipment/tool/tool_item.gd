@@ -1,2 +1,2 @@
-extends EquipmentItem;
 class_name ToolItem
+extends EquipmentItem

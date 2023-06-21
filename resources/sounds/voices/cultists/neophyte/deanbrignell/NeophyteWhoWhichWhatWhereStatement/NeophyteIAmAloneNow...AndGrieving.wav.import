@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteIAmAloneNow...AndGrieving.wav-9b229d2b1220f729fc3f5c37157d339b.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteIAmAloneNow...AndGrieving.wav"
+dest_files=[ "res://.import/NeophyteIAmAloneNow...AndGrieving.wav-9b229d2b1220f729fc3f5c37157d339b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

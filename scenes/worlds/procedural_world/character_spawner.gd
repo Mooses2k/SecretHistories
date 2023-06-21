@@ -1,9 +1,6 @@
-tool
-extends Node
 class_name CharacterSpawner
+extends Node
 
-
-export var character_scene : PackedScene
 
 # Represents the possible character loadouts, with the following structure:
 # Loadout:
@@ -42,17 +39,12 @@ export var character_scene : PackedScene
 #
 export(Array, Dictionary) var character_loadout : Array
 
-export var max_count = 5
-
 var data : WorldData
 
 onready var characters_root = Node.new()
 
-var _density_by_type := {
-	WorldData.CellType.ROOM: 0.005,
-	WorldData.CellType.CORRIDOR: 0.0025,
-	WorldData.CellType.HALL: 0,
-}
+var _rng := RandomNumberGenerator.new()
+
 var _total_weights_by_set := []
 
 
@@ -74,32 +66,16 @@ func _ready():
 func spawn_characters():
 	for child in characters_root.get_children():
 		child.queue_free()
-	var count = 0
+	
 	print("Spawning characters")
+	var characters_by_index := data.get_characters_to_spawn()
+	for cell_index in characters_by_index:
+		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
+		var cell_coordinates := data.get_local_cell_position(cell_index)   # var never used
+		var character := spawn_data.spawn_character_in(characters_root)
+		_set_random_loadout(character)
 	
-	var valid_cells := []
-	for type in _density_by_type.keys():
-		valid_cells.append_array(data.get_cells_for(type))
-	valid_cells.sort()
-	
-	for cell_index in valid_cells:
-		if count >= max_count:
-			break
-		
-		var cell_type = data.get_cell_type(64)
-		if randf() < _density_by_type[cell_type]:
-			count += 1
-			_spawn_character_at(64)
-	
-	print("Total Characters Spawned: %s"%[count])
-
-
-func _spawn_character_at(cell_index: int) -> void:
-	var character = character_scene.instance() as Spatial
-	var cell_coordinates := data.get_local_cell_position(cell_index)
-	character.translation = cell_coordinates
-	characters_root.add_child(character)
-	_set_random_loadout(character)
+	print("Total Characters Spawned: %s"%[characters_by_index.size()])
 
 
 func _set_random_loadout(character: Spatial) -> void:
@@ -115,7 +91,7 @@ func _set_random_loadout(character: Spatial) -> void:
 			var max_amount := chosen_pack[item].y as int
 			var amount = min_amount
 			if max_amount > min_amount:
-				amount = randi() % (max_amount - min_amount) +  min_amount
+				amount = _rng.randi() % (max_amount - min_amount) +  min_amount
 			
 			if item is TinyItemData:
 				if not inventory.tiny_items.has(item):
@@ -137,7 +113,7 @@ func _set_random_loadout(character: Spatial) -> void:
 func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 	var value := {}
 	
-	var rng = randi()%total_weight
+	var rng = _rng.randi()%total_weight
 	var cummulative_weight = 0
 	for pack in (character_loadout[set_index] as Dictionary).keys():
 		cummulative_weight += character_loadout[set_index][pack]
@@ -149,82 +125,9 @@ func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 
 
 func _on_ProceduralWorld_generation_finished():
+	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
+	if setting_generation_seed is int:
+		_rng.seed = setting_generation_seed
+	
 	data = owner.world_data
 	call_deferred("spawn_characters")
-
-###################################################################################################
-### Editor Code ###################################################################################
-###################################################################################################
-
-const GROUP_PREFIX_DENSITY = "density_"
-const PERCENT_CONVERSION = 100.0
-
-func _get_property_list() -> Array:
-	var properties := [
-		{
-			name = "_density_by_type",
-			type = TYPE_DICTIONARY,
-			usage = PROPERTY_USAGE_STORAGE,
-		},
-		{
-			name = "Density by Cell Type",
-			type = TYPE_NIL,
-			usage = PROPERTY_USAGE_GROUP,
-			hint_string = GROUP_PREFIX_DENSITY
-		},
-	]
-	
-	for type in ["room", "corridor", "hall"]:
-		properties.append({
-			name = GROUP_PREFIX_DENSITY + type,
-			type = TYPE_REAL,
-			usage = PROPERTY_USAGE_EDITOR,
-			hint = PROPERTY_HINT_RANGE,
-			hint_string = "0.0,100.0,0.05"
-		})
-	
-	return properties
-
-
-func _get(property: String):
-	var value
-	
-	if property.begins_with(GROUP_PREFIX_DENSITY):
-		var type := property.replace(GROUP_PREFIX_DENSITY, "")
-		match type:
-			"room":
-				value = _density_by_type[WorldData.CellType.ROOM] * PERCENT_CONVERSION
-			"corridor":
-				value = _density_by_type[WorldData.CellType.CORRIDOR] * PERCENT_CONVERSION
-			"hall":
-				value = _density_by_type[WorldData.CellType.HALL] * PERCENT_CONVERSION
-			_:
-				push_error("Unindentified density type: %s"%[type])
-	
-	return value
-
-
-func _set(property: String, value) -> bool:
-	var has_handled = false
-	
-	if property.begins_with(GROUP_PREFIX_DENSITY):
-		var type := property.replace(GROUP_PREFIX_DENSITY, "")
-		var index := -1
-		match type:
-			"room":
-				index = WorldData.CellType.ROOM
-			"corridor":
-				index = WorldData.CellType.CORRIDOR
-			"hall":
-				index = WorldData.CellType.HALL
-			_:
-				push_error("Unindentified density type: %s"%[type])
-		
-		if index > -1:
-			var final_value = value / PERCENT_CONVERSION
-			_density_by_type[index] = final_value
-			has_handled = true
-	
-	return has_handled
-
-### END of Editor Code ############################################################################

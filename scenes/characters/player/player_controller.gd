@@ -45,7 +45,6 @@ enum ThrowState {
 	SHOULD_THROW,
 }
 
-export var speed : float = 0.5
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
@@ -54,7 +53,6 @@ export var interact_distance : float = 0.75
 export var lock_mouse : bool = true
 export var head_bob_enabled : bool = true
 
-var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
 var _bob_time : float = 0.0
 var _clamber_m = null
@@ -105,6 +103,7 @@ var item_up = false
 # Screen filter section
 enum ScreenFilter {
 	NONE,
+	OLD_FILM,
 	PIXELATE,
 	DITHER,
 	REDUCE_COLOR,
@@ -115,6 +114,8 @@ var current_screen_filter : int = ScreenFilter.NONE
 #export var dither_material : Material
 #export var reduce_color_material : Material
 
+onready var noise_timer = $"../Audio/NoiseTimer"
+
 
 func _ready():
 	owner.is_to_move = false
@@ -122,17 +123,16 @@ func _ready():
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-
+	
 	active_mode.set_deferred("is_active", true)
-
+	
 	$"../FPSCamera/ScreenFilter".visible = false
 
 
 func _physics_process(delta : float):
 	_camera.rotation_degrees = _camera_orig_rotation
-	owner.noise_level = 0
 
-	active_mode.update()
+	active_mode.update(delta)   # added delta when doing programming recoil
 	movement_basis = active_mode.get_movement_basis()
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
@@ -239,18 +239,11 @@ func _input(event):
 
 		owner.rotation_degrees.y -= event.relative.x * GlobalSettings.mouse_sensitivity * m
 
-		if owner.state != owner.State.STATE_CRAWLING:
-			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
-			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
+#		if owner.state != owner.State.STATE_CRAWLING:
+#			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
+#			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 
 		_camera._camera_rotation_reset = _camera.rotation_degrees
-
-
-func _on_player_landed():
-	if !owner.is_crouching:
-		owner.noise_level = 8
-	else:
-		owner.noise_level = 3
 
 
 func _walk(delta) -> void:
@@ -270,11 +263,15 @@ func _walk(delta) -> void:
 	move_dir.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 	move_dir.z = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 	character.character_state.move_direction = move_dir.normalized()
+
 	if Input.is_action_pressed("sprint"):
 		owner.do_sprint = true
 	else:
 		owner.do_sprint = false
-	HUDS.tired(owner.stamina);
+	HUDS.tired(owner.stamina)
+	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
 
 	if Input.is_action_just_released("move_right"):
 		is_movement_key1_held = false
@@ -288,11 +285,7 @@ func _walk(delta) -> void:
 	
 	_check_movement_key(delta)
 
-#	if owner.is_on_floor() and _jumping and _camera.stress < 0.1:
-#		_audio_player.play_land_sound()
-##		_camera.add_stress(0.25)
-
-	if Input.is_action_just_pressed("clamber"):
+	if Input.is_action_just_pressed("jump"):
 		owner.do_jump = true
 
 	if head_bob_enabled and owner.grounded and owner.state == owner.State.STATE_WALKING:
@@ -305,12 +298,18 @@ func _check_movement_key(delta):
 		if movement_press_length >= 0.25:
 			owner.is_to_move = true
 			if !owner.is_crouching:
-				if owner.do_sprint:
-					owner.noise_level = 8
+				if owner.do_sprint and is_movement_key4_held == true:   # Only if sprinting forward
+					if owner.noise_level < 10 + (character.inventory.encumbrance):
+						owner.noise_level = 10 + (character.inventory.encumbrance)
+						noise_timer.start()
 				else:
-					owner.noise_level = 5
+					if owner.noise_level < 5 + (character.inventory.encumbrance):
+						owner.noise_level = 5 + (character.inventory.encumbrance)
+						noise_timer.start()
 			else:
-				owner.noise_level = 3
+				if owner.noise_level < 3 + (character.inventory.encumbrance):
+					owner.noise_level = 3 + (character.inventory.encumbrance)
+					noise_timer.start()
 	
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 		movement_press_length = 0.0
@@ -323,10 +322,12 @@ func _head_bob(delta : float) -> void:
 		_camera.global_transform.origin = owner.global_transform.origin + br
 
 	_bob_time += delta
-	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (speed / 1000.0)
-	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (0.5 / 1000.0)
 	_camera.global_transform.origin.y += y_bob
-	_camera.rotation_degrees.z = z_bob
+
+	# Removed since it's not good to do head rotation unless take camera control away from player (simulation sickness)
+#	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+#	_camera.rotation_degrees.z = z_bob
 
 
 func _crouch() -> void:
@@ -392,6 +393,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 
+	# These are debug indicators for intitial and current grab points
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
@@ -413,13 +415,14 @@ func handle_grab(delta : float):
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 
-		# Some visualization stuff
+		# Some debug visualization stuff for grabbing
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
 		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
 			is_grabbing = false
 			interaction_handled = true
-		#local velocity of the object at the grabbing point, used to cancel the objects movement
+		
+		# Local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
@@ -467,93 +470,96 @@ func update_throw_state(delta : float):
 
 
 func empty_slot():
-	var inv = character.inventory
-	if inv.hotbar != null:
-		var gun = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
-		if  !inv.hotbar.has(10):
-			inv.hotbar[10] = gun
+	if character.inventory.hotbar != null and not is_instance_valid(character.inventory.hotbar[10]):
+		var empty_hand = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
+		character.inventory.hotbar[10] = empty_hand
 
 
-func throw_consumable():
-		var inv = character.inventory
-		var item : EquipmentItem = null
-		if throw_item == ItemSelection.ITEM_MAINHAND:
-			item = inv.get_mainhand_item()
-			inv.drop_mainhand_item()
-		else:
-			item = inv.get_offhand_item()
-			inv.drop_offhand_item()
-		if item:
-			var impulse = active_mode.get_aim_direction()*throw_strength
-			# At this point, the item is still equipped, so we wait until
-			# it exits the tree and is re inserted in the world
-			item.apply_central_impulse(impulse)
+func throw_consumable(item):
+#	var item : EquipmentItem = null
+	if throw_item == ItemSelection.ITEM_MAINHAND:
+#		item = character.inventory.get_mainhand_item()
+		character.inventory.drop_mainhand_item()
+	else:
+#		item = character.inventory.get_offhand_item()
+		character.inventory.drop_offhand_item()
+	if item:
+		var impulse = active_mode.get_aim_direction() * throw_strength
+		# At this point, the item is still equipped, so we wait until
+		# it exits the tree and is re inserted in the world
+		item.apply_central_impulse(impulse)
 
 
 func handle_inventory(delta : float):
-	var inv = character.inventory
-
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
-		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false  :
-			if i != inv.current_offhand_slot :
+		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
+			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
+			if i != character.inventory.current_offhand_slot and i != 10:
 				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
-				inv.current_mainhand_slot = i
+				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 				owner.change_equipment_in(true)
 
-	# Offhand slot selection
+	# Off-hand slot selection
 	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:
-		var start_slot = inv.current_offhand_slot
-		var new_slot = (start_slot + 1)%inv.hotbar.size()
+		var start_slot = character.inventory.current_offhand_slot
+		var new_slot = (start_slot + 1) % character.inventory.hotbar.size()
 		while new_slot != start_slot \
 			and (
-					(
-						inv.hotbar[new_slot] != null \
-						and inv.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
-					)\
-					or new_slot == inv.current_mainhand_slot \
-					or inv.hotbar[new_slot] == null \
+				(
+					character.inventory.hotbar[new_slot] != null \
+					and character.inventory.hotbar[new_slot].item_size != GlobalConsts.ItemSize.SIZE_SMALL\
+				)\
+				or new_slot == character.inventory.current_mainhand_slot \
+				or character.inventory.hotbar[new_slot] == null \
 				):
 
-				new_slot = (new_slot + 1)%inv.hotbar.size()
+				new_slot = (new_slot + 1) % character.inventory.hotbar.size()
 		if start_slot != new_slot:
 			owner.change_equipment_out(false)
 			yield(owner, "change_off_equipment_out_done")
-			inv.current_offhand_slot = new_slot
+			character.inventory.current_offhand_slot = new_slot
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
 			owner.change_equipment_in(false)
 
 	if Input.is_action_just_pressed("hotbar_11"):
-		if inv.current_offhand_slot != 10:
-			inv.current_offhand_slot = 10
+		if character.inventory.current_offhand_slot != 10:
+			character.inventory.current_offhand_slot = 10
 
 	# Item Usage
 	# temporary hack (issue #409)
-	if is_instance_valid(inv.get_mainhand_item()):
+	if is_instance_valid(character.inventory.get_mainhand_item()):
+		
+#		# Recoil
+#		if inv.get_mainhand_item() is GunItem and !inv.get_mainhand_item().on_cooldown:
+#			active_mode.up_recoil = 0
+#		if inv.get_offhand_item() is GunItem and !inv.get_offhand_item().on_cooldown:
+#			active_mode.up_recoil = 0
+			
 		if Input.is_action_just_pressed("main_use_primary"):
-			if inv.get_mainhand_item():
-				inv.get_mainhand_item().use_primary()
+			if character.inventory.get_mainhand_item():
+				character.inventory.get_mainhand_item().use_primary()
 				throw_state = ThrowState.IDLE
 
 		if Input.is_action_just_pressed("main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
-			if inv.get_mainhand_item() and interaction_target == null:
-				inv.get_mainhand_item().use_secondary()
+			if character.inventory.get_mainhand_item() and interaction_target == null:
+				character.inventory.get_mainhand_item().use_secondary()
 				throw_state = ThrowState.IDLE
 
 		if Input.is_action_just_pressed("reload"):
-			if inv.get_mainhand_item():
-				inv.get_mainhand_item().use_reload()
+			if character.inventory.get_mainhand_item():
+				character.inventory.get_mainhand_item().use_reload()
 				throw_state = ThrowState.IDLE
 
-		if Input.is_action_just_pressed("offhand_use"):
-			if inv.get_offhand_item():
-				inv.get_offhand_item().use_primary()
-				throw_state = ThrowState.IDLE
+	if Input.is_action_just_pressed("offhand_use"):
+		if character.inventory.get_offhand_item():
+			character.inventory.get_offhand_item().use_primary()
+			throw_state = ThrowState.IDLE
 
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("change_screen_filter"):
@@ -561,28 +567,43 @@ func handle_inventory(delta : float):
 		current_screen_filter += 1
 
 		# Cycle through list of filters, starting with 0
-		if current_screen_filter > 4:   # This number should be # of filters - 1
-				current_screen_filter = 0
+		if current_screen_filter > (ScreenFilter.size() - 1):   # This number should be # of filters - 1
+			current_screen_filter = 0
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
+			print("Screen Flter: NONE")
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = false
+		if current_screen_filter == ScreenFilter.OLD_FILM:
+			print("Screen Flter: OLD_FILM")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
 		if current_screen_filter == ScreenFilter.PIXELATE:
+			print("Screen Flter: PIXELATE")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
 		if current_screen_filter == ScreenFilter.DITHER:
+			print("Screen Flter: DITHER")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
+			print("Screen Flter: REDUCE_COLOR")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
 		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			print("Screen Flter: DEBUG_LIGHT")
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 
+	# Zoom in/out like binoculars or spyglass
+	if Input.is_action_just_pressed("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_ZOOM
+	if Input.is_action_just_released("binocs_spyglass"):
+		_camera.state = _camera.CameraState.STATE_NORMAL
+		
 	if throw_state == ThrowState.SHOULD_PLACE:
-		var item : EquipmentItem = inv.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else inv.get_offhand_item()
+		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		if item:
 			# Calculates where to place the item
 			var origin : Vector3 = owner.drop_position_node.global_transform.origin
@@ -600,19 +621,19 @@ func handle_inventory(delta : float):
 			item.collision_mask = mask
 			if result.motion.length() > 0.1:
 				if throw_item == ItemSelection.ITEM_MAINHAND:
-					inv.drop_mainhand_item()
+					character.inventory.drop_mainhand_item()
 				else:
-					inv.drop_offhand_item()
+					character.inventory.drop_offhand_item()
 				item.call_deferred("global_translate", result.motion)
 
 	elif throw_state == ThrowState.SHOULD_THROW:
 		var item : EquipmentItem = null
 		if throw_item == ItemSelection.ITEM_MAINHAND:
-			item = inv.get_mainhand_item()
-			inv.drop_mainhand_item()
+			item = character.inventory.get_mainhand_item()
+			character.inventory.drop_mainhand_item()
 		else:
-			item = inv.get_offhand_item()
-			inv.drop_offhand_item()
+			item = character.inventory.get_offhand_item()
+			character.inventory.drop_offhand_item()
 		if item:
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
@@ -628,7 +649,7 @@ func handle_inventory(delta : float):
 
 	if Input.is_action_just_released("interact") or Input.is_action_just_released("main_use_secondary") and not (wanna_grab or is_grabbing or interaction_handled):
 		if interaction_target != null:
-			if interaction_target is PickableItem and character.inventory.current_mainhand_slot != 10:
+			if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
 				character.inventory.add_item(interaction_target)
 				interaction_target = null
 			elif interaction_target is Interactable:
@@ -637,23 +658,31 @@ func handle_inventory(delta : float):
 
 func kick():
 	var kick_object = legcast.get_collider()
-
-	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-		if is_grabbing == false:
+	
+	print(character.kick_timer.get_time_left())
+	if character.kick_timer.is_stopped():
+		
+		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+			if is_grabbing == false:
+				if Input.is_action_just_pressed("kick"):
+					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
+					character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 			if Input.is_action_just_pressed("kick"):
-				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-
-	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-		if Input.is_action_just_pressed("kick"):
-			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-
-	elif legcast.is_colliding() and kick_object is RigidBody:
-		if Input.is_action_just_pressed("kick"):
-			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
+				character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if Input.is_action_just_pressed("kick"):
+				if kick_object is Area:
+					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
+				character.kick_timer.start(1)
 
 
 func drop_grabbable():
-	# when the drop button or keys are pressed , grabable objects are released
+	# When the drop button or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("main_throw") or Input.is_action_just_pressed("offhand_throw") and is_grabbing == true:
 		wants_to_drop = true
 		if grab_object != null :
@@ -684,3 +713,20 @@ func next_item():
 	elif  Input.is_action_just_pressed("next_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
+
+
+func _on_Player_player_landed():
+	if !owner.is_crouching:
+		if owner.noise_level < 8 + (character.inventory.encumbrance):
+			owner.noise_level = 8 + (character.inventory.encumbrance)
+			noise_timer.start()
+	else:
+		if owner.noise_level < 5 + (character.inventory.encumbrance):
+			owner.noise_level = 5 + (character.inventory.encumbrance)
+			noise_timer.start()
+
+
+func _on_NoiseTimer_timeout():
+	# The only reset of noise_level - should probably go in character
+	# This is here instead of _process because instant sounds like jump won't get caught by sensors otherwise
+	owner.noise_level = 0

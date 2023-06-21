@@ -5,6 +5,5 @@
 
 [node name="ConsumableItem" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-dropped_layers = 0
-dropped_mask = 0
-equipped_mode = 0
+item_size = 0
+item_name = "Consumable"

@@ -1,5 +1,5 @@
-extends MeshInstance
 class_name VisibilityMask
+extends MeshInstance
 
 
 export var wall_height : float = 16.0
@@ -28,7 +28,7 @@ func _ready():
 		printerr("Visibility mask should be a child of a GameWorld node")
 		queue_free()
 
-	var texture = viewport.get_texture();
+	var texture = viewport.get_texture()
 	texture.flags = Texture.FLAG_FILTER
 	(self.material_override as ShaderMaterial).set_shader_param("data_texture", texture)
 

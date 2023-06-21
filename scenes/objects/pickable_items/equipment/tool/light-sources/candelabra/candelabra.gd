@@ -1,10 +1,10 @@
-extends ToolItem
 class_name CandelabraItem
+extends ToolItem
 
+### Eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...not that you'd ever care to do that
 
-# eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...not that you'd ever care to do that
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candle,gd
 
-# function this out better, lots of duplicated lines
 
 signal item_is_dropped
 var burn_time : float
@@ -25,17 +25,18 @@ onready var firelight = $Candle1/FireOrigin/Fire/Light
 var is_lit = true
 var burn_time_2 = 0.0
 var burn_time_3 = 0.0
-var light_timer_base
-var light_timer_2
-var light_timer_3
+onready var light_timer_base : Node = $Timer
+#onready var light_timer_2 : Node = $Timer2   # Doing these in _ready avoids a red debugger error
+#onready var light_timer_3 : Node = $Timer3
 var is_depleted_2 : bool = false
 var is_depleted_3 : bool = false
 var random_number_2_3
 
+export var number_of_candles : int = 1
+
 
 func _ready():
 	light_timer = $Timer
-	print(light_timer)
 	if light_timer == null:
 		print(self.name)
 	self.connect("item_is_dropped", self, "light_dropped") # this current fails, is bugged
@@ -44,11 +45,17 @@ func _ready():
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
 	
-	if $Candle3 != null:
-		light_timer_2 = $Timer2
+	material = $Candle1/MeshInstance.get_surface_material(0)
+	new_material = material.duplicate()
+	$Candle1/MeshInstance.set_surface_material(0,new_material)
+
+	if number_of_candles > 1:   # TODO: Switch other parts of this script to use this to avoid red debug errors
+		$Candle2/MeshInstance.set_surface_material(0,new_material)
+		$Candle3/MeshInstance.set_surface_material(0,new_material)
+		var light_timer_2 = $Timer2
 		light_timer_2.connect("timeout", self, "light_depleted_2")
 		
-		light_timer_3 = $Timer3
+		var light_timer_3 = $Timer3
 		light_timer_3.connect("timeout", self, "light_depleted_3")
 		
 		burn_time_2 = burn_time
@@ -59,39 +66,6 @@ func _ready():
 		light_timer_3.set_wait_time(burn_time_3)
 		light_timer_3.start()
 	
-	material = $Candle1/MeshInstance.get_surface_material(0)
-	new_material = material.duplicate()
-	$Candle1/MeshInstance.set_surface_material(0,new_material)
-	if $Candle2 != null:
-		$Candle2/MeshInstance.set_surface_material(0,new_material)
-	if $Candle3 != null:
-		$Candle3/MeshInstance.set_surface_material(0,new_material)
-
-
-#func _process(delta):
-##	if is_lit == true:
-##		light_timer.pause_mode = false
-##	else:
-##		light_timer.pause_mode = true
-#
-#	print(light_timer.time_left)
-#	if self.mode == equipped_mode and has_ever_been_on == false:
-#			burn_time.start()
-#			has_ever_been_on = true
-##			firelight.visible = not firelight.visible
-#			$AnimationPlayer.play("flicker")
-##			$Candle1/FireOrigin/Fire.visible = true
-###			$Candle1/MeshInstance.emission_enabled = true
-##			if $Candle2 != null:
-##				$Candle2/FireOrigin/Fire.visible = true
-##			if $Candle3 != null:
-##				$Candle3/FireOrigin/Fire.visible = true
-##			firelight.visible = true
-##			$MeshInstance.cast_shadow = false
-#			is_lit = true
-#	else:
-#		is_lit = false
-
 
 func light():
 	if not is_depleted:
@@ -100,16 +74,6 @@ func light():
 		$Candle1/FireOrigin/Fire.visible = not $Candle1/FireOrigin/Fire.visible
 		$Candle1/MeshInstance.cast_shadow = false
 		$Candle1/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle1/MeshInstance.get_surface_material(0).emission_enabled
-		
-		if $Candle2 != null and not is_depleted_2:
-			$Candle2/FireOrigin/Fire.visible = not $Candle2/FireOrigin/Fire.visible
-			$Candle2/MeshInstance.cast_shadow = false
-			$Candle2/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle2/MeshInstance.get_surface_material(0).emission_enabled
-		
-		if $Candle3 != null and not is_depleted_3:
-			$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
-			$Candle3/MeshInstance.cast_shadow = false
-			$Candle3/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle3/MeshInstance.get_surface_material(0).emission_enabled
 		firelight.visible = true
 		$MeshInstance.cast_shadow = false
 		
@@ -117,18 +81,29 @@ func light():
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()
 		
-		if $Candle3 != null:
-			light_timer_2.set_wait_time(burn_time_2)
-			light_timer_2.start()
-			light_timer_3.set_wait_time(burn_time_3)
-			light_timer_3.start()
+		if number_of_candles > 1:
+			var light_timer_2 = $Timer2
+			var light_timer_3 = $Timer3
+			if $Candle2 != null and not is_depleted_2:
+				$Candle2/FireOrigin/Fire.visible = not $Candle2/FireOrigin/Fire.visible
+				$Candle2/MeshInstance.cast_shadow = false
+				$Candle2/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle2/MeshInstance.get_surface_material(0).emission_enabled
+			
+			if $Candle3 != null and not is_depleted_3:
+				$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
+				$Candle3/MeshInstance.cast_shadow = false
+				$Candle3/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle3/MeshInstance.get_surface_material(0).emission_enabled
+
+			if $Candle3 != null:
+				light_timer_2.set_wait_time(burn_time_2)
+				light_timer_2.start()
+				light_timer_3.set_wait_time(burn_time_3)
+				light_timer_3.start()
 
 
 func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		if !is_dropped:
-			$BlowOutSound.play()
 		$Candle1/MeshInstance.get_surface_material(0).emission_enabled = false
 		$Candle1/FireOrigin/Fire.visible = false
 		$Candle1/MeshInstance.cast_shadow = true
@@ -155,6 +130,7 @@ func _use_primary():
 		light()
 	else:
 		unlight()
+		$BlowOutSound.play()
 
 
 func _item_state_changed(previous_state, current_state):
@@ -163,15 +139,17 @@ func _item_state_changed(previous_state, current_state):
 
 
 func switch_away():
-	pass
+	unlight()
 
 
 func stop_light_timer_2():
+	var light_timer_2 = $Timer2
 	burn_time_2 = light_timer_2.get_time_left()
 	light_timer_2.stop()
 
 
 func stop_light_timer_3():
+	var light_timer_3 = $Timer3
 	burn_time_3 = light_timer_3.get_time_left()
 	light_timer_3.stop()
 
@@ -204,7 +182,9 @@ func unlight_candle_3():
 
 func light_dropped():
 	print("light_dropped called")
-	if $Candle3 != null:
+	if number_of_candles > 1:
+		var light_timer_2 = $Timer2
+		var light_timer_3 = $Timer3
 		stop_light_timer_2()
 		stop_light_timer_3()
 	
@@ -235,7 +215,6 @@ func stop_light_timer():
 	light_timer.stop()
 
 
-# currently not working to put out light when thrown
 func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)

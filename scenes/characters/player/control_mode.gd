@@ -1,5 +1,5 @@
-extends Node
 class_name ControlMode
+extends Node
 
 
 export var _camera : NodePath
@@ -18,7 +18,7 @@ func set_active(value : bool):
 	set_process_input(value)
 
 
-func update():
+func update(delta):   # added delta when programming recoil
 	pass
 
 

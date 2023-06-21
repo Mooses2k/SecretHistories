@@ -1,7 +1,7 @@
 extends Node
 
 
-signal scene_loaded
+signal scene_loaded   # Ignore yellow editor message; we need this
 
 const LOADSCREEN = preload("res://scenes/UI/loadscreen/load_screen.tscn")
 var loadscreen : Node

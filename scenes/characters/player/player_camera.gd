@@ -1,6 +1,5 @@
-extends Camera
 class_name ShakeCamera
-
+extends Camera
 
 
 enum CameraState {
@@ -8,21 +7,22 @@ enum CameraState {
 	STATE_ZOOM
 }
 
-export var maxYaw : float = 25.0
-export var maxPitch : float = 25.0
-export var maxRoll : float = 25.0
+export var max_yaw : float = 25.0
+export var max_pitch : float = 25.0
+export var max_roll : float = 25.0
 export var shakeReduction : float = 1.0
 
 export(int, 1, 179) var normal_fov : int = 70
 export(int, 1, 179) var zoom_fov : int = 30
 export(float, 0.1, 1.0, 0.05) var zoom_camera_sens_mod = 0.25
+var mod = 1.0
 
 var stress : float = 0.0
 var shake : float = 0.0
 var state = CameraState.STATE_NORMAL
 
 var _camera_rotation_reset : Vector3 = Vector3()
-var _crosshair_textures : Dictionary = {}
+#var _crosshair_textures : Dictionary = {}
 
 
 # TODO: Add in some sort of rotation reset.
@@ -30,11 +30,6 @@ func _physics_process(_delta):
 	if stress == 0.0:
 		_camera_rotation_reset = rotation_degrees
 
-#	rotation_degrees = _process_shake(_camera_rotation_reset, _delta)
-
-
-func _process_shake(angle_center : Vector3, delta : float) -> Vector3:
-	var mod = 1.0
 	if state == CameraState.STATE_ZOOM:
 		mod = zoom_camera_sens_mod
 		fov = lerp(fov, zoom_fov, 0.25)
@@ -43,17 +38,22 @@ func _process_shake(angle_center : Vector3, delta : float) -> Vector3:
 		fov = lerp(fov, normal_fov, 0.1)
 #		zoom_overlay.visible = false
 
+	# Should be optional since can bug some people
+	rotation_degrees = _process_shake(_camera_rotation_reset, _delta)
+
+
+func _process_shake(angle_center : Vector3, delta : float) -> Vector3:
 	shake = stress * stress
 
 	stress -= (shakeReduction / 100.0)
 	stress = clamp(stress, 0.0, 1.0)
 
-	var newRotate = Vector3()
-	newRotate.x = maxYaw * mod * shake * _get_noise(randi(), delta)
-	newRotate.y = maxPitch * mod  * shake * _get_noise(randi(), delta + 1.0)
-	newRotate.z = maxRoll * mod * shake * _get_noise(randi(), delta + 2.0)
+	var new_rotate = Vector3()
+	new_rotate.x = max_yaw * mod * shake * _get_noise(randi(), delta)
+	new_rotate.y = max_pitch * mod  * shake * _get_noise(randi(), delta + 1.0)
+	new_rotate.z = max_roll * mod * shake * _get_noise(randi(), delta + 2.0)
 
-	return angle_center + newRotate
+	return angle_center + new_rotate
 
 
 func _get_noise(noise_seed : float, time : float) -> float:

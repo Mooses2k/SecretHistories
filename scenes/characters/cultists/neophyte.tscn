@@ -41,6 +41,7 @@ shape = SubResource( 6 )
 
 [node name="MainHandEquipmentRoot" parent="." index="3"]
 unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BehaviorTree" type="Node" parent="." index="5"]
 script = ExtResource( 6 )
@@ -148,8 +149,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 [node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
+[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
+bones/137/bound_children = [ NodePath("MainHandAttachment") ]
+
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.82014, 0.560886, 0.114588, -0.0145037, -0.220466, 0.975331, 0.572294, 0.798236, 0.188868, -0.103657, 15.1075, 2.96151 )
+transform = Transform( -0.822186, 0.557957, 0.11429, -0.0132572, -0.219374, 0.975596, 0.569394, 0.800595, 0.187679, -0.114895, 15.1118, 2.96542 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

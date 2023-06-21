@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" type="AudioStream" id=2]
@@ -65,6 +65,45 @@ bind/4/name = "BreakLatch"
 bind/4/bone = -1
 bind/4/pose = Transform( -6.37646e-05, -1.19916e-07, -1, -0.980782, -0.195106, 6.24604e-05, -0.195106, 0.980782, 1.23037e-05, -6.29214e-06, -0.0819429, -0.0958337 )
 
+[sub_resource type="Animation" id=1]
+resource_name = "Reload"
+length = 4.53333
+tracks/0/type = "transform"
+tracks/0/path = NodePath("DoubleBarrel_Arm/Skeleton:BarrelBreak")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -1.3411e-07, -8.9407e-08, -6.10956e-08, -1.15463e-14, -1.72054e-22, 1.49012e-08, 1, 1, 1, 1, 0.533333, 1, -3.35276e-08, -8.9407e-08, -6.10955e-08, -1.86518e-14, -2.77933e-22, 1.49012e-08, 1, 1, 1, 1, 0.6, 1, -4.09782e-08, -2.98023e-08, -6.10955e-08, -7.99823e-15, -2.72731e-14, -0.281413, 0.959587, 1, 1, 1, 0.666667, 1, 1.04308e-07, 2.98023e-08, 5.8114e-08, -1.55086e-13, -5.84235e-14, -0.621066, 0.783758, 1, 1, 1, 0.733333, 1, -1.11759e-08, 1.19209e-07, -6.10954e-08, -3.17505e-14, -3.82854e-14, -0.638356, 0.769741, 1, 1, 1, 3.33333, 1, 4.84288e-08, 5.96046e-08, -1.80305e-07, -1.97464e-14, -1.12857e-13, -0.638356, 0.769741, 1, 1, 1, 3.4, 1, -4.09782e-08, 1.49012e-07, 2.96532e-07, -6.53852e-14, -3.97653e-14, -0.600307, 0.79977, 1, 1, 1, 3.46667, 1, -2.38419e-07, 1.19209e-07, -6.10948e-08, 1.71371e-14, -3.6358e-14, -0.338138, 0.941097, 1, 1, 1, 3.53333, 1, 8.19564e-08, 1.78814e-07, -2.99514e-07, -1.14743e-14, 5.74584e-14, -0.0478559, 0.998854, 1, 1, 1, 3.6, 1, 2.83122e-07, -1.19209e-07, 5.81141e-08, -1.06581e-14, 9.43465e-29, -1.32781e-14, 1, 1, 1, 1, 4.53333, 1, -5.21541e-08, 5.96046e-08, 5.81138e-08, -1.86518e-14, 2.43913e-28, -1.28563e-14, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("DoubleBarrel_Arm/Skeleton:Trigger1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, 0, -1.86265e-09, 4.65661e-10, 7.10543e-15, 5.29397e-23, 7.4506e-09, 1, 1, 1, 1, 4.53333, 1, 0, -1.86265e-09, 4.65661e-10, 7.10543e-15, 5.29397e-23, 7.4506e-09, 1, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("DoubleBarrel_Arm/Skeleton:Trigger2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = PoolRealArray( 0, 1, -1.49012e-08, -1.49012e-08, -2.32831e-10, 7.10543e-15, -1.05879e-22, 1.49012e-08, 1, 1, 1, 1, 4.53333, 1, -1.49012e-08, -1.49012e-08, -2.32831e-10, 7.10543e-15, -1.05879e-22, 1.49012e-08, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("DoubleBarrel_Arm/Skeleton:Root")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = PoolRealArray( 0, 1, 0, 0, 4.54747e-13, 0, 0, 5.78273e-17, 1, 1, 1, 1, 4.53333, 1, 0, 0, 4.54747e-13, 0, 0, 5.78273e-17, 1, 1, 1, 1 )
+tracks/4/type = "transform"
+tracks/4/path = NodePath("DoubleBarrel_Arm/Skeleton:BreakLatch")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = PoolRealArray( 0, 1, -2.72848e-12, -7.45058e-09, -7.45058e-09, -7.06614e-09, 0, 0, 1, 1, 1, 1, 0.466667, 1, -2.72848e-12, -7.45058e-09, -7.45058e-09, -7.06614e-09, 0, 0, 1, 1, 1, 1, 0.533333, 1, -2.72848e-12, -7.45058e-09, -7.45058e-09, 2.61777e-08, 3.97024e-08, 0.0331052, 0.999452, 1, 1, 1, 0.6, 1, 1.24683e-08, -7.45058e-09, -7.45058e-09, -5.54639e-08, -4.43527e-08, 0.127491, 0.99184, 1, 1, 1, 3.6, 1, 1.24683e-08, -7.45058e-09, -7.45058e-09, -5.54639e-08, -4.43527e-08, 0.127491, 0.99184, 1, 1, 1, 3.66667, 1, -2.72848e-12, -7.45058e-09, -7.45058e-09, -7.06614e-09, 0, 0, 1, 1, 1, 1, 4.53333, 1, -2.72848e-12, -7.45058e-09, -7.45058e-09, -7.06614e-09, 0, 0, 1, 1, 1, 1 )
+
 [sub_resource type="ConvexPolygonShape" id=378]
 points = PoolVector3Array( -0.525527, -0.10884, 0.00583685, -0.075781, 0.0783637, 0.00852547, 0.440931, 0.0736622, 0.0157437, 0.460455, 0.0560691, -0.025732, -0.529027, 0.00692726, -0.0187095, -0.0934038, 0.0713643, 0.0284551, 0.460455, 0.0560691, 0.026898, -0.525527, 0.0279688, 0.0128594, -0.0911653, 0.0762623, -0.0244773, -0.518528, -0.0912796, -0.0152047, -0.518528, -0.0877598, 0.0163707, -0.146513, 0.0139668, -0.0292433, 0.438019, 0.0731478, -0.0178315, -0.518528, -0.10884, -0.00818217, 0.449859, 0.0490489, 0.00584337, -0.0823861, 0.0660763, -0.0297788, -0.525527, 0.0279688, -0.0116935, -0.083435, 0.0597134, 0.029633, 0.460455, 0.0700904, 0.026898, -0.522028, -0.0667182, -0.0187095, -0.518528, -0.101781, 0.0128594, -0.529027, -0.077239, 0.0163707, -0.515029, -0.10884, 0.00583685, 0.449859, 0.0490489, -0.00467089, -0.083697, 0.0748217, 0.0252276, 0.426955, 0.064647, -0.0239567, -0.129015, 0.0139668, -0.0292433, -0.01674, 0.0280073, -0.0292368, -0.524572, -0.0975072, -0.00810295, -0.0754917, 0.0777154, -0.00730164, 0.414572, 0.0739884, -0.00428938, -0.527442, -0.0487746, -0.01504, -0.0980229, 0.0625355, -0.029633, -0.526645, 0.0170914, 0.0127116 )
 
@@ -108,15 +147,16 @@ one_shot = true
 
 [node name="MeshInstance" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.00976729, 0 )
-visible = true
 layers = 0
 mesh = null
 skin = SubResource( 375 )
 script = null
 
-[node name="DoubleBarrel_Arm" type="Spatial" parent="MeshInstance" index="0"]
+[node name="DoubleBarrelRigReload" type="Spatial" parent="MeshInstance" index="0"]
 
-[node name="Skeleton" type="Skeleton" parent="MeshInstance/DoubleBarrel_Arm" index="0"]
+[node name="DoubleBarrel_Arm" type="Spatial" parent="MeshInstance/DoubleBarrelRigReload" index="0"]
+
+[node name="Skeleton" type="Skeleton" parent="MeshInstance/DoubleBarrelRigReload/DoubleBarrel_Arm" index="0"]
 bones/0/name = "Root"
 bones/0/parent = -1
 bones/0/rest = Transform( 0.352139, 0.935948, 2.52157e-08, -0.935948, 0.352139, 4.5866e-09, -4.5866e-09, -2.52157e-08, 1, -0.261891, -0.0454283, -5.71782e-06 )
@@ -124,17 +164,17 @@ bones/0/enabled = true
 bones/0/bound_children = [  ]
 bones/1/name = "BarrelBreak"
 bones/1/parent = 0
-bones/1/rest = Transform( 0.937972, 0.34671, 9.0635e-07, -0.34671, 0.937972, -3.6402e-07, -9.7634e-07, 2.71998e-08, 1, 0.0438867, 0.251102, -5.48576e-08 )
+bones/1/rest = Transform( 0.937972, 0.34671, 9.0635e-07, -0.34671, 0.937972, -3.6402e-07, -9.7634e-07, 2.71997e-08, 1, 0.0438867, 0.251102, -5.48576e-08 )
 bones/1/enabled = true
 bones/1/bound_children = [  ]
 bones/2/name = "Trigger1"
 bones/2/parent = 0
-bones/2/rest = Transform( -0.255588, 0.966786, -8.98432e-08, -0.966786, -0.255588, -6.37022e-07, -6.38827e-07, -7.59558e-08, 1, 0.027129, 0.153313, -0.00214494 )
+bones/2/rest = Transform( -0.255588, 0.966786, -8.98432e-08, -0.966786, -0.255588, -6.37022e-07, -6.38827e-07, -7.59557e-08, 1, 0.027129, 0.153313, -0.00214494 )
 bones/2/enabled = true
 bones/2/bound_children = [  ]
 bones/3/name = "Trigger2"
 bones/3/parent = 0
-bones/3/rest = Transform( -0.760758, 0.649036, 2.31494e-07, -0.649036, -0.760758, 9.6132e-08, 2.38504e-07, -7.71149e-08, 1, 0.0265008, 0.146445, 0.00262744 )
+bones/3/rest = Transform( -0.760758, 0.649036, 2.31494e-07, -0.649036, -0.760758, 9.6132e-08, 2.38504e-07, -7.7115e-08, 1, 0.0265008, 0.146445, 0.00262744 )
 bones/3/enabled = true
 bones/3/bound_children = [  ]
 bones/4/name = "BreakLatch"
@@ -143,10 +183,14 @@ bones/4/rest = Transform( -6.36578e-05, -0.980782, -0.195106, -1.19209e-07, -0.1
 bones/4/enabled = true
 bones/4/bound_children = [  ]
 
-[node name="DoubleBarrel_Mesh" type="MeshInstance" parent="MeshInstance/DoubleBarrel_Arm/Skeleton" index="0"]
+[node name="DoubleBarrel_Mesh" type="MeshInstance" parent="MeshInstance/DoubleBarrelRigReload/DoubleBarrel_Arm/Skeleton" index="0"]
 mesh = SubResource( 376 )
 skin = SubResource( 377 )
 script = ExtResource( 11 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MeshInstance/DoubleBarrelRigReload" index="1"]
+unique_name_in_owner = true
+anims/Reload = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="2"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0439493, -0.0362985 )

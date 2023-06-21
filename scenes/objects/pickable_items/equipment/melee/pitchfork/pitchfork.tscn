@@ -72,11 +72,12 @@ item_drop_sound = ExtResource( 10 )
 item_size = 2
 item_name = "Pitchfork"
 weapon_type = 6
-melee_damage = 51
+primary_damage_type1 = 2
+primary_damage1 = 34
+secondary_damage1 = 25
 throw_logic = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 2
 
 [node name="pitchfork" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00331759, -0.256961, 0.000796676 )

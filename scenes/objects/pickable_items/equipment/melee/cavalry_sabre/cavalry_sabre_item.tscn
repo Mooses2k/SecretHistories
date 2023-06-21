@@ -46,11 +46,13 @@ equipped_mode = 3
 item_drop_sound = ExtResource( 9 )
 item_name = "Cavalry Sabre"
 weapon_type = 3
-melee_damage = 51
+primary_damage_type1 = 2
+primary_damage1 = 51
+secondary_damage_type1 = 1
+secondary_damage1 = 51
 throw_logic = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 1
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

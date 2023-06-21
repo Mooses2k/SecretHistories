@@ -574,6 +574,7 @@ func handle_inventory(delta : float):
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
 			print("Screen Flter: NONE")
+#			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = false
 		if current_screen_filter == ScreenFilter.OLD_FILM:
@@ -597,14 +598,14 @@ func handle_inventory(delta : float):
 			print("Screen Flter: PSX")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
-			GameManager.game.level.toggle_directional_light()
 		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
 			print("Screen Flter: DEBUG_LIGHT")
-			GameManager.game.level.toggle_directional_light()
+#			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 
 	# Zoom in/out like binoculars or spyglass
+	# TODO: check if have spyglass as tiny_item first
 	if Input.is_action_just_pressed("binocs_spyglass"):
 		_camera.state = _camera.CameraState.STATE_ZOOM
 	if Input.is_action_just_released("binocs_spyglass"):

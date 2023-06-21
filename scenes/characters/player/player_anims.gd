@@ -179,7 +179,6 @@ func check_player_animation():
 		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 		animation_tree.set("parameters/Weapon_states/current",4)
 		animation_tree.set("parameters/OffHand_Weapon_States/current",1)
-#		animation_tree.set("parameters/Hold_Animation/current",1)
 		adjust_arm()
 		
 	elif current_offhand_item_animation == hold_states.ITEM_VERTICAL_LEFT:
@@ -204,14 +203,12 @@ func check_player_animation():
 	if offhand_active == true and mainhand_active == true:
 		animation_tree.set("parameters/Hand_Transition/current",0)
 		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
-#		animation_tree.set("parameters/Weapon_states/current",0)
-#		animation_tree.set("parameters/Hold_Animation/current",1)
-
-
-	else:
-		animation_tree.set("parameters/Animation_State/current", 0)
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
+#
+#	else:
+#		animation_tree.set("parameters/Animation_State/current", 0)
+#		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+#		$"%ADSTween".start()
+#		print("Nothing is equipped")
 
 func adjust_arm():
 	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
@@ -225,3 +222,4 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 		pass
 	else:
 		current_mainhand_item_animation = hold_states.UNEQUIPPED
+		print("unequipping something")

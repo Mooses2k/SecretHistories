@@ -107,6 +107,7 @@ enum ScreenFilter {
 	PIXELATE,
 	DITHER,
 	REDUCE_COLOR,
+	PSX,
 	DEBUG_LIGHT
 }
 var current_screen_filter : int = ScreenFilter.NONE
@@ -567,8 +568,8 @@ func handle_inventory(delta : float):
 		current_screen_filter += 1
 
 		# Cycle through list of filters, starting with 0
-		if current_screen_filter > (ScreenFilter.size() - 1):   # This number should be # of filters - 1
-			current_screen_filter = 0
+		if current_screen_filter > (ScreenFilter.size() - 1):
+				current_screen_filter = 0
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
@@ -591,8 +592,15 @@ func handle_inventory(delta : float):
 			print("Screen Flter: REDUCE_COLOR")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
+		# This one doesn't play well with stuff that's too dark, also we're not implementing the mesh shader yet
+		if current_screen_filter == ScreenFilter.PSX:
+			print("Screen Flter: PSX")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
+			GameManager.game.level.toggle_directional_light()
 		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
 			print("Screen Flter: DEBUG_LIGHT")
+			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 

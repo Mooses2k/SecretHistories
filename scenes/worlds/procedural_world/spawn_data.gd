@@ -136,7 +136,7 @@ func set_y_rotation(angle_rad: float, instance_index := INF) -> void:
 ### Private Methods -------------------------------------------------------------------------------
 
 func _set_amount(value: int) -> void:
-	amount = max(1, value)
+	amount = int(max(1, value))
 	var old_tranforms = _transforms.duplicate()
 	_transforms.resize(amount)
 	_transforms.fill(Transform.IDENTITY)

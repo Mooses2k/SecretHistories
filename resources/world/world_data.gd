@@ -333,11 +333,28 @@ func is_spawn_position_valid() -> bool:
 	return player_spawn_position != INVALID_STARTING_CELL
 
 
-func set_room(type: String, p_room_data: RoomData) -> void:
+func set_room(type: int, p_room_data: RoomData) -> void:
 	if not rooms.has(type):
 		rooms[type] = []
+	elif rooms[type].has(p_room_data):
+		push_warning("room data already on rooms[%s]: %s"%[
+				RoomData.OriginalPurpose.keys()[type], 
+				p_room_data
+		])
+		return
 	
 	rooms[type].append(p_room_data)
+
+
+func change_room_type(old_type: int, new_type: int, p_room_data: RoomData) -> void:
+	if not rooms.has(new_type):
+		rooms[new_type] = []
+	
+	if rooms.has(old_type) and rooms[old_type].has(p_room_data):
+		rooms[old_type].erase(p_room_data)
+	
+	if not rooms[new_type].has(p_room_data):
+		rooms[new_type].append(p_room_data)
 
 
 # Returns an Array of all RoomData
@@ -350,8 +367,17 @@ func get_all_rooms() -> Array:
 	return value
 
 
+func get_total_rooms_count() -> int:
+	var value := 0
+	
+	for data_array in rooms.values():
+		value += data_array.size()
+	
+	return value
+
+
 # Returns an Array of RoomData from the specified "type" 
-func get_rooms_of_type(p_type: String) -> Array:
+func get_rooms_of_type(p_type: int) -> Array:
 	var value := []
 	
 	if rooms.has(p_type):
@@ -363,7 +389,7 @@ func get_rooms_of_type(p_type: String) -> Array:
 func get_starting_room_data() -> RoomData:
 	var value: RoomData = null
 	
-	var starting_rooms := get_rooms_of_type("starting_room")
+	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.LEVEL_STAIRCASE)
 	if rooms.empty():
 		push_error("No starting room found.")
 		return value

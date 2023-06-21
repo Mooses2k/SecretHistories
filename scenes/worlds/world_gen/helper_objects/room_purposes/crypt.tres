@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=8 format=2]
+
+[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" type="Script" id=1]
+[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" type="Script" id=2]
+[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/pillar_requirement.gd" type="Script" id=3]
+[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd" type="Script" id=4]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+min_x_tiles = 2
+min_y_tiles = 2
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 4 )
+max_x_tiles = 4
+max_y_tiles = 4
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+should_have_pillars = false
+
+[resource]
+script = ExtResource( 1 )
+purpose_id = "1"
+max_amount = -1
+requirements = [ SubResource( 1 ), SubResource( 3 ), SubResource( 2 ) ]

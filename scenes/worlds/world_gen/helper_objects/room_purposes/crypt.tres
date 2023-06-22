@@ -12,8 +12,8 @@ min_y_tiles = 2
 
 [sub_resource type="Resource" id=3]
 script = ExtResource( 4 )
-max_x_tiles = 4
-max_y_tiles = 4
+max_x_tiles = 6
+max_y_tiles = 6
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 3 )

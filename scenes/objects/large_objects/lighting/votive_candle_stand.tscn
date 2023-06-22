@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://resources/models/large_objects/lighting/M_RottenWood_Generic.material" type="Material" id=1]
-[ext_resource path="res://resources/models/large_objects/lighting/M_Wall_Metal.material" type="Material" id=2]
+[ext_resource path="res://resources/models/gridmap/modular_pieces/M_Wall_Metal.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra.gd" type="Script" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
 
@@ -120,7 +120,7 @@ shader_param/COLOR_RAMP = SubResource( 149 )
 extents = Vector3( 0.3, 0.04, 0.15 )
 
 [node name="VotiveCandleStand" type="RigidBody"]
-collision_layer = 512
+collision_layer = 513
 mass = 30.0
 continuous_cd = true
 script = ExtResource( 3 )

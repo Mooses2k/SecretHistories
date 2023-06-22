@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neophyte_r_a_light_that_died_is_shining_in_the_water_2.ogg-f0ae12c008a9cf0b89402173f057bab0.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/neophyte_r_a_light_that_died_is_shining_in_the_water_2.ogg"
+dest_files=[ "res://.import/neophyte_r_a_light_that_died_is_shining_in_the_water_2.ogg-f0ae12c008a9cf0b89402173f057bab0.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

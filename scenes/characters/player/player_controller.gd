@@ -12,7 +12,7 @@ export var throw_strength : float = 2
 
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 2.0
-export var kick_impulse : float = 20
+export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -394,7 +394,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 
-	# These are debug indicators for intitial and current grab points
+	# These are debug indicators for initial and current grab points
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
@@ -605,11 +605,11 @@ func handle_inventory(delta : float):
 			$"../FPSCamera/DebugLight".visible = true
 
 	# Zoom in/out like binoculars or spyglass
-	# TODO: check if have spyglass as tiny_item first
-	if Input.is_action_just_pressed("binocs_spyglass"):
-		_camera.state = _camera.CameraState.STATE_ZOOM
-	if Input.is_action_just_released("binocs_spyglass"):
-		_camera.state = _camera.CameraState.STATE_NORMAL
+	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
+		if Input.is_action_just_pressed("binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_ZOOM
+		if Input.is_action_just_released("binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_NORMAL
 		
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
@@ -668,7 +668,6 @@ func handle_inventory(delta : float):
 func kick():
 	var kick_object = legcast.get_collider()
 	
-	print(character.kick_timer.get_time_left())
 	if character.kick_timer.is_stopped():
 		
 		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):

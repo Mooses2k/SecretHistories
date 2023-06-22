@@ -30,7 +30,6 @@ func _physics_process(delta):
 
 
 func check_current_item_animation():
-	
 	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 		var main_hand_object = inventory.current_mainhand_slot
 		var off_hand_object = inventory.current_offhand_slot
@@ -77,7 +76,7 @@ func ads():
 	
 	# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
 	if Input.is_action_pressed("main_use_secondary") and owner.do_sprint == false:
-
+	
 		if get_parent().inventory.current_mainhand_slot != null:
 			
 			if get_parent().inventory.hotbar[main_hand_item] is GunItem:
@@ -107,7 +106,7 @@ func check_player_animation():
 	elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM :
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 1)
-
+	
 	# The tween functions make sure that the items are visible by moving the hand a bit forward
 	elif current_mainhand_item_animation == hold_states.MELEE_ITEM:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
@@ -115,21 +114,21 @@ func check_player_animation():
 		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 0)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
-
+	
 	elif current_mainhand_item_animation == hold_states.ITEM_VERTICAL:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 0)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
-
+	
 	elif current_mainhand_item_animation == hold_states.ITEM_HORIZONTAL:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 1)
 		$"../Player_Animation_tree".set("parameters/Weapon_states/current", 0)
 		$"../Player_Animation_tree".set("parameters/Hold_Animation/current", 1)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 		$"%ADSTween".start()
-
+	
 	else:
 		$"../Player_Animation_tree".set("parameters/Animation_State/current", 0)
 		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )

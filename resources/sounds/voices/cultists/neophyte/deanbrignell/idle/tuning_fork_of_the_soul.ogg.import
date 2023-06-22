@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/tuning_fork_of_the_soul.ogg-768de2ec1046a09c1c9e9bf552caeccf.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/tuning_fork_of_the_soul.ogg"
+dest_files=[ "res://.import/tuning_fork_of_the_soul.ogg-768de2ec1046a09c1c9e9bf552caeccf.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

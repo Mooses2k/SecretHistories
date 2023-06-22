@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/repay_all_debts_due_before_a_departure.ogg-e05166f09b67fb2222b021ba665ad629.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/student_master/repay_all_debts_due_before_a_departure.ogg"
+dest_files=[ "res://.import/repay_all_debts_due_before_a_departure.ogg-e05166f09b67fb2222b021ba665ad629.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/if_i_were_the_one_to_find_it.ogg-1cf57edc61c854a607042273c6154815.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/if_i_were_the_one_to_find_it.ogg"
+dest_files=[ "res://.import/if_i_were_the_one_to_find_it.ogg-1cf57edc61c854a607042273c6154815.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -43,8 +43,8 @@ directional_shadow_normal_bias = 0.2
 preview_material = SubResource( 3 )
 
 [node name="GenerationManager" parent="." index="5"]
-world_size_x = 32
-world_size_z = 32
+world_size_x = 20
+world_size_z = 20
 
 [node name="GenerateLevelStaircase" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 13 )

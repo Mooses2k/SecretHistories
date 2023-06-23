@@ -73,7 +73,7 @@ func check_current_item_animation():
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
 		
-		offhand_active = false
+#		offhand_active = false
 
 
 		# temporary hack (issue #409)
@@ -109,7 +109,7 @@ func check_current_item_animation():
 	else:
 		if offhand_active != false:
 			animation_tree.set("parameters/Hand_Transition/current",0)
-			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 			animation_tree.set("parameters/Weapon_states/current",4)
 		mainhand_active = false
 

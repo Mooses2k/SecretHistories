@@ -55,12 +55,13 @@ func check_current_item_animation():
 		elif inventory.hotbar[off_hand_object] is EquipmentItem:
 			if inventory.hotbar[off_hand_object].horizontal_holding == true:
 				current_offhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+				inventory.hotbar[off_hand_object].hold_position.rotation_degrees.z = -90
 			else:
+				
 				current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
 			
 		elif inventory.hotbar[off_hand_object] is MeleeItem:
 			current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
-			inventory.hotbar[off_hand_object].rotation_degrees.z = 90
 			
 		elif inventory.hotbar[off_hand_object] is ConsumableItem:
 			current_offhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
@@ -73,7 +74,7 @@ func check_current_item_animation():
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
 		
-#		offhand_active = false
+		offhand_active = false
 
 
 		# temporary hack (issue #409)
@@ -94,6 +95,7 @@ func check_current_item_animation():
 			
 			if inventory.hotbar[main_hand_object].horizontal_holding == true:
 				current_mainhand_item_animation = hold_states.ITEM_HORIZONTAL
+				inventory.hotbar[main_hand_object].hold_position.rotation_degrees.z = 90
 			else:
 				current_mainhand_item_animation = hold_states.ITEM_VERTICAL
 			

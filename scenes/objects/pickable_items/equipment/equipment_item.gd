@@ -14,11 +14,11 @@ export var horizontal_holding : bool = false
 
 var is_in_belt = false
 var has_equipped = false
-
+onready var hold_position = $"%HoldPosition"
 
 func _ready():
 	if horizontal_holding == true:
-		$"%HoldPosition".rotation_degrees.z = 90
+		hold_position.rotation_degrees.z = 90
 	connect("body_entered", self, "play_drop_sound")
 
 

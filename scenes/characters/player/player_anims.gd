@@ -225,3 +225,29 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	else:
 		current_mainhand_item_animation = hold_states.UNEQUIPPED
 		print("unequipping something")
+
+
+func _on_Inventory_offhand_slot_changed(previous, current):
+	if  inventory.hotbar[current] is GunItem:
+		current_offhand_item_animation = hold_states.SMALL_GUN_ITEM_LEFT
+		
+	elif inventory.hotbar[current] is EquipmentItem:
+		if inventory.hotbar[current].horizontal_holding == true:
+			inventory.hotbar[current].hold_position.rotation_degrees.z = 90
+			current_offhand_item_animation = hold_states.ITEM_HORIZONTAL_LEFT
+		else:
+			current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+		
+	elif inventory.hotbar[current] is MeleeItem:
+		current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+	elif inventory.hotbar[current] is ConsumableItem:
+		current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+		
+	elif inventory.hotbar[current] is ToolItem:
+		current_offhand_item_animation = hold_states.ITEM_VERTICAL_LEFT
+	else:
+		if mainhand_active != true:
+			animation_tree.set("parameters/Hand_Transition/current",0)
+			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+		
+		offhand_active = false

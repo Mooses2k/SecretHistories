@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://resources/shaders/items/consumables/light_sources/candle/flame.material" type="Material" id=1]
+[ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png" type="Texture" id=4]
@@ -10,6 +10,7 @@
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=8]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_AlbedoTransparency.png" type="Texture" id=9]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=10]
+
 
 [sub_resource type="ArrayMesh" id=25]
 resource_local_to_scene = true

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/tune_to_me_crystal_radio.ogg-7ae0b5b808775cba22b55d154d1737a2.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/tune_to_me_crystal_radio.ogg"
+dest_files=[ "res://.import/tune_to_me_crystal_radio.ogg-7ae0b5b808775cba22b55d154d1737a2.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

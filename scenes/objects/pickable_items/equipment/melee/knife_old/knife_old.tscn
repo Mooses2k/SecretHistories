@@ -46,12 +46,16 @@ item_drop_sound = ExtResource( 9 )
 item_size = 0
 item_name = "Knife"
 weapon_type = 1
-melee_damage = 25
+primary_damage_type1 = 2
+primary_damage1 = 20
+primary_damage_type2 = 1
+primary_damage2 = 5
+secondary_damage_type1 = 1
+secondary_damage1 = 25
 throw_logic = true
 can_spin = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 2
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

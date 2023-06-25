@@ -12,7 +12,7 @@ export var throw_strength : float = 2
 
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 2.0
-export var kick_impulse : float = 20
+export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -103,9 +103,11 @@ var item_up = false
 # Screen filter section
 enum ScreenFilter {
 	NONE,
+	OLD_FILM,
 	PIXELATE,
 	DITHER,
 	REDUCE_COLOR,
+	PSX,
 	DEBUG_LIGHT
 }
 var current_screen_filter : int = ScreenFilter.NONE
@@ -122,9 +124,9 @@ func _ready():
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-
+	
 	active_mode.set_deferred("is_active", true)
-
+	
 	$"../FPSCamera/ScreenFilter".visible = false
 
 
@@ -391,7 +393,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 
-	# These are debug indicators for intitial and current grab points
+	# These are debug indicators for initial and current grab points
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
@@ -565,31 +567,48 @@ func handle_inventory(delta : float):
 		current_screen_filter += 1
 
 		# Cycle through list of filters, starting with 0
-		if current_screen_filter > 4:   # This number should be # of filters - 1
-			current_screen_filter = 0
+		if current_screen_filter > (ScreenFilter.size() - 1):
+				current_screen_filter = 0
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
+			print("Screen Flter: NONE")
+#			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = false
+		if current_screen_filter == ScreenFilter.OLD_FILM:
+			print("Screen Flter: OLD_FILM")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
 		if current_screen_filter == ScreenFilter.PIXELATE:
+			print("Screen Flter: PIXELATE")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
 		if current_screen_filter == ScreenFilter.DITHER:
+			print("Screen Flter: DITHER")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
+			print("Screen Flter: REDUCE_COLOR")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
+		# This one doesn't play well with stuff that's too dark, also we're not implementing the mesh shader yet
+		if current_screen_filter == ScreenFilter.PSX:
+			print("Screen Flter: PSX")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
 		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			print("Screen Flter: DEBUG_LIGHT")
+#			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 
 	# Zoom in/out like binoculars or spyglass
-	if Input.is_action_just_pressed("binocs_spyglass"):
-		_camera.state = _camera.CameraState.STATE_ZOOM
-	if Input.is_action_just_released("binocs_spyglass"):
-		_camera.state = _camera.CameraState.STATE_NORMAL
+	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
+		if Input.is_action_just_pressed("binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_ZOOM
+		if Input.is_action_just_released("binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_NORMAL
 		
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
@@ -647,23 +666,30 @@ func handle_inventory(delta : float):
 
 func kick():
 	var kick_object = legcast.get_collider()
-
-	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-		if is_grabbing == false:
+	
+	if character.kick_timer.is_stopped():
+		
+		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+			if is_grabbing == false:
+				if Input.is_action_just_pressed("player|kick"):
+					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
+					character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 			if Input.is_action_just_pressed("player|kick"):
-				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-
-	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-		if Input.is_action_just_pressed("player|kick"):
-			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-
-	elif legcast.is_colliding() and kick_object is RigidBody:
-		if Input.is_action_just_pressed("player|kick"):
-			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
+				character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if Input.is_action_just_pressed("player|kick"):
+				if kick_object is Area:
+					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
+				character.kick_timer.start(1)
 
 
 func drop_grabbable():
-	# when the drop button or keys are pressed , grabable objects are released
+	# When the drop button or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("playerhand|main_throw") or Input.is_action_just_pressed("playerhand|offhand_throw") and is_grabbing == true:
 		wants_to_drop = true
 		if grab_object != null :

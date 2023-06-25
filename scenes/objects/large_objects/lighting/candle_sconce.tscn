@@ -34,7 +34,7 @@ loop = true
 extents = Vector3( 0.157328, 0.236264, 0.160202 )
 
 [node name="CandleSconce" type="RigidBody"]
-collision_layer = 512
+collision_layer = 513
 mass = 2.0
 script = ExtResource( 3 )
 

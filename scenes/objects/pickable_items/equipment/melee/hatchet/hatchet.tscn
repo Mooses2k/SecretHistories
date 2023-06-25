@@ -56,12 +56,14 @@ item_drop_sound = ExtResource( 9 )
 item_size = 0
 item_name = "Hatchet"
 weapon_type = 2
-melee_damage = 40
+primary_damage1 = 15
+secondary_damage1 = 26
+secondary_damage_type2 = 1
+secondary_damage2 = 26
 throw_logic = true
 can_spin = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 1
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5

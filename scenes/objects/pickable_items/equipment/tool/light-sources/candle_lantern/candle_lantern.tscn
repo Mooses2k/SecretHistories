@@ -10,7 +10,8 @@
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle.material" type="Material" id=8]
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=10]
-[ext_resource path="res://resources/shaders/items/consumables/light_sources/candle/flame.material" type="Material" id=11]
+[ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=11]
+
 
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "LanternCandle_Plane001"

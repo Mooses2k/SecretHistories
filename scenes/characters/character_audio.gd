@@ -102,7 +102,7 @@ func load_sounds(sound_dir, type : int) -> void:
 
 	var sound = snd_dir.get_next()
 	while sound != "":
-		if not sound.ends_with(".import") and sound.ends_with(".wav"):
+		if not sound.ends_with(".import") and (sound.ends_with(".wav") or sound.ends_with(".ogg") or sound.ends_with(".mp3")):
 			match type:
 				# Movement
 #				0:
@@ -166,12 +166,11 @@ func load_sounds(sound_dir, type : int) -> void:
 		sound = snd_dir.get_next()
 
 
-#Speech
+### Speech
 
 # Once per character, randomly choose an appropriate voice for this character
 func choose_voice():
-	# Hard-coded to the one we've included for now
-	if owner is Cultist:   # Later: Neophyte
+	if owner is Cultist:   # Later: Neophyte, later more types
 	
 		var choose = randi() % 2
 		match choose:

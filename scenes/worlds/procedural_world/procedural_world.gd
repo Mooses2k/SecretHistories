@@ -11,3 +11,8 @@ func get_player_spawn_position() -> Vector3:
 		return grid_to_world(grid_position)
 	else:
 		return Vector3(world_data.world_size_x, 0.0, world_data.world_size_z) * world_data.CELL_SIZE * 0.5
+
+
+# May lag everything for some reason
+func toggle_directional_light():
+	$DirectionalLight.visible = !$DirectionalLight.visible

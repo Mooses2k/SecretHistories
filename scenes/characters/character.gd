@@ -14,6 +14,7 @@ export var max_health : int = 100
 onready var current_health : float = self.max_health
 
 export var kick_damage : int
+onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
 
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
@@ -273,6 +274,8 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			if self.name != "Player":
 				collision_shape.disabled = true
 				print("Character died")
+				self.inventory.drop_mainhand_item()
+				self.inventory.drop_offhand_item()
 				self.queue_free()
 #				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
 

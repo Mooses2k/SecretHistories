@@ -9,7 +9,7 @@ var game : Game
 func _ready() -> void:
 	game = GAME_SCENE.instance()
 	$"%StartGameSettings".attach_settings(game.get_node("%LocalSettings"))
-	$"%SettingsUI".attach_settings(game.get_node("%LocalSettings"))
+	$"%SettingsUI".attach_settings(game.get_node("%LocalSettings"), false)
 
 
 func _input(event):

@@ -27,11 +27,13 @@ var index : int = 0
 var counter : int = 0
 
 
-func attach_settings(s : SettingsClass):
+func attach_settings(s : SettingsClass, be_sorted : bool):
 	clear_ui()
 	settings = s
 	generate_ui()
-	sort_setting_groups()
+	
+	if be_sorted:
+		sort_setting_groups()
 
 
 func clear_ui():

@@ -11,6 +11,7 @@ var countdown_started = false
 
 onready var countdown_timer = $Countdown
 onready var flash = $Flash
+var fuse_sound
 
 
 func _ready():
@@ -28,6 +29,8 @@ func _use_primary():
 	if countdown_timer.is_stopped():
 		countdown_timer.start()
 		$Fuse.emitting = true
+		if fuse_sound:
+			fuse_sound.play()
 	else:
 		print("Trying to throw bomb")
 		owner_character.drop_consumable(self)

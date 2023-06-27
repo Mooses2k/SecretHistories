@@ -60,7 +60,7 @@ func get_hold_transform() -> Transform:
 
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
-# Trying to remove this to fix jittering items in mainhand, but shotgun floats out of cultist hands
+# Bug here where when player rotates, items does a little circle thing in hand
 func _physics_process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		transform = get_hold_transform()

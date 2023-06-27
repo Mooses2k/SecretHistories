@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/_bomb.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=5]
 [ext_resource path="res://scenes/effects/effects.gd" type="Script" id=6]
 [ext_resource path="res://scenes/effects/explosion_audio.tscn" type="PackedScene" id=7]
+[ext_resource path="res://resources/sounds/explosion/fuse/102264__rytmenpinnen__onesparkler.ogg" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/impacts/534956__joedinessound__arrow-wood-impact-single-archery-01.wav" type="AudioStream" id=9]
 
 [sub_resource type="ArrayMesh" id=19]
@@ -145,7 +146,11 @@ local_coords = false
 process_material = SubResource( 23 )
 draw_pass_1 = SubResource( 28 )
 
-[node name="Flash" type="OmniLight" parent="." index="7"]
+[node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="7"]
+stream = ExtResource( 8 )
+unit_db = 5.0
+
+[node name="Flash" type="OmniLight" parent="." index="8"]
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 5.0
@@ -157,7 +162,7 @@ omni_attenuation = 7.0
 wait_time = 0.05
 one_shot = true
 
-[node name="Effect" type="Spatial" parent="." index="8"]
+[node name="Effect" type="Spatial" parent="." index="9"]
 script = ExtResource( 6 )
 sound_effect = ExtResource( 7 )
 

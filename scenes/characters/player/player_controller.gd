@@ -60,8 +60,8 @@ var _bob_reset : float = 0.0
 
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
-export var _gun_cam_path : NodePath
-onready var _gun_cam = get_node(_gun_cam_path)
+#export var _gun_cam_path : NodePath
+#onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../CanStandChecker")

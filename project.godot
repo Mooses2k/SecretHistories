@@ -222,7 +222,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Game",
 "language": "GDScript",
-"path": "res://scenes/core/game.gd"
+"path": "res://scenes/game.gd"
 }, {
 "base": "Spatial",
 "class": "GameWorld",
@@ -568,7 +568,7 @@ AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 TestSettings="*res://globals/settings/test_settings.gd"
 HUDS="*res://globals/HUD.tscn"
-BackgroundMusic="*res://scenes/core/background_music.tscn"
+BackgroundMusic="*res://scenes/effects/background_music.tscn"
 
 [display]
 
@@ -582,7 +582,7 @@ description="An entirely forgettable game"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [input]
 

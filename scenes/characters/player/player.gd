@@ -17,7 +17,7 @@ var is_change_off_equip_in : bool = false
 onready var player_controller = $PlayerController
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
-onready var gun_cam = $ViewportContainer/Viewport/GunCam   # Fixed fov player viewport so stuff doesn't go through walls
+onready var gun_cam = $FPSCamera/ViewportContainer/Viewport/GunCam   # Fixed fov player viewport so stuff doesn't go through walls
 onready var grab_cast = $FPSCamera/GrabCast
 onready var hit_effect = $HitEffect
 
@@ -27,11 +27,6 @@ func _ready():
 		connect("player_landed", player_controller, "_on_Player_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
-
-
-func _physics_process(delta):
-	gun_cam.global_transform = fps_camera.global_transform    # moving this to _process makes 'hands shake' worse
-#	gun_cam.global_transform = gun_cam.global_transform.interpolate_with(fps_camera.global_transform, 0.5)   # No improvement
 
 
 func _process(delta):

@@ -50,6 +50,9 @@ func _ready():
 	hotbar.resize(HOTBAR_SIZE)
 	current_offhand_slot = 10
 
+func _process(delta):
+	pass
+#	print(hotbar[current_mainhand_slot])
 
 # Returns wether a given node can be added as an Item to this inventory
 func can_pickup_item(item : PickableItem) -> bool:

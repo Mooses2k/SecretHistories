@@ -138,7 +138,6 @@ skeleton = NodePath("")
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.000979346, 0.0623613, 8.01446e-05 )
 shape = SubResource( 6 )
 
-
 [node name="HoldPosition" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00515129, 0.397815, 0 )
 
@@ -173,10 +172,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 5 )
 unit_db = 40.0
 max_db = 6.0
+bus = "Effects"
 
 [node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 6 )
+bus = "Effects"
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

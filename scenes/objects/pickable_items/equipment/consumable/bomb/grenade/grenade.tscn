@@ -182,6 +182,7 @@ draw_pass_1 = SubResource( 35 )
 [node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="8"]
 stream = ExtResource( 9 )
 unit_db = 5.0
+bus = "Effects"
 
 [node name="Flash" type="OmniLight" parent="." index="9"]
 visible = false

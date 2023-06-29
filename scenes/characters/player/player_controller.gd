@@ -150,11 +150,12 @@ func _physics_process(delta : float):
 	empty_slot()
 	kick()
 
-	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
-	if c != Vector3.ZERO:
-		_text.show()
-	else:
-		_text.hide()
+# TODO: FIX CLAMBERING RIGID BODIES THEN RENABLE HERE, Issue #419
+#	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
+#	if c != Vector3.ZERO:
+#		_text.show()
+#	else:
+#		_text.hide()
 
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y

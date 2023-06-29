@@ -55,6 +55,7 @@ func play_drop_sound(body):
 	if self.item_drop_sound and self.audio_player:
 		self.audio_player.stream = self.item_drop_sound
 		self.audio_player.unit_db = item_sound_level   # This should eventually be based on speed
+		self.audio_player.bus = "Effects"
 		self.audio_player.play()
 		self.noise_level = item_max_noise_level   # This should eventually be based on speed
 

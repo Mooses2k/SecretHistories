@@ -21,6 +21,8 @@ func _get_world():
 
 
 func attempt_clamber(is_crouching:bool, is_jumping:bool) -> Vector3:
+	pass   # TODO: FIX CLAMBERING RIGID BODIES THEN RENABLE HERE, Issue #419
+	
 	var v = _test_clamber_vent()
 	
 	# If user has a bulky item, don't allow clambering, TODO: UNTESTED

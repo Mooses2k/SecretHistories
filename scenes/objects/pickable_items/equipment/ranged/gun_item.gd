@@ -107,28 +107,29 @@ func _use_reload():
 
 # Needs more code for revolvers and bolt-actions as they're more complicated
 func reload():
-	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
-		var inventory = owner_character.inventory
-		for ammo_type in ammo_types:
-			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
-				if ammo_type != current_ammo_type:
-					if current_ammo_type != null:
-						if not inventory.tiny_items.has(current_ammo_type):
-							inventory.tiny_items[current_ammo_type] = 0
-						inventory.tiny_items[current_ammo_type] += current_ammo
-					current_ammo = 0
-					current_ammo_type = null
-				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
-				if _reload_amount > 0:
-					$ReloadTimer.start(reload_time)
-					_queued_reload_amount = _reload_amount
-					_queued_reload_type = ammo_type
-					owner_character.is_reloading = true
-					
-					# Eventually randomize which reload sound it uses
-					$Sounds/Reload.play()
-					
-					return
+	if owner_character and (owner_character.inventory.get_offhand_item() == null or owner_character.inventory.get_offhand_item() is EmptyHand):   # TODO: later make this only lit light-sources, otherwise put offhand item away, reload, bring offhand item back
+		if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
+			var inventory = owner_character.inventory
+			for ammo_type in ammo_types:
+				if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
+					if ammo_type != current_ammo_type:
+						if current_ammo_type != null:
+							if not inventory.tiny_items.has(current_ammo_type):
+								inventory.tiny_items[current_ammo_type] = 0
+							inventory.tiny_items[current_ammo_type] += current_ammo
+						current_ammo = 0
+						current_ammo_type = null
+					var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
+					if _reload_amount > 0:
+						$ReloadTimer.start(reload_time)
+						_queued_reload_amount = _reload_amount
+						_queued_reload_type = ammo_type
+						owner_character.is_reloading = true
+						
+						# Eventually randomize which reload sound it uses
+						$Sounds/Reload.play()
+						
+						return
 
 
 #	TODO: Changing the status of the weapon (dropping the weapon or unequiping it)

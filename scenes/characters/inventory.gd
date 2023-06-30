@@ -10,12 +10,14 @@ signal mainhand_slot_changed(previous, current)
 # Emitted when the user selects a new slot for the offhand
 signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
+
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
 signal inventory_changed
 #Emitted to hide the HUD UI when player dies
 signal player_died
 
+signal unequip_mainhand
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int= 11
 
@@ -227,6 +229,7 @@ func unequip_mainhand_item():
 		return
 	
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	emit_signal("unequip_mainhand")
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item.can_attach == true:

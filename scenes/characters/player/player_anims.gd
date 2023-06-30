@@ -54,25 +54,25 @@ func _physics_process(delta):
 
 func check_player_animation():
 #	print(inventory.current_offhand_equipment)
-	adjust_arm()
 		
 #	check_equipped_hands()
 	# This code checks the current item type the player is equipping and set the animation that matches that item in the animation tree
 	
 	#___________offhand_object_______________#
 	if inventory.current_offhand_equipment is GunItem:
-		
+		adjust_arm()
 		animation_tree.set("parameters/Hand_Transition/current",0)
 		animation_tree.set("parameters/OffHand_Weapon_States/current",1)
 		
 
 	elif inventory.current_offhand_equipment is ConsumableItem:
-
+		adjust_arm()
 		animation_tree.set("parameters/Hand_Transition/current",0)
 		animation_tree.set("parameters/OffHand_Weapon_States/current",0)
 		animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
 
 	elif inventory.current_offhand_equipment is ToolItem:
+		adjust_arm()
 		if inventory.current_offhand_equipment.horizontal_holding == true:
 			inventory.current_offhand_equipment.hold_position.rotation_degrees.z = -90
 			animation_tree.set("parameters/Hand_Transition/current",0)
@@ -92,14 +92,18 @@ func check_player_animation():
 	#___________mainhand_object_______________#
 
 	if inventory.current_mainhand_equipment is GunItem:
+		adjust_arm()
 		if inventory.current_mainhand_equipment.item_size == 0:
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/Weapon_states/current",2)
 		else:
+			
 			animation_tree.set("parameters/Hand_Transition/current",0)
+#			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
 			animation_tree.set("parameters/Weapon_states/current",1)
 
 	elif inventory.current_mainhand_equipment is EquipmentItem:
+		adjust_arm()
 		if inventory.current_mainhand_equipment.horizontal_holding == true:
 			inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
 			animation_tree.set("parameters/Hand_Transition/current",0)
@@ -112,7 +116,6 @@ func check_player_animation():
 
 		
 	elif inventory.current_mainhand_equipment == null:
-
 		animation_tree.set("parameters/Hand_Transition/current",0)
 		animation_tree.set("parameters/Weapon_states/current",4)
 

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neophyte_r_whos_that_taffin_around_1.ogg-1073a76c9dc2c21d7610f7be12522ee7.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/neophyte_r_whos_that_taffin_around_1.ogg"
+dest_files=[ "res://.import/neophyte_r_whos_that_taffin_around_1.ogg-1073a76c9dc2c21d7610f7be12522ee7.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

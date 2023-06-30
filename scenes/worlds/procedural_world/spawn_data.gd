@@ -100,16 +100,22 @@ func set_random_position_in_cell(
 		_transforms[i] = transform
 
 
-func set_random_rotation_in_all_axis(rng: RandomNumberGenerator, instance_index := INF) -> void:
+func set_random_rotation_in_all_axis(
+		rng: RandomNumberGenerator, 
+		limit_x:= TAU, 
+		limit_y := TAU, 
+		limit_z := TAU, 
+		instance_index := INF
+) -> void:
 	for i in amount:
 		if instance_index != INF and i != instance_index:
 			continue
 		
 		var transform = _transforms[i] as Transform
 		var random_rotation = Quat(Vector3(
-			rng.randf_range(0, TAU),
-			rng.randf_range(0, TAU),
-			rng.randf_range(0, TAU)
+			rng.randf_range(0, limit_x),
+			rng.randf_range(0, limit_y),
+			rng.randf_range(0, limit_z)
 		))
 		transform.basis = Basis(random_rotation)
 		_transforms[i] = transform
@@ -130,7 +136,7 @@ func set_y_rotation(angle_rad: float, instance_index := INF) -> void:
 ### Private Methods -------------------------------------------------------------------------------
 
 func _set_amount(value: int) -> void:
-	amount = max(1, value)
+	amount = int(max(1, value))
 	var old_tranforms = _transforms.duplicate()
 	_transforms.resize(amount)
 	_transforms.fill(Transform.IDENTITY)

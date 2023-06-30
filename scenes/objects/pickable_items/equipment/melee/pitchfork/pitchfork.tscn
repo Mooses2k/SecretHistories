@@ -72,11 +72,12 @@ item_drop_sound = ExtResource( 10 )
 item_size = 2
 item_name = "Pitchfork"
 weapon_type = 6
-melee_damage = 51
+primary_damage_type1 = 2
+primary_damage1 = 34
+secondary_damage1 = 25
 throw_logic = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 2
 
 [node name="pitchfork" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00331759, -0.256961, 0.000796676 )
@@ -146,23 +147,30 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202506, 0 )
 [node name="Sounds" type="Spatial" parent="."]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
+bus = "Effects"
 
 [node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
+bus = "Effects"
 
 [node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 6 )
+bus = "Effects"
 
 [node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 7 )
+bus = "Effects"
 
 [node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 5 )
+bus = "Effects"
 
 [node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 8 )
+bus = "Effects"
 
 [node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 9 )
+bus = "Effects"
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

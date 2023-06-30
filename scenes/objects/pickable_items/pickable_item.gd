@@ -55,6 +55,7 @@ func play_drop_sound(body):
 	if self.item_drop_sound and self.audio_player:
 		self.audio_player.stream = self.item_drop_sound
 		self.audio_player.unit_db = item_sound_level   # This should eventually be based on speed
+		self.audio_player.bus = "Effects"
 		self.audio_player.play()
 		self.noise_level = item_max_noise_level   # This should eventually be based on speed
 
@@ -74,30 +75,3 @@ func set_physics_equipped():
 func _integrate_forces(state):
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		state.linear_velocity = state.linear_velocity.normalized()*min(state.linear_velocity.length(), max_speed)
-
-
-#func pickup(by : Node):
-#	self.item_state = ItemState.INVENTORY
-#	if self.is_inside_tree():
-#		get_parent().call_deferred("remove_child", self)
-#		yield(self, "tree_exited")
-#	set_physics_equipped()
-#	self.owner_character = by
-
-
-#func drop(at : Transform):
-#	self.item_state = ItemState.DROPPED
-#	if self.get_parent():
-#		get_parent().call_deferred("remove_child", self)
-#		yield(self, "tree_exited")
-#	set_physics_dropped()
-#	self.owner_character = null
-#	if GameManager.game.level:
-#		self.global_transform = at
-##		self.linear_velocity = at.basis.x
-#		GameManager.game.level.call_deferred("add_child", self)
-#		yield(self, "tree_entered")
-#		self.force_update_transform()
-#	else:
-#		printerr(self, " has disappeared into the void: no Level was found")
-#		self.free()

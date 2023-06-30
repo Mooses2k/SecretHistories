@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/_consumable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/_medical.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/consumables/medical/medical_bag/M_MedicalBag.material" type="Material" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/medical.gd" type="Script" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "doctor_bag_Mesh"
@@ -26,11 +25,12 @@ points = PoolVector3Array( -0.00025484, 0.405814, 0.00297584, 0.0290591, 0.40347
 mass = 3.0
 contacts_reported = 2
 contact_monitor = true
-script = ExtResource( 4 )
-dropped_layers = 0
-dropped_mask = 0
+item_size = 1
 item_name = "Medical Bag"
 horizontal_holding = true
+heal_amount = 1
+max_charges_held = 100
+max_charges_usable_at_once = 100
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )

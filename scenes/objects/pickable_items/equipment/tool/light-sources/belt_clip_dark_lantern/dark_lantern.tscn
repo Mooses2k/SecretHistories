@@ -145,10 +145,12 @@ anims/flicker = SubResource( 4 )
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." index="5"]
 stream = ExtResource( 3 )
+bus = "Effects"
 
 [node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 5 )
+bus = "Effects"
 
 [node name="Ignite" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0612894 )

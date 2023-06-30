@@ -2,7 +2,7 @@
 
 [ext_resource path="res://resources/models/large_objects/sarcophagi/M_SarcoLidClean.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/large_objects/sarcophagi/dragging_sound.gd" type="Script" id=2]
-[ext_resource path="res://resources/sounds/doors/sarcophagus_lid_scrape.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sounds/sarcophagus_lid_scrape.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -34,12 +34,12 @@ item_drag_sound = ExtResource( 3 )
 item_drop_sound = ExtResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
 shape = SubResource( 2 )
 
 [node name="Durability" type="Timer" parent="."]

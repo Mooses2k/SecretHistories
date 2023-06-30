@@ -13,15 +13,22 @@ collision_layer = 64
 collision_mask = 1
 mass = 1.0
 script = ExtResource( 2 )
-item_name = "Melee Item"
+dropped_layers = 0
+dropped_mask = 0
 weapon_type = 0
-melee_damage = 0
+primary_damage_type1 = 0
+primary_damage1 = 0
+primary_damage_type2 = 0
+primary_damage2 = 0
+secondary_damage_type1 = 0
+secondary_damage1 = 0
+secondary_damage_type2 = 0
+secondary_damage2 = 0
 cooldown = 0.01
-throw_logic = true
+throw_logic = false
 can_spin = false
-normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 0
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
 
 [node name="ReloadTimer" type="Timer" parent="." index="2"]
 one_shot = true
@@ -43,23 +50,30 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.42
 [node name="Sounds" type="Spatial" parent="." index="8"]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
+bus = "Effects"
 
 [node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
+bus = "Effects"
 
 [node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 5 )
+bus = "Effects"
 
 [node name="Cut" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
 stream = ExtResource( 4 )
+bus = "Effects"
 
 [node name="Parry" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
 stream = ExtResource( 3 )
+bus = "Effects"
 
 [node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds" index="5"]
 stream = ExtResource( 6 )
+bus = "Effects"
 
 [node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds" index="6"]
 stream = ExtResource( 7 )
+bus = "Effects"
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

@@ -35,9 +35,9 @@ func initialize_hotbar():
 
 
 func hotbar_changed(slot):
-	#from that number, get_child (0 is hotbar 1)
-	#set visible when changed, not always, on timer, with fade, later (modulation)
-	#hotbar.text = new name
+	# From that number, get_child (0 is hotbar 1)
+	# Set visible when changed, not always, on timer, with fade, later (modulation)
+	# hotbar.text = new name
 	var item = inventory.hotbar[slot] as EquipmentItem
 	var item_name = item.item_name if item != null else ""
 	var item_amount = 1 if item != null else 0
@@ -47,6 +47,6 @@ func hotbar_changed(slot):
 
 
 func current_slot_changed(previous, current):
-	#set all modulates to 0.6, then current to 1.0
+	# Set all modulates to 0.6, then current to 1.0
 	$VBoxContainer.get_child(previous).modulate.a = 0.6
 	$VBoxContainer.get_child(current).modulate.a = 1

@@ -1,0 +1,111 @@
+“Darkness is evil. Shun it.” --Arnold Kemp
+“Go die in a hole.” –-Arnold Kemp
+“Walk softly and carry a boomstick.”
+“The most merciful thing in the world, I think, is the inability of the human mind to correlate all its contents.” --HPL
+“We live on a placid island of ignorance in the midst of black seas of infinity, and it was not meant that we should voyage far.” --HPL
+“That is not dead which can eternal lie, And with strange aeons even death may die." --HPL
+"They worshipped, so they said, the Great Old Ones who lived ages before there were any men, and who came to the young world out of the sky. Those Old Ones were gone now, inside the earth and under the sea; but their dead bodies had told their secrets in dreams to the first men, who formed a cult which had never died." --HPL
+"Hope in reality is the worst of all evils because it prolongs the torments of man." --Nietzsche
+“Beware that, when fighting monsters, you yourself do not become a monster...for when you gaze long into the abyss...the abyss gazes also into you.” --Nietzsche
+"It is a measure of the degree of strength of will to what extent one can do without meaning in things, to what extent one can endure to live in a meaningless world because one organizes a small part of it oneself..." --Friedrich Nietzsche
+"Though I drew this conclusion, now it draws me." --Friedrich Nietzsche
+"Hope not ever to see heaven. I have come to lead you to the other shore; into eternal darkness; into fire and into ice." --Dante Alighieri
+"Death may be the greatest of all human blessings." --Socrates
+"Now I do not know whether I was a man dreaming I was a monster, or whether I am now a monster dreaming I was a man." --Zhuangzi
+"We are what we think.  All that we are arises within our thoughts.  With our thoughts, we make the world." --G. Buddha
+"Every battle is won before it is fought." --Sun Tzu
+"The rules are simple: they lie to us, we know they’re lying, they know we know they’re lying to us, and we keep pretending to believe them." --Elena Gorokovo
+"Is all that we see or seem but a dream within a dream." --Edgar Allan Poe
+“From here on out, whenever you see the word ‘Cave,’ just go ahead and mentally add ‘... of Horrors.’” --Evan V. Symon & Kier Harris
+"It is pitch black. You are likely to be eaten by a grue." --Zork
+"You are in a maze of twisty passages, all alike." --Adventure
+“Losing is fun.” --Confucious, 501BC
+"It's a trick, get an axe." --Ash
+"The owls are not what they seem." --The Giant
+"The carp stands up." --Tarn Adams
+"The worthy GM never purposely kills players' PCs. He presents opportunities for the rash and unthinking players to do that all on their own." --Gary Gygax
+"The books I write because I want to read them, the games because I want to play them, and stories I tell because I find them exciting personally." --Gary Gygax
+"Somebody said they threw their copy of Dungeons and Dragons into the fire, and it screamed. It's a game! The magic spells in it are as real as the gold." --Gary Gygax
+"Hail Satan!" --Gary Gygax (attributed)
+"Satanic panic is my favorite kind of panic, other than the one with bunnies." --Gary Gygax (attributed)
+"Use the Force, Frodo" --Dumbledore
+"So long and thanks for all the fnord!" --the Jjaro
+“Isn't sanity really just a one trick pony anyway? I mean all you get is one trick, rational thinking, but when you're good and crazy, oooh, oooh, oooh, the sky is the limit!” --The Tick
+"Monsters are real, and ghosts are real too. They live inside of us, and sometimes, they win." --Stephen King
+"Even in dark times, we cannot relinquish the things that make us human."
+"In the vast emptiness, my understanding deepens." --Ryokan
+"We all go a little mad sometimes." --Norman Bates, Psycho
+"The world outside had its own rules, and those rules were not human." --Michel Houellebecq, The Elementary Particles
+"Horror is like a serpent; always shedding its skin, always changing. And it will always come back." --Dario Argento
+“I knew nothing but shadows and I thought them to be real.” --Oscar Wilde, “The Picture of Dorian Gray”
+“A deep sleep fell upon me - a sleep like that of death.” --Edgar Allan Poe, The Pit and the Pendulum
+“He’s not like us. He smiles a lot. But I think there might be worms inside him, making him smile.” --Stephen King, “The Stand”
+“Something bumped into me - something soft and plump. It must have been the rats; the vicious, gelatinous, ravenous army that feast on the dead and the living.” --H.P. Lovecraft, The Rats in the Walls
+"The things that came for him in the daylight resembled heat waves, mirages, and when they were done with him, he could no longer properly be considered a person." --Unattributed
+The sun is no longer in its splendor - you are not protected by its rays.
+Even the sun at its zenith cannot protect you from the Knowledge.
+Ensure you do not play this game in direct moonlight.
+This game is best played in the dark, with headphones, facing away from an open or unlocked door.
+Do not store this game in an airtight container.
+Store this game in a cool, dark place.
+Warning: explosion risk.
+Slowly... Quietly...
+Don't speak while playing this game. They might hear you.
+If you crouch and walk quietly, you make it easier for them to catch you.
+You can sprint with the [Sprint key] key, but it won't save you.
+You can kick by pressing [Melee key]. You can melee attack with your weapon by holding Right-Click then pressing [Melee key].
+Melee attacks, jumping, mantling, climbing, and running all affect your stamina.
+Hold [Interact key] to drag things around. Bookcases, corpses, and doors are things.
+Press the [Off-hand switch key] key to cycle through items that can be held in the off-hand. Hold [Off-hand switch key] to swap items between hands.
+Look at the lightable portion of a light-source and hit [Interact key] to light it. Look at the holdable part of a light-source and hit [Interact key] to take it.
+You must judge whether it's best to light up a room or keep it shrouded in merciful darkness.
+Don't let them spot you first. 
+Nobody likes a camper...because ambushes are highly effective.
+For a light-source in your main hand, hit Left-Click or, for the off-hand, hit [Off-hand use key] to light or douse it. Right-Click holds it forwards or swings it.
+Press Middle-Mouse Button to throw your main-hand item. Press [Off-hand throw key] to throw your off-hand item.
+Press the [Map key] key to open your map.
+Press the [Binoculars key] key to see through your spyglass.
+Note: Press the [Change look key] key to change the look of the game (dithering, pixelation, various retro flavor).
+The more encumbering items you're carrying, like swords and long-guns, the noisier and more visible you will be.
+Violence is always an answer, but not always the answer.
+Conserve your ammo. You're going to need it.
+Where no humans have tread, no ammo is to be found.
+Have you considered: leaving the situation?
+Have you considered: killing it with fire?
+If you can't accept a situation or change it, then leave it.
+Torches give off a lot of smoke and wreck your night-vision.
+Green slime will outlive us all.
+Swords don't really make a schink sound when you draw them.
+Leather armor is bullshit.
+Wear a helmet.
+Be sure to use protection.
+A gambeson can keep you warm despite the ravages of a cold, dead Earth.
+Running away like a coward is a valid option for cowards.
+Astrology is not the same as astronomy despite having a similar name.
+Astronomers sometimes omit the truth to protect you.
+You will die eventually. Make sure to learn from it.
+What improvements to your strategy and tactics could you make next time? What safety policies should you follow? What should you always do? What should you never do?
+Light is your primary resource.
+Time is your primary resource.
+Ammo is your primary resource.
+Your life is your primary resource.
+Resourcefulness if your primary resource.
+Returning the game for a full refund is your primary recourse.
+"The real war will never get in the books." --Walt Whitman
+"We are like the spider. We weave our life and then move along in it. We are like the dreamer who dreams and then lives in the dream. This is true for the entire universe." --The Upanishads
+"Man is free, but everywhere in chains." --Rousseau
+"Here on the horizon was everything Gideon did not know." --Jenna Helland
+"There was a darkness outside reality, they say - a darkness full of things. Hungry, nasty things with no shape or form, not as long as they were out there." --Kurt Busiek, "Storms of the Heart", Astro City
+"It hurts so bad to look at it. And then it talks, and it all hurts worse." --SCP-3004
+"When it went to sleep, I think it thought it was a hibernation, or like, a birth. Like it laid an egg and made itself." --SCP-3004
+"Yesterday upon the stair - I met a man who wasn't there. He wasn't there again today - Oh how I wish he'd go away." --Hughes Mearns
+"Nobody joins a cult. Nobody joins something they think is going to hurt them. You  join a religious organization, you join a political movement, and you join with people that you really like." --Deborah Layton, Peoples Temple member
+“Adventurer” is defined as “one who looks for trouble,” and “Adventure” is defined as “The trouble an adventurer finds.” --James Edward Raggi IV
+"The world breaks everyone and afterward many are strong in the broken places. But those that will not break it kills. It kills the very good, and the very gentle, and the very brave, impartially." --Ernest Hemingway, A Farewell to Arms
+"Any Future not shaped by a goal system with detailed reliable inheritance from human morals and metamorals will contain almost nothing of worth." --Eliezer Yudkowsky
+"Man plans, God laughs." --old Yiddish adage
+"Everyone complains about the laws of physics, but no one does anything about them." --Rasmah, Schild's Ladder
+“In the meantime, cling tooth and nail to the following rule: not to give in to adversity, not to trust prosperity, and always take full note of fortune’s habit of behaving just as she pleases.” -- Seneca
+"Beware, demon!" he intoned hollowly.  "I am not without defenses." "Oh yeah?  Name three." --Robert Asprin, Another Fine Myth
+"I once fought in a war, so I find the idea of paying to be scared shameful." --The Onion
+"What you seek is seeking you." --Rumi

@@ -31,9 +31,6 @@ func _ready():
 		burn_time = 3600.0
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
-	
-#	if self.name == "BullseyeLantern":
-#		print("burn time is = " + str(burn_time))
 
 
 func _process(delta):

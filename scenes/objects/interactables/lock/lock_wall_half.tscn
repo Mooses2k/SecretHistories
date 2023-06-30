@@ -7,7 +7,6 @@
 [ext_resource path="res://resources/sounds/locks/342617__spacejoe__lock-1-insert-key-1.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/sounds/locks/536414__rudmer-rotteveel__small-padlock-opening.wav" type="AudioStream" id=6]
 
-
 [sub_resource type="Animation" id=4]
 resource_name = "RESET"
 tracks/0/type = "value"
@@ -94,6 +93,8 @@ shape = SubResource( 1 )
 
 [node name="UnlockSound" type="AudioStreamPlayer3D" parent="." index="4"]
 stream = ExtResource( 6 )
+bus = "Effects"
 
 [node name="LockSound" type="AudioStreamPlayer3D" parent="." index="5"]
 stream = ExtResource( 5 )
+bus = "Effects"

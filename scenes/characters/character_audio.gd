@@ -1,8 +1,8 @@
 class_name CharacterAudio
 extends Spatial
 
-
-var _footstep_sounds : Array = []
+# TODO: Eventually get working or ensure working different footstep sounds
+onready var _footstep_sounds : Array = _stone_footstep_sounds   # Unsure if onready needed
 var _stone_footstep_sounds : Array = []
 var _wood_footstep_sounds : Array = []
 var _carpet_footstep_sounds : Array = []
@@ -18,7 +18,7 @@ var _clamber_sounds : Dictionary = {
 }
 
 # Speech
-export var character_voice_path : String = "res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"   # "res:// path to folder structure of this voice pack?"
+export var character_voice_path : String = ""   # "res:// path to folder structure of this voice pack"
 
 enum SpeechType {
 	IDLE,
@@ -45,6 +45,7 @@ var _ambush_sounds : Array = []
 var _chase_sounds : Array = []
 var _fight_sounds : Array = []
 var _reload_sounds : Array = []
+var _out_of_ammo_sounds : Array = []
 var _flee_sounds : Array = []
 var _dialog_q_sounds : Array = []
 var _dialog_a_sounds : Array = []
@@ -65,7 +66,19 @@ onready var last_speech_line   # Tracked to avoid repeating the same line
 
 
 func _ready():
-	choose_voice()
+	# Movement audio	
+	load_sounds("resources/sounds/footsteps/stone_footsteps", 3)
+	load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
+	load_sounds("resources/sounds/footsteps/water_footsteps", 5)
+	load_sounds("resources/sounds/footsteps/gravel_footsteps", 6)
+	load_sounds("resources/sounds/footsteps/carpet_footsteps", 7)
+	load_sounds("resources/sounds/footsteps/metal_footsteps", 8)
+	load_sounds("resources/sounds/footsteps/tile_footsteps", 9)
+#	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
+	load_sounds("resources/sounds/breathing/breathe", 1)
+	load_sounds("resources/sounds/jumping_landing/landing", 2)
+
+	choose_voice()   # Choose one from the appropriate voices for this character
 
 
 func load_sounds(sound_dir, type : int) -> void:
@@ -89,7 +102,7 @@ func load_sounds(sound_dir, type : int) -> void:
 
 	var sound = snd_dir.get_next()
 	while sound != "":
-		if not sound.ends_with(".import") and sound.ends_with(".wav"):
+		if not sound.ends_with(".import") and (sound.ends_with(".wav") or sound.ends_with(".ogg") or sound.ends_with(".mp3")):
 			match type:
 				# Movement
 #				0:
@@ -132,30 +145,58 @@ func load_sounds(sound_dir, type : int) -> void:
 				19:
 					_reload_sounds.append(load(sound_dir + "/" + sound))
 				20:
-					_flee_sounds.append(load(sound_dir + "/" + sound))
+					_out_of_ammo_sounds.append(load(sound_dir + "/" + sound))
 				21:
-					_dialog_q_sounds.append(load(sound_dir + "/" + sound))
+					_flee_sounds.append(load(sound_dir + "/" + sound))
 				22:
-					_dialog_a_sounds.append(load(sound_dir + "/" + sound))
+					_dialog_q_sounds.append(load(sound_dir + "/" + sound))
 				23:
-					_dialog_sequence_sounds.append(load(sound_dir + "/" + sound))
+					_dialog_a_sounds.append(load(sound_dir + "/" + sound))
 				24:
-					_surprised_sounds.append(load(sound_dir + "/" + sound))
+					_dialog_sequence_sounds.append(load(sound_dir + "/" + sound))
 				25:
-					_fire_sounds.append(load(sound_dir + "/" + sound))
+					_surprised_sounds.append(load(sound_dir + "/" + sound))
 				26:
-					_snake_sounds.append(load(sound_dir + "/" + sound))
+					_fire_sounds.append(load(sound_dir + "/" + sound))
 				27:
+					_snake_sounds.append(load(sound_dir + "/" + sound))
+				28:
 					_bomb_sounds.append(load(sound_dir + "/" + sound))
 					
 		sound = snd_dir.get_next()
 
 
-#Speech
+### Speech
 
-# Once per character, randomly choose one of the appropriate voices for this character
+# Once per character, randomly choose an appropriate voice for this character
 func choose_voice():
-	pass
+	if owner is Cultist:   # Later: Neophyte, later more types
+	
+		var choose = randi() % 2
+		match choose:
+			0:
+				character_voice_path = "res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"
+			1:
+				character_voice_path = "res://resources/sounds/voices/cultists/neophyte/deanbrignell/"
+		
+		# Speech audio - these should eventually be moved to each enemy's script or character audio
+		# and the paths adjusted to the correct voice
+		load_sounds(character_voice_path + "idle", 13)
+		load_sounds(character_voice_path + "alert", 14)
+		load_sounds(character_voice_path + "detection", 15)
+		load_sounds(character_voice_path + "ambush", 16)
+		load_sounds(character_voice_path + "chase", 17)
+		load_sounds(character_voice_path + "fight", 18)
+		load_sounds(character_voice_path + "reload", 19)
+		load_sounds(character_voice_path + "out_of_ammo", 20)
+		load_sounds(character_voice_path + "flee", 21)
+		load_sounds(character_voice_path + "dialog_q", 22)
+		load_sounds(character_voice_path + "dialog_a", 23)
+		load_sounds(character_voice_path + "dialog_sequence", 24)
+		load_sounds(character_voice_path + "surprised", 25)
+		load_sounds(character_voice_path + "fire", 26)
+		load_sounds(character_voice_path + "snake", 27)
+		load_sounds(character_voice_path + "bomb", 28)
 
 
 func play_idle_sound():

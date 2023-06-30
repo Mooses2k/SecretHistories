@@ -128,7 +128,7 @@ func _physics_process(delta):
 
 
 func check_player_animation():
-	print(inventory.current_offhand_equipment)
+#	print(inventory.current_offhand_equipment)
 	adjust_arm()
 	if inventory.current_mainhand_equipment != null and inventory.current_offhand_equipment == null :
 		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
@@ -148,35 +148,43 @@ func check_player_animation():
 #		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 		animation_tree.set("parameters/OffHand_Weapon_States/current",1)
 		
-	elif inventory.current_offhand_equipment is EquipmentItem:
+#	elif inventory.current_offhand_equipment is LanternItem:
+#		if inventory.current_offhand_equipment.horizontal_holding == true:
+#			inventory.current_offhand_equipment.hold_position.rotation_degrees.z = -90
+#			animation_tree.set("parameters/Hand_Transition/current",0)
+##			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+#			animation_tree.set("parameters/OffHand_Weapon_States/current",0)
+#			animation_tree.set("parameters/Offhand_Hold_Animation/current",1)
+#		else:
+#			animation_tree.set("parameters/Hand_Transition/current",0)
+##			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+#			animation_tree.set("parameters/OffHand_Weapon_States/current",0)
+#			animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
+
+	elif inventory.current_offhand_equipment is ConsumableItem:
+
+		animation_tree.set("parameters/Hand_Transition/current",0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
+		animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
+
+	elif inventory.current_offhand_equipment is ToolItem:
 		if inventory.current_offhand_equipment.horizontal_holding == true:
 			inventory.current_offhand_equipment.hold_position.rotation_degrees.z = -90
 			animation_tree.set("parameters/Hand_Transition/current",0)
 #			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 			animation_tree.set("parameters/OffHand_Weapon_States/current",0)
 			animation_tree.set("parameters/Offhand_Hold_Animation/current",1)
-			
 		else:
 			animation_tree.set("parameters/Hand_Transition/current",0)
 #			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 			animation_tree.set("parameters/OffHand_Weapon_States/current",0)
 			animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
-
-#	elif inventory.current_offhand_equipment is ConsumableItem:
 #
+	else:
+		print("eufbwuifbiwerfujwberuifqjlfbq43ubjf;uqbguerlqibgreqgo;berqgqreg;ouibq3e;robgergueo")
+		print("Nothing is in the offhand")
 #		animation_tree.set("parameters/Hand_Transition/current",0)
-#		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
-#		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
-#		animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
-#
-#	elif inventory.current_offhand_equipment is ToolItem:
-#
-#		animation_tree.set("parameters/Hand_Transition/current",0)
-#		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
-#		animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
-#
-	elif inventory.current_offhand_equipment == EmptyHand:
-		animation_tree.set("parameters/Hand_Transition/current",0)
 #		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
 
@@ -196,6 +204,7 @@ func check_player_animation():
 		
 	elif inventory.current_mainhand_equipment is EquipmentItem:
 		if inventory.current_mainhand_equipment.horizontal_holding == true:
+			inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/Weapon_states/current",0)
 			animation_tree.set("parameters/Hold_Animation/current",1)
@@ -218,24 +227,29 @@ func check_player_animation():
 		animation_tree.set("parameters/Hold_Animation/current",0)
 		
 	elif inventory.current_mainhand_equipment == null:
+		print("Nothing is in the mainhand")
 		animation_tree.set("parameters/Hand_Transition/current",0)
 		animation_tree.set("parameters/Weapon_states/current",4)
+		
+#	elif inventory.current_mainhand_equipment.item_state == GlobalConsts.ItemState.EQUIPPED:
+#		animation_tree.set("parameters/Hand_Transition/current",0)
+#		animation_tree.set("parameters/Weapon_states/current",4)
 
 	
 
-func check_equipped_hands():
-	if  offhand_active and  mainhand_active:
-		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
-		
-	elif offhand_active and not mainhand_active:
-		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
-		
-	elif mainhand_active and not offhand_active:
-		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
-		
-	elif not mainhand_active and not offhand_active:
-		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
-#var mainhand_active = false
+#func check_equipped_hands():
+#	if  offhand_active and  mainhand_active:
+#		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+#
+#	elif offhand_active and not mainhand_active:
+#		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+#
+#	elif mainhand_active and not offhand_active:
+#		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+#
+#	elif not mainhand_active and not offhand_active:
+#		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
+##var mainhand_active = false
 
 func adjust_arm():
 	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )

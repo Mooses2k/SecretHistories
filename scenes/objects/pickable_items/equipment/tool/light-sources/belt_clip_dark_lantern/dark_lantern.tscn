@@ -150,7 +150,7 @@ stream = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 5 )
 
-[node name="Ignite" parent="." index="8"]
+[node name="Ignite" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.0612894 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]

@@ -147,7 +147,7 @@ func ads():
 
 	else:
 		if Input.is_action_just_released("main_use_secondary") and get_parent().inventory.hotbar[main_hand_item] is GunItem or owner.do_sprint == true:
-			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 			$"%ADSTween".start()
 			if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
 				_camera.fov  = lerp(_camera.fov, 70, 0.5)

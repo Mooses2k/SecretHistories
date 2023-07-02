@@ -1,34 +1,12 @@
 extends Node
 
 
-enum FullscreenMode {
-	FULLSCREEN = 0,
-	BORDERLESS_WINDOWED = 1,
-	WINDOWED = 2
-}
-
-var fullscreen_mode : int setget set_fullscreen_mode
-
-var vsync : bool
-var brightness : float
-
-var master_audio_enabled : bool
-var sound_enabled : bool
-var music_enabled : bool
-var voice_enabled : bool
-
-var master_audio_volume : float
-var sound_volume : float
-var music_volume : float
-var voice_volume : float
-
-var file_name = "%s://keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
-var file_name_default = "%s://defaultKeys.dict" % ("user" if OS.has_feature("standalone") else "res")
+var file_name = "%s://globals/settings/keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
+var file_name_default = "%s://globals/settings/defaultKeys.dict" % ("user" if OS.has_feature("standalone") else "res")
 
 var mouse_sensitivity : float = 1
 
 var setting_key = false
-
 var keys_default : Dictionary
 
 enum EventType {
@@ -40,6 +18,7 @@ enum EventType {
 var event_prefixes = [
 	"key", # KEY
 	"pkey", # KEY_PHYSICAL
+	"mouse", # MOUSE_BUTTON
 ]
 
 
@@ -54,8 +33,6 @@ func gen_dict_from_input_map() -> Dictionary:
 	var actions = InputMap.get_actions()
 	var result = Dictionary()
 	for _action in actions:
-		if _action == "player|reload":
-			print("action " + str(_action))
 		var action : String = _action as String
 		# ignore built in ui actions
 		if not action.begins_with("ui_"):
@@ -63,20 +40,6 @@ func gen_dict_from_input_map() -> Dictionary:
 			for event in InputMap.get_action_list(action):
 				result[action].push_back(event2str(event))
 	return result
-
-
-func set_fullscreen_mode(value : int):
-	fullscreen_mode = value
-	match fullscreen_mode:
-		FullscreenMode.FULLSCREEN:
-			OS.window_fullscreen = true
-			OS.window_borderless = false
-		FullscreenMode.BORDERLESS_WINDOWED:
-			OS.window_fullscreen = false
-			OS.window_borderless = true
-		FullscreenMode.WINDOWED:
-			OS.window_fullscreen = false
-			OS.window_borderless = false
 
 
 # We'll use this when the game loads
@@ -134,6 +97,12 @@ func event2str(event : InputEvent) -> String:
 		if event.scancode == 0:
 			ev_type = EventType.KEY_PHYSICAL
 			scancode = event.physical_scancode
+		print("event == " + "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)])
+		return "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)]
+	elif event is InputEventMouseButton:
+		print("Mouse Button " + str(event.button_index))
+		var ev_type = EventType.MOUSE_BUTTON
+		var scancode = event.button_index
 		return "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)]
 	else:
 		print(var2str(event))
@@ -153,6 +122,11 @@ func str2event(string : String) -> InputEvent:
 					event.scancode = scancode
 					return event
 				EventType.KEY_PHYSICAL:
+					var scancode = OS.find_scancode_from_string(string)
+					var event = InputEventKey.new()
+					event.physical_scancode = scancode
+					return event
+				EventType.MOUSE_BUTTON:
 					var scancode = OS.find_scancode_from_string(string)
 					var event = InputEventKey.new()
 					event.physical_scancode = scancode

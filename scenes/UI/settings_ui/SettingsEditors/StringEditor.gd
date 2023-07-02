@@ -66,12 +66,17 @@ func _on_Value_value_changed(value):
 
 
 func _input(event):
+	if not get_parent().get_parent().get_parent().get_parent().owner.get_node("ChangeKeyPanel").visible:
+		is_waiting_input = false
+		
 	if is_waiting_input:
 		if not event is InputEventMouseMotion:
 			get_viewport().set_input_as_handled()
 			
 			if event is InputEventMouseButton:
 				print("Mouse Button " + str(event.get_button_index()))
+				if event.get_button_index() == 2:
+						return
 			elif event is InputEventJoypadButton:
 				print("Joypad Button " + str(event.get_button_index()))
 			elif event is InputEventJoypadMotion:

@@ -86,6 +86,8 @@ func check_player_animation():
 
 	else:
 		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
+		print("offhand holding something else")
+		
 
 
 		
@@ -162,3 +164,7 @@ func _on_Inventory_inventory_changed():
 func _on_Inventory_unequip_mainhand():
 	animation_tree.set("parameters/Hand_Transition/current",0)
 	animation_tree.set("parameters/Weapon_states/current",4)
+
+
+func _on_Inventory_unequip_offhand():
+	animation_tree.set("parameters/OffHand_Weapon_States/current",2)

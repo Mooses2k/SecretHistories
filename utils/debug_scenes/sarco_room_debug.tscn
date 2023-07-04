@@ -12,16 +12,15 @@
 [node name="GenerationManager" parent="." index="5"]
 world_size_x = 12
 world_size_z = 12
-generation_seed = 5
 
 [node name="GenerateDebugRoom" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 13 )
 room_rect = Rect2( 2, 2, 4, 6 )
 room_purpose = 1
 doorways = {
-0: 2,
+0: -1,
 1: -1,
-2: 2,
+2: 1,
 3: -1
 }
 
@@ -47,3 +46,10 @@ script = ExtResource( 7 )
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
 script = ExtResource( 10 )
+_rotation_by_wall = {
+0: 0.0,
+1: 270.0,
+2: 180.0,
+3: 90.0
+}
+_force_lid = -1

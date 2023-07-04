@@ -1,4 +1,5 @@
 # Write your doc string for this file here
+tool
 extends GenerationStep
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -10,6 +11,8 @@ extends GenerationStep
 
 const Sarcophagus = preload("res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd")
 
+
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 export(String, FILE, "*.tscn") var sarco_scene_path := \
@@ -17,13 +20,17 @@ export(String, FILE, "*.tscn") var sarco_scene_path := \
 
 export var sarco_tile_size := Vector2(2,2)
 export var min_size_for_middle_sarco := 6
-# Angle in degrees that the sarcos have to be rotated when spawning in each direction
-export(float, -360.0, 360.0, 1.0) var rotation_north := 0.0
-export(float, -360.0, 360.0, 1.0) var rotation_east := 270.0
-export(float, -360.0, 360.0, 1.0) var rotation_south := 180.0
-export(float, -360.0, 360.0, 1.0) var rotation_west := 90.0
 
 #--- private variables - order: export > normal var > onready -------------------------------------
+
+var _force_lid := -1
+
+var _rotation_by_wall := {
+	WorldData.Direction.NORTH: 0.0,
+	WorldData.Direction.EAST: 270.0,
+	WorldData.Direction.SOUTH: 180.0,
+	WorldData.Direction.WEST: 90.0,
+}
 
 var _rng := RandomNumberGenerator.new()
 
@@ -119,6 +126,8 @@ func _set_sarco_spawn_data(
 	spawn_data.set_y_rotation(sarco_rotation)
 	
 	var lid_type := Sarcophagus.get_random_lid_type(_rng)
+	if _force_lid != -1:
+		lid_type = _force_lid
 	spawn_data.set_custom_property("current_lid", lid_type)
 	
 	for cell_index in sarco_cells:
@@ -341,3 +350,92 @@ class RoomWalls extends Reference:
 					final_segments.append(segment)
 		
 		return final_segments
+
+
+
+###################################################################################################
+# Editor Methods ##################################################################################
+###################################################################################################
+
+### Custom Inspector built in functions -----------------------------------------------------------
+
+const ROTATION_GROUP_HINT = "rotation_"
+
+func _get_property_list() -> Array:
+	var properties: = []
+	
+	properties.append({
+			name = "Sarcophagus Rotation by wall",
+			type = TYPE_NIL,
+			usage = PROPERTY_USAGE_GROUP,
+			hint_string = ROTATION_GROUP_HINT
+	})
+	
+	properties.append({
+			name = "_rotation_by_wall",
+			type = TYPE_DICTIONARY,
+			usage = PROPERTY_USAGE_STORAGE,
+	})
+	
+	for direction in _rotation_by_wall:
+		properties.append({
+				name = "%s%s"%[ROTATION_GROUP_HINT, WorldData.Direction.keys()[direction].to_lower()],
+				type = TYPE_REAL,
+				usage = PROPERTY_USAGE_EDITOR,
+				hint = PROPERTY_HINT_RANGE,
+				hint_string = "0.0,360.0,90.0"
+		})
+	
+	properties.append({
+			name = "_force_lid",
+			type = TYPE_INT,
+			usage = PROPERTY_USAGE_STORAGE,
+	})
+	
+	var enum_keys := PoolStringArray(["DISABLED"])
+	enum_keys.append_array(Sarcophagus.PossibleLids.keys())
+	var enum_hint := enum_keys.join(",")
+	properties.append({
+			name = "force_lid",
+			type = TYPE_STRING,
+			usage = PROPERTY_USAGE_EDITOR,
+			hint = PROPERTY_HINT_ENUM,
+			hint_string = enum_hint
+	})
+	
+	return properties
+
+
+func _set(property: String, value) -> bool:
+	var has_handled := true
+	
+	if property.begins_with(ROTATION_GROUP_HINT):
+		var key = property.replace(ROTATION_GROUP_HINT, "").to_upper()
+		var direction = WorldData.Direction[key]
+		_rotation_by_wall[direction] = value
+	elif property == "force_lid":
+		if value in Sarcophagus.PossibleLids.keys():
+			value = Sarcophagus.PossibleLids[value]
+		else:
+			value = -1
+		_force_lid = value
+	else:
+		has_handled = false
+	
+	return has_handled
+
+
+func _get(property: String):
+	var value = null
+	
+	if property.begins_with(ROTATION_GROUP_HINT):
+		var key = property.replace(ROTATION_GROUP_HINT, "").to_upper()
+		var direction = WorldData.Direction[key]
+		value = _rotation_by_wall[direction]
+	elif property == "force_lid":
+		value = "DISABLED" if _force_lid == -1 else Sarcophagus.PossibleLids.keys()[_force_lid]
+	
+	return value
+
+
+### -----------------------------------------------------------------------------------------------

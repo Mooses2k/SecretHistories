@@ -166,12 +166,14 @@ func _get_property_list() -> Array:
 
 
 func _set(property: String, value) -> bool:
-	var has_handled := false
+	var has_handled := true
 	
 	if property.begins_with(DOORWAY_HINT):
 		var key = property.replace(DOORWAY_HINT, "")
 		var direction = WorldData.Direction[key]
 		doorways[direction] = value
+	else:
+		has_handled = false
 	
 	return has_handled
 

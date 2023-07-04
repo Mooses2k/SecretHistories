@@ -100,7 +100,7 @@ func set_doorways_meta(data: WorldData, cells: Array, direction: int) -> void:
 	for cell in cells:
 		if data.get_cell_type(cell) == data.CellType.ROOM:
 			var room_data := data.get_cell_meta(cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
-			room_data.set_doorway_cell(cell, direction)
+			room_data.set_doorway_cell(cell, data.direction_inverse(direction))
 		elif data.get_cell_type(cell) == data.CellType.DOOR:
 			add_door_direction(data, cell, direction)
 

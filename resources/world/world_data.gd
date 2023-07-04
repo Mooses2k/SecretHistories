@@ -343,9 +343,7 @@ func fill_room_data(room: Rect2, cell_type: int, p_type: int) -> void:
 			set_cell_type(cell_index, cell_type)
 			clear_cell_meta(cell_index)
 			set_cell_meta(cell_index, CellMetaKeys.META_ROOM_DATA, room_data)
-			print("room_data meta: %s"%[cell_index])
 			room_data.add_cell_index(cell_index)
-	print("cell meta after room: %s"%[cell_meta])
 
 
 func set_room(type: int, p_room_data: RoomData) -> void:

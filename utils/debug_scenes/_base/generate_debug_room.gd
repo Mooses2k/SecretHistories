@@ -11,7 +11,7 @@ extends GenerationStep
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var room_rect := Rect2(1,1,4,4)
+export var room_rect := Rect2(1,1,4,4) setget _set_room_rect
 
 var room_purpose := 0
 var doorways := {
@@ -39,9 +39,9 @@ var doorways := {
 ### Private Methods -------------------------------------------------------------------------------
 
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
-	data.fill_room_data(room_rect, RoomData.OriginalPurpose.CRYPT)
+	data.fill_room_data(room_rect, room_purpose)
 	gen_data[ROOM_ARRAY_KEY] = [room_rect]
-	var current_room := data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT).back() as RoomData
+	var current_room := data.get_rooms_of_type(room_purpose).back() as RoomData
 	
 	for direction in doorways:
 		if doorways[direction] == -1:
@@ -105,6 +105,11 @@ func _set_doorways_meta(data: WorldData, cell_index: int, direction: int) -> voi
 		room_data.set_doorway_cell(cell_index, data.direction_inverse(direction))
 	elif data.get_cell_type(cell_index) == data.CellType.DOOR:
 		_add_door_direction(data, cell_index, direction)
+
+
+func _set_room_rect(value: Rect2) -> void:
+	room_rect = value
+	property_list_changed_notify()
 
 ### -----------------------------------------------------------------------------------------------
 

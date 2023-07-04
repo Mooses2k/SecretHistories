@@ -1,9 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/crypt.tres" type="Resource" id=1]
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" type="Resource" id=2]
 [ext_resource path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" type="Script" id=5]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=7]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=8]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=9]
@@ -13,17 +10,18 @@
 [node name="SarcoDebugRoom" instance=ExtResource( 3 )]
 
 [node name="GenerationManager" parent="." index="5"]
-world_size_x = 10
-world_size_z = 10
+world_size_x = 12
+world_size_z = 12
+generation_seed = 5
 
 [node name="GenerateDebugRoom" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 13 )
-room_rect = Rect2( 2, 2, 4, 4 )
-room_purpose = 0
+room_rect = Rect2( 2, 2, 4, 6 )
+room_purpose = 1
 doorways = {
-0: -1,
+0: 2,
 1: -1,
-2: 1,
+2: 2,
 3: -1
 }
 
@@ -44,11 +42,7 @@ pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
 
-[node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="3"]
-script = ExtResource( 5 )
-purpose_resources = [ ExtResource( 1 ), ExtResource( 2 ) ]
-
-[node name="PopulateRooms" type="Node" parent="GenerationManager" index="4"]
+[node name="PopulateRooms" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 7 )
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms" index="0"]

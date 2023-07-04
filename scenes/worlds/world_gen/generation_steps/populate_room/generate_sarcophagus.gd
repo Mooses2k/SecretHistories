@@ -230,6 +230,9 @@ class RoomWalls extends Reference:
 						possible_cells[direction].append(cell_index)
 		
 		for direction in possible_cells:
+			if possible_cells[direction].empty():
+				continue
+			
 			var neighbour_cells := [possible_cells[direction][0]]
 			var length_direction := world_data.direction_rotate_cw(direction)
 			if direction == WorldData.Direction.SOUTH or direction == WorldData.Direction.WEST:

@@ -172,15 +172,15 @@ class RoomWalls extends Reference:
 	) -> Array:
 		var sanitized_segments := []
 		var free_segments := []
-		var indexes_to_remove := []
 		
 		var width_direction := data.direction_inverse(wall_direction)
 		for value in cells[wall_direction]:
 			var raw_segment := value.duplicate() as Array
+			var indexes_to_remove := []
 			for index in raw_segment.size():
 				var current_cell := raw_segment[index] as int
 				var is_free := data.is_cell_free(current_cell)
-				for _index in sarco_tile_size.y:
+				for _index in sarco_tile_size.y - 1:
 					if is_free:
 						current_cell = data.get_neighbour_cell(current_cell, width_direction)
 						is_free = data.is_cell_free(current_cell)
@@ -189,10 +189,11 @@ class RoomWalls extends Reference:
 					indexes_to_remove.append(index)
 			
 			if not indexes_to_remove.empty():
-				for r_index in range(0, indexes_to_remove.size()-1):
-					var next_r_index := indexes_to_remove[r_index - 1] as int
-					if next_r_index - r_index > sarco_tile_size.x:
-						free_segments.append(range(r_index, next_r_index))
+				for r_index in range(indexes_to_remove.size()-1, -1, -1):
+					raw_segment.remove(indexes_to_remove[r_index])
+				
+				if raw_segment.size() >= sarco_tile_size.x:
+					free_segments.append(raw_segment)
 			else:
 				free_segments.append(raw_segment)
 		
@@ -233,7 +234,7 @@ class RoomWalls extends Reference:
 			if possible_cells[direction].empty():
 				continue
 			
-			var neighbour_cells := [possible_cells[direction][0]]
+			var neighbour_cells := []
 			var length_direction := world_data.direction_rotate_cw(direction)
 			if direction == WorldData.Direction.SOUTH or direction == WorldData.Direction.WEST:
 				length_direction = world_data.direction_rotate_ccw(direction)
@@ -242,6 +243,8 @@ class RoomWalls extends Reference:
 				var previous_cell := possible_cells[direction][index - 1] as int
 				var current_cell := possible_cells[direction][index] as int
 				if current_cell == world_data.get_neighbour_cell(previous_cell, length_direction):
+					if neighbour_cells.empty():
+						neighbour_cells.append(previous_cell)
 					neighbour_cells.append(current_cell)
 				else:
 					if neighbour_cells.size() >= sarco_length:
@@ -249,7 +252,7 @@ class RoomWalls extends Reference:
 					neighbour_cells.clear()
 			
 			if neighbour_cells.size() >= sarco_length:
-				cells[direction].append(possible_cells[direction].duplicate())
+				cells[direction].append(neighbour_cells.duplicate())
 	
 	
 	# Sets main_walls according to doorways in crypt. If cript has:

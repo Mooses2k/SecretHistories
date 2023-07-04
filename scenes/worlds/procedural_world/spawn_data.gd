@@ -21,6 +21,11 @@ export var amount: int = 1 setget _set_amount
 
 export var _transforms: Array
 
+# Array of Dictionary of properties to be applied to the spawned node, after spawn.
+export var _custom_properties: Array
+
+var _has_spawned := false
+
 ### -----------------------------------------------------------------------------------------------
 
 
@@ -42,17 +47,26 @@ func _to_string() -> String:
 ### Public Methods --------------------------------------------------------------------------------
 
 func spawn_item_in(node: Node, should_log := false) -> void:
+	if _has_spawned:
+		return
+	
 	var item_scene : PackedScene = load(scene_path)
 	for index in amount:
 		var item = item_scene.instance()
 		if item is Spatial:
 			item.transform = _transforms[index]
 		
+		var custom_properties := _custom_properties[index] as Dictionary
+		for key in custom_properties:
+			node.set(key, custom_properties[key])
+		
 		node.add_child(item, true)
 		if should_log:
 			print("item spawned: %s | at: %s | rotated by: %s"%[
 					scene_path, _transforms[index].origin, _transforms[index].basis.get_euler()
 			])
+	
+	_has_spawned = true
 
 
 func set_center_position_in_cell(cell_position: Vector3, instance_index := INF) -> void:
@@ -130,6 +144,24 @@ func set_y_rotation(angle_rad: float, instance_index := INF) -> void:
 		transform.basis = transform.basis.rotated(Vector3.UP, angle_rad)
 		_transforms[i] = transform
 
+
+func set_position_in_cell(cell_position: Vector3, instance_index := INF) -> void:
+	for i in amount:
+		if instance_index != INF and i != instance_index:
+			continue
+		
+		var transform = _transforms[i] as Transform
+		transform.origin = cell_position
+		_transforms[i] = transform
+
+
+func set_custom_property(key: String, value, instance_index := INF) -> void:
+	for i in amount:
+		if instance_index != INF and i != instance_index:
+			continue
+		
+		_custom_properties[i][key] = value
+
 ### -----------------------------------------------------------------------------------------------
 
 
@@ -139,11 +171,15 @@ func _set_amount(value: int) -> void:
 	amount = int(max(1, value))
 	var old_tranforms = _transforms.duplicate()
 	_transforms.resize(amount)
+	_custom_properties.resize(amount)
+	
 	_transforms.fill(Transform.IDENTITY)
 	
 	for index in _transforms.size():
 		if index < old_tranforms.size() and _transforms[index] != old_tranforms[index]:
 			_transforms[index] = old_tranforms[index]
+		
+		_custom_properties[index] = {}
 
 
 func _get_center_offset() -> Vector3:

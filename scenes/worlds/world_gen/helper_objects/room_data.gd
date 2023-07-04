@@ -26,6 +26,19 @@ export var has_pillars := false
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
+# keys are directions, and values are cell_indexes. ex:
+#{ 
+#	WorldData.Direction.NORTH: [57,87],
+#	WorldData.Direction.WEST: [59,60],
+#}
+# This means that on cell indexes 57 and 87 there is a door facing NORTH
+export var _doorways: Dictionary
+
+### -----------------------------------------------------------------------------------------------
+
+
+### Built-in Virtual Overrides --------------------------------------------------------------------
+
 func _init(p_type := OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
 	var invalid_type_msg := "invalid type: %s, valid values are: %s"%[p_type, OriginalPurpose.keys()]
 	assert(p_type in OriginalPurpose.values(), invalid_type_msg)
@@ -36,10 +49,6 @@ func _init(p_type := OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
 	polygons = []
 	has_pillars = false
 
-### -----------------------------------------------------------------------------------------------
-
-
-### Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _to_string() -> String:
 	var msg := "\n---- RoomData %s \n"%[get_instance_id()]
@@ -58,6 +67,31 @@ func add_cell_index(p_cell_index) -> void:
 		cell_indexes.append(p_cell_index)
 	else:
 		push_error("Already has p_cell_index: %s | %s"%[p_cell_index, cell_indexes])
+
+
+func set_doorway_cell(cell_index: int, direction: int) -> void:
+	if not _doorways.has(direction):
+		_doorways[direction] = []
+	
+	if not _doorways[direction].has(cell_index):
+		_doorways[direction].append(cell_index)
+	else:
+		push_warning("this doorway has already been registered.")
+
+
+func get_doorway_directions() -> Array:
+	return _doorways.keys()
+
+
+# Returns an Array with cell indexes for doorways in the asked direction. If there is none, 
+# returns an empty array.
+func get_doorways_for(direction: int) -> Array:
+	var value = []
+	
+	if _doorways.has(direction):
+		value = _doorways[direction].duplicate()
+	
+	return value
 
 
 # Returns whether the room's individual dimensions are both greater than on equal to

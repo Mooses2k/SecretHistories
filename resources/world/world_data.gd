@@ -63,6 +63,7 @@ enum CellType {
 enum CellMetaKeys {
 	META_DOOR_DIRECTIONS,
 	META_PILLAR_ROOM,
+	META_ROOM_DATA,
 }
 
 enum EdgeType {
@@ -331,6 +332,20 @@ func _get_property_list() -> Array:
 
 func is_spawn_position_valid() -> bool:
 	return player_spawn_position != INVALID_STARTING_CELL
+
+
+func fill_room_data(room: Rect2, cell_type: int, p_type: int) -> void:
+	var room_data := RoomData.new(p_type, room)
+	set_room(p_type, room_data)
+	for x in range(room.position.x, room.end.x):
+		for y in range(room.position.y, room.end.y):
+			var cell_index = get_cell_index_from_int_position(x, y)
+			set_cell_type(cell_index, cell_type)
+			clear_cell_meta(cell_index)
+			set_cell_meta(cell_index, CellMetaKeys.META_ROOM_DATA, room_data)
+			print("room_data meta: %s"%[cell_index])
+			room_data.add_cell_index(cell_index)
+	print("cell meta after room: %s"%[cell_meta])
 
 
 func set_room(type: int, p_room_data: RoomData) -> void:

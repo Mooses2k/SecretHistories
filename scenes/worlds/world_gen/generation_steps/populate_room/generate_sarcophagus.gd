@@ -53,27 +53,55 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 		var walls_data := RoomWalls.new()
 		walls_data.init_from_room(data, crypt, sarco_tile_size)
 		print("Crypt Walls: %s"%[walls_data])
-		_spawn_sarcos_on_walls(data, walls_data)
 		
+		for direction in walls_data.main_walls:
+			_spawn_sarcos_in_wall_segments(data, walls_data, direction)
+		
+		for direction in walls_data.cells:
+			if direction in walls_data.main_walls:
+				continue
+			_spawn_sarcos_in_wall_segments(data, walls_data, direction)
+			
 		if crypt.is_min_dimension_greater_or_equal_to(min_size_for_middle_sarco):
 			_spawn_middle_sarco(data, crypt)
 
 
-func _spawn_sarcos_on_walls(data: WorldData, walls_data: RoomWalls) -> void:
-	for direction in walls_data.main_walls:
-		var sarco_rotation := _get_sarco_rotation(direction)
-		var segments := walls_data.get_sanitized_segments_for(data, direction, sarco_tile_size)
-		var sarco_offset := _get_sarco_offset(direction) * data.CELL_SIZE
-		for value in segments:
-			var segment := value as Array
-			var surplus_cells := segment.size() % int(sarco_tile_size.x)
-			if surplus_cells == 0:
-				for index in range(0, segment.size(), sarco_tile_size.x):
-					var sarco_cells = segment.slice(index, index + sarco_tile_size.x - 1)
-					_set_sarco_spawn_data(data, sarco_cells, sarco_rotation, sarco_offset)
-			else:
-				sarco_offset += Vector3(surplus_cells * data.CELL_SIZE / 2.0, 0, 0)
-				_set_sarco_spawn_data(data, segment, sarco_rotation, sarco_offset)
+func _spawn_sarcos_in_wall_segments(
+		data: WorldData, walls_data: RoomWalls, direction: int
+) -> void:
+	var sarco_rotation := _get_sarco_rotation(direction)
+	var segments := walls_data.get_sanitized_segments_for(data, direction, sarco_tile_size)
+	for value in segments:
+		var segment := value as Array
+		var surplus_cells := segment.size() % int(sarco_tile_size.x)
+		if surplus_cells == 0:
+			var sarco_offset := _get_sarco_offset(direction) * data.CELL_SIZE
+			for index in range(0, segment.size(), sarco_tile_size.x):
+				var slice = segment.slice(index, index + sarco_tile_size.x - 1)
+				var sarco_cells := _get_all_cells_for_sarco(data, slice, direction)
+				_set_sarco_spawn_data(data, sarco_cells, sarco_rotation, sarco_offset)
+		else:
+			var sarco_cells := _get_all_cells_for_sarco(data, segment, direction)
+			var sarco_offset := _get_sarco_offset(direction, surplus_cells) * data.CELL_SIZE
+			_set_sarco_spawn_data(data, sarco_cells, sarco_rotation, sarco_offset)
+
+
+func _get_all_cells_for_sarco(data: WorldData, segment: Array, direction: int) -> Array:
+	var width_direction := data.direction_inverse(direction)
+	var sarco_cells := []
+	
+	for cell_index in segment:
+		sarco_cells.append(cell_index)
+		for _width in sarco_tile_size.y - 1:
+			cell_index = data.get_neighbour_cell(cell_index, width_direction)
+			sarco_cells.append(cell_index)
+	
+	return sarco_cells
+
+
+func _spawn_middle_sarco(data: WorldData, crypt: RoomData) -> void:
+	pass
+
 
 
 func _set_sarco_spawn_data(
@@ -81,12 +109,14 @@ func _set_sarco_spawn_data(
 ) -> void:
 	var spawn_data := SpawnData.new()
 	spawn_data.scene_path = sarco_scene_path
+	var rotated_offset := sarco_offset.rotated(Vector3.UP, sarco_rotation)
+	
 	var spawn_position = (
 			data.get_local_cell_position(sarco_cells[0])
-			+ sarco_offset.rotated(Vector3.UP, sarco_rotation) 
+			+ rotated_offset
 	)
-	spawn_data.set_y_rotation(sarco_rotation)
 	spawn_data.set_position_in_cell(spawn_position)
+	spawn_data.set_y_rotation(sarco_rotation)
 	
 	var lid_type := Sarcophagus.get_random_lid_type(_rng)
 	spawn_data.set_custom_property("current_lid", lid_type)
@@ -95,34 +125,23 @@ func _set_sarco_spawn_data(
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
 
 
-func _spawn_middle_sarco(data: WorldData, crypt: RoomData) -> void:
-	pass
-
-
 func _get_sarco_rotation(direction: int) -> float:
-	var value := rotation_north
-	
-	match direction:
-		WorldData.Direction.EAST:
-			value = deg2rad(rotation_east)
-		WorldData.Direction.SOUTH:
-			value = deg2rad(rotation_south)
-		WorldData.Direction.WEST:
-			value = deg2rad(rotation_west)
-	
+	var value := deg2rad(_rotation_by_wall[direction] as float)
 	return value
 
 
-func _get_sarco_offset(direction: int) -> Vector3:
+func _get_sarco_offset(direction: int, surplus_cells := 0) -> Vector3:
 	var value := Vector3.ZERO
 	
-	match direction:
-		WorldData.Direction.EAST:
-			value = Vector3(0, 0, -1)
-		WorldData.Direction.SOUTH:
-			value = Vector3(-1 * sarco_tile_size.x, 0, -1)
-		WorldData.Direction.WEST:
-			value = Vector3(-1 * sarco_tile_size.x, 0, 0)
+	var center_offset := surplus_cells / 2.0
+	var rotation := _get_sarco_rotation(direction)
+	match rotation:
+		1.5*PI:
+			value = Vector3(center_offset, 0, -1)
+		PI:
+			value = Vector3(-1 * sarco_tile_size.x - center_offset, 0, -1)
+		PI/2.0:
+			value = Vector3(-1 * sarco_tile_size.x - center_offset, 0, 0)
 	
 	return value
 

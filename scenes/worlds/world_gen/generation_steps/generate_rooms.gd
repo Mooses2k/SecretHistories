@@ -71,7 +71,7 @@ func fill_map_data(data : WorldData, gen_data : Dictionary):
 	
 	for index in range(1, rooms.size()):
 		var room : Rect2 = rooms[index] as Rect2
-		data.fill_room_data(room, data.CellType.ROOM, RoomData.OriginalPurpose.EMPTY)
+		data.fill_room_data(room, RoomData.OriginalPurpose.EMPTY)
 
 
 func _gen_room_rect(data : WorldData, random : RandomNumberGenerator) -> Rect2:

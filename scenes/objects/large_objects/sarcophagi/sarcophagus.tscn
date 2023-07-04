@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_saint.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_plain.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_knight.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd" type="Script" id=5]
+
+[node name="Sarcophagus" type="Spatial"]
+script = ExtResource( 5 )
+current_lid = 1
+
+[node name="LidScenes" type="ResourcePreloader" parent="."]
+resources = [ PoolStringArray( "KNIGHT", "PLAIN", "SAINT" ), [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ] ]
+
+[node name="PositionPlain" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07659, 0 )
+
+[node name="PositionKnight" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03357, 0 )
+
+[node name="PositionSaint" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07898, 0 )
+
+[node name="SarcophagusBase" parent="." instance=ExtResource( 1 )]

@@ -10,6 +10,8 @@ extends Spatial
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
+export var should_auto_exclude := true
+
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 ### -----------------------------------------------------------------------------------------------
@@ -18,8 +20,9 @@ extends Spatial
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _ready() -> void:
-	hide()
-	queue_free()
+	if should_auto_exclude:
+		hide()
+		queue_free()
 
 ### -----------------------------------------------------------------------------------------------
 

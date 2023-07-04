@@ -58,7 +58,7 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 		
 		var custom_properties := _custom_properties[index] as Dictionary
 		for key in custom_properties:
-			node.set(key, custom_properties[key])
+			item.set(key, custom_properties[key])
 		
 		node.add_child(item, true)
 		if should_log:

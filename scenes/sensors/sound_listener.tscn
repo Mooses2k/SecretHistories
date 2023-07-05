@@ -6,7 +6,7 @@
 radius = 3.5
 
 [sub_resource type="SphereShape" id=2]
-radius = 20.0
+radius = 15.0
 
 [node name="SoundListener" type="Spatial"]
 script = ExtResource( 1 )

@@ -439,11 +439,11 @@ func _crouch(delta : float) -> void:
 		_crouch_collider.set_deferred("disabled", false)
 		_collider.set_deferred("disabled", true)
 	
-	var from = mainhand_equipment_root.transform.origin.y
-	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
-	
-	from = offhand_equipment_root.transform.origin.y
-	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#	var from = mainhand_equipment_root.transform.origin.y
+#	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#
+#	from = offhand_equipment_root.transform.origin.y
+#	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
 	if !is_on_floor() and !is_jumping:
 		velocity.y -= 5 * (gravity * delta)

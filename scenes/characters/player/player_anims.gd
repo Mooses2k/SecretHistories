@@ -62,11 +62,6 @@ func check_player_animation():
 	elif inventory.current_offhand_equipment is EmptyHand:
 		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
 		
-#	elif inventory.current_offhand_equipment is ConsumableItem:
-#		adjust_arm()
-#		animation_tree.set("parameters/Hand_Transition/current",0)
-#		animation_tree.set("parameters/OffHand_Weapon_States/current",0)
-#		animation_tree.set("parameters/Offhand_Hold_Animation/current",0)
 
 	elif inventory.current_offhand_equipment is EquipmentItem:
 		adjust_arm()
@@ -97,6 +92,8 @@ func check_player_animation():
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/Weapon_states/current",2)
 		else:
+			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+			$"%ADSTween".start()
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
 			animation_tree.set("parameters/Weapon_states/current",1)
@@ -126,7 +123,7 @@ func check_player_animation():
 
 
 func adjust_arm():
-	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.115), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 	$"%ADSTween".start()
 
 
@@ -149,9 +146,15 @@ func ads():
 						_camera.fov  = lerp(_camera.fov, 60, 0.5)
 
 	else:
-		if Input.is_action_just_released("main_use_secondary") and get_parent().inventory.hotbar[main_hand_item] is GunItem or owner.do_sprint == true:
-			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.105), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-			$"%ADSTween".start()
+		if Input.is_action_just_released("main_use_secondary") and get_parent().inventory.current_mainhand_equipment is GunItem:
+			
+			if inventory.current_mainhand_equipment.item_size == 0:
+				$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.115), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+				$"%ADSTween".start()
+			else:
+				$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+				$"%ADSTween".start()
+				
 			if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
 				_camera.fov  = lerp(_camera.fov, 70, 0.5)
 
@@ -164,6 +167,7 @@ func _on_Inventory_inventory_changed():
 
 func _on_Inventory_unequip_mainhand():
 	animation_tree.set("parameters/Hand_Transition/current",0)
+	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 	animation_tree.set("parameters/Weapon_states/current",4)
 
 

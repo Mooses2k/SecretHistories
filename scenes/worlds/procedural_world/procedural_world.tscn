@@ -52,6 +52,7 @@ script = ExtResource( 13 )
 
 [node name="GenerateRooms" type="Node" parent="GenerationManager" index="1"]
 script = ExtResource( 17 )
+room_size_min = 2
 room_size_max = 3
 
 [node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="2"]

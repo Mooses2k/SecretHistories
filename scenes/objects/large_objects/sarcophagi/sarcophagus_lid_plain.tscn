@@ -35,10 +35,10 @@ item_drag_sound = ExtResource( 3 )
 item_drop_sound = ExtResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
+transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
+transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 shape = SubResource( 2 )

@@ -82,6 +82,7 @@ func check_if_behind_wall(obj : Object):
 	if item_too_near.has(obj):
 		return false
 		
+	var walls = ["wall_xp", "wall_zp", "wall_xn", "wall_zn", "ceiling", "ground"]
 	var space_state = owner.get_world().direct_space_state
 	var result = (space_state.intersect_ray(owner.global_transform.origin + Vector3.UP * 1.5, 
 			obj.global_transform.origin, [owner]))
@@ -89,9 +90,7 @@ func check_if_behind_wall(obj : Object):
 	if result:
 		# TODO make this more general by group maybe?
 		for each in result:
-			if (result["collider"].name == "wall_xp" or result["collider"].name == "wall_zp" or
-			 result["collider"].name == "wall_xn" or result["collider"].name == "wall_zn" or
-			 result["collider"].name == "ceiling" or result["collider"].name == "ground"):
+			if result["collider"].name in walls:
 				passes += 1
 		return passes
 	return false

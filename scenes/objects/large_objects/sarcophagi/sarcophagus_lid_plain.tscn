@@ -21,6 +21,7 @@ surfaces/0 = {
 }
 
 [sub_resource type="ConvexPolygonShape" id=2]
+margin = 0.001
 points = PoolVector3Array( 0.782934, 0.0723, 0.355712, -0.809155, -0.0635, -0.384722, -0.809155, -0.0635, 0.387717, 0.809197, -0.0635, -0.384722, -0.783053, 0.0723, -0.352717, 0.809197, -0.0635, 0.387717, -0.846201, 0.0634229, 0.378326, 0.818798, 0.0624145, -0.381929, -0.851136, -0.0282961, -0.404759, 0.844441, -0.028041, 0.404539, 0.782934, 0.0723, -0.352717, -0.783053, 0.0723, 0.355712, 0.851178, -0.0282961, -0.404759, 0.846209, 0.0634205, 0.37831, -0.847234, 0.0634955, -0.37579, -0.844398, -0.028041, 0.404539, 0.838811, 0.0497892, -0.385115, -0.818924, 0.0624145, -0.381929, 0.832503, 0.0494443, 0.385203, -0.832461, 0.0494443, 0.385203 )
 
 [node name="SarcophagusLidPlain" type="RigidBody"]
@@ -41,9 +42,3 @@ skeleton = NodePath("")
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
 shape = SubResource( 2 )
-
-[node name="Durability" type="Timer" parent="."]
-wait_time = 300.0
-one_shot = true
-
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

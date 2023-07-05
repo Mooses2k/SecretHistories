@@ -106,7 +106,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.18834, 0.138636, 2.92252 )
 
 [node name="Shotgun_sawed_item" parent="." instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.05381, 10.2661 )
-animation_reload_sequence = 0
 
 [node name="ShotgunItem" parent="." instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.56912, 1.47731, 0 )

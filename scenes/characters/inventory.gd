@@ -217,6 +217,8 @@ func equip_mainhand_item():
 		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
+		
+			
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
@@ -279,7 +281,10 @@ func equip_offhand_item():
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
 	# Item exists, can be equipped on the offhand, and is not already equipped
-	if item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
+	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
+		unequip_offhand_item()
+		
+	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
 		# Can't equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED

@@ -127,7 +127,7 @@ transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0
 shape = SubResource( 2 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0335044, 0.0744317 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0335044, 0.0963702 )
 
 [node name="Light" type="SpotLight" parent="." index="3"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0232877, -0.0744399 )

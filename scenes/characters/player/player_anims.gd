@@ -97,6 +97,9 @@ func check_player_animation():
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
 			animation_tree.set("parameters/Weapon_states/current",1)
+			unequip_offhand()
+
+
 
 
 	elif inventory.current_mainhand_equipment is EmptyHand:
@@ -121,6 +124,8 @@ func check_player_animation():
 		animation_tree.set("parameters/Weapon_states/current",4)
 
 
+func unequip_offhand():
+	inventory.unequip_offhand_item()
 
 func adjust_arm():
 	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.115), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )

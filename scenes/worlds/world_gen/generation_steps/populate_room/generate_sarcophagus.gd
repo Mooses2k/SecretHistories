@@ -22,14 +22,6 @@ export var min_size_for_middle_sarco := 6
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 var _force_lid := -1
-
-var _rotation_by_wall := {
-	WorldData.Direction.NORTH: 0.0,
-	WorldData.Direction.EAST: 270.0,
-	WorldData.Direction.SOUTH: 180.0,
-	WorldData.Direction.WEST: 90.0,
-}
-
 var _rng := RandomNumberGenerator.new()
 
 ### -----------------------------------------------------------------------------------------------
@@ -74,21 +66,19 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 func _spawn_sarcos_in_wall_segments(
 		data: WorldData, walls_data: RoomWalls, direction: int
 ) -> void:
-	var sarco_rotation := _get_sarco_rotation(direction)
 	var segments := walls_data.get_sanitized_segments_for(data, direction, sarco_tile_size)
 	for value in segments:
 		var segment := value as Array
 		var surplus_cells := segment.size() % int(sarco_tile_size.x)
 		if surplus_cells == 0:
-			var sarco_offset := _get_sarco_offset(direction) * data.CELL_SIZE
 			for index in range(0, segment.size(), sarco_tile_size.x):
 				var slice = segment.slice(index, index + sarco_tile_size.x - 1)
 				var sarco_cells := _get_all_cells_for_sarco(data, slice, direction)
-				_set_sarco_spawn_data(data, sarco_cells, sarco_rotation, sarco_offset)
+				_set_sarco_spawn_data(data, sarco_cells, direction)
 		else:
 			var sarco_cells := _get_all_cells_for_sarco(data, segment, direction)
 			var sarco_offset := _get_sarco_offset(direction, surplus_cells) * data.CELL_SIZE
-			_set_sarco_spawn_data(data, sarco_cells, sarco_rotation, sarco_offset)
+			_set_sarco_spawn_data(data, sarco_cells, direction, sarco_offset)
 
 
 func _get_all_cells_for_sarco(data: WorldData, segment: Array, direction: int) -> Array:
@@ -108,47 +98,37 @@ func _spawn_middle_sarco(data: WorldData, crypt: RoomData) -> void:
 	pass
 
 
-
 func _set_sarco_spawn_data(
-		data: WorldData, sarco_cells: Array, sarco_rotation: float, sarco_offset := Vector3.ZERO
+		data: WorldData, sarco_cells: Array, wall_direction: float, sarco_offset := Vector3.ZERO
 ) -> void:
 	var spawn_data := SpawnData.new()
 	spawn_data.scene_path = sarco_scene_path
-	var rotated_offset := sarco_offset.rotated(Vector3.UP, sarco_rotation)
 	
 	var spawn_position = (
 			data.get_local_cell_position(sarco_cells[0])
-			+ rotated_offset
+			+ sarco_offset
 	)
 	spawn_data.set_position_in_cell(spawn_position)
-	spawn_data.set_y_rotation(sarco_rotation)
 	
 	var lid_type := Sarcophagus.get_random_lid_type(_rng)
 	if _force_lid != -1:
 		lid_type = _force_lid
 	spawn_data.set_custom_property("current_lid", lid_type)
+	spawn_data.set_custom_property("wall_direction", wall_direction)
 	
 	for cell_index in sarco_cells:
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
-
-
-func _get_sarco_rotation(direction: int) -> float:
-	var value := deg2rad(_rotation_by_wall[direction] as float)
-	return value
 
 
 func _get_sarco_offset(direction: int, surplus_cells := 0) -> Vector3:
 	var value := Vector3.ZERO
 	
 	var center_offset := surplus_cells / 2.0
-	var rotation := _get_sarco_rotation(direction)
-	match rotation:
-		1.5*PI:
-			value = Vector3(center_offset, 0, -1)
-		PI:
-			value = Vector3(-1 * sarco_tile_size.x - center_offset, 0, -1)
-		PI/2.0:
-			value = Vector3(-1 * sarco_tile_size.x - center_offset, 0, 0)
+	match direction:
+		WorldData.Direction.NORTH, WorldData.Direction.SOUTH:
+			value = Vector3(center_offset, 0, 0)
+		WorldData.Direction.EAST, WorldData.Direction.WEST:
+			value = Vector3(0, 0, center_offset)
 	
 	return value
 
@@ -399,28 +379,6 @@ func _get_property_list() -> Array:
 	var properties: = []
 	
 	properties.append({
-			name = "Sarcophagus Rotation by wall",
-			type = TYPE_NIL,
-			usage = PROPERTY_USAGE_GROUP,
-			hint_string = ROTATION_GROUP_HINT
-	})
-	
-	properties.append({
-			name = "_rotation_by_wall",
-			type = TYPE_DICTIONARY,
-			usage = PROPERTY_USAGE_STORAGE,
-	})
-	
-	for direction in _rotation_by_wall:
-		properties.append({
-				name = "%s%s"%[ROTATION_GROUP_HINT, WorldData.Direction.keys()[direction].to_lower()],
-				type = TYPE_REAL,
-				usage = PROPERTY_USAGE_EDITOR,
-				hint = PROPERTY_HINT_RANGE,
-				hint_string = "0.0,360.0,90.0"
-		})
-	
-	properties.append({
 			name = "_force_lid",
 			type = TYPE_INT,
 			usage = PROPERTY_USAGE_STORAGE,
@@ -443,11 +401,7 @@ func _get_property_list() -> Array:
 func _set(property: String, value) -> bool:
 	var has_handled := true
 	
-	if property.begins_with(ROTATION_GROUP_HINT):
-		var key = property.replace(ROTATION_GROUP_HINT, "").to_upper()
-		var direction = WorldData.Direction[key]
-		_rotation_by_wall[direction] = value
-	elif property == "force_lid":
+	if property == "force_lid":
 		if value in Sarcophagus.PossibleLids.keys():
 			value = Sarcophagus.PossibleLids[value]
 		else:
@@ -462,11 +416,7 @@ func _set(property: String, value) -> bool:
 func _get(property: String):
 	var value = null
 	
-	if property.begins_with(ROTATION_GROUP_HINT):
-		var key = property.replace(ROTATION_GROUP_HINT, "").to_upper()
-		var direction = WorldData.Direction[key]
-		value = _rotation_by_wall[direction]
-	elif property == "force_lid":
+	if property == "force_lid":
 		value = "DISABLED" if _force_lid == -1 else Sarcophagus.PossibleLids.keys()[_force_lid]
 	
 	return value

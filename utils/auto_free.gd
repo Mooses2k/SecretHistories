@@ -20,6 +20,8 @@ export var should_auto_exclude := true
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _ready() -> void:
+	if owner != null:
+		yield(owner, "ready")
 	if should_auto_exclude:
 		hide()
 		queue_free()

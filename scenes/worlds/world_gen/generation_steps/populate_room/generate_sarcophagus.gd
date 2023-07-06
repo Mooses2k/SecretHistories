@@ -11,8 +11,6 @@ extends GenerationStep
 
 const Sarcophagus = preload("res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd")
 
-
-
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 export(String, FILE, "*.tscn") var sarco_scene_path := \
@@ -58,7 +56,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 	for c_value in crypt_rooms:
 		var crypt := c_value as RoomData
 		var walls_data := RoomWalls.new()
-		walls_data.init_from_room(data, crypt, sarco_tile_size)
+		walls_data.init_from_room(data, crypt, sarco_tile_size, _rng)
 		print("Crypt Walls: %s"%[walls_data])
 		
 		for direction in walls_data.main_walls:
@@ -174,6 +172,8 @@ class RoomWalls extends Reference:
 	# Array of Directions. See 
 	var main_walls := []
 	
+	var _rng := RandomNumberGenerator.new()
+	
 	func _to_string() -> String:
 		var msg := "RoomWalls:"
 		
@@ -187,7 +187,13 @@ class RoomWalls extends Reference:
 		return msg
 	
 	
-	func init_from_room(world_data: WorldData, crypt: RoomData, sarco_tile_size: Vector2) -> void:
+	func init_from_room(
+			world_data: WorldData, 
+			crypt: RoomData, 
+			sarco_tile_size: Vector2, 
+			rng: RandomNumberGenerator
+	) -> void:
+		_rng = rng
 		_handle_wall_cells(world_data, crypt, sarco_tile_size.x)
 		_handle_main_wall(world_data, crypt)
 	
@@ -286,32 +292,57 @@ class RoomWalls extends Reference:
 				cells[direction].append(neighbour_cells.duplicate())
 	
 	
-	# Sets main_walls according to doorways in crypt. If cript has:
+	# Sets main_walls according to doorways in crypt, and exclude doorway walls. If crypt has:
 	# - one doorway: set the opposing wall as main
 	# - two doorways: if they are parallel, like NORTH and SOUTH, sets the main walls to the 
-	#                 perpendicular axis, so WEST and EAST. If not then opposes the first wall.
+	#                 perpendicular axis, so WEST and EAST. If not then chooses the biggest wall
+	#				  as main.
 	# - three doorways: sets the wall with no doors as main.
-	# - four doorways: no main wall.
+	# - four doorways: no main wall, excludes no wall, let's sarco's spawn whetever there is space.
 	func _handle_main_wall(world_data: WorldData, crypt: RoomData) -> void:
 		var doorway_walls := crypt.get_doorway_directions()
 		if doorway_walls.size() == 1:
 			var opposing_wall := world_data.direction_inverse(doorway_walls[0])
 			main_walls.append(opposing_wall)
+			cells[doorway_walls[0]].clear()
 		elif doorway_walls.size() == 2:
 			var doorway1_direction = doorway_walls[0]
 			var doorway2_direction = doorway_walls[1]
+			
 			if world_data.direction_inverse(doorway1_direction) == doorway2_direction:
 				for direction in doorway_walls:
 					var perpendicular_direction := world_data.direction_rotate_cw(direction)
 					main_walls.append(perpendicular_direction)
 			else:
-				var opposing_wall := world_data.direction_inverse(doorway1_direction)
-				main_walls.append(opposing_wall)
+				var opposing_walls := [
+						world_data.direction_inverse(doorway1_direction),
+						world_data.direction_inverse(doorway2_direction),
+				]
+				
+				var total_sizes := {}
+				for direction in opposing_walls:
+					if not direction in total_sizes:
+						total_sizes[direction] = 0
+					for array in cells[direction]:
+						var segment := array as Array
+						total_sizes[direction] += segment.size()
+				
+				if total_sizes[opposing_walls[0]] == total_sizes[opposing_walls[1]]:
+					var chosen_direction = _rng.randi() % opposing_walls.size()
+					main_walls.append(opposing_walls[chosen_direction])
+				elif total_sizes[opposing_walls[0]] > total_sizes[opposing_walls[1]]:
+					main_walls.append(opposing_walls[0])
+				else:
+					main_walls.append(opposing_walls[1])
+			
+			cells[doorway1_direction].clear()
+			cells[doorway2_direction].clear()
 		elif doorway_walls.size() == 3:
 			for direction in cells:
-				if not doorway_walls.has(direction):
+				if doorway_walls.has(direction):
+					cells[direction].clear()
+				else:
 					main_walls.append(direction)
-					break
 	
 	
 	# Returns an Array of segments where either the segments will fit the number of sarcos and be

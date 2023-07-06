@@ -249,6 +249,9 @@ class RoomWalls extends Reference:
 		}
 		
 		for cell_index in crypt.cell_indexes:
+			if crypt.has_doorway_on(cell_index):
+				continue
+			
 			for direction in WorldData.Direction.values():
 				if direction == WorldData.Direction.DIRECTION_MAX:
 					continue
@@ -436,6 +439,5 @@ func _get(property: String):
 		value = "DISABLED" if _force_lid == -1 else Sarcophagus.PossibleLids.keys()[_force_lid]
 	
 	return value
-
 
 ### -----------------------------------------------------------------------------------------------

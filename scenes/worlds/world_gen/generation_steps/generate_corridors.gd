@@ -93,6 +93,18 @@ func add_door_direction(data : WorldData, cell : int, value : int):
 		data.get_cell_meta(cell, data.CellMetaKeys.META_DOOR_DIRECTIONS).push_back(value)
 
 
+func set_doorways_meta(data: WorldData, cells: Array, direction: int) -> void:
+	if cells.empty():
+		return
+	
+	for cell in cells:
+		if data.get_cell_type(cell) == data.CellType.ROOM:
+			var room_data := data.get_cell_meta(cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
+			room_data.set_doorway_cell(cell, data.direction_inverse(direction))
+		elif data.get_cell_type(cell) == data.CellType.DOOR:
+			add_door_direction(data, cell, direction)
+
+
 func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : int) -> bool:
 	var path : PoolIntArray = astar.get_id_path(a, b)
 	if not (path.size() > 0 and path[0] == a and path[-1] == b):
@@ -118,26 +130,37 @@ func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : in
 		var is_room = false
 		match rooms:
 			0b0000:
-				set_cells(data, cells, [data.CellType.CORRIDOR, data.CellType.CORRIDOR, data.CellType.CORRIDOR, data.CellType.CORRIDOR])
+				set_cells(data, cells, [
+						data.CellType.CORRIDOR, data.CellType.CORRIDOR, 
+						data.CellType.CORRIDOR, data.CellType.CORRIDOR
+				])
 			0b0011:
-				set_cells(data, cells, [data.CellType.ROOM, data.CellType.ROOM, data.CellType.DOOR, data.CellType.DOOR])
-				add_door_direction(data, cells[2], data.Direction.NORTH)
-				add_door_direction(data, cells[3], data.Direction.NORTH)
+				set_cells(data, cells, [
+						data.CellType.ROOM, data.CellType.ROOM, 
+						data.CellType.DOOR, data.CellType.DOOR
+				])
+				set_doorways_meta(data, cells, data.Direction.NORTH)
 				is_edge = true
 			0b0110:
-				set_cells(data, cells, [data.CellType.DOOR, data.CellType.ROOM, data.CellType.ROOM, data.CellType.DOOR])
-				add_door_direction(data, cells[0], data.Direction.EAST)
-				add_door_direction(data, cells[3], data.Direction.EAST)
+				set_cells(data, cells, [
+						data.CellType.DOOR, data.CellType.ROOM, 
+						data.CellType.ROOM, data.CellType.DOOR
+				])
+				set_doorways_meta(data, cells, data.Direction.EAST)
 				is_edge = true
 			0b1100:
-				set_cells(data, cells, [data.CellType.DOOR, data.CellType.DOOR, data.CellType.ROOM, data.CellType.ROOM])
-				add_door_direction(data, cells[0], data.Direction.SOUTH)
-				add_door_direction(data, cells[1], data.Direction.SOUTH)
+				set_cells(data, cells, [
+						data.CellType.DOOR, data.CellType.DOOR, 
+						data.CellType.ROOM, data.CellType.ROOM
+				])
+				set_doorways_meta(data, cells, data.Direction.SOUTH)
 				is_edge = true
 			0b1001:
-				set_cells(data, cells, [data.CellType.ROOM, data.CellType.DOOR, data.CellType.DOOR, data.CellType.ROOM])
-				add_door_direction(data, cells[1], data.Direction.WEST)
-				add_door_direction(data, cells[2], data.Direction.WEST)
+				set_cells(data, cells, [
+						data.CellType.ROOM, data.CellType.DOOR, 
+						data.CellType.DOOR, data.CellType.ROOM]
+				)
+				set_doorways_meta(data, cells, data.Direction.WEST)
 				is_edge = true
 			0b1111:
 				is_room = true

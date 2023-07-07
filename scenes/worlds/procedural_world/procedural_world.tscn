@@ -94,7 +94,8 @@ script = ExtResource( 10 )
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
 script = ExtResource( 23 )
-rotation_west = -90.0
+vertical_center_rotation = 90
+_force_lid = -1
 
 [node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
 script = ExtResource( 10 )

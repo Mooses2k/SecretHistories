@@ -22,29 +22,29 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Help" type="TextureButton" parent="MarginContainer"]
-margin_right = 1536.0
-margin_bottom = 864.0
+margin_right = 1024.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 1024, 600 )
 texture_normal = ExtResource( 2 )
 expand = true
 
 [node name="Winners" type="TextureButton" parent="MarginContainer"]
-margin_right = 1536.0
-margin_bottom = 864.0
+margin_right = 1024.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 1024, 600 )
 texture_normal = ExtResource( 3 )
 expand = true
 
 [node name="GPL" type="TextureButton" parent="MarginContainer"]
-margin_right = 1536.0
-margin_bottom = 864.0
+margin_right = 1024.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 1024, 600 )
 texture_normal = ExtResource( 6 )
 expand = true
 
 [node name="MadeWithGodot" type="TextureButton" parent="MarginContainer"]
-margin_right = 1536.0
-margin_bottom = 864.0
+margin_right = 1024.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 1024, 600 )
 texture_normal = ExtResource( 5 )
 expand = true

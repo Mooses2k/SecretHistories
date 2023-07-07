@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Reloads (1).glb-f58d40d0f1f4c1e200a8512fcc15933d.scn"
+path="res://.import/OneHandedMeleeSimple.glb-b4ad9dd8f0c1a8be2a82786d61c31780.scn"
 
 [deps]
 
-source_file="res://resources/models/characters/player/animated_body/Reloads (1).glb"
-dest_files=[ "res://.import/Reloads (1).glb-f58d40d0f1f4c1e200a8512fcc15933d.scn" ]
+source_file="res://resources/models/characters/OneHandedMeleeSimple.glb"
+dest_files=[ "res://.import/OneHandedMeleeSimple.glb-b4ad9dd8f0c1a8be2a82786d61c31780.scn" ]
 
 [params]
 

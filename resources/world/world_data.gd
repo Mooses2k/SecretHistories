@@ -525,7 +525,8 @@ func is_cell_free(cell_index: int) -> bool:
 		)
 		if cell_index == player_starting_cell:
 			value = false
-	else:
+	
+	if value:
 		if _objects_to_spawn.has(cell_index):
 			value = false
 		elif _characters_to_spawn.has(cell_index):
@@ -730,7 +731,10 @@ func print_world_map() -> void:
 	var line := ""
 	
 	var title = "--- Generated World Map "
-	var append_title = "-".repeat(world_size_x - title.length())
+	var padding := world_size_x - title.length() as int
+	var append_title := ""
+	if padding > 0:
+		append_title = "-".repeat(padding)
 	print("\n" + title + append_title)
 	
 	var starting_room := get_starting_room_data()

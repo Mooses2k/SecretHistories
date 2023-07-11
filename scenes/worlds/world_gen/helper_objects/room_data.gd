@@ -94,6 +94,21 @@ func get_doorways_for(direction: int) -> Array:
 	return value
 
 
+func has_doorway_on(cell_index: int, direction := -1) -> bool:
+	var value := false
+	
+	if direction == -1:
+		for doorway_indexes in _doorways.values():
+			value = (doorway_indexes as Array).has(cell_index)
+			if value:
+				break
+	else:
+		if direction in _doorways:
+			value = (_doorways[direction] as Array).has(cell_index)
+	
+	return value
+
+
 # Returns whether the room's individual dimensions are both greater than on equal to
 # the threshold passed in the parameter
 func is_min_dimension_greater_or_equal_to(p_threshold: int) -> bool:

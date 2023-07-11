@@ -1,5 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=1]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=2]
 [ext_resource path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=7]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=8]
@@ -12,17 +14,16 @@
 [node name="GenerationManager" parent="." index="5"]
 world_size_x = 12
 world_size_z = 12
-generation_seed = 5
 
 [node name="GenerateDebugRoom" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 13 )
-room_rect = Rect2( 2, 2, 4, 6 )
+room_rect = Rect2( 2, 2, 6, 6 )
 room_purpose = 1
 doorways = {
-0: 2,
+0: -1,
 1: -1,
-2: 2,
-3: -1
+2: 1,
+3: 1
 }
 
 [node name="GenerateWalls" type="Node" parent="GenerationManager" index="1"]
@@ -47,3 +48,12 @@ script = ExtResource( 7 )
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
 script = ExtResource( 10 )
+vertical_center_rotation = 90
+_force_lid = -1
+
+[node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
+script = ExtResource( 7 )
+
+[node name="GenerateCandelabra" type="Node" parent="GenerationManager/PopulateRooms/IlluminationGroup" index="0"]
+script = ExtResource( 1 )
+_spawn_list_resource = ExtResource( 2 )

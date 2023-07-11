@@ -578,7 +578,9 @@ BackgroundMusic="*res://scenes/effects/background_music.tscn"
 
 [display]
 
-window/size/resizable=false
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
 
 [editor]
 

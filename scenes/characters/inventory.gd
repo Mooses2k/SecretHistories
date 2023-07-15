@@ -10,12 +10,15 @@ signal mainhand_slot_changed(previous, current)
 # Emitted when the user selects a new slot for the offhand
 signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
+
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
 signal inventory_changed
 #Emitted to hide the HUD UI when player dies
 signal player_died
 
+signal unequip_mainhand
+signal unequip_offhand
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int = 11
 
@@ -52,6 +55,9 @@ func _ready():
 	hotbar.resize(HOTBAR_SIZE)
 	current_offhand_slot = 10
 
+func _process(delta):
+	pass
+#	print(hotbar[current_mainhand_slot])
 
 # Returns wether a given node can be added as an Item to this inventory
 func can_pickup_item(item : PickableItem) -> bool:
@@ -211,6 +217,8 @@ func equip_mainhand_item():
 		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
+		
+			
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
@@ -231,6 +239,7 @@ func unequip_mainhand_item():
 		return
 	
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	emit_signal("unequip_mainhand")
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item.can_attach == true:
@@ -272,7 +281,10 @@ func equip_offhand_item():
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
 	# Item exists, can be equipped on the offhand, and is not already equipped
-	if item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
+	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
+		unequip_offhand_item()
+		
+	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
 		# Can't equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
@@ -293,6 +305,7 @@ func unequip_offhand_item():
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = current_offhand_equipment
 	current_offhand_equipment = null
+	emit_signal("unequip_offhand")
 	if item.can_attach == true:
 		pass
 	else:

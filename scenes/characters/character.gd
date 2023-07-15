@@ -11,6 +11,7 @@ var _alive : bool = true
 var _type_damage_multiplier : PoolByteArray
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
+export (NodePath) var animation_tree_path 
 onready var current_health : float = self.max_health
 
 export var kick_damage : int
@@ -30,7 +31,7 @@ onready var drop_position_node = $Body/DropPosition
 onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
-onready var animation_tree = $AnimationTree
+onready var animation_tree = $"%AnimationTree"
 onready var additional_animations  = $AdditionalAnimations
 
 enum ItemSelection {
@@ -184,8 +185,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
-	check_state_animation(delta)
-	check_current_item_animation()
+	if animation_tree != null:
+		check_state_animation(delta)
+		check_current_item_animation()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -437,11 +439,11 @@ func _crouch(delta : float) -> void:
 		_crouch_collider.set_deferred("disabled", false)
 		_collider.set_deferred("disabled", true)
 	
-	var from = mainhand_equipment_root.transform.origin.y
-	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
-	
-	from = offhand_equipment_root.transform.origin.y
-	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#	var from = mainhand_equipment_root.transform.origin.y
+#	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#
+#	from = offhand_equipment_root.transform.origin.y
+#	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
 	if !is_on_floor() and !is_jumping:
 		velocity.y -= 5 * (gravity * delta)
@@ -671,17 +673,18 @@ func check_current_item_animation():
 		# temporary hack (issue #409) - not sure it's necessary
 #		if not is_instance_valid(inventory.hotbar[mainhand_object]):
 #			inventory.hotbar[mainhand_object] = null
-		if is_instance_valid(inventory.hotbar[mainhand_object]):
-			if inventory.hotbar[mainhand_object] is GunItem:
-				if inventory.hotbar[mainhand_object].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-					current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
-				else:
-					current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
-	#		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
-	#			print("Carried Lantern")
-				#update this to work for items animations
-			elif inventory.hotbar[mainhand_object] is MeleeItem:
-				current_mainhand_item_animation = hold_states.MELEE_ITEM
+		
+		if inventory.hotbar[mainhand_object] is GunItem:
+			if inventory.hotbar[mainhand_object].item_size == 0:
+				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
+			else:
+				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
+#		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
+#			print("Carried Lantern")
+			#update this to work for items animations
+		elif inventory.hotbar[mainhand_object] is MeleeItem:
+			current_mainhand_item_animation = hold_states.MELEE_ITEM
+
 
 
 func change_stamina(amount: float) -> void:

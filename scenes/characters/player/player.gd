@@ -19,6 +19,7 @@ onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $FPSCamera/ViewportContainer/Viewport/GunCam   # Fixed fov player viewport so stuff doesn't go through walls
 onready var grab_cast = $FPSCamera/GrabCast
+onready var player_animation_tree = $"%AnimationTree"
 onready var hit_effect = $HitEffect
 
 

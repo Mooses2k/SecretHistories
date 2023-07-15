@@ -22,11 +22,13 @@ export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 
 export var handling = 5.0
-
+export var animation_reload_sequence : int 
 export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
+
 onready var player = get_node(player_path)
+
 
 var current_ammo : int = 0
 var current_ammo_type : Resource = null
@@ -86,6 +88,7 @@ func shoot():
 		owner_character.player_controller.active_mode.recoil(self, total_damage, handling)   # Should also send delta
 
 
+
 func _use_primary():
 #	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
 	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo > 0:
@@ -107,29 +110,40 @@ func _use_reload():
 
 # Needs more code for revolvers and bolt-actions as they're more complicated
 func reload():
-	if owner_character and (owner_character.inventory.get_offhand_item() == null or owner_character.inventory.get_offhand_item() is EmptyHand):   # TODO: later make this only lit light-sources, otherwise put offhand item away, reload, bring offhand item back
-		if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
-			var inventory = owner_character.inventory
-			for ammo_type in ammo_types:
-				if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
-					if ammo_type != current_ammo_type:
-						if current_ammo_type != null:
-							if not inventory.tiny_items.has(current_ammo_type):
-								inventory.tiny_items[current_ammo_type] = 0
-							inventory.tiny_items[current_ammo_type] += current_ammo
-						current_ammo = 0
-						current_ammo_type = null
-					var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
-					if _reload_amount > 0:
-						$ReloadTimer.start(reload_time)
-						_queued_reload_amount = _reload_amount
-						_queued_reload_type = ammo_type
-						owner_character.is_reloading = true
-						
-						# Eventually randomize which reload sound it uses
-						$Sounds/Reload.play()
-						
-						return
+	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
+		var inventory = owner_character.inventory
+		for ammo_type in ammo_types:
+			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
+				if ammo_type != current_ammo_type:
+					if current_ammo_type != null:
+						if not inventory.tiny_items.has(current_ammo_type):
+							inventory.tiny_items[current_ammo_type] = 0
+						inventory.tiny_items[current_ammo_type] += current_ammo
+					current_ammo = 0
+					current_ammo_type = null
+				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
+				if _reload_amount > 0:
+					$ReloadTimer.start(reload_time)
+					_queued_reload_amount = _reload_amount
+					_queued_reload_type = ammo_type
+					owner_character.is_reloading = true
+					print(owner_character.animation_tree)
+					reload_animation()
+#					print(player.owner)
+					# Eventually randomize which reload sound it uses
+					$Sounds/Reload.play()
+					
+					return
+
+
+func reload_animation():
+	print(owner_character)
+	if owner_character != null:
+		print(owner_character.animation_tree)
+		owner_character.animation_tree.set("parameters/Animation_State/current", 1)
+		owner_character.animation_tree.set("parameters/Weapon_states/current", 3)
+		owner_character.animation_tree.set("parameters/Reload_Animations/current", animation_reload_sequence )
+		print(animation_reload_sequence)
 
 
 #	TODO: Changing the status of the weapon (dropping the weapon or unequiping it)

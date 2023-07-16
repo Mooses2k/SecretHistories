@@ -4,8 +4,6 @@ extends Node
 var file_name = "%s://globals/settings/keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
 var file_name_default = "%s://globals/settings/defaultKeys.dict" % ("user" if OS.has_feature("standalone") else "res")
 
-var mouse_sensitivity : float = 1
-
 var setting_key = false
 var keys_default : Dictionary
 
@@ -100,10 +98,10 @@ func event2str(event : InputEvent) -> String:
 		print("event == " + "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)])
 		return "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)]
 	elif event is InputEventMouseButton:
-		print("Mouse Button " + str(event.button_index))
+		print("Mouse Button " + str(event.get_button_index() ))
 		var ev_type = EventType.MOUSE_BUTTON
-		var scancode = event.button_index
-		return "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)]
+		var scancode = event.get_button_index() 
+		return "%s(%s)" % [event_prefixes[ev_type], scancode]
 	else:
 		print(var2str(event))
 	return "?"
@@ -127,9 +125,9 @@ func str2event(string : String) -> InputEvent:
 					event.physical_scancode = scancode
 					return event
 				EventType.MOUSE_BUTTON:
-					var scancode = OS.find_scancode_from_string(string)
-					var event = InputEventKey.new()
-					event.physical_scancode = scancode
+					var button_index = int(string)
+					var event = InputEventMouseButton.new()
+					event.button_index = button_index
 					return event
 	return null
 

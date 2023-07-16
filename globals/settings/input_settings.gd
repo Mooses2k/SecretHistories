@@ -29,8 +29,8 @@ func get_mouse_sensitivity() -> float:
 func on_setting_changed(setting_name, old_value, new_value):
 	match setting_name:
 		SETTING_MOUSE_SENSITIVITY:
-			print(GlobalSettings.mouse_sensitivity)
+			print(GameManager.mouse_sensitivity)
 			print(SETTING_MOUSE_SENSITIVITY)
-			GlobalSettings.mouse_sensitivity = new_value
-			print(GlobalSettings.mouse_sensitivity)
+			GameManager.mouse_sensitivity = new_value
+			print(GameManager.mouse_sensitivity)
 			print(SETTING_MOUSE_SENSITIVITY)

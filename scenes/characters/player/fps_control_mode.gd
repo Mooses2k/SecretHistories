@@ -40,9 +40,9 @@ func _notification(what):
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		# Vertical
-		pitch_yaw.x -= event.relative.y * GlobalSettings.mouse_sensitivity * 0.01   # if this is anything 0.01, even if same as below, vertical speed is diff than horizontal - why?
+		pitch_yaw.x -= event.relative.y * GameManager.mouse_sensitivity * 0.01   # if this is anything 0.01, even if same as below, vertical speed is diff than horizontal - why?
 		# Horizontal
-		pitch_yaw.y -= event.relative.x * GlobalSettings.mouse_sensitivity * 0.01
+		pitch_yaw.y -= event.relative.x * GameManager.mouse_sensitivity * 0.01
 		pitch_yaw.x = clamp(pitch_yaw.x, -PI * 0.5, PI * 0.5)
 		pitch_yaw.y = wrapf(pitch_yaw.y, -PI, PI)
 

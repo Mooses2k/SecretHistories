@@ -238,10 +238,10 @@ func _input(event):
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
 
-		owner.rotation_degrees.y -= event.relative.x * GlobalSettings.mouse_sensitivity * m
+		owner.rotation_degrees.y -= event.relative.x * GameManager.mouse_sensitivity * m
 
 #		if owner.state != owner.State.STATE_CRAWLING:
-#			_camera.rotation_degrees.x -= event.relative.y * GlobalSettings.mouse_sensitivity * m
+#			_camera.rotation_degrees.x -= event.relative.y * GameManager.mouse_sensitivity * m
 #			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 
 		_camera._camera_rotation_reset = _camera.rotation_degrees

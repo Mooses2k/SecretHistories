@@ -132,7 +132,7 @@ func set_event(setting_name, old_value, new_value):
 			InputMap.action_erase_event(setting_name, events_setting[0])
 		InputMap.action_add_event(setting_name, new_value)
 	
-	GlobalSettings.save_keys()
+	KeybindingManager.save_keys()
 	
 	save_keys(setting_name, old_value)
 
@@ -171,8 +171,8 @@ func reset_actions():
 		
 		var has_invalid : bool = false
 		var events_arr = Array()
-		for event_str in GlobalSettings.keys_default[action]:
-			var event = GlobalSettings.str2event(event_str)
+		for event_str in KeybindingManager.keys_default[action]:
+			var event = KeybindingManager.str2event(event_str)
 			if event:
 				events_arr.push_back(event)
 			else:
@@ -184,4 +184,4 @@ func reset_actions():
 		
 		save_keys(action, null)
 	
-	GlobalSettings.save_keys()
+	KeybindingManager.save_keys()

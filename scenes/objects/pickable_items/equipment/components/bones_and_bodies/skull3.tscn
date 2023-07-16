@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/models/items/components/bones_and_bodies/M_Skull3.material" type="Material" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/equipment_item.gd" type="Script" id=3]
+[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "skull3_skull1"
@@ -31,9 +32,9 @@ script = ExtResource( 3 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
+item_drop_sound = ExtResource( 4 )
 item_size = 0
 item_name = "Skull"
-horizontal_holding = true
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )

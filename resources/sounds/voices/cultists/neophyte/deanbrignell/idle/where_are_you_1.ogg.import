@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/where_are_you_1.ogg-bca6338327c81060dd473afe64f1eb2b.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/where_are_you_1.ogg"
+dest_files=[ "res://.import/where_are_you_1.ogg-bca6338327c81060dd473afe64f1eb2b.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -10,14 +10,17 @@ signal mainhand_slot_changed(previous, current)
 # Emitted when the user selects a new slot for the offhand
 signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
+
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
 #Emitted to fadein the HUD UI
 signal inventory_changed
 #Emitted to hide the HUD UI when player dies
 signal player_died
 
+signal unequip_mainhand
+signal unequip_offhand
 # 0 is 1, 10 is empty_hands
-const HOTBAR_SIZE : int= 11
+const HOTBAR_SIZE : int = 11
 
 # Items tracked exclusively by ammount, don't contribute to weight,
 # don't show in hotbar
@@ -42,14 +45,19 @@ var current_offhand_slot : int = 0 setget set_offhand_slot
 var current_offhand_equipment : EquipmentItem = null
 
 # Where to drop items from
-onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
-onready var Animations : AnimationPlayer = $"%AdditionalAnimations"  as AnimationPlayer
+onready var drop_position_node : Spatial = $"../Body/DropPosition" as Spatial
+onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
+
+var encumbrance : float = 0   # Is a float to allow easy division
 
 
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
 	current_offhand_slot = 10
 
+func _process(delta):
+	pass
+#	print(hotbar[current_mainhand_slot])
 
 # Returns wether a given node can be added as an Item to this inventory
 func can_pickup_item(item : PickableItem) -> bool:
@@ -160,6 +168,11 @@ func add_item(item : PickableItem) -> bool:
 				elif current_offhand_slot == slot and not bulky_equipment:
 					equip_offhand_item()
 					
+			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+				encumbrance += 1
+			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+				encumbrance += 2
+			
 	return true
 
 
@@ -204,6 +217,8 @@ func equip_mainhand_item():
 		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
+		
+			
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
@@ -220,10 +235,11 @@ func unequip_mainhand_item():
 	if not is_instance_valid(current_mainhand_equipment):
 		current_mainhand_equipment = null
 	
-	if current_mainhand_equipment == null: # No item equipped
+	if current_mainhand_equipment == null:   # No item equipped
 		return
 	
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	emit_signal("unequip_mainhand")
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item.can_attach == true:
@@ -265,8 +281,11 @@ func equip_offhand_item():
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
 	# Item exists, can be equipped on the offhand, and is not already equipped
-	if item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
-		# Can't Equip a Bulky Item simultaneously with a normal item
+	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
+		unequip_offhand_item()
+		
+	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
+		# Can't equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_offhand_equipment = item
@@ -286,6 +305,7 @@ func unequip_offhand_item():
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = current_offhand_equipment
 	current_offhand_equipment = null
+	emit_signal("unequip_offhand")
 	if item.can_attach == true:
 		pass
 	else:
@@ -351,6 +371,11 @@ func _drop_item(item : EquipmentItem):
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
+
+	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+		encumbrance -= 1
+	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+		encumbrance -= 2
 
 
 func set_mainhand_slot(value : int):

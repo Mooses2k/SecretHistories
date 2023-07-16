@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/objects/large_objects/tables/table_round_medieval.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn" type="PackedScene" id=24]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 50, 50 )
@@ -141,3 +142,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5429, 0.42392, 0 )
 
 [node name="Torch" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72904, 0.639007, -3.17716 )
+
+[node name="FloorCandelabraUnlit" parent="." instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9974, 1.09599, 1.39967 )
+collision_layer = 512
+collision_mask = 3

@@ -143,7 +143,6 @@ func reload_animation():
 		owner_character.animation_tree.set("parameters/Animation_State/current", 1)
 		owner_character.animation_tree.set("parameters/Weapon_states/current", 3)
 		owner_character.animation_tree.set("parameters/Reload_Animations/current", animation_reload_sequence )
-#		animation_player.play("Reload")
 		print(animation_reload_sequence)
 
 

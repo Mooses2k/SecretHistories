@@ -58,4 +58,4 @@ shape = SubResource( 4 )
 shape = null
 
 [node name="HoldPosition" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00787426, 0.0598236, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000595974, 0.0395809, 0 )

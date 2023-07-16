@@ -12,7 +12,7 @@ export var throw_strength : float = 2
 
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 2.0
-export var kick_impulse : float = 20
+export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -45,7 +45,6 @@ enum ThrowState {
 	SHOULD_THROW,
 }
 
-export var speed : float = 0.5
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
@@ -61,8 +60,8 @@ var _bob_reset : float = 0.0
 
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
-export var _gun_cam_path : NodePath
-onready var _gun_cam = get_node(_gun_cam_path)
+#export var _gun_cam_path : NodePath
+#onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../CanStandChecker")
@@ -104,9 +103,11 @@ var item_up = false
 # Screen filter section
 enum ScreenFilter {
 	NONE,
+	OLD_FILM,
 	PIXELATE,
 	DITHER,
 	REDUCE_COLOR,
+	PSX,
 	DEBUG_LIGHT
 }
 var current_screen_filter : int = ScreenFilter.NONE
@@ -123,9 +124,9 @@ func _ready():
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-
+	
 	active_mode.set_deferred("is_active", true)
-
+	
 	$"../FPSCamera/ScreenFilter".visible = false
 
 
@@ -149,11 +150,12 @@ func _physics_process(delta : float):
 	empty_slot()
 	kick()
 
-	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
-	if c != Vector3.ZERO:
-		_text.show()
-	else:
-		_text.hide()
+# TODO: FIX CLAMBERING RIGID BODIES THEN RENABLE HERE, Issue #419
+#	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
+#	if c != Vector3.ZERO:
+#		_text.show()
+#	else:
+#		_text.hide()
 
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
@@ -299,18 +301,18 @@ func _check_movement_key(delta):
 			owner.is_to_move = true
 			if !owner.is_crouching:
 				if owner.do_sprint and is_movement_key4_held == true:   # Only if sprinting forward
-					if owner.noise_level < 12:
-						owner.noise_level = 12
+					if owner.noise_level < 10 + (character.inventory.encumbrance):
+						owner.noise_level = 10 + (character.inventory.encumbrance)
 						noise_timer.start()
 				else:
-					if owner.noise_level < 5:
-						owner.noise_level = 5
+					if owner.noise_level < 5 + (character.inventory.encumbrance):
+						owner.noise_level = 5 + (character.inventory.encumbrance)
 						noise_timer.start()
 			else:
-				if owner.noise_level < 3:
-					owner.noise_level = 3
+				if owner.noise_level < 3 + (character.inventory.encumbrance):
+					owner.noise_level = 3 + (character.inventory.encumbrance)
 					noise_timer.start()
-	
+
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 		movement_press_length = 0.0
 		owner.is_to_move = false
@@ -322,10 +324,12 @@ func _head_bob(delta : float) -> void:
 		_camera.global_transform.origin = owner.global_transform.origin + br
 
 	_bob_time += delta
-	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (speed / 1000.0)
-	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+	var y_bob = sin(_bob_time * (2 * PI)) * owner.velocity.length() * (0.5 / 1000.0)
 	_camera.global_transform.origin.y += y_bob
-	_camera.rotation_degrees.z = z_bob
+
+	# Removed since it's not good to do head rotation unless take camera control away from player (simulation sickness)
+#	var z_bob = sin(_bob_time * (PI)) * owner.velocity.length() * 0.2
+#	_camera.rotation_degrees.z = z_bob
 
 
 func _crouch() -> void:
@@ -391,6 +395,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 
+	# These are debug indicators for initial and current grab points
 	$MeshInstance.visible = false
 	$MeshInstance2.visible = false
 
@@ -412,12 +417,13 @@ func handle_grab(delta : float):
 		# this is required by some physics functions
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 
-		# Some visualization stuff
+		# Some debug visualization stuff for grabbing
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
 		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
 			is_grabbing = false
 			interaction_handled = true
+		
 		# Local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
@@ -563,31 +569,48 @@ func handle_inventory(delta : float):
 		current_screen_filter += 1
 
 		# Cycle through list of filters, starting with 0
-		if current_screen_filter > 4:   # This number should be # of filters - 1
-			current_screen_filter = 0
+		if current_screen_filter > (ScreenFilter.size() - 1):
+				current_screen_filter = 0
 
 		# Check which filter is current and implement it
 		if current_screen_filter == ScreenFilter.NONE:
+			print("Screen Flter: NONE")
+#			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = false
+		if current_screen_filter == ScreenFilter.OLD_FILM:
+			print("Screen Flter: OLD_FILM")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
 		if current_screen_filter == ScreenFilter.PIXELATE:
+			print("Screen Flter: PIXELATE")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
 		if current_screen_filter == ScreenFilter.DITHER:
+			print("Screen Flter: DITHER")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
 		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
+			print("Screen Flter: REDUCE_COLOR")
 			$"../FPSCamera/ScreenFilter".visible = true
 			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
+		# This one doesn't play well with stuff that's too dark, also we're not implementing the mesh shader yet
+		if current_screen_filter == ScreenFilter.PSX:
+			print("Screen Flter: PSX")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
 		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			print("Screen Flter: DEBUG_LIGHT")
+#			GameManager.game.level.toggle_directional_light()
 			$"../FPSCamera/ScreenFilter".visible = false
 			$"../FPSCamera/DebugLight".visible = true
 
 	# Zoom in/out like binoculars or spyglass
-	if Input.is_action_just_pressed("binocs_spyglass"):
-		_camera.state = _camera.CameraState.STATE_ZOOM
-	if Input.is_action_just_released("binocs_spyglass"):
-		_camera.state = _camera.CameraState.STATE_NORMAL
+	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
+		if Input.is_action_just_pressed("binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_ZOOM
+		if Input.is_action_just_released("binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_NORMAL
 		
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
@@ -645,23 +668,30 @@ func handle_inventory(delta : float):
 
 func kick():
 	var kick_object = legcast.get_collider()
-
-	if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-		if is_grabbing == false:
+	
+	if character.kick_timer.is_stopped():
+		
+		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
+			if is_grabbing == false:
+				if Input.is_action_just_pressed("kick"):
+					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
+					character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 			if Input.is_action_just_pressed("kick"):
-				kick_object.get_parent().damage( -character.global_transform.basis.z , character.kick_damage)
-
-	elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-		if Input.is_action_just_pressed("kick"):
-			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-
-	elif legcast.is_colliding() and kick_object is RigidBody:
-		if Input.is_action_just_pressed("kick"):
-			kick_object.apply_central_impulse( -character.global_transform.basis.z * kick_impulse)
+				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
+				character.kick_timer.start(1)
+		
+		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if Input.is_action_just_pressed("kick"):
+				if kick_object is Area:
+					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
+				character.kick_timer.start(1)
 
 
 func drop_grabbable():
-	# when the drop button or keys are pressed , grabable objects are released
+	# When the drop button or keys are pressed , grabable objects are released
 	if Input.is_action_just_pressed("main_throw") or Input.is_action_just_pressed("offhand_throw") and is_grabbing == true:
 		wants_to_drop = true
 		if grab_object != null :
@@ -696,12 +726,12 @@ func next_item():
 
 func _on_Player_player_landed():
 	if !owner.is_crouching:
-		if owner.noise_level < 8:
-			owner.noise_level = 8
+		if owner.noise_level < 8 + (character.inventory.encumbrance):
+			owner.noise_level = 8 + (character.inventory.encumbrance)
 			noise_timer.start()
 	else:
-		if owner.noise_level < 5:
-			owner.noise_level = 5
+		if owner.noise_level < 5 + (character.inventory.encumbrance):
+			owner.noise_level = 5 + (character.inventory.encumbrance)
 			noise_timer.start()
 
 

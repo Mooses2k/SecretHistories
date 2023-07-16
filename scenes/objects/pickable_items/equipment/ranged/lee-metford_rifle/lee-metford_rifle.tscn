@@ -148,20 +148,24 @@ shape = SubResource( 375 )
 [node name="RayCast" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00202578, 0.0666256 )
 
-[node name="Sounds" type="Spatial" parent="." index="6"]
+[node name="HoldPosition" parent="." index="6"]
+transform = Transform( 0.975048, 0.179807, 0.130199, -0.174484, 0.983323, -0.0512902, -0.13725, 0.0272928, 0.99016, -0.004, -0.052, 0.299 )
+
+[node name="Sounds" type="Spatial" parent="." index="7"]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
+bus = "Effects"
 
 [node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
+bus = "Effects"
 
 [node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 7 )
+bus = "Effects"
 
 [node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
 stream = ExtResource( 10 )
-
-[node name="HoldPosition" parent="." index="7"]
-transform = Transform( 0.975048, 0.179807, 0.130199, -0.174484, 0.983323, -0.0512902, -0.13725, 0.0272928, 0.99016, -0.004, -0.052, 0.299 )
+bus = "Effects"
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

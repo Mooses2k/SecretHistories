@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteHaveYouAwokenInTheDreaming.wav-0fc031ea662ab5ff1d21e927ddc7847e.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteHaveYouAwokenInTheDreaming.wav"
+dest_files=[ "res://.import/NeophyteHaveYouAwokenInTheDreaming.wav-0fc031ea662ab5ff1d21e927ddc7847e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

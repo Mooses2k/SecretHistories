@@ -1,11 +1,11 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/seating/church_pew.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/objects/pickable_items/tiny/hammer/hammer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/large_objects/seating/chair_victorian_fancy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn" type="PackedScene" id=9]
@@ -24,6 +24,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/tiny/ammo/303_british/303_british_box.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_box.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/ammo/webley/webley_box.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/objects/pickable_items/tiny/spyglass/spyglass.tscn" type="PackedScene" id=25]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -79,10 +80,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.844433, -8.20272 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.71292, 1.41094, 0 )
 animation_reload_sequence = 0
 
-[node name="Cultist" parent="." instance=ExtResource( 6 )]
-transform = Transform( -0.185461, 0, 0.982652, 0, 1, 0, -0.982652, 0, -0.185461, -17.2451, -0.0378679, 10.0423 )
-animation_tree_path = NodePath("")
-
 [node name="ChurchPew" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863582, -2.16709 )
 
@@ -116,15 +113,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.56912, 1.47731, 0 )
 
 [node name="Lee-Metford rifle" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93082, 1.91304, 0 )
+animation_reload_sequence = 0
 
 [node name="Martini-Henry rifle" parent="." instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 9.96253 )
+animation_reload_sequence = 0
 
 [node name="Webley revolver" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156361, 1.49275, 3.45532 )
+animation_reload_sequence = 0
 
 [node name="Webley revolver2" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462241, 0 )
+animation_reload_sequence = 0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297211, 0 )
@@ -159,3 +160,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0429, 0.0369515, 6.7309 )
 
 [node name="12-GaugeBox3" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.329305, 0.0369515, 8.46782 )
+
+[node name="Hammer" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0737, 0.459369, 1.19271 )
+
+[node name="Spyglass" parent="." instance=ExtResource( 25 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7102, 0.24764, 0 )

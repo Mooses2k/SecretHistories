@@ -1,7 +1,7 @@
 extends Control
 
 
-const AMMO_COUNT_TEMPLATE = "%d+%d"
+const CONTAINER_COUNT_TEMPLATE = "%d+%d"   # Typically how much ammo in weapon / ammo total
 
 export var can_equip_modulate : Color
 export var equipped_modulate : Color
@@ -126,25 +126,25 @@ func inventory_slot_changed(slot : int):
 
 func inventory_tiny_item_changed(tiny_item : TinyItemData, previous : int, current : int):
 	if tiny_item == tracking_tiny_item:
-		update_ammo_data()
+		update_container_data()
 
 
 func update_item_data():
 	update_name()
-	update_ammo_data()
+	update_container_data()
 	update_equipped_status()
 
 
 func _physics_process(delta):
 	if is_equipped_mainhand or is_equipped_offhand:
-		update_ammo_data()
+		update_container_data()
 
 
 func update_name():
 	$"ItemInfo/HBoxContainer/ItemName".text = item.item_name if item else ""
 
 
-func update_ammo_data():
+func update_container_data():   # Things like gun ammo, charges in medical bags, etc
 	# temporary hack (issue #409)
 	if not is_instance_valid(item):
 		item = null
@@ -156,7 +156,10 @@ func update_ammo_data():
 		if ammo_type != null and (inventory.tiny_items as Dictionary).has(ammo_type):
 			inv_ammo = inventory.tiny_items[ammo_type]
 		tracking_tiny_item = ammo_type
-		$"ItemInfo/HBoxContainer/AmmoCount".text = AMMO_COUNT_TEMPLATE % [current_ammo, inv_ammo]
+		$"ItemInfo/HBoxContainer/AmmoCount".text = CONTAINER_COUNT_TEMPLATE % [current_ammo, inv_ammo]
+	elif item is MedicalItem:
+		if item.max_charges_held > 1:   # In other words, not a single-use consumable
+			$"ItemInfo/HBoxContainer/AmmoCount".text = CONTAINER_COUNT_TEMPLATE % [item.charges_held, item.max_charges_held]
 	else:
 		tracking_tiny_item = null
 		$"ItemInfo/HBoxContainer/AmmoCount".text = ""

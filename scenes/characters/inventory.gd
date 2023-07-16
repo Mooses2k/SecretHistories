@@ -280,8 +280,10 @@ func equip_offhand_item():
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
+	print(current_offhand_slot)
 	# Item exists, can be equipped on the offhand, and is not already equipped
 	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
+		current_offhand_slot = 10
 		unequip_offhand_item()
 		
 	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:

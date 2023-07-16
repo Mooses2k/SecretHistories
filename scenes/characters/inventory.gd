@@ -311,6 +311,7 @@ func unequip_offhand_item():
 	if item.can_attach == true:
 		pass
 	else:
+		current_offhand_slot = 10
 		item.get_parent().remove_child(item)
 
 

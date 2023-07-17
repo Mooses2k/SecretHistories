@@ -66,7 +66,7 @@ reload_time = 2.0
 damage_offset = -3
 dispersion_offset_degrees = 5
 cooldown = 0.1
-handling = 5.0
+animation_reload_sequence = 0
 melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
@@ -96,7 +96,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.38389 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
 
 [node name="MeshInstance" parent="." index="1"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0373861, -0.110365 )
+transform = Transform( -4.15258e-08, 0, 0.95, 0, 0.95, 0, -0.95, 0, -4.15258e-08, 0, -0.0373861, -0.110365 )
 mesh = SubResource( 6 )
 skin = SubResource( 7 )
 
@@ -113,14 +113,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0290546, 0.101385 )
 [node name="Sounds" type="Spatial" parent="." index="7"]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
+bus = "Effects"
 
 [node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
+bus = "Effects"
 
 [node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 2 )
+bus = "Effects"
 
 [node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
 stream = ExtResource( 9 )
+bus = "Effects"
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_ShotgunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_ShotgunItem_target_hit"]

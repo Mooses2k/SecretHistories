@@ -1,7 +1,7 @@
 extends Control
 
 
-const GAME_SCENE = preload("res://scenes/core/game.tscn")
+const GAME_SCENE = preload("res://scenes/game.tscn")
 
 var game : Game
 

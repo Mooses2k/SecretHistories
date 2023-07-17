@@ -8,10 +8,10 @@ const SETTING_MUSIC_VOLUME : String = "Music Volume"
 const SETTING_EFFECTS_VOLUME : String = "Effects Volume"
 const SETTING_VOICE_VOLUME : String = "Voice Volume"
 
-onready var bus_master = AudioServer.get_bus_index("Master")
-onready var bus_music = AudioServer.get_bus_index("Music")
-onready var bus_effects = AudioServer.get_bus_index("Effects")
-onready var bus_voice = AudioServer.get_bus_index("Voice")
+onready var bus_master = AudioServer.get_bus_index("Master") # 0
+onready var bus_music = AudioServer.get_bus_index("Music") # 1
+onready var bus_effects = AudioServer.get_bus_index("Effects") # 2
+onready var bus_voice = AudioServer.get_bus_index("Voice") # 3
 
 const MAX_VALUE = 100.0
 const STEP_VALUE = 1.0

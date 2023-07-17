@@ -11,7 +11,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=9]
 [ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=10]
 
-
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
 surfaces/0 = {
@@ -482,10 +481,12 @@ shape = SubResource( 89 )
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 1 )
+bus = "Effects"
 
 [node name="BlowOutSound" type="AudioStreamPlayer3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 7 )
+bus = "Effects"
 
 [node name="Timer" type="Timer" parent="."]
 

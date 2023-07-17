@@ -18,6 +18,9 @@ const DAMPENING_POWER = 0.0
 var up_recoil = 0.0
 var side_recoil = 0.0
 
+export var _gun_camera : NodePath
+onready var gun_camera : Camera = get_node(_gun_camera) as Camera
+
 
 func set_active(value : bool):
 	.set_active(value)
@@ -75,6 +78,9 @@ func update(delta):
 	# Finally, apply rotations
 	owner.character_body.rotation.y = pitch_yaw.y   # Horizontal
 	camera.rotation.x = pitch_yaw.x   # Vertical, you don't want to rotate the whole scene, just camera
+
+	# Guncam too - MUST BE DONE HERE OR WEIRD JITTERY HANDS BUG DEVELOPS
+	gun_camera.global_transform = camera.global_transform
 
 
 func get_movement_basis() -> Basis:

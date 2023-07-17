@@ -222,7 +222,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Game",
 "language": "GDScript",
-"path": "res://scenes/core/game.gd"
+"path": "res://scenes/game.gd"
 }, {
 "base": "Spatial",
 "class": "GameWorld",
@@ -414,6 +414,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/spike.gd"
 }, {
+"base": "EquipmentItem",
+"class": "StrangeDevice",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/strange_devices/strange_device.gd"
+}, {
 "base": "PickableItem",
 "class": "TinyItem",
 "language": "GDScript",
@@ -536,6 +541,7 @@ _global_script_class_icons={
 "SoundListener": "",
 "SpawnData": "",
 "Spike": "",
+"StrangeDevice": "",
 "TinyItem": "",
 "TinyItemData": "",
 "ToolItem": "",
@@ -569,8 +575,8 @@ TestSettings="*res://globals/settings/game_settings.gd"
 HUDS="*res://globals/HUD.tscn"
 KeyInputSettings="*res://globals/settings/key_input_settings.gd"
 LoadScene="*res://globals/load_scene.gd"
-BackgroundMusic="*res://scenes/core/background_music.tscn"
 LoadScreen="*res://globals/load_screen.gd"
+BackgroundMusic="*res://scenes/effects/background_music.tscn"
 
 [display]
 
@@ -584,7 +590,7 @@ description="An entirely forgettable game"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/editor_components/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [input]
 

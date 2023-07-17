@@ -17,6 +17,7 @@ func _enter_tree():
 		add_child(drag_sound)
 		drag_sound.stream = item_drag_sound
 		drag_sound.unit_db = sound_vol
+		drag_sound.bus = "Effects"
 
 
 func _ready():

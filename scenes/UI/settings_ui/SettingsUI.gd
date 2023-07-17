@@ -151,3 +151,7 @@ func has_group(group_name : String) -> bool:
 func get_group_node(group_name : String) -> GroupClass:
 	return group_nodes.get(group_name)
 	pass
+
+
+func _on_ShowDebugOptions_pressed():
+	$"..".visible = !$"..".visible

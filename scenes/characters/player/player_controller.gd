@@ -60,8 +60,8 @@ var _bob_reset : float = 0.0
 
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
-export var _gun_cam_path : NodePath
-onready var _gun_cam = get_node(_gun_cam_path)
+#export var _gun_cam_path : NodePath
+#onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../CanStandChecker")
@@ -150,11 +150,12 @@ func _physics_process(delta : float):
 	empty_slot()
 	kick()
 
-	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
-	if c != Vector3.ZERO:
-		_text.show()
-	else:
-		_text.hide()
+# TODO: FIX CLAMBERING RIGID BODIES THEN RENABLE HERE, Issue #419
+#	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
+#	if c != Vector3.ZERO:
+#		_text.show()
+#	else:
+#		_text.hide()
 
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
@@ -310,7 +311,7 @@ func _check_movement_key(delta):
 				if owner.noise_level < 3 + (character.inventory.encumbrance):
 					owner.noise_level = 3 + (character.inventory.encumbrance)
 					noise_timer.start()
-	
+
 	if !is_movement_key1_held and !is_movement_key2_held and !is_movement_key3_held and !is_movement_key4_held:
 		movement_press_length = 0.0
 		owner.is_to_move = false

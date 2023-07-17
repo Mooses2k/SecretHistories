@@ -63,6 +63,7 @@ enum CellType {
 enum CellMetaKeys {
 	META_DOOR_DIRECTIONS,
 	META_PILLAR_ROOM,
+	META_ROOM_DATA,
 }
 
 enum EdgeType {
@@ -333,6 +334,18 @@ func is_spawn_position_valid() -> bool:
 	return player_spawn_position != INVALID_STARTING_CELL
 
 
+func fill_room_data(room: Rect2, p_type: int) -> void:
+	var room_data := RoomData.new(p_type, room)
+	set_room(p_type, room_data)
+	for x in range(room.position.x, room.end.x):
+		for y in range(room.position.y, room.end.y):
+			var cell_index = get_cell_index_from_int_position(x, y)
+			set_cell_type(cell_index, CellType.ROOM)
+			clear_cell_meta(cell_index)
+			set_cell_meta(cell_index, CellMetaKeys.META_ROOM_DATA, room_data)
+			room_data.add_cell_index(cell_index)
+
+
 func set_room(type: int, p_room_data: RoomData) -> void:
 	if not rooms.has(type):
 		rooms[type] = []
@@ -396,7 +409,7 @@ func get_starting_room_data() -> RoomData:
 	elif rooms.size() > 1:
 		push_warning("There should only be one starting room, only the first will be used")
 	
-	value = starting_rooms[0]
+	value = starting_rooms.front()
 	return value
 
 
@@ -505,14 +518,15 @@ func get_cells_for(p_type: int) -> Array:
 func is_cell_free(cell_index: int) -> bool:
 	var value := true
 	
-	var player_starting_cell := get_cell_index_from_int_position(
-			player_spawn_position.x,
-			player_spawn_position.y
-	)
+	if player_spawn_position != INVALID_STARTING_CELL:
+		var player_starting_cell := get_cell_index_from_int_position(
+				player_spawn_position.x,
+				player_spawn_position.y
+		)
+		if cell_index == player_starting_cell:
+			value = false
 	
-	if cell_index == player_starting_cell:
-		value = false
-	else:
+	if value:
 		if _objects_to_spawn.has(cell_index):
 			value = false
 		elif _characters_to_spawn.has(cell_index):
@@ -717,11 +731,14 @@ func print_world_map() -> void:
 	var line := ""
 	
 	var title = "--- Generated World Map "
-	var append_title = "-".repeat(world_size_x - title.length())
+	var padding := world_size_x - title.length() as int
+	var append_title := ""
+	if padding > 0:
+		append_title = "-".repeat(padding)
 	print("\n" + title + append_title)
 	
 	var starting_room := get_starting_room_data()
-	var starting_cells := starting_room.cell_indexes.duplicate()
+	var starting_cells := starting_room.cell_indexes.duplicate() if not starting_room == null else []
 	for y in range(0, world_size_z):
 		for x in range(0, world_size_x):
 			var index := get_cell_index_from_int_position(x, y)

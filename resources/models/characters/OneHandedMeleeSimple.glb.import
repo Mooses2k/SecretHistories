@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/MovementAndAiming (1).glb-038d2bdcf0258cf681bc56d54885c197.scn"
+path="res://.import/OneHandedMeleeSimple.glb-b4ad9dd8f0c1a8be2a82786d61c31780.scn"
 
 [deps]
 
-source_file="res://resources/models/characters/player/MovementAndAiming (1).glb"
-dest_files=[ "res://.import/MovementAndAiming (1).glb-038d2bdcf0258cf681bc56d54885c197.scn" ]
+source_file="res://resources/models/characters/OneHandedMeleeSimple.glb"
+dest_files=[ "res://.import/OneHandedMeleeSimple.glb-b4ad9dd8f0c1a8be2a82786d61c31780.scn" ]
 
 [params]
 

@@ -80,6 +80,7 @@ reload_amount = 2
 reload_time = 2.0
 cooldown = 0.1
 handling = 8.0
+animation_reload_sequence = 0
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
@@ -142,6 +143,7 @@ bones/4/enabled = true
 bones/4/bound_children = [  ]
 
 [node name="DoubleBarrel_Mesh" type="MeshInstance" parent="MeshInstance/DoubleBarrel_Arm/Skeleton" index="0"]
+transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0 )
 mesh = SubResource( 376 )
 skin = SubResource( 377 )
 script = ExtResource( 11 )
@@ -159,14 +161,18 @@ transform = Transform( 0.967347, 0.204731, 0.149416, -0.200553, 0.978753, -0.042
 [node name="Sounds" type="Spatial" parent="." index="7"]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
+bus = "Effects"
 
 [node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
+bus = "Effects"
 
 [node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 2 )
+bus = "Effects"
 
 [node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
 stream = ExtResource( 9 )
+bus = "Effects"
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

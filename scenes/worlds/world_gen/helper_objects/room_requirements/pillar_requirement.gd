@@ -11,7 +11,7 @@ extends RoomRequirements
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var should_have_pillars := true
+export var has_pillars := true
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -26,7 +26,7 @@ export var should_have_pillars := true
 ### Public Methods --------------------------------------------------------------------------------
 
 func has_fulfilled_requirement(room_data: RoomData) -> bool:
-	var value := should_have_pillars == room_data.has_pillars
+	var value := has_pillars == room_data.has_pillars
 	return value
 
 ### -----------------------------------------------------------------------------------------------

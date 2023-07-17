@@ -12,9 +12,10 @@ var flag : int = 1
 var index : int = 0
 var is_done : bool = false
 var key_removed : bool = false
-var hotbar_num : int = 1
 var arr_size : int = 0
+var safe_counter : int = 0
 var counter : int = 0
+var counter_max : int = 0
 
 const MAX_VALUE = 4.0
 const STEP_VALUE = 0.05
@@ -27,7 +28,7 @@ func _ready():
 	actions_copy.append_array(InputMap.get_actions())
 	
 	while not is_done:
-		counter += 1
+		safe_counter += 1
 		key_removed = false
 		arr_size = actions_copy.size()
 		index = -1
@@ -37,33 +38,85 @@ func _ready():
 				match flag:
 					1:
 						if "movement|" in actions_copy[x]:
-							set_keys(x)
+							if "move_up" in actions_copy[x] and counter == 0:
+								set_keys(x)
+							elif "move_left" in actions_copy[x] and counter == 1:
+								set_keys(x)
+							elif "move_right" in actions_copy[x] and counter == 2:
+								set_keys(x)
+							elif "move_down" in actions_copy[x] and counter == 3:
+								set_keys(x)
 					2:
 						if "player|" in actions_copy[x]:
-							set_keys(x)
+							if "interact" in actions_copy[x] and counter == 0:
+								set_keys(x)
+							elif "reload" in actions_copy[x] and counter == 1:
+								set_keys(x)
+							elif "kick" in actions_copy[x] and counter == 2:
+								set_keys(x)
+							elif "jump" in actions_copy[x] and counter == 3:
+								set_keys(x)
+							elif "crouch" in actions_copy[x] and counter == 4:
+								set_keys(x)
+							elif "sprint" in actions_copy[x] and counter == 5:
+								set_keys(x)
 					3:
 						if "playerhand|" in actions_copy[x]:
-							set_keys(x)
+							if "main_use_primary" in actions_copy[x] and counter == 0:
+								set_keys(x)
+							elif "main_use_secondary" in actions_copy[x] and counter == 1:
+								set_keys(x)
+							elif "main_throw" in actions_copy[x] and counter == 2:
+								set_keys(x)
+							elif "offhand_use" in actions_copy[x] and counter == 3:
+								set_keys(x)
+							elif "offhand_throw" in actions_copy[x] and counter == 4:
+								set_keys(x)
+							elif "cycle_offhand_slot" in actions_copy[x] and counter == 5:
+								set_keys(x)
 					4:
 						if "itm|" in actions_copy[x]:
-							set_keys(x)
+							if "next_item" in actions_copy[x] and counter == 0:
+								set_keys(x)
+							elif "previous_item" in actions_copy[x] and counter == 1:
+								set_keys(x)
 					5:
 						if "hotbar_" in actions_copy[x]:
-							if str(hotbar_num) in actions_copy[x] and hotbar_num < 11:
-								if hotbar_num == 1 and ( "11" in actions_copy[x] or "10" in actions_copy[x]):
+							if str(counter + 1) in actions_copy[x] and counter < 11:
+								if (counter + 1) == 1 and ( "11" in actions_copy[x] or "10" in actions_copy[x]):
 									pass
 								else:
 									set_keys(x)
-									hotbar_num += 1
 					6:
 						if "ablty|" in actions_copy[x]:
-							set_keys(x)
+							if "binocs_spyglass" in actions_copy[x] and counter == 0:
+								set_keys(x)
+							elif "nightvision_darksight" in actions_copy[x] and counter == 1:
+								set_keys(x)
+							elif "zap_spell" in actions_copy[x] and counter == 2:
+								set_keys(x)
 					7:
 						if "com|" in actions_copy[x]:
-							set_keys(x)
+							if "communication_stop" in actions_copy[x] and counter == 0:
+								set_keys(x)
+							elif "communication_go" in actions_copy[x] and counter == 1:
+								set_keys(x)
+							elif "communication_text" in actions_copy[x] and counter == 2:
+								set_keys(x)
 					8:
 						if "misc|" in actions_copy[x]:
-							set_keys(x)
+							if "inventory_menu" in actions_copy[x] and counter == 0:
+								set_keys(x)
+							elif "journal" in actions_copy[x] and counter == 1:
+								set_keys(x)
+							elif "map_menu" in actions_copy[x] and counter == 2:
+								set_keys(x)
+							elif "help_info" in actions_copy[x] and counter == 3:
+								set_keys(x)
+							elif "fullscreen" in actions_copy[x] and counter == 4:
+								set_keys(x)
+							elif "change_screen_filter" in actions_copy[x] and counter == 5:
+								set_keys(x)
 					_:
 						actions_copy.remove(actions_copy.find(actions_copy[x]))
 						key_removed = true
@@ -77,12 +130,29 @@ func _ready():
 			
 		
 		if index == arr_size - 1: 
-			flag += 1
+			if counter == counter_max:
+				flag += 1
+				counter = 0
 			
-			if flag == 6 and not hotbar_num == 11:
-				flag = 5
+			match flag:
+				1:
+					counter_max = 4
+				2:
+					counter_max = 6
+				3:
+					counter_max = 6
+				4:
+					counter_max = 2
+				5:
+					counter_max = 11
+				6:
+					counter_max = 3
+				7:
+					counter_max = 3
+				8:
+					counter_max = 6
 		
-		if actions_copy.size() < 1 or counter > 100:
+		if actions_copy.size() < 1 or safe_counter > 100:
 			is_done = true
 		
 	Settings.connect("setting_changed", self, "on_setting_changed")
@@ -106,6 +176,7 @@ func set_keys(x):
 	actions_copy.remove(actions_copy.find(actions_copy[x]))
 	events.resize(0)
 	key_removed = true
+	counter += 1
 
 
 func _input(event):

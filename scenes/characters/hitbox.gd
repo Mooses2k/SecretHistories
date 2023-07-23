@@ -25,3 +25,13 @@ func on_area_entered(area):
 	# Checks if the other area is also a hitbox
 	if area is get_script():
 		emit_signal("hit", area)
+		
+		
+
+func _on_Hitbox_body_entered(body):
+	if body is PickableItem and body.can_throw_damage:
+		body.can_throw_damage = false
+		body.melee_damage_type
+		print("Pickable item can damage")
+		print("Hitbox item damage is: ", abs(body.throw_momentum.z))
+		print("Hitbox item melee_damage is: ", body.melee_damage_type)

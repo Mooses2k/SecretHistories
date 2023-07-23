@@ -17,12 +17,14 @@ export var max_speed : float = 12.0
 #onready var mesh_instance = $MeshInstance
 var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
+export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var audio_player = get_node("DropSound")
 export var item_drop_sound : AudioStream
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 5
 var item_sound_level = 10
-
+var can_throw_damage : bool
+var throw_momentum 
 
 func _enter_tree():
 	if not audio_player:
@@ -43,12 +45,27 @@ func _process(delta):
 	if self.noise_level > 0:
 		yield(get_tree().create_timer(0.2), "timeout")
 		self.noise_level = 0
+	throw_damage()
 
+
+func throw_damage():
+	if can_throw_damage:
+		var bodies = get_colliding_bodies()
+		if bodies:
+			for body_found in bodies:
+				print("Body found is ", body_found)
+				can_throw_damage = false
+				if body_found.is_in_group("CHARACTER"):
+					print("Damaged character")
 
 func set_item_state(value : int) :
 	var previous = item_state
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
+
+func implement_throw_logic(impulse):
+	can_throw_damage = true
+	throw_momentum = impulse / mass
 
 
 func play_drop_sound(body):

@@ -3,7 +3,7 @@ extends EquipmentItem
 
 
 export (NodePath) var player_path
-export(AttackTypes.Types) var melee_damage_type : int = 0
+
 
 onready var player = get_node(player_path)
 

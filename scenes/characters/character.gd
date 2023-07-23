@@ -716,6 +716,3 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	else:
 		current_mainhand_item_animation = hold_states.MELEE_ITEM
 		mainhand_animation = Animation_state.NOT_EQUIPPED
-
-
-

@@ -527,7 +527,7 @@ func handle_inventory(delta : float):
 			throw_state = ThrowState.IDLE
 			owner.change_equipment_in(false)
 
-	if Input.is_action_just_pressed("hotbar_11"):
+	if Input.is_action_just_pressed("itm|holster_offhand"):
 		if character.inventory.current_offhand_slot != 10:
 			character.inventory.current_offhand_slot = 10
 
@@ -563,7 +563,7 @@ func handle_inventory(delta : float):
 			throw_state = ThrowState.IDLE
 
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
-	if Input.is_action_just_pressed("change_screen_filter"):
+	if Input.is_action_just_pressed("misc|change_screen_filter"):
 		# Cycle to next filter
 		current_screen_filter += 1
 
@@ -606,9 +606,9 @@ func handle_inventory(delta : float):
 
 	# Zoom in/out like binoculars or spyglass
 	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
-		if Input.is_action_just_pressed("binocs_spyglass"):
+		if Input.is_action_just_pressed("ablty|binocs_spyglass"):
 			_camera.state = _camera.CameraState.STATE_ZOOM
-		if Input.is_action_just_released("binocs_spyglass"):
+		if Input.is_action_just_released("ablty|binocs_spyglass"):
 			_camera.state = _camera.CameraState.STATE_NORMAL
 		
 	if throw_state == ThrowState.SHOULD_PLACE:
@@ -704,21 +704,21 @@ func drop_grabbable():
 
 
 func previous_item():
-	if Input.is_action_just_pressed("itm|previous_item") and character.inventory.current_mainhand_slot != 0:
+	if Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot != 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 
-	elif  Input.is_action_just_pressed("itm|previous_item") and character.inventory.current_mainhand_slot == 0:
+	elif  Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
 
 func next_item():
-	if Input.is_action_just_pressed("itm|next_item") and character.inventory.current_mainhand_slot != 10:
+	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 
-	elif  Input.is_action_just_pressed("itm|next_item") and character.inventory.current_mainhand_slot == 10:
+	elif  Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
 

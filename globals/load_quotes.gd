@@ -154,7 +154,7 @@ func check_word():
 
 	elif "[Map key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("map_menu"):
+		for actionKey in InputMap.get_action_list("misc|map_menu"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -164,7 +164,7 @@ func check_word():
 
 	elif "[Binoculars key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("binocs_spyglass"):
+		for actionKey in InputMap.get_action_list("ablty|binocs_spyglass"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -174,7 +174,7 @@ func check_word():
 
 	elif "[Change look key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("change_screen_filter"):
+		for actionKey in InputMap.get_action_list("misc|change_screen_filter"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "

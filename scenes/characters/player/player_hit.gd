@@ -24,7 +24,7 @@ func _process(delta):
 
 
 func _input(event):
-	if event is InputEvent and event.is_action_pressed("help_info"):
+	if event is InputEvent and event.is_action_pressed("misc|help_info"):
 		keybind_defaults.visible = !keybind_defaults.visible
 		debug_label.visible = !debug_label.visible
 

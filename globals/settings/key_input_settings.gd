@@ -76,13 +76,15 @@ func _ready():
 								set_keys(x)
 					4:
 						if "itm|" in actions_copy[x]:
-							if "next_item" in actions_copy[x] and counter == 0:
+							if "next_hotbar_item" in actions_copy[x] and counter == 0:
 								set_keys(x)
-							elif "previous_item" in actions_copy[x] and counter == 1:
+							elif "previous_hotbar_item" in actions_copy[x] and counter == 1:
+								set_keys(x)
+							elif "holster_offhand" in actions_copy[x] and counter == 2:
 								set_keys(x)
 					5:
 						if "hotbar_" in actions_copy[x]:
-							if str(counter + 1) in actions_copy[x] and counter < 11:
+							if str(counter + 1) in actions_copy[x] and counter < 10:
 								if (counter + 1) == 1 and ( "11" in actions_copy[x] or "10" in actions_copy[x]):
 									pass
 								else:
@@ -142,9 +144,9 @@ func _ready():
 				3:
 					counter_max = 6
 				4:
-					counter_max = 2
+					counter_max = 3
 				5:
-					counter_max = 11
+					counter_max = 10
 				6:
 					counter_max = 3
 				7:

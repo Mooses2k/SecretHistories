@@ -654,7 +654,7 @@ func handle_inventory(delta : float):
 				item.apply_throw_logic(impulse)
 			else:
 				item.apply_central_impulse(impulse)
-				item.implement_throw_logic(impulse)
+				item.implement_throw_logic(impulse, character)
 
 	update_throw_state(delta)
 

@@ -25,6 +25,7 @@ var item_max_noise_level = 5
 var item_sound_level = 10
 var can_throw_damage : bool
 var throw_momentum 
+var from_character
 
 func _enter_tree():
 	if not audio_player:
@@ -55,15 +56,15 @@ func throw_damage():
 			for body_found in bodies:
 				print("Body found is ", body_found)
 				can_throw_damage = false
-				if body_found.is_in_group("CHARACTER"):
-					print("Damaged character")
+
 
 func set_item_state(value : int) :
 	var previous = item_state
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
 
-func implement_throw_logic(impulse):
+func implement_throw_logic(impulse, character):
+	from_character = character
 	can_throw_damage = true
 	throw_momentum = impulse / mass
 

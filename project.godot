@@ -575,7 +575,6 @@ TestSettings="*res://globals/settings/game_settings.gd"
 HUDS="*res://globals/HUD.tscn"
 KeyInputSettings="*res://globals/settings/key_input_settings.gd"
 LoadScene="*res://globals/load_scene.gd"
-LoadScreen="*res://globals/load_screen.gd"
 BackgroundMusic="*res://scenes/effects/background_music.tscn"
 
 [display]

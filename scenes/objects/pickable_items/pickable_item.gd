@@ -24,7 +24,6 @@ var noise_level : float = 0   # Noise detectable by characters; is a float for s
 var item_max_noise_level = 5
 var item_sound_level = 10
 var can_throw_damage : bool
-var throw_momentum 
 var from_character
 
 func _enter_tree():
@@ -43,10 +42,12 @@ func _enter_tree():
 
 
 func _process(delta):
+	
 	if self.noise_level > 0:
 		yield(get_tree().create_timer(0.2), "timeout")
 		self.noise_level = 0
 	throw_damage()
+	
 
 
 func throw_damage():
@@ -63,10 +64,9 @@ func set_item_state(value : int) :
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
 
-func implement_throw_logic(impulse, character):
+func implement_throw_logic(character):
 	from_character = character
 	can_throw_damage = true
-	throw_momentum = impulse / mass
 
 
 func play_drop_sound(body):

@@ -332,34 +332,33 @@ func _head_bob(delta : float) -> void:
 
 
 func _crouch() -> void:
-	if owner.is_player_crouch_toggle:
-		if owner.do_sprint:
-			owner.do_crouch = false
-			return
-
-		if Input.is_action_just_pressed("player|crouch"):
-			owner.do_crouch = !owner.do_crouch
-			if owner.do_crouch:
-				owner.state = owner.State.STATE_CROUCHING
-
-		if owner.do_crouch:
-			var from = _camera.transform.origin.y
-			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
-
-	else:
+#	if owner.is_player_crouch_toggle:
+	if GameManager.is_crouch_hold:
 		if Input.is_action_pressed("player|crouch"):
 			if owner.do_sprint:
 				owner.do_crouch = false
 				return
-
+				
 			owner.do_crouch = true
 			owner.state = owner.State.STATE_CROUCHING
-
+			
 			var from = _camera.transform.origin.y
 			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
-
+			
 		if !Input.is_action_pressed("player|crouch"):
 			owner.do_crouch = false
+		
+	else:
+		if owner.do_sprint:
+			owner.do_crouch = false
+			return
+		if Input.is_action_just_pressed("player|crouch"):
+			owner.do_crouch = !owner.do_crouch
+			if owner.do_crouch:
+				owner.state = owner.State.STATE_CROUCHING
+		if owner.do_crouch:
+			var from = _camera.transform.origin.y
+			_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
 
 
 func handle_grab_input(delta : float):

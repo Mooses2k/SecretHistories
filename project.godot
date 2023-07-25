@@ -219,7 +219,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/equipment_item.gd"
 }, {
-"base": "Node",
+"base": "Reference",
 "class": "Game",
 "language": "GDScript",
 "path": "res://scenes/game.gd"

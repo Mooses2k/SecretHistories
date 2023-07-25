@@ -69,10 +69,6 @@ func check_player_animation():
 	else:
 		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
 
-		
-
-
-		
 	#___________mainhand_object_______________#
 
 	if inventory.current_mainhand_equipment is GunItem:
@@ -89,8 +85,6 @@ func check_player_animation():
 			animation_tree.set("parameters/Weapon_states/current",1)
 			is_on_ads = false
 			unequip_offhand()
-
-
 
 
 	elif inventory.current_mainhand_equipment is EmptyHand:

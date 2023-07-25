@@ -652,6 +652,7 @@ func handle_inventory(delta : float):
 			#Applies unique throw  logic to item if its a melee item
 			if item is MeleeItem :
 				item.apply_throw_logic(impulse)
+				item.implement_throw_logic(character)
 			else:
 				item.apply_central_impulse(impulse)
 				item.implement_throw_logic(character)

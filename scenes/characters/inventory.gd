@@ -327,7 +327,8 @@ func unequip_offhand_item():
 		pass
 	else:
 		set_offhand_slot(10)
-		item.get_parent().remove_child(item)
+		if item != null:
+			item.get_parent().remove_child(item)
 
 
 func drop_mainhand_item():

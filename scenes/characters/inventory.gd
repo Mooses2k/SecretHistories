@@ -163,7 +163,8 @@ func add_item(item : PickableItem) -> bool:
 				# Autoequip if possible
 				# Everything else including another light-source, just put it in the main-hand
 				if current_mainhand_slot == slot and not bulky_equipment:
-					equip_mainhand_item()
+					if check_offhand_equipped(item):
+						equip_mainhand_item()
 				
 				elif current_offhand_slot == slot and not bulky_equipment:
 					equip_offhand_item()
@@ -196,6 +197,16 @@ func remove_tiny_item(item : TinyItemData, amount : int) -> bool:
 		emit_signal("tiny_item_changed", item, prev, new)
 		return true
 	return false
+
+
+func check_offhand_equipped(item):
+	var can_equip
+	if item.item_size != GlobalConsts.ItemSize.SIZE_MEDIUM and item != GunItem and current_offhand_equipment != LanternItem and current_offhand_equipment != CandleItem and current_offhand_equipment != TorchItem and current_offhand_equipment != CandelabraItem:
+		can_equip = true
+	else:
+		can_equip = false
+		
+	return can_equip
 
 
 func tiny_item_amount(item : TinyItemData) -> int:
@@ -282,7 +293,13 @@ func equip_offhand_item():
 	var item : EquipmentItem = hotbar[current_offhand_slot]
 	# Item exists, can be equipped on the offhand, and is not already equipped
 	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
-		unequip_offhand_item()
+		
+		if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
+			print("Equipped offhand light item")
+		else:
+			print("Equipped offhand slot normal item")
+			current_offhand_slot = 10
+			unequip_offhand_item()
 		
 	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
 		# Can't equip a Bulky Item simultaneously with a normal item
@@ -309,6 +326,7 @@ func unequip_offhand_item():
 	if item.can_attach == true:
 		pass
 	else:
+		set_offhand_slot(10)
 		item.get_parent().remove_child(item)
 
 

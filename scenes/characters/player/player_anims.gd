@@ -44,11 +44,6 @@ func _physics_process(delta):
 	ads()
 
 
-
-
-
-
-
 func check_player_animation():
 	
 	#___________offhand_object_______________#
@@ -79,10 +74,6 @@ func check_player_animation():
 	else:
 		animation_tree.set("parameters/OffHand_Weapon_States/current",2)
 
-		
-
-
-		
 	#___________mainhand_object_______________#
 
 	if inventory.current_mainhand_equipment is GunItem:
@@ -98,8 +89,6 @@ func check_player_animation():
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",0)
 			animation_tree.set("parameters/Weapon_states/current",1)
 			unequip_offhand()
-
-
 
 
 	elif inventory.current_mainhand_equipment is EmptyHand:

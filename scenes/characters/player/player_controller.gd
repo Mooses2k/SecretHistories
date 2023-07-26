@@ -654,12 +654,12 @@ func handle_inventory(delta : float):
 				
 				item.apply_throw_logic(impulse)
 				item.add_collision_exception_with(character)
-				item.implement_throw_logic()
+				item.implement_throw_logic(true)
 			else:
 				
 				item.apply_central_impulse(impulse)
 				item.add_collision_exception_with(character)
-				item.implement_throw_logic()
+				item.implement_throw_logic(false)
 
 	update_throw_state(delta)
 

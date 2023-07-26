@@ -21,11 +21,13 @@ var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 export(AttackTypes.Types) var melee_damage_type : int = 0
 onready var audio_player = get_node("DropSound")
 export var item_drop_sound : AudioStream
+
+
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 5
 var item_sound_level = 10
 var can_throw_damage : bool
-
+var is_melee_item = false
 
 func _enter_tree():
 	if not audio_player:
@@ -45,15 +47,13 @@ func _enter_tree():
 
 
 func _process(delta):
-	
 	if self.noise_level > 0:
 		yield(get_tree().create_timer(0.2), "timeout")
 		self.noise_level = 0
-		
-		
+
 func _physics_process(delta):
 	throw_damage()
-	
+
 
 
 func throw_damage():
@@ -61,16 +61,23 @@ func throw_damage():
 		var bodies = get_colliding_bodies()
 		for body_found in bodies:
 			if body_found.is_in_group("CHARACTER"):
-				var item_damage = int(abs(linear_velocity.z)) * int(mass) 
-				item_damage * 2
-				print(body_found.name," melee_damage inflicted is: ", item_damage)
+				var item_damage 
+				if is_melee_item:
+					print("item is melee item")
+					item_damage = int(abs(linear_velocity.z)) * int(mass) * 3
+				else:
+					print("item is not  melee item")
+					item_damage = int(abs(linear_velocity.z)) * int(mass) 
+
+				print(body_found.name," melee_damage is: ", item_damage)
+				print(" damage  inflicted on: ", body_found.name, " is: ", body_found.current_health)
 				body_found.damage(item_damage, melee_damage_type, body_found)
 				can_throw_damage = false
 				item_state = GlobalConsts.ItemState.DROPPED
 			else:
 				can_throw_damage = false
 				item_state = GlobalConsts.ItemState.DROPPED
-			print("Body found is ", body_found)
+
 
 
 func set_item_state(value : int) :
@@ -78,7 +85,8 @@ func set_item_state(value : int) :
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
 
-func implement_throw_logic():
+func implement_throw_logic(is_melee):
+	is_melee_item = is_melee
 	can_throw_damage = true
 
 

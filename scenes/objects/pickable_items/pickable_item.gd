@@ -6,6 +6,7 @@ signal item_state_changed(previous_state, current_state)
 
 export(int, LAYERS_3D_PHYSICS) var dropped_layers : int = 0
 export(int, LAYERS_3D_PHYSICS) var dropped_mask : int = 0
+export(int, LAYERS_3D_PHYSICS) var damage_mask : int = 0
 export(int, "Rigid", "Static", "Character", "Kinematic") var dropped_mode : int = MODE_RIGID
 
 export(int, LAYERS_3D_PHYSICS) var equipped_layers : int = 0
@@ -24,7 +25,7 @@ var noise_level : float = 0   # Noise detectable by characters; is a float for s
 var item_max_noise_level = 5
 var item_sound_level = 10
 var can_throw_damage : bool
-var from_character
+
 
 func _enter_tree():
 	if not audio_player:
@@ -39,6 +40,8 @@ func _enter_tree():
 			set_physics_equipped()
 		GlobalConsts.ItemState.EQUIPPED:
 			set_physics_equipped()
+		GlobalConsts.ItemState.DAMAGING:
+			set_weapon_damaging()
 
 
 func _process(delta):
@@ -46,6 +49,9 @@ func _process(delta):
 	if self.noise_level > 0:
 		yield(get_tree().create_timer(0.2), "timeout")
 		self.noise_level = 0
+		
+		
+func _physics_process(delta):
 	throw_damage()
 	
 
@@ -53,10 +59,18 @@ func _process(delta):
 func throw_damage():
 	if can_throw_damage:
 		var bodies = get_colliding_bodies()
-		if bodies:
-			for body_found in bodies:
-				print("Body found is ", body_found)
+		for body_found in bodies:
+			if body_found.is_in_group("CHARACTER"):
+				var item_damage = int(abs(linear_velocity.z)) * int(mass) 
+				item_damage * 2
+				print(body_found.name," melee_damage inflicted is: ", item_damage)
+				body_found.damage(item_damage, melee_damage_type, body_found)
 				can_throw_damage = false
+				item_state = GlobalConsts.ItemState.DROPPED
+			else:
+				can_throw_damage = false
+				item_state = GlobalConsts.ItemState.DROPPED
+			print("Body found is ", body_found)
 
 
 func set_item_state(value : int) :
@@ -64,8 +78,7 @@ func set_item_state(value : int) :
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
 
-func implement_throw_logic(character):
-	from_character = character
+func implement_throw_logic():
 	can_throw_damage = true
 
 
@@ -83,6 +96,10 @@ func set_physics_dropped():
 	self.collision_mask = dropped_mask
 	self.mode = dropped_mode
 
+func set_weapon_damaging():
+	self.collision_layer = dropped_layers
+	self.collision_mask = damage_mask
+	self.mode = dropped_mode
 
 func set_physics_equipped():
 	self.collision_layer = equipped_layers

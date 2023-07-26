@@ -18,6 +18,7 @@ continuous_cd = true
 script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
+damage_mask = 19
 equipped_mode = 3
 item_drop_sound = ExtResource( 3 )
 

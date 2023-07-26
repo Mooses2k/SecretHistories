@@ -651,11 +651,15 @@ func handle_inventory(delta : float):
 			var x_pos = item.global_transform.origin.x
 			#Applies unique throw  logic to item if its a melee item
 			if item is MeleeItem :
+				
 				item.apply_throw_logic(impulse)
-				item.implement_throw_logic(character)
+				item.add_collision_exception_with(character)
+				item.implement_throw_logic()
 			else:
+				
 				item.apply_central_impulse(impulse)
-				item.implement_throw_logic(character)
+				item.add_collision_exception_with(character)
+				item.implement_throw_logic()
 
 	update_throw_state(delta)
 

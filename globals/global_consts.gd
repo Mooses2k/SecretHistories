@@ -28,6 +28,7 @@ enum ItemSize {
 
 enum ItemState {
 	DROPPED,
+	DAMAGING,
 	INVENTORY,
 	EQUIPPED,
 	BUSY

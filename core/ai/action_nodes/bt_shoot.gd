@@ -11,7 +11,7 @@ func tick(state : CharacterState) -> int:
 	if equipment:
 		if (speech_chance > 0.75):
 			emit_signal("fighting")
-		print("Cultist trying to shoot")
+#		print("Cultist trying to shoot")
 		equipment._use_primary()
 		return Status.SUCCESS
 	return Status.FAILURE

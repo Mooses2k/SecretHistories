@@ -29,9 +29,14 @@ func on_area_entered(area):
 		
 
 func _on_Hitbox_body_entered(body):
-	if body is PickableItem and body.can_throw_damage and body.from_character != get_parent():
-		body.can_throw_damage = false
-		body.melee_damage_type
-		var item_damage = int(abs(body.linear_velocity.z)) * int(body.mass) 
-		print(body.item_name," melee_damage value is: ", item_damage)
-		get_parent().damage(item_damage, body.melee_damage_type, get_parent())
+	pass
+#	if body is PickableItem and body.can_throw_damage and body.from_character != get_parent():
+#		body.item_state = GlobalConsts.ItemState.DROPPED
+#		body.can_throw_damage = false
+#		body.melee_damage_type
+#		var item_damage = int(abs(body.linear_velocity.z)) * int(body.mass) 
+#		if body is MeleeItem:
+#			item_damage * 2
+#
+#		print(body.item_name," melee_damage value is: ", item_damage)
+#		get_parent().damage(item_damage, body.melee_damage_type, get_parent())

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neophyte_r_two_men_look_up_at_the_stars.ogg-55667fdbe754543c22f79412fae8e231.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/two_men_look_up/neophyte_r_two_men_look_up_at_the_stars.ogg"
+dest_files=[ "res://.import/neophyte_r_two_men_look_up_at_the_stars.ogg-55667fdbe754543c22f79412fae8e231.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

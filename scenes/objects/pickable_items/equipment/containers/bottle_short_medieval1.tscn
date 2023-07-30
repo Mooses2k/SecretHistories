@@ -35,7 +35,6 @@ mass = 1.0
 contacts_reported = 2
 contact_monitor = true
 item_drop_sound = ExtResource( 4 )
-can_attach = false
 item_size = 0
 item_name = "Short Ceramic Bottle"
 
@@ -60,4 +59,4 @@ shape = SubResource( 4 )
 shape = null
 
 [node name="HoldPosition" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00220874, 0.0494013, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0102378, 0.044211, 0 )

@@ -1,11 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/explosion/explosions.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/_consumable.tscn" type="PackedScene" id=3]
 
-[node name="Bomb" type="Spatial"]
+[node name="BombItem" instance=ExtResource( 3 )]
+mass = 0.5
 script = ExtResource( 1 )
+item_name = "Bomb"
+radius = 5
+fragments = 200
+bomb_damage = 0.0
+damage_type = 0
 
-[node name="Explosion" parent="." instance=ExtResource( 2 )]
+[node name="Explosion" parent="." index="3" instance=ExtResource( 2 )]
 transform = Transform( -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0 )
 amount = 40

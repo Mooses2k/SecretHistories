@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteNowISeeThingsThatIShouldNot.wav-3f67e5f041aee7156c97baba156b9238.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteNowISeeThingsThatIShouldNot.wav"
+dest_files=[ "res://.import/NeophyteNowISeeThingsThatIShouldNot.wav-3f67e5f041aee7156c97baba156b9238.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

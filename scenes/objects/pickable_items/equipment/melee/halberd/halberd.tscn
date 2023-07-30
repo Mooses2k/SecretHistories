@@ -67,11 +67,14 @@ item_drop_sound = ExtResource( 13 )
 item_size = 2
 item_name = "Halberd"
 weapon_type = 6
-melee_damage = 70
+primary_damage_type1 = 2
+primary_damage1 = 70
+secondary_damage1 = 51
+secondary_damage_type2 = 1
+secondary_damage2 = 51
 throw_logic = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 1
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -122,23 +125,30 @@ transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09
 [node name="Sounds" type="Spatial" parent="."]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
+bus = "Effects"
 
 [node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
+bus = "Effects"
 
 [node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 9 )
+bus = "Effects"
 
 [node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 10 )
+bus = "Effects"
 
 [node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 8 )
+bus = "Effects"
 
 [node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 12 )
+bus = "Effects"
 
 [node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
 stream = ExtResource( 11 )
+bus = "Effects"
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]

@@ -2,8 +2,6 @@ class_name BT_Go_To_Target
 extends BT_Node
 
 
-signal plans_to_approach
-
 export var threshold : float = 0.5 setget set_threshold
 var _thresold_squared : float = 0.25
 
@@ -23,7 +21,6 @@ func tick(state : CharacterState) -> int:
 
 	while state.path.size() > 0 and state.path[0].distance_squared_to(character.global_transform.origin) <= threshold:
 		state.path.pop_front()
-		emit_signal("plans_to_approach")
 		character.move_speed = speed
 
 	if state.path.size() > 0:
@@ -31,4 +28,4 @@ func tick(state : CharacterState) -> int:
 		state.face_direction = state.move_direction
 		return Status.RUNNING
 
-	return Status.SUCCESS
+	return Status.FAILURE

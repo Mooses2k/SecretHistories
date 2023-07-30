@@ -7,6 +7,7 @@ enum EscMenuButtons {
 	RESUME,
 	SAVE,
 	SETTINGS,
+	HELP,
 	QUIT
 }
 
@@ -41,6 +42,10 @@ func _on_SettingsButton_pressed():
 #	call_deferred("hide")
 
 
+func _on_HelpButton_pressed():
+	emit_signal("button_pressed", EscMenuButtons.HELP)
+
+
 func _on_QuitButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.QUIT)
 #	get_tree().quit()
@@ -49,3 +54,4 @@ func _on_QuitButton_pressed() -> void:
 func _input(event):
 	if event.is_action_pressed("fullscreen"):
 		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
+

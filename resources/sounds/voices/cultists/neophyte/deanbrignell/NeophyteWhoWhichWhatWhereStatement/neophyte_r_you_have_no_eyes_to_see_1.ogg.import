@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neophyte_r_you_have_no_eyes_to_see_1.ogg-04fe333a15ba81ff58aa3e8a088c6629.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/neophyte_r_you_have_no_eyes_to_see_1.ogg"
+dest_files=[ "res://.import/neophyte_r_you_have_no_eyes_to_see_1.ogg-04fe333a15ba81ff58aa3e8a088c6629.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -12,17 +12,16 @@ onready var texture_rect: TextureRect = $TextureRect
 onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var tween: Tween = $Tween
 
-#------>FOR TESTING<------
-var health = 100 
-
 
 func _process(delta):
 	var player := owner as Player
 	debug_label.text = (
-		"player light_level = " + str(player.light_level) + "\n"
-		+ "player noise_level = " + str(player.noise_level) + "\n"
-		+ "player on floor = " +  str(player.is_on_floor()) + "\n"
-		+ "player position = " +  str(player.translation) + "\n"
+		"Player current_health = " + str(player.current_health) + "\n"
+		+ "Player stamina = " + str(player.stamina) + "\n"
+		+ "Player light_level = " + str(player.light_level) + "\n"
+		+ "Player noise_level = " + str(player.noise_level) + "\n"
+		+ "Player on floor = " +  str(player.is_on_floor()) + "\n"
+		+ "Player position = " +  str(player.translation) + "\n"
 	)
 
 
@@ -30,47 +29,6 @@ func _input(event):
 	if event is InputEvent and event.is_action_pressed("help_info"):
 		keybind_defaults.visible = !keybind_defaults.visible
 		debug_label.visible = !debug_label.visible
-#	if event is InputEvent and event.is_action_pressed("kick"):
-#		if not color_rect.is_visible_in_tree():
-#			color_rect.show()
-#		if animation_player.is_playing():
-#			animation_player.stop()
-#		animation_player.play("hit_effect")
-#
-#		health -= 5
-#
-#		if health <= 5:
-#			opacity_target[0] = 0.7
-#			opacity_target[1] = 0.98
-#		elif health <= 10:
-#			tween_speed = 0.4
-#			opacity_target[0] = 0.6
-#			opacity_target[1] = 0.8
-#		elif health <= 15:
-#			opacity_target[0] = 0.5
-#			opacity_target[1] = 0.7
-#		elif health <= 20:
-#			tween_speed = 0.5
-#			opacity_target[0] = 0.4
-#			opacity_target[1] = 0.6
-#		elif health <= 25:
-#			opacity_target[0] = 0.3
-#			opacity_target[1] = 0.5
-#		elif health <= 30:
-#			tween_speed = 0.6
-#			opacity_target[0] = 0.2
-#			opacity_target[1] = 0.4
-#		elif health <= 35:
-#			opacity_target[0] = 0.1
-#			opacity_target[1] = 0.3
-#		elif health <= 40:
-#			if not texture_rect.is_visible_in_tree():
-#				texture_rect.show()
-#			if not tween.is_active() and not tween.is_active():
-#				_start_fade_in()
-#			opacity_target[0] = 0.05
-#			opacity_target[1] = 0.2
-##------>FOR TESTING<------
 
 
 func _on_Player_is_hit(current_health):

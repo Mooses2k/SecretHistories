@@ -46,9 +46,6 @@ enum CellType {
 	# Empty Cell, which means the cell itself is out of bounds
 	EMPTY,
 	
-	# The cell belongs to the starting room
-	STARTING_ROOM,
-	
 	# The cell belongs to a room
 	ROOM,
 	
@@ -66,6 +63,7 @@ enum CellType {
 enum CellMetaKeys {
 	META_DOOR_DIRECTIONS,
 	META_PILLAR_ROOM,
+	META_ROOM_DATA,
 }
 
 enum EdgeType {
@@ -152,17 +150,21 @@ func clear():
 	wall_meta.clear()
 	doors.clear()
 	pillar_radius.clear()
+	
+	player_spawn_position = INVALID_STARTING_CELL
+	_objects_to_spawn.clear()
+	_characters_to_spawn.clear()
+	_cell_indexes_by_cell_type.clear()
 
 
 # Room definitions, store as a dictionary as follows:
 # {
-# 	room_type_1 : [polygon_1, polygon_2, ...]
-#	room_type_2 : [polygon_1, polygon_2, ...]
+# 	room_type_1 : [RoomData_1, RoomData_2, ...]
+#	room_type_2 : [RoomData_1, RoomData_2, ...]
 #	...
 # }
 # where each room_type key is a string defining the type of the rooms (i.e., "armory")
-# and each associated value containing an array of polygons, each representing
-# a single room as a poolvector2array of points in grid space
+# and each associated value contains an object of RoomData
 var rooms : Dictionary
 
 # Stores the type of a cell as a variant of the CellType enum, following the
@@ -227,9 +229,18 @@ var ceiling_tile_index : PoolIntArray
 const INVALID_STARTING_CELL = Vector2.ONE * -1
 var player_spawn_position := INVALID_STARTING_CELL
 
+# Dictionary in the format:
+#{
+#	cell_index_1: SpawnData,
+#	cell_index_2: SpawnData,
+#	cell_index_3: SpawnData,
+#}
+var _objects_to_spawn := {}
+var _characters_to_spawn := {}
+
 # Stores a arrays of cell indexes already filtered by cell type.
 # Private variable, use `get_cells_for(p_type: int)` to access the arrays.
-# ex: { CellType.STARTING_ROOM = [15, 16, 17, 25, 26 ...], CellType.ROOM = [...], ... }
+# ex: { CellType.ROOM = [15, 16, 17, 25, 26 ...], CellType.CORRIDOR = [...], ... }
 var _cell_indexes_by_cell_type := {}
 
 
@@ -323,9 +334,82 @@ func is_spawn_position_valid() -> bool:
 	return player_spawn_position != INVALID_STARTING_CELL
 
 
-func is_room_cell(p_index: int) -> bool:
-	var type := get_cell_type(p_index)
-	var value: bool = type == CellType.ROOM or type == CellType.STARTING_ROOM
+func fill_room_data(room: Rect2, p_type: int) -> void:
+	var room_data := RoomData.new(p_type, room)
+	set_room(p_type, room_data)
+	for x in range(room.position.x, room.end.x):
+		for y in range(room.position.y, room.end.y):
+			var cell_index = get_cell_index_from_int_position(x, y)
+			set_cell_type(cell_index, CellType.ROOM)
+			clear_cell_meta(cell_index)
+			set_cell_meta(cell_index, CellMetaKeys.META_ROOM_DATA, room_data)
+			room_data.add_cell_index(cell_index)
+
+
+func set_room(type: int, p_room_data: RoomData) -> void:
+	if not rooms.has(type):
+		rooms[type] = []
+	elif rooms[type].has(p_room_data):
+		push_warning("room data already on rooms[%s]: %s"%[
+				RoomData.OriginalPurpose.keys()[type], 
+				p_room_data
+		])
+		return
+	
+	rooms[type].append(p_room_data)
+
+
+func change_room_type(old_type: int, new_type: int, p_room_data: RoomData) -> void:
+	if not rooms.has(new_type):
+		rooms[new_type] = []
+	
+	if rooms.has(old_type) and rooms[old_type].has(p_room_data):
+		rooms[old_type].erase(p_room_data)
+	
+	if not rooms[new_type].has(p_room_data):
+		rooms[new_type].append(p_room_data)
+
+
+# Returns an Array of all RoomData
+func get_all_rooms() -> Array:
+	var value := []
+	
+	for data_array in rooms.values():
+		value.append_array(data_array)
+	
+	return value
+
+
+func get_total_rooms_count() -> int:
+	var value := 0
+	
+	for data_array in rooms.values():
+		value += data_array.size()
+	
+	return value
+
+
+# Returns an Array of RoomData from the specified "type" 
+func get_rooms_of_type(p_type: int) -> Array:
+	var value := []
+	
+	if rooms.has(p_type):
+		value = rooms[p_type]
+	
+	return value
+
+
+func get_starting_room_data() -> RoomData:
+	var value: RoomData = null
+	
+	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.LEVEL_STAIRCASE)
+	if rooms.empty():
+		push_error("No starting room found.")
+		return value
+	elif rooms.size() > 1:
+		push_warning("There should only be one starting room, only the first will be used")
+	
+	value = starting_rooms.front()
 	return value
 
 
@@ -410,7 +494,8 @@ func set_cell_type(cell_index : int, value : int):
 		for type in _cell_indexes_by_cell_type:
 			var type_array = _cell_indexes_by_cell_type[type] as Array
 			if type_array.has(cell_index):
-				print("overwriting cell type: %s at %s for %s"%[type, cell_index, value])
+				var keys := CellType.keys()
+#				print("overwriting cell type: %s at %s for %s"%[keys[type], cell_index, keys[value]])
 				type_array.erase(cell_index)
 		
 		_cell_indexes_by_cell_type[value].append(cell_index)
@@ -427,6 +512,51 @@ func get_cells_for(p_type: int) -> Array:
 		value.sort()
 	
 	return value
+
+
+# Checks if a cell index is free
+func is_cell_free(cell_index: int) -> bool:
+	var value := true
+	
+	if player_spawn_position != INVALID_STARTING_CELL:
+		var player_starting_cell := get_cell_index_from_int_position(
+				player_spawn_position.x,
+				player_spawn_position.y
+		)
+		if cell_index == player_starting_cell:
+			value = false
+	
+	if value:
+		if _objects_to_spawn.has(cell_index):
+			value = false
+		elif _characters_to_spawn.has(cell_index):
+			value = false
+	
+	return value
+
+
+func set_object_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
+	if _objects_to_spawn.has(cell_index):
+		push_error("Aborting. Cell %s is already occupied with: %s"%[cell_index, spawn_data])
+		return
+	
+	_objects_to_spawn[cell_index] = spawn_data
+
+
+func get_objects_to_spawn() -> Dictionary:
+	return _objects_to_spawn
+
+
+func set_character_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
+	if _characters_to_spawn.has(cell_index):
+		push_error("Aborting. Cell %s is already occupied with: %s"%[cell_index, spawn_data])
+		return
+	
+	_characters_to_spawn[cell_index] = spawn_data
+
+
+func get_characters_to_spawn() -> Dictionary:
+	return _characters_to_spawn
 
 
 func get_cell_surfacetype(cell_index : int) -> int:
@@ -472,7 +602,7 @@ func clear_cell_meta(cell_index : int):
 
 
 func _get_north_wall_index(cell_index : int) -> int:
-	return cell_index + int(cell_index/world_size_z)
+	return cell_index + int(cell_index / world_size_z)
 
 
 func _get_south_wall_index(cell_index : int) -> int:
@@ -525,6 +655,19 @@ func set_wall_meta(cell_index : int, direction : int, value = null):
 			wall_meta.erase(idx)
 		else:
 			wall_meta[idx] = value
+
+
+func has_door(cell_index: int, direction: int) -> bool:
+	var wall_type = get_wall_type(cell_index, direction)
+	var value := false
+	if (
+			wall_type == EdgeType.DOOR
+			or wall_type == EdgeType.HALFDOOR_N
+			or wall_type == EdgeType.HALFDOOR_P
+	):
+		value = true
+	
+	return value
 
 
 func get_wall_tile_index(cell_index : int, direction : int) -> int:
@@ -588,29 +731,41 @@ func print_world_map() -> void:
 	var line := ""
 	
 	var title = "--- Generated World Map "
-	var append_title = "-".repeat(world_size_x - title.length())
+	var padding := world_size_x - title.length() as int
+	var append_title := ""
+	if padding > 0:
+		append_title = "-".repeat(padding)
 	print("\n" + title + append_title)
 	
-	for index in cell_count:
-		var type := get_cell_type(index)
-		match type:
-			CellType.EMPTY:
-				line += "."
-			CellType.STARTING_ROOM:
-				line += "S"
-			CellType.ROOM:
-				line += "R"
-			CellType.CORRIDOR:
-				line += "="
-			CellType.HALL:
-				line += "H"
-			CellType.DOOR:
-				line += "D"
-			_:
-				push_error("Unregistered CellType: %s"%[type])
+	var starting_room := get_starting_room_data()
+	var starting_cells := starting_room.cell_indexes.duplicate() if not starting_room == null else []
+	for y in range(0, world_size_z):
+		for x in range(0, world_size_x):
+			var index := get_cell_index_from_int_position(x, y)
+			var type := get_cell_type(index)
+			match type:
+				CellType.EMPTY:
+					line += "."
+				CellType.ROOM:
+					var room_value := "R"
+					if not starting_cells.empty():
+						var cell_index := get_cell_index_from_int_position(x, y)
+						var starting_cell_index := starting_cells.find(cell_index)
+						if starting_cell_index != -1:
+							room_value = "S"
+							starting_cells.remove(starting_cell_index)
+					line += room_value
+				CellType.CORRIDOR:
+					line += "="
+				CellType.HALL:
+					line += "H"
+				CellType.DOOR:
+					line += "D"
+				_:
+					push_error("Unregistered CellType: %s"%[type])
 		
-		if (index + 1) % world_size_x == 0:
-			print(line)
-			line = ""
+			if x + 1 == world_size_x:
+				print(line)
+				line = ""
 	
 	print("-".repeat(world_size_x)+"\n")

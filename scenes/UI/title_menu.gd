@@ -7,6 +7,9 @@ func _ready():
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	$VBoxContainer/ContinueButton.grab_focus()
+	
+	if !BackgroundMusic.is_playing():
+		BackgroundMusic.play()
 
 
 func _input(event):
@@ -29,7 +32,7 @@ func _on_SettingsButton_pressed():
 
 
 func _on_CreditsButton_pressed():
-	pass   # Replace with function body once Credits screen implemented.
+	OS.shell_open("https://github.com/Mooses2k/SecretHistories/wiki") 
 
 
 func _on_QuitButton_pressed():

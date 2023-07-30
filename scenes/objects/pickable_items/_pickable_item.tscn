@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/pickable_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=2]
+[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.2, 0.2, 0.2 )
@@ -18,6 +19,7 @@ script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
+item_drop_sound = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )

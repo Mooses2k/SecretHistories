@@ -1,5 +1,5 @@
 class_name TorchItem
-extends ConsumableItem
+extends DisposableLightItem
 
 
 #var has_ever_been_on = false

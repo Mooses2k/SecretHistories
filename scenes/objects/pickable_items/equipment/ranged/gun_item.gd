@@ -90,7 +90,6 @@ func shoot():
 
 
 func _use_primary():
-#	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
 	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
 		$CooldownTimer.start(cooldown)
@@ -132,7 +131,6 @@ func reload():
 #					print(player.owner)
 					# Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
-					
 					return
 
 
@@ -163,9 +161,9 @@ func _on_ReloadTimer_timeout() -> void:
 		var inventory = owner_character.inventory
 		if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
 			var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
-			inventory.remove_tiny_item(_queued_reload_type, reload_amount)
+			inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
 			current_ammo_type = _queued_reload_type
-			current_ammo += reload_amount
+			current_ammo += _reload_amount
 	owner_character.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 

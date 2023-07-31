@@ -19,10 +19,11 @@ var gui_scale : float setget set_gui_scale, get_gui_scale
 
 
 func _ready():
-	Settings.add_bool_setting(SETTING_FULLSCREEN, OS.window_fullscreen)
+	Settings.add_bool_setting(SETTING_FULLSCREEN, GameManager.full_screen)
 	Settings.set_setting_group(SETTING_FULLSCREEN, GROUP_NAME)
-	Settings.add_float_setting(SETTING_GUI_SCALE, GUI_SCALE_MIN, GUI_SCALE_MAX, GUI_SCALE_STEP, GUI_SCALE_DEFAULT)
+	Settings.add_float_setting(SETTING_GUI_SCALE, GUI_SCALE_MIN, GUI_SCALE_MAX, GUI_SCALE_STEP, GameManager.gui_scale)
 	Settings.set_setting_group(SETTING_GUI_SCALE, GROUP_NAME)
+	OS.window_fullscreen = GameManager.full_screen
 	Settings.connect("setting_changed", self, "on_setting_changed")
 
 
@@ -46,7 +47,11 @@ func on_setting_changed(setting_name, old_value, new_value):
 	match setting_name:
 		SETTING_FULLSCREEN:
 			OS.window_fullscreen = new_value
+			GameManager.full_screen = new_value
 			emit_signal("fullscreen_changed", new_value)
+			SettingsConfig.save_settings()
 		SETTING_GUI_SCALE:
+			GameManager.gui_scale = new_value
 			emit_signal("gui_scale_changed", new_value)
+			SettingsConfig.save_settings()
 	pass

@@ -564,8 +564,9 @@ config/icon="res://icon.png"
 [autoload]
 
 GameManager="*res://globals/game_manager.gd"
-Save="*res://globals/save.gd"
+SettingsConfig="*res://globals/settings_config.gd"
 KeybindingManager="*res://globals/keybinding_manager.gd"
+Save="*res://globals/save.gd"
 LoadQuotes="*res://globals/load_quotes.gd"
 Settings="*res://globals/settings.gd"
 InputSettings="*res://globals/settings/input_settings.gd"

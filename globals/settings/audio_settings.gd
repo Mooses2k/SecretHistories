@@ -65,11 +65,33 @@ func get_voice_volume() -> float:
 
 func set_volume(idx : int, value : float):
 	AudioServer.set_bus_volume_db(idx, linear2db(value/MAX_VALUE))
-	pass
+	
+	match idx:
+		0:
+			GameManager.master_volume = linear2db(value/MAX_VALUE)
+		1:
+			GameManager.music_volume = linear2db(value/MAX_VALUE)
+		2:
+			GameManager.effects_volume = linear2db(value/MAX_VALUE)
+		3:
+			GameManager.voice_volume = linear2db(value/MAX_VALUE)
+		
+	SettingsConfig.save_settings()
+
 
 func get_volume(idx : int) -> float:
-	return db2linear(AudioServer.get_bus_volume_db(idx))*MAX_VALUE
-	pass
+#	return db2linear(AudioServer.get_bus_volume_db(idx)) * MAX_VALUE
+	match idx:
+		0:
+			return db2linear(GameManager.master_volume) * MAX_VALUE
+		1:
+			return db2linear(GameManager.music_volume) * MAX_VALUE
+		2:
+			return db2linear(GameManager.effects_volume) * MAX_VALUE
+		3:
+			return db2linear(GameManager.voice_volume) * MAX_VALUE
+		_:
+			return db2linear(GameManager.master_volume) * MAX_VALUE
 
 
 func on_setting_changed(setting_name, old_value, new_value):

@@ -23,7 +23,9 @@ func on_setting_changed(setting_name, old_value, new_value):
 		SETTING_ADS:
 			GameManager.is_ads_hold = new_value
 			emit_signal("fullscreen_changed", new_value)
+			SettingsConfig.save_settings()
 		SETTING_CROUCH:
 			GameManager.is_crouch_hold = new_value
 			emit_signal("gui_scale_changed", new_value)
+			SettingsConfig.save_settings()
 	pass

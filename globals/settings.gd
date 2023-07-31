@@ -1,7 +1,6 @@
 class_name SettingsClass
 extends Node
 
-
 signal setting_added(setting_name)
 signal setting_removed(setting_name)
 signal setting_changed(setting_name, old_value, new_value)

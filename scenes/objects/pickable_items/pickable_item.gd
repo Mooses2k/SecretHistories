@@ -28,6 +28,7 @@ func _enter_tree():
 	if not audio_player:
 		var drop_sound = AudioStreamPlayer3D.new()
 		drop_sound.name = "DropSound"
+		drop_sound.bus = "Effects"
 		add_child(drop_sound)
 	
 	match self.item_state:

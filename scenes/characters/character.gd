@@ -264,7 +264,7 @@ func slow_down(state : PhysicsDirectBodyState):
 	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
 
 
-func damage(value : float, type : int, on_hitbox : Hitbox):
+func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)

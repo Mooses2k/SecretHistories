@@ -172,7 +172,8 @@ func ads():
 								_camera.fov  = lerp(_camera.fov, 60, 0.5)
 			
 			else:
-				if get_parent().inventory.current_mainhand_equipment is GunItem or owner.do_sprint == true:
+				if (get_parent().inventory.current_mainhand_equipment is GunItem or (owner.do_sprint == true
+						and get_parent().inventory.current_mainhand_equipment is GunItem)):
 					is_on_ads = false
 					
 					if inventory.current_mainhand_equipment.item_size == 0:

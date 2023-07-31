@@ -17,7 +17,19 @@ func _set_value(value):
 		return
 	
 	for event in value:
-		$"%Value".text += event
+		var temp_event = event
+		match event:
+			"Mouse Button 1":
+				temp_event = "Mouse Left Button"
+			"Mouse Button 2":
+				temp_event = "Mouse Right Button"
+			"Mouse Button 3":
+				temp_event = "Mouse Middle Button"
+			"Mouse Button 4":
+				temp_event = "Mouse Wheel Up"
+			"Mouse Button 5":
+				temp_event = "Mouse Wheel Down"
+		$"%Value".text += temp_event
 		if value.find(event) != (value.size() - 1):
 			$"%Value".text += ", "
 

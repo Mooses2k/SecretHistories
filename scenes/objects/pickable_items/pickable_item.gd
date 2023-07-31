@@ -70,7 +70,7 @@ func throw_damage():
 					item_damage = int(abs(linear_velocity.z)) * int(mass) 
 
 				print(body_found.name," melee_damage is: ", item_damage)
-				print(" damage  inflicted on: ", body_found.name, " is: ", body_found.current_health)
+				print(" damage  inflicted on: ", body_found.name, " is: ",item_damage)
 				body_found.damage(item_damage, melee_damage_type, body_found)
 				can_throw_damage = false
 				item_state = GlobalConsts.ItemState.DROPPED

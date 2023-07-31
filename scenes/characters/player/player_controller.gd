@@ -490,6 +490,8 @@ func throw_consumable(item):
 		# At this point, the item is still equipped, so we wait until
 		# it exits the tree and is re inserted in the world
 		item.apply_central_impulse(impulse)
+		item.add_collision_exception_with(character)
+		item.implement_throw_logic(false)
 
 
 func handle_inventory(delta : float):
@@ -656,7 +658,7 @@ func handle_inventory(delta : float):
 				item.add_collision_exception_with(character)
 				item.implement_throw_logic(true)
 			else:
-				
+				print()
 				item.apply_central_impulse(impulse)
 				item.add_collision_exception_with(character)
 				item.implement_throw_logic(false)

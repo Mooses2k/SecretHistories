@@ -22,6 +22,8 @@ var setting_music_volume : float setget set_music_volume, get_music_volume
 var setting_effects_volume : float setget set_effects_volume, get_effects_volume
 var setting_voice_volume : float setget set_voice_volume, get_voice_volume
 
+var internal_effects_volume : float = 1.0 setget set_internal_effects_volume
+
 
 func _ready():
 	Settings.add_float_setting(SETTING_MASTER_VOLUME, MIN_VALUE, MAX_VALUE, STEP_VALUE, get_volume(bus_master))
@@ -55,6 +57,12 @@ func set_effects_volume(value : float):
 func get_effects_volume() -> float:
 	return Settings.get_setting(SETTING_EFFECTS_VOLUME)
 
+func set_internal_effects_volume(value : float):
+	internal_effects_volume = clamp(value, 0.0, 1.0)
+	set_volume(bus_effects, get_effects_volume()*internal_effects_volume)
+	print("internal_volume:", value)
+	print("effects_volume: ", get_volume(bus_effects))
+
 
 func set_voice_volume(value : float):
 	Settings.set_setting(SETTING_VOICE_VOLUME, value)
@@ -79,7 +87,7 @@ func on_setting_changed(setting_name, old_value, new_value):
 		SETTING_MUSIC_VOLUME:
 			set_volume(bus_music, new_value)
 		SETTING_EFFECTS_VOLUME:
-			set_volume(bus_effects, new_value)
+			set_volume(bus_effects, new_value*internal_effects_volume)
 		SETTING_VOICE_VOLUME:
 			set_volume(bus_voice, new_value)
 	pass

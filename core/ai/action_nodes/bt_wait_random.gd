@@ -39,6 +39,6 @@ func reset_timer():
 	var speech_chance = randf()
 	if (speech_chance > 0.95):
 		emit_signal("character_idled")
-#		print("Idle speech signalled")
+		print("Idle speech signalled")
 	time_left = rand_range(min_time, max_time)
 	reset = true

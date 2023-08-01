@@ -66,83 +66,27 @@ func generate_double_a_star_grid(data : WorldData) -> AStar2D:
 	return astar
 
 
-func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : int) -> bool:
-	var path : PoolIntArray = astar.get_id_path(a, b)
-	if not (path.size() > 0 and path[0] == a and path[-1] == b):
-		print("a: %s (%s) | b: %s (%s) | path[0]: %s | path[-1]: %s"%[
-				a, data.get_int_position_from_cell_index(a), 
-				b, data.get_int_position_from_cell_index(b),
-				path[0], path[-1]
-		])
-		return false
-	
-	for i in path.size():
-		var coords = data.get_int_position_from_cell_index(path[i])
-		var x = coords[0]
-		var z = coords[1]
-		var cells = [
-				data.get_cell_index_from_int_position(x - 1, z - 1),
-				data.get_cell_index_from_int_position(x, z - 1),
-				data.get_cell_index_from_int_position(x, z),
-				data.get_cell_index_from_int_position(x - 1, z),
-		]
-		# room mask as 3210 (clockwise order from lower bit)
-		var mask_2x2 = _get_cell_mask(data, cells, data.CellType.ROOM)
-		
-		var astar_type := AstarType.EMPTY as int
-		match mask_2x2:
-			MASK_EMPTY:
-				_set_cells(data, cells, [
-						data.CellType.CORRIDOR, data.CellType.CORRIDOR, 
-						data.CellType.CORRIDOR, data.CellType.CORRIDOR
-				])
-			MASK_ROOM_NORTH:
-				_set_cells(data, cells, [
-						data.CellType.ROOM, data.CellType.ROOM, 
-						data.CellType.DOOR, data.CellType.DOOR
-				])
-				_set_doorways_meta(data, cells, data.Direction.NORTH)
-				astar_type = AstarType.EDGE
-			MASK_ROOM_EAST:
-				_set_cells(data, cells, [
-						data.CellType.DOOR, data.CellType.ROOM, 
-						data.CellType.ROOM, data.CellType.DOOR
-				])
-				_set_doorways_meta(data, cells, data.Direction.EAST)
-				astar_type = AstarType.EDGE
-			MASK_ROOM_SOUTH:
-				_set_cells(data, cells, [
-						data.CellType.DOOR, data.CellType.DOOR, 
-						data.CellType.ROOM, data.CellType.ROOM
-				])
-				_set_doorways_meta(data, cells, data.Direction.SOUTH)
-				astar_type = AstarType.EDGE
-			MASK_ROOM_WEST:
-				_set_cells(data, cells, [
-						data.CellType.ROOM, data.CellType.DOOR, 
-						data.CellType.DOOR, data.CellType.ROOM]
-				)
-				_set_doorways_meta(data, cells, data.Direction.WEST)
-				astar_type = AstarType.EDGE
-			MASK_FULL_ROOM:
-				astar_type = AstarType.ROOM
-		
-		if astar_type == AstarType.EDGE:
-			astar.set_point_weight_scale(cells[2], existing_corridor_weight * room_edge_cost_multiplier)
-		elif astar_type == AstarType.EMPTY:
-			astar.set_point_weight_scale(cells[2], existing_corridor_weight)
-	
-	var rooms := [
-			data.get_cell_meta(a, data.CellMetaKeys.META_ROOM_DATA),
-			data.get_cell_meta(b, data.CellMetaKeys.META_ROOM_DATA),
-	]
-	
-	for room_value in rooms:
-		var room := room_value as RoomData
-		if not room.can_add_doorway():
-			_disconnect_room_walls_from_grid(data, astar, room)
-	
-	return true
+func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : int) -> void:
+	var is_generating := true
+	while is_generating:
+		var results := _generate_corridor_until_first_door(data, astar, a, b)
+		if results == CorridorGenerationResults.FAILED:
+			is_generating = false
+			push_error("Failed to build corridor between a:%s and b:%s"%[a, b])
+			return
+		else:
+			var rooms := [
+					data.get_cell_meta(a, data.CellMetaKeys.META_ROOM_DATA),
+					data.get_cell_meta(b, data.CellMetaKeys.META_ROOM_DATA),
+			]
+			
+			for room_value in rooms:
+				var room := room_value as RoomData
+				if not room.can_add_doorway():
+					_disconnect_room_walls_from_grid(data, astar, room)
+			
+			if results == CorridorGenerationResults.GOAL:
+				is_generating = false
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -213,6 +157,80 @@ func _connect_points_in_astar_grid(data: WorldData, astar: AStar2D) -> void:
 					astar.connect_points(cell_index, neighbour)
 
 
+func _generate_corridor_until_first_door(data: WorldData, astar: AStar2D, a: int, b: int) -> int:
+	var has_reached_b := CorridorGenerationResults.GOAL as int
+	var path : PoolIntArray = astar.get_id_path(a, b)
+	if not (path.size() > 0 and path[0] == a and path[-1] == b):
+		print("a: %s (%s) | b: %s (%s) | path[0]: %s | path[-1]: %s"%[
+				a, data.get_int_position_from_cell_index(a), 
+				b, data.get_int_position_from_cell_index(b),
+				path[0], path[-1]
+		])
+		return has_reached_b
+	
+	for i in path.size():
+		var coords = data.get_int_position_from_cell_index(path[i])
+		var x = coords[0]
+		var z = coords[1]
+		var cells = [
+				data.get_cell_index_from_int_position(x - 1, z - 1),
+				data.get_cell_index_from_int_position(x, z - 1),
+				data.get_cell_index_from_int_position(x, z),
+				data.get_cell_index_from_int_position(x - 1, z),
+		]
+		# room mask as 3210 (clockwise order from lower bit)
+		var mask_2x2 = _get_cell_mask(data, cells, data.CellType.ROOM)
+		
+		var astar_type := AstarType.EMPTY as int
+		var is_new_door := true
+		match mask_2x2:
+			MASK_EMPTY:
+				_set_cells(data, cells, [
+						data.CellType.CORRIDOR, data.CellType.CORRIDOR, 
+						data.CellType.CORRIDOR, data.CellType.CORRIDOR
+				])
+			MASK_ROOM_NORTH:
+				_set_cells(data, cells, [
+						data.CellType.ROOM, data.CellType.ROOM, 
+						data.CellType.DOOR, data.CellType.DOOR
+				])
+				is_new_door = _set_doorways_meta(data, cells, data.Direction.NORTH)
+				astar_type = AstarType.EDGE
+			MASK_ROOM_EAST:
+				_set_cells(data, cells, [
+						data.CellType.DOOR, data.CellType.ROOM, 
+						data.CellType.ROOM, data.CellType.DOOR
+				])
+				is_new_door = _set_doorways_meta(data, cells, data.Direction.EAST)
+				astar_type = AstarType.EDGE
+			MASK_ROOM_SOUTH:
+				_set_cells(data, cells, [
+						data.CellType.DOOR, data.CellType.DOOR, 
+						data.CellType.ROOM, data.CellType.ROOM
+				])
+				is_new_door = _set_doorways_meta(data, cells, data.Direction.SOUTH)
+				astar_type = AstarType.EDGE
+			MASK_ROOM_WEST:
+				_set_cells(data, cells, [
+						data.CellType.ROOM, data.CellType.DOOR, 
+						data.CellType.DOOR, data.CellType.ROOM]
+				)
+				is_new_door = _set_doorways_meta(data, cells, data.Direction.WEST)
+				astar_type = AstarType.EDGE
+			MASK_FULL_ROOM:
+				astar_type = AstarType.ROOM
+		
+		if astar_type == AstarType.EDGE:
+			if path[i] != b and is_new_door:
+				has_reached_b = CorridorGenerationResults.DOOR
+				break
+		
+		if not astar_type == AstarType.ROOM:
+			astar.set_point_weight_scale(cells[2], existing_corridor_weight)
+	
+	return has_reached_b
+
+
 func _set_cells(data : WorldData, cells : Array, values : Array):
 	for i in cells.size():
 		if values [i] > data.get_cell_type(cells[i]):
@@ -226,17 +244,23 @@ func _add_door_direction(data : WorldData, cell : int, value : int):
 		data.get_cell_meta(cell, data.CellMetaKeys.META_DOOR_DIRECTIONS).push_back(value)
 
 
-func _set_doorways_meta(data: WorldData, cells: Array, direction: int) -> void:
+func _set_doorways_meta(data: WorldData, cells: Array, direction: int) -> bool:
+	var did_add_door := true
 	if cells.empty():
-		return 
+		return false
 	
 	for cell in cells:
 		if data.get_cell_type(cell) == data.CellType.ROOM:
 			var room_data := data.get_cell_meta(cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
 			var corridor_direction = data.direction_inverse(direction)
-			room_data.set_doorway_cell(cell, corridor_direction)
+			if not room_data.has_doorway_on(cell, corridor_direction):
+				room_data.set_doorway_cell(cell, corridor_direction)
+			else:
+				did_add_door = false
 		elif data.get_cell_type(cell) == data.CellType.DOOR:
 			_add_door_direction(data, cell, direction)
+	
+	return did_add_door
 
 
 func _disconnect_room_walls_from_grid(data: WorldData, astar: AStar2D, room: RoomData) -> void:

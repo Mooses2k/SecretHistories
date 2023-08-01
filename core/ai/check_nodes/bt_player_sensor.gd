@@ -14,6 +14,6 @@ func tick(state : CharacterState) -> int:
 		state.target_position = _sensor.get_measured_position()
 		if (speech_chance > 0.99):
 			pass
-#			emit_signal("character_detected")
+			emit_signal("character_detected")
 		return Status.SUCCESS
 	return Status.FAILURE

@@ -225,8 +225,7 @@ func _generate_corridor_until_first_door(data: WorldData, astar: AStar2D, a: int
 				has_reached_b = CorridorGenerationResults.DOOR
 				break
 		
-		if not astar_type == AstarType.ROOM:
-			astar.set_point_weight_scale(cells[2], existing_corridor_weight)
+		astar.set_point_weight_scale(cells[2], existing_corridor_weight)
 	
 	return has_reached_b
 

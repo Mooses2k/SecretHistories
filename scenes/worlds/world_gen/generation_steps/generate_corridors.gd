@@ -1,11 +1,10 @@
 extends GenerationStep
 
+const GraphGenerator = preload("generate_room_graph.gd")
 
 export var existing_corridor_weight : float = 0.5
 export var existing_room_weight : float = 2.0
 export var room_edge_cost_multiplier : float = 1.5
-
-const GraphGenerator = preload("generate_room_graph.gd")
 
 
 # Override this function
@@ -166,4 +165,24 @@ func generate_double_corridor(data : WorldData, astar : AStar2D, a : int, b : in
 				is_room = true
 		if not is_room:
 			astar.set_point_weight_scale(cells[2], existing_corridor_weight)
+	
+	var rooms := [
+			data.get_cell_meta(a, data.CellMetaKeys.META_ROOM_DATA),
+			data.get_cell_meta(b, data.CellMetaKeys.META_ROOM_DATA),
+	]
+	
+	for room_value in rooms:
+		var room := room_value as RoomData
+		if not room.can_add_doorway():
+			var doorway_cells := room.get_all_doorway_cells()
+			for cell_index in room.cell_indexes:
+				for direction in data.Direction.values():
+					if direction == data.Direction.DIRECTION_MAX or cell_index in doorway_cells:
+						continue
+					
+					var neighbour_index := data.get_neighbour_cell(cell_index, direction)
+					if not neighbour_index in room.cell_indexes:
+						if astar.are_points_connected(cell_index, neighbour_index):
+							astar.disconnect_points(cell_index, neighbour_index)
+	
 	return true

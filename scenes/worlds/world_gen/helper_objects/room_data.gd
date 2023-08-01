@@ -80,8 +80,27 @@ func set_doorway_cell(cell_index: int, direction: int) -> void:
 		push_warning("this doorway has already been registered.")
 
 
+func can_add_doorway() -> bool:
+	var value = true
+	
+	if (
+			(type == OriginalPurpose.UP_STAIRCASE or type == OriginalPurpose.DOWN_STAIRCASE) 
+			and _doorways.size() > 0
+	):
+		value = false
+	
+	return value
+
+
 func get_doorway_directions() -> Array:
 	return _doorways.keys()
+
+
+func get_all_doorway_cells() -> Array:
+	var all_doorways = []
+	for direction in _doorways:
+		all_doorways.append_array(_doorways[direction])
+	return all_doorways
 
 
 # Returns an Array with cell indexes for doorways in the asked direction. If there is none, 

@@ -5,11 +5,9 @@ onready var blastradius = $"%BlastRadius"
 
 var trigger = false
 
-var space
-var bodies
-var damage_coordinates 
-var distance
-var collisions
+const IMPULSE_MULTIPLIER = 1.0
+
+
 
 
 func _physics_process(delta):
@@ -17,30 +15,34 @@ func _physics_process(delta):
 
 
 func _on_Bomb_explosion():
-	collisions = blastradius.get_overlapping_bodies()
-	for body in collisions:
-		if body is RigidBody:
-			space = get_world().direct_space_state
-			bodies = space.intersect_ray( body.global_transform.origin, global_transform.origin) 
-
-			if (not bodies.empty()) :
-				distance = global_transform.origin.distance_to(bodies.collider.global_transform.origin) 
-				
-				if distance > 0 :
-					damage_coordinates = 1 / global_transform.origin.distance_to(bodies.collider.global_transform.origin) * get_parent().bomb_damage
-				else:
-					damage_coordinates = get_parent().bomb_damage
-				if bodies.collider != body and  bodies.collider is RigidBody:
-					if body.is_in_group("CHARACTER"):
-						body.damage(damage_coordinates * 2, get_parent().damage_type, body)
-						body.apply_central_impulse( + body.global_transform.origin * 1 / global_transform.origin.distance_to(body.global_transform.origin) * get_parent().bomb_damage)
-					else:
-						body.apply_central_impulse( + body.global_transform.origin * 1 / global_transform.origin.distance_to(body.global_transform.origin) * get_parent().bomb_damage)
-						
-				else:
-						if bodies.collider.is_in_group("CHARACTER") and bodies.collider is RigidBody:
-							bodies.collider.damage(damage_coordinates * 2, get_parent().damage_type, bodies.collider)
-							bodies.collider.apply_central_impulse(+ bodies.collider.global_transform.origin * damage_coordinates)
-							
-						elif !bodies.collider.is_in_group("CHARACTER") and bodies.collider is RigidBody:  
-							bodies.collider.apply_central_impulse(+ bodies.collider.global_transform.origin * damage_coordinates)
+	var collisions = blastradius.get_overlapping_bodies()
+	collisions.append_array(blastradius.get_overlapping_areas())
+	
+	var collisions_unique : Dictionary = Dictionary()
+	
+	var space = get_world().direct_space_state
+	for collision in collisions:
+		var body = space.intersect_ray(global_translation, collision.global_translation, [owner.get_rid()], blastradius.collision_mask | 1, true, false)
+		if not body.empty():
+			if not collisions_unique.has(body.rid):
+				collisions_unique[body.rid] = body
+		var area = space.intersect_ray(global_translation, collision.global_translation, [owner.get_rid()], blastradius.collision_mask | 1, true, true)
+		if not area.empty():
+			if not collisions_unique.has(area.rid):
+				collisions_unique[area.rid] = area
+	
+	for rid in collisions_unique.keys():
+		var intersection : Dictionary = collisions_unique[rid]
+		var distance = global_translation.distance_to(intersection.position) 
+		var scaled_damage = owner.bomb_damage / (1 + distance)
+		if intersection.collider is RigidBody:
+			var body = intersection.collider as RigidBody
+			body.apply_impulse(
+				intersection.position - body.global_translation,
+				global_translation.direction_to(intersection.position)*scaled_damage*IMPULSE_MULTIPLIER
+			)
+					
+		elif intersection.collider is Hitbox:
+			var object = intersection.collider.owner
+			if is_instance_valid(object) and object.has_method("damage"):
+				object.damage(floor(scaled_damage), owner.damage_type, intersection.collider)

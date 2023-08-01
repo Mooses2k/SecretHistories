@@ -125,7 +125,7 @@ __meta__ = {
 item_name = "Grenade"
 radius = 10
 fragments = 400
-bomb_damage = 45.0
+bomb_damage = 150.0
 damage_type = 3
 
 [node name="MeshInstance" parent="." index="0"]

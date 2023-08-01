@@ -94,7 +94,7 @@ func _item_state_changed(previous_state, current_state):
 	pass
 
 
-func _light_depleted():
+func _on_light_depleted():
 	burn_time = 0
 	unlight()
 	is_depleted = true

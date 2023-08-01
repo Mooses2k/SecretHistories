@@ -10,6 +10,16 @@ export var edges_to_keep_abs_min : int = 2
 
 const RoomGenerator = preload("generate_rooms.gd")
 
+# Array of indices that represent "entry" or "up" staircases. These can only connect TO other rooms
+# but not be connected FROM other rooms, because Mooses2k wants level staircases to only have one
+# door.
+var _entry_staircases := []
+
+# Array of indices that represent "exit" or "down" staircases. These can only be connected FROM 
+# other rooms but connect TO other rooms, because Mooses2k wants level staircases to only have one
+# door.
+var _exit_staircases := []
+
 
 # Generates a graph connecting rooms to each other, the graph is generated
 # as a Dictionary, where the key K represents the cell of index K, and the value
@@ -24,6 +34,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		var groups : Array = group_intersecting_rooms(rooms)
 		var delaunay : Dictionary = get_delaunay_from_groupings(data, groups, random)
 		gen_data[DELAUNAY_GRAPH_KEY] = delaunay.duplicate(true)
+		_exclude_unwanted_edges(delaunay, random)
 		var graph : Dictionary = get_mst_from_delaunay(data, delaunay)
 		add_extra_edges(delaunay, graph, random)
 		gen_data[CONNECTION_GRAPH_KEY] = graph
@@ -99,8 +110,16 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 		var room = groups[i][r] as Rect2
 		var center = room.position + 0.5*room.size
 		var x = int(center.x)
-		var y = int(center.y)
-		cells[i] = data.get_cell_index_from_int_position(x, y)
+		var y = int(center.y)	
+		
+		var cell_index := data.get_cell_index_from_int_position(x, y)
+		var room_data := data.get_cell_meta(cell_index, data.CellMetaKeys.META_ROOM_DATA) as RoomData
+		if room_data.type == room_data.OriginalPurpose.UP_STAIRCASE:
+			_entry_staircases.append(cell_index)
+		elif room_data.type == room_data.OriginalPurpose.DOWN_STAIRCASE:
+			_exit_staircases.append(cell_index)
+		
+		cells[i] = cell_index
 		room_centers[i] = center
 	var delaunay : PoolIntArray = Geometry.triangulate_delaunay_2d(room_centers)
 	for i in delaunay.size()/3:
@@ -197,3 +216,73 @@ func graph_get_edges(graph : Dictionary, from : int) -> Array:
 			result.push_back(i)
 	result.append_array(graph.get(from, []))
 	return result
+
+
+func _exclude_unwanted_edges(delaunay: Dictionary, random: RandomNumberGenerator) -> void:
+	_exclude_incoming_connections_from_entry_staircases(delaunay, random)
+	_exclude_outgoing_connections_from_exit_staircases(delaunay, random)
+
+
+# Excludes all incoming connetions to enter staircaises, and if entry staircases have more than
+# one outgoing connections, exclude them randomly until there is only one.
+func _exclude_incoming_connections_from_entry_staircases(
+		delaunay: Dictionary, random: RandomNumberGenerator
+) -> void:
+	var exclude_possibilities := []
+	for staircase_index in _entry_staircases:
+		for cell_index in delaunay:
+			var edges := delaunay[cell_index] as Array
+			if cell_index != staircase_index:
+				var index_to_exclude := edges.find(staircase_index)
+				if index_to_exclude != -1:
+					var exclude_data := {
+						cell_index = cell_index,
+						edge_index = index_to_exclude
+					}
+					exclude_possibilities.append(exclude_data)
+			else:
+				if edges.size() > 1:
+					var original_size := edges.size()
+					for _i in original_size - 1:
+						var random_index := random.randi() % edges.size()
+						edges.remove(random_index)
+	
+	if exclude_possibilities.size() > 1:
+		_exclude_connection_randomly_until(1, exclude_possibilities, delaunay, random)
+
+
+# Excludes all outgoing connection from exit staircases, and makes a list of incoming connections,
+# if there are more than one incoming connection, randomly delete them until there is only one.
+func _exclude_outgoing_connections_from_exit_staircases(
+		delaunay: Dictionary, random: RandomNumberGenerator
+) -> void:
+	var exclude_possibilities := []
+	for staircase_index in _exit_staircases:
+		var keys := delaunay.keys()
+		for cell_index in keys:
+			var edges := delaunay[cell_index] as Array
+			if cell_index != staircase_index:
+				var index_to_exclude := edges.find(staircase_index)
+				if index_to_exclude != -1:
+					var exclude_data := {
+						cell_index = cell_index,
+						edge_index = index_to_exclude
+					}
+					exclude_possibilities.append(exclude_data)
+			else:
+				if edges.size() > 0:
+					delaunay.erase(cell_index)
+	
+	if exclude_possibilities.size() > 1:
+		_exclude_connection_randomly_until(1, exclude_possibilities, delaunay, random)
+
+
+func _exclude_connection_randomly_until(
+		size_left: int, to_exclude: Array, delaunay: Dictionary,  random: RandomNumberGenerator
+) -> void:
+	var iterations_to_exclude := to_exclude.size() - size_left
+	for _i in iterations_to_exclude:
+		var random_index := random.randi() % to_exclude.size()
+		var exclude_data := to_exclude[random_index] as Dictionary
+		delaunay[exclude_data.cell_index].remove(exclude_data.edge_index)
+		to_exclude.remove(random_index)

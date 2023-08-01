@@ -653,16 +653,13 @@ func handle_inventory(delta : float):
 			var x_pos = item.global_transform.origin.x
 			#Applies unique throw  logic to item if its a melee item
 			if item is MeleeItem :
-				
 				item.apply_throw_logic(impulse)
 				item.add_collision_exception_with(character)
 				item.implement_throw_logic(true)
 			else:
-				print()
 				item.apply_central_impulse(impulse)
 				item.add_collision_exception_with(character)
 				item.implement_throw_logic(false)
-
 	update_throw_state(delta)
 
 	if Input.is_action_just_released("interact") or Input.is_action_just_released("main_use_secondary") and not (wanna_grab or is_grabbing or interaction_handled):

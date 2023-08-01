@@ -74,7 +74,7 @@ func _use_primary():
 		unlight()
 
 
-func light_depleted():
+func _on_light_depleted():
 	burn_time = 0
 	unlight()
 	is_depleted = true

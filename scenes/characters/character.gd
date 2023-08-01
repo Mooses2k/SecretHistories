@@ -337,7 +337,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		change_stamina(-0.3)
 		# Additionally, if encumbered, drain stamina more
 		if inventory.encumbrance > 0:
-			print("Draining additional stamina: ", (inventory.encumbrance / 10))
+#			print("Draining additional stamina: ", (inventory.encumbrance / 10))
 			change_stamina(-(inventory.encumbrance / 10))
 	else:
 		move_dir *= 0.8

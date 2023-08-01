@@ -60,8 +60,6 @@ func get_effects_volume() -> float:
 func set_internal_effects_volume(value : float):
 	internal_effects_volume = clamp(value, 0.0, 1.0)
 	set_volume(bus_effects, get_effects_volume()*internal_effects_volume)
-	print("internal_volume:", value)
-	print("effects_volume: ", get_volume(bus_effects))
 
 
 func set_voice_volume(value : float):

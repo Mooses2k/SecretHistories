@@ -104,7 +104,7 @@ __meta__ = {
 }
 item_drop_sound = ExtResource( 9 )
 item_name = "Dynamite"
-bomb_damage = 40.0
+bomb_damage = 110.0
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )

@@ -11,8 +11,8 @@ enum OriginalPurpose {
 	EMPTY,
 	CRYPT,
 	FOUNTAIN,
-	ENTRY_STAIRCASE,
-	EXIT_STAIRCASE
+	UP_STAIRCASE,
+	DOWN_STAIRCASE
 }
 
 #--- constants ------------------------------------------------------------------------------------

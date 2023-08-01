@@ -114,9 +114,9 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 		
 		var cell_index := data.get_cell_index_from_int_position(x, y)
 		var room_data := data.get_cell_meta(cell_index, data.CellMetaKeys.META_ROOM_DATA) as RoomData
-		if room_data.type == room_data.OriginalPurpose.ENTRY_STAIRCASE:
+		if room_data.type == room_data.OriginalPurpose.UP_STAIRCASE:
 			_entry_staircases.append(cell_index)
-		elif room_data.type == room_data.OriginalPurpose.EXIT_STAIRCASE:
+		elif room_data.type == room_data.OriginalPurpose.DOWN_STAIRCASE:
 			_exit_staircases.append(cell_index)
 		
 		cells[i] = cell_index

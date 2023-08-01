@@ -44,12 +44,12 @@ func _generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : 
 	var rooms: Array = gen_data[ROOM_ARRAY_KEY] if gen_data.has(ROOM_ARRAY_KEY) else Array()
 	
 	var entry_room := _gen_staircase_room_rect(data, random)
-	data.fill_room_data(entry_room, RoomData.OriginalPurpose.ENTRY_STAIRCASE)
+	data.fill_room_data(entry_room, RoomData.OriginalPurpose.UP_STAIRCASE)
 	data.player_spawn_position = entry_room.position + player_offset
 	rooms.append(entry_room)
 	
 	var exit_room := _gen_staircase_room_rect(data, random)
-	data.fill_room_data(exit_room, RoomData.OriginalPurpose.EXIT_STAIRCASE)
+	data.fill_room_data(exit_room, RoomData.OriginalPurpose.DOWN_STAIRCASE)
 	rooms.append(exit_room)
 	
 	gen_data[ROOM_ARRAY_KEY] = rooms

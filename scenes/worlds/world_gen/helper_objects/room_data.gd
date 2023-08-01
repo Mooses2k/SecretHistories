@@ -11,7 +11,8 @@ enum OriginalPurpose {
 	EMPTY,
 	CRYPT,
 	FOUNTAIN,
-	LEVEL_STAIRCASE,
+	ENTRY_STAIRCASE,
+	EXIT_STAIRCASE
 }
 
 #--- constants ------------------------------------------------------------------------------------
@@ -52,7 +53,7 @@ func _init(p_type := OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
 
 func _to_string() -> String:
 	var msg := "\n---- RoomData %s \n"%[get_instance_id()]
-	msg += "type: %s | rect2: %s | has_pillars: %s\n"%[type, rect2, has_pillars]
+	msg += "type: %s | rect2: %s | has_pillars: %s\n"%[OriginalPurpose.keys()[type], rect2, has_pillars]
 	msg += "cell_indexes: %s \n"%[cell_indexes]
 	msg += "---- RoomData End %s \n"%[get_instance_id()]
 	return msg

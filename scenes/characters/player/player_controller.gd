@@ -239,10 +239,10 @@ func _input(event):
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
 
-		owner.rotation_degrees.y -= event.relative.x * GameManager.mouse_sensitivity * m
+		owner.rotation_degrees.y -= event.relative.x * InputSettings.setting_mouse_sensitivity * m
 
 #		if owner.state != owner.State.STATE_CRAWLING:
-#			_camera.rotation_degrees.x -= event.relative.y * GameManager.mouse_sensitivity * m
+#			_camera.rotation_degrees.x -= event.relative.y * InputSettings.setting_mouse_sensitivity * m
 #			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
 
 		_camera._camera_rotation_reset = _camera.rotation_degrees
@@ -333,7 +333,7 @@ func _head_bob(delta : float) -> void:
 
 func _crouch() -> void:
 #	if owner.is_player_crouch_toggle:
-	if GameManager.is_crouch_hold:
+	if GameSettings.crouch_hold_enabled:
 		if Input.is_action_pressed("player|crouch"):
 			if owner.do_sprint:
 				owner.do_crouch = false

@@ -123,7 +123,7 @@ func ads():
 	var main_hand_item = get_parent().inventory.current_mainhand_slot
 	
 	# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
-	if GameManager.is_ads_hold:
+	if GameSettings.ads_hold_enabled:
 		if Input.is_action_pressed("playerhand|main_use_secondary") and owner.do_sprint == false:
 			if get_parent().inventory.current_mainhand_slot != null:
 				

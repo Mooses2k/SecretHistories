@@ -1,7 +1,7 @@
 extends VBoxContainer
 
 
-export var default_group_name = "Game Settings"
+#export var default_group_name = "Game Settings"
 
 const SetDefaultKeyBtn = preload("SetDefaultKeys.tscn")
 const BlankRowScene = preload("BlankRow.tscn")
@@ -106,7 +106,7 @@ func swap_child(child : Node, target_index : int, current_index : int):
 
 func add_setting(setting_name : String):
 	var group_name = settings.get_setting_group(setting_name)
-	group_name = group_name if group_name else default_group_name
+#	group_name = group_name if group_name else default_group_name
 	var settings_group : GroupClass = get_group_node(group_name)
 	if settings_group == null:
 		add_group(group_name)

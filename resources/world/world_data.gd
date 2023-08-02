@@ -402,7 +402,7 @@ func get_rooms_of_type(p_type: int) -> Array:
 func get_starting_room_data() -> RoomData:
 	var value: RoomData = null
 	
-	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.LEVEL_STAIRCASE)
+	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.UP_STAIRCASE)
 	if rooms.empty():
 		push_error("No starting room found.")
 		return value
@@ -738,7 +738,7 @@ func print_world_map() -> void:
 	print("\n" + title + append_title)
 	
 	var starting_room := get_starting_room_data()
-	var starting_cells := starting_room.cell_indexes.duplicate() if not starting_room == null else []
+	var starting_cells := starting_room.cell_indexes.duplicate() if starting_room != null else []
 	for y in range(0, world_size_z):
 		for x in range(0, world_size_x):
 			var index := get_cell_index_from_int_position(x, y)

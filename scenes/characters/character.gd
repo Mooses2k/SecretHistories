@@ -264,7 +264,7 @@ func slow_down(state : PhysicsDirectBodyState):
 	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
 
 
-func damage(value : float, type : int, on_hitbox : Hitbox):
+func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)
@@ -337,7 +337,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		change_stamina(-0.3)
 		# Additionally, if encumbered, drain stamina more
 		if inventory.encumbrance > 0:
-			print("Draining additional stamina: ", (inventory.encumbrance / 10))
+#			print("Draining additional stamina: ", (inventory.encumbrance / 10))
 			change_stamina(-(inventory.encumbrance / 10))
 	else:
 		move_dir *= 0.8

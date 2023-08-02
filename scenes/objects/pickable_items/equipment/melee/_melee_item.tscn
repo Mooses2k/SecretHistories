@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" type="AudioStream" id=5]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/blade/slash_flesh/420674__sypherzent__deep-cut-slash-gash.wav" type="AudioStream" id=7]
+[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=8]
+
+[sub_resource type="CylinderShape" id=1]
+height = 0.431874
+radius = 0.118034
 
 [node name="MeleeItem" instance=ExtResource( 1 )]
 collision_layer = 64
@@ -30,24 +35,27 @@ can_spin = false
 normal_pos_path = NodePath("")
 throw_pos_path = NodePath("")
 
-[node name="ReloadTimer" type="Timer" parent="." index="2"]
-one_shot = true
+[node name="Hitbox" type="Area" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.607795, 0 )
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+script = ExtResource( 8 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.681336, 0.00937342 )
+shape = SubResource( 1 )
 
 [node name="CooldownTimer" type="Timer" parent="." index="3"]
 one_shot = true
 
-[node name="RayCast" type="RayCast" parent="." index="4"]
-cast_to = Vector3( 0, 0, -1000 )
-collision_mask = 13
-collide_with_areas = true
-
-[node name="NormalPosition" type="Position3D" parent="." index="6"]
+[node name="NormalPosition" type="Position3D" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 
-[node name="ThrowPosition" type="Position3D" parent="." index="7"]
+[node name="ThrowPosition" type="Position3D" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.423551, 0 )
 
-[node name="Sounds" type="Spatial" parent="." index="8"]
+[node name="Sounds" type="Spatial" parent="." index="7"]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 bus = "Effects"
@@ -75,5 +83,4 @@ bus = "Effects"
 stream = ExtResource( 7 )
 bus = "Effects"
 
-[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

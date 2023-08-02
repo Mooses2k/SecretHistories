@@ -1,22 +1,14 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://resources/models/items/melee/halberd/textures/LP2_2_BaseColor.png" type="Texture" id=1]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/halberd/textures/LP2_2_Normal.png" type="Texture" id=4]
 [ext_resource path="res://resources/models/items/melee/halberd/textures/LP2_2_Roughness.png" type="Texture" id=5]
 [ext_resource path="res://resources/models/items/melee/halberd/textures/LP2_2_Metallic.png" type="Texture" id=6]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=7]
-[ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/melee/wider_object/squish_hit/411122__vdovitsky__sword-hits-the-body.wav" type="AudioStream" id=11]
-[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=12]
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=13]
-
-[sub_resource type="CylinderShape" id=3]
-height = 0.543172
-radius = 0.118034
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ArrayMesh" id=12]
 blend_shape_mode = 0
@@ -40,6 +32,13 @@ normal_enabled = true
 normal_scale = 1.0
 normal_texture = ExtResource( 4 )
 
+[sub_resource type="ConvexPolygonShape" id=21]
+points = PoolVector3Array( -0.122375, -1.0037, -0.306591, 0.0508122, -1.17685, 0.32901, 0.166421, -0.65546, 0.271211, 0.28203, -19.8943, -0.133194, -0.295789, -19.8924, 0.0978768, 0.166421, -19.8924, 0.271211, -0.295789, -1.11848, 0.155613, 0.166421, -1.35, -0.306591, 0.0508122, -19.8924, -0.306591, -0.18018, -19.8924, 0.271211, -0.295789, -1.29163, -0.190993, 0.257518, -1.23772, 0.0904665, -0.177902, -19.8221, -0.188336, -0.18018, -0.830553, 0.271211, 0.224226, -1.35, 0.271211, 0.164297, -0.19946, -0.131424, -0.237928, -0.425893, -0.190993, -0.0646272, -1.35, 0.32901, 0.202355, -1.12201, -0.171801, 0.161247, -0.374366, 0.151302, -0.295789, -0.65546, -0.0176588, 0.209692, -0.702628, -0.124113, -0.295789, -0.830553, 0.0978768 )
+
+[sub_resource type="CylinderShape" id=3]
+height = 0.543172
+radius = 0.118034
+
 [sub_resource type="ConvexPolygonShape" id=18]
 points = PoolVector3Array( -0.353571, -0.0169165, -0.0753785, -0.353571, -0.0169165, 0.0400723, -0.0645706, 5.93319, 0.0400723, 0.108639, -0.0757108, -0.248809, 0.166467, -0.0757108, 0.213401, -0.12233, 2.23627, 0.271228, 0.339812, 1.48442, 0.155625, -0.180157, 2.23627, -0.248809, 0.166467, 2.23627, -0.248809, 0.0508801, 5.99139, -0.0176022, 0.339812, 0.907164, -0.133155, 0.108639, 2.23627, 0.271228, -0.353571, 1.42681, 0.0978485, -0.353571, 1.42681, -0.133155, -0.180157, -0.0757108, 0.213401, -0.12233, -0.0757108, -0.248809, 0.339812, 1.48442, -0.133155, -0.0645706, 5.35534, -0.0753785, 0.224226, -0.0757108, 0.155625, 0.108639, 5.47115, -0.0176022, 0.224226, -0.0757108, -0.133155, 0.224226, 2.23627, 0.213401, -0.00687921, 5.99139, 0.0400723, -0.0645706, 1.42681, 0.271228, 0.339812, 0.907164, 0.155625, -0.295744, 0.848964, 0.155625, -0.12233, 4.8357, -0.0753785, 0.166467, 4.37247, -0.0753785, -0.353571, 0.907164, -0.133155, -0.00687921, 5.41354, -0.0753785, -0.0645706, 2.35208, -0.248809, 0.0508801, 1.42681, 0.271228, -0.264654, 2.89381, -0.0102128, -0.295744, 1.48442, 0.155625, -0.237916, -0.0757108, -0.133155, -0.0645706, 2.29388, 0.271228, 0.108639, 4.95031, -0.0753785, 0.0508801, 2.35208, -0.248809 )
 
@@ -49,20 +48,13 @@ points = PoolVector3Array( -1.49143, 1.38314, -0.0140584, -1.50915, 1.19581, -0.
 [sub_resource type="ConvexPolygonShape" id=20]
 points = PoolVector3Array( 0.397781, 0.906633, 0.0978598, 0.513294, 1.42657, 0.0978598, 0.513294, 1.42657, -0.133245, 1.78422, 1.13777, 0.0400836, 0.339954, 0.964454, -0.133245, 1.66856, 1.25321, -0.0754407, 0.339954, 1.42657, 0.155664, 1.20637, 1.08, 0.155664, 1.2642, 1.08, -0.133245, 1.55305, 1.25321, 0.0978598, 0.339954, 1.42657, -0.133245, 0.397781, 0.906633, -0.0754407, 1.49522, 1.08, -0.0754407, 1.09086, 1.31098, 0.155664, 1.72639, 1.25321, 0.0400836, 0.339954, 0.906633, 0.0978598, 1.32188, 1.25321, -0.133245, 1.72639, 1.13777, -0.0754407, 0.339954, 1.31098, 0.155664, 1.43754, 1.08, 0.0978598 )
 
-[sub_resource type="ConvexPolygonShape" id=21]
-points = PoolVector3Array( -0.122375, -1.0037, -0.306591, 0.0508122, -1.17685, 0.32901, 0.166421, -0.65546, 0.271211, 0.28203, -19.8943, -0.133194, -0.295789, -19.8924, 0.0978768, 0.166421, -19.8924, 0.271211, -0.295789, -1.11848, 0.155613, 0.166421, -1.35, -0.306591, 0.0508122, -19.8924, -0.306591, -0.18018, -19.8924, 0.271211, -0.295789, -1.29163, -0.190993, 0.257518, -1.23772, 0.0904665, -0.177902, -19.8221, -0.188336, -0.18018, -0.830553, 0.271211, 0.224226, -1.35, 0.271211, 0.164297, -0.19946, -0.131424, -0.237928, -0.425893, -0.190993, -0.0646272, -1.35, 0.32901, 0.202355, -1.12201, -0.171801, 0.161247, -0.374366, 0.151302, -0.295789, -0.65546, -0.0176588, 0.209692, -0.702628, -0.124113, -0.295789, -0.830553, 0.0978768 )
-
-[node name="Halberd" type="RigidBody"]
+[node name="Halberd" instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, -0.292147, 0.00388288 )
-collision_layer = 64
 mass = 3.0
-continuous_cd = true
 contacts_reported = 2
 contact_monitor = true
-script = ExtResource( 7 )
 dropped_layers = 64
 dropped_mask = 1
-equipped_mode = 3
 item_drop_sound = ExtResource( 13 )
 item_size = 2
 item_name = "Halberd"
@@ -76,80 +68,58 @@ throw_logic = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 
-[node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="Hitbox" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.280635, 0 )
-collision_layer = 0
-collision_mask = 12
-monitorable = false
-script = ExtResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.276598, -0.0230775 )
-shape = SubResource( 3 )
-
-[node name="1LP002" type="MeshInstance" parent="."]
+[node name="MeshInstance" parent="." index="0"]
 transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
 mesh = SubResource( 12 )
 material/0 = SubResource( 17 )
-script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
-shape = SubResource( 18 )
-
-[node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
-shape = SubResource( 19 )
-
-[node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
-shape = SubResource( 20 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
 shape = SubResource( 21 )
 
-[node name="HoldPosition" type="Position3D" parent="."]
+[node name="Hitbox" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.511976, 0 )
+
+[node name="CollisionShape" parent="Hitbox" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.276598, -0.0230775 )
+shape = SubResource( 3 )
+
+[node name="CooldownTimer" parent="." index="3"]
+wait_time = 0.5
+
+[node name="HoldPosition" parent="." index="4"]
+unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.166685, -0.0154864 )
 
-[node name="NormalPosition" type="Position3D" parent="."]
+[node name="NormalPosition" parent="." index="5"]
 transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.286597, -2.32831e-10 )
 
-[node name="ThrowPosition" type="Position3D" parent="."]
+[node name="ThrowPosition" parent="." index="6"]
 transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.630923, -2.32831e-10 )
 
-[node name="Sounds" type="Spatial" parent="."]
-
-[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
-bus = "Effects"
-
-[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
-bus = "Effects"
-
-[node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Thrust" parent="Sounds" index="2"]
 stream = ExtResource( 9 )
-bus = "Effects"
 
-[node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Cut" parent="Sounds" index="3"]
 stream = ExtResource( 10 )
-bus = "Effects"
 
-[node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 8 )
-bus = "Effects"
-
-[node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 12 )
-bus = "Effects"
-
-[node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 11 )
-bus = "Effects"
 
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+[node name="CollisionShape4" type="CollisionShape" parent="." index="8"]
+transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
+shape = SubResource( 18 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="." index="9"]
+transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
+shape = SubResource( 19 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="." index="10"]
+transform = Transform( -3.49691e-09, 0, -0.08, 0, 0.08, 0, 0.08, 0, -3.49691e-09, 0, 0.6023, -2.32831e-10 )
+shape = SubResource( 20 )
+
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

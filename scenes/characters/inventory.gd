@@ -150,7 +150,7 @@ func add_item(item : PickableItem) -> bool:
 			# Then the first empty slot
 			if hotbar[slot] != null:
 				slot = hotbar.find(null)
-			# This checks if the slot to add the item isn't the item free slot then adds the item to the slot
+			# This checks if the slot to add the item isn't the hands-free slot then adds the item to the slot
 			if slot != 10:
 				hotbar[slot] = item
 				# Schedule the item removal from the world
@@ -160,13 +160,14 @@ func add_item(item : PickableItem) -> bool:
 				emit_signal("hotbar_changed", slot)
 				emit_signal("inventory_changed")
 				
-				# Autoequip if possible
-				# Everything else including another light-source, just put it in the main-hand
+				# Autoequip if possible - main idea is prefer lights in off-hand and never forceably
+				# put a medium gun in hand if it mens pushing out a light-source
 				if current_mainhand_slot == slot and not bulky_equipment:
-					if check_offhand_equipped(item):
+					if !current_offhand_equipment is LanternItem and !current_offhand_equipment is CandleItem and !current_offhand_equipment is TorchItem and !current_offhand_equipment is CandelabraItem:
+						print(current_offhand_equipment, " which is not a light-source, right?")
 						equip_mainhand_item()
 				
-				elif current_offhand_slot == slot and not bulky_equipment:
+				elif current_offhand_slot == slot and not bulky_equipment and !item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 					equip_offhand_item()
 					
 			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
@@ -197,16 +198,6 @@ func remove_tiny_item(item : TinyItemData, amount : int) -> bool:
 		emit_signal("tiny_item_changed", item, prev, new)
 		return true
 	return false
-
-
-func check_offhand_equipped(item):
-	var can_equip
-	if item.item_size != GlobalConsts.ItemSize.SIZE_MEDIUM and item != GunItem and current_offhand_equipment != LanternItem and current_offhand_equipment != CandleItem and current_offhand_equipment != TorchItem and current_offhand_equipment != CandelabraItem:
-		can_equip = true
-	else:
-		can_equip = false
-		
-	return can_equip
 
 
 func tiny_item_amount(item : TinyItemData) -> int:

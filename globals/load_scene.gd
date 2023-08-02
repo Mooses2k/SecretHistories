@@ -20,6 +20,11 @@ func setup_loadscreen() -> void:
 func remove_loadscreen() -> void:
 	get_tree().current_scene.remove_child(loadscreen)
 	get_tree().paused = false
+	AudioSettings.internal_effects_volume = 0.0
+	get_tree().create_tween()\
+		.tween_property(AudioSettings, "internal_effects_volume", 1.0, 4.0)\
+		.set_trans(Tween.TRANS_EXPO)\
+		.set_ease(Tween.EASE_IN)
 
 
 func change_scene(path) -> void:

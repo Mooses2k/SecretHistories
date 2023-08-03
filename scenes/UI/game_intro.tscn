@@ -52,7 +52,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "Intro"
-length = 164.0
+length = 156.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("CenterContainer/1:texture")
 tracks/0/interp = 1

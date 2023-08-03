@@ -28,6 +28,8 @@ var item_max_noise_level = 5
 var item_sound_level = 10
 var can_throw_damage : bool
 var is_melee_item = false
+var decelration_factor = 0.900000000
+
 
 func _enter_tree():
 	if not audio_player:
@@ -52,9 +54,10 @@ func _process(delta):
 		self.noise_level = 0
 
 func _physics_process(delta):
-	throw_damage()
+	throw_damage(delta)
+	
 
-func throw_damage():
+func throw_damage(delta):
 	if can_throw_damage:
 		var bodies = get_colliding_bodies()
 		
@@ -74,13 +77,21 @@ func throw_damage():
 						
 				print(" damage  inflicted on: ", body_found.name, " is: ",item_damage)
 				body_found.damage(item_damage, melee_damage_type, body_found)
+				
 				can_throw_damage = false
+				decelerate_item_velocity(delta, true)
 				item_state = GlobalConsts.ItemState.DROPPED
+				
 			else:
+				decelerate_item_velocity(delta, true)
 				can_throw_damage = false
 				item_state = GlobalConsts.ItemState.DROPPED
 
-
+func decelerate_item_velocity(delta, decelerate):
+	if decelerate == true:
+		print("deceleratting item")
+		linear_velocity *= 0
+	
 
 func set_item_state(value : int) :
 	var previous = item_state

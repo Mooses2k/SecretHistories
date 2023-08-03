@@ -24,6 +24,12 @@ const DOWN_FACING_ROTATIONS = {
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
+func _ready() -> void:
+	var game_world := get_parent() as GameWorld
+	if game_world and is_instance_valid(_spawn_position):
+		game_world.world_data.player_spawn_positions[RoomData.OriginalPurpose.DOWN_STAIRCASE] = \
+				_spawn_position.global_translation
+
 ### -----------------------------------------------------------------------------------------------
 
 

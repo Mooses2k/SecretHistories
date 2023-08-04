@@ -647,6 +647,11 @@ func handle_inventory(delta : float):
 			item = character.inventory.get_offhand_item()
 			character.inventory.drop_offhand_item()
 		if item:
+			if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+				throw_strength = 1
+			else:
+				throw_strength = 30
+				
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world

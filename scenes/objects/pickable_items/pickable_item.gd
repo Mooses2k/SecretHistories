@@ -88,9 +88,10 @@ func throw_damage(delta):
 				item_state = GlobalConsts.ItemState.DROPPED
 
 func decelerate_item_velocity(delta, decelerate):
-	if decelerate == true:
-		print("deceleratting item")
-		linear_velocity *= 0
+	if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+		if decelerate == true:
+			print("deceleratting item")
+			linear_velocity *= 0
 	
 
 func set_item_state(value : int) :

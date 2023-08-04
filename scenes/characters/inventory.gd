@@ -163,10 +163,14 @@ func add_item(item : PickableItem) -> bool:
 				# Autoequip if possible - main idea is prefer lights in off-hand and never forceably
 				# put a medium gun in hand if it mens pushing out a light-source
 				if current_mainhand_slot == slot and not bulky_equipment:
-					if !current_offhand_equipment is LanternItem and !current_offhand_equipment is CandleItem and !current_offhand_equipment is TorchItem and !current_offhand_equipment is CandelabraItem:
-						print(current_offhand_equipment, " which is not a light-source, right?")
-						equip_mainhand_item()
-				
+					if current_offhand_equipment is LanternItem or current_offhand_equipment is CandleItem or current_offhand_equipment is TorchItem or current_offhand_equipment is CandelabraItem:
+						if !item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is GunItem:
+							equip_mainhand_item()
+						elif item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
+							equip_mainhand_item()
+						elif item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+							equip_mainhand_item()
+						
 				elif current_offhand_slot == slot and not bulky_equipment and !item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 					equip_offhand_item()
 					

@@ -109,12 +109,13 @@ func _on_GrabCastDot_area_exited(area):
 ### These six functions below should maybe be in character.gd or should now be replaced by animations?
 
 func change_equipment_out(var is_mainhand : bool):
-	if(is_mainhand):
-		
-		is_change_main_equip_out = true
-	else:
-		
-		is_change_off_equip_out = true
+	pass
+#	if(is_mainhand):
+#
+#		is_change_main_equip_out = true
+#	else:
+#
+#		is_change_off_equip_out = true
 
 
 func change_maindhand_equipment_out():

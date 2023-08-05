@@ -173,7 +173,7 @@ func _input(event):
 			match event.button_index:
 				BUTTON_WHEEL_UP:
 					item_up = true
-					owner.change_equipment_out(true)
+#					owner.change_equipment_out(true)
 					yield(owner, "change_main_equipment_out_done")
 
 					if item_up:
@@ -202,7 +202,7 @@ func _input(event):
 
 				BUTTON_WHEEL_DOWN:
 					item_up = false
-					owner.change_equipment_out(true)
+#					owner.change_equipment_out(true)
 					yield(owner, "change_main_equipment_out_done")
 
 					if !item_up:
@@ -499,7 +499,7 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
 			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
 			if i != character.inventory.current_offhand_slot and i != 10:
-				owner.change_equipment_out(true)
+#				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
@@ -521,7 +521,7 @@ func handle_inventory(delta : float):
 
 				new_slot = (new_slot + 1) % character.inventory.hotbar.size()
 		if start_slot != new_slot:
-			owner.change_equipment_out(false)
+#			owner.change_equipment_out(false)
 			yield(owner, "change_off_equipment_out_done")
 			character.inventory.current_offhand_slot = new_slot
 			print("Offhand slot cycled to ", new_slot)

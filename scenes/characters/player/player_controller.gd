@@ -198,7 +198,7 @@ func _input(event):
 						elif character.inventory.current_mainhand_slot == 0:
 							character.inventory.current_mainhand_slot = 10
 
-						owner.change_equipment_in(true)
+#						owner.change_equipment_in(true)
 
 				BUTTON_WHEEL_DOWN:
 					item_up = false
@@ -226,7 +226,7 @@ func _input(event):
 							else:
 								character.inventory.current_mainhand_slot = 1
 
-						owner.change_equipment_in(true)
+#						owner.change_equipment_in(true)
 
 	if event is InputEventMouseMotion:
 		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE
@@ -499,7 +499,6 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
 			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
 			if i != character.inventory.current_offhand_slot and i != 10:
-#				owner.change_equipment_out(true)
 				yield(owner, "change_main_equipment_out_done")
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE

@@ -499,7 +499,6 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
 			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
 			if i != character.inventory.current_offhand_slot and i != 10:
-				yield(owner, "change_main_equipment_out_done")
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 				owner.change_equipment_in(true)
@@ -520,13 +519,9 @@ func handle_inventory(delta : float):
 
 				new_slot = (new_slot + 1) % character.inventory.hotbar.size()
 		if start_slot != new_slot:
-#			owner.change_equipment_out(false)
-			yield(owner, "change_off_equipment_out_done")
 			character.inventory.current_offhand_slot = new_slot
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
-			owner.change_equipment_in(false)
-
 	if Input.is_action_just_pressed("hotbar_11"):
 		if character.inventory.current_offhand_slot != 10:
 			character.inventory.current_offhand_slot = 10

@@ -155,10 +155,11 @@ func ads():
 
 
 
-func _on_Inventory_inventory_changed(is_mainhand_item):
+func _on_Inventory_inventory_changed():
+
 	yield(get_tree().create_timer(0.5), "timeout")
 	check_player_animation()
-#	switch_mainhand_item_animation()
+
 
 func switch_mainhand_item_animation():
 	

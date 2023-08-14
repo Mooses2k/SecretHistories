@@ -38,8 +38,8 @@ func _process(delta):
 
 	grab_indicator()
 
-	change_maindhand_equipment_out()
-	change_offhhand_equipment_out()
+#	change_maindhand_equipment_out()
+#	change_offhhand_equipment_out()
 	
 	# This notifies the "pointing nearby" dot if the player is currently grabbing something
 	if player_controller.is_grabbing == true:

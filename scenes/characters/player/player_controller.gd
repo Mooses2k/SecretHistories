@@ -174,8 +174,6 @@ func _input(event):
 				BUTTON_WHEEL_UP:
 					item_up = true
 #					owner.change_equipment_out(true)
-					yield(owner, "change_main_equipment_out_done")
-
 					if item_up:
 						if character.inventory.current_mainhand_slot != 0:
 							var total_inventory
@@ -203,8 +201,6 @@ func _input(event):
 				BUTTON_WHEEL_DOWN:
 					item_up = false
 #					owner.change_equipment_out(true)
-					yield(owner, "change_main_equipment_out_done")
-
 					if !item_up:
 						if character.inventory.current_mainhand_slot != 10 :
 							var total_inventory

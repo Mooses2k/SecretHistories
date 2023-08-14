@@ -497,7 +497,7 @@ func handle_inventory(delta : float):
 			if i != character.inventory.current_offhand_slot and i != 10:
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
-				owner.change_equipment_in(true)
+
 
 	# Off-hand slot selection
 	if Input.is_action_just_pressed("cycle_offhand_slot") and owner.is_reloading == false:

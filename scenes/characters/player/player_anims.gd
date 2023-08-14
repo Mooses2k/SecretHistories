@@ -179,14 +179,4 @@ func _on_Inventory_unequip_offhand():
 	animation_tree.set("parameters/OffHand_Weapon_States/current",2)
 
 
-func _on_Inventory_mainhand_slot_changed(previous, current):
-	pass
-#	yield(get_tree().create_timer(0.5), "timeout")
-#	check_player_animation()
 
-
-func _on_Inventory_offhand_slot_changed(previous, current):
-	pass
-#	animation_tree.set("parameters/OffHand_Weapon_States/current",2)
-#	yield(get_tree().create_timer(0.5), "timeout")
-#	check_player_animation()

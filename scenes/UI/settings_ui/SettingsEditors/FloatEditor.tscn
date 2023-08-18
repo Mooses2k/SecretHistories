@@ -29,3 +29,4 @@ unique_name_in_owner = true
 margin_top = 18.0
 margin_right = 1024.0
 margin_bottom = 34.0
+scrollable = false

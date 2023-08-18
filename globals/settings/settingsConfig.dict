@@ -1,0 +1,11 @@
+{
+"effects_volume": "float(70)",
+"full_screen": "bool(True)",
+"gui_scale": "float(1.5)",
+"is_ads_hold": "bool(True)",
+"is_crouch_hold": "bool(True)",
+"master_volume": "float(70)",
+"mouse_sensitivity": "float(1)",
+"music_volume": "float(70)",
+"voice_volume": "float(70)"
+}

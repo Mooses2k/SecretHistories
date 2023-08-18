@@ -9,11 +9,11 @@ var game : Game
 func _ready() -> void:
 	game = GAME_SCENE.instance()
 	$"%StartGameSettings".attach_settings(game.get_node("%LocalSettings"))
-	$"%SettingsUI".attach_settings(game.get_node("%LocalSettings"))
+	$"%SettingsUI".attach_settings(game.get_node("%LocalSettings"), false)
 
 
 func _input(event):
-	if event.is_action_pressed("fullscreen"):
+	if event.is_action_pressed("misc|fullscreen"):
 		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
 
 
@@ -43,7 +43,7 @@ func _on_Timer_timeout():
 func _on_GameIntro_intro_done():
 	GameManager.is_player_dead = false
 	GameManager.act = 1
-	LoadScreen.change_scene(game)
+	LoadScene.change_scene(game)
 
 
 func _on_ReturnButton_pressed() -> void:

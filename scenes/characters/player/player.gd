@@ -74,7 +74,7 @@ func grab_indicator():
 		if grab_cast.is_colliding() and grabable_object.is_in_group("IGNITE") and $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
 #			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 				$Indication_canvas/Indication_system/Ignite.show()
-				if Input.is_action_just_pressed("interact"):
+				if Input.is_action_just_pressed("player|interact"):
 					grabable_object.get_parent()._use_primary()
 		else:
 			$Indication_canvas/Indication_system/Ignite.hide()

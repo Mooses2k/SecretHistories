@@ -44,18 +44,25 @@ func attach_setting(setting_name : String, _settings : SettingsClass):
 	_setting_name = setting_name
 	settings.connect("setting_changed", self, "on_setting_changed")
 	settings.connect("setting_removed", self, "on_setting_removed")
+	settings.connect("keys_saved", self, "on_setting_changed")
 	_on_setting_attached()
 	set_value(settings.get_setting(setting_name))
 
 
 func on_setting_changed(setting_name, old_value, new_value):
 	if setting_name == _setting_name:
+		if new_value is String and new_value == "all":
+			return
 		_on_setting_changed(old_value, new_value)
 
 
 func _on_setting_changed(old_value, new_value):
-	if new_value != get_value():
-		set_value(new_value)
+	if get_value() is String:
+		if not new_value is InputEvent:
+			set_value(new_value)
+	else:
+		if new_value != get_value():
+			set_value(new_value)
 	pass
 
 

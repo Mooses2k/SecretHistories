@@ -154,7 +154,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/procedural_world/character_spawn_data.gd"
 }, {
-"base": "Node",
+"base": "Spawner",
 "class": "CharacterSpawner",
 "language": "GDScript",
 "path": "res://scenes/worlds/procedural_world/character_spawner.gd"
@@ -274,6 +274,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/interactables/interactable.gd"
 }, {
+"base": "Spawner",
+"class": "ItemSpawner",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/item_spawner.gd"
+}, {
 "base": "PickableItem",
 "class": "KeyItem",
 "language": "GDScript",
@@ -283,6 +288,11 @@ _global_script_classes=[ {
 "class": "LanternItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd"
+}, {
+"base": "Spatial",
+"class": "LevelStaircase",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/staircases/level_staircase.gd"
 }, {
 "base": "AStar2D",
 "class": "ManhattanAStar2D",
@@ -409,6 +419,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/procedural_world/spawn_data.gd"
 }, {
+"base": "Node",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://scenes/worlds/procedural_world/spawner.gd"
+}, {
 "base": "ToolItem",
 "class": "Spike",
 "language": "GDScript",
@@ -513,8 +528,10 @@ _global_script_class_icons={
 "GunItem": "",
 "Hitbox": "",
 "Interactable": "",
+"ItemSpawner": "",
 "KeyItem": "",
 "LanternItem": "",
+"LevelStaircase": "",
 "ManhattanAStar2D": "",
 "MedicalItem": "",
 "MeleeItem": "",
@@ -540,6 +557,7 @@ _global_script_class_icons={
 "ShakeCamera": "",
 "SoundListener": "",
 "SpawnData": "",
+"Spawner": "",
 "Spike": "",
 "StrangeDevice": "",
 "TinyItem": "",

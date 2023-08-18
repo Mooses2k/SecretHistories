@@ -1,5 +1,6 @@
 # Write your doc string for this file here
-extends "res://scenes/worlds/procedural_world/item_spawner.gd"
+class_name LevelStaircase
+extends Spatial
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -10,7 +11,13 @@ extends "res://scenes/worlds/procedural_world/item_spawner.gd"
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
+export var path_spawn_position := NodePath("PlayerSpawnPosition")
+export(WorldData.Direction) var facing_direction := WorldData.Direction.EAST \
+		setget _set_facing_direction
+
 #--- private variables - order: export > normal var > onready -------------------------------------
+
+onready var _spawn_position := get_node(path_spawn_position) as Position3D
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -27,14 +34,19 @@ extends "res://scenes/worlds/procedural_world/item_spawner.gd"
 
 ### Private Methods -------------------------------------------------------------------------------
 
+func _set_facing_direction(value: int) -> void:
+	facing_direction = clamp(value, 0, WorldData.Direction.DIRECTION_MAX - 1)
+	var angle = _get_facing_rotation()
+	rotation.y = angle
+
+
+# Override this in child scenes, according to up or down staircase
+func _get_facing_rotation() -> float:
+	return 0.0
+
 ### -----------------------------------------------------------------------------------------------
 
 
 ### Signal Callbacks ------------------------------------------------------------------------------
-
-func _on_game_world_generation_finished():
-	var data := owner.world_data as WorldData
-	_spawn_world_data_objects(data)
-	yield(get_tree(), "idle_frame")
 
 ### -----------------------------------------------------------------------------------------------

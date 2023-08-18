@@ -1,14 +1,19 @@
 # Write your doc string for this file here
-extends "res://scenes/worlds/procedural_world/item_spawner.gd"
+class_name Spawner
+extends Node
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
+
+signal spawning_finished
 
 #--- enums ----------------------------------------------------------------------------------------
 
 #--- constants ------------------------------------------------------------------------------------
 
 #--- public variables - order: export > normal var > onready --------------------------------------
+
+var has_finished_spawning := false
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -31,10 +36,5 @@ extends "res://scenes/worlds/procedural_world/item_spawner.gd"
 
 
 ### Signal Callbacks ------------------------------------------------------------------------------
-
-func _on_game_world_generation_finished():
-	var data := owner.world_data as WorldData
-	_spawn_world_data_objects(data)
-	yield(get_tree(), "idle_frame")
 
 ### -----------------------------------------------------------------------------------------------

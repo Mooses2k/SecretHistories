@@ -11,7 +11,7 @@ export var hold_time_to_place = 0.4
 export var throw_strength : float = 2
 
 export var hold_time_to_grab : float = 0.4
-export var grab_strength : float = 2.0
+export var grab_strength : float = 10.0
 export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
@@ -428,8 +428,8 @@ func handle_grab(delta : float):
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
-		var desired_velocity : Vector3 = 32.0 * (grab_target_global - grab_object_global)
-		desired_velocity = desired_velocity.normalized() * min(desired_velocity.length(), 2.0)
+		var desired_velocity : Vector3 = 32.0 * (grab_target_global - grab_object_global) 
+		desired_velocity = desired_velocity.normalized() * min(desired_velocity.length(), 2.0) 
 
 		# Desired velocity follows the player character
 		desired_velocity += velocity
@@ -442,10 +442,11 @@ func handle_grab(delta : float):
 		var impulse_forces = -(direct_state.total_gravity * grab_object.mass*delta)
 		var total_impulse : Vector3 = impulse_velocity + impulse_forces
 		total_impulse = total_impulse.normalized() * min(total_impulse.length(), grab_strength)
+		print("impulse " + str(total_impulse))
 
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
-		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
+		direct_state.apply_torque_impulse(1.2 * (grab_object_offset.cross(total_impulse))) #0.2
 
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)

@@ -6,7 +6,7 @@ signal intro_done
 
 func _input(event):
 #	if event.is_action_pressed("misc|fullscreen"):
-#		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
+#		VideoSettings.set_fullscreen_enabled(!VideoSettings.fullscreen_enabled)
 		# Size the center container to screen size
 	if self.visible == true:
 		if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_accept"):

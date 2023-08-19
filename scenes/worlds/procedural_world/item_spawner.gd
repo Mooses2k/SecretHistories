@@ -1,6 +1,6 @@
 tool
-extends Node
-
+class_name ItemSpawner
+extends Spawner
 
 # This is a tool so that `_min_loot` and `_max_loot` setters can act as data validators when
 # changing values in the editor
@@ -11,7 +11,6 @@ var free_cell = 0
 
 var _rng := RandomNumberGenerator.new()
 var _used_cell_indexes := []
-
 
 ### Built in Engine Methods -----------------------------------------------------------------------
 
@@ -24,7 +23,8 @@ func _ready() -> void:
 
 ### Private Methods -------------------------------------------------------------------------------
 
-func _on_ProceduralWorld_generation_finished() -> void:
+# Parent GameWorld script connects here.
+func _on_game_world_generation_finished():
 	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
 	if setting_generation_seed is int:
 		_rng.seed = setting_generation_seed
@@ -32,6 +32,9 @@ func _on_ProceduralWorld_generation_finished() -> void:
 	var data := owner.world_data as WorldData
 	_spawn_initial_settings_items(data)
 	_spawn_world_data_objects(data)
+	
+	has_finished_spawning = true
+	emit_signal("spawning_finished")
 
 
 func _spawn_world_data_objects(data: WorldData) -> void:

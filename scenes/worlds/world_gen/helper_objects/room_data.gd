@@ -12,7 +12,7 @@ enum OriginalPurpose {
 	CRYPT,
 	FOUNTAIN,
 	UP_STAIRCASE,
-	DOWN_STAIRCASE
+	DOWN_STAIRCASE,
 }
 
 #--- constants ------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ func can_add_doorway() -> bool:
 	var value = true
 	
 	if (
-			(type == OriginalPurpose.UP_STAIRCASE or type == OriginalPurpose.DOWN_STAIRCASE) 
+			is_staircase_room()
 			and _doorways.size() > 0
 	):
 		value = false
@@ -126,6 +126,11 @@ func has_doorway_on(cell_index: int, direction := -1) -> bool:
 		if direction in _doorways:
 			value = (_doorways[direction] as Array).has(cell_index)
 	
+	return value
+
+
+func is_staircase_room() -> bool:
+	var value: bool = type == OriginalPurpose.DOWN_STAIRCASE or type == OriginalPurpose.UP_STAIRCASE
 	return value
 
 

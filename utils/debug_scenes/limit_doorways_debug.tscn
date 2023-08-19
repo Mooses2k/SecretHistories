@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" type="Script" id=1]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=7]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=8]
 [ext_resource path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" type="Script" id=11]
 
 [node name="DebugWorld" instance=ExtResource( 9 )]
 
@@ -53,3 +55,12 @@ pillar_room_double_ceiling_tile = 18
 pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
+
+[node name="PopulateRooms" type="Node" parent="GenerationManager" index="8"]
+script = ExtResource( 10 )
+
+[node name="GenerateStaircases" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
+script = ExtResource( 11 )
+
+[connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]
+[connection signal="spawning_world_scenes_finished" from="." to="CharacterSpawner" method="_on_ProceduralWorld_generation_finished"]

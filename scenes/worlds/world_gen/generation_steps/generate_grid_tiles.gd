@@ -34,7 +34,8 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 	for i in data.cell_count:
 		var cell_type = data.get_cell_type(i)
 		var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
-		if cell_type != data.CellType.EMPTY and not is_pillar_room:
+		var is_stairs_down = data.get_cell_meta(i, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
+		if cell_type != data.CellType.EMPTY and not is_pillar_room and not is_stairs_down:
 			if cell_type == data.CellType.ROOM:
 				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
 			elif cell_type == data.CellType.CORRIDOR:
@@ -42,7 +43,7 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 			data.set_ground_tile_index(i, floor_tile)
 	for _room in pillar_rooms:
 		var room : Rect2 = _room as Rect2
-		print(room)
+		print("pillar_room: %s"%[room])
 		for i in room.size.x / 2:
 			for j in room.size.y / 2:
 				var cell = data.get_cell_index_from_int_position(room.position.x + 2 * i, room.position.y + 2 * j)

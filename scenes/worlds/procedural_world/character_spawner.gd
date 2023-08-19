@@ -1,5 +1,5 @@
 class_name CharacterSpawner
-extends Node
+extends Spawner
 
 
 # Represents the possible character loadouts, with the following structure:
@@ -37,6 +37,7 @@ extends Node
 # Guns, for example, will be added to the inventory loaded with
 # a random amount of ammunition within the selected range
 #
+
 export(Array, Dictionary) var character_loadout : Array
 
 var data : WorldData
@@ -71,11 +72,12 @@ func spawn_characters():
 	var characters_by_index := data.get_characters_to_spawn()
 	for cell_index in characters_by_index:
 		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
-		var cell_coordinates := data.get_local_cell_position(cell_index)   # var never used
 		var character := spawn_data.spawn_character_in(characters_root)
 		_set_random_loadout(character)
 	
 	print("Total Characters Spawned: %s"%[characters_by_index.size()])
+	has_finished_spawning = true
+	emit_signal("spawning_finished")
 
 
 func _set_random_loadout(character: Spatial) -> void:
@@ -124,7 +126,8 @@ func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 	return value
 
 
-func _on_ProceduralWorld_generation_finished():
+# Parent GameWorld script connects here.
+func _on_game_world_generation_finished():
 	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
 	if setting_generation_seed is int:
 		_rng.seed = setting_generation_seed

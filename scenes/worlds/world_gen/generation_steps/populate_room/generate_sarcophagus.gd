@@ -50,7 +50,6 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 		var crypt := c_value as RoomData
 		var walls_data := RoomWalls.new()
 		walls_data.init_from_room(data, crypt, sarco_tile_size, _rng)
-		print("Crypt Walls: %s"%[walls_data])
 		
 		for direction in walls_data.main_walls:
 			_spawn_sarcos_in_wall_segments(data, walls_data, direction)

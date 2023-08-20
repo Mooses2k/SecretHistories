@@ -10,8 +10,7 @@ Like this game? Help us out.
 
 ### The "I need it spelled out for me" version:
 
-Attack the person, not the problem (if you want to get banned). Not feeling 
-friendly? Then be tactful. Politeness is the most acceptable form of hypocrisy. Take it easy, be respectful, especially when saying they made a mistake.
+Attack the person, not the problem (if you want to get banned). Not feeling friendly? Then be tactful. Politeness is the most acceptable form of hypocrisy. Take it easy, be respectful, especially when saying they made a mistake.
 
 No bigotry of any kind. No discrimination, no slurs, no hate speech. "Joking" is not an excuse. 
 

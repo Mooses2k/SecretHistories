@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.gd" type="Script" id=1]
 [ext_resource path="res://scenes/worlds/gridmaps/gridmaps.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/worlds/procedural_world/character_spawner.gd" type="Script" id=3]
 [ext_resource path="res://resources/mesh_libraries/basic_grid_tiles.meshlib" type="MeshLibrary" id=4]
 [ext_resource path="res://scenes/worlds/world_navigation.gd" type="Script" id=5]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_manager.gd" type="Script" id=6]
+[ext_resource path="res://scenes/worlds/procedural_world/item_spawner.gd" type="Script" id=7]
 
 [sub_resource type="Environment" id=2]
 background_mode = 1
@@ -37,3 +39,9 @@ script = ExtResource( 5 )
 
 [node name="GenerationManager" type="Node" parent="."]
 script = ExtResource( 6 )
+
+[node name="ItemSpawner" type="Node" parent="."]
+script = ExtResource( 7 )
+
+[node name="CharacterSpawner" type="Node" parent="."]
+script = ExtResource( 3 )

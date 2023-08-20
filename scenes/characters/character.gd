@@ -695,7 +695,7 @@ func _on_ClamberableChecker_body_entered(body):
 	if body.is_in_group("CLAMBERABLE"):
 		is_clamberable = body
 #
-#	if event.is_action_pressed("crouch"):
+#	if event.is_action_pressed("player|crouch"):
 #		if $crouch_timer.is_stopped(): # && !$AnimationTree.get(roll_active):
 #			$crouch_timer.start()
 #			$AnimationTree.tree_root.get_node("cs_transition").xfade_time = (velocity.length() + 1.5)/ 15.0

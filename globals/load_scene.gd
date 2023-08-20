@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func setup_loadscreen() -> void:
 	get_tree().current_scene.add_child(loadscreen)
-#	move_child(get_tree().current_scene.get_node("/Loading"), 0)    # This here for a reason? Just errors
+	move_child(get_tree().current_scene.get_node("Loading"), 0)    # This here for a reason? Just errors
 	get_tree().paused = true
 
 

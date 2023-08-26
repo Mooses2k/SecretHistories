@@ -1,6 +1,7 @@
 class_name CharacterAudio
 extends Spatial
 
+
 # TODO: Eventually get working or ensure working different footstep sounds
 onready var _footstep_sounds : Array = _stone_footstep_sounds   # Unsure if onready needed
 var _stone_footstep_sounds : Array = []
@@ -79,6 +80,7 @@ func _ready():
 	load_sounds("resources/sounds/jumping_landing/landing", 2)
 
 	choose_voice()   # Choose one from the appropriate voices for this character
+	pitch_alter_voice()   # Randomly alter pitch of this character's voice up or down some
 
 
 func load_sounds(sound_dir, type : int) -> void:
@@ -199,6 +201,10 @@ func choose_voice():
 		load_sounds(character_voice_path + "bomb", 28)
 
 
+func pitch_alter_voice():
+	speech_audio.set_pitch_scale(rand_range(0.7, 1.1))
+
+
 func play_idle_sound():
 	# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 	if speech_audio.is_playing() == true:
@@ -269,7 +275,7 @@ func play_chase_sound():
 
 
 func play_fight_sound():
-	if !last_speech_type == SpeechType.FIGHT:   # Anything but fight
+	if last_speech_type == SpeechType.FIGHT:   # Anything but fight
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
 			return

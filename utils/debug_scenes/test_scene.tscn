@@ -37,7 +37,7 @@ data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1
 background_mode = 2
 background_sky = SubResource( 3 )
 
-[node name="test_Scene" type="Spatial"]
+[node name="TestWorld" type="Spatial"]
 
 [node name="test_Scene" type="Spatial" parent="."]
 unique_name_in_owner = true

@@ -18,6 +18,9 @@ export(float, 0.0, 1.0) var prob_going_out : float = 0.0
 var is_lit = true # starts on
 onready var firelight = $Light
 
+var physical_bones_simulation_enabled = false
+onready var skeleton = $Skeleton
+
 
 func _ready():
 	if not is_connected("body_entered", self, "play_drop_sound"):
@@ -31,6 +34,7 @@ func _ready():
 		burn_time = 3600.0
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
+	
 
 
 func _process(delta):
@@ -41,11 +45,18 @@ func _process(delta):
 		if is_dropped and not is_just_dropped:
 			is_just_dropped = true
 			self.emit_signal("item_is_dropped")
+			skeleton.physical_bones_stop_simulation()
+			physical_bones_simulation_enabled = false
+			print("disabled physical bones simulation for lantern (dropped)")
 			item_drop()
 	else:
 		$Ignite/CollisionShape.disabled = true
 		is_dropped = false
 		is_just_dropped = false
+		if	physical_bones_simulation_enabled == false:
+			skeleton.physical_bones_start_simulation()
+			physical_bones_simulation_enabled = true
+			print("enabled physical bones simulation for lantern")
 
 
 func light_depleted():
@@ -99,6 +110,9 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
+		skeleton.physical_bones_stop_simulation()
+		physical_bones_simulation_enabled = false
+		print("disabled physical bones simulation for lantern (switched away)")
 		switch_away()
 
 

@@ -488,7 +488,7 @@ func throw_consumable(item):
 
 func handle_inventory(delta : float):
 	# Main-hand slot selection
-	for i in range(character.inventory.HOTBAR_SIZE):
+	for i in range(character.inventory.HOTBAR_SIZE - 1):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
 			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below

@@ -188,8 +188,19 @@ func ads():
 
 
 func _on_Inventory_inventory_changed():
+
+	yield(get_tree().create_timer(0.5), "timeout")
 	check_player_animation()
 
+
+func switch_mainhand_item_animation():
+	
+	animation_tree.set("parameters/Hand_Transition/current",0)
+	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
+	animation_tree.set("parameters/Weapon_states/current",4)
+	
+	yield(get_tree().create_timer(0.5), "timeout")
+	check_player_animation()
 
 func _on_Inventory_unequip_mainhand():
 	animation_tree.set("parameters/Hand_Transition/current",0)
@@ -199,3 +210,6 @@ func _on_Inventory_unequip_mainhand():
 
 func _on_Inventory_unequip_offhand():
 	animation_tree.set("parameters/OffHand_Weapon_States/current",2)
+
+
+

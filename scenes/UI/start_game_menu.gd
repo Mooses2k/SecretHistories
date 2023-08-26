@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func _input(event):
 	if event.is_action_pressed("misc|fullscreen"):
-		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
+		VideoSettings.set_fullscreen_enabled(!VideoSettings.fullscreen_enabled)
 
 
 func _on_ZombieSpawnChance_value_changed(value: float) -> void:

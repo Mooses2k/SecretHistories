@@ -209,6 +209,7 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_mainhand_item():
+	yield(get_tree().create_timer(0.5), "timeout")
 	# temporary hack (issue #409)
 	if not is_instance_valid(current_mainhand_equipment):
 		current_mainhand_equipment = null
@@ -282,6 +283,7 @@ func drop_bulky_item():
 
 
 func equip_offhand_item():
+	yield(get_tree().create_timer(0.5), "timeout")
 	# Item already equipped or both slots set to the same item
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
@@ -293,8 +295,8 @@ func equip_offhand_item():
 			print("Equipped offhand light item")
 		else:
 			print("Equipped offhand slot normal item")
-			current_offhand_slot = 10
-			unequip_offhand_item()
+#			current_offhand_slot = 10
+#			unequip_offhand_item()
 		
 	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
 		# Can't equip a Bulky Item simultaneously with a normal item

@@ -173,9 +173,7 @@ func _input(event):
 			match event.button_index:
 				BUTTON_WHEEL_UP:
 					item_up = true
-					owner.change_equipment_out(true)
-					yield(owner, "change_main_equipment_out_done")
-
+#					owner.change_equipment_out(true)
 					if item_up:
 						if character.inventory.current_mainhand_slot != 0:
 							var total_inventory
@@ -198,13 +196,11 @@ func _input(event):
 						elif character.inventory.current_mainhand_slot == 0:
 							character.inventory.current_mainhand_slot = 10
 
-						owner.change_equipment_in(true)
+#						owner.change_equipment_in(true)
 
 				BUTTON_WHEEL_DOWN:
 					item_up = false
-					owner.change_equipment_out(true)
-					yield(owner, "change_main_equipment_out_done")
-
+#					owner.change_equipment_out(true)
 					if !item_up:
 						if character.inventory.current_mainhand_slot != 10 :
 							var total_inventory
@@ -226,7 +222,7 @@ func _input(event):
 							else:
 								character.inventory.current_mainhand_slot = 1
 
-						owner.change_equipment_in(true)
+#						owner.change_equipment_in(true)
 
 	if event is InputEventMouseMotion:
 		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE
@@ -499,11 +495,9 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
 			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
 			if i != character.inventory.current_offhand_slot and i != 10:
-				owner.change_equipment_out(true)
-				yield(owner, "change_main_equipment_out_done")
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
-				owner.change_equipment_in(true)
+
 
 	# Off-hand slot selection
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
@@ -521,12 +515,9 @@ func handle_inventory(delta : float):
 
 				new_slot = (new_slot + 1) % character.inventory.hotbar.size()
 		if start_slot != new_slot:
-			owner.change_equipment_out(false)
-			yield(owner, "change_off_equipment_out_done")
 			character.inventory.current_offhand_slot = new_slot
 			print("Offhand slot cycled to ", new_slot)
 			throw_state = ThrowState.IDLE
-			owner.change_equipment_in(false)
 
 	if Input.is_action_just_pressed("itm|holster_offhand"):
 		if character.inventory.current_offhand_slot != 10:

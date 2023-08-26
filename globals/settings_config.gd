@@ -136,4 +136,4 @@ func save_default_settings():
 	file.open(file_name_default, File.WRITE)
 	file.store_string(var2str(key_dict))
 	file.close()
-	print("settings config saved")
+	print("settings default config saved")

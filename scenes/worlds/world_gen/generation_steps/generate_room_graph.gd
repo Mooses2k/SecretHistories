@@ -221,6 +221,9 @@ func graph_get_edges(graph : Dictionary, from : int) -> Array:
 func _exclude_unwanted_edges(delaunay: Dictionary, random: RandomNumberGenerator) -> void:
 	_exclude_incoming_connections_from_entry_staircases(delaunay, random)
 	_exclude_outgoing_connections_from_exit_staircases(delaunay, random)
+	for cell_index in delaunay.keys().duplicate():
+		if delaunay[cell_index].empty():
+			delaunay.erase(cell_index)
 
 
 # Excludes all incoming connetions to enter staircaises, and if entry staircases have more than

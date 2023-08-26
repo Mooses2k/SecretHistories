@@ -1,32 +1,11 @@
 extends Node
 
 
-enum FullscreenMode {
-	FULLSCREEN = 0,
-	BORDERLESS_WINDOWED = 1,
-	WINDOWED = 2
-}
-
-var fullscreen_mode : int setget set_fullscreen_mode
-
-var vsync : bool
-var brightness : float
-
-var master_audio_enabled : bool
-var sound_enabled : bool
-var music_enabled : bool
-var voice_enabled : bool
-
-var master_audio_volume : float
-var sound_volume : float
-var music_volume : float
-var voice_volume : float
-
-var file_name = "%s://keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
-
-var mouse_sensitivity : float = 1
+var file_name = "%s://globals/settings/keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
+var file_name_default = "%s://globals/settings/defaultKeys.dict" % ("user" if OS.has_feature("standalone") else "res")
 
 var setting_key = false
+var keys_default : Dictionary
 
 enum EventType {
 	KEY,
@@ -37,12 +16,12 @@ enum EventType {
 var event_prefixes = [
 	"key", # KEY
 	"pkey", # KEY_PHYSICAL
+	"mouse", # MOUSE_BUTTON
 ]
 
 
 func _ready():
-	pass
-#	load_keys()
+	load_keys()
 # leftovers from tutorial version
 #	get_child(0).visible = false
 #	pause_mode = Node.PAUSE_MODE_PROCESS
@@ -61,20 +40,6 @@ func gen_dict_from_input_map() -> Dictionary:
 	return result
 
 
-func set_fullscreen_mode(value : int):
-	fullscreen_mode = value
-	match fullscreen_mode:
-		FullscreenMode.FULLSCREEN:
-			OS.window_fullscreen = true
-			OS.window_borderless = false
-		FullscreenMode.BORDERLESS_WINDOWED:
-			OS.window_fullscreen = false
-			OS.window_borderless = true
-		FullscreenMode.WINDOWED:
-			OS.window_fullscreen = false
-			OS.window_borderless = false
-
-
 # We'll use this when the game loads
 func load_keys():
 	var file = File.new()
@@ -90,6 +55,17 @@ func load_keys():
 	else:
 		#NoFile, so lets save the default keys now
 		save_keys()
+		save_default_keys()
+	
+	file = File.new()
+	file.open(file_name_default, File.READ)
+	var file_str = file.get_as_text()
+	file.close()
+	var data = str2var(file_str)
+	if(typeof(data) == TYPE_DICTIONARY):
+		keys_default = data
+	else:
+		printerr("corrupted data!")
 	pass
 
 
@@ -100,10 +76,8 @@ func setup_keys(key_dict : Dictionary):
 #				j.text = OS.get_scancode_string(key_dict[i])
 		var has_invalid : bool = false
 		var events = Array()
-		print("action : ", action)
 		for event_str in key_dict[action]:
 			var event = str2event(event_str)
-			print("\tevent: ", var2str(event))
 			if event:
 				events.push_back(event)
 			else:
@@ -121,7 +95,13 @@ func event2str(event : InputEvent) -> String:
 		if event.scancode == 0:
 			ev_type = EventType.KEY_PHYSICAL
 			scancode = event.physical_scancode
+		print("event == " + "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)])
 		return "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)]
+	elif event is InputEventMouseButton:
+		print("Mouse Button " + str(event.get_button_index() ))
+		var ev_type = EventType.MOUSE_BUTTON
+		var scancode = event.get_button_index() 
+		return "%s(%s)" % [event_prefixes[ev_type], scancode]
 	else:
 		print(var2str(event))
 	return "?"
@@ -144,13 +124,27 @@ func str2event(string : String) -> InputEvent:
 					var event = InputEventKey.new()
 					event.physical_scancode = scancode
 					return event
+				EventType.MOUSE_BUTTON:
+					var button_index = int(string)
+					var event = InputEventMouseButton.new()
+					event.button_index = button_index
+					return event
 	return null
 
 
 func save_keys():
 	var key_dict = gen_dict_from_input_map()
 	var file = File.new()
-	file.open(file_name,File.WRITE)
+	file.open(file_name, File.WRITE)
+	file.store_string(var2str(key_dict))
+	file.close()
+	print("saved keys")
+
+
+func save_default_keys():
+	var key_dict = gen_dict_from_input_map()
+	var file = File.new()
+	file.open(file_name_default, File.WRITE)
 	file.store_string(var2str(key_dict))
 	file.close()
 	print("saved keys")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/consumables/light_sources/torch/M_Torch.material" type="Material" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=4]
 [ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=5]
+[ext_resource path="res://scenes/effects/particle_instances.gd" type="Script" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Torch_torch_lp"
@@ -206,11 +207,11 @@ script = ExtResource( 4 )
 
 [node name="Fire" type="Particles" parent="FireOrigin" index="0"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-layers = 3
 emitting = false
 amount = 64
 process_material = SubResource( 19 )
 draw_pass_1 = SubResource( 20 )
+script = ExtResource( 6 )
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( -5, -4.37114e-07, 0, 4.37114e-07, -5, 0, 0, 0, 5, 9.05025e-10, 0.0103521, 0 )
@@ -222,12 +223,12 @@ omni_attenuation = 4.0
 
 [node name="EmberDrip" type="Particles" parent="FireOrigin" index="1"]
 transform = Transform( 0.2, -3.49692e-08, 0, 3.49692e-08, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
-layers = 3
 emitting = false
 amount = 4
 randomness = 1.0
 process_material = SubResource( 21 )
 draw_pass_1 = SubResource( 20 )
+script = ExtResource( 6 )
 
 [node name="Smoke" type="Particles" parent="FireOrigin" index="2"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
@@ -237,6 +238,7 @@ lifetime = 2.0
 local_coords = false
 process_material = SubResource( 23 )
 draw_pass_1 = SubResource( 24 )
+script = ExtResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 autoplay = "flicker"

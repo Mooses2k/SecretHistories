@@ -55,9 +55,6 @@ func _ready():
 	hotbar.resize(HOTBAR_SIZE)
 	current_offhand_slot = 10
 
-func _process(delta):
-	pass
-#	print(hotbar[current_mainhand_slot])
 
 # Returns wether a given node can be added as an Item to this inventory
 func can_pickup_item(item : PickableItem) -> bool:
@@ -88,6 +85,7 @@ func add_item(item : PickableItem) -> bool:
 	if item is TinyItem:
 		if item.item_data != null:
 			insert_tiny_item(item.item_data, item.amount)
+			
 		# To make sure the item can't be interacted with again
 		item.item_state = GlobalConsts.ItemState.BUSY
 		item.queue_free()
@@ -98,6 +96,7 @@ func add_item(item : PickableItem) -> bool:
 		if not keychain.has(item.key_id):
 			keychain[item.key_id] = 0
 		keychain[item.key_id] += 1
+		
 		# To make sure the item can't be interacted with again
 		item.item_state = GlobalConsts.ItemState.BUSY
 		item.queue_free()
@@ -115,7 +114,7 @@ func add_item(item : PickableItem) -> bool:
 			var slot = 0
 			
 			### Probably can be cleaned up - part 1 is to put lights offhand, part 2 is everything else
-			# Checks if something is in offhand; if not, and this is a light, put it there
+			### Part 1 - Checks if something is in offhand; if not, and this is a light, put it in offhand
 			if current_offhand_equipment == null or current_offhand_equipment == EmptyHand:
 				print("Offhand null or empty hands")
 				if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
@@ -129,7 +128,7 @@ func add_item(item : PickableItem) -> bool:
 						slot += 1
 					if slot != 10:
 						hotbar[slot] = item
-						print("Light-source going to slot ", slot)
+						print("Light-source going to slot ", slot + 1)
 						# Schedule the item removal from the world
 						if item.is_inside_tree():
 							item.get_parent().remove_child(item)
@@ -140,12 +139,13 @@ func add_item(item : PickableItem) -> bool:
 						if not bulky_equipment:
 							set_offhand_slot(slot)   # This is what puts it in off-hand
 							equip_offhand_item()
-							return true
+							return true   # Thus not processing the further autoequip logic below
 					
-			### Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
+			### Part 2 - Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
 			slot = current_mainhand_slot
 			# Then the offhand, preferring this slot for lights
 			if hotbar[slot] != null:
+				print("Current hotbar slot, ", slot + 1, " is null. Setting slot to current offhand slot")
 				slot = current_offhand_slot
 			# Then the first empty slot
 			if hotbar[slot] != null:
@@ -160,20 +160,36 @@ func add_item(item : PickableItem) -> bool:
 				emit_signal("hotbar_changed", slot)
 				emit_signal("inventory_changed")
 				
+				### Auto-equip
 				# Autoequip if possible - main idea is prefer lights in off-hand and never forceably
-				# put a medium gun in hand if it mens pushing out a light-source
+				# put a medium gun in hand if it means pushing out a (lit) light-source
+				# (we currently don't check if it's lit)
 				if current_mainhand_slot == slot and not bulky_equipment:
+					print("current slot is added item slot, which is ", slot + 1)
 					if current_offhand_equipment is LanternItem or current_offhand_equipment is CandleItem or current_offhand_equipment is TorchItem or current_offhand_equipment is CandelabraItem:
-						if !item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is GunItem:
+						print("...and current offhand is a light")
+						if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 							equip_mainhand_item()
-						elif item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
+							print("...and picked up item is a small item")
+							return true
+						if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
 							equip_mainhand_item()
-						elif item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-							equip_mainhand_item()
-						
-				elif current_offhand_slot == slot and not bulky_equipment and !item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-					equip_offhand_item()
+							print("...and picked up item is a medium melee weapon")
+	
+					elif item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+						equip_mainhand_item()
+						print("...and picked up item is a small item")
+						return true
 					
+					# Medium items
+					elif item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+						equip_mainhand_item()
+					
+				elif current_offhand_slot == slot and not bulky_equipment and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+					equip_offhand_item()
+			
+			# Encumbrance makes character louder and more visible. Character uses more stamina.
+			# Eventually will affect mantling and swimming.
 			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 				encumbrance += 1
 			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:

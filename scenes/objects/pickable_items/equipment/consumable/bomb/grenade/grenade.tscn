@@ -124,7 +124,6 @@ __meta__ = {
 }
 item_name = "Grenade"
 radius = 10
-fragments = 400
 bomb_damage = 150.0
 damage_type = 3
 

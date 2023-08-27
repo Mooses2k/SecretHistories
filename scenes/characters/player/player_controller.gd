@@ -362,11 +362,12 @@ func handle_grab_input(delta : float):
 		wanna_grab = true
 	else:
 		wanna_grab = false
-	if Input.is_action_pressed("player|interact") or Input.is_action_pressed("playerhand|main_use_secondary") and is_grabbing == false:
-		grab_press_length += delta
-		if grab_press_length >= 0.15 :
-			wanna_grab = true
-			interaction_handled = true
+	if Input.is_action_pressed("player|interact") or Input.is_action_pressed("playerhand|main_use_secondary"):
+		if is_grabbing == false:
+			grab_press_length += delta
+			if grab_press_length >= 0.15 :
+				wanna_grab = true
+				interaction_handled = true
 
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary") :
 		grab_press_length = 0.0
@@ -646,13 +647,14 @@ func handle_inventory(delta : float):
 
 	update_throw_state(delta)
 
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary") and not (wanna_grab or is_grabbing or interaction_handled):
-		if interaction_target != null:
-			if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
-				character.inventory.add_item(interaction_target)
-				interaction_target = null
-			elif interaction_target is Interactable:
-				interaction_target.interact(owner)
+	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+		if !(wanna_grab or is_grabbing or interaction_handled):
+			if interaction_target != null:
+				if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
+					character.inventory.add_item(interaction_target)
+					interaction_target = null
+				elif interaction_target is Interactable:
+					interaction_target.interact(owner)
 
 
 func kick():

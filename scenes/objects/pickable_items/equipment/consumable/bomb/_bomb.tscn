@@ -9,7 +9,6 @@ mass = 0.5
 script = ExtResource( 1 )
 item_name = "Bomb"
 radius = 5
-fragments = 200
 bomb_damage = 0.0
 damage_type = 0
 

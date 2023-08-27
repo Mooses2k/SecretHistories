@@ -4,13 +4,13 @@ var is_waiting_input : bool = false
 var temp_setting_name : String = ""
 
 
-#Override this function
+# Override this function
 func _get_value():
 	return str($"%Value".text)
 	pass
 
 
-#Override this function
+# Override this function
 func _set_value(value):
 	$"%Value".text = ""
 	if value == null:
@@ -34,7 +34,7 @@ func _set_value(value):
 			$"%Value".text += ", "
 
 
-#Override this function
+# Override this function
 func _on_value_edited():
 	var new_value = get_value()
 	if new_value != settings.get_setting(_setting_name):
@@ -42,7 +42,7 @@ func _on_value_edited():
 	pass
 
 
-#Override this function
+# Override this function
 func _on_setting_attached():
 #	$"%Value".connect("value_changed", self, "on_value_edited")
 	temp_setting_name = _setting_name

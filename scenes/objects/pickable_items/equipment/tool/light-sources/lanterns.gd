@@ -112,7 +112,7 @@ func switch_away():
 
 
 func attach_to_belt():
-	get_parent().owner.inventory.attach_to_belt(self)
+	owner.inventory.attach_to_belt(self)
 	is_in_belt = true
 
 

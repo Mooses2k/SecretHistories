@@ -38,13 +38,7 @@ func _physics_process(delta):
 		occuring = false
 
 
-#if not in body
-#	tinnitus = false
-
-
 func _on_Player_character_died():
 	is_dead = true
 	playing = false
 	$ScreenWhite/TextureRect.hide()
-
-

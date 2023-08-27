@@ -33,8 +33,11 @@ func _set_starting_charges():
 func _use_primary():
 	# TODO: animation
 	# TODO: holding down to use, not just tap
-	if use_timer.is_stopped():
-		use_timer.start()
+	if owner_character.current_health < owner_character.max_health:
+		if use_timer.is_stopped():
+			use_timer.start()
+			# Add something here to play the prep sound if it exists, wait til finished, then play use sound
+			$Sounds/Use.play()
 
 
 # TODO: Two ways to reload a medical container: 1) pickup a medical consumable, 2) reload when there's medical consumables in your inventory; this func is that one
@@ -67,7 +70,10 @@ func _on_UseTime_timeout():
 	# TODO: if speed_boost > 0:
 	#	set a timer and give most player actions a bit of haste
 	
+	$Sounds/UseComplete.play()   # Currently doesn't play due to queue_free below
+	
 	# This is a single-use consumable, se we're done with it
 	if max_charges_held == 1:
 		owner_character.drop_consumable(self)
 		queue_free()
+		# TODO: this should drop an empty bottle or syringe, only queue_free if nothing's left, like bandage

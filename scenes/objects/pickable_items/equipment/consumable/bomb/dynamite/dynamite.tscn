@@ -97,7 +97,6 @@ shader_param/emission_color_ramp = SubResource( 26 )
 material = SubResource( 16 )
 
 [node name="Dynamite" instance=ExtResource( 2 )]
-continuous_cd = false
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""

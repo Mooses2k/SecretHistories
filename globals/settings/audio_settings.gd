@@ -57,9 +57,10 @@ func set_effects_volume(value : float):
 func get_effects_volume() -> float:
 	return Settings.get_setting(SETTING_EFFECTS_VOLUME)
 
+
 func set_internal_effects_volume(value : float):
 	internal_effects_volume = clamp(value, 0.0, 1.0)
-	set_volume(bus_effects, get_effects_volume()*internal_effects_volume)
+	set_volume(bus_effects, get_effects_volume()*internal_effects_volume, false)
 
 
 func set_voice_volume(value : float):
@@ -69,10 +70,10 @@ func get_voice_volume() -> float:
 	return Settings.get_setting(SETTING_VOICE_VOLUME)
 
 
-func set_volume(idx : int, value : float):
+func set_volume(idx : int, value : float, is_from_sett : bool):
 	AudioServer.set_bus_volume_db(idx, linear2db(value/MAX_VALUE))
-	SettingsConfig.save_settings()
-
+	if is_from_sett:
+		SettingsConfig.save_settings()
 
 func get_volume(idx : int) -> float:
 	return db2linear(AudioServer.get_bus_volume_db(idx)) * MAX_VALUE
@@ -81,11 +82,11 @@ func get_volume(idx : int) -> float:
 func on_setting_changed(setting_name, old_value, new_value):
 	match setting_name:
 		SETTING_MASTER_VOLUME:
-			set_volume(bus_master, new_value)
+			set_volume(bus_master, new_value, true)
 		SETTING_MUSIC_VOLUME:
-			set_volume(bus_music, new_value)
+			set_volume(bus_music, new_value, true)
 		SETTING_EFFECTS_VOLUME:
-			set_volume(bus_effects, new_value*internal_effects_volume)
+			set_volume(bus_effects, new_value*internal_effects_volume, true)
 		SETTING_VOICE_VOLUME:
-			set_volume(bus_voice, new_value)
+			set_volume(bus_voice, new_value, true)
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/seating/church_pew.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
@@ -25,6 +25,11 @@
 [ext_resource path="res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_box.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/ammo/webley/webley_box.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/spyglass/spyglass.tscn" type="PackedScene" id=25]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock2.tscn" type="PackedScene" id=26]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock1.tscn" type="PackedScene" id=27]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock3.tscn" type="PackedScene" id=28]
+[ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/bandage.tscn" type="PackedScene" id=31]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -78,7 +83,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.844433, -8.20272 )
 
 [node name="GunItem" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.71292, 1.41094, 0 )
-animation_reload_sequence = 0
 
 [node name="ChurchPew" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.863582, -2.16709 )
@@ -107,12 +111,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.18834, 0.138636, 2.92252 )
 [node name="Shotgun_sawed_item" parent="." instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.05381, 10.2661 )
 
+[node name="Shotgun_sawed_item2" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.725191, 3.05381, 8.72279 )
+
+[node name="Shotgun_sawed_item3" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24848, 3.05381, 6.03928 )
+
+[node name="Shotgun_sawed_item4" parent="." instance=ExtResource( 17 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77617, 3.05381, -1.9823 )
+
 [node name="ShotgunItem" parent="." instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.56912, 1.47731, 0 )
 
 [node name="Lee-Metford rifle" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93082, 1.91304, 0 )
-animation_reload_sequence = 0
 
 [node name="Martini-Henry rifle" parent="." instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 9.96253 )
@@ -120,14 +132,17 @@ animation_reload_sequence = 0
 
 [node name="Webley revolver" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156361, 1.49275, 3.45532 )
+contacts_reported = 10
 animation_reload_sequence = 0
 
 [node name="Webley revolver2" parent="." instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.462241, 0 )
+contacts_reported = 10
 animation_reload_sequence = 0
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.297211, 0 )
+max_health = 100000000
 animation_tree_path = NodePath("")
 
 [node name="CandleLantern" parent="." instance=ExtResource( 18 )]
@@ -165,3 +180,84 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0737, 0.459369, 1.19271 )
 
 [node name="Spyglass" parent="." instance=ExtResource( 25 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7102, 0.24764, 0 )
+
+[node name="Rock1" parent="." instance=ExtResource( 27 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09444, 0, -5.13427 )
+
+[node name="Rock4" parent="." instance=ExtResource( 27 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4089, 0, -5.13427 )
+
+[node name="Rock5" parent="." instance=ExtResource( 27 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4089, 0, -1.32121 )
+
+[node name="Rock2" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.07821 )
+
+[node name="Rock8" parent="." instance=ExtResource( 26 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4038 )
+
+[node name="Rock3" parent="." instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.19227, 0.9511, 2.89773 )
+weapon_type = 0
+primary_damage_type1 = 0
+primary_damage1 = 0
+primary_damage_type2 = 0
+primary_damage2 = 0
+secondary_damage_type1 = 0
+secondary_damage1 = 0
+secondary_damage_type2 = 0
+secondary_damage2 = 0
+cooldown = 0.01
+throw_logic = false
+can_spin = false
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+
+[node name="Rock6" parent="." instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.19227, 0.9511, 6.30463 )
+weapon_type = 0
+primary_damage_type1 = 0
+primary_damage1 = 0
+primary_damage_type2 = 0
+primary_damage2 = 0
+secondary_damage_type1 = 0
+secondary_damage1 = 0
+secondary_damage_type2 = 0
+secondary_damage2 = 0
+cooldown = 0.01
+throw_logic = false
+can_spin = false
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+
+[node name="Rock7" parent="." instance=ExtResource( 28 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.83912, 0.9511, 6.30463 )
+weapon_type = 0
+primary_damage_type1 = 0
+primary_damage1 = 0
+primary_damage_type2 = 0
+primary_damage2 = 0
+secondary_damage_type1 = 0
+secondary_damage1 = 0
+secondary_damage_type2 = 0
+secondary_damage2 = 0
+cooldown = 0.01
+throw_logic = false
+can_spin = false
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+
+[node name="Cultist" parent="." instance=ExtResource( 29 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76923, -0.0378679, 5.25018 )
+
+[node name="Bandage" parent="." instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71202, 0.770886, 0 )
+
+[node name="Bandage2" parent="." instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71202, 0.770886, -1.92963 )
+
+[node name="Bandage3" parent="." instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.646834, 0.770886, 1.78057 )
+
+[node name="Bandage4" parent="." instance=ExtResource( 31 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84392, 0.770886, 1.78057 )

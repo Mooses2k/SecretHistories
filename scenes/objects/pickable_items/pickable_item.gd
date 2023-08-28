@@ -28,7 +28,7 @@ var item_max_noise_level = 5
 var item_sound_level = 10
 var can_throw_damage : bool
 var has_thrown = false
-var is_melee_item = false
+var is_higher_damage = false
 var decelration_factor = 0.900000000
 var initial_linear_velocity
 
@@ -68,9 +68,9 @@ func throw_damage(delta):
 		for body_found in bodies:
 			if body_found.is_in_group("CHARACTER"):
 				var item_damage = int(abs(initial_linear_velocity)) * mass
-				if not is_melee_item :
-					if item_damage > 15:
-						item_damage = 5
+				if not is_higher_damage :
+					if item_damage > 5:
+						item_damage = 2
 				print(" damage  inflicted on: ", body_found.name, " is: ",item_damage)
 				body_found.damage(item_damage, melee_damage_type, body_found)
 				can_throw_damage = false
@@ -96,8 +96,8 @@ func set_item_state(value : int) :
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
 
-func implement_throw_logic(is_melee):
-	is_melee_item = is_melee
+func implement_throw_logic(higher_damage):
+	is_higher_damage = higher_damage
 	can_throw_damage = true
 
 func play_drop_sound(body):

@@ -649,7 +649,11 @@ func handle_inventory(delta : float):
 			# it exits the tree and is re inserted in the world
 			var x_pos = item.global_transform.origin.x
 			#Applies unique throw  logic to item if its a melee item
-			if item is MeleeItem :
+			if item is MeleeItem:
+				item.apply_throw_logic(impulse)
+				item.add_collision_exception_with(character)
+				item.implement_throw_logic(true)
+			elif item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
 				item.apply_throw_logic(impulse)
 				item.add_collision_exception_with(character)
 				item.implement_throw_logic(true)

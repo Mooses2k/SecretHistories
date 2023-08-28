@@ -58,9 +58,6 @@ mesh = SubResource( 6 )
 transform = Transform( 0.0006, 0, 0, 0, -2.62268e-11, -0.0006, 0, 0.0006, -2.62268e-11, -2.26165e-05, -0.00244474, -4.92275e-05 )
 shape = SubResource( 9 )
 
-[node name="HoldPosition" parent="." index="2"]
-unique_name_in_owner = false
-
 [node name="CooldownTimer" type="Timer" parent="." index="3"]
 wait_time = 0.5
 one_shot = true

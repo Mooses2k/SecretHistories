@@ -28,6 +28,10 @@ surfaces/0 = {
 "vertex_count": 18110
 }
 
+[sub_resource type="CylinderShape" id=126]
+height = 0.1
+radius = 0.2
+
 [sub_resource type="ConvexPolygonShape" id=90]
 points = PoolVector3Array( 0.373039, 0.0517244, 0.433964, 0.302016, -0.0294756, 0.433964, 0.388271, -0.0294756, 0.433964, 0.337538, -0.0193215, 0.474564, 0.298305, 0.0860758, 0.465117, 0.408572, 0.0821867, 0.474564, 0.410278, -0.0312632, 0.464735, 0.312157, 0.0771042, 0.439043, 0.40908, 0.0827192, 0.459384, 0.307086, 0.0162233, 0.474564, 0.408572, 0.0162233, 0.444118, 0.302016, 0.0618785, 0.433964, 0.302016, -0.0294756, 0.449193, 0.408572, 0.0415812, 0.474564, 0.373039, 0.0821867, 0.474564, 0.307086, -0.0193215, 0.469481, 0.342608, 0.0821867, 0.444118, 0.388271, 0.0314271, 0.433964, 0.408572, -0.0294756, 0.449193, 0.317237, -0.0294756, 0.459335, 0.357819, 0.0618785, 0.433964 )
 
@@ -136,10 +140,6 @@ points = PoolVector3Array( 0.296922, 0.0162035, 0.571, 0.307077, -0.0345511, 0.5
 [sub_resource type="ConvexPolygonShape" id=125]
 points = PoolVector3Array( -0.02284, -0.0040938, 0.256292, 0.02284, 0.000977781, 0.286738, 0.02284, -0.0040938, 0.286738, 0.0192373, 0.017462, 0.0738296, 0.0136899, -0.0209321, 0.0743027, -0.0192373, 0.017462, 0.0738296, -0.00761035, 0.02128, 0.322274, -0.0126854, -0.0193244, 0.322274, -0.0191047, -0.0153971, 0.0747197, 0.0126854, -0.0193244, 0.322274, 0.0177605, 0.0161965, 0.312118, 0.00816604, 0.0227624, 0.0750384, -0.0177605, 0.0161965, 0.312118, 0.0191047, -0.0153971, 0.0747197, -0.0136899, -0.0209321, 0.0743027, 0.0126854, 0.02128, 0.276581, -0.00816604, 0.0227624, 0.0750384, -0.0177605, -0.0142449, 0.322274, -0.02284, 0.00605334, 0.276581, 0.0177605, -0.0142449, 0.322274, -0.0126854, 0.02128, 0.276581 )
 
-[sub_resource type="CylinderShape" id=126]
-height = 0.1
-radius = 0.2
-
 [sub_resource type="Animation" id=50]
 length = 0.001
 tracks/0/type = "value"
@@ -200,8 +200,6 @@ extents = Vector3( 0.27, 0.05, 0.05 )
 
 [node name="Candelabra" instance=ExtResource( 56 )]
 mass = 0.2
-contacts_reported = 2
-contact_monitor = true
 script = ExtResource( 3 )
 item_drop_sound = ExtResource( 8 )
 item_name = "Candelabra"
@@ -209,170 +207,169 @@ life_percentage_lose = 0.2
 prob_going_out = 0.9
 number_of_candles = 3
 
-[node name="MeshInstance" parent="." index="3"]
+[node name="MeshInstance" parent="." index="0"]
 transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
 
-[node name="CollisionShape37" type="CollisionShape" parent="." index="4"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 90 )
-
-[node name="CollisionShape36" type="CollisionShape" parent="." index="5"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 91 )
-
-[node name="CollisionShape35" type="CollisionShape" parent="." index="6"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 92 )
-
-[node name="CollisionShape34" type="CollisionShape" parent="." index="7"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 93 )
-
-[node name="CollisionShape33" type="CollisionShape" parent="." index="8"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 94 )
-
-[node name="CollisionShape32" type="CollisionShape" parent="." index="9"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 95 )
-
-[node name="CollisionShape31" type="CollisionShape" parent="." index="10"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 96 )
-
-[node name="CollisionShape30" type="CollisionShape" parent="." index="11"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 97 )
-
-[node name="CollisionShape29" type="CollisionShape" parent="." index="12"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 98 )
-
-[node name="CollisionShape28" type="CollisionShape" parent="." index="13"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 99 )
-
-[node name="CollisionShape27" type="CollisionShape" parent="." index="14"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 100 )
-
-[node name="CollisionShape26" type="CollisionShape" parent="." index="15"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 101 )
-
-[node name="CollisionShape25" type="CollisionShape" parent="." index="16"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 102 )
-
-[node name="CollisionShape24" type="CollisionShape" parent="." index="17"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 103 )
-
-[node name="CollisionShape23" type="CollisionShape" parent="." index="18"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 104 )
-
-[node name="CollisionShape22" type="CollisionShape" parent="." index="19"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 105 )
-
-[node name="CollisionShape21" type="CollisionShape" parent="." index="20"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 106 )
-
-[node name="CollisionShape20" type="CollisionShape" parent="." index="21"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 107 )
-
-[node name="CollisionShape19" type="CollisionShape" parent="." index="22"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 108 )
-
-[node name="CollisionShape18" type="CollisionShape" parent="." index="23"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 109 )
-
-[node name="CollisionShape17" type="CollisionShape" parent="." index="24"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 110 )
-
-[node name="CollisionShape16" type="CollisionShape" parent="." index="25"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 111 )
-
-[node name="CollisionShape15" type="CollisionShape" parent="." index="26"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 112 )
-
-[node name="CollisionShape14" type="CollisionShape" parent="." index="27"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 113 )
-
-[node name="CollisionShape13" type="CollisionShape" parent="." index="28"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 114 )
-
-[node name="CollisionShape12" type="CollisionShape" parent="." index="29"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 115 )
-
-[node name="CollisionShape11" type="CollisionShape" parent="." index="30"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 116 )
-
-[node name="CollisionShape10" type="CollisionShape" parent="." index="31"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 117 )
-
-[node name="CollisionShape9" type="CollisionShape" parent="." index="32"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 118 )
-
-[node name="CollisionShape8" type="CollisionShape" parent="." index="33"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 119 )
-
-[node name="CollisionShape7" type="CollisionShape" parent="." index="34"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 120 )
-
-[node name="CollisionShape6" type="CollisionShape" parent="." index="35"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 121 )
-
-[node name="CollisionShape5" type="CollisionShape" parent="." index="36"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 122 )
-
-[node name="CollisionShape4" type="CollisionShape" parent="." index="37"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 123 )
-
-[node name="CollisionShape3" type="CollisionShape" parent="." index="38"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 124 )
-
-[node name="CollisionShape2" type="CollisionShape" parent="." index="39"]
-transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
-shape = SubResource( 125 )
-
-[node name="CollisionShape" parent="." index="40"]
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.246153, 0 )
 shape = SubResource( 126 )
 
-[node name="HoldPosition" parent="." index="41"]
-unique_name_in_owner = false
+[node name="HoldPosition" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.103087, 0 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="42"]
+[node name="CollisionShape37" type="CollisionShape" parent="." index="3"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 90 )
+
+[node name="CollisionShape36" type="CollisionShape" parent="." index="4"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 91 )
+
+[node name="CollisionShape35" type="CollisionShape" parent="." index="5"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 92 )
+
+[node name="CollisionShape34" type="CollisionShape" parent="." index="6"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 93 )
+
+[node name="CollisionShape33" type="CollisionShape" parent="." index="7"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 94 )
+
+[node name="CollisionShape32" type="CollisionShape" parent="." index="8"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 95 )
+
+[node name="CollisionShape31" type="CollisionShape" parent="." index="9"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 96 )
+
+[node name="CollisionShape30" type="CollisionShape" parent="." index="10"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 97 )
+
+[node name="CollisionShape29" type="CollisionShape" parent="." index="11"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 98 )
+
+[node name="CollisionShape28" type="CollisionShape" parent="." index="12"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 99 )
+
+[node name="CollisionShape27" type="CollisionShape" parent="." index="13"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 100 )
+
+[node name="CollisionShape26" type="CollisionShape" parent="." index="14"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 101 )
+
+[node name="CollisionShape25" type="CollisionShape" parent="." index="15"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 102 )
+
+[node name="CollisionShape24" type="CollisionShape" parent="." index="16"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 103 )
+
+[node name="CollisionShape23" type="CollisionShape" parent="." index="17"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 104 )
+
+[node name="CollisionShape22" type="CollisionShape" parent="." index="18"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 105 )
+
+[node name="CollisionShape21" type="CollisionShape" parent="." index="19"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 106 )
+
+[node name="CollisionShape20" type="CollisionShape" parent="." index="20"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 107 )
+
+[node name="CollisionShape19" type="CollisionShape" parent="." index="21"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 108 )
+
+[node name="CollisionShape18" type="CollisionShape" parent="." index="22"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 109 )
+
+[node name="CollisionShape17" type="CollisionShape" parent="." index="23"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 110 )
+
+[node name="CollisionShape16" type="CollisionShape" parent="." index="24"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 111 )
+
+[node name="CollisionShape15" type="CollisionShape" parent="." index="25"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 112 )
+
+[node name="CollisionShape14" type="CollisionShape" parent="." index="26"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 113 )
+
+[node name="CollisionShape13" type="CollisionShape" parent="." index="27"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 114 )
+
+[node name="CollisionShape12" type="CollisionShape" parent="." index="28"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 115 )
+
+[node name="CollisionShape11" type="CollisionShape" parent="." index="29"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 116 )
+
+[node name="CollisionShape10" type="CollisionShape" parent="." index="30"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 117 )
+
+[node name="CollisionShape9" type="CollisionShape" parent="." index="31"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 118 )
+
+[node name="CollisionShape8" type="CollisionShape" parent="." index="32"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 119 )
+
+[node name="CollisionShape7" type="CollisionShape" parent="." index="33"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 120 )
+
+[node name="CollisionShape6" type="CollisionShape" parent="." index="34"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 121 )
+
+[node name="CollisionShape5" type="CollisionShape" parent="." index="35"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 122 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="." index="36"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 123 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="." index="37"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 124 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="." index="38"]
+transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
+shape = SubResource( 125 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="39"]
 autoplay = "flicker"
 anims/RESET = SubResource( 50 )
 anims/flicker = SubResource( 51 )
 
-[node name="Candle1" type="Spatial" parent="." index="43"]
+[node name="Candle1" type="Spatial" parent="." index="40"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0.133646, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle1" index="0"]
@@ -408,7 +405,7 @@ light_energy = 0.25
 shadow_enabled = true
 omni_attenuation = 4.0
 
-[node name="Candle2" type="Spatial" parent="." index="44"]
+[node name="Candle2" type="Spatial" parent="." index="41"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00296439, 0.0710616, -0.201684 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle2" index="0"]
@@ -437,7 +434,7 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Candle3" type="Spatial" parent="." index="45"]
+[node name="Candle3" type="Spatial" parent="." index="42"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.000640959, 0.0715551, 0.194067 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle3" index="0"]
@@ -466,26 +463,26 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Ignite" type="Area" parent="." index="46" groups=["IGNITE"]]
+[node name="Ignite" type="Area" parent="." index="43" groups=["IGNITE"]]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00712366, 0.353032, -0.00613392 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ignite" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.051268, 0 )
 shape = SubResource( 89 )
 
-[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="47"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="44"]
 stream = ExtResource( 1 )
 bus = "Effects"
 
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="48"]
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="45"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 7 )
 bus = "Effects"
 
-[node name="Timer" type="Timer" parent="." index="49"]
+[node name="Timer" type="Timer" parent="." index="46"]
 
-[node name="Timer2" type="Timer" parent="." index="50"]
+[node name="Timer2" type="Timer" parent="." index="47"]
 
-[node name="Timer3" type="Timer" parent="." index="51"]
+[node name="Timer3" type="Timer" parent="." index="48"]
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

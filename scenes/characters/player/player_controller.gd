@@ -485,6 +485,8 @@ func throw_consumable(item):
 		# At this point, the item is still equipped, so we wait until
 		# it exits the tree and is re inserted in the world
 		item.apply_central_impulse(impulse)
+		item.add_collision_exception_with(character)
+		item.implement_throw_logic(false)
 
 
 func handle_inventory(delta : float):
@@ -637,16 +639,28 @@ func handle_inventory(delta : float):
 			item = character.inventory.get_offhand_item()
 			character.inventory.drop_offhand_item()
 		if item:
+			if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+				throw_strength = 20
+			else:
+				throw_strength = 25
+				
 			var impulse = active_mode.get_aim_direction()*throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
 			var x_pos = item.global_transform.origin.x
 			#Applies unique throw  logic to item if its a melee item
-			if item is MeleeItem :
+			if item is MeleeItem:
 				item.apply_throw_logic(impulse)
+				item.add_collision_exception_with(character)
+				item.implement_throw_logic(true)
+			elif item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+				item.apply_throw_logic(impulse)
+				item.add_collision_exception_with(character)
+				item.implement_throw_logic(true)
 			else:
 				item.apply_central_impulse(impulse)
-
+				item.add_collision_exception_with(character)
+				item.implement_throw_logic(false)
 	update_throw_state(delta)
 
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
@@ -691,8 +705,17 @@ func drop_grabbable():
 			is_grabbing = false
 			interaction_handled = true
 			var impulse = active_mode.get_aim_direction() * throw_strength
+			if grab_object is MeleeItem :
+				grab_object.item_state = GlobalConsts.ItemState.DAMAGING
+				grab_object.apply_throw_logic(impulse)
+				grab_object.add_collision_exception_with(character)
+				grab_object.implement_throw_logic(true)
+			else:
+				grab_object.item_state = GlobalConsts.ItemState.DAMAGING
+				grab_object.apply_central_impulse(impulse)
+				grab_object.add_collision_exception_with(character)
+				grab_object.implement_throw_logic(false)
 			wanna_grab = false
-			grab_object.apply_central_impulse(impulse)
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false
 

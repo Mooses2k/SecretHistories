@@ -339,8 +339,8 @@ func unequip_offhand_item():
 		pass
 	else:
 		set_offhand_slot(10)
-#		if current_offhand_slot != 10:
-		item.get_parent().remove_child(item)
+		if item != null:
+			item.get_parent().remove_child(item)
 
 
 func drop_mainhand_item():
@@ -390,7 +390,8 @@ func drop_hotbar_slot(slot : int) -> Node:
 # Drops the item, it must be unequipped first
 # Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
-	item.item_state = GlobalConsts.ItemState.DROPPED
+#	item.item_state = GlobalConsts.ItemState.DROPPED
+	item.item_state = GlobalConsts.ItemState.DAMAGING
 	if !GameManager.game:   # This is here for test scenes
 		item.global_transform = drop_position_node.global_transform
 		find_parent("TestWorld").add_child(item)

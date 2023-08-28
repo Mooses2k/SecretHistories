@@ -27,9 +27,10 @@ var noise_level : float = 0   # Noise detectable by characters; is a float for s
 var item_max_noise_level = 5
 var item_sound_level = 10
 var can_throw_damage : bool
+var has_thrown = false
 var is_melee_item = false
 var decelration_factor = 0.900000000
-
+var initial_linear_velocity
 
 func _enter_tree():
 	if not audio_player:
@@ -60,33 +61,31 @@ func _physics_process(delta):
 func throw_damage(delta):
 	if can_throw_damage:
 		var bodies = get_colliding_bodies()
-		
+		if has_thrown == false:
+			initial_linear_velocity = linear_velocity.z
+			has_thrown = true
+
 		for body_found in bodies:
 			if body_found.is_in_group("CHARACTER"):
-				var item_damage 
-				if is_melee_item:
-					item_damage = int(abs(linear_velocity.z)) * int(mass) * 4
-				else:
-					item_damage = int(abs(linear_velocity.z)) * int(mass) 
-					
-				if item_damage < 1:
-					if is_melee_item:
-						item_damage = 3
-					else:
-						item_damage = 2
-						
+				var item_damage = int(abs(initial_linear_velocity)) * int(mass)
 				print(" damage  inflicted on: ", body_found.name, " is: ",item_damage)
 				body_found.damage(item_damage, melee_damage_type, body_found)
-				
 				can_throw_damage = false
+				has_thrown = false
 				decelerate_item_velocity(delta, true)
 				item_state = GlobalConsts.ItemState.DROPPED
-				
+				print("Linear velocity is: ", initial_linear_velocity)
 			else:
+				has_thrown = false
 				decelerate_item_velocity(delta, true)
 				can_throw_damage = false
 				item_state = GlobalConsts.ItemState.DROPPED
+				print("Linear velocity is: ", initial_linear_velocity)
 
+#		if is_melee_item:
+#			item_damage = int(abs(linear_velocity.z)) * int(mass) * 9
+#		else:
+#			item_damage = int(abs(linear_velocity.z)) * int(mass) 
 func decelerate_item_velocity(delta, decelerate):
 	if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 		if decelerate == true:

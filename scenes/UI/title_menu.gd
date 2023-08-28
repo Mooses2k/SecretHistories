@@ -21,9 +21,7 @@ func _on_ContinueButton_pressed():
 	pass   # Replace with function body once save/load implemented.
 
 
-#needs work
 func _on_StartButton_pressed():
-#	get_parent().title_menu_active = false    #doesn't work this stuff
 	var _error = get_tree().change_scene("res://scenes/UI/start_game_menu.tscn")
 
 

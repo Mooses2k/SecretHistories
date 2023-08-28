@@ -460,6 +460,7 @@ func _crouch(delta : float) -> void:
 			return
 
 
+# Move this to a character_anims.gd attached to AnimationPlayer
 func check_state_animation(delta):
 	var forwards_velocity
 	var sideways_velocity

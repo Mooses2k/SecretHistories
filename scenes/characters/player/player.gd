@@ -2,8 +2,8 @@ class_name Player
 extends Character
 
 
-signal change_off_equipment_out_done()
-signal change_main_equipment_out_done()
+#signal change_off_equipment_out_done()
+#signal change_main_equipment_out_done()
 
 var colliding_pickable_items = []
 var colliding_interactable_items = []
@@ -18,7 +18,7 @@ onready var player_controller = $PlayerController
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
 onready var gun_cam = $FPSCamera/ViewportContainer/Viewport/GunCam   # Fixed fov player viewport so stuff doesn't go through walls
-onready var grab_cast = $FPSCamera/GrabCast
+onready var grabcast = $FPSCamera/GrabCast
 onready var player_animation_tree = $"%AnimationTree"
 onready var hit_effect = $HitEffect
 
@@ -61,16 +61,16 @@ func drop_consumable(item):
 ### These five functions maybe better in fps_control_mode.gd?
 
 func grab_indicator():
-	var grabable_object = grab_cast.get_collider()
+	var grabable_object = grabcast.get_collider()
 
 	if grabable_object != null:
-		if grab_cast.is_colliding() and grabable_object is PickableItem and player_controller.is_grabbing == false:
+		if grabcast.is_colliding() and grabable_object is PickableItem and player_controller.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
-		elif grab_cast.is_colliding() and grabable_object is RigidBody and player_controller.is_grabbing == false:
+		elif grabcast.is_colliding() and grabable_object is RigidBody and player_controller.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()
 		else:
 			$Indication_canvas/Indication_system/Grab.hide()
-		if grab_cast.is_colliding() and grabable_object.is_in_group("IGNITE") and $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
+		if grabcast.is_colliding() and grabable_object.is_in_group("IGNITE") and $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
 #			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
 				$Indication_canvas/Indication_system/Ignite.show()
 				if Input.is_action_just_pressed("player|interact"):
@@ -106,26 +106,23 @@ func _on_GrabCastDot_area_exited(area):
 
 
 ### These six functions below should maybe be in character.gd or should now be replaced by animations?
-
-func change_equipment_out(var is_mainhand : bool):
-	pass
+#
+#func change_equipment_out(var is_mainhand : bool):
+#	pass
 #	if(is_mainhand):
 #
 #		is_change_main_equip_out = true
 #	else:
 #
 #		is_change_off_equip_out = true
-
-
-func change_maindhand_equipment_out():
-	pass
-
-	emit_signal("change_main_equipment_out_done")
-
-
-func change_offhhand_equipment_out():
-	pass
-	emit_signal("change_off_equipment_out_done")
-
-
-
+#
+#
+#func change_maindhand_equipment_out():
+#	pass
+#
+#	emit_signal("change_main_equipment_out_done")
+#
+#
+#func change_offhhand_equipment_out():
+#	pass
+#	emit_signal("change_off_equipment_out_done")

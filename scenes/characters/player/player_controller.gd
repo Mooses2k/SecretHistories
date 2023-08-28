@@ -555,6 +555,8 @@ func handle_inventory(delta : float):
 
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("misc|change_screen_filter"):
+		# function this out maybe to a screen_filters.gd attached to ScreenFilter
+		
 		# Cycle to next filter
 		current_screen_filter += 1
 

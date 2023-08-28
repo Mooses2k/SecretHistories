@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/256568__sjnewton__cork.mp3-2d005b597df0c672ff2abea666da8260.mp3str"
+
+[deps]
+
+source_file="res://resources/sounds/bottles_and_drinking/256568__sjnewton__cork.mp3"
+dest_files=[ "res://.import/256568__sjnewton__cork.mp3-2d005b597df0c672ff2abea666da8260.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

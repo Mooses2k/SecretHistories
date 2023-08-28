@@ -43,6 +43,7 @@ func _physics_process(delta):
 func check_player_animation():
 	
 	#___________offhand_object_______________#
+	
 	if inventory.current_offhand_equipment is GunItem:
 		adjust_arm()
 		animation_tree.set("parameters/Hand_Transition/current",0)
@@ -97,8 +98,7 @@ func check_player_animation():
 			animation_tree.set("parameters/Hand_Transition/current",0)
 			animation_tree.set("parameters/Weapon_states/current",0)
 			animation_tree.set("parameters/Hold_Animation/current",0)
-
-
+	
 	elif inventory.current_mainhand_equipment == null:
 		animation_tree.set("parameters/Hand_Transition/current",0)
 		animation_tree.set("parameters/Weapon_states/current",4)
@@ -110,6 +110,7 @@ func unequip_offhand():
 
 func adjust_arm():
 	is_on_ads = false
+	
 	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.115), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
 	$"%ADSTween".start()
 
@@ -172,13 +173,11 @@ func end_ads():
 
 
 func _on_Inventory_inventory_changed():
-
 	yield(get_tree().create_timer(0.5), "timeout")
 	check_player_animation()
 
 
 func switch_mainhand_item_animation():
-	
 	animation_tree.set("parameters/Hand_Transition/current",0)
 	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 	animation_tree.set("parameters/Weapon_states/current",4)

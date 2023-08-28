@@ -91,7 +91,6 @@ func add_item(item : PickableItem) -> bool:
 		item.queue_free()
 		emit_signal("inventory_changed")
 	
-	
 	if item is KeyItem:
 		if not keychain.has(item.key_id):
 			keychain[item.key_id] = 0
@@ -436,6 +435,7 @@ func set_offhand_slot(value : int):
 		emit_signal("inventory_changed")
 
 
+# Currently bugged and moves out of position over time - issue #402
 func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position:
 		item.get_parent().remove_child(item)

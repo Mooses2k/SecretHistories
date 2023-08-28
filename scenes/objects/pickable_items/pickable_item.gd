@@ -67,25 +67,23 @@ func throw_damage(delta):
 
 		for body_found in bodies:
 			if body_found.is_in_group("CHARACTER"):
-				var item_damage = int(abs(initial_linear_velocity)) * int(mass)
+				var item_damage = int(abs(initial_linear_velocity)) * mass
+				if not is_melee_item :
+					if item_damage > 15:
+						item_damage = 5
 				print(" damage  inflicted on: ", body_found.name, " is: ",item_damage)
 				body_found.damage(item_damage, melee_damage_type, body_found)
 				can_throw_damage = false
 				has_thrown = false
 				decelerate_item_velocity(delta, true)
 				item_state = GlobalConsts.ItemState.DROPPED
-				print("Linear velocity is: ", initial_linear_velocity)
 			else:
 				has_thrown = false
-				decelerate_item_velocity(delta, true)
 				can_throw_damage = false
+				decelerate_item_velocity(delta, true)
 				item_state = GlobalConsts.ItemState.DROPPED
-				print("Linear velocity is: ", initial_linear_velocity)
+				
 
-#		if is_melee_item:
-#			item_damage = int(abs(linear_velocity.z)) * int(mass) * 9
-#		else:
-#			item_damage = int(abs(linear_velocity.z)) * int(mass) 
 func decelerate_item_velocity(delta, decelerate):
 	if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 		if decelerate == true:

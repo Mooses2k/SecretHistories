@@ -20,10 +20,8 @@ export var reload_time = 0.0
 export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
-
 export var handling = 5.0
 export var animation_reload_sequence : int 
-
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
 

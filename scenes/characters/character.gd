@@ -356,10 +356,10 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	if is_crouching and is_jumping:
 		velocity = move_and_slide((velocity) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, false)
+				Vector3.UP, true, 4, PI / 4, true)
 	else:
 		velocity = move_and_slide((velocity * speed_mod) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, false)
+				Vector3.UP, true, 4, PI / 4, true)
 	
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false

@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resources/models/items/components/bones_and_bodies/M_Skull3.material" type="Material" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/equipment_item.gd" type="Script" id=3]
-[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=4]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "skull3_skull1"
@@ -26,40 +25,35 @@ points = PoolVector3Array( 0.00038167, 0.0688957, -0.0570484, 0.0377695, -0.0772
 [sub_resource type="SphereShape" id=8]
 radius = 0.101082
 
-[node name="Skull3" type="RigidBody"]
+[node name="Skull3" instance=ExtResource( 9 )]
 collision_layer = 64
-script = ExtResource( 3 )
-dropped_layers = 64
-dropped_mask = 1
-equipped_mode = 3
-item_drop_sound = ExtResource( 4 )
 item_size = 0
 item_name = "Skull"
-horizontal_holding = true
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance" parent="." index="3"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 mesh = SubResource( 1 )
+script = null
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="CollisionShape" parent="." index="4"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 shape = SubResource( 9 )
 
-[node name="Hitbox" type="Area" parent="."]
+[node name="Hitbox" type="Area" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.279591, 0 )
 collision_layer = 0
 collision_mask = 12
 monitorable = false
 script = ExtResource( 2 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273551, 0 )
 shape = SubResource( 8 )
 
-[node name="HoldPosition" type="Position3D" parent="."]
-unique_name_in_owner = true
+[node name="HoldPosition" parent="." index="6"]
+unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 0.939214, 0.343332, 0, -0.343332, 0.939214, 0, 0.0467758, -0.050936 )
 
-[node name="CooldownTimer" type="Timer" parent="."]
+[node name="CooldownTimer" type="Timer" parent="." index="7"]
 wait_time = 0.5
 one_shot = true

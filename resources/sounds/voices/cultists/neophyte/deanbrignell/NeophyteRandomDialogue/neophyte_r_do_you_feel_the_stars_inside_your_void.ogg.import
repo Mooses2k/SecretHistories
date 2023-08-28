@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg-d35960b8a28efda17659bdc53037fb7a.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg"
+dest_files=[ "res://.import/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg-d35960b8a28efda17659bdc53037fb7a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

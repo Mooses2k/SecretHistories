@@ -6,7 +6,6 @@
 [ext_resource path="res://resources/sounds/locks/164638__deleted-user-2104797__lock-rattle-3.wav" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/locks/483605__raclure__mechanical-key.ogg" type="AudioStream" id=5]
 
-
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.05, 0.05, 0.05 )
 
@@ -26,6 +25,8 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.1, -
 
 [node name="JiggleSound" type="AudioStreamPlayer3D" parent="." index="3"]
 stream = ExtResource( 4 )
+bus = "Effects"
 
 [node name="AddPadlockSound" type="AudioStreamPlayer3D" parent="." index="4"]
 stream = ExtResource( 5 )
+bus = "Effects"

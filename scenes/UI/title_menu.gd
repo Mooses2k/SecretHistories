@@ -13,17 +13,15 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed("fullscreen"):
-		VideoSettings.set_fullscreen_enabled(!VideoSettings.is_fullscreen_enabled())
+	if event.is_action_pressed("misc|fullscreen"):
+		VideoSettings.set_fullscreen_enabled(!VideoSettings.fullscreen_enabled)
 
 
 func _on_ContinueButton_pressed():
 	pass   # Replace with function body once save/load implemented.
 
 
-#needs work
 func _on_StartButton_pressed():
-#	get_parent().title_menu_active = false    #doesn't work this stuff
 	var _error = get_tree().change_scene("res://scenes/UI/start_game_menu.tscn")
 
 
@@ -32,7 +30,7 @@ func _on_SettingsButton_pressed():
 
 
 func _on_CreditsButton_pressed():
-	pass   # Replace with function body once Credits screen implemented.
+	OS.shell_open("https://github.com/Mooses2k/SecretHistories/wiki") 
 
 
 func _on_QuitButton_pressed():

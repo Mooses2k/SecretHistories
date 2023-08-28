@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/the_owls_are_not_what_they_seem.ogg-9c621e3bc95d25d36e6dffd75e2816fc.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/the_owls_are_not_what_they_seem.ogg"
+dest_files=[ "res://.import/the_owls_are_not_what_they_seem.ogg-9c621e3bc95d25d36e6dffd75e2816fc.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

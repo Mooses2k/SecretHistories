@@ -20,7 +20,7 @@ enum OriginalPurpose{
 	WELL # (2x2 max)
 }
 
-enum CurrentPurpose{
+enum CurrentUse{
 	UNUSED,
 	KITCHEN, # (not well)
 	PANTRY, # (3x3 max, 1 door, no wall lighting)

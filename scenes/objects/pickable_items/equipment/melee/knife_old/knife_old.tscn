@@ -1,18 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/knife_old/M_OldKnife.material" type="Material" id=4]
-[ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=5]
-[ext_resource path="res://resources/sounds/melee/blade/attack/525182__sophia-c__longsword-swing-2-poor-edge-alignment.wav" type="AudioStream" id=6]
-[ext_resource path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=8]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=9]
-
-[sub_resource type="CylinderShape" id=3]
-height = 0.165698
-radius = 0.0555477
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ArrayMesh" id=4]
 resource_name = "OldKnife_meshId1_name003"
@@ -32,77 +22,60 @@ surfaces/0 = {
 [sub_resource type="ConvexPolygonShape" id=5]
 points = PoolVector3Array( -0.0866853, 0.000792582, -0.00313829, 0.00822016, 0.0133431, 0.000781586, 0.113286, 0.0102034, 0.000781586, -0.0803963, -0.00782781, 0.00470361, 0.0568423, -0.0141072, -0.000785506, 0.0121312, 0.00784864, -0.00549216, -0.0772518, 0.0117733, 0.00470361, -0.0780379, -0.0125374, -0.00313829, -0.0772518, 0.0117733, -0.00470754, 0.011345, 0.00863357, 0.00548824, 0.0121312, -0.0133223, 0.00313437, 0.0121312, -0.00861273, -0.00470754, 0.101514, 0.00471446, -0.00157013, 0.0928863, -0.00626071, 0.000781586, -0.0717882, 7.6539e-06, -0.00549216, -0.074913, -0.0141072, 0.00156621, 0.00898663, 0.0125582, -0.00313829, -0.0803963, 0.0094185, 0.00548824, 0.0121312, -0.0109675, 0.00391899, -0.0803963, 0.0133431, 0.000781586, 0.0983892, 0.0102034, -0.00157013, 0.0121312, -0.0148922, -0.00157013, 0.00898663, 0.0125582, 0.00313437, 0.0960308, -0.00469362, -0.000785506, 0.101514, 0.00471446, 0.00156621, -0.0803963, -0.00782781, -0.00470754, -0.0803963, 0.0094185, -0.00549216, -0.0717882, 7.6539e-06, 0.00548824, -0.0866853, 0.00706371, 0.00235083, 0.0709336, -0.0125346, 0.000781586, -0.0827547, -0.0109675, 0.00235083, 0.0121312, -0.0148922, 0.00156621, 0.00898663, 0.0109884, -0.00470754, 0.0121312, -0.0133223, -0.00313829, -0.0772518, 0.0133431, -0.00235475, -0.0780379, -0.0125374, 0.00313437, -0.0851131, 0.0094185, -0.00392291, 0.00898663, 0.0109884, 0.00470361, -0.074913, -0.0141072, -0.00157013, 0.00743403, 0.0133431, -0.00157013, -0.0843073, -0.00390869, 0.00470361, 0.114092, 0.00863357, -0.000785506, -0.0772518, 0.0133431, 0.00235083, 0.0121312, 0.00549939, -0.00549216, -0.0835408, -0.00939766, -0.00313829, -0.0866853, -0.00233607, 0.00235083, -0.074913, -0.0109675, -0.00392291, -0.0851131, 0.0094185, 0.00391899, 0.106231, 0.00157475, 0.000781586, -0.0851131, 0.00157751, -0.00470754, -0.074913, -0.0109675, 0.00391899, 0.0983892, 0.0102034, 0.00156621, 0.0819198, -0.0101826, 0.000781586, 0.0646643, -0.0133223, 0.000781586, -0.0615685, 0.0125582, -0.00392291, -0.0615685, 0.0125582, 0.00391899, -0.0851131, 0.00706371, 0.00470361, -0.0803963, -0.0125374, -0.00235475, 0.101514, 0.0094185, -0.00157013, 0.101514, 0.0094185, 0.00156621, -0.0811824, 0.0125582, -0.00313829, -0.0835408, -0.00547302, -0.00470754, -0.0772518, -0.0141072, 0.000781586, -0.0851131, -0.00625795, -0.00313829 )
 
-[node name="OldKnife" type="RigidBody"]
+[sub_resource type="CylinderShape" id=3]
+height = 0.165698
+radius = 0.0555477
+
+[node name="OldKnife" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0130187, 0 )
-collision_layer = 64
-continuous_cd = true
 contacts_reported = 2
 contact_monitor = true
-script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
-equipped_mode = 3
-item_drop_sound = ExtResource( 9 )
 item_size = 0
 item_name = "Knife"
 weapon_type = 1
-melee_damage = 25
+primary_damage_type1 = 2
+primary_damage1 = 20
+primary_damage_type2 = 1
+primary_damage2 = 5
+secondary_damage_type1 = 1
+secondary_damage1 = 25
 throw_logic = true
 can_spin = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-melee_damage_type = 2
 
-[node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -3.59989e-21, 4.37114e-08, 1, -4.37114e-08, 0, -0.0289248, 0 )
+mesh = SubResource( 4 )
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="Hitbox" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.607795, 0 )
-collision_layer = 0
-collision_mask = 12
-monitorable = false
-script = ExtResource( 2 )
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.0289248, 0 )
+shape = SubResource( 5 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
+[node name="Hitbox" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.368422, 0 )
+
+[node name="CollisionShape" parent="Hitbox" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.376374, 0 )
 shape = SubResource( 3 )
 
-[node name="SM_oldknife" type="MeshInstance" parent="."]
-transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.0289248, 0 )
-mesh = SubResource( 4 )
-script = ExtResource( 3 )
+[node name="CooldownTimer" parent="." index="3"]
+wait_time = 0.5
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.0289248, 0 )
-shape = SubResource( 5 )
-
-[node name="HoldPosition" type="Position3D" parent="."]
+[node name="HoldPosition" parent="." index="4"]
+unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0639144, 0 )
 
-[node name="NormalPosition" type="Position3D" parent="."]
+[node name="NormalPosition" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0131438, 0 )
 
-[node name="ThrowPosition" type="Position3D" parent="."]
+[node name="ThrowPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202506, 0 )
 
-[node name="Sounds" type="Spatial" parent="."]
-
-[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
-
-[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
-
-[node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 7 )
-
-[node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 6 )
-
-[node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 5 )
-
-[node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 8 )
-
-[node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 8 )

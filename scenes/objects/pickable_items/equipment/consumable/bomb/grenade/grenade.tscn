@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd" type="Script" id=1]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Material.material" type="Material" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Normal.png" type="Texture" id=6]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Roughness.png" type="Texture" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/_bomb.tscn" type="PackedScene" id=8]
+[ext_resource path="res://resources/sounds/explosion/fuse/102264__rytmenpinnen__onesparkler.ogg" type="AudioStream" id=9]
 [ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=10]
 [ext_resource path="res://scenes/effects/explosion/smokeshader.tres" type="Shader" id=11]
 [ext_resource path="res://scenes/effects/effects.gd" type="Script" id=12]
@@ -123,8 +124,7 @@ __meta__ = {
 }
 item_name = "Grenade"
 radius = 10
-fragments = 400
-bomb_damage = 45.0
+bomb_damage = 150.0
 damage_type = 3
 
 [node name="MeshInstance" parent="." index="0"]
@@ -137,7 +137,7 @@ transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.000667825, 0 )
 shape = SubResource( 26 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0410383, 0.0608321 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0236034, -0.000669885, 0.0608321 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -178,7 +178,12 @@ local_coords = false
 process_material = SubResource( 30 )
 draw_pass_1 = SubResource( 35 )
 
-[node name="Flash" type="OmniLight" parent="." index="8"]
+[node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="8"]
+stream = ExtResource( 9 )
+unit_db = 5.0
+bus = "Effects"
+
+[node name="Flash" type="OmniLight" parent="." index="9"]
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 5.0
@@ -190,7 +195,7 @@ omni_attenuation = 7.0
 wait_time = 0.05
 one_shot = true
 
-[node name="Effect" type="Spatial" parent="." index="9"]
+[node name="Effect" type="Spatial" parent="." index="10"]
 script = ExtResource( 12 )
 sound_effect = ExtResource( 13 )
 

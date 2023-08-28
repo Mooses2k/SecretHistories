@@ -11,9 +11,11 @@ var _alive : bool = true
 var _type_damage_multiplier : PoolByteArray
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
+export (NodePath) var animation_tree_path 
 onready var current_health : float = self.max_health
 
 export var kick_damage : int
+onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
 
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
@@ -29,7 +31,7 @@ onready var drop_position_node = $Body/DropPosition
 onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs
 onready var skeleton = $"%Skeleton"
 onready var collision_shape = $CollisionShape
-onready var animation_tree = $AnimationTree
+onready var animation_tree = $"%AnimationTree"
 onready var additional_animations  = $AdditionalAnimations
 
 enum ItemSelection {
@@ -183,8 +185,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
-	check_state_animation(delta)
-	check_current_item_animation()
+	if animation_tree != null:
+		check_state_animation(delta)
+		check_current_item_animation()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -261,7 +264,7 @@ func slow_down(state : PhysicsDirectBodyState):
 	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
 
 
-func damage(value : float, type : int, on_hitbox : Hitbox):
+func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)
@@ -273,6 +276,8 @@ func damage(value : float, type : int, on_hitbox : Hitbox):
 			if self.name != "Player":
 				collision_shape.disabled = true
 				print("Character died")
+				self.inventory.drop_mainhand_item()
+				self.inventory.drop_offhand_item()
 				self.queue_free()
 #				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
 
@@ -332,7 +337,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		change_stamina(-0.3)
 		# Additionally, if encumbered, drain stamina more
 		if inventory.encumbrance > 0:
-			print("Draining additional stamina: ", (inventory.encumbrance / 10))
+#			print("Draining additional stamina: ", (inventory.encumbrance / 10))
 			change_stamina(-(inventory.encumbrance / 10))
 	else:
 		move_dir *= 0.8
@@ -351,10 +356,10 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	if is_crouching and is_jumping:
 		velocity = move_and_slide((velocity) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, false)
+				Vector3.UP, true, 4, PI / 4, true)
 	else:
 		velocity = move_and_slide((velocity * speed_mod) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, false)
+				Vector3.UP, true, 4, PI / 4, true)
 	
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
@@ -434,11 +439,11 @@ func _crouch(delta : float) -> void:
 		_crouch_collider.set_deferred("disabled", false)
 		_collider.set_deferred("disabled", true)
 	
-	var from = mainhand_equipment_root.transform.origin.y
-	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
-	
-	from = offhand_equipment_root.transform.origin.y
-	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#	var from = mainhand_equipment_root.transform.origin.y
+#	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#
+#	from = offhand_equipment_root.transform.origin.y
+#	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
 	if !is_on_floor() and !is_jumping:
 		velocity.y -= 5 * (gravity * delta)
@@ -455,6 +460,7 @@ func _crouch(delta : float) -> void:
 			return
 
 
+# Move this to a character_anims.gd attached to AnimationPlayer
 func check_state_animation(delta):
 	var forwards_velocity
 	var sideways_velocity
@@ -668,17 +674,18 @@ func check_current_item_animation():
 		# temporary hack (issue #409) - not sure it's necessary
 #		if not is_instance_valid(inventory.hotbar[mainhand_object]):
 #			inventory.hotbar[mainhand_object] = null
-		if is_instance_valid(inventory.hotbar[mainhand_object]):
-			if inventory.hotbar[mainhand_object] is GunItem:
-				if inventory.hotbar[mainhand_object].item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-					current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
-				else:
-					current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
-	#		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
-	#			print("Carried Lantern")
-				#update this to work for items animations
-			elif inventory.hotbar[mainhand_object] is MeleeItem:
-				current_mainhand_item_animation = hold_states.MELEE_ITEM
+		
+		if inventory.hotbar[mainhand_object] is GunItem:
+			if inventory.hotbar[mainhand_object].item_size == 0:
+				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
+			else:
+				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
+#		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
+#			print("Carried Lantern")
+			#update this to work for items animations
+		elif inventory.hotbar[mainhand_object] is MeleeItem:
+			current_mainhand_item_animation = hold_states.MELEE_ITEM
+
 
 
 func change_stamina(amount: float) -> void:
@@ -689,7 +696,7 @@ func _on_ClamberableChecker_body_entered(body):
 	if body.is_in_group("CLAMBERABLE"):
 		is_clamberable = body
 #
-#	if event.is_action_pressed("crouch"):
+#	if event.is_action_pressed("player|crouch"):
 #		if $crouch_timer.is_stopped(): # && !$AnimationTree.get(roll_active):
 #			$crouch_timer.start()
 #			$AnimationTree.tree_root.get_node("cs_transition").xfade_time = (velocity.length() + 1.5)/ 15.0

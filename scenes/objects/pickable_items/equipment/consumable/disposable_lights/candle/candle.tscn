@@ -1,15 +1,14 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=19 format=2]
 
-[ext_resource path="res://resources/shaders/items/consumables/light_sources/candle/flame.material" type="Material" id=1]
+[ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd" type="Script" id=3]
-[ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png" type="Texture" id=4]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/material/candle.tres" type="Material" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=6]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_MetallicSmoothness.png" type="Texture" id=7]
-[ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=8]
+[ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png" type="Texture" id=8]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_AlbedoTransparency.png" type="Texture" id=9]
-[ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=10]
 
 [sub_resource type="ArrayMesh" id=25]
 resource_local_to_scene = true
@@ -45,34 +44,19 @@ emission_on_uv2 = false
 emission_texture = SubResource( 24 )
 normal_enabled = true
 normal_scale = 1.0
-normal_texture = ExtResource( 4 )
-
-[sub_resource type="GDScript" id=27]
-script/source = "extends MeshInstance
-
-
-onready var parent = get_owner()
-
-
-# Tracking the objects state, in order to prevent clipping into walls when equipped
-func _process(delta):
-	if parent.mode == parent.equipped_mode:
-		layers = 2
-	else:
-		layers = 1
-"
+normal_texture = ExtResource( 8 )
 
 [sub_resource type="CylinderShape" id=52]
 height = 0.23
 radius = 0.06
 
-[sub_resource type="BoxShape" id=54]
+[sub_resource type="BoxShape" id=56]
 extents = Vector3( 0.05, 0.1, 0.05 )
 
-[sub_resource type="QuadMesh" id=8]
+[sub_resource type="QuadMesh" id=53]
 size = Vector2( 0.033, 0.1 )
 
-[sub_resource type="Animation" id=29]
+[sub_resource type="Animation" id=54]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Candle1/FireOrigin/Fire/Light:light_color")
@@ -123,7 +107,7 @@ tracks/3/keys = {
 "values": [ 0.25 ]
 }
 
-[sub_resource type="Animation" id=30]
+[sub_resource type="Animation" id=55]
 resource_name = "flicker"
 length = 5.0
 loop = true
@@ -140,15 +124,14 @@ tracks/0/keys = {
 "values": [ 0.25, 0.27, 0.23, 0.26 ]
 }
 
-[sub_resource type="BoxShape" id=53]
+[sub_resource type="BoxShape" id=57]
 extents = Vector3( 0.02, 0.02, 0.02 )
 
-[node name="Candle" type="RigidBody"]
-collision_layer = 0
-collision_mask = 0
-mass = 0.1
-continuous_cd = true
+[node name="Candle" instance=ExtResource( 4 )]
 script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": ""
+}
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
@@ -157,35 +140,40 @@ item_name = "Candle"
 life_percentage_lose = 0.2
 prob_going_out = 0.9
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, -0.0564424, 0 )
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, -0.0624287, 0 )
 mesh = SubResource( 25 )
 material/0 = SubResource( 26 )
-script = SubResource( 27 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0.000979346, 0.00391581, 8.01446e-05 )
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 shape = SubResource( 52 )
 
-[node name="CollisionShapeStopRolling" type="CollisionShape" parent="."]
+[node name="CollisionShapeStopRolling" type="CollisionShape" parent="." index="2"]
 transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0.000979346, 0.00391581, 8.01446e-05 )
-shape = SubResource( 54 )
+shape = SubResource( 56 )
 
-[node name="FireOrigin" type="Position3D" parent="."]
+[node name="HoldPosition" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="FireOrigin" type="Position3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286937, 0.0672564, 0 )
 script = ExtResource( 2 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin"]
+[node name="Fire" type="MeshInstance" parent="FireOrigin" index="0"]
 visible = false
 cast_shadow = 0
-mesh = SubResource( 8 )
+mesh = SubResource( 53 )
 material/0 = ExtResource( 1 )
 script = ExtResource( 6 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
+[node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
@@ -194,30 +182,16 @@ shadow_enabled = true
 omni_range = 4.5
 omni_attenuation = 4.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 autoplay = "flicker"
-anims/RESET = SubResource( 29 )
-anims/flicker = SubResource( 30 )
+anims/RESET = SubResource( 54 )
+anims/flicker = SubResource( 55 )
 
-[node name="BurnTime" type="Timer" parent="."]
+[node name="Burning" parent="Sounds" index="2"]
+stream = null
 
-[node name="Sounds" type="Spatial" parent="."]
+[node name="CollisionShape" parent="Ignite" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134021, 0 )
+shape = SubResource( 57 )
 
-[node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 8 )
-
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="Sounds"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
-stream = ExtResource( 10 )
-
-[node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0 )
-
-[node name="Ignite" type="Area" parent="." groups=["IGNITE"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0742746, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Ignite"]
-shape = SubResource( 53 )
-
-[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
-[connection signal="timeout" from="BurnTime" to="." method="_light_depleted"]
+[connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

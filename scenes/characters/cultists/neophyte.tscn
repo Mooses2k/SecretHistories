@@ -25,6 +25,7 @@
 [ext_resource path="res://scenes/sensors/touch_sensor.tscn" type="PackedScene" id=23]
 
 [sub_resource type="CapsuleShape" id=6]
+margin = 0.001
 radius = 0.4
 
 [node name="Cultist" instance=ExtResource( 1 )]
@@ -150,7 +151,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.81989, 0.561139, 0.114649, -0.0145915, -0.220587, 0.975299, 0.572556, 0.797958, 0.18899, -0.100491, 15.1043, 2.96099 )
+transform = Transform( -0.824899, 0.553971, 0.113897, -0.0115975, -0.217924, 0.97594, 0.565447, 0.803721, 0.186119, -0.12875, 15.1187, 2.97045 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
@@ -160,6 +161,8 @@ transform = Transform( 9.87362, 1.35419, 1.75424, 0.863589, -2.93904, -9.23556, 
 [node name="Hitbox" parent="." index="7" groups=["CHARACTER"]]
 visible = true
 collision_layer = 8
+collision_mask = 64
+monitoring = true
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 visible = false

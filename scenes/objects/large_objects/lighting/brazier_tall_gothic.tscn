@@ -218,6 +218,7 @@ loop = true
 
 [node name="BrazierTallGothic" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00217097, 0 )
+collision_layer = 513
 mass = 20.0
 continuous_cd = true
 script = ExtResource( 3 )

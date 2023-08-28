@@ -14,6 +14,8 @@ export var min_intersection_size : int = 3
 
 export(Array, WorldData.CellType) var override_cells : Array = [WorldData.CellType.EMPTY]
 
+var _initial_rooms_size := 0
+
 var actual_room_max : int
 var actual_room_min : int
 
@@ -21,6 +23,8 @@ var actual_room_min : int
 # Randomly generates a set of rooms into data, stores the generated rooms
 # as an array of Rect2 into gen_data, under the ket ROOM_ARRAY_KEY
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
+	if gen_data.has(ROOM_ARRAY_KEY):
+		_initial_rooms_size = gen_data[ROOM_ARRAY_KEY].size()
 	generate_rooms(data, gen_data, generation_seed)
 	fill_map_data(data, gen_data)
 
@@ -69,20 +73,9 @@ func check_room_space(data : WorldData, room : Rect2) -> bool:
 func fill_map_data(data : WorldData, gen_data : Dictionary):
 	var rooms : Array = gen_data.get(ROOM_ARRAY_KEY) as Array
 	
-	for index in range(1, rooms.size()):
+	for index in range(_initial_rooms_size, rooms.size()):
 		var room : Rect2 = rooms[index] as Rect2
-		_fill_room_data(data, room, data.CellType.ROOM, "generic")
-
-
-func _fill_room_data(data: WorldData, room: Rect2, cell_type: int, p_type: String) -> void:
-	var room_data := RoomData.new(p_type, room)
-	data.set_room(p_type, room_data)
-	for x in range(room.position.x, room.end.x):
-		for y in range(room.position.y, room.end.y):
-			var i = data.get_cell_index_from_int_position(x, y)
-			data.set_cell_type(i, cell_type)
-			data.clear_cell_meta(i)
-			room_data.add_cell_index(i)
+		data.fill_room_data(room, RoomData.OriginalPurpose.EMPTY)
 
 
 func _gen_room_rect(data : WorldData, random : RandomNumberGenerator) -> Rect2:

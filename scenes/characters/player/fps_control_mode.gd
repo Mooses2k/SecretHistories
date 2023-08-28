@@ -18,6 +18,9 @@ const DAMPENING_POWER = 0.0
 var up_recoil = 0.0
 var side_recoil = 0.0
 
+export var _gun_camera : NodePath
+onready var gun_camera : Camera = get_node(_gun_camera) as Camera
+
 
 func set_active(value : bool):
 	.set_active(value)
@@ -40,9 +43,9 @@ func _notification(what):
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		# Vertical
-		pitch_yaw.x -= event.relative.y * GlobalSettings.mouse_sensitivity * 0.01   # if this is anything 0.01, even if same as below, vertical speed is diff than horizontal - why?
+		pitch_yaw.x -= event.relative.y * InputSettings.setting_mouse_sensitivity * 0.01   # if this is anything 0.01, even if same as below, vertical speed is diff than horizontal - why?
 		# Horizontal
-		pitch_yaw.y -= event.relative.x * GlobalSettings.mouse_sensitivity * 0.01
+		pitch_yaw.y -= event.relative.x * InputSettings.setting_mouse_sensitivity * 0.01
 		pitch_yaw.x = clamp(pitch_yaw.x, -PI * 0.5, PI * 0.5)
 		pitch_yaw.y = wrapf(pitch_yaw.y, -PI, PI)
 
@@ -75,6 +78,9 @@ func update(delta):
 	# Finally, apply rotations
 	owner.character_body.rotation.y = pitch_yaw.y   # Horizontal
 	camera.rotation.x = pitch_yaw.x   # Vertical, you don't want to rotate the whole scene, just camera
+
+	# Guncam too - MUST BE DONE HERE OR WEIRD JITTERY HANDS BUG DEVELOPS
+	gun_camera.global_transform = camera.global_transform
 
 
 func get_movement_basis() -> Basis:

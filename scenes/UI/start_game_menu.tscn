@@ -22,6 +22,7 @@ margin_right = 1792.0
 margin_bottom = 1016.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
+visible = false
 margin_right = 1383.0
 margin_bottom = 952.0
 size_flags_horizontal = 3
@@ -37,7 +38,6 @@ size_flags_horizontal = 3
 custom_constants/separation = 16
 
 [node name="Column4" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 1387.0
 margin_right = 1664.0
 margin_bottom = 952.0
 size_flags_horizontal = 3
@@ -45,23 +45,36 @@ alignment = 2
 
 [node name="StartGame" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
-margin_top = 890.0
-margin_right = 277.0
-margin_bottom = 910.0
+margin_top = 848.0
+margin_right = 1664.0
+margin_bottom = 868.0
 text = "Start Game"
 
-[node name="LightNotice" type="Label" parent="HBoxContainer/Column4"]
+[node name="Spacer" type="Label" parent="HBoxContainer/Column4"]
+margin_top = 872.0
+margin_right = 1664.0
+margin_bottom = 886.0
+align = 1
+
+[node name="ShowDebugOptions" type="Button" parent="HBoxContainer/Column4"]
+unique_name_in_owner = true
+margin_top = 890.0
+margin_right = 1664.0
+margin_bottom = 910.0
+text = "Debug/Cheat Options"
+
+[node name="Spacer2" type="Label" parent="HBoxContainer/Column4"]
 margin_top = 914.0
-margin_right = 277.0
+margin_right = 1664.0
 margin_bottom = 928.0
 align = 1
 
 [node name="ReturnButton" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
 margin_top = 932.0
-margin_right = 277.0
+margin_right = 1664.0
 margin_bottom = 952.0
-text = "Return"
+text = "Back"
 
 [node name="StartGameSettings" type="Node" parent="."]
 unique_name_in_owner = true
@@ -82,6 +95,7 @@ margin_bottom = 1016.0
 stream = ExtResource( 5 )
 
 [connection signal="pressed" from="HBoxContainer/Column4/StartGame" to="." method="_on_StartGame_pressed"]
+[connection signal="pressed" from="HBoxContainer/Column4/ShowDebugOptions" to="HBoxContainer/ScrollContainer/SettingsUI" method="_on_ShowDebugOptions_pressed"]
 [connection signal="pressed" from="HBoxContainer/Column4/ReturnButton" to="." method="_on_ReturnButton_pressed"]
 [connection signal="intro_done" from="GameIntro" to="." method="_on_GameIntro_intro_done"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

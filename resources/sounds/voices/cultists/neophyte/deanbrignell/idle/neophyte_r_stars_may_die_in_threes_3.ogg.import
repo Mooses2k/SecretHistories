@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neophyte_r_stars_may_die_in_threes_3.ogg-82e57af0171330418a2228262fe8cf09.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/neophyte_r_stars_may_die_in_threes_3.ogg"
+dest_files=[ "res://.import/neophyte_r_stars_may_die_in_threes_3.ogg-82e57af0171330418a2228262fe8cf09.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

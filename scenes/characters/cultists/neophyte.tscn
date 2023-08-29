@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/ai/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
@@ -23,6 +23,8 @@
 [ext_resource path="res://core/ai/action_nodes/bt_reload_gun.gd" type="Script" id=21]
 [ext_resource path="res://core/ai/check_nodes/bt_collision_sensor.gd" type="Script" id=22]
 [ext_resource path="res://scenes/sensors/touch_sensor.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/characters/cultists/always_on_skeleton_IK.gd" type="Script" id=24]
+[ext_resource path="res://scenes/characters/cultists/demo_ik.gd" type="Script" id=25]
 
 [sub_resource type="CapsuleShape" id=6]
 margin = 0.001
@@ -36,15 +38,20 @@ acceleration = 5.0
 mass = 70.0
 _legcast = NodePath("Legs/Feet")
 
-[node name="CollisionShape" parent="." index="0"]
+[node name="IKLookTarget" type="Position3D" parent="." index="0"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2 )
+
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.947582, -0.158151 )
 shape = SubResource( 6 )
 
-[node name="MainHandEquipmentRoot" parent="." index="3"]
+[node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
-[node name="BehaviorTree" type="Node" parent="." index="5"]
+[node name="BehaviorTree" type="Node" parent="." index="6"]
+unique_name_in_owner = true
 script = ExtResource( 6 )
 bt_root = NodePath("BT_Selector")
 
@@ -134,7 +141,7 @@ script = ExtResource( 10 )
 max_time = 10.0
 min_time = 5.0
 
-[node name="Body" parent="." index="6"]
+[node name="Body" parent="." index="7"]
 script = ExtResource( 4 )
 
 [node name="TouchSensor" parent="Body" index="0" instance=ExtResource( 23 )]
@@ -150,18 +157,27 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 [node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
-bones/137/bound_children = [ NodePath("MainHandAttachment") ]
-
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.824899, 0.553971, 0.113897, -0.0115975, -0.217924, 0.97594, 0.565447, 0.803721, 0.186119, -0.12875, 15.1187, 2.97045 )
+transform = Transform( -0.825507, 0.553118, 0.113814, -0.0112188, -0.217577, 0.976023, 0.564601, 0.804427, 0.185736, -0.132968, 15.1181, 2.97167 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
 unique_name_in_owner = true
 transform = Transform( 9.87362, 1.35419, 1.75424, 0.863589, -2.93904, -9.23556, -0.25949, 9.87466, -2.73205, -0.564033, 0.868509, 0.234261 )
 
-[node name="Hitbox" parent="." index="7" groups=["CHARACTER"]]
+[node name="AlwaysOnSkeletonIK" type="SkeletonIK" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="2"]
+unique_name_in_owner = true
+process_priority = 1
+root_bone = "DEF-spine.006"
+tip_bone = "DEF-chin"
+interpolation = 0.0
+override_tip_basis = false
+target_node = NodePath("../../../../../IKLookTarget")
+max_iterations = 1
+script = ExtResource( 24 )
+IK_enabled = true
+
+[node name="Hitbox" parent="." index="8" groups=["CHARACTER"]]
 visible = true
 collision_layer = 8
 collision_mask = 64
@@ -175,13 +191,16 @@ unit_db = 10.0
 max_db = 6.0
 max_distance = 12.0
 
-[node name="AnimationPlayer" parent="." index="17"]
+[node name="AnimationPlayer" parent="." index="18"]
 root_node = NodePath("../Body/CultistNeophyteNoCape")
 
-[node name="AnimationTree" parent="." index="18"]
+[node name="AnimationTree" parent="." index="19"]
 active = true
 parameters/ADS_State/current = 2
 parameters/Rifle_strafe_vector/blend_position = Vector2( 0, -0.0172414 )
+
+[node name="DemoIK" type="Node" parent="." index="21"]
+script = ExtResource( 25 )
 
 [connection signal="character_detected" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor/BT_Player_Sensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
 [connection signal="unseen_sound_heard" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor/BT_Sound_Listener" to="Audio" method="_on_BT_Sound_Listener_unseen_sound_heard"]

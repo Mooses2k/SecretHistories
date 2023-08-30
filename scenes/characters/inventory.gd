@@ -119,7 +119,8 @@ func add_item(item : PickableItem) -> bool:
 			
 			### Probably can be cleaned up - part 1 is to put lights offhand, part 2 is everything else
 			### Part 1 - Checks if something is in offhand; if not, and this is a light, put it in offhand
-			if current_offhand_equipment == null or current_offhand_equipment == EmptyHand:
+			print("Current offhand equipment: ", current_offhand_equipment)
+			if current_offhand_equipment == null or current_offhand_equipment is EmptyHand:
 				print("Offhand null or empty hands")
 				if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
 					print("...and is a light")

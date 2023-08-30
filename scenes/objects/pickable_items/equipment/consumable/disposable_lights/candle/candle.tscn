@@ -47,11 +47,11 @@ normal_scale = 1.0
 normal_texture = ExtResource( 8 )
 
 [sub_resource type="CylinderShape" id=52]
-height = 0.23
-radius = 0.06
+height = 0.115
+radius = 0.02
 
 [sub_resource type="BoxShape" id=56]
-extents = Vector3( 0.05, 0.1, 0.05 )
+extents = Vector3( 0.02, 0.06, 0.02 )
 
 [sub_resource type="QuadMesh" id=53]
 size = Vector2( 0.033, 0.1 )
@@ -146,11 +146,11 @@ mesh = SubResource( 25 )
 material/0 = SubResource( 26 )
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00234323, 0 )
 shape = SubResource( 52 )
 
 [node name="CollisionShapeStopRolling" type="CollisionShape" parent="." index="2"]
-transform = Transform( -0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0.000979346, 0.00391581, 8.01446e-05 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
 shape = SubResource( 56 )
 
 [node name="HoldPosition" parent="." index="3"]
@@ -190,8 +190,10 @@ anims/flicker = SubResource( 55 )
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
 
+[node name="Ignite" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
+
 [node name="CollisionShape" parent="Ignite" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134021, 0 )
 shape = SubResource( 57 )
 
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

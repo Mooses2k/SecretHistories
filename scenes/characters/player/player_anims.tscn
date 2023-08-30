@@ -1,18 +1,18 @@
 [gd_scene load_steps=124 format=2]
 
-[ext_resource path="res://scenes/characters/player/Animations/ItemHoldingVertical.tres" type="Animation" id=1]
-[ext_resource path="res://scenes/characters/player/Animations/ItemHoldingVerticalL.tres" type="Animation" id=2]
-[ext_resource path="res://scenes/characters/player/Animations/Hip_Idle.tres" type="Animation" id=3]
-[ext_resource path="res://scenes/characters/player/Animations/ItemHolding.tres" type="Animation" id=4]
-[ext_resource path="res://scenes/characters/player/Animations/idle-loop.tres" type="Animation" id=5]
-[ext_resource path="res://scenes/characters/player/Animations/ItemHoldingHorizontal.tres" type="Animation" id=6]
-[ext_resource path="res://scenes/characters/player/Animations/ItemHoldingHorizontalL.tres" type="Animation" id=7]
-[ext_resource path="res://scenes/characters/player/Animations/OneHandedHipIdleL.tres" type="Animation" id=8]
-[ext_resource path="res://scenes/characters/player/Animations/MartiniHeryReload.tres" type="Animation" id=9]
-[ext_resource path="res://scenes/characters/player/Animations/One_Handed_Hip_Idle.tres" type="Animation" id=10]
-[ext_resource path="res://scenes/characters/player/Animations/DoubleBarrelReload.tres" type="Animation" id=11]
-[ext_resource path="res://scenes/characters/player/Animations/WebleyReload.tres" type="Animation" id=12]
-[ext_resource path="res://scenes/characters/player/Animations/HenryReload.tres" type="Animation" id=13]
+[ext_resource path="res://resources/animations/item_holding_vertical_right.tres" type="Animation" id=1]
+[ext_resource path="res://resources/animations/item_holding_vertical_left.tres" type="Animation" id=2]
+[ext_resource path="res://resources/animations/hip_idle.tres" type="Animation" id=3]
+[ext_resource path="res://resources/animations/item_holding.tres" type="Animation" id=4]
+[ext_resource path="res://resources/animations/idle-loop.tres" type="Animation" id=5]
+[ext_resource path="res://resources/animations/item_holding_horizontal_right.tres" type="Animation" id=6]
+[ext_resource path="res://resources/animations/item_holding_horizontal_left.tres" type="Animation" id=7]
+[ext_resource path="res://resources/animations/one_handed_hip_idle_left.tres" type="Animation" id=8]
+[ext_resource path="res://resources/animations/martini_henry_reload.tres" type="Animation" id=9]
+[ext_resource path="res://resources/animations/one-handed_hip_idle.tres" type="Animation" id=10]
+[ext_resource path="res://resources/animations/double_barrel_reload.tres" type="Animation" id=11]
+[ext_resource path="res://resources/animations/webley_reload.tres" type="Animation" id=12]
+[ext_resource path="res://resources/animations/henry_reload.tres" type="Animation" id=13]
 
 [sub_resource type="AnimationNodeTransition" id=172]
 input_count = 4
@@ -502,7 +502,7 @@ blend_point_8/node = SubResource( 322 )
 blend_point_8/pos = Vector2( -1, -1 )
 
 [sub_resource type="AnimationNodeBlendTree" id=323]
-graph_offset = Vector2( -579.86, 208.167 )
+graph_offset = Vector2( -603.816, 211.421 )
 nodes/ADS_Pistol_state/node = SubResource( 172 )
 nodes/ADS_Pistol_state/position = Vector2( 280, 1920 )
 nodes/ADS_Rifle_Run/node = SubResource( 182 )
@@ -632,7 +632,7 @@ nodes/small_gun_run_blend/node = SubResource( 169 )
 nodes/small_gun_run_blend/position = Vector2( -1400, 1160 )
 nodes/walk_strafe/node = SubResource( 101 )
 nodes/walk_strafe/position = Vector2( -720, 120 )
-node_connections = [ "output", 0, "Falling", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_Idle _Walk", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Idle_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "One_Handed_Idle2", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "One_Handed_crouch", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe" ]
+node_connections = [ "output", 0, "Falling", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Idle_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_Idle _Walk", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "One_Handed_crouch", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "One_Handed_Idle2", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector" ]
 
 [node name="PlayerAnimationPlayer" type="AnimationPlayer"]
 root_node = NodePath("../FPSCamera/MainCharOnlyArmsGameRig")

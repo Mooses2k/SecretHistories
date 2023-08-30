@@ -1,5 +1,6 @@
 extends Node
 
+
 enum DemoState {
 	NONE,
 	STOPPED,
@@ -20,8 +21,10 @@ func _ready():
 	ik_look_target.set_as_toplevel(true)
 	update_ik_target(tween_value)
 
+
 func _process(delta):
 	update_ik_target(tween_value)
+
 
 func update_ik_target(t : float):
 	var player = GameManager.game.player as Spatial

@@ -165,7 +165,7 @@ transform = Transform( -12.9922, 0, -1.13582e-06, 0, 12.7203, 0, 1.04217e-06, 0,
 bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.821984, 0.558247, 0.114311, -0.0134696, -0.219592, 0.975543, 0.569678, 0.800331, 0.187938, -0.114367, 15.1087, 2.9648 )
+transform = Transform( -0.827313, 0.550474, 0.113548, -0.00997255, -0.216373, 0.976304, 0.56198, 0.806566, 0.184416, -0.14313, 15.1229, 2.97546 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
@@ -174,7 +174,7 @@ transform = Transform( 9.87362, 1.35419, 1.75424, 0.863589, -2.93904, -9.23556, 
 
 [node name="AlwaysOnSkeletonIK" type="SkeletonIK" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="2"]
 unique_name_in_owner = true
-process_priority = -1
+process_priority = 1
 root_bone = "DEF-spine.006"
 tip_bone = "DEF-chin"
 interpolation = 0.011

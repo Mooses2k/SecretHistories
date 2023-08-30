@@ -35,9 +35,9 @@ func _process(delta):
 		$Indication_canvas/Indication_system/Dot.hide()
 	else :
 		$Indication_canvas/Indication_system/Dot.show()
-
+	
 	grab_indicator()
-
+	
 #	change_maindhand_equipment_out()
 #	change_offhhand_equipment_out()
 	
@@ -62,7 +62,7 @@ func drop_consumable(item):
 
 func grab_indicator():
 	var grabable_object = grabcast.get_collider()
-
+	
 	if grabable_object != null:
 		if grabcast.is_colliding() and grabable_object is PickableItem and player_controller.is_grabbing == false:
 			$Indication_canvas/Indication_system/Grab.show()

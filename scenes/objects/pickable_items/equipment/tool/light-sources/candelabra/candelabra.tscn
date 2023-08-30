@@ -140,6 +140,10 @@ points = PoolVector3Array( 0.296922, 0.0162035, 0.571, 0.307077, -0.0345511, 0.5
 [sub_resource type="ConvexPolygonShape" id=125]
 points = PoolVector3Array( -0.02284, -0.0040938, 0.256292, 0.02284, 0.000977781, 0.286738, 0.02284, -0.0040938, 0.286738, 0.0192373, 0.017462, 0.0738296, 0.0136899, -0.0209321, 0.0743027, -0.0192373, 0.017462, 0.0738296, -0.00761035, 0.02128, 0.322274, -0.0126854, -0.0193244, 0.322274, -0.0191047, -0.0153971, 0.0747197, 0.0126854, -0.0193244, 0.322274, 0.0177605, 0.0161965, 0.312118, 0.00816604, 0.0227624, 0.0750384, -0.0177605, 0.0161965, 0.312118, 0.0191047, -0.0153971, 0.0747197, -0.0136899, -0.0209321, 0.0743027, 0.0126854, 0.02128, 0.276581, -0.00816604, 0.0227624, 0.0750384, -0.0177605, -0.0142449, 0.322274, -0.02284, 0.00605334, 0.276581, 0.0177605, -0.0142449, 0.322274, -0.0126854, 0.02128, 0.276581 )
 
+[sub_resource type="CylinderShape" id=44]
+height = 0.101484
+radius = 0.05
+
 [sub_resource type="Animation" id=50]
 length = 0.001
 tracks/0/type = "value"
@@ -187,10 +191,6 @@ surfaces/0 = {
 "skeleton_aabb": [  ],
 "vertex_count": 1383
 }
-
-[sub_resource type="CylinderShape" id=44]
-height = 0.15
-radius = 0.05
 
 [sub_resource type="QuadMesh" id=127]
 size = Vector2( 0.033, 0.1 )
@@ -364,12 +364,24 @@ shape = SubResource( 124 )
 transform = Transform( -2.62268e-08, -0.6, -2.62268e-08, 0, -2.62268e-08, 0.6, -0.6, 2.62268e-08, 1.14641e-15, 0, -0.276314, 0 )
 shape = SubResource( 125 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="39"]
+[node name="CollisionShapeCandle1" type="CollisionShape" parent="." index="39"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 3.59989e-21, -4.37114e-08, -3.55271e-15, 0.191959, 2.77933e-22 )
+shape = SubResource( 44 )
+
+[node name="CollisionShapeCandle2" type="CollisionShape" parent="." index="40"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 3.59989e-21, -4.37114e-08, -0.00296439, 0.137498, -0.201684 )
+shape = SubResource( 44 )
+
+[node name="CollisionShapeCandle3" type="CollisionShape" parent="." index="41"]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 3.59989e-21, -4.37114e-08, -0.000640959, 0.129752, 0.194067 )
+shape = SubResource( 44 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="42"]
 autoplay = "flicker"
 anims/RESET = SubResource( 50 )
 anims/flicker = SubResource( 51 )
 
-[node name="Candle1" type="Spatial" parent="." index="40"]
+[node name="Candle1" type="Spatial" parent="." index="43"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 0.133646, 0 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle1" index="0"]
@@ -380,11 +392,7 @@ skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
 script = ExtResource( 6 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Candle1" index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1.60922e-09, 0.0368147 )
-shape = SubResource( 44 )
-
-[node name="FireOrigin" type="Position3D" parent="Candle1" index="2"]
+[node name="FireOrigin" type="Position3D" parent="Candle1" index="1"]
 transform = Transform( 0.25, 3.59529e-24, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 1.0604e-22, -5.27296e-09, 0.120631 )
 script = ExtResource( 5 )
 
@@ -405,7 +413,7 @@ light_energy = 0.25
 shadow_enabled = true
 omni_attenuation = 4.0
 
-[node name="Candle2" type="Spatial" parent="." index="41"]
+[node name="Candle2" type="Spatial" parent="." index="44"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00296439, 0.0710616, -0.201684 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle2" index="0"]
@@ -416,11 +424,7 @@ skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
 script = ExtResource( 6 )
 
-[node name="CollisionShape40" type="CollisionShape" parent="Candle2" index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.10654e-09, 0.0481921 )
-shape = SubResource( 44 )
-
-[node name="FireOrigin" type="Position3D" parent="Candle2" index="2"]
+[node name="FireOrigin" type="Position3D" parent="Candle2" index="1"]
 transform = Transform( 0.25, 3.59529e-24, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0.00416718, -7.68341e-09, 0.118424 )
 script = ExtResource( 5 )
 
@@ -434,7 +438,7 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Candle3" type="Spatial" parent="." index="42"]
+[node name="Candle3" type="Spatial" parent="." index="45"]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.000640959, 0.0715551, 0.194067 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Candle3" index="0"]
@@ -445,11 +449,7 @@ skeleton = NodePath("../..")
 material/0 = ExtResource( 4 )
 script = ExtResource( 6 )
 
-[node name="CollisionShape41" type="CollisionShape" parent="Candle3" index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.68795e-09, 0.0614931 )
-shape = SubResource( 44 )
-
-[node name="FireOrigin" type="Position3D" parent="Candle3" index="2"]
+[node name="FireOrigin" type="Position3D" parent="Candle3" index="1"]
 transform = Transform( 0.25, 3.59529e-24, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -1.09278e-08, 0.00225089, -5.2969e-09, 0.119121 )
 script = ExtResource( 5 )
 
@@ -463,26 +463,26 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Ignite" type="Area" parent="." index="43" groups=["IGNITE"]]
+[node name="Ignite" type="Area" parent="." index="46" groups=["IGNITE"]]
 transform = Transform( -4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00712366, 0.353032, -0.00613392 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ignite" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.051268, 0 )
 shape = SubResource( 89 )
 
-[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="44"]
+[node name="LightSound" type="AudioStreamPlayer3D" parent="." index="47"]
 stream = ExtResource( 1 )
 bus = "Effects"
 
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="45"]
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="." index="48"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 7 )
 bus = "Effects"
 
-[node name="Timer" type="Timer" parent="." index="46"]
+[node name="Timer" type="Timer" parent="." index="49"]
 
-[node name="Timer2" type="Timer" parent="." index="47"]
+[node name="Timer2" type="Timer" parent="." index="50"]
 
-[node name="Timer3" type="Timer" parent="." index="48"]
+[node name="Timer3" type="Timer" parent="." index="51"]
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

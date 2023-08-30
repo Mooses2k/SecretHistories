@@ -1,6 +1,6 @@
 {
 "effects_volume": "float(100)",
-"full_screen": "bool(False)",
+"fullscreen": "bool(True)",
 "gui_scale": "float(1)",
 "is_ads_hold": "bool(True)",
 "is_crouch_hold": "bool(False)",

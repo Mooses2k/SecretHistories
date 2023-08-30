@@ -133,7 +133,7 @@ material/0 = ExtResource( 4 )
 script = ExtResource( 6 )
 
 [node name="FireOrigin" type="Position3D" parent="Candle1" index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1.37043e-09, 0.0313518 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -5.80003e-09, 0.132689 )
 script = ExtResource( 5 )
 
 [node name="Fire" type="MeshInstance" parent="Candle1/FireOrigin" index="0"]

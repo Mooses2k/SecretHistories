@@ -61,8 +61,11 @@ func can_pickup_item(item : PickableItem) -> bool:
 	# Can only pickup dropped items
 	# (may change later to steal weapons, or we can do that by dropping them first)
 	# Also prevents picking up busy items
+	print("can_pickup_item called")
 	if item.item_state != GlobalConsts.ItemState.DROPPED:
+		print("item is dropped")
 		return false
+	print("item_state is NOT dropped")
 	# Can always pickup special items
 	if (item is TinyItem) or (item is KeyItem):
 		return true
@@ -78,9 +81,11 @@ func add_item(item : PickableItem) -> bool:
 	var can_pickup : bool = can_pickup_item(item)
 	
 	if not can_pickup:
+		print("can't pick up")
 		return false
 	
 	item.owner_character = owner
+	print("item owner to be: ", item.owner_character)
 	
 	if item is TinyItem:
 		if item.item_data != null:
@@ -101,7 +106,7 @@ func add_item(item : PickableItem) -> bool:
 		item.queue_free()
 	
 	elif item is EquipmentItem:
-	
+		print("item is equipment item")
 		# Update the inventory info immediately
 		# This is a bulky item, or there is no space on the hotbar
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
@@ -390,20 +395,25 @@ func drop_hotbar_slot(slot : int) -> Node:
 # Drops the item, it must be unequipped first
 # Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
-#	item.item_state = GlobalConsts.ItemState.DROPPED
-	item.item_state = GlobalConsts.ItemState.DAMAGING
+	if owner.player_controller:
+		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
+			item.item_state = GlobalConsts.ItemState.DROPPED   # At the moment, 'placed' items can't hurt anyone.
+		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:
+			item.item_state = GlobalConsts.ItemState.DAMAGING
+	else:
+		item.item_state = GlobalConsts.ItemState.DAMAGING
+		
 	if !GameManager.game:   # This is here for test scenes
 		item.global_transform = drop_position_node.global_transform
 		find_parent("TestWorld").add_child(item)
-		return
-	if GameManager.game.level:   # This is for the real game
+	elif GameManager.game.level:   # This is for the real game
 		item.global_transform = drop_position_node.global_transform
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
-
+	
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:

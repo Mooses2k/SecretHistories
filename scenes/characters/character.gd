@@ -39,12 +39,12 @@ enum ItemSelection {
 	ITEM_OFFHAND,
 }
 
-enum ThrowState {
-	IDLE,
-	PRESSING,
-	SHOULD_PLACE,
-	SHOULD_THROW,
-}
+#enum ThrowState {
+#	IDLE,
+#	PRESSING,
+#	SHOULD_PLACE,
+#	SHOULD_THROW,
+#}
 
 # For player-heard audio and for sound propogation to other characters' sensors
 enum SurfaceType {

@@ -608,7 +608,8 @@ func handle_inventory(delta : float):
 			_camera.state = _camera.CameraState.STATE_ZOOM
 		if Input.is_action_just_released("ablty|binocs_spyglass"):
 			_camera.state = _camera.CameraState.STATE_NORMAL
-		
+	
+	# Place item upright on pointed-at surface or, if no surface in range, simply drop in front of player
 	if throw_state == ThrowState.SHOULD_PLACE:
 		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		if item:
@@ -645,7 +646,7 @@ func handle_inventory(delta : float):
 			if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 				throw_strength = 20
 			else:
-				throw_strength = 25
+				throw_strength = 30
 				
 			var impulse = active_mode.get_aim_direction() * throw_strength
 			# At this point, the item is still equipped, so we wait until
@@ -664,6 +665,7 @@ func handle_inventory(delta : float):
 				item.apply_central_impulse(impulse)
 				item.add_collision_exception_with(character)
 				item.implement_throw_damage(false)
+				
 	update_throw_state(delta)
 	
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
@@ -739,7 +741,7 @@ func next_item():
 	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
-
+	
 	elif  Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0

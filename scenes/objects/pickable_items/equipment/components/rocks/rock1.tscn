@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd" type="Script" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
+[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=4]
 [ext_resource path="res://resources/models/items/components/rocks/M_Rock1.material" type="Material" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=10]
@@ -32,6 +33,7 @@ collision_layer = 64
 mass = 1.0
 script = ExtResource( 1 )
 item_drop_sound = ExtResource( 4 )
+item_throw_sound = ExtResource( 3 )
 item_size = 0
 item_name = "Rock"
 weapon_type = 0

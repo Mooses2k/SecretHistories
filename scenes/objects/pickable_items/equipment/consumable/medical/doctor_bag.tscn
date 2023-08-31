@@ -1,8 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/_medical.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/_medical_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/consumables/medical/medical_bag/M_MedicalBag.material" type="Material" id=2]
 [ext_resource path="res://resources/sounds/fabric/678008__mandy2__fabric-rubbing.mp3" type="AudioStream" id=3]
+
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "doctor_bag_Mesh"

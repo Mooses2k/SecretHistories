@@ -10,7 +10,8 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/_smoke.tscn" type="PackedScene" id=8]
 [ext_resource path="res://resources/sounds/reloading/shotgun/522289__filmmakersmanual__loading-shell-shotgun-4.wav" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=10]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=11]
+[ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=11]
+
 
 [sub_resource type="Skin" id=375]
 resource_name = "Skin"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/containers/_container_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/containers/dining/vessels/trn_Bottles_002.material" type="Material" id=3]
 
 [sub_resource type="ArrayMesh" id=1]

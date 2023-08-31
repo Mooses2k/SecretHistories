@@ -20,6 +20,7 @@ onready var hold_position = $"%HoldPosition"
 func _ready():
 	if horizontal_holding == true:
 		hold_position.rotation_degrees.z = 90
+		
 	connect("body_entered", self, "play_drop_sound")
 
 

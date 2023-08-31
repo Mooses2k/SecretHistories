@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/_medical.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/_medical_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/consumables/medical/bandage/M_MedicalBandage.material" type="Material" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=3]
+[ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/sounds/fabric/678008__mandy2__fabric-rubbing.mp3" type="AudioStream" id=4]
 
 [sub_resource type="ConvexPolygonShape" id=1]
@@ -58,6 +58,7 @@ bind/9/bone = -1
 bind/9/pose = Transform( 1, -1.74065e-06, 1.96168e-06, -1.13687e-12, 0.74799, 0.66371, -2.6226e-06, -0.66371, 0.74799, 0.000233892, -0.040159, -0.0391791 )
 
 [node name="Bandage" instance=ExtResource( 1 )]
+item_throw_sound = null
 item_name = "Bandage"
 
 [node name="MeshInstance" parent="." index="0"]

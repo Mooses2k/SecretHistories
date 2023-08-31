@@ -268,7 +268,7 @@ func _walk(delta) -> void:
 		owner.do_sprint = true
 	else:
 		owner.do_sprint = false
-	HUDS.tired(owner.stamina)
+	$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
 	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
 	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
 	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest

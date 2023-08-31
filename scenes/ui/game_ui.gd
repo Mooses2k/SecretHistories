@@ -13,6 +13,8 @@ onready var states = [
 	$"%PauseMenu"
 ]
 
+onready var hud_root = $"%HUD"
+
 
 func set_gui_state(value : int):
 	states[gui_state].exit_state()

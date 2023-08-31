@@ -1,47 +1,19 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://resources/sounds/breathing/heavy_breath.mp3" type="AudioStream" id=1]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Control;
-
-
-# [ Subnodes ]
-onready var Stamina: AudioStreamPlayer = $Stamina/Audio;
-
-############################
-#    __                    #
-#   (__|_ _.._ _ o._  _.   #
-#   __)|_(_|| | ||| |(_|   #                  
-#                          #
-#         Stamina          #
-############################
-enum stamina_values\\
-{
-	maximum = 5,
-	minimum = -30
-}
-
-
-func tired(amount: float) -> void:
-	# convert stamina percentage to db:
-	var volume = ((amount / 100) * -stamina_values.maximum) + 14;
-	if Stamina.playing != (volume > stamina_values.minimum):
-		Stamina.playing = volume > stamina_values.minimum;
-	Stamina.volume_db = volume;
-"
+[ext_resource path="res://scenes/ui/hud.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/hotbar/hotbar.tscn" type="PackedScene" id=2]
 
 [node name="HUD" type="Control"]
 pause_mode = 1
+unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = SubResource( 1 )
+script = ExtResource( 1 )
 
-[node name="Stamina" type="Control" parent="."]
+[node name="Hotbar" type="MarginContainer" parent="." instance=ExtResource( 2 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-
-[node name="Audio" type="AudioStreamPlayer" parent="Stamina"]
-stream = ExtResource( 1 )
+custom_constants/margin_left = 2
+custom_constants/margin_bottom = 2

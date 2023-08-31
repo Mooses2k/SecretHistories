@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/conversant_ill_fix_your_tongue.wav-1b3cf6c1d84ba29928a192702d55af11.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/yes_no/conversant_ill_fix_your_tongue.wav"
+dest_files=[ "res://.import/conversant_ill_fix_your_tongue.wav-1b3cf6c1d84ba29928a192702d55af11.sample" ]
+
 [params]
 
 force/8_bit=false

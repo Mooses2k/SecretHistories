@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/owls_are_not_what_they_seem.wav-08ff49ff9749b53973e2cea9a9ae031d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/owls_are_not_what_they_seem.wav"
+dest_files=[ "res://.import/owls_are_not_what_they_seem.wav-08ff49ff9749b53973e2cea9a9ae031d.sample" ]
+
 [params]
 
 force/8_bit=false

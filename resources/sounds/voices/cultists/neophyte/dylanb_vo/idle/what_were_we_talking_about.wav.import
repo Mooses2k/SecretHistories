@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/what_were_we_talking_about.wav-871293b7488eb654e9d6cb509ea1c674.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/what_were_we_talking_about.wav"
+dest_files=[ "res://.import/what_were_we_talking_about.wav-871293b7488eb654e9d6cb509ea1c674.sample" ]
+
 [params]
 
 force/8_bit=false

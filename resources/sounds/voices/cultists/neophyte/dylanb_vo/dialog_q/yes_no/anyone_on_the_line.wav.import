@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/anyone_on_the_line.wav-9c1ef5bedc5b00ff04033874a8682d77.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/anyone_on_the_line.wav"
+dest_files=[ "res://.import/anyone_on_the_line.wav-9c1ef5bedc5b00ff04033874a8682d77.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/who_goes_there1.wav-09be631ed9a8b119d50baf16e7465bdc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/who_goes_there1.wav"
+dest_files=[ "res://.import/who_goes_there1.wav-09be631ed9a8b119d50baf16e7465bdc.sample" ]
+
 [params]
 
 force/8_bit=false

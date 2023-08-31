@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/walls_dont_line_up.wav-20cbc0d1b2e0136a2fefa9989f99ff40.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/walls_dont_line_up.wav"
+dest_files=[ "res://.import/walls_dont_line_up.wav-20cbc0d1b2e0136a2fefa9989f99ff40.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/its_a_bomb.wav-57739aab073b24653aed021849b44d51.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb/its_a_bomb.wav"
+dest_files=[ "res://.import/its_a_bomb.wav-57739aab073b24653aed021849b44d51.sample" ]
+
 [params]
 
 force/8_bit=false

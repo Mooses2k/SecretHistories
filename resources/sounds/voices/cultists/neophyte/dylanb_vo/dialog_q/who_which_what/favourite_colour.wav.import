@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/favourite_colour.wav-c5cf3daab5b452b7612d37b614eb39b6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/who_which_what/favourite_colour.wav"
+dest_files=[ "res://.import/favourite_colour.wav-c5cf3daab5b452b7612d37b614eb39b6.sample" ]
+
 [params]
 
 force/8_bit=false

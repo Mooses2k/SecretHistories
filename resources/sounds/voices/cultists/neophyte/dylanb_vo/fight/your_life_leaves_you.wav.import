@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/your_life_leaves_you.wav-d2c9f7ef950058e23eb0f582c495efa7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/your_life_leaves_you.wav"
+dest_files=[ "res://.import/your_life_leaves_you.wav-d2c9f7ef950058e23eb0f582c495efa7.sample" ]
+
 [params]
 
 force/8_bit=false

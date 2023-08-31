@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/your_eyes_are_wrong.wav-c031b747808f1194260e683395c4241b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/your_eyes_are_wrong.wav"
+dest_files=[ "res://.import/your_eyes_are_wrong.wav-c031b747808f1194260e683395c4241b.sample" ]
+
 [params]
 
 force/8_bit=false

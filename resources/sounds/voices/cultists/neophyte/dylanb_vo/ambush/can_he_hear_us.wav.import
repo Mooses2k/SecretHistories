@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/can_he_hear_us.wav-7a3ae2b233cf84a18881da9f4f1c978a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/can_he_hear_us.wav"
+dest_files=[ "res://.import/can_he_hear_us.wav-7a3ae2b233cf84a18881da9f4f1c978a.sample" ]
+
 [params]
 
 force/8_bit=false

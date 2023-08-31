@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/is_it_time2.wav-0acb7a10468ce20997410a29375e4fb6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/when/is_it_time2.wav"
+dest_files=[ "res://.import/is_it_time2.wav-0acb7a10468ce20997410a29375e4fb6.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/hahahaha2.wav-1ad87da86eeed3b9c0ae32a0b8959bcf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/hahahaha2.wav"
+dest_files=[ "res://.import/hahahaha2.wav-1ad87da86eeed3b9c0ae32a0b8959bcf.sample" ]
+
 [params]
 
 force/8_bit=false

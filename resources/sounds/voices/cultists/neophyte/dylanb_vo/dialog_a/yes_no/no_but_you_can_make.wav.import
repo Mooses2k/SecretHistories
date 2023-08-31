@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/no_but_you_can_make.wav-8ac53158d337de58eb312f581b20d32d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/yes_no/no_but_you_can_make.wav"
+dest_files=[ "res://.import/no_but_you_can_make.wav-8ac53158d337de58eb312f581b20d32d.sample" ]
+
 [params]
 
 force/8_bit=false

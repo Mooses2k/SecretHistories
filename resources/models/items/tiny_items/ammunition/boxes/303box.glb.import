@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/303box.glb-008d05c914a0a022b1d9d1f753d7053b.scn"
 
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/boxes/303box.glb"
+dest_files=[ "res://.import/303box.glb-008d05c914a0a022b1d9d1f753d7053b.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

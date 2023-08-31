@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/alien_light.wav-4f5cb40b038e27ef14f699d06ad89c41.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/alien_light.wav"
+dest_files=[ "res://.import/alien_light.wav-4f5cb40b038e27ef14f699d06ad89c41.sample" ]
+
 [params]
 
 force/8_bit=false

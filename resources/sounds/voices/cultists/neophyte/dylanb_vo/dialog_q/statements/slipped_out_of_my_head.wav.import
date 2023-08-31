@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/slipped_out_of_my_head.wav-04050eff641a363d6e06e1ea46be449f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/slipped_out_of_my_head.wav"
+dest_files=[ "res://.import/slipped_out_of_my_head.wav-04050eff641a363d6e06e1ea46be449f.sample" ]
+
 [params]
 
 force/8_bit=false

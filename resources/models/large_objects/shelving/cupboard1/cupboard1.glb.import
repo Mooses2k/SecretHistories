@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/cupboard1.glb-55ec482ff69c73026845b43a6c3a01f4.scn"
 
 [deps]
 
 source_file="res://resources/models/large_objects/shelving/cupboard1/cupboard1.glb"
+dest_files=[ "res://.import/cupboard1.glb-55ec482ff69c73026845b43a6c3a01f4.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

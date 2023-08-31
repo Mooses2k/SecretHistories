@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/out_1.wav-053cd0867921bafc734c94ed0a80f6b1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/breathing/breathe/out_1.wav"
+dest_files=[ "res://.import/out_1.wav-053cd0867921bafc734c94ed0a80f6b1.sample" ]
+
 [params]
 
 force/8_bit=false

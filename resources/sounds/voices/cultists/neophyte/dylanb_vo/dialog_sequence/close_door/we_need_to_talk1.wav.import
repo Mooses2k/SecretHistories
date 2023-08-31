@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/we_need_to_talk1.wav-17058998eed163342fec54d1372274d6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/close_door/we_need_to_talk1.wav"
+dest_files=[ "res://.import/we_need_to_talk1.wav-17058998eed163342fec54d1372274d6.sample" ]
+
 [params]
 
 force/8_bit=false

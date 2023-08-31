@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/hes_coming.wav-e39fdd65d7f4e6200815dba31d472b36.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/hes_coming.wav"
+dest_files=[ "res://.import/hes_coming.wav-e39fdd65d7f4e6200815dba31d472b36.sample" ]
+
 [params]
 
 force/8_bit=false

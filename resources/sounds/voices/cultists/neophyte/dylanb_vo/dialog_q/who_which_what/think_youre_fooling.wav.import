@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/think_youre_fooling.wav-693822a6c2bc6d15f518770dd0a6225b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/who_which_what/think_youre_fooling.wav"
+dest_files=[ "res://.import/think_youre_fooling.wav-693822a6c2bc6d15f518770dd0a6225b.sample" ]
+
 [params]
 
 force/8_bit=false

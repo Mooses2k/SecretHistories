@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/song_of_the_stars.wav-0c7fdb9e9f6cd6a1c6dc2a0c842b08ae.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/song_of_the_stars.wav"
+dest_files=[ "res://.import/song_of_the_stars.wav-0c7fdb9e9f6cd6a1c6dc2a0c842b08ae.sample" ]
+
 [params]
 
 force/8_bit=false

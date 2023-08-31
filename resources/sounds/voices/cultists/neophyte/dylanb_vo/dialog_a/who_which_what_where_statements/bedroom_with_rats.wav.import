@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/bedroom_with_rats.wav-ab3fa97a8ffc80058bbf54d3acf2337d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/bedroom_with_rats.wav"
+dest_files=[ "res://.import/bedroom_with_rats.wav-ab3fa97a8ffc80058bbf54d3acf2337d.sample" ]
+
 [params]
 
 force/8_bit=false

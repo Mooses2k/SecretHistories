@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/explained_once_youre_dead.wav-501647c37d58ee069adbd75bf2d3076b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/explained_once_youre_dead.wav"
+dest_files=[ "res://.import/explained_once_youre_dead.wav-501647c37d58ee069adbd75bf2d3076b.sample" ]
+
 [params]
 
 force/8_bit=false

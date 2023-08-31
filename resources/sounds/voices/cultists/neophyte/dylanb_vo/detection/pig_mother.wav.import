@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/pig_mother.wav-c7c2a0f04e56a7826f2c3c9e1d8fedb1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/pig_mother.wav"
+dest_files=[ "res://.import/pig_mother.wav-c7c2a0f04e56a7826f2c3c9e1d8fedb1.sample" ]
+
 [params]
 
 force/8_bit=false

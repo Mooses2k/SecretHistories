@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/WebleyBox.glb-45bf4156aa5771ef1327adf09195f28e.scn"
 
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/boxes/WebleyBox.glb"
+dest_files=[ "res://.import/WebleyBox.glb-45bf4156aa5771ef1327adf09195f28e.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/candlesconce.glb-7e8dfae9df1075f04152121a42fa4c00.scn"
 
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/candlesconce.glb"
+dest_files=[ "res://.import/candlesconce.glb-7e8dfae9df1075f04152121a42fa4c00.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/its_in_the_light.wav-e7faa33606fd63be6691bee7c9a132c9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/its_in_the_light.wav"
+dest_files=[ "res://.import/its_in_the_light.wav-e7faa33606fd63be6691bee7c9a132c9.sample" ]
+
 [params]
 
 force/8_bit=false

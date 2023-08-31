@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/footstep_3.wav-604f027c7f2b65df5b9ec2fb39efcf1e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/footsteps/stone_footsteps/footstep_3.wav"
+dest_files=[ "res://.import/footstep_3.wav-604f027c7f2b65df5b9ec2fb39efcf1e.sample" ]
+
 [params]
 
 force/8_bit=false

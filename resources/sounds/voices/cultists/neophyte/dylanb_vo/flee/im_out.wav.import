@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/im_out.wav-fda7d30dc545f2fa4217dc9da7078273.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/im_out.wav"
+dest_files=[ "res://.import/im_out.wav-fda7d30dc545f2fa4217dc9da7078273.sample" ]
+
 [params]
 
 force/8_bit=false

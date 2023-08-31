@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/oi_whos_that_then4.wav-b407c8eb71d0af2a28535903c7796afb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/oi_whos_that_then4.wav"
+dest_files=[ "res://.import/oi_whos_that_then4.wav-b407c8eb71d0af2a28535903c7796afb.sample" ]
+
 [params]
 
 force/8_bit=false

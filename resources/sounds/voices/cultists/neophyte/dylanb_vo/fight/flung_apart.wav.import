@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/flung_apart.wav-51583f8efea6ac63961c1501b1e5f10c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/flung_apart.wav"
+dest_files=[ "res://.import/flung_apart.wav-51583f8efea6ac63961c1501b1e5f10c.sample" ]
+
 [params]
 
 force/8_bit=false

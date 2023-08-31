@@ -2,11 +2,16 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path="res://.import/blue_noise.png-18d772aa532fadd9f34c51054f126889.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/blue_noise.png"
+dest_files=[ "res://.import/blue_noise.png-18d772aa532fadd9f34c51054f126889.stex" ]
+
 [params]
 
 compress/mode=0

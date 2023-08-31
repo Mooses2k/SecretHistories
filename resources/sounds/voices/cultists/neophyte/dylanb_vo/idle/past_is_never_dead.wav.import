@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/past_is_never_dead.wav-13fab345542840df659204fdff05fd88.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/past_is_never_dead.wav"
+dest_files=[ "res://.import/past_is_never_dead.wav-13fab345542840df659204fdff05fd88.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/graveyard2.wav-4136d09f6ada342d9b083053baaaa7ea.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/graveyard2.wav"
+dest_files=[ "res://.import/graveyard2.wav-4136d09f6ada342d9b083053baaaa7ea.sample" ]
+
 [params]
 
 force/8_bit=false

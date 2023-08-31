@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/keep_calm.wav-f54d94718630c52c42fbf8f58609d2ed.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/keep_calm.wav"
+dest_files=[ "res://.import/keep_calm.wav-f54d94718630c52c42fbf8f58609d2ed.sample" ]
+
 [params]
 
 force/8_bit=false

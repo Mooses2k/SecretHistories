@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/scotland_yard.wav-94a02710fb9b2d2f20fd079b2e52ad90.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/scotland_yard.wav"
+dest_files=[ "res://.import/scotland_yard.wav-94a02710fb9b2d2f20fd079b2e52ad90.sample" ]
+
 [params]
 
 force/8_bit=false

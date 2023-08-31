@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/you_cant_kill_me.wav-e46271f6276fcabf5ad083faa4f3368d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/you_cant_kill_me.wav"
+dest_files=[ "res://.import/you_cant_kill_me.wav-e46271f6276fcabf5ad083faa4f3368d.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/land_1.wav-bce91c28bc16b718da897a3e03ab9b4e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/jumping_landing/landing/land_1.wav"
+dest_files=[ "res://.import/land_1.wav-bce91c28bc16b718da897a3e03ab9b4e.sample" ]
+
 [params]
 
 force/8_bit=false

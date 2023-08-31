@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/green_slime.wav-e8a9e7859c7285d2993080daf0992dd7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/green_slime.wav"
+dest_files=[ "res://.import/green_slime.wav-e8a9e7859c7285d2993080daf0992dd7.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/its_friday.wav-098822e0209fe388652a74b04a438d8f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/when/its_friday.wav"
+dest_files=[ "res://.import/its_friday.wav-098822e0209fe388652a74b04a438d8f.sample" ]
+
 [params]
 
 force/8_bit=false

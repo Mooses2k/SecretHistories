@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/five_pieces.wav-aef0a78c57b9384326a66db9ef608e50.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/think_five/five_pieces.wav"
+dest_files=[ "res://.import/five_pieces.wav-aef0a78c57b9384326a66db9ef608e50.sample" ]
+
 [params]
 
 force/8_bit=false

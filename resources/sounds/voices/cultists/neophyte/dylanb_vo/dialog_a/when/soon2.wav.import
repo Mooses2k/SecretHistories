@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/soon2.wav-a19e8f462ac956e56204727b709a82ce.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/when/soon2.wav"
+dest_files=[ "res://.import/soon2.wav-a19e8f462ac956e56204727b709a82ce.sample" ]
+
 [params]
 
 force/8_bit=false

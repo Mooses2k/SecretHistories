@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/where_are_you_hiding.wav-a563e445d69bd26e9d18f75840185e1d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/where_are_you_hiding.wav"
+dest_files=[ "res://.import/where_are_you_hiding.wav-a563e445d69bd26e9d18f75840185e1d.sample" ]
+
 [params]
 
 force/8_bit=false

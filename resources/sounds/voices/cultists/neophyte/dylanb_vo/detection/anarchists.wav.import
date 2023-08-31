@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/anarchists.wav"
+dest_files=[ "res://.import/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample" ]
+
 [params]
 
 force/8_bit=false

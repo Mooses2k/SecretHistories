@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/take_that.wav-9918fae0312297775fc8a81bd849686a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/take_that.wav"
+dest_files=[ "res://.import/take_that.wav-9918fae0312297775fc8a81bd849686a.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/poor_fool.wav-3232ccac3aff3e0dff376449f0ecd48e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/poor_fool.wav"
+dest_files=[ "res://.import/poor_fool.wav-3232ccac3aff3e0dff376449f0ecd48e.sample" ]
+
 [params]
 
 force/8_bit=false

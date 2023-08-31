@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/soon.wav-d13dbde9c5828b1b946029ee08c15ac1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/soon.wav"
+dest_files=[ "res://.import/soon.wav-d13dbde9c5828b1b946029ee08c15ac1.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/hear_the_call.wav-8d821202e52292de9351a31b75abbef8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/hear_the_call.wav"
+dest_files=[ "res://.import/hear_the_call.wav-8d821202e52292de9351a31b75abbef8.sample" ]
+
 [params]
 
 force/8_bit=false

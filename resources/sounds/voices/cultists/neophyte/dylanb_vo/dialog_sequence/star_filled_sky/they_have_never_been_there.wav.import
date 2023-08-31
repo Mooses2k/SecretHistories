@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/they_have_never_been_there.wav-26257dd5faa3731a8aba5054ef1356b6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/star_filled_sky/they_have_never_been_there.wav"
+dest_files=[ "res://.import/they_have_never_been_there.wav-26257dd5faa3731a8aba5054ef1356b6.sample" ]
+
 [params]
 
 force/8_bit=false

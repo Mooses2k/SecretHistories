@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/fire1.wav-abd13edec93f3a5961ea7a6d0e7c8222.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fire/fire1.wav"
+dest_files=[ "res://.import/fire1.wav-abd13edec93f3a5961ea7a6d0e7c8222.sample" ]
+
 [params]
 
 force/8_bit=false

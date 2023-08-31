@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/death_no2.wav-4c4834495a78ead7f804733fc061b6a9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/death_no2.wav"
+dest_files=[ "res://.import/death_no2.wav-4c4834495a78ead7f804733fc061b6a9.sample" ]
+
 [params]
 
 force/8_bit=false

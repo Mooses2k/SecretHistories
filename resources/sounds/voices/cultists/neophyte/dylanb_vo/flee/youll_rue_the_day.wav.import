@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/youll_rue_the_day.wav-b71eba14b0f2a5583f0050c7ad46cd73.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/youll_rue_the_day.wav"
+dest_files=[ "res://.import/youll_rue_the_day.wav-b71eba14b0f2a5583f0050c7ad46cd73.sample" ]
+
 [params]
 
 force/8_bit=false

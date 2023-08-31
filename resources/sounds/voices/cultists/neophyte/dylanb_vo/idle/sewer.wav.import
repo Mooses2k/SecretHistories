@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/sewer.wav-b7278cbf39963b8ac79710703fdde70b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/sewer.wav"
+dest_files=[ "res://.import/sewer.wav-b7278cbf39963b8ac79710703fdde70b.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/12Gauge.glb-871eacf2e5c57abee6bc5442db4e56f0.scn"
 
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/loose/12Gauge.glb"
+dest_files=[ "res://.import/12Gauge.glb-871eacf2e5c57abee6bc5442db4e56f0.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/make_some_memories2.wav-093f06d8699f19b2be5789419d7edb1e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/make_some_memories2.wav"
+dest_files=[ "res://.import/make_some_memories2.wav-093f06d8699f19b2be5789419d7edb1e.sample" ]
+
 [params]
 
 force/8_bit=false

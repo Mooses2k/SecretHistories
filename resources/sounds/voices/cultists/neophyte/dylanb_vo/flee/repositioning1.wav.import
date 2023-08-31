@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/repositioning1.wav-d71feaa9dcf3ae2e2e163e919ae373e6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/repositioning1.wav"
+dest_files=[ "res://.import/repositioning1.wav-d71feaa9dcf3ae2e2e163e919ae373e6.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/agents_of_the_reptile_queen.wav-c23d21fca8edbc214fbfe254842071bd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/agents_of_the_reptile_queen.wav"
+dest_files=[ "res://.import/agents_of_the_reptile_queen.wav-c23d21fca8edbc214fbfe254842071bd.sample" ]
+
 [params]
 
 force/8_bit=false

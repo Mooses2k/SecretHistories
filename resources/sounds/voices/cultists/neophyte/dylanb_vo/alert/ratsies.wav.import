@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/ratsies.wav-a08eecc7d9d886bde4044515f2baa01e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/ratsies.wav"
+dest_files=[ "res://.import/ratsies.wav-a08eecc7d9d886bde4044515f2baa01e.sample" ]
+
 [params]
 
 force/8_bit=false

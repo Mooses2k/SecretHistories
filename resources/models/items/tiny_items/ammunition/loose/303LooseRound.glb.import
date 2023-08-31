@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/303LooseRound.glb-68dc3c3e12915a8a40a33f6173913fdb.scn"
 
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/loose/303LooseRound.glb"
+dest_files=[ "res://.import/303LooseRound.glb-68dc3c3e12915a8a40a33f6173913fdb.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

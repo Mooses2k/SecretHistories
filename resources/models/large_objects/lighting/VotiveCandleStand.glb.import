@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/VotiveCandleStand.glb-ee9d45048475d605943216c32fb32b1e.scn"
 
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/VotiveCandleStand.glb"
+dest_files=[ "res://.import/VotiveCandleStand.glb-ee9d45048475d605943216c32fb32b1e.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

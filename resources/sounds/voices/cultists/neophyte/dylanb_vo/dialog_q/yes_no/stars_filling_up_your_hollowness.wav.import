@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/stars_filling_up_your_hollowness.wav-de5c61e9cfe24868f25a51c4aecbd6eb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/stars_filling_up_your_hollowness.wav"
+dest_files=[ "res://.import/stars_filling_up_your_hollowness.wav-de5c61e9cfe24868f25a51c4aecbd6eb.sample" ]
+
 [params]
 
 force/8_bit=false

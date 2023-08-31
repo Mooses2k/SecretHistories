@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/tail_of_the_comet1.wav-6d95ebfc348a9d741d332793076f97b4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/tail_of_the_comet1.wav"
+dest_files=[ "res://.import/tail_of_the_comet1.wav-6d95ebfc348a9d741d332793076f97b4.sample" ]
+
 [params]
 
 force/8_bit=false

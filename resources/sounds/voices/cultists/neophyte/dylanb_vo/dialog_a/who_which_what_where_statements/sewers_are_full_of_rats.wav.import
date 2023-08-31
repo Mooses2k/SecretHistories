@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/sewers_are_full_of_rats.wav-26a06b96da4e26620d16b5aee593f2f7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/sewers_are_full_of_rats.wav"
+dest_files=[ "res://.import/sewers_are_full_of_rats.wav-26a06b96da4e26620d16b5aee593f2f7.sample" ]
+
 [params]
 
 force/8_bit=false

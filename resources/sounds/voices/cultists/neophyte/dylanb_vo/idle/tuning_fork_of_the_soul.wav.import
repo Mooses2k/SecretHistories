@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/tuning_fork_of_the_soul.wav-49fc4d0685fb545f953d27bddce7758a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/tuning_fork_of_the_soul.wav"
+dest_files=[ "res://.import/tuning_fork_of_the_soul.wav-49fc4d0685fb545f953d27bddce7758a.sample" ]
+
 [params]
 
 force/8_bit=false

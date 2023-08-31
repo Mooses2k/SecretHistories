@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/no_more_ammunition.wav-d7d13dc860171e24df97c3cbcf1dbcbd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/no_more_ammunition.wav"
+dest_files=[ "res://.import/no_more_ammunition.wav-d7d13dc860171e24df97c3cbcf1dbcbd.sample" ]
+
 [params]
 
 force/8_bit=false

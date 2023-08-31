@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/footsteps_carpet2.wav-811dad6be38e081ebc38bb64e27989a8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet2.wav"
+dest_files=[ "res://.import/footsteps_carpet2.wav-811dad6be38e081ebc38bb64e27989a8.sample" ]
+
 [params]
 
 force/8_bit=false

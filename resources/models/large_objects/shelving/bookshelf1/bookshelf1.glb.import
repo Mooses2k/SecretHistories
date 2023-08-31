@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/bookshelf1.glb-60bb268c54556bd4386afba38cc22553.scn"
 
 [deps]
 
 source_file="res://resources/models/large_objects/shelving/bookshelf1/bookshelf1.glb"
+dest_files=[ "res://.import/bookshelf1.glb-60bb268c54556bd4386afba38cc22553.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

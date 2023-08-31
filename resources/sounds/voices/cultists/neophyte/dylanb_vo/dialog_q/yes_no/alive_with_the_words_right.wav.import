@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/alive_with_the_words_right.wav-867913f46885f33e6d30c4d234423fdd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/alive_with_the_words_right.wav"
+dest_files=[ "res://.import/alive_with_the_words_right.wav-867913f46885f33e6d30c4d234423fdd.sample" ]
+
 [params]
 
 force/8_bit=false

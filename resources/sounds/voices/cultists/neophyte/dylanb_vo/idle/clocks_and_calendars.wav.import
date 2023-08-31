@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/clocks_and_calendars.wav-a305aaa77d7b1f1146ca8f56a8b3c8c5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/clocks_and_calendars.wav"
+dest_files=[ "res://.import/clocks_and_calendars.wav-a305aaa77d7b1f1146ca8f56a8b3c8c5.sample" ]
+
 [params]
 
 force/8_bit=false

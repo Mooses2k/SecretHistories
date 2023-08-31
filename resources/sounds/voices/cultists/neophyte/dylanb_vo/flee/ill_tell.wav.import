@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/ill_tell.wav-760319c44625f59d9eb6ad688f20294f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/ill_tell.wav"
+dest_files=[ "res://.import/ill_tell.wav-760319c44625f59d9eb6ad688f20294f.sample" ]
+
 [params]
 
 force/8_bit=false

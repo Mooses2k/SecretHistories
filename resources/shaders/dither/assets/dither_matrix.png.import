@@ -2,11 +2,16 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path="res://.import/dither_matrix.png-511a6ad016d88dc374427260aa9b2818.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/dither_matrix.png"
+dest_files=[ "res://.import/dither_matrix.png-511a6ad016d88dc374427260aa9b2818.stex" ]
+
 [params]
 
 compress/mode=0

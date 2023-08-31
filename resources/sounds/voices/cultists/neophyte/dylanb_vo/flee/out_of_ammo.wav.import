@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/out_of_ammo.wav-549d367e16bd8bc90807bf48219bbdbd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/out_of_ammo.wav"
+dest_files=[ "res://.import/out_of_ammo.wav-549d367e16bd8bc90807bf48219bbdbd.sample" ]
+
 [params]
 
 force/8_bit=false

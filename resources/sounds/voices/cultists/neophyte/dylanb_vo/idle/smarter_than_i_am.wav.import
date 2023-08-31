@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/smarter_than_i_am.wav-38492006de4865800f1992a92668f9cf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/smarter_than_i_am.wav"
+dest_files=[ "res://.import/smarter_than_i_am.wav-38492006de4865800f1992a92668f9cf.sample" ]
+
 [params]
 
 force/8_bit=false

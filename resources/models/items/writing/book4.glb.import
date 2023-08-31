@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/book4.glb-e9682439ce634f6db95c2b331ff87460.scn"
 
 [deps]
 
 source_file="res://resources/models/items/writing/book4.glb"
+dest_files=[ "res://.import/book4.glb-e9682439ce634f6db95c2b331ff87460.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

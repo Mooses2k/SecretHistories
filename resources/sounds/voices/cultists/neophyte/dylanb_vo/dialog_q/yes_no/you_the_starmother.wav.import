@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/you_the_starmother.wav-8d1ddde3480d36ca364a35af84976a12.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/you_the_starmother.wav"
+dest_files=[ "res://.import/you_the_starmother.wav-8d1ddde3480d36ca364a35af84976a12.sample" ]
+
 [params]
 
 force/8_bit=false

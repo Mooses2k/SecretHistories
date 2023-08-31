@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/make_your_time.wav-78572753f680729a4a11fc0c6e5bf424.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/make_your_time.wav"
+dest_files=[ "res://.import/make_your_time.wav-78572753f680729a4a11fc0c6e5bf424.sample" ]
+
 [params]
 
 force/8_bit=false

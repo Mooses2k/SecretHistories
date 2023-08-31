@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/heavy_breath.wav-77646594b1c9b969f5df0b2f6247c510.sample"
 
 [deps]
 
 source_file="res://resources/sounds/breathing/heavy_breath.wav"
+dest_files=[ "res://.import/heavy_breath.wav-77646594b1c9b969f5df0b2f6247c510.sample" ]
+
 [params]
 
 force/8_bit=false

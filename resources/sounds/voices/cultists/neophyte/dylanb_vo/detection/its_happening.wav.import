@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/its_happening.wav-f53ac87eac4bb8b1e30bb6b409173e46.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/its_happening.wav"
+dest_files=[ "res://.import/its_happening.wav-f53ac87eac4bb8b1e30bb6b409173e46.sample" ]
+
 [params]
 
 force/8_bit=false

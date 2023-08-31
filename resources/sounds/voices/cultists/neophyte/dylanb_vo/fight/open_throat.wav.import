@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/open_throat.wav-09c85dca23c5d22a4736a8536a1abe12.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/open_throat.wav"
+dest_files=[ "res://.import/open_throat.wav-09c85dca23c5d22a4736a8536a1abe12.sample" ]
+
 [params]
 
 force/8_bit=false

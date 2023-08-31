@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/need_a_breakroom.wav-0efceb8e1c260eadbd082bca90b6a5d5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/need_a_breakroom.wav"
+dest_files=[ "res://.import/need_a_breakroom.wav-0efceb8e1c260eadbd082bca90b6a5d5.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/mask_of_a_horse2.wav-6977d94d4d75a96deb0051cf40a63d4e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/mask_of_a_horse2.wav"
+dest_files=[ "res://.import/mask_of_a_horse2.wav-6977d94d4d75a96deb0051cf40a63d4e.sample" ]
+
 [params]
 
 force/8_bit=false

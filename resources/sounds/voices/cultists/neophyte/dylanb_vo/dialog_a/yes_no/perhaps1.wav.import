@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/perhaps1.wav-053f76284b8fe55e807eaba0f0cd40cd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/yes_no/perhaps1.wav"
+dest_files=[ "res://.import/perhaps1.wav-053f76284b8fe55e807eaba0f0cd40cd.sample" ]
+
 [params]
 
 force/8_bit=false

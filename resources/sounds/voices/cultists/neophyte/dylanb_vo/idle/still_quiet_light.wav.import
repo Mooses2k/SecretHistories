@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/still_quiet_light.wav-eb83090d9ca57ea6353533dd44aab90c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/still_quiet_light.wav"
+dest_files=[ "res://.import/still_quiet_light.wav-eb83090d9ca57ea6353533dd44aab90c.sample" ]
+
 [params]
 
 force/8_bit=false

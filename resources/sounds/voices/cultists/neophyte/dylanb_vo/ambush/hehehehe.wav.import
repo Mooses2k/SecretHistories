@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/hehehehe.wav-5b8adf7cca02fc7967eec2a9bfe9dfd5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/hehehehe.wav"
+dest_files=[ "res://.import/hehehehe.wav-5b8adf7cca02fc7967eec2a9bfe9dfd5.sample" ]
+
 [params]
 
 force/8_bit=false

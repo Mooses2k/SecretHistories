@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/unusually_large_rats.wav-72e76df3004a010f6c623599c52d4926.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/unusually_large_rats.wav"
+dest_files=[ "res://.import/unusually_large_rats.wav-72e76df3004a010f6c623599c52d4926.sample" ]
+
 [params]
 
 force/8_bit=false

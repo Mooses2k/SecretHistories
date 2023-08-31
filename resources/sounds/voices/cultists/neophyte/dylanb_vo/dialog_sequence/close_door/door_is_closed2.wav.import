@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/door_is_closed2.wav-102cb9a707300c55e5b3195aacd798bf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/close_door/door_is_closed2.wav"
+dest_files=[ "res://.import/door_is_closed2.wav-102cb9a707300c55e5b3195aacd798bf.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/proper_ambush.wav-0671f656e6c5a018b15f672209690a1e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/proper_ambush.wav"
+dest_files=[ "res://.import/proper_ambush.wav-0671f656e6c5a018b15f672209690a1e.sample" ]
+
 [params]
 
 force/8_bit=false

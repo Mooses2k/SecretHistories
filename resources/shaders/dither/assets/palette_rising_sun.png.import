@@ -2,11 +2,18 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path.s3tc="res://.import/palette_rising_sun.png-fa1ccf71e4c1adf968b92f7509b4809b.s3tc.stex"
+path.etc2="res://.import/palette_rising_sun.png-fa1ccf71e4c1adf968b92f7509b4809b.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/palette_rising_sun.png"
+dest_files=[ "res://.import/palette_rising_sun.png-fa1ccf71e4c1adf968b92f7509b4809b.s3tc.stex", "res://.import/palette_rising_sun.png-fa1ccf71e4c1adf968b92f7509b4809b.etc2.stex" ]
+
 [params]
 
 compress/mode=2

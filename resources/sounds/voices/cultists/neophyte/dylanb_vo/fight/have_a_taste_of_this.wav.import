@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/have_a_taste_of_this.wav-5777ea5898b351d463625036a02ab009.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/have_a_taste_of_this.wav"
+dest_files=[ "res://.import/have_a_taste_of_this.wav-5777ea5898b351d463625036a02ab009.sample" ]
+
 [params]
 
 force/8_bit=false

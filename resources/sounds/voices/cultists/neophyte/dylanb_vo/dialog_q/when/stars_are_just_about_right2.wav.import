@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/stars_are_just_about_right2.wav-281b2a6cd4b2cd0209a30811f99fab6f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/when/stars_are_just_about_right2.wav"
+dest_files=[ "res://.import/stars_are_just_about_right2.wav-281b2a6cd4b2cd0209a30811f99fab6f.sample" ]
+
 [params]
 
 force/8_bit=false

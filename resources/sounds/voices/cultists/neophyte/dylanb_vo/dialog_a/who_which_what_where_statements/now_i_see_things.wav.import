@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/now_i_see_things.wav-d8acf9e07d1c2c85a34cb1f85c079d5d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/now_i_see_things.wav"
+dest_files=[ "res://.import/now_i_see_things.wav-d8acf9e07d1c2c85a34cb1f85c079d5d.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/politics3.wav-24960f39f356116aa36a705a928e56fa.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/politics3.wav"
+dest_files=[ "res://.import/politics3.wav-24960f39f356116aa36a705a928e56fa.sample" ]
+
 [params]
 
 force/8_bit=false

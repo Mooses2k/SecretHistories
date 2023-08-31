@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/back_hurts2.wav-df3fd7eaa21b5e78a63d1721186ad26e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/back_hurts2.wav"
+dest_files=[ "res://.import/back_hurts2.wav-df3fd7eaa21b5e78a63d1721186ad26e.sample" ]
+
 [params]
 
 force/8_bit=false

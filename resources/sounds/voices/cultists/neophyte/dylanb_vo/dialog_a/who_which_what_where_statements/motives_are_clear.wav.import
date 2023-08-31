@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/motives_are_clear.wav-7e74ae01e8b9d53853efd4118184c8d2.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/motives_are_clear.wav"
+dest_files=[ "res://.import/motives_are_clear.wav-7e74ae01e8b9d53853efd4118184c8d2.sample" ]
+
 [params]
 
 force/8_bit=false

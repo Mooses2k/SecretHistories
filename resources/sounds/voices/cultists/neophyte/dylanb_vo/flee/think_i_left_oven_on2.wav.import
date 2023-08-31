@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/think_i_left_oven_on2.wav-25e62f83731a8016fbe7ae73d26822c0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/think_i_left_oven_on2.wav"
+dest_files=[ "res://.import/think_i_left_oven_on2.wav-25e62f83731a8016fbe7ae73d26822c0.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/darkness.wav-4c1c3cb4f8efa68eeb6f7e7fffba89a7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/darkness.wav"
+dest_files=[ "res://.import/darkness.wav-4c1c3cb4f8efa68eeb6f7e7fffba89a7.sample" ]
+
 [params]
 
 force/8_bit=false

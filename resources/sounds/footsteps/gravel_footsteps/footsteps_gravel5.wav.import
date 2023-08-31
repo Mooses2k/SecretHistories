@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/footsteps_gravel5.wav-2086a20eaf3ce72ffc6b723dc0674bca.sample"
 
 [deps]
 
 source_file="res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel5.wav"
+dest_files=[ "res://.import/footsteps_gravel5.wav-2086a20eaf3ce72ffc6b723dc0674bca.sample" ]
+
 [params]
 
 force/8_bit=false

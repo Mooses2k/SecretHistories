@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/stars_may_die.wav-8d37d67374baa06dd32d78cc573aa17d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/stars_may_die.wav"
+dest_files=[ "res://.import/stars_may_die.wav-8d37d67374baa06dd32d78cc573aa17d.sample" ]
+
 [params]
 
 force/8_bit=false

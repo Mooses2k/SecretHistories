@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/someone_hiding_there2.wav-2437145433edf0432c41967de5514f78.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/someone_hiding_there2.wav"
+dest_files=[ "res://.import/someone_hiding_there2.wav-2437145433edf0432c41967de5514f78.sample" ]
+
 [params]
 
 force/8_bit=false

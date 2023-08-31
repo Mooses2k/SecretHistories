@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/electricity_man.wav-aac76571150a0b68b9db68769d8edb84.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/electricity_man.wav"
+dest_files=[ "res://.import/electricity_man.wav-aac76571150a0b68b9db68769d8edb84.sample" ]
+
 [params]
 
 force/8_bit=false

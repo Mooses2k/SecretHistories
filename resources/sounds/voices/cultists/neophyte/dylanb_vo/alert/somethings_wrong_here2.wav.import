@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/somethings_wrong_here2.wav-31d50ff16b6c7b54cfe0bc5e181c50c2.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/somethings_wrong_here2.wav"
+dest_files=[ "res://.import/somethings_wrong_here2.wav-31d50ff16b6c7b54cfe0bc5e181c50c2.sample" ]
+
 [params]
 
 force/8_bit=false

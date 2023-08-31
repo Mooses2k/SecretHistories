@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/snakes3.wav-d46d9a82a83576c05000bf839c31eb6f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/snake/snakes3.wav"
+dest_files=[ "res://.import/snakes3.wav-d46d9a82a83576c05000bf839c31eb6f.sample" ]
+
 [params]
 
 force/8_bit=false

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/union_bastards.wav-625f12adc75a3152067cba67525f6536.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/union_bastards.wav"
+dest_files=[ "res://.import/union_bastards.wav-625f12adc75a3152067cba67525f6536.sample" ]
+
 [params]
 
 force/8_bit=false

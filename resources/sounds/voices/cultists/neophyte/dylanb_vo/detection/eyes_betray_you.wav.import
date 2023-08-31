@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/eyes_betray_you.wav-051557dddfc78a533204dc7bb842bf30.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/eyes_betray_you.wav"
+dest_files=[ "res://.import/eyes_betray_you.wav-051557dddfc78a533204dc7bb842bf30.sample" ]
+
 [params]
 
 force/8_bit=false

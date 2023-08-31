@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/rat.wav-2a9aa64264c290d56b73627a1441c3ea.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/rat.wav"
+dest_files=[ "res://.import/rat.wav-2a9aa64264c290d56b73627a1441c3ea.sample" ]
+
 [params]
 
 force/8_bit=false

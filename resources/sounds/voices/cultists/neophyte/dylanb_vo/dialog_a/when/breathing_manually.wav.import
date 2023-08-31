@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/breathing_manually.wav-c120f07e4aeff13d7d4083afa3e877ff.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/when/breathing_manually.wav"
+dest_files=[ "res://.import/breathing_manually.wav-c120f07e4aeff13d7d4083afa3e877ff.sample" ]
+
 [params]
 
 force/8_bit=false

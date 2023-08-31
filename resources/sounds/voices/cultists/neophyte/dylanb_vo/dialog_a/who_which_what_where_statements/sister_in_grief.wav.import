@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/sister_in_grief.wav-778ece8fa40ba3452a5a62b943de406a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/sister_in_grief.wav"
+dest_files=[ "res://.import/sister_in_grief.wav-778ece8fa40ba3452a5a62b943de406a.sample" ]
+
 [params]
 
 force/8_bit=false

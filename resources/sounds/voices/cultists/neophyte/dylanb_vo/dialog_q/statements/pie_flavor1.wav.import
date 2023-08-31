@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/pie_flavor1.wav-01abdaecc9174b73018c3682213ff8f4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/pie_flavor1.wav"
+dest_files=[ "res://.import/pie_flavor1.wav-01abdaecc9174b73018c3682213ff8f4.sample" ]
+
 [params]
 
 force/8_bit=false

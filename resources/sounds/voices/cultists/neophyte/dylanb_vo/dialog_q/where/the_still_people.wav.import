@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/the_still_people.wav-77d63af7e2046e2f3c76fca3e559601d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/where/the_still_people.wav"
+dest_files=[ "res://.import/the_still_people.wav-77d63af7e2046e2f3c76fca3e559601d.sample" ]
+
 [params]
 
 force/8_bit=false

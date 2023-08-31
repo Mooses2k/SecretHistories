@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/lets_parley2.wav-a045c8974a1046644e917730d785a90e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/lets_parley2.wav"
+dest_files=[ "res://.import/lets_parley2.wav-a045c8974a1046644e917730d785a90e.sample" ]
+
 [params]
 
 force/8_bit=false

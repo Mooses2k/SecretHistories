@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/choke_on_this.wav-abcb299b594b3226ca7838470a599881.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/choke_on_this.wav"
+dest_files=[ "res://.import/choke_on_this.wav-abcb299b594b3226ca7838470a599881.sample" ]
+
 [params]
 
 force/8_bit=false

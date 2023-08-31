@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/faced_doubt.wav-1c62289301788a5b82e8f337602badfc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/faced_doubt.wav"
+dest_files=[ "res://.import/faced_doubt.wav-1c62289301788a5b82e8f337602badfc.sample" ]
+
 [params]
 
 force/8_bit=false

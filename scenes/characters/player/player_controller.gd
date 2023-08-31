@@ -520,9 +520,12 @@ func handle_inventory(delta : float):
 			# Player intends to swap
 			character.inventory.swap_hands()
 			_cycle_offhand_timer = 0.0
-		# Player intends to cycle slot
+			return
+		
+		# Player intends to cycle slot instead of swapping hands
 		else:
 			_cycle_offhand_timer = 0.0
+			
 		var start_slot = character.inventory.current_offhand_slot
 		var new_slot = (start_slot + 1) % character.inventory.hotbar.size()
 		while new_slot != start_slot \

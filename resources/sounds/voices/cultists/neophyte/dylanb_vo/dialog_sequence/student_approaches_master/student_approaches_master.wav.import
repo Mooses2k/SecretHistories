@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/student_approaches_master.wav-09377c1340738c5d80c62d4c8a73f7b8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/student_approaches_master/student_approaches_master.wav"
+dest_files=[ "res://.import/student_approaches_master.wav-09377c1340738c5d80c62d4c8a73f7b8.sample" ]
+
 [params]
 
 force/8_bit=false

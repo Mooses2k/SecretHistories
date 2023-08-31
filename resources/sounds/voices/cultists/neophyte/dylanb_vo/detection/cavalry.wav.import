@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/cavalry.wav-b8b75d1603ec5684f1d3a58f2438b25e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/cavalry.wav"
+dest_files=[ "res://.import/cavalry.wav-b8b75d1603ec5684f1d3a58f2438b25e.sample" ]
+
 [params]
 
 force/8_bit=false

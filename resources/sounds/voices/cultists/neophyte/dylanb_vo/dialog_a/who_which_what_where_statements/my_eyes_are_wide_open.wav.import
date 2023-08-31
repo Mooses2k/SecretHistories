@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/my_eyes_are_wide_open.wav-4aafeb54061e046e98050ca8cab7db27.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/my_eyes_are_wide_open.wav"
+dest_files=[ "res://.import/my_eyes_are_wide_open.wav-4aafeb54061e046e98050ca8cab7db27.sample" ]
+
 [params]
 
 force/8_bit=false

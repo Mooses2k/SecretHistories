@@ -2,11 +2,13 @@
 
 importer="scene"
 type="PackedScene"
-valid=false
+path="res://.import/MartiniHenryBox.glb-d1c79f3df9a081dbccc89ec6b04641b5.scn"
 
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/boxes/MartiniHenryBox.glb"
+dest_files=[ "res://.import/MartiniHenryBox.glb-d1c79f3df9a081dbccc89ec6b04641b5.scn" ]
+
 [params]
 
 nodes/root_type="Spatial"

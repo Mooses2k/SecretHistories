@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/i_give_up.wav-4d6fe3a11f44dd443555cfdf5d4c35aa.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/i_give_up.wav"
+dest_files=[ "res://.import/i_give_up.wav-4d6fe3a11f44dd443555cfdf5d4c35aa.sample" ]
+
 [params]
 
 force/8_bit=false

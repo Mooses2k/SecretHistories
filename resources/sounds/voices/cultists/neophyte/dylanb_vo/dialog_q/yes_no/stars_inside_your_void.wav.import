@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/stars_inside_your_void.wav-9f488b980361bcd0cf07732b31ec7a6a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/stars_inside_your_void.wav"
+dest_files=[ "res://.import/stars_inside_your_void.wav-9f488b980361bcd0cf07732b31ec7a6a.sample" ]
+
 [params]
 
 force/8_bit=false

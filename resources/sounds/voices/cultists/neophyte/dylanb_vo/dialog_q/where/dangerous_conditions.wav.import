@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/dangerous_conditions.wav-02c5ed69cb4157033a204c36ece3fcd2.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/where/dangerous_conditions.wav"
+dest_files=[ "res://.import/dangerous_conditions.wav-02c5ed69cb4157033a204c36ece3fcd2.sample" ]
+
 [params]
 
 force/8_bit=false

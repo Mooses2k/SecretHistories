@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/quiet_down.wav-08e53e9cb89cdfcef9e6a47e3720fa20.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/quiet_down.wav"
+dest_files=[ "res://.import/quiet_down.wav-08e53e9cb89cdfcef9e6a47e3720fa20.sample" ]
+
 [params]
 
 force/8_bit=false

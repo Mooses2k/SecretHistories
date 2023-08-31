@@ -2,11 +2,16 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path="res://.import/test.png-43b9bcb49e767dbd8f7514587d6e5ba8.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/test.png"
+dest_files=[ "res://.import/test.png-43b9bcb49e767dbd8f7514587d6e5ba8.stex" ]
+
 [params]
 
 compress/mode=0

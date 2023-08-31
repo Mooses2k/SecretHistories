@@ -465,7 +465,7 @@ func swap_hands():
 	var previous_offhand = current_offhand_slot
 	print("Mainhand slot: ", current_mainhand_slot)
 	print("Offhand slot: ", current_offhand_slot)
-
+	
 	# Avoids a bug if offhand is empty when swap where you can't pick anything up anymore after it 
 	if current_offhand_slot == 10:
 		if current_mainhand_slot == 0:
@@ -474,14 +474,14 @@ func swap_hands():
 		else:
 			previous_offhand = 0
 			set_mainhand_slot(previous_offhand)
-
+		
 		set_offhand_slot(previous_mainhand)
 		unequip_mainhand_item()
 	
 	else:
 		set_mainhand_slot(previous_offhand)
 		set_offhand_slot(previous_mainhand)
-
+	
 	are_swapping = false
 
 

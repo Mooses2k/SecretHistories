@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/slowly_quietly.wav-6f37e4573518caea73489f65139ecf1a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/slowly_quietly.wav"
+dest_files=[ "res://.import/slowly_quietly.wav-6f37e4573518caea73489f65139ecf1a.sample" ]
+
 [params]
 
 force/8_bit=false

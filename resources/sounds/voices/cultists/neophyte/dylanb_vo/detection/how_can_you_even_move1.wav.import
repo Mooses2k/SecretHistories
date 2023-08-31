@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/how_can_you_even_move1.wav-dddea65a339c9faf964de9f7623f273e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/how_can_you_even_move1.wav"
+dest_files=[ "res://.import/how_can_you_even_move1.wav-dddea65a339c9faf964de9f7623f273e.sample" ]
+
 [params]
 
 force/8_bit=false

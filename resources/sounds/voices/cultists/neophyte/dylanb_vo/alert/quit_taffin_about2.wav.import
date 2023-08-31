@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/quit_taffin_about2.wav-e455bda6b8405a0bb8cb867ed2be71c0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/quit_taffin_about2.wav"
+dest_files=[ "res://.import/quit_taffin_about2.wav-e455bda6b8405a0bb8cb867ed2be71c0.sample" ]
+
 [params]
 
 force/8_bit=false

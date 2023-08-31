@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/gun_in_my_hand1.wav-f4cdbba2d0ab260d15113d01c4c291df.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/gun_in_my_hand1.wav"
+dest_files=[ "res://.import/gun_in_my_hand1.wav-f4cdbba2d0ab260d15113d01c4c291df.sample" ]
+
 [params]
 
 force/8_bit=false

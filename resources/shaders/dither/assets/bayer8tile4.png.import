@@ -2,11 +2,16 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path="res://.import/bayer8tile4.png-f0122339d3fc2915af4fae164209ab09.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/bayer8tile4.png"
+dest_files=[ "res://.import/bayer8tile4.png-f0122339d3fc2915af4fae164209ab09.stex" ]
+
 [params]
 
 compress/mode=0

@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/black_smoke.wav-2450380b8c85197d588bf2309acd8068.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/black_smoke.wav"
+dest_files=[ "res://.import/black_smoke.wav-2450380b8c85197d588bf2309acd8068.sample" ]
+
 [params]
 
 force/8_bit=false

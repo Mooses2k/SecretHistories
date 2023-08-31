@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/not_enough_hours1.wav-ed8899cd2db1a7a01f1eb006641080a8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/when/not_enough_hours1.wav"
+dest_files=[ "res://.import/not_enough_hours1.wav-ed8899cd2db1a7a01f1eb006641080a8.sample" ]
+
 [params]
 
 force/8_bit=false

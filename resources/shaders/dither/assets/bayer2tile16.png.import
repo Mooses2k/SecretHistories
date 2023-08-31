@@ -2,11 +2,18 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path.s3tc="res://.import/bayer2tile16.png-9d81a01cbc968552fa83ed7f57219eb1.s3tc.stex"
+path.etc2="res://.import/bayer2tile16.png-9d81a01cbc968552fa83ed7f57219eb1.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/bayer2tile16.png"
+dest_files=[ "res://.import/bayer2tile16.png-9d81a01cbc968552fa83ed7f57219eb1.s3tc.stex", "res://.import/bayer2tile16.png-9d81a01cbc968552fa83ed7f57219eb1.etc2.stex" ]
+
 [params]
 
 compress/mode=2

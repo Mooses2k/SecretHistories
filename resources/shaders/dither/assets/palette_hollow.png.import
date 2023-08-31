@@ -2,11 +2,18 @@
 
 importer="texture"
 type="StreamTexture"
-valid=false
+path.s3tc="res://.import/palette_hollow.png-a15772917209bb8b76f549dfc925000c.s3tc.stex"
+path.etc2="res://.import/palette_hollow.png-a15772917209bb8b76f549dfc925000c.etc2.stex"
+metadata={
+"imported_formats": [ "s3tc", "etc2" ],
+"vram_texture": true
+}
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/palette_hollow.png"
+dest_files=[ "res://.import/palette_hollow.png-a15772917209bb8b76f549dfc925000c.s3tc.stex", "res://.import/palette_hollow.png-a15772917209bb8b76f549dfc925000c.etc2.stex" ]
+
 [params]
 
 compress/mode=2

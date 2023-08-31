@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/not_alive.wav-4b274f686bd4c30f973e7404fb9d7cee.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/not_alive.wav"
+dest_files=[ "res://.import/not_alive.wav-4b274f686bd4c30f973e7404fb9d7cee.sample" ]
+
 [params]
 
 force/8_bit=false

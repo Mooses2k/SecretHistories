@@ -2,11 +2,13 @@
 
 importer="wav"
 type="AudioStreamSample"
-valid=false
+path="res://.import/somewhere_in_the_heavens.wav-f156b96eb08342853b5038dc93a9fced.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/somewhere_in_the_heavens.wav"
+dest_files=[ "res://.import/somewhere_in_the_heavens.wav-f156b96eb08342853b5038dc93a9fced.sample" ]
+
 [params]
 
 force/8_bit=false

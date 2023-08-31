@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/martini_henry.glb-83de8f5045b199fe52121029d914bfe2.scn"
+path="res://.import/pedestal.glb-5f39383373bf3781599c711c99fa8c28.scn"
 
 [deps]
 
-source_file="res://resources/models/items/ranged/martini-henry_rifle/martini_henry.glb"
-dest_files=[ "res://.import/martini_henry.glb-83de8f5045b199fe52121029d914bfe2.scn" ]
+source_file="res://resources/models/large_objects/pedestal/pedestal.glb"
+dest_files=[ "res://.import/pedestal.glb-5f39383373bf3781599c711c99fa8c28.scn" ]
 
 [params]
 

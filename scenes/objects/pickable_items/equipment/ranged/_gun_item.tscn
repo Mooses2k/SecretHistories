@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/gun_item.gd" type="Script" id=2]
+[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
 
 [node name="GunItem" instance=ExtResource( 1 )]
 collision_layer = 64
 collision_mask = 1
 continuous_cd = false
 script = ExtResource( 2 )
+item_throw_sound = ExtResource( 3 )
 ammo_types = [  ]
 ammunition_capacity = 0
 reload_amount = 0
@@ -16,8 +18,7 @@ damage_offset = 0
 dispersion_offset_degrees = 0
 cooldown = 1.0
 handling = 5.0
-animation_sequence = 0
-melee_damage_type = 0
+animation_reload_sequence = 0
 melee_style = 0
 player_path = NodePath("")
 detection_raycast = NodePath("")

@@ -15,6 +15,7 @@ export(int, "Rigid", "Static", "Character", "Kinematic") var equipped_mode : int
 
 export var max_speed : float = 12.0
 export var item_drop_sound : AudioStream
+export var item_throw_sound : AudioStream
 export(AttackTypes.Types) var melee_damage_type : int = 0
 
 onready var audio_player = get_node("DropSound")
@@ -64,6 +65,7 @@ func _physics_process(delta):
 
 func throw_damage(delta):
 	if can_throw_damage:
+		
 		var bodies = get_colliding_bodies()
 		if has_thrown == false:
 			initial_linear_velocity = linear_velocity.z
@@ -92,7 +94,7 @@ func decelerate_item_velocity(delta, decelerate):
 	if self.item_size:
 		if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 			if decelerate == true:
-				print("deceleratting item")
+				print("decelerating item")
 				linear_velocity *= 0
 
 
@@ -105,6 +107,16 @@ func set_item_state(value : int) :
 func implement_throw_damage(higher_damage):
 	is_higher_damage = higher_damage
 	can_throw_damage = true
+	play_throw_sound()
+
+
+func play_throw_sound():
+	if self.item_drop_sound and self.audio_player:
+		self.audio_player.stream = self.item_throw_sound
+		self.audio_player.unit_db = item_sound_level   # This could be adjusted
+		self.audio_player.bus = "Effects"
+		self.audio_player.play()
+		self.noise_level = 3
 
 
 func play_drop_sound(body):

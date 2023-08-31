@@ -518,7 +518,7 @@ func handle_inventory(delta : float):
 			if _cycle_offhand_timer == 0.0:
 				return
 			# Player intends to swap
-			inv.swap_hands()
+			character.inventory.swap_hands()
 			_cycle_offhand_timer = 0.0
 		# Player intends to cycle slot
 		else:

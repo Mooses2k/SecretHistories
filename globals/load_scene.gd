@@ -3,12 +3,12 @@ extends Node
 
 signal scene_loaded   # Ignore yellow editor message; we need this
 
-const LOADSCREEN = preload("res://scenes/UI/loadscreen/load_screen.tscn")
+const Loadscreen = preload("res://scenes/UI/loadscreen/load_screen.tscn")
 var loadscreen : Node
 
 
 func _ready() -> void:
-	loadscreen = LOADSCREEN.instance()
+	loadscreen = Loadscreen.instance()
 
 
 func setup_loadscreen() -> void:

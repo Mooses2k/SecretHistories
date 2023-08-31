@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/sounds/breathing/heavy_breath.mp3" type="AudioStream" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Spatial
+
+
+enum stamina_values\\
+{
+	maximum = 5,
+	minimum = -30
+}
+
+onready var stamina: AudioStreamPlayer = $HeavyBreathing;
+
+
+func tired(amount: float) -> void:
+	# convert stamina percentage to db:
+	var volume = ((amount / 100) * -stamina_values.maximum) + 14;
+	if stamina.playing != (volume > stamina_values.minimum):
+		stamina.playing = volume > stamina_values.minimum;
+	stamina.volume_db = volume;
+"
+
+[node name="Stamina" type="Spatial"]
+pause_mode = 1
+script = SubResource( 1 )
+
+[node name="HeavyBreathing" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )

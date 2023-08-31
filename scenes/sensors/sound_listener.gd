@@ -79,6 +79,8 @@ func obj_sound_loud_enough(item, behind_wall : int):
 
 
 func check_if_behind_wall(obj : Object):
+	var walls = ["wall_xp", "wall_zp", "wall_xn", "wall_zn", "ceiling", "ground"]
+	
 	if item_too_near.has(obj):
 		return false
 		
@@ -89,9 +91,7 @@ func check_if_behind_wall(obj : Object):
 	if result:
 		# TODO make this more general by group maybe?
 		for each in result:
-			if (result["collider"].name == "wall_xp" or result["collider"].name == "wall_zp" or
-			 result["collider"].name == "wall_xn" or result["collider"].name == "wall_zn" or
-			 result["collider"].name == "ceiling" or result["collider"].name == "ground"):
+			if result["collider"].name in walls:
 				passes += 1
 		return passes
 	return false

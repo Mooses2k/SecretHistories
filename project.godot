@@ -580,7 +580,7 @@ _global_script_class_icons={
 
 config/name="Secret Histories"
 config/description="An entirely forgettable game"
-run/main_scene="res://scenes/UI/opening_screens.tscn"
+run/main_scene="res://scenes/ui/opening_screens.tscn"
 run/flush_stdout_on_print=true
 boot_splash/show_image=false
 config/icon="res://icon.png"
@@ -597,7 +597,6 @@ KeyInputSettings="*res://globals/settings/key_input_settings.gd"
 Save="*res://globals/save.gd"
 LoadQuotes="*res://globals/load_quotes.gd"
 Settings="*res://globals/settings.gd"
-HUDS="*res://globals/HUD.tscn"
 LoadScene="*res://globals/load_scene.gd"
 BackgroundMusic="*res://scenes/effects/background_music.tscn"
 SettingsConfig="*res://globals/settings_config.gd"

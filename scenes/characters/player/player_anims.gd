@@ -2,7 +2,7 @@ extends Node
 
 
 # Different hold states depending on the item equipped and the hand equipped on 
-enum hold_states {
+enum HoldStates {
 	SMALL_GUN_ITEM,
 	SMALL_GUN_ITEM_LEFT,
 	LARGE_GUN_ITEM,

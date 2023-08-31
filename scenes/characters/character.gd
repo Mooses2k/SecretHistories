@@ -70,22 +70,23 @@ enum State {
 }
 
 # Checks if the player is equipping something or not 
-enum Animation_state {
+# TODO: this needs to be removed and merged into HoldStates below so that it's the same as HoldStates in player_anims
+enum AnimationState {
 	EQUIPPED,
 	NOT_EQUIPPED,
 }
 
-enum hold_states {
+enum HoldStates {
 	SMALL_GUN_ITEM,
 	LARGE_GUN_ITEM,
 	MELEE_ITEM,
-	LANTERN_ITEM,
+	ITEM_HORIZONTAL,
 	SMALL_GUN_ADS,
 	LARGE_GUNS_ADS,
 }
 
-var mainhand_animation = Animation_state.NOT_EQUIPPED
-var current_mainhand_item_animation = hold_states.MELEE_ITEM
+var mainhand_animation = AnimationState.NOT_EQUIPPED
+var current_mainhand_item_animation = HoldStates.MELEE_ITEM
 
 #const TEXTURE_SOUND_LIB = {
 #	"checkerboard" : {
@@ -471,7 +472,7 @@ func check_state_animation(delta):
 	
 	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
 	if self.name == "Cultist":
-		if current_mainhand_item_animation == hold_states.MELEE_ITEM:
+		if current_mainhand_item_animation == HoldStates.MELEE_ITEM:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
@@ -499,7 +500,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",2)
 				
-		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
+		elif current_mainhand_item_animation == HoldStates.SMALL_GUN_ITEM:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -542,7 +543,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Small_guns_transitions/current",2)
 				animation_tree.set("parameters/small_gun_run_blend/blend_amount",1)
 
-		elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM:
+		elif current_mainhand_item_animation == HoldStates.LARGE_GUN_ITEM:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -585,7 +586,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Big_guns_transition/current",2)
 				animation_tree.set("parameters/Rifle_gun_run_blend/blend_amount",1)
 				
-		elif current_mainhand_item_animation == hold_states.LARGE_GUNS_ADS:
+		elif current_mainhand_item_animation == HoldStates.LARGE_GUNS_ADS:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -622,7 +623,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_Rifle_state/current",2)
 				animation_tree.set("parameters/ADS_Rifle_Run/blend_amount",1)
 				
-		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ADS:
+		elif current_mainhand_item_animation == HoldStates.SMALL_GUN_ADS:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -677,14 +678,14 @@ func check_current_item_animation():
 		
 		if inventory.hotbar[mainhand_object] is GunItem:
 			if inventory.hotbar[mainhand_object].item_size == 0:
-				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
+				current_mainhand_item_animation = HoldStates.SMALL_GUN_ITEM
 			else:
-				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
+				current_mainhand_item_animation = HoldStates.LARGE_GUN_ITEM
 #		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
 #			print("Carried Lantern")
 			#update this to work for items animations
 		elif inventory.hotbar[mainhand_object] is MeleeItem:
-			current_mainhand_item_animation = hold_states.MELEE_ITEM
+			current_mainhand_item_animation = HoldStates.MELEE_ITEM
 
 
 
@@ -715,5 +716,5 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	if inventory.hotbar[current] != null :
 		pass
 	else:
-		current_mainhand_item_animation = hold_states.MELEE_ITEM
-		mainhand_animation = Animation_state.NOT_EQUIPPED
+		current_mainhand_item_animation = HoldStates.MELEE_ITEM
+		mainhand_animation = AnimationState.NOT_EQUIPPED

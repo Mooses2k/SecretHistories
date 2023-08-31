@@ -161,11 +161,8 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0
 unique_name_in_owner = true
 transform = Transform( -12.9922, 0, -1.13582e-06, 0, 12.7203, 0, 1.04217e-06, 0, -11.921, 0.00069923, 20.1633, 23.2223 )
 
-[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="1"]
-bones/137/bound_children = [ NodePath("MainHandAttachment") ]
-
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.827313, 0.550474, 0.113548, -0.00997255, -0.216373, 0.976304, 0.56198, 0.806566, 0.184416, -0.14313, 15.1229, 2.97546 )
+transform = Transform( -0.823052, 0.556627, 0.114193, -0.0127397, -0.219001, 0.975683, 0.568085, 0.801576, 0.187275, -0.118214, 15.1139, 2.96683 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

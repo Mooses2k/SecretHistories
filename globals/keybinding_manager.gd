@@ -2,7 +2,7 @@ extends Node
 
 
 var file_name = "%s://globals/settings/keybinding.dict" % ("user" if OS.has_feature("standalone") else "res")
-var file_name_default = "%s://globals/settings/defaultKeys.dict" % ("user" if OS.has_feature("standalone") else "res")
+var file_name_default = "%s://globals/settings/default_keys.dict" % ("user" if OS.has_feature("standalone") else "res")
 
 var setting_key = false
 var keys_default : Dictionary

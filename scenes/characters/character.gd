@@ -70,6 +70,7 @@ enum State {
 }
 
 # Checks if the player is equipping something or not 
+# TODO: this needs to be removed and merged into HoldStates below so that it's the same as HoldStates in player_anims
 enum AnimationState {
 	EQUIPPED,
 	NOT_EQUIPPED,
@@ -79,7 +80,7 @@ enum HoldStates {
 	SMALL_GUN_ITEM,
 	LARGE_GUN_ITEM,
 	MELEE_ITEM,
-	LANTERN_ITEM,
+	ITEM_HORIZONTAL,
 	SMALL_GUN_ADS,
 	LARGE_GUNS_ADS,
 }

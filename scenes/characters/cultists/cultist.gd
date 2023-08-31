@@ -7,7 +7,6 @@ var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell
 
 onready var direct_player_sight_sensor : Node = $Body/DirectPlayerSight
 
-
 #enum #LOADOUT PACKAGES FOR NEOPHYTES:
 #(# in parentheses is probability weight) {
 #    (50) Double-barrel shotgun + 2 loaded + 1-3 spare + old knife

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/ai/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
@@ -14,7 +14,7 @@
 [ext_resource path="res://core/ai/action_nodes/bt_go_to_target.gd" type="Script" id=12]
 [ext_resource path="res://core/ai/check_nodes/bt_approach_distance.gd" type="Script" id=13]
 [ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
-[ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/CultistNeophyteNoCape.glb" type="PackedScene" id=15]
+[ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/neophyte_scaled_no_cape.glb" type="PackedScene" id=15]
 [ext_resource path="res://scenes/sensors/sound_listener.tscn" type="PackedScene" id=16]
 [ext_resource path="res://core/ai/check_nodes/bt_sound_listener.gd" type="Script" id=17]
 [ext_resource path="res://scenes/characters/cultists/cultist.gd" type="Script" id=18]
@@ -25,6 +25,7 @@
 [ext_resource path="res://scenes/sensors/touch_sensor.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/characters/cultists/always_on_skeleton_IK.gd" type="Script" id=24]
 [ext_resource path="res://scenes/characters/cultists/demo_ik.gd" type="Script" id=25]
+[ext_resource path="res://resources/animations/ads_idle.tres" type="Animation" id=26]
 
 [sub_resource type="CapsuleShape" id=6]
 margin = 0.001
@@ -154,20 +155,23 @@ character = NodePath("../..")
 [node name="SoundListener" parent="Body" index="2" instance=ExtResource( 16 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 
-[node name="CultistNeophyteNoCape" parent="Body" index="3" instance=ExtResource( 15 )]
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
+[node name="CultistNeophyteNoCape" parent="Body" index="5" instance=ExtResource( 15 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="IKBaseTarget" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
 unique_name_in_owner = true
-transform = Transform( -12.9922, 0, -1.13582e-06, 0, 12.7203, 0, 1.04217e-06, 0, -11.921, 0.00069923, 20.1633, 23.2223 )
+transform = Transform( -0.999997, 0, -8.74225e-08, 0, 1, 0, 8.74225e-08, 0, -0.999997, 5.32946e-05, 1.58513, 1.94644 )
+
+[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="1"]
+bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.823052, 0.556627, 0.114193, -0.0127397, -0.219001, 0.975683, 0.568085, 0.801576, 0.187275, -0.118214, 15.1139, 2.96683 )
+transform = Transform( -0.969139, 0.13239, 0.207947, 0.149713, -0.35407, 0.923158, 0.195845, 0.925801, 0.323322, -0.211891, 1.48335, 0.298123 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
 unique_name_in_owner = true
-transform = Transform( 9.87362, 1.35419, 1.75424, 0.863589, -2.93904, -9.23556, -0.25949, 9.87466, -2.73205, -0.564033, 0.868509, 0.234261 )
+transform = Transform( 0.995856, 0.0505419, 0.0756122, 0.0871018, -0.290765, -0.952822, -0.0261721, 0.955459, -0.293962, 0, 0, 0 )
 
 [node name="AlwaysOnSkeletonIK" type="SkeletonIK" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="2"]
 unique_name_in_owner = true
@@ -197,9 +201,9 @@ max_distance = 12.0
 
 [node name="AnimationPlayer" parent="." index="18"]
 root_node = NodePath("../Body/CultistNeophyteNoCape")
+anims/ads_idle = ExtResource( 26 )
 
 [node name="AnimationTree" parent="." index="19"]
-active = true
 parameters/ADS_State/current = 2
 parameters/Rifle_strafe_vector/blend_position = Vector2( 0, -0.0172414 )
 

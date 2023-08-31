@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/flow_nodes/bt_control_flow.gd"
 }, {
 "base": "BT_Node",
+"class": "BT_Die",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_die.gd"
+}, {
+"base": "BT_Node",
 "class": "BT_Equip_Next_Gun",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_equip_next_gun.gd"
@@ -485,6 +490,7 @@ _global_script_class_icons={
 "BT_Approach_Random_Distance": "",
 "BT_Collision_Sensor": "",
 "BT_ControlFlow": "",
+"BT_Die": "",
 "BT_Equip_Next_Gun": "",
 "BT_Go_To_Target": "",
 "BT_Gun_Cooldown": "",

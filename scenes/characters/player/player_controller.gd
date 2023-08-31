@@ -512,7 +512,7 @@ func handle_inventory(delta : float):
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		_cycle_offhand_timer = Time.get_ticks_msec()
 
-	if Input.is_action_just_released("cycle_offhand_slot") and owner.is_reloading == false:
+	if Input.is_action_just_released("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		# If it's a long press, swap hands, if not, cycle slot
 		if _cycle_offhand_timer + _swap_hands_wait_time < Time.get_ticks_msec():
 			if _cycle_offhand_timer == 0.0:

@@ -48,28 +48,10 @@ func _process(delta):
 		is_just_dropped = false
 
 
-func light_depleted():
-	burn_time = 0
-	unlight()
-	is_depleted = true
-
-
-func stop_light_timer():
-	burn_time = light_timer.get_time_left()
-	print("current burn time " + str(burn_time))
-	light_timer.stop()
-
-
-func item_drop():
-	stop_light_timer()
-	burn_time -= (burn_time * life_percentage_lose)
-	print("reduced burn time " + str(burn_time))
-	random_number = rand_range(0.0, 1.0)
-	
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
-	
-	if random_number < prob_going_out:
+func _use_primary():
+	if is_lit == false:
+		light()
+	else:
 		unlight()
 
 
@@ -112,12 +94,32 @@ func switch_away():
 
 
 func attach_to_belt():
-	get_parent().owner.inventory.attach_to_belt(self)
+	owner.inventory.attach_to_belt(self)
 	is_in_belt = true
 
 
-func _use_primary():
-	if is_lit == false:
-		light()
-	else:
-		unlight()
+func light_depleted():
+	burn_time = 0
+	unlight()
+	is_depleted = true
+
+
+func stop_light_timer():
+	burn_time = light_timer.get_time_left()
+	print("current burn time " + str(burn_time))
+	light_timer.stop()
+
+
+func item_drop():
+	stop_light_timer()
+	burn_time -= (burn_time * life_percentage_lose)
+	print("reduced burn time " + str(burn_time))
+	random_number = rand_range(0.0, 1.0)
+	
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
+	
+	print("Linear velocity of candle: ", linear_velocity.length())
+	if linear_velocity.length() > 0.1:
+		if random_number < prob_going_out:
+			unlight()

@@ -12,7 +12,7 @@ var player
 var level : GameWorld
 
 onready var world_root : Node = $World
-onready var UI_root : CanvasLayer = $GameUI
+onready var ui_root : CanvasLayer = $GameUI
 onready var local_settings : SettingsClass = $"%LocalSettings"
 
 
@@ -30,7 +30,7 @@ func _ready():
 func load_level(packed : PackedScene):
 	self.level = packed.instance() as GameWorld
 	world_root.call_deferred("add_child", self.level)
-	yield(self.level, "ready")
+	yield(self.level, "spawning_world_scenes_finished")
 	self.emit_signal("level_loaded", self.level)
 
 
@@ -44,4 +44,4 @@ func spawn_player():
 	world_root.call_deferred("add_child", self.player)
 	yield(self.player, "ready")
 	self.emit_signal("player_spawned", self.player)
-	LoadScreen.emit_signal("scene_loaded")
+	LoadScene.emit_signal("scene_loaded")

@@ -13,7 +13,7 @@ var keys = ""
 func check_word():
 	if "[Interact key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("interact"):
+		for actionKey in InputMap.get_action_list("player|interact"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -23,7 +23,7 @@ func check_word():
 
 	elif "[Move_right key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("move_right"):
+		for actionKey in InputMap.get_action_list("movement|move_right"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -33,7 +33,7 @@ func check_word():
 
 	elif "[Move_left key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("move_left"):
+		for actionKey in InputMap.get_action_list("movement|move_left"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -43,7 +43,7 @@ func check_word():
 
 	elif "[Move_up key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("move_up"):
+		for actionKey in InputMap.get_action_list("movement|move_up"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -53,7 +53,7 @@ func check_word():
 
 	elif "[Move_down key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("move_down"):
+		for actionKey in InputMap.get_action_list("movement|move_down"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -63,7 +63,7 @@ func check_word():
 
 	elif "[Sprint key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("sprint"):
+		for actionKey in InputMap.get_action_list("player|sprint"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -73,7 +73,7 @@ func check_word():
 
 	elif "[Melee key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("kick"):
+		for actionKey in InputMap.get_action_list("player|kick"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -83,7 +83,7 @@ func check_word():
 
 	elif "[Reload key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("reload"):
+		for actionKey in InputMap.get_action_list("player|reload"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -93,7 +93,7 @@ func check_word():
 
 	elif "[Off-hand use key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("offhand_use"):
+		for actionKey in InputMap.get_action_list("playerhand|offhand_use"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -103,7 +103,7 @@ func check_word():
 
 	elif "[Off-hand switch key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("cycle_offhand_slot"):
+		for actionKey in InputMap.get_action_list("playerhand|cycle_offhand_slot"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -113,7 +113,7 @@ func check_word():
 
 	elif "[Off-hand throw key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("offhand_throw"):
+		for actionKey in InputMap.get_action_list("playerhand|offhand_throw"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -123,7 +123,7 @@ func check_word():
 
 	elif "[Main-hand throw key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("main_throw"):
+		for actionKey in InputMap.get_action_list("playerhand|main_throw"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -133,7 +133,7 @@ func check_word():
 
 	elif "[Main-hand use key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("main_use_primary"):
+		for actionKey in InputMap.get_action_list("playerhand|main_use_primary"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -144,7 +144,7 @@ func check_word():
 
 	elif "[Main-hand secondary key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("main_use_secondary"):
+		for actionKey in InputMap.get_action_list("playerhand|main_use_secondary"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -154,7 +154,7 @@ func check_word():
 
 	elif "[Map key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("map_menu"):
+		for actionKey in InputMap.get_action_list("misc|map_menu"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -164,7 +164,7 @@ func check_word():
 
 	elif "[Binoculars key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("binocs_spyglass"):
+		for actionKey in InputMap.get_action_list("ablty|binocs_spyglass"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "
@@ -174,7 +174,7 @@ func check_word():
 
 	elif "[Change look key]" in temp:
 		keys = ""
-		for actionKey in InputMap.get_action_list("change_screen_filter"):
+		for actionKey in InputMap.get_action_list("misc|change_screen_filter"):
 			if actionKey is InputEventKey:
 				if not keys.empty():
 					keys += " or "

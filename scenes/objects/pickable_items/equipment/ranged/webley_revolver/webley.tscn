@@ -58,8 +58,6 @@ points = PoolVector3Array( -0.105969, 0.0480101, -0.00572485, 0.108835, 0.164206
 [node name="Webley revolver" instance=ExtResource( 1 )]
 mass = 1.0
 continuous_cd = true
-contacts_reported = 2
-contact_monitor = true
 script = ExtResource( 6 )
 item_drop_sound = ExtResource( 10 )
 item_size = 0

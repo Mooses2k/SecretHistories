@@ -21,14 +21,17 @@ equipped_mode = 0
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 stream = ExtResource( 3 )
+bus = "Effects"
 
 [node name="BlowOutSound" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
 stream = ExtResource( 4 )
+bus = "Effects"
 
 [node name="Burning" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource( 5 )
 unit_db = 20.0
+bus = "Effects"
 
 [node name="Ignite" type="Area" parent="." index="5" groups=["ignite"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.196083, 0 )

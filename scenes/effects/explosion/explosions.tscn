@@ -38,7 +38,7 @@ __meta__ = {
 [node name="BlastRadius" type="Area" parent="."]
 unique_name_in_owner = true
 collision_layer = 536870912
-collision_mask = 754
+collision_mask = 766
 
 [node name="CollisionShape" type="CollisionShape" parent="BlastRadius"]
 unique_name_in_owner = true

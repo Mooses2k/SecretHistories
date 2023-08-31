@@ -35,7 +35,6 @@ export var player_offset := Vector2.ONE
 # under the key ROOM_ARRAY_KEY
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	_generate_rooms(data, gen_data, generation_seed)
-	_fill_map_data(data, gen_data)
 
 
 func _generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : int):
@@ -43,12 +42,23 @@ func _generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : 
 	random.seed = generation_seed
 	
 	var rooms: Array = gen_data[ROOM_ARRAY_KEY] if gen_data.has(ROOM_ARRAY_KEY) else Array()
-	rooms.append(_gen_starting_room_rect(data, random))
+	
+	var entry_room := _gen_staircase_room_rect(data, random)
+	data.fill_room_data(entry_room, RoomData.OriginalPurpose.UP_STAIRCASE)
+	rooms.append(entry_room)
+	
+	var exit_room := _gen_staircase_room_rect(data, random)
+	data.fill_room_data(exit_room, RoomData.OriginalPurpose.DOWN_STAIRCASE)
+	rooms.append(exit_room)
+	var index := data.get_cell_index_from_int_position(exit_room.position.x, exit_room.position.y)
+	var room_data := data.get_cell_meta(index, data.CellMetaKeys.META_ROOM_DATA) as RoomData
+	for cell_index in room_data.cell_indexes:
+		data.set_cell_meta(cell_index, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, true)
 	
 	gen_data[ROOM_ARRAY_KEY] = rooms
 
 
-func _gen_starting_room_rect(data : WorldData, random : RandomNumberGenerator) -> Rect2:
+func _gen_staircase_room_rect(data : WorldData, random : RandomNumberGenerator) -> Rect2:
 	var value := Rect2()
 	
 	var p_x = random.randi_range(1, data.get_size_x() - 1 - single_tile_width)
@@ -57,13 +67,6 @@ func _gen_starting_room_rect(data : WorldData, random : RandomNumberGenerator) -
 	value = Rect2(p_x, p_z, single_tile_width, single_tile_height)
 	return value
 
-
-func _fill_map_data(data : WorldData, gen_data : Dictionary):
-	var rooms : Array = gen_data.get(ROOM_ARRAY_KEY) as Array
-	
-	var starting_room := rooms[0] as Rect2
-	data.fill_room_data(starting_room, RoomData.OriginalPurpose.LEVEL_STAIRCASE)
-	data.player_spawn_position = starting_room.position + player_offset
 
 ### -----------------------------------------------------------------------------------------------
 

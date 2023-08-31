@@ -1,14 +1,11 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=1]
-[ext_resource path="res://resources/models/items/consumables/light_sources/torch/M_Torch.material" type="Material" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" type="Script" id=3]
-[ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=4]
-[ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
-[ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=7]
-[ext_resource path="res://resources/sounds/light-sources/torch/528662__soonus__paper-burn.wav" type="AudioStream" id=8]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=9]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" type="Script" id=2]
+[ext_resource path="res://resources/models/items/consumables/light_sources/torch/M_Torch.material" type="Material" id=3]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=4]
+[ext_resource path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" type="Texture" id=5]
+[ext_resource path="res://scenes/effects/particle_instances.gd" type="Script" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Torch_torch_lp"
@@ -19,7 +16,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 2805,
-"material": ExtResource( 2 ),
+"material": ExtResource( 3 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 603
@@ -28,7 +25,76 @@ surfaces/0 = {
 [sub_resource type="ConvexPolygonShape" id=17]
 points = PoolVector3Array( 0.0319144, 0.25357, 0.0158944, -0.0494771, 0.153376, 0.000435922, -0.0494771, 0.159647, -0.0058626, 0.0199104, -0.467904, -0.0216367, 0.0167488, 0.213216, -0.0468771, 0.00728371, -0.467904, 0.0256671, -0.0179301, 0.16282, 0.047749, -0.0242336, -0.467904, -0.0153289, 0.0514574, 0.178537, 0.0224993, -0.0210819, -0.467904, 0.0193593, -0.0305371, 0.232179, -0.0342523, 0.0482957, 0.206944, -0.024786, 0.0293755, 0.194327, 0.0445904, -0.00531334, -0.467904, -0.0279445, -0.0177226, 0.269032, 0.0129131, 0.0262139, -0.467904, -0.0058626, -0.0400021, 0.175438, 0.0319749, -0.00531334, 0.225834, -0.0468771, 0.00409382, 0.264383, -0.0212911, -0.0273853, -0.467904, 0.00674371, -0.0273853, 0.14703, -0.0374108, 0.0482957, 0.194327, 0.0319656, -0.00519863, 0.257058, 0.0314009, 0.0325272, 0.216389, -0.0405601, -0.0494771, 0.16282, 0.0130515, 0.0514574, 0.181709, -0.0121704, -0.0400021, 0.14703, -0.024786, -0.0329215, 0.252496, 0.00351463, 0.0135971, 0.206944, 0.047749, 0.0257639, 0.263278, -0.00264685, 0.0181257, -0.436124, 0.0147137, 0.00413198, -0.467904, -0.0279445, 0.0419824, 0.206944, 0.0382826, -0.0463155, 0.159647, 0.0225085, -0.0147685, -0.464731, -0.024786, 0.00414186, 0.153376, 0.047749, 0.0165309, 0.267964, 0.0190976, -0.0336987, 0.165993, 0.0382826, -0.0177163, 0.268907, -0.00890508, -0.0368504, 0.232179, -0.0279352, 0.0471947, 0.221336, 0.0219857, -0.0273853, -0.467904, -0.0058626, -0.0115022, -0.473997, -0.00893518, -0.0463155, 0.153376, -0.0153104, 0.0262237, 0.203772, -0.0437186, -0.0210819, 0.150203, -0.0405601, -0.0144581, 0.256288, 0.0282399, 0.0287911, 0.24383, -0.0273602, 0.0482957, 0.194327, -0.024786, 0.0439289, 0.232208, -0.00568927, -0.0179301, 0.153376, 0.047749, -0.0242336, 0.178537, 0.0445904, 0.0194887, 0.249436, 0.0312628, 0.0388307, 0.181709, -0.0342523, 0.0419824, 0.187981, 0.0382826, 0.0103021, 0.270666, -0.00886871, 0.0135971, 0.222735, -0.0468771, -0.00827205, 0.252846, -0.0304269, -0.00212955, 0.272544, 0.0160404, 0.0514574, 0.172265, -0.00270408, -0.0450062, 0.192265, 0.0127023, -0.00531334, 0.216389, -0.0468771, 0.0135971, 0.203772, -0.0468771, 0.0325272, 0.200599, -0.0405601 )
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Curve" id=18]
+_data = [ Vector2( 0.0305677, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248908, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 18 )
+
+[sub_resource type="ParticlesMaterial" id=19]
+emission_shape = 1
+emission_sphere_radius = 0.2
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 30.0
+angular_velocity_random = 1.0
+linear_accel = 4.0
+angle = 360.0
+angle_random = 1.0
+scale_random = 0.3
+scale_curve = SubResource( 9 )
+color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="QuadMesh" id=20]
+material = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=21]
+emission_shape = 1
+emission_sphere_radius = 0.2
+angular_velocity = 30.0
+angular_velocity_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale = 0.1
+scale_curve = SubResource( 9 )
+color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+
+[sub_resource type="Gradient" id=22]
+offsets = PoolRealArray( 0, 0.524272, 0.995146 )
+colors = PoolColorArray( 0.00784314, 0.00784314, 0.00784314, 0, 0.52549, 0.52549, 0.52549, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 22 )
+
+[sub_resource type="ParticlesMaterial" id=23]
+emission_shape = 1
+emission_sphere_radius = 0.2
+spread = 0.0
+gravity = Vector3( 0, 0.001, 0 )
+angular_velocity = 30.0
+angular_velocity_random = 1.0
+linear_accel = 1.0
+angle = 360.0
+angle_random = 1.0
+scale = 0.02
+scale_random = 0.5
+color_ramp = SubResource( 11 )
+
+[sub_resource type="QuadMesh" id=24]
+material = SubResource( 5 )
+
+[sub_resource type="Animation" id=25]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("FireOrigin/Fire/Light:light_color")
@@ -67,7 +133,7 @@ tracks/2/keys = {
 "values": [ 13.0 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=26]
 resource_name = "flicker"
 length = 5.0
 loop = true
@@ -108,118 +174,46 @@ tracks/2/keys = {
 "values": [ 13.0, 15.0, 12.0, 14.0 ]
 }
 
-[sub_resource type="Curve" id=8]
-_data = [ Vector2( 0.0305677, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248908, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=9]
-curve = SubResource( 8 )
-
-[sub_resource type="ParticlesMaterial" id=16]
-emission_shape = 1
-emission_sphere_radius = 0.2
-spread = 0.0
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 30.0
-angular_velocity_random = 1.0
-linear_accel = 4.0
-angle = 360.0
-angle_random = 1.0
-scale_random = 0.3
-scale_curve = SubResource( 9 )
-color = Color( 0.760784, 0.364706, 0.0470588, 1 )
-
-[sub_resource type="SpatialMaterial" id=5]
-flags_transparent = true
-flags_unshaded = true
-vertex_color_use_as_albedo = true
-params_blend_mode = 1
-params_billboard_mode = 3
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-albedo_texture = ExtResource( 4 )
-
-[sub_resource type="QuadMesh" id=7]
-material = SubResource( 5 )
-
-[sub_resource type="ParticlesMaterial" id=6]
-emission_shape = 1
-emission_sphere_radius = 0.2
-angular_velocity = 30.0
-angular_velocity_random = 1.0
-angle = 360.0
-angle_random = 1.0
-scale = 0.1
-scale_curve = SubResource( 9 )
-color = Color( 0.760784, 0.364706, 0.0470588, 1 )
-
-[sub_resource type="Gradient" id=10]
-offsets = PoolRealArray( 0, 0.524272, 0.995146 )
-colors = PoolColorArray( 0.00784314, 0.00784314, 0.00784314, 0, 0.52549, 0.52549, 0.52549, 1, 1, 1, 1, 0 )
-
-[sub_resource type="GradientTexture" id=11]
-gradient = SubResource( 10 )
-
-[sub_resource type="ParticlesMaterial" id=12]
-emission_shape = 1
-emission_sphere_radius = 0.2
-spread = 0.0
-gravity = Vector3( 0, 0.001, 0 )
-angular_velocity = 30.0
-angular_velocity_random = 1.0
-linear_accel = 1.0
-angle = 360.0
-angle_random = 1.0
-scale = 0.02
-scale_random = 0.5
-color_ramp = SubResource( 11 )
-
-[sub_resource type="QuadMesh" id=13]
-material = SubResource( 5 )
-
-[sub_resource type="BoxShape" id=18]
-extents = Vector3( 0.07, 0.07, 0.07 )
-
-[node name="Torch" type="RigidBody"]
+[node name="Torch" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0542236, 0 )
-collision_layer = 0
-collision_mask = 0
 mass = 0.5
-continuous_cd = true
-script = ExtResource( 3 )
-item_drop_sound = ExtResource( 9 )
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+dropped_layers = 64
+dropped_mask = 1
+equipped_mode = 3
+item_size = 0
 item_name = "Torch"
 life_percentage_lose = 0.2
 prob_going_out = 0.1
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
-cast_shadow = 0
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.051402, 0 )
+layers = 0
 mesh = SubResource( 1 )
-skeleton = NodePath("")
-script = ExtResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.0847075, 0 )
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.051402, 0 )
 shape = SubResource( 17 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "flicker"
-anims/RESET = SubResource( 14 )
-anims/flicker = SubResource( 15 )
+[node name="HoldPosition" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14973, 0 )
 
-[node name="FireOrigin" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.193638, 0 )
-script = ExtResource( 6 )
+[node name="FireOrigin" type="Position3D" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.173342, 0 )
+script = ExtResource( 4 )
 
-[node name="Fire" type="Particles" parent="FireOrigin"]
+[node name="Fire" type="Particles" parent="FireOrigin" index="0"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 emitting = false
 amount = 64
-process_material = SubResource( 16 )
-draw_pass_1 = SubResource( 7 )
+process_material = SubResource( 19 )
+draw_pass_1 = SubResource( 20 )
+script = ExtResource( 6 )
 
-[node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
+[node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( -5, -4.37114e-07, 0, 4.37114e-07, -5, 0, 0, 0, 5, 9.05025e-10, 0.0103521, 0 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
@@ -227,45 +221,31 @@ shadow_enabled = true
 omni_range = 13.0
 omni_attenuation = 4.0
 
-[node name="EmberDrip" type="Particles" parent="FireOrigin"]
+[node name="EmberDrip" type="Particles" parent="FireOrigin" index="1"]
 transform = Transform( 0.2, -3.49692e-08, 0, 3.49692e-08, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 emitting = false
 amount = 4
 randomness = 1.0
-process_material = SubResource( 6 )
-draw_pass_1 = SubResource( 7 )
+process_material = SubResource( 21 )
+draw_pass_1 = SubResource( 20 )
+script = ExtResource( 6 )
 
-[node name="Smoke" type="Particles" parent="FireOrigin"]
+[node name="Smoke" type="Particles" parent="FireOrigin" index="2"]
 transform = Transform( -0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0, 0 )
 emitting = false
 amount = 32
 lifetime = 2.0
 local_coords = false
-process_material = SubResource( 12 )
-draw_pass_1 = SubResource( 13 )
+process_material = SubResource( 23 )
+draw_pass_1 = SubResource( 24 )
+script = ExtResource( 6 )
 
-[node name="BurnTime" type="Timer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+autoplay = "flicker"
+anims/RESET = SubResource( 25 )
+anims/flicker = SubResource( 26 )
 
-[node name="Sounds" type="Spatial" parent="."]
+[node name="Ignite" parent="." index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.177249, 0 )
 
-[node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 5 )
-bus = "Effects"
-
-[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="Sounds"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0 )
-stream = ExtResource( 7 )
-bus = "Effects"
-
-[node name="Burning" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 8 )
-unit_db = 20.0
-bus = "Effects"
-
-[node name="HoldPosition" type="Position3D" parent="."]
-
-[node name="Ignite" type="Area" parent="." groups=["ignite"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.196083, 0 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Ignite"]
-shape = SubResource( 18 )
+[connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

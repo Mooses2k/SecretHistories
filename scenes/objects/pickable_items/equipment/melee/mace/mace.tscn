@@ -1,40 +1,29 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=3]
 [ext_resource path="res://resources/models/items/melee/mace/Mace.tres" type="Material" id=4]
 [ext_resource path="res://resources/models/items/melee/mace/source/Bulava.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=11]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=17]
+
+[sub_resource type="ConvexPolygonShape" id=4]
+points = PoolVector3Array( 10.8337, 74.9096, -0.775749, -11.0003, 72.5887, 1.07723, -11.0003, 72.5887, 2.47071, 3.39827, -29.6048, 1.0751, -2.63301, 72.5887, -11.0003, 2.46643, 72.5887, 10.8337, -4.03076, -24.9524, -0.314107, 6.18736, 73.0528, -9.60466, 0.611315, -24.4883, -4.03076, -6.81557, 74.4454, 8.97004, -0.777887, -29.6048, 3.39827, -9.13661, 72.5887, -6.81771, 8.97004, 73.0528, 7.11278, -4.90429, 77.5956, -3.98661, 2.93449, -29.6048, -2.17136, 1.54101, -24.9524, 3.86419, 10.8337, 73.0528, -3.10106, 5.1922, 77.5302, 3.81525, -0.777887, -24.9524, -4.03076, -2.63728, -29.6048, 2.46857, 2.89836, 77.5243, -5.82064, -3.10106, -29.6048, -1.70758, -3.5627, 70.7319, 9.90401, -3.97887, 77.4898, 5.19031, 0.609177, 74.4454, 10.8337, -10.5301, 74.9096, 2.93449, 9.90401, 70.2678, 3.40041, -9.60253, 73.0528, -5.89015, -1.23953, 72.5887, -11.0003, 7.11278, 74.4454, -8.67496, -3.09679, 74.4454, -10.5344, -3.56484, -24.0241, 2.00479, -6.81557, 72.5887, 8.97004, 3.86418, -24.9524, -1.24167, 10.8337, 72.5887, -0.775749, -0.777887, -24.4883, 3.86419, 9.43809, 73.9812, 6.18736, -9.60253, 74.4454, -5.42423, 6.11413, 77.5401, -2.14487, 7.11278, 73.0528, -8.67496, 2.00479, -29.6048, 2.93449, 1.54101, -29.6048, -3.10106, -0.77575, 74.9096, -10.5344, 0.609177, 73.0528, 10.8337, 3.86418, -24.9524, 0.611316, 8.50839, 74.4454, 7.11278, 9.43809, 72.5887, 6.18736, -1.68555, 77.5083, -6.277, -5.81027, 77.4868, -3.06284, 2.41345, 77.0497, 6.05707, -11.0003, 74.4454, 0.613453, 5.7193, 74.4454, -9.60466, -5.77811, 77.1881, 2.4242, -11.0003, 73.9812, 2.47071 )
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.145875
 radius = 0.1
 
-[sub_resource type="ConvexPolygonShape" id=12]
-points = PoolVector3Array( 2.30933, 68.5739, 8.84394, -2.63514, 72.5927, -11.0003, -11.0003, 72.5927, 2.47071, 4.90253, 77.6933, 3.60119, 3.96194, 64.3657, -4.12851, 10.8337, 73.0579, -3.10106, -5.46307, 64.2954, -1.15885, -1.5958, 77.6738, -5.92239, -5.5296, 74.6721, 8.85019, -2.01733, 64.2994, 5.29523, 8.36338, 73.3508, 6.6294, 5.31112, 64.2772, 1.85719, -9.14088, 72.5927, -6.81771, -5.93151, 77.6843, 1.43159, 6.65114, 72.5927, -9.13874, 0.611315, 74.4521, 10.8337, -1.60753, 67.7001, -8.58092, -6.35393, 72.5927, 9.43809, 3.96553, 77.1508, -5.83873, 10.8337, 74.9159, -0.777886, -8.53759, 67.7175, 1.86571, -2.90494, 77.7014, 5.3462, -8.56965, 74.6669, -5.95846, 8.28738, 67.7497, 2.27701, -2.45743, 64.2697, -5.05228, -11.0003, 74.4521, 0.613453, 8.78416, 68.5899, -2.45988, 5.84033, 74.6974, -8.63761, 1.8393, 67.7616, -8.42103, -8.46117, 67.7469, -2.01467, 5.77793, 77.6992, -2.03503, 8.5762, 74.7424, 5.91174, 5.70886, 67.7513, 6.13725, 1.85683, 64.2785, 5.3121, -2.04318, 67.6994, 8.41627, -6.06676, 67.2025, 5.45765, -5.94049, 77.2601, -3.76849, -1.62241, 74.2694, -10.4278, -5.4461, 68.1805, -6.73349, -4.98038, 64.364, 2.68481, 2.25355, 77.1367, 6.50839, 6.15291, 67.3138, -5.46055, 2.78826, 73.8407, 10.3047, 9.16341, 69.8947, 2.71071, 5.29425, 64.2981, -2.01769, 1.4143, 64.33, -5.43715, -0.780024, 73.0579, -11.0003, -6.80452, 77.2579, 1.86643, -4.56543, 64.3485, -3.28622, 6.2258, 69.8819, 7.09678, 8.79268, 68.1553, -1.59748, -2.48255, 69.878, 9.30681, 2.73217, 77.6866, -5.50085, -2.00769, 77.1762, -6.71726, 6.18175, 77.2347, 3.15759, 1.89364, 74.7058, 10.2526, -6.40316, 74.2377, 8.41474, 6.68014, 77.2974, -2.04524, 8.91634, 73.8215, 5.84374, -4.64514, 77.7068, -3.77516, 4.39681, 64.3516, 3.54243, 1.4357, 68.1464, 8.82077, 10.8337, 72.5941, -2.63514, -2.45801, 74.6419, -9.8089 )
-
-[sub_resource type="ConvexPolygonShape" id=13]
-points = PoolVector3Array( -0.315198, 63.3035, -5.8902, 4.7937, 58.6587, -2.17277, -4.96027, 58.1946, -0.315198, 1.54238, 57.7292, 4.7937, 5.72362, 63.3035, 1.07741, -5.42523, 63.7682, -2.63773, 0.148627, 57.7292, -4.49645, -3.56652, 63.7682, 4.7937, 4.7937, 63.7682, -3.56652, 3.39995, 63.3035, 4.7937, -4.49645, 57.7292, 1.54238, -5.42523, 63.3035, 2.47116, -4.03148, 63.3035, -4.49645, 3.40697, 57.6417, 1.35382, -0.315198, 59.1234, 5.25866, 2.47116, 63.3035, -5.42523, 1.07741, 63.3035, 5.72362, -2.35081, 57.6298, -2.76355, 5.25866, 62.8381, 2.47116, 0.148627, 58.1946, -4.96027, -2.63773, 63.7682, -5.42523, -5.8902, 63.3035, -0.315198, 5.72362, 63.3035, -1.24399, 2.0062, 58.1946, 4.7937, -1.24399, 63.3035, 5.72362, 3.34635, 57.6916, -1.49543, 3.92464, 63.4696, 3.50237, -1.53394, 58.8587, -4.43524, -3.56652, 63.3035, 4.7937, -0.315198, 58.1946, 4.7937, 1.35382, 57.6417, 3.40697, 4.7937, 63.3035, 3.39995, -2.63773, 63.3035, -5.42523, 3.86491, 63.3035, -4.49645, -5.42523, 63.3035, -2.63773, -4.49645, 63.3035, 3.86491 )
-
-[sub_resource type="ConvexPolygonShape" id=11]
-points = PoolVector3Array( 0.00237982, 0.545558, -0.0208563, 0.00651577, 0.591022, 0.0239456, -0.0052794, 0.591022, 0.0239456, 0.00257981, -0.534104, 0.0200124, -0.0210232, 0.386402, -0.0153963, 0.0143877, -0.538067, -0.0114584, 0.0225376, 0.626195, 0.008309, -0.0131471, -0.534104, 0.0160791, -0.0131471, -0.534104, -0.0153963, -0.0212878, 0.625835, 0.00830411, 0.0143877, -0.534104, 0.0160791, 0.0183237, 0.390366, -0.0193295, -0.0131471, 0.567469, -0.0232628, 0.00651577, -0.534104, -0.0193295, -0.0210232, 0.390366, 0.0160791, 0.0183237, 0.606875, -0.0153963, 0.0222596, 0.386402, -0.0075251, 0.0104517, 0.429772, 0.0239456, -0.00921536, 0.394329, 0.0239456, 0.0222596, 0.386402, 0.0121412, -0.0213514, 0.627535, -0.00763968, -0.0052794, 0.386402, -0.0232628, -0.017083, 0.594986, 0.0200124, 0.0143877, 0.602912, 0.0200124, 0.0224526, 0.623924, -0.00362225, -0.0131471, 0.540065, -0.0232628, -0.0210232, 0.532026, 0.0160791, 0.00651577, 0.390366, 0.0239456, 0.0100294, 0.586337, -0.0184847, -0.017083, 0.610839, 0.0160791, 0.0104517, 0.516399, 0.0239456 )
-
-[node name="Mace" type="RigidBody"]
+[node name="Mace" instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.367629, 0 )
-collision_layer = 64
 mass = 2.5
-continuous_cd = true
 contacts_reported = 2
 contact_monitor = true
-script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
+damage_mask = 19
 equipped_mode = 3
 item_drop_sound = ExtResource( 11 )
 item_name = "Mace"
@@ -46,77 +35,50 @@ can_spin = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 
-[node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="Hitbox" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.607795, 0 )
-collision_layer = 0
-collision_mask = 12
-monitorable = false
-script = ExtResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
-shape = SubResource( 3 )
-
-[node name="Bulava" type="MeshInstance" parent="."]
+[node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
 mesh = ExtResource( 5 )
 skeleton = NodePath("")
 material/0 = ExtResource( 4 )
-script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="CollisionShape5" type="CollisionShape" parent="."]
-transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
-shape = SubResource( 12 )
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.176417, 0 )
+shape = SubResource( 4 )
 
-[node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
-shape = SubResource( 13 )
+[node name="Hitbox" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572589, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -0.4, 6.03983e-08, 0, -6.03983e-08, -0.4, 0, 0, 0, 0.4, 0.000208497, 0.202245, 0.000981377 )
-shape = SubResource( 11 )
+[node name="CollisionShape" parent="Hitbox" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
+shape = SubResource( 3 )
 
-[node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.26883, 0 )
+[node name="CooldownTimer" parent="." index="3"]
+wait_time = 0.5
 
-[node name="NormalPosition" type="Position3D" parent="."]
+[node name="HoldPosition" parent="." index="4"]
+unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12331, 0 )
+
+[node name="NormalPosition" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365748, 0 )
 
-[node name="ThrowPosition" type="Position3D" parent="."]
+[node name="ThrowPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.836558, 0 )
 
-[node name="Sounds" type="Spatial" parent="."]
-
-[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
-bus = "Effects"
-
-[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
-bus = "Effects"
-
-[node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Thrust" parent="Sounds" index="2"]
 stream = ExtResource( 7 )
-bus = "Effects"
 
-[node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Cut" parent="Sounds" index="3"]
 stream = ExtResource( 8 )
-bus = "Effects"
 
-[node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 6 )
-bus = "Effects"
-
-[node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="FleshThrust" parent="Sounds" index="5"]
 stream = ExtResource( 10 )
-bus = "Effects"
 
-[node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 9 )
-bus = "Effects"
 
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

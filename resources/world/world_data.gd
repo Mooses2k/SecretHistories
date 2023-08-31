@@ -64,6 +64,7 @@ enum CellMetaKeys {
 	META_DOOR_DIRECTIONS,
 	META_PILLAR_ROOM,
 	META_ROOM_DATA,
+	META_IS_DOWN_STAIRCASE,
 }
 
 enum EdgeType {
@@ -151,7 +152,7 @@ func clear():
 	doors.clear()
 	pillar_radius.clear()
 	
-	player_spawn_position = INVALID_STARTING_CELL
+	player_spawn_positions.clear()
 	_objects_to_spawn.clear()
 	_characters_to_spawn.clear()
 	_cell_indexes_by_cell_type.clear()
@@ -225,9 +226,9 @@ var wall_tile_index : PoolIntArray
 var pillar_tile_index : PoolIntArray
 var ceiling_tile_index : PoolIntArray
 
-# You can use `is_spawn_position_valid` before using `player_spawn_position`
-const INVALID_STARTING_CELL = Vector2.ONE * -1
-var player_spawn_position := INVALID_STARTING_CELL
+
+# Player spawn position in World Coordinates
+var player_spawn_positions := {}
 
 # Dictionary in the format:
 #{
@@ -318,8 +319,8 @@ func _get_property_list() -> Array:
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
-			"name" : "player_spawn_position",
-			"type" : TYPE_VECTOR2,
+			"name" : "player_spawn_positions",
+			"type" : TYPE_VECTOR3,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
@@ -331,7 +332,7 @@ func _get_property_list() -> Array:
 
 
 func is_spawn_position_valid() -> bool:
-	return player_spawn_position != INVALID_STARTING_CELL
+	return not player_spawn_positions.empty()
 
 
 func fill_room_data(room: Rect2, p_type: int) -> void:
@@ -402,7 +403,7 @@ func get_rooms_of_type(p_type: int) -> Array:
 func get_starting_room_data() -> RoomData:
 	var value: RoomData = null
 	
-	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.LEVEL_STAIRCASE)
+	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.UP_STAIRCASE)
 	if rooms.empty():
 		push_error("No starting room found.")
 		return value
@@ -425,11 +426,17 @@ func get_cell_index_from_int_position(x : int, z : int) -> int:
 	return x*world_size_z + z
 
 
-func get_player_spawn_position_as_index() -> int:
-	return get_cell_index_from_int_position(
-		player_spawn_position.x,
-		player_spawn_position.y
-	)
+# Should use is_spawn_position_valid() before calling this function
+func get_player_spawn_position_as_index(staircase_type: int) -> int:
+	var value := -1
+	
+	if (
+			staircase_type == RoomData.OriginalPurpose.DOWN_STAIRCASE 
+			or staircase_type == RoomData.OriginalPurpose.UP_STAIRCASE
+	):
+		value = get_cell_index_from_local_position(player_spawn_positions[staircase_type])
+	
+	return value
 
 
 func set_pillar(cell_index : int, tile_index : int = -1, radius : float = -1.0):
@@ -518,13 +525,14 @@ func get_cells_for(p_type: int) -> Array:
 func is_cell_free(cell_index: int) -> bool:
 	var value := true
 	
-	if player_spawn_position != INVALID_STARTING_CELL:
-		var player_starting_cell := get_cell_index_from_int_position(
-				player_spawn_position.x,
-				player_spawn_position.y
-		)
-		if cell_index == player_starting_cell:
-			value = false
+	var staircase_cells := []
+	for type in [RoomData.OriginalPurpose.DOWN_STAIRCASE, RoomData.OriginalPurpose.UP_STAIRCASE]:
+		if rooms.has(type):
+			for room in rooms[type]:
+				staircase_cells.append_array(room.cell_indexes)
+	
+	if cell_index in staircase_cells:
+		value = false
 	
 	if value:
 		if _objects_to_spawn.has(cell_index):
@@ -738,7 +746,7 @@ func print_world_map() -> void:
 	print("\n" + title + append_title)
 	
 	var starting_room := get_starting_room_data()
-	var starting_cells := starting_room.cell_indexes.duplicate() if not starting_room == null else []
+	var starting_cells := starting_room.cell_indexes.duplicate() if starting_room != null else []
 	for y in range(0, world_size_z):
 		for x in range(0, world_size_x):
 			var index := get_cell_index_from_int_position(x, y)

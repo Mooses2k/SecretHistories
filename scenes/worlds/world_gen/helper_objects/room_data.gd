@@ -11,7 +11,8 @@ enum OriginalPurpose {
 	EMPTY,
 	CRYPT,
 	FOUNTAIN,
-	LEVEL_STAIRCASE,
+	UP_STAIRCASE,
+	DOWN_STAIRCASE,
 }
 
 #--- constants ------------------------------------------------------------------------------------
@@ -52,7 +53,7 @@ func _init(p_type := OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
 
 func _to_string() -> String:
 	var msg := "\n---- RoomData %s \n"%[get_instance_id()]
-	msg += "type: %s | rect2: %s | has_pillars: %s\n"%[type, rect2, has_pillars]
+	msg += "type: %s | rect2: %s | has_pillars: %s\n"%[OriginalPurpose.keys()[type], rect2, has_pillars]
 	msg += "cell_indexes: %s \n"%[cell_indexes]
 	msg += "---- RoomData End %s \n"%[get_instance_id()]
 	return msg
@@ -79,8 +80,27 @@ func set_doorway_cell(cell_index: int, direction: int) -> void:
 		push_warning("this doorway has already been registered.")
 
 
+func can_add_doorway() -> bool:
+	var value = true
+	
+	if (
+			is_staircase_room()
+			and _doorways.size() > 0
+	):
+		value = false
+	
+	return value
+
+
 func get_doorway_directions() -> Array:
 	return _doorways.keys()
+
+
+func get_all_doorway_cells() -> Array:
+	var all_doorways = []
+	for direction in _doorways:
+		all_doorways.append_array(_doorways[direction])
+	return all_doorways
 
 
 # Returns an Array with cell indexes for doorways in the asked direction. If there is none, 
@@ -106,6 +126,11 @@ func has_doorway_on(cell_index: int, direction := -1) -> bool:
 		if direction in _doorways:
 			value = (_doorways[direction] as Array).has(cell_index)
 	
+	return value
+
+
+func is_staircase_room() -> bool:
+	var value: bool = type == OriginalPurpose.DOWN_STAIRCASE or type == OriginalPurpose.UP_STAIRCASE
 	return value
 
 

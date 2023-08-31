@@ -20,10 +20,8 @@ export var reload_time = 0.0
 export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
-
 export var handling = 5.0
 export var animation_reload_sequence : int 
-export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
 
@@ -90,7 +88,6 @@ func shoot():
 
 
 func _use_primary():
-#	print("try use : ", is_reloading, " ", on_cooldown, " ", current_ammo)
 	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
 		$CooldownTimer.start(cooldown)
@@ -132,7 +129,6 @@ func reload():
 #					print(player.owner)
 					# Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
-					
 					return
 
 
@@ -140,7 +136,7 @@ func reload_animation():
 	print(owner_character)
 	if owner_character != null:
 		print(owner_character.animation_tree)
-		owner_character.animation_tree.set("parameters/Animation_State/current", 1)
+		owner_character.animation_tree.set("parameters/AnimationState/current", 1)
 		owner_character.animation_tree.set("parameters/Weapon_states/current", 3)
 		owner_character.animation_tree.set("parameters/Reload_Animations/current", animation_reload_sequence )
 		print(animation_reload_sequence)
@@ -163,9 +159,9 @@ func _on_ReloadTimer_timeout() -> void:
 		var inventory = owner_character.inventory
 		if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
 			var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
-			inventory.remove_tiny_item(_queued_reload_type, reload_amount)
+			inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
 			current_ammo_type = _queued_reload_type
-			current_ammo += reload_amount
+			current_ammo += _reload_amount
 	owner_character.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 

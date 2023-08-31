@@ -97,14 +97,13 @@ shader_param/emission_color_ramp = SubResource( 26 )
 material = SubResource( 16 )
 
 [node name="Dynamite" instance=ExtResource( 2 )]
-continuous_cd = false
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 item_drop_sound = ExtResource( 9 )
 item_name = "Dynamite"
-bomb_damage = 40.0
+bomb_damage = 110.0
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )

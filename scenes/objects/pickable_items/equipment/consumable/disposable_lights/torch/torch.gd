@@ -74,7 +74,7 @@ func _use_primary():
 		unlight()
 
 
-func light_depleted():
+func _on_light_depleted():
 	burn_time = 0
 	unlight()
 	is_depleted = true
@@ -95,5 +95,7 @@ func item_drop():
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
 	
-	if random_number < prob_going_out:
-		unlight()
+	print("Linear velocity of candle: ", linear_velocity.length())
+	if linear_velocity.length() > 0.1:
+		if random_number < prob_going_out:
+			unlight()

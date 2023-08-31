@@ -1,19 +1,16 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/UI/game_ui/pause_menu.gd" type="Script" id=1]
-[ext_resource path="res://scenes/UI/UI.gd" type="Script" id=2]
-[ext_resource path="res://scenes/UI/game_ui/HUD.gd" type="Script" id=3]
-[ext_resource path="res://scenes/UI/settings_menu.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/UI/esc_menu.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/UI/hotbar/hotbar.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/UI/game_ui/UI_root.gd" type="Script" id=7]
-
-
-
+[ext_resource path="res://scenes/ui/settings_menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/ui/hotbar/hotbar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/ui/esc_menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ui/hud.gd" type="Script" id=4]
+[ext_resource path="res://scenes/ui/ui.gd" type="Script" id=5]
+[ext_resource path="res://scenes/ui/pause_menu.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ui/ui_root.gd" type="Script" id=7]
 
 [node name="GameUI" type="CanvasLayer"]
 pause_mode = 2
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 
 [node name="UIRoot" type="Control" parent="."]
 unique_name_in_owner = true
@@ -27,9 +24,9 @@ pause_mode = 2
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = ExtResource( 6 )
 
-[node name="EscMenu" parent="UIRoot/PauseMenu" instance=ExtResource( 5 )]
+[node name="EscMenu" parent="UIRoot/PauseMenu" instance=ExtResource( 3 )]
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -39,7 +36,7 @@ margin_top = 0.0
 margin_right = 1920.0
 margin_bottom = 1080.0
 
-[node name="SettingsMenu" parent="UIRoot/PauseMenu" instance=ExtResource( 4 )]
+[node name="SettingsMenu" parent="UIRoot/PauseMenu" instance=ExtResource( 1 )]
 visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -52,9 +49,9 @@ unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
-[node name="Hotbar" parent="UIRoot/HUD" instance=ExtResource( 6 )]
+[node name="Hotbar" parent="UIRoot/HUD" instance=ExtResource( 2 )]
 
 [connection signal="button_pressed" from="UIRoot/PauseMenu/EscMenu" to="UIRoot/PauseMenu" method="_on_EscMenu_button_pressed"]
 [connection signal="settings_menu_exited" from="UIRoot/PauseMenu/SettingsMenu" to="UIRoot/PauseMenu" method="_on_SettingsMenu_settings_menu_exited"]

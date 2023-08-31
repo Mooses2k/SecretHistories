@@ -1,10 +1,11 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/UI/start_game_menu.gd" type="Script" id=1]
-[ext_resource path="res://scenes/UI/start_game_settings.gd" type="Script" id=2]
-[ext_resource path="res://scenes/UI/settings_ui/SettingsUI.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/UI/game_intro.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/ui/start_game_menu.gd" type="Script" id=1]
+[ext_resource path="res://scenes/ui/start_game_settings.gd" type="Script" id=2]
+[ext_resource path="res://scenes/ui/settings_ui/settings_ui.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/ui/game_intro.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=5]
+
 
 [node name="StartGameMenu" type="MarginContainer"]
 anchor_right = 1.0

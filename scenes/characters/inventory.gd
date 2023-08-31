@@ -12,9 +12,9 @@ signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
 
 signal tiny_item_changed(item, previous_ammount, curent_ammount)
-#Emitted to fadein the HUD UI
+# Emitted to fadein the HUD UI
 signal inventory_changed
-#Emitted to hide the HUD UI when player dies
+# Emitted to hide the HUD UI when player dies
 signal player_died
 
 signal unequip_mainhand

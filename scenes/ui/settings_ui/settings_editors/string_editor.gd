@@ -1,4 +1,5 @@
-extends "SettingEditor.gd"
+extends "setting_editor.gd"
+
 
 var is_waiting_input : bool = false
 var temp_setting_name : String = ""

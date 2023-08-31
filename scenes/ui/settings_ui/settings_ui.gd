@@ -3,19 +3,19 @@ extends VBoxContainer
 
 #export var default_group_name = "Game Settings"
 
-const SetDefaultKeyBtn = preload("SetDefaultKeys.tscn")
-const BlankRowScene = preload("BlankRow.tscn")
-const GroupScene = preload("SettingsGroup.tscn")
-const GroupClass = preload("SettingsGroup.gd")
-const SettingEditor = preload("SettingsEditors/SettingEditor.gd")
+const SetDefaultKeyBtn = preload("set_default_keys.tscn")
+const BlankRowScene = preload("blank_row.tscn")
+const GroupScene = preload("settings_group.tscn")
+const GroupClass = preload("settings_group.gd")
+const SettingEditor = preload("settings_editors/setting_editor.gd")
 
 
 const SettingsEditors = {
-	SettingsClass.SettingType.BOOL : preload("SettingsEditors/BoolEditor.tscn"),
-	SettingsClass.SettingType.FLOAT : preload("SettingsEditors/FloatEditor.tscn"),
-	SettingsClass.SettingType.ENUM : preload("SettingsEditors/EnumEditor.tscn"),
-	SettingsClass.SettingType.INT : preload("SettingsEditors/IntEditor.tscn"),
-	SettingsClass.SettingType.STRING : preload("SettingsEditors/StringEditor.tscn")
+	SettingsClass.SettingType.BOOL : preload("settings_editors/bool_editor.tscn"),
+	SettingsClass.SettingType.FLOAT : preload("settings_editors/float_editor.tscn"),
+	SettingsClass.SettingType.ENUM : preload("settings_editors/enum_editor.tscn"),
+	SettingsClass.SettingType.INT : preload("settings_editors/int_editor.tscn"),
+	SettingsClass.SettingType.STRING : preload("settings_editors/string_editor.tscn")
 }
 
 var group_nodes : Dictionary = Dictionary()

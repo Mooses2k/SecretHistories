@@ -1,9 +1,9 @@
-extends "SettingEditor.gd"
+extends "setting_editor.gd"
 
 
 #Override this function
 func _get_value():
-	return $"%Value".value
+	return int($"%Value".value)
 	pass
 
 
@@ -16,7 +16,6 @@ func _set_value(value):
 #Override this function
 func _on_value_edited():
 	var new_value = get_value()
-	$"%Display".text = str(get_value())
 	if new_value != settings.get_setting(_setting_name):
 		settings.set_setting(_setting_name, new_value)
 	pass
@@ -29,9 +28,14 @@ func _on_setting_attached():
 	$"%Value".step = settings.get_setting_step(_setting_name)
 #	$"%Value".connect("value_changed", self, "on_value_edited")
 	$"%Name".text = _setting_name
-	$"%Display".text = str(get_value())
-	$"%Value".connect("value_changed", self, "_on_Value_value_changed")   # in order to respect default value
+	$"%RandomizeButton".visible = settings.has_setting_meta(_setting_name, settings._CAN_RANDOMIZE_FLAG)
+	pass
 
 
 func _on_Value_value_changed(value):
 	on_value_edited()
+
+
+func _on_RandomizeButton_pressed() -> void:
+	var random_value = wrapi(randi()*$"%Value".step + $"%Value".min_value, $"%Value".min_value, $"%Value".max_value + 1)
+	settings.set_setting(_setting_name, random_value)

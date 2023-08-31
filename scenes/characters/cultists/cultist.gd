@@ -24,15 +24,8 @@ onready var direct_player_sight_sensor : Node = $Body/DirectPlayerSight
 
 
 func _ready():
-#	._ready()   # Not needed
-	print("Cultist ready function:")
 	inventory.add_item(weapon_resource.instance())
 	print("cultist.gd added shotgun")
 	inventory.insert_tiny_item(ammo_resource, 10)
-	print("cultist.gd added ammo")
+	print("cultist.gd added 10 shotgun ammo")
 	inventory.equip_mainhand_item()
-	
-	print("Max health: ", max_health)
-
-	# This override is for purpose of ragdoll, but still not working
-	skeleton = $FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton

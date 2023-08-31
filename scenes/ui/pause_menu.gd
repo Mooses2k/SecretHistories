@@ -1,19 +1,19 @@
 extends MarginContainer
 
 
-onready var esc_menu = $EscMenu
-
 enum PauseMenuState {
 	ESC_MENU,
 	SETTINGS_MENU
 }
 
+var gui_state = PauseMenuState.ESC_MENU setget set_gui_state
+
+onready var esc_menu = $EscMenu
+
 onready var states = [
 	$EscMenu,
 	$SettingsMenu
 ]
-
-var gui_state = PauseMenuState.ESC_MENU setget set_gui_state
 
 
 func _ready() -> void:

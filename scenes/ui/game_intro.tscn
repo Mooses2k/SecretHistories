@@ -4,7 +4,7 @@
 [ext_resource path="res://resources/sounds/infrasound/infrasound.wav" type="AudioStream" id=2]
 [ext_resource path="res://resources/sounds/radio/185698__thatjeffcarter__number-station-numbers.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/slide_projector/slide_projector1.ogg" type="AudioStream" id=4]
-[ext_resource path="res://scenes/UI/game_intro.gd" type="Script" id=5]
+[ext_resource path="res://scenes/ui/game_intro.gd" type="Script" id=5]
 [ext_resource path="res://resources/art/game_intro/01-lecture_observatory/01-00025-329481411.png" type="Texture" id=6]
 [ext_resource path="res://resources/art/game_intro/01-lecture_observatory/03-00021-1052857752.png" type="Texture" id=7]
 [ext_resource path="res://resources/art/game_intro/01-lecture_observatory/02-00028-2225263526.png" type="Texture" id=8]
@@ -49,6 +49,7 @@
 [ext_resource path="res://resources/art/game_intro/10-altar_descent/02-00423-1582198534.png" type="Texture" id=60]
 [ext_resource path="res://resources/art/game_intro/10-altar_descent/03-00445-4258926586.png" type="Texture" id=62]
 [ext_resource path="res://resources/art/game_intro/10-altar_descent/01-00270-3182233773.png" type="Texture" id=63]
+
 
 [sub_resource type="Animation" id=1]
 resource_name = "Intro"

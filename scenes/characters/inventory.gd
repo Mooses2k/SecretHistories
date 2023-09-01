@@ -459,7 +459,7 @@ func swap_hands():
 	# If medium item in mainhand, can't do anything since medium items can't be in offhand
 	if hotbar[current_mainhand_slot] and hotbar[current_mainhand_slot].item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		return
-	# there's probably a bug in here about light-sources staying lit, relating to unequipping items
+	# There's probably a bug in here about light-sources staying lit, relating to unequipping items
 	are_swapping = true
 	var previous_mainhand = current_mainhand_slot
 	var previous_offhand = current_offhand_slot
@@ -483,6 +483,14 @@ func swap_hands():
 		set_offhand_slot(previous_mainhand)
 	
 	are_swapping = false
+
+
+func switch_away_from_light(light_source):
+	if not light_source.can_attach:
+		if not are_swapping:
+			light_source.unlight()
+	elif light_source.can_attach and light_source is LanternItem:
+		light_source.attach_to_belt()
 
 
 # Currently bugged and moves out of position over time - issue #402

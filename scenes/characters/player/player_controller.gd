@@ -508,7 +508,7 @@ func handle_inventory(delta : float):
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 
-	## Offhand slot selection or swap items in hands based on length of press of cycle_offhand_slot
+	## Off-hand slot selection or swap items in hands based on length of press of cycle_offhand_slot
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		_cycle_offhand_timer = Time.get_ticks_msec()
 

@@ -81,20 +81,11 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-		switch_away()
-
-
-func switch_away():
-	if not can_attach:
-#		unlight()
-		pass
-	else:
-		print("switch_away reached in lanterns.gd")
-		attach_to_belt()
+		owner_character.inventory.switch_away_from_light(self)
 
 
 func attach_to_belt():
-	owner.inventory.attach_to_belt(self)
+	owner_character.inventory.attach_to_belt(self)
 	is_in_belt = true
 
 

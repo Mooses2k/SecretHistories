@@ -135,11 +135,7 @@ func _use_primary():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-		switch_away()
-
-
-func switch_away():
-	unlight()
+		owner_character.inventory.switch_away_from_light(self)
 
 
 func stop_light_timer_2():

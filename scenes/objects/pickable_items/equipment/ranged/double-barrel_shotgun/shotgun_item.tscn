@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" type="AudioStream" id=2]
@@ -73,6 +73,7 @@ points = PoolVector3Array( -0.525527, -0.10884, 0.00583685, -0.075781, 0.0783637
 mass = 3.0
 contacts_reported = 2
 contact_monitor = true
+item_drop_sound = ExtResource( 10 )
 item_name = "Double-barrel shotgun"
 ammo_types = [ ExtResource( 4 ) ]
 ammunition_capacity = 2

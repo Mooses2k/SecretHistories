@@ -1,6 +1,8 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=4 format=2]
 
 [ext_resource path="res://resources/shaders/dither/shader/dither.shader" type="Shader" id=1]
+[ext_resource path="res://resources/shaders/dither/assets/bayer2tile16.png" type="Texture" id=2]
+[ext_resource path="res://resources/shaders/dither/assets/palette_eeve.png" type="Texture" id=3]
 
 [resource]
 render_priority = -5
@@ -9,3 +11,5 @@ shader_param/u_bit_depth = 32
 shader_param/u_contrast = 1.0
 shader_param/u_offset = 0.21
 shader_param/u_dither_size = 4
+shader_param/u_dither_tex = ExtResource( 2 )
+shader_param/u_color_tex = ExtResource( 3 )

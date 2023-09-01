@@ -12,7 +12,7 @@ var player
 var level : GameWorld
 
 onready var world_root : Node = $World
-onready var UI_root : CanvasLayer = $GameUI
+onready var ui_root : CanvasLayer = $GameUI
 onready var local_settings : SettingsClass = $"%LocalSettings"
 
 

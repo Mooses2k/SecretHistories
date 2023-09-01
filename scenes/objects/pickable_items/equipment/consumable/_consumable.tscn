@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=2]
-
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/consumable.gd" type="Script" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=2]
-
-[node name="ConsumableItem" instance=ExtResource( 2 )]
-script = ExtResource( 1 )
-item_size = 0
-item_name = "Consumable"

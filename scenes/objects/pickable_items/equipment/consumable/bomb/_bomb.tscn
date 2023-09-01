@@ -2,14 +2,14 @@
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/explosion/explosions.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/_consumable.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" type="PackedScene" id=3]
+
 
 [node name="BombItem" instance=ExtResource( 3 )]
 mass = 0.5
 script = ExtResource( 1 )
 item_name = "Bomb"
 radius = 5
-fragments = 200
 bomb_damage = 0.0
 damage_type = 0
 

@@ -20,10 +20,8 @@ export var reload_time = 0.0
 export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
-
 export var handling = 5.0
 export var animation_reload_sequence : int 
-export(AttackTypes.Types) var melee_damage_type : int = 0
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
 
@@ -138,7 +136,7 @@ func reload_animation():
 	print(owner_character)
 	if owner_character != null:
 		print(owner_character.animation_tree)
-		owner_character.animation_tree.set("parameters/Animation_State/current", 1)
+		owner_character.animation_tree.set("parameters/AnimationState/current", 1)
 		owner_character.animation_tree.set("parameters/Weapon_states/current", 3)
 		owner_character.animation_tree.set("parameters/Reload_Animations/current", animation_reload_sequence )
 		print(animation_reload_sequence)

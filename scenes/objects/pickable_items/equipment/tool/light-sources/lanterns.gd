@@ -1,6 +1,8 @@
 class_name LanternItem
 extends ToolItem
 
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in candelabra.gd, torch.gd, candle.gd
+
 
 signal item_is_dropped
 
@@ -14,7 +16,6 @@ export var is_oil_based : bool = false
 export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
 export(float, 0.0, 1.0) var prob_going_out : float = 0.0
 
-#var has_ever_been_on = true # starts on
 var is_lit = true # starts on
 onready var firelight = $Light
 
@@ -48,28 +49,10 @@ func _process(delta):
 		is_just_dropped = false
 
 
-func light_depleted():
-	burn_time = 0
-	unlight()
-	is_depleted = true
-
-
-func stop_light_timer():
-	burn_time = light_timer.get_time_left()
-	print("current burn time " + str(burn_time))
-	light_timer.stop()
-
-
-func item_drop():
-	stop_light_timer()
-	burn_time -= (burn_time * life_percentage_lose)
-	print("reduced burn time " + str(burn_time))
-	random_number = rand_range(0.0, 1.0)
-	
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
-	
-	if random_number < prob_going_out:
+func _use_primary():
+	if is_lit == false:
+		light()
+	else:
 		unlight()
 
 
@@ -99,25 +82,36 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-		switch_away()
-
-
-func switch_away():
-	if not can_attach:
-#		unlight()
-		pass
-	else:
-		print("switch_away reached in lanterns.gd")
-		attach_to_belt()
+		owner_character.inventory.switch_away_from_light(self)
 
 
 func attach_to_belt():
-	get_parent().owner.inventory.attach_to_belt(self)
+	owner_character.inventory.attach_to_belt(self)
 	is_in_belt = true
 
 
-func _use_primary():
-	if is_lit == false:
-		light()
-	else:
-		unlight()
+func light_depleted():
+	burn_time = 0
+	unlight()
+	is_depleted = true
+
+
+func stop_light_timer():
+	burn_time = light_timer.get_time_left()
+	print("current burn time " + str(burn_time))
+	light_timer.stop()
+
+
+func item_drop():
+	stop_light_timer()
+	burn_time -= (burn_time * life_percentage_lose)
+	print("reduced burn time " + str(burn_time))
+	random_number = rand_range(0.0, 1.0)
+	
+	light_timer.set_wait_time(burn_time)
+	light_timer.start()
+	
+	print("Linear velocity of candle: ", linear_velocity.length())
+	if linear_velocity.length() > 0.1:
+		if random_number < prob_going_out:
+			unlight()

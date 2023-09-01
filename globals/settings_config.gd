@@ -2,8 +2,8 @@ extends Node
 
 var game_manager : GDScript = preload("res://globals/game_manager.gd")
 
-var file_name = "%s://globals/settings/settingsConfig.dict" % ("user" if OS.has_feature("standalone") else "res")
-var file_name_default = "%s://globals/settings/defaultSettConfig.dict" % ("user" if OS.has_feature("standalone") else "res")
+var file_name = "%s://globals/settings/settings_config.dict" % ("user" if OS.has_feature("standalone") else "res")
+var file_name_default = "%s://globals/settings/default_settings.dict" % ("user" if OS.has_feature("standalone") else "res")
 
 var setting_key = false
 
@@ -25,7 +25,7 @@ var settings_names = [
 	"music_volume",
 	"effects_volume",
 	"voice_volume",
-	"full_screen",
+	"fullscreen",
 	"gui_scale"
 ]
 
@@ -55,7 +55,7 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(AudioSettings.setting_effects_volume)]
 			"voice_volume":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(AudioSettings.setting_voice_volume)]
-			"full_screen":
+			"fullscreen":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(VideoSettings.fullscreen_enabled)]
 			"gui_scale":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.gui_scale)]
@@ -115,7 +115,7 @@ func setup_settings(sett_dict : Dictionary):
 				AudioSettings.setting_effects_volume = value
 			"voice_volume":
 				AudioSettings.setting_voice_volume = value
-			"full_screen":
+			"fullscreen":
 				VideoSettings.fullscreen_enabled = value
 			"gui_scale":
 				VideoSettings.gui_scale = value
@@ -136,4 +136,4 @@ func save_default_settings():
 	file.open(file_name_default, File.WRITE)
 	file.store_string(var2str(key_dict))
 	file.close()
-	print("settings config saved")
+	print("settings default config saved")

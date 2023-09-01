@@ -7,8 +7,8 @@ const SETTING_MOUSE_SENSITIVITY : String = "Mouse Sensitivity"
 
 const MAX_VALUE = 8.0
 const STEP_VALUE = 0.05
-const MIN_VALUE = -8.0
-const DEFAULT_VALUE = 0.2
+const MIN_VALUE = 0.05
+const DEFAULT_VALUE = 0.1
 
 var setting_mouse_sensitivity : float setget set_mouse_sensitivity, get_mouse_sensitivity
 

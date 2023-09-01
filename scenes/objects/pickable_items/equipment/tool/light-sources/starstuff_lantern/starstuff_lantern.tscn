@@ -121,9 +121,8 @@ tracks/2/keys = {
 extents = Vector3( 0.15, 0.15, 0.15 )
 
 [node name="StarstuffLantern" instance=ExtResource( 1 )]
-contacts_reported = 2
-contact_monitor = true
 item_drop_sound = ExtResource( 7 )
+can_attach = true
 item_name = "Starstuff Lantern"
 horizontal_holding = true
 life_percentage_lose = 0.1

@@ -80,8 +80,8 @@ func _process(delta):
 					_last_time_since_detect = _get_time()   # Tracked to reduce function calls for performance
 					return
 		
-		# Okay, you're crouching without a lit light-source in hand; that's cool, you're less visible		
-		level *= (1 - pow(1 - level, 5))
+		# Okay, you're crouching without a lit light-source in hand; that's cool, you're less visible
+		level *= 0.7   # (1 - pow(1 - level, 5))   # Previous method led to being invisible while crouching next to candle
 	
 	# Finally we set the character's light_level
 	owner.light_level = level

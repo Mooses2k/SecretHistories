@@ -1,6 +1,8 @@
 class_name CandleItem
 extends DisposableLightItem
 
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candelabra.gd
+
 
 signal item_is_dropped
 

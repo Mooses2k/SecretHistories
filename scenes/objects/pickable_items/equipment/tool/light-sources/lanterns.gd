@@ -1,6 +1,8 @@
 class_name LanternItem
 extends ToolItem
 
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in candelabra.gd, torch.gd, candle.gd
+
 
 signal item_is_dropped
 
@@ -14,7 +16,6 @@ export var is_oil_based : bool = false
 export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
 export(float, 0.0, 1.0) var prob_going_out : float = 0.0
 
-#var has_ever_been_on = true # starts on
 var is_lit = true # starts on
 onready var firelight = $Light
 

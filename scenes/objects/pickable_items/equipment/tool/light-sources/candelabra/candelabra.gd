@@ -1,9 +1,9 @@
 class_name CandelabraItem
 extends ToolItem
 
-### Eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...not that you'd ever care to do that
+### Eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...
 
-# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candle,gd
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candle.gd
 
 
 signal item_is_dropped
@@ -21,7 +21,6 @@ var new_material
 
 onready var firelight = $Candle1/FireOrigin/Fire/Light
 
-#var has_ever_been_on = false
 var is_lit = true
 var burn_time_2 = 0.0
 var burn_time_3 = 0.0
@@ -65,7 +64,7 @@ func _ready():
 		light_timer_2.start()
 		light_timer_3.set_wait_time(burn_time_3)
 		light_timer_3.start()
-	
+
 
 func light():
 	if not is_depleted:
@@ -93,7 +92,7 @@ func light():
 				$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
 				$Candle3/MeshInstance.cast_shadow = false
 				$Candle3/MeshInstance.get_surface_material(0).emission_enabled  = not $Candle3/MeshInstance.get_surface_material(0).emission_enabled
-
+			
 			if $Candle3 != null:
 				light_timer_2.set_wait_time(burn_time_2)
 				light_timer_2.start()
@@ -183,7 +182,7 @@ func light_dropped():
 		var light_timer_3 = $Timer3
 		stop_light_timer_2()
 		stop_light_timer_3()
-	
+		
 		burn_time_2 -= (burn_time_2 * life_percentage_lose)
 		random_number_2_3 = rand_range(0.0, 1.0)
 		light_timer_2.set_wait_time(burn_time_2)

@@ -1,8 +1,9 @@
 class_name TorchItem
 extends DisposableLightItem
 
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, candelabra.gd, candle.gd
 
-#var has_ever_been_on = false
+
 signal item_is_dropped
 
 var is_lit = false

@@ -398,7 +398,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 # Drops the item, it must be unequipped first
 # Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
-	if owner.player_controller:
+	if is_instance_valid(owner.player_controller):
 		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
 			item.item_state = GlobalConsts.ItemState.DROPPED   # At the moment, 'placed' items can't hurt anyone.
 		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:

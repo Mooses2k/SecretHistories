@@ -44,6 +44,9 @@ var current_mainhand_equipment : EquipmentItem = null
 var current_offhand_slot : int = 0 setget set_offhand_slot
 var current_offhand_equipment : EquipmentItem = null
 
+# Are we currently in the middle of swapping hands?
+var are_swapping : bool = false
+
 # Where to drop items from
 onready var drop_position_node : Spatial = $"../Body/DropPosition" as Spatial
 onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
@@ -354,7 +357,6 @@ func drop_mainhand_item():
 		drop_bulky_item()
 	else:
 		drop_hotbar_slot(current_mainhand_slot)
-	pass
 
 
 func get_mainhand_item() -> EquipmentItem:
@@ -423,6 +425,7 @@ func _drop_item(item : EquipmentItem):
 
 func set_mainhand_slot(value : int):
 	if value != current_mainhand_slot:
+#		if are_swapping == false:
 		unequip_mainhand_item()
 		var previous_slot = current_mainhand_slot
 		current_mainhand_slot = value
@@ -440,11 +443,54 @@ func set_mainhand_slot(value : int):
 func set_offhand_slot(value : int):
 	if value != current_offhand_slot:
 		var previous_slot = current_offhand_slot
+#		if are_swapping == false:
 		unequip_offhand_item()
 		current_offhand_slot = value
 		equip_offhand_item()
 		emit_signal("offhand_slot_changed", previous_slot, value)
 		emit_signal("inventory_changed")
+
+
+func swap_hands():
+	print("swap hands attempt")
+	# If bulky, don't do anything
+	if bulky_equipment:
+		return
+	# If medium item in mainhand, can't do anything since medium items can't be in offhand
+	if hotbar[current_mainhand_slot] and hotbar[current_mainhand_slot].item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+		return
+	# There's probably a bug in here about light-sources staying lit, relating to unequipping items
+	are_swapping = true
+	var previous_mainhand = current_mainhand_slot
+	var previous_offhand = current_offhand_slot
+	print("Mainhand slot: ", current_mainhand_slot)
+	print("Offhand slot: ", current_offhand_slot)
+	
+	# Avoids a bug if offhand is empty when swap where you can't pick anything up anymore after it 
+	if current_offhand_slot == 10:
+		if current_mainhand_slot == 0:
+			previous_offhand = 1
+			set_mainhand_slot(previous_offhand)
+		else:
+			previous_offhand = 0
+			set_mainhand_slot(previous_offhand)
+		
+		set_offhand_slot(previous_mainhand)
+		unequip_mainhand_item()
+	
+	else:
+		set_mainhand_slot(previous_offhand)
+		set_offhand_slot(previous_mainhand)
+	
+	are_swapping = false
+
+
+func switch_away_from_light(light_source):
+	if not light_source.can_attach:
+		if not are_swapping:
+			light_source.unlight()
+	elif light_source.can_attach and light_source is LanternItem:
+		light_source.attach_to_belt()
 
 
 # Currently bugged and moves out of position over time - issue #402

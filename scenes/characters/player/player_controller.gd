@@ -102,6 +102,9 @@ var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 var item_up = false
 
+# For tracking short or long press of cycle_offhand_slot
+var _cycle_offhand_timer : float = 0.0
+var _swap_hands_wait_time : float = 500
 # Screen filter section
 enum ScreenFilter {
 	NONE,
@@ -504,9 +507,25 @@ func handle_inventory(delta : float):
 			if i != character.inventory.current_offhand_slot and i != 10:
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
-	
-	# Off-hand slot selection
+
+	## Off-hand slot selection or swap items in hands based on length of press of cycle_offhand_slot
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
+		_cycle_offhand_timer = Time.get_ticks_msec()
+
+	if Input.is_action_just_released("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
+		# If it's a long press, swap hands, if not, cycle slot
+		if _cycle_offhand_timer + _swap_hands_wait_time < Time.get_ticks_msec():
+			if _cycle_offhand_timer == 0.0:
+				return
+			# Player intends to swap
+			character.inventory.swap_hands()
+			_cycle_offhand_timer = 0.0
+			return
+		
+		# Player intends to cycle slot instead of swapping hands
+		else:
+			_cycle_offhand_timer = 0.0
+			
 		var start_slot = character.inventory.current_offhand_slot
 		var new_slot = (start_slot + 1) % character.inventory.hotbar.size()
 		while new_slot != start_slot \

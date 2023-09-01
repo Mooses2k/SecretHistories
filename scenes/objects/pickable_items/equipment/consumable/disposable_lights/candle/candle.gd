@@ -82,16 +82,8 @@ func _use_primary():
 
 
 func _item_state_changed(previous_state, current_state):
-#	if previous_state == GlobalConsts.ItemState.EQUIPPED and current_state == GlobalConsts.ItemState.DROPPED:
-#		unlight()
-#		return
-#	if previous_state == GlobalConsts.ItemState.EQUIPPED:  
-#		unlight()
-#		$Sounds/BlowOutSound.play()   # This is the messed one, all jacked with the sound etc
-#	if previous_state == GlobalConsts.ItemState.EQUIPPED and current_state == GlobalConsts.ItemState.INVENTORY:
-#		$Sounds/BlowOutSound.play()
-#		unlight()
-	pass
+	if current_state == GlobalConsts.ItemState.INVENTORY:
+		owner_character.inventory.switch_away_from_light(self)
 
 
 func _on_light_depleted():
@@ -106,7 +98,6 @@ func stop_light_timer():
 	light_timer.stop()
 
 
-# Not working
 func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)

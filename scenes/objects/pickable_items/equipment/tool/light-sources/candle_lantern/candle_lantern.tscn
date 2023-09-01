@@ -12,7 +12,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=10]
 [ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=11]
 
-
 [sub_resource type="ArrayMesh" id=2]
 resource_name = "LanternCandle_Plane001"
 surfaces/0 = {
@@ -107,8 +106,6 @@ tracks/0/keys = {
 extents = Vector3( 0.07, 0.07, 0.07 )
 
 [node name="CandleLantern" instance=ExtResource( 1 )]
-contacts_reported = 2
-contact_monitor = true
 script = ExtResource( 7 )
 item_drop_sound = ExtResource( 9 )
 item_name = "Candle Lantern"

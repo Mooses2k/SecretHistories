@@ -11,7 +11,7 @@ export var hold_time_to_place = 0.4
 export var throw_strength : float = 2
 
 export var hold_time_to_grab : float = 0.4
-export var grab_strength : float = 10.0
+export var grab_strength : float = 1000.0
 export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
@@ -99,6 +99,7 @@ var crouch_target_pos = -0.55
 var crouch_cam_target_pos = 0.98
 var clamberable_obj : RigidBody
 var item_up = false
+var camera_movement_resistance : float = 1.0
 
 # Screen filter section
 enum ScreenFilter {
@@ -110,6 +111,7 @@ enum ScreenFilter {
 	PSX,
 	DEBUG_LIGHT
 }
+
 var current_screen_filter : int = ScreenFilter.NONE
 #export var pixelated_material : Material
 #export var dither_material : Material
@@ -175,7 +177,7 @@ func _input(event):
 					item_up = true
 					owner.change_equipment_out(true)
 					yield(owner, "change_main_equipment_out_done")
-
+	
 					if item_up:
 						if character.inventory.current_mainhand_slot != 0:
 							var total_inventory
@@ -197,14 +199,14 @@ func _input(event):
 									character.inventory.current_mainhand_slot = 10
 						elif character.inventory.current_mainhand_slot == 0:
 							character.inventory.current_mainhand_slot = 10
-
+	
 						owner.change_equipment_in(true)
-
+	
 				BUTTON_WHEEL_DOWN:
 					item_up = false
 					owner.change_equipment_out(true)
 					yield(owner, "change_main_equipment_out_done")
-
+	
 					if !item_up:
 						if character.inventory.current_mainhand_slot != 10 :
 							var total_inventory
@@ -225,26 +227,25 @@ func _input(event):
 								character.inventory.current_mainhand_slot = 0
 							else:
 								character.inventory.current_mainhand_slot = 1
-
+	
 						owner.change_equipment_in(true)
-
+	
 	if event is InputEventMouseMotion:
 		if (owner.state == owner.State.STATE_CLAMBERING_LEDGE
 			or owner.state == owner.State.STATE_CLAMBERING_RISE
 			or owner.state == owner.State.STATE_CLAMBERING_VENT):
 			return
-
+	
 		var m = 1.0
-
+	
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
-
-		owner.rotation_degrees.y -= event.relative.x * InputSettings.setting_mouse_sensitivity * m
-
+	
+		owner.rotation_degrees.y -= (event.relative.x * InputSettings.setting_mouse_sensitivity * m ) * camera_movement_resistance
+	
 #		if owner.state != owner.State.STATE_CRAWLING:
 #			_camera.rotation_degrees.x -= event.relative.y * InputSettings.setting_mouse_sensitivity * m
 #			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
-
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
 
@@ -378,6 +379,7 @@ func handle_grab_input(delta : float):
 			is_grabbing = false
 			wanna_grab = false
 			interaction_handled = true
+			camera_movement_resistance = 1.0
 
 
 func handle_grab(delta : float):
@@ -418,9 +420,10 @@ func handle_grab(delta : float):
 		# Some debug visualization stuff for grabbing
 		$MeshInstance.global_transform.origin = grab_target_global
 		$MeshInstance2.global_transform.origin = grab_object_global
-		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
+		if $MeshInstance.global_transform.origin.distance_to($MeshInstance2.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
 			interaction_handled = true
+			camera_movement_resistance = 1.0
 		
 		# Local velocity of the object at the grabbing point, used to cancel the objects movement
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
@@ -440,11 +443,29 @@ func handle_grab(delta : float):
 		var impulse_forces = -(direct_state.total_gravity * grab_object.mass*delta)
 		var total_impulse : Vector3 = impulse_velocity + impulse_forces
 		total_impulse = total_impulse.normalized() * min(total_impulse.length(), grab_strength)
-		print("impulse " + str(total_impulse))
 
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
-		direct_state.apply_torque_impulse(1.2 * (grab_object_offset.cross(total_impulse))) #0.2
+		direct_state.apply_torque_impulse(2.5 * (grab_object_offset.cross(total_impulse))) #0.2
+
+		# Calculate additional force based on the weight of the object
+		var additional_force = Vector3.ZERO
+		if grab_object.mass > 0:
+			additional_force = -direct_state.total_gravity * grab_object.mass
+
+		camera_movement_resistance = (5 / grab_object.mass)
+
+		# Modify player's movement based on additional force
+		owner.velocity.x += additional_force.x * delta
+		owner.velocity.z += additional_force.z * delta
+
+		# Limit player's movement speed if necessary
+		var max_speed = 0.1  
+		var horizontal_velocity = Vector3(owner.velocity.x, 0, owner.velocity.z)
+		if horizontal_velocity.length() > max_speed:
+			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+		owner.velocity.x = horizontal_velocity.x
+		owner.velocity.z = horizontal_velocity.z
 
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)

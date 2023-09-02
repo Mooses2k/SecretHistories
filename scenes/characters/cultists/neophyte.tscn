@@ -158,6 +158,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 [node name="CultistNeophyteNoCape" parent="Body" index="5" instance=ExtResource( 15 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
+[node name="rig_deform" parent="Body/CultistNeophyteNoCape" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0585033, 0, 0 )
+
 [node name="IKBaseTarget" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
 unique_name_in_owner = true
 transform = Transform( -0.999997, 0, -8.74225e-08, 0, 1, 0, 8.74225e-08, 0, -0.999997, 5.32946e-05, 1.58513, 1.94644 )
@@ -166,7 +169,7 @@ transform = Transform( -0.999997, 0, -8.74225e-08, 0, 1, 0, 8.74225e-08, 0, -0.9
 bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.82713, 0.549425, 0.118766, -0.00735034, -0.221843, 0.97508, 0.562073, 0.805639, 0.187504, -0.0104182, 1.2116, 0.227452 )
+transform = Transform( -0.82118, 0.556766, 0.125668, -0.00867607, -0.232327, 0.972624, 0.570713, 0.797604, 0.195585, -0.00700201, 1.20836, 0.228414 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

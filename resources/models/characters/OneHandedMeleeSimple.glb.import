@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/OneHandedMeleeSimple.glb-b4ad9dd8f0c1a8be2a82786d61c31780.scn"
+path="res://.import/onehandedmeleesimple.glb-dddc078080d9762420713f7c00b4cbb6.scn"
 
 [deps]
 
-source_file="res://resources/models/characters/OneHandedMeleeSimple.glb"
-dest_files=[ "res://.import/OneHandedMeleeSimple.glb-b4ad9dd8f0c1a8be2a82786d61c31780.scn" ]
+source_file="res://resources/models/characters/onehandedmeleesimple.glb"
+dest_files=[ "res://.import/onehandedmeleesimple.glb-dddc078080d9762420713f7c00b4cbb6.scn" ]
 
 [params]
 

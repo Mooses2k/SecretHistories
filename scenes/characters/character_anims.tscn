@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://resources/animations/ads_idle.tres" type="Animation" id=1]
 [ext_resource path="res://resources/animations/one-handed_hip_idle.tres" type="Animation" id=2]
@@ -33,6 +33,7 @@
 [ext_resource path="res://resources/animations/walk_forward_right-loop.tres" type="Animation" id=31]
 [ext_resource path="res://resources/animations/walk_left-loop.tres" type="Animation" id=32]
 [ext_resource path="res://resources/animations/walk_right-loop.tres" type="Animation" id=33]
+[ext_resource path="res://resources/animations/jump_and_land.tres" type="Animation" id=34]
 
 [node name="AnimationPlayer" type="AnimationPlayer"]
 root_node = NodePath("")
@@ -54,6 +55,7 @@ anims/item_holding_horizontal_right = ExtResource( 17 )
 anims/item_holding_vertical_left = ExtResource( 18 )
 anims/item_holding_vertical_right = ExtResource( 19 )
 anims/jump = ExtResource( 20 )
+anims/jump_and_land = ExtResource( 34 )
 anims/kick_low_toe = ExtResource( 21 )
 anims/kick_mid_stomp = ExtResource( 23 )
 anims/landing = ExtResource( 24 )

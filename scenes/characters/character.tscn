@@ -442,6 +442,7 @@ anims/Belt_bob = SubResource( 82 )
 [node name="AnimationPlayer" parent="." instance=ExtResource( 6 )]
 
 [node name="AnimationTree" parent="." instance=ExtResource( 5 )]
+unique_name_in_owner = true
 
 [node name="ADSTween" type="Tween" parent="."]
 unique_name_in_owner = true

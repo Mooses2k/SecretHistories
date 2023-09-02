@@ -49,7 +49,6 @@ shape = SubResource( 6 )
 
 [node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BehaviorTree" type="Node" parent="." index="6"]
 unique_name_in_owner = true
@@ -169,7 +168,7 @@ transform = Transform( -0.999997, 0, -8.74225e-08, 0, 1, 0, 8.74225e-08, 0, -0.9
 bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.82118, 0.556766, 0.125668, -0.00867607, -0.232327, 0.972624, 0.570713, 0.797604, 0.195585, -0.00700201, 1.20836, 0.228414 )
+transform = Transform( -0.982279, -0.165704, -0.0875739, 0.161382, -0.985393, 0.0543753, -0.0953049, 0.0392789, 0.994673, -0.246893, 0.922882, -0.189247 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
@@ -209,8 +208,8 @@ anims/crouch_walk_forward_left-loop = ExtResource( 26 )
 
 [node name="AnimationTree" parent="." index="19"]
 active = true
-parameters/ADS_State/current = 2
-parameters/Rifle_strafe_vector/blend_position = Vector2( 0.00364304, 0.00391126 )
+parameters/Equipped_state/current = 1
+parameters/Normal_state/current = 0
 
 [node name="DemoIK" type="Node" parent="." index="21"]
 script = ExtResource( 25 )

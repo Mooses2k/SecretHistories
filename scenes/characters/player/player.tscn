@@ -342,7 +342,7 @@ input_4/auto_advance = false
 animation = "WebleyReload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -582.069, 81.0505 )
+graph_offset = Vector2( 8.56915, 157.882 )
 nodes/DoubleBarrelReload_Anim/node = SubResource( 402 )
 nodes/DoubleBarrelReload_Anim/position = Vector2( -660, 500 )
 nodes/Hand_Transition/node = SubResource( 407 )
@@ -689,7 +689,7 @@ active = true
 parameters/Hand_Transition/current = 0
 parameters/Hold_Animation/current = 0
 parameters/OffHand_MainHand_Blend/blend_amount = 1.0
-parameters/OffHand_Weapon_States/current = 2
+parameters/OffHand_Weapon_States/current = 0
 parameters/Offhand_Hold_Animation/current = 1
 parameters/Reload_Animations/current = 3
 parameters/Weapon_states/current = 4

@@ -699,6 +699,7 @@ cull_mask = 1048573
 script = ExtResource( 15 )
 
 [node name="maincharonlyarmsgamerig" parent="FPSCamera" index="0" instance=ExtResource( 25 )]
+unique_name_in_owner = true
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.45058e-09, -1.51721, 0.2 )
 
 [node name="Body005" parent="FPSCamera/maincharonlyarmsgamerig/rig_deform/Skeleton" index="0"]

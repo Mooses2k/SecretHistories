@@ -25,7 +25,7 @@
 [ext_resource path="res://scenes/sensors/touch_sensor.tscn" type="PackedScene" id=23]
 [ext_resource path="res://scenes/characters/cultists/always_on_skeleton_IK.gd" type="Script" id=24]
 [ext_resource path="res://scenes/characters/cultists/demo_ik.gd" type="Script" id=25]
-[ext_resource path="res://resources/animations/ads_idle.tres" type="Animation" id=26]
+[ext_resource path="res://resources/animations/crouch_walk_forward_left-loop.tres" type="Animation" id=26]
 
 [sub_resource type="CapsuleShape" id=6]
 margin = 0.001
@@ -49,6 +49,7 @@ shape = SubResource( 6 )
 
 [node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BehaviorTree" type="Node" parent="." index="6"]
 unique_name_in_owner = true
@@ -165,7 +166,7 @@ transform = Transform( -0.999997, 0, -8.74225e-08, 0, 1, 0, 8.74225e-08, 0, -0.9
 bones/137/bound_children = [ NodePath("MainHandAttachment") ]
 
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.999955, -0.00592124, 0.00750731, 0.00868884, -0.23504, 0.971947, -0.00399059, 0.971968, 0.235081, -0.143093, 1.51015, 0.229212 )
+transform = Transform( -0.82713, 0.549425, 0.118766, -0.00735034, -0.221843, 0.97508, 0.562073, 0.805639, 0.187504, -0.0104182, 1.2116, 0.227452 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]
@@ -200,11 +201,13 @@ max_distance = 12.0
 
 [node name="AnimationPlayer" parent="." index="18"]
 root_node = NodePath("../Body/CultistNeophyteNoCape")
-anims/ads_idle = ExtResource( 26 )
+reset_on_save = false
+anims/crouch_walk_forward_left-loop = ExtResource( 26 )
 
 [node name="AnimationTree" parent="." index="19"]
+active = true
 parameters/ADS_State/current = 2
-parameters/Rifle_strafe_vector/blend_position = Vector2( 0, -0.0172414 )
+parameters/Rifle_strafe_vector/blend_position = Vector2( 0.00364304, 0.00391126 )
 
 [node name="DemoIK" type="Node" parent="." index="21"]
 script = ExtResource( 25 )

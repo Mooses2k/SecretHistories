@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -24,6 +24,9 @@
 [ext_resource path="res://scenes/characters/player/effect_origin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
 [ext_resource path="res://scenes/characters/player/player_anims.tscn" type="PackedScene" id=24]
+[ext_resource path="res://resources/models/characters/player/player_arms/maincharonlyarmsgamerig.glb" type="PackedScene" id=25]
+[ext_resource path="res://resources/models/characters/player/player_arms/body.material" type="Material" id=26]
+[ext_resource path="res://resources/models/characters/player/player_arms/longcoat.material" type="Material" id=27]
 [ext_resource path="res://scenes/characters/stamina.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/characters/player/player_anims.gd" type="Script" id=30]
 
@@ -381,7 +384,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -660, 860 )
 nodes/output/position = Vector2( 1420, -120 )
-node_connections = [ "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "output", 0, "Hand_Transition" ]
+node_connections = [ "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "output", 0, "Hand_Transition" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -410,6 +413,7 @@ unique_name_in_owner = false
 
 [node name="MainHandEquipmentRoot" parent="." index="3"]
 unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="Body" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
@@ -694,28 +698,37 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 1.51721, -0.2 )
 cull_mask = 1048573
 script = ExtResource( 15 )
 
-[node name="AimCast" type="RayCast" parent="FPSCamera" index="0"]
+[node name="maincharonlyarmsgamerig" parent="FPSCamera" index="0" instance=ExtResource( 25 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.45058e-09, -1.51721, 0.2 )
+
+[node name="Body005" parent="FPSCamera/maincharonlyarmsgamerig/rig_deform/Skeleton" index="0"]
+material_override = ExtResource( 26 )
+
+[node name="InnerShirtLP004" parent="FPSCamera/maincharonlyarmsgamerig/rig_deform/Skeleton" index="1"]
+material_override = ExtResource( 27 )
+
+[node name="AimCast" type="RayCast" parent="FPSCamera" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -1.7 )
 collision_mask = 585
 collide_with_areas = true
 
-[node name="GrabCast" type="RayCast" parent="FPSCamera" index="1"]
+[node name="GrabCast" type="RayCast" parent="FPSCamera" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -1.7 )
 collision_mask = 65
 collide_with_areas = true
 
-[node name="GroundCast" type="RayCast" parent="FPSCamera" index="2"]
+[node name="GroundCast" type="RayCast" parent="FPSCamera" index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -4.47035e-08 )
 enabled = true
 cast_to = Vector3( 0, 0, -1.6 )
 collision_mask = 65
 debug_shape_thickness = 3
 
-[node name="GrabCastDot" type="Area" parent="FPSCamera" index="3"]
+[node name="GrabCastDot" type="Area" parent="FPSCamera" index="4"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.7, 7.45058e-09, 0, -0.805458 )
 collision_layer = 2
 collision_mask = 577
@@ -726,10 +739,10 @@ monitorable = false
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.260906 )
 shape = SubResource( 41 )
 
-[node name="Listener" type="Listener" parent="FPSCamera" index="4"]
+[node name="Listener" type="Listener" parent="FPSCamera" index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
 
-[node name="ScreenFilter" type="MeshInstance" parent="FPSCamera" index="5"]
+[node name="ScreenFilter" type="MeshInstance" parent="FPSCamera" index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3428 )
 visible = false
 layers = 128
@@ -737,15 +750,15 @@ cast_shadow = 0
 extra_cull_margin = 16384.0
 mesh = SubResource( 371 )
 
-[node name="DebugLight" type="SpotLight" parent="FPSCamera" index="6"]
+[node name="DebugLight" type="SpotLight" parent="FPSCamera" index="7"]
 visible = false
 layers = 131
 spot_range = 20.0
 
-[node name="Listener2" type="Listener" parent="FPSCamera" index="7"]
+[node name="Listener2" type="Listener" parent="FPSCamera" index="8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00348801, -0.204722, 0.2 )
 
-[node name="ViewportContainer" type="ViewportContainer" parent="FPSCamera" index="8"]
+[node name="ViewportContainer" type="ViewportContainer" parent="FPSCamera" index="9"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -786,3 +799,4 @@ current = true
 [connection signal="body_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_exited"]
 
 [editable path="PlayerAnimationPlayer"]
+[editable path="FPSCamera/maincharonlyarmsgamerig"]

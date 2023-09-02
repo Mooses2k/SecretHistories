@@ -422,9 +422,17 @@ func handle_grab(delta : float):
 		var grab_object_offset : Vector3  = grab_object_global - direct_state.transform.origin
 		
 		# Some debug visualization stuff for grabbing
+		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
+		
+		camera_movement_resistance = (5 / grab_object.mass)
+		
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
+			print("Grab broken by distance")
+			interaction_handled = true
+			camera_movement_resistance = 1.0
+
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 		
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
@@ -451,8 +459,6 @@ func handle_grab(delta : float):
 		var additional_force = Vector3.ZERO
 		if grab_object.mass > 0:
 			additional_force = -direct_state.total_gravity * grab_object.mass
-
-		camera_movement_resistance = (5 / grab_object.mass)
 
 		# Modify player's movement based on additional force
 		owner.velocity.x += additional_force.x * delta

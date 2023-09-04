@@ -184,7 +184,6 @@ __meta__ = {
 dropped_layers = 64
 dropped_mask = 1
 equipped_mode = 3
-item_size = 0
 item_name = "Torch"
 life_percentage_lose = 0.2
 prob_going_out = 0.1
@@ -248,4 +247,5 @@ anims/flicker = SubResource( 26 )
 [node name="Ignite" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.177249, 0 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

@@ -167,7 +167,7 @@ var grounded = false
 var do_jump : bool = false
 var is_jumping : bool = false
 
-var low_kick : bool = false   # Should we do a low kick instead of a stomp kick?
+var low_kick : bool = false   # Should we do a low kick instead of a mid-height stomp kick?
 
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 
@@ -424,6 +424,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	do_jump = false
 	
+	# Movement audio
 	if velocity.length() > 0.1 and grounded and not _audio_player.movement_audio.playing and is_to_move:
 		if is_crouching:
 			_audio_player.play_footstep_sound(-1.0, 0.1, -20)

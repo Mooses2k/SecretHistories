@@ -24,8 +24,6 @@ points = PoolVector3Array( -0.00558647, -0.000109812, -0.000364829, -0.00558647,
 
 [node name="Chalk" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.023677, 0 )
-contacts_reported = 2
-contact_monitor = true
 script = ExtResource( 3 )
 dropped_layers = 0
 dropped_mask = 0

@@ -152,7 +152,7 @@ func _physics_process(delta : float):
 	handle_inventory(delta)
 	next_item()
 	previous_item()
-	drop_grabbable()
+	drop_grabable()
 	empty_slot()
 	kick()
 
@@ -724,8 +724,8 @@ func kick():
 				character.kick_timer.start(1)
 
 
-func drop_grabbable():
-	# When the drop button or keys are pressed, grabable objects are released
+func drop_grabable():
+	# When the drop button or keys are pressed, grabbable objects are released
 	if Input.is_action_just_pressed("playerhand|main_throw") or Input.is_action_just_pressed("playerhand|offhand_throw"):
 		if is_grabbing == true:
 			wants_to_drop = true
@@ -734,7 +734,7 @@ func drop_grabbable():
 				print("Grab broken by throw")
 				interaction_handled = true
 				var impulse = active_mode.get_aim_direction() * throw_strength
-				if grab_object is MeleeItem :
+				if grab_object is MeleeItem:
 					grab_object.item_state = GlobalConsts.ItemState.DAMAGING
 					grab_object.apply_throw_logic(impulse)
 					grab_object.add_collision_exception_with(character)

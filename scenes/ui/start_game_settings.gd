@@ -24,7 +24,7 @@ func add_generation_settings():
 func add_equipment():
 	var dir = Directory.new()
 	var dir_stack = Array()
-	dir.open("res://scenes/objects/pickable_items/equipment/")
+	dir.open("res://scenes/objects/pickable_items/")
 	dir.list_dir_begin(true, true)
 	dir_stack.push_back(dir)
 	while not dir_stack.empty():

@@ -196,4 +196,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
 [node name="CollisionShape" parent="Ignite" index="0"]
 shape = SubResource( 57 )
 
+[connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

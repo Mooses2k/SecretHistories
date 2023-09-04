@@ -488,6 +488,7 @@ func swap_hands():
 func switch_away_from_light(light_source):
 	if not light_source.can_attach:
 		if not are_swapping:
+			print("unlighting light when putting it away because not swapping hands now")
 			light_source.unlight()
 	elif light_source.can_attach and light_source is LanternItem:
 		light_source.attach_to_belt()

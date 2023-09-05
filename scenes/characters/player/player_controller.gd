@@ -9,6 +9,7 @@ onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
 export var throw_strength : float = 2
+const ON_GRAB_MAX_SPEED : float = 0.1
 
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 1000.0
@@ -465,10 +466,9 @@ func handle_grab(delta : float):
 		owner.velocity.z += additional_force.z * delta
 
 		# Limit player's movement speed if necessary
-		var max_speed = 0.1  
 		var horizontal_velocity = Vector3(owner.velocity.x, 0, owner.velocity.z)
-		if horizontal_velocity.length() > max_speed:
-			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+		if horizontal_velocity.length() > ON_GRAB_MAX_SPEED:
+			horizontal_velocity = horizontal_velocity.normalized() * ON_GRAB_MAX_SPEED
 		owner.velocity.x = horizontal_velocity.x
 		owner.velocity.z = horizontal_velocity.z
 

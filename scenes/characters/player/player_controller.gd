@@ -9,9 +9,10 @@ onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
 export var throw_strength : float = 2
+const ON_GRAB_MAX_SPEED : float = 0.1
 
 export var hold_time_to_grab : float = 0.4
-export var grab_strength : float = 2.0
+export var grab_strength : float = 1000.0
 export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
@@ -101,6 +102,7 @@ var crouch_cam_target_pos = 0.98
 
 var clamberable_obj : RigidBody
 var item_up = false
+var camera_movement_resistance : float = 1.0
 
 # For tracking short or long press of cycle_offhand_slot
 var _cycle_offhand_timer : float = 0.0
@@ -235,18 +237,17 @@ func _input(event):
 			or owner.state == owner.State.STATE_CLAMBERING_RISE
 			or owner.state == owner.State.STATE_CLAMBERING_VENT):
 			return
-		
+	
 		var m = 1.0
-		
+	
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
-		
-		owner.rotation_degrees.y -= event.relative.x * InputSettings.setting_mouse_sensitivity * m
-		
+	
+		owner.rotation_degrees.y -= (event.relative.x * InputSettings.setting_mouse_sensitivity * m ) * camera_movement_resistance
+	
 #		if owner.state != owner.State.STATE_CRAWLING:
 #			_camera.rotation_degrees.x -= event.relative.y * InputSettings.setting_mouse_sensitivity * m
 #			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
-		
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
 
@@ -382,6 +383,7 @@ func handle_grab_input(delta : float):
 			print("Grab broken by letting go of grab key")
 			wanna_grab = false
 			interaction_handled = true
+			camera_movement_resistance = 1.0
 
 
 func handle_grab(delta : float):
@@ -423,12 +425,15 @@ func handle_grab(delta : float):
 		# Some debug visualization stuff for grabbing
 		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
-		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
+		
+		camera_movement_resistance = (5 / grab_object.mass)
+		
+		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
 			print("Grab broken by distance")
 			interaction_handled = true
-		
-		# Local velocity of the object at the grabbing point, used to cancel the objects movement
+			camera_movement_resistance = 1.0
+
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 		
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
@@ -449,8 +454,24 @@ func handle_grab(delta : float):
 		
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
-		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
-		
+		direct_state.apply_torque_impulse(2.5 * (grab_object_offset.cross(total_impulse))) #0.2
+
+		# Calculate additional force based on the weight of the object
+		var additional_force = Vector3.ZERO
+		if grab_object.mass > 0:
+			additional_force = -direct_state.total_gravity * grab_object.mass
+
+		# Modify player's movement based on additional force
+		owner.velocity.x += additional_force.x * delta
+		owner.velocity.z += additional_force.z * delta
+
+		# Limit player's movement speed if necessary
+		var horizontal_velocity = Vector3(owner.velocity.x, 0, owner.velocity.z)
+		if horizontal_velocity.length() > ON_GRAB_MAX_SPEED:
+			horizontal_velocity = horizontal_velocity.normalized() * ON_GRAB_MAX_SPEED
+		owner.velocity.x = horizontal_velocity.x
+		owner.velocity.z = horizontal_velocity.z
+
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
 

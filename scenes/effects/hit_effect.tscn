@@ -3,8 +3,8 @@
 [ext_resource path="res://scenes/effects/hit_effect.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/explosion/smokesprite.png" type="Texture" id=2]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=3]
-[ext_resource path="res://resources/sounds/impacts/534956__joedinessound__arrow-wood-impact-single-archery-01.wav" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/impacts/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg" type="AudioStream" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
@@ -67,7 +67,7 @@ autostart = true
 [node name="Sounds" type="Spatial" parent="."]
 
 [node name="Flesh" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 4 )
+stream = ExtResource( 6 )
 bus = "Effects"
 
 [node name="Fabric" type="AudioStreamPlayer3D" parent="Sounds"]
@@ -75,7 +75,7 @@ stream = ExtResource( 3 )
 bus = "Effects"
 
 [node name="Wood" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 4 )
+stream = ExtResource( 6 )
 bus = "Effects"
 
 [node name="Metal" type="AudioStreamPlayer3D" parent="Sounds"]

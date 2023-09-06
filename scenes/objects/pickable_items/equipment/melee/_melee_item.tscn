@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://resources/sounds/melee/blade/slash_flesh/420674__sypherzent__deep-cut-slash-gash.wav" type="AudioStream" id=7]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=8]
 [ext_resource path="res://resources/sounds/throwing/181679__gingie__knife-throw.ogg" type="AudioStream" id=9]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=10]
 
 [sub_resource type="CylinderShape" id=1]
 height = 0.431874
@@ -21,6 +22,7 @@ mass = 1.0
 script = ExtResource( 2 )
 dropped_layers = 0
 dropped_mask = 0
+item_drop_sound = ExtResource( 10 )
 item_throw_sound = ExtResource( 9 )
 weapon_type = 0
 primary_damage_type1 = 0

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/256568__sjnewton__cork.mp3-2d005b597df0c672ff2abea66
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

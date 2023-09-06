@@ -3,7 +3,7 @@
 [ext_resource path="res://resources/models/items/containers/dining/vessels/trn_Bottles_000.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/containers/_container_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/containers/dining/vessels/trn_Bottles_002.material" type="Material" id=3]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=4]
+[ext_resource path="res://resources/sounds/impacts/ceramic_and_glass/13929__adcbicycle__1_ding_hits.wav" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -32,8 +32,6 @@ points = PoolVector3Array( 0.101536, 0.0142607, 0.0265163, -0.115237, -0.0123086
 
 [node name="BottleShortMedieval2" instance=ExtResource( 2 )]
 mass = 1.0
-contacts_reported = 2
-contact_monitor = true
 item_drop_sound = ExtResource( 4 )
 item_size = 0
 item_name = "Short Ceramic Bottle"

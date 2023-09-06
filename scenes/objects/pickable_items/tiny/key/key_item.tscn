@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/tiny/key/key_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/tiny_items/keys/M_Key_2.material" type="Material" id=3]
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_Wall_Metal.material" type="Material" id=4]
+[ext_resource path="res://resources/sounds/impacts/keys_and_coins/667394__mastersuite__key-drop.mp3" type="AudioStream" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Key2_Cylinder001"
@@ -25,6 +26,7 @@ points = PoolVector3Array( 0.0367674, 0.000685269, 0.005725, 0.0263876, -0.00031
 
 [node name="KeyItem" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+item_drop_sound = ExtResource( 5 )
 key_id = 0
 
 [node name="MeshInstance" parent="." index="0"]

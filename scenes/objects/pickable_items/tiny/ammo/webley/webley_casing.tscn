@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/sounds/impacts/bullets_and_casings/678882__drinkingwindgames__firearm-casing-bounce-1.wav" type="AudioStream" id=2]
 [ext_resource path="res://resources/models/items/tiny_items/ammunition/loose/Webley.material" type="Material" id=3]
 
 [sub_resource type="ArrayMesh" id=2]
@@ -23,6 +24,7 @@ height = 0.02
 radius = 0.005
 
 [node name="WebleyCasing" instance=ExtResource( 1 )]
+item_drop_sound = ExtResource( 2 )
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = SubResource( 2 )

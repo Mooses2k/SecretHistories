@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://resources/models/items/containers/dining/bowls/trn_Plates_002.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/containers/_container_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/containers/dining/plates/trn_Plates_003.material" type="Material" id=3]
+[ext_resource path="res://resources/sounds/impacts/ceramic_and_glass/634154__erbsland-music__large-ceramic-plate-hit.ogg" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -58,7 +59,7 @@ points = PoolVector3Array( -0.0626633, -0.153792, 0.0204664, -0.172039, -0.00799
 
 [node name="PlateCeramicMedieval" instance=ExtResource( 2 )]
 mass = 0.5
-can_attach = false
+item_drop_sound = ExtResource( 4 )
 item_size = 0
 item_name = "Ceramic Plate"
 

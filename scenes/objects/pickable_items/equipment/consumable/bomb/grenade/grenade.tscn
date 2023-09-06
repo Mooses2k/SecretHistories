@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd" type="Script" id=1]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Material.material" type="Material" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scenes/effects/explosion/smokeshader.tres" type="Shader" id=11]
 [ext_resource path="res://scenes/effects/effects.gd" type="Script" id=12]
 [ext_resource path="res://scenes/effects/explosion_audio.tscn" type="PackedScene" id=13]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=14]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "FrenchGrenade_Cube"
@@ -122,6 +123,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
+item_drop_sound = ExtResource( 14 )
 item_name = "Grenade"
 radius = 10
 bomb_damage = 150.0

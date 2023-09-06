@@ -84,8 +84,8 @@ var interaction_handled : bool = false
 var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
 var grab_distance : float = 0
-var target
-var current_object = null
+#var target
+var current_grab_object = null   # Can this be replaced by just grab_object?
 var wants_to_drop = false
 var _click_timer : float = 0.0
 var _throw_wait_time : float = 400
@@ -107,6 +107,7 @@ var camera_movement_resistance : float = 1.0
 # For tracking short or long press of cycle_offhand_slot
 var _cycle_offhand_timer : float = 0.0
 var _swap_hands_wait_time : float = 500
+
 # Screen filter section
 enum ScreenFilter {
 	NONE,
@@ -146,7 +147,7 @@ func _physics_process(delta : float):
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
-	current_object = active_mode.get_grab_target()
+	current_grab_object = active_mode.get_grab_target()
 	_walk(delta)
 	_crouch()
 	handle_grab_input(delta)
@@ -381,6 +382,7 @@ func handle_grab_input(delta : float):
 		if is_grabbing == true:
 			is_grabbing = false
 			print("Grab broken by letting go of grab key")
+			grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
 			wanna_grab = false
 			interaction_handled = true
 			camera_movement_resistance = 1.0
@@ -399,6 +401,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 				print("Just grabbed: ", grab_object)
+				grab_object.item_state = GlobalConsts.ItemState.DAMAGING   # This is so any pickable_item collides with cultists
 	
 	# These are debug indicators for initial and current grab points
 	$GrabInitial.visible = false
@@ -431,6 +434,7 @@ func handle_grab(delta : float):
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
 			print("Grab broken by distance")
+			grab_object.set_item_state(GlobalConsts.ItemState.DROPPED)
 			interaction_handled = true
 			camera_movement_resistance = 1.0
 
@@ -474,6 +478,8 @@ func handle_grab(delta : float):
 
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
+		
+#		print(grab_object.item_state)
 
 
 func update_throw_state(delta : float):

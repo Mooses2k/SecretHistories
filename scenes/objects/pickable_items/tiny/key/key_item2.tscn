@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/tiny/key/key_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/tiny_items/keys/M_Key_1.material" type="Material" id=3]
+[ext_resource path="res://resources/sounds/impacts/keys_and_coins/432913__kyanite__key_drop.wav" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Key1_meshId0_name"
@@ -24,6 +25,7 @@ points = PoolVector3Array( 0.0294136, -0.000338301, 0.0134313, 0.0204866, -0.000
 
 [node name="KeyItem2" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+item_drop_sound = ExtResource( 4 )
 key_id = 0
 
 [node name="MeshInstance" parent="." index="0"]

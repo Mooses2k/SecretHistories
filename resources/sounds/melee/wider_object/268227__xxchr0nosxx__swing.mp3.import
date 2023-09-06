@@ -11,5 +11,5 @@ dest_files=[ "res://.import/268227__xxchr0nosxx__swing.mp3-69a51fef59364024e4f21
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

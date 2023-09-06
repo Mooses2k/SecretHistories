@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/tiny/tiny_item.gd" type="Script" id=2]
 [ext_resource path="res://resources/tiny_items/ammunition/577_martini-henry.tres" type="Resource" id=3]
 [ext_resource path="res://resources/models/items/tiny_items/ammunition/boxes/InsideCardboard.material" type="Material" id=4]
-[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" type="AudioStream" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "MartiniHenryBox_Cube007"

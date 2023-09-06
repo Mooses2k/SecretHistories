@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" type="AudioStream" id=1]
 [ext_resource path="res://resources/models/items/melee/dagger/M_Dagger.material" type="Material" id=5]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=8]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ArrayMesh" id=6]
@@ -28,11 +28,9 @@ height = 0.165698
 radius = 0.0555477
 
 [node name="Dagger" instance=ExtResource( 14 )]
-contacts_reported = 2
-contact_monitor = true
 dropped_layers = 64
 dropped_mask = 1
-item_drop_sound = ExtResource( 9 )
+item_drop_sound = ExtResource( 1 )
 item_size = 0
 item_name = "Dagger"
 weapon_type = 1

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/478607__zz27jb__glassbottle.mp3-8a8523cd8ec3d917d75251aae1d93de8.mp3str"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/ceramic_and_glass/478607__zz27jb__glassbottle.mp3"
+dest_files=[ "res://.import/478607__zz27jb__glassbottle.mp3-8a8523cd8ec3d917d75251aae1d93de8.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

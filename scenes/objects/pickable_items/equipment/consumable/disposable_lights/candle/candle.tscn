@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_MetallicSmoothness.png" type="Texture" id=7]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png" type="Texture" id=8]
 [ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_AlbedoTransparency.png" type="Texture" id=9]
+[ext_resource path="res://resources/sounds/impacts/677013__staylor8__candle_hit.ogg" type="AudioStream" id=10]
 
 [sub_resource type="ArrayMesh" id=25]
 resource_local_to_scene = true
@@ -134,7 +135,7 @@ __meta__ = {
 }
 dropped_layers = 64
 dropped_mask = 1
-equipped_mode = 3
+item_drop_sound = ExtResource( 10 )
 item_throw_sound = null
 item_name = "Candle"
 life_percentage_lose = 0.2

@@ -58,6 +58,7 @@ bind/9/bone = -1
 bind/9/pose = Transform( 1, -1.74065e-06, 1.96168e-06, -1.13687e-12, 0.74799, 0.66371, -2.6226e-06, -0.66371, 0.74799, 0.000233892, -0.040159, -0.0391791 )
 
 [node name="Bandage" instance=ExtResource( 1 )]
+item_drop_sound = null
 item_throw_sound = null
 item_name = "Bandage"
 

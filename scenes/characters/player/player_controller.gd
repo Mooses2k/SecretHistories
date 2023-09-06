@@ -9,9 +9,10 @@ onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
 export var throw_strength : float = 2
+const ON_GRAB_MAX_SPEED : float = 0.1
 
 export var hold_time_to_grab : float = 0.4
-export var grab_strength : float = 2.0
+export var grab_strength : float = 1000.0
 export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
@@ -83,8 +84,8 @@ var interaction_handled : bool = false
 var grab_object : RigidBody = null
 var grab_relative_object_position : Vector3
 var grab_distance : float = 0
-var target
-var current_object = null
+#var target
+var current_grab_object = null   # Can this be replaced by just grab_object?
 var wants_to_drop = false
 var _click_timer : float = 0.0
 var _throw_wait_time : float = 400
@@ -101,6 +102,11 @@ var crouch_cam_target_pos = 0.98
 
 var clamberable_obj : RigidBody
 var item_up = false
+var camera_movement_resistance : float = 1.0
+
+# For tracking short or long press of cycle_offhand_slot
+var _cycle_offhand_timer : float = 0.0
+var _swap_hands_wait_time : float = 500
 
 # Screen filter section
 enum ScreenFilter {
@@ -141,7 +147,7 @@ func _physics_process(delta : float):
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
-	current_object = active_mode.get_grab_target()
+	current_grab_object = active_mode.get_grab_target()
 	_walk(delta)
 	_crouch()
 	handle_grab_input(delta)
@@ -149,7 +155,7 @@ func _physics_process(delta : float):
 	handle_inventory(delta)
 	next_item()
 	previous_item()
-	drop_grabbable()
+	drop_grabable()
 	empty_slot()
 	kick()
 
@@ -232,18 +238,17 @@ func _input(event):
 			or owner.state == owner.State.STATE_CLAMBERING_RISE
 			or owner.state == owner.State.STATE_CLAMBERING_VENT):
 			return
-		
+	
 		var m = 1.0
-		
+	
 		if _camera.state == _camera.CameraState.STATE_ZOOM:
 			m = _camera.zoom_camera_sens_mod
-		
-		owner.rotation_degrees.y -= event.relative.x * InputSettings.setting_mouse_sensitivity * m
-		
+	
+		owner.rotation_degrees.y -= (event.relative.x * InputSettings.setting_mouse_sensitivity * m ) * camera_movement_resistance
+	
 #		if owner.state != owner.State.STATE_CRAWLING:
 #			_camera.rotation_degrees.x -= event.relative.y * InputSettings.setting_mouse_sensitivity * m
 #			_camera.rotation_degrees.x = clamp(_camera.rotation_degrees.x, -90, 90)
-		
 		_camera._camera_rotation_reset = _camera.rotation_degrees
 
 
@@ -377,8 +382,10 @@ func handle_grab_input(delta : float):
 		if is_grabbing == true:
 			is_grabbing = false
 			print("Grab broken by letting go of grab key")
+			grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
 			wanna_grab = false
 			interaction_handled = true
+			camera_movement_resistance = 1.0
 
 
 func handle_grab(delta : float):
@@ -394,6 +401,7 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 				print("Just grabbed: ", grab_object)
+				grab_object.item_state = GlobalConsts.ItemState.DAMAGING   # This is so any pickable_item collides with cultists
 	
 	# These are debug indicators for initial and current grab points
 	$GrabInitial.visible = false
@@ -420,12 +428,16 @@ func handle_grab(delta : float):
 		# Some debug visualization stuff for grabbing
 		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
-		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 1.0 and !grab_object is PickableItem:
+		
+		camera_movement_resistance = (5 / grab_object.mass)
+		
+		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
 			print("Grab broken by distance")
+			grab_object.set_item_state(GlobalConsts.ItemState.DROPPED)
 			interaction_handled = true
-		
-		# Local velocity of the object at the grabbing point, used to cancel the objects movement
+			camera_movement_resistance = 1.0
+
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 		
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
@@ -446,10 +458,28 @@ func handle_grab(delta : float):
 		
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
-		direct_state.apply_torque_impulse(0.2 * (grab_object_offset.cross(total_impulse)))
-		
+		direct_state.apply_torque_impulse(2.5 * (grab_object_offset.cross(total_impulse))) #0.2
+
+		# Calculate additional force based on the weight of the object
+		var additional_force = Vector3.ZERO
+		if grab_object.mass > 0:
+			additional_force = -direct_state.total_gravity * grab_object.mass
+
+		# Modify player's movement based on additional force
+		owner.velocity.x += additional_force.x * delta
+		owner.velocity.z += additional_force.z * delta
+
+		# Limit player's movement speed if necessary
+		var horizontal_velocity = Vector3(owner.velocity.x, 0, owner.velocity.z)
+		if horizontal_velocity.length() > ON_GRAB_MAX_SPEED:
+			horizontal_velocity = horizontal_velocity.normalized() * ON_GRAB_MAX_SPEED
+		owner.velocity.x = horizontal_velocity.x
+		owner.velocity.z = horizontal_velocity.z
+
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
+		
+#		print(grab_object.item_state)
 
 
 func update_throw_state(delta : float):
@@ -504,9 +534,25 @@ func handle_inventory(delta : float):
 			if i != character.inventory.current_offhand_slot and i != 10:
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
-	
-	# Off-hand slot selection
+
+	## Off-hand slot selection or swap items in hands based on length of press of cycle_offhand_slot
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
+		_cycle_offhand_timer = Time.get_ticks_msec()
+
+	if Input.is_action_just_released("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
+		# If it's a long press, swap hands, if not, cycle slot
+		if _cycle_offhand_timer + _swap_hands_wait_time < Time.get_ticks_msec():
+			if _cycle_offhand_timer == 0.0:
+				return
+			# Player intends to swap
+			character.inventory.swap_hands()
+			_cycle_offhand_timer = 0.0
+			return
+		
+		# Player intends to cycle slot instead of swapping hands
+		else:
+			_cycle_offhand_timer = 0.0
+			
 		var start_slot = character.inventory.current_offhand_slot
 		var new_slot = (start_slot + 1) % character.inventory.hotbar.size()
 		while new_slot != start_slot \
@@ -705,8 +751,8 @@ func kick():
 				character.kick_timer.start(1)
 
 
-func drop_grabbable():
-	# When the drop button or keys are pressed, grabable objects are released
+func drop_grabable():
+	# When the drop button or keys are pressed, grabbable objects are released
 	if Input.is_action_just_pressed("playerhand|main_throw") or Input.is_action_just_pressed("playerhand|offhand_throw"):
 		if is_grabbing == true:
 			wants_to_drop = true
@@ -715,7 +761,7 @@ func drop_grabbable():
 				print("Grab broken by throw")
 				interaction_handled = true
 				var impulse = active_mode.get_aim_direction() * throw_strength
-				if grab_object is MeleeItem :
+				if grab_object is MeleeItem:
 					grab_object.item_state = GlobalConsts.ItemState.DAMAGING
 					grab_object.apply_throw_logic(impulse)
 					grab_object.add_collision_exception_with(character)

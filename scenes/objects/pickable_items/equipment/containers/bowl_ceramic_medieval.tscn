@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://resources/models/items/containers/dining/bowls/trn_Plates_002.material" type="Material" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=3]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/containers/_container_item.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/sounds/impacts/ceramic_and_glass/634154__erbsland-music__large-ceramic-plate-hit.ogg" type="AudioStream" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -73,10 +73,7 @@ points = PoolVector3Array( -0.0761914, -0.167579, 0.0876412, -0.0487649, -0.1036
 
 [node name="BowlCeramicMedieval" instance=ExtResource( 2 )]
 mass = 0.5
-contacts_reported = 2
-contact_monitor = true
 item_drop_sound = ExtResource( 3 )
-can_attach = false
 item_size = 0
 item_name = "Ceramic Bowl"
 

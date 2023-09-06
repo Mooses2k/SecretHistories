@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/models/items/components/bones_and_bodies/M_Skull.material" type="Material" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
+[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -27,19 +28,23 @@ radius = 0.101082
 
 [node name="Skull1" instance=ExtResource( 9 )]
 collision_layer = 64
+item_throw_sound = ExtResource( 3 )
 item_size = 0
 item_name = "Skull"
 
-[node name="MeshInstance" parent="." index="3"]
+[node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 mesh = SubResource( 1 )
 script = null
 
-[node name="CollisionShape" parent="." index="4"]
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )
 shape = SubResource( 9 )
 
-[node name="Hitbox" type="Area" parent="." index="5"]
+[node name="HoldPosition" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.106868, -0.0321611 )
+
+[node name="Hitbox" type="Area" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.279591, 0 )
 collision_layer = 0
 collision_mask = 12
@@ -50,10 +55,6 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273551, 0 )
 shape = SubResource( 8 )
 
-[node name="HoldPosition" parent="." index="6"]
-unique_name_in_owner = false
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.106868, -0.0321611 )
-
-[node name="CooldownTimer" type="Timer" parent="." index="7"]
+[node name="CooldownTimer" type="Timer" parent="." index="4"]
 wait_time = 0.5
 one_shot = true

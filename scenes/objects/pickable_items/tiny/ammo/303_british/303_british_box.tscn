@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/_pickable_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/tiny/tiny_item.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/tiny_items/ammunition/boxes/303Box.material" type="Material" id=3]
 [ext_resource path="res://resources/tiny_items/ammunition/303_british.tres" type="Resource" id=4]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" type="AudioStream" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "303Box_Cube005"
@@ -25,6 +26,7 @@ extents = Vector3( 0.042, 0.015, 0.035 )
 
 [node name="303BritishBox" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+item_drop_sound = ExtResource( 5 )
 item_data = ExtResource( 4 )
 amount = 10
 

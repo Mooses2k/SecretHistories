@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/634154__erbsland-music__large-ceramic-plate-hit.ogg-2e17be36a45cc53435b4f57ebfd8eee7.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/ceramic_and_glass/634154__erbsland-music__large-ceramic-plate-hit.ogg"
+dest_files=[ "res://.import/634154__erbsland-music__large-ceramic-plate-hit.ogg-2e17be36a45cc53435b4f57ebfd8eee7.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

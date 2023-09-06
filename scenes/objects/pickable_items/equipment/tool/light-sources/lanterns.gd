@@ -1,6 +1,8 @@
 class_name LanternItem
 extends ToolItem
 
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in candelabra.gd, torch.gd, candle.gd
+
 
 signal item_is_dropped
 
@@ -14,7 +16,6 @@ export var is_oil_based : bool = false
 export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
 export(float, 0.0, 1.0) var prob_going_out : float = 0.0
 
-#var has_ever_been_on = true # starts on
 var is_lit = true # starts on
 onready var firelight = $Light
 
@@ -81,20 +82,11 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-		switch_away()
-
-
-func switch_away():
-	if not can_attach:
-#		unlight()
-		pass
-	else:
-		print("switch_away reached in lanterns.gd")
-		attach_to_belt()
+		owner_character.inventory.switch_away_from_light(self)
 
 
 func attach_to_belt():
-	owner.inventory.attach_to_belt(self)
+	owner_character.inventory.attach_to_belt(self)
 	is_in_belt = true
 
 

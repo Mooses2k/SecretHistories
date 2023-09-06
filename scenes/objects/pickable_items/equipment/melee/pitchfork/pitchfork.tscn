@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
+[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=1]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=2]
 [ext_resource path="res://resources/models/items/melee/pitchfork/source/pitchfork.material" type="Material" id=3]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=9]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=23]
 
 [sub_resource type="ArrayMesh" id=4]
@@ -56,11 +57,10 @@ points = PoolVector3Array( -0.123322, 0.626638, 0.00427238, -0.115461, 0.662045,
 
 [node name="Pitchfork" instance=ExtResource( 23 )]
 mass = 3.0
-contacts_reported = 2
-contact_monitor = true
 dropped_layers = 64
 dropped_mask = 1
-item_drop_sound = ExtResource( 10 )
+item_drop_sound = ExtResource( 2 )
+item_throw_sound = ExtResource( 1 )
 item_size = 2
 item_name = "Pitchfork"
 weapon_type = 6

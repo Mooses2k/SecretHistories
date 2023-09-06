@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/_medical.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/_medical_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/consumables/medical/dentist_box/M_DentistBox.material" type="Material" id=3]
 [ext_resource path="res://resources/sounds/fabric/678008__mandy2__fabric-rubbing.mp3" type="AudioStream" id=4]
+[ext_resource path="res://resources/sounds/impacts/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg" type="AudioStream" id=5]
 
 [sub_resource type="ArrayMesh" id=4]
 resource_name = "dentist_box_Mesh005"
@@ -41,6 +42,7 @@ points = PoolVector3Array( 0.289304, 0.462525, 0.344808, -0.305493, 0.0361204, -
 
 [node name="DentistsBox" instance=ExtResource( 1 )]
 mass = 5.0
+item_drop_sound = ExtResource( 5 )
 item_size = 1
 item_name = "Medical Box"
 heal_amount = 1

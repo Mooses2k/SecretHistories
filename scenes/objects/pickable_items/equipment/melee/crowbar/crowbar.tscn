@@ -1,5 +1,7 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
+[ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/585575__bennettfilmteacher__metal-ringing-hit.ogg" type="AudioStream" id=2]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=4]
 [ext_resource path="res://resources/models/items/melee/crowbar/M_Crowbar.material" type="Material" id=5]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=6]
@@ -47,10 +49,10 @@ points = PoolVector3Array( 0.25356, -0.00610716, 0.00502701, 0.259944, -0.006523
 [node name="Crowbar" instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, -0.13599, 0.00388288 )
 mass = 2.0
-contacts_reported = 2
-contact_monitor = true
 dropped_layers = 64
 dropped_mask = 1
+item_drop_sound = ExtResource( 2 )
+item_throw_sound = ExtResource( 1 )
 item_name = "Crowbar"
 weapon_type = 2
 primary_damage1 = 30

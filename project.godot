@@ -179,6 +179,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/consumable.gd"
 }, {
+"base": "EquipmentItem",
+"class": "ContainerItem",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/containers/container_item.gd"
+}, {
 "base": "Node",
 "class": "ControlMode",
 "language": "GDScript",
@@ -317,7 +322,7 @@ _global_script_classes=[ {
 "base": "MeshInstance",
 "class": "MeshInstanceLayered",
 "language": "GDScript",
-"path": "res://scenes/objects/pickable_items/mesh_instances.gd"
+"path": "res://scenes/effects/mesh_instances.gd"
 }, {
 "base": "ArrayMesh",
 "class": "MeshTransform",
@@ -519,6 +524,7 @@ _global_script_class_icons={
 "CharacterState": "",
 "ClamberManager": "",
 "ConsumableItem": "",
+"ContainerItem": "",
 "ControlMode": "",
 "Cultist": "",
 "DisposableLightItem": "",

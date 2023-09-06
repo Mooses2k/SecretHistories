@@ -1,11 +1,12 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
+[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=1]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=2]
 [ext_resource path="res://resources/models/items/melee/shovel/M_Shovel.material" type="Material" id=3]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=9]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=33]
 
 [sub_resource type="ArrayMesh" id=4]
@@ -87,11 +88,10 @@ points = PoolVector3Array( -0.00153141, -0.111765, -0.000510292, 0.00477919, 0.1
 [node name="Shovel" instance=ExtResource( 33 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, -0.661764, 0.00388288 )
 mass = 2.5
-contacts_reported = 2
-contact_monitor = true
 dropped_layers = 64
 dropped_mask = 1
-item_drop_sound = ExtResource( 10 )
+item_drop_sound = ExtResource( 2 )
+item_throw_sound = ExtResource( 1 )
 item_size = 2
 item_name = "Shovel"
 weapon_type = 5

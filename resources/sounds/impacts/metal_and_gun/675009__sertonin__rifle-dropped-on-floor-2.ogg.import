@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/675009__sertonin__rifle-dropped-on-floor-2.ogg-4bc81dc59c292befe9553d3d3158fdd2.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/metal_and_gun/675009__sertonin__rifle-dropped-on-floor-2.ogg"
+dest_files=[ "res://.import/675009__sertonin__rifle-dropped-on-floor-2.ogg-4bc81dc59c292befe9553d3d3158fdd2.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

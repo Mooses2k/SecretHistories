@@ -14,6 +14,9 @@ var is_change_main_equip_in : bool = false
 var is_change_off_equip_out : bool = false
 var is_change_off_equip_in : bool = false
 
+var light_resource = preload("res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn")
+var light2_resource = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn")
+
 onready var player_controller = $PlayerController
 onready var tinnitus = $Tinnitus
 onready var fps_camera = $FPSCamera
@@ -28,6 +31,13 @@ func _ready():
 		connect("player_landed", player_controller, "_on_Player_player_landed")
 	mainhand_orig_origin = mainhand_equipment_root.transform.origin
 	offhand_orig_origin = offhand_equipment_root.transform.origin
+	
+	# Add initial equipment to player
+	inventory.add_item(light2_resource.instance())
+	print("player.gd added oil lantern")
+	inventory.set_mainhand_slot(2)
+	inventory.add_item(light_resource.instance())
+	print("player.gd added candle")
 
 
 func _process(delta):

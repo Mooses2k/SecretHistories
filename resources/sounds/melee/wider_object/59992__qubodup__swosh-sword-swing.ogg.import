@@ -11,5 +11,5 @@ dest_files=[ "res://.import/59992__qubodup__swosh-sword-swing.ogg-613745c1f1ef93
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

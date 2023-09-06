@@ -45,7 +45,7 @@ func _unhandled_input(event):
 				tween = null
 				tween_value = 0.0
 				
-				# Keep the interpolation value above 0.01, because godot does
+				# Keep the interpolation value above 0.01, because Godot does
 				# weird stuff when it's below that value, and the transition
 				# causes a sudden jump in the IK
 				always_on_skeleton_ik.interpolation =- 0.011

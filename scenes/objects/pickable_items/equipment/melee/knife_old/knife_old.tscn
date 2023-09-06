@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" type="AudioStream" id=1]
 [ext_resource path="res://resources/models/items/melee/knife_old/M_OldKnife.material" type="Material" id=4]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=8]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=14]
@@ -28,10 +29,9 @@ radius = 0.0555477
 
 [node name="OldKnife" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0130187, 0 )
-contacts_reported = 2
-contact_monitor = true
 dropped_layers = 64
 dropped_mask = 1
+item_drop_sound = ExtResource( 1 )
 item_size = 0
 item_name = "Knife"
 weapon_type = 1

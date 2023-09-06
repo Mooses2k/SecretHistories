@@ -17,8 +17,8 @@ export var kick_impulse : float = 100
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
-## Determines the real world directions each movement key corresponds to.
-## By default, Right corresponds to +X, Left to -X, Up to -Z and Down to +Z
+# Determines the real world directions each movement key corresponds to.
+# By default, Right corresponds to +X, Left to -X, Up to -Z and Down to +Z
 var movement_basis : Basis = Basis.IDENTITY
 var interaction_target : Node = null
 var target_placement_position : Vector3 = Vector3.ZERO
@@ -51,8 +51,7 @@ export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
-export var lock_mouse : bool = true
-export var head_bob_enabled : bool = true
+export var head_bob_enabled : bool = true   # TODO: Should be in settings not here
 
 var velocity : Vector3 = Vector3.ZERO
 var _bob_time : float = 0.0
@@ -159,7 +158,7 @@ func _physics_process(delta : float):
 	empty_slot()
 	kick()
 
-# TODO: FIX CLAMBERING RIGID BODIES THEN RENABLE HERE, Issue #419
+# TODO: FIX CLAMBERING RIGID BODIES (possibly involving switching player to a RigidBody rather than Kinematic) THEN RENABLE HERE, Issue #419
 #	var c = _clamber_m.attempt_clamber(owner.is_crouching, owner.is_jumping)
 #	if c != Vector3.ZERO:
 #		_text.show()
@@ -437,7 +436,7 @@ func handle_grab(delta : float):
 			grab_object.set_item_state(GlobalConsts.ItemState.DROPPED)
 			interaction_handled = true
 			camera_movement_resistance = 1.0
-
+		
 		var local_velocity : Vector3 = direct_state.get_velocity_at_local_position(grab_object_local)
 		
 		# Desired velocity scales with distance to target, to a maximum of 2.0 m/s
@@ -459,23 +458,23 @@ func handle_grab(delta : float):
 		# Applying torque separately, to make it less effective
 		direct_state.apply_central_impulse(total_impulse)
 		direct_state.apply_torque_impulse(2.5 * (grab_object_offset.cross(total_impulse))) #0.2
-
+		
 		# Calculate additional force based on the weight of the object
 		var additional_force = Vector3.ZERO
 		if grab_object.mass > 0:
 			additional_force = -direct_state.total_gravity * grab_object.mass
-
+		
 		# Modify player's movement based on additional force
 		owner.velocity.x += additional_force.x * delta
 		owner.velocity.z += additional_force.z * delta
-
+		
 		# Limit player's movement speed if necessary
 		var horizontal_velocity = Vector3(owner.velocity.x, 0, owner.velocity.z)
 		if horizontal_velocity.length() > ON_GRAB_MAX_SPEED:
 			horizontal_velocity = horizontal_velocity.normalized() * ON_GRAB_MAX_SPEED
 		owner.velocity.x = horizontal_velocity.x
 		owner.velocity.z = horizontal_velocity.z
-
+		
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
 		
@@ -535,7 +534,7 @@ func handle_inventory(delta : float):
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 
-	## Off-hand slot selection or swap items in hands based on length of press of cycle_offhand_slot
+	# Off-hand slot selection or swap items in hands based on length of press of cycle_offhand_slot
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		_cycle_offhand_timer = Time.get_ticks_msec()
 
@@ -579,13 +578,7 @@ func handle_inventory(delta : float):
 	# Item Usage
 	# temporary hack (issue #409)
 	if is_instance_valid(character.inventory.get_mainhand_item()):
-		
-#		# Recoil
-#		if inv.get_mainhand_item() is GunItem and !inv.get_mainhand_item().on_cooldown:
-#			active_mode.up_recoil = 0
-#		if inv.get_offhand_item() is GunItem and !inv.get_offhand_item().on_cooldown:
-#			active_mode.up_recoil = 0
-		
+	
 		if Input.is_action_just_pressed("playerhand|main_use_primary"):
 			if character.inventory.get_mainhand_item():
 				character.inventory.get_mainhand_item().use_primary()
@@ -608,9 +601,9 @@ func handle_inventory(delta : float):
 			throw_state = ThrowState.IDLE
 	
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+	# TODO: this probably belongs in UI code, not in player controller?
+	# or function this out maybe to a screen_filters.gd attached to ScreenFilter
 	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# function this out maybe to a screen_filters.gd attached to ScreenFilter
-		
 		# Cycle to next filter
 		current_screen_filter += 1
 		
@@ -752,7 +745,7 @@ func kick():
 
 
 func drop_grabable():
-	# When the drop button or keys are pressed, grabbable objects are released
+	# When the drop button or keys are pressed, grabable objects are released
 	if Input.is_action_just_pressed("playerhand|main_throw") or Input.is_action_just_pressed("playerhand|offhand_throw"):
 		if is_grabbing == true:
 			wants_to_drop = true

@@ -63,7 +63,7 @@ func _process(delta):
 #		noise_level = 0
 
 
-# Eventually this needs to be possible for character
+# Eventually this needs to be possible for character, not just player
 func drop_consumable(item):
 	player_controller.throw_consumable(item)
 
@@ -92,7 +92,7 @@ func grab_indicator():
 		$Indication_canvas/Indication_system/Ignite.hide()
 
 
-# Is_in_group("Door_hitbox")   # Please rename this group to DOOR_HITBOX after door merge
+# Is_in_group("Door_hitbox") or Door_body  # Please rename this group to DOOR_HITBOX and/or DoorBody after door merge
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body :
 		if !colliding_pickable_items.has(body):

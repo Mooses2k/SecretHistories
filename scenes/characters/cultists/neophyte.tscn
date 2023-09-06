@@ -49,6 +49,7 @@ shape = SubResource( 6 )
 
 [node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BehaviorTree" type="Node" parent="." index="6"]
 unique_name_in_owner = true
@@ -158,17 +159,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="rig_deform" parent="Body/CultistNeophyteNoCape" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0585033, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="IKBaseTarget" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform" index="0"]
 unique_name_in_owner = true
 transform = Transform( -0.999997, 0, -8.74225e-08, 0, 1, 0, 8.74225e-08, 0, -0.999997, 5.32946e-05, 1.58513, 1.94644 )
 
-[node name="Skeleton" parent="Body/CultistNeophyteNoCape/rig_deform" index="1"]
-bones/137/bound_children = [ NodePath("MainHandAttachment") ]
-
 [node name="MainHandAttachment" type="BoneAttachment" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="1"]
-transform = Transform( -0.982279, -0.165704, -0.0875739, 0.161382, -0.985393, 0.0543753, -0.0953049, 0.0392789, 0.994673, -0.246893, 0.922882, -0.189247 )
+transform = Transform( -0.983332, -0.158951, -0.0882829, 0.154646, -0.986511, 0.0536704, -0.0956231, 0.0391232, 0.994648, -0.245113, 0.922326, -0.190273 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton/MainHandAttachment" index="0"]

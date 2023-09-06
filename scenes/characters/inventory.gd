@@ -65,16 +65,15 @@ func can_pickup_item(item : PickableItem) -> bool:
 	# (may change later to steal weapons, or we can do that by dropping them first)
 	# Also prevents picking up busy items
 	print("can_pickup_item called")
-	if item.item_state != GlobalConsts.ItemState.DROPPED:
-		print("item is dropped")
-		return false
-	print("item_state is NOT dropped")
+	if item.item_state == GlobalConsts.ItemState.DROPPED or item.item_state == GlobalConsts.ItemState.DAMAGING:
+		print("item.item_state is ", item.item_state, ", so item is considered dropped or damaging")
+		# Can always pick up equipment (goes to bulky slot if necessary)
+		if item is EquipmentItem:
+			return true
 	# Can always pickup special items
 	if (item is TinyItem) or (item is KeyItem):
 		return true
-	# Can always pick up equipment (goes to bulky slot if necessary)
-	if item is EquipmentItem:
-		return true
+	
 	return false
 
 
@@ -398,7 +397,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 # Drops the item, it must be unequipped first
 # Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
-	if is_instance_valid(owner.player_controller):
+	if owner is Player:
 		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
 			item.item_state = GlobalConsts.ItemState.DROPPED   # At the moment, 'placed' items can't hurt anyone.
 		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:

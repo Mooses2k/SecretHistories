@@ -385,7 +385,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -660, 860 )
 nodes/output/position = Vector2( 1420, -120 )
-node_connections = [ "output", 0, "Hand_Transition", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle" ]
+node_connections = [ "output", 0, "Hand_Transition", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -399,8 +399,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 collision_layer = 18
 script = ExtResource( 2 )
 animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
-kick_damage = 40
-_legcast = NodePath("Legs/Feet")
 
 [node name="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -454,7 +452,6 @@ kick_impulse = 7.0
 _grabcast = NodePath("../FPSCamera/GrabCast")
 _aimcast = NodePath("../FPSCamera/AimCast")
 _legcast = NodePath("../Legs/Feet")
-lock_mouse = false
 _cam_path = NodePath("../FPSCamera")
 
 [node name="FPSControlMode" type="Node" parent="PlayerController" index="0"]
@@ -704,6 +701,10 @@ script = ExtResource( 15 )
 unique_name_in_owner = true
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1.53224, -0.0529606 )
 
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/113/bound_children = [ NodePath("OffHandAttachement") ]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
+
 [node name="Body005" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 material_override = ExtResource( 26 )
 
@@ -711,18 +712,18 @@ material_override = ExtResource( 26 )
 material_override = ExtResource( 27 )
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.983778, -0.158159, -0.0846502, 0.153891, -0.986567, 0.0548074, -0.0921814, 0.0408915, 0.994902, -0.239101, 0.891404, -0.189499 )
+transform = Transform( -0.987195, -0.137447, -0.080953, 0.13344, -0.989637, 0.0530173, -0.0874013, 0.0415358, 0.995306, -0.233378, 0.887946, -0.189446 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
 unique_name_in_owner = true
-transform = Transform( 0.995856, 0.0505424, 0.0756122, 0.0871018, -0.290765, -0.952822, -0.0261725, 0.955459, -0.293962, 0, 0, 0 )
+transform = Transform( 0.963347, 0.167443, 0.209588, 0.238191, -0.17449, -0.955416, -0.123407, 0.970318, -0.207978, 0, 0, 0 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( 0.161907, 0.197837, -0.966771, -0.967291, 0.225688, -0.11581, 0.195278, 0.9539, 0.227907, 0.173761, 1.15119, 0.0102881 )
+transform = Transform( 0.187856, 0.247698, -0.95045, -0.968642, 0.206927, -0.137524, 0.16261, 0.946481, 0.278803, 0.18807, 1.14884, -0.000988454 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]

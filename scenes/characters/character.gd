@@ -11,8 +11,7 @@ var _alive : bool = true
 var _type_damage_multiplier : PoolByteArray
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
-export (NodePath) var animation_tree_path 
-onready var current_health : float = self.max_health
+onready var current_health : int = self.max_health
 
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
@@ -24,15 +23,17 @@ export var _legcast : NodePath
 #export(AttackTypes.Types) var damage_type : int = 0
 #export (float) var kick_impulse
 
+export (NodePath) var animation_tree_path 
+
 onready var character_state : CharacterState = CharacterState.new(self)
 
+onready var skeleton = $"%Skeleton"
 onready var inventory = $Inventory
 onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
 onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
 onready var belt_position = $"%BeltPosition"
 onready var drop_position_node = $Body/DropPosition
-onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs
-onready var skeleton = $"%Skeleton"
+onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
 onready var collision_shape = $CollisionShape   # duplicate of _collider below
 onready var animation_tree = $"%AnimationTree"
 onready var additional_animations  = $AdditionalAnimations
@@ -186,6 +187,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
+	if !_alive:
+		return
+	
 	if animation_tree != null:
 		check_state_animation(delta)
 		check_current_item_animation()
@@ -269,18 +273,18 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)
-	
+		
 		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")
-	
+			
 			if self.name != "Player":
 				collision_shape.disabled = true   # this may bug if character dies crouching
 				print("Character died")
 				self.inventory.drop_mainhand_item()
 				self.inventory.drop_offhand_item()
-				self.queue_free()
-#				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
+#				self.queue_free()
+				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
 
 
 func heal(amount):

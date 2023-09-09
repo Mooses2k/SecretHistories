@@ -17,8 +17,10 @@ visible = false
 mesh = SubResource( 1 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
-margin_right = 117.0
-margin_bottom = 116.0
+margin_left = -123.0
+margin_top = -122.0
+margin_right = -6.0
+margin_bottom = -6.0
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 32, 32 )
@@ -37,8 +39,10 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.644026, 0 )
 mesh = SubResource( 1 )
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]
-margin_right = 117.0
-margin_bottom = 116.0
+margin_left = -123.0
+margin_top = -122.0
+margin_right = -6.0
+margin_bottom = -6.0
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer2"]
 size = Vector2( 32, 32 )

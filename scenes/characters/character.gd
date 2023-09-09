@@ -410,7 +410,10 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			return
 	
 		# This is the actual jump
-		velocity.y = jump_force
+		if do_sprint:
+			velocity.y = jump_force + move_dir.length()
+		else:
+			velocity.y = jump_force
 		is_jumping = true
 		do_jump = false
 		

@@ -63,11 +63,6 @@ func _process(delta):
 #		noise_level = 0
 
 
-# Eventually this needs to be possible for character, not just player
-func drop_consumable(item):
-	player_controller.throw_consumable(item)
-
-
 ### These five functions maybe better in fps_control_mode.gd?
 
 func grab_indicator():

@@ -46,6 +46,11 @@ enum ThrowState {
 	SHOULD_THROW,
 }
 
+var throw_state : int = ThrowState.IDLE
+var throw_item_hand : int = ItemSelection.ITEM_MAINHAND
+var throw_item : EquipmentItem
+var throw_press_length : float = 0.0
+
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
@@ -70,9 +75,6 @@ onready var _ground_checker = get_node("../Body/GroundChecker")
 var _camera_orig_pos : Vector3
 var _camera_orig_rotation : Vector3
 
-var throw_state : int = ThrowState.IDLE
-var throw_item : int = ItemSelection.ITEM_MAINHAND
-var throw_press_length : float = 0.0
 var active_mode_index = 0
 onready var active_mode : ControlMode = get_child(0)
 
@@ -146,6 +148,7 @@ func _physics_process(delta : float):
 	interaction_target = active_mode.get_interaction_target()
 	character.character_state.interaction_target = interaction_target
 	interaction_handled = false
+	throw_item = null
 	current_grab_object = active_mode.get_grab_target()
 	_walk(delta)
 	_crouch()
@@ -197,7 +200,7 @@ func _input(event):
 									plus_inventory = 10
 								else:
 									plus_inventory = total_inventory - 1
-								if plus_inventory != -1  :
+								if plus_inventory != -1:
 									character.inventory.current_mainhand_slot = plus_inventory
 								else:
 									character.inventory.current_mainhand_slot = 10
@@ -210,13 +213,13 @@ func _input(event):
 					item_up = false
 #					owner.change_equipment_out(true)
 					if !item_up:
-						if character.inventory.current_mainhand_slot != 10 :
+						if character.inventory.current_mainhand_slot != 10:
 							var total_inventory
 							if  character.inventory.bulky_equipment:
 								total_inventory = 0
 							else:
 								total_inventory = character.inventory.current_mainhand_slot + 1
-							if total_inventory != character.inventory.current_offhand_slot :
+							if total_inventory != character.inventory.current_offhand_slot:
 								character.inventory.current_mainhand_slot = total_inventory
 							else:
 								var plus_inventory = total_inventory + 1
@@ -372,11 +375,11 @@ func handle_grab_input(delta : float):
 	if Input.is_action_pressed("player|interact") or Input.is_action_pressed("playerhand|main_use_secondary"):
 		if is_grabbing == false:
 			grab_press_length += delta
-			if grab_press_length >= 0.15 :
+			if grab_press_length >= 0.15:
 				wanna_grab = true
 				interaction_handled = true
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary") :
+	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
 		grab_press_length = 0.0
 		if is_grabbing == true:
 			is_grabbing = false
@@ -481,47 +484,10 @@ func handle_grab(delta : float):
 #		print(grab_object.item_state)
 
 
-func update_throw_state(delta : float):
-	match throw_state:
-		ThrowState.IDLE:
-			if Input.is_action_just_pressed("playerhand|main_throw") and owner.inventory.get_mainhand_item() and is_grabbing == false and owner.is_reloading == false:
-				throw_item = ItemSelection.ITEM_MAINHAND
-				throw_state = ThrowState.PRESSING
-				throw_press_length = 0.0
-			elif Input.is_action_just_pressed("playerhand|offhand_throw") and owner.inventory.get_offhand_item() and is_grabbing == false and owner.is_reloading == false:
-				throw_item = ItemSelection.ITEM_OFFHAND
-				throw_state = ThrowState.PRESSING
-				throw_press_length = 0.0
-		ThrowState.PRESSING:
-			if Input.is_action_pressed("playerhand|main_throw" if throw_item == ItemSelection.ITEM_MAINHAND else "playerhand|offhand_throw"):
-				throw_press_length += delta
-			else:
-				throw_state = ThrowState.SHOULD_PLACE if throw_press_length > hold_time_to_grab else ThrowState.SHOULD_THROW
-		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
-			throw_state = ThrowState.IDLE
-
-
 func empty_slot():
 	if character.inventory.hotbar != null and not is_instance_valid(character.inventory.hotbar[10]):
 		var empty_hand = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
 		character.inventory.hotbar[10] = empty_hand
-
-
-func throw_consumable(item):
-#	var item : EquipmentItem = null
-	if throw_item == ItemSelection.ITEM_MAINHAND:
-#		item = character.inventory.get_mainhand_item()
-		character.inventory.drop_mainhand_item()
-	else:
-#		item = character.inventory.get_offhand_item()
-		character.inventory.drop_offhand_item()
-	if item:
-		var impulse = active_mode.get_aim_direction() * throw_strength
-		# At this point, the item is still equipped, so we wait until
-		# it exits the tree and is re inserted in the world
-		item.apply_central_impulse(impulse)
-		item.add_collision_exception_with(character)
-		item.implement_throw_damage(false)
 
 
 func handle_inventory(delta : float):
@@ -651,64 +617,7 @@ func handle_inventory(delta : float):
 		if Input.is_action_just_released("ablty|binocs_spyglass"):
 			_camera.state = _camera.CameraState.STATE_NORMAL
 	
-	# Place item upright on pointed-at surface or, if no surface in range, simply drop in front of player
-	if throw_state == ThrowState.SHOULD_PLACE:
-		var item : EquipmentItem = character.inventory.get_mainhand_item() if throw_item == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
-		if item:
-			# Calculates where to place the item
-			var origin : Vector3 = owner.drop_position_node.global_transform.origin
-			var end : Vector3 = active_mode.get_target_placement_position()
-			var dir : Vector3 = end - origin
-			dir = dir.normalized() * min(dir.length(), max_placement_distance)
-			var layers = item.collision_layer
-			var mask = item.collision_mask
-			item.collision_layer = item.dropped_layers
-			item.collision_mask = item.dropped_mask
-			var result = PhysicsTestMotionResult.new()
-			# The return value can be ignored, since extra information is put into the 'result' variable
-			PhysicsServer.body_test_motion(item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true)
-			item.collision_layer = layers
-			item.collision_mask = mask
-			if result.motion.length() > 0.1:
-				if throw_item == ItemSelection.ITEM_MAINHAND:
-					character.inventory.drop_mainhand_item()
-				else:
-					character.inventory.drop_offhand_item()
-				item.call_deferred("global_translate", result.motion)
-	
-	elif throw_state == ThrowState.SHOULD_THROW:
-		var item : EquipmentItem = null
-		if throw_item == ItemSelection.ITEM_MAINHAND:
-			item = character.inventory.get_mainhand_item()
-			character.inventory.drop_mainhand_item()
-		else:
-			item = character.inventory.get_offhand_item()
-			character.inventory.drop_offhand_item()
-		if item:
-			if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				throw_strength = 20
-			else:
-				throw_strength = 30
-				
-			var impulse = active_mode.get_aim_direction() * throw_strength
-			# At this point, the item is still equipped, so we wait until
-			# it exits the tree and is re inserted in the world
-			var x_pos = item.global_transform.origin.x
-			# Applies unique throw  logic to item if its a melee item
-			if item is MeleeItem:
-				item.apply_throw_logic(impulse)
-				item.add_collision_exception_with(character)
-				item.implement_throw_damage(true)
-			elif item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-				item.apply_throw_logic(impulse)
-				item.add_collision_exception_with(character)
-				item.implement_throw_damage(true)
-			else:
-				item.apply_central_impulse(impulse)
-				item.add_collision_exception_with(character)
-				item.implement_throw_damage(false)
-				
-	update_throw_state(delta)
+	update_throw_state(throw_item, delta)
 	
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
 		if !(wanna_grab or is_grabbing or interaction_handled):
@@ -718,6 +627,92 @@ func handle_inventory(delta : float):
 					interaction_target = null
 				elif interaction_target is Interactable:
 					interaction_target.interact(owner)
+
+
+func update_throw_state(throw_item : EquipmentItem, delta : float):
+	# Place item upright on pointed-at surface or, if no surface in range, simply drop in front of player
+	if throw_state == ThrowState.SHOULD_PLACE:
+		print("Should place")
+		throw_item = character.inventory.get_mainhand_item() if throw_item_hand == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
+		if throw_item:
+			# Calculates where to place the item
+			var origin : Vector3 = owner.drop_position_node.global_transform.origin
+			var end : Vector3 = active_mode.get_target_placement_position()
+			var dir : Vector3 = end - origin
+			dir = dir.normalized() * min(dir.length(), max_placement_distance)
+			var layers = throw_item.collision_layer
+			var mask = throw_item.collision_mask
+			throw_item.collision_layer = throw_item.dropped_layers
+			throw_item.collision_mask = throw_item.dropped_mask
+			var result = PhysicsTestMotionResult.new()
+			# The return value can be ignored, since extra information is put into the 'result' variable
+			PhysicsServer.body_test_motion(throw_item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true)
+			throw_item.collision_layer = layers
+			throw_item.collision_mask = mask
+			if result.motion.length() > 0.1:
+				if throw_item_hand == ItemSelection.ITEM_MAINHAND:
+					character.inventory.drop_mainhand_item()
+				else:
+					character.inventory.drop_offhand_item()
+				throw_item.call_deferred("global_translate", result.motion)
+	
+	# Always test Left-Clicking twice with a bomb in main hand after changing anything here. Bomb throws are an edge case of throw as they don't have to happen with the usual throw keys.
+	elif throw_state == ThrowState.SHOULD_THROW:
+		print("Should throw")
+		if !throw_item:   # If the throw item hasn't already been selected, which should be all cases except use_primary of a lit bomb.
+			if throw_item_hand == ItemSelection.ITEM_MAINHAND:
+				throw_item = character.inventory.get_mainhand_item()
+			else:
+				throw_item = character.inventory.get_offhand_item()
+				
+		# At this point, throw_item_hand is determined, whether this is a throw-button throw or a use_primary bomb throw
+		if throw_item:
+			if throw_item_hand == ItemSelection.ITEM_MAINHAND:
+				character.inventory.drop_mainhand_item()
+			else:
+				character.inventory.drop_offhand_item()
+				
+			if throw_item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+				throw_strength = 20
+			else:
+				throw_strength = 30
+				
+			var impulse = active_mode.get_aim_direction() * throw_strength
+			# At this point, the item is still equipped, so we wait until
+			# it exits the tree and is re inserted in the world
+			var x_pos = throw_item.global_transform.origin.x
+			# Applies unique throw  logic to item if its a melee item
+			if throw_item is MeleeItem:
+				throw_item.apply_throw_logic(impulse)
+				throw_item.add_collision_exception_with(character)
+				throw_item.implement_throw_damage(true)
+			elif throw_item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+				throw_item.apply_throw_logic(impulse)
+				throw_item.add_collision_exception_with(character)
+				throw_item.implement_throw_damage(true)
+			else:
+				throw_item.apply_central_impulse(impulse)
+				throw_item.add_collision_exception_with(character)
+				throw_item.implement_throw_damage(false)
+	
+	# throw_state defined here, will this get wiped by the physics_process nulling of throw_item?
+	match throw_state:
+		ThrowState.IDLE:
+			if Input.is_action_just_pressed("playerhand|main_throw") and owner.inventory.get_mainhand_item() and is_grabbing == false and owner.is_reloading == false:
+				throw_item_hand = ItemSelection.ITEM_MAINHAND
+				throw_state = ThrowState.PRESSING
+				throw_press_length = 0.0
+			elif Input.is_action_just_pressed("playerhand|offhand_throw") and owner.inventory.get_offhand_item() and is_grabbing == false and owner.is_reloading == false:
+				throw_item_hand = ItemSelection.ITEM_OFFHAND
+				throw_state = ThrowState.PRESSING
+				throw_press_length = 0.0
+		ThrowState.PRESSING:
+			if Input.is_action_pressed("playerhand|main_throw" if throw_item_hand == ItemSelection.ITEM_MAINHAND else "playerhand|offhand_throw"):
+				throw_press_length += delta
+			else:
+				throw_state = ThrowState.SHOULD_PLACE if throw_press_length > hold_time_to_grab else ThrowState.SHOULD_THROW
+		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
+			throw_state = ThrowState.IDLE
 
 
 func kick():

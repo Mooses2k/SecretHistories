@@ -13,6 +13,8 @@ onready var countdown_timer = $Countdown
 onready var flash = $Flash
 var fuse_sound
 
+var throwing = false
+
 
 func _ready():
 	print($Explosion.lifetime)
@@ -23,6 +25,12 @@ func _process(delta):
 		$Explosion.lifetime -= delta
 	if $Explosion.lifetime < 1.2:
 		queue_free()
+		
+	if throwing == true:
+		owner_character.player_controller.throw_state = owner_character.player_controller.ThrowState.SHOULD_THROW
+		print("Throw state set to 3, so this should say 3: ", owner_character.player_controller.throw_state)
+		owner_character.player_controller.update_throw_state(self, delta)
+		throwing = false
 
 
 func _use_primary():
@@ -33,7 +41,10 @@ func _use_primary():
 			fuse_sound.play()
 	else:
 		print("Trying to throw bomb")
-		owner_character.drop_consumable(self)
+#		owner_character.drop_consumable(self)   # TODO: just replace this with standard throw logic for simplificy? Any reason to have this?
+		if owner_character is Player:
+			throwing = true
+			print("Player is the one trying to throw")
 
 
 func _on_Countdown_timeout():
@@ -52,7 +63,7 @@ func _on_Countdown_timeout():
 	if owner_character.is_in_group("CHARACTER") and !item_state == GlobalConsts.ItemState.DROPPED:
 #		print("Bomb blew up in ", owner_character, "'s hand for ", fragments / 4 * bomb_damage, " damage.")
 		owner_character.damage(bomb_damage, damage_type, owner_character)
-		owner_character.drop_consumable(self)
+		throwing = true
 	
 	# Camera shake, untested
 	if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies(owner_character):

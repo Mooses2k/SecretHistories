@@ -25,19 +25,6 @@ export var _legcast : NodePath
 
 export (NodePath) var animation_tree_path 
 
-onready var character_state : CharacterState = CharacterState.new(self)
-
-onready var skeleton = $"%Skeleton"
-onready var inventory = $Inventory
-onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
-onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
-onready var belt_position = $"%BeltPosition"
-onready var drop_position_node = $Body/DropPosition
-onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
-onready var collision_shape = $CollisionShape   # duplicate of _collider below
-onready var animation_tree = $"%AnimationTree"
-onready var additional_animations  = $AdditionalAnimations
-
 enum ItemSelection {
 	ITEM_MAINHAND,
 	ITEM_OFFHAND,
@@ -112,6 +99,18 @@ var light_level : float = 0.0
 
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
+
+onready var character_state : CharacterState = CharacterState.new(self)
+
+onready var skeleton = $"%Skeleton"
+onready var inventory = $Inventory
+onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
+onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
+onready var belt_position = $"%BeltPosition"
+onready var drop_position_node = $Body/DropPosition
+onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
+onready var animation_tree = $"%AnimationTree"
+onready var additional_animations  = $AdditionalAnimations
 
 onready var _camera = get_node("FPSCamera")
 onready var _collider = get_node("CollisionShape")
@@ -279,12 +278,14 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 			self.emit_signal("character_died")
 			
 			if self.name != "Player":
-				collision_shape.disabled = true   # this may bug if character dies crouching
+				_collider.disabled = true
+				_crouch_collider.disabled = true
 				print("Character died")
 				self.inventory.drop_mainhand_item()
 				self.inventory.drop_offhand_item()
+				
 #				self.queue_free()
-				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
+				skeleton.physical_bones_start_simulation()   # This ragdolls
 
 
 func heal(amount):

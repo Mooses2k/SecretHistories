@@ -1,5 +1,7 @@
 extends GenerationStep
 
+const RoomGraphViz = preload("res://utils/debug_scenes/room_graph_viz.gd")
+const RoomGenerator = preload("generate_rooms.gd")
 
 const CONNECTION_GRAPH_KEY = "connection_graph"
 const DELAUNAY_GRAPH_KEY = "delaunay_graph"
@@ -7,8 +9,8 @@ const DELAUNAY_GRAPH_KEY = "delaunay_graph"
 export var edges_to_keep_min_ratio : float = 0.1
 export var edges_to_keep_max_ratio : float = 0.4
 export var edges_to_keep_abs_min : int = 2
+export var path_graph_viz := NodePath()
 
-const RoomGenerator = preload("generate_rooms.gd")
 
 # Array of indices that represent "entry" or "up" staircases. These can only connect TO other rooms
 # but not be connected FROM other rooms, because Mooses2k wants level staircases to only have one
@@ -19,6 +21,8 @@ var _entry_staircases := []
 # other rooms but connect TO other rooms, because Mooses2k wants level staircases to only have one
 # door.
 var _exit_staircases := []
+
+onready var _room_graph_viz := get_node_or_null(path_graph_viz) as RoomGraphViz
 
 
 # Generates a graph connecting rooms to each other, the graph is generated
@@ -34,9 +38,11 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		var groups : Array = group_intersecting_rooms(rooms)
 		var delaunay : Dictionary = get_delaunay_from_groupings(data, groups, random)
 		gen_data[DELAUNAY_GRAPH_KEY] = delaunay.duplicate(true)
-		_exclude_unwanted_edges(delaunay, random)
+#		_exclude_unwanted_edges(delaunay, random)
 		var graph : Dictionary = get_mst_from_delaunay(data, delaunay)
 		add_extra_edges(delaunay, graph, random)
+		if is_instance_valid(_room_graph_viz):
+			_room_graph_viz.room_connections = graph
 		gen_data[CONNECTION_GRAPH_KEY] = graph
 	pass
 
@@ -121,11 +127,18 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 		
 		cells[i] = cell_index
 		room_centers[i] = center
+	
 	var delaunay : PoolIntArray = Geometry.triangulate_delaunay_2d(room_centers)
 	for i in delaunay.size()/3:
 		graph_add_edge(edges, cells[delaunay[3*i + 0]], cells[delaunay[3*i + 1]])
 		graph_add_edge(edges, cells[delaunay[3*i + 1]], cells[delaunay[3*i + 2]])
 		graph_add_edge(edges, cells[delaunay[3*i + 2]], cells[delaunay[3*i + 0]])
+	
+	if is_instance_valid(_room_graph_viz):
+		_room_graph_viz.room_centers_cell_indexes = cells
+		_room_graph_viz.room_centers = room_centers
+		_room_graph_viz.delaunay = delaunay
+	
 	return edges
 
 
@@ -138,6 +151,7 @@ func get_mst_from_delaunay(data : WorldData, delaunay : Dictionary) -> Dictionar
 		vert_added = false
 		var candidate_a = -1
 		var candidate_b = -1
+		
 		var candidate_dist = INF
 		for a in added_verts.keys():
 			var p_a = data.get_local_cell_position(a)

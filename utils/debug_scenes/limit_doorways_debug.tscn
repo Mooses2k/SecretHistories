@@ -9,14 +9,19 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=7]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=8]
 [ext_resource path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" type="Script" id=11]
+[ext_resource path="res://utils/debug_scenes/room_graph_viz.gd" type="Script" id=10]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=11]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" type="Script" id=12]
 
 [node name="DebugWorld" instance=ExtResource( 9 )]
 
-[node name="GenerationManager" parent="." index="5"]
+[node name="RoomGraphViz" type="Node2D" parent="." index="5"]
+script = ExtResource( 10 )
+
+[node name="GenerationManager" parent="." index="6"]
 world_size_x = 20
 world_size_z = 20
+generation_seed = -9700
 
 [node name="GenerateLevelStaircase" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 4 )
@@ -28,6 +33,7 @@ room_size_max = 3
 
 [node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="2"]
 script = ExtResource( 1 )
+path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 7 )
@@ -57,10 +63,10 @@ pillar_room_pillar_tile = 15
 pillar_tile = 16
 
 [node name="PopulateRooms" type="Node" parent="GenerationManager" index="8"]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
 [node name="GenerateStaircases" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [connection signal="generation_finished" from="." to="ItemSpawner" method="_on_ProceduralWorld_generation_finished"]
 [connection signal="spawning_world_scenes_finished" from="." to="CharacterSpawner" method="_on_ProceduralWorld_generation_finished"]

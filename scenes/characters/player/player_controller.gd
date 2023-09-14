@@ -384,7 +384,8 @@ func handle_grab_input(delta : float):
 		if is_grabbing == true:
 			is_grabbing = false
 			print("Grab broken by letting go of grab key")
-			grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
+			if grab_object is PickableItem:   # So no plain RigidBodies or large objects
+				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
 			wanna_grab = false
 			interaction_handled = true
 			camera_movement_resistance = 1.0
@@ -403,7 +404,8 @@ func handle_grab(delta : float):
 				grab_object = object
 				is_grabbing = true
 				print("Just grabbed: ", grab_object)
-				grab_object.item_state = GlobalConsts.ItemState.DAMAGING   # This is so any pickable_item collides with cultists
+				if grab_object is PickableItem:   # So no plain RigidBodies or large objects
+					grab_object.item_state = GlobalConsts.ItemState.DAMAGING   # This is so any pickable_item collides with cultists
 	
 	# These are debug indicators for initial and current grab points
 	$GrabInitial.visible = false
@@ -436,7 +438,8 @@ func handle_grab(delta : float):
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
 			print("Grab broken by distance")
-			grab_object.set_item_state(GlobalConsts.ItemState.DROPPED)
+			if grab_object is PickableItem:   # So not for plain RigidBodies or otherwise large objects
+				grab_object.set_item_state(GlobalConsts.ItemState.DROPPED)
 			interaction_handled = true
 			camera_movement_resistance = 1.0
 		

@@ -343,7 +343,7 @@ input_4/auto_advance = false
 animation = "WebleyReload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 401.84, 230.615 )
+graph_offset = Vector2( -650.958, -46.0507 )
 nodes/DoubleBarrelReload_Anim/node = SubResource( 402 )
 nodes/DoubleBarrelReload_Anim/position = Vector2( -660, 500 )
 nodes/Hand_Transition/node = SubResource( 407 )
@@ -385,7 +385,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -660, 860 )
 nodes/output/position = Vector2( 1420, -120 )
-node_connections = [ "Hand_Transition", 0, "OffHand_MainHand_Blend", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "output", 0, "Hand_Transition" ]
+node_connections = [ "output", 0, "Hand_Transition", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -693,10 +693,10 @@ active = true
 parameters/Hand_Transition/current = 0
 parameters/Hold_Animation/current = 0
 parameters/OffHand_MainHand_Blend/blend_amount = 1.0
-parameters/OffHand_Weapon_States/current = 2
+parameters/OffHand_Weapon_States/current = 1
 parameters/Offhand_Hold_Animation/current = 1
 parameters/Reload_Animations/current = 3
-parameters/Weapon_states/current = 4
+parameters/Weapon_states/current = 2
 
 [node name="FPSCamera" type="Camera" parent="." index="27"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
@@ -705,7 +705,14 @@ script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 25 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.48286e-09, -1.30089, 0.0627165 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.48286e-09, -1.2871, 0.0627165 )
+
+[node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
+
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/113/bound_children = [ NodePath("OffHandAttachement") ]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
 
 [node name="Body005" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2
@@ -716,23 +723,23 @@ layers = 2
 material_override = ExtResource( 27 )
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.983699, -0.158779, -0.0844174, 0.15451, -0.986462, 0.0549384, -0.0919977, 0.040999, 0.994914, -0.23926, 0.857916, 0.00442209 )
+transform = Transform( -0.918982, -0.294053, 0.262687, 0.312637, -0.137441, 0.939876, -0.240269, 0.945855, 0.218238, -0.156656, 1.12804, 0.300421 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
 unique_name_in_owner = true
-transform = Transform( 0.9231, 0.320014, 0.213261, 0.237098, -0.036983, -0.970784, -0.302776, 0.946693, -0.110013, -0.0291635, 0.0857959, 0.0283923 )
+transform = Transform( 0.923101, 0.347211, 0.165328, 0.237098, -0.175367, -0.95553, -0.302776, 0.921247, -0.244204, -0.0255334, 0.084253, 0.0382531 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( -0.989451, 0.123659, 0.0754702, -0.124314, -0.992235, -0.00403154, 0.0743856, -0.0133711, 0.99714, 0.230128, 0.866815, 0.025557 )
+transform = Transform( -0.938726, 0.200107, -0.280625, -0.323875, -0.233641, 0.916797, 0.117893, 0.951509, 0.284135, 0.13711, 1.11407, 0.289449 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]
 unique_name_in_owner = true
-transform = Transform( 0.911884, -0.346991, -0.219238, -0.294348, -0.180584, -0.938484, 0.286054, 0.92032, -0.266808, 0.0242166, 0.095565, 0.0208097 )
+transform = Transform( 0.911884, -0.356852, -0.202792, -0.294348, -0.224219, -0.929026, 0.286054, 0.906854, -0.309501, 0.0277879, 0.0900266, 0.0350943 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -802,7 +809,7 @@ render_target_update_mode = 3
 shadow_atlas_size = 4096
 
 [node name="GunCam" type="Camera" parent="FPSCamera/ViewportContainer/Viewport" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
 cull_mask = 2
 current = true
 

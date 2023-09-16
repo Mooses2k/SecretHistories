@@ -48,9 +48,6 @@ func _process(delta):
 	
 	grab_indicator()
 	
-#	change_maindhand_equipment_out()
-#	change_offhhand_equipment_out()
-	
 	# This notifies the "pointing nearby" dot if the player is currently grabbing something
 	if player_controller.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
@@ -59,8 +56,6 @@ func _process(delta):
 		if noise_level < 8:
 			noise_level = 8
 			$Audio/NoiseTimer.start()
-#	else:
-#		noise_level = 0
 
 
 ### These five functions maybe better in fps_control_mode.gd?
@@ -108,26 +103,3 @@ func _on_GrabCastDot_area_entered(area):
 func _on_GrabCastDot_area_exited(area):
 	if area is Interactable:
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
-
-
-### These six functions below should maybe be in character.gd or should now be replaced by animations?
-#
-#func change_equipment_out(var is_mainhand : bool):
-#	pass
-#	if(is_mainhand):
-#
-#		is_change_main_equip_out = true
-#	else:
-#
-#		is_change_off_equip_out = true
-#
-#
-#func change_maindhand_equipment_out():
-#	pass
-#
-#	emit_signal("change_main_equipment_out_done")
-#
-#
-#func change_offhhand_equipment_out():
-#	pass
-#	emit_signal("change_off_equipment_out_done")

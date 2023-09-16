@@ -11,8 +11,10 @@ func _process(delta):
 		if parent.get_parent().owner.name == "Player":
 		#	if parent.mode == parent.equipped_mode:
 				layers = 2
+				cast_shadow = false
 		else:
 				layers = 1
+				cast_shadow = true
 			
 	else:
 		layers = 1

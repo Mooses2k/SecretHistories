@@ -815,6 +815,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
 cull_mask = 2
 current = true
 
+[node name="KinestheticSense" type="OmniLight" parent="." index="29"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953 )
+layers = 512
+light_color = Color( 0, 0.647059, 1, 1 )
+light_energy = 0.0
+omni_range = 1.5
+
+[node name="Tween" type="Tween" parent="KinestheticSense" index="0"]
+repeat = true
+playback/repeat = true
+
 [connection signal="character_died" from="." to="Tinnitus" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]

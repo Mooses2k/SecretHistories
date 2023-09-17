@@ -56,6 +56,17 @@ func _process(delta):
 		if noise_level < 8:
 			noise_level = 8
 			$Audio/NoiseTimer.start()
+			
+	if light_level > 0.01:
+#		$KinestheticSense.visible = false
+		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.0, 1.0)
+		$KinestheticSense/Tween.start()
+#		print("Lit up, kinesthetic sense fading: ", $KinestheticSense.light_energy)
+	else:
+#		$KinestheticSense.visible = true
+		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.3, 1.0)
+		$KinestheticSense/Tween.start()
+#		print("In the dark, kinesthetic sense increasing: ", $KinestheticSense.light_energy)
 
 
 ### These five functions maybe better in fps_control_mode.gd?

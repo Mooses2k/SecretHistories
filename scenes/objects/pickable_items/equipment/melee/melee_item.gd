@@ -27,39 +27,13 @@ export var secondary_damage2 = 0
 onready var melee_hitbox = $Hitbox as Area
 export var cooldown = 0.01
 
-export var throw_logic : bool   # Some items like swords should be thrown point first
-export var can_spin : bool   # Some items when thrown should spin
-
 #export var element_path : NodePath
 #onready var collision_and_mesh = get_node(element_path)
-export var normal_pos_path : NodePath
-onready var normal_pos = get_node(normal_pos_path)
-export var throw_pos_path : NodePath
-onready var throw_pos = get_node(throw_pos_path)
 
 var can_hit = false
 var on_cooldown = false
 
 onready var character = get_parent()
-
-
-func _process(delta):
-	pass
-#	if throw_logic:
-#		if item_state == GlobalConsts.ItemState.EQUIPPED:
-#			self.global_rotation = normal_pos.global_rotation
-
-
-# TODO: generalize this to EquipmentItems as other things should be thrown with rotation
-func apply_throw_logic(impulse):
-	if throw_logic:
-		self.global_rotation = throw_pos.global_rotation   # This attempts to align the point forward when throwing piercing weapons
-	if can_spin:
-#		angular_velocity = Vector3(global_transform.basis.z * -15)
-		angular_velocity.z = -15
-		apply_central_impulse(impulse)
-	else:
-		apply_central_impulse(impulse)
 
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards

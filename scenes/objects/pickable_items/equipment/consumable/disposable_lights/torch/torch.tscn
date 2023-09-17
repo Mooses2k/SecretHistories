@@ -189,6 +189,10 @@ dropped_layers = 64
 dropped_mask = 1
 item_drop_sound = ExtResource( 7 )
 item_name = "Torch"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = true
 life_percentage_lose = 0.2
 prob_going_out = 0.1
 

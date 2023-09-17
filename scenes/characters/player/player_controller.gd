@@ -685,14 +685,14 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 			# it exits the tree and is re inserted in the world
 #			var x_pos = throw_item.global_transform.origin.x
 			# Applies unique throw  logic to item if its a melee item
-			if throw_item is MeleeItem:
-				throw_item.apply_throw_logic(impulse)
+			if throw_item is EquipmentItem:
+				throw_item.apply_central_impulse(impulse)
 				throw_item.add_collision_exception_with(character)
 				throw_item.implement_throw_damage(true)
-			elif throw_item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-				throw_item.apply_throw_logic(impulse)
-				throw_item.add_collision_exception_with(character)
-				throw_item.implement_throw_damage(true)
+#			elif throw_item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+#				throw_item.apply_throw_logic(impulse)
+#				throw_item.add_collision_exception_with(character)
+#				throw_item.implement_throw_damage(true)
 			else:
 				throw_item.apply_central_impulse(impulse)
 				throw_item.add_collision_exception_with(character)

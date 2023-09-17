@@ -385,7 +385,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -660, 860 )
 nodes/output/position = Vector2( 1420, -120 )
-node_connections = [ "output", 0, "Hand_Transition", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation" ]
+node_connections = [ "output", 0, "Hand_Transition", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -542,7 +542,7 @@ Number row & mouse-wheel - cycle main-hand item
 Scroll-wheel Click - throw main-hand item
 
 E - use off-hand item
-Q - cycle off-hand items
+Q - cycle off-hand items (hold and release to swap hands)
 T - throw off-hand item
 R - reload (can't with item in offhand)
 

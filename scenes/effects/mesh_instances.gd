@@ -14,7 +14,7 @@ func _process(delta):
 				cast_shadow = false
 		else:
 				layers = 1
-				cast_shadow = true
+				cast_shadow = true   # TODO: There may be a bug here for lit light-sources when thrown, as those would have cast_shadow = false
 			
 	else:
 		layers = 1

@@ -683,7 +683,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 			var impulse = active_mode.get_aim_direction() * throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
-			var x_pos = throw_item.global_transform.origin.x
+#			var x_pos = throw_item.global_transform.origin.x
 			# Applies unique throw  logic to item if its a melee item
 			if throw_item is MeleeItem:
 				throw_item.apply_throw_logic(impulse)

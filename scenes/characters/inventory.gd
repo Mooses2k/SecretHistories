@@ -48,7 +48,7 @@ var current_offhand_equipment : EquipmentItem = null
 var are_swapping : bool = false
 
 # Where to drop items from
-onready var drop_position_node : Spatial = $"../Body/DropPosition" as Spatial
+onready var drop_position_node : Spatial = $"%DropPosition" as Spatial
 onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
 
 var encumbrance : float = 0   # Is a float to allow easy division
@@ -247,7 +247,6 @@ func equip_mainhand_item():
 		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
-		
 			
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
@@ -404,18 +403,27 @@ func _drop_item(item : EquipmentItem):
 			item.item_state = GlobalConsts.ItemState.DAMAGING
 	else:
 		item.item_state = GlobalConsts.ItemState.DAMAGING
-		
+	
 	if !GameManager.game:   # This is here for test scenes
 		item.global_transform = drop_position_node.global_transform
 		find_parent("TestWorld").add_child(item)
+		item.apply_throw_logic()
+		
 	elif GameManager.game.level:   # This is for the real game
 		item.global_transform = drop_position_node.global_transform
+#		print(item.angular_velocity)
+		
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
-	
+			
+		if item is EquipmentItem:
+			print("Item is EquipmentItem, applying throw logic")
+			item.apply_throw_logic()
+#			print(item.angular_velocity)
+			
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:

@@ -125,8 +125,8 @@ onready var _speech_player = get_node("Audio/Speech")
 
 var stamina := 600.0
 
-#var active_mode_index = 0
-#onready var active_mode : ControlMode = get_child(0)
+#var current_control_mode_index = 0
+#onready var current_control_mode : ControlMode = get_child(0)
 
 var wanna_stand : bool = false
 var is_crouching : bool = false

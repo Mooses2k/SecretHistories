@@ -858,6 +858,8 @@ demo|ik_toggle={
 
 [layer_names]
 
+3d_render/layer_2="GunCam on Player"
+3d_render/layer_8="ScreenFilter on Player"
 3d_render/layer_10="KinestheticSense on Player"
 3d_physics/layer_1="World"
 3d_physics/layer_2="Player"

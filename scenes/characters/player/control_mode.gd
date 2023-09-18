@@ -2,9 +2,9 @@ class_name ControlMode
 extends Node
 
 
-export var _camera : NodePath
+export var _cam_path : NodePath
 var is_active : bool = false setget set_active
-onready var camera : Camera = get_node(_camera) as Camera
+onready var _camera : ShakeCamera = get_node(_cam_path) as ShakeCamera
 
 
 func _ready():
@@ -13,7 +13,7 @@ func _ready():
 
 func set_active(value : bool):
 	is_active = value
-	camera.current = value
+	_camera.current = value
 	set_process_unhandled_input(value)
 	set_process_input(value)
 

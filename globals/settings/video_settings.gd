@@ -2,6 +2,7 @@ extends Node
 
 
 signal fullscreen_changed(new_value)
+signal brightness_changed(new_value)
 signal gui_scale_changed(new_value)
 
 const GROUP_NAME : String = "Video Settings"
@@ -70,7 +71,7 @@ func on_setting_changed(setting_name, old_value, new_value):
 			if is_instance_valid(GameManager.game):   # If the game is loaded, change immediately
 				GameManager.game.level.set_brightness()
 			brightness = new_value
-			emit_signal("brightness_change", new_value)   # TODO: make this signal
+			emit_signal("brightness_changed", new_value)   # TODO: make this signal
 			SettingsConfig.save_settings()
 		SETTING_GUI_SCALE:
 			gui_scale = new_value

@@ -1,15 +1,15 @@
 extends CanvasLayer
 
 
-var is_BW = false
+var is_bw = false
 
-onready var main_cam = get_node("../FPSCamera")
-onready var gun_cam = get_node("../FPSCamera/ViewportContainer/Viewport/GunCam")
-onready var white_effect_rect = get_node("../Tinnitus/ScreenWhite/TextureRect")
+onready var _main_cam = get_node("../FPSCamera")
+onready var _gun_cam = get_node("../FPSCamera/ViewportContainer/Viewport/GunCam")
+onready var _white_effect_rect = get_node("../Tinnitus/ScreenWhite/TextureRect")
 
 
 func _input(event):
-	if event is InputEvent and event.is_pressed() and is_BW:
+	if event is InputEvent and event.is_pressed() and is_bw:
 		_fade_to_black()
 
 
@@ -19,24 +19,24 @@ func _on_Player_character_died():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	$Death.play()
 	$ColorRect.show()
-	main_cam.transform.origin.z += 0.8
-	yield(get_tree().create_timer(1.5), "timeout")
+	_main_cam.transform.origin.z += 0.8
+	yield(get_tree().create_timer(1.5), "timeout")   # Darkness for 1.5 seconds
 	$BW.show()
-	is_BW = true
-	gun_cam.cull_mask = 0
-	white_effect_rect.hide()
+	is_bw = true
+	_gun_cam.cull_mask = 0
+	_white_effect_rect.hide()
 	_move_cam()
 
 
 func _move_cam():
 	$Tween.interpolate_property($ColorRect, "modulate:a", 1, 0, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.interpolate_property(main_cam, "translation", 
-			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y, main_cam.transform.origin.z), 
-			Vector3(main_cam.transform.origin.x, main_cam.transform.origin.y + 1, main_cam.transform.origin.z),   # Previously z+1.8
+	$Tween.interpolate_property(_main_cam, "translation", 
+			Vector3(_main_cam.transform.origin.x, _main_cam.transform.origin.y, _main_cam.transform.origin.z), 
+			Vector3(_main_cam.transform.origin.x, _main_cam.transform.origin.y + 1, _main_cam.transform.origin.z),   # Previously z+1.8
 			8, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.interpolate_property(main_cam, "rotation_degrees", 
-			Vector3(main_cam.transform.basis.x.x, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z), 
-			Vector3(main_cam.transform.basis.x.x-90, main_cam.transform.basis.y.y, main_cam.transform.basis.z.z),   # Previously x-45
+	$Tween.interpolate_property(_main_cam, "rotation_degrees", 
+			Vector3(_main_cam.transform.basis.x.x, _main_cam.transform.basis.y.y, _main_cam.transform.basis.z.z), 
+			Vector3(_main_cam.transform.basis.x.x-90, _main_cam.transform.basis.y.y, _main_cam.transform.basis.z.z),   # Previously x-45
 			5, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	$Tween.start()
 

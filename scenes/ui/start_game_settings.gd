@@ -21,6 +21,10 @@ func add_generation_settings():
 	_settings.set_setting_meta("World Seed", _settings._CAN_RANDOMIZE_FLAG, true)
 
 
+# add_equipment and add_tiny_items iterate through the pickable items and tiny items folders and 
+# add the appropriate things they find to the Debug/Cheat list for things that can be spawned
+# on the first dungeon level
+
 func add_equipment():
 	var dir = Directory.new()
 	var dir_stack = Array()

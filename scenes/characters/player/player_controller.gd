@@ -146,6 +146,8 @@ func _physics_process(delta : float):
 	_handle_grab_input(delta)
 	handle_grab(delta)
 	_handle_inventory(delta)
+	handle_screen_filters()
+	handle_binocs()
 	next_item()
 	previous_item()
 	drop_grabable()
@@ -500,55 +502,6 @@ func _handle_inventory(delta : float):
 			character.inventory.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE
 	
-	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
-	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# Cycle to next filter
-		current_screen_filter += 1
-		
-		# Cycle through list of filters, starting with 0
-		if current_screen_filter > (ScreenFilter.size() - 1):
-				current_screen_filter = 0
-		
-		# Check which filter is current and implement it
-		if current_screen_filter == ScreenFilter.NONE:
-			print("Screen Filter: NONE")
-#			GameManager.game.level.toggle_directional_light()
-			$"../FPSCamera/ScreenFilter".visible = false
-			$"../FPSCamera/DebugLight".visible = false
-		if current_screen_filter == ScreenFilter.OLD_FILM:
-			print("Screen Filter: OLD_FILM")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
-		if current_screen_filter == ScreenFilter.PIXELATE:
-			print("Screen Filter: PIXELATE")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
-		if current_screen_filter == ScreenFilter.DITHER:
-			print("Screen Filter: DITHER")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
-		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
-			print("Screen Filter: REDUCE_COLOR")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
-		# This one doesn't play well with stuff that's too dark, also we're not implementing the mesh shader yet
-		if current_screen_filter == ScreenFilter.PSX:
-			print("Screen Filter: PSX")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
-		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
-			print("Screen Filter: DEBUG_LIGHT")
-#			GameManager.game.level.toggle_directional_light()
-			$"../FPSCamera/ScreenFilter".visible = false
-			$"../FPSCamera/DebugLight".visible = true
-	
-	# Zoom in/out like binoculars or spyglass
-	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
-		if Input.is_action_just_pressed("ablty|binocs_spyglass"):
-			_camera.state = _camera.CameraState.STATE_ZOOM
-		if Input.is_action_just_released("ablty|binocs_spyglass"):
-			_camera.state = _camera.CameraState.STATE_NORMAL
-	
 	update_throw_state(throw_item, delta)
 	
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
@@ -696,6 +649,60 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				throw_state = ThrowState.SHOULD_PLACE if throw_press_length > hold_time_to_grab else ThrowState.SHOULD_THROW
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
+
+func handle_screen_filters():
+	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+	if Input.is_action_just_pressed("misc|change_screen_filter"):
+		# function this out maybe to a screen_filters.gd attached to ScreenFilter
+		
+		# Cycle to next filter
+		current_screen_filter += 1
+		
+		# Cycle through list of filters, starting with 0
+		if current_screen_filter > (ScreenFilter.size() - 1):
+				current_screen_filter = 0
+		
+		# Check which filter is current and implement it
+		if current_screen_filter == ScreenFilter.NONE:
+			print("Screen Filter: NONE")
+#			GameManager.game.level.toggle_directional_light()
+			$"../FPSCamera/ScreenFilter".visible = false
+			$"../FPSCamera/DebugLight".visible = false
+		if current_screen_filter == ScreenFilter.OLD_FILM:
+			print("Screen Filter: OLD_FILM")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
+		if current_screen_filter == ScreenFilter.PIXELATE:
+			print("Screen Filter: PIXELATE")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
+		if current_screen_filter == ScreenFilter.DITHER:
+			print("Screen Filter: DITHER")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
+		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
+			print("Screen Filter: REDUCE_COLOR")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
+		# We're haven't implemented the mesh shader yet
+		if current_screen_filter == ScreenFilter.PSX:
+			print("Screen Filter: PSX")
+			$"../FPSCamera/ScreenFilter".visible = true
+			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
+		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
+			print("Screen Filter: DEBUG_LIGHT")
+#			GameManager.game.level.toggle_directional_light()
+			$"../FPSCamera/ScreenFilter".visible = false
+			$"../FPSCamera/DebugLight".visible = true
+
+
+func handle_binocs():
+	# Zoom in/out like binoculars or spyglass
+	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
+		if Input.is_action_just_pressed("ablty|binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_ZOOM
+		if Input.is_action_just_released("ablty|binocs_spyglass"):
+			_camera.state = _camera.CameraState.STATE_NORMAL
 
 
 func kick():

@@ -341,6 +341,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 #			print("Draining additional stamina: ", (inventory.encumbrance / 10))
 			change_stamina(-(inventory.encumbrance / 10))
 	else:
+		do_sprint = false
 		move_dir *= 0.8
 		if !do_sprint:
 			change_stamina(0.3)
@@ -377,7 +378,10 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	grounded = is_on_floor()
 	
 	if !grounded and y_velo < velocity.y:
-		velocity.y = y_velo
+		if do_jump:
+			velocity.y = y_velo
+		else:
+			velocity.y = y_velo
 	
 	if grounded:
 		velocity.y -= 0.01
@@ -408,12 +412,20 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if is_jumping or !is_on_floor():
 			do_jump = false
 			return
-	
-		# This is the actual jump
+		
+		
+		# Calculate jump force based on sprinting status
+		var jump_multiplier = 1.0  # Default jump force multiplier
+		if do_sprint and stamina > 0:  # Check if sprinting and have enough stamina
+			jump_multiplier = 1.3  # Adjust the multiplier as needed for the desired jump distance
+		
+		# Apply jump force with the calculated multiplier
+		velocity.y = jump_force * jump_multiplier
+		
 		if do_sprint:
-			velocity.y = jump_force + move_dir.length()
-		else:
-			velocity.y = jump_force
+			velocity.x += move_dir.x * jump_force * 1.9
+			velocity.z += move_dir.z * jump_force * 1.9
+		
 		is_jumping = true
 		do_jump = false
 		

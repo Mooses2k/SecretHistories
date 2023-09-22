@@ -15,13 +15,14 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/dagger/dagger.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/objects/large_objects/sarcophagi/sarcophagus.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shotgun_sawed_item.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/sawed-off_shotgun.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/double-barrel_shotgun.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/objects/large_objects/tables/table_round_medieval.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn" type="PackedScene" id=24]
+
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 50, 50 )

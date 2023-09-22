@@ -1,5 +1,5 @@
 {
-"brightness": "float(2)",
+"brightness": "float(1)",
 "effects_volume": "float(100)",
 "fullscreen": "bool(True)",
 "gui_scale": "float(1)",

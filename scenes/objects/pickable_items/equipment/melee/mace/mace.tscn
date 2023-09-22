@@ -18,7 +18,6 @@ height = 0.145875
 radius = 0.1
 
 [node name="Mace" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.367629, 0 )
 mass = 2.5
 dropped_layers = 64
 dropped_mask = 1
@@ -34,7 +33,7 @@ normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.173, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, -0.223767, 0 )
 mesh = ExtResource( 5 )
 skeleton = NodePath("")
 material/0 = ExtResource( 4 )
@@ -43,11 +42,11 @@ __meta__ = {
 }
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, 0.176417, 0 )
+transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, -0.22035, 0 )
 shape = SubResource( 4 )
 
 [node name="Hitbox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.572589, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175027, 0 )
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
@@ -58,13 +57,13 @@ wait_time = 0.5
 
 [node name="HoldPosition" parent="." index="4"]
 unique_name_in_owner = false
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12331, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273457, 0 )
 
 [node name="NormalPosition" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.365748, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310187, 0 )
 
 [node name="ThrowPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.836558, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439791, 0 )
 
 [node name="Thrust" parent="Sounds" index="2"]
 stream = ExtResource( 7 )

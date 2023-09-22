@@ -13,10 +13,10 @@
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/shotgun_item.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/double-barrel_shotgun.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/lee-metford_rifle.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn" type="PackedScene" id=16]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shotgun_sawed_item.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/sawed-off_shotgun.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/candle_lantern/candle_lantern.tscn" type="PackedScene" id=18]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/doctor_bag.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.tscn" type="PackedScene" id=20]
@@ -30,6 +30,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock3.tscn" type="PackedScene" id=28]
 [ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/bandage.tscn" type="PackedScene" id=31]
+
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 50, 0.1, 50 )

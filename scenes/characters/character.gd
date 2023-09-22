@@ -11,28 +11,19 @@ var _alive : bool = true
 var _type_damage_multiplier : PoolByteArray
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
-export (NodePath) var animation_tree_path 
-onready var current_health : float = self.max_health
-
-export var kick_damage : int
-onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
+onready var current_health : int = self.max_health
 
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
-export var mass : float = 100.0
+export var mass : float = 80.0
 
-onready var character_state : CharacterState = CharacterState.new(self)
+export var kick_damage : int = 15   # 3 kicks for a cultist, 5 for a door to start with?
+onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
+export var _legcast : NodePath
+#export(AttackTypes.Types) var damage_type : int = 0
+#export (float) var kick_impulse
 
-onready var inventory = $Inventory
-onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
-onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
-onready var belt_position = $"%BeltPosition"
-onready var drop_position_node = $Body/DropPosition
-onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs
-onready var skeleton = $"%Skeleton"
-onready var collision_shape = $CollisionShape
-onready var animation_tree = $"%AnimationTree"
-onready var additional_animations  = $AdditionalAnimations
+export (NodePath) var animation_tree_path 
 
 enum ItemSelection {
 	ITEM_MAINHAND,
@@ -101,9 +92,6 @@ export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 #export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
-export var _legcast : NodePath
-export(AttackTypes.Types) var damage_type : int = 0
-export (float) var kick_impulse
 
 var state = State.STATE_WALKING
 
@@ -111,6 +99,18 @@ var light_level : float = 0.0
 
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
+
+onready var character_state : CharacterState = CharacterState.new(self)
+
+onready var skeleton = $"%Skeleton"
+onready var inventory = $Inventory
+onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
+onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
+onready var belt_position = $"%BeltPosition"
+onready var drop_position_node = $"%DropPosition" as Spatial
+onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
+onready var animation_tree = $"%AnimationTree"
+onready var additional_animations  = $AdditionalAnimations
 
 onready var _camera = get_node("FPSCamera")
 onready var _collider = get_node("CollisionShape")
@@ -125,8 +125,8 @@ onready var _speech_player = get_node("Audio/Speech")
 
 var stamina := 600.0
 
-#var active_mode_index = 0
-#onready var active_mode : ControlMode = get_child(0)
+#var current_control_mode_index = 0
+#onready var current_control_mode : ControlMode = get_child(0)
 
 var wanna_stand : bool = false
 var is_crouching : bool = false
@@ -186,6 +186,9 @@ func _ready():
 
 
 func _physics_process(delta : float):
+	if !_alive:
+		return
+	
 	if animation_tree != null:
 		check_state_animation(delta)
 		check_current_item_animation()
@@ -269,18 +272,20 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)
-	
+		
 		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")
-	
+			
 			if self.name != "Player":
-				collision_shape.disabled = true
+				_collider.disabled = true
+				_crouch_collider.disabled = true
 				print("Character died")
 				self.inventory.drop_mainhand_item()
 				self.inventory.drop_offhand_item()
-				self.queue_free()
-#				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
+				
+#				self.queue_free()
+				skeleton.physical_bones_start_simulation()   # This ragdolls
 
 
 func heal(amount):

@@ -48,9 +48,6 @@ func _process(delta):
 	
 	grab_indicator()
 	
-#	change_maindhand_equipment_out()
-#	change_offhhand_equipment_out()
-	
 	# This notifies the "pointing nearby" dot if the player is currently grabbing something
 	if player_controller.is_grabbing == true:
 		$Indication_canvas/Indication_system/Dot.hide()
@@ -59,13 +56,17 @@ func _process(delta):
 		if noise_level < 8:
 			noise_level = 8
 			$Audio/NoiseTimer.start()
-#	else:
-#		noise_level = 0
-
-
-# Eventually this needs to be possible for character
-func drop_consumable(item):
-	player_controller.throw_consumable(item)
+			
+	if light_level > 0.01:
+#		$KinestheticSense.visible = false
+		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.0, 1.0)
+		$KinestheticSense/Tween.start()
+#		print("Lit up, kinesthetic sense fading: ", $KinestheticSense.light_energy)
+	else:
+#		$KinestheticSense.visible = true
+		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.3, 1.0)
+		$KinestheticSense/Tween.start()
+#		print("In the dark, kinesthetic sense increasing: ", $KinestheticSense.light_energy)
 
 
 ### These five functions maybe better in fps_control_mode.gd?
@@ -92,7 +93,7 @@ func grab_indicator():
 		$Indication_canvas/Indication_system/Ignite.hide()
 
 
-# Is_in_group("Door_hitbox")   # Please rename this group to DOOR_HITBOX after door merge
+# Is_in_group("Door_hitbox") or Door_body  # Please rename this group to DOOR_HITBOX and/or DoorBody after door merge
 func _on_GrabCastDot_body_entered(body):
 	if body is PickableItem or body is Door_body :
 		if !colliding_pickable_items.has(body):
@@ -113,26 +114,3 @@ func _on_GrabCastDot_area_entered(area):
 func _on_GrabCastDot_area_exited(area):
 	if area is Interactable:
 		colliding_interactable_items.remove(colliding_interactable_items.find(area))
-
-
-### These six functions below should maybe be in character.gd or should now be replaced by animations?
-#
-#func change_equipment_out(var is_mainhand : bool):
-#	pass
-#	if(is_mainhand):
-#
-#		is_change_main_equip_out = true
-#	else:
-#
-#		is_change_off_equip_out = true
-#
-#
-#func change_maindhand_equipment_out():
-#	pass
-#
-#	emit_signal("change_main_equipment_out_done")
-#
-#
-#func change_offhhand_equipment_out():
-#	pass
-#	emit_signal("change_off_equipment_out_done")

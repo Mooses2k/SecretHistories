@@ -27,15 +27,17 @@ func _process(delta):
 
 
 func update_ik_target(t : float):
-	var player = GameManager.game.player as Spatial
-	if is_instance_valid(player):
-		var pos = player.global_translation
-		pos.y += 1.5
-		ik_look_target.global_translation = ik_base_target.global_translation.linear_interpolate(pos, t)
-		
+	if GameManager.game:   # True unless this is a test scene
+		var player = GameManager.game.player as Spatial
+		if is_instance_valid(player):
+			var pos = player.global_translation
+			pos.y += 1.5
+			ik_look_target.global_translation = ik_base_target.global_translation.linear_interpolate(pos, t)
+
+
 func _unhandled_input(event):
 	if event.is_action_pressed("demo|ik_toggle"):
-		demo_state = (demo_state + 1)%DemoState.size()
+		demo_state = (demo_state + 1) % DemoState.size()
 		match demo_state:
 			DemoState.NONE:
 				$"%BehaviorTree".set_physics_process(true)
@@ -57,4 +59,4 @@ func _unhandled_input(event):
 				tween = get_tree().create_tween()
 				tween.tween_property(always_on_skeleton_ik, "interpolation", 1.0, tween_duration)
 				tween.parallel().tween_property(self, "tween_value", 1.0, tween_duration).from(0.0)
-		print("Current Demo State : ", demo_state)
+		print("Demo IK look-at state : ", demo_state)

@@ -51,4 +51,4 @@ func _on_Tween_tween_completed(object, key):
 		yield(get_tree().create_timer(1), "timeout")
 		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		var error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
+		var error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")

@@ -47,4 +47,4 @@ func _on_GameIntro_intro_done():
 
 
 func _on_ReturnButton_pressed() -> void:
-	var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
+	var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")

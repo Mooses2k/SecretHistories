@@ -83,7 +83,7 @@ func shoot():
 	
 	# Cultists can't recoil for now
 	if owner_character.get_node("PlayerController"):
-		owner_character.player_controller.active_mode.recoil(self, total_damage, handling)   # Should also send delta
+		owner_character.player_controller.current_control_mode.recoil(self, total_damage, handling)   # Should also send delta
 
 
 

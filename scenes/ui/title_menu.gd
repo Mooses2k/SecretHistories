@@ -22,7 +22,7 @@ func _on_ContinueButton_pressed():
 
 
 func _on_StartButton_pressed():
-	var _error = get_tree().change_scene("res://scenes/UI/start_game_menu.tscn")
+	var _error = get_tree().change_scene("res://scenes/ui/start_game_menu.tscn")
 
 
 func _on_SettingsButton_pressed():

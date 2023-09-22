@@ -45,3 +45,9 @@ func set_target_position(value : Vector3):
 	if not value.distance_squared_to(target_position) < 0.25:
 		target_position = value
 		path_needs_update = true
+
+
+# May or may not be necessary to make sure cultists aren't floppy after death
+func die():
+	move_direction = Vector3.ZERO
+	path = Array()

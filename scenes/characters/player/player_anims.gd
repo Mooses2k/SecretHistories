@@ -109,6 +109,7 @@ func check_player_animation():
 	elif inventory.current_offhand_equipment and inventory.current_offhand_equipment.item_size == 0:
 		adjust_arm(false)
 
+
 func unequip_offhand():
 	inventory.unequip_offhand_item()
 

@@ -16,13 +16,7 @@ enum HoldStates {
 	UNEQUIPPED
 }
 
-export var _cam_path : NodePath
 
-#var main_hand_object 
-#var off_hand_object 
-
-#var offhand_active = false
-#var mainhand_active = false
 
 onready var inventory = $"../Inventory"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
@@ -33,8 +27,10 @@ var offhand_active = false
 var mainhand_active = false
 var is_on_ads = false
 
+export var _cam_path : NodePath
 
 func _ready():
+	print($"%MainCharOnlyArmsGameRig".translation)
 	pass
 
 
@@ -51,7 +47,7 @@ func check_player_animation():
 	
 	### Off-hand item
 	if inventory.current_offhand_equipment is GunItem:
-#		adjust_arm()
+	
 		animation_tree.set("parameters/Hand_Transition/current", 0)
 		animation_tree.set("parameters/OffHand_Weapon_States/current", 1)
 		
@@ -59,7 +55,7 @@ func check_player_animation():
 		animation_tree.set("parameters/OffHand_Weapon_States/current", 2)
 		
 	elif inventory.current_offhand_equipment is EquipmentItem:
-#		adjust_arm()
+	
 		if inventory.current_offhand_equipment.horizontal_holding == true:
 			inventory.current_offhand_equipment.hold_position.rotation_degrees.z = -90
 			animation_tree.set("parameters/Hand_Transition/current", 0)
@@ -77,24 +73,21 @@ func check_player_animation():
 	if inventory.current_mainhand_equipment is GunItem:
 #		
 		if inventory.current_mainhand_equipment.item_size == 0:
-#			adjust_arm()
 			animation_tree.set("parameters/Hand_Transition/current", 0)
 			animation_tree.set("parameters/Weapon_states/current", 2)
 		else:
-			$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
-			$"%ADSTween".start()
 			animation_tree.set("parameters/Hand_Transition/current", 0)
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 			animation_tree.set("parameters/Weapon_states/current", 1)
-			is_on_ads = false
+
 			unequip_offhand()
 	
 	elif inventory.current_mainhand_equipment is EmptyHand:
 		animation_tree.set("parameters/Hand_Transition/current", 0)
 		animation_tree.set("parameters/Weapon_states/current", 4)
 
+
 	elif inventory.current_mainhand_equipment is EquipmentItem:
-#		adjust_arm()
 		if inventory.current_mainhand_equipment.horizontal_holding == true:
 			inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
 			animation_tree.set("parameters/Hand_Transition/current", 0)
@@ -109,16 +102,24 @@ func check_player_animation():
 		animation_tree.set("parameters/Hand_Transition/current", 0)
 		animation_tree.set("parameters/Weapon_states/current", 4)
 
+	if inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 1:
+		adjust_arm(true)
+	elif inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 0:
+		adjust_arm(false)
+	elif inventory.current_offhand_equipment and inventory.current_offhand_equipment.item_size == 0:
+		adjust_arm(false)
 
 func unequip_offhand():
 	inventory.unequip_offhand_item()
 
 
-func adjust_arm():
-	is_on_ads = false
-	
-	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.115), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-	$"%ADSTween".start()
+func adjust_arm(medium_item):
+	if medium_item:
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
+		$"%ADSTween".start()
+	else:
+		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0, -1.287, 0.063), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
+		$"%ADSTween".start()
 
 
 func check_if_ads():
@@ -149,35 +150,10 @@ func check_if_ads():
 
 func ads():
 	pass
-#	is_on_ads = true
-#
-#	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(-0.097, -1.444, 0.108), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-#	$"%ADSTween".start()
-	
-	# Shouldn't be able to zoom ADS if weapon in slot is not equipped.
-#	if inventory.current_mainhand_equipment.item_state == GlobalConsts.ItemState.EQUIPPED:
-#		# Different zoom levels based on weapon size. 
-#		if inventory.current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-#			if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
-#				_camera.fov  = lerp(_camera.fov, 65, 0.5)
-#		elif inventory.current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM or inventory.current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-#			if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
-#				_camera.fov  = lerp(_camera.fov, 60, 0.5)
 
 
 func end_ads():
 	pass
-#	is_on_ads = false
-#
-#	if inventory.current_mainhand_equipment.item_size == 0:
-#		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, -0.115), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-#		$"%ADSTween".start()
-#	else:
-#		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-#		$"%ADSTween".start()
-#
-#	if _camera.state == _camera.CameraState.STATE_NORMAL:   # Allows for binoc etc zoom
-#		_camera.fov  = lerp(_camera.fov, 70, 0.5)
 
 
 func _on_Inventory_inventory_changed():

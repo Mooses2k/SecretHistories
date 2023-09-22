@@ -343,7 +343,7 @@ input_4/auto_advance = false
 animation = "WebleyReload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -650.958, -46.0507 )
+graph_offset = Vector2( 61.5692, 139.882 )
 nodes/DoubleBarrelReload_Anim/node = SubResource( 402 )
 nodes/DoubleBarrelReload_Anim/position = Vector2( -660, 500 )
 nodes/Hand_Transition/node = SubResource( 407 )
@@ -412,7 +412,6 @@ unique_name_in_owner = false
 
 [node name="MainHandEquipmentRoot" parent="." index="3"]
 unique_name_in_owner = false
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BeltPosition" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.115, 0.916, -0.173 )

@@ -305,33 +305,34 @@ func drop_bulky_item():
 
 
 func equip_offhand_item():
+	
 	yield(get_tree().create_timer(0.5), "timeout")
 	# Item already equipped or both slots set to the same item
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
+	if not item and not item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and  item == current_mainhand_equipment:
+		return
+
 	# Item exists, can be equipped on the offhand, and is not already equipped
 	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
-		
+		unequip_mainhand_item()
 		if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
 			print("Equipped offhand light item")
 		else:
 			print("Equipped offhand slot normal item")
-#			current_offhand_slot = 10
-#			unequip_offhand_item()
-		
-	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
-		# Can't equip a Bulky Item simultaneously with a normal item
-		drop_bulky_item()
-		item.item_state = GlobalConsts.ItemState.EQUIPPED
-		current_offhand_equipment = item
-		# Waits for the item to exit the tree, if necessary
-		item.transform = item.get_hold_transform()
-		if item.is_in_belt == true:
-			item.get_parent().remove_child(item)
-			owner.offhand_equipment_root.add_child(item)
-		else:
-			owner.offhand_equipment_root.add_child(item)
+
+	# Can't equip a Bulky Item simultaneously with a normal item
+	drop_bulky_item()
+	item.item_state = GlobalConsts.ItemState.EQUIPPED
+	current_offhand_equipment = item
+	# Waits for the item to exit the tree, if necessary
+	item.transform = item.get_hold_transform()
+	if item.is_in_belt == true:
+		item.get_parent().remove_child(item)
+		owner.offhand_equipment_root.add_child(item)
+	else:
+		owner.offhand_equipment_root.add_child(item)
 
 
 func unequip_offhand_item():
@@ -345,7 +346,7 @@ func unequip_offhand_item():
 	if item.can_attach == true:
 		pass
 	else:
-		set_offhand_slot(10)
+#		set_offhand_slot(10)
 		if item != null:
 			item.get_parent().remove_child(item)
 

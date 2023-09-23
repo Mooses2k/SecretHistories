@@ -58,6 +58,10 @@ points = PoolVector3Array( -0.0074919, -0.124901, -0.551035, 0.00610333, -0.1249
 mass = 1.0
 item_drop_sound = ExtResource( 13 )
 item_name = "Martini-Henry rifle"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1
@@ -148,7 +152,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0403607, 0.140579 )
 
 [node name="HoldPosition" parent="." index="7"]
-transform = Transform( 0.975048, 0.179807, 0.130199, -0.174484, 0.983323, -0.0512903, -0.13725, 0.0272929, 0.99016, -0.004, -0.0205905, 0.21513 )
+transform = Transform( 0.975048, 0.179807, 0.130199, -0.174484, 0.983323, -0.0512903, -0.13725, 0.0272929, 0.99016, -0.00905985, -0.0545086, 0.21513 )
 __meta__ = {
 "_editor_description_": ""
 }

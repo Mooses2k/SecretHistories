@@ -36,7 +36,7 @@ func _on_Winners_pressed():
 
 
 func _on_Help_pressed():
-	var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
+	var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")
 
 
 func _on_Timer_timeout():
@@ -47,4 +47,4 @@ func _on_Timer_timeout():
 	elif $MarginContainer/Winners.visible == true:
 		$MarginContainer/Winners.visible = false
 	elif $MarginContainer/Help.visible == true:
-		var _error = get_tree().change_scene("res://scenes/UI/title_menu.tscn")
+		var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")

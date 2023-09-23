@@ -10,3 +10,7 @@ onready var character = owner
 
 func _physics_process(delta):
 	_bt_root_node.tick(character.character_state)
+
+
+func _on_character_died():
+	self.queue_free()   # Delete mind, cancelling further planning and speech

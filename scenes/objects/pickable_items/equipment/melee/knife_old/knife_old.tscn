@@ -28,7 +28,6 @@ height = 0.165698
 radius = 0.0555477
 
 [node name="OldKnife" instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0130187, 0 )
 dropped_layers = 64
 dropped_mask = 1
 item_drop_sound = ExtResource( 1 )
@@ -47,18 +46,18 @@ normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -3.59989e-21, 4.37114e-08, 1, -4.37114e-08, 0, -0.0289248, 0 )
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -3.59989e-21, 4.37114e-08, 1, -4.37114e-08, 0, -0.0137128, 0 )
 mesh = SubResource( 4 )
 __meta__ = {
 "_editor_description_": ""
 }
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.0289248, 0 )
+transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.0137128, 0 )
 shape = SubResource( 5 )
 
 [node name="Hitbox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.368422, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.383634, 0 )
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.376374, 0 )
@@ -69,13 +68,13 @@ wait_time = 0.5
 
 [node name="HoldPosition" parent="." index="4"]
 unique_name_in_owner = false
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0639144, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0487024, 0 )
 
 [node name="NormalPosition" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0131438, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00206821, 0 )
 
 [node name="ThrowPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202506, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.217718, 0 )
 
 [node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 8 )

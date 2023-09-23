@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/MainCharGameRig.glb-f924352dd022d901bc47ad2d55a23a95.scn"
+path="res://.import/neophyte_scaled_no_cape.glb-d1391b55d2b36bb59e6ed3dc734c8ba1.scn"
 
 [deps]
 
-source_file="res://resources/models/characters/player/animated_body/Animated_Player/MainCharGameRig.glb"
-dest_files=[ "res://.import/MainCharGameRig.glb-f924352dd022d901bc47ad2d55a23a95.scn" ]
+source_file="res://resources/models/characters/cultists/cultist_neophyte/neophyte_scaled_no_cape.glb"
+dest_files=[ "res://.import/neophyte_scaled_no_cape.glb-d1391b55d2b36bb59e6ed3dc734c8ba1.scn" ]
 
 [params]
 

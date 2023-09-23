@@ -63,6 +63,7 @@ func _physics_process(delta):
 	throw_damage(delta)
 
 
+# Damage mask has had Player removed to avoid walking over items bugs - TODO: later should be no damage mode, probably just based on momentum
 func throw_damage(delta):
 	if can_throw_damage:
 		

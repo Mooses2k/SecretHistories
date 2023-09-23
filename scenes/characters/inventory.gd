@@ -48,7 +48,7 @@ var current_offhand_equipment : EquipmentItem = null
 var are_swapping : bool = false
 
 # Where to drop items from
-onready var drop_position_node : Spatial = $"../Body/DropPosition" as Spatial
+onready var drop_position_node : Spatial = $"%DropPosition" as Spatial
 onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
 
 var encumbrance : float = 0   # Is a float to allow easy division
@@ -65,16 +65,15 @@ func can_pickup_item(item : PickableItem) -> bool:
 	# (may change later to steal weapons, or we can do that by dropping them first)
 	# Also prevents picking up busy items
 	print("can_pickup_item called")
-	if item.item_state != GlobalConsts.ItemState.DROPPED:
-		print("item is dropped")
-		return false
-	print("item_state is NOT dropped")
+	if item.item_state == GlobalConsts.ItemState.DROPPED or item.item_state == GlobalConsts.ItemState.DAMAGING:
+		print("item.item_state is ", item.item_state, ", so item is considered dropped or damaging")
+		# Can always pick up equipment (goes to bulky slot if necessary)
+		if item is EquipmentItem:
+			return true
 	# Can always pickup special items
 	if (item is TinyItem) or (item is KeyItem):
 		return true
-	# Can always pick up equipment (goes to bulky slot if necessary)
-	if item is EquipmentItem:
-		return true
+	
 	return false
 
 
@@ -248,7 +247,6 @@ func equip_mainhand_item():
 		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
-		
 			
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
@@ -398,25 +396,34 @@ func drop_hotbar_slot(slot : int) -> Node:
 # Drops the item, it must be unequipped first
 # Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
-	if is_instance_valid(owner.player_controller):
+	if owner is Player:
 		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
 			item.item_state = GlobalConsts.ItemState.DROPPED   # At the moment, 'placed' items can't hurt anyone.
 		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:
 			item.item_state = GlobalConsts.ItemState.DAMAGING
 	else:
 		item.item_state = GlobalConsts.ItemState.DAMAGING
-		
+	
 	if !GameManager.game:   # This is here for test scenes
 		item.global_transform = drop_position_node.global_transform
 		find_parent("TestWorld").add_child(item)
+		item.apply_throw_logic()
+		
 	elif GameManager.game.level:   # This is for the real game
 		item.global_transform = drop_position_node.global_transform
+#		print(item.angular_velocity)
+		
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
-	
+			
+		if item is EquipmentItem:
+			print("Item is EquipmentItem, applying throw logic")
+			item.apply_throw_logic()
+#			print(item.angular_velocity)
+			
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:

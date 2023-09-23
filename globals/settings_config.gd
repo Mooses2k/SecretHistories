@@ -26,12 +26,13 @@ var settings_names = [
 	"effects_volume",
 	"voice_volume",
 	"fullscreen",
+	"brightness",
 	"gui_scale"
 ]
 
 
 func _ready():
-	load_sett_config()
+	load_settings_config()
 
 
 func gen_dict_from_settings() -> Dictionary:
@@ -57,13 +58,15 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(AudioSettings.setting_voice_volume)]
 			"fullscreen":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(VideoSettings.fullscreen_enabled)]
+			"brightness":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.brightness)]
 			"gui_scale":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.gui_scale)]
 	
 	return config
 
 
-func load_sett_config():
+func load_settings_config():
 	var file = File.new()
 	if(file.file_exists(file_name)):
 		file.open(file_name,File.READ)
@@ -80,11 +83,11 @@ func load_sett_config():
 		save_default_settings()
 
 
-func setup_settings(sett_dict : Dictionary):
-	for saved_setting in sett_dict.keys():
+func setup_settings(settings_dict : Dictionary):
+	for saved_setting in settings_dict.keys():
 		var value = null
-		if value_prefixes[0] in sett_dict[saved_setting]:
-			value = sett_dict[saved_setting].trim_prefix(value_prefixes[0])
+		if value_prefixes[0] in settings_dict[saved_setting]:
+			value = settings_dict[saved_setting].trim_prefix(value_prefixes[0])
 			value = value.trim_prefix("(").trim_suffix(")")
 			if "F" in value:
 				value = false
@@ -93,7 +96,7 @@ func setup_settings(sett_dict : Dictionary):
 			else:
 				value = true
 		else:
-			value = sett_dict[saved_setting].trim_prefix(value_prefixes[1])
+			value = settings_dict[saved_setting].trim_prefix(value_prefixes[1])
 			value = value.trim_prefix("(").trim_suffix(")")
 			value = value.to_float()
 		
@@ -117,6 +120,8 @@ func setup_settings(sett_dict : Dictionary):
 				AudioSettings.setting_voice_volume = value
 			"fullscreen":
 				VideoSettings.fullscreen_enabled = value
+			"brightness":
+				VideoSettings.brightness = value
 			"gui_scale":
 				VideoSettings.gui_scale = value
 

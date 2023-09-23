@@ -38,13 +38,12 @@ primary_damage_type1 = 2
 primary_damage1 = 34
 secondary_damage_type1 = 1
 secondary_damage1 = 25
-throw_logic = true
 can_spin = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 4, 0, -1.42108e-14, 0, 4, 0, 1.42108e-14, 0, 4, 0, -0.160186, 0 )
+transform = Transform( -1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 0, -0.160186, 0 )
 mesh = SubResource( 6 )
 skeleton = NodePath("../..")
 __meta__ = {
@@ -52,14 +51,14 @@ __meta__ = {
 }
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -0.160508, 0 )
+transform = Transform( -1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 0, -0.160508, 0 )
 shape = SubResource( 7 )
 
 [node name="Hitbox" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.494857, 0 )
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.376374, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.343843, 0 )
 shape = SubResource( 3 )
 
 [node name="CooldownTimer" parent="." index="3"]
@@ -67,13 +66,13 @@ wait_time = 0.5
 
 [node name="HoldPosition" parent="." index="4"]
 unique_name_in_owner = false
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0790088, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0790088, 0 )
 
 [node name="NormalPosition" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125598, 0 )
 
 [node name="ThrowPosition" parent="." index="6"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.250051, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250051, 0 )
 
 [node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 8 )

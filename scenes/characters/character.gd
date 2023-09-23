@@ -329,7 +329,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
-	if do_sprint and stamina > 0 and is_reloading == false and is_moving_forward and !is_jumping:
+	if do_sprint and stamina > 0 and is_reloading == false and is_moving_forward:
 		if is_crouching:
 			if can_stand:
 				is_crouching = false
@@ -354,7 +354,12 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	var y_velo = velocity.y
 	
 	var v1 = 0.5 * move_dir - velocity * Vector3(move_drag, 0, move_drag)
-	var v2 = Vector3.DOWN * gravity * delta
+	var v2 
+	
+	if is_jumping and do_sprint and velocity.y > (jump_force - 1.0):
+		v2 = Vector3.DOWN * (gravity * 0.85) * delta
+	else:
+		v2 = Vector3.DOWN * gravity * delta
 	
 	velocity += v1 + v2
 	
@@ -383,9 +388,6 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	grounded = is_on_floor()
 	
 	if !grounded and y_velo < velocity.y:
-		if do_jump:
-			velocity.y = y_velo
-		else:
 			velocity.y = y_velo
 	
 	if grounded:
@@ -418,18 +420,17 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			do_jump = false
 			return
 		
-		
 		# Calculate jump force based on sprinting status
 		var jump_multiplier = 1.0  # Default jump force multiplier
 		if do_sprint and stamina > 0:  # Check if sprinting and have enough stamina
-			jump_multiplier = 1.3  # Adjust the multiplier as needed for the desired jump distance
+			jump_multiplier = 1.1  # Adjust the multiplier as needed for the desired jump distance
 		
 		# Apply jump force with the calculated multiplier
 		velocity.y = jump_force * jump_multiplier
 		
 		if do_sprint:
-			velocity.x += move_dir.x * jump_force * 1.9
-			velocity.z += move_dir.z * jump_force * 1.9
+			velocity.x += move_dir.x * jump_force * 1.1
+			velocity.z += move_dir.z * jump_force * 1.1
 		
 		is_jumping = true
 		do_jump = false

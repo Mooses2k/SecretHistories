@@ -54,6 +54,10 @@ onready var _room_graph_viz := get_node_or_null(_path_graph_viz) as RoomGraphViz
 
 func _execute_step(data : WorldData, gen_data : Dictionary, _generation_seed : int):
 	var graph = gen_data.get(GraphGenerator.CONNECTION_GRAPH_KEY, Dictionary()) as Dictionary
+	# I found that using indexes sorted by staircases first and then rooms with less
+	# connections gave better maps at smaller sizes, but totally subjective, if this is
+	# getting in the way, just remove it and use graph.keys()
+	var sorted_indexes = gen_data.get(GraphGenerator.SORTED_GRAPH_INDEXES, []) as Array
 	var astar = generate_double_a_star_grid(data)
 	var count := 0
 	for from_index in graph.keys():

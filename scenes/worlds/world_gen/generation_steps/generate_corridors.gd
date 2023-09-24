@@ -37,12 +37,14 @@ const MASK_FULL_ROOM = 0b1111
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 export var existing_corridor_weight : float = 0.5
+export var already_walked_room_weight := 0.5
 export var existing_room_weight : float = 2.0
 export var room_edge_cost_multiplier : float = 1.5
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 export var _path_graph_viz := NodePath()
+# This is to help debugging only and is ignored outside of editor builds.
 export var _stop_at_corridor_count := -1
 
 onready var _room_graph_viz := get_node_or_null(_path_graph_viz) as RoomGraphViz
@@ -273,7 +275,10 @@ func _generate_corridor_until_first_door(
 				results.status = CorridorGenerationResults.DOOR
 				break
 		
-		astar.set_point_weight_scale(cells[2], existing_corridor_weight)
+		if results.door_room_index == -1:
+			astar.set_point_weight_scale(cells[2], existing_corridor_weight)
+		else:
+			astar.set_point_weight_scale(cells[2], already_walked_room_weight)
 	
 	return results
 

@@ -404,10 +404,10 @@ func get_starting_room_data() -> RoomData:
 	var value: RoomData = null
 	
 	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.UP_STAIRCASE)
-	if rooms.empty():
+	if starting_rooms.empty():
 		push_error("No starting room found.")
 		return value
-	elif rooms.size() > 1:
+	elif starting_rooms.size() > 1:
 		push_warning("There should only be one starting room, only the first will be used")
 	
 	value = starting_rooms.front()

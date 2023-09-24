@@ -21,7 +21,7 @@ script = ExtResource( 10 )
 [node name="GenerationManager" parent="." index="6"]
 world_size_x = 20
 world_size_z = 20
-generation_seed = -9700
+generation_seed = 10360
 
 [node name="GenerateLevelStaircase" type="Node" parent="GenerationManager" index="0"]
 script = ExtResource( 4 )
@@ -37,6 +37,7 @@ path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 7 )
+_path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
 script = ExtResource( 6 )

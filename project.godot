@@ -375,6 +375,11 @@ _global_script_classes=[ {
 "path": "res://scenes/characters/player/player_sound_emitter.gd"
 }, {
 "base": "RoomRequirements",
+"class": "RequirementDoorways",
+"language": "GDScript",
+"path": "res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd"
+}, {
+"base": "RoomRequirements",
 "class": "RequirementMaxSize",
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd"
@@ -568,6 +573,7 @@ _global_script_class_icons={
 "Player": "",
 "PlayerSensor": "",
 "PlayerSoundEmitter": "",
+"RequirementDoorways": "",
 "RequirementMaxSize": "",
 "RequirementMinSize": "",
 "RequirementPillar": "",

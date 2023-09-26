@@ -53,6 +53,6 @@ func _on_UpDetector_body_entered(body: Node) -> void:
 	if player == null:
 		return
 	
-	print("Player is going Upstairs")
+	Events.emit_signal("up_staircase_used")
 
 ### -----------------------------------------------------------------------------------------------

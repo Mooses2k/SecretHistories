@@ -15,6 +15,9 @@ onready var _spawners := [$ItemSpawner, $CharacterSpawner]
 
 func _ready() -> void:
 	_connect_signals()
+
+
+func create_world() -> void:
 	world_data = world_generator.generate()
 	gridmaps.data = world_data
 	gridmaps.update_gridmaps()

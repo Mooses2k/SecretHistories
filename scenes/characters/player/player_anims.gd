@@ -148,20 +148,26 @@ func check_if_ads():
 
 
 func ads():
+	print(animation_tree.get("parameters/SmallAds/blend_amount"))
 	if inventory.current_mainhand_equipment.item_size == 0:
-		animation_tree.set("parameters/SmallAds/blend_amount", 1)
+		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
 	else:
-		animation_tree.set("parameters/MediumAds/blend_amount", 1)
+		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
 	print("is doing ADS")
 
 
 func end_ads():
 	if inventory.current_mainhand_equipment.item_size == 0:
-		animation_tree.set("parameters/SmallAds/blend_amount", 0)
+		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", 1.0, 0.0, 0.15)
 	else:
-		animation_tree.set("parameters/MediumAds/blend_amount", 0)
+		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", 1.0, 0.0, 0.15)
 	print("Has ended ADS")
 
+func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
+	var tweener = Tween.new() as Tween
+	tweener.interpolate_property(object, method, tweening_from, tweening_to, duration, Tween.TRANS_LINEAR)
+	add_child(tweener)
+	tweener.start()
 
 func _on_Inventory_inventory_changed():
 	yield(get_tree().create_timer(0.5), "timeout")

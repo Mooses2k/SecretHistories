@@ -167,7 +167,7 @@ func operation_tween(object : Object, method, tweening_from, tweening_to, durati
 
 
 func adjust_arm(final_position):
-	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
+	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.15)
 	$"%ADSTween".start()
 
 

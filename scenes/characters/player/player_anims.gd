@@ -101,24 +101,15 @@ func check_player_animation():
 		animation_tree.set("parameters/Weapon_states/current", 4)
 
 	if inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 1:
-		adjust_arm(true)
+		adjust_arm(Vector3(0.015, -1.474, 0.124))
 	elif inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 0:
-		adjust_arm(false)
+		adjust_arm(Vector3(0, -1.287, 0.063))
 	elif inventory.current_offhand_equipment and inventory.current_offhand_equipment.item_size == 0:
-		adjust_arm(false)
+		adjust_arm(Vector3(0, -1.287, 0.063))
 
 
 func unequip_offhand():
 	inventory.unequip_offhand_item()
-
-
-func adjust_arm(medium_item):
-	if medium_item:
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0.015, -1.474, 0.124), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
-		$"%ADSTween".start()
-	else:
-		$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, Vector3(0, -1.287, 0.063), 0.1, Tween.TRANS_SINE, Tween.EASE_OUT )
-		$"%ADSTween".start()
 
 
 func check_if_ads():
@@ -151,23 +142,34 @@ func ads():
 	print(animation_tree.get("parameters/SmallAds/blend_amount"))
 	if inventory.current_mainhand_equipment.item_size == 0:
 		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
+		adjust_arm(Vector3(0, -1.581, 0.063))
 	else:
 		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
+		adjust_arm(Vector3(0, -1.648, 0.063))
 	print("is doing ADS")
 
 
 func end_ads():
 	if inventory.current_mainhand_equipment.item_size == 0:
-		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", 1.0, 0.0, 0.15)
+		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 0.0, 0.15)
+		adjust_arm(Vector3(0, -1.287, 0.063))
 	else:
-		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", 1.0, 0.0, 0.15)
+		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
+		adjust_arm(Vector3(0, -1.474, 0.063))
 	print("Has ended ADS")
+
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween
 	tweener.interpolate_property(object, method, tweening_from, tweening_to, duration, Tween.TRANS_LINEAR)
 	add_child(tweener)
 	tweener.start()
+
+
+func adjust_arm(final_position):
+	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.1, Tween.TRANS_SINE, Tween.EASE_OUT)
+	$"%ADSTween".start()
+
 
 func _on_Inventory_inventory_changed():
 	yield(get_tree().create_timer(0.5), "timeout")

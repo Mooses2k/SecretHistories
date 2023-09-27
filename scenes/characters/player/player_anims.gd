@@ -74,12 +74,10 @@ func check_player_animation():
 		if inventory.current_mainhand_equipment.item_size == 0:
 			animation_tree.set("parameters/Hand_Transition/current", 0)
 			animation_tree.set("parameters/Weapon_states/current", 2)
-			animation_tree.set("parameters/SmallAds/blend_amount", 1)
 		else:
 			animation_tree.set("parameters/Hand_Transition/current", 0)
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 			animation_tree.set("parameters/Weapon_states/current", 1)
-			animation_tree.set("parameters/MediumAds/blend_amount", 1)
 			unequip_offhand()
 	
 	elif inventory.current_mainhand_equipment is EmptyHand:
@@ -150,10 +148,18 @@ func check_if_ads():
 
 
 func ads():
+	if inventory.current_mainhand_equipment.item_size == 0:
+		animation_tree.set("parameters/SmallAds/blend_amount", 1)
+	else:
+		animation_tree.set("parameters/MediumAds/blend_amount", 1)
 	print("is doing ADS")
 
 
 func end_ads():
+	if inventory.current_mainhand_equipment.item_size == 0:
+		animation_tree.set("parameters/SmallAds/blend_amount", 0)
+	else:
+		animation_tree.set("parameters/MediumAds/blend_amount", 0)
 	print("Has ended ADS")
 
 

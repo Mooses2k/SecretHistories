@@ -139,23 +139,36 @@ func check_if_ads():
 
 
 func ads():
-	print(animation_tree.get("parameters/SmallAds/blend_amount"))
 	if inventory.current_mainhand_equipment.item_size == 0:
+		operation_tween(
+			inventory.current_mainhand_equipment.hold_position, "rotation", 
+			inventory.current_mainhand_equipment.hold_position.rotation, 
+			inventory.current_mainhand_equipment.ads_hold_rotation, 0.1
+		)
 		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
-		adjust_arm(Vector3(0, -1.581, 0.063))
+		adjust_arm(Vector3(0, -1.576, 0.33))
 	else:
 		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
-		adjust_arm(Vector3(0, -1.648, 0.063))
+		adjust_arm(Vector3(-0.03, -1.635, 0.218))
 	print("is doing ADS")
 
 
 func end_ads():
 	if inventory.current_mainhand_equipment.item_size == 0:
+		operation_tween(
+			inventory.current_mainhand_equipment.hold_position, "rotation", 
+			inventory.current_mainhand_equipment.hold_position.rotation, 
+			inventory.current_mainhand_equipment.ads_reset_rotation, 0.15
+		)
 		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 0.0, 0.15)
+#		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
 		adjust_arm(Vector3(0, -1.287, 0.063))
+#		adjust_arm(Vector3(0, -1.576, 0.301))
 	else:
+#		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
 		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
 		adjust_arm(Vector3(0, -1.474, 0.063))
+#		adjust_arm(Vector3(-0.03, -1.635, 0.218))
 	print("Has ended ADS")
 
 

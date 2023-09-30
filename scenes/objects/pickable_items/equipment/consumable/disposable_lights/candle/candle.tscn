@@ -46,8 +46,8 @@ normal_scale = 1.0
 normal_texture = ExtResource( 8 )
 
 [sub_resource type="CylinderShape" id=52]
-height = 0.12
-radius = 0.02
+height = 0.15
+radius = 0.03
 
 [sub_resource type="BoxShape" id=56]
 extents = Vector3( 0.02, 0.06, 0.02 )
@@ -133,9 +133,14 @@ __meta__ = {
 }
 dropped_layers = 64
 dropped_mask = 1
+max_speed = 8.0
 item_drop_sound = ExtResource( 10 )
 item_throw_sound = null
 item_name = "Candle"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 life_percentage_lose = 0.2
 prob_going_out = 0.9
 
@@ -145,7 +150,7 @@ mesh = SubResource( 1 )
 material/0 = SubResource( 26 )
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0140567, 0.000977516 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01553, 0.000977516 )
 shape = SubResource( 52 )
 
 [node name="CollisionShapeStopRolling" type="CollisionShape" parent="." index="2"]

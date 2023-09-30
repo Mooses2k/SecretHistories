@@ -26,6 +26,8 @@ func tick(state : CharacterState) -> int:
 	ticks_since_active = 0
 	var distance : float = state.character.global_transform.origin.distance_to(state.target_position)
 	if target_reached:
+		# Since target distance changes every frame, this prevents the character from
+		# constantly repositioning every time it changes
 		if distance > target_distance * threshold_factor:
 			target_reached = false
 			return Status.FAILURE
@@ -40,4 +42,5 @@ func tick(state : CharacterState) -> int:
 
 
 func _ready():
+	# TODO : implement custom tick rate
 	get_tree().connect("physics_frame", self, "idle")

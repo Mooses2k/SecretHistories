@@ -29,7 +29,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_direction := Input.get_vector(
+			"movement|move_left", "movement|move_right", "movement|move_up", "movement|move_down"
+	)
 	if input_direction != Vector2.ZERO:
 		var move_direction := Vector3(input_direction.x, 0, input_direction.y)
 		var ground_speed := Vector3(move_speed, 1, move_speed)

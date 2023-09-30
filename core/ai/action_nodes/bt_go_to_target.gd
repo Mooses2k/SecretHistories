@@ -16,10 +16,10 @@ func set_threshold(value : float):
 func tick(state : CharacterState) -> int:
 	var character = state.character
 
-	if character.global_transform.origin.distance_squared_to(state.target_position) <= threshold:
+	if character.global_transform.origin.distance_squared_to(state.target_position) <= _thresold_squared:
 		return Status.SUCCESS
 
-	while state.path.size() > 0 and state.path[0].distance_squared_to(character.global_transform.origin) <= threshold:
+	while state.path.size() > 0 and state.path[0].distance_squared_to(character.global_transform.origin) <= _thresold_squared:
 		state.path.pop_front()
 		character.move_speed = speed
 

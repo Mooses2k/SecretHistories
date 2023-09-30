@@ -19,7 +19,6 @@ enum CorridorGenerationResults {
 
 #--- constants ------------------------------------------------------------------------------------
 
-const RoomGraphViz = preload("res://utils/debug_scenes/room_graph_viz.gd")
 const GraphGenerator = preload("generate_room_graph.gd")
 
 const MASK_EMPTY = 0b0000

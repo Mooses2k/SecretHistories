@@ -26,6 +26,7 @@ var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 5
 var item_sound_level = 10
+var item_drop_sound_level = 10
 
 var can_throw_damage : bool
 var has_thrown = false
@@ -121,9 +122,11 @@ func play_throw_sound():
 
 
 func play_drop_sound(body):
-	if self.item_drop_sound and self.audio_player:
+	if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.5:
 		self.audio_player.stream = self.item_drop_sound
-		self.audio_player.unit_db = item_sound_level   # This should eventually be based on speed
+		print(str(self.name) + " velo = " + str(self.linear_velocity.length()))
+		item_drop_sound_level = self.linear_velocity.length() * 5.0
+		self.audio_player.unit_db = clamp(item_drop_sound_level, 5.0, 20.0)   # This should eventually be based on speed
 		self.audio_player.bus = "Effects"
 		self.audio_player.play()
 		self.noise_level = item_max_noise_level   # This should eventually be based on speed

@@ -8,8 +8,14 @@ onready var label = get_node("Holder/Quote")
 var is_loading = true
 
 
-func _input(event):
-	if event is InputEventMouseButton and event.is_pressed() and not is_loading:
+func _input(event: InputEvent):
+	if (
+			(
+				(event is InputEventMouseButton and event.is_pressed())
+				or event.is_action_released("ui_accept")
+			)
+			and not is_loading
+	):
 #		var _error = get_tree().change_scene(LoadScene.next_scene)
 		LoadScene.remove_loadscreen()
 

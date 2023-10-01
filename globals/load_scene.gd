@@ -3,6 +3,7 @@ extends Node
 
 # warning-ignore:unused_signal
 signal scene_loaded
+signal loading_screen_removed
 
 const Loadscreen = preload("res://scenes/ui/loadscreen/load_screen.tscn")
 var loadscreen : Node
@@ -17,6 +18,7 @@ func setup_loadscreen() -> void:
 func remove_loadscreen() -> void:
 	loadscreen.queue_free()
 	get_tree().paused = false
+	emit_signal("loading_screen_removed")
 	AudioSettings.internal_effects_volume = 0.0
 	# warning-ignore:return_value_discarded
 	get_tree().create_tween()\

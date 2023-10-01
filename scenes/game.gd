@@ -36,13 +36,13 @@ var _current_floor_level := 0
 
 func _init():
 	GameManager.game = self
-	var _error = connect("level_loaded", self, "_on_level_loaded")
 
 
 func _ready():
 	yield(get_tree().create_timer(1), "timeout")
+	var _error = connect("level_loaded", self, "_on_first_level_loaded", [], CONNECT_ONESHOT)
 	load_level(start_level_scn)
-	BackgroundMusic.stop()   # Just in case
+	BackgroundMusic.stop()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -63,6 +63,7 @@ func spawn_player():
 	world_root.call_deferred("add_child", player)
 	yield(player, "ready")
 	emit_signal("player_spawned", player)
+	
 	LoadScene.emit_signal("scene_loaded")
 
 ### -----------------------------------------------------------------------------------------------
@@ -70,14 +71,7 @@ func spawn_player():
 
 ### Private Methods -------------------------------------------------------------------------------
 
-### -----------------------------------------------------------------------------------------------
-
-
-### Signal Callbacks ------------------------------------------------------------------------------
-
-func _on_level_loaded(_level : GameWorld):
-	spawn_player()
-	
+func _connect_staircase_events() -> void:
 	if not Events.is_connected("up_staircase_used", self, "_on_Events_up_staircase_used"):
 		# warning-ignore:return_value_discarded
 		Events.connect("up_staircase_used", self, "_on_Events_up_staircase_used")
@@ -85,6 +79,26 @@ func _on_level_loaded(_level : GameWorld):
 	if not Events.is_connected("down_staircase_used", self, "_on_Events_down_staircase_used"):
 		# warning-ignore:return_value_discarded
 		Events.connect("down_staircase_used", self, "_on_Events_down_staircase_used")
+
+
+func disconnect_staircase_events() -> void:
+	if Events.is_connected("up_staircase_used", self, "_on_Events_up_staircase_used"):
+		# warning-ignore:return_value_discarded
+		Events.disconnect("up_staircase_used", self, "_on_Events_up_staircase_used")
+	
+	if Events.is_connected("down_staircase_used", self, "_on_Events_down_staircase_used"):
+		# warning-ignore:return_value_discarded
+		Events.disconnect("down_staircase_used", self, "_on_Events_down_staircase_used")
+
+### -----------------------------------------------------------------------------------------------
+
+
+### Signal Callbacks ------------------------------------------------------------------------------
+
+func _on_first_level_loaded(_level : GameWorld):
+	spawn_player()
+	
+	_connect_staircase_events()
 
 
 func _on_Events_up_staircase_used() -> void:

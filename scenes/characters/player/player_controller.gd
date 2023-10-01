@@ -70,6 +70,9 @@ onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../CanStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
+onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
+onready var _debug_light = get_node("../FPSCamera/DebugLight")
+
 
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
@@ -119,7 +122,7 @@ enum ScreenFilter {
 	DEBUG_LIGHT
 }
 
-var current_screen_filter : int = ScreenFilter.NONE
+var current_screen_filter : int = GameManager.ScreenFilter.NONE
 #export var pixelated_material : Material
 #export var dither_material : Material
 #export var reduce_color_material : Material
@@ -129,12 +132,14 @@ onready var noise_timer = $"../Audio/NoiseTimer"   # Because instant noises some
 
 func _ready():
 	owner.is_to_move = false
-
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	
 	current_control_mode.set_deferred("is_active", true)
 	
-#	$"../FPSCamera/ScreenFilter".visible = false
+#	_screen_filter.visible = false
+	
+	if OS.has_feature("editor"):
+		Events.connect_to("debug_filter_forced", self, "_set_screen_filter_to")
 
 
 func _physics_process(delta : float):
@@ -679,47 +684,60 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 func handle_screen_filters():
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# function this out maybe to a screen_filters.gd attached to ScreenFilter
-		
 		# Cycle to next filter
-		current_screen_filter += 1
-		
-		# Cycle through list of filters, starting with 0
-		if current_screen_filter > (ScreenFilter.size() - 1):
-				current_screen_filter = 0
-		
-		# Check which filter is current and implement it
-		if current_screen_filter == ScreenFilter.NONE:
-			print("Screen Filter: NONE")
-#			GameManager.game.level.toggle_directional_light()
-			$"../FPSCamera/ScreenFilter".visible = false
-			$"../FPSCamera/DebugLight".visible = false
-		if current_screen_filter == ScreenFilter.OLD_FILM:
-			print("Screen Filter: OLD_FILM")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
-		if current_screen_filter == ScreenFilter.PIXELATE:
-			print("Screen Filter: PIXELATE")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
-		if current_screen_filter == ScreenFilter.DITHER:
-			print("Screen Filter: DITHER")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
-		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
-			print("Screen Filter: REDUCE_COLOR")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
-		# We're haven't implemented the mesh shader yet
-		if current_screen_filter == ScreenFilter.PSX:
-			print("Screen Filter: PSX")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
-		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
-			print("Screen Filter: DEBUG_LIGHT")
-#			GameManager.game.level.toggle_directional_light()
-			$"../FPSCamera/ScreenFilter".visible = false
-			$"../FPSCamera/DebugLight".visible = true
+		_set_screen_filter_to()
+		pass
+
+
+# function this out maybe to a screen_filters.gd attached to ScreenFilter
+func _set_screen_filter_to(filter_value: int = -1) -> void:
+	if filter_value == -1:
+		current_screen_filter = posmod(current_screen_filter + 1, GameManager.ScreenFilter.size())
+	else:
+		current_screen_filter = filter_value
+	
+	# Check which filter is current and implement it
+	if current_screen_filter == GameManager.ScreenFilter.NONE:
+		print("Screen Filter: NONE")
+#		GameManager.game.level.toggle_directional_light()
+		_screen_filter.visible = false
+		_debug_light.visible = false
+	if current_screen_filter == GameManager.ScreenFilter.OLD_FILM:
+		print("Screen Filter: OLD_FILM")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/old_film/old_film.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.PIXELATE:
+		print("Screen Filter: PIXELATE")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/pixelate/pixelate.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.DITHER:
+		print("Screen Filter: DITHER")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/dither/dither.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.REDUCE_COLOR:
+		print("Screen Filter: REDUCE_COLOR")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/reduce_color/reduce_color.tres")
+		)
+	# We're haven't implemented the mesh shader yet
+	if current_screen_filter == GameManager.ScreenFilter.PSX:
+		print("Screen Filter: PSX")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/psx/psx_material.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.DEBUG_LIGHT:
+		print("Screen Filter: DEBUG_LIGHT")
+#		GameManager.game.level.toggle_directional_light()
+		_screen_filter.visible = false
+		_debug_light.visible = true
 
 
 func handle_binocs():

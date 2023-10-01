@@ -53,6 +53,7 @@ var astar: ManhattanAStar2D = null
 
 func _ready() -> void:
 	if is_instance_valid(GameManager.game):
+		# warning-ignore:return_value_discarded
 		GameManager.game.connect("player_spawned", self, "_on_game_player_spawned")
 
 

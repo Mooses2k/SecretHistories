@@ -16,18 +16,22 @@ const COLOR_HALLS = Color(0.3,0.3,0.5,1.0)
 const COLOR_DELAUNAY = Color.cyan
 const COLOR_CONNECTIONS = Color.yellowgreen
 const COLOR_ASTAR = Color.orangered
+const COLOR_PLAYER = Color.blue
 
 const PATH_FONT = "res://resources/fonts/godot_default_bitmapfont.tres"
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export(float, 0.0, 50.0, 0.5) var distances_scale := 30.0
+export(float, 0.0, 50.0, 0.5) var distances_scale := 30.0 setget _set_distances_scale
 export var draw_basic_grid := true setget _set_draw_basic_grid
 export var draw_map := true setget _set_draw_map
 export var draw_full_delaunay := true setget _set_draw_full_delaunay
 export var draw_chosen_connections := true setget _set_draw_chosen_connections
 export var draw_astar_grid := true setget _set_draw_astar_grid
 export var draw_astar_connections := true setget _set_draw_astar_connections
+export var draw_player := true setget _set_draw_player
+
+var player: Player = null
 
 var font: Font = null
 
@@ -46,6 +50,16 @@ var astar: ManhattanAStar2D = null
 
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
+
+func _ready() -> void:
+	if is_instance_valid(GameManager.game):
+		GameManager.game.connect("player_spawned", self, "_on_game_player_spawned")
+
+
+func _process(_delta: float) -> void:
+	if is_instance_valid(player):
+		update()
+
 
 func _draw() -> void:
 	if font == null:
@@ -125,6 +139,13 @@ func _draw() -> void:
 				var to_position := room_centers[to_index]
 				
 				draw_line(from_position, to_position, COLOR_CONNECTIONS)
+	
+	if draw_player and is_instance_valid(player):
+		var local_position = to_local(Vector2(
+				player.global_translation.x,
+				player.global_translation.z
+		)) * distances_scale / WorldData.CELL_SIZE
+		draw_circle(local_position, distances_scale / 2.0, COLOR_PLAYER)
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -160,6 +181,11 @@ func _set_room_connections(value: Dictionary) -> void:
 		print("room_connections: %s"%[room_connections])
 
 
+func _set_distances_scale(value: float) -> void:
+	distances_scale = value
+	update()
+
+
 func _set_draw_basic_grid(value: bool) -> void:
 	draw_basic_grid = value
 	update()
@@ -189,12 +215,22 @@ func _set_draw_astar_connections(value: bool) -> void:
 	draw_astar_connections = value
 	update()
 
+
+func _set_draw_player(value: bool) -> void:
+	draw_player = value
+	set_process(draw_player)
+
 ### -----------------------------------------------------------------------------------------------
 
 
 ### Signal Callbacks ------------------------------------------------------------------------------
 
 func _on_world_generation_finished() -> void:
+	update()
+
+
+func _on_game_player_spawned(p_player: Player) -> void:
+	player = p_player
 	update()
 
 ### -----------------------------------------------------------------------------------------------

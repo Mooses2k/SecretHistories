@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" type="Script" id=6]
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" type="Resource" id=7]
 [ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
+[ext_resource path="res://utils/debug_scenes/room_graph_viz.gd" type="Script" id=9]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=11]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=12]
@@ -42,7 +43,15 @@ directional_shadow_normal_bias = 0.2
 [node name="Navigation" parent="." index="4"]
 preview_material = SubResource( 3 )
 
-[node name="GenerationManager" parent="." index="5"]
+[node name="RoomGraphViz" type="Node2D" parent="." index="5"]
+script = ExtResource( 9 )
+distances_scale = 20.0
+draw_full_delaunay = false
+draw_chosen_connections = false
+draw_astar_grid = false
+draw_astar_connections = false
+
+[node name="GenerationManager" parent="." index="6"]
 world_size_x = 20
 world_size_z = 20
 
@@ -56,9 +65,11 @@ room_size_max = 3
 
 [node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="2"]
 script = ExtResource( 3 )
+path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 20 )
+_path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
 script = ExtResource( 19 )

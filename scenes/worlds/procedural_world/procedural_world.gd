@@ -1,15 +1,6 @@
 extends GameWorld
 
 
-func _ready():
-	set_brightness()
-
-
-func set_brightness():
-	# Set game brightness/gamma
-	$WorldEnvironment.environment.tonemap_exposure = VideoSettings.brightness
-
-
 func get_player_spawn_position() -> Vector3:
 	if world_data.is_spawn_position_valid():
 		# TODO For now using UP_STAIRCASE directly works, because it's always as if we came down 

@@ -25,6 +25,8 @@ var level : GameWorld
 onready var world_root : Node = $World
 onready var ui_root : CanvasLayer = $GameUI
 onready var local_settings : SettingsClass = $"%LocalSettings"
+onready var world_environment: WorldEnvironment = $WorldEnvironment
+
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -39,6 +41,7 @@ func _init():
 
 
 func _ready():
+	set_brightness()
 	yield(get_tree().create_timer(1), "timeout")
 	var _error = connect("level_loaded", self, "_on_first_level_loaded", [], CONNECT_ONESHOT)
 	load_level(start_level_scn)
@@ -48,6 +51,11 @@ func _ready():
 
 
 ### Public Methods --------------------------------------------------------------------------------
+
+func set_brightness():
+	# Set game brightness/gamma
+	world_environment.environment.tonemap_exposure = VideoSettings.brightness
+
 
 func load_level(packed : PackedScene):
 	level = packed.instance() as GameWorld

@@ -15,7 +15,7 @@ collision_mask = 66
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="SensorArea"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.629616, -0.147274 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.659592, -2.88317e-08 )
 shape = SubResource( 1 )
 
 [connection signal="body_entered" from="SensorArea" to="." method="_on_SensorArea_body_entered"]

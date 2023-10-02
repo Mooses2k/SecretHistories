@@ -701,6 +701,7 @@ shape = SubResource( 6 )
 
 [node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BehaviorTree" type="Node" parent="." index="6"]
 unique_name_in_owner = true
@@ -795,6 +796,7 @@ script = ExtResource( 7 )
 script = ExtResource( 4 )
 
 [node name="TouchSensor" parent="Body" index="0" instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0237128 )
 character = NodePath("../..")
 
 [node name="DirectPlayerSight" parent="Body" index="1" instance=ExtResource( 5 )]

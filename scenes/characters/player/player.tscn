@@ -698,7 +698,7 @@ parameters/Reload_Animations/current = 3
 parameters/Weapon_states/current = 2
 
 [node name="FPSCamera" type="Camera" parent="." index="27"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 cull_mask = 1048573
 script = ExtResource( 15 )
 

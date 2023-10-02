@@ -164,7 +164,7 @@ __meta__ = {
 }
 
 [node name="FireOrigin" type="Position3D" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00286937, 0.0672564, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00249655, 0.0997096, 0 )
 script = ExtResource( 2 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin" index="0"]
@@ -178,7 +178,6 @@ __meta__ = {
 }
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.25

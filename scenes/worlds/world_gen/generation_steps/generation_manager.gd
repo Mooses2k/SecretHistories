@@ -12,22 +12,24 @@ signal generation_finished(data)
 
 
 func generate() -> WorldData:
-	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
-	if setting_generation_seed is int:
-		generation_seed = setting_generation_seed
+	if GameManager.world_gen_rng == null:
+		GameManager.world_gen_rng = RandomNumberGenerator.new()
+		var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
+		if setting_generation_seed is int:
+			generation_seed = setting_generation_seed
 		print("Generation Seed: %s"%[generation_seed])
+		GameManager.world_gen_rng.seed = generation_seed
+	
 	var data : WorldData = WorldData.new()
 	data.resize(world_size_x, world_size_z)
 	
 	var gen_data = Dictionary()
-	var random = RandomNumberGenerator.new()
-	random.seed = generation_seed
 	emit_signal("generation_started", data, gen_data)
 	for _step in get_children():
 		var step = _step as GenerationStep
 		if step:
 			var start = OS.get_ticks_usec()
-			step.execute_step(data, gen_data, random.randi())
+			step.execute_step(data, gen_data, GameManager.world_gen_rng.randi())
 			var end = OS.get_ticks_usec()
 			print("Step took ", end - start, " usec")
 			emit_signal("step_finished", data, gen_data)

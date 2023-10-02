@@ -97,7 +97,6 @@ func _get_pool_of_possible_cells(data: WorldData) -> Array:
 
 func _update_poll_of_possible_cells(data: WorldData, cells_pool: Array, room: Rect2) -> Array:
 	var value := []
-	var room_margin := room.grow(max(single_tile_height, single_tile_width))
 	var range_x = range(room.position.x, room.end.x)
 	var range_y = range(room.position.y, room.end.y)
 	
@@ -117,19 +116,20 @@ func _update_poll_of_possible_cells(data: WorldData, cells_pool: Array, room: Re
 
 func _can_fit_staircase_room(data: WorldData, initial_x: int, initial_y: int) -> bool:
 	var value := true
-	var max_size_x = (single_tile_width - 1) + minimum_distance_between_staircases
-	var max_size_y = (single_tile_height - 1) + minimum_distance_between_staircases
-	var offsets_x := range(0, max_size_x)
-	var offsets_y := range(0, max_size_y)
+	var max_size_x = (single_tile_width) + minimum_distance_between_staircases
+	var max_size_y = (single_tile_height) + minimum_distance_between_staircases
+	var offsets_x := range(-minimum_distance_between_staircases, max_size_x)
+	var offsets_y := range(-minimum_distance_between_staircases, max_size_y)
 	
 	for offset_x in offsets_x:
 		var x := int(initial_x + offset_x)
 		for offset_y in offsets_y:
 			var y := int(initial_y + offset_y)
-			var cell_index = data.get_cell_index_from_int_position(x, y)
-			value = data.is_cell_free(cell_index)
-			if not value:
-				break
+			if data.is_inside_world_bounds(x, y):
+				var cell_index = data.get_cell_index_from_int_position(x, y)
+				value = data.is_cell_free(cell_index)
+				if not value:
+					break
 		if not value:
 			break
 	

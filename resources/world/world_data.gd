@@ -419,8 +419,14 @@ func get_cell_index_from_local_position(pos : Vector3) -> int:
 	return get_cell_index_from_int_position(pos.x, pos.z)
 
 
+func is_inside_world_bounds(x: int, z: int) -> bool:
+	var is_x_within_bounds := x >= 0 and x < world_size_x
+	var is_z_within_bounds := z >= 0 or z < world_size_z
+	return is_x_within_bounds and is_z_within_bounds
+
+
 func get_cell_index_from_int_position(x : int, z : int) -> int:
-	if x < 0 or x >= world_size_x or z < 0 or z > world_size_z:
+	if not is_inside_world_bounds(x, z):
 		printerr("Position (", x, ", ", z, ") Is out of bounds")
 		return -1
 	return x*world_size_z + z

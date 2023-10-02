@@ -65,7 +65,7 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 		
 		var lucky_index = _rng.randi() % possible_cells.size()
 		var cell_index := possible_cells[lucky_index] as int
-		possible_cells.remove(cell_index)   # Source of numerous red out of bounds debugger errors
+		possible_cells.remove(lucky_index)
 		
 		var cell_position := data.get_local_cell_position(cell_index)
 		var cell_radius := data.CELL_SIZE * 0.5

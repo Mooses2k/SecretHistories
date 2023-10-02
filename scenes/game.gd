@@ -116,6 +116,12 @@ func _on_Events_up_staircase_used() -> void:
 	
 	if has_changed:
 		print("Floor level changed from: %s to: %s"%[old_value, _current_floor_level])
+		
+		LoadScene.setup_loadscreen()
+		level.queue_free()
+		level = null
+		yield(load_level(start_level_scn), "completed")
+		breakpoint
 	elif _current_floor_level == 0:
 		print("You're already at the top of the dungeon, can't go upper.")
 
@@ -126,8 +132,17 @@ func _on_Events_down_staircase_used() -> void:
 	var has_changed := old_value != _current_floor_level
 	
 	if has_changed:
-		print("Floor level changed from: %s to: %s"%[old_value, _current_floor_level])
+		print("Went down from: %s to: %s"%[old_value, _current_floor_level])
 		
+		LoadScene.setup_loadscreen()
+		# Wait a bit so that the load screen is visible
+		yield(get_tree().create_timer(0.1), "timeout")
+		level.queue_free()
+		level = null
+		yield(load_level(start_level_scn), "completed")
+		player.translation = level.get_player_spawn_position()
+		emit_signal("player_spawned", player)
+		LoadScene.emit_signal("scene_loaded")
 	elif _current_floor_level == MIN_FLOOR_LEVEL:
 		print("You're already at the bottom of the dungeon, can't go lower.")
 

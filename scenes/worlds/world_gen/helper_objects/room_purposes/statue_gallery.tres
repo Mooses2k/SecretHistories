@@ -6,16 +6,19 @@
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/pillar_requirement.gd" type="Script" id=4]
 
 [sub_resource type="Resource" id=1]
+resource_name = "Min Size 0x0"
 script = ExtResource( 1 )
-min_x_tiles = 6
-min_y_tiles = 6
+min_x_tiles = 0
+min_y_tiles = 0
 
 [sub_resource type="Resource" id=2]
+resource_name = "Max Size 9x9"
 script = ExtResource( 3 )
 max_x_tiles = 9
 max_y_tiles = 9
 
 [sub_resource type="Resource" id=3]
+resource_name = "No Pillars"
 script = ExtResource( 4 )
 has_pillars = false
 

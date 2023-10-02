@@ -1,6 +1,5 @@
 extends GenerationStep
 
-const RoomGraphViz = preload("res://utils/debug_scenes/room_graph_viz.gd")
 const RoomGenerator = preload("generate_rooms.gd")
 
 const CONNECTION_GRAPH_KEY = "connection_graph"

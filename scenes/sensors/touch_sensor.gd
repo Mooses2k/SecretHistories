@@ -25,6 +25,7 @@ func _ready():
 
 
 func _on_SensorArea_body_entered(body):
+	player_touching = false
 	for body in area.get_overlapping_bodies():
 		if body is Player:
 			player_position = body.global_transform.origin
@@ -33,6 +34,7 @@ func _on_SensorArea_body_entered(body):
 
 
 func _on_SensorArea_body_exited(body):
+	player_touching = false
 	for body in area.get_overlapping_bodies():
 		if body is Player:
-			player_touching = false
+			player_touching = true

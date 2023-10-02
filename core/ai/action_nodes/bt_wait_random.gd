@@ -32,6 +32,8 @@ func tick(state : CharacterState) -> int:
 		return Status.RUNNING
 	else:
 		active = false
+		# Reset timer in preparation for next execution
+		reset_timer()
 		return Status.SUCCESS
 
 

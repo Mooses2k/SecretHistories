@@ -10,10 +10,12 @@ extends RoomRequirements
 
 #--- constants ------------------------------------------------------------------------------------
 
+const EDITOR_NAME_PREVIEW = "Min Size %sx%s"
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-var min_x_tiles := 0
-var min_y_tiles := 0
+var min_x_tiles := 0 setget _set_min_x_tiles
+var min_y_tiles := 0 setget _set_min_y_tiles
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -21,6 +23,9 @@ var min_y_tiles := 0
 
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
+
+func _init() -> void:
+	_update_resource_name()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -41,6 +46,19 @@ func has_fulfilled_requirement(room_data: RoomData) -> bool:
 
 
 ### Private Methods -------------------------------------------------------------------------------
+
+func _update_resource_name() -> void:
+	resource_name = EDITOR_NAME_PREVIEW%[min_x_tiles, min_y_tiles]
+
+
+func _set_min_x_tiles(value: int) -> void:
+	min_x_tiles = value
+	_update_resource_name()
+
+
+func _set_min_y_tiles(value: int) -> void:
+	min_y_tiles = value
+	_update_resource_name()
 
 ### -----------------------------------------------------------------------------------------------
 

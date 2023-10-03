@@ -17,17 +17,17 @@ enum HoldStates {
 }
 
 
-
-onready var inventory = $"../Inventory"
-onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
-onready var _camera : ShakeCamera = get_node(_cam_path)
-onready var animation_tree = $"%AnimationTree"
+export var _cam_path : NodePath
 
 var offhand_active = false
 var mainhand_active = false
 var is_on_ads = false
 
-export var _cam_path : NodePath
+onready var inventory = $"../Inventory"
+onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
+onready var _camera : ShakeCamera = get_node(_cam_path) as Camera
+onready var animation_tree = $"%AnimationTree"
+
 
 func _ready():
 	print($"%MainCharOnlyArmsGameRig".translation)
@@ -146,11 +146,14 @@ func ads():
 			inventory.current_mainhand_equipment.ads_hold_rotation, 0.1
 		)
 		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
+		_camera.fov = lerp(_camera.fov, 65, 0.1)
 		adjust_arm(Vector3(0, -1.576, 0.33))
 	else:
-		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
+		operation_tween(animation_tree,
+		"parameters/MediumAds/blend_amount",
+		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
+		_camera.fov = lerp(_camera.fov, 60, 0.1)
 		adjust_arm(Vector3(-0.03, -1.635, 0.218))
-	print("is doing ADS")
 
 
 func end_ads():
@@ -159,18 +162,26 @@ func end_ads():
 			inventory.current_mainhand_equipment.hold_position, "rotation", 
 			inventory.current_mainhand_equipment.hold_position.rotation, 
 			inventory.current_mainhand_equipment.ads_reset_rotation, 0.15
+		
 		)
-		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 0.0, 0.15)
-#		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
+		operation_tween(
+		animation_tree,
+		"parameters/SmallAds/blend_amount",
+		animation_tree.get("parameters/SmallAds/blend_amount"),
+		0.0, 
+		0.15
+		)
 		adjust_arm(Vector3(0, -1.287, 0.063))
-#		adjust_arm(Vector3(0, -1.576, 0.301))
 	else:
-#		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
-		operation_tween(animation_tree, "parameters/MediumAds/blend_amount", animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
+		operation_tween(
+		animation_tree, 
+		"parameters/MediumAds/blend_amount",
+		animation_tree.get("parameters/MediumAds/blend_amount"),
+		0.0,
+		0.15
+		)
 		adjust_arm(Vector3(0, -1.474, 0.063))
-#		adjust_arm(Vector3(-0.03, -1.635, 0.218))
-	print("Has ended ADS")
-
+	_camera.fov = lerp(_camera.fov, 70, 0.1)
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

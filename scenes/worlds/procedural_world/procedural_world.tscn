@@ -43,18 +43,10 @@ light_energy = 0.5
 shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
 
-[node name="Navigation" parent="." index="4"]
+[node name="Navigation" parent="." index="3"]
 preview_material = SubResource( 3 )
 
-[node name="RoomGraphViz" type="Node2D" parent="." index="5"]
-script = ExtResource( 9 )
-distances_scale = 20.0
-draw_full_delaunay = false
-draw_chosen_connections = false
-draw_astar_grid = false
-draw_astar_connections = false
-
-[node name="GenerationManager" parent="." index="6"]
+[node name="GenerationManager" parent="." index="4"]
 world_size_x = 20
 world_size_z = 20
 
@@ -134,3 +126,11 @@ _density_by_type = {
 2: 0.0,
 3: 0
 }
+
+[node name="RoomGraphViz" type="Node2D" parent="." index="5"]
+script = ExtResource( 9 )
+distances_scale = 20.0
+draw_full_delaunay = false
+draw_chosen_connections = false
+draw_astar_grid = false
+draw_astar_connections = false

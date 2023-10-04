@@ -1,5 +1,5 @@
-class_name BT_Look_At_Target
-extends BT_Node
+class_name BTLookAtTarget
+extends BTNode
 
 
 func tick(state : CharacterState) -> int:

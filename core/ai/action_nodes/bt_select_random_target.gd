@@ -1,5 +1,5 @@
-class_name BT_Select_Random_Target
-extends BT_Node
+class_name BTSelectRandomTarget
+extends BTNode
 
 
 export var minimum_radius : float = 1.0

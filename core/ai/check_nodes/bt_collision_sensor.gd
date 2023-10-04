@@ -1,5 +1,5 @@
-class_name BT_Collision_Sensor
-extends BT_Player_Sensor
+class_name BTCollisionSensor
+extends BTPlayerSensor
 
 
 #export var sensor : NodePath

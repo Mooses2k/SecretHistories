@@ -1,5 +1,5 @@
-class_name BT_Sequence
-extends BT_ControlFlow
+class_name BTSequence
+extends BTControlFlow
 
 # If SUCCESS, continue processing any other nodes in the Sequence
 

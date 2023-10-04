@@ -1,5 +1,5 @@
-class_name BT_Approach_Random_Distance
-extends BT_Node
+class_name BTApproachRandomDistance
+extends BTNode
 
 
 export var min_distance : float = 4.0

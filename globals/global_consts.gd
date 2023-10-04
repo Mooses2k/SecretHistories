@@ -12,7 +12,7 @@ enum _AttackTypes {
 	BALLISTIC,
 	FIRE,
 	SPECIAL,
-	_COUNT, # Not a type, helper value for the ammount of types
+	_COUNT, # Not a type, helper value for the amount of types
 }
 
 # Tiny items - ammo, keys - unlimited number carryable

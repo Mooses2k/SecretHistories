@@ -1,5 +1,5 @@
-class_name BT_Shoot
-extends BT_Node
+class_name BTShoot
+extends BTNode
 
 
 signal fighting

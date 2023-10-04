@@ -1,5 +1,5 @@
-class_name BT_Wait_Random
-extends BT_Node
+class_name BTWaitRandom
+extends BTNode
 
 
 signal character_idled

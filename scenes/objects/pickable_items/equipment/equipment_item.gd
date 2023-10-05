@@ -84,6 +84,7 @@ func get_hold_transform() -> Transform:
 
 func apply_throw_logic():
 	if throw_logic:
+		print("Applying throw logic")
 		self.global_rotation = throw_pos.global_rotation   # This attempts to align the point forward when throwing piercing weapons
 	if can_spin:
 		angular_velocity = Vector3(global_transform.basis.x * -15)

@@ -57,7 +57,7 @@ func _process(delta):
 			noise_level = 8
 			$Audio/NoiseTimer.start()
 			
-	if light_level > 0.01:
+	if light_level > 0.001:   # Light detection by cultists is (currently) 0.01, so this is when darker still.
 #		$KinestheticSense.visible = false
 		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.0, 1.0)
 		$KinestheticSense/Tween.start()

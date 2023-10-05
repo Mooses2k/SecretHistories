@@ -50,7 +50,7 @@ height = 0.15
 radius = 0.03
 
 [sub_resource type="BoxShape" id=56]
-extents = Vector3( 0.02, 0.06, 0.02 )
+extents = Vector3( 0.028, 0.06, 0.028 )
 
 [sub_resource type="QuadMesh" id=53]
 size = Vector2( 0.033, 0.1 )

@@ -756,7 +756,7 @@ collide_with_areas = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -1.7 )
-collision_mask = 65
+collision_mask = 577
 collide_with_areas = true
 
 [node name="GroundCast" type="RayCast" parent="FPSCamera" index="3"]

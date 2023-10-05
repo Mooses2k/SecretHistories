@@ -493,7 +493,7 @@ func check_state_animation(delta):
 	sideways_velocity = global_transform.basis.x.dot(velocity)
 	
 	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
-	if self.name == "Cultist":
+	if "Cultist" in self.name:
 		if current_mainhand_item_animation == HoldStates.MELEE_ITEM:
 			
 			if state == State.STATE_CROUCHING:

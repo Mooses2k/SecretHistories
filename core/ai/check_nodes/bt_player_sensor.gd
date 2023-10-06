@@ -1,5 +1,5 @@
-class_name BT_Player_Sensor
-extends BT_Node
+class_name BTPlayerSensor
+extends BTNode
 
 
 signal character_detected   # For signalling speech

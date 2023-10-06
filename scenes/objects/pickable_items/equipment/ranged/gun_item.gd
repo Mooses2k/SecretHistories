@@ -81,7 +81,7 @@ func shoot():
 	raycast.cast_to = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
 	apply_damage(total_damage)
-	print(total_damage)
+	print(owner_character, " shoots a ", self)
 	
 	# Cultists can't recoil for now
 	if owner_character.get_node("PlayerController"):

@@ -83,12 +83,12 @@ func throw_damage(delta):
 				can_throw_damage = false
 				has_thrown = false
 				decelerate_item_velocity(delta, true)
-				item_state = GlobalConsts.ItemState.DROPPED
+				set_item_state(GlobalConsts.ItemState.DROPPED)
 			else:
 				has_thrown = false
 				can_throw_damage = false
 #				decelerate_item_velocity(delta, true)   # Causes glitches like thrown objects sticking in arched wall collisions
-				item_state = GlobalConsts.ItemState.DROPPED
+				set_item_state(GlobalConsts.ItemState.DROPPED)
 
 
 func decelerate_item_velocity(delta, decelerate):

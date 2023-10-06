@@ -1,5 +1,5 @@
-class_name BT_Gun_Has_Ammo
-extends BT_Node
+class_name BTGunHasAmmo
+extends BTNode
 
 
 func tick(state : CharacterState) -> int:

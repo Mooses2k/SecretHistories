@@ -1,4 +1,4 @@
-class_name BT_Node
+class_name BTNode
 extends Node
 
 

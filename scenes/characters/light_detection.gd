@@ -46,9 +46,6 @@ func _process(delta):
 	_modify_by_encumbrance()   # Now we multiply your light level by your encumbrance value (have medium and/or bulky items)
 	_modify_by_state()   # Now we check crouching and if a light is in hand
 
-	# Okay, you're crouching without a lit light-source in hand; that's cool, you're less visible
-	light_level_top *= 0.7   # (1 - pow(1 - level, 5))   # Previous method led to being invisible while crouching next to candle
-	
 	# Finally we set the character's light_level
 	owner.light_level = light_level_top
 	
@@ -76,6 +73,9 @@ func _modify_by_encumbrance():
 
 func _modify_by_state():
 	if owner.state == owner.State.STATE_CROUCHING:
+		# Okay, you're crouching without a lit light-source in hand; that's cool, you're less visible
+		light_level_top *= 0.7   # (1 - pow(1 - level, 5))   # Previous method led to being invisible while crouching next to candle
+	
 		# If holding a lit light-source, no crouching and hiding for you
 		# So messy how this nest is required for this
 		if owner.inventory.get_mainhand_item():

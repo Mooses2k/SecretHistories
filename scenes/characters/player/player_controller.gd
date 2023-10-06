@@ -346,7 +346,7 @@ func handle_grab(delta : float):
 				is_grabbing = true
 				print("Just grabbed: ", grab_object)
 				if grab_object is PickableItem:   # So no plain RigidBodies or large objects
-					grab_object.item_state = GlobalConsts.ItemState.DAMAGING   # This is so any pickable_item collides with cultists
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)   # This is so any pickable_item collides with cultists
 	
 	# These are debug indicators for initial and current grab points
 	$GrabInitial.visible = false
@@ -545,12 +545,12 @@ func drop_grabable():
 				interaction_handled = true
 				var impulse = current_control_mode.get_aim_direction() * throw_strength
 				if grab_object is MeleeItem:
-					grab_object.item_state = GlobalConsts.ItemState.DAMAGING
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_throw_logic(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(true)
 				else:
-					grab_object.item_state = GlobalConsts.ItemState.DAMAGING
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(false)
@@ -570,6 +570,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 	if throw_state == ThrowState.SHOULD_PLACE:
 		print("Should place")
 		throw_item = character.inventory.get_mainhand_item() if throw_item_hand == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
+		throw_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 		if throw_item:
 			# Calculates where to place the item
 			var origin : Vector3 = owner.drop_position_node.global_transform.origin
@@ -582,7 +583,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 			throw_item.collision_mask = throw_item.dropped_mask
 			var result = PhysicsTestMotionResult.new()
 			# The return value can be ignored, since extra information is put into the 'result' variable
-			PhysicsServer.body_test_motion(throw_item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true)
+			PhysicsServer.body_test_motion(throw_item.get_rid(), owner.drop_position_node.global_transform, dir, false, result, true)
 			throw_item.collision_layer = layers
 			throw_item.collision_mask = mask
 			if result.motion.length() > 0.1:
@@ -603,6 +604,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				
 		# At this point, throw_item_hand is determined, whether this is a throw-button throw or a use_primary bomb throw
 		if throw_item:
+			throw_item.set_item_state(GlobalConsts.ItemState.DAMAGING)
 			if throw_item_hand == ItemSelection.ITEM_MAINHAND:
 				character.inventory.drop_mainhand_item()
 			else:

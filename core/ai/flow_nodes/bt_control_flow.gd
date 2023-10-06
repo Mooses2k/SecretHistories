@@ -1,5 +1,5 @@
-class_name BT_ControlFlow
-extends BT_Node
+class_name BTControlFlow
+extends BTNode
 
 
 var child_nodes_bt = Array()
@@ -12,5 +12,5 @@ func _ready():
 func _get_children_nodes():
 	child_nodes_bt.clear()
 	for child in self.get_children():
-		if child is BT_Node:
+		if child is BTNode:
 			child_nodes_bt.push_back(child)

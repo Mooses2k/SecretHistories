@@ -1,5 +1,5 @@
-class_name BT_Sound_Listener
-extends BT_Node
+class_name BTSoundListener
+extends BTNode
 
 
 signal unseen_sound_heard   # For signalling speech

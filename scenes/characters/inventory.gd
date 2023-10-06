@@ -11,7 +11,7 @@ signal mainhand_slot_changed(previous, current)
 signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
 
-signal tiny_item_changed(item, previous_ammount, curent_ammount)
+signal tiny_item_changed(item, previous_amount, curent_amount)
 # Emitted to fadein the HUD UI
 signal inventory_changed
 # Emitted to hide the HUD UI when player dies
@@ -22,7 +22,7 @@ signal unequip_offhand
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int = 11
 
-# Items tracked exclusively by ammount, don't contribute to weight,
+# Items tracked exclusively by amount, don't contribute to weight,
 # don't show in hotbar
 var tiny_items : Dictionary
 

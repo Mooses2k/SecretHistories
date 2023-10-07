@@ -1,9 +1,10 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" type="Script" id=1]
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" type="Script" id=2]
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd" type="Script" id=3]
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/pillar_requirement.gd" type="Script" id=4]
+[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd" type="Script" id=5]
 
 [sub_resource type="Resource" id=1]
 resource_name = "Min Size 0x0"
@@ -22,8 +23,14 @@ resource_name = "No Pillars"
 script = ExtResource( 4 )
 has_pillars = false
 
+[sub_resource type="Resource" id=4]
+resource_name = "2~99 Doorways"
+script = ExtResource( 5 )
+min_doorways = 2
+max_doorways = 99
+
 [resource]
 script = ExtResource( 2 )
 purpose_id = "3"
 max_amount = 2
-requirements = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]
+requirements = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ]

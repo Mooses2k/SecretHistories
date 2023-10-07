@@ -1,6 +1,8 @@
 class_name BTReloadGun
 extends BTNode
 
+# If have appropriate ammo for currently equipped (mainhand) gun, reload it
+
 
 signal character_reloaded   # For signalling speech
 

@@ -1,6 +1,8 @@
 class_name BTGoToTarget
 extends BTNode
 
+# Move to currently selected target position
+
 
 export var threshold : float = 0.5 setget set_threshold
 var _thresold_squared : float = 0.25

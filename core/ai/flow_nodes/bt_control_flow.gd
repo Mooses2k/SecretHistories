@@ -1,6 +1,8 @@
 class_name BTControlFlow
 extends BTNode
 
+# Build a list of all hehavior tree nodes for this character at spawntime.
+
 
 var child_nodes_bt = Array()
 

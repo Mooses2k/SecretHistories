@@ -1,6 +1,8 @@
 class_name BTWaitRandom
 extends BTNode
 
+# Choose a random amount of time to wait and wait it
+
 
 signal character_idled
 

@@ -1,6 +1,8 @@
 class_name BTSoundListener
 extends BTNode
 
+# Detect items and characters with noise_level within an Area.
+
 
 signal unseen_sound_heard   # For signalling speech
 

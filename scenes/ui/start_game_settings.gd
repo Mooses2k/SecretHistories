@@ -12,7 +12,7 @@ func attach_settings(value : SettingsClass):
 func generate_settings():
 	add_generation_settings()
 	add_equipment()
-	add_tiny_items()
+#	add_tiny_items()
 
 
 func add_generation_settings():
@@ -47,7 +47,7 @@ func add_equipment():
 		else:
 			if full_path.ends_with(".tscn") and not full_path.get_file().begins_with("_"):
 				_settings.add_int_setting(full_path, 0, 999, 1, 0)
-				_settings.set_setting_group(full_path, "Equipment")
+				_settings.set_setting_group(full_path, "Equipment & Tiny Items")
 
 
 func add_tiny_items():

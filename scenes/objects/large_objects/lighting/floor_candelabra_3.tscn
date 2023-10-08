@@ -375,7 +375,7 @@ extents = Vector3( 0.157328, 0.236264, 0.160202 )
 
 [node name="FloorCandelabra3" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
-collision_layer = 513
+collision_layer = 512
 mass = 30.0
 continuous_cd = true
 script = ExtResource( 3 )
@@ -965,3 +965,411 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Ignite"]
 shape = SubResource( 2 )
+
+[node name="KinematicBody" type="KinematicBody" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape101" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 150 )
+
+[node name="CollisionShape100" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 151 )
+
+[node name="CollisionShape99" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 152 )
+
+[node name="CollisionShape98" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 153 )
+
+[node name="CollisionShape97" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 154 )
+
+[node name="CollisionShape96" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 155 )
+
+[node name="CollisionShape95" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 156 )
+
+[node name="CollisionShape94" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 157 )
+
+[node name="CollisionShape93" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 158 )
+
+[node name="CollisionShape92" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 159 )
+
+[node name="CollisionShape91" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 160 )
+
+[node name="CollisionShape90" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 161 )
+
+[node name="CollisionShape89" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 162 )
+
+[node name="CollisionShape88" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 163 )
+
+[node name="CollisionShape87" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 164 )
+
+[node name="CollisionShape86" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 165 )
+
+[node name="CollisionShape85" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 166 )
+
+[node name="CollisionShape84" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 167 )
+
+[node name="CollisionShape83" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 168 )
+
+[node name="CollisionShape82" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 169 )
+
+[node name="CollisionShape81" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 170 )
+
+[node name="CollisionShape80" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 171 )
+
+[node name="CollisionShape79" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 172 )
+
+[node name="CollisionShape78" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 173 )
+
+[node name="CollisionShape77" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 174 )
+
+[node name="CollisionShape76" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 175 )
+
+[node name="CollisionShape75" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 176 )
+
+[node name="CollisionShape74" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 177 )
+
+[node name="CollisionShape73" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 178 )
+
+[node name="CollisionShape72" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 179 )
+
+[node name="CollisionShape71" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 180 )
+
+[node name="CollisionShape70" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 181 )
+
+[node name="CollisionShape69" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 182 )
+
+[node name="CollisionShape68" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 183 )
+
+[node name="CollisionShape67" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 184 )
+
+[node name="CollisionShape66" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 185 )
+
+[node name="CollisionShape65" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 186 )
+
+[node name="CollisionShape64" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 187 )
+
+[node name="CollisionShape63" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 188 )
+
+[node name="CollisionShape62" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 189 )
+
+[node name="CollisionShape61" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 190 )
+
+[node name="CollisionShape60" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 191 )
+
+[node name="CollisionShape59" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 192 )
+
+[node name="CollisionShape58" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 193 )
+
+[node name="CollisionShape57" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 194 )
+
+[node name="CollisionShape56" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 195 )
+
+[node name="CollisionShape55" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 196 )
+
+[node name="CollisionShape54" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 197 )
+
+[node name="CollisionShape53" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 198 )
+
+[node name="CollisionShape52" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 199 )
+
+[node name="CollisionShape51" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 200 )
+
+[node name="CollisionShape50" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 201 )
+
+[node name="CollisionShape49" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 202 )
+
+[node name="CollisionShape48" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 203 )
+
+[node name="CollisionShape47" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 204 )
+
+[node name="CollisionShape46" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 205 )
+
+[node name="CollisionShape45" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 206 )
+
+[node name="CollisionShape44" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 207 )
+
+[node name="CollisionShape43" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 208 )
+
+[node name="CollisionShape42" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 209 )
+
+[node name="CollisionShape41" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 210 )
+
+[node name="CollisionShape40" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 211 )
+
+[node name="CollisionShape39" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 212 )
+
+[node name="CollisionShape38" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 213 )
+
+[node name="CollisionShape37" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 214 )
+
+[node name="CollisionShape36" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 215 )
+
+[node name="CollisionShape35" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 216 )
+
+[node name="CollisionShape34" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 217 )
+
+[node name="CollisionShape33" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 218 )
+
+[node name="CollisionShape32" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 219 )
+
+[node name="CollisionShape31" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 220 )
+
+[node name="CollisionShape30" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 221 )
+
+[node name="CollisionShape29" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 222 )
+
+[node name="CollisionShape28" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 223 )
+
+[node name="CollisionShape27" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 224 )
+
+[node name="CollisionShape26" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 225 )
+
+[node name="CollisionShape25" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 226 )
+
+[node name="CollisionShape24" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 227 )
+
+[node name="CollisionShape23" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 228 )
+
+[node name="CollisionShape22" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 229 )
+
+[node name="CollisionShape21" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 230 )
+
+[node name="CollisionShape20" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 231 )
+
+[node name="CollisionShape19" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 232 )
+
+[node name="CollisionShape18" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 233 )
+
+[node name="CollisionShape17" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 234 )
+
+[node name="CollisionShape16" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 235 )
+
+[node name="CollisionShape15" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 236 )
+
+[node name="CollisionShape14" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 237 )
+
+[node name="CollisionShape13" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 238 )
+
+[node name="CollisionShape12" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 239 )
+
+[node name="CollisionShape11" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 240 )
+
+[node name="CollisionShape10" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 241 )
+
+[node name="CollisionShape9" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 242 )
+
+[node name="CollisionShape8" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 243 )
+
+[node name="CollisionShape7" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 244 )
+
+[node name="CollisionShape6" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 245 )
+
+[node name="CollisionShape5" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 246 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 247 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 248 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 249 )
+
+[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.63307, 8.01446e-05 )
+shape = SubResource( 250 )

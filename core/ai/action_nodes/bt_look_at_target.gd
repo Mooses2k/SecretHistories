@@ -1,6 +1,9 @@
 class_name BTLookAtTarget
 extends BTNode
 
+# Turn towards target position
+# TODO: eventually, turn the head towards it, a bit faster than body
+
 
 func tick(state : CharacterState) -> int:
 	# This sets the target facing direction, and immediately exits.

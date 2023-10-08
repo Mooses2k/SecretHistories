@@ -1,7 +1,7 @@
 tool
 extends PlayerSensor
 
-# Whatever you do, for the love of Cthulhu please don't set Mask 1 for the DirectSightArea
+# Whatever you do, for the love of Cthulhu, please don't set Mask 1 for the DirectSightArea
 # You will lag so hard
 # Don't remove this comment :)
 

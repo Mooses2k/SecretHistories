@@ -1,6 +1,8 @@
 tool
 extends PlayerSensor
 
+# Kinesthetic sense. Bumping up against something.
+
 
 export var character : NodePath
 

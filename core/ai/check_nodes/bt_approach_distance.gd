@@ -1,6 +1,10 @@
 class_name BTApproachRandomDistance
 extends BTNode
 
+# Choose and check if have reached an approach distance.
+# For instance, choose a target and succeed when within a randomly chosen
+# 4-8m of the target.
+
 
 export var min_distance : float = 4.0
 export var max_distance : float = 8.0

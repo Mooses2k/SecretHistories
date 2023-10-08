@@ -64,6 +64,9 @@ func _on_EscMenu_button_pressed(button) -> void:
 		
 		esc_menu.EscMenuButtons.QUIT:
 			get_tree().quit()
+			
+			# TODO: quit to main menu is preferred, but this doesn't work:
+#			var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")
 
 
 func _on_SettingsMenu_settings_menu_exited() -> void:

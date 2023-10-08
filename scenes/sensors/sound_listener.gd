@@ -1,8 +1,9 @@
 class_name SoundListener
 extends Node
 
-
 # Purpose of this was to detect if can see player then don't worry about hearing, I think
+
+
 #export var sensor : NodePath
 #onready var player_sight_sensor : PlayerSensor = get_node(sensor) as PlayerSensor   # Relevant how?
 

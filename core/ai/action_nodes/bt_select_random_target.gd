@@ -1,6 +1,8 @@
 class_name BTSelectRandomTarget
 extends BTNode
 
+# Select a random nearby tile and set it as the target position
+
 
 export var minimum_radius : float = 1.0
 export var maximum_radius : float = 6.0

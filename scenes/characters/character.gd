@@ -493,14 +493,14 @@ func check_state_animation(delta):
 	sideways_velocity = global_transform.basis.x.dot(velocity)
 	
 	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
-	if "Cultist" in self.name:
+	if "Cultist" in self.name:   # Obviously this is a hack, just for the demo and needs to be generalized.
 		if current_mainhand_item_animation == HoldStates.MELEE_ITEM:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",0)
 				
@@ -508,7 +508,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",1)
 				animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
@@ -530,7 +530,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -542,7 +542,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -573,7 +573,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -585,7 +585,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -615,7 +615,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",0)
@@ -625,7 +625,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",1)
@@ -652,7 +652,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",0)
@@ -662,7 +662,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",1)

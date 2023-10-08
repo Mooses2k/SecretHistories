@@ -1,6 +1,8 @@
 class_name BTCollisionSensor
 extends BTPlayerSensor
 
+# Kinesthetic sense. Bumping up against something.
+
 
 #export var sensor : NodePath
 #onready var _sensor : PlayerSensor = get_node(sensor) as PlayerSensor

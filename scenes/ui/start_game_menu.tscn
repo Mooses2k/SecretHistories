@@ -43,6 +43,22 @@ margin_bottom = 952.0
 size_flags_horizontal = 3
 alignment = 2
 
+[node name="Pre-AlphaNotice" type="Label" parent="HBoxContainer/Column4"]
+margin_top = 726.0
+margin_right = 1664.0
+margin_bottom = 791.0
+text = "This is a very early pre-alpha of the first part of the underground. 
+Most systems are not in place and art assets do not represent final quality. 
+
+Don't let them find you."
+align = 1
+
+[node name="Spacer" type="Label" parent="HBoxContainer/Column4"]
+margin_top = 795.0
+margin_right = 1664.0
+margin_bottom = 809.0
+align = 1
+
 [node name="StartGame" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
 margin_top = 813.0
@@ -51,7 +67,7 @@ margin_bottom = 868.0
 rect_min_size = Vector2( 0, 55 )
 text = "Start Game"
 
-[node name="Spacer" type="Label" parent="HBoxContainer/Column4"]
+[node name="Spacer2" type="Label" parent="HBoxContainer/Column4"]
 margin_top = 872.0
 margin_right = 1664.0
 margin_bottom = 886.0
@@ -64,7 +80,7 @@ margin_right = 1664.0
 margin_bottom = 910.0
 text = "Debug/Cheat Options"
 
-[node name="Spacer2" type="Label" parent="HBoxContainer/Column4"]
+[node name="Spacer3" type="Label" parent="HBoxContainer/Column4"]
 margin_top = 914.0
 margin_right = 1664.0
 margin_bottom = 928.0

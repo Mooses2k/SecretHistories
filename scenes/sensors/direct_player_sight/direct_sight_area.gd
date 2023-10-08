@@ -1,6 +1,8 @@
 tool
 extends Area
 
+# Programmatically sets the vision frustrum
+
 
 var _mesh : CylinderMesh = CylinderMesh.new()
 onready var _mesh_instance : MeshInstance = $MeshInstance as MeshInstance

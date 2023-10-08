@@ -50,10 +50,9 @@
 [ext_resource path="res://resources/art/game_intro/10-altar_descent/03-00445-4258926586.png" type="Texture" id=62]
 [ext_resource path="res://resources/art/game_intro/10-altar_descent/01-00270-3182233773.png" type="Texture" id=63]
 
-
 [sub_resource type="Animation" id=1]
 resource_name = "Intro"
-length = 156.0
+length = 152.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("CenterContainer/1:texture")
 tracks/0/interp = 1

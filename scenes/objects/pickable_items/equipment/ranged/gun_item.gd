@@ -23,6 +23,9 @@ export var cooldown = 1.0
 export var handling = 5.0
 export var ads_hold_rotation : Vector3
 export var ads_reset_rotation : Vector3
+export var ads_hold_postion : Vector3
+export var ads_reset_position : Vector3
+
 export var animation_reload_sequence : int 
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path

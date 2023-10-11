@@ -147,7 +147,7 @@ func ads():
 		)
 		operation_tween(animation_tree, "parameters/SmallAds/blend_amount", animation_tree.get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
 		_camera.fov = lerp(_camera.fov, 65, 0.1)
-		adjust_arm(Vector3(0, -1.576, 0.33))
+		adjust_arm(Vector3(-0.086, -1.558, 0.294))
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",

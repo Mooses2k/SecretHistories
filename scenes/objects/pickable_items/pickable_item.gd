@@ -27,12 +27,14 @@ var noise_level : float = 0   # Noise detectable by characters; is a float for s
 var item_max_noise_level = 5
 var item_sound_level = 10
 var item_drop_sound_level = 10
+var item_drop_pitch_level = 10
 
 var can_throw_damage : bool
 var has_thrown = false
 var is_higher_damage = false
 #var deceleration_factor = 0.9
 var initial_linear_velocity
+var is_soundplayer_ready = false
 
 
 func _enter_tree():
@@ -51,6 +53,8 @@ func _enter_tree():
 			set_physics_equipped()
 		GlobalConsts.ItemState.DAMAGING:
 			set_weapon_damaging()
+	
+	is_soundplayer_ready = true
 
 
 func _process(delta):
@@ -122,14 +126,23 @@ func play_throw_sound():
 
 
 func play_drop_sound(body):
-	if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.5:
+	if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
 		self.audio_player.stream = self.item_drop_sound
 		print(str(self.name) + " velo = " + str(self.linear_velocity.length()))
-		item_drop_sound_level = self.linear_velocity.length() * 5.0
-		self.audio_player.unit_db = clamp(item_drop_sound_level, 5.0, 20.0)   # This should eventually be based on speed
+		self.item_drop_sound_level = self.linear_velocity.length() * 5.0
+		self.item_drop_pitch_level = self.linear_velocity.length() * 0.2
+		self.audio_player.unit_db = clamp(self.item_drop_sound_level, 5.0, 20.0)   # This should eventually be based on speed
+		self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
 		self.audio_player.bus = "Effects"
 		self.audio_player.play()
-		self.noise_level = item_max_noise_level   # This should eventually be based on speed
+		self.noise_level = item_max_noise_level   # This should eventually be based on speed\
+		self.is_soundplayer_ready = false
+		start_delay()
+
+
+func start_delay():
+	yield(get_tree().create_timer(0.2), "timeout")
+	self.is_soundplayer_ready = true
 
 
 func set_physics_dropped():

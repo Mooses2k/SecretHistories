@@ -168,7 +168,7 @@ func end_ads():
 	operation_tween(
 	inventory.current_mainhand_equipment.hold_position, "rotation", 
 	inventory.current_mainhand_equipment.hold_position.rotation, 
-	inventory.current_mainhand_equipment.ads_reset_position, 0.1
+	inventory.current_mainhand_equipment.ads_hold_rotation, 0.1
 )
 
 	if inventory.current_mainhand_equipment.item_size == 0:

@@ -188,18 +188,18 @@ func end_ads():
 #		)
 #		adjust_arm(Vector3(-0.086, -1.558, 0.294))
 	else:
-#		operation_tween(animation_tree,
-#		"parameters/MediumAds/blend_amount",
-#		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
-#		adjust_arm(Vector3(-0.03, -1.635, 0.218))
-		operation_tween(
-		animation_tree, 
+		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"),
-		0.0,
-		0.15
-		)
-		adjust_arm(Vector3(0, -1.474, 0.063))
+		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
+		adjust_arm(Vector3(-0.03, -1.635, 0.218))
+#		operation_tween(
+#		animation_tree, 
+#		"parameters/MediumAds/blend_amount",
+#		animation_tree.get("parameters/MediumAds/blend_amount"),
+#		0.0,
+#		0.15
+#		)
+#		adjust_arm(Vector3(0, -1.474, 0.063))
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

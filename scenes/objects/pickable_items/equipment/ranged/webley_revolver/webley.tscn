@@ -166,7 +166,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0460132, -0.0354128 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0481794, -0.0297382 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0205003, 0.0596439 )
+transform = Transform( 0.995129, 0.0977213, 0.0130149, -0.0947417, 0.98447, -0.147792, -0.0272552, 0.145839, 0.988933, 0.016, -0.019, 0.063 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

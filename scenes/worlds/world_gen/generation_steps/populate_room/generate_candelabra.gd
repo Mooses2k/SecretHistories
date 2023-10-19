@@ -124,7 +124,7 @@ func _is_corner_next_to_door(
 	world_data
 	
 	for direction in corner_directions:
-		if world_data.has_door(corner_index, direction):
+		if world_data.has_doorway(corner_index, direction):
 			value = true
 			break
 	

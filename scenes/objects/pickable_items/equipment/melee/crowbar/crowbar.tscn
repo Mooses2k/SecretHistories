@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/585575__bennettfilmteacher__metal-ringing-hit.ogg" type="AudioStream" id=2]
+[ext_resource path="res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=4]
 [ext_resource path="res://resources/models/items/melee/crowbar/M_Crowbar.material" type="Material" id=5]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=6]
@@ -36,15 +37,16 @@ mass = 2.0
 dropped_layers = 64
 dropped_mask = 1
 item_drop_sound = ExtResource( 2 )
+item_drop_sound_flesh = ExtResource( 3 )
 item_throw_sound = ExtResource( 1 )
 item_name = "Crowbar"
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
+throw_logic = true
+can_spin = true
 weapon_type = 2
 primary_damage1 = 30
 secondary_damage1 = 51
-throw_logic = true
-can_spin = true
-normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, -0.0664079, 0.00332663 )

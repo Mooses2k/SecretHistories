@@ -31,5 +31,6 @@ func change_gun(value):
 		spawned_weapon = preload("res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn").instance()
 		
 	
-	$"../Inventory".add_item(spawned_weapon)
+	for available_weapons in $"%MainHandEquipmentRoot".get_children():
+		available_weapons.queue_free()
 	$"%MainHandEquipmentRoot".add_child(spawned_weapon)

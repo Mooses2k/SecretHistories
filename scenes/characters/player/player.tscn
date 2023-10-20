@@ -1555,7 +1555,7 @@ input_4/auto_advance = false
 animation = "WebleyReload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -571.764, -1.00899 )
+graph_offset = Vector2( -87.4775, -95.3409 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -780, 40 )
 "nodes/Animation 2/node" = SubResource( 419 )
@@ -1623,8 +1623,6 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 [node name="PlayerAnimationsTest" type="Node" parent="." index="0"]
 unique_name_in_owner = true
 script = ExtResource( 31 )
-current_weapon = "Double-barrel_shotgun"
-weapon_status = "ADS"
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -1921,7 +1919,7 @@ parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
 parameters/Reload_Animations/current = 3
 parameters/SmallAds/blend_amount = 0.0
-parameters/Weapon_states/current = 4
+parameters/Weapon_states/current = 2
 
 [node name="FPSCamera" type="Camera" parent="." index="28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
@@ -1950,7 +1948,7 @@ material_override = ExtResource( 27 )
 cast_shadow = 0
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.983699, -0.158779, -0.0844174, 0.15451, -0.986462, 0.0549384, -0.0919977, 0.040999, 0.994914, -0.23926, 0.857916, 0.00442209 )
+transform = Transform( -0.979542, -0.1081, 0.169738, 0.182829, -0.125609, 0.975088, -0.0840863, 0.986173, 0.142803, -0.162466, 1.17247, 0.397109 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
@@ -1961,7 +1959,7 @@ __meta__ = {
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( -0.986487, 0.144503, 0.0772123, -0.148684, -0.987546, -0.0514347, 0.0688182, -0.06222, 0.995687, 0.235832, 0.866583, 0.00981323 )
+transform = Transform( -0.98854, 0.145981, 0.0384446, -0.148619, -0.98579, -0.0782896, 0.0264695, -0.0831061, 0.996189, 0.233848, 0.857687, 0.0369561 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]
@@ -2066,8 +2064,8 @@ playback/repeat = true
 [connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
-[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun/Effects" method="_on_GunItem_on_shoot"]
-[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun/Effects" method="_on_GunItem_target_hit"]
+[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_on_shoot"]
+[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_target_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]

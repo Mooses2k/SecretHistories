@@ -47,13 +47,24 @@ func set_weapon_state(value):
 	weapon_status = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		if available_weapons is EquipmentItem:
-			print("It is currently gun")
-			if available_weapons.item_size == 0:
-				print("Current gun is small")
-#				animation_tree.set("parameters/Hand_Transition/current", 0)
-#				animation_tree.set("parameters/Weapon_states/current", 2)
+			
+			if value == "Idle":
+				if available_weapons.item_size == 0:
+					print("Current gun is small")
+					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+					$"%AnimationTree".set("parameters/Weapon_states/current", 2)
+				else:
+					print("Current gun is big")
+					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+					$"%AnimationTree".set("parameters/Weapon_states/current", 1)
 			else:
-				print("Current gun is big")
-				animation_tree.set("parameters/Hand_Transition/current", 0)
-				animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-				animation_tree.set("parameters/Weapon_states/current", 1)
+				pass
+
+#
+#			animation_tree.set("parameters/Hand_Transition/current", 0)
+#			animation_tree.set("parameters/Weapon_states/current", 2)
+#		else:
+#			animation_tree.set("parameters/Hand_Transition/current", 0)
+#			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+#			animation_tree.set("parameters/Weapon_states/current", 1)

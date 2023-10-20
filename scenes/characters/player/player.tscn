@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://resources/animations/ads_idle.tres" type="Animation" id=28]
 [ext_resource path="res://scenes/characters/stamina.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/characters/player/player_anims.gd" type="Script" id=30]
+[ext_resource path="res://scenes/characters/player/player_animations_test.gd" type="Script" id=31]
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
@@ -1604,7 +1605,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -720, 980 )
 nodes/output/position = Vector2( 1840, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Hand_Transition", 0, "OffHand_MainHand_Blend" ]
+node_connections = [ "output", 0, "Hand_Transition", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -1619,17 +1620,21 @@ collision_layer = 18
 script = ExtResource( 2 )
 animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 
-[node name="CollisionShape" parent="." index="0"]
+[node name="PlayerAnimationsTest" type="Node" parent="." index="0"]
+unique_name_in_owner = true
+script = ExtResource( 31 )
+
+[node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
 
-[node name="CollisionShape2" parent="." index="1"]
+[node name="CollisionShape2" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.316957, 0 )
 disabled = true
 
-[node name="OffHandEquipmentRoot" parent="." index="2"]
+[node name="OffHandEquipmentRoot" parent="." index="3"]
 unique_name_in_owner = false
 
-[node name="MainHandEquipmentRoot" parent="." index="3"]
+[node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
@@ -1653,7 +1658,7 @@ material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
 mesh = SubResource( 38 )
 
-[node name="Hitbox" parent="." index="6" groups=["PLAYER"]]
+[node name="Hitbox" parent="." index="7" groups=["PLAYER"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 collision_layer = 4
 collision_mask = 64
@@ -1662,7 +1667,7 @@ monitoring = true
 [node name="CollisionShape" parent="ClamberableChecker" index="0"]
 shape = SubResource( 40 )
 
-[node name="PlayerController" type="Node" parent="." index="11"]
+[node name="PlayerController" type="Node" parent="." index="12"]
 script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
@@ -1689,7 +1694,7 @@ cast_shadow = 0
 mesh = SubResource( 19 )
 material/0 = SubResource( 21 )
 
-[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="12"]
+[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="13"]
 process_priority = 100
 stream = ExtResource( 8 )
 volume_db = -13.0
@@ -1706,7 +1711,7 @@ mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 
-[node name="HitEffect" type="CanvasLayer" parent="." index="13"]
+[node name="HitEffect" type="CanvasLayer" parent="." index="14"]
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]
@@ -1772,7 +1777,7 @@ L - cycle look (shaders and debug light)
 
 F1 - show/hide this menu"
 
-[node name="Indication_canvas" type="CanvasLayer" parent="." index="14"]
+[node name="Indication_canvas" type="CanvasLayer" parent="." index="15"]
 pause_mode = 2
 script = ExtResource( 12 )
 
@@ -1828,7 +1833,7 @@ text = "Clamber (SPACE)"
 align = 1
 valign = 1
 
-[node name="HP" type="Spatial" parent="." index="15"]
+[node name="HP" type="Spatial" parent="." index="16"]
 script = ExtResource( 13 )
 raycast = NodePath("../FPSCamera/GroundCast")
 
@@ -1854,7 +1859,7 @@ mesh = SubResource( 29 )
 [node name="Timer" type="Timer" parent="HP" index="4"]
 one_shot = true
 
-[node name="PlayerDeath" type="CanvasLayer" parent="." index="16"]
+[node name="PlayerDeath" type="CanvasLayer" parent="." index="17"]
 pause_mode = 2
 script = ExtResource( 16 )
 
@@ -1883,10 +1888,10 @@ mouse_filter = 2
 wait_time = 0.2
 one_shot = true
 
-[node name="Stamina" parent="." index="19" instance=ExtResource( 29 )]
+[node name="Stamina" parent="." index="20" instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5104, 0 )
 
-[node name="Legs" parent="." index="21"]
+[node name="Legs" parent="." index="22"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0379716, 0 )
 
 [node name="Feet" parent="Legs" index="0"]
@@ -1894,15 +1899,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 cast_to = Vector3( 0, -1, 0 )
 collide_with_areas = true
 
-[node name="PlayerAnimationPlayer" parent="." index="23" instance=ExtResource( 24 )]
+[node name="PlayerAnimationPlayer" parent="." index="24" instance=ExtResource( 24 )]
 anims/ads_idle = ExtResource( 28 )
 anims/one-handed_ads_idle = SubResource( 420 )
 
-[node name="PlayerAnimations" type="Node" parent="." index="24"]
+[node name="PlayerAnimations" type="Node" parent="." index="25"]
 script = ExtResource( 30 )
 _cam_path = NodePath("../FPSCamera")
 
-[node name="AnimationTree" parent="." index="26"]
+[node name="AnimationTree" parent="." index="27"]
 tree_root = SubResource( 365 )
 anim_player = NodePath("../PlayerAnimationPlayer")
 active = true
@@ -1916,7 +1921,7 @@ parameters/Reload_Animations/current = 3
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
 
-[node name="FPSCamera" type="Camera" parent="." index="27"]
+[node name="FPSCamera" type="Camera" parent="." index="28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 cull_mask = 1048573
 script = ExtResource( 15 )
@@ -1927,6 +1932,10 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.2
 
 [node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
+
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/113/bound_children = [ NodePath("OffHandAttachement") ]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
 
 [node name="Body005" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2
@@ -1939,7 +1948,7 @@ material_override = ExtResource( 27 )
 cast_shadow = 0
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.984375, -0.154064, -0.0852673, 0.149758, -0.987202, 0.0548131, -0.0926208, 0.0411872, 0.994849, -0.237945, 0.858727, 0.00433738 )
+transform = Transform( -0.983699, -0.158779, -0.0844174, 0.15451, -0.986462, 0.0549384, -0.0919977, 0.040999, 0.994914, -0.23926, 0.857916, 0.00442209 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
@@ -1950,7 +1959,7 @@ __meta__ = {
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( -0.987195, 0.139848, 0.0767387, -0.144021, -0.988216, -0.0518264, 0.0685867, -0.0622149, 0.995703, 0.234531, 0.865569, 0.00977321 )
+transform = Transform( -0.986487, 0.144503, 0.0772123, -0.148684, -0.987546, -0.0514347, 0.0688182, -0.06222, 0.995687, 0.235832, 0.866583, 0.00981323 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]
@@ -2032,7 +2041,7 @@ current = true
 [node name="DropPosition" type="Position3D" parent="FPSCamera" index="10"]
 unique_name_in_owner = true
 
-[node name="KinestheticSense" type="OmniLight" parent="." index="29"]
+[node name="KinestheticSense" type="OmniLight" parent="." index="30"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953 )
 layers = 512
 light_color = Color( 0, 0.647059, 1, 1 )

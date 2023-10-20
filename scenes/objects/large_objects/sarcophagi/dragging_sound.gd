@@ -22,23 +22,12 @@ func _enter_tree():
 		drag_sound.bus = "Effects"
 		self.add_child(drag_sound)
 	
-#	if self.drop_audio_player == null:
-#		var drop_sound = AudioStreamPlayer3D.new()
-#		drop_sound.name = "DropSound"
-#		drop_sound.stream = item_drop_sound
-#		drop_sound.unit_db = sound_vol
-#		drop_sound.bus = "Effects"
-#		self.add_child(drop_sound)
-	
-#	self.drop_audio_player = self.get_node("DropSound")
 	self.drag_audio_player = self.get_node("DragSound")
-	
 	self.drag_audio_player.stream = self.item_drag_sound
-#	self.drop_audio_player.stream = self.item_drop_sound
 
 
 func _ready():
-	connect("body_entered", self, "play_drop_sound")
+	self.connect("body_entered", self, "play_drop_sound")
 	self.is_soundplayer_ready = true
 
 
@@ -61,17 +50,18 @@ func _integrate_forces(state):
 
 
 func play_drop_sound(body):
-	print("hulog")
+	print("dropped")
 	if self.item_drop_sound and self.is_soundplayer_ready:
 		var drop_audio_player = drop_sound_scene.instance()
 		drop_audio_player.stream = item_drop_sound
 		drop_audio_player.bus = "Effects"
-		self.drop_sound_level = self.linear_velocity.length() * 150
-		drop_audio_player.unit_db = clamp(self.drop_sound_level, 30.0, 100.0)
+		print("velo == " + str(self.linear_velocity.length()))
+		self.drop_sound_level = self.linear_velocity.length() * 100
+		drop_audio_player.unit_db = clamp(self.drop_sound_level, 15.0, 100.0)
 		self.noise_level = item_max_noise_level
 		self.add_child(drop_audio_player)
 		self.is_soundplayer_ready = false
-		start_delay()
+		self.start_delay()
 
 
 func start_delay():

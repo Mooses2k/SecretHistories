@@ -34,3 +34,4 @@ func change_gun(value):
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		available_weapons.queue_free()
 	$"%MainHandEquipmentRoot".add_child(spawned_weapon)
+	spawned_weapon.transform = spawned_weapon.get_hold_transform()

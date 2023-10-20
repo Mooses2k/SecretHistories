@@ -1623,7 +1623,6 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 [node name="PlayerAnimationsTest" type="Node" parent="." index="0"]
 unique_name_in_owner = true
 script = ExtResource( 31 )
-current_weapon = "Martini_henry_rifle"
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -2060,16 +2059,13 @@ playback/repeat = true
 [connection signal="is_hit" from="." to="HP" method="_on_Player_is_hit"]
 [connection signal="is_moving" from="." to="HP" method="_on_Player_is_moving"]
 [connection signal="player_landed" from="." to="PlayerController" method="_on_Player_player_landed"]
-[connection signal="inventory_changed" from="Inventory" to="PlayerAnimations" method="_on_Inventory_inventory_changed"]
-[connection signal="unequip_mainhand" from="Inventory" to="PlayerAnimations" method="_on_Inventory_unequip_mainhand"]
-[connection signal="unequip_offhand" from="Inventory" to="PlayerAnimations" method="_on_Inventory_unequip_offhand"]
 [connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]
 [connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
-[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Martini-HenryRifle" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Martini-HenryRifle/Effects" method="_on_GunItem_on_shoot"]
-[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Martini-HenryRifle" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Martini-HenryRifle/Effects" method="_on_GunItem_target_hit"]
+[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_on_shoot"]
+[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_target_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]

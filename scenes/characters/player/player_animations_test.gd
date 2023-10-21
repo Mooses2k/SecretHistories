@@ -10,6 +10,7 @@ export (String, "Idle", "ADS", "Reload") var weapon_status = "Idle" setget set_w
 export (bool) var reset_animation_tree setget reset_animation_tree
 export (Vector3) var adjust_arm_position = Vector3(0, -1.287, 0.063) setget adjust_weapons_arm_holding
 export (Vector3) var adjust_weapon_dial setget adjust_weapon_position
+export (Vector3) var adjust_weapon_rotation_dial setget adjust_weapon_rotation
 
 var spawned_weapon
 var is_doing_ads : bool = false
@@ -18,6 +19,7 @@ onready var inventory = $"../Inventory"
 onready var main_hand_equipment_root = $"../MainHandEquipmentRoot"
 onready var animation_tree = $"%AnimationTree"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
+
 
 func _ready():
 	 adjust_arm_position = $"%MainCharOnlyArmsGameRig".translation 
@@ -64,6 +66,12 @@ func adjust_weapon_position(value):
 		available_weapons.hold_position.translation = adjust_weapon_dial
 		available_weapons.transform = available_weapons.get_hold_transform()
 
+func adjust_weapon_rotation(value):
+	adjust_weapon_rotation_dial = value
+	for available_weapons in $"%MainHandEquipmentRoot".get_children():
+		available_weapons.hold_position.rotation = adjust_weapon_rotation_dial
+		available_weapons.transform = available_weapons.get_hold_transform()
+
 func reset_animation_tree(value):
 	if not Engine.editor_hint:
 		return
@@ -104,6 +112,11 @@ func do_ads(status, available_weapons):
 		available_weapons.hold_position.rotation, 
 		available_weapons.ads_hold_rotation, 0.1
 	)
+		operation_tween(
+		available_weapons.hold_position, "rotation", 
+		available_weapons.hold_position.rotation, 
+		available_weapons.ads_hold_rotation, 0.1
+	)
 		if available_weapons.item_size == 0:
 			operation_tween($"%AnimationTree",
 			"parameters/SmallAds/blend_amount",
@@ -122,6 +135,11 @@ func do_ads(status, available_weapons):
 		available_weapons.hold_position, "rotation", 
 		available_weapons.hold_position.rotation, 
 		available_weapons.ads_reset_position, 0.1
+	)
+		operation_tween(
+		available_weapons.hold_position, "rotation", 
+		available_weapons.hold_position.rotation, 
+		available_weapons.ads_hold_rotation, 0.1
 	)
 		if available_weapons.item_size == 0:
 			

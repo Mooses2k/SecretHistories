@@ -49,7 +49,7 @@ func change_gun(value):
 func set_weapon_state(value):
 	weapon_status = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
-		if available_weapons is EquipmentItem:
+		if available_weapons is GunItem:
 			if value == "Idle":
 				
 				do_ads(false, available_weapons)
@@ -64,7 +64,6 @@ func set_weapon_state(value):
 				
 			elif value == "ADS":
 				do_ads(true, available_weapons)
-
 
 
 func do_ads(status, available_weapons):

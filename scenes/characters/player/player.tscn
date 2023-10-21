@@ -1624,6 +1624,7 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 unique_name_in_owner = true
 script = ExtResource( 31 )
 current_weapon = "Khyber_pass_martini"
+weapon_status = "ADS"
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -1919,17 +1920,18 @@ parameters/OffHand_MainHand_Blend/blend_amount = 0
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
 parameters/Reload_Animations/current = 3
-parameters/SmallAds/blend_amount = 0.0
+parameters/SmallAds/blend_amount = 1.0
 parameters/Weapon_states/current = 2
 
 [node name="FPSCamera" type="Camera" parent="." index="28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 cull_mask = 1048573
+fov = 69.05
 script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 25 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.086, -1.558, 0.294 )
 
 [node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
@@ -1949,7 +1951,7 @@ material_override = ExtResource( 27 )
 cast_shadow = 0
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.978803, -0.11499, 0.169474, 0.183267, -0.122407, 0.975413, -0.0914175, 0.985796, 0.140886, -0.165217, 1.17385, 0.396459 )
+transform = Transform( -0.981786, -0.135398, 0.133282, 0.149816, -0.120298, 0.981368, -0.116842, 0.983461, 0.138391, -0.0942623, 1.46174, 0.450164 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
@@ -1960,7 +1962,7 @@ __meta__ = {
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( -0.990736, 0.0806855, -0.109232, -0.111338, -0.943149, 0.313166, -0.0777547, 0.322427, 0.943396, 0.308754, 0.897684, -0.0484067 )
+transform = Transform( -0.990621, 0.0826154, -0.108836, -0.112915, -0.943493, 0.311561, -0.0769466, 0.320928, 0.943973, 0.309639, 0.898037, -0.0492221 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]

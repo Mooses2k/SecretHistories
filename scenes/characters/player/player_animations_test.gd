@@ -41,17 +41,17 @@ func change_gun(value):
 		available_weapons.queue_free()
 	$"%MainHandEquipmentRoot".add_child(spawned_weapon)
 	spawned_weapon.transform = spawned_weapon.get_hold_transform()
-
+	set_weapon_state(weapon_status)
 
 func set_weapon_state(value):
 	weapon_status = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		if available_weapons is EquipmentItem:
-			
 			if value == "Idle":
 				if available_weapons.item_size == 0:
 					print("Current gun is small")
 					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 					$"%AnimationTree".set("parameters/Weapon_states/current", 2)
 				else:
 					print("Current gun is big")

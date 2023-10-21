@@ -8,13 +8,13 @@ export(String,
 #export var river_settings: bool setget set_river_settings
 export (String, "Idle", "ADS", "Reload") var weapon_status = "Idle" setget set_weapon_state
 export var _cam_path : NodePath
+
 var spawned_weapon
+var is_doing_ads : bool = false
 
 onready var inventory = $"../Inventory"
 onready var main_hand_equipment_root = $"../MainHandEquipmentRoot"
 onready var animation_tree = $"%AnimationTree"
-
-
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 onready var _camera : ShakeCamera = get_node(_cam_path) as Camera
 
@@ -51,6 +51,8 @@ func set_weapon_state(value):
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		if available_weapons is EquipmentItem:
 			if value == "Idle":
+				
+				do_ads(false, available_weapons)
 				if available_weapons.item_size == 0:
 					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
@@ -59,30 +61,51 @@ func set_weapon_state(value):
 					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 					$"%AnimationTree".set("parameters/Weapon_states/current", 1)
+				
 			elif value == "ADS":
-				operation_tween(
-				available_weapons.hold_position, "rotation", 
-				available_weapons.hold_position.rotation, 
-				available_weapons.ads_hold_rotation, 0.1
+				do_ads(true, available_weapons)
+
+
+
+func do_ads(status, available_weapons):
+	if status == true:
+		operation_tween(
+		available_weapons.hold_position, "rotation", 
+		available_weapons.hold_position.rotation, 
+		available_weapons.ads_hold_rotation, 0.1
+	)
+		if available_weapons.item_size == 0:
+			$"%AnimationTree".set("parameters/SmallAds/blend_amount", 1)
+			$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 65, 0.1)
+			adjust_arm(Vector3(-0.086, -1.558, 0.294))
+		else:
+			$"%AnimationTree".set("parameters/MediumAds/blend_amount", 1)
+			$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 60, 0.1)
+			adjust_arm(Vector3(-0.03, -1.635, 0.218))
+			is_doing_ads = true
+	else:
+		operation_tween(
+		available_weapons.hold_position, "rotation", 
+		available_weapons.hold_position.rotation, 
+		available_weapons.ads_reset_position, 0.1
+	)
+		if available_weapons.item_size == 0:
+			
+			operation_tween(
+			$"%AnimationTree",
+			"parameters/SmallAds/blend_amount",
+			$"%AnimationTree".get("parameters/SmallAds/blend_amount"),
+			0.0, 
+			0.15
 			)
-				if available_weapons.item_size == 0:
-					operation_tween($"%AnimationTree", 
-					"parameters/SmallAds/blend_amount", 
-					$"%AnimationTree".get("parameters/SmallAds/blend_amount"), 
-					1.0, 
-					0.15
-					)
-					$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 65, 0.1)
-					adjust_arm(Vector3(-0.086, -1.558, 0.294))
-				else:
-					operation_tween($"%AnimationTree",
-					"parameters/MediumAds/blend_amount",
-					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 
-					1.0, 
-					0.15
-					)
-					$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 60, 0.1)
-					adjust_arm(Vector3(-0.03, -1.635, 0.218))
+			adjust_arm(Vector3(0, -1.287, 0.063))
+		else:
+			operation_tween($"%AnimationTree",
+			"parameters/MediumAds/blend_amount",
+			$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
+			adjust_arm(Vector3(-0.086, -1.558, 0.294))
+		$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 70, 0.1)
+		is_doing_ads = false
 
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
@@ -93,5 +116,6 @@ func operation_tween(object : Object, method, tweening_from, tweening_to, durati
 
 
 func adjust_arm(final_position):
+	print("Adjusting arm")
 	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.15)
 	$"%ADSTween".start()

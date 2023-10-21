@@ -75,11 +75,15 @@ func do_ads(status, available_weapons):
 		available_weapons.ads_hold_rotation, 0.1
 	)
 		if available_weapons.item_size == 0:
-			$"%AnimationTree".set("parameters/SmallAds/blend_amount", 1)
+			operation_tween($"%AnimationTree",
+			"parameters/SmallAds/blend_amount",
+			$"%AnimationTree".get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
 			$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 65, 0.1)
 			adjust_arm(Vector3(-0.086, -1.558, 0.294))
 		else:
-			$"%AnimationTree".set("parameters/MediumAds/blend_amount", 1)
+			operation_tween($"%AnimationTree",
+			"parameters/MediumAds/blend_amount",
+			$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
 			$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 60, 0.1)
 			adjust_arm(Vector3(-0.03, -1.635, 0.218))
 			is_doing_ads = true

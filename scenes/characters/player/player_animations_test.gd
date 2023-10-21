@@ -8,6 +8,7 @@ export(String,
 #export var river_settings: bool setget set_river_settings
 export (String, "Idle", "ADS", "Reload") var weapon_status = "Idle" setget set_weapon_state
 export (bool) var reset_animation_tree setget reset_animation_tree
+
 var spawned_weapon
 var is_doing_ads : bool = false
 
@@ -19,6 +20,8 @@ onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 func change_gun(value):
 	current_weapon = value
 	
+	if not Engine.editor_hint:
+		return
 	if value == "Webley":
 		spawned_weapon = preload("res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn").instance()
 		
@@ -46,12 +49,17 @@ func change_gun(value):
 
 
 func reset_animation_tree(value):
+	if not Engine.editor_hint:
+		return
 	reset_animation_tree = true
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 	$"%AnimationTree".set("parameters/Weapon_states/current", 4)
+	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 
 func set_weapon_state(value):
+	if not Engine.editor_hint:
+		return
 	weapon_status = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		if available_weapons is GunItem:
@@ -72,6 +80,8 @@ func set_weapon_state(value):
 
 
 func do_ads(status, available_weapons):
+	if not Engine.editor_hint:
+		return
 	if status == true:
 		operation_tween(
 		available_weapons.hold_position, "rotation", 

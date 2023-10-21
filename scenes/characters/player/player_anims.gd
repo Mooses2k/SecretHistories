@@ -29,11 +29,6 @@ onready var _camera : ShakeCamera = get_node(_cam_path) as Camera
 onready var animation_tree = $"%AnimationTree"
 
 
-func _ready():
-	print($"%MainCharOnlyArmsGameRig".translation)
-	pass
-
-
 func _process(delta):
 	if not $"..".is_reloading:   # TODO: messy
 		pass
@@ -44,7 +39,7 @@ func _physics_process(delta):
 
 
 func check_player_animation():
-	
+	print("Testing animation player")
 	### Off-hand item
 	if inventory.current_offhand_equipment is GunItem:
 		animation_tree.set("parameters/Hand_Transition/current", 0)

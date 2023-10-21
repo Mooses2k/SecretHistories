@@ -8,6 +8,8 @@ export(String,
 #export var river_settings: bool setget set_river_settings
 export (String, "Idle", "ADS", "Reload") var weapon_status = "Idle" setget set_weapon_state
 export (bool) var reset_animation_tree setget reset_animation_tree
+export (Vector3) var adjust_arm_position = Vector3(0, -1.287, 0.063) setget adjust_weapons_arm_holding
+export (Vector3) var adjust_weapon_dial setget adjust_weapon_position
 
 var spawned_weapon
 var is_doing_ads : bool = false
@@ -16,6 +18,10 @@ onready var inventory = $"../Inventory"
 onready var main_hand_equipment_root = $"../MainHandEquipmentRoot"
 onready var animation_tree = $"%AnimationTree"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
+
+func _ready():
+	 adjust_arm_position = $"%MainCharOnlyArmsGameRig".translation 
+
 
 func change_gun(value):
 	current_weapon = value
@@ -47,6 +53,16 @@ func change_gun(value):
 	spawned_weapon.transform = spawned_weapon.get_hold_transform()
 	set_weapon_state(weapon_status)
 
+
+func adjust_weapons_arm_holding(value):
+	adjust_arm_position = value
+	$"%MainCharOnlyArmsGameRig".translation = adjust_arm_position
+
+func adjust_weapon_position(value):
+	adjust_weapon_dial = value
+	for available_weapons in $"%MainHandEquipmentRoot".get_children():
+		available_weapons.hold_position.translation = adjust_weapon_dial
+		available_weapons.transform = available_weapons.get_hold_transform()
 
 func reset_animation_tree(value):
 	if not Engine.editor_hint:
@@ -134,6 +150,5 @@ func operation_tween(object : Object, method, tweening_from, tweening_to, durati
 
 
 func adjust_arm(final_position):
-	print("Adjusting arm")
 	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.15)
 	$"%ADSTween".start()

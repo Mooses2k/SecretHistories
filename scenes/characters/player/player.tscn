@@ -1623,6 +1623,7 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 [node name="PlayerAnimationsTest" type="Node" parent="." index="0"]
 unique_name_in_owner = true
 script = ExtResource( 31 )
+current_weapon = "Lee-metford_rifle"
 reset_animation_tree = true
 
 [node name="CollisionShape" parent="." index="1"]
@@ -1915,25 +1916,29 @@ active = true
 parameters/Hand_Transition/current = 0
 parameters/Hold_Animation/current = 0
 parameters/MediumAds/blend_amount = 0.0
-parameters/OffHand_MainHand_Blend/blend_amount = 1.0
+parameters/OffHand_MainHand_Blend/blend_amount = 0
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
 parameters/Reload_Animations/current = 3
 parameters/SmallAds/blend_amount = 0.0
-parameters/Weapon_states/current = 4
+parameters/Weapon_states/current = 1
 
 [node name="FPSCamera" type="Camera" parent="." index="28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 cull_mask = 1048573
-fov = 68.2225
+fov = 68.9982
 script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 25 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.086, -1.558, 0.294 )
 
 [node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
+
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/113/bound_children = [ NodePath("OffHandAttachement") ]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
 
 [node name="Body005" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2
@@ -1946,7 +1951,7 @@ material_override = ExtResource( 27 )
 cast_shadow = 0
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.983699, -0.158779, -0.0844174, 0.15451, -0.986462, 0.0549384, -0.0919977, 0.040999, 0.994914, -0.23926, 0.857916, 0.00442209 )
+transform = Transform( -0.815421, 0.142091, 0.561157, 0.508007, -0.289094, 0.81139, 0.277519, 0.946697, 0.16355, -0.17649, 1.18822, 0.11663 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
@@ -1957,7 +1962,7 @@ __meta__ = {
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( -0.98236, 0.150832, 0.110531, -0.154653, -0.987605, -0.0268019, 0.105119, -0.0434232, 0.993511, 0.239916, 0.868905, 0.0101301 )
+transform = Transform( -0.517522, -0.666282, 0.53688, 0.854686, -0.432598, 0.287003, 0.0410286, 0.607394, 0.79334, -0.041597, 1.20495, 0.456911 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]
@@ -2065,6 +2070,8 @@ playback/repeat = true
 [connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
+[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Lee-MetfordRifle" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Lee-MetfordRifle/Effects" method="_on_GunItem_on_shoot"]
+[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Lee-MetfordRifle" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Lee-MetfordRifle/Effects" method="_on_GunItem_target_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]

@@ -7,8 +7,7 @@ export(String,
 "Double-barrel_shotgun", "Martini_henry_rifle") var current_weapon = "Webley" setget change_gun
 #export var river_settings: bool setget set_river_settings
 export (String, "Idle", "ADS", "Reload") var weapon_status = "Idle" setget set_weapon_state
-export var _cam_path : NodePath
-
+export (bool) var reset_animation_tree setget reset_animation_tree
 var spawned_weapon
 var is_doing_ads : bool = false
 
@@ -16,7 +15,6 @@ onready var inventory = $"../Inventory"
 onready var main_hand_equipment_root = $"../MainHandEquipmentRoot"
 onready var animation_tree = $"%AnimationTree"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
-onready var _camera : ShakeCamera = get_node(_cam_path) as Camera
 
 func change_gun(value):
 	current_weapon = value
@@ -45,6 +43,13 @@ func change_gun(value):
 	$"%MainHandEquipmentRoot".add_child(spawned_weapon)
 	spawned_weapon.transform = spawned_weapon.get_hold_transform()
 	set_weapon_state(weapon_status)
+
+
+func reset_animation_tree(value):
+	reset_animation_tree = true
+	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+	$"%AnimationTree".set("parameters/Weapon_states/current", 4)
 
 func set_weapon_state(value):
 	weapon_status = value

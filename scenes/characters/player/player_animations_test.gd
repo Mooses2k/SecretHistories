@@ -8,7 +8,6 @@ export(String,
 #export var river_settings: bool setget set_river_settings
 export (String, "Idle", "ADS", "Reload") var weapon_status = "Idle" setget set_weapon_state
 export (bool) var reset_animation_tree setget reset_animation_tree
-export (Vector3) var adjust_arm_position = Vector3(0, -1.287, 0.063) setget adjust_weapons_arm_holding
 export (Vector3) var adjust_weapon_dial setget adjust_weapon_position
 export (Vector3) var adjust_weapon_rotation_dial setget adjust_weapon_rotation
 
@@ -22,8 +21,7 @@ onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 
 
 func _ready():
-	 adjust_arm_position = $"%MainCharOnlyArmsGameRig".translation 
-
+	pass
 
 func change_gun(value):
 	current_weapon = value
@@ -56,17 +54,17 @@ func change_gun(value):
 	set_weapon_state(weapon_status)
 
 
-func adjust_weapons_arm_holding(value):
-	adjust_arm_position = value
-	$"%MainCharOnlyArmsGameRig".translation = adjust_arm_position
-
 func adjust_weapon_position(value):
+	if not Engine.editor_hint:
+		return
 	adjust_weapon_dial = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		available_weapons.hold_position.translation = adjust_weapon_dial
 		available_weapons.transform = available_weapons.get_hold_transform()
 
 func adjust_weapon_rotation(value):
+	if not Engine.editor_hint:
+		return
 	adjust_weapon_rotation_dial = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		available_weapons.hold_position.rotation = adjust_weapon_rotation_dial

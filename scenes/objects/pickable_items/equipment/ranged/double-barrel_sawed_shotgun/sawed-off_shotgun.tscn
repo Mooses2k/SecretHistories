@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" type="AudioStream" id=2]
@@ -9,10 +9,6 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/_smoke.tscn" type="PackedScene" id=8]
 [ext_resource path="res://resources/sounds/reloading/shotgun/522289__filmmakersmanual__loading-shell-shotgun-4.wav" type="AudioStream" id=9]
-
-[sub_resource type="GDScript" id=9]
-script/source = "extends GunItem
-"
 
 [sub_resource type="ArrayMesh" id=6]
 resource_name = "DoubleBarrelSawed_Circle001"
@@ -53,14 +49,12 @@ points = PoolVector3Array( -0.0874182, 0.0817786, 0.00620462, -0.0874182, 0.0811
 
 [node name="SawedOffShotgun" instance=ExtResource( 7 )]
 mass = 3.0
-script = SubResource( 9 )
-item_drop_sound = ExtResource( 2 )
 item_size = 0
 item_name = "Sawed-off shotgun"
 normal_pos_path = NodePath("")
 throw_pos_path = NodePath("")
 throw_logic = false
-can_spin = true
+can_spin = false
 ammo_types = [ ExtResource( 4 ) ]
 ammunition_capacity = 2
 reload_amount = 2
@@ -68,6 +62,11 @@ reload_time = 2.0
 damage_offset = -3
 dispersion_offset_degrees = 5
 cooldown = 0.1
+handling = 1.0
+ads_hold_position = Vector3( 0.013, -0.049, 0.132 )
+ads_hold_rotation = Vector3( 0.177, -0.049, -0.185 )
+ads_reset_position = Vector3( 0.004, -0.032, 0.134 )
+ads_reset_rotation = Vector3( -0.008, -0.05, -0.057 )
 melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
@@ -109,7 +108,7 @@ shape = SubResource( 8 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0240571, -0.106174 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0290546, 0.101385 )
+transform = Transform( 0.999999, 0.000994959, -0.000872665, -0.000994838, 1, 0.000139626, 0.000872803, -0.000138758, 1, 0.004, -0.032, 0.134 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

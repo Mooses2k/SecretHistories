@@ -43,7 +43,9 @@ func _process(delta):
 	if (light_level_bottom > light_level_top):
 		light_level_top = light_level_bottom
 		
+	_modify_by_mainhand_equipment()   # Now we multiply your light level if your mainhand is a weapon
 	_modify_by_encumbrance()   # Now we multiply your light level by your encumbrance value (have medium and/or bulky items)
+	_modify_by_speed()   # Now we check how fast player is moving
 	_modify_by_state()   # Now we check crouching and if a light is in hand
 
 	# Finally we set the character's light_level
@@ -66,9 +68,22 @@ func _build_pixel_array(image):
 	return floats
 
 
+func _modify_by_mainhand_equipment():
+	if owner.inventory.current_mainhand_equipment is GunItem or owner.inventory.current_mainhand_equipment is MeleeItem:
+		light_level_top *= 1.1
+	if owner.inventory.current_mainhand_equipment:
+		if owner.inventory.current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM or owner.inventory.current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+			light_level_top *= 1.1
+
+
 func _modify_by_encumbrance():
 	if owner.inventory.encumbrance > 0:
 		light_level_top *= 1 + (owner.inventory.encumbrance * 0.1)   # Typical range would be from 1.0 to 1.5
+
+
+func _modify_by_speed():
+	if owner.velocity.length() > 1:
+		light_level_top *= owner.velocity.length()
 
 
 func _modify_by_state():

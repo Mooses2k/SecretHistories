@@ -1605,7 +1605,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -720, 980 )
 nodes/output/position = Vector2( 1840, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation" ]
+node_connections = [ "output", 0, "Hand_Transition", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -1623,9 +1623,11 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 [node name="PlayerAnimationsTest" type="Node" parent="." index="0"]
 unique_name_in_owner = true
 script = ExtResource( 31 )
-current_weapon = "Khyber_pass_martini"
+current_weapon = "Lee-metford_rifle"
 reset_animation_tree = true
 reset_character_arm_position = true
+adjust_weapon_rotation_dial = Vector3( 8, 0, 0 )
+weapon_default_position = Vector3( 0, 67, 0 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -1917,22 +1919,21 @@ active = true
 parameters/Hand_Transition/current = 0
 parameters/Hold_Animation/current = 0
 parameters/MediumAds/blend_amount = 0.0
-parameters/OffHand_MainHand_Blend/blend_amount = 0
+parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
 parameters/Reload_Animations/current = 3
 parameters/SmallAds/blend_amount = 0.0
-parameters/Weapon_states/current = 2
+parameters/Weapon_states/current = 4
 
 [node name="FPSCamera" type="Camera" parent="." index="28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 cull_mask = 1048573
-fov = 69.7254
 script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 25 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -1.287, 0.063 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.086, -1.558, 0.294 )
 
 [node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
@@ -1952,7 +1953,7 @@ material_override = ExtResource( 27 )
 cast_shadow = 0
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.979542, -0.1081, 0.169738, 0.182829, -0.125609, 0.975088, -0.0840863, 0.986173, 0.142803, -0.162466, 1.17247, 0.397109 )
+transform = Transform( -0.983699, -0.158779, -0.0844174, 0.15451, -0.986462, 0.0549384, -0.0919977, 0.040999, 0.994914, -0.23926, 0.857916, 0.00442209 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
@@ -1963,7 +1964,7 @@ __meta__ = {
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( -0.99092, 0.0804508, -0.10773, -0.110622, -0.943247, 0.313121, -0.0764256, 0.322195, 0.943583, 0.308196, 0.897458, -0.0486485 )
+transform = Transform( -0.986487, 0.144503, 0.0772123, -0.148684, -0.987546, -0.0514347, 0.0688182, -0.06222, 0.995687, 0.235832, 0.866583, 0.00981323 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]
@@ -2071,8 +2072,6 @@ playback/repeat = true
 [connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
-[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/SawedOffMartini-Henry" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/SawedOffMartini-Henry/Effects" method="_on_GunItem_on_shoot"]
-[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/SawedOffMartini-Henry" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/SawedOffMartini-Henry/Effects" method="_on_GunItem_target_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]

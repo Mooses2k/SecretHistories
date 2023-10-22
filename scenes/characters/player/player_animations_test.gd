@@ -8,9 +8,12 @@ export(String,
 #export var river_settings: bool setget set_river_settings
 export (String, "Idle", "ADS", "Reload") var weapon_status = "Idle" setget set_weapon_state
 export (bool) var reset_animation_tree setget reset_animation_tree
-export (Vector3) var adjust_arm_position = Vector3(0, -1.287, 0.063) setget adjust_weapons_arm_holding
+export (bool) var reset_character_arm_position setget reset_arm_position
 export (Vector3) var adjust_weapon_dial setget adjust_weapon_position
 export (Vector3) var adjust_weapon_rotation_dial setget adjust_weapon_rotation
+export (Vector3) var weapon_default_position setget set_default_position
+export (Vector3) var weapon_default_rotation setget set_default_rotation
+#export (bool) var save_changes_to_gun setget 
 
 var spawned_weapon
 var is_doing_ads : bool = false
@@ -19,11 +22,8 @@ onready var inventory = $"../Inventory"
 onready var main_hand_equipment_root = $"../MainHandEquipmentRoot"
 onready var animation_tree = $"%AnimationTree"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
-
-
-func _ready():
-	 adjust_arm_position = $"%MainCharOnlyArmsGameRig".translation 
-
+#
+#ResourceSaver.save("res://path_to_modified_scene.tscn", scene_instance)
 
 func change_gun(value):
 	current_weapon = value
@@ -56,21 +56,60 @@ func change_gun(value):
 	set_weapon_state(weapon_status)
 
 
-func adjust_weapons_arm_holding(value):
-	adjust_arm_position = value
-	$"%MainCharOnlyArmsGameRig".translation = adjust_arm_position
-
 func adjust_weapon_position(value):
+	if not Engine.editor_hint:
+		return
 	adjust_weapon_dial = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
-		available_weapons.hold_position.translation = adjust_weapon_dial
-		available_weapons.transform = available_weapons.get_hold_transform()
+		available_weapons.ads_parameters.ads_hold_position = adjust_weapon_dial
+		if weapon_status == "ADS":
+			available_weapons.hold_position.translation = available_weapons.ads_parameters.ads_hold_position
+			available_weapons.transform = available_weapons.get_hold_transform()
+
+#export var ads_parameters : Dictionary = {
+#	"ads_hold_position" : Vector3(),
+#	"ads_reset_position" : Vector3(),
+#	"ads_rotation_position" : Vector3(),
+#	"ads_reset_rotation" : Vector3(),
+#	"ads_arm_position" : Vector3(),
+#}
 
 func adjust_weapon_rotation(value):
+	if not Engine.editor_hint:
+		return
 	adjust_weapon_rotation_dial = value
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
-		available_weapons.hold_position.rotation = adjust_weapon_rotation_dial
-		available_weapons.transform = available_weapons.get_hold_transform()
+		available_weapons.ads_parameters.ads_rotation_position = adjust_weapon_rotation_dial
+		if weapon_status == "ADS":
+			available_weapons.hold_position.rotation = available_weapons.ads_parameters.ads_rotation_position
+			available_weapons.transform = available_weapons.get_hold_transform()
+
+
+func set_default_position(value):
+	if not Engine.editor_hint:
+		return
+	weapon_default_position = value
+	for available_weapons in $"%MainHandEquipmentRoot".get_children():
+		available_weapons.ads_parameters.ads_reset_position = weapon_default_position
+		if weapon_status == "Idle":
+			available_weapons.hold_position.translation = available_weapons.ads_parameters.ads_reset_position
+			available_weapons.transform = available_weapons.get_hold_transform()
+
+
+func set_default_rotation(value):
+	if not Engine.editor_hint:
+		return
+	weapon_default_rotation = value
+	for available_weapons in $"%MainHandEquipmentRoot".get_children():
+		available_weapons.ads_parameters.ads_reset_rotation = weapon_default_rotation
+		if weapon_status == "Idle":
+			available_weapons.hold_position.rotation = available_weapons.ads_parameters.ads_reset_rotation
+			available_weapons.transform = available_weapons.get_hold_transform()
+
+
+func save_changes_to_gun():
+	pass
+
 
 func reset_animation_tree(value):
 	if not Engine.editor_hint:
@@ -80,6 +119,14 @@ func reset_animation_tree(value):
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 	$"%AnimationTree".set("parameters/Weapon_states/current", 4)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+
+
+func reset_arm_position(value):
+	if not Engine.editor_hint:
+		return
+	reset_character_arm_position = true
+	$"%MainCharOnlyArmsGameRig".translation = Vector3(0, -1.287, 0.063)
+
 
 func set_weapon_state(value):
 	if not Engine.editor_hint:
@@ -103,6 +150,14 @@ func set_weapon_state(value):
 				do_ads(true, available_weapons)
 
 
+#export var ads_parameters : Dictionary = {
+#	"ads_hold_position" : Vector3(),
+#	"ads_reset_position" : Vector3(),
+#	"ads_rotation_position" : Vector3(),
+#	"ads_reset_rotation" : Vector3(),
+#	"ads_arm_position" : Vector3(),
+#}
+
 func do_ads(status, available_weapons):
 	if not Engine.editor_hint:
 		return
@@ -110,23 +165,25 @@ func do_ads(status, available_weapons):
 		operation_tween(
 		available_weapons.hold_position, "rotation", 
 		available_weapons.hold_position.rotation, 
-		available_weapons.ads_hold_rotation, 0.1
+		available_weapons.ads_parameters.ads_hold_position , 0.1
 	)
 		operation_tween(
 		available_weapons.hold_position, "rotation", 
 		available_weapons.hold_position.rotation, 
-		available_weapons.ads_hold_rotation, 0.1
+		available_weapons.ads_parameters.ads_rotation_position, 0.1
 	)
 		if available_weapons.item_size == 0:
 			operation_tween($"%AnimationTree",
 			"parameters/SmallAds/blend_amount",
 			$"%AnimationTree".get("parameters/SmallAds/blend_amount"), 1.0, 0.15)
+			
 			$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 65, 0.1)
-			adjust_arm(Vector3(-0.086, -1.558, 0.294))
+			adjust_arm(Vector3(-0.08, -1.518, 0.347))
 		else:
 			operation_tween($"%AnimationTree",
 			"parameters/MediumAds/blend_amount",
 			$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
+			
 			$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 60, 0.1)
 			adjust_arm(Vector3(-0.03, -1.635, 0.218))
 			is_doing_ads = true
@@ -134,12 +191,12 @@ func do_ads(status, available_weapons):
 		operation_tween(
 		available_weapons.hold_position, "rotation", 
 		available_weapons.hold_position.rotation, 
-		available_weapons.ads_reset_position, 0.1
+		available_weapons.ads_parameters.ads_reset_position, 0.1
 	)
 		operation_tween(
 		available_weapons.hold_position, "rotation", 
 		available_weapons.hold_position.rotation, 
-		available_weapons.ads_hold_rotation, 0.1
+		available_weapons.ads_parameters.ads_reset_rotation, 0.1
 	)
 		if available_weapons.item_size == 0:
 			
@@ -151,11 +208,13 @@ func do_ads(status, available_weapons):
 			0.15
 			)
 			adjust_arm(Vector3(0, -1.287, 0.063))
+		
 		else:
 			operation_tween($"%AnimationTree",
 			"parameters/MediumAds/blend_amount",
 			$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
 			adjust_arm(Vector3(-0.086, -1.558, 0.294))
+		
 		$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 70, 0.1)
 		is_doing_ads = false
 

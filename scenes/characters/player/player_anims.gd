@@ -156,7 +156,7 @@ func ads():
 		0.15
 		)
 		_camera.fov = lerp(_camera.fov, 60, 0.1)
-		adjust_arm(Vector3(-0.03, -1.635, 0.218))
+		adjust_arm(Vector3(0, 0.297, 0.212))
 
 
 func end_ads():
@@ -175,26 +175,12 @@ func end_ads():
 		0.15
 		)
 		adjust_arm(Vector3(0, -1.287, 0.063))
-#		operation_tween(animation_tree, 
-#		"parameters/SmallAds/blend_amount", 
-#		animation_tree.get("parameters/SmallAds/blend_amount"), 
-#		1.0, 
-#		0.15
-#		)
-#		adjust_arm(Vector3(-0.086, -1.558, 0.294))
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.15)
+		animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
 		adjust_arm(Vector3(-0.03, -1.635, 0.218))
-#		operation_tween(
-#		animation_tree, 
-#		"parameters/MediumAds/blend_amount",
-#		animation_tree.get("parameters/MediumAds/blend_amount"),
-#		0.0,
-#		0.15
-#		)
-#		adjust_arm(Vector3(0, -1.474, 0.063))
+
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

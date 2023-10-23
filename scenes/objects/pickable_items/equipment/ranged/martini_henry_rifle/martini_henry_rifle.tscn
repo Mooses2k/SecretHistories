@@ -68,6 +68,8 @@ reload_amount = 1
 reload_time = 2.0
 cooldown = 0.1
 handling = 13.0
+ads_hold_position = Vector3( 0.067, -0.076, 0.236 )
+ads_hold_rotation = Vector3( 14.017, 26.093, -7.857 )
 animation_reload_sequence = 2
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
@@ -152,7 +154,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0403607, 0.140579 )
 
 [node name="HoldPosition" parent="." index="7"]
-transform = Transform( 0.975048, 0.179807, 0.130199, -0.174484, 0.983323, -0.0512903, -0.13725, 0.0272929, 0.99016, -0.00905985, -0.0545086, 0.21513 )
+transform = Transform( 0.875087, 0.228299, 0.426733, -0.132631, 0.961115, -0.24221, -0.465436, 0.155357, 0.871339, 0.067, -0.076, 0.236 )
 __meta__ = {
 "_editor_description_": ""
 }

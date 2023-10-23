@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/models/large_objects/sarcophagi/M_Sarcophagus.material" type="Material" id=1]
+[ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "sarcophagus_Cube002"
@@ -74,5 +75,65 @@ shape = SubResource( 5 )
 [node name="Durability" type="Timer" parent="."]
 wait_time = 300.0
 one_shot = true
+
+[node name="PlacementAnchorHead" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.729543, 0.4121, 0 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorChest" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32109, 0.4121, 0 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorRUpperArm" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262739, 0.4121, -0.189639 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorLUpperArm" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.266387, 0.4121, 0.211521 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorRLowerArm" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.131451, 0.4121, -0.182345 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorLLowerArm" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.131451, 0.4121, 0.207874 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorRHand" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0217192, 0.4121, -0.196933 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorLHand" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014425, 0.4121, 0.229755 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorPelvis" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0217192, 0.4121, 0 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorRUpperLeg" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266062, 0.4121, -0.15317 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorLUpperLeg" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266062, 0.4121, 0.131289 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorRLowerLeg" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55052, 0.4121, -0.142229 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorLLowerLeg" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554167, 0.4121, 0.127642 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorRFoot" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80945, 0.4121, -0.156817 )
+script = ExtResource( 2 )
+
+[node name="PlacementAnchorLFoot" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.802157, 0.4121, 0.131289 )
+script = ExtResource( 2 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

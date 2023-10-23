@@ -111,12 +111,12 @@ func do_ads(value):
 				operation_tween(
 				available_weapons.hold_position, "rotation_degrees", 
 				available_weapons.hold_position.rotation_degrees, 
-				available_weapons.ads_hold_rotation, 0.1
+				available_weapons.ads_hold_rotation, 0.15
 			)
 				operation_tween(
 				available_weapons.hold_position, "translation", 
 				available_weapons.hold_position.translation, 
-				available_weapons.ads_hold_position, 0.1
+				available_weapons.ads_hold_position, 0.15
 			)
 				print("ADS Hold position is: ", available_weapons.ads_hold_position)
 				print("ADS Hold rotation is: ", available_weapons.ads_hold_rotation)

@@ -96,7 +96,7 @@ func check_player_animation():
 		animation_tree.set("parameters/Weapon_states/current", 4)
 
 	if inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 1:
-		adjust_arm(Vector3(0.015, -1.474, 0.124))
+		adjust_arm(Vector3(0.096, -1.391, 0.091))
 	elif inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 0:
 		adjust_arm(Vector3(0, -1.287, 0.063))
 	elif inventory.current_offhand_equipment and inventory.current_offhand_equipment.item_size == 0:

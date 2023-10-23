@@ -1,5 +1,7 @@
-class_name BT_Gun_Equipped
-extends BT_Node
+class_name BTGunEquipped
+extends BTNode
+
+# Checks if a gun is equipped (in the mainhand)
 
 
 func tick(state : CharacterState) -> int:

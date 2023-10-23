@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/neophyte_five_spokes_of_a_broken_star.ogg-ce468912b1d6748bf430d00bfca8b8ac.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/five_irrational_thoughts/neophyte_five_spokes_of_a_broken_star.ogg"
+dest_files=[ "res://.import/neophyte_five_spokes_of_a_broken_star.ogg-ce468912b1d6748bf430d00bfca8b8ac.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

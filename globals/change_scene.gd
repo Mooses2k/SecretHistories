@@ -4,10 +4,10 @@ extends Node
 var next_scene : NodePath
 
 
-# Old way
-func _change_to_scene(scene_loc : NodePath) -> void :
-	next_scene = scene_loc
-	var _error = get_tree().change_scene("res://scenes/UI/loadscreen/load_screen.tscn")
+## Old way
+#func _change_to_scene(scene_loc : NodePath) -> void :
+#	next_scene = scene_loc
+#	var _error = get_tree().change_scene("res://scenes/ui/loadscreen/load_screen.tscn")
 
 
 func change_to_instance(scene : Node) -> void:

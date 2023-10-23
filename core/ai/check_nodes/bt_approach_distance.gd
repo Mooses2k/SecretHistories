@@ -1,5 +1,9 @@
-class_name BT_Approach_Random_Distance
-extends BT_Node
+class_name BTApproachRandomDistance
+extends BTNode
+
+# Choose and check if have reached an approach distance.
+# For instance, choose a target and succeed when within a randomly chosen
+# 4-8m of the target.
 
 
 export var min_distance : float = 4.0
@@ -22,21 +26,25 @@ func idle():
 
 
 func tick(state : CharacterState) -> int:
+	var speech_chance = randf()
 	ticks_since_active = 0
 	var distance : float = state.character.global_transform.origin.distance_to(state.target_position)
 	if target_reached:
+		# Since target distance changes every frame, this prevents the character from
+		# constantly repositioning every time it changes
 		if distance > target_distance * threshold_factor:
 			target_reached = false
 			return Status.FAILURE
-		_listener.sound_was_heared = false
+		_listener.sound_detected = false
 		return Status.SUCCESS
 	else:
 		if distance < target_distance:
 			target_reached = true
-			_listener.sound_was_heared = false
+			_listener.sound_detected = false
 			return Status.SUCCESS
 		return Status.FAILURE
 
 
 func _ready():
+	# TODO : implement custom tick rate
 	get_tree().connect("physics_frame", self, "idle")

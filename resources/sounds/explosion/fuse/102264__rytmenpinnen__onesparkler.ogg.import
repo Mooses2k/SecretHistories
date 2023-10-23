@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/102264__rytmenpinnen__onesparkler.ogg-f98580eae44829114822a5748dd2e161.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/explosion/fuse/102264__rytmenpinnen__onesparkler.ogg"
+dest_files=[ "res://.import/102264__rytmenpinnen__onesparkler.ogg-f98580eae44829114822a5748dd2e161.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,5 +1,7 @@
 extends Spatial
 
+### This is the floating ring HP display when you look down while stationary
+
 
 #onready var health_label = $Viewport/HBoxContainer/Health
 #onready var input_label = $Viewport/HBoxContainer/InputPrompt

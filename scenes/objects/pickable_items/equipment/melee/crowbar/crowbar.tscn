@@ -1,18 +1,13 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=1]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=3]
+[ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/585575__bennettfilmteacher__metal-ringing-hit.ogg" type="AudioStream" id=2]
 [ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=4]
 [ext_resource path="res://resources/models/items/melee/crowbar/M_Crowbar.material" type="Material" id=5]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=8]
-[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=9]
-
-[sub_resource type="CylinderShape" id=3]
-height = 0.2
-radius = 0.118034
+[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=19]
 
 [sub_resource type="ArrayMesh" id=5]
 resource_name = "Crowbar_SM_Crowbar"
@@ -30,116 +25,72 @@ surfaces/0 = {
 }
 
 [sub_resource type="ConvexPolygonShape" id=6]
-points = PoolVector3Array( 0.290398, 0.00615888, -0.021265, 0.283389, -0.00610716, -0.0475478, 0.250094, -0.00610716, -0.0142526, 0.290398, 0.00966509, -0.0475478, 0.300911, -0.00610716, -0.0387823, 0.250094, 0.00615888, -0.0142526, 0.27288, -0.00961336, -0.0124995, 0.27288, 0.00966509, -0.0124995, 0.290398, -0.00961336, -0.0475478, 0.302661, 0.00615888, -0.0475478, 0.283389, 0.00615888, -0.0475478, 0.278129, -0.00786026, -0.0124995, 0.262367, -0.00961336, -0.0124995, 0.295652, 0.00966509, -0.0422851, 0.262367, 0.00966509, -0.0124995, 0.302661, -0.00610716, -0.0475478, 0.295652, -0.00961336, -0.0422851, 0.297407, -0.00610716, -0.0317699, 0.300911, 0.00615888, -0.0387823, 0.278129, 0.00791198, -0.0124995, 0.250094, 0.00615888, -0.0124995, 0.278129, -0.00961336, -0.0160057, 0.250094, -0.00610716, -0.0124995, 0.255358, -0.00786026, -0.0142526, 0.297407, 0.00615888, -0.0317699 )
+points = PoolVector3Array( 0.30155, 0.00606477, -0.0582293, 0.211519, -0.0183763, -0.168462, -0.26159, -0.0131129, -0.00374478, 0.211519, 0.018428, -0.168462, -0.305476, 0.0149155, 0.0313185, 0.244807, -0.00960753, 0.00151569, 0.244807, 0.00965925, 0.00151569, -0.305476, -0.0148637, 0.0313185, 0.255345, -0.0183763, -0.135159, 0.255345, 0.018428, -0.135159, -0.2756, 0.0166699, 0.00501616, -0.268595, -0.0166182, 0.0155371, 0.300908, -0.00961113, -0.0790732, 0.284585, 0.00780284, -0.12041, 0.227264, -0.00583169, 0.00513253, -0.268595, 0.0166699, 0.0155371, 0.288634, -0.00961113, -0.0282871, -0.258118, 0.0114101, -0.00548524, 0.286838, 0.00966286, -0.0265271, -0.277396, -0.0166182, 0.00501616, 0.253609, -0.0183763, -0.14566, 0.300908, 0.00966286, -0.0773328, 0.253609, 0.018428, -0.14566, 0.291023, -0.0060433, -0.113699, 0.227028, 0.00587733, 0.00505609, 0.271031, -0.00960753, -0.0107457, 0.218524, 0.018428, -0.166702, 0.271031, 0.00965925, -0.0107457, 0.299111, -0.00961113, -0.0528491, 0.297375, 0.00966286, -0.0948547, -0.268595, 0.0149155, -0.000244312, 0.295639, 0.00966286, -0.0423086, 0.218524, -0.0183763, -0.166702, 0.23427, -0.00960753, 0.00327571, 0.297375, -0.00961113, -0.0948547, 0.232474, 0.00965925, 0.00327571, 0.272945, -0.0112211, -0.130878, 0.255285, -0.00960753, -0.00198477, 0.285005, -0.00599235, -0.022161, 0.292199, -0.00599894, -0.0324478, -0.268595, -0.0148637, -0.000244312, 0.286838, -0.011362, -0.112377, 0.255285, 0.00965925, -0.00198477, -0.280869, 0.0166699, 0.0137771, -0.282665, -0.0166182, 0.0120171, 0.238068, 0.00594436, 0.00419971, 0.290913, 0.00609632, -0.113682, 0.286838, 0.0114173, -0.112377, 0.299111, 0.00966286, -0.0528491, 0.300908, -0.00961113, -0.0633309, 0.272839, 0.011272, -0.130854, 0.292115, 0.00604893, -0.0324582, 0.278096, -0.00961113, -0.0160257, 0.213255, 0.018428, -0.161442, 0.213255, -0.0183763, -0.161442, 0.295639, -0.00961113, -0.0423086, 0.24834, 0.018428, -0.135159, 0.26229, 0.00965925, -0.00548524, 0.300908, 0.00966286, -0.0650909, 0.284677, -0.00775364, -0.120427, 0.299111, 0.00966286, -0.0878342 )
 
-[sub_resource type="ConvexPolygonShape" id=7]
-points = PoolVector3Array( 0.283393, -0.00610716, -0.0966202, 0.306176, 0.00615888, -0.0580723, 0.285148, -0.00610716, -0.0475478, 0.306176, -0.00610716, -0.0825989, 0.288654, 0.00966509, -0.0966202, 0.285148, 0.00615888, -0.0475478, 0.297409, -0.00961336, -0.0475478, 0.30267, 0.00615888, -0.0966202, 0.295657, -0.00961336, -0.0966202, 0.297409, 0.00966509, -0.0475478, 0.304421, -0.00610716, -0.0493059, 0.283393, 0.00615888, -0.0966202, 0.288654, -0.00961336, -0.094867, 0.299165, 0.00966509, -0.0878491, 0.306176, 0.00615888, -0.0825989, 0.30267, -0.00610716, -0.0966202, 0.290404, 0.00966509, -0.0475478, 0.290404, -0.00961336, -0.0475478, 0.300915, -0.00961336, -0.0633273, 0.30267, 0.00615888, -0.0475478, 0.306176, -0.00610716, -0.0580723, 0.299165, -0.00961336, -0.0878491, 0.285148, -0.00786026, -0.0966202, 0.286899, 0.00791198, -0.0475478, 0.299165, 0.00966509, -0.0528125, 0.295657, 0.00966509, -0.0966202, 0.304421, 0.00615888, -0.0493059 )
+[sub_resource type="CylinderShape" id=3]
+height = 0.15
+radius = 0.1
 
-[sub_resource type="ConvexPolygonShape" id=8]
-points = PoolVector3Array( 0.300919, 0.00615888, -0.0966202, 0.269372, -0.00961302, -0.119404, 0.269372, 0.00966474, -0.119404, 0.288647, 0.00791181, -0.119404, 0.292155, -0.00786009, -0.115898, 0.285145, -0.00786009, -0.0966202, 0.281644, 0.00615888, -0.0983732, 0.295657, -0.00961302, -0.0966202, 0.285145, 0.0114177, -0.107138, 0.283397, -0.0113659, -0.119404, 0.300919, -0.00610716, -0.101881, 0.288647, 0.00966474, -0.0966202, 0.299165, 0.00615888, -0.105385, 0.283397, 0.0114177, -0.119404, 0.271126, -0.0113659, -0.117651, 0.269372, -0.00961302, -0.117651, 0.295657, 0.00966474, -0.100126, 0.271126, 0.0114177, -0.117651, 0.281644, -0.00610716, -0.0983732, 0.269372, 0.00966474, -0.117651, 0.285145, -0.0113659, -0.107138, 0.292155, 0.00791181, -0.115898, 0.300919, -0.00610716, -0.0966202, 0.288647, -0.00961302, -0.0966202, 0.286893, -0.00961302, -0.119404, 0.293903, -0.00610716, -0.114143 )
-
-[sub_resource type="ConvexPolygonShape" id=9]
-points = PoolVector3Array( 0.211552, -0.0183763, -0.168476, 0.211552, 0.018428, -0.168476, 0.267608, 0.0114173, -0.119404, 0.271113, -0.0131129, -0.135183, 0.267608, -0.011362, -0.119404, 0.213304, 0.018428, -0.161463, 0.25359, 0.018428, -0.145689, 0.288643, -0.00786026, -0.119404, 0.218561, -0.0183763, -0.166723, 0.248349, -0.0183763, -0.135183, 0.213304, -0.0183763, -0.161463, 0.288643, 0.00791198, -0.121157, 0.248349, 0.018428, -0.135183, 0.218561, 0.018428, -0.166723, 0.255342, -0.0183763, -0.14394, 0.276369, 0.0114173, -0.131682, 0.209784, -0.0183763, -0.16497, 0.285131, -0.00961113, -0.124668, 0.288643, 0.00791198, -0.119404, 0.209784, 0.018428, -0.16497, 0.262351, 0.0166735, -0.140438, 0.255342, -0.0166218, -0.129928, 0.215056, -0.0183763, -0.168476, 0.260599, 0.0149227, -0.126417, 0.215056, 0.018428, -0.168476, 0.283378, 0.00966286, -0.126417, 0.262351, -0.0166218, -0.140438 )
-
-[sub_resource type="ConvexPolygonShape" id=10]
-points = PoolVector3Array( 0.25356, -0.00610716, 0.00502701, 0.259944, -0.0065235, -0.01321, 0.260138, 0.00658059, -0.0132192, -0.235373, 0.00966509, -0.00373249, -0.233557, -0.00610716, -0.00899025, -0.235373, 0.00615888, 0.00853492, 0.232528, 0.00966509, 0.00327511, -0.235373, -0.00961336, 0.00327511, 0.237773, -0.00610716, 0.00853286, 0.271112, -0.00961336, -0.0124961, 0.237773, 0.00615888, 0.00853286, 0.271112, 0.00966509, -0.0124961, -0.233557, 0.00615888, -0.00899025, -0.235373, -0.00610716, 0.00853492, 0.234293, -0.00961336, 0.00327511, -0.235373, -0.00961336, -0.00373249, -0.235373, 0.00966509, 0.00327511, 0.274871, 0.00603947, -0.0122914, 0.265816, 0.00966509, -0.00723835, 0.275009, -0.00599102, -0.012297, 0.265462, -0.00832985, -0.0131223, 0.265816, -0.00961336, -0.00723835 )
-
-[sub_resource type="ConvexPolygonShape" id=11]
-points = PoolVector3Array( -0.300213, 0.0149189, 0.0313185, -0.253748, -0.00831415, -0.00464467, -0.253748, 0.00836587, -0.00464467, -0.235373, 0.0061558, 0.00853767, -0.305476, -0.0148672, 0.0278123, -0.23713, -0.00785735, 0.00853767, -0.275066, 0.0147428, 0.00584379, -0.300213, -0.0148672, 0.0313185, -0.235373, -0.0113606, -0.000225951, -0.23713, 0.0114124, -0.000225951, -0.267349, -0.0130642, 0.00125903, -0.298463, 0.0149189, 0.0207999, -0.235373, 0.00790907, -0.00723835, -0.268675, -0.0166204, 0.0155425, -0.268675, 0.0166722, 0.0155425, -0.298463, -0.0148672, 0.0207999, -0.235373, -0.00785735, -0.00723835, -0.305476, 0.0149189, 0.0278123, -0.263058, 0.0110802, -0.00122898, -0.235373, -0.00610407, 0.00853767, -0.235373, 0.00966234, 0.00503146, -0.238879, 0.0114124, -0.00197717, -0.26898, -0.0122676, 0.00191511, -0.271959, -0.0145728, 0.00589359, -0.303509, -0.0140313, 0.0302365, -0.23713, 0.00790907, 0.00853767, -0.238879, -0.0113606, -0.00197717, -0.261216, -0.0114918, -0.00178507, -0.235373, -0.0113606, 0.00152526, -0.26125, 0.0115004, -0.00173333 )
-
-[node name="Crowbar" type="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, -0.13599, 0.00388288 )
-collision_layer = 64
+[node name="Crowbar" instance=ExtResource( 19 )]
 mass = 2.0
-continuous_cd = true
-contacts_reported = 2
-contact_monitor = true
-script = ExtResource( 1 )
 dropped_layers = 64
 dropped_mask = 1
-equipped_mode = 3
-item_drop_sound = ExtResource( 9 )
+item_drop_sound = ExtResource( 2 )
+item_throw_sound = ExtResource( 1 )
 item_name = "Crowbar"
 weapon_type = 2
-melee_damage = 30
+primary_damage1 = 30
+secondary_damage1 = 51
 throw_logic = true
 can_spin = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 
-[node name="CooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="Hitbox" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.280635, 0 )
-collision_layer = 0
-collision_mask = 12
-monitorable = false
-script = ExtResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 0.788462, -0.615084, 0, 0.615084, 0.788462, -0.554467, 0.0854276, -0.093096 )
-shape = SubResource( 3 )
-
-[node name="SM_Crowbar" type="MeshInstance" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, -0.0664079, 0.00332663 )
 mesh = SubResource( 5 )
-script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="CollisionShape6" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, -0.0664079, 0.00332663 )
 shape = SubResource( 6 )
 
-[node name="CollisionShape5" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
-shape = SubResource( 7 )
+[node name="Hitbox" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175116, -0.0797103 )
 
-[node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
-shape = SubResource( 8 )
+[node name="CollisionShape" parent="Hitbox" index="0"]
+transform = Transform( 1, 0, 0, 0, 0.758043, -0.652204, 0, 0.652204, 0.758043, 0, -0.017493, 0 )
+shape = SubResource( 3 )
 
-[node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
-shape = SubResource( 9 )
+[node name="CooldownTimer" parent="." index="3"]
+wait_time = 0.5
 
-[node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
-shape = SubResource( 10 )
+[node name="HoldPosition" parent="." index="4"]
+unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.271188, -0.0154864 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000361785, 0.111071, 0.00332663 )
-shape = SubResource( 11 )
+[node name="NormalPosition" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0440409, 0 )
 
-[node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0937089, -0.0154864 )
+[node name="ThrowPosition" parent="." index="6"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.153931, 0 )
 
-[node name="NormalPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.133438, 0 )
-
-[node name="ThrowPosition" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.33141, 0 )
-
-[node name="Sounds" type="Spatial" parent="."]
-
-[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds"]
-
-[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds"]
-
-[node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Thrust" parent="Sounds" index="2"]
 stream = ExtResource( 4 )
 
-[node name="Cut" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Cut" parent="Sounds" index="3"]
 stream = ExtResource( 6 )
 
-[node name="Parry" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="Parry" parent="Sounds" index="4"]
+stream = null
 
-[node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="FleshThrust" parent="Sounds" index="5"]
 stream = ExtResource( 8 )
 
-[node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds"]
+[node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 7 )
 
-[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

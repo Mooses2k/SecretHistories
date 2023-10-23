@@ -1,0 +1,73 @@
+[gd_scene load_steps=35 format=2]
+
+[ext_resource path="res://resources/animations/ads_idle.tres" type="Animation" id=1]
+[ext_resource path="res://resources/animations/one-handed_hip_idle.tres" type="Animation" id=2]
+[ext_resource path="res://resources/animations/crouch_walk_back-loop.tres" type="Animation" id=3]
+[ext_resource path="res://resources/animations/crouch_loop.tres" type="Animation" id=4]
+[ext_resource path="res://resources/animations/crouch_walk_back_left-loop.tres" type="Animation" id=5]
+[ext_resource path="res://resources/animations/crouch_walk_back_right-loop.tres" type="Animation" id=6]
+[ext_resource path="res://resources/animations/one_handed_hip_idle_left.tres" type="Animation" id=7]
+[ext_resource path="res://resources/animations/crouch_walk_left-loop.tres" type="Animation" id=8]
+[ext_resource path="res://resources/animations/crouch_walk_forward_right-loop.tres" type="Animation" id=9]
+[ext_resource path="res://resources/animations/crouch_walk_right-loop.tres" type="Animation" id=10]
+[ext_resource path="res://resources/animations/falling.tres" type="Animation" id=11]
+[ext_resource path="res://resources/animations/hip_idle.tres" type="Animation" id=12]
+[ext_resource path="res://resources/animations/crouch_walk_forward-loop.tres" type="Animation" id=13]
+[ext_resource path="res://resources/animations/idle-loop.tres" type="Animation" id=14]
+[ext_resource path="res://resources/animations/item_holding.tres" type="Animation" id=15]
+[ext_resource path="res://resources/animations/item_holding_horizontal_left.tres" type="Animation" id=16]
+[ext_resource path="res://resources/animations/item_holding_horizontal_right.tres" type="Animation" id=17]
+[ext_resource path="res://resources/animations/item_holding_vertical_left.tres" type="Animation" id=18]
+[ext_resource path="res://resources/animations/item_holding_vertical_right.tres" type="Animation" id=19]
+[ext_resource path="res://resources/animations/jump.tres" type="Animation" id=20]
+[ext_resource path="res://resources/animations/kick_low_toe.tres" type="Animation" id=21]
+[ext_resource path="res://resources/animations/one-handed_ads_idle.tres" type="Animation" id=22]
+[ext_resource path="res://resources/animations/kick_mid_stomp.tres" type="Animation" id=23]
+[ext_resource path="res://resources/animations/landing.tres" type="Animation" id=24]
+[ext_resource path="res://resources/animations/run_forward-loop.tres" type="Animation" id=25]
+[ext_resource path="res://resources/animations/walk_backward-loop.tres" type="Animation" id=26]
+[ext_resource path="res://resources/animations/walk_back_left-loop.tres" type="Animation" id=27]
+[ext_resource path="res://resources/animations/walk_back_right-loop.tres" type="Animation" id=28]
+[ext_resource path="res://resources/animations/walk_forward-loop.tres" type="Animation" id=29]
+[ext_resource path="res://resources/animations/walk_forward_left-loop.tres" type="Animation" id=30]
+[ext_resource path="res://resources/animations/walk_forward_right-loop.tres" type="Animation" id=31]
+[ext_resource path="res://resources/animations/walk_left-loop.tres" type="Animation" id=32]
+[ext_resource path="res://resources/animations/walk_right-loop.tres" type="Animation" id=33]
+[ext_resource path="res://resources/animations/jump_and_land.tres" type="Animation" id=34]
+
+[node name="AnimationPlayer" type="AnimationPlayer"]
+root_node = NodePath("")
+anims/ads_idle = ExtResource( 1 )
+anims/crouch_loop = ExtResource( 4 )
+anims/crouch_walk_back-loop = ExtResource( 3 )
+anims/crouch_walk_back_left-loop = ExtResource( 5 )
+anims/crouch_walk_back_right-loop = ExtResource( 6 )
+anims/crouch_walk_forward-loop = ExtResource( 13 )
+anims/crouch_walk_forward_right-loop = ExtResource( 9 )
+anims/crouch_walk_left-loop = ExtResource( 8 )
+anims/crouch_walk_right-loop = ExtResource( 10 )
+anims/falling = ExtResource( 11 )
+anims/hip_idle = ExtResource( 12 )
+anims/idle-loop = ExtResource( 14 )
+anims/item_holding = ExtResource( 15 )
+anims/item_holding_horizontal_left = ExtResource( 16 )
+anims/item_holding_horizontal_right = ExtResource( 17 )
+anims/item_holding_vertical_left = ExtResource( 18 )
+anims/item_holding_vertical_right = ExtResource( 19 )
+anims/jump = ExtResource( 20 )
+anims/jump_and_land = ExtResource( 34 )
+anims/kick_low_toe = ExtResource( 21 )
+anims/kick_mid_stomp = ExtResource( 23 )
+anims/landing = ExtResource( 24 )
+anims/one-handed_ads_idle = ExtResource( 22 )
+anims/one-handed_hip_idle = ExtResource( 2 )
+anims/one_handed_hip_idle_left = ExtResource( 7 )
+anims/run_forward-loop = ExtResource( 25 )
+anims/walk_back_left-loop = ExtResource( 27 )
+anims/walk_back_right-loop = ExtResource( 28 )
+anims/walk_backward-loop = ExtResource( 26 )
+anims/walk_forward-loop = ExtResource( 29 )
+anims/walk_forward_left-loop = ExtResource( 30 )
+anims/walk_forward_right-loop = ExtResource( 31 )
+anims/walk_left-loop = ExtResource( 32 )
+anims/walk_right-loop = ExtResource( 33 )

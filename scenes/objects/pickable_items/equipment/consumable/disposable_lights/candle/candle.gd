@@ -1,5 +1,7 @@
 class_name CandleItem
-extends ConsumableItem
+extends DisposableLightItem
+
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candelabra.gd
 
 
 signal item_is_dropped
@@ -23,7 +25,8 @@ onready var firelight = $FireOrigin/Fire/Light
 func _ready():
 	light_timer = $BurnTime
 	self.connect("item_is_dropped", self, "item_drop")
-	light_timer.connect("timeout", self, "_light_depleted")
+	if not light_timer.is_connected("timeout", self, "_light_depleted"):
+		light_timer.connect("timeout", self, "_light_depleted")
 	burn_time = 3600.0
 	light()
 
@@ -41,6 +44,10 @@ func _process(delta):
 		$Ignite/CollisionShape.disabled = true
 		is_dropped = false
 		is_just_dropped = false
+		
+	# This ensures it's never emissive while off, also, that candles stay lit on level change
+	if $MeshInstance.get_surface_material(0).emission_enabled == true and $FireOrigin/Fire.visible == false:
+		light()
 
 
 func light():
@@ -81,19 +88,11 @@ func _use_primary():
 
 
 func _item_state_changed(previous_state, current_state):
-#	if previous_state == GlobalConsts.ItemState.EQUIPPED and current_state == GlobalConsts.ItemState.DROPPED:
-#		unlight()
-#		return
-#	if previous_state == GlobalConsts.ItemState.EQUIPPED:  
-#		unlight()
-#		$Sounds/BlowOutSound.play()   # This is the messed one, all jacked with the sound etc
-#	if previous_state == GlobalConsts.ItemState.EQUIPPED and current_state == GlobalConsts.ItemState.INVENTORY:
-#		$Sounds/BlowOutSound.play()
-#		unlight()
-	pass
+	if current_state == GlobalConsts.ItemState.INVENTORY and previous_state == GlobalConsts.ItemState.INVENTORY:
+		owner_character.inventory.switch_away_from_light(self)
 
 
-func _light_depleted():
+func _on_light_depleted():
 	burn_time = 0
 	unlight()
 	is_depleted = true
@@ -105,7 +104,6 @@ func stop_light_timer():
 	light_timer.stop()
 
 
-# Not working
 func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)
@@ -115,5 +113,7 @@ func item_drop():
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
 	
-	if random_number < prob_going_out:
-		unlight()
+	print("Linear velocity of candle: ", linear_velocity.length())
+	if linear_velocity.length() > 0.1:
+		if random_number < prob_going_out:
+			unlight()

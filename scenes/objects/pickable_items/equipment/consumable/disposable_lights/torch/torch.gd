@@ -1,8 +1,9 @@
 class_name TorchItem
-extends ConsumableItem
+extends DisposableLightItem
+
+# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, candelabra.gd, candle.gd
 
 
-#var has_ever_been_on = false
 signal item_is_dropped
 
 var is_lit = false
@@ -60,11 +61,7 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-		switch_away()
-
-
-func switch_away():
-	unlight()
+		owner_character.inventory.switch_away_from_light(self)
 
 
 func _use_primary():
@@ -74,7 +71,7 @@ func _use_primary():
 		unlight()
 
 
-func light_depleted():
+func _on_light_depleted():
 	burn_time = 0
 	unlight()
 	is_depleted = true
@@ -95,5 +92,7 @@ func item_drop():
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
 	
-	if random_number < prob_going_out:
-		unlight()
+	print("Linear velocity of candle: ", linear_velocity.length())
+	if linear_velocity.length() > 0.1:
+		if random_number < prob_going_out:
+			unlight()

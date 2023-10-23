@@ -11,38 +11,31 @@ var _alive : bool = true
 var _type_damage_multiplier : PoolByteArray
 export(Array, AttackTypes.Types) var immunities : Array
 export var max_health : int = 100
-onready var current_health : float = self.max_health
-
-export var kick_damage : int
+onready var current_health : int = self.max_health
 
 export var move_speed : float = 7.0
 export var acceleration : float = 32.0
-export var mass : float = 100.0
+export var mass : float = 80.0
 
-onready var character_state : CharacterState = CharacterState.new(self)
+export var kick_damage : int = 15   # 3 kicks for a cultist, 5 for a door to start with?
+onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
+export var _legcast : NodePath
+#export(AttackTypes.Types) var damage_type : int = 0
+#export (float) var kick_impulse
 
-onready var inventory = $Inventory
-onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
-onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
-onready var belt_position = $"%BeltPosition"
-onready var drop_position_node = $Body/DropPosition
-onready var body = $Body
-onready var skeleton = $"%Skeleton"
-onready var collision_shape = $CollisionShape
-onready var animation_tree = $AnimationTree
-onready var additional_animations  = $AdditionalAnimations
+export (NodePath) var animation_tree_path 
 
 enum ItemSelection {
 	ITEM_MAINHAND,
 	ITEM_OFFHAND,
 }
 
-enum ThrowState {
-	IDLE,
-	PRESSING,
-	SHOULD_PLACE,
-	SHOULD_THROW,
-}
+#enum ThrowState {
+#	IDLE,
+#	PRESSING,
+#	SHOULD_PLACE,
+#	SHOULD_THROW,
+#}
 
 # For player-heard audio and for sound propogation to other characters' sensors
 enum SurfaceType {
@@ -68,22 +61,23 @@ enum State {
 }
 
 # Checks if the player is equipping something or not 
-enum Animation_state {
+# TODO: this needs to be removed and merged into HoldStates below so that it's the same as HoldStates in player_anims
+enum AnimationState {
 	EQUIPPED,
 	NOT_EQUIPPED,
 }
 
-enum hold_states {
+enum HoldStates {
 	SMALL_GUN_ITEM,
 	LARGE_GUN_ITEM,
 	MELEE_ITEM,
-	LANTERN_ITEM,
+	ITEM_HORIZONTAL,
 	SMALL_GUN_ADS,
 	LARGE_GUNS_ADS,
 }
 
-var mainhand_animation = Animation_state.NOT_EQUIPPED
-var current_mainhand_item_animation = hold_states.MELEE_ITEM
+var mainhand_animation = AnimationState.NOT_EQUIPPED
+var current_mainhand_item_animation = HoldStates.MELEE_ITEM
 
 #const TEXTURE_SOUND_LIB = {
 #	"checkerboard" : {
@@ -92,16 +86,12 @@ var current_mainhand_item_animation = hold_states.MELEE_ITEM
 #	}
 #}
 
-export var speed : float = 0.5
 export var gravity : float = 10.0
 export(float, 0.05, 1.0) var crouch_rate = 0.08
 export(float, 0.1, 1.0) var crawl_rate = 0.5
 export var move_drag : float = 0.2
 #export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
 export var interact_distance : float = 0.75
-export var _legcast : NodePath
-export(AttackTypes.Types) var damage_type : int = 0
-export (float) var kick_impulse
 
 var state = State.STATE_WALKING
 
@@ -109,6 +99,18 @@ var light_level : float = 0.0
 
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
+
+onready var character_state : CharacterState = CharacterState.new(self)
+
+onready var skeleton = $"%Skeleton"
+onready var inventory = $Inventory
+onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
+onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
+onready var belt_position = $"%BeltPosition"
+onready var drop_position_node = $"%DropPosition" as Spatial
+onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
+onready var animation_tree = $"%AnimationTree"
+onready var additional_animations  = $AdditionalAnimations
 
 onready var _camera = get_node("FPSCamera")
 onready var _collider = get_node("CollisionShape")
@@ -123,8 +125,8 @@ onready var _speech_player = get_node("Audio/Speech")
 
 var stamina := 600.0
 
-#var active_mode_index = 0
-#onready var active_mode : ControlMode = get_child(0)
+#var current_control_mode_index = 0
+#onready var current_control_mode : ControlMode = get_child(0)
 
 var wanna_stand : bool = false
 var is_crouching : bool = false
@@ -150,8 +152,9 @@ var clamber_destination : Vector3 = Vector3.ZERO
 var _clamber_m = null
 var clamber_target
 var is_clambering : bool = false
-var clamberable_obj # : RigidBody      # commented to allow static bodies too
-var is_clamberable # : RigidBody = null   # commented to allow static bodies too
+var clamberable_obj # : RigidBody      # Commented to allow static bodies too
+var is_clamberable # : RigidBody = null   # Commented to allow static bodies too
+var default_clamber_speed : float = 0.1   # Added to allow encumbrance to slow clambering.
 
 var is_player_moving : bool = false
 var is_moving_forward : bool = false
@@ -164,9 +167,9 @@ var grounded = false
 var do_jump : bool = false
 var is_jumping : bool = false
 
-var low_kick : bool = false
+var low_kick : bool = false   # Should we do a low kick instead of a mid-height stomp kick?
 
-var noise_level = 0
+var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 
 var is_reloading = false
 
@@ -181,41 +184,14 @@ func _ready():
 	_clamber_m = ClamberManager.new(self, _camera, get_world())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
 
-	# Movement audio	
-	_audio_player.load_sounds("resources/sounds/footsteps/stone_footsteps", 3)
-	_audio_player.load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
-	_audio_player.load_sounds("resources/sounds/footsteps/water_footsteps", 5)
-	_audio_player.load_sounds("resources/sounds/footsteps/gravel_footsteps", 6)
-	_audio_player.load_sounds("resources/sounds/footsteps/carpet_footsteps", 7)
-	_audio_player.load_sounds("resources/sounds/footsteps/metal_footsteps", 8)
-	_audio_player.load_sounds("resources/sounds/footsteps/tile_footsteps", 9)
-#	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
-	_audio_player.load_sounds("resources/sounds/breathing/breathe", 1)
-	_audio_player.load_sounds("resources/sounds/jumping_landing/landing", 2)
-	_audio_player._footstep_sounds = _audio_player._stone_footstep_sounds
-		
-	# Speech audio - these should eventually be moved to each enemy's script or character audio
-	# and the paths adjusted to the correct voice
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/idle", 13)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/alert", 14)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/detection", 15)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush", 16)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/chase", 17)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fight", 18)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/reload", 19)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/flee", 20)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q", 21)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a", 22)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence", 23)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised", 24)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/fire", 25)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/snake", 26)
-	_audio_player.load_sounds("resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb", 27)
-
 
 func _physics_process(delta : float):
-	check_state_animation(delta)
-	check_current_item_animation()
+	if !_alive:
+		return
+	
+	if animation_tree != null:
+		check_state_animation(delta)
+		check_current_item_animation()
 	can_stand = true
 	for body in _player_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
@@ -257,7 +233,9 @@ func _physics_process(delta : float):
 		State.STATE_CLAMBERING_RISE:
 			var pos = global_transform.origin
 			var clamber_target = Vector3(pos.x, clamber_destination.y, pos.z)
-			global_transform.origin = lerp(pos, clamber_target, 0.1)
+			# Clamber speed affected by encumbrance
+			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
+			global_transform.origin = lerp(pos, clamber_target, clamber_speed)
 	
 			var d = pos - clamber_target
 			if d.length() < 0.1:
@@ -267,13 +245,15 @@ func _physics_process(delta : float):
 		State.STATE_CLAMBERING_LEDGE:
 			#_audio_player.play_clamber_sound(false)
 			var pos = global_transform.origin
-			global_transform.origin = lerp(pos, clamber_destination, 0.1)
+			# Clamber speed affected by encumbrance
+			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
+			global_transform.origin = lerp(pos, clamber_destination, clamber_speed)
 
 			var d = global_transform.origin - clamber_destination
 			if d.length() < 0.1:
 				is_clambering = false
 				global_transform.origin = clamber_destination
-				if clamberable_obj and clamberable_obj is RigidBody:   # altered to allow statics
+				if clamberable_obj and clamberable_obj is RigidBody:   # Altered to allow statics
 					clamberable_obj.mode = 0
 
 				if is_crouching:
@@ -288,22 +268,33 @@ func slow_down(state : PhysicsDirectBodyState):
 	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
 
 
-func damage(value : float, type : int, on_hitbox : Hitbox):
+func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)
-	
+		
 		if self.current_health <= 0:
 			self._alive = false
 			self.emit_signal("character_died")
-	
+			
 			if self.name != "Player":
-				collision_shape.disabled = true
+				_collider.disabled = true
+				_crouch_collider.disabled = true
 				print("Character died")
-				self.queue_free()
-#				skeleton.physical_bones_start_simulation()   # This ragdolls when it's working
+				self.inventory.drop_mainhand_item()
+				self.inventory.drop_offhand_item()
+				
+#				self.queue_free()
+				skeleton.physical_bones_start_simulation()   # This ragdolls
 
 
+func heal(amount):
+	current_health += amount
+	if current_health > max_health:
+		current_health = max_health
+
+
+# This maybe shouldn't be here, also is not currently used
 func _get_surface_type() -> Array:
 	var cell_index = GameManager.game.level.world_data.get_cell_index_from_local_position(transform.origin)
 	var floor_type = GameManager.game.level.world_data.get_cell_surfacetype(cell_index)
@@ -334,16 +325,11 @@ func _get_surface_type() -> Array:
 	return _audio_player._footstep_sounds
 
 
-# Apparently not used
-#func _handle_player_sound_emission() -> void:
-#	_audio_player._footstep_sounds = _get_surface_type()
-
-
 func _walk(delta, speed_mod : float = 1.0) -> void:
 	move_dir = character_state.move_direction
 	move_dir = move_dir.rotated(Vector3.UP, rotation.y)
 	
-	if do_sprint and stamina > 0 and is_reloading == false and is_moving_forward and !is_jumping:
+	if do_sprint and stamina > 0 and is_reloading == false and is_moving_forward:
 		if is_crouching:
 			if can_stand:
 				is_crouching = false
@@ -355,26 +341,37 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		# Sprint speed is walk speed plus stamina * a number, so player slows down as runs longer
 		move_dir *= (1.2 + ((stamina / 500) * 0.3))
 		change_stamina(-0.3)
+		# Additionally, if encumbered, drain stamina more
+		if inventory.encumbrance > 0:
+#			print("Draining additional stamina: ", (inventory.encumbrance / 10))
+			change_stamina(-(inventory.encumbrance / 10))
 	else:
+		do_sprint = false
 		move_dir *= 0.8
 		if !do_sprint:
 			change_stamina(0.3)
 	
 	var y_velo = velocity.y
 	
-	var v1 = speed * move_dir - velocity * Vector3(move_drag, 0, move_drag)
-	var v2 = Vector3.DOWN * gravity * delta
+	var v1 = 0.5 * move_dir - velocity * Vector3(move_drag, 0, move_drag)
+	var v2 
+	
+	if is_jumping and do_sprint and velocity.y > (jump_force - 1.0):
+		v2 = Vector3.DOWN * (gravity * 0.85) * delta
+	else:
+		v2 = Vector3.DOWN * gravity * delta
 	
 	velocity += v1 + v2
 	
+	# This kinda just a double-check?
 	grounded = is_on_floor() or _ground_checker.is_colliding()
 	
 	if is_crouching and is_jumping:
 		velocity = move_and_slide((velocity) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, false)
+				Vector3.UP, true, 4, PI / 4, true)
 	else:
 		velocity = move_and_slide((velocity * speed_mod) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, false)
+				Vector3.UP, true, 4, PI / 4, true)
 	
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
@@ -391,7 +388,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	grounded = is_on_floor()
 	
 	if !grounded and y_velo < velocity.y:
-		velocity.y = y_velo
+			velocity.y = y_velo
 	
 	if grounded:
 		velocity.y -= 0.01
@@ -410,7 +407,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if c != Vector3.ZERO:
 			if is_clamberable:
 				clamberable_obj = is_clamberable
-				if clamberable_obj is RigidBody: # to allow static objects
+				if clamberable_obj is RigidBody:   # To allow static objects
 					clamberable_obj.mode = 1
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE
@@ -422,15 +419,33 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if is_jumping or !is_on_floor():
 			do_jump = false
 			return
-	
-		# This is the actual jump
-		velocity.y = jump_force
+		
+		# Calculate jump force based on sprinting status
+		var jump_multiplier = 1.0  # Default jump force multiplier
+		if do_sprint and stamina > 0:  # Check if sprinting and have enough stamina
+			jump_multiplier = 1.1  # Adjust the multiplier as needed for the desired jump distance
+		
+		# Apply jump force with the calculated multiplier
+		velocity.y = jump_force * jump_multiplier
+		
+		if do_sprint:
+			velocity.x += move_dir.x * jump_force * 1.1
+			velocity.z += move_dir.z * jump_force * 1.1
+		
 		is_jumping = true
 		do_jump = false
+		
+		# Jumping takes stamina, more if you're encumbered
+		change_stamina(-30)
+		if inventory.encumbrance > 0:
+			print("Draining additional stamina on jump: ", (inventory.encumbrance * 10))
+			change_stamina(-(inventory.encumbrance * 10))
+		
 		return
 	
 	do_jump = false
 	
+	# Movement audio
 	if velocity.length() > 0.1 and grounded and not _audio_player.movement_audio.playing and is_to_move:
 		if is_crouching:
 			_audio_player.play_footstep_sound(-1.0, 0.1, -20)
@@ -447,11 +462,11 @@ func _crouch(delta : float) -> void:
 		_crouch_collider.set_deferred("disabled", false)
 		_collider.set_deferred("disabled", true)
 	
-	var from = mainhand_equipment_root.transform.origin.y
-	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
-	
-	from = offhand_equipment_root.transform.origin.y
-	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#	var from = mainhand_equipment_root.transform.origin.y
+#	mainhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
+#
+#	from = offhand_equipment_root.transform.origin.y
+#	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
 	if !is_on_floor() and !is_jumping:
 		velocity.y -= 5 * (gravity * delta)
@@ -468,6 +483,7 @@ func _crouch(delta : float) -> void:
 			return
 
 
+# Move this to a character_anims.gd attached to AnimationPlayer
 func check_state_animation(delta):
 	var forwards_velocity
 	var sideways_velocity
@@ -477,14 +493,14 @@ func check_state_animation(delta):
 	sideways_velocity = global_transform.basis.x.dot(velocity)
 	
 	# This code checks the current item equipped by the player and updates the current_mainhand_item_animation to correspond to it 
-	if self.name == "Cultist":
-		if current_mainhand_item_animation == hold_states.MELEE_ITEM:
+	if "Cultist" in self.name:   # Obviously this is a hack, just for the demo and needs to be generalized.
+		if current_mainhand_item_animation == HoldStates.MELEE_ITEM:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",0)
 				
@@ -492,12 +508,12 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",1)
 				animation_tree.set("parameters/walk_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",5)
 				animation_tree.set("parameters/crouch_strafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
@@ -506,7 +522,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Equipped_state/current",1)
 				animation_tree.set("parameters/Normal_state/current",2)
 				
-		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ITEM:
+		elif current_mainhand_item_animation == HoldStates.SMALL_GUN_ITEM:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -514,7 +530,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -526,7 +542,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",0)
 				animation_tree.set("parameters/Small_guns_transitions/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -534,7 +550,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Pistol_strafe/blend_amount",1)
 				animation_tree.set("parameters/Pistol_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",0)
@@ -549,7 +565,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Small_guns_transitions/current",2)
 				animation_tree.set("parameters/small_gun_run_blend/blend_amount",1)
 
-		elif current_mainhand_item_animation == hold_states.LARGE_GUN_ITEM:
+		elif current_mainhand_item_animation == HoldStates.LARGE_GUN_ITEM:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
@@ -557,7 +573,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -569,7 +585,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Gun_transition/current",1)
 				animation_tree.set("parameters/Big_guns_transition/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -577,7 +593,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Rifle_Strafe/blend_amount",1)
 				animation_tree.set("parameters/Rifle_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",2)
 				animation_tree.set("parameters/Gun_transition/current",1)
@@ -592,14 +608,14 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/Big_guns_transition/current",2)
 				animation_tree.set("parameters/Rifle_gun_run_blend/blend_amount",1)
 				
-		elif current_mainhand_item_animation == hold_states.LARGE_GUNS_ADS:
+		elif current_mainhand_item_animation == HoldStates.LARGE_GUNS_ADS:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",0)
@@ -609,14 +625,14 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",1)
 				animation_tree.set("parameters/Rifle_ADS_strafe/blend_amount",1)
 				animation_tree.set("parameters/Rifle_ADS_strafe_vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",0)
 				animation_tree.set("parameters/ADS_Rifle_state/current",3)
@@ -629,14 +645,14 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_Rifle_state/current",2)
 				animation_tree.set("parameters/ADS_Rifle_Run/blend_amount",1)
 				
-		elif current_mainhand_item_animation == hold_states.SMALL_GUN_ADS:
+		elif current_mainhand_item_animation == HoldStates.SMALL_GUN_ADS:
 			
 			if state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",4)
 				
-			if move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING:
+			if move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",0)
@@ -646,14 +662,14 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",4)
 				
-			elif not move_dir == Vector3.ZERO and ! state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and !state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",1)
 				animation_tree.set("parameters/One_Handed_ADS_Strafe/blend_amount",1)
 				animation_tree.set("parameters/One_Handed_ADS_Strafe_Vector/blend_position", Vector2(sideways_velocity, forwards_velocity))
 				
-			elif  not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
+			elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 				animation_tree.set("parameters/Equipped_state/current",0)
 				animation_tree.set("parameters/ADS_State/current",1)
 				animation_tree.set("parameters/ADS_Pistol_state/current",3)
@@ -666,7 +682,7 @@ func check_state_animation(delta):
 				animation_tree.set("parameters/ADS_Pistol_state/current",2)
 				animation_tree.set("parameters/One_Handed_ADS_Run/blend_amount",1)
 
-#checks if the character is on the ground if not plays the falling animation
+# Checks if the character is on the ground if not plays the falling animation
 	if !grounded and !_ground_checker.is_colliding():
 		animation_tree.set("parameters/Falling/active",true)
 	else:
@@ -684,26 +700,26 @@ func check_current_item_animation():
 		
 		if inventory.hotbar[mainhand_object] is GunItem:
 			if inventory.hotbar[mainhand_object].item_size == 0:
-				current_mainhand_item_animation = hold_states.SMALL_GUN_ITEM
+				current_mainhand_item_animation = HoldStates.SMALL_GUN_ITEM
 			else:
-				current_mainhand_item_animation = hold_states.LARGE_GUN_ITEM
+				current_mainhand_item_animation = HoldStates.LARGE_GUN_ITEM
 #		elif inventory.hotbar[main_hand_object] is LanternItem or inventory.hotbar[off_hand_object] is LanternItem:
 #			print("Carried Lantern")
 			#update this to work for items animations
 		elif inventory.hotbar[mainhand_object] is MeleeItem:
-			current_mainhand_item_animation = hold_states.MELEE_ITEM
-			print("Melee Item")
+			current_mainhand_item_animation = HoldStates.MELEE_ITEM
+
 
 
 func change_stamina(amount: float) -> void:
-	stamina = min(600, max(0, stamina + amount));
+	stamina = min(600, max(0, stamina + amount))
 
 
 func _on_ClamberableChecker_body_entered(body):
 	if body.is_in_group("CLAMBERABLE"):
 		is_clamberable = body
 #
-#	if event.is_action_pressed("crouch"):
+#	if event.is_action_pressed("player|crouch"):
 #		if $crouch_timer.is_stopped(): # && !$AnimationTree.get(roll_active):
 #			$crouch_timer.start()
 #			$AnimationTree.tree_root.get_node("cs_transition").xfade_time = (velocity.length() + 1.5)/ 15.0
@@ -722,5 +738,5 @@ func _on_Inventory_mainhand_slot_changed(previous, current):
 	if inventory.hotbar[current] != null :
 		pass
 	else:
-		current_mainhand_item_animation = hold_states.MELEE_ITEM
-		mainhand_animation = Animation_state.NOT_EQUIPPED
+		current_mainhand_item_animation = HoldStates.MELEE_ITEM
+		mainhand_animation = AnimationState.NOT_EQUIPPED

@@ -1,5 +1,7 @@
-class_name BT_Gun_Has_Ammo
-extends BT_Node
+class_name BTGunHasAmmo
+extends BTNode
+
+# Checks if the currently equipped (mainhand) item has ammo loaded
 
 
 func tick(state : CharacterState) -> int:

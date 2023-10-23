@@ -1,5 +1,7 @@
-class_name BT_Wait_Random
-extends BT_Node
+class_name BTWaitRandom
+extends BTNode
+
+# Choose a random amount of time to wait and wait it
 
 
 signal character_idled
@@ -32,6 +34,8 @@ func tick(state : CharacterState) -> int:
 		return Status.RUNNING
 	else:
 		active = false
+		# Reset timer in preparation for next execution
+		reset_timer()
 		return Status.SUCCESS
 
 

@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra.tscn" type="PackedScene" id=1]
+
+[sub_resource type="Shader" id=148]
+code = "shader_type spatial;
+render_mode blend_add, unshaded;
+
+const vec3 CENTER_OFFSET = vec3(0.0, -0.03, 0.0);
+const vec3 SCALE = vec3(50.0, 12.0, 50.0);
+
+uniform float INTENSITY = 1.0;
+uniform sampler2D COLOR_RAMP;
+varying vec2 XY_FACTOR;
+
+void vertex() {
+	vec3 v = (VERTEX - CENTER_OFFSET)*SCALE;
+	XY_FACTOR = vec2(v.x*v.x + v.z*v.z, v.y);
+}
+
+void fragment() {
+	ALBEDO.rgb = texture(COLOR_RAMP, vec2(XY_FACTOR.y)).rgb*INTENSITY;
+}"
+
+[sub_resource type="Gradient" id=146]
+offsets = PoolRealArray( 0, 0.10559, 0.223602, 0.360248, 0.428571, 0.453416, 0.819876 )
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369, 1, 0.879811, 0.50184, 0.00487359, 1, 1, 0.566667, 0, 1, 0.51, 0.1275, 0, 1, 0.19, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=149]
+gradient = SubResource( 146 )
+width = 32
+
+[sub_resource type="ShaderMaterial" id=150]
+resource_local_to_scene = true
+shader = SubResource( 148 )
+shader_param/INTENSITY = 4.0
+shader_param/COLOR_RAMP = SubResource( 149 )
+
+[node name="FloorCandelabraUnlit" instance=ExtResource( 1 )]
+
+[node name="MeshInstance" parent="." index="0"]
+cast_shadow = 1
+
+[node name="AnimationPlayer" parent="." index="65"]
+autoplay = "unlit"
+
+[node name="Fire" parent="FireOrigin8" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin7" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin6" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin5" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin4" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin3" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin9" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin2" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Fire" parent="FireOrigin" index="0"]
+visible = false
+material/0 = SubResource( 150 )
+
+[node name="Light" parent="FireOrigin/Fire" index="0"]
+visible = false
+
+[node name="Ignite" parent="." index="75"]
+visible = false

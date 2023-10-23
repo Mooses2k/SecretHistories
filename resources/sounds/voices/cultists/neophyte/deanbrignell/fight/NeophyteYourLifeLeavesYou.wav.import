@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteYourLifeLeavesYou.wav-8045dd9a4345e3e67efe3ec76704e8c7.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteYourLifeLeavesYou.wav"
+dest_files=[ "res://.import/NeophyteYourLifeLeavesYou.wav-8045dd9a4345e3e67efe3ec76704e8c7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/characters/light_detect.gd" type="Script" id=1]
+[ext_resource path="res://scenes/characters/light_detection.gd" type="Script" id=1]
 
 [sub_resource type="SphereMesh" id=1]
 radius = 0.3
@@ -17,8 +17,10 @@ visible = false
 mesh = SubResource( 1 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
-margin_right = 117.0
-margin_bottom = 116.0
+margin_left = -123.0
+margin_top = -122.0
+margin_right = -6.0
+margin_bottom = -6.0
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 32, 32 )
@@ -28,7 +30,7 @@ render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.3, 0 )
-cull_mask = 1048571
+cull_mask = 1047931
 projection = 1
 current = true
 
@@ -37,8 +39,10 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.644026, 0 )
 mesh = SubResource( 1 )
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]
-margin_right = 117.0
-margin_bottom = 116.0
+margin_left = -123.0
+margin_top = -122.0
+margin_right = -6.0
+margin_bottom = -6.0
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer2"]
 size = Vector2( 32, 32 )
@@ -48,6 +52,6 @@ render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="ViewportContainer2/Viewport"]
 transform = Transform( 1, 0, 0, 0, 0.00422365, 0.999991, 0, -0.999991, 0.00422365, 0, 0.944026, 0 )
-cull_mask = 1048571
+cull_mask = 1047931
 projection = 1
 current = true

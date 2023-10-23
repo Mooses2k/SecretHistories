@@ -1,5 +1,7 @@
-class_name BT_Selector
-extends BT_ControlFlow
+class_name BTSelector
+extends BTControlFlow
+
+# If and when a node is a SUCCESS, end Selector.
 
 
 func tick(state : CharacterState) -> int:

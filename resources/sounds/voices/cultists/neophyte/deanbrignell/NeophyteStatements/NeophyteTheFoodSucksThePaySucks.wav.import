@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/NeophyteTheFoodSucksThePaySucks.wav-0939eebc15061f33445af1080647e7e4.sample"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteTheFoodSucksThePaySucks.wav"
+dest_files=[ "res://.import/NeophyteTheFoodSucksThePaySucks.wav-0939eebc15061f33445af1080647e7e4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,11 +1,10 @@
-class_name Rock
-extends EquipmentItem
+class_name RockItem
+extends MeleeItem
 
 
 export (NodePath) var player_path
-export(AttackTypes.Types) var melee_damage_type : int = 0
 
-onready var player=get_node(player_path)
+onready var player = get_node(player_path)
 
 
 func _on_Hitbox_hit(other):

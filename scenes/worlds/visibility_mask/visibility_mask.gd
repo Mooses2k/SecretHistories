@@ -1,6 +1,9 @@
 class_name VisibilityMask
 extends MeshInstance
 
+### Legacy visibility determiner ala the roguelike 'what you can see from your position', top-eown
+### Not working since code changes in 2022
+
 
 export var wall_height : float = 16.0
 export var resolution : int = 2048
@@ -28,7 +31,7 @@ func _ready():
 		printerr("Visibility mask should be a child of a GameWorld node")
 		queue_free()
 
-	var texture = viewport.get_texture();
+	var texture = viewport.get_texture()
 	texture.flags = Texture.FLAG_FILTER
 	(self.material_override as ShaderMaterial).set_shader_param("data_texture", texture)
 

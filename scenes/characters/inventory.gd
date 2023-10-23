@@ -10,16 +10,19 @@ signal mainhand_slot_changed(previous, current)
 # Emitted when the user selects a new slot for the offhand
 signal offhand_slot_changed(previous, current)
 # Emitted when the ammount of a tiny item changes
-signal tiny_item_changed(item, previous_ammount, curent_ammount)
-#Emitted to fadein the HUD UI
+
+signal tiny_item_changed(item, previous_amount, curent_amount)
+# Emitted to fadein the HUD UI
 signal inventory_changed
-#Emitted to hide the HUD UI when player dies
+# Emitted to hide the HUD UI when player dies
 signal player_died
 
+signal unequip_mainhand
+signal unequip_offhand
 # 0 is 1, 10 is empty_hands
-const HOTBAR_SIZE : int= 11
+const HOTBAR_SIZE : int = 11
 
-# Items tracked exclusively by ammount, don't contribute to weight,
+# Items tracked exclusively by amount, don't contribute to weight,
 # don't show in hotbar
 var tiny_items : Dictionary
 
@@ -41,9 +44,14 @@ var current_mainhand_equipment : EquipmentItem = null
 var current_offhand_slot : int = 0 setget set_offhand_slot
 var current_offhand_equipment : EquipmentItem = null
 
+# Are we currently in the middle of swapping hands?
+var are_swapping : bool = false
+
 # Where to drop items from
-onready var drop_position_node : Spatial = $"../Body/DropPosition"  as Spatial
-onready var Animations : AnimationPlayer = $"%AdditionalAnimations"  as AnimationPlayer
+onready var drop_position_node : Spatial = $"%DropPosition" as Spatial
+onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
+
+var encumbrance : float = 0   # Is a float to allow easy division
 
 
 func _ready():
@@ -56,14 +64,16 @@ func can_pickup_item(item : PickableItem) -> bool:
 	# Can only pickup dropped items
 	# (may change later to steal weapons, or we can do that by dropping them first)
 	# Also prevents picking up busy items
-	if item.item_state != GlobalConsts.ItemState.DROPPED:
-		return false
+	print("can_pickup_item called")
+	if item.item_state == GlobalConsts.ItemState.DROPPED or item.item_state == GlobalConsts.ItemState.DAMAGING:
+		print("item.item_state is ", item.item_state, ", so item is considered dropped or damaging")
+		# Can always pick up equipment (goes to bulky slot if necessary)
+		if item is EquipmentItem:
+			return true
 	# Can always pickup special items
 	if (item is TinyItem) or (item is KeyItem):
 		return true
-	# Can always pick up equipment (goes to bulky slot if necessary)
-	if item is EquipmentItem:
-		return true
+	
 	return false
 
 
@@ -73,27 +83,32 @@ func add_item(item : PickableItem) -> bool:
 	var can_pickup : bool = can_pickup_item(item)
 	
 	if not can_pickup:
+		print("can't pick up")
 		return false
 	
 	item.owner_character = owner
+	print("item owner to be: ", item.owner_character)
 	
 	if item is TinyItem:
 		if item.item_data != null:
 			insert_tiny_item(item.item_data, item.amount)
+			
 		# To make sure the item can't be interacted with again
 		item.item_state = GlobalConsts.ItemState.BUSY
 		item.queue_free()
+		emit_signal("inventory_changed")
 	
 	if item is KeyItem:
 		if not keychain.has(item.key_id):
 			keychain[item.key_id] = 0
 		keychain[item.key_id] += 1
+		
 		# To make sure the item can't be interacted with again
 		item.item_state = GlobalConsts.ItemState.BUSY
 		item.queue_free()
 	
 	elif item is EquipmentItem:
-
+		print("item is equipment item")
 		# Update the inventory info immediately
 		# This is a bulky item, or there is no space on the hotbar
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
@@ -102,11 +117,12 @@ func add_item(item : PickableItem) -> bool:
 			unequip_offhand_item()
 			equip_bulky_item(item)
 		else:
-			var slot = 10   # Defaulting to empty hands
+			var slot = 0
 			
 			### Probably can be cleaned up - part 1 is to put lights offhand, part 2 is everything else
-			# Checks if something is in offhand; if not, and this is a light, put it there
-			if current_offhand_equipment == null or current_offhand_equipment == EmptyHand:
+			### Part 1 - Checks if something is in offhand; if not, and this is a light, put it in offhand
+			print("Current offhand equipment: ", current_offhand_equipment)
+			if current_offhand_equipment == null or current_offhand_equipment is EmptyHand:
 				print("Offhand null or empty hands")
 				if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
 					print("...and is a light")
@@ -119,7 +135,7 @@ func add_item(item : PickableItem) -> bool:
 						slot += 1
 					if slot != 10:
 						hotbar[slot] = item
-						print("Light-source going to slot ", slot)
+						print("Light-source going to slot ", slot + 1)
 						# Schedule the item removal from the world
 						if item.is_inside_tree():
 							item.get_parent().remove_child(item)
@@ -130,17 +146,18 @@ func add_item(item : PickableItem) -> bool:
 						if not bulky_equipment:
 							set_offhand_slot(slot)   # This is what puts it in off-hand
 							equip_offhand_item()
-							return true
+							return true   # Thus not processing the further autoequip logic below
 					
-			### Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
+			### Part 2 - Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
 			slot = current_mainhand_slot
 			# Then the offhand, preferring this slot for lights
 			if hotbar[slot] != null:
+				print("Current hotbar slot, ", slot + 1, " is null. Setting slot to current offhand slot")
 				slot = current_offhand_slot
 			# Then the first empty slot
 			if hotbar[slot] != null:
 				slot = hotbar.find(null)
-			# This checks if the slot to add the item isn't the item free slot then adds the item to the slot
+			# This checks if the slot to add the item isn't the hands-free slot then adds the item to the slot
 			if slot != 10:
 				hotbar[slot] = item
 				# Schedule the item removal from the world
@@ -150,14 +167,41 @@ func add_item(item : PickableItem) -> bool:
 				emit_signal("hotbar_changed", slot)
 				emit_signal("inventory_changed")
 				
-				# Autoequip if possible
-				# Everything else including another light-source, just put it in the main-hand
+				### Auto-equip
+				# Autoequip if possible - main idea is prefer lights in off-hand and never forceably
+				# put a medium gun in hand if it means pushing out a (lit) light-source
+				# (we currently don't check if it's lit)
 				if current_mainhand_slot == slot and not bulky_equipment:
-					equip_mainhand_item()
-				
-				elif current_offhand_slot == slot and not bulky_equipment:
-					equip_offhand_item()
+					print("current slot is added item slot, which is ", slot + 1)
+					if current_offhand_equipment is LanternItem or current_offhand_equipment is CandleItem or current_offhand_equipment is TorchItem or current_offhand_equipment is CandelabraItem:
+						print("...and current offhand is a light")
+						if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+							equip_mainhand_item()
+							print("...and picked up item is a small item")
+							return true
+						if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
+							equip_mainhand_item()
+							print("...and picked up item is a medium melee weapon")
+	
+					elif item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+						equip_mainhand_item()
+						print("...and picked up item is a small item")
+						return true
 					
+					# Medium items
+					elif item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+						equip_mainhand_item()
+					
+				elif current_offhand_slot == slot and not bulky_equipment and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+					equip_offhand_item()
+			
+			# Encumbrance makes character louder and more visible. Character uses more stamina.
+			# Eventually will affect mantling and swimming.
+			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+				encumbrance += 1
+			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+				encumbrance += 2
+			
 	return true
 
 
@@ -188,6 +232,7 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_mainhand_item():
+	yield(get_tree().create_timer(0.5), "timeout")
 	# temporary hack (issue #409)
 	if not is_instance_valid(current_mainhand_equipment):
 		current_mainhand_equipment = null
@@ -202,6 +247,7 @@ func equip_mainhand_item():
 		# Can't equip item in both hands
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
+			
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
@@ -218,10 +264,11 @@ func unequip_mainhand_item():
 	if not is_instance_valid(current_mainhand_equipment):
 		current_mainhand_equipment = null
 	
-	if current_mainhand_equipment == null: # No item equipped
+	if current_mainhand_equipment == null:   # No item equipped
 		return
 	
 	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	emit_signal("unequip_mainhand")
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item.can_attach == true:
@@ -258,13 +305,23 @@ func drop_bulky_item():
 
 
 func equip_offhand_item():
+	yield(get_tree().create_timer(0.5), "timeout")
 	# Item already equipped or both slots set to the same item
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
 	# Item exists, can be equipped on the offhand, and is not already equipped
-	if item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
-		# Can't Equip a Bulky Item simultaneously with a normal item
+	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
+		
+		if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
+			print("Equipped offhand light item")
+		else:
+			print("Equipped offhand slot normal item")
+#			current_offhand_slot = 10
+#			unequip_offhand_item()
+		
+	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
+		# Can't equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
 		item.item_state = GlobalConsts.ItemState.EQUIPPED
 		current_offhand_equipment = item
@@ -284,10 +341,13 @@ func unequip_offhand_item():
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = current_offhand_equipment
 	current_offhand_equipment = null
+	emit_signal("unequip_offhand")
 	if item.can_attach == true:
 		pass
 	else:
-		item.get_parent().remove_child(item)
+		set_offhand_slot(10)
+		if item != null:
+			item.get_parent().remove_child(item)
 
 
 func drop_mainhand_item():
@@ -295,7 +355,6 @@ func drop_mainhand_item():
 		drop_bulky_item()
 	else:
 		drop_hotbar_slot(current_mainhand_slot)
-	pass
 
 
 func get_mainhand_item() -> EquipmentItem:
@@ -312,7 +371,6 @@ func has_bulky_item() -> bool:
 
 func drop_offhand_item():
 	drop_hotbar_slot(current_offhand_slot)
-	pass
 
 
 func drop_hotbar_slot(slot : int) -> Node:
@@ -336,24 +394,45 @@ func drop_hotbar_slot(slot : int) -> Node:
 
 
 # Drops the item, it must be unequipped first
-# note that the drop is done in a deferred manner
+# Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
-	item.item_state = GlobalConsts.ItemState.DROPPED
+	if owner is Player:
+		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
+			item.item_state = GlobalConsts.ItemState.DROPPED   # At the moment, 'placed' items can't hurt anyone.
+		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:
+			item.item_state = GlobalConsts.ItemState.DAMAGING
+	else:
+		item.item_state = GlobalConsts.ItemState.DAMAGING
+	
 	if !GameManager.game:   # This is here for test scenes
 		item.global_transform = drop_position_node.global_transform
 		find_parent("TestWorld").add_child(item)
-		return
-	if GameManager.game.level:   # This is for the real game
+		item.apply_throw_logic()
+		
+	elif GameManager.game.level:   # This is for the real game
 		item.global_transform = drop_position_node.global_transform
+#		print(item.angular_velocity)
+		
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
+			
+		if item is EquipmentItem:
+			print("Item is EquipmentItem, applying throw logic")
+			item.apply_throw_logic()
+#			print(item.angular_velocity)
+			
+	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+		encumbrance -= 1
+	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+		encumbrance -= 2
 
 
 func set_mainhand_slot(value : int):
 	if value != current_mainhand_slot:
+#		if are_swapping == false:
 		unequip_mainhand_item()
 		var previous_slot = current_mainhand_slot
 		current_mainhand_slot = value
@@ -371,6 +450,7 @@ func set_mainhand_slot(value : int):
 func set_offhand_slot(value : int):
 	if value != current_offhand_slot:
 		var previous_slot = current_offhand_slot
+#		if are_swapping == false:
 		unequip_offhand_item()
 		current_offhand_slot = value
 		equip_offhand_item()
@@ -378,6 +458,50 @@ func set_offhand_slot(value : int):
 		emit_signal("inventory_changed")
 
 
+func swap_hands():
+	print("swap hands attempt")
+	# If bulky, don't do anything
+	if bulky_equipment:
+		return
+	# If medium item in mainhand, can't do anything since medium items can't be in offhand
+	if hotbar[current_mainhand_slot] and hotbar[current_mainhand_slot].item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+		return
+	# There's probably a bug in here about light-sources staying lit, relating to unequipping items
+	are_swapping = true
+	var previous_mainhand = current_mainhand_slot
+	var previous_offhand = current_offhand_slot
+	print("Mainhand slot: ", current_mainhand_slot)
+	print("Offhand slot: ", current_offhand_slot)
+	
+	# Avoids a bug if offhand is empty when swap where you can't pick anything up anymore after it 
+	if current_offhand_slot == 10:
+		if current_mainhand_slot == 0:
+			previous_offhand = 1
+			set_mainhand_slot(previous_offhand)
+		else:
+			previous_offhand = 0
+			set_mainhand_slot(previous_offhand)
+		
+		set_offhand_slot(previous_mainhand)
+		unequip_mainhand_item()
+	
+	else:
+		set_mainhand_slot(previous_offhand)
+		set_offhand_slot(previous_mainhand)
+	
+	are_swapping = false
+
+
+func switch_away_from_light(light_source):
+	if not light_source.can_attach:
+		if not are_swapping:
+			print("unlighting light when putting it away because not swapping hands now")
+			light_source.unlight()
+	elif light_source.can_attach and light_source is LanternItem:
+		light_source.attach_to_belt()
+
+
+# Currently bugged and moves out of position over time - issue #402
 func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position:
 		item.get_parent().remove_child(item)

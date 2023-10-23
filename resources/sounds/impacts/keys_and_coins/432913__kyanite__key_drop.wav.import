@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/432913__kyanite__key_drop.wav-611d523c96e73267aa02a12c14ce9d2f.sample"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/keys_and_coins/432913__kyanite__key_drop.wav"
+dest_files=[ "res://.import/432913__kyanite__key_drop.wav-611d523c96e73267aa02a12c14ce9d2f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

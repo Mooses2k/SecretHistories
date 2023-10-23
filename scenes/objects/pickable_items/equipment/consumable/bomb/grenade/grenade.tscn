@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd" type="Script" id=1]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Material.material" type="Material" id=2]
@@ -7,12 +7,13 @@
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Metallic.png" type="Texture" id=5]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Normal.png" type="Texture" id=6]
 [ext_resource path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Roughness.png" type="Texture" id=7]
-[ext_resource path="res://scenes/objects/pickable_items/mesh_instances.gd" type="Script" id=8]
-[ext_resource path="res://scenes/effects/explosion/explosions.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/bomb/_bomb.tscn" type="PackedScene" id=8]
+[ext_resource path="res://resources/sounds/explosion/fuse/102264__rytmenpinnen__onesparkler.ogg" type="AudioStream" id=9]
 [ext_resource path="res://scenes/effects/explosion/material.tres" type="Material" id=10]
 [ext_resource path="res://scenes/effects/explosion/smokeshader.tres" type="Shader" id=11]
 [ext_resource path="res://scenes/effects/effects.gd" type="Script" id=12]
 [ext_resource path="res://scenes/effects/explosion_audio.tscn" type="PackedScene" id=13]
+[ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=14]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "FrenchGrenade_Cube"
@@ -42,33 +43,13 @@ ao_texture = ExtResource( 3 )
 ao_on_uv2 = false
 ao_texture_channel = 0
 
-[sub_resource type="ConvexPolygonShape" id=3]
-points = PoolVector3Array( -0.0233776, 0.148142, -0.0110421, -0.0122241, 0.0742247, 0.0198988, -0.00474241, 0.073111, -0.0249868, -0.00432437, 0.197678, 0.0156199, 0.0189858, 0.0742674, 0.0120853, 0.0147199, 0.167193, -0.0186643, 0.010911, 0.151957, 0.0232466, 0.0189026, 0.0745422, -0.0151546, -0.0233776, 0.151957, 0.011811, -0.0201488, 0.0738471, -0.0113927, -0.00432437, 0.201493, -0.00342437, 0.0185288, 0.167193, 0.0156199, 0.00709772, 0.201493, 0.000384487, -0.0036609, 0.162218, -0.0184952, 0.0112538, 0.0738907, 0.02, -0.0200577, 0.0741477, 0.0121071, -0.00813322, 0.201493, 0.00799772, 0.0185288, 0.167193, -0.0148554, -0.0233776, 0.155772, -0.0110421, 0.00328886, 0.197678, 0.0156199, 0.00338265, 0.0742265, -0.0230412, -0.00999358, 0.162323, 0.0161813, 0.00709772, 0.201493, 0.00799772, -0.00813322, 0.197678, -0.00342437, 0.00328886, 0.201493, -0.00342437, -0.0102671, 0.163007, -0.0158721, -0.0122184, 0.0742561, -0.0191249 )
-
-[sub_resource type="ConvexPolygonShape" id=4]
+[sub_resource type="ConvexPolygonShape" id=26]
 points = PoolVector3Array( 0.032189, -0.0417436, 0.0985185, -0.0223499, -0.0344504, -0.101542, -0.022394, -0.019907, -0.101748, -0.102733, -0.0308096, 0.0222769, 0.0321692, 0.0709014, 0.00763305, 0.060914, -0.110353, -0.0212899, 0.101712, -0.0126048, -0.02151, -0.0437565, -0.120885, 0.0219909, -0.0621193, 0.056145, 0.0184985, -0.04039, -0.00545684, 0.0946456, -0.0542862, -0.0953427, -0.0605477, 0.0247679, 0.0486254, -0.0682258, -0.0800925, 0.00895692, -0.0574675, 0.0394782, -0.0635444, -0.0904653, 0.0390424, 0.0410746, 0.0686858, 0.0789991, -0.0705882, 0.0545857, -0.0149811, -0.103214, 0.0727579, 0.0864578, 0.0126553, 0.0438626, -0.0222437, 0.0597342, -0.0539452, -0.0583681, -0.0633694, 0.0799311, 0.0249751, -0.129162, -0.00324776, 0.060829, -0.00556242, -0.0826122, 0.0716663, 0.0413474, -0.0356993, -0.0947646, -0.0707164, -0.00684874, -0.0150146, -0.114286, -0.0576402, 0.0898466, -0.0669724, -0.0393591, -0.0259066, 0.0562204, 0.0583928, -0.0834295, -0.0488403, -0.0608946, 0.0356123, -0.110316, 0.0545656, -0.086775, 0.0158932, 0.0399009, 0.101681, -0.0490871, 0.0222723, -0.0947817, 0.0126826, -0.0213589, -0.0803195, -0.0852512, 0.0366501, 0.00670857, 0.0162202, 0.0944975, 0.0719087, -0.0127394, 0.0727945, -0.0223923, 0.0129303, -0.094443, -0.00416412, -0.0491235, 0.102766, -0.0405363, 0.0674223, -0.0178068, 0.0391166, -0.106462, -0.0572258, 0.0719555, 0.0452585, 0.0257285, -0.0150012, -0.0852067, -0.0865922, -0.0584839, -0.114186, -0.0177296, -0.0838511, -0.0307962, 0.0619752, 0.0755763, -0.0996756, 0.00399963, 0.0213144, 0.00188523, -0.0978709, 0.0356063, -0.0813995, 0.0834445, -0.0585435, -0.0380831, -0.0866604, -0.00415227, 0.0712255, 0.0331688, 0.0212397, 0.0707428, -0.0286234, -0.0115038, -0.129799, 0.0187014, -0.0543306, 0.0265959, 0.0721238, -0.103022, -0.0308146, -0.0179174, 0.0977933, 0.012855, 0.00401671, -0.0690157, 0.0412852, -0.0392647, 0.0826783, -0.0307931, -0.0647101, -0.000515513, -0.129432, -0.0215077, -0.051006, -0.102967, 0.0544836, 0.0680556, 0.0196919, -0.0645534, 0.0677344, -0.0811023, -0.0606662, -0.0548007, 0.0126031, -0.0792222, 0.0863268, -0.0489117, 0.0582548, 0.0212116, 0.0597299, 0.0547115, -0.079653, -0.0847816, -0.0391667, 0.0248907, -0.0307988, -0.10122 )
 
-[sub_resource type="ParticlesMaterial" id=20]
-direction = Vector3( 0, 0, 0 )
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 7.0
-initial_velocity_random = 0.49
-angular_velocity = 10.28
-angular_velocity_random = 1.0
-linear_accel = -1.0
-damping = 75.0
-damping_random = 0.38
-angle_random = 1.0
-scale = 3.0
-scale_random = 1.0
-anim_speed_random = 0.46
-anim_offset_random = 0.51
+[sub_resource type="ConvexPolygonShape" id=27]
+points = PoolVector3Array( -0.0233776, 0.148142, -0.0110421, -0.0122241, 0.0742247, 0.0198988, -0.00474241, 0.073111, -0.0249868, -0.00432437, 0.197678, 0.0156199, 0.0189858, 0.0742674, 0.0120853, 0.0147199, 0.167193, -0.0186643, 0.010911, 0.151957, 0.0232466, 0.0189026, 0.0745422, -0.0151546, -0.0233776, 0.151957, 0.011811, -0.0201488, 0.0738471, -0.0113927, -0.00432437, 0.201493, -0.00342437, 0.0185288, 0.167193, 0.0156199, 0.00709772, 0.201493, 0.000384487, -0.0036609, 0.162218, -0.0184952, 0.0112538, 0.0738907, 0.02, -0.0200577, 0.0741477, 0.0121071, -0.00813322, 0.201493, 0.00799772, 0.0185288, 0.167193, -0.0148554, -0.0233776, 0.155772, -0.0110421, 0.00328886, 0.197678, 0.0156199, 0.00338265, 0.0742265, -0.0230412, -0.00999358, 0.162323, 0.0161813, 0.00709772, 0.201493, 0.00799772, -0.00813322, 0.197678, -0.00342437, 0.00328886, 0.201493, -0.00342437, -0.0102671, 0.163007, -0.0158721, -0.0122184, 0.0742561, -0.0191249 )
 
-[sub_resource type="SphereShape" id=26]
-radius = 2.0
-
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=28]
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
 initial_velocity = 10.0
@@ -77,10 +58,10 @@ damping = 1.0
 damping_random = 0.5
 scale = 0.1
 
-[sub_resource type="QuadMesh" id=5]
+[sub_resource type="QuadMesh" id=29]
 resource_local_to_scene = true
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=30]
 direction = Vector3( 0, 0, 0 )
 spread = 180.0
 initial_velocity = 1.0
@@ -93,7 +74,7 @@ color = Color( 1, 0.776471, 0.176471, 1 )
 offsets = PoolRealArray( 0, 0.52381, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0.542857, 0.542857, 0.542857, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=10]
+[sub_resource type="GradientTexture" id=31]
 gradient = SubResource( 21 )
 width = 256
 
@@ -101,21 +82,21 @@ width = 256
 offsets = PoolRealArray( 0.209524, 0.571429, 1 )
 colors = PoolColorArray( 0, 0, 0, 1, 0.53012, 0.53012, 0.53012, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=12]
+[sub_resource type="GradientTexture" id=32]
 gradient = SubResource( 22 )
 
 [sub_resource type="Gradient" id=23]
 offsets = PoolRealArray( 0, 0.280405, 0.459459, 0.996622 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.960938, 0.82299, 0.409149, 1, 0.720703, 0.306862, 0.306862, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=19]
+[sub_resource type="GradientTexture" id=33]
 gradient = SubResource( 23 )
 width = 256
 
 [sub_resource type="Gradient" id=24]
 offsets = PoolRealArray( 0, 0.333333 )
 
-[sub_resource type="GradientTexture" id=8]
+[sub_resource type="GradientTexture" id=34]
 gradient = SubResource( 24 )
 width = 64
 
@@ -128,62 +109,50 @@ shader_param/still_frame = -1.0
 shader_param/Soft_limit = 0.1
 shader_param/blend_scale = 0.1
 shader_param/emission_falloff_multiplier = 1.0
-shader_param/Smoke_color_ramp = SubResource( 10 )
-shader_param/blend_help = SubResource( 12 )
-shader_param/emission_falloff = SubResource( 8 )
-shader_param/emission_color_ramp = SubResource( 19 )
+shader_param/Smoke_color_ramp = SubResource( 31 )
+shader_param/blend_help = SubResource( 32 )
+shader_param/emission_falloff = SubResource( 34 )
+shader_param/emission_color_ramp = SubResource( 33 )
 
-[sub_resource type="QuadMesh" id=17]
+[sub_resource type="QuadMesh" id=35]
 material = SubResource( 25 )
 
-[node name="Grenade" type="RigidBody"]
-collision_layer = 0
-collision_mask = 0
+[node name="Grenade" instance=ExtResource( 8 )]
 mass = 0.3
 script = ExtResource( 1 )
-dropped_layers = 64
-dropped_mask = 1
-equipped_mode = 3
-item_size = 0
+__meta__ = {
+"_editor_description_": ""
+}
+item_drop_sound = ExtResource( 14 )
 item_name = "Grenade"
 radius = 10
-fragments = 400
-bomb_damage = 70.0
-damage_type = 2
+bomb_damage = 150.0
+damage_type = 3
 
-[node name="HoldPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0410383, 0.0608321 )
-
-[node name="Mesh" type="MeshInstance" parent="."]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 8.17944e-05, 0.0494444, -7.06701e-05 )
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = SubResource( 2 )
-script = ExtResource( 8 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 8.17944e-05, 0.0494444, -7.06701e-05 )
-shape = SubResource( 3 )
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, -0.000667825, 0 )
+shape = SubResource( 26 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 8.17944e-05, 0.0494444, -7.06701e-05 )
-shape = SubResource( 4 )
+[node name="HoldPosition" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0236034, -0.000669885, 0.0608321 )
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="Countdown" type="Timer" parent="."]
+[node name="CollisionShape2" type="CollisionShape" parent="." index="4"]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
+shape = SubResource( 27 )
+
+[node name="Countdown" type="Timer" parent="." index="5"]
 wait_time = 5.0
 one_shot = true
 
-[node name="Explosion" parent="." instance=ExtResource( 9 )]
-transform = Transform( -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0 )
-amount = 200
-lifetime = 3.67
-explosiveness = 1.0
-local_coords = false
-process_material = SubResource( 20 )
-
-[node name="CollisionShape" parent="Explosion/BlastRadius" index="0"]
-shape = SubResource( 26 )
-
-[node name="Shrapnel" type="Particles" parent="."]
+[node name="Shrapnel" type="Particles" parent="." index="6"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00112057, -0.00427759, -0.00190479 )
 material_override = ExtResource( 10 )
 cast_shadow = 0
@@ -196,22 +165,27 @@ randomness = 0.84
 fixed_fps = 30
 visibility_aabb = AABB( -4, -4, -4.79199, 8, 8, 8 )
 local_coords = false
-process_material = SubResource( 6 )
-draw_pass_1 = SubResource( 5 )
+process_material = SubResource( 28 )
+draw_pass_1 = SubResource( 29 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Fuse" type="Particles" parent="."]
+[node name="Fuse" type="Particles" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.181839, 0 )
 emitting = false
 amount = 20
 randomness = 0.16
 local_coords = false
-process_material = SubResource( 7 )
-draw_pass_1 = SubResource( 17 )
+process_material = SubResource( 30 )
+draw_pass_1 = SubResource( 35 )
 
-[node name="Flash" type="OmniLight" parent="."]
+[node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="8"]
+stream = ExtResource( 9 )
+unit_db = 5.0
+bus = "Effects"
+
+[node name="Flash" type="OmniLight" parent="." index="9"]
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 5.0
@@ -219,17 +193,14 @@ shadow_enabled = true
 omni_range = 10.0
 omni_attenuation = 7.0
 
-[node name="FlashTimer" type="Timer" parent="Flash"]
+[node name="FlashTimer" type="Timer" parent="Flash" index="0"]
 wait_time = 0.05
 one_shot = true
 
-[node name="Effect" type="Spatial" parent="."]
+[node name="Effect" type="Spatial" parent="." index="10"]
 script = ExtResource( 12 )
 sound_effect = ExtResource( 13 )
 
-[node name="SoundOrigin" type="Position3D" parent="Effect"]
+[node name="SoundOrigin" type="Position3D" parent="Effect" index="0"]
 
 [connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]
-[connection signal="timeout" from="Flash/FlashTimer" to="." method="_on_FlashTimer_timeout"]
-
-[editable path="Explosion"]

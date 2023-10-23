@@ -140,7 +140,7 @@ loop = true
 
 [node name="FloorCandelabra3" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
-collision_layer = 512
+collision_layer = 513
 mass = 30.0
 continuous_cd = true
 script = ExtResource( 3 )

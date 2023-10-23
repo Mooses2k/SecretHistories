@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/strange_devices/strange_device.gd" type="Script" id=2]
+[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
+
+[node name="StrangeDevice" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+item_throw_sound = ExtResource( 3 )

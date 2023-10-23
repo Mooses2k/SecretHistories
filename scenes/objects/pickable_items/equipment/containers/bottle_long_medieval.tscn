@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resources/models/items/containers/dining/vessels/trn_Bottles_000.material" type="Material" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/containers/_container_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/containers/dining/vessels/trn_Bottles_001.material" type="Material" id=3]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=4]
+[ext_resource path="res://resources/sounds/impacts/ceramic_and_glass/13929__adcbicycle__1_ding_hits.wav" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -26,10 +26,7 @@ points = PoolVector3Array( -0.057534, -0.00391772, 0.00191717, 0.0607472, 0.0030
 
 [node name="BottleLongMedieval" instance=ExtResource( 2 )]
 mass = 1.5
-contacts_reported = 2
-contact_monitor = true
 item_drop_sound = ExtResource( 4 )
-can_attach = false
 item_size = 0
 item_name = "Short Ceramic Bottle"
 
@@ -43,4 +40,4 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.1
 shape = SubResource( 2 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00220874, 0.193992, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00542729, 0.180918, 0 )

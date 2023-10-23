@@ -63,10 +63,8 @@ damage_offset = -3
 dispersion_offset_degrees = 5
 cooldown = 0.1
 handling = 1.0
-ads_hold_position = Vector3( 0.013, -0.049, 0.132 )
-ads_hold_rotation = Vector3( 0.177, -0.049, -0.185 )
-ads_reset_position = Vector3( 0.004, -0.032, 0.134 )
-ads_reset_rotation = Vector3( -0.008, -0.05, -0.057 )
+ads_hold_position = Vector3( 0.011, -0.046, 0.125 )
+ads_hold_rotation = Vector3( 1.343, -1.713, -9.282 )
 melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
@@ -108,7 +106,7 @@ shape = SubResource( 8 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0240571, -0.106174 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 0.999999, 0.000994959, -0.000872665, -0.000994838, 1, 0.000139626, 0.000872803, -0.000138758, 1, 0.004, -0.032, 0.134 )
+transform = Transform( 0.986579, 0.16053, -0.0298848, -0.16125, 0.986635, -0.0234376, 0.025723, 0.027942, 0.999279, 0.014, -0.048, 0.132 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

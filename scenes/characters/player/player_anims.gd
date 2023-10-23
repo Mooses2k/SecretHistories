@@ -135,8 +135,8 @@ func check_if_ads():
 
 func ads():
 	operation_tween(
-	inventory.current_mainhand_equipment.hold_position, "rotation", 
-	inventory.current_mainhand_equipment.hold_position.rotation, 
+	inventory.current_mainhand_equipment.hold_position, "rotation_degrees", 
+	inventory.current_mainhand_equipment.hold_position.rotation_degrees, 
 	inventory.current_mainhand_equipment.ads_hold_rotation, 0.1
 )
 	operation_tween(
@@ -160,8 +160,8 @@ func ads():
 
 func end_ads():
 	operation_tween(
-	inventory.current_mainhand_equipment.hold_position, "rotation", 
-	inventory.current_mainhand_equipment.hold_position.rotation, 
+	inventory.current_mainhand_equipment.hold_position, "rotation_degrees", 
+	inventory.current_mainhand_equipment.hold_position.rotation_degrees, 
 	inventory.current_mainhand_equipment.ads_reset_rotation, 0.1
 )
 	operation_tween(
@@ -170,18 +170,33 @@ func end_ads():
 	inventory.current_mainhand_equipment.ads_reset_position, 0.1
 )
 
+#	operation_tween(
+#	inventory.current_mainhand_equipment.hold_position, "rotation_degrees", 
+#	inventory.current_mainhand_equipment.hold_position.rotation_degrees, 
+#	inventory.current_mainhand_equipment.ads_hold_rotation, 0.1
+#)
+#	operation_tween(
+#	inventory.current_mainhand_equipment.hold_position, "translation", 
+#	inventory.current_mainhand_equipment.hold_position.translation, 
+#	inventory.current_mainhand_equipment.ads_hold_position, 0.1
+#)
 	if inventory.current_mainhand_equipment.item_size == 0:
 		operation_tween(
 		animation_tree,
 		"parameters/SmallAds/blend_amount",
 		animation_tree.get("parameters/SmallAds/blend_amount"), 0.0, 0.15)
 		adjust_arm(Vector3(0, -1.287, 0.063))
-
+#		operation_tween(animation_tree, 
+#		"parameters/SmallAds/blend_amount", 
+#		animation_tree.get("parameters/SmallAds/blend_amount"),1.0, 0.15)
+#		_camera.fov = lerp(_camera.fov, 65, 0.1)
+#		adjust_arm(Vector3(-0.086, -1.558, 0.294))
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
 		animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.15)
-		adjust_arm(Vector3(0, -1.474, 0.063))
+		adjust_arm(Vector3(-0.008, -1.331, 0.066))
+	_camera.fov = lerp(_camera.fov, 70, 0.1)
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

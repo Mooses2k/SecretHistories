@@ -111,6 +111,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.888972, -2.16709 )
 
 [node name="PreviewCamera" type="Camera" parent="."]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.58653, 1.13804, -0.439275 )
+current = true
 
 [node name="Door" parent="." instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50456, 0.0623421, 7.2492 )
@@ -149,12 +150,9 @@ ads_hold_rotation = Vector3( 0, 0, 0 )
 
 [node name="Lee-Metford rifle" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.93082, 1.93843, 0 )
-ads_hold_position = Vector3( 0, 0, 0 )
 
 [node name="Martini-Henry rifle" parent="." instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02539, 9.96253 )
-ads_hold_position = Vector3( 0, 0, 0 )
-ads_hold_rotation = Vector3( 0, 0, 0 )
 animation_reload_sequence = 0
 
 [node name="Webley revolver" parent="." instance=ExtResource( 16 )]

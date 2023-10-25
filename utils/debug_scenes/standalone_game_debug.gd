@@ -28,6 +28,7 @@ var _is_debug_label_visible := true
 
 func _ready() -> void:
 	if get_tree().current_scene == self:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		# warning-ignore:return_value_discarded
 		LoadQuotes.load_files()
 		local_settings.add_int_setting("World Seed", -55555, 55555, 1, world_seed)

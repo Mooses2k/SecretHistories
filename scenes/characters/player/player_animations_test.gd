@@ -12,7 +12,6 @@ export (Vector3) var ads_weapon_position setget adjust_weapon_position
 export (Vector3) var ads_weapon_rotation setget adjust_weapon_rotation
 
 var spawned_weapon
-var is_doing_ads : bool = false
 
 onready var inventory = $"../Inventory"
 onready var main_hand_equipment_root = $"../MainHandEquipmentRoot"
@@ -22,6 +21,7 @@ onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 
 func _ready():
 	pass
+
 
 func change_gun(value):
 	current_weapon = value
@@ -116,23 +116,15 @@ func do_ads(value):
 	for available_weapons in $"%MainHandEquipmentRoot".get_children():
 		if available_weapons is GunItem:
 			if value == true:
-				operation_tween(
-				available_weapons.hold_position, "translation", 
-				available_weapons.hold_position.translation, 
-				available_weapons.ads_hold_position, 0.1
-			)
-				operation_tween(
-				available_weapons.hold_position, "rotation_degrees", 
-				available_weapons.hold_position.rotation_degrees, 
-				available_weapons.ads_hold_rotation, 0.1
-			)
+				available_weapons.hold_position.translation = available_weapons.ads_hold_position
+				available_weapons.hold_position.rotation_degrees = available_weapons.ads_hold_rotation
+				available_weapons.transform = available_weapons.get_hold_transform()
 			
 				if available_weapons.item_size == 0:
 					operation_tween($"%AnimationTree",
 					"parameters/SmallAds/blend_amount",
 					$"%AnimationTree".get("parameters/SmallAds/blend_amount"), 1.0, 0.1)
 					
-					$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 65, 0.1)
 					adjust_arm(Vector3(-0.086, -1.558, 0.294))
 					
 				else:
@@ -140,20 +132,12 @@ func do_ads(value):
 					"parameters/MediumAds/blend_amount",
 					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.1)
 					
-					$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 60, 0.1)
-					adjust_arm(Vector3(-0.03, -1.635, 0.218))
-					is_doing_ads = true
+					adjust_arm(Vector3(-0.028, -1.639, 0.2))
 			else:
-				operation_tween(
-				available_weapons.hold_position, "rotation_degrees", 
-				available_weapons.hold_position.rotation_degrees, 
-				available_weapons.ads_reset_rotation, 0.1
-			)
-				operation_tween(
-				available_weapons.hold_position, "translation", 
-				available_weapons.hold_position.translation, 
-				available_weapons.ads_reset_position, 0.1
-			)
+				available_weapons.hold_position.translation = available_weapons.ads_reset_position
+				available_weapons.hold_position.rotation_degrees = available_weapons.ads_reset_rotation
+				available_weapons.transform = available_weapons.get_hold_transform()
+			
 				if available_weapons.item_size == 0:
 					
 					operation_tween(
@@ -169,7 +153,6 @@ func do_ads(value):
 					adjust_arm(Vector3(0.096, -1.391, 0.091))
 					
 				$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 70, 0.1)
-				is_doing_ads = false
 
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):

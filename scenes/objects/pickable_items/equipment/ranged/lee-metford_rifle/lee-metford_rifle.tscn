@@ -151,7 +151,7 @@ shape = SubResource( 375 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00202578, 0.0666256 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 0.753092, -0.252309, 0.607613, 0.271911, 0.960338, 0.0617627, -0.599098, 0.118704, 0.791828, 0.118, -0.096, 0.283 )
+transform = Transform( 0.76205, -0.222969, 0.607918, 0.272414, 0.962112, 0.0113968, -0.587428, 0.15692, 0.793917, 0.118, -0.098, 0.264 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

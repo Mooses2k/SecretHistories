@@ -228,6 +228,9 @@ var ceiling_tile_index : PoolIntArray
 
 
 # Player spawn position in World Coordinates
+# Keys are RoomData.OriginalPurpose STAIRCASE values
+# Values are dictionaries in the format: 
+# { "position": Vector2, "y_rotation": radians_angle } 
 var player_spawn_positions := {}
 
 # Dictionary in the format:

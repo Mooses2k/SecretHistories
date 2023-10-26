@@ -82,7 +82,7 @@ func load_level(packed : PackedScene):
 
 func spawn_player():
 	player = player_scn.instance()
-	player.translation = level.get_player_spawn_position()
+	level.set_player_on_spawn_position(player)
 	world_root.call_deferred("add_child", player)
 	yield(player, "ready")
 	emit_signal("player_spawned", player)
@@ -148,7 +148,7 @@ func _handle_floor_levels() -> void:
 
 
 func _set_new_position_for_player() -> void:
-	player.translation = level.get_player_spawn_position()
+	level.set_player_on_spawn_position(player)
 	emit_signal("player_spawned", player)
 
 

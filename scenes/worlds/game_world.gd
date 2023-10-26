@@ -28,8 +28,14 @@ func create_world() -> void:
 
 
 # Override this function
-func get_player_spawn_position() -> Vector3:
-	return Vector3.ZERO
+func set_player_on_spawn_position(player: Player) -> void:
+	var spawn_data = {
+		"position": Vector3.ZERO,
+		"y_rotation": 0.0,
+	}
+	
+	player.translation = spawn_data.position
+	player.rotation.y = spawn_data.y_rotation
 
 
 func world_to_grid(position : Vector3) -> Vector3:

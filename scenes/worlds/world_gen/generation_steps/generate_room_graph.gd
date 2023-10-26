@@ -32,6 +32,9 @@ onready var _room_graph_viz := get_node_or_null(path_graph_viz) as RoomGraphViz
 # Dictionary[k] is an array of all the indices I that K is connected to, such
 # that K < I
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
+	if is_instance_valid(_room_graph_viz):
+			_room_graph_viz.world_data = data
+	
 	var _rooms = gen_data.get(RoomGenerator.ROOM_ARRAY_KEY)
 	if _rooms is Array:
 		var random = RandomNumberGenerator.new()
@@ -43,7 +46,6 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		var graph : Dictionary = get_mst_from_delaunay(data, delaunay)
 		add_extra_edges(delaunay, graph, random)
 		if is_instance_valid(_room_graph_viz):
-			_room_graph_viz.world_data = data
 			_room_graph_viz.room_connections = graph
 		gen_data[CONNECTION_GRAPH_KEY] = graph
 		var sorted_indexes := graph.keys()

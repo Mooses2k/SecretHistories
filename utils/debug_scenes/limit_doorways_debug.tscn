@@ -28,8 +28,8 @@ environment = ExtResource( 17 )
 script = ExtResource( 10 )
 
 [node name="GenerationManager" parent="." index="6"]
-world_size_x = 20
-world_size_z = 20
+world_size_x = 55
+world_size_z = 55
 dungeon_level = -1
 
 [node name="GenerateLevelStaircase" type="Node" parent="GenerationManager" index="0"]

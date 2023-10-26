@@ -65,7 +65,8 @@ func _populate_staircase(room: RoomData, world_data: WorldData) -> void:
 	spawn_data.set_position_in_cell(cell_position)
 	spawn_data.set_custom_property("facing_direction", door_direction)
 	
-	world_data.set_object_spawn_data_to_cell(cell_index, spawn_data)
+	for index in room.cell_indexes:
+		world_data.set_object_spawn_data_to_cell(index, spawn_data)
 
 ### -----------------------------------------------------------------------------------------------
 

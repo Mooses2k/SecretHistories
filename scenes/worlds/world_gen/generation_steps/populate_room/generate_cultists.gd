@@ -69,14 +69,23 @@ func _get_valid_cells(data: WorldData) -> Array:
 		valid_cells.append_array(data.get_cells_for(type))
 	valid_cells.sort()
 	
-	# Remove Starting Room cell indexes
-	var starting_room_indexes := data.get_starting_room_data().cell_indexes
-	for index in starting_room_indexes:
-		var invalid_cell_index := valid_cells.find(index)
-		if invalid_cell_index != -1:
-			valid_cells.remove(invalid_cell_index)
-	
+	_remove_used_cells_from(valid_cells, data)
 	return valid_cells
+
+
+
+func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:
+	for cell_index in data._objects_to_spawn.keys():
+		p_array.erase(cell_index)
+	
+	if data.is_spawn_position_valid():
+		# TODO For now using UP_STAIRCASE directly works, because it's always as if we came down 
+		# from the level above, but once we can actually navigate between dungeon levels this
+		# has to change
+		var player_cell := data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE)
+		p_array.erase(player_cell)
+	
+	return p_array
 
 ### -----------------------------------------------------------------------------------------------
 

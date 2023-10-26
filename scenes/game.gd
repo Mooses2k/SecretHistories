@@ -82,7 +82,7 @@ func load_level(packed : PackedScene):
 
 func spawn_player():
 	player = player_scn.instance()
-	level.set_player_on_spawn_position(player)
+	level.set_player_on_spawn_position(player, true)
 	world_root.call_deferred("add_child", player)
 	yield(player, "ready")
 	emit_signal("player_spawned", player)
@@ -124,11 +124,11 @@ func _on_first_level_loaded(_level : GameWorld):
 	_connect_staircase_events()
 
 
-func _handle_floor_change() -> void:
+func _handle_floor_change(is_going_downstairs: bool) -> void:
 	yield(_show_load_screen(), "completed")
 	_handle_floor_levels()
 	yield(load_level(start_level_scn), "completed")
-	_set_new_position_for_player()
+	_set_new_position_for_player(is_going_downstairs)
 	LoadScene.emit_signal("scene_loaded")
 
 
@@ -147,8 +147,8 @@ func _handle_floor_levels() -> void:
 			level_handler.update_floor_data(_current_floor_level)
 
 
-func _set_new_position_for_player() -> void:
-	level.set_player_on_spawn_position(player)
+func _set_new_position_for_player(is_going_downstairs: bool) -> void:
+	level.set_player_on_spawn_position(player, is_going_downstairs)
 	emit_signal("player_spawned", player)
 
 
@@ -159,7 +159,7 @@ func _on_Events_up_staircase_used() -> void:
 	
 	if has_changed:
 		print("Floor level changed from: %s to: %s"%[old_value, _current_floor_level])
-		yield(_handle_floor_change(), "completed")
+		yield(_handle_floor_change(false), "completed")
 	elif _current_floor_level == HIGHEST_FLOOR_LEVEL:
 		print("You're already at the top of the dungeon, can't go upper.")
 
@@ -171,7 +171,7 @@ func _on_Events_down_staircase_used() -> void:
 	
 	if has_changed:
 		print("Went down from: %s to: %s"%[old_value, _current_floor_level])
-		yield(_handle_floor_change(), "completed")
+		yield(_handle_floor_change(true), "completed")
 	elif _current_floor_level == LOWEST_FLOOR_LEVEL:
 		print("You're already at the bottom of the dungeon, can't go lower.")
 

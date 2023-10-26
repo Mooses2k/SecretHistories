@@ -79,11 +79,12 @@ func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:
 		p_array.erase(cell_index)
 	
 	if data.is_spawn_position_valid():
-		# TODO For now using UP_STAIRCASE directly works, because it's always as if we came down 
-		# from the level above, but once we can actually navigate between dungeon levels this
-		# has to change
-		var player_cell := data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE)
-		p_array.erase(player_cell)
+		var player_cells := [
+				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE),
+				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.DOWN_STAIRCASE),
+		]
+		for player_cell in player_cells:
+			p_array.erase(player_cell)
 	
 	return p_array
 

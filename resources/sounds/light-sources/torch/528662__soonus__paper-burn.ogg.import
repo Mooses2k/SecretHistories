@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/528662__soonus__paper-burn.ogg-ae31e1d4bf4ff67b26cd9efed3d35bc1.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/light-sources/torch/528662__soonus__paper-burn.ogg"
+dest_files=[ "res://.import/528662__soonus__paper-burn.ogg-ae31e1d4bf4ff67b26cd9efed3d35bc1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

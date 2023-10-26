@@ -141,6 +141,8 @@ func _physics_process(delta : float):
 	interaction_handled = false
 	throw_item = null
 	current_grab_object = current_control_mode.get_grab_target()
+	
+	### TODO: many of these shouldn't be here, shouldn't be checked every _physics_process
 	_walk(delta)
 	_crouch()
 	_handle_grab_input(delta)
@@ -717,11 +719,13 @@ func kick():
 				if Input.is_action_just_pressed("player|kick"):
 					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
 					character.kick_timer.start(1)
+					kick_object.play_drop_sound(kick_object)
 		
 		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 			if Input.is_action_just_pressed("player|kick"):
 				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
 				character.kick_timer.start(1)
+				# sound handled by damage()
 		
 		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
 			if Input.is_action_just_pressed("player|kick"):
@@ -729,6 +733,7 @@ func kick():
 					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
 				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
 				character.kick_timer.start(1)
+				kick_object.play_drop_sound(kick_object)
 
 
 func _clamber():

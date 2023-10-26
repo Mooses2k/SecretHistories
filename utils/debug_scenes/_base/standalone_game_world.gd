@@ -19,7 +19,7 @@ extends GameWorld
 
 func _ready() -> void:
 	yield(get_tree(), "idle_frame")
-	create_world()
+	create_world(false)
 
 ### -----------------------------------------------------------------------------------------------
 

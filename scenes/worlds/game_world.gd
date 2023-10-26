@@ -17,8 +17,8 @@ func _ready() -> void:
 	_connect_signals()
 
 
-func create_world() -> void:
-	world_data = world_generator.generate()
+func create_world(is_last_floor: bool) -> void:
+	world_data = world_generator.generate(is_last_floor)
 	gridmaps.data = world_data
 	gridmaps.update_gridmaps()
 	navigation.data = world_data

@@ -67,7 +67,7 @@ func load_level(packed : PackedScene):
 	if _loaded_levels[_current_floor_level] == null:
 		level = packed.instance() as GameWorld
 		world_root.add_child(level)
-		level.create_world()
+		level.create_world(_current_floor_level == LOWEST_FLOOR_LEVEL)
 		_loaded_levels[_current_floor_level] = FloorLevelHandler.new(level, _current_floor_level)
 		yield(level, "spawning_world_scenes_finished")
 	else:

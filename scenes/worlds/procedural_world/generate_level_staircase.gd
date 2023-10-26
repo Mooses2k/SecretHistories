@@ -50,15 +50,18 @@ func _generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : 
 	data.fill_room_data(entry_room, RoomData.OriginalPurpose.UP_STAIRCASE)
 	rooms.append(entry_room)
 	
-	cells_pool = _update_poll_of_possible_cells(data, cells_pool, entry_room)
-	
-	var exit_room := _gen_staircase_room_rect(data, random, cells_pool)
-	data.fill_room_data(exit_room, RoomData.OriginalPurpose.DOWN_STAIRCASE)
-	rooms.append(exit_room)
-	var index := data.get_cell_index_from_int_position(exit_room.position.x, exit_room.position.y)
-	var room_data := data.get_cell_meta(index, data.CellMetaKeys.META_ROOM_DATA) as RoomData
-	for cell_index in room_data.cell_indexes:
-		data.set_cell_meta(cell_index, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, true)
+	if not gen_data[LAST_FLOOR_KEY]:
+		cells_pool = _update_poll_of_possible_cells(data, cells_pool, entry_room)
+		
+		var exit_room := _gen_staircase_room_rect(data, random, cells_pool)
+		data.fill_room_data(exit_room, RoomData.OriginalPurpose.DOWN_STAIRCASE)
+		rooms.append(exit_room)
+		var index := data.get_cell_index_from_int_position(
+				exit_room.position.x, exit_room.position.y
+		)
+		var room_data := data.get_cell_meta(index, data.CellMetaKeys.META_ROOM_DATA) as RoomData
+		for cell_index in room_data.cell_indexes:
+			data.set_cell_meta(cell_index, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, true)
 	
 	gen_data[ROOM_ARRAY_KEY] = rooms
 

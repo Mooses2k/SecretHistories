@@ -24,7 +24,7 @@ export(int, -5, -1, -1) var dungeon_level := -1
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func generate() -> WorldData:
+func generate(is_last_floor: bool) -> WorldData:
 	if GameManager.world_gen_rng == null:
 		GameManager.world_gen_rng = RandomNumberGenerator.new()
 		print("Generation Seed: %s"%[generation_seed])
@@ -39,6 +39,7 @@ func generate() -> WorldData:
 	data.resize(world_size_x, world_size_z)
 	
 	var gen_data = Dictionary()
+	gen_data[GenerationStep.LAST_FLOOR_KEY] = is_last_floor
 	emit_signal("generation_started", data, gen_data)
 	for _step in get_children():
 		var step = _step as GenerationStep

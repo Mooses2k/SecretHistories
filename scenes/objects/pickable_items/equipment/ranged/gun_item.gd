@@ -49,6 +49,10 @@ export (NodePath) var detection_raycast
 onready var raycast = get_node(detection_raycast)
 
 func _ready():
+#	print(get_parent().name)
+#	if get_parent().name == "MainHandEquipmentRoot":
+#		print("Transforming")
+#		transform = get_hold_transform()
 	ads_reset_position = hold_position.translation
 	ads_reset_rotation = hold_position.rotation_degrees
 

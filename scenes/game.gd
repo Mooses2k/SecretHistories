@@ -20,6 +20,13 @@ const LOWEST_FLOOR_LEVEL = -5
 
 export var start_level_scn : PackedScene
 export var player_scn : PackedScene
+export var floor_sizes := {
+	HIGHEST_FLOOR_LEVEL: 15,
+	-2: 25,
+	-3: 25,
+	-4: 35,
+	LOWEST_FLOOR_LEVEL: 55
+}
 
 var player
 var level : GameWorld
@@ -67,7 +74,11 @@ func load_level(packed : PackedScene):
 	if _loaded_levels[_current_floor_level] == null:
 		level = packed.instance() as GameWorld
 		world_root.add_child(level)
-		level.create_world(_current_floor_level == LOWEST_FLOOR_LEVEL)
+		
+		var is_lowest_level := _current_floor_level == LOWEST_FLOOR_LEVEL
+		var current_floor_size: int = floor_sizes[_current_floor_level]
+		level.create_world(is_lowest_level, current_floor_size)
+		
 		_loaded_levels[_current_floor_level] = FloorLevelHandler.new(level, _current_floor_level)
 		yield(level, "spawning_world_scenes_finished")
 	else:

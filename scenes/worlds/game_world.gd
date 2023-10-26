@@ -17,7 +17,10 @@ func _ready() -> void:
 	_connect_signals()
 
 
-func create_world(is_last_floor: bool) -> void:
+func create_world(is_last_floor: bool, p_floor_size: int = -1) -> void:
+	if p_floor_size != -1:
+		world_generator.world_size_x = p_floor_size
+		world_generator.world_size_z = p_floor_size
 	world_data = world_generator.generate(is_last_floor)
 	gridmaps.data = world_data
 	gridmaps.update_gridmaps()

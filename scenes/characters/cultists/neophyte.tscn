@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://core/ai/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://scenes/characters/cultists/demo_ik.gd" type="Script" id=25]
 [ext_resource path="res://resources/animations/crouch_walk_forward_left-loop.tres" type="Animation" id=26]
 [ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Darkness.material" type="Material" id=27]
+[ext_resource path="res://core/ai/action_nodes/bt_equip_next_weapon.gd" type="Script" id=28]
 
 [sub_resource type="CapsuleShape" id=6]
 margin = 0.001
@@ -701,100 +702,105 @@ shape = SubResource( 6 )
 
 [node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
 [node name="BehaviorTree" type="Node" parent="." index="6"]
 unique_name_in_owner = true
 script = ExtResource( 6 )
-bt_root = NodePath("BT_Selector")
+bt_root = NodePath("BTSelector")
 
-[node name="BT_Selector" type="Node" parent="BehaviorTree" index="0"]
+[node name="BTSelector" type="Node" parent="BehaviorTree" index="0"]
 script = ExtResource( 8 )
 
-[node name="BT_Sequence_Active" type="Node" parent="BehaviorTree/BT_Selector" index="0"]
+[node name="BTSequenceActive" type="Node" parent="BehaviorTree/BTSelector" index="0"]
 script = ExtResource( 9 )
 
-[node name="BT_Selector_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active" index="0"]
+[node name="BTSelectorSensor" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive" index="0"]
 script = ExtResource( 8 )
 
-[node name="BT_Collision_Sensor2" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor" index="0"]
+[node name="BTCollisionSensor2" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor" index="0"]
 script = ExtResource( 22 )
 sensor = NodePath("../../../../../Body/TouchSensor")
 
-[node name="BT_Player_Sensor" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor" index="1"]
+[node name="BTPlayerSensor" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor" index="1"]
 script = ExtResource( 11 )
 sensor = NodePath("../../../../../Body/DirectPlayerSight")
 
-[node name="BT_Sound_Listener" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor" index="2"]
+[node name="BTSoundListener" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor" index="2"]
 script = ExtResource( 17 )
 direct_player_sight = NodePath("../../../../../Body/DirectPlayerSight")
 listener = NodePath("../../../../../Body/SoundListener")
 
-[node name="BT_Sequence" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active" index="1"]
+[node name="BTSequence" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive" index="1"]
 script = ExtResource( 9 )
 
-[node name="BT_Selector_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="0"]
+[node name="BTSelectorAmmo" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="0"]
 script = ExtResource( 8 )
 
-[node name="BT_Gun_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector_Ammo" index="0"]
+[node name="BTGunHasAmmo" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="0"]
 script = ExtResource( 20 )
 
-[node name="BT_Inventory_Has_Ammo" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector_Ammo" index="1"]
+[node name="BTInventoryHasAmmo" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="1"]
 script = ExtResource( 19 )
 
-[node name="BT_Reload_Gun" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector_Ammo" index="2"]
+[node name="BTReloadGun" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="2"]
 script = ExtResource( 21 )
 
-[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="1"]
+[node name="BTEquipNextWeapon" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="3"]
+script = ExtResource( 28 )
+
+[node name="BTSelector" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="1"]
 script = ExtResource( 8 )
 
-[node name="BT_Approach_Random_Distance" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector" index="0"]
+[node name="BTApproachRandom_Distance" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelector" index="0"]
 script = ExtResource( 13 )
 listener = NodePath("../../../../../../Body/SoundListener")
 
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Selector" index="1"]
+[node name="BTGoToTarget" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelector" index="1"]
 script = ExtResource( 12 )
 
-[node name="BT_Look_At_Target3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="2"]
+[node name="BTLookAtTarget3" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="2"]
 script = ExtResource( 14 )
 
-[node name="BT_Gun_Cooldown" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="3"]
+[node name="BTGunCooldown" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="3"]
 script = ExtResource( 2 )
 
-[node name="BT_Wait_Random3" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="4"]
+[node name="BTWaitRandom3" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="4"]
 script = ExtResource( 10 )
 max_time = 1.6
 min_time = 0.8
 
-[node name="BT_Shoot" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence" index="5"]
+[node name="BTShoot" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="5"]
 script = ExtResource( 3 )
 
-[node name="BT_Sequence_Idle" type="Node" parent="BehaviorTree/BT_Selector" index="1"]
+[node name="BT_Sequence_Idle" type="Node" parent="BehaviorTree/BTSelector" index="1"]
 script = ExtResource( 9 )
 
-[node name="BT_Look_At_Target4" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle" index="0"]
+[node name="BTLookAtTarget4" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="0"]
 script = ExtResource( 14 )
 
-[node name="BT_Selector" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle" index="1"]
+[node name="BTSelector" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="1"]
 script = ExtResource( 8 )
 
-[node name="BT_Go_To_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle/BT_Selector" index="0"]
+[node name="BTGoToTarget" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle/BTSelector" index="0"]
 script = ExtResource( 12 )
 
-[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle/BT_Selector" index="1"]
+[node name="BTSelectRandomTarget" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle/BTSelector" index="1"]
 script = ExtResource( 7 )
 
-[node name="BT_Wait_Random" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle" index="2"]
+[node name="BTWaitRandom" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="2"]
 script = ExtResource( 10 )
 max_time = 10.0
 min_time = 5.0
 
-[node name="BT_Select_Random_Target" type="Node" parent="BehaviorTree/BT_Selector/BT_Sequence_Idle" index="3"]
+[node name="BTSelectRandomTarget" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="3"]
 script = ExtResource( 7 )
 
 [node name="Body" parent="." index="7"]
 script = ExtResource( 4 )
 
 [node name="TouchSensor" parent="Body" index="0" instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0237128 )
 character = NodePath("../..")
 
 [node name="DirectPlayerSight" parent="Body" index="1" instance=ExtResource( 5 )]
@@ -1692,11 +1698,11 @@ script = ExtResource( 24 )
 IK_enabled = true
 
 [node name="Physical Bone DEF-spine" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="3"]
-transform = Transform( 1, -1.27898e-13, -1.59872e-14, 7.31985e-14, -0.262472, -0.964939, -4.26326e-14, 0.964939, -0.262472, 3.66817e-08, 1.00125, -0.0360553 )
+transform = Transform( 1, -1.27898e-13, -1.59872e-14, 7.67775e-14, -0.262472, -0.964939, -4.9738e-14, 0.964939, -0.262472, 3.66817e-08, 1.00125, -0.0360552 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03478e-14, -1.7922e-06, 0.0681689 )
-body_offset = Transform( 1, -1.27898e-13, -1.42109e-14, 6.03961e-14, 5.96046e-08, -0.999999, -5.68434e-14, 0.999999, 5.96046e-08, 2.13163e-14, 0.0681688, 1.78814e-06 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.03478e-14, -1.82404e-06, 0.0681689 )
+body_offset = Transform( 1, -1.27898e-13, -1.42109e-14, 6.21725e-14, 8.9407e-08, -0.999999, -6.39488e-14, 0.999999, 8.9407e-08, 2.13163e-14, 0.0681688, 1.81794e-06 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine"
@@ -1712,11 +1718,11 @@ transform = Transform( 1, 6.39488e-14, -2.66454e-14, 0, 0.999999, 0, 0, 0, 0.999
 shape = SubResource( 9 )
 
 [node name="Physical Bone DEF-spine001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="4"]
-transform = Transform( 1, 2.38426e-07, -1.06581e-13, 3.09044e-08, -0.129618, -0.99156, -2.36415e-07, 0.991561, -0.129618, -4.76224e-09, 1.13268, -0.00887937 )
+transform = Transform( 1, 2.38426e-07, -1.03029e-13, 3.09044e-08, -0.129618, -0.99156, -2.36415e-07, 0.991561, -0.129618, -4.76224e-09, 1.13268, -0.00887938 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14439e-08, 1.49924e-07, 0.0611891 )
-body_offset = Transform( 1, 5.96856e-13, -1.36779e-13, -7.99361e-14, -5.96046e-08, -0.999996, 7.10543e-14, 0.999996, -1.49012e-08, -4.14439e-08, 0.0611889, -1.49012e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14439e-08, 1.49012e-07, 0.0611891 )
+body_offset = Transform( 1, 5.82645e-13, -1.36779e-13, -8.34888e-14, -4.47035e-08, -0.999996, 7.10543e-14, 0.999996, 0, -4.14439e-08, 0.0611888, -1.49012e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.001"
@@ -1732,7 +1738,7 @@ transform = Transform( 1, 2.13163e-14, -2.66454e-15, 0, 1, 2.23517e-08, 0, -2.23
 shape = SubResource( 10 )
 
 [node name="Physical Bone DEF-spine002" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="5"]
-transform = Transform( 1, -3.02608e-08, 4.54736e-09, 3.24011e-09, 0.0335638, -0.999437, -2.94696e-08, 0.999438, 0.0335643, 7.41702e-08, 1.27499, -0.00298988 )
+transform = Transform( 1, -3.02608e-08, 4.54735e-09, 3.2401e-09, 0.0335638, -0.999437, -2.94697e-08, 0.999438, 0.0335643, 7.41701e-08, 1.27499, -0.00298988 )
 collision_layer = 32
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.78378e-08, 3.49455e-08, 0.0774243 )
@@ -1752,11 +1758,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25963e-09, 0.0368584, 0.001
 shape = SubResource( 11 )
 
 [node name="Physical Bone DEF-spine003" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="6"]
-transform = Transform( 1, 6.14747e-08, 4.1181e-09, -1.33453e-09, 0.0301322, -0.999546, -2.97835e-08, 0.999546, 0.0301326, 3.66838e-08, 1.44388, -0.00836549 )
+transform = Transform( 1, 6.14747e-08, 4.11809e-09, -1.33452e-09, 0.0301322, -0.999546, -2.97834e-08, 0.999547, 0.0301326, 3.66838e-08, 1.44388, -0.00836549 )
 collision_layer = 32
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.55172e-10, 1.1709e-07, 0.0862429 )
-body_offset = Transform( 1, 6.14673e-08, 4.11819e-09, -4.36557e-10, -2.6077e-08, -1, -2.98023e-08, 1, -1.86265e-08, 0, 0.0862429, -1.15484e-07 )
+body_offset = Transform( 1, 6.14673e-08, 4.11819e-09, -4.36557e-10, -2.79397e-08, -1, -2.98023e-08, 1, -1.86265e-08, 0, 0.0862429, -1.15484e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.003"
@@ -1772,11 +1778,11 @@ transform = Transform( 1, -7.10543e-15, 2.22045e-16, 0, 1, 9.31323e-09, 1.33227e
 shape = SubResource( 12 )
 
 [node name="Physical Bone DEF-spine004" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="7"]
-transform = Transform( 1, 2.37967e-07, -4.02502e-06, -3.86935e-06, 0.328705, -0.944433, 1.12629e-06, 0.944433, 0.328705, 1.48732e-07, 1.56397, -0.0208819 )
+transform = Transform( 1, 2.37967e-07, -4.02502e-06, -3.86934e-06, 0.328705, -0.944433, 1.12629e-06, 0.944434, 0.328705, 1.48733e-07, 1.56397, -0.0208819 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.2136e-09, 9.80161e-08, 0.0296303 )
-body_offset = Transform( 1, 9.31337e-10, -4.02308e-06, -4.02261e-06, 5.96046e-07, -1, 2.8871e-08, 1, 7.15256e-07, 1.11992e-07, 0.0296303, -1.19209e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.21308e-09, 9.8016e-08, 0.0296303 )
+body_offset = Transform( 1, 9.31351e-10, -4.02308e-06, -4.02261e-06, 5.96046e-07, -1, 2.8871e-08, 1, 7.15256e-07, 1.11992e-07, 0.0296303, -1.19209e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.004"
@@ -1791,11 +1797,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 13 )
 
 [node name="Physical Bone DEF-spine005" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="8"]
-transform = Transform( 1, 2.15591e-07, 1.93577e-06, 1.93475e-06, -0.22119, -0.97523, 1.83369e-07, 0.975231, -0.22119, -3.23531e-08, 1.60126, -0.0144401 )
+transform = Transform( 1, 2.15591e-07, 1.93577e-06, 1.93475e-06, -0.22119, -0.97523, 1.83369e-07, 0.975232, -0.22119, -3.23531e-08, 1.60126, -0.01444 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03828e-09, -1.52488e-07, 0.0346413 )
-body_offset = Transform( 1, -2.98023e-08, 1.93063e-06, 1.92225e-06, -5.96046e-07, -0.999999, -3.72532e-09, 1, -7.59959e-07, -6.89179e-08, 0.0346413, 1.78814e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03812e-09, -1.81774e-07, 0.0346414 )
+body_offset = Transform( 1, -2.98023e-08, 1.93063e-06, 1.92225e-06, -5.96046e-07, -0.999999, -3.72535e-09, 1, -7.7486e-07, -6.89179e-08, 0.0346414, 2.08616e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-spine.005"
@@ -1814,11 +1820,11 @@ transform = Transform( 1, 1.98952e-13, 1.81188e-13, -1.13687e-13, 1, -1.49012e-0
 shape = SubResource( 15 )
 
 [node name="Physical Bone DEF-shoulderL" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="9"]
-transform = Transform( 0.488837, -0.0938751, -0.86732, 0.358203, 0.928125, 0.101436, 0.795449, -0.360262, 0.487327, 0.0955803, 1.47764, 0.022772 )
+transform = Transform( 0.488837, -0.0938752, -0.86732, 0.358203, 0.928126, 0.101436, 0.79545, -0.360262, 0.487327, 0.0955804, 1.47764, 0.022772 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.91761e-06, -1.02213e-05, 0.0904486 )
-body_offset = Transform( 0.934099, -0.354943, -0.0385781, -3.57628e-07, 0.108051, -0.994156, 0.35703, 0.928633, 0.10093, 0.00348937, 0.0899211, -0.00911808 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.91365e-06, -1.0225e-05, 0.0904486 )
+body_offset = Transform( 0.934099, -0.354943, -0.0385782, -3.8743e-07, 0.108051, -0.994156, 0.35703, 0.928633, 0.10093, 0.00348937, 0.0899211, -0.00911808 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shoulder.L"
@@ -1833,11 +1839,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 16 )
 
 [node name="Physical Bone DEF-upper_armL" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="10"]
-transform = Transform( -0.0434589, 0.177081, -0.983236, -0.997506, 0.047044, 0.052562, 0.0555627, 0.983072, 0.174595, 0.248826, 1.42351, -0.0385512 )
+transform = Transform( -0.0434589, 0.177081, -0.983236, -0.997506, 0.0470439, 0.052562, 0.0555627, 0.983072, 0.174595, 0.248826, 1.42351, -0.0385512 )
 collision_layer = 32
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02691e-06, -3.43816e-07, 0.0713453 )
-body_offset = Transform( 0.999997, -2.5332e-07, -6.44475e-07, -9.12696e-07, -3.8743e-07, -1, -5.21541e-07, 1, -2.98023e-07, 1.07288e-06, 0.0713453, 3.65078e-07 )
+body_offset = Transform( 0.999997, -2.49594e-07, -6.44475e-07, -9.23872e-07, -3.8743e-07, -1, -5.1409e-07, 1, -2.98023e-07, 1.07288e-06, 0.0713453, 3.65078e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.L"
@@ -1852,11 +1858,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 17 )
 
 [node name="Physical Bone DEF-upper_armL001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="11"]
-transform = Transform( -0.0434554, 0.177078, -0.983232, -0.997502, 0.0470437, 0.0525585, 0.0555621, 0.983069, 0.174593, 0.393522, 1.41578, -0.0642452 )
+transform = Transform( -0.0434554, 0.177079, -0.983232, -0.997503, 0.0470437, 0.0525585, 0.0555621, 0.983069, 0.174593, 0.393522, 1.41578, -0.0642452 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28679e-06, -2.36284e-07, 0.0713449 )
-body_offset = Transform( 0.999994, -4.09782e-08, 3.43658e-07, 2.20723e-07, 4.47035e-07, -0.999995, -3.20375e-07, 0.999997, 7.45058e-08, -1.3113e-06, 0.0713445, 2.30968e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.40607e-06, -2.36284e-07, 0.0713449 )
+body_offset = Transform( 0.999994, -3.72529e-08, 3.42727e-07, 2.14204e-07, 4.61936e-07, -0.999995, -3.20375e-07, 0.999997, 7.45058e-08, -1.43051e-06, 0.0713445, 2.30968e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.L.001"
@@ -1871,11 +1877,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 18 )
 
 [node name="Physical Bone DEF-forearmL" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="12"]
-transform = Transform( -0.0445268, -0.101179, -0.993872, -0.997306, 0.0625616, 0.0383115, 0.0583028, 0.9929, -0.103692, 0.535643, 1.40918, -0.0704323 )
+transform = Transform( -0.0445268, -0.101179, -0.993872, -0.997306, 0.0625616, 0.0383115, 0.0583027, 0.9929, -0.103692, 0.535644, 1.40918, -0.0704323 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02179e-05, 2.23138e-07, 0.0679915 )
-body_offset = Transform( 1, 7.82311e-08, -5.01052e-07, -7.16187e-07, 3.8743e-07, -1, 2.42144e-07, 1, 6.63102e-07, 1.0252e-05, 0.0679916, -2.68221e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02181e-05, 2.26357e-07, 0.0679916 )
+body_offset = Transform( 1, 7.82311e-08, -4.98723e-07, -7.11996e-07, 3.8743e-07, -1, 2.42144e-07, 1, 6.70552e-07, 1.0252e-05, 0.0679916, -2.71946e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-forearm.L"
@@ -1890,11 +1896,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 19 )
 
 [node name="Physical Bone DEF-forearmL001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="13"]
-transform = Transform( -0.0445269, -0.101179, -0.993869, -0.997306, 0.0625598, 0.038312, 0.0583021, 0.9929, -0.103691, 0.665442, 1.40418, -0.0568911 )
+transform = Transform( -0.0445269, -0.101179, -0.993869, -0.997306, 0.0625599, 0.038312, 0.0583021, 0.9929, -0.103691, 0.665442, 1.40418, -0.0568911 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.83875e-07, 3.88622e-07, 0.0679947 )
-body_offset = Transform( 1, 1.21817e-06, -3.86033e-07, -1.18278e-07, -2.08616e-07, -0.999997, 2.49594e-07, 1, 3.72529e-08, -3.57628e-07, 0.0679945, -3.91155e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6435e-07, 3.92348e-07, 0.0679947 )
+body_offset = Transform( 1, 1.21817e-06, -3.81377e-07, -1.16415e-07, -2.08616e-07, -0.999997, 2.49594e-07, 1, 3.72529e-08, -2.38419e-07, 0.0679945, -3.94881e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-forearm.L.001"
@@ -1909,11 +1915,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 20 )
 
 [node name="Physical Bone DEF-handL" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="14"]
-transform = Transform( -0.00840164, 0.284416, -0.958664, 0.888546, -0.437662, -0.137633, -0.458717, -0.85297, -0.249038, 0.776627, 1.40882, -0.0376779 )
+transform = Transform( -0.00840165, 0.284417, -0.958664, 0.888546, -0.437662, -0.137633, -0.458717, -0.85297, -0.249039, 0.776627, 1.40882, -0.0376779 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45286e-06, 4.09782e-08, 0.05108 )
-body_offset = Transform( -0.911478, 0.372301, 0.17494, 8.9407e-08, 0.425279, -0.905063, -0.411354, -0.824942, -0.387631, -0.00893462, 0.0462306, 0.0198008 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.45938e-06, 5.40167e-08, 0.05108 )
+body_offset = Transform( -0.911478, 0.372301, 0.17494, 9.68575e-08, 0.425279, -0.905063, -0.411354, -0.824942, -0.387631, -0.00893462, 0.0462306, 0.0198008 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-hand.L"
@@ -1928,11 +1934,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 21 )
 
 [node name="Physical Bone DEF-shoulderR" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="15"]
-transform = Transform( 0.488833, 0.0938783, 0.867317, -0.35821, 0.928123, 0.101435, -0.795443, -0.360265, 0.487324, -0.0955796, 1.47764, 0.0227724 )
+transform = Transform( 0.488833, 0.0938784, 0.867316, -0.35821, 0.928123, 0.101435, -0.795443, -0.360265, 0.487324, -0.0955796, 1.47764, 0.0227724 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.87966e-06, -1.01188e-05, 0.0904483 )
-body_offset = Transform( 0.934091, 0.354947, 0.0385785, 1.10269e-06, 0.10805, -0.994151, -0.357037, 0.92863, 0.100929, -0.0034894, 0.0899204, -0.00911808 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.88664e-06, -1.01142e-05, 0.0904483 )
+body_offset = Transform( 0.934091, 0.354947, 0.0385785, 1.13249e-06, 0.10805, -0.994151, -0.357037, 0.92863, 0.100929, -0.0034894, 0.0899204, -0.00911808 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shoulder.R"
@@ -1947,11 +1953,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 22 )
 
 [node name="Physical Bone DEF-upper_armR" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="16"]
-transform = Transform( -0.0434591, -0.177081, 0.983236, 0.997509, 0.0470434, 0.0525622, -0.0555635, 0.98307, 0.174596, -0.248827, 1.42351, -0.0385519 )
+transform = Transform( -0.0434591, -0.177081, 0.983236, 0.997509, 0.0470434, 0.0525622, -0.0555635, 0.983071, 0.174595, -0.248827, 1.42351, -0.0385519 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.94299e-07, 2.16058e-07, 0.0713454 )
-body_offset = Transform( 1, -2.23517e-07, 7.83242e-07, 1.1595e-06, 4.47035e-08, -1, -7.82311e-08, 0.999999, -1.04308e-07, 2.38419e-07, 0.0713454, -2.08616e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13442e-07, 2.16058e-07, 0.0713454 )
+body_offset = Transform( 1, -2.23517e-07, 7.82311e-07, 1.1595e-06, 5.96046e-08, -1, -8.19564e-08, 0.999999, -1.04308e-07, 3.57628e-07, 0.0713454, -2.08616e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.R"
@@ -1966,11 +1972,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 23 )
 
 [node name="Physical Bone DEF-upper_armR001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="17"]
-transform = Transform( -0.0434569, -0.177079, 0.983236, 0.997508, 0.0470431, 0.0525601, -0.0555629, 0.983072, 0.174594, -0.393523, 1.41578, -0.0642454 )
+transform = Transform( -0.0434569, -0.177079, 0.983236, 0.997509, 0.0470431, 0.0525601, -0.0555629, 0.983072, 0.174594, -0.393523, 1.41578, -0.0642454 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.66259e-07, -1.70012e-08, 0.0713449 )
-body_offset = Transform( 1, -6.89179e-07, 1.01142e-06, 1.10548e-06, 1.93715e-07, -1, 1.41561e-07, 1, 3.42727e-07, -2.38419e-07, 0.0713449, -7.45058e-09 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.85336e-07, -1.06138e-08, 0.0713449 )
+body_offset = Transform( 1, -6.85453e-07, 1.01328e-06, 1.11293e-06, 1.93715e-07, -1, 1.41561e-07, 1, 3.57628e-07, -3.57628e-07, 0.0713449, -1.49012e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.R.001"
@@ -1985,11 +1991,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 24 )
 
 [node name="Physical Bone DEF-forearmR" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="18"]
-transform = Transform( -0.0445252, 0.101179, 0.99387, 0.997306, 0.0625658, 0.0383104, -0.0583029, 0.992899, -0.103692, -0.535647, 1.40918, -0.0704321 )
+transform = Transform( -0.0445252, 0.101179, 0.99387, 0.997306, 0.0625659, 0.0383104, -0.0583029, 0.9929, -0.103692, -0.535647, 1.40918, -0.0704321 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77718e-06, -1.02547e-07, 0.0679941 )
-body_offset = Transform( 1, 4.16487e-06, -5.20144e-07, -9.34117e-07, 2.30968e-07, -0.999999, -2.57045e-07, 1, 3.57628e-07, -2.74181e-06, 0.067994, 7.82311e-08 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.01535e-06, -9.56029e-08, 0.0679941 )
+body_offset = Transform( 1, 4.16487e-06, -5.16418e-07, -9.37376e-07, 2.38419e-07, -0.999999, -2.57045e-07, 1, 3.65078e-07, -2.98023e-06, 0.067994, 7.07805e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-forearm.R"
@@ -2004,11 +2010,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 25 )
 
 [node name="Physical Bone DEF-forearmR001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="19"]
-transform = Transform( -0.0445268, 0.101179, 0.993872, 0.997306, 0.0625591, 0.0383118, -0.058302, 0.9929, -0.103691, -0.66544, 1.40419, -0.0568915 )
+transform = Transform( -0.0445268, 0.101179, 0.993871, 0.997306, 0.0625591, 0.0383117, -0.058302, 0.9929, -0.103691, -0.66544, 1.40419, -0.0568915 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.74058e-06, 4.7633e-07, 0.0679923 )
-body_offset = Transform( 1, -1.97813e-06, -1.81608e-08, 2.32831e-09, -4.47035e-08, -1, -1.00583e-07, 1, 7.45058e-09, 2.74181e-06, 0.0679923, -4.76837e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.85941e-06, 4.68373e-07, 0.0679923 )
+body_offset = Transform( 1, -1.98558e-06, -2.37487e-08, 2.79397e-09, -4.47035e-08, -1, -1.04308e-07, 1, 1.49012e-08, 2.86102e-06, 0.0679923, -4.69387e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-forearm.R.001"
@@ -2023,11 +2029,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 26 )
 
 [node name="Physical Bone DEF-handR" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="20"]
-transform = Transform( -0.00839932, -0.284415, 0.958664, -0.888551, -0.437659, -0.137631, 0.458715, -0.852979, -0.249041, -0.776629, 1.40882, -0.0376778 )
+transform = Transform( -0.00839936, -0.284415, 0.958664, -0.888551, -0.437659, -0.137631, 0.458716, -0.852979, -0.249041, -0.776629, 1.40882, -0.0376778 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.38325e-06, 1.60187e-06, 0.0510818 )
-body_offset = Transform( -0.911483, -0.372297, -0.174938, -1.86265e-06, 0.425279, -0.905062, 0.411352, -0.824951, -0.387633, 0.00893891, 0.0462315, 0.0198013 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49594e-06, 1.62423e-06, 0.0510818 )
+body_offset = Transform( -0.911483, -0.372297, -0.174938, -1.86265e-06, 0.425279, -0.905062, 0.411352, -0.824951, -0.387633, 0.00893903, 0.0462315, 0.0198013 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-hand.R"
@@ -2042,11 +2048,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 27 )
 
 [node name="Physical Bone DEF-pelvisL" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="21"]
-transform = Transform( 0.00471066, -0.612602, -0.790373, -0.596177, 0.632841, -0.494052, 0.80284, 0.473532, -0.362234, 0.0437694, 0.962827, -0.0338895 )
+transform = Transform( 0.00471048, -0.612602, -0.790373, -0.596177, 0.632841, -0.494052, 0.80284, 0.473532, -0.362234, 0.0437694, 0.962827, -0.0338895 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 0.815599, 0.578524, 0.010397, 0.463692, -0.642751, -0.609803, -0.346104, 0.502175, -0.792486, 2.12342e-07, 1.49012e-07, 0.0553782 )
-body_offset = Transform( 0.859965, 0.479616, 0.17444, -7.7486e-07, 0.341802, -0.939768, -0.510354, 0.808171, 0.293934, -0.00966042, 0.0520426, -0.0162776 )
+joint_offset = Transform( 0.815599, 0.578524, 0.010397, 0.463692, -0.642751, -0.609803, -0.346104, 0.502175, -0.792486, 2.06754e-07, 1.58325e-07, 0.0553782 )
+body_offset = Transform( 0.859965, 0.479616, 0.17444, -8.9407e-07, 0.341802, -0.939768, -0.510354, 0.808171, 0.293934, -0.00966042, 0.0520426, -0.0162776 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-pelvis.L"
@@ -2068,8 +2074,8 @@ transform = Transform( 0.815599, 0.578524, 0.010397, 0.463692, -0.642751, -0.609
 transform = Transform( 0.764482, -0.644543, -0.011577, 0.0292499, 0.0167421, 0.99943, -0.643981, -0.764386, 0.0316519, 0.0931381, 0.87249, -0.0159349 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( -0.891998, 0.0445849, 0.449835, 0.443382, -0.107527, 0.889859, 0.0880437, 0.993203, 0.0761457, 1.18155e-07, -2.53516e-08, 0.12057 )
-body_offset = Transform( 1, -2.68221e-06, -1.28895e-06, -7.46921e-07, 9.35048e-07, -0.999998, 9.23872e-07, 1, 4.26546e-07, 3.72529e-08, 0.120569, -2.6077e-08 )
+joint_offset = Transform( -0.891998, 0.0445849, 0.449835, 0.443382, -0.107527, 0.889859, 0.0880437, 0.993203, 0.0761457, 1.25605e-07, -2.90767e-08, 0.120569 )
+body_offset = Transform( 1, -2.68221e-06, -1.28895e-06, -7.45058e-07, 9.36911e-07, -0.999998, 9.83477e-07, 1, 4.26546e-07, 2.98023e-08, 0.120569, -2.23517e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-thigh.L"
@@ -2084,11 +2090,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 29 )
 
 [node name="Physical Bone DEF-thighL001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="23"]
-transform = Transform( 0.764482, -0.644543, -0.0115759, 0.029249, 0.0167422, 0.999432, -0.64398, -0.764386, 0.0316505, 0.095985, 0.626663, -0.02372 )
+transform = Transform( 0.764482, -0.644543, -0.0115759, 0.029249, 0.0167422, 0.999432, -0.64398, -0.764386, 0.0316505, 0.095985, 0.626664, -0.02372 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03703e-07, -1.75325e-07, 0.120571 )
-body_offset = Transform( 0.999999, -2.05636e-06, -2.68221e-07, -6.66827e-07, -2.64496e-07, -1, 5.66244e-07, 1, -3.68804e-07, -1.71363e-07, 0.120571, 2.19792e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.03703e-07, -1.75101e-07, 0.120571 )
+body_offset = Transform( 0.999999, -2.02656e-06, -2.68221e-07, -6.66827e-07, -2.64496e-07, -1, 5.66244e-07, 1, -3.70666e-07, -1.71363e-07, 0.120571, 2.19792e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-thigh.L.001"
@@ -2106,8 +2112,8 @@ shape = SubResource( 30 )
 transform = Transform( 0.764506, -0.64448, 0.013295, 0.0309482, 0.0572977, 0.997872, -0.643874, -0.76247, 0.0637494, 0.0960846, 0.399852, -0.0341725 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( -5.25266e-07, 0.40273, 0.915319, -2.11596e-06, 0.91532, -0.402731, -1, -1.05053e-06, -8.94535e-07, -4.49398e-08, -1.07024e-07, 0.101707 )
-body_offset = Transform( 1, -3.27826e-07, -1.38953e-06, -1.15857e-06, 3.61353e-07, -0.999995, -2.08616e-07, 0.999998, 6.33299e-08, 1.86265e-07, 0.101706, 1.00583e-07 )
+joint_offset = Transform( -5.25266e-07, 0.40273, 0.915319, -2.11596e-06, 0.91532, -0.402731, -1, -1.05053e-06, -8.94535e-07, -4.494e-08, -1.17821e-07, 0.101706 )
+body_offset = Transform( 1, -2.98023e-07, -1.38953e-06, -1.15857e-06, 3.65078e-07, -0.999995, -1.78814e-07, 0.999998, 5.96046e-08, 1.86265e-07, 0.101706, 1.11759e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shin.L"
@@ -2125,11 +2131,11 @@ shape = SubResource( 31 )
 transform = Transform( -5.25266e-07, 0.40273, 0.915319, -2.11596e-06, 0.91532, -0.402731, -1, -1.05053e-06, -8.94535e-07, -0.232341, 0.117743, -2.98023e-07 )
 
 [node name="Physical Bone DEF-shinL001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="25"]
-transform = Transform( 0.764505, -0.64448, 0.0132965, 0.0309473, 0.0572984, 0.997877, -0.643875, -0.762473, 0.0637489, 0.0932372, 0.186166, -0.0478234 )
+transform = Transform( 0.764505, -0.64448, 0.0132965, 0.0309474, 0.0572984, 0.997877, -0.643875, -0.762473, 0.063749, 0.0932372, 0.186166, -0.0478234 )
 collision_layer = 32
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28039e-09, 2.36179e-08, 0.101706 )
-body_offset = Transform( 1, 1.49012e-06, 2.6077e-07, -1.67638e-07, -1.60187e-07, -1, 8.9407e-07, 1, -3.05474e-07, -2.98023e-08, 0.101706, 7.45058e-09 )
+body_offset = Transform( 1, 1.49012e-06, 2.6077e-07, -1.71363e-07, -1.63913e-07, -1, 9.23872e-07, 1, -3.05474e-07, -2.98023e-08, 0.101706, 7.45058e-09 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shin.L.001"
@@ -2144,11 +2150,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 32 )
 
 [node name="Physical Bone DEF-footL" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="26"]
-transform = Transform( 1, -0.000991397, -1.80237e-06, -0.000856464, -0.864307, 0.502964, -0.000498978, -0.502964, -0.864308, 0.0917425, 0.0448596, -0.00496514 )
+transform = Transform( 1, -0.000991398, -1.8024e-06, -0.000856463, -0.864307, 0.502965, -0.000498978, -0.502964, -0.864308, 0.0917425, 0.0448596, -0.00496513 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -7.63042e-08, -6.36254e-08, 0.0578797 )
-body_offset = Transform( 1, 6.46105e-09, -1.38491e-06, -1.38389e-06, 6.25849e-07, -1, -1.30094e-08, 1, 2.38419e-07, 1.56462e-07, 0.0578797, 4.98258e-08 )
+joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -7.63026e-08, -6.31597e-08, 0.0578797 )
+body_offset = Transform( 1, 6.40284e-09, -1.38493e-06, -1.38386e-06, 6.25849e-07, -1, -1.30094e-08, 1, 2.38419e-07, 1.56462e-07, 0.0578797, 4.93601e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-foot.L"
@@ -2164,11 +2170,11 @@ transform = Transform( 1, 5.54792e-10, 0, 2.03727e-10, 0.866025, 0.5, 5.82077e-1
 shape = SubResource( 33 )
 
 [node name="Physical Bone DEF-pelvisR" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="27"]
-transform = Transform( 0.00470539, 0.6126, 0.790378, 0.596173, 0.632848, -0.49405, -0.802843, 0.473529, -0.362237, -0.0437712, 0.962828, -0.0338883 )
+transform = Transform( 0.00470527, 0.612601, 0.790378, 0.596173, 0.632848, -0.49405, -0.802843, 0.473529, -0.362237, -0.0437712, 0.962828, -0.0338883 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( -0.8156, -0.578522, 0.010392, 0.463688, -0.642753, 0.609805, -0.346106, 0.502175, 0.792484, 3.41795e-07, 2.47732e-07, 0.05538 )
-body_offset = Transform( 0.859968, -0.479611, -0.174439, 8.9407e-08, 0.341807, -0.939771, 0.510348, 0.808175, 0.29394, 0.00966024, 0.0520444, -0.0162787 )
+joint_offset = Transform( -0.8156, -0.578522, 0.010392, 0.463688, -0.642753, 0.609805, -0.346106, 0.502175, 0.792484, 3.39001e-07, 2.13273e-07, 0.05538 )
+body_offset = Transform( 0.859968, -0.479611, -0.174439, 5.96046e-08, 0.341807, -0.939771, 0.510348, 0.808175, 0.29394, 0.00966024, 0.0520445, -0.0162787 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-pelvis.R"
@@ -2184,11 +2190,11 @@ transform = Transform( 1, -5.96046e-08, -5.96046e-08, -2.98023e-08, 1, 2.23517e-
 shape = SubResource( 28 )
 
 [node name="Physical Bone DEF-thighR" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="28"]
-transform = Transform( 0.764484, 0.644537, 0.0115766, -0.0292494, 0.0167418, 0.999431, 0.64398, -0.764387, 0.0316516, -0.0931381, 0.87249, -0.0159349 )
+transform = Transform( 0.764483, 0.644536, 0.0115766, -0.0292494, 0.0167417, 0.999431, 0.64398, -0.764386, 0.0316517, -0.0931381, 0.87249, -0.0159349 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( -0.891998, -0.0445846, -0.449834, -0.44338, -0.107527, 0.88986, -0.0880449, 0.993202, 0.0761441, 2.33416e-08, 2.45688e-09, 0.120569 )
-body_offset = Transform( 1, 5.96046e-08, 4.8615e-07, 4.95464e-07, -8.19564e-08, -0.999999, -9.23872e-07, 1, 1.3411e-07, -8.19564e-08, 0.120569, -1.86265e-08 )
+joint_offset = Transform( -0.891998, -0.0445846, -0.449834, -0.44338, -0.107527, 0.88986, -0.0880449, 0.993202, 0.0761441, 2.40154e-08, 2.45689e-09, 0.120569 )
+body_offset = Transform( 1, 5.96046e-08, 4.80562e-07, 4.95464e-07, -8.56817e-08, -0.999999, -9.83477e-07, 1, 1.3411e-07, -8.19564e-08, 0.120569, -1.86265e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-thigh.R"
@@ -2203,11 +2209,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 34 )
 
 [node name="Physical Bone DEF-thighR001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="29"]
-transform = Transform( 0.764484, 0.644536, 0.0115766, -0.0292485, 0.0167405, 0.999433, 0.643979, -0.764386, 0.0316505, -0.095985, 0.626664, -0.0237203 )
+transform = Transform( 0.764484, 0.644536, 0.0115765, -0.0292485, 0.0167405, 0.999432, 0.643979, -0.764386, 0.0316505, -0.095985, 0.626664, -0.0237203 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.95475e-09, -5.07075e-07, 0.120571 )
-body_offset = Transform( 1, -2.98023e-07, 6.22123e-07, 6.25849e-07, 8.75443e-08, -1, -8.9407e-08, 1, -1.50874e-07, -6.70552e-08, 0.120571, 5.25266e-07 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.56301e-08, -5.07075e-07, 0.120571 )
+body_offset = Transform( 1, -3.57628e-07, 6.23986e-07, 6.25849e-07, 8.3819e-08, -1, -8.9407e-08, 1, -1.50874e-07, -5.96046e-08, 0.120571, 5.25266e-07 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-thigh.R.001"
@@ -2225,8 +2231,8 @@ shape = SubResource( 35 )
 transform = Transform( 0.764506, 0.644477, -0.0132949, -0.0309476, 0.0572962, 0.997878, 0.643874, -0.76247, 0.0637491, -0.0960846, 0.399853, -0.0341722 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( -4.09782e-08, -0.5, 0.866026, -7.45058e-09, 0.866025, 0.5, -1, 2.23517e-08, -3.72529e-08, -1.01286e-07, -9.44638e-08, 0.101705 )
-body_offset = Transform( 1, -2.68221e-07, 8.49366e-07, 8.27014e-07, 8.04663e-07, -1, -2.38419e-07, 1, 5.62519e-07, 1.49012e-08, 0.101705, 3.72529e-08 )
+joint_offset = Transform( -4.09782e-08, -0.5, 0.866026, -7.45058e-09, 0.866025, 0.5, -1, 2.23517e-08, -3.72529e-08, -1.00528e-07, -9.11175e-08, 0.101705 )
+body_offset = Transform( 1, -2.68221e-07, 8.41916e-07, 8.23289e-07, 8.08388e-07, -1, -2.68221e-07, 1, 5.66244e-07, 1.49012e-08, 0.101705, 3.35276e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shin.R"
@@ -2241,11 +2247,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 36 )
 
 [node name="Physical Bone DEF-shinR001" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="31"]
-transform = Transform( 0.764506, 0.644477, -0.0132951, -0.0309478, 0.0572968, 0.997877, 0.643874, -0.762469, 0.0637496, -0.0932375, 0.186166, -0.0478234 )
+transform = Transform( 0.764506, 0.644477, -0.0132951, -0.0309478, 0.0572969, 0.997877, 0.643874, -0.762469, 0.0637496, -0.0932375, 0.186166, -0.0478234 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15939e-07, 6.84436e-08, 0.101706 )
-body_offset = Transform( 1, 2.68221e-07, 1.13994e-06, 1.18464e-06, 1.45286e-07, -1, -2.98023e-07, 1, 5.96046e-08, 0, 0.101706, -7.45058e-08 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.16318e-07, 6.88225e-08, 0.101706 )
+body_offset = Transform( 1, 2.38419e-07, 1.14366e-06, 1.18837e-06, 1.37836e-07, -1, -3.27826e-07, 1, 5.58794e-08, 0, 0.101706, -7.45058e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-shin.R.001"
@@ -2260,11 +2266,11 @@ joint_constraints/angular_limit_relaxation = 1.0
 shape = SubResource( 37 )
 
 [node name="Physical Bone DEF-footR" type="PhysicalBone" parent="Body/CultistNeophyteNoCape/rig_deform/Skeleton" index="32"]
-transform = Transform( 0.999999, 0.000989183, -5.85594e-07, 0.000854886, -0.864308, 0.502964, 0.000501837, -0.502963, -0.864306, -0.0917419, 0.0448596, -0.00496506 )
+transform = Transform( 0.999998, 0.000989183, -5.85652e-07, 0.000854885, -0.864308, 0.502963, 0.000501837, -0.502962, -0.864306, -0.0917419, 0.0448596, -0.00496508 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -5.86837e-07, -7.46636e-08, 0.0578799 )
-body_offset = Transform( 1, -9.60426e-10, -2.87837e-07, -2.85916e-07, 4.47035e-07, -1, -8.3237e-09, 1, 2.68221e-07, 6.03497e-07, 0.0578799, 5.9139e-08 )
+joint_offset = Transform( 0, 0, 1, 0, -1, 0, 1, 0, 0, -5.86834e-07, -7.60606e-08, 0.0578799 )
+body_offset = Transform( 1, -9.8953e-10, -2.87895e-07, -2.85916e-07, 4.47035e-07, -1, -8.3237e-09, 1, 2.68221e-07, 6.03497e-07, 0.0578799, 6.0536e-08 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-foot.R"
@@ -2311,7 +2317,7 @@ parameters/Normal_state/current = 0
 script = ExtResource( 25 )
 
 [connection signal="character_died" from="." to="BehaviorTree" method="_on_character_died"]
-[connection signal="character_detected" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor/BT_Player_Sensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
-[connection signal="unseen_sound_heard" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Selector_Sensor/BT_Sound_Listener" to="Audio" method="_on_BT_Sound_Listener_unseen_sound_heard"]
-[connection signal="fighting" from="BehaviorTree/BT_Selector/BT_Sequence_Active/BT_Sequence/BT_Shoot" to="Audio" method="_on_BT_Shoot_fighting"]
-[connection signal="character_idled" from="BehaviorTree/BT_Selector/BT_Sequence_Idle/BT_Wait_Random" to="Audio" method="_on_BT_Wait_Random_character_idled"]
+[connection signal="character_detected" from="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor/BTPlayerSensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
+[connection signal="unseen_sound_heard" from="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor/BTSoundListener" to="Audio" method="_on_BT_Sound_Listener_unseen_sound_heard"]
+[connection signal="fighting" from="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTShoot" to="Audio" method="_on_BT_Shoot_fighting"]
+[connection signal="character_idled" from="BehaviorTree/BTSelector/BT_Sequence_Idle/BTWaitRandom" to="Audio" method="_on_BT_Wait_Random_character_idled"]

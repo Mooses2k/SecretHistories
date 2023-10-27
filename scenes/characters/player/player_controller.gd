@@ -141,6 +141,8 @@ func _physics_process(delta : float):
 	interaction_handled = false
 	throw_item = null
 	current_grab_object = current_control_mode.get_grab_target()
+	
+	### TODO: many of these shouldn't be here, shouldn't be checked every _physics_process
 	_walk(delta)
 	_crouch()
 	_handle_grab_input(delta)
@@ -346,7 +348,7 @@ func handle_grab(delta : float):
 				is_grabbing = true
 				print("Just grabbed: ", grab_object)
 				if grab_object is PickableItem:   # So no plain RigidBodies or large objects
-					grab_object.item_state = GlobalConsts.ItemState.DAMAGING   # This is so any pickable_item collides with cultists
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)   # This is so any pickable_item collides with cultists
 	
 	# These are debug indicators for initial and current grab points
 	$GrabInitial.visible = false
@@ -545,12 +547,12 @@ func drop_grabable():
 				interaction_handled = true
 				var impulse = current_control_mode.get_aim_direction() * throw_strength
 				if grab_object is MeleeItem:
-					grab_object.item_state = GlobalConsts.ItemState.DAMAGING
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_throw_logic(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(true)
 				else:
-					grab_object.item_state = GlobalConsts.ItemState.DAMAGING
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(false)
@@ -570,6 +572,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 	if throw_state == ThrowState.SHOULD_PLACE:
 		print("Should place")
 		throw_item = character.inventory.get_mainhand_item() if throw_item_hand == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
+		throw_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 		if throw_item:
 			# Calculates where to place the item
 			var origin : Vector3 = owner.drop_position_node.global_transform.origin
@@ -582,7 +585,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 			throw_item.collision_mask = throw_item.dropped_mask
 			var result = PhysicsTestMotionResult.new()
 			# The return value can be ignored, since extra information is put into the 'result' variable
-			PhysicsServer.body_test_motion(throw_item.get_rid(), owner.inventory.drop_position_node.global_transform, dir, false, result, true)
+			PhysicsServer.body_test_motion(throw_item.get_rid(), owner.drop_position_node.global_transform, dir, false, result, true)
 			throw_item.collision_layer = layers
 			throw_item.collision_mask = mask
 			if result.motion.length() > 0.1:
@@ -603,6 +606,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				
 		# At this point, throw_item_hand is determined, whether this is a throw-button throw or a use_primary bomb throw
 		if throw_item:
+			throw_item.set_item_state(GlobalConsts.ItemState.DAMAGING)
 			if throw_item_hand == ItemSelection.ITEM_MAINHAND:
 				character.inventory.drop_mainhand_item()
 			else:
@@ -715,11 +719,13 @@ func kick():
 				if Input.is_action_just_pressed("player|kick"):
 					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
 					character.kick_timer.start(1)
+					kick_object.play_drop_sound(kick_object)
 		
 		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 			if Input.is_action_just_pressed("player|kick"):
 				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
 				character.kick_timer.start(1)
+				# sound handled by damage()
 		
 		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
 			if Input.is_action_just_pressed("player|kick"):
@@ -727,6 +733,7 @@ func kick():
 					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
 				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
 				character.kick_timer.start(1)
+				kick_object.play_drop_sound(kick_object)
 
 
 func _clamber():

@@ -1,4 +1,5 @@
 # Write your doc string for this file here
+class_name RoomGraphViz
 extends Node2D
 
 ### Member Variables and Dependencies -------------------------------------------------------------

@@ -1,5 +1,7 @@
-class_name BT_Gun_Cooldown
-extends BT_Node
+class_name BTGunCooldown
+extends BTNode
+
+# Checks if the gun (in the mainhand) is on cooldown
 
 
 func tick(state : CharacterState) -> int:

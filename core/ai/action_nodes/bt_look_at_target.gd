@@ -1,5 +1,8 @@
-class_name BT_Look_At_Target
-extends BT_Node
+class_name BTLookAtTarget
+extends BTNode
+
+# Turn towards target position
+# TODO: eventually, turn the head towards it, a bit faster than body
 
 
 func tick(state : CharacterState) -> int:

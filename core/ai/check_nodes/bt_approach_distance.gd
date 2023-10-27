@@ -1,5 +1,9 @@
-class_name BT_Approach_Random_Distance
-extends BT_Node
+class_name BTApproachRandomDistance
+extends BTNode
+
+# Choose and check if have reached an approach distance.
+# For instance, choose a target and succeed when within a randomly chosen
+# 4-8m of the target.
 
 
 export var min_distance : float = 4.0

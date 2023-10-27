@@ -1,5 +1,7 @@
-class_name BT_Player_Sensor
-extends BT_Node
+class_name BTPlayerSensor
+extends BTNode
+
+# What it says on the tin. Direct (sight or touch, typically) detection of the player character.
 
 
 signal character_detected   # For signalling speech

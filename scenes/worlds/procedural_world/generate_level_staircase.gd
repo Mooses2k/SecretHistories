@@ -12,6 +12,7 @@ extends GenerationStep
 
 export var single_tile_width := 2
 export var single_tile_height := 2
+export var minimum_distance_between_staircases := 3
 export var player_offset := Vector2.ONE
 
 #--- private variables - order: export > normal var > onready -------------------------------------
@@ -116,8 +117,10 @@ func _update_poll_of_possible_cells(data: WorldData, cells_pool: Array, room: Re
 
 func _can_fit_staircase_room(data: WorldData, initial_x: int, initial_y: int) -> bool:
 	var value := true
-	var offsets_x := range(0, single_tile_width)
-	var offsets_y := range(0, single_tile_height)
+	var max_size_x = (single_tile_width - 1) + minimum_distance_between_staircases
+	var max_size_y = (single_tile_height - 1) + minimum_distance_between_staircases
+	var offsets_x := range(0, max_size_x)
+	var offsets_y := range(0, max_size_y)
 	
 	for offset_x in offsets_x:
 		var x := int(initial_x + offset_x)

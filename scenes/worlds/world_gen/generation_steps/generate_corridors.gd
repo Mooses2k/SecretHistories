@@ -19,7 +19,6 @@ enum CorridorGenerationResults {
 
 #--- constants ------------------------------------------------------------------------------------
 
-const RoomGraphViz = preload("res://utils/debug_scenes/room_graph_viz.gd")
 const GraphGenerator = preload("generate_room_graph.gd")
 
 const MASK_EMPTY = 0b0000
@@ -205,12 +204,13 @@ func _generate_corridor_until_first_door(
 		door_room_index = -1
 	}
 	var path : PoolIntArray = astar.get_id_path(from_index, to_index)
-	if not (path.size() > 0 and path[0] == from_index and path[-1] == to_index):
-		print("a: %s (%s) | b: %s (%s) | path[0]: %s | path[-1]: %s"%[
-				from_index, data.get_int_position_from_cell_index(from_index), 
-				to_index, data.get_int_position_from_cell_index(to_index),
-				path[0], path[-1]
-		])
+	if path.empty() or not (path.size() > 0 and path[0] == from_index and path[-1] == to_index):
+		if path.size() >= 2:
+			print("a: %s (%s) | b: %s (%s) | path[0]: %s | path[-1]: %s"%[
+					from_index, data.get_int_position_from_cell_index(from_index), 
+					to_index, data.get_int_position_from_cell_index(to_index),
+					path[0], path[-1]
+			])
 		results.status = CorridorGenerationResults.FAILED
 		return results
 	

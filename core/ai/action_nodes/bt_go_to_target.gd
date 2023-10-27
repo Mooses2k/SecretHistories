@@ -1,5 +1,7 @@
-class_name BT_Go_To_Target
-extends BT_Node
+class_name BTGoToTarget
+extends BTNode
+
+# Move to currently selected target position
 
 
 export var threshold : float = 0.5 setget set_threshold

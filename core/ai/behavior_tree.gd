@@ -4,7 +4,7 @@ extends Node
 
 export var bt_root : NodePath
 
-onready var _bt_root_node = get_node(bt_root) as BT_Node
+onready var _bt_root_node = get_node(bt_root) as BTNode
 onready var character = owner
 
 

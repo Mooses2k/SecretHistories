@@ -44,6 +44,10 @@ func _process(delta):
 		$Ignite/CollisionShape.disabled = true
 		is_dropped = false
 		is_just_dropped = false
+		
+	# This ensures it's never emissive while off, also, that candles stay lit on level change
+	if $MeshInstance.get_surface_material(0).emission_enabled == true and $FireOrigin/Fire.visible == false:
+		light()
 
 
 func light():
@@ -84,7 +88,7 @@ func _use_primary():
 
 
 func _item_state_changed(previous_state, current_state):
-	if current_state == GlobalConsts.ItemState.INVENTORY:
+	if current_state == GlobalConsts.ItemState.INVENTORY and previous_state == GlobalConsts.ItemState.INVENTORY:
 		owner_character.inventory.switch_away_from_light(self)
 
 

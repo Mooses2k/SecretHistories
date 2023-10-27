@@ -10,10 +10,12 @@ extends RoomRequirements
 
 #--- constants ------------------------------------------------------------------------------------
 
+const EDITOR_NAME_PREVIEW = "Max Size %sx%s"
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-var max_x_tiles := 1
-var max_y_tiles := 1
+var max_x_tiles := 1 setget _set_max_x_tiles
+var max_y_tiles := 1 setget _set_max_y_tiles
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -21,6 +23,9 @@ var max_y_tiles := 1
 
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
+
+func _init() -> void:
+	_update_resource_name()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -41,6 +46,19 @@ func has_fulfilled_requirement(room_data: RoomData) -> bool:
 
 
 ### Private Methods -------------------------------------------------------------------------------
+
+func _update_resource_name() -> void:
+	resource_name = EDITOR_NAME_PREVIEW%[max_x_tiles, max_y_tiles]
+
+
+func _set_max_x_tiles(value: int) -> void:
+	max_x_tiles = value
+	_update_resource_name()
+
+
+func _set_max_y_tiles(value: int) -> void:
+	max_y_tiles = value
+	_update_resource_name()
 
 ### -----------------------------------------------------------------------------------------------
 

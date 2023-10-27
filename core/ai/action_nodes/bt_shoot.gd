@@ -1,8 +1,10 @@
-class_name BT_Shoot
-extends BT_Node
+class_name BTShoot
+extends BTNode
+
+# Attempts to shoot the gun equipped (in the mainhand)
 
 
-signal fighting
+signal fighting   # For signalling speech
 
 
 func tick(state : CharacterState) -> int:

@@ -1,7 +1,8 @@
-class_name BT_Die
-extends BT_Node
+class_name BTDie
+extends BTNode
 
 ### If character is dead, we're done processing their BehaviorTree
+# This may not be needed, as we have a signal that deletes the whole tree on death
 
 
 func tick(state : CharacterState) -> int:

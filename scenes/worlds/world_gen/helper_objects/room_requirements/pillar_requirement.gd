@@ -1,4 +1,5 @@
 # Write your doc string for this file here
+tool
 class_name RequirementPillar
 extends RoomRequirements
 
@@ -9,9 +10,14 @@ extends RoomRequirements
 
 #--- constants ------------------------------------------------------------------------------------
 
+const PREVIEW_TEXT = {
+	true: "Has Pillars",
+	false: "No Pillars",
+}
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var has_pillars := true
+export var has_pillars := true setget _set_has_pillars
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -19,6 +25,9 @@ export var has_pillars := true
 
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
+
+func _init() -> void:
+	_update_resource_name()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -33,6 +42,14 @@ func has_fulfilled_requirement(room_data: RoomData) -> bool:
 
 
 ### Private Methods -------------------------------------------------------------------------------
+
+func _update_resource_name() -> void:
+	resource_name = PREVIEW_TEXT[has_pillars]
+
+
+func _set_has_pillars(value: bool) -> void:
+	has_pillars = value
+	_update_resource_name()
 
 ### -----------------------------------------------------------------------------------------------
 

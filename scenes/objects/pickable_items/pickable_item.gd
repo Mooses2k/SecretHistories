@@ -15,13 +15,13 @@ export(int, "Rigid", "Static", "Character", "Kinematic") var equipped_mode : int
 
 export var max_speed : float = 12.0
 export var item_drop_sound : AudioStream
-export var item_drop_sound_flesh : AudioStream
 export var item_throw_sound : AudioStream
 export(AttackTypes.Types) var melee_damage_type : int = 0
 
 onready var audio_player = get_node("DropSound")
 
 #onready var mesh_instance = $MeshInstance
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else

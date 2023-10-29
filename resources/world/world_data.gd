@@ -107,7 +107,7 @@ const WALL_DISTANCE : float = 0.15
 # The size of the world, as a number of cells
 var world_size_x : int = 16
 var world_size_z : int = 16
-var cell_count : int = world_size_x*world_size_z
+var cell_count : int = world_size_x * world_size_z
 
 
 func resize(size_x : int, size_z : int):
@@ -142,7 +142,7 @@ func clear():
 	for i in wall_tile_index.size():
 		wall_tile_index[i] = -1
 	
-	wall_type.resize(2*cell_count + world_size_x + world_size_z)
+	wall_type.resize(2 * cell_count + world_size_x + world_size_z)
 	for i in wall_type.size():
 		wall_type[i] = EdgeType.EMPTY
 	

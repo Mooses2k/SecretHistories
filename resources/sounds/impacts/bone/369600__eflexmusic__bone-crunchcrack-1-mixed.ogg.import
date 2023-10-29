@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg-31d6ea69e2c68b7ccef89ec0ef2448a4.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/bone/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg"
+dest_files=[ "res://.import/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg-31d6ea69e2c68b7ccef89ec0ef2448a4.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

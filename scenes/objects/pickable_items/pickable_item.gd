@@ -130,14 +130,17 @@ func play_drop_sound(body):
 	if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
 		self.audio_player.stream = self.item_drop_sound
 		print(str(self.name) + " velo = " + str(self.linear_velocity.length()))
-		if "Cultist" in body.name and self.item_drop_sound_flesh:
+		if "Cultist" in body.name:
 			self.audio_player.stream = self.item_drop_sound_flesh
-
-		if self.get("primary_damage1"):
-			self.item_drop_sound_level = self.linear_velocity.length() * 5.0
-			self.item_drop_pitch_level = self.linear_velocity.length() * 0.2
+			
+			if self.get("primary_damage1"):
+				self.item_drop_sound_level = self.linear_velocity.length() * 0.5 * self.primary_damage1
+				self.item_drop_pitch_level = self.linear_velocity.length() * 0.05 * self.primary_damage1
+			else:
+				self.item_drop_sound_level = self.linear_velocity.length() * 0.2
+				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
 		else:
-			self.item_drop_sound_level = self.linear_velocity.length() * 2.0
+			self.item_drop_sound_level = self.linear_velocity.length() * 5.0
 			self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
 			
 		self.audio_player.unit_db = clamp(self.item_drop_sound_level, 5.0, 20.0)   # This should eventually be based on speed

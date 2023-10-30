@@ -50,7 +50,7 @@ func _ready() -> void:
 
 func spawn_player():
 	.spawn_player()
-	Events.call_deferred("emit_signal", "debug_filter_forced", GameManager.ScreenFilter.DEBUG_LIGHT)
+	Events.call_deferred("emit_signal", "debug_filter_forced", _screen_filter)
 
 ### -----------------------------------------------------------------------------------------------
 

@@ -5,6 +5,7 @@ extends PickableItem
 signal used_primary()
 signal used_secondary()
 signal used_reload()
+signal used_unload()
 
 export (bool) var can_attach = false
 export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM
@@ -63,6 +64,11 @@ func _use_reload():
 	pass
 
 
+func _use_unload():
+	print("use unload")
+	pass
+
+
 func use_primary():
 	_use_primary()
 	emit_signal("used_primary")
@@ -76,6 +82,11 @@ func use_secondary():
 func use_reload():
 	_use_reload()
 	emit_signal("used_reload")
+
+
+func use_unload():
+	_use_unload()
+	emit_signal("used_unload")
 
 
 func get_hold_transform() -> Transform:

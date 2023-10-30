@@ -35,7 +35,6 @@ export (NodePath) var player_path
 
 onready var player = get_node(player_path)
 
-
 var current_ammo : int = 0
 var current_ammo_type : Resource = null
 
@@ -102,7 +101,6 @@ func shoot():
 		owner_character.player_controller.current_control_mode.recoil(self, total_damage, handling)   # Should also send delta
 
 
-
 func _use_primary():
 	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
@@ -119,6 +117,10 @@ func dryfire():
 
 func _use_reload():
 	reload()
+
+
+func _use_unload():
+	unload()
 
 
 # Needs more code for revolvers and bolt-actions as they're more complicated
@@ -158,6 +160,15 @@ func reload_animation():
 		print(animation_reload_sequence)
 
 
+# Holding R unloads the weapon, for instance if you want the ammo from it to then drop the weapon
+func unload():
+	if current_ammo > 0:
+		$UnloadTimer.start(reload_time)
+		owner_character.is_reloading = true
+#		$Sounds/Unload.play()   # TODO: Doesn't exist yet - sound to use: 422716__niamhd00145229__reload-ammo.ogg
+# TODO ALSO: generalize Sounds spatial etc to gun_item
+
+
 #	TODO: Changing the status of the weapon (dropping the weapon or unequiping it)
 # while one of these timers is active should appropriately reset the timer and deal any of it's side effects
 
@@ -180,6 +191,15 @@ func _on_ReloadTimer_timeout() -> void:
 			current_ammo += _reload_amount
 	owner_character.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
+
+
+func _on_UnloadTimer_timeout() -> void:
+	if owner_character and owner_character.is_reloading:
+		var inventory = owner_character.inventory
+		inventory.insert_tiny_item(current_ammo_type, current_ammo)
+		print("Unload rounds: ", current_ammo)
+		current_ammo = 0
+		owner_character.is_reloading = false
 
 
 func _on_CooldownTimer_timeout() -> void:

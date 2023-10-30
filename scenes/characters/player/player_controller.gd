@@ -104,6 +104,10 @@ var camera_movement_resistance : float = 1.0
 var _cycle_offhand_timer : float = 0.0
 var _swap_hands_wait_time : float = 500
 
+# For tracking whether to reload or unload mainhand item
+var _reload_press_timer : float = 0.0
+var _unload_wait_time : float = 500
+
 # Screen filter section
 enum ScreenFilter {
 	NONE,
@@ -437,11 +441,11 @@ func _handle_inventory(delta : float):
 			if i != character.inventory.current_offhand_slot and i != 10:
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
-
+	
 	# Off-hand slot selection or swap items in hands based on length of press of cycle_offhand_slot
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		_cycle_offhand_timer = Time.get_ticks_msec()
-
+	
 	if Input.is_action_just_released("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		# If it's a long press, swap hands, if not, cycle slot
 		if _cycle_offhand_timer + _swap_hands_wait_time < Time.get_ticks_msec():
@@ -493,12 +497,30 @@ func _handle_inventory(delta : float):
 			if character.inventory.get_mainhand_item() and interaction_target == null:
 				character.inventory.get_mainhand_item().use_secondary()
 				throw_state = ThrowState.IDLE
-		
-		if Input.is_action_just_pressed("player|reload"):
-			if character.inventory.get_mainhand_item():
-				character.inventory.get_mainhand_item().use_reload()
-				throw_state = ThrowState.IDLE
 	
+	# Start timer to check if want to reload or unload
+	if Input.is_action_just_pressed("player|reload"):
+		if character.inventory.get_mainhand_item():
+			_reload_press_timer = Time.get_ticks_msec()
+			
+	if Input.is_action_just_released("player|reload"):
+		if character.inventory.get_mainhand_item():
+			
+			if _reload_press_timer + _unload_wait_time < Time.get_ticks_msec():
+				if _reload_press_timer == 0.0:
+					return
+				# Player intends to unload not reload
+				character.inventory.get_mainhand_item().use_unload()
+				throw_state = ThrowState.IDLE
+				_reload_press_timer = 0.0
+				return
+			
+			else:
+				_reload_press_timer = 0.0
+				
+			character.inventory.get_mainhand_item().use_reload()
+			throw_state = ThrowState.IDLE
+		
 	if Input.is_action_just_pressed("playerhand|offhand_use"):
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()

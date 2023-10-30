@@ -22,6 +22,7 @@ func _process(delta):
 		+ "Player noise_level = " + str(player.noise_level) + "\n"
 		+ "Player on floor = " +  str(player.is_on_floor()) + "\n"
 		+ "Player position = " +  str(player.translation) + "\n"
+		+ "Current FPS = " +  str(Performance.get_monitor(Performance.TIME_FPS)) + "\n"
 	)
 
 

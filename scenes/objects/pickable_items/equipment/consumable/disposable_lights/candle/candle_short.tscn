@@ -160,7 +160,7 @@ __meta__ = {
 }
 
 [node name="FireOrigin" type="Position3D" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00249655, 0.0620411, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000292407, 0.0620411, -0.00154841 )
 script = ExtResource( 2 )
 
 [node name="Fire" type="MeshInstance" parent="FireOrigin" index="0"]

@@ -134,8 +134,12 @@ func play_drop_sound(body):
 			self.audio_player.stream = self.item_drop_sound_flesh
 			
 			if self.get("primary_damage1"):
-				self.item_drop_sound_level = self.linear_velocity.length() * 0.5 * self.primary_damage1
-				self.item_drop_pitch_level = self.linear_velocity.length() * 0.05 * self.primary_damage1
+				if self.get("can_spin"):
+					self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.secondary_damage1 + self.secondary_damage2)
+					self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.secondary_damage1 + self.secondary_damage2)
+				else:
+					self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.primary_damage1 + self.primary_damage2)
+					self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.primary_damage1 + self.primary_damage2)
 			else:
 				self.item_drop_sound_level = self.linear_velocity.length() * 0.2
 				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4

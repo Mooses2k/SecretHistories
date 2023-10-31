@@ -410,19 +410,13 @@ func handle_grab(delta : float):
 		
 		# Calculate additional force based on the weight of the object
 		var additional_force = Vector3.ZERO
-		if grab_object.mass > 0:
-			additional_force = -direct_state.total_gravity * grab_object.mass
+		if grab_object.mass > 80:
+			additional_force = owner.velocity * ((1 / grab_object.mass) * 50)
 		
 		# Modify player's movement based on additional force
-		owner.velocity.x += additional_force.x * delta
-		owner.velocity.z += additional_force.z * delta
-		
-		# Limit player's movement speed if necessary
-		var horizontal_velocity = Vector3(owner.velocity.x, 0, owner.velocity.z)
-		if horizontal_velocity.length() > ON_GRAB_MAX_SPEED:
-			horizontal_velocity = horizontal_velocity.normalized() * ON_GRAB_MAX_SPEED
-		owner.velocity.x = horizontal_velocity.x
-		owner.velocity.z = horizontal_velocity.z
+			if owner.is_player_moving:
+				owner.velocity.x = additional_force.x * delta
+				owner.velocity.z = additional_force.z * delta
 		
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)

@@ -41,15 +41,7 @@ func _enter_tree():
 		drop_sound.bus = "Effects"
 		add_child(drop_sound)
 	
-	match self.item_state:
-		GlobalConsts.ItemState.DROPPED:
-			set_physics_dropped()
-		GlobalConsts.ItemState.INVENTORY:
-			set_physics_equipped()
-		GlobalConsts.ItemState.EQUIPPED:
-			set_physics_equipped()
-		GlobalConsts.ItemState.DAMAGING:
-			set_weapon_damaging()
+	check_item_state()
 
 
 func _process(delta):
@@ -58,57 +50,22 @@ func _process(delta):
 		self.noise_level = 0
 
 
-# TODO: Performance issue, should be on collision, not every physics frame
-func _physics_process(delta):
-	throw_damage(delta)
-
-
-# Damage mask has had Player removed to avoid walking over items bugs - TODO: later should be no damage mode, probably just based on momentum
-func throw_damage(delta):
-	if can_throw_damage:
-		
-		var bodies = get_colliding_bodies()
-		if has_thrown == false:
-			initial_linear_velocity = linear_velocity.z
-			has_thrown = true
-		
-		for body_found in bodies:
-			if body_found.is_in_group("CHARACTER"):
-				var item_damage = int(abs(initial_linear_velocity)) * mass
-				if not is_higher_damage :
-					if item_damage > 5:
-						item_damage = 2
-				print("Damage inflicted on: ", body_found.name, " is: ", item_damage)
-				body_found.damage(item_damage, melee_damage_type, body_found)
-				can_throw_damage = false
-				has_thrown = false
-				decelerate_item_velocity(delta, true)
-				set_item_state(GlobalConsts.ItemState.DROPPED)
-			else:
-				has_thrown = false
-				can_throw_damage = false
-#				decelerate_item_velocity(delta, true)   # Causes glitches like thrown objects sticking in arched wall collisions
-				set_item_state(GlobalConsts.ItemState.DROPPED)
-
-
-func decelerate_item_velocity(delta, decelerate):
-	if self.item_size:
-		if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-			if decelerate == true:
-				print("decelerating item")
-				linear_velocity *= 0
+func check_item_state():
+	match self.item_state:
+		GlobalConsts.ItemState.DROPPED:
+			set_physics_dropped()
+		GlobalConsts.ItemState.INVENTORY:
+			set_physics_equipped()
+		GlobalConsts.ItemState.EQUIPPED:
+			set_physics_equipped()
+		GlobalConsts.ItemState.DAMAGING:
+			set_item_damaging()
 
 
 func set_item_state(value : int) :
 	var previous = item_state
 	item_state = value
 	emit_signal("item_state_changed", previous, item_state)
-
-
-func implement_throw_damage(higher_damage):
-	is_higher_damage = higher_damage
-	can_throw_damage = true
-	play_throw_sound()
 
 
 func play_throw_sound():
@@ -135,9 +92,10 @@ func set_physics_dropped():
 	self.mode = dropped_mode
 
 
-func set_weapon_damaging():
+func set_item_damaging():
 	self.collision_layer = dropped_layers
 	self.collision_mask = damage_mask
+	print("Line 141 pickable_item.gd self's collision_mask: ", self.collision_mask)
 	self.mode = dropped_mode
 
 

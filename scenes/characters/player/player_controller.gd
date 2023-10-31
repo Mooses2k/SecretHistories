@@ -358,6 +358,7 @@ func handle_grab(delta : float):
 				print("Just grabbed: ", grab_object)
 				if grab_object is PickableItem:   # So no plain RigidBodies or large objects
 					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)   # This is so any pickable_item collides with cultists
+					grab_object.check_item_state()
 	
 	# These are debug indicators for initial and current grab points
 	$GrabInitial.visible = false
@@ -578,11 +579,15 @@ func drop_grabable():
 					grab_object.apply_throw_logic(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(true)
-				else:
+				elif grab_object is EquipmentItem:   # Non-Melee equipment item
 					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(false)
+				else:   # It's a tiny item
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
+					grab_object.apply_central_impulse(impulse)
+					grab_object.add_collision_exception_with(character)
 				wanna_grab = false
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false

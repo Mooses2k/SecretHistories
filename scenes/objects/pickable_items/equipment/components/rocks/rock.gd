@@ -1,5 +1,4 @@
 class_name RockItem
-extends MeleeItem
 
 
 export (NodePath) var player_path

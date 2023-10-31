@@ -16,7 +16,6 @@ const COLOR_HALLS = Color(0.3,0.3,0.5,1.0)
 const COLOR_DELAUNAY = Color.cyan
 const COLOR_CONNECTIONS = Color.yellowgreen
 const COLOR_ASTAR = Color.orangered
-const COLOR_PLAYER = Color.blue
 
 const PATH_FONT = "res://resources/fonts/godot_default_bitmapfont.tres"
 
@@ -32,8 +31,6 @@ export var draw_astar_grid := true setget _set_draw_astar_grid
 export var draw_astar_connections := true setget _set_draw_astar_connections
 export var draw_player := true setget _set_draw_player
 
-var player: Player = null
-
 var font: Font = null
 
 var world_data: WorldData = null setget _set_world_data
@@ -47,6 +44,8 @@ var astar: ManhattanAStar2D = null
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
+onready var _player_icon: Node2D = $PlayerIcon 
+
 ### -----------------------------------------------------------------------------------------------
 
 
@@ -58,9 +57,9 @@ func _ready() -> void:
 		GameManager.game.connect("player_spawned", self, "_on_game_player_spawned")
 
 
-func _process(_delta: float) -> void:
-	if is_instance_valid(player):
-		update()
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("misc|map_menu"):
+		visible = !visible
 
 
 func _draw() -> void:
@@ -141,13 +140,6 @@ func _draw() -> void:
 				var to_position := room_centers[to_index]
 				
 				draw_line(from_position, to_position, COLOR_CONNECTIONS)
-	
-	if draw_player and is_instance_valid(player):
-		var local_position = to_local(Vector2(
-				player.global_translation.x,
-				player.global_translation.z
-		)) * distances_scale / WorldData.CELL_SIZE
-		draw_circle(local_position, distances_scale / 2.0, COLOR_PLAYER)
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -240,7 +232,13 @@ func _on_world_generation_finished() -> void:
 
 
 func _on_game_player_spawned(p_player: Player) -> void:
-	player = p_player
-	update()
+	_player_icon.player = p_player
+	
+	if not p_player.is_connected("character_died", self, "_on_player_character_died"):
+		p_player.connect("character_died", self, "_on_player_character_died")
+
+
+func _on_player_character_died() -> void:
+	hide()
 
 ### -----------------------------------------------------------------------------------------------

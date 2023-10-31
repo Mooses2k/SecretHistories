@@ -233,6 +233,7 @@ func _on_world_generation_finished() -> void:
 
 func _on_game_player_spawned(p_player: Player) -> void:
 	_player_icon.player = p_player
+	hide()   # Hidden by default
 	
 	if not p_player.is_connected("character_died", self, "_on_player_character_died"):
 		p_player.connect("character_died", self, "_on_player_character_died")

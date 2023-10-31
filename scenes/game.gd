@@ -172,7 +172,10 @@ func _on_Events_up_staircase_used() -> void:
 		print("Floor level changed from: %s to: %s"%[old_value, _current_floor_level])
 		yield(_handle_floor_change(false), "completed")
 	elif _current_floor_level == HIGHEST_FLOOR_LEVEL:
-		print("You're already at the top of the dungeon, can't go upper.")
+		if player.inventory.bulky_equipment is ShardOfTheComet:
+			print("Win screen")
+		else:
+			print("You're already at the top of the dungeon, can't go up.")
 
 
 func _on_Events_down_staircase_used() -> void:

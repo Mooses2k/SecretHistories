@@ -174,6 +174,7 @@ func _on_Events_up_staircase_used() -> void:
 	elif current_floor_level == HIGHEST_FLOOR_LEVEL:
 		if player.inventory.bulky_equipment is ShardOfTheComet:
 			print("Win screen")
+			get_tree().change_scene("res://scenes/ui/victory_screen.tscn")
 		else:
 			print("You're already at the top of the dungeon, can't go up.")
 

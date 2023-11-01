@@ -49,10 +49,10 @@ func _ready() -> void:
 			$LevelMessage.text = "COMET WHISPERS IN MY HEAD"
 		-4:
 			var chance = randf()
-			if chance <= .99:
+			if chance <= .999:
 				$LevelMessage.text = "I CAN HEAR IT SINGING"
 			else:
-				$LevelMessage.text = "IT BELONGS IN A MUSEUM" + "\n" + ":)" + "\n" + "JUST KIDDING, GONNA PAWN IT"
+				$LevelMessage.text = "IT BELONGS IN A MUSEUM" + "\n" + "\n" + ":)" + "\n" + "\n" + "JUST KIDDING, GONNA PAWN IT"
 		-5:
 			$LevelMessage.text = "IT IS WITH US NOW"
 		

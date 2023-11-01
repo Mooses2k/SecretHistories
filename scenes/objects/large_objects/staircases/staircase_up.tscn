@@ -62,5 +62,24 @@ wait_time = 3.0
 one_shot = true
 autostart = true
 
+[node name="CantLeaveMessage" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.785618, 1.68616, 0 )
+visible = false
+layers = 2
+pixel_size = 0.001
+billboard = 1
+render_priority = 127
+outline_modulate = Color( 0, 0, 0, 0 )
+text = "CAN'T LEAVE, STILL HEAR IT"
+font = SubResource( 4 )
+autowrap = true
+width = 300.0
+
+[node name="CantLeaveTimer" type="Timer" parent="CantLeaveMessage"]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="body_entered" from="UpDetector" to="." method="_on_UpDetector_body_entered"]
 [connection signal="timeout" from="LevelMessage/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_CantLeaveTimer_timeout"]
+[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_Timer_timeout"]

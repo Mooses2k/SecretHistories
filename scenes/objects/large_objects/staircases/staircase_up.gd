@@ -82,9 +82,17 @@ func _on_UpDetector_body_entered(body: Node) -> void:
 		return
 	
 	Events.emit_signal("up_staircase_used")
+	
+	if GameManager.game.current_floor_level == -1:
+		$CantLeaveMessage.visible = true
+		$CantLeaveMessage/CantLeaveTimer.start()
 
 
 func _on_Timer_timeout():
 	$LevelMessage.visible = false
+
+
+func _on_CantLeaveTimer_timeout():
+	$CantLeaveMessage.visible = false
 
 ### -----------------------------------------------------------------------------------------------

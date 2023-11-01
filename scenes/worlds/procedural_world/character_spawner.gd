@@ -53,7 +53,8 @@ func _ready():
 	if Engine.editor_hint:
 		return
 	
-	add_child(characters_root)
+	characters_root.name = "CharactersRoot"
+	add_child(characters_root, true)
 	
 	_total_weights_by_set.resize(character_loadout.size())
 	for set_index in character_loadout.size():

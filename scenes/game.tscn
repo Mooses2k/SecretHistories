@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/game.gd" type="Script" id=1]
 [ext_resource path="res://globals/settings.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/ui/game_ui.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/worlds/game_environment.tres" type="Environment" id=6]
 
 [node name="Game" type="Node"]
 pause_mode = 1
@@ -20,3 +21,6 @@ pause_mode = 1
 [node name="LocalSettings" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource( 2 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 6 )

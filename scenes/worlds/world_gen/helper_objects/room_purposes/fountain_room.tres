@@ -18,9 +18,9 @@ max_x_tiles = 9
 max_y_tiles = 9
 
 [sub_resource type="Resource" id=4]
-resource_name = "3~99 Doorways"
+resource_name = "1~99 Doorways"
 script = ExtResource( 5 )
-min_doorways = 3
+min_doorways = 1
 max_doorways = 99
 
 [resource]

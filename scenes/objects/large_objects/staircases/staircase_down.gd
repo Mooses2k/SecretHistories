@@ -15,6 +15,13 @@ const DOWN_FACING_ROTATIONS = {
 	WorldData.Direction.WEST: 0,
 }
 
+const PLAYER_FACING_ROTATIONS = {
+	WorldData.Direction.NORTH: 0,
+	WorldData.Direction.EAST: 1.5*PI,
+	WorldData.Direction.SOUTH: PI,
+	WorldData.Direction.WEST: 0.5*PI,
+}
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 #--- private variables - order: export > normal var > onready -------------------------------------
@@ -28,7 +35,10 @@ func _ready() -> void:
 	var game_world := get_parent() as GameWorld
 	if game_world and is_instance_valid(_spawn_position):
 		game_world.world_data.player_spawn_positions[RoomData.OriginalPurpose.DOWN_STAIRCASE] = \
-				_spawn_position.global_translation
+				{
+					"position": _spawn_position.global_translation,
+					"y_rotation": PLAYER_FACING_ROTATIONS[facing_direction],
+				}
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -53,6 +63,6 @@ func _on_DownDetector_body_entered(body: Node) -> void:
 	if player == null:
 		return
 	
-	print("Player is going Downstairs")
+	Events.emit_signal("down_staircase_used")
 
 ### -----------------------------------------------------------------------------------------------

@@ -30,6 +30,7 @@ export var floor_sizes := {
 
 var player
 var level : GameWorld
+var current_floor_level := HIGHEST_FLOOR_LEVEL
 
 onready var world_root : Node = $World
 onready var ui_root : CanvasLayer = $GameUI
@@ -38,7 +39,6 @@ onready var world_environment: WorldEnvironment = $WorldEnvironment
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-var _current_floor_level := HIGHEST_FLOOR_LEVEL
 # Keys are floor level indices and values are FloorLevelHandler objects or null.
 var _loaded_levels := {}
 
@@ -52,7 +52,7 @@ func _init():
 
 func _ready():
 	set_brightness()
-	for floor_index in range(HIGHEST_FLOOR_LEVEL, LOWEST_FLOOR_LEVEL-1, -1):
+	for floor_index in range(HIGHEST_FLOOR_LEVEL, LOWEST_FLOOR_LEVEL - 1, -1):
 		_loaded_levels[floor_index] = null
 	
 	yield(get_tree().create_timer(1), "timeout")
@@ -71,18 +71,18 @@ func set_brightness():
 
 
 func load_level(packed : PackedScene):
-	if _loaded_levels[_current_floor_level] == null:
+	if _loaded_levels[current_floor_level] == null:
 		level = packed.instance() as GameWorld
 		world_root.add_child(level)
 		
-		var is_lowest_level := _current_floor_level == LOWEST_FLOOR_LEVEL
-		var current_floor_size: int = floor_sizes[_current_floor_level]
+		var is_lowest_level := current_floor_level == LOWEST_FLOOR_LEVEL
+		var current_floor_size: int = floor_sizes[current_floor_level]
 		level.create_world(is_lowest_level, current_floor_size)
 		
-		_loaded_levels[_current_floor_level] = FloorLevelHandler.new(level, _current_floor_level)
+		_loaded_levels[current_floor_level] = FloorLevelHandler.new(level, current_floor_level)
 		yield(level, "spawning_world_scenes_finished")
 	else:
-		var level_handler: FloorLevelHandler = _loaded_levels[_current_floor_level]
+		var level_handler: FloorLevelHandler = _loaded_levels[current_floor_level]
 		level = level_handler.get_level_instance()
 		world_root.add_child(level)
 		# this needs a yield because this function is called from within another yield
@@ -155,7 +155,7 @@ func _handle_floor_levels() -> void:
 	for floor_level in _loaded_levels:
 		var level_handler := _loaded_levels[floor_level] as FloorLevelHandler
 		if level_handler != null:
-			level_handler.update_floor_data(_current_floor_level)
+			level_handler.update_floor_data(current_floor_level)
 
 
 func _set_new_position_for_player(is_going_downstairs: bool) -> void:
@@ -164,14 +164,14 @@ func _set_new_position_for_player(is_going_downstairs: bool) -> void:
 
 
 func _on_Events_up_staircase_used() -> void:
-	var old_value := _current_floor_level
-	_current_floor_level = int(min(HIGHEST_FLOOR_LEVEL, _current_floor_level + 1))
-	var has_changed := old_value != _current_floor_level
+	var old_value := current_floor_level
+	current_floor_level = int(min(HIGHEST_FLOOR_LEVEL, current_floor_level + 1))
+	var has_changed := old_value != current_floor_level
 	
 	if has_changed:
-		print("Floor level changed from: %s to: %s"%[old_value, _current_floor_level])
+		print("Floor level changed from: %s to: %s" % [old_value, current_floor_level])
 		yield(_handle_floor_change(false), "completed")
-	elif _current_floor_level == HIGHEST_FLOOR_LEVEL:
+	elif current_floor_level == HIGHEST_FLOOR_LEVEL:
 		if player.inventory.bulky_equipment is ShardOfTheComet:
 			print("Win screen")
 		else:
@@ -179,14 +179,14 @@ func _on_Events_up_staircase_used() -> void:
 
 
 func _on_Events_down_staircase_used() -> void:
-	var old_value := _current_floor_level
-	_current_floor_level = int(max(LOWEST_FLOOR_LEVEL, _current_floor_level - 1))
-	var has_changed := old_value != _current_floor_level
+	var old_value := current_floor_level
+	current_floor_level = int(max(LOWEST_FLOOR_LEVEL, current_floor_level - 1))
+	var has_changed := old_value != current_floor_level
 	
 	if has_changed:
-		print("Went down from: %s to: %s"%[old_value, _current_floor_level])
+		print("Went down from: %s to: %s" % [old_value, current_floor_level])
 		yield(_handle_floor_change(true), "completed")
-	elif _current_floor_level == LOWEST_FLOOR_LEVEL:
+	elif current_floor_level == LOWEST_FLOOR_LEVEL:
 		print("You're already at the bottom of the dungeon, can't go lower.")
 
 ### -----------------------------------------------------------------------------------------------

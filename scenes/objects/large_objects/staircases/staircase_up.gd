@@ -39,6 +39,24 @@ func _ready() -> void:
 					"position": _spawn_position.global_translation,
 					"y_rotation": PLAYER_FACING_ROTATIONS[facing_direction],
 				}
+	
+	match GameManager.game.current_floor_level:
+		-1:
+			$LevelMessage.text = "ONLY WAY FORWARD IS DOWN"
+		-2:
+			$LevelMessage.text = "IT CALLS FROM THE DEPTHS"
+		-3:
+			$LevelMessage.text = "COMET WHISPERS IN MY HEAD"
+		-4:
+			var chance = randf()
+			if chance <= .99:
+				$LevelMessage.text = "I CAN HEAR IT SINGING"
+			else:
+				$LevelMessage.text = "IT BELONGS IN A MUSEUM" + "\n" + ":)" + "\n" + "JUST KIDDING, GONNA PAWN IT"
+		-5:
+			$LevelMessage.text = "IT IS WITH US NOW"
+		
+	$LevelMessage/Timer.start()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -64,5 +82,9 @@ func _on_UpDetector_body_entered(body: Node) -> void:
 		return
 	
 	Events.emit_signal("up_staircase_used")
+
+
+func _on_Timer_timeout():
+	$LevelMessage.visible = false
 
 ### -----------------------------------------------------------------------------------------------

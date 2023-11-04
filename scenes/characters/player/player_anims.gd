@@ -96,11 +96,11 @@ func check_player_animation():
 		animation_tree.set("parameters/Weapon_states/current", 4)
 
 	if inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 1:
-		adjust_arm(Vector3(0.096, -1.391, 0.091))
+		adjust_arm(Vector3(0.096, -1.391, 0.091), 0.1)
 	elif inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 0:
-		adjust_arm(Vector3(0, -1.287, 0.063))
+		adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 	elif inventory.current_offhand_equipment and inventory.current_offhand_equipment.item_size == 0:
-		adjust_arm(Vector3(0, -1.287, 0.063))
+		adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 
 
 func unequip_offhand():
@@ -137,25 +137,25 @@ func ads():
 	operation_tween(
 	inventory.current_mainhand_equipment.hold_position, "rotation_degrees", 
 	inventory.current_mainhand_equipment.hold_position.rotation_degrees, 
-	inventory.current_mainhand_equipment.ads_hold_rotation, 0.1
+	inventory.current_mainhand_equipment.ads_hold_rotation, 0.0
 )
 	operation_tween(
 	inventory.current_mainhand_equipment.hold_position, "translation", 
 	inventory.current_mainhand_equipment.hold_position.translation, 
-	inventory.current_mainhand_equipment.ads_hold_position, 0.1
+	inventory.current_mainhand_equipment.ads_hold_position, 0.0
 )
 	if inventory.current_mainhand_equipment.item_size == 0:
 		operation_tween(animation_tree, 
 		"parameters/SmallAds/blend_amount", 
 		animation_tree.get("parameters/SmallAds/blend_amount"),1.0, 0.1)
 		_camera.fov = lerp(_camera.fov, 65, 0.1)
-		adjust_arm(Vector3(-0.086, -1.558, 0.294))
+		adjust_arm(Vector3(-0.086, -1.558, 0.294), 0.1)
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.1)
+		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.04)
 		_camera.fov = lerp(_camera.fov, 60, 0.1)
-		adjust_arm(Vector3(-0.028, -1.639, 0.2))
+		adjust_arm(Vector3(-0.028, -1.639, 0.2), 0.03)
 
 
 func end_ads():
@@ -175,12 +175,12 @@ func end_ads():
 		animation_tree,
 		"parameters/SmallAds/blend_amount",
 		animation_tree.get("parameters/SmallAds/blend_amount"), 0.0, 0.1)
-		adjust_arm(Vector3(0, -1.287, 0.063))
+		adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
 		animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
-		adjust_arm(Vector3(0.096, -1.391, 0.091))
+		adjust_arm(Vector3(0.096, -1.391, 0.091), 0.1)
 	_camera.fov = lerp(_camera.fov, 70, 0.1)
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
@@ -190,8 +190,8 @@ func operation_tween(object : Object, method, tweening_from, tweening_to, durati
 	tweener.start()
 
 
-func adjust_arm(final_position):
-	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.1)
+func adjust_arm(final_position, interpolation_value):
+	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, interpolation_value)
 	$"%ADSTween".start()
 
 

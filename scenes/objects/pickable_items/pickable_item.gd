@@ -97,7 +97,7 @@ func play_drop_sound(body):
 					self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.primary_damage1 + self.primary_damage2)
 					self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.primary_damage1 + self.primary_damage2)
 			else:
-				self.item_drop_sound_level = self.linear_velocity.length() * 0.2
+				self.item_drop_sound_level = self.linear_velocity.length() * 0.05
 				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
 		else:
 			self.item_drop_sound_level = self.linear_velocity.length() * 5.0
@@ -113,8 +113,9 @@ func play_drop_sound(body):
 
 
 func start_delay():
-	yield(get_tree().create_timer(0.2), "timeout")
-	self.is_soundplayer_ready = true
+	if self.is_inside_tree():
+		yield(get_tree().create_timer(0.2), "timeout")
+		self.is_soundplayer_ready = true
 
 
 func set_physics_dropped():

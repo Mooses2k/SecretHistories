@@ -15,7 +15,13 @@ onready var _spawners := [$ItemSpawner, $CharacterSpawner]
 
 func _ready() -> void:
 	_connect_signals()
-	world_data = world_generator.generate()
+
+
+func create_world(is_last_floor: bool, p_floor_size: int = -1) -> void:
+	if p_floor_size != -1:
+		world_generator.world_size_x = p_floor_size
+		world_generator.world_size_z = p_floor_size
+	world_data = world_generator.generate(is_last_floor)
 	gridmaps.data = world_data
 	gridmaps.update_gridmaps()
 	navigation.data = world_data
@@ -25,8 +31,14 @@ func _ready() -> void:
 
 
 # Override this function
-func get_player_spawn_position() -> Vector3:
-	return Vector3.ZERO
+func set_player_on_spawn_position(player: Player, _is_going_downstairs: bool) -> void:
+	var spawn_data = {
+		"position": Vector3.ZERO,
+		"y_rotation": 0.0,
+	}
+	
+	player.translation = spawn_data.position
+	player.rotation.y = spawn_data.y_rotation
 
 
 func world_to_grid(position : Vector3) -> Vector3:

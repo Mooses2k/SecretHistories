@@ -115,12 +115,12 @@ func update(delta):
 			pitch_yaw.x += deg2rad(up_recoil) * delta
 			pitch_yaw.x = min(pitch_yaw.x, PI * 0.5)
 #            pitch_yaw.x = lerp(pitch_yaw.x, deg2rad(pitch_yaw.x + up_recoil), delta)
-		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER)*delta
-
+		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER) * delta
+	
 	# Finally, apply rotations
 	owner.character_body.rotation.y = pitch_yaw.y   # Horizontal
 	_camera.rotation.x = pitch_yaw.x   # Vertical, you don't want to rotate the whole scene, just camera
-
+	
 	# Guncam too - MUST BE DONE HERE OR WEIRD JITTERY HANDS BUG DEVELOPS
 	gun_camera.global_transform = _camera.global_transform
 

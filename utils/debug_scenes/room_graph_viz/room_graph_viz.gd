@@ -21,17 +21,19 @@ const PATH_FONT = "res://resources/fonts/godot_default_bitmapfont.tres"
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export(float, 0.0, 50.0, 0.5) var distances_scale := 30.0
+export(float, 0.1, 1.0, 0.1) var max_minimap_screen_height := 0.5
+export(float, 0.0, 50.0, 0.5) var distances_scale := 30.0 setget _set_distances_scale
 export var draw_basic_grid := true setget _set_draw_basic_grid
 export var draw_map := true setget _set_draw_map
 export var draw_full_delaunay := true setget _set_draw_full_delaunay
 export var draw_chosen_connections := true setget _set_draw_chosen_connections
 export var draw_astar_grid := true setget _set_draw_astar_grid
 export var draw_astar_connections := true setget _set_draw_astar_connections
+export var draw_player := true setget _set_draw_player
 
 var font: Font = null
 
-var world_data: WorldData = null
+var world_data: WorldData = null setget _set_world_data
 
 var room_centers_cell_indexes := PoolIntArray()
 var room_centers := PoolVector2Array() setget _set_room_centers
@@ -42,10 +44,23 @@ var astar: ManhattanAStar2D = null
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
+onready var _player_icon: Node2D = $PlayerIcon 
+
 ### -----------------------------------------------------------------------------------------------
 
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
+
+func _ready() -> void:
+	if is_instance_valid(GameManager.game):
+		# warning-ignore:return_value_discarded
+		GameManager.game.connect("player_spawned", self, "_on_game_player_spawned")
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("misc|map_menu"):
+		visible = !visible
+
 
 func _draw() -> void:
 	if font == null:
@@ -160,6 +175,11 @@ func _set_room_connections(value: Dictionary) -> void:
 		print("room_connections: %s"%[room_connections])
 
 
+func _set_distances_scale(value: float) -> void:
+	distances_scale = value
+	update()
+
+
 func _set_draw_basic_grid(value: bool) -> void:
 	draw_basic_grid = value
 	update()
@@ -189,9 +209,37 @@ func _set_draw_astar_connections(value: bool) -> void:
 	draw_astar_connections = value
 	update()
 
+
+func _set_draw_player(value: bool) -> void:
+	draw_player = value
+	set_process(draw_player)
+
+
+func _set_world_data(value: WorldData) -> void:
+	world_data = value
+	var world_size_y := world_data.world_size_z
+	var viewport_size := get_viewport_rect().size
+	if world_size_y * distances_scale > viewport_size.y * max_minimap_screen_height:
+		distances_scale = viewport_size.y * max_minimap_screen_height / world_size_y
+
 ### -----------------------------------------------------------------------------------------------
 
 
 ### Signal Callbacks ------------------------------------------------------------------------------
+
+func _on_world_generation_finished() -> void:
+	update()
+
+
+func _on_game_player_spawned(p_player: Player) -> void:
+	_player_icon.player = p_player
+	hide()   # Hidden by default
+	
+	if not p_player.is_connected("character_died", self, "_on_player_character_died"):
+		p_player.connect("character_died", self, "_on_player_character_died")
+
+
+func _on_player_character_died() -> void:
+	hide()
 
 ### -----------------------------------------------------------------------------------------------

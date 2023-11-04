@@ -5,6 +5,7 @@ extends PickableItem
 signal used_primary()
 signal used_secondary()
 signal used_reload()
+signal used_unload()
 
 export (bool) var can_attach = false
 export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM
@@ -43,6 +44,51 @@ func _process(delta):
 func _physics_process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		transform = get_hold_transform()
+	
+	if !is_instance_valid(owner_character):   # this is still hacky, but don't do throw damage if grabbing, basically
+		throw_damage(delta)
+
+
+func throw_damage(delta):
+	if can_throw_damage:
+		
+		var bodies = get_colliding_bodies()
+		if has_thrown == false:
+			initial_linear_velocity = linear_velocity.z
+			has_thrown = true
+		
+		for body_found in bodies:
+			if body_found.is_in_group("CHARACTER"):
+				var item_damage = int(abs(initial_linear_velocity)) * mass
+				if not is_higher_damage :
+					if item_damage > 5:
+						item_damage = 2
+				print("Damage inflicted on: ", body_found.name, " is: ", item_damage)
+				body_found.damage(item_damage, melee_damage_type, body_found)
+				can_throw_damage = false
+				has_thrown = false
+				decelerate_item_velocity(delta, true)
+				set_item_state(GlobalConsts.ItemState.DROPPED)
+			else:
+				has_thrown = false
+				can_throw_damage = false
+#				decelerate_item_velocity(delta, true)   # Causes glitches like thrown objects sticking in arched wall collisions
+				set_item_state(GlobalConsts.ItemState.DROPPED)
+
+
+func decelerate_item_velocity(delta, decelerate):
+	if !TinyItem:
+		if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+			if decelerate == true:
+				print("decelerating item")
+				linear_velocity *= 0
+
+
+# TODO: needs commenting
+func implement_throw_damage(higher_damage):
+	is_higher_damage = higher_damage
+	can_throw_damage = true
+	play_throw_sound()
 
 
 # Override this function for (Left-Click and E, typically) use actions
@@ -63,6 +109,11 @@ func _use_reload():
 	pass
 
 
+func _use_unload():
+	print("use unload")
+	pass
+
+
 func use_primary():
 	_use_primary()
 	emit_signal("used_primary")
@@ -76,6 +127,11 @@ func use_secondary():
 func use_reload():
 	_use_reload()
 	emit_signal("used_reload")
+
+
+func use_unload():
+	_use_unload()
+	emit_signal("used_unload")
 
 
 func get_hold_transform() -> Transform:

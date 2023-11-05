@@ -56,8 +56,8 @@ func play_drop_sound(body):
 		drop_audio_player.stream = item_drop_sound
 		drop_audio_player.bus = "Effects"
 		print("velo == " + str(self.linear_velocity.length()))
-		self.drop_sound_level = self.linear_velocity.length() * 100
-		drop_audio_player.unit_db = clamp(self.drop_sound_level, 15.0, 100.0)
+		self.drop_sound_level = self.linear_velocity.length() * 50
+		drop_audio_player.unit_db = clamp(self.drop_sound_level, 10.0, 100.0)
 		self.noise_level = item_max_noise_level
 		self.add_child(drop_audio_player)
 		self.is_soundplayer_ready = false
@@ -65,5 +65,5 @@ func play_drop_sound(body):
 
 
 func start_delay():
-	yield(get_tree().create_timer(0.2), "timeout")
+	yield(get_tree().create_timer(0.5), "timeout")
 	self.is_soundplayer_ready = true

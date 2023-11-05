@@ -107,7 +107,8 @@ func play_drop_sound(body):
 		self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
 		self.audio_player.bus = "Effects"
 		self.audio_player.play()
-		self.noise_level = item_max_noise_level   # This should eventually be based on speed\
+		self.noise_level = clamp((self.item_max_noise_level * self.linear_velocity.length()), 1.0, 5.0)   # This should eventually be based on speed\
+		print("noise_level == " + str(self.noise_level))
 		self.is_soundplayer_ready = false
 		start_delay()
 

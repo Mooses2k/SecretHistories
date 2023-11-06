@@ -82,6 +82,8 @@ reload_amount = 2
 reload_time = 2.0
 cooldown = 0.1
 handling = 8.0
+ads_hold_position = Vector3( 0.064, -0.091, 0.311 )
+ads_hold_rotation = Vector3( 16.01, 25.394, -8.562 )
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 
@@ -157,7 +159,7 @@ shape = SubResource( 378 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000195906, 0.0165546, 0.0842745 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 0.967347, 0.204731, 0.149416, -0.200553, 0.978753, -0.0426778, -0.154979, 0.0113183, 0.987853, 0.011, -0.0501159, 0.147841 )
+transform = Transform( 0.787377, -0.176418, 0.59069, 0.218637, 0.975806, 0, -0.576399, 0.129147, 0.806899, 0.104, -0.08, 0.175 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

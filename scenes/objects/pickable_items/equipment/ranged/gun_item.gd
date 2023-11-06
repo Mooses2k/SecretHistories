@@ -1,3 +1,4 @@
+tool
 class_name GunItem
 extends EquipmentItem
 
@@ -21,6 +22,13 @@ export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 export var handling = 5.0
+
+export var ads_hold_position : Vector3
+export var ads_hold_rotation : Vector3
+var ads_reset_position : Vector3
+var ads_reset_rotation : Vector3
+
+
 export var animation_reload_sequence : int 
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
@@ -38,6 +46,14 @@ var _queued_reload_amount : int = 0
 
 export (NodePath) var detection_raycast
 onready var raycast = get_node(detection_raycast)
+
+func _ready():
+#	print(get_parent().name)
+#	if get_parent().name == "MainHandEquipmentRoot":
+#		print("Transforming")
+#		transform = get_hold_transform()
+	ads_reset_position = hold_position.translation
+	ads_reset_rotation = hold_position.rotation_degrees
 
 
 func set_range(value : Vector2):

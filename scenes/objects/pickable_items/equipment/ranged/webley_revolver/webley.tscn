@@ -62,12 +62,18 @@ script = ExtResource( 6 )
 item_drop_sound = ExtResource( 12 )
 item_size = 0
 item_name = "Webley revolver"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 6
 reload_amount = 1
 reload_time = 1.0
 cooldown = 0.1
 handling = 17.0
+ads_hold_position = Vector3( 0.013, -0.053, 0.07 )
+ads_hold_rotation = Vector3( -2.186, -2.344, -10.018 )
 animation_reload_sequence = 3
 melee_style = 1
 player_path = NodePath(".")
@@ -158,7 +164,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0460132, -0.0354128 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0481794, -0.0297382 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0205003, 0.0596439 )
+transform = Transform( 0.983658, 0.175348, -0.0408694, -0.173831, 0.984036, 0.0381436, 0.0469054, -0.0304159, 0.998436, 0.021, -0.033, 0.053 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

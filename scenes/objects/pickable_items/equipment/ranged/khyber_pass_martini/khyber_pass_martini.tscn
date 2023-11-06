@@ -57,6 +57,10 @@ mass = 1.0
 item_drop_sound = ExtResource( 11 )
 item_size = 0
 item_name = "Sawed-off Martini pistol"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1
@@ -65,6 +69,8 @@ damage_offset = -10
 dispersion_offset_degrees = 5
 cooldown = 0.1
 handling = 7.0
+ads_hold_position = Vector3( 0.012, -0.011, 0.068 )
+ads_hold_rotation = Vector3( 7.912, -4.759, -8.849 )
 animation_reload_sequence = 1
 melee_style = 1
 player_path = NodePath(".")
@@ -148,7 +154,7 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0363873, -0.0374446 )
 
 [node name="HoldPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0125584, 0.0662795 )
+transform = Transform( 0.986448, 0.142016, -0.082175, -0.152367, 0.978691, -0.137652, 0.0608751, 0.148307, 0.987066, 0.018, -0.006, 0.05 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

@@ -385,7 +385,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -660, 860 )
 nodes/output/position = Vector2( 1420, -120 )
-node_connections = [ "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "output", 0, "Hand_Transition" ]
+node_connections = [ "output", 0, "Hand_Transition", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "Rifle_Anim", "Weapon_states", 2, "Pistol_Anim", "Weapon_states", 4, "MainHand_Idle", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -396,7 +396,7 @@ size = Vector2( 2, 2 )
 
 [node name="Player" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-collision_layer = 18
+collision_layer = 2
 script = ExtResource( 2 )
 animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 

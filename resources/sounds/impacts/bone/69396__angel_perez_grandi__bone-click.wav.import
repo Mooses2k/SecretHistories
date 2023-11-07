@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/69396__angel_perez_grandi__bone-click.wav-72c323a5aa1f39b232316d99ae5a83e8.sample"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/bone/69396__angel_perez_grandi__bone-click.wav"
+dest_files=[ "res://.import/69396__angel_perez_grandi__bone-click.wav-72c323a5aa1f39b232316d99ae5a83e8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -4,15 +4,17 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=4]
-[ext_resource path="res://resources/sounds/light-sources/torch/528662__soonus__paper-burn.wav" type="AudioStream" id=5]
+[ext_resource path="res://resources/sounds/light-sources/torch/528662__soonus__paper-burn.ogg" type="AudioStream" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.07, 0.07, 0.07 )
 
 [node name="DisposableLight" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-dropped_layers = 0
-dropped_mask = 0
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 
 [node name="BurnTime" type="Timer" parent="." index="3"]
 

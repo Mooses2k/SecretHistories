@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/models/items/components/bones_and_bodies/M_Skull3.material" type="Material" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sounds/impacts/bone/469250__daniramo5__bone-crack.ogg" type="AudioStream" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -28,9 +29,14 @@ radius = 0.101082
 
 [node name="Skull3" instance=ExtResource( 9 )]
 collision_layer = 64
+item_drop_sound = ExtResource( 4 )
 item_throw_sound = ExtResource( 3 )
 item_size = 0
 item_name = "Skull"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0 )

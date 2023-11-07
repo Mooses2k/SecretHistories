@@ -1,26 +1,26 @@
 extends Node
 
 
-signal scene_loaded   # Ignore yellow editor message; we need this
+# warning-ignore:unused_signal
+signal scene_loaded
+signal loading_screen_removed
 
 const Loadscreen = preload("res://scenes/ui/loadscreen/load_screen.tscn")
 var loadscreen : Node
 
 
-func _ready() -> void:
-	loadscreen = Loadscreen.instance()
-
-
 func setup_loadscreen() -> void:
+	loadscreen = Loadscreen.instance()
 	get_tree().current_scene.add_child(loadscreen)
-	move_child(get_tree().current_scene.get_node("Loading"), 0)    # This here for a reason? Just errors
 	get_tree().paused = true
 
 
 func remove_loadscreen() -> void:
-	get_tree().current_scene.remove_child(loadscreen)
+	loadscreen.queue_free()
 	get_tree().paused = false
+	emit_signal("loading_screen_removed")
 	AudioSettings.internal_effects_volume = 0.0
+	# warning-ignore:return_value_discarded
 	get_tree().create_tween()\
 		.tween_property(AudioSettings, "internal_effects_volume", 1.0, 4.0)\
 		.set_trans(Tween.TRANS_EXPO)\

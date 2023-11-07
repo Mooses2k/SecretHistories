@@ -107,7 +107,7 @@ const WALL_DISTANCE : float = 0.15
 # The size of the world, as a number of cells
 var world_size_x : int = 16
 var world_size_z : int = 16
-var cell_count : int = world_size_x*world_size_z
+var cell_count : int = world_size_x * world_size_z
 
 
 func resize(size_x : int, size_z : int):
@@ -142,7 +142,7 @@ func clear():
 	for i in wall_tile_index.size():
 		wall_tile_index[i] = -1
 	
-	wall_type.resize(2*cell_count + world_size_x + world_size_z)
+	wall_type.resize(2 * cell_count + world_size_x + world_size_z)
 	for i in wall_type.size():
 		wall_type[i] = EdgeType.EMPTY
 	
@@ -228,6 +228,9 @@ var ceiling_tile_index : PoolIntArray
 
 
 # Player spawn position in World Coordinates
+# Keys are RoomData.OriginalPurpose STAIRCASE values
+# Values are dictionaries in the format: 
+# { "position": Vector2, "y_rotation": radians_angle } 
 var player_spawn_positions := {}
 
 # Dictionary in the format:
@@ -419,8 +422,14 @@ func get_cell_index_from_local_position(pos : Vector3) -> int:
 	return get_cell_index_from_int_position(pos.x, pos.z)
 
 
+func is_inside_world_bounds(x: int, z: int) -> bool:
+	var is_x_within_bounds := x >= 0 and x < world_size_x
+	var is_z_within_bounds := z >= 0 or z < world_size_z
+	return is_x_within_bounds and is_z_within_bounds
+
+
 func get_cell_index_from_int_position(x : int, z : int) -> int:
-	if x < 0 or x >= world_size_x or z < 0 or z > world_size_z:
+	if not is_inside_world_bounds(x, z):
 		printerr("Position (", x, ", ", z, ") Is out of bounds")
 		return -1
 	return x*world_size_z + z

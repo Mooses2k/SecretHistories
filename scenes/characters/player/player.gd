@@ -64,7 +64,7 @@ func _process(delta):
 #		print("Lit up, kinesthetic sense fading: ", $KinestheticSense.light_energy)
 	else:
 #		$KinestheticSense.visible = true
-		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.3, 1.0)
+		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.2, 1.0)
 		$KinestheticSense/Tween.start()
 #		print("In the dark, kinesthetic sense increasing: ", $KinestheticSense.light_energy)
 

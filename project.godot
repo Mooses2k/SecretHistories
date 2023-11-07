@@ -239,6 +239,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/equipment_item.gd"
 }, {
+"base": "Reference",
+"class": "FloorLevelHandler",
+"language": "GDScript",
+"path": "res://scenes/worlds/floor_level_handler.gd"
+}, {
 "base": "Node",
 "class": "Game",
 "language": "GDScript",
@@ -409,7 +414,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd"
 }, {
-"base": "MeleeItem",
+"base": "Reference",
 "class": "RockItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
@@ -422,7 +427,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "RoomGraphViz",
 "language": "GDScript",
-"path": "res://utils/debug_scenes/room_graph_viz.gd"
+"path": "res://utils/debug_scenes/room_graph_viz/room_graph_viz.gd"
 }, {
 "base": "Resource",
 "class": "RoomPurpose",
@@ -443,6 +448,11 @@ _global_script_classes=[ {
 "class": "ShakeCamera",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player_camera.gd"
+}, {
+"base": "StrangeDevice",
+"class": "ShardOfTheComet",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.gd"
 }, {
 "base": "Node",
 "class": "SoundListener",
@@ -556,6 +566,7 @@ _global_script_class_icons={
 "Effect": "",
 "EmptyHand": "",
 "EquipmentItem": "",
+"FloorLevelHandler": "",
 "Game": "",
 "GameWorld": "",
 "GenerationGroup": "",
@@ -597,6 +608,7 @@ _global_script_class_icons={
 "RoomRequirements": "",
 "SettingsClass": "",
 "ShakeCamera": "",
+"ShardOfTheComet": "",
 "SoundListener": "",
 "SpawnData": "",
 "Spawner": "",
@@ -636,6 +648,7 @@ Settings="*res://globals/settings.gd"
 LoadScene="*res://globals/load_scene.gd"
 BackgroundMusic="*res://scenes/effects/background_music.tscn"
 SettingsConfig="*res://globals/settings_config.gd"
+Events="*res://globals/events.gd"
 
 [display]
 

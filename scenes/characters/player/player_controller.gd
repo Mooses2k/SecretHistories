@@ -70,6 +70,9 @@ onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
 onready var _player_hitbox = get_node("../CanStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
+onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
+onready var _debug_light = get_node("../FPSCamera/DebugLight")
+
 
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
@@ -104,6 +107,10 @@ var camera_movement_resistance : float = 1.0
 var _cycle_offhand_timer : float = 0.0
 var _swap_hands_wait_time : float = 500
 
+# For tracking whether to reload or unload mainhand item
+var _reload_press_timer : float = 0.0
+var _unload_wait_time : float = 500
+
 # Screen filter section
 enum ScreenFilter {
 	NONE,
@@ -115,7 +122,7 @@ enum ScreenFilter {
 	DEBUG_LIGHT
 }
 
-var current_screen_filter : int = ScreenFilter.NONE
+var current_screen_filter : int = GameManager.ScreenFilter.NONE
 #export var pixelated_material : Material
 #export var dither_material : Material
 #export var reduce_color_material : Material
@@ -125,12 +132,14 @@ onready var noise_timer = $"../Audio/NoiseTimer"   # Because instant noises some
 
 func _ready():
 	owner.is_to_move = false
-
 	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
 	
 	current_control_mode.set_deferred("is_active", true)
 	
-#	$"../FPSCamera/ScreenFilter".visible = false
+#	_screen_filter.visible = false
+	
+	if OS.has_feature("editor"):
+		Events.connect_to("debug_filter_forced", self, "_set_screen_filter_to")
 
 
 func _physics_process(delta : float):
@@ -141,6 +150,8 @@ func _physics_process(delta : float):
 	interaction_handled = false
 	throw_item = null
 	current_grab_object = current_control_mode.get_grab_target()
+	
+	### TODO: many of these shouldn't be here, shouldn't be checked every _physics_process
 	_walk(delta)
 	_crouch()
 	_handle_grab_input(delta)
@@ -347,6 +358,7 @@ func handle_grab(delta : float):
 				print("Just grabbed: ", grab_object)
 				if grab_object is PickableItem:   # So no plain RigidBodies or large objects
 					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)   # This is so any pickable_item collides with cultists
+					grab_object.check_item_state()
 	
 	# These are debug indicators for initial and current grab points
 	$GrabInitial.visible = false
@@ -435,11 +447,11 @@ func _handle_inventory(delta : float):
 			if i != character.inventory.current_offhand_slot and i != 10:
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
-
+	
 	# Off-hand slot selection or swap items in hands based on length of press of cycle_offhand_slot
 	if Input.is_action_just_pressed("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		_cycle_offhand_timer = Time.get_ticks_msec()
-
+	
 	if Input.is_action_just_released("playerhand|cycle_offhand_slot") and owner.is_reloading == false:
 		# If it's a long press, swap hands, if not, cycle slot
 		if _cycle_offhand_timer + _swap_hands_wait_time < Time.get_ticks_msec():
@@ -491,12 +503,30 @@ func _handle_inventory(delta : float):
 			if character.inventory.get_mainhand_item() and interaction_target == null:
 				character.inventory.get_mainhand_item().use_secondary()
 				throw_state = ThrowState.IDLE
-		
-		if Input.is_action_just_pressed("player|reload"):
-			if character.inventory.get_mainhand_item():
-				character.inventory.get_mainhand_item().use_reload()
-				throw_state = ThrowState.IDLE
 	
+	# Start timer to check if want to reload or unload
+	if Input.is_action_just_pressed("player|reload"):
+		if character.inventory.get_mainhand_item():
+			_reload_press_timer = Time.get_ticks_msec()
+			
+	if Input.is_action_just_released("player|reload"):
+		if character.inventory.get_mainhand_item():
+			
+			if _reload_press_timer + _unload_wait_time < Time.get_ticks_msec():
+				if _reload_press_timer == 0.0:
+					return
+				# Player intends to unload not reload
+				character.inventory.get_mainhand_item().use_unload()
+				throw_state = ThrowState.IDLE
+				_reload_press_timer = 0.0
+				return
+			
+			else:
+				_reload_press_timer = 0.0
+				
+			character.inventory.get_mainhand_item().use_reload()
+			throw_state = ThrowState.IDLE
+		
 	if Input.is_action_just_pressed("playerhand|offhand_use"):
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()
@@ -549,11 +579,15 @@ func drop_grabable():
 					grab_object.apply_throw_logic(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(true)
-				else:
+				elif grab_object is EquipmentItem:   # Non-Melee equipment item
 					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(false)
+				else:   # It's a tiny item
+					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
+					grab_object.apply_central_impulse(impulse)
+					grab_object.add_collision_exception_with(character)
 				wanna_grab = false
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false
@@ -655,47 +689,60 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 func handle_screen_filters():
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# function this out maybe to a screen_filters.gd attached to ScreenFilter
-		
 		# Cycle to next filter
-		current_screen_filter += 1
-		
-		# Cycle through list of filters, starting with 0
-		if current_screen_filter > (ScreenFilter.size() - 1):
-				current_screen_filter = 0
-		
-		# Check which filter is current and implement it
-		if current_screen_filter == ScreenFilter.NONE:
-			print("Screen Filter: NONE")
-#			GameManager.game.level.toggle_directional_light()
-			$"../FPSCamera/ScreenFilter".visible = false
-			$"../FPSCamera/DebugLight".visible = false
-		if current_screen_filter == ScreenFilter.OLD_FILM:
-			print("Screen Filter: OLD_FILM")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/old_film/old_film.tres"))
-		if current_screen_filter == ScreenFilter.PIXELATE:
-			print("Screen Filter: PIXELATE")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/pixelate/pixelate.tres"))
-		if current_screen_filter == ScreenFilter.DITHER:
-			print("Screen Filter: DITHER")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/dither/dither.tres"))
-		if current_screen_filter == ScreenFilter.REDUCE_COLOR:
-			print("Screen Filter: REDUCE_COLOR")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/reduce_color/reduce_color.tres"))
-		# We're haven't implemented the mesh shader yet
-		if current_screen_filter == ScreenFilter.PSX:
-			print("Screen Filter: PSX")
-			$"../FPSCamera/ScreenFilter".visible = true
-			$"../FPSCamera/ScreenFilter".set_surface_material(0, preload("res://resources/shaders/psx/psx_material.tres"))
-		if current_screen_filter == ScreenFilter.DEBUG_LIGHT:
-			print("Screen Filter: DEBUG_LIGHT")
-#			GameManager.game.level.toggle_directional_light()
-			$"../FPSCamera/ScreenFilter".visible = false
-			$"../FPSCamera/DebugLight".visible = true
+		_set_screen_filter_to()
+		pass
+
+
+# function this out maybe to a screen_filters.gd attached to ScreenFilter
+func _set_screen_filter_to(filter_value: int = -1) -> void:
+	if filter_value == -1:
+		current_screen_filter = posmod(current_screen_filter + 1, GameManager.ScreenFilter.size())
+	else:
+		current_screen_filter = filter_value
+	
+	# Check which filter is current and implement it
+	if current_screen_filter == GameManager.ScreenFilter.NONE:
+		print("Screen Filter: NONE")
+#		GameManager.game.level.toggle_directional_light()
+		_screen_filter.visible = false
+		_debug_light.visible = false
+	if current_screen_filter == GameManager.ScreenFilter.OLD_FILM:
+		print("Screen Filter: OLD_FILM")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/old_film/old_film.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.PIXELATE:
+		print("Screen Filter: PIXELATE")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/pixelate/pixelate.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.DITHER:
+		print("Screen Filter: DITHER")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/dither/dither.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.REDUCE_COLOR:
+		print("Screen Filter: REDUCE_COLOR")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/reduce_color/reduce_color.tres")
+		)
+	# We're haven't implemented the mesh shader yet
+	if current_screen_filter == GameManager.ScreenFilter.PSX:
+		print("Screen Filter: PSX")
+		_screen_filter.visible = true
+		_screen_filter.set_surface_material(
+				0, preload("res://resources/shaders/psx/psx_material.tres")
+		)
+	if current_screen_filter == GameManager.ScreenFilter.DEBUG_LIGHT:
+		print("Screen Filter: DEBUG_LIGHT")
+#		GameManager.game.level.toggle_directional_light()
+		_screen_filter.visible = false
+		_debug_light.visible = true
 
 
 func handle_binocs():
@@ -717,11 +764,13 @@ func kick():
 				if Input.is_action_just_pressed("player|kick"):
 					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
 					character.kick_timer.start(1)
+					kick_object.play_drop_sound(kick_object)
 		
 		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
 			if Input.is_action_just_pressed("player|kick"):
 				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
 				character.kick_timer.start(1)
+				# sound handled by damage()
 		
 		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
 			if Input.is_action_just_pressed("player|kick"):
@@ -729,6 +778,7 @@ func kick():
 					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
 				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
 				character.kick_timer.start(1)
+				kick_object.play_drop_sound(kick_object)
 
 
 func _clamber():

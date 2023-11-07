@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/models/large_objects/sarcophagi/M_SarcoLidClean.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/large_objects/sarcophagi/dragging_sound.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/sarcophagus_lid_scrape.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" type="AudioStream" id=4]
+[ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Sarcophagus_Clean_Plane016"
@@ -42,3 +43,47 @@ skeleton = NodePath("")
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 shape = SubResource( 2 )
+
+[node name="PlacementAnchor" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.956308, 0.130774, 0.39951 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor2" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.915413, 0.130774, -0.412093 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor3" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.788335, 0.130774, 0.386927 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor4" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80723, 0.130774, -0.357747 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor5" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.986914, 0.130774, 0.455452 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor6" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.968891, 0.130774, -0.393219 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor7" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.839915, 0.130774, 0.421531 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor8" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.729814, 0.130774, -0.427822 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor9" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.761271, 0.130774, -0.383781 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor10" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.612377, 0.130774, 0.387803 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchor11" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.994057, 0.130774, 0.379488 )
+script = ExtResource( 5 )

@@ -1,3 +1,4 @@
+### Is a tool to support use in player_animations_test.gd
 tool
 class_name GunItem
 extends EquipmentItem
@@ -165,7 +166,9 @@ func unload():
 	if current_ammo > 0:
 		$UnloadTimer.start(reload_time)
 		owner_character.is_reloading = true
-#		$Sounds/Unload.play()   # TODO: Doesn't exist yet - sound to use: 422716__niamhd00145229__reload-ammo.ogg
+		
+		# Later, based on parts of the reload animation
+		$Sounds/Reload.play()
 # TODO ALSO: generalize Sounds spatial etc to gun_item
 
 
@@ -200,6 +203,7 @@ func _on_UnloadTimer_timeout() -> void:
 		print("Unload rounds: ", current_ammo)
 		current_ammo = 0
 		owner_character.is_reloading = false
+		$Sounds/Unload.play()
 
 
 func _on_CooldownTimer_timeout() -> void:

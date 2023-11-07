@@ -1605,7 +1605,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -720, 980 )
 nodes/output/position = Vector2( 1840, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Hand_Transition", 0, "OffHand_MainHand_Blend", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2" ]
+node_connections = [ "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "output", 0, "Hand_Transition" ]
 
 [sub_resource type="CylinderShape" id=41]
 height = 2.25567
@@ -1649,6 +1649,9 @@ visible = false
 unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
 visible = true
+
+[node name="ThrowPosition" parent="Body" index="2"]
+unique_name_in_owner = false
 
 [node name="EffectOrigin" type="Position3D" parent="Body" index="3"]
 script = ExtResource( 22 )
@@ -1749,7 +1752,7 @@ tab_size = 8
 text = "dsafsdfd"
 
 [node name="KeybindDefaults" type="RichTextLabel" parent="HitEffect" index="6"]
-anchor_top = 0.1
+anchor_top = 0.2
 anchor_right = 1.0
 anchor_bottom = 5.0
 mouse_filter = 2
@@ -1767,7 +1770,8 @@ Scroll-wheel Click - throw main-hand item
 E - use off-hand item
 Q - cycle off-hand items (hold and release to swap hands)
 T - throw off-hand item
-R - reload (can't with item in offhand)
+R (tap) - reload (can't with item in offhand)
+R (held) - unload
 
 F or R-Click - interact with object in world
 (hold to grab and drag)
@@ -1776,6 +1780,7 @@ Ctrl - kick
 
 B - bioncs/spyglass
 
+M - minimap
 L - cycle look (shaders and debug light)
 
 F1 - show/hide this menu"
@@ -2031,7 +2036,7 @@ mouse_filter = 2
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="FPSCamera/ViewportContainer" index="0"]
-size = Vector2( 1024, 600 )
+size = Vector2( 1920, 1080 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
@@ -2044,6 +2049,10 @@ current = true
 
 [node name="DropPosition" type="Position3D" parent="FPSCamera" index="10"]
 unique_name_in_owner = true
+
+[node name="ThrowPosition" type="Position3D" parent="FPSCamera" index="11"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0 )
 
 [node name="KinestheticSense" type="OmniLight" parent="." index="30"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953 )
@@ -2071,8 +2080,6 @@ playback/repeat = true
 [connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
-[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_on_shoot"]
-[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_target_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]

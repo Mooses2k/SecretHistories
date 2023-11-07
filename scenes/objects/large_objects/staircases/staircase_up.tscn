@@ -81,5 +81,5 @@ one_shot = true
 
 [connection signal="body_entered" from="UpDetector" to="." method="_on_UpDetector_body_entered"]
 [connection signal="timeout" from="LevelMessage/Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_CantLeaveTimer_timeout"]
 [connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_CantLeaveTimer_timeout"]

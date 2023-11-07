@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/ranged/lee-metford_rifle/M_LeeMetford.material" type="Material" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=8]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resources/sounds/reloading/lever-action/long1.wav" type="AudioStream" id=10]
+[ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=11]
 
 [sub_resource type="ArrayMesh" id=373]
 resource_name = "lee-metford_Cube033"
@@ -55,6 +56,7 @@ bind/6/pose = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, -8.6873e-06, 0.0410387, 0.0
 points = PoolVector3Array( -0.00889741, -0.144837, 0.603807, 0.0106393, -0.144837, 0.603807, 0.00672808, -0.000160143, -0.631761, 0.0419293, -0.0158136, 0.2832, -0.0245554, -0.00798686, -0.174404, -0.0126577, -0.0393758, 0.626509, 0.0106393, -0.0353534, -0.506634, -0.00499917, 0.0389375, -0.600479, -0.0167264, -0.0197179, -0.510591, 0.0184553, -0.0353894, 0.631132, -0.00818355, 0.0276684, 0.275265, -0.0167329, -0.140915, 0.619386, 0.0184618, 0.0193797, -0.510591, 0.0145441, 0.0350331, 0.232258, 0.0184553, -0.133088, 0.60764, 0.0419293, -0.000160143, 0.294946, 0.0184618, -0.0157956, -0.510591, -0.00891042, -0.0353534, -0.506634, -0.0155, -0.0362411, 0.600505, -0.0128152, 0.00764858, -0.631761, -0.0142521, 0.0193837, 0.110816, 0.0106393, 0.0193797, -0.631761, 0.0184553, -0.117453, 0.623342, 0.0301891, 0.0154753, 0.290989, -0.0148383, -0.0294382, 0.584068, -0.0245554, -0.00798686, -0.189983, 0.0184618, -0.0118912, -0.526293, -0.0133, 0.0129887, 0.248227, -0.0153199, 0.0116883, -0.497183, 0.0145441, -0.140915, 0.619386, 0.0184618, 0.00764858, -0.522213, -0.0167264, -0.0157956, -0.526293, -0.0104337, 0.0252884, 0.196164, -0.0137698, 0.017881, -0.444233, -0.0142521, 0.0193837, 0.0825869 )
 
 [node name="Lee-MetfordRifle" instance=ExtResource( 1 )]
+collision_mask = 65
 mass = 1.0
 item_drop_sound = ExtResource( 7 )
 item_name = "Lee-Metford rifle"
@@ -147,11 +149,8 @@ script = ExtResource( 8 )
 visible = false
 shape = SubResource( 375 )
 
-[node name="RayCast" parent="." index="5"]
+[node name="RayCast" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00202578, 0.0666256 )
-
-[node name="HoldPosition" parent="." index="6"]
-transform = Transform( 0.76205, -0.222969, 0.607918, 0.272414, 0.962112, 0.0113968, -0.587428, 0.15692, 0.793917, 0.118, -0.098, 0.264 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 
@@ -168,6 +167,13 @@ bus = "Effects"
 [node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
 stream = ExtResource( 10 )
 bus = "Effects"
+
+[node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
+stream = ExtResource( 11 )
+bus = "Effects"
+
+[node name="HoldPosition" parent="." index="8"]
+transform = Transform( 0.76205, -0.222969, 0.607918, 0.272414, 0.962112, 0.0113968, -0.587428, 0.15692, 0.793917, 0.118, -0.098, 0.264 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

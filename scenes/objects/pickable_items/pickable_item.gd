@@ -1,3 +1,4 @@
+### Is a tool to support use in player_animations_test.gd
 tool
 class_name PickableItem
 extends RigidBody

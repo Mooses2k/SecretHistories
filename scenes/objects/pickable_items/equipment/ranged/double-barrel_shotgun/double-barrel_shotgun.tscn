@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/_smoke.tscn" type="PackedScene" id=11]
+[ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=12]
 
 [sub_resource type="Skin" id=375]
 resource_name = "Skin"
@@ -69,6 +70,7 @@ bind/4/pose = Transform( -6.37646e-05, -1.19916e-07, -1, -0.980782, -0.195106, 6
 points = PoolVector3Array( -0.525527, -0.10884, 0.00583685, -0.075781, 0.0783637, 0.00852547, 0.440931, 0.0736622, 0.0157437, 0.460455, 0.0560691, -0.025732, -0.529027, 0.00692726, -0.0187095, -0.0934038, 0.0713643, 0.0284551, 0.460455, 0.0560691, 0.026898, -0.525527, 0.0279688, 0.0128594, -0.0911653, 0.0762623, -0.0244773, -0.518528, -0.0912796, -0.0152047, -0.518528, -0.0877598, 0.0163707, -0.146513, 0.0139668, -0.0292433, 0.438019, 0.0731478, -0.0178315, -0.518528, -0.10884, -0.00818217, 0.449859, 0.0490489, 0.00584337, -0.0823861, 0.0660763, -0.0297788, -0.525527, 0.0279688, -0.0116935, -0.083435, 0.0597134, 0.029633, 0.460455, 0.0700904, 0.026898, -0.522028, -0.0667182, -0.0187095, -0.518528, -0.101781, 0.0128594, -0.529027, -0.077239, 0.0163707, -0.515029, -0.10884, 0.00583685, 0.449859, 0.0490489, -0.00467089, -0.083697, 0.0748217, 0.0252276, 0.426955, 0.064647, -0.0239567, -0.129015, 0.0139668, -0.0292433, -0.01674, 0.0280073, -0.0292368, -0.524572, -0.0975072, -0.00810295, -0.0754917, 0.0777154, -0.00730164, 0.414572, 0.0739884, -0.00428938, -0.527442, -0.0487746, -0.01504, -0.0980229, 0.0625355, -0.029633, -0.526645, 0.0170914, 0.0127116 )
 
 [node name="Double-barrelShotgun" instance=ExtResource( 9 )]
+collision_mask = 65
 mass = 3.0
 item_drop_sound = ExtResource( 3 )
 item_name = "Double-barrel shotgun"
@@ -155,11 +157,8 @@ script = ExtResource( 1 )
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0439493, -0.0362985 )
 shape = SubResource( 378 )
 
-[node name="RayCast" parent="." index="5"]
+[node name="RayCast" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000195906, 0.0165546, 0.0842745 )
-
-[node name="HoldPosition" parent="." index="6"]
-transform = Transform( 0.787377, -0.176418, 0.59069, 0.218637, 0.975806, 0, -0.576399, 0.129147, 0.806899, 0.104, -0.08, 0.175 )
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 
@@ -176,6 +175,13 @@ bus = "Effects"
 [node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
 stream = ExtResource( 5 )
 bus = "Effects"
+
+[node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
+stream = ExtResource( 12 )
+bus = "Effects"
+
+[node name="HoldPosition" parent="." index="8"]
+transform = Transform( 0.787377, -0.176418, 0.59069, 0.218637, 0.975806, 0, -0.576399, 0.129147, 0.806899, 0.104, -0.08, 0.175 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

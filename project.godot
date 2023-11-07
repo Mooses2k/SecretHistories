@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_equip_next_weapon.gd"
 }, {
-"base": "Reference",
+"base": "BTNode",
 "class": "BTGoToTarget",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_go_to_target.gd"

@@ -37,24 +37,24 @@ func _physics_process(delta):
 	match door_state:
 		DoorState.OPEN:
 			if door_hinge_z_axis.rotation.y < door_open_angle:
-				for obstacle in open_block_detector.get_overlapping_bodies():
-					if not obstacle in [door_body, doorway_gaps_filler]:
-						door_should_move = false
-						if door_hinge_z_axis.rotation.y < door_close_threshold:
-							door_state = DoorState.CLOSED
-							door_should_move = true
-						return
+#				for obstacle in open_block_detector.get_overlapping_bodies():
+#					if not obstacle in [door_body, doorway_gaps_filler]:
+#						door_should_move = false
+#						if door_hinge_z_axis.rotation.y < door_close_threshold:
+#							door_state = DoorState.CLOSED
+#							door_should_move = true
+#						return
 				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, door_open_angle, door_speed*delta)
 		DoorState.CLOSED:
 			if door_hinge_z_axis.rotation.y > 0.0:
-				for obstacle in close_block_detector.get_overlapping_bodies():
-					if not obstacle in [door_body, doorway_gaps_filler]:
-						door_should_move = false
-						if door_hinge_z_axis.rotation.y > door_close_threshold:
-								door_state = DoorState.OPEN
-								if door_hinge_z_axis.rotation.y > door_open_angle - door_close_threshold:
-									door_should_move = true
-						return
+#				for obstacle in close_block_detector.get_overlapping_bodies():
+#					if not obstacle in [door_body, doorway_gaps_filler]:
+#						door_should_move = false
+#						if door_hinge_z_axis.rotation.y > door_close_threshold:
+#								door_state = DoorState.OPEN
+#								if door_hinge_z_axis.rotation.y > door_open_angle - door_close_threshold:
+#									door_should_move = true
+#						return
 				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, 0.0, door_speed*delta)
 		DoorState.STUCK:
 			door_should_move = false

@@ -56,8 +56,8 @@ func play_drop_sound(body):
 		drop_audio_player.stream = item_drop_sound
 		drop_audio_player.bus = "Effects"
 		print("velo == " + str(self.linear_velocity.length()))
-		self.drop_sound_level = self.linear_velocity.length() * 50
-		drop_audio_player.unit_db = clamp(self.drop_sound_level, 10.0, 100.0)
+		self.drop_sound_level = self.linear_velocity.length() * 10
+		drop_audio_player.unit_db = clamp(self.drop_sound_level, 5.0, 50.0)
 		self.noise_level = item_max_noise_level
 		self.add_child(drop_audio_player)
 		self.is_soundplayer_ready = false

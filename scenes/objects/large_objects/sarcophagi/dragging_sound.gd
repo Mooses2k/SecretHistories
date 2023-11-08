@@ -51,7 +51,7 @@ func _integrate_forces(state):
 
 func play_drop_sound(body):
 	print("dropped")
-	if self.item_drop_sound and self.is_soundplayer_ready:
+	if self.item_drop_sound and self.is_soundplayer_ready and self.linear_velocity.length() > 0.3:
 		var drop_audio_player = drop_sound_scene.instance()
 		drop_audio_player.stream = item_drop_sound
 		drop_audio_player.bus = "Effects"

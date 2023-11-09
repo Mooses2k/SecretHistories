@@ -89,11 +89,11 @@ func play_drop_sound(body):
 		if "Cultist" in body.name:
 			self.audio_player.stream = self.item_drop_sound_flesh
 			
-			if self.get("primary_damage1"):
-				if self.get("can_spin"):
+			if self.get("primary_damage1"): # Drop sound volume depends on item damage when cultist is the collided body
+				if self.get("can_spin"): # If item can spin (cutting attack), use secondary damage
 					self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.secondary_damage1 + self.secondary_damage2)
 					self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.secondary_damage1 + self.secondary_damage2)
-				else:
+				else: # If item cannot spin (thrown point first / thrust attack), use primary damage
 					self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.primary_damage1 + self.primary_damage2)
 					self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.primary_damage1 + self.primary_damage2)
 			else:

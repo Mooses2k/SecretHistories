@@ -23,11 +23,11 @@ var movement_basis : Basis = Basis.IDENTITY
 var interaction_target : Node = null
 var target_placement_position : Vector3 = Vector3.ZERO
 
-export var _grabcast : NodePath
-onready var grabcast : RayCast = get_node(_grabcast) as RayCast
+#export var _grabcast : NodePath
+#onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
-export var _aimcast : NodePath
-onready var aimcast : RayCast = get_node(_aimcast) as RayCast
+#export var _aimcast : NodePath
+#onready var aimcast : RayCast = get_node(_aimcast) as RayCast
 
 export var _legcast : NodePath
 onready var legcast : RayCast = get_node(_legcast) as RayCast

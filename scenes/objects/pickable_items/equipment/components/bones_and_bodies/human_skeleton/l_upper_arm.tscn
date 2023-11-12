@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/models/items/components/bones_and_bodies/human_skeleton/Skeleton.material" type="Material" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
+[ext_resource path="res://resources/sounds/impacts/677013__staylor8__candle_hit.ogg" type="AudioStream" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ArrayMesh" id=21]
@@ -28,6 +29,8 @@ radius = 0.101082
 
 [node name="LUpperArm" instance=ExtResource( 9 )]
 collision_layer = 64
+collision_mask = 65
+item_drop_sound = ExtResource( 4 )
 item_throw_sound = ExtResource( 3 )
 item_size = 0
 item_name = "Humerus"

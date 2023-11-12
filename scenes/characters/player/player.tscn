@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -12,8 +12,6 @@
 [ext_resource path="res://scenes/characters/player/fps_control_mode.gd" type="Script" id=10]
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 [ext_resource path="res://scenes/characters/player/indication_canvas.gd" type="Script" id=12]
-[ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=13]
-[ext_resource path="res://resources/art/health/health.png" type="Texture" id=14]
 [ext_resource path="res://scenes/characters/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
@@ -89,147 +87,6 @@ tracks/0/keys = {
 [sub_resource type="DynamicFont" id=37]
 size = 25
 font_data = ExtResource( 21 )
-
-[sub_resource type="Animation" id=32]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=31]
-resource_name = "rotate"
-length = 15.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance2:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 15 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, -360, 0 ) ]
-}
-
-[sub_resource type="Animation" id=27]
-length = 0.001
-
-[sub_resource type="Animation" id=24]
-resource_name = "fadeIn"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:mesh:material:albedo_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance2:mesh:material:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=30]
-resource_name = "fadeOut"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance2:mesh:material:albedo_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance:mesh:material:albedo_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="SpatialMaterial" id=25]
-flags_transparent = true
-albedo_color = Color( 1, 1, 1, 0 )
-albedo_texture = ExtResource( 14 )
-emission_enabled = true
-emission = Color( 1, 1, 1, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="PlaneMesh" id=26]
-material = SubResource( 25 )
-
-[sub_resource type="SpatialMaterial" id=28]
-flags_transparent = true
-albedo_color = Color( 1, 1, 1, 0 )
-albedo_texture = ExtResource( 14 )
-emission_enabled = true
-emission = Color( 1, 1, 1, 1 )
-emission_energy = 3.0
-emission_operator = 0
-emission_on_uv2 = false
-
-[sub_resource type="PlaneMesh" id=29]
-material = SubResource( 28 )
 
 [sub_resource type="Shader" id=33]
 code = "shader_type canvas_item;
@@ -1605,11 +1462,11 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -720, 980 )
 nodes/output/position = Vector2( 1840, -140 )
-node_connections = [ "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "output", 0, "Hand_Transition" ]
+node_connections = [ "output", 0, "Hand_Transition", "Hand_Transition", 0, "OffHand_MainHand_Blend", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle" ]
 
 [sub_resource type="CylinderShape" id=41]
-height = 2.25567
-radius = 2.0
+height = 1.75
+radius = 0.25
 
 [sub_resource type="QuadMesh" id=371]
 size = Vector2( 2, 2 )
@@ -1678,8 +1535,6 @@ script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
 kick_impulse = 7.0
-_grabcast = NodePath("../FPSCamera/GrabCast")
-_aimcast = NodePath("../FPSCamera/AimCast")
 _legcast = NodePath("../Legs/Feet")
 _cam_path = NodePath("../FPSCamera")
 
@@ -1841,33 +1696,7 @@ text = "Clamber (SPACE)"
 align = 1
 valign = 1
 
-[node name="HP" type="Spatial" parent="." index="16"]
-script = ExtResource( 13 )
-raycast = NodePath("../FPSCamera/GroundCast")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="HP" index="0"]
-anims/RESET = SubResource( 32 )
-anims/rotate = SubResource( 31 )
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="HP" index="1"]
-anims/RESET = SubResource( 27 )
-anims/fadeIn = SubResource( 24 )
-anims/fadeOut = SubResource( 30 )
-
-[node name="MeshInstance" type="MeshInstance" parent="HP" index="2"]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0298637, 0 )
-layers = 4
-mesh = SubResource( 26 )
-
-[node name="MeshInstance2" type="MeshInstance" parent="HP" index="3"]
-transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0298637, 0 )
-layers = 4
-mesh = SubResource( 29 )
-
-[node name="Timer" type="Timer" parent="HP" index="4"]
-one_shot = true
-
-[node name="PlayerDeath" type="CanvasLayer" parent="." index="17"]
+[node name="PlayerDeath" type="CanvasLayer" parent="." index="16"]
 pause_mode = 2
 script = ExtResource( 16 )
 
@@ -1896,10 +1725,10 @@ mouse_filter = 2
 wait_time = 0.2
 one_shot = true
 
-[node name="Stamina" parent="." index="20" instance=ExtResource( 29 )]
+[node name="Stamina" parent="." index="19" instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5104, 0 )
 
-[node name="Legs" parent="." index="22"]
+[node name="Legs" parent="." index="21"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0379716, 0 )
 
 [node name="Feet" parent="Legs" index="0"]
@@ -1907,15 +1736,15 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 cast_to = Vector3( 0, -1, 0 )
 collide_with_areas = true
 
-[node name="PlayerAnimationPlayer" parent="." index="24" instance=ExtResource( 24 )]
+[node name="PlayerAnimationPlayer" parent="." index="23" instance=ExtResource( 24 )]
 anims/ads_idle = ExtResource( 28 )
 anims/one-handed_ads_idle = SubResource( 420 )
 
-[node name="PlayerAnimations" type="Node" parent="." index="25"]
+[node name="PlayerAnimations" type="Node" parent="." index="24"]
 script = ExtResource( 30 )
 _cam_path = NodePath("../FPSCamera")
 
-[node name="AnimationTree" parent="." index="27"]
+[node name="AnimationTree" parent="." index="26"]
 tree_root = SubResource( 365 )
 anim_player = NodePath("../PlayerAnimationPlayer")
 active = true
@@ -1929,7 +1758,7 @@ parameters/Reload_Animations/current = 3
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 2
 
-[node name="FPSCamera" type="Camera" parent="." index="28"]
+[node name="FPSCamera" type="Camera" parent="." index="27"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 cull_mask = 1048573
 current = true
@@ -1981,14 +1810,14 @@ __meta__ = {
 [node name="AimCast" type="RayCast" parent="FPSCamera" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
 enabled = true
-cast_to = Vector3( 0, 0, -1.7 )
+cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 585
 collide_with_areas = true
 
 [node name="GrabCast" type="RayCast" parent="FPSCamera" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
 enabled = true
-cast_to = Vector3( 0, 0, -1.7 )
+cast_to = Vector3( 0, 0, -1.5 )
 collision_mask = 65
 collide_with_areas = true
 
@@ -2000,14 +1829,14 @@ collision_mask = 65
 debug_shape_thickness = 3
 
 [node name="GrabCastDot" type="Area" parent="FPSCamera" index="4"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.7, 7.45058e-09, 0, -0.805458 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -0.805458 )
 collision_layer = 2
 collision_mask = 577
 input_ray_pickable = false
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="FPSCamera/GrabCastDot" index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.260906 )
+transform = Transform( 0.999999, 0, 0, 0, -4.37114e-08, 0.999999, 0, -1, -4.37114e-08, 0, 0, -0.0903913 )
 shape = SubResource( 41 )
 
 [node name="Listener" type="Listener" parent="FPSCamera" index="5"]
@@ -2054,7 +1883,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0 )
 
-[node name="KinestheticSense" type="OmniLight" parent="." index="30"]
+[node name="KinestheticSense" type="OmniLight" parent="." index="29"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953 )
 layers = 512
 light_color = Color( 0, 0.647059, 1, 1 )
@@ -2069,21 +1898,18 @@ playback/repeat = true
 [connection signal="character_died" from="." to="HitEffect" method="_on_Player_character_died"]
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]
 [connection signal="is_hit" from="." to="HitEffect" method="_on_Player_is_hit"]
-[connection signal="is_hit" from="." to="HP" method="_on_Player_is_hit"]
-[connection signal="is_moving" from="." to="HP" method="_on_Player_is_moving"]
 [connection signal="player_landed" from="." to="PlayerController" method="_on_Player_player_landed"]
 [connection signal="inventory_changed" from="Inventory" to="PlayerAnimations" method="_on_Inventory_inventory_changed"]
 [connection signal="unequip_mainhand" from="Inventory" to="PlayerAnimations" method="_on_Inventory_unequip_mainhand"]
 [connection signal="unequip_offhand" from="Inventory" to="PlayerAnimations" method="_on_Inventory_unequip_offhand"]
 [connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]
-[connection signal="timeout" from="HP/Timer" to="HP" method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
-[connection signal="area_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_entered"]
-[connection signal="area_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_area_exited"]
-[connection signal="body_entered" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_entered"]
-[connection signal="body_exited" from="FPSCamera/GrabCastDot" to="." method="_on_GrabCastDot_body_exited"]
+[connection signal="area_entered" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_area_entered"]
+[connection signal="area_exited" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_area_exited"]
+[connection signal="body_entered" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_body_entered"]
+[connection signal="body_exited" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_body_exited"]
 
 [editable path="PlayerAnimationPlayer"]
 [editable path="FPSCamera/MainCharOnlyArmsGameRig"]

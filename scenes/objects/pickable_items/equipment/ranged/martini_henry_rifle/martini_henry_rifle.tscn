@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
+[ext_resource path="res://resources/tiny_items/ammunition/577_martini-henry.tres" type="Resource" id=2]
 [ext_resource path="res://resources/models/items/ranged/martini-henry_rifle/MartiniHenry.material" type="Material" id=3]
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=4]
+[ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=5]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/effects/martini_audio.tscn" type="PackedScene" id=11]
@@ -55,15 +56,22 @@ bind/6/pose = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, -0.17
 points = PoolVector3Array( -0.0074919, -0.124901, -0.551035, 0.00610333, -0.124901, -0.551035, -0.00408893, 0.000958506, 0.676793, -0.0142978, -0.012668, -0.544192, -0.0177008, 0.0315533, 0.585024, 0.0163156, 0.0349469, 0.585024, 0.0129093, 0.0519844, -0.20412, 0.0163156, -0.101041, -0.547614, 0.0129059, -0.0194553, 0.578181, -0.0142978, -0.12149, -0.540771, -0.00722157, 0.048468, -0.1964, -0.0074919, -0.114685, -0.244933, -0.0142912, -0.0160617, 0.578181, -0.00408893, 0.0485735, 0.659808, 0.0127401, -0.0264014, -0.543462, -0.0177008, 0.0145504, -0.180291, 0.00610333, -0.114685, -0.244933, 0.0095063, 0.0383579, 0.693901, -0.0177008, 0.00776312, 0.578181, 0.0129059, -0.12149, -0.537349, 0.0163156, 0.00776312, 0.585024, -0.0108949, 0.0383579, 0.693901, 0.00605214, -0.0128472, -0.542963, 0.0095063, 0.0213377, 0.693901, -0.0142978, -0.0840732, -0.554456, -0.0177008, 0.000941191, -0.183713, -0.0108949, 0.0247487, 0.693901, 0.0163156, -0.101041, -0.533928, 0.0127556, -0.0666976, -0.547555, -0.0142978, -0.107863, -0.551035, -0.00744914, -0.0567092, -0.55053 )
 
 [node name="Martini-HenryRifle" instance=ExtResource( 1 )]
+collision_mask = 65
 mass = 1.0
 item_drop_sound = ExtResource( 13 )
 item_name = "Martini-Henry rifle"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1
 reload_time = 2.0
 cooldown = 0.1
 handling = 13.0
+ads_hold_position = Vector3( 0.067, -0.081, 0.261 )
+ads_hold_rotation = Vector3( 13.347, 26.479, -7.829 )
 animation_reload_sequence = 2
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
@@ -144,14 +152,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.38389 )
 [node name="SoundOrigin" type="Position3D" parent="Effects" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
 
-[node name="RayCast" parent="." index="6"]
+[node name="RayCast" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0403607, 0.140579 )
-
-[node name="HoldPosition" parent="." index="7"]
-transform = Transform( 0.975048, 0.179807, 0.130199, -0.174484, 0.983323, -0.0512903, -0.13725, 0.0272929, 0.99016, -0.004, -0.0205905, 0.21513 )
-__meta__ = {
-"_editor_description_": ""
-}
 
 [node name="Sounds" type="Spatial" parent="." index="8"]
 
@@ -168,6 +170,16 @@ bus = "Effects"
 [node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
 stream = ExtResource( 14 )
 bus = "Effects"
+
+[node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
+stream = ExtResource( 5 )
+bus = "Effects"
+
+[node name="HoldPosition" parent="." index="9"]
+transform = Transform( 0.810322, -0.124241, 0.572663, 0.190146, 0.980133, -0.056414, -0.554277, 0.154603, 0.817847, 0.094, -0.082, 0.11 )
+__meta__ = {
+"_editor_description_": ""
+}
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

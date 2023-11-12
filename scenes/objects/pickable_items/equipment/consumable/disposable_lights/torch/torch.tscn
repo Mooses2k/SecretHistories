@@ -250,7 +250,7 @@ autoplay = "flicker"
 anims/RESET = SubResource( 25 )
 anims/flicker = SubResource( 26 )
 
-[node name="Ignite" parent="." index="8"]
+[node name="Ignite" parent="." index="8" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.177249, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

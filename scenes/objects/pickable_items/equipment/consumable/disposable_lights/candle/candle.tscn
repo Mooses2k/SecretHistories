@@ -187,7 +187,7 @@ anims/flicker = SubResource( 55 )
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
 
-[node name="Ignite" parent="." index="8"]
+[node name="Ignite" parent="." index="8" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]

@@ -1,3 +1,4 @@
+tool
 class_name EquipmentItem
 extends PickableItem
 
@@ -12,17 +13,17 @@ export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_M
 
 export var item_name : String = "Equipment"
 export var horizontal_holding : bool = false
-
 export var normal_pos_path : NodePath
-onready var normal_pos = get_node(normal_pos_path)
 export var throw_pos_path : NodePath
-onready var throw_pos = get_node(throw_pos_path)
 export var throw_logic : bool   # Some items like swords should be thrown point first
 export var can_spin : bool   # Some items when thrown should spin
 
 var is_in_belt = false
 var has_equipped = false
+
 onready var hold_position = $"%HoldPosition"
+onready var normal_pos = get_node(normal_pos_path)
+onready var throw_pos = get_node(throw_pos_path)
 
 
 func _ready():

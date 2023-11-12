@@ -25,6 +25,10 @@ func remove_loadscreen() -> void:
 		.tween_property(AudioSettings, "internal_effects_volume", 1.0, 4.0)\
 		.set_trans(Tween.TRANS_EXPO)\
 		.set_ease(Tween.EASE_IN)
+	# Disable LeftClick for a moment so player doesn't accidentally shoot or something immediately
+	GameManager.game.player.player_controller.no_click_after_load_period = true
+	yield(get_tree().create_timer(1), "timeout")   # Possibly 0.5 better?
+	GameManager.game.player.player_controller.no_click_after_load_period = false
 
 
 func change_scene(path) -> void:

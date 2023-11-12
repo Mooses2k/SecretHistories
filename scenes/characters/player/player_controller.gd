@@ -111,6 +111,8 @@ var _swap_hands_wait_time : float = 500
 var _reload_press_timer : float = 0.0
 var _unload_wait_time : float = 500
 
+var no_click_after_load_period : bool = false
+
 # Screen filter section
 enum ScreenFilter {
 	NONE,
@@ -494,9 +496,11 @@ func _handle_inventory(delta : float):
 	if is_instance_valid(character.inventory.get_mainhand_item()):
 	
 		if Input.is_action_just_pressed("playerhand|main_use_primary"):
-			if character.inventory.get_mainhand_item():
-				character.inventory.get_mainhand_item().use_primary()
-				throw_state = ThrowState.IDLE
+			# Check if 0.5s have elapsed since loadscreen removed to avoid accidentally shooting after load
+			if no_click_after_load_period == false:
+				if character.inventory.get_mainhand_item():
+					character.inventory.get_mainhand_item().use_primary()
+					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable

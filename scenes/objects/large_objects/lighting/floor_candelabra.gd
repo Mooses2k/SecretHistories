@@ -75,7 +75,6 @@ func _ready():
 
 func play_drop_sound(body):
 	print("candelabra dropped")
-#	if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
 	if self.item_drop_sound and self.audio_player and self.is_soundplayer_ready:
 		self.audio_player.stream = self.item_drop_sound
 		print("velo = " + str(self.linear_velocity.length()))
@@ -95,3 +94,4 @@ func play_drop_sound(body):
 func start_delay():
 	yield(get_tree().create_timer(0.2), "timeout")
 	self.is_soundplayer_ready = true
+

@@ -123,6 +123,7 @@ extents = Vector3( 0.3, 0.04, 0.15 )
 collision_layer = 513
 mass = 30.0
 continuous_cd = true
+contacts_reported = 4
 script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

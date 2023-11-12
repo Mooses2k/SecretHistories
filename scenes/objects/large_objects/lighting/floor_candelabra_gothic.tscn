@@ -249,7 +249,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00993706, 0 )
 collision_layer = 512
 mass = 30.0
 continuous_cd = true
-contacts_reported = 8
+contacts_reported = 4
 contact_monitor = true
 script = ExtResource( 3 )
 

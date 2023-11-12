@@ -85,7 +85,7 @@ func play_throw_sound():
 func play_drop_sound(body):
 	if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
 		self.audio_player.stream = self.item_drop_sound
-		print(str(self.name) + " velo = " + str(self.linear_velocity.length()))
+		
 		if "Cultist" in body.name:
 			self.audio_player.stream = self.item_drop_sound_flesh
 			

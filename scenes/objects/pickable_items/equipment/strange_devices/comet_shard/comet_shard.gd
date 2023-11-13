@@ -1,3 +1,4 @@
+class_name ShardOfTheComet
 extends StrangeDevice
 
 ### Hurts player 3HP per 5 seconds when within 1m

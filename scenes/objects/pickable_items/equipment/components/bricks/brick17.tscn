@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd" type="Script" id=1]
+[ext_resource path="res://resources/sounds/impacts/brick/593473__georgesavic__throwing-brick2.ogg" type="AudioStream" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
-[ext_resource path="res://resources/sounds/impacts/brick/593473__georgesavic__throwing-brick2.ogg" type="AudioStream" id=4]
 [ext_resource path="res://resources/models/items/components/debris/M_Wall.material" type="Material" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=10]
 
@@ -31,8 +30,7 @@ radius = 0.101082
 [node name="Brick17" instance=ExtResource( 10 )]
 collision_layer = 64
 mass = 1.0
-script = ExtResource( 1 )
-item_drop_sound = ExtResource( 4 )
+item_drop_sound = ExtResource( 1 )
 item_throw_sound = ExtResource( 3 )
 item_size = 0
 item_name = "Brick"
@@ -40,17 +38,6 @@ normal_pos_path = NodePath("")
 throw_pos_path = NodePath("")
 throw_logic = false
 can_spin = false
-weapon_type = 0
-primary_damage_type1 = 0
-primary_damage1 = 0
-primary_damage_type2 = 0
-primary_damage2 = 0
-secondary_damage_type1 = 0
-secondary_damage1 = 0
-secondary_damage_type2 = 0
-secondary_damage2 = 0
-cooldown = 0.01
-player_path = NodePath(".")
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.962455, 0, 0.27144, -0.0169351, 0.998052, 0.0600475, -0.270912, -0.0623899, 0.96058, 0, 0, 0 )

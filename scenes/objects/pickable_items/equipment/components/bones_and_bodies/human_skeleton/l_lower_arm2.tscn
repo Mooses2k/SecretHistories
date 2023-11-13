@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/models/items/components/bones_and_bodies/human_skeleton/Skeleton.material" type="Material" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
@@ -21,14 +21,18 @@ surfaces/0 = {
 "vertex_count": 250
 }
 
-[sub_resource type="ConvexPolygonShape" id=21]
-points = PoolVector3Array( -0.0377863, 0.136121, -0.00895176, -0.0377863, 0.136121, -0.00504326, -0.000589177, -0.110529, -0.00210066, 0.00528626, -0.106615, 0.0184526, -0.0221255, 0.142952, 0.00278756, 0.028767, -0.103673, 0.0155066, -0.0231047, 0.140035, -0.0167895, 0.0268086, -0.101703, -0.00210066, 0.00920322, -0.0929022, -0.0079755, -0.0172293, 0.144922, -0.00308383, -0.000589177, -0.109531, 0.0125743, -0.0328901, 0.140035, 0.00278756, -0.0319109, 0.139063, -0.0158063, 0.0336702, -0.110529, 0.00669606, 0.0248501, -0.100731, 0.0184526, -0.0191947, 0.144922, -0.0138503, -0.0279939, 0.142005, 0.00376727, 0.00528626, -0.108559, -0.00601952, 0.028767, -0.0958443, -0.0011244, 0.0180024, -0.0850992, -0.00601952, -0.0368001, 0.141008, -0.0011244, -0.0182085, 0.14395, -0.000144686, 0.032684, -0.112499, 0.00279101, -0.0172293, 0.14395, -0.0109146, -0.0348486, 0.138091, -0.0138503, -0.0289731, 0.145894, -0.01483, 0.0013693, -0.110529, -0.00406009, 0.0307255, -0.104645, 0.0125743, -0.0289731, 0.140035, -0.0167895, 0.0180024, -0.0968164, 0.0184526, 0.0013693, -0.111501, 0.0125743, -0.0191947, 0.147889, -0.0011244, 0.0150717, -0.0968164, -0.00699578, 0.0254732, -0.108898, 0.0143588, -0.0368001, 0.136121, -0.0011244, 0.00332778, -0.112499, -0.00406009, -0.0211462, 0.14395, -0.0158063, -0.016257, 0.142952, -0.00699923, -0.0377863, 0.142005, -0.00504326, 0.00724474, -0.104645, -0.00699578, 0.0248501, -0.0899601, -0.00308038, -0.0338624, 0.14395, -0.0011244, 0.0258293, -0.106615, -0.00210066, 0.0303342, -0.111911, 0.0085621, -0.0338624, 0.136121, 0.00180784, 0.0248501, -0.104645, 0.0184526, 0.0142893, -0.00975296, -4.69444e-05, -0.0338624, 0.14395, -0.0138503, 0.0121409, -0.0997585, 0.0184526, 0.00234854, -0.109531, 0.0155066, -0.0231047, 0.146892, 0.00180784, -0.0182085, 0.146892, -0.00993493, 0.00969658, 0.00892441, -0.00351719, 0.00724474, -0.112499, -0.00406009, 0.0209401, -0.0968164, 0.0184526, -0.0309316, 0.14395, 0.00278756, -0.000589177, -0.110529, 0.00181129, 0.0013693, -0.112499, -0.00210066, -0.0231047, 0.145894, -0.0158063, 0.00724474, -0.103673, 0.0184526, -0.0279939, 0.14395, -0.0167895, -0.0240839, 0.146892, -0.0128706, -0.0377863, 0.140035, -0.00895176, 0.028767, -0.100731, 0.0145338 )
+[sub_resource type="BoxShape" id=22]
+extents = Vector3( 0.016, 0.13, 0.016 )
+
+[sub_resource type="SphereShape" id=23]
+radius = 0.02
 
 [sub_resource type="SphereShape" id=12]
 radius = 0.101082
 
 [node name="LLowerArm2" instance=ExtResource( 9 )]
 collision_layer = 64
+collision_mask = 65
 item_drop_sound = ExtResource( 4 )
 item_throw_sound = ExtResource( 3 )
 item_size = 0
@@ -39,26 +43,34 @@ throw_logic = false
 can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
+transform = Transform( 0.981198, 0.193001, 0, -0.193001, 0.981198, 0, 0, 0, 1, -0.00321688, 0.000712045, 0 )
 mesh = SubResource( 20 )
-script = null
 
 [node name="CollisionShape" parent="." index="1"]
-shape = SubResource( 21 )
+transform = Transform( 0.99931, 0.0371497, 0, -0.0371497, 0.99931, 0, 0, 0, 1, -0.00603231, 0.0190945, 0 )
+shape = SubResource( 22 )
 
-[node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.106868, -0.0321611 )
+[node name="CollisionShapeNoStandOnEnd" type="CollisionShape" parent="." index="2"]
+transform = Transform( 0.936177, 0.351531, 0, -0.351531, 0.936177, 0, 0, 0, 1, 0.000948005, 0.136605, -0.0067575 )
+shape = SubResource( 23 )
 
-[node name="Hitbox" type="Area" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.279591, 0 )
+[node name="CollisionShapeNoStandOnEnd2" type="CollisionShape" parent="." index="3"]
+transform = Transform( 0.865729, 0.500513, 0, -0.500513, 0.865729, 0, 0, 0, 1, 0.00314439, -0.102871, 0.00275912 )
+shape = SubResource( 23 )
+
+[node name="HoldPosition" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0217836, 0 )
+
+[node name="Hitbox" type="Area" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.103109, 0 )
 collision_layer = 0
 collision_mask = 12
 monitorable = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273551, 0 )
 shape = SubResource( 12 )
 
-[node name="CooldownTimer" type="Timer" parent="." index="4"]
+[node name="CooldownTimer" type="Timer" parent="." index="6"]
 wait_time = 0.5
 one_shot = true

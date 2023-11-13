@@ -317,8 +317,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0378679, 0 )
 collision_layer = 16
 collision_mask = 19
 script = ExtResource( 1 )
-animation_tree_path = NodePath("AnimationTree")
 _legcast = NodePath("Legs/Feet")
+animation_tree_path = NodePath("AnimationTree")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
@@ -345,6 +345,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.3 )
 [node name="DropPosition" type="Position3D" parent="Body"]
 unique_name_in_owner = true
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
+visible = false
+
+[node name="ThrowPosition" type="Position3D" parent="Body"]
+unique_name_in_owner = true
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.51, 0 )
 visible = false
 
 [node name="GroundChecker" type="RayCast" parent="Body"]

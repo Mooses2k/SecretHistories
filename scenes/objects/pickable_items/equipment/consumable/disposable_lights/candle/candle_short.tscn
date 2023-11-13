@@ -122,8 +122,6 @@ script = ExtResource( 3 )
 __meta__ = {
 "_editor_description_": ""
 }
-dropped_layers = 64
-dropped_mask = 1
 max_speed = 8.0
 item_drop_sound = ExtResource( 10 )
 item_throw_sound = null
@@ -184,7 +182,7 @@ anims/flicker = SubResource( 55 )
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
 
-[node name="Ignite" parent="." index="8"]
+[node name="Ignite" parent="." index="8" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]

@@ -1,7 +1,12 @@
 extends ControlMode
 
 
-#const RAD_DEG = rad2deg(1.0)
+var colliding_pickable_items = []
+var colliding_interactable_items = []
+onready var player_controller = $".."
+onready var grab_indicator = $"../../Indication_canvas/Indication_system/Grab"
+onready var ignite_indicator = $"../../Indication_canvas/Indication_system/Ignite"
+onready var dot_indicator = $"../../Indication_canvas/Indication_system/Dot"
 
 export var _aimcast : NodePath
 onready var aimcast : RayCast = get_node(_aimcast) as RayCast
@@ -35,6 +40,10 @@ func _ready():
 	_camera_orig_rotation = _camera.rotation_degrees
 	
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
+
+
+func _process(delta):
+	crosshair_indicators()   # Should this be in _physics_process() instead?
 
 
 func _physics_process(delta):
@@ -89,6 +98,37 @@ func _unhandled_input(event):
 		pitch_yaw.y = wrapf(pitch_yaw.y, -PI, PI)
 
 
+func crosshair_indicators():
+	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
+		dot_indicator.hide()
+	else :
+		dot_indicator.show()
+	
+	var grabable_object = grabcast.get_collider()
+	
+	if grabable_object != null:
+		if grabcast.is_colliding() and grabable_object is PickableItem and player_controller.is_grabbing == false:
+			grab_indicator.show()
+		elif grabcast.is_colliding() and grabable_object is RigidBody and player_controller.is_grabbing == false:
+			grab_indicator.show()
+		else:
+			grab_indicator.hide()
+		if grabcast.is_colliding() and grabable_object.is_in_group("IGNITE") and player_controller.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED:
+#			if $PlayerController.is_grabbing == false and grabable_object.get_parent().item_state == GlobalConsts.ItemState.DROPPED :
+				ignite_indicator.show()
+				if Input.is_action_just_pressed("player|interact"):
+					grabable_object.get_parent()._use_primary()
+		else:
+			ignite_indicator.hide()
+	else:
+		grab_indicator.hide()
+		ignite_indicator.hide()
+	
+	# This notifies the "pointing nearby" dot if the player is currently grabbing something
+	if player_controller.is_grabbing == true:
+		dot_indicator.hide()
+
+
 # Called from gun_item to add recoil
 func recoil(item, damage, handling):
 	side_recoil = rand_range(-5, 5)
@@ -115,12 +155,12 @@ func update(delta):
 			pitch_yaw.x += deg2rad(up_recoil) * delta
 			pitch_yaw.x = min(pitch_yaw.x, PI * 0.5)
 #            pitch_yaw.x = lerp(pitch_yaw.x, deg2rad(pitch_yaw.x + up_recoil), delta)
-		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER)*delta
-
+		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER) * delta
+	
 	# Finally, apply rotations
 	owner.character_body.rotation.y = pitch_yaw.y   # Horizontal
 	_camera.rotation.x = pitch_yaw.x   # Vertical, you don't want to rotate the whole scene, just camera
-
+	
 	# Guncam too - MUST BE DONE HERE OR WEIRD JITTERY HANDS BUG DEVELOPS
 	gun_camera.global_transform = _camera.global_transform
 
@@ -185,3 +225,27 @@ func _try_to_stand():
 			_camera.transform.origin.y = _camera_orig_pos.y
 			owner.is_crouching = false
 			owner.wanna_stand = false
+
+
+# Is_in_group("Door_hitbox") or Door_body  # Please rename this group to DOOR_HITBOX and/or DoorBody after door merge
+func _on_GrabCastDot_body_entered(body):
+	if body is PickableItem or body is Door_body :
+		if !colliding_pickable_items.has(body):
+			colliding_pickable_items.append(body)
+
+
+func _on_GrabCastDot_body_exited(body):
+	if body is PickableItem or body is Door_body:
+		colliding_pickable_items.remove(colliding_pickable_items.find(body))
+
+
+func _on_GrabCastDot_area_entered(area):
+	if area is Interactable :
+		if !colliding_interactable_items.has(area):
+			colliding_interactable_items.append(area)
+
+
+func _on_GrabCastDot_area_exited(area):
+	if area is Interactable:
+		colliding_interactable_items.remove(colliding_interactable_items.find(area))
+

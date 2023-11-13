@@ -48,7 +48,6 @@ var current_offhand_equipment : EquipmentItem = null
 var are_swapping : bool = false
 
 # Where to drop items from
-onready var drop_position_node : Spatial = $"%DropPosition" as Spatial
 onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
 
 var encumbrance : float = 0   # Is a float to allow easy division
@@ -94,7 +93,7 @@ func add_item(item : PickableItem) -> bool:
 			insert_tiny_item(item.item_data, item.amount)
 			
 		# To make sure the item can't be interacted with again
-		item.item_state = GlobalConsts.ItemState.BUSY
+		item.set_item_state(GlobalConsts.ItemState.BUSY)
 		item.queue_free()
 		emit_signal("inventory_changed")
 	
@@ -104,7 +103,7 @@ func add_item(item : PickableItem) -> bool:
 		keychain[item.key_id] += 1
 		
 		# To make sure the item can't be interacted with again
-		item.item_state = GlobalConsts.ItemState.BUSY
+		item.set_item_state(GlobalConsts.ItemState.BUSY)
 		item.queue_free()
 	
 	elif item is EquipmentItem:
@@ -248,7 +247,7 @@ func equip_mainhand_item():
 		if current_offhand_equipment == item:
 			unequip_offhand_item()
 			
-		item.item_state = GlobalConsts.ItemState.EQUIPPED
+		item.set_item_state(GlobalConsts.ItemState.EQUIPPED)
 		current_mainhand_equipment = item
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:
@@ -267,7 +266,7 @@ func unequip_mainhand_item():
 	if current_mainhand_equipment == null:   # No item equipped
 		return
 	
-	current_mainhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	current_mainhand_equipment.set_item_state(GlobalConsts.ItemState.INVENTORY)
 	emit_signal("unequip_mainhand")
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
@@ -283,7 +282,7 @@ func equip_bulky_item(item : EquipmentItem):
 	unequip_offhand_item()
 	drop_bulky_item()
 	if item:
-		item.item_state = GlobalConsts.ItemState.EQUIPPED
+		item.set_item_state(GlobalConsts.ItemState.EQUIPPED)
 		item.transform = item.get_hold_transform()
 		bulky_equipment = item
 		emit_signal("bulky_item_changed")
@@ -310,34 +309,34 @@ func equip_offhand_item():
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
+	if not item and not item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and  item == current_mainhand_equipment:
+		return
+
 	# Item exists, can be equipped on the offhand, and is not already equipped
 	if current_mainhand_equipment and current_mainhand_equipment.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and current_mainhand_equipment is GunItem:
-		
+		unequip_mainhand_item()
 		if item is CandleItem or item is TorchItem or item is CandelabraItem or item is LanternItem:
 			print("Equipped offhand light item")
 		else:
 			print("Equipped offhand slot normal item")
-#			current_offhand_slot = 10
-#			unequip_offhand_item()
-		
-	elif item and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and not item == current_mainhand_equipment:
-		# Can't equip a Bulky Item simultaneously with a normal item
-		drop_bulky_item()
-		item.item_state = GlobalConsts.ItemState.EQUIPPED
-		current_offhand_equipment = item
-		# Waits for the item to exit the tree, if necessary
-		item.transform = item.get_hold_transform()
-		if item.is_in_belt == true:
-			item.get_parent().remove_child(item)
-			owner.offhand_equipment_root.add_child(item)
-		else:
-			owner.offhand_equipment_root.add_child(item)
+
+	# Can't equip a Bulky Item simultaneously with a normal item
+	drop_bulky_item()
+	item.item_state = GlobalConsts.ItemState.EQUIPPED
+	current_offhand_equipment = item
+	# Waits for the item to exit the tree, if necessary
+	item.transform = item.get_hold_transform()
+	if item.is_in_belt == true:
+		item.get_parent().remove_child(item)
+		owner.offhand_equipment_root.add_child(item)
+	else:
+		owner.offhand_equipment_root.add_child(item)
 
 
 func unequip_offhand_item():
 	if current_offhand_equipment == null: # No item equipped
 		return
-	current_offhand_equipment.item_state = GlobalConsts.ItemState.INVENTORY
+	current_offhand_equipment.set_item_state(GlobalConsts.ItemState.INVENTORY)
 	# If the item was just equipped, waits for it to enter the tree before removing
 	var item = current_offhand_equipment
 	current_offhand_equipment = null
@@ -345,7 +344,7 @@ func unequip_offhand_item():
 	if item.can_attach == true:
 		pass
 	else:
-		set_offhand_slot(10)
+#		set_offhand_slot(10)
 		if item != null:
 			item.get_parent().remove_child(item)
 
@@ -398,32 +397,44 @@ func drop_hotbar_slot(slot : int) -> Node:
 func _drop_item(item : EquipmentItem):
 	if owner is Player:
 		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
-			item.item_state = GlobalConsts.ItemState.DROPPED   # At the moment, 'placed' items can't hurt anyone.
+			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # At the moment, 'placed' items can't hurt anyone.
 		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:
-			item.item_state = GlobalConsts.ItemState.DAMAGING
+			item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		else:
+			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # Dropped for another reason like cycling away from bulky
+			print("Dropped for another reason like cycling away from bulky")
 	else:
-		item.item_state = GlobalConsts.ItemState.DAMAGING
-	
-	if !GameManager.game:   # This is here for test scenes
-		item.global_transform = drop_position_node.global_transform
-		find_parent("TestWorld").add_child(item)
-		item.apply_throw_logic()
-		
-	elif GameManager.game.level:   # This is for the real game
-		item.global_transform = drop_position_node.global_transform
-#		print(item.angular_velocity)
-		
+		item.set_item_state(GlobalConsts.ItemState.DROPPED)   # This means, for now, non-players can't throw for damage; they drop when die
+			
+	if GameManager.game.level:   # This is for the real game
+		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
+			item.global_transform = owner.drop_position_node.global_transform
+			print("Item set to DROPPED")
+		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
+			item.global_transform = owner.throw_position_node.global_transform
+			print("Item set to DAMAGING")
+				
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
+			print("Item added to level at position: ", item.global_translation)
 			
 		if item is EquipmentItem:
-			print("Item is EquipmentItem, applying throw logic")
+			if item.item_state == GlobalConsts.ItemState.DAMAGING:
+				item.apply_throw_logic()
+	
+	elif !GameManager.game:   # This is here for test scenes
+		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
+			item.global_transform = owner.drop_position_node.global_transform
+		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
+			item.global_transform = owner.throw_position_node.global_transform
+		
+		find_parent("TestWorld").add_child(item)
+		if item.item_state == GlobalConsts.ItemState.DAMAGING:
 			item.apply_throw_logic()
-#			print(item.angular_velocity)
-			
+		
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:

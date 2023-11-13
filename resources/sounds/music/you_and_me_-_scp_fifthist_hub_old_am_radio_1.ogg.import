@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/you_and_me_-_scp_fifthist_hub_old_am_radio_1.ogg-b56304d6bd8494fbc7673e2bf83f57fb.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/music/you_and_me_-_scp_fifthist_hub_old_am_radio_1.ogg"
+dest_files=[ "res://.import/you_and_me_-_scp_fifthist_hub_old_am_radio_1.ogg-b56304d6bd8494fbc7673e2bf83f57fb.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

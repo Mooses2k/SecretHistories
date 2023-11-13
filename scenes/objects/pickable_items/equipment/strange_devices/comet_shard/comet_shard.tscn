@@ -88,6 +88,10 @@ script = ExtResource( 3 )
 item_drop_sound = ExtResource( 5 )
 item_size = 2
 item_name = "Shard of the Comet"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
@@ -109,6 +113,10 @@ omni_range = 15.0
 omni_attenuation = 5.0
 
 [node name="DangerousRadiance" type="Area" parent="." index="4"]
+collision_layer = 0
+collision_mask = 2
+reverb_bus_enable = true
+reverb_bus_name = "Effects"
 
 [node name="CollisionShape" type="CollisionShape" parent="DangerousRadiance" index="0"]
 shape = SubResource( 3 )

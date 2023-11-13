@@ -1462,10 +1462,9 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -720, 980 )
 nodes/output/position = Vector2( 1840, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "Hand_Transition", 0, "OffHand_MainHand_Blend", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle" ]
+node_connections = [ "output", 0, "Hand_Transition", "Reload_Animations", 0, "DoubleBarrelReload_Anim", "Reload_Animations", 1, "HenryReload_Anim", "Reload_Animations", 2, "MartiniHenryReload", "Reload_Animations", 3, "WebleyReload", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hand_Transition", 0, "OffHand_MainHand_Blend", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle" ]
 
 [sub_resource type="CylinderShape" id=41]
-height = 1.75
 radius = 0.25
 
 [sub_resource type="QuadMesh" id=371]
@@ -1810,14 +1809,14 @@ __meta__ = {
 [node name="AimCast" type="RayCast" parent="FPSCamera" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
 enabled = true
-cast_to = Vector3( 0, 0, -1.5 )
+cast_to = Vector3( 0, 0, -1.7 )
 collision_mask = 585
 collide_with_areas = true
 
 [node name="GrabCast" type="RayCast" parent="FPSCamera" index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )
 enabled = true
-cast_to = Vector3( 0, 0, -1.5 )
+cast_to = Vector3( 0, 0, -1.7 )
 collision_mask = 65
 collide_with_areas = true
 
@@ -1836,7 +1835,7 @@ input_ray_pickable = false
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="FPSCamera/GrabCastDot" index="0"]
-transform = Transform( 0.999999, 0, 0, 0, -4.37114e-08, 0.999999, 0, -1, -4.37114e-08, 0, 0, -0.0903913 )
+transform = Transform( 0.999999, 0, 0, 0, -4.37114e-08, 0.999999, 0, -1, -4.37114e-08, 0, 0, -0.20499 )
 shape = SubResource( 41 )
 
 [node name="Listener" type="Listener" parent="FPSCamera" index="5"]

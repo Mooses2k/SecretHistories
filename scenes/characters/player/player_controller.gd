@@ -447,6 +447,7 @@ func _handle_inventory(delta : float):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
 			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
 			if i != character.inventory.current_offhand_slot and i != 10:
+				character.inventory.drop_bulky_item()
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 	
@@ -496,7 +497,7 @@ func _handle_inventory(delta : float):
 	if is_instance_valid(character.inventory.get_mainhand_item()):
 	
 		if Input.is_action_just_pressed("playerhand|main_use_primary"):
-			# Check if 0.5s have elapsed since loadscreen removed to avoid accidentally shooting after load
+			# Check if grace period has elapsed since loadscreen removed to avoid accidentally shooting after load
 			if no_click_after_load_period == false:
 				if character.inventory.get_mainhand_item():
 					character.inventory.get_mainhand_item().use_primary()

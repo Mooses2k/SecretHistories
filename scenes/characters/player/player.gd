@@ -2,9 +2,6 @@ class_name Player
 extends Character
 
 
-#signal change_off_equipment_out_done()
-#signal change_main_equipment_out_done()
-
 var mainhand_orig_origin = null
 var offhand_orig_origin = null
 var is_change_main_equip_out : bool = false

@@ -45,6 +45,10 @@ mass = 5.0
 item_drop_sound = ExtResource( 5 )
 item_size = 1
 item_name = "Medical Box"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 heal_amount = 1
 max_charges_held = 200
 max_charges_usable_at_once = 200
@@ -52,7 +56,6 @@ max_charges_usable_at_once = 200
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
 mesh = null
-script = null
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.0249894, 0.0346738 )

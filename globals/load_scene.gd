@@ -39,7 +39,7 @@ func remove_loadscreen() -> void:
 	
 	# Wait another second then kill the loadscreen
 	yield(get_tree().create_timer(1), "timeout")
-	loadscreen.queue_free()
+	loadscreen.queue_free()   # Crashes if hit button too many times
 	emit_signal("loading_screen_removed")
 
 

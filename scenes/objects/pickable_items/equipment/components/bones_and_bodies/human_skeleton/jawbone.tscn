@@ -41,13 +41,12 @@ can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = SubResource( 2 )
-script = null
 
 [node name="CollisionShape" parent="." index="1"]
 shape = SubResource( 9 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.106868, -0.0321611 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0541992, 0.0201506, 0 )
 
 [node name="Hitbox" type="Area" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.279591, 0 )

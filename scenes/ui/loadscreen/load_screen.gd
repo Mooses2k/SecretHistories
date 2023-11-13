@@ -5,6 +5,7 @@ var random_num_gen = RandomNumberGenerator.new()
 var random_num
 
 var is_loading = true
+var clicked = false
 
 onready var color_rect = get_node("ColorRect")
 onready var label = get_node("Label")
@@ -20,7 +21,9 @@ func _input(event: InputEvent):
 			and not is_loading
 	):
 #		var _error = get_tree().change_scene(LoadScene.next_scene)
-		LoadScene.remove_loadscreen()
+		if !clicked:   # Without this, clicking many times will cause crash in load_scene
+			LoadScene.remove_loadscreen()
+			clicked = true
 
 
 func _ready():

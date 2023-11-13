@@ -4,8 +4,11 @@ extends CanvasLayer
 var random_num_gen = RandomNumberGenerator.new()
 var random_num
 
-onready var label = get_node("Holder/Quote")
 var is_loading = true
+
+onready var color_rect = get_node("ColorRect")
+onready var label = get_node("Label")
+onready var quote = get_node("Holder/Quote")
 
 
 func _input(event: InputEvent):
@@ -28,15 +31,15 @@ func _ready():
 	if GameManager.act > 4:
 		# late game
 		random_num = random_num_gen.randi_range(0, LoadQuotes.list3.size()-1)
-		label.text = LoadQuotes.list3[random_num]
+		quote.text = LoadQuotes.list3[random_num]
 	if GameManager.act > 2:
 		# mid game
 		random_num = random_num_gen.randi_range(0, LoadQuotes.list2.size()-1)
-		label.text = LoadQuotes.list2[random_num]
+		quote.text = LoadQuotes.list2[random_num]
 	else:
 		# early game
 		random_num = random_num_gen.randi_range(0, LoadQuotes.list1.size()-1)
-		label.text = LoadQuotes.list1[random_num]
+		quote.text = LoadQuotes.list1[random_num]
 
 
 func on_scene_loaded():

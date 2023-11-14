@@ -7,6 +7,10 @@ class_name PlayerLightSensor extends LightArea
 #|============================================================================|#
 
 
+signal sensory_input(position, id, interest)
+signal detected_light_source(light_source)
+
+
 export var grid_size := 1.0
 
 
@@ -21,8 +25,19 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	light_sources = get_overlapping_areas()
-	if light_sources.empty():
-		print(check_light())
+	
+	if !light_sources.empty():
+		var light_source := check_light_with_player_light_area()
+		
+		if is_instance_valid(light_source):
+			emit_signal("detected_light_source", light_source)
+			emit_signal\
+			(
+				"detected_light_source",
+				light_source.global_transform.origin,
+				light_source,
+				75
+			)
 
 
 func check_light() -> bool:
@@ -33,6 +48,17 @@ func check_light() -> bool:
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
 	return player_light_area.check_point(point) and check_point(point)
 	# Return `true` if both player's light area and enemy's fov area can reach that point.
+
+
+func check_light_with_player_light_area() -> PlayerLightArea:
+	var player_light_area := get_player_light_area()
+	if !is_instance_valid(player_light_area): return null
+	
+	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
+	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
+	if player_light_area.check_point(point) and check_point(point): return player_light_area
+	# Return `player_light_area` if both player's light area and enemy's fov area can reach that point.
+	return null
 
 
 # Return's a `PlayerLightArea` from `light_sources`, automatically shuffling if multiple sources are available.

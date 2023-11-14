@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/sounds/voices/cultists/neophyte/deanbrignell/surprised/neophyte.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/bullseye_lantern/bullseye_lantern.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/cavalry_sabre/cavalry_sabre_item.tscn" type="PackedScene" id=6]
@@ -22,6 +22,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/objects/large_objects/tables/table_round_medieval.tscn" type="PackedScene" id=22]
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn" type="PackedScene" id=24]
+
 
 
 [sub_resource type="PlaneMesh" id=1]

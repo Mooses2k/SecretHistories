@@ -9,7 +9,7 @@ var shape: Shape
 func _init() -> void:
 	collision_layer = 1 << 10
 	collision_mask = 1 << 10
-
+	priority = 50
 
 func _ready() -> void:
 	if !collision_shape.is_inside_tree():
@@ -17,6 +17,7 @@ func _ready() -> void:
 	
 	collision_layer = 1 << 10
 	collision_mask = 1 << 10
+	priority = 50
 
 
 func _enter_tree() -> void:
@@ -52,6 +53,4 @@ func get_aabb() -> AABB:
 
 
 func check_point(point: Vector3) -> bool: # Returns `true` if the raycast towards the point doesn't collide.
-	var result := get_world().direct_space_state.intersect_ray(global_transform.origin, point, [], 1 << 0)
-	push_error("here:" + str(result))
-	return result.empty()
+	return get_world().direct_space_state.intersect_ray(global_transform.origin, point, [], 1 << 0).empty()

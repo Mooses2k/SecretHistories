@@ -15,16 +15,16 @@ onready var tween: Tween = $Tween
 
 func _process(delta):
 	var player := owner as Player
-	debug_label.text = (
-		"Player current_health = " + str(player.current_health) + "\n"
-		+ "Player stamina = " + str(player.stamina) + "\n"
-		+ "Player light_level = " + str(player.light_level) + "\n"
-		+ "Player noise_level = " + str(player.noise_level) + "\n"
-		+ "Player on floor = " +  str(player.is_on_floor()) + "\n"
-		+ "Current strata = " +  str(GameManager.game.current_floor_level) + "\n"
-		+ "Player position = " +  str(player.translation) + "\n"
-		+ "Current FPS = " +  str(Performance.get_monitor(Performance.TIME_FPS)) + "\n"
-	)
+#	debug_label.text = (
+#		"Player current_health = " + str(player.current_health) + "\n"
+#		+ "Player stamina = " + str(player.stamina) + "\n"
+#		+ "Player light_level = " + str(player.light_level) + "\n"
+#		+ "Player noise_level = " + str(player.noise_level) + "\n"
+#		+ "Player on floor = " +  str(player.is_on_floor()) + "\n"
+#		+ "Current strata = " +  str(GameManager.game.current_floor_level) + "\n"
+#		+ "Player position = " +  str(player.translation) + "\n"
+#		+ "Current FPS = " +  str(Performance.get_monitor(Performance.TIME_FPS)) + "\n"
+#	)
 
 
 func _input(event):

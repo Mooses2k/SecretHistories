@@ -16,10 +16,9 @@ export var horizontal_holding : bool = false
 export var normal_pos_path : NodePath
 export var throw_pos_path : NodePath
 export var throw_logic : bool   # Some items like swords should be thrown point first
-export var can_spin : bool   # Some items when thrown should spin
+export var can_spin : bool   # Some items should spin when thrown
 
 var is_in_belt = false
-var has_equipped = false
 
 onready var hold_position = $"%HoldPosition"
 onready var normal_pos = get_node(normal_pos_path)

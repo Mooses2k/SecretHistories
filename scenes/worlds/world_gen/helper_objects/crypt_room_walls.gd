@@ -1,4 +1,4 @@
-# Helper class for Handling Crypt Room Walls, when spaning sarcophagi.
+# Helper class for Handling Crypt Room Walls, when spawning sarcophagi.
 extends Reference
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -107,8 +107,8 @@ func get_sanitized_segments_for(
 
 
 ### Private Methods -------------------------------------------------------------------------------
-# Analyzes the room and find all cell indexes according to wall direction they're on.
-# Then only store the groups of consecutive cell index that are bigger than 
+# Analyzes the room and finds all cell indexes according to wall direction they're on.
+# Then only stores the groups of consecutive cell index that are bigger than 
 # the length of the sarco.
 func _handle_wall_cells(world_data: WorldData, crypt: RoomData, sarco_length: int) -> void:
 	var possible_cells := {

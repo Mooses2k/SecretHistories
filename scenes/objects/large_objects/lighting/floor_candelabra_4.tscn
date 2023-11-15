@@ -164,7 +164,7 @@ extents = Vector3( 0.091, 0.048, 0.037 )
 
 [node name="FloorCandelabra3" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
-collision_layer = 512
+collision_layer = 64
 mass = 30.0
 continuous_cd = true
 contacts_reported = 4

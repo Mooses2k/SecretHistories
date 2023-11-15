@@ -302,7 +302,7 @@ radius = 0.033
 
 [node name="FloorCandelabra" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
-collision_layer = 64
+collision_layer = 512
 mass = 30.0
 continuous_cd = true
 contacts_reported = 4

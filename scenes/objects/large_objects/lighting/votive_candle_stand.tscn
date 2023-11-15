@@ -120,7 +120,7 @@ shader_param/COLOR_RAMP = SubResource( 149 )
 extents = Vector3( 0.3, 0.04, 0.15 )
 
 [node name="VotiveCandleStand" type="RigidBody"]
-collision_layer = 64
+collision_layer = 512
 mass = 30.0
 continuous_cd = true
 contacts_reported = 4

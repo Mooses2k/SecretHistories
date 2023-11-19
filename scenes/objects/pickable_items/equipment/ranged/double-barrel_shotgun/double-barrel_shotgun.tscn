@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=2]
@@ -69,6 +69,201 @@ bind/4/pose = Transform( -6.37646e-05, -1.19916e-07, -1, -0.980782, -0.195106, 6
 [sub_resource type="ConvexPolygonShape" id=378]
 points = PoolVector3Array( -0.525527, -0.10884, 0.00583685, -0.075781, 0.0783637, 0.00852547, 0.440931, 0.0736622, 0.0157437, 0.460455, 0.0560691, -0.025732, -0.529027, 0.00692726, -0.0187095, -0.0934038, 0.0713643, 0.0284551, 0.460455, 0.0560691, 0.026898, -0.525527, 0.0279688, 0.0128594, -0.0911653, 0.0762623, -0.0244773, -0.518528, -0.0912796, -0.0152047, -0.518528, -0.0877598, 0.0163707, -0.146513, 0.0139668, -0.0292433, 0.438019, 0.0731478, -0.0178315, -0.518528, -0.10884, -0.00818217, 0.449859, 0.0490489, 0.00584337, -0.0823861, 0.0660763, -0.0297788, -0.525527, 0.0279688, -0.0116935, -0.083435, 0.0597134, 0.029633, 0.460455, 0.0700904, 0.026898, -0.522028, -0.0667182, -0.0187095, -0.518528, -0.101781, 0.0128594, -0.529027, -0.077239, 0.0163707, -0.515029, -0.10884, 0.00583685, 0.449859, 0.0490489, -0.00467089, -0.083697, 0.0748217, 0.0252276, 0.426955, 0.064647, -0.0239567, -0.129015, 0.0139668, -0.0292433, -0.01674, 0.0280073, -0.0292368, -0.524572, -0.0975072, -0.00810295, -0.0754917, 0.0777154, -0.00730164, 0.414572, 0.0739884, -0.00428938, -0.527442, -0.0487746, -0.01504, -0.0980229, 0.0625355, -0.029633, -0.526645, 0.0170914, 0.0127116 )
 
+[sub_resource type="Animation" id=4]
+resource_name = "break_open_weapon"
+length = 1.55
+tracks/0/type = "transform"
+tracks/0/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BarrelBreak")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -1.78814e-07, -8.9407e-08, -4.75454e-08, 3.63574e-09, -9.40446e-09, 1.49011e-08, 1, 1, 1, 1, 0.8, 1, -8.19564e-08, -5.96046e-08, -2.32127e-07, -2.36049e-10, 5.49255e-09, -2.98023e-08, 1, 1, 1, 1, 0.866667, 1, -7.45058e-08, -5.96046e-08, -2.47509e-07, 5.54761e-09, -6.09075e-09, -0.0823471, 0.996604, 1, 1, 1, 0.933333, 1, -7.07805e-08, -5.96046e-08, -2.62891e-07, -4.59118e-10, -9.88188e-10, -0.494303, 0.86929, 1, 1, 1, 1, 1, -6.33299e-08, -5.96046e-08, -2.78273e-07, -3.51613e-09, 1.13108e-08, -0.638356, 0.769741, 1, 1, 1, 1.55, 1, -3.72529e-09, -2.98023e-08, -4.05173e-07, -1.02406e-08, -7.56941e-09, -0.638356, 0.769741, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1, 1.55, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = PoolRealArray( 0, 1, 5.21541e-08, -1.3411e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1, 1.55, 1, 5.21541e-08, -1.3411e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Root")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = PoolRealArray( 0, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1, 1.55, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1 )
+tracks/4/type = "transform"
+tracks/4/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BreakLatch")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = PoolRealArray( 0, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 0.733333, 1, 7.99446e-10, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 0.8, 1, 1.08957e-09, -8.56817e-08, -7.45058e-09, 0.000767201, -0.0241926, 0.00102834, 0.999707, 1, 1, 1, 0.866667, 1, 1.38061e-09, -8.56817e-08, -7.45058e-09, 0.00645678, -0.151234, 0.00532063, 0.988463, 1, 1, 1, 0.933333, 1, 1.67165e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 1.55, 1, 4.36012e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "close_breech_weapon"
+length = 4.88333
+tracks/0/type = "transform"
+tracks/0/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BarrelBreak")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -4.09782e-08, 0, 1.355e-08, 2.51227e-10, -6.11465e-10, 1.49011e-08, 1, 1, 1, 1, 3.2, 1, -4.09782e-08, 0, 1.355e-08, 2.51227e-10, -6.11465e-10, 1.49011e-08, 1, 1, 1, 1, 3.26667, 1, -4.09782e-08, 0, 1.52935e-08, -7.02029e-09, -6.18604e-09, -0.50088, 0.865517, 1, 1, 1, 3.33333, 1, -4.09782e-08, 0, 1.7618e-08, -1.6178e-08, 1.0586e-08, -0.638356, 0.769741, 1, 1, 1, 3.6, 1, -5.58794e-08, 2.98023e-08, 2.69162e-08, -3.17143e-09, 1.19279e-08, -0.638356, 0.769741, 1, 1, 1, 3.66667, 1, -5.58794e-08, 2.98023e-08, 2.92408e-08, 1.22728e-08, 1.08723e-08, -0.600307, 0.79977, 1, 1, 1, 3.73333, 1, -5.58794e-08, 2.98023e-08, 3.15654e-08, -9.96669e-10, 9.41446e-09, -0.338138, 0.941097, 1, 1, 1, 3.8, 1, -5.58794e-08, 2.98023e-08, 3.38899e-08, -3.0109e-09, -1.57031e-08, -0.0478559, 0.998854, 1, 1, 1, 3.86667, 1, -6.70552e-08, 5.96046e-08, 3.62145e-08, 6.5215e-10, -5.67252e-09, -2.98023e-08, 1, 1, 1, 1, 4.88333, 1, -1.04308e-07, 1.19209e-07, 7.16639e-08, -4.76921e-09, -5.21652e-10, 1.49011e-08, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1, 4.88333, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = PoolRealArray( 0, 1, 5.21541e-08, -1.2666e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1, 4.88333, 1, 5.21541e-08, -1.3411e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Root")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = PoolRealArray( 0, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1, 4.88333, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1 )
+tracks/4/type = "transform"
+tracks/4/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BreakLatch")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = PoolRealArray( 0, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 3.2, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 3.26667, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, 0.00490183, -0.110937, 0.0030523, 0.993811, 1, 1, 1, 3.33333, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 3.73333, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 3.8, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, 0.00595577, -0.154862, 0.00658253, 0.987896, 1, 1, 1, 3.86667, 1, -2.39652e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 4.88333, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "complete_reload"
+length = 4.88333
+tracks/0/type = "transform"
+tracks/0/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BarrelBreak")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -1.78814e-07, -8.9407e-08, -4.75454e-08, 3.63574e-09, -9.40446e-09, 1.49011e-08, 1, 1, 1, 1, 0.8, 1, -1.71363e-07, -2.98023e-08, -2.80162e-08, -2.36049e-10, 5.49255e-09, -2.98023e-08, 1, 1, 1, 1, 0.866667, 1, -1.71363e-07, -2.98023e-08, -2.63888e-08, 5.54761e-09, -6.09075e-09, -0.0823471, 0.996604, 1, 1, 1, 0.933333, 1, -1.67638e-07, -2.98023e-08, -2.47614e-08, -4.59118e-10, -9.88188e-10, -0.494303, 0.86929, 1, 1, 1, 1, 1, -1.67638e-07, -2.98023e-08, -2.31339e-08, -3.51613e-09, 1.13108e-08, -0.638356, 0.769741, 1, 1, 1, 3.6, 1, -1.2666e-07, 8.9407e-08, 4.03359e-08, -3.17143e-09, 1.19279e-08, -0.638356, 0.769741, 1, 1, 1, 3.66667, 1, -1.2666e-07, 8.9407e-08, 4.19633e-08, 1.22728e-08, 1.08723e-08, -0.600307, 0.79977, 1, 1, 1, 3.73333, 1, -1.2666e-07, 8.9407e-08, 4.35908e-08, -9.96669e-10, 9.41446e-09, -0.338138, 0.941097, 1, 1, 1, 3.8, 1, -1.2666e-07, 8.9407e-08, 4.52182e-08, -3.0109e-09, -1.57031e-08, -0.0478559, 0.998854, 1, 1, 1, 3.86667, 1, -1.22935e-07, 8.9407e-08, 4.68456e-08, 6.5215e-10, -5.67252e-09, -2.98023e-08, 1, 1, 1, 1, 4.88333, 1, -1.04308e-07, 1.19209e-07, 7.16639e-08, -4.76921e-09, -5.21652e-10, 1.49011e-08, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1, 4.88333, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = PoolRealArray( 0, 1, 5.21541e-08, -1.3411e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1, 4.88333, 1, 5.21541e-08, -1.3411e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Root")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = PoolRealArray( 0, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1, 4.88333, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1 )
+tracks/4/type = "transform"
+tracks/4/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BreakLatch")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = PoolRealArray( 0, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 0.8, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 0.866667, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00454131, -0.130831, 0.00556108, 0.991379, 1, 1, 1, 0.933333, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 3.73333, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 3.8, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00595577, -0.154862, 0.00658253, 0.987896, 1, 1, 1, 3.86667, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 4.88333, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "enter_shell_1_weapon"
+length = 2.35
+tracks/0/type = "transform"
+tracks/0/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BarrelBreak")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -4.09782e-08, 0, 1.355e-08, 2.51227e-10, -6.11465e-10, 1.49011e-08, 1, 1, 1, 1, 1.46667, 1, -4.09782e-08, 0, 1.355e-08, 2.51227e-10, -6.11465e-10, 1.49011e-08, 1, 1, 1, 1, 1.53333, 1, -4.09782e-08, 0, 1.00253e-08, 3.46661e-09, 7.64424e-09, -0.50088, 0.865517, 1, 1, 1, 1.6, 1, -3.35276e-08, 0, 5.32569e-09, -4.16301e-09, -3.19046e-09, -0.638356, 0.769741, 1, 1, 1, 2.35, 1, 7.45058e-09, 8.9407e-08, -4.75452e-08, -5.05258e-10, -7.91795e-10, -0.638356, 0.769741, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1, 2.35, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = PoolRealArray( 0, 1, 5.21541e-08, -1.2666e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1, 2.35, 1, 5.21541e-08, -1.3411e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Root")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = PoolRealArray( 0, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1, 2.35, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1 )
+tracks/4/type = "transform"
+tracks/4/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BreakLatch")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = PoolRealArray( 0, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 1.46667, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 1.53333, 1, -2.00635e-09, -8.56817e-08, -7.45058e-09, 0.00490183, -0.110937, 0.0030523, 0.993811, 1, 1, 1, 1.6, 1, -1.48611e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 2.35, 1, 4.36012e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1 )
+
+[sub_resource type="Animation" id=7]
+resource_name = "enter_shell_2_weapon"
+length = 3.28333
+tracks/0/type = "transform"
+tracks/0/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BarrelBreak")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, -4.09782e-08, 0, 1.355e-08, 2.51227e-10, -6.11465e-10, 1.49011e-08, 1, 1, 1, 1, 2.2, 1, -4.09782e-08, 0, 1.355e-08, 2.51227e-10, -6.11465e-10, 1.49011e-08, 1, 1, 1, 1, 2.26667, 1, -5.21541e-08, 0, 1.06862e-08, -1.00631e-09, -2.40596e-09, -0.253452, 0.967348, 1, 1, 1, 2.33333, 1, -6.70552e-08, 0, 6.86778e-09, 1.72598e-09, -4.06113e-09, -0.573183, 0.819427, 1, 1, 1, 2.4, 1, -8.56817e-08, 0, 3.04932e-09, 1.16218e-08, 3.42874e-09, -0.638356, 0.769741, 1, 1, 1, 3.28333, 1, -2.90573e-07, -2.98023e-08, -4.75451e-08, -1.01846e-08, 1.2498e-09, -0.638356, 0.769741, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger1")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1, 3.28333, 1, -5.96046e-08, 9.31323e-09, 2.11876e-08, 5.54934e-10, 3.99723e-10, 1.19209e-07, 1, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Trigger2")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = PoolRealArray( 0, 1, 5.21541e-08, -1.2666e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1, 3.28333, 1, 5.21541e-08, -1.3411e-07, 1.69966e-08, 6.02462e-10, 5.85558e-10, -1.49012e-08, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:Root")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = PoolRealArray( 0, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1, 3.28333, 1, -5.21541e-08, 0, -2.75668e-09, 1.59016e-10, 1.01409e-09, -1.85511e-17, 1, 1, 1, 1 )
+tracks/4/type = "transform"
+tracks/4/path = NodePath("../MeshInstance/DoubleBarrel_Arm/Skeleton:BreakLatch")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = PoolRealArray( 0, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 2.2, 1, -2.39561e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 2.26667, 1, -2.0791e-09, -8.56817e-08, -7.45058e-09, 0.00245218, -0.0554971, 0.00152696, 0.998455, 1, 1, 1, 2.33333, 1, -1.6571e-09, -8.56817e-08, -7.45058e-09, 0.00571389, -0.129315, 0.00355795, 0.991581, 1, 1, 1, 2.4, 1, -1.23509e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 3.28333, 1, 4.36012e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1 )
+
 [node name="Double-barrelShotgun" instance=ExtResource( 9 )]
 collision_mask = 65
 mass = 3.0
@@ -84,9 +279,12 @@ reload_amount = 2
 reload_time = 2.0
 cooldown = 0.1
 handling = 8.0
+mesh_reload_position = Vector3( 0, 0, 0 )
+mesh_reload_rotation = Vector3( 0, 0, 0 )
 ads_hold_position = Vector3( 0.064, -0.091, 0.311 )
 ads_hold_rotation = Vector3( 16.01, 25.394, -8.562 )
 player_path = NodePath(".")
+mesh_path = NodePath("MeshInstance/DoubleBarrel_Arm")
 detection_raycast = NodePath("RayCast")
 
 [node name="Effects" type="Spatial" parent="." index="0"]
@@ -148,7 +346,6 @@ bones/4/enabled = true
 bones/4/bound_children = [  ]
 
 [node name="DoubleBarrel_Mesh" type="MeshInstance" parent="MeshInstance/DoubleBarrel_Arm/Skeleton" index="0"]
-transform = Transform( 0.95, 0, 0, 0, 0.95, 0, 0, 0, 0.95, 0, 0, 0 )
 mesh = SubResource( 376 )
 skin = SubResource( 377 )
 script = ExtResource( 1 )
@@ -181,7 +378,15 @@ stream = ExtResource( 12 )
 bus = "Effects"
 
 [node name="HoldPosition" parent="." index="8"]
-transform = Transform( 0.787377, -0.176418, 0.59069, 0.218637, 0.975806, 0, -0.576399, 0.129147, 0.806899, 0.104, -0.08, 0.175 )
+transform = Transform( 0.787377, -0.176418, 0.59069, 0.218637, 0.975806, -1.97808e-07, -0.576399, 0.129147, 0.806899, 0.104, -0.08, 0.175 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+root_node = NodePath("../MeshInstance")
+anims/break_open_weapon = SubResource( 4 )
+anims/close_breech_weapon = SubResource( 5 )
+anims/complete_reload = SubResource( 3 )
+anims/enter_shell_1_weapon = SubResource( 6 )
+anims/enter_shell_2_weapon = SubResource( 7 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

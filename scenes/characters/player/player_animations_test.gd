@@ -5,7 +5,7 @@ export(String,
 "Webley", "Khyber_pass_martini", 
 "Lee-metford_rifle", "Double-barrel_sawed_shotgun", 
 "Double-barrel_shotgun", "Martini_henry_rifle") var current_weapon = "Webley" setget change_gun
-export (String, "IDLE", "ADS") var weapon_state = "IDLE" setget set_weapon_state
+export (String, "IDLE", "ADS", "RELOAD") var weapon_state = "IDLE" setget set_weapon_state
 
 export (bool) var reset_to_idle_pos setget reset_animation_tree
 export (Vector3) var ads_weapon_position setget adjust_weapon_position

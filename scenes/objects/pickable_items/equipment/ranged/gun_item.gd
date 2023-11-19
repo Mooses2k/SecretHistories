@@ -24,17 +24,22 @@ export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 export var handling = 5.0
 
+export var mesh_reload_position : Vector3
+export var mesh_reload_rotation : Vector3
+
 export var ads_hold_position : Vector3
 export var ads_hold_rotation : Vector3
 var ads_reset_position : Vector3
 var ads_reset_rotation : Vector3
-
+var mesh_reset_position : Vector3 = Vector3(0, 0, 0)
 
 export var animation_reload_sequence : int 
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
+export (NodePath) var mesh_path
 
 onready var player = get_node(player_path)
+onready var mesh = get_node(mesh_path)
 
 var current_ammo : int = 0
 var current_ammo_type : Resource = null

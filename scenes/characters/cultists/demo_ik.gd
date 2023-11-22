@@ -1,5 +1,8 @@
 extends Node
 
+### Purpose of this is to stop the cultist in his tracks, then turn head to look at camera.
+### This is to provide for a cool scene for the demo trailer.
+
 
 enum DemoState {
 	NONE,

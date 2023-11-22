@@ -15,7 +15,7 @@ export var item_name : String = "Equipment"
 export var horizontal_holding : bool = false
 export var normal_pos_path : NodePath
 export var throw_pos_path : NodePath
-export var throw_logic : bool   # Some items like swords should be thrown point first
+export var throw_logic : bool   # Some items like swords should be thrown point first; TODO: name better like thrown_point_first
 export var can_spin : bool   # Some items should spin when thrown
 
 var is_in_belt = false
@@ -30,13 +30,6 @@ func _ready():
 		hold_position.rotation_degrees.z = 90
 		
 	connect("body_entered", self, "play_drop_sound")
-
-
-func _process(delta):
-	pass
-#	if throw_logic:
-#		if item_state == GlobalConsts.ItemState.EQUIPPED:
-#			self.global_rotation = normal_pos.global_rotation
 
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
@@ -84,7 +77,7 @@ func decelerate_item_velocity(delta, decelerate):
 				linear_velocity *= 0
 
 
-# TODO: needs commenting
+# TODO: needs commenting and probably fixing, is a messs
 func implement_throw_damage(higher_damage):
 	is_higher_damage = higher_damage
 	can_throw_damage = true

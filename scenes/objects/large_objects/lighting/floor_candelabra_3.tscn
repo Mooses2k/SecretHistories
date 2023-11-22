@@ -956,6 +956,7 @@ material/0 = SubResource( 147 )
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
+layers = 3
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.4
 shadow_enabled = true

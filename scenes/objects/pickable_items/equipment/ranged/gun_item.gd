@@ -24,8 +24,8 @@ export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 export var handling = 5.0
 
-export var mesh_reload_position : Vector3
-export var mesh_reload_rotation : Vector3
+export var reload_position : Vector3
+export var reload_rotation : Vector3
 
 export var ads_hold_position : Vector3
 export var ads_hold_rotation : Vector3

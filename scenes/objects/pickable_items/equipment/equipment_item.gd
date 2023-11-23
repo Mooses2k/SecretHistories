@@ -135,8 +135,7 @@ func use_unload():
 
 
 func get_hold_transform() -> Transform:
-	return $HoldPosition.transform.inverse()
-
+	return $HoldPosition.transform
 
 func apply_throw_logic():
 	if throw_logic:

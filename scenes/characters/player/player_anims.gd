@@ -155,7 +155,7 @@ func ads():
 		"parameters/MediumAds/blend_amount",
 		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.05)
 		_camera.fov = lerp(_camera.fov, 60, 0.1)
-		adjust_arm(Vector3(-0.054, -1.571, 0.253), 0.1)
+		adjust_arm(Vector3(-0.054, -1.571, 0.268), 0.1)
 
 
 func end_ads():

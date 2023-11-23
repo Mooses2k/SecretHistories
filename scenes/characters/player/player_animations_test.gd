@@ -131,7 +131,7 @@ func do_ads(value):
 					operation_tween($"%AnimationTree",
 					"parameters/MediumAds/blend_amount",
 					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.1)
-					adjust_arm(Vector3(-0.054, -1.571, 0.253))
+					adjust_arm(Vector3(-0.054, -1.571, 0.268))
 			else:
 				available_weapons.hold_position.translation = available_weapons.ads_reset_position
 				available_weapons.hold_position.rotation_degrees = available_weapons.ads_reset_rotation

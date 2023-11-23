@@ -131,8 +131,7 @@ func do_ads(value):
 					operation_tween($"%AnimationTree",
 					"parameters/MediumAds/blend_amount",
 					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.1)
-
-					adjust_arm(Vector3(-0.028, -1.639, 0.2))
+					adjust_arm(Vector3(-0.054, -1.571, 0.253))
 			else:
 				available_weapons.hold_position.translation = available_weapons.ads_reset_position
 				available_weapons.hold_position.rotation_degrees = available_weapons.ads_reset_rotation
@@ -150,8 +149,7 @@ func do_ads(value):
 					operation_tween($"%AnimationTree",
 					"parameters/MediumAds/blend_amount",
 					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
-					adjust_arm(Vector3(0.096, -1.391, 0.091))
-
+					adjust_arm(Vector3(0.008, -1.364, 0.175))
 				$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 70, 0.1)
 
 

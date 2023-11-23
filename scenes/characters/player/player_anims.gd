@@ -96,7 +96,7 @@ func check_player_animation():
 		animation_tree.set("parameters/Weapon_states/current", 4)
 
 	if inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 1:
-		adjust_arm(Vector3(0.096, -1.391, 0.091), 0.1)
+		adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
 	elif inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 0:
 		adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 	elif inventory.current_offhand_equipment and inventory.current_offhand_equipment.item_size == 0:
@@ -153,9 +153,9 @@ func ads():
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.04)
+		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.05)
 		_camera.fov = lerp(_camera.fov, 60, 0.1)
-		adjust_arm(Vector3(-0.028, -1.639, 0.2), 0.03)
+		adjust_arm(Vector3(-0.054, -1.571, 0.253), 0.1)
 
 
 func end_ads():
@@ -180,8 +180,9 @@ func end_ads():
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
 		animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
-		adjust_arm(Vector3(0.096, -1.391, 0.091), 0.1)
+		adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
 	_camera.fov = lerp(_camera.fov, 70, 0.1)
+
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

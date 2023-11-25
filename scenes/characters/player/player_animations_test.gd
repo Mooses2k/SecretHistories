@@ -106,8 +106,19 @@ func set_weapon_state(value):
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 					$"%AnimationTree".set("parameters/Weapon_states/current", 1)
 					adjust_arm(Vector3(0.096, -1.391, 0.091))
-	else:
+	elif value == "ADS":
 		do_ads(true)
+	elif value == "RELOAD":
+		print("Starting reloading")
+		print(get_equipped_weapon().item_name)
+		get_equipped_weapon().animation_player.play("reload")
+		player_reload()
+
+func player_reload():
+	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
+	$"%AnimationTree".set("parameters/ReloadAnimations/current", str(get_equipped_weapon().item_name))
 
 
 func do_ads(value):
@@ -152,6 +163,13 @@ func do_ads(value):
 					adjust_arm(Vector3(0.008, -1.364, 0.175))
 				$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 70, 0.1)
 
+
+func get_equipped_weapon() -> GunItem:
+	var equipped_weapon
+	for available_guns in $"%MainHandEquipmentRoot".get_children():
+		if available_guns is GunItem:
+			equipped_weapon = available_guns
+	return equipped_weapon
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

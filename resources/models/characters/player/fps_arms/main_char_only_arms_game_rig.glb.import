@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/MainCharOnlyArmsGameRig.glb-902db44550425a08e0297708f8fa1f97.scn"
+path="res://.import/main_char_only_arms_game_rig.glb-b7a5016d3a4f4f29f6a552d3d0a1f532.scn"
 
 [deps]
 
-source_file="res://resources/models/characters/player/fps_arms/MainCharOnlyArmsGameRig.glb"
-dest_files=[ "res://.import/MainCharOnlyArmsGameRig.glb-902db44550425a08e0297708f8fa1f97.scn" ]
+source_file="res://resources/models/characters/player/fps_arms/main_char_only_arms_game_rig.glb"
+dest_files=[ "res://.import/main_char_only_arms_game_rig.glb-b7a5016d3a4f4f29f6a552d3d0a1f532.scn" ]
 
 [params]
 
@@ -18,7 +18,7 @@ nodes/custom_script=""
 nodes/storage=0
 nodes/use_legacy_names=false
 materials/location=1
-materials/storage=0
+materials/storage=1
 materials/keep_on_reimport=true
 meshes/octahedral_compression=true
 meshes/compress=4286

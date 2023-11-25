@@ -94,31 +94,43 @@ func set_weapon_state(value):
 	weapon_state = value
 	if value == "IDLE":
 		do_ads(false)
-		for available_weapons in $"%MainHandEquipmentRoot".get_children():
-			if available_weapons is GunItem:
-				if available_weapons.item_size == 0:
-					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-					$"%AnimationTree".set("parameters/Weapon_states/current", 2)
-					adjust_arm(Vector3(0, -1.287, 0.063))
-				else:
-					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-					$"%AnimationTree".set("parameters/Weapon_states/current", 1)
-					adjust_arm(Vector3(0.096, -1.391, 0.091))
+		do_idle()
 	elif value == "ADS":
 		do_ads(true)
 	elif value == "RELOAD":
-		print("Starting reloading")
-		print(get_equipped_weapon().item_name)
 		get_equipped_weapon().animation_player.play("reload")
 		player_reload()
+		##This would be used as an animation finished signal
+		yield(get_tree().create_timer(get_equipped_weapon().animation_player.get_animation("reload").length), "timeout")
+		property_list_changed_notify()
+		do_ads(false)
+		do_idle()
+
 
 func player_reload():
+	get_equipped_weapon().hold_position.translation = get_equipped_weapon().reload_position
+	get_equipped_weapon().hold_position.rotation_degrees = get_equipped_weapon().reload_rotation
+	adjust_arm(Vector3(0.008, -1.364, 0.175))
+
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", str(get_equipped_weapon().item_name))
+
+
+func do_idle():
+	for available_weapons in $"%MainHandEquipmentRoot".get_children():
+		if available_weapons is GunItem:
+			if available_weapons.item_size == 0:
+				$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+				$"%AnimationTree".set("parameters/Weapon_states/current", 2)
+				adjust_arm(Vector3(0, -1.287, 0.063))
+			else:
+				$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+				$"%AnimationTree".set("parameters/Weapon_states/current", 1)
+				adjust_arm(Vector3(0.096, -1.391, 0.091))
 
 
 func do_ads(value):
@@ -179,5 +191,5 @@ func operation_tween(object : Object, method, tweening_from, tweening_to, durati
 
 
 func adjust_arm(final_position):
-	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.15)
+	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, 0.01)
 	$"%ADSTween".start()

@@ -5,7 +5,7 @@ var random_num_gen = RandomNumberGenerator.new()
 var random_num
 
 var is_loading = true
-var clicked = false
+var clicked = false   # User clicked after Click to Continue shown, but loadscreen still present until timeout
 
 onready var color_rect = get_node("ColorRect")
 onready var label = get_node("Label")
@@ -13,15 +13,15 @@ onready var quote = get_node("Holder/Quote")
 
 
 func _input(event: InputEvent):
-	if (
-			(
-				(event is InputEventMouseButton and event.is_pressed())
-				or event.is_action_released("ui_accept")
-			)
-			and not is_loading
-	):
+	if !clicked:   # Without this, clicking many times will cause crash in load_scene
+		if (
+				(
+					(event is InputEventMouseButton and event.is_pressed())
+					or event.is_action_released("ui_accept")
+				)
+				and not is_loading
+		):
 #		var _error = get_tree().change_scene(LoadScene.next_scene)
-		if !clicked:   # Without this, clicking many times will cause crash in load_scene
 			LoadScene.remove_loadscreen()
 			clicked = true
 

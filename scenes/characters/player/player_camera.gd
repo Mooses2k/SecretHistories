@@ -35,6 +35,7 @@ func _physics_process(_delta):
 		fov = lerp(fov, zoom_fov, 0.25)
 #		zoom_overlay.visible = true
 	else:
+		mod = 1.0
 		fov = lerp(fov, normal_fov, 0.1)
 #		zoom_overlay.visible = false
 		

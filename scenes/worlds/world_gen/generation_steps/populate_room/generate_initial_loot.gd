@@ -49,6 +49,7 @@ func _execute_step(data: WorldData, gen_data : Dictionary, generation_seed : int
 	
 	_rng.seed = generation_seed
 	
+	# TODO: this is probably where we'll set the DLvl match for different floor-loot lists
 	_generate_initial_loot_spawn_data(data, _loot_list_resource)
 
 

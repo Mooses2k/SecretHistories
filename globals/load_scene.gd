@@ -37,11 +37,13 @@ func remove_loadscreen() -> void:
 	GameManager.game.player.player_controller.no_click_after_load_period = true
 	yield(get_tree().create_timer(1), "timeout")   # Possibly 0.5 better?
 	GameManager.game.player.player_controller.no_click_after_load_period = false
+	loadscreen.visible = false
 	
 	# Wait another moment then kill the loadscreen
 	# Be aware, during this time period drop_sound doesn't play to avoid stuff falling and making sound on start
-	yield(get_tree().create_timer(5), "timeout")
-	loadscreen.queue_free()   # Crashes if hit button too many times
+	yield(get_tree().create_timer(2), "timeout")
+	if is_instance_valid(loadscreen):
+		loadscreen.queue_free()   # Crashes if hit button too many times
 	emit_signal("loading_screen_removed")
 
 

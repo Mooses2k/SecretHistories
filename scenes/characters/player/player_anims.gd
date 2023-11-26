@@ -208,8 +208,8 @@ func reload_weapons():
 
 	get_available_gun().animation_player.play("reload")
 	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length), "timeout")
-	end_ads()
-	
+	check_player_animation()
+	print("Finished Reloading")
 
 
 func get_available_gun() -> GunItem:

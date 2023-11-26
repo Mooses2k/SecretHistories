@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://resources/effects/bloodScreen.png" type="Texture" id=11]
 [ext_resource path="res://scenes/characters/player/indication_canvas.gd" type="Script" id=12]
 [ext_resource path="res://resources/animations/double_barrel_reload.tres" type="Animation" id=13]
+[ext_resource path="res://resources/models/characters/player/fps_arms/LongCoat_001.material" type="Material" id=14]
 [ext_resource path="res://scenes/characters/player/player_camera.gd" type="Script" id=15]
 [ext_resource path="res://scenes/characters/player/player_death.gd" type="Script" id=16]
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=17]
@@ -1461,7 +1462,7 @@ nodes/Weapon_states/position = Vector2( 300, 20 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -720, 980 )
 nodes/output/position = Vector2( 2400, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Hand_Transition", 0, "OffHand_MainHand_Blend", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "ReloadAnimations", 0, "DoubleBarrelReload_Anim", "ReloadAnimations", 1, "HenryReload_Anim", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload" ]
+node_connections = [ "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Hand_Transition", 0, "OffHand_MainHand_Blend", "ReloadAnimations", 0, "DoubleBarrelReload_Anim", "ReloadAnimations", 1, "HenryReload_Anim", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "output", 0, "Hand_Transition" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -1478,11 +1479,9 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 [node name="PlayerAnimationsTest" type="Node" parent="." index="0"]
 unique_name_in_owner = true
 script = ExtResource( 31 )
-current_weapon = "Double-barrel_shotgun"
-weapon_state = "RELOAD"
 reset_to_idle_pos = true
-ads_weapon_position = Vector3( 0.042, 0.005, -0.228 )
-ads_weapon_rotation = Vector3( -5.198, -23.28, 13.504 )
+ads_weapon_position = Vector3( 0.013, -0.053, 0.07 )
+ads_weapon_rotation = Vector3( -2.186, -2.344, -10.018 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -1755,12 +1754,12 @@ active = true
 parameters/Hand_Transition/current = 0
 parameters/Hold_Animation/current = 0
 parameters/MediumAds/blend_amount = 0.0
-parameters/OffHand_MainHand_Blend/blend_amount = 0
+parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
 parameters/ReloadAnimations/current = "Double-barrel shotgun"
 parameters/SmallAds/blend_amount = 1.0
-parameters/Weapon_states/current = 1
+parameters/Weapon_states/current = 4
 
 [node name="FPSCamera" type="Camera" parent="." index="27"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
@@ -1770,20 +1769,17 @@ script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 32 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.096, -1.391, 0.091 )
-
-[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
-bones/113/bound_children = [ NodePath("OffHandAttachement") ]
-bones/137/bound_children = [ NodePath("MainHandAttachement") ]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
 
 [node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2
 
 [node name="InnerShirtLP" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="1"]
 layers = 2
+material/0 = ExtResource( 14 )
 
 [node name="MainHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="2"]
-transform = Transform( -0.817343, 0.121107, 0.563279, 0.520378, -0.264465, 0.811951, 0.2473, 0.95676, 0.153137, -0.179927, 1.19252, 0.113543 )
+transform = Transform( -0.983741, -0.158619, -0.0842258, 0.154346, -0.986481, 0.0550606, -0.0918209, 0.0411653, 0.994924, -0.239207, 0.857907, 0.0044873 )
 bone_name = "DEF-hand.R"
 
 [node name="MainHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement" index="0"]
@@ -1794,7 +1790,7 @@ __meta__ = {
 }
 
 [node name="OffHandAttachement" type="BoneAttachment" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="3"]
-transform = Transform( -0.523286, -0.659122, 0.540121, 0.850104, -0.447742, 0.277217, 0.0591148, 0.604223, 0.794619, -0.0402337, 1.20076, 0.456939 )
+transform = Transform( -0.986521, 0.144371, 0.0770251, -0.148531, -0.987576, -0.0513085, 0.0686606, -0.0620576, 0.995708, 0.235778, 0.86657, 0.009877 )
 bone_name = "DEF-hand.L"
 
 [node name="OffHandEquipmentRoot" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement" index="0"]
@@ -1896,15 +1892,12 @@ playback/repeat = true
 [connection signal="character_died" from="." to="PlayerDeath" method="_on_Player_character_died"]
 [connection signal="is_hit" from="." to="HitEffect" method="_on_Player_is_hit"]
 [connection signal="player_landed" from="." to="PlayerController" method="_on_Player_player_landed"]
-[connection signal="inventory_changed" from="Inventory" to="PlayerAnimations" method="_on_Inventory_inventory_changed"]
-[connection signal="unequip_mainhand" from="Inventory" to="PlayerAnimations" method="_on_Inventory_unequip_mainhand"]
-[connection signal="unequip_offhand" from="Inventory" to="PlayerAnimations" method="_on_Inventory_unequip_offhand"]
 [connection signal="tween_completed" from="HitEffect/Tween" to="HitEffect" method="_on_Tween_tween_completed"]
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
-[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun/Effects" method="_on_GunItem_on_shoot"]
-[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun/Effects" method="_on_GunItem_target_hit"]
+[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_on_shoot"]
+[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/WebleyRevolver/Effects" method="_on_RevolverItem_target_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_body_entered"]

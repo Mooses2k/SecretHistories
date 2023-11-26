@@ -28,6 +28,18 @@ onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 onready var _camera : ShakeCamera = get_node(_cam_path) as Camera
 onready var animation_tree = $"%AnimationTree"
 
+#signal inventory_changed
+## Emitted to hide the HUD UI when player dies
+#signal player_died
+#
+#signal unequip_mainhand
+#signal unequip_offhand
+
+func _ready():
+	inventory.connect("inventory_changed", self, "_on_Inventory_inventory_changed")
+	inventory.connect("unequip_mainhand", self, "_on_Inventory_unequip_mainhand")
+	inventory.connect("unequip_offhand", self, "_on_Inventory_unequip_offhand")
+
 
 func _process(delta):
 	if not $"..".is_reloading:   # TODO: messy
@@ -182,6 +194,26 @@ func end_ads():
 		animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
 		adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
 	_camera.fov = lerp(_camera.fov, 70, 0.1)
+
+
+func reload_weapons():
+	print("Held gun is: ", get_available_gun())
+	get_available_gun().hold_position.translation = get_available_gun().reload_position
+	get_available_gun().hold_position.rotation_degrees = get_available_gun().reload_rotation
+	adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
+	animation_tree.set("parameters/Hand_Transition/current", 0)
+	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+	animation_tree.set("parameters/Weapon_states/current", 3)
+	animation_tree.set("parameters/ReloadAnimations/current", str(get_available_gun().item_name))
+
+	get_available_gun().animation_player.play("reload")
+	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length), "timeout")
+	end_ads()
+	
+
+
+func get_available_gun() -> GunItem:
+	return inventory.current_mainhand_equipment
 
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):

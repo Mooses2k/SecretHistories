@@ -373,7 +373,7 @@ stream = ExtResource( 12 )
 bus = "Effects"
 
 [node name="HoldPosition" parent="." index="8"]
-transform = Transform( 0.900505, 0.154789, -0.406364, -0.203905, 0.9757, -0.0801989, 0.384075, 0.155079, 0.910185, 0.058, 0.039, -0.176 )
+transform = Transform( 0.913258, -0.0287745, -0.406364, -0.00427967, 0.996769, -0.0801989, 0.407359, 0.0749814, 0.910185, 0.058, 0.039, -0.176 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 unique_name_in_owner = true

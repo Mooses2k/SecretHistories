@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" type="Script" id=6]
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" type="Resource" id=7]
 [ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
-[ext_resource path="res://utils/debug_scenes/room_graph_viz/RoomGraphViz.tscn" type="PackedScene" id=9]
+[ext_resource path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=11]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=12]
@@ -129,7 +129,7 @@ _max_loot = 15
 script = ExtResource( 15 )
 _character_scene_path = "res://scenes/characters/cultists/neophyte.tscn"
 _density_by_type = {
-1: 0.03,
+1: 0.02,
 2: 0.0,
 3: 0
 }

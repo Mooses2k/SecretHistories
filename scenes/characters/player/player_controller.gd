@@ -583,10 +583,14 @@ func drop_grabable():
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(false)
-				else:   # It's a tiny item
+				elif grab_object is PickableItem:   # It's a tiny item
 					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
+				elif grab_object is RigidBody:   # It's a large object
+					grab_object.apply_central_impulse(impulse)
+				else:   # It's a static?
+					pass
 				wanna_grab = false
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false
@@ -685,6 +689,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
 
+
 func handle_screen_filters():
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("misc|change_screen_filter"):
@@ -728,7 +733,7 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 		print("Screen Filter: REDUCE_COLOR")
 		_screen_filter.visible = true
 		_screen_filter.set_surface_material(
-				0, preload("res://resources/shaders/reduce_color/reduce_color.tres")
+				0, preload("res://resources/shaders/psx/just_color_reduce.tres")
 		)
 	# We're haven't implemented the mesh shader yet
 	if current_screen_filter == GameManager.ScreenFilter.PSX:

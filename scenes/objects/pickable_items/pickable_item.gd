@@ -85,34 +85,36 @@ func play_throw_sound():
 
 
 func play_drop_sound(body):
-	if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
-		self.audio_player.stream = self.item_drop_sound
-		
-		if "Cultist" in body.name:
-			self.audio_player.stream = self.item_drop_sound_flesh
+	if !is_instance_valid(LoadScene.loadscreen):   # If it's at least a few seconds after level load
+		if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
+			self.audio_player.stream = self.item_drop_sound
 			
-			if self.get("primary_damage1"): # Drop sound volume depends on item damage when cultist is the collided body
-				if self.get("can_spin"): # If item can spin (cutting attack), use secondary damage
-					self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.secondary_damage1 + self.secondary_damage2)
-					self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.secondary_damage1 + self.secondary_damage2)
-				else: # If item cannot spin (thrown point first / thrust attack), use primary damage
-					self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.primary_damage1 + self.primary_damage2)
-					self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.primary_damage1 + self.primary_damage2)
+			if "Cultist" in body.name:
+				self.audio_player.stream = self.item_drop_sound_flesh
+				
+				if self.get("primary_damage1"): 
+					# Drop sound volume depends on item damage when cultist is the collided body
+					if self.get("can_spin"):   # If item can spin (cutting attack), use secondary damage
+						self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.secondary_damage1 + self.secondary_damage2)
+						self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.secondary_damage1 + self.secondary_damage2)
+					else:   # If item cannot spin (thrown point first / thrust attack), use primary damage
+						self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.primary_damage1 + self.primary_damage2)
+						self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.primary_damage1 + self.primary_damage2)
+				else:
+					self.item_drop_sound_level = self.linear_velocity.length() * 0.05
+					self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
 			else:
-				self.item_drop_sound_level = self.linear_velocity.length() * 0.05
+				self.item_drop_sound_level = self.linear_velocity.length() * 5.0
 				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
-		else:
-			self.item_drop_sound_level = self.linear_velocity.length() * 5.0
-			self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
-			
-		self.audio_player.unit_db = clamp(self.item_drop_sound_level, 5.0, 20.0)  
-		self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
-		self.audio_player.bus = "Effects"
-		self.audio_player.play()
-		self.noise_level = clamp((self.item_max_noise_level * self.linear_velocity.length()), 1.0, 5.0)
-		print("noise_level == " + str(self.noise_level))
-		self.is_soundplayer_ready = false
-		start_delay()
+				
+			self.audio_player.unit_db = clamp(self.item_drop_sound_level, 5.0, 20.0)  
+			self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
+			self.audio_player.bus = "Effects"
+			self.audio_player.play()
+			self.noise_level = clamp((self.item_max_noise_level * self.linear_velocity.length()), 1.0, 5.0)
+			print("noise_level == " + str(self.noise_level))
+			self.is_soundplayer_ready = false
+			start_delay()
 
 
 func start_delay():

@@ -85,6 +85,7 @@ func _on_UpDetector_body_entered(body: Node) -> void:
 	
 	if GameManager.game.current_floor_level == -1:
 		$CantLeaveMessage.visible = true
+		$CantLeaveMessage.set_modulate(Color(1, 1, 1, 1))
 		$CantLeaveMessage/CantLeaveTimer.start()
 
 
@@ -98,7 +99,7 @@ func _on_Timer_timeout():
 
 func _on_CantLeaveTimer_timeout():
 	get_tree().create_tween()\
-		.tween_property($CantLeaveMessageloadscreen, "modulate", Color(0, 0, 0, 0), 1.0)\
+		.tween_property($CantLeaveMessage, "modulate", Color(0, 0, 0, 0), 1.0)\
 		.set_ease(Tween.EASE_IN)
 	yield(get_tree().create_timer(1), "timeout")
 	$CantLeaveMessage.visible = false

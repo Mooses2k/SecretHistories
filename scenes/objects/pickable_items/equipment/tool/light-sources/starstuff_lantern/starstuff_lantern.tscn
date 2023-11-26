@@ -125,6 +125,10 @@ item_drop_sound = ExtResource( 3 )
 can_attach = true
 item_name = "Starstuff Lantern"
 horizontal_holding = true
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 life_percentage_lose = 0.1
 prob_going_out = 0.5
 
@@ -147,6 +151,7 @@ autostart = true
 
 [node name="Light" type="OmniLight" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.123883, 0 )
+layers = 3
 light_color = Color( 0.333333, 0.207843, 0.333333, 1 )
 light_specular = 16.0
 shadow_enabled = true

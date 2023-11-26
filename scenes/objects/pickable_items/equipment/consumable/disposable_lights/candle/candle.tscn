@@ -152,7 +152,7 @@ transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -0.0
 shape = SubResource( 56 )
 
 [node name="HoldPosition" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000629678, -0.0187822, -0.000822701 )
 __meta__ = {
 "_editor_description_": ""
 }
@@ -173,6 +173,7 @@ __meta__ = {
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 visible = false
+layers = 3
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.25
 shadow_enabled = true

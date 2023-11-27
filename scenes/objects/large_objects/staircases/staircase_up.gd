@@ -10,16 +10,16 @@ extends LevelStaircase
 
 const UP_FACING_ROTATIONS = {
 	WorldData.Direction.NORTH: PI,
-	WorldData.Direction.EAST: 0.5*PI,
+	WorldData.Direction.EAST: 0.5 * PI,
 	WorldData.Direction.SOUTH: 0,
-	WorldData.Direction.WEST: 1.5*PI,
+	WorldData.Direction.WEST: 1.5 * PI,
 }
 
 const PLAYER_FACING_ROTATIONS = {
 	WorldData.Direction.NORTH: 0,
-	WorldData.Direction.EAST: 1.5*PI,
+	WorldData.Direction.EAST: 1.5 * PI,
 	WorldData.Direction.SOUTH: PI,
-	WorldData.Direction.WEST: 0.5*PI,
+	WorldData.Direction.WEST: 0.5 * PI,
 }
 
 #--- public variables - order: export > normal var > onready --------------------------------------

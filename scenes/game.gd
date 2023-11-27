@@ -58,6 +58,7 @@ func _ready():
 	yield(get_tree().create_timer(1), "timeout")
 	var _error = connect("level_loaded", self, "_on_first_level_loaded", [], CONNECT_ONESHOT)
 	load_level(start_level_scn)
+	
 	BackgroundMusic.stop()
 
 ### -----------------------------------------------------------------------------------------------
@@ -87,6 +88,24 @@ func load_level(packed : PackedScene):
 		world_root.add_child(level)
 		# this needs a yield because this function is called from within another yield
 		yield(get_tree(), "idle_frame")
+	
+	# Ambient music controllerprint("Current floor level: ", current_floor_level)
+	match current_floor_level:
+		-1:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-2:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-3:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-4:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-5:
+			BackgroundMusic.stop()   # Music will be the gregorian chanting from the shard
+			print("Level 5, stop music")
 	
 	emit_signal("level_loaded", level)
 

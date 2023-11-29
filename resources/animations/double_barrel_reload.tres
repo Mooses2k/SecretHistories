@@ -2,7 +2,7 @@
 
 [resource]
 resource_name = "all_together"
-length = 4.75
+length = 4.8
 tracks/0/type = "transform"
 tracks/0/path = NodePath("rig_deform/Skeleton:DEF-ear.L")
 tracks/0/interp = 1

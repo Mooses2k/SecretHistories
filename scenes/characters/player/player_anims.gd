@@ -198,10 +198,6 @@ func end_ads():
 
 
 func reload_weapons():
-#	operation_tween(animation_tree, "parameters/Hand_Transition/current", animation_tree.get("parameters/Hand_Transition/current"), 0.0, 0.1)
-#	operation_tween(animation_tree, "parameters/OffHand_MainHand_Blend/blend_amount", animation_tree.get("parameters/OffHand_MainHand_Blend/blend_amount"), 0.0, 0.1)
-#	operation_tween(animation_tree, "parameters/Weapon_states/current", animation_tree.get("parameters/Weapon_states/current"), 3.0, 0.1)
-#	operation_tween(animation_tree, "parameters/ReloadAnimations/current", animation_tree.get("parameters/ReloadAnimations/current"), str(get_available_gun().item_name), 0.1)
 #
 	get_available_gun().hold_position.translation = get_available_gun().reload_position
 	get_available_gun().hold_position.rotation_degrees = get_available_gun().reload_rotation

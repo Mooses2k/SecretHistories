@@ -98,14 +98,14 @@ func set_weapon_state(value):
 	if value == "IDLE":
 		do_ads(false)
 		do_idle()
+	
 	elif value == "ADS":
 		do_ads(true)
+	
 	elif value == "RELOAD":
 		get_equipped_weapon().animation_player.play("reload")
 		player_reload()
-		##This would be used as an animation finished signal
 		yield(get_tree().create_timer(get_equipped_weapon().animation_player.get_animation("reload").length), "timeout")
-		property_list_changed_notify()
 		do_ads(false)
 		do_idle()
 

@@ -82,9 +82,14 @@ func check_player_animation():
 			animation_tree.set("parameters/Hand_Transition/current", 0)
 			animation_tree.set("parameters/Weapon_states/current", 2)
 		else:
-			animation_tree.set("parameters/Hand_Transition/current", 0)
-			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-			animation_tree.set("parameters/Weapon_states/current", 1)
+			if inventory.current_mainhand_equipment.item_name == "Double-barrel shotgun":
+				animation_tree.set("parameters/Hand_Transition/current", 0)
+				animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+				animation_tree.set("parameters/Weapon_states/current", "Shotgun")
+			else:
+				animation_tree.set("parameters/Hand_Transition/current", 0)
+				animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+				animation_tree.set("parameters/Weapon_states/current", 1)
 			unequip_offhand()
 	
 	elif inventory.current_mainhand_equipment is EmptyHand:
@@ -164,9 +169,14 @@ func ads():
 		adjust_arm(Vector3(-0.054, -1.571, 0.187), 0.1)
 		
 	else:
-		operation_tween(animation_tree,
-		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.05)
+		if inventory.current_mainhand_equipment.item_name == "Double-barrel shotgun":
+			operation_tween(animation_tree,
+			"parameters/ShotgunAds/blend_amount",
+			animation_tree.get("parameters/ShotgunAds/blend_amount"), 1.0, 0.05)
+		else:
+			operation_tween(animation_tree,
+			"parameters/MediumAds/blend_amount",
+			animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.05)
 		_camera.fov = lerp(_camera.fov, 60, 0.1)
 		adjust_arm(Vector3(-0.054, -1.571, 0.257), 0.1)
 

@@ -130,9 +130,14 @@ func do_idle():
 				$"%AnimationTree".set("parameters/Weapon_states/current", 2)
 				adjust_arm(Vector3(0, -1.287, 0.063))
 			else:
-				$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-				$"%AnimationTree".set("parameters/Weapon_states/current", 1)
+				if get_equipped_weapon().item_name == "Double-barrel shotgun":
+					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+					$"%AnimationTree".set("parameters/Weapon_states/current", 5)
+				else:
+					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+					$"%AnimationTree".set("parameters/Weapon_states/current", 1)
 				adjust_arm(Vector3(0.096, -1.391, 0.091))
 
 
@@ -154,11 +159,16 @@ func do_ads(value):
 					adjust_arm(Vector3(-0.086, -1.558, 0.294))
 
 				else:
-					operation_tween($"%AnimationTree",
-					"parameters/MediumAds/blend_amount",
-					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.005)
-					adjust_arm(Vector3(-0.054, -1.571, 0.257))
-					gun_cam.transform = lerp(gun_cam.transform, Vector3(0, 1.538, 0), 0.1)
+					if get_equipped_weapon().item_name == "Double-barrel shotgun":
+						operation_tween(animation_tree,
+						"parameters/ShotgunAds/blend_amount",
+						animation_tree.get("parameters/ShotgunAds/blend_amount"), 1.0, 0.05)
+					else:
+						operation_tween($"%AnimationTree",
+						"parameters/MediumAds/blend_amount",
+						$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.005)
+						adjust_arm(Vector3(-0.054, -1.571, 0.257))
+						gun_cam.transform = lerp(gun_cam.transform, Vector3(0, 1.538, 0), 0.1)
 			else:
 				get_equipped_weapon().hold_position.translation = get_equipped_weapon().ads_reset_position
 				get_equipped_weapon().hold_position.rotation_degrees = get_equipped_weapon().ads_reset_rotation

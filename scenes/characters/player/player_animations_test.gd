@@ -157,7 +157,7 @@ func do_ads(value):
 					operation_tween($"%AnimationTree",
 					"parameters/MediumAds/blend_amount",
 					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.005)
-					adjust_arm(Vector3(-0.054, -1.571, 0.187))
+					adjust_arm(Vector3(-0.054, -1.571, 0.257))
 					gun_cam.transform = lerp(gun_cam.transform, Vector3(0, 1.538, 0), 0.1)
 			else:
 				get_equipped_weapon().hold_position.translation = get_equipped_weapon().ads_reset_position

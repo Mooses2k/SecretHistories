@@ -52,7 +52,6 @@ func _physics_process(delta):
 
 
 func check_player_animation():
-	print("Testing animation player")
 	### Off-hand item
 	if inventory.current_offhand_equipment is GunItem:
 		animation_tree.set("parameters/Hand_Transition/current", 0)
@@ -167,9 +166,9 @@ func ads():
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.03)
+		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.05)
 		_camera.fov = lerp(_camera.fov, 60, 0.1)
-		adjust_arm(Vector3(-0.054, -1.571, 0.192), 0.1)
+		adjust_arm(Vector3(-0.054, -1.571, 0.257), 0.1)
 
 
 func end_ads():
@@ -199,15 +198,19 @@ func end_ads():
 
 
 func reload_weapons():
+#	operation_tween(animation_tree, "parameters/Hand_Transition/current", animation_tree.get("parameters/Hand_Transition/current"), 0.0, 0.1)
+#	operation_tween(animation_tree, "parameters/OffHand_MainHand_Blend/blend_amount", animation_tree.get("parameters/OffHand_MainHand_Blend/blend_amount"), 0.0, 0.1)
+#	operation_tween(animation_tree, "parameters/Weapon_states/current", animation_tree.get("parameters/Weapon_states/current"), 3.0, 0.1)
+#	operation_tween(animation_tree, "parameters/ReloadAnimations/current", animation_tree.get("parameters/ReloadAnimations/current"), str(get_available_gun().item_name), 0.1)
+#
+	get_available_gun().hold_position.translation = get_available_gun().reload_position
+	get_available_gun().hold_position.rotation_degrees = get_available_gun().reload_rotation
 	adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
-	operation_tween(animation_tree, "parameters/Hand_Transition/current", animation_tree.get("parameters/Hand_Transition/current"), 0.0, 0.1)
-	operation_tween(animation_tree, "parameters/OffHand_MainHand_Blend/blend_amount", animation_tree.get("parameters/OffHand_MainHand_Blend/blend_amount"), 0.0, 0.1)
-	operation_tween(animation_tree, "parameters/Weapon_states/current", animation_tree.get("parameters/Weapon_states/current"), 3.0, 0.1)
-	
-	animation_tree.set("parameters/Hand_Transition/current", 0)
-	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-	animation_tree.set("parameters/Weapon_states/current", 3)
-	animation_tree.set("parameters/ReloadAnimations/current", str(get_available_gun().item_name))
+
+	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
+	$"%AnimationTree".set("parameters/ReloadAnimations/current", str(get_available_gun().item_name))
 
 	get_available_gun().animation_player.play("reload")
 	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length), "timeout")

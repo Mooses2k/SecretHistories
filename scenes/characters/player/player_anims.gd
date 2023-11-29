@@ -27,6 +27,7 @@ onready var inventory = $"../Inventory"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 onready var _camera : ShakeCamera = get_node(_cam_path) as Camera
 onready var animation_tree = $"%AnimationTree"
+onready var gun_cam = $"../FPSCamera/ViewportContainer/Viewport/GunCam"
 
 #signal inventory_changed
 ## Emitted to hide the HUD UI when player dies
@@ -161,11 +162,12 @@ func ads():
 		"parameters/SmallAds/blend_amount", 
 		animation_tree.get("parameters/SmallAds/blend_amount"),1.0, 0.1)
 		_camera.fov = lerp(_camera.fov, 65, 0.1)
-		adjust_arm(Vector3(-0.086, -1.558, 0.294), 0.1)
+		adjust_arm(Vector3(-0.054, -1.571, 0.187), 0.1)
+		
 	else:
 		operation_tween(animation_tree,
 		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.05)
+		animation_tree.get("parameters/MediumAds/blend_amount"), 1.0, 0.03)
 		_camera.fov = lerp(_camera.fov, 60, 0.1)
 		adjust_arm(Vector3(-0.054, -1.571, 0.192), 0.1)
 
@@ -197,10 +199,11 @@ func end_ads():
 
 
 func reload_weapons():
-	print("Held gun is: ", get_available_gun())
-	get_available_gun().hold_position.translation = get_available_gun().reload_position
-	get_available_gun().hold_position.rotation_degrees = get_available_gun().reload_rotation
 	adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
+	operation_tween(animation_tree, "parameters/Hand_Transition/current", animation_tree.get("parameters/Hand_Transition/current"), 0.0, 0.1)
+	operation_tween(animation_tree, "parameters/OffHand_MainHand_Blend/blend_amount", animation_tree.get("parameters/OffHand_MainHand_Blend/blend_amount"), 0.0, 0.1)
+	operation_tween(animation_tree, "parameters/Weapon_states/current", animation_tree.get("parameters/Weapon_states/current"), 3.0, 0.1)
+	
 	animation_tree.set("parameters/Hand_Transition/current", 0)
 	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 	animation_tree.set("parameters/Weapon_states/current", 3)

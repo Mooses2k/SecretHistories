@@ -506,7 +506,6 @@ func _handle_inventory(delta : float):
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
-			character.player_animations.reload_weapons()
 			_reload_press_timer = Time.get_ticks_msec()
 			
 	if Input.is_action_just_released("player|reload"):

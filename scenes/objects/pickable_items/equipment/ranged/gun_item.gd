@@ -150,6 +150,9 @@ func reload():
 					_queued_reload_type = ammo_type
 					owner_character.is_reloading = true
 					print(owner_character.animation_tree)
+					##This is the reload animations
+					if "Player" in owner_character.name:
+						owner_character.player_animations.reload_weapons()
 #					print(player.owner)
 					# Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()

@@ -439,7 +439,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/worlds/world_gen/helper_objects/room_data.gd"
 }, {
-"base": "Reference",
+"base": "Node2D",
 "class": "RoomGraphViz",
 "language": "GDScript",
 "path": "res://utils/debug_scenes/room_graph_viz/room_graph_viz.gd"

@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 			emit_signal("detected_light_source", light_source)
 			emit_signal\
 			(
-				"detected_light_source",
+				"sensory_input",
 				light_source.global_transform.origin,
 				light_source,
 				75

@@ -474,10 +474,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.gd"
 }, {
-"base": "Node",
-"class": "SoundListener",
+"base": "Reference",
+"class": "SoundSensor",
 "language": "GDScript",
-"path": "res://scenes/sensors/sound_listener.gd"
+"path": "res://scenes/sensors/sound_sensor.gd"
 }, {
 "base": "Resource",
 "class": "SpawnData",
@@ -633,7 +633,7 @@ _global_script_class_icons={
 "SettingsClass": "",
 "ShakeCamera": "",
 "ShardOfTheComet": "",
-"SoundListener": "",
+"SoundSensor": "",
 "SpawnData": "",
 "Spawner": "",
 "Spike": "",

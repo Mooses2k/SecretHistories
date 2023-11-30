@@ -58,6 +58,7 @@ func _ready():
 	yield(get_tree().create_timer(1), "timeout")
 	var _error = connect("level_loaded", self, "_on_first_level_loaded", [], CONNECT_ONESHOT)
 	load_level(start_level_scn)
+	
 	BackgroundMusic.stop()
 
 ### -----------------------------------------------------------------------------------------------
@@ -87,6 +88,24 @@ func load_level(packed : PackedScene):
 		world_root.add_child(level)
 		# this needs a yield because this function is called from within another yield
 		yield(get_tree(), "idle_frame")
+	
+	# Ambient music controllerprint("Current floor level: ", current_floor_level)
+	match current_floor_level:
+		-1:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-2:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-3:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-4:
+			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.play()
+		-5:
+			BackgroundMusic.stop()   # Music will be the gregorian chanting from the shard
+			print("Level 5, stop music")
 	
 	emit_signal("level_loaded", level)
 
@@ -123,6 +142,9 @@ func disconnect_staircase_events() -> void:
 	if Events.is_connected("down_staircase_used", self, "_on_Events_down_staircase_used"):
 		# warning-ignore:return_value_discarded
 		Events.disconnect("down_staircase_used", self, "_on_Events_down_staircase_used")
+
+func _check_if_loadscreen_freed():
+	return !is_instance_valid(LoadScene.loadscreen)
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -164,30 +186,32 @@ func _set_new_position_for_player(is_going_downstairs: bool) -> void:
 
 
 func _on_Events_up_staircase_used() -> void:
-	var old_value := current_floor_level
-	current_floor_level = int(min(HIGHEST_FLOOR_LEVEL, current_floor_level + 1))
-	var has_changed := old_value != current_floor_level
-	
-	if has_changed:
-		print("Floor level changed from: %s to: %s" % [old_value, current_floor_level])
-		yield(_handle_floor_change(false), "completed")
-	elif current_floor_level == HIGHEST_FLOOR_LEVEL:
-		if player.inventory.bulky_equipment is ShardOfTheComet:
-			print("Win screen")
-			get_tree().change_scene("res://scenes/ui/victory_screen.tscn")
-		else:
-			print("You're already at the top of the dungeon, can't go up.")
+	if _check_if_loadscreen_freed():   # Wait a few seconds before can go back up
+		var old_value := current_floor_level
+		current_floor_level = int(min(HIGHEST_FLOOR_LEVEL, current_floor_level + 1))
+		var has_changed := old_value != current_floor_level
+		
+		if has_changed:
+			print("Floor level changed from: %s to: %s" % [old_value, current_floor_level])
+			yield(_handle_floor_change(false), "completed")
+		elif current_floor_level == HIGHEST_FLOOR_LEVEL:
+			if player.inventory.bulky_equipment is ShardOfTheComet:
+				print("Win screen")
+				get_tree().change_scene("res://scenes/ui/victory_screen.tscn")
+			else:
+				print("You're already at the top of the dungeon, can't go up.")
 
 
 func _on_Events_down_staircase_used() -> void:
-	var old_value := current_floor_level
-	current_floor_level = int(max(LOWEST_FLOOR_LEVEL, current_floor_level - 1))
-	var has_changed := old_value != current_floor_level
-	
-	if has_changed:
-		print("Went down from: %s to: %s" % [old_value, current_floor_level])
-		yield(_handle_floor_change(true), "completed")
-	elif current_floor_level == LOWEST_FLOOR_LEVEL:
-		print("You're already at the bottom of the dungeon, can't go lower.")
+	if _check_if_loadscreen_freed():   # Wait a few seconds before can go back down
+		var old_value := current_floor_level
+		current_floor_level = int(max(LOWEST_FLOOR_LEVEL, current_floor_level - 1))
+		var has_changed := old_value != current_floor_level
+		
+		if has_changed:
+			print("Went down from: %s to: %s" % [old_value, current_floor_level])
+			yield(_handle_floor_change(true), "completed")
+		elif current_floor_level == LOWEST_FLOOR_LEVEL:
+			print("You're already at the bottom of the dungeon, can't go lower.")
 
 ### -----------------------------------------------------------------------------------------------

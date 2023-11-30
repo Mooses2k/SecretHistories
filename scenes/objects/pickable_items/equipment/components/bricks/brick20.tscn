@@ -3,7 +3,7 @@
 [ext_resource path="res://resources/sounds/impacts/brick/593473__georgesavic__throwing-brick1.ogg" type="AudioStream" id=1]
 [ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
-[ext_resource path="res://resources/models/items/components/debris/M_Wall.material" type="Material" id=5]
+[ext_resource path="res://resources/models/gridmap/modular_pieces/M_Wall.material" type="Material" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ArrayMesh" id=23]
@@ -15,7 +15,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 444,
-"material": ExtResource( 5 ),
+"material": ExtResource( 4 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 119
@@ -29,6 +29,7 @@ radius = 0.101082
 
 [node name="Brick20" instance=ExtResource( 10 )]
 collision_layer = 64
+collision_mask = 65
 mass = 1.0
 item_drop_sound = ExtResource( 1 )
 item_throw_sound = ExtResource( 3 )

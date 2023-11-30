@@ -7,3 +7,6 @@ shader = ExtResource( 1 )
 shader_param/color_depth = 5
 shader_param/dithering = true
 shader_param/resolution_scale = 4
+shader_param/brightness_correct = true
+shader_param/pitch_black_threshold = 0.116
+shader_param/dithering_adjust = 10.0

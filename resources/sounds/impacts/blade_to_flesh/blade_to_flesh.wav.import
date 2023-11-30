@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/blade_to_flesh.wav-b4196da1f30421e377668b7afee4e14c.sample"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav"
+dest_files=[ "res://.import/blade_to_flesh.wav-b4196da1f30421e377668b7afee4e14c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

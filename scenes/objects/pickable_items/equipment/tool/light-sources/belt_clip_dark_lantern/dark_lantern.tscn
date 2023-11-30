@@ -109,6 +109,10 @@ extents = Vector3( 0.04, 0.04, 0.04 )
 [node name="DarkLantern" instance=ExtResource( 1 )]
 can_attach = true
 item_name = "Dark Lantern"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 is_oil_based = true
 life_percentage_lose = 0.1
 prob_going_out = 0.5
@@ -127,6 +131,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0335044, 0.0963702 )
 
 [node name="Light" type="SpotLight" parent="." index="3"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0232877, -0.100272 )
+layers = 3
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.5
 shadow_enabled = true

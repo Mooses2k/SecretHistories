@@ -77,7 +77,6 @@ width = 300.0
 
 [node name="CantLeaveTimer" type="Timer" parent="CantLeaveMessage"]
 wait_time = 2.0
-one_shot = true
 
 [connection signal="body_entered" from="UpDetector" to="." method="_on_UpDetector_body_entered"]
 [connection signal="timeout" from="LevelMessage/Timer" to="." method="_on_Timer_timeout"]

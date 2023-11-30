@@ -109,6 +109,7 @@ autostart = true
 
 [node name="Light" type="OmniLight" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0673865, 0 )
+layers = 3
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 omni_range = 13.0

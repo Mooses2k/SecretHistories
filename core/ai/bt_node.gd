@@ -2,7 +2,8 @@ class_name BTNode
 extends Node
 
 
-enum Status {
+enum Status\
+{
 	SUCCESS,
 	FAILURE,
 	RUNNING,

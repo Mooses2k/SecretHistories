@@ -58,3 +58,11 @@ func get_most_interesting() -> Event:
 	if sorted_events.empty(): return null
 	sorted_events.sort_custom(self, "sort_event_custom_sort")
 	return sorted_events[-1]
+
+
+func tick(state: CharacterState) -> int:
+	var most_interesting := get_most_interesting()
+	if is_instance_valid(most_interesting):
+		state.target_position = most_interesting.position
+		return Status.SUCCESS
+	return Status.FAILURE

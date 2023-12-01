@@ -2334,3 +2334,5 @@ script = ExtResource( 25 )
 [connection signal="character_detected" from="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor/BTPlayerSensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
 [connection signal="fighting" from="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTShoot" to="Audio" method="_on_BT_Shoot_fighting"]
 [connection signal="character_idled" from="BehaviorTree/BTSelector/BT_Sequence_Idle/BTWaitRandom" to="Audio" method="_on_BT_Wait_Random_character_idled"]
+[connection signal="event" from="Body/LightSensor/PlayerLightSensor" to="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor/BTIndirectSensor" method="set_event"]
+[connection signal="event" from="Body/SoundSensor" to="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor/BTIndirectSensor" method="set_event"]

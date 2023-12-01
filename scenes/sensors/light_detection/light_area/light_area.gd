@@ -53,4 +53,6 @@ func get_aabb() -> AABB:
 
 
 func check_point(point: Vector3) -> bool: # Returns `true` if the raycast towards the point doesn't collide.
-	return get_world().direct_space_state.intersect_ray(global_transform.origin, point, [], 1 << 0).empty()
+	var world := get_world()
+	if !is_instance_valid(world): return false
+	return world.direct_space_state.intersect_ray(global_transform.origin, point, [], 1 << 0).empty()

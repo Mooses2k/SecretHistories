@@ -43,7 +43,13 @@ func _process(_delta: float) -> void:
 func check_light() -> bool:
 	var player_light_area := get_player_light_area()
 	if !is_instance_valid(player_light_area): return false
-	
+	# dude
+	if !(player_light_area.parent_item is CandelabraItem or
+		 player_light_area.parent_item is CandleItem or
+		 player_light_area.parent_item is LanternItem):
+		return false
+	if !player_light_area.parent_item.is_lit: return false
+
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
 	return player_light_area.check_point(point) and check_point(point)
@@ -53,7 +59,14 @@ func check_light() -> bool:
 func check_light_with_player_light_area() -> PlayerLightArea:
 	var player_light_area := get_player_light_area()
 	if !is_instance_valid(player_light_area): return null
+
+	if !(player_light_area.parent_item is CandelabraItem or
+		player_light_area.parent_item is CandleItem or
+		player_light_area.parent_item is LanternItem):
+		return null
 	
+	if !player_light_area.parent_item.is_lit: return null
+
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
 	if player_light_area.check_point(point) and check_point(point): return player_light_area

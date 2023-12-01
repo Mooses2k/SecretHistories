@@ -31,6 +31,9 @@ class Event:
 		if time > indirect_sensor.attention_span:
 			interest -= indirect_sensor.decay_rate * delta
 		return interest <= 0
+	
+	func _to_string() -> String:
+		return str({"interest": interest, "position": position, "object": object.name})
 
 
 func set_event(interest: int, position: Vector3, object: Object) -> void:
@@ -45,7 +48,7 @@ func remove_event(object: Object) -> void:
 	
 
 func _process(delta: float) -> void:
-	for event in events.values(): if event.tick(delta):
+	for event in events.values(): if event.tick(delta, self):
 		remove_event(event.object)
 
 
@@ -57,11 +60,13 @@ func get_most_interesting() -> Event:
 	var sorted_events := events.values()
 	if sorted_events.empty(): return null
 	sorted_events.sort_custom(self, "sort_event_custom_sort")
-	return sorted_events[-1]
+	return sorted_events[0]
 
 
 func tick(state: CharacterState) -> int:
 	var most_interesting := get_most_interesting()
+	# print(most_interesting)
+	
 	if is_instance_valid(most_interesting):
 		state.target_position = most_interesting.position
 		return Status.SUCCESS

@@ -243,13 +243,18 @@ func play_alert_sound():
 	print("Played alert sound")
 	
 
-func play_detection_sound():
+func get_player() -> Player:
+	var players := get_tree().get_nodes_in_group("Player")
+	return players[0] if !players.empty() else null
+
+
+func play_detection_sound() -> void:
 	if last_speech_type == SpeechType.ALERT or last_speech_type == SpeechType.DETECTION or last_speech_type == SpeechType.FIGHT:
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
 #			print("Sounds already playing (detection called this)")
 			return
-	if GameManager.game.player.inventory.bulky_equipment is ShardOfTheComet:
+	if is_instance_valid(get_player()) and get_player().inventory.bulky_equipment is ShardOfTheComet:
 		_comet_sounds.shuffle()
 		speech_audio.stream = _comet_sounds.front()
 	else:

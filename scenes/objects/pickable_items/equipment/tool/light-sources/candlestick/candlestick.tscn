@@ -73,7 +73,7 @@ noise = SubResource( 9 )
 
 [sub_resource type="ShaderMaterial" id=57]
 shader = ExtResource( 13 )
-shader_param/noise_seed = 834.955
+shader_param/noise_seed = 746.694
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -180,8 +180,6 @@ script = ExtResource( 10 )
 __meta__ = {
 "_editor_description_": ""
 }
-top_magnetude = 1
-top_factor = 0.0
 
 [node name="Light" type="OmniLight" parent="Candle1/FireOrigin/Fire" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
@@ -193,7 +191,11 @@ omni_attenuation = 4.0
 
 [node name="PlayerLightArea" type="Area" parent="Candle1/FireOrigin/Fire/Light" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+collision_layer = 1024
+collision_mask = 1024
+priority = 50.0
 script = ExtResource( 14 )
+parent_item_path = NodePath("../../../../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 autoplay = "flicker"

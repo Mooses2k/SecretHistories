@@ -1,38 +1,59 @@
 class_name BTIndirectSensor extends BTNode
 
 
-var memory := {}
+export var attention_span := 5.0
+export var decay_rate := 1.0
 
 
-func add_sensory_input(position: Vector3, id, interest := 0) -> void:
-	if !memory.keys().has(interest): memory[interest] = {}
-	memory[interest][id] = position
+var events := {}
 
 
-func remove_sensory_input(id) -> void:
-	if memory.has(id): memory.erase(id)
-
-
-func get_most_interesting(delete_after_fetch := false) -> Dictionary:
-	var interest_levels := memory.keys()
-	while !interest_levels.empty():
-		interest_levels.sort()
-		
-		if memory[interest_levels[-1]].empty():
-			interest_levels.remove(-1)
-			continue
-			
-		break
+class Event:
+	var position := Vector3.ZERO
+	var object: Object
+	var interest := 0.0
 	
-	if interest_levels.empty(): return {}
+	var time := 0.0
+
+	func _init(_interest: int, _position: Vector3, _object: Object) -> void:
+		interest = _interest
+		position = _position
+		object = _object
 	
-	var result :=\
-	{
-		"position": memory[interest_levels[-1]].values()[-1]["position"],
-		"id": 		memory[interest_levels[-1]].values()[-1]["id"],
-	}
+	func set_interest_level(new_interest: int) -> void:
+		interest = new_interest
+		time = 0.0
+
+	func tick(delta: float, indirect_sensor: BTIndirectSensor) -> bool:
+		time += delta
+
+		if time > indirect_sensor.attention_span:
+			interest -= indirect_sensor.decay_rate * delta
+		return interest <= 0
+
+
+func set_event(interest: int, position: Vector3, object: Object) -> void:
+	if events.has(object):
+		events[object].set_interest_level(interest)
+		events[object].position = position
+	else: events[object] = Event.new(interest, position, object)
+
+
+func remove_sensory_input(object: Object) -> void:
+	if events.has(object): events.erase(object)
 	
-	if delete_after_fetch:
-		memory[interest_levels[-1]].erase(memory[interest_levels[-1]].keys()[-1])
-	
-	return result
+
+func _process(delta: float) -> void:
+	for event in events.values():
+		event.tick(delta)
+
+
+func sort_event_custom_sort(a: Event, b: Event) -> bool:
+	return int(a.interest) > int(b.interest)
+
+
+func get_most_interesting() -> Event:
+	var sorted_events := events.values()
+	if sorted_events.empty(): return null
+	sorted_events.sort_custom(self, "sort_event_custom_sort")
+	return sorted_events[-1]

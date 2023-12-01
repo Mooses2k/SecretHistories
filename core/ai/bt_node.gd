@@ -10,5 +10,5 @@ enum Status {
 }
 
 
-func tick(state : CharacterState) -> int:
+func tick(_state : CharacterState) -> int:
 	return Status.FAILURE

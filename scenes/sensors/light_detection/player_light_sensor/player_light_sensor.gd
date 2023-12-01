@@ -7,7 +7,7 @@ class_name PlayerLightSensor extends LightArea
 #|============================================================================|#
 
 
-signal sensory_input(position, id, interest)
+signal event(interest, position, object)
 signal detected_light_source(light_source)
 
 
@@ -33,10 +33,10 @@ func _process(_delta: float) -> void:
 			emit_signal("detected_light_source", light_source)
 			emit_signal\
 			(
-				"sensory_input",
+				"event",
+				75,
 				light_source.global_transform.origin,
-				light_source,
-				75
+				light_source
 			)
 
 

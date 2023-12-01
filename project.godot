@@ -115,11 +115,6 @@ _global_script_classes=[ {
 "path": "res://core/ai/action_nodes/bt_shoot.gd"
 }, {
 "base": "BTNode",
-"class": "BTSoundListener",
-"language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_sound_listener.gd"
-}, {
-"base": "BTNode",
 "class": "BTWaitRandom",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_wait_random.gd"
@@ -561,7 +556,6 @@ _global_script_class_icons={
 "BTSelector": "",
 "BTSequence": "",
 "BTShoot": "",
-"BTSoundListener": "",
 "BTWaitRandom": "",
 "BehaviorTree": "",
 "BombItem": "",

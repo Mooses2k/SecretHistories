@@ -14,8 +14,8 @@ var target_distance : float = 0.0
 var target_reached : bool = false
 var ticks_since_active : int = 0
 
+onready var _listener := get_node(listener) as SoundSensor
 export var listener : NodePath
-onready var _listener : SoundListener = get_node(listener) as SoundListener
 
 
 func idle():
@@ -26,7 +26,7 @@ func idle():
 
 
 func tick(state : CharacterState) -> int:
-	var speech_chance = randf()
+	var _speech_chance = randf()
 	ticks_since_active = 0
 	var distance : float = state.character.global_transform.origin.distance_to(state.target_position)
 	if target_reached:

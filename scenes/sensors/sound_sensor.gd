@@ -1,7 +1,7 @@
 class_name SoundSensor extends Area
 
 
-signal sensory_input(position, id, interest)
+signal event(interest, position, object)
 signal sound_detected(source, interest)
 
 
@@ -39,8 +39,9 @@ func check_for_sounds() -> void:
 	for object in sound_sources:
 		var interest_level := get_interest_level(object) 
 		if !interest_level: continue
+		
 		emit_signal("sound_detected", object, interest_level)
-		emit_signal("sensory_input", object.global_transform.origin, object, interest_level)
+		emit_signal("event", interest_level, object.global_transform.origin, object)
 
 
 func get_interest_level(source: Spatial) -> int:

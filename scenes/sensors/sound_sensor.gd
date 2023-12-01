@@ -38,13 +38,14 @@ func _process(_delta: float) -> void:
 func check_for_sounds() -> void:
 	for object in sound_sources:
 		var interest_level := get_interest_level(object) 
-		if interest_level:
-			emit_signal("sound_detected", object, interest_level)
-			emit_signal("sensory_input", object.global_transform.origin, object, interest_level)
+		if !interest_level: continue
+		emit_signal("sound_detected", object, interest_level)
+		emit_signal("sensory_input", object.global_transform.origin, object, interest_level)
 
 
 func get_interest_level(source: Spatial) -> int:
 	if !(source is Character or source is PickableItem or source is LargeObjectDropSound): return 0
+	if !source.noise_level: return 0
 
 	var interest := source.noise_level as int
 	var walls_in_between := get_walls_in_between(source.global_transform.origin)

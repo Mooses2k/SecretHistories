@@ -474,7 +474,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.gd"
 }, {
-"base": "Reference",
+"base": "Area",
 "class": "SoundSensor",
 "language": "GDScript",
 "path": "res://scenes/sensors/sound_sensor.gd"

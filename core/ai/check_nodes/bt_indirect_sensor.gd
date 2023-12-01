@@ -19,6 +19,7 @@ class Event:
 		interest = _interest
 		position = _position
 		object = _object
+		time = 0.0
 	
 	func set_interest_level(new_interest: int) -> void:
 		interest = new_interest
@@ -39,13 +40,13 @@ func set_event(interest: int, position: Vector3, object: Object) -> void:
 	else: events[object] = Event.new(interest, position, object)
 
 
-func remove_sensory_input(object: Object) -> void:
+func remove_event(object: Object) -> void:
 	if events.has(object): events.erase(object)
 	
 
 func _process(delta: float) -> void:
-	for event in events.values():
-		event.tick(delta)
+	for event in events.values(): if event.tick(delta):
+		remove_event(event.object)
 
 
 func sort_event_custom_sort(a: Event, b: Event) -> bool:

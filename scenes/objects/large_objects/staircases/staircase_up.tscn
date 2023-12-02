@@ -58,7 +58,7 @@ autowrap = true
 width = 300.0
 
 [node name="Timer" type="Timer" parent="LevelMessage"]
-wait_time = 3.0
+wait_time = 2.0
 one_shot = true
 autostart = true
 
@@ -76,8 +76,7 @@ autowrap = true
 width = 300.0
 
 [node name="CantLeaveTimer" type="Timer" parent="CantLeaveMessage"]
-wait_time = 3.0
-one_shot = true
+wait_time = 2.0
 
 [connection signal="body_entered" from="UpDetector" to="." method="_on_UpDetector_body_entered"]
 [connection signal="timeout" from="LevelMessage/Timer" to="." method="_on_Timer_timeout"]

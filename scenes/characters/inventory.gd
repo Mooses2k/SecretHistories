@@ -304,13 +304,16 @@ func drop_bulky_item():
 
 
 func equip_offhand_item():
-	
 	yield(get_tree().create_timer(0.5), "timeout")
 	# Item already equipped or both slots set to the same item
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
 	var item : EquipmentItem = hotbar[current_offhand_slot]
-	if not item and not item.item_size == GlobalConsts.ItemSize.SIZE_SMALL and  item == current_mainhand_equipment:
+	if not is_instance_valid(item):
+		return
+	if not item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+		return
+	if item == current_mainhand_equipment:
 		return
 
 	# Item exists, can be equipped on the offhand, and is not already equipped
@@ -401,20 +404,26 @@ func _drop_item(item : EquipmentItem):
 			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # At the moment, 'placed' items can't hurt anyone.
 		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:
 			item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		else:
+			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # Dropped for another reason like cycling away from bulky
+			print("Dropped for another reason like cycling away from bulky")
 	else:
 		item.set_item_state(GlobalConsts.ItemState.DROPPED)   # This means, for now, non-players can't throw for damage; they drop when die
 			
 	if GameManager.game.level:   # This is for the real game
 		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
 			item.global_transform = owner.drop_position_node.global_transform
+			print("Item set to DROPPED")
 		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
 			item.global_transform = owner.throw_position_node.global_transform
+			print("Item set to DAMAGING")
 				
 		if item.can_attach == true:
 #			item.get_parent().remove_child(item)
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
+			print("Item added to level at position: ", item.global_translation)
 			
 		if item is EquipmentItem:
 			if item.item_state == GlobalConsts.ItemState.DAMAGING:

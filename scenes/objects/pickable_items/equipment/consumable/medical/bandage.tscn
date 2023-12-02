@@ -68,7 +68,6 @@ can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = null
-script = null
 
 [node name="CollisionShape" parent="." index="1"]
 shape = SubResource( 4 )

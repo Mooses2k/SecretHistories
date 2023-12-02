@@ -1,9 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
-
-[ext_resource path="res://resources/shaders/reduce_color/reduce_color.shader" type="Shader" id=1]
-
-[resource]
-render_priority = -5
-shader = ExtResource( 1 )
-shader_param/colors = 16.0
-shader_param/dither = 0.5

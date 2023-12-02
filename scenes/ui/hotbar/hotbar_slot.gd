@@ -1,7 +1,7 @@
 extends Control
 
 
-const CONTAINER_COUNT_TEMPLATE = "%d+%d"   # Typically how much ammo in weapon / ammo total
+const CONTAINER_COUNT_TEMPLATE = "%d + %d"   # Typically how much ammo in weapon / ammo total
 
 export var can_equip_modulate : Color
 export var equipped_modulate : Color
@@ -18,7 +18,7 @@ var is_equipped_offhand : bool = false
 var is_equippable_mainhand : bool = false
 var is_equippable_offhand : bool = false
 
-onready var fadeanimations=$"../../FadeAnim"
+onready var fadeanimations = $"../../FadeAnim"
 
 
 func update_mainhand_indicator():
@@ -27,6 +27,9 @@ func update_mainhand_indicator():
 	$UseIndicators/HBoxContainer/MainHandIndicator.modulate = final_color
 	if is_equipped_mainhand:
 		is_equipped_offhand = false
+	if is_bulky:
+		$SlotNumber/HBoxContainer/SlotNumber.text = str("Bulky")
+		$UseIndicators.visible = false
 
 
 func update_offhand_indicator():
@@ -46,7 +49,7 @@ func _ready():
 	fadeanimations.play("Fade_in")
 	$"../..".show()
 	if self.name == "10":
-		$SlotNumber.text=str(index+1)
+		$SlotNumber.text = str(index+1)
 	else:
 		$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
 	var game = GameManager.game

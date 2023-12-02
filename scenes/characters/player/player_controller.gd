@@ -23,11 +23,11 @@ var movement_basis : Basis = Basis.IDENTITY
 var interaction_target : Node = null
 var target_placement_position : Vector3 = Vector3.ZERO
 
-export var _grabcast : NodePath
-onready var grabcast : RayCast = get_node(_grabcast) as RayCast
+#export var _grabcast : NodePath
+#onready var grabcast : RayCast = get_node(_grabcast) as RayCast
 
-export var _aimcast : NodePath
-onready var aimcast : RayCast = get_node(_aimcast) as RayCast
+#export var _aimcast : NodePath
+#onready var aimcast : RayCast = get_node(_aimcast) as RayCast
 
 export var _legcast : NodePath
 onready var legcast : RayCast = get_node(_legcast) as RayCast
@@ -110,6 +110,8 @@ var _swap_hands_wait_time : float = 500
 # For tracking whether to reload or unload mainhand item
 var _reload_press_timer : float = 0.0
 var _unload_wait_time : float = 500
+
+var no_click_after_load_period : bool = false
 
 # Screen filter section
 enum ScreenFilter {
@@ -420,19 +422,13 @@ func handle_grab(delta : float):
 		
 		# Calculate additional force based on the weight of the object
 		var additional_force = Vector3.ZERO
-		if grab_object.mass > 0:
-			additional_force = -direct_state.total_gravity * grab_object.mass
+		if grab_object.mass > 80:
+			additional_force = owner.velocity * ((1 / grab_object.mass) * 50)
 		
 		# Modify player's movement based on additional force
-		owner.velocity.x += additional_force.x * delta
-		owner.velocity.z += additional_force.z * delta
-		
-		# Limit player's movement speed if necessary
-		var horizontal_velocity = Vector3(owner.velocity.x, 0, owner.velocity.z)
-		if horizontal_velocity.length() > ON_GRAB_MAX_SPEED:
-			horizontal_velocity = horizontal_velocity.normalized() * ON_GRAB_MAX_SPEED
-		owner.velocity.x = horizontal_velocity.x
-		owner.velocity.z = horizontal_velocity.z
+			if owner.is_player_moving:
+				owner.velocity.x = additional_force.x * delta
+				owner.velocity.z = additional_force.z * delta
 		
 		# Limits the angular velocity to prevent some issues
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
@@ -445,6 +441,7 @@ func _handle_inventory(delta : float):
 		if Input.is_action_just_pressed("hotbar_%d" % [i + 1]) and owner.is_reloading == false:
 			# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
 			if i != character.inventory.current_offhand_slot and i != 10:
+				character.inventory.drop_bulky_item()
 				character.inventory.current_mainhand_slot = i
 				throw_state = ThrowState.IDLE
 	
@@ -494,9 +491,11 @@ func _handle_inventory(delta : float):
 	if is_instance_valid(character.inventory.get_mainhand_item()):
 	
 		if Input.is_action_just_pressed("playerhand|main_use_primary"):
-			if character.inventory.get_mainhand_item():
-				character.inventory.get_mainhand_item().use_primary()
-				throw_state = ThrowState.IDLE
+			# Check if grace period has elapsed since loadscreen removed to avoid accidentally shooting after load
+			if no_click_after_load_period == false:
+				if character.inventory.get_mainhand_item():
+					character.inventory.get_mainhand_item().use_primary()
+					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
@@ -584,10 +583,14 @@ func drop_grabable():
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(false)
-				else:   # It's a tiny item
+				elif grab_object is PickableItem:   # It's a tiny item
 					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
+				elif grab_object is RigidBody:   # It's a large object
+					grab_object.apply_central_impulse(impulse)
+				else:   # It's a static?
+					pass
 				wanna_grab = false
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false
@@ -686,6 +689,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
 
+
 func handle_screen_filters():
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("misc|change_screen_filter"):
@@ -729,7 +733,7 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 		print("Screen Filter: REDUCE_COLOR")
 		_screen_filter.visible = true
 		_screen_filter.set_surface_material(
-				0, preload("res://resources/shaders/reduce_color/reduce_color.tres")
+				0, preload("res://resources/shaders/psx/just_color_reduce.tres")
 		)
 	# We're haven't implemented the mesh shader yet
 	if current_screen_filter == GameManager.ScreenFilter.PSX:

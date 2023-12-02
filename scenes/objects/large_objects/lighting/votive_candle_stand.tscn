@@ -120,9 +120,10 @@ shader_param/COLOR_RAMP = SubResource( 149 )
 extents = Vector3( 0.3, 0.04, 0.15 )
 
 [node name="VotiveCandleStand" type="RigidBody"]
-collision_layer = 513
+collision_layer = 512
 mass = 30.0
 continuous_cd = true
+contacts_reported = 4
 script = ExtResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -200,6 +201,7 @@ material/0 = SubResource( 147 )
 
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
+layers = 3
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.4
 shadow_enabled = true

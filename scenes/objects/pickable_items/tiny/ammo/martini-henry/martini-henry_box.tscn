@@ -28,7 +28,7 @@ extents = Vector3( 0.055, 0.03, 0.05 )
 script = ExtResource( 2 )
 item_drop_sound = ExtResource( 5 )
 item_data = ExtResource( 3 )
-amount = 10
+amount = 5
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = SubResource( 1 )

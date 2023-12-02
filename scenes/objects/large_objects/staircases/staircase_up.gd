@@ -10,16 +10,16 @@ extends LevelStaircase
 
 const UP_FACING_ROTATIONS = {
 	WorldData.Direction.NORTH: PI,
-	WorldData.Direction.EAST: 0.5*PI,
+	WorldData.Direction.EAST: 0.5 * PI,
 	WorldData.Direction.SOUTH: 0,
-	WorldData.Direction.WEST: 1.5*PI,
+	WorldData.Direction.WEST: 1.5 * PI,
 }
 
 const PLAYER_FACING_ROTATIONS = {
 	WorldData.Direction.NORTH: 0,
-	WorldData.Direction.EAST: 1.5*PI,
+	WorldData.Direction.EAST: 1.5 * PI,
 	WorldData.Direction.SOUTH: PI,
-	WorldData.Direction.WEST: 0.5*PI,
+	WorldData.Direction.WEST: 0.5 * PI,
 }
 
 #--- public variables - order: export > normal var > onready --------------------------------------
@@ -85,14 +85,23 @@ func _on_UpDetector_body_entered(body: Node) -> void:
 	
 	if GameManager.game.current_floor_level == -1:
 		$CantLeaveMessage.visible = true
+		$CantLeaveMessage.set_modulate(Color(1, 1, 1, 1))
 		$CantLeaveMessage/CantLeaveTimer.start()
 
 
 func _on_Timer_timeout():
+	get_tree().create_tween()\
+		.tween_property($LevelMessage, "modulate", Color(0, 0, 0, 0), 1.0)\
+		.set_ease(Tween.EASE_IN)
+	yield(get_tree().create_timer(1), "timeout")
 	$LevelMessage.visible = false
 
 
 func _on_CantLeaveTimer_timeout():
+	get_tree().create_tween()\
+		.tween_property($CantLeaveMessage, "modulate", Color(0, 0, 0, 0), 1.0)\
+		.set_ease(Tween.EASE_IN)
+	yield(get_tree().create_timer(1), "timeout")
 	$CantLeaveMessage.visible = false
 
 ### -----------------------------------------------------------------------------------------------

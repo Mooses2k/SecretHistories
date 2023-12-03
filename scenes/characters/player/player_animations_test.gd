@@ -106,7 +106,7 @@ func set_weapon_state(value):
 		get_equipped_weapon().animation_player.play("reload")
 		player_reload()
 		yield(get_tree().create_timer(get_equipped_weapon().animation_player.get_animation("reload").length), "timeout")
-		do_ads(false)
+#		do_ads(false)
 		do_idle()
 
 
@@ -118,7 +118,16 @@ func player_reload():
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
-	$"%AnimationTree".set("parameters/ReloadAnimations/current", str(get_equipped_weapon().item_name))
+	determine_weapon_reload_animation()
+
+
+func determine_weapon_reload_animation():
+	var animation_value : int
+	if get_equipped_weapon().item_name == "Double-barrel shotgun":
+		animation_value = 0
+	elif get_equipped_weapon().item_name == "Martini-Henry rifle":
+		animation_value = 2
+	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 
 
 func do_idle():
@@ -200,6 +209,7 @@ func get_equipped_weapon() -> GunItem:
 		if available_guns is GunItem:
 			equipped_weapon = available_guns
 	return equipped_weapon
+
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

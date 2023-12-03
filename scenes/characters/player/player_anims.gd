@@ -221,12 +221,23 @@ func reload_weapons():
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
-	$"%AnimationTree".set("parameters/ReloadAnimations/current", str(get_available_gun().item_name))
-
+	determine_weapon_reload_animation()
+	
 	get_available_gun().animation_player.play("reload")
 	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length), "timeout")
 	check_player_animation()
 	print("Finished Reloading")
+
+
+
+
+func determine_weapon_reload_animation():
+	var animation_value : int
+	if get_available_gun().item_name == "Double-barrel shotgun":
+		animation_value = 0
+	elif get_available_gun().item_name == "Martini-Henry rifle":
+		animation_value = 2
+	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 
 
 func get_available_gun() -> GunItem:

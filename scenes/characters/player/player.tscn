@@ -7432,7 +7432,7 @@ input_5/auto_advance = false
 animation = "WebleyReload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 7.90771, -527.225 )
+graph_offset = Vector2( 443.71, -125.856 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 2/node" = SubResource( 419 )
@@ -7508,8 +7508,8 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 unique_name_in_owner = true
 script = ExtResource( 31 )
 reset_to_idle_pos = true
-ads_weapon_position = Vector3( -0.021, 0.013, -0.078 )
-ads_weapon_rotation = Vector3( -6.331, 2.484, 9.833 )
+ads_weapon_position = Vector3( -0.019, 0.026, -0.136 )
+ads_weapon_rotation = Vector3( -4.559, 1.717, 10.901 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )

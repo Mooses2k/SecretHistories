@@ -31,8 +31,9 @@ func change_gun(value):
 		return
 		
 	if value == "None":
+		reset_animation_tree(true)
 		get_equipped_weapon().queue_free()
-	
+		
 	if value == "Webley":
 		spawned_weapon = preload("res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn").instance()
 	
@@ -111,8 +112,8 @@ func set_weapon_state(value):
 
 
 func player_reload():
-	get_equipped_weapon().hold_position.translation = get_equipped_weapon().reload_position
-	get_equipped_weapon().hold_position.rotation_degrees = get_equipped_weapon().reload_rotation
+#	get_equipped_weapon().hold_position.translation = get_equipped_weapon().reload_position
+#	get_equipped_weapon().hold_position.rotation_degrees = get_equipped_weapon().reload_rotation
 	adjust_arm(Vector3(0.008, -1.364, 0.175))
 
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
@@ -127,6 +128,8 @@ func determine_weapon_reload_animation():
 		animation_value = 0
 	elif get_equipped_weapon().item_name == "Martini-Henry rifle":
 		animation_value = 2
+	elif get_equipped_weapon().item_name == "Sawed-off Martini pistol":
+		animation_value = 1
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 
 

@@ -85,7 +85,7 @@ func check_player_animation():
 			if inventory.current_mainhand_equipment.item_name == "Double-barrel shotgun":
 				animation_tree.set("parameters/Hand_Transition/current", 0)
 				animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-				animation_tree.set("parameters/Weapon_states/current", "Shotgun")
+				animation_tree.set("parameters/Weapon_states/current", 5)
 			else:
 				animation_tree.set("parameters/Hand_Transition/current", 0)
 				animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
@@ -207,15 +207,15 @@ func end_ads():
 		else:
 			operation_tween(animation_tree,
 			"parameters/MediumAds/blend_amount",
-			animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
+			animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.05)
 		adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
 	_camera.fov = lerp(_camera.fov, 70, 0.1)
 
 
 func reload_weapons():
 #
-	get_available_gun().hold_position.translation = get_available_gun().reload_position
-	get_available_gun().hold_position.rotation_degrees = get_available_gun().reload_rotation
+#	get_available_gun().hold_position.translation = get_available_gun().reload_position
+#	get_available_gun().hold_position.rotation_degrees = get_available_gun().reload_rotation
 	adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
 
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
@@ -237,6 +237,8 @@ func determine_weapon_reload_animation():
 		animation_value = 0
 	elif get_available_gun().item_name == "Martini-Henry rifle":
 		animation_value = 2
+	elif get_available_gun().item_name == "Sawed-off Martini pistol":
+		animation_value = 1
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 
 

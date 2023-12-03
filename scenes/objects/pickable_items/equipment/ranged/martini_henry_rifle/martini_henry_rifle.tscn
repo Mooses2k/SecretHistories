@@ -4,7 +4,7 @@
 [ext_resource path="res://resources/tiny_items/ammunition/577_martini-henry.tres" type="Resource" id=2]
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=4]
 [ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=5]
-[ext_resource path="res://resources/models/items/ranged/martini-henry_pistol/model_and_animations/MartiniHenry.material" type="Material" id=6]
+[ext_resource path="res://resources/models/items/ranged/martini-henry_rifle/MartiniHenry.material" type="Material" id=6]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/_smoke.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/effects/martini_audio.tscn" type="PackedScene" id=11]
@@ -24,7 +24,6 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194911,
 "index_count": 15189,
-"material": ExtResource( 6 ),
 "primitive": 4,
 "skeleton_aabb": [ AABB( -0.146425, 1.04835, -0.116133, 0.0823766, 0.228714, 1.23741 ), AABB( -0.125918, 1.07264, 0.159236, 0.0165644, 0.113214, 0.0882592 ), AABB( -0.117234, 1.1514, 0.255343, 0.0062215, 0.0312116, 0.020675 ), AABB( -0.123978, 1.17706, 0.305291, 0.0243098, 0.00281632, 0.0118673 ), AABB( -0.0932838, 1.2093, 1.00643, 0.0243098, 0.0113513, 0.00302923 ), AABB( -0.120864, 1.22487, 0.23308, 0.0176414, 0.013358, 0.0663691 ), AABB( -0.12862, 1.18937, 0.247154, 0.00603675, 0.0224787, 0.00986825 ) ],
 "vertex_count": 4404
@@ -380,6 +379,7 @@ bones/6/bound_children = [  ]
 [node name="MartiniHenry_Mesh" type="MeshInstance" parent="Effects/martini_henry_reload_weapon/MartiniHenry_Arm/Skeleton" index="0"]
 mesh = SubResource( 4 )
 skin = SubResource( 5 )
+material/0 = ExtResource( 6 )
 script = ExtResource( 4 )
 
 [node name="RayCast" parent="." index="6"]
@@ -406,7 +406,7 @@ stream = ExtResource( 5 )
 bus = "Effects"
 
 [node name="HoldPosition" parent="." index="8"]
-transform = Transform( 1, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.891663, 0.222748, -0.394108, -0.276947, 0.957058, -0.0856604, 0.358104, 0.185527, 0.915064, 0.087, 0.035, -0.235 )
 __meta__ = {
 "_editor_description_": ""
 }

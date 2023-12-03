@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://scenes/characters/player/effect_origin.gd" type="Script" id=22]
 [ext_resource path="res://scenes/characters/player/GridEffect.material" type="Material" id=23]
 [ext_resource path="res://scenes/characters/player/player_anims.tscn" type="PackedScene" id=24]
+[ext_resource path="res://resources/animations/kyber_pass_martini_reload.tres" type="Animation" id=25]
 [ext_resource path="res://scenes/characters/stamina.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/characters/player/player_anims.gd" type="Script" id=30]
 [ext_resource path="res://scenes/characters/player/player_animations_test.gd" type="Script" id=31]
@@ -7326,7 +7327,7 @@ input_0/name = "Hand_Combinations"
 input_0/auto_advance = false
 
 [sub_resource type="AnimationNodeAnimation" id=403]
-animation = "HenryReload"
+animation = "martini_henry_reload"
 
 [sub_resource type="AnimationNodeTransition" id=400]
 input_count = 2
@@ -7338,6 +7339,9 @@ input_1/auto_advance = false
 
 [sub_resource type="AnimationNodeAnimation" id=399]
 animation = "ItemHoldingHorizontal"
+
+[sub_resource type="AnimationNodeAnimation" id=431]
+animation = "kyber_pass_martini_reload"
 
 [sub_resource type="AnimationNodeAnimation" id=412]
 animation = "OneHandedHipIdleL"
@@ -7385,7 +7389,7 @@ animation = "idle-loop"
 animation = "One_Handed_Hip_Idle"
 
 [sub_resource type="AnimationNodeTransition" id=401]
-input_count = 4
+input_count = 5
 xfade_time = 0.2
 input_0/name = "Double-barrel shotgun"
 input_0/auto_advance = false
@@ -7395,6 +7399,8 @@ input_2/name = "Martini-Henry rifle"
 input_2/auto_advance = false
 input_3/name = "WebleyReload"
 input_3/auto_advance = false
+input_4/name = "SawedOffMartiniPistol"
+input_4/auto_advance = false
 
 [sub_resource type="AnimationNodeAnimation" id=368]
 animation = "Hip_Idle"
@@ -7426,7 +7432,7 @@ input_5/auto_advance = false
 animation = "WebleyReload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 700.678, -895.08 )
+graph_offset = Vector2( -843.738, 521.682 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 2/node" = SubResource( 419 )
@@ -7445,6 +7451,8 @@ nodes/Hold_Animation/node = SubResource( 400 )
 nodes/Hold_Animation/position = Vector2( -180, -860 )
 nodes/Horizontal_Hold_Animation/node = SubResource( 399 )
 nodes/Horizontal_Hold_Animation/position = Vector2( -680, -840 )
+nodes/KyberPassMartini/node = SubResource( 431 )
+nodes/KyberPassMartini/position = Vector2( -660, 600 )
 nodes/LeftHanded_Pistol_Hold/node = SubResource( 412 )
 nodes/LeftHanded_Pistol_Hold/position = Vector2( 880, 240 )
 nodes/Left_Horizontal_Hold_Animation/node = SubResource( 411 )
@@ -7482,7 +7490,7 @@ nodes/Weapon_states/position = Vector2( 460, -540 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -700, 440 )
 nodes/output/position = Vector2( 2400, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "ReloadAnimations", 0, "DoubleBarrelReload_Anim", "ReloadAnimations", 1, "HenryReload_Anim", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Hand_Transition", 0, "OffHand_MainHand_Blend", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3" ]
+node_connections = [ "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "ReloadAnimations", 0, "DoubleBarrelReload_Anim", "ReloadAnimations", 1, "HenryReload_Anim", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hand_Transition", 0, "OffHand_MainHand_Blend", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "output", 0, "Hand_Transition" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -7500,8 +7508,8 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 unique_name_in_owner = true
 script = ExtResource( 31 )
 reset_to_idle_pos = true
-ads_weapon_position = Vector3( 0.057, 0.026, -0.203 )
-ads_weapon_rotation = Vector3( -3.652, -26.319, 14.269 )
+ads_weapon_position = Vector3( 0.012, -0.011, 0.068 )
+ads_weapon_rotation = Vector3( 7.912, -4.759, -8.849 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -7764,6 +7772,7 @@ anims/ads_idle = SubResource( 430 )
 anims/ads_idle_shotgun = SubResource( 425 )
 anims/double_barrel_reload = ExtResource( 13 )
 anims/hip_idle_shotgun = SubResource( 428 )
+anims/kyber_pass_martini_reload = ExtResource( 25 )
 anims/martini_henry_reload = SubResource( 423 )
 anims/one-handed_ads_idle = SubResource( 420 )
 
@@ -7781,7 +7790,7 @@ parameters/MediumAds/blend_amount = 0.0
 parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
-parameters/ReloadAnimations/current = 2
+parameters/ReloadAnimations/current = 4
 parameters/ShotgunAds/blend_amount = 0.0
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
@@ -7794,7 +7803,7 @@ script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 32 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.096, -1.391, 0.091 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
 
 [node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2

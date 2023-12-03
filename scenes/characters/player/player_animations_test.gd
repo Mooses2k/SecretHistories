@@ -129,7 +129,7 @@ func determine_weapon_reload_animation():
 	elif get_equipped_weapon().item_name == "Martini-Henry rifle":
 		animation_value = 2
 	elif get_equipped_weapon().item_name == "Sawed-off Martini pistol":
-		animation_value = 1
+		animation_value = 4
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 
 

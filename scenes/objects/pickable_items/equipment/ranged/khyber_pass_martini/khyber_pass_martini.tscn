@@ -170,7 +170,7 @@ stream = ExtResource( 12 )
 bus = "Effects"
 
 [node name="HoldPosition" parent="." index="8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 0.99503, -0.0995803, 0, 0.0995779, 0.995006, 0.006894, -0.000686506, -0.00685973, 0.999976, -0.015, 0.008, -0.083 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

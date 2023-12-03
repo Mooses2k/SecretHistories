@@ -236,8 +236,8 @@ func determine_weapon_reload_animation():
 		animation_value = 4
 	
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+	
 	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 

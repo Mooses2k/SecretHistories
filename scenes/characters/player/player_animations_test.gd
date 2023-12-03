@@ -106,7 +106,7 @@ func set_weapon_state(value):
 	elif value == "RELOAD":
 		get_equipped_weapon().animation_player.play("reload")
 		player_reload()
-		yield(get_tree().create_timer(get_equipped_weapon().animation_player.get_animation("reload").length), "timeout")
+		yield(get_tree().create_timer(get_equipped_weapon().animation_player.get_animation("reload").length - 0.3), "timeout")
 #		do_ads(false)
 		do_idle()
 

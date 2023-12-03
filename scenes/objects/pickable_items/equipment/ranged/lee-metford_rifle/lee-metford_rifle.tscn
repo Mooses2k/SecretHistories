@@ -64,8 +64,8 @@ ammunition_capacity = 10
 reload_amount = 1
 reload_time = 2.0
 handling = 25.0
-ads_hold_position = Vector3( 0.067, -0.102, 0.264 )
-ads_hold_rotation = Vector3( 16.002, 25.734, -7.524 )
+ads_hold_position = Vector3( 0.078, 0.037, -0.322 )
+ads_hold_rotation = Vector3( -2.752, -23.514, 13.292 )
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast")
 

@@ -7490,7 +7490,7 @@ nodes/Weapon_states/position = Vector2( 460, -540 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -700, 440 )
 nodes/output/position = Vector2( 2400, -140 )
-node_connections = [ "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "ReloadAnimations", 0, "DoubleBarrelReload_Anim", "ReloadAnimations", 1, "HenryReload_Anim", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hand_Transition", 0, "OffHand_MainHand_Blend", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "output", 0, "Hand_Transition" ]
+node_connections = [ "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "ReloadAnimations", 0, "DoubleBarrelReload_Anim", "ReloadAnimations", 1, "HenryReload_Anim", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "output", 0, "Hand_Transition" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -7508,8 +7508,8 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 unique_name_in_owner = true
 script = ExtResource( 31 )
 reset_to_idle_pos = true
-ads_weapon_position = Vector3( -0.019, 0.026, -0.136 )
-ads_weapon_rotation = Vector3( -4.559, 1.717, 10.901 )
+ads_weapon_position = Vector3( 0.078, 0.037, -0.322 )
+ads_weapon_rotation = Vector3( -2.752, -23.514, 13.292 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -7790,7 +7790,7 @@ parameters/MediumAds/blend_amount = 0.0
 parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
-parameters/ReloadAnimations/current = 4
+parameters/ReloadAnimations/current = 0
 parameters/ShotgunAds/blend_amount = 0.0
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
@@ -7803,7 +7803,7 @@ script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 32 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.096, -1.391, 0.091 )
 
 [node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2

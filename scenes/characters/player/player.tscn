@@ -7500,8 +7500,8 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 unique_name_in_owner = true
 script = ExtResource( 31 )
 reset_to_idle_pos = true
-ads_weapon_position = Vector3( 0.067, -0.081, 0.261 )
-ads_weapon_rotation = Vector3( 13.347, 26.479, -7.829 )
+ads_weapon_position = Vector3( 0.057, 0.026, -0.203 )
+ads_weapon_rotation = Vector3( -3.652, -26.319, 14.269 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )

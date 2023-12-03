@@ -213,18 +213,13 @@ func end_ads():
 
 
 func reload_weapons():
-#
 #	get_available_gun().hold_position.translation = get_available_gun().reload_position
 #	get_available_gun().hold_position.rotation_degrees = get_available_gun().reload_rotation
 	adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
-
-	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
 	determine_weapon_reload_animation()
 	
 	get_available_gun().animation_player.play("reload")
-	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length), "timeout")
+	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")
 	check_player_animation()
 	print("Finished Reloading")
 
@@ -239,6 +234,10 @@ func determine_weapon_reload_animation():
 		animation_value = 2
 	elif get_available_gun().item_name == "Sawed-off Martini pistol":
 		animation_value = 1
+	
+	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 
 

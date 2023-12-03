@@ -200,9 +200,14 @@ func end_ads():
 		animation_tree.get("parameters/SmallAds/blend_amount"), 0.0, 0.1)
 		adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 	else:
-		operation_tween(animation_tree,
-		"parameters/MediumAds/blend_amount",
-		animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
+		if inventory.current_mainhand_equipment.item_name == "Double-barrel shotgun":
+			operation_tween(animation_tree,
+			"parameters/ShotgunAds/blend_amount",
+			animation_tree.get("parameters/ShotgunAds/blend_amount"), 0.0, 0.05)
+		else:
+			operation_tween(animation_tree,
+			"parameters/MediumAds/blend_amount",
+			animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
 		adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
 	_camera.fov = lerp(_camera.fov, 70, 0.1)
 

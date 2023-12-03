@@ -160,22 +160,21 @@ func do_ads(value):
 
 				else:
 					if get_equipped_weapon().item_name == "Double-barrel shotgun":
-						operation_tween(animation_tree,
+						operation_tween($"%AnimationTree",
 						"parameters/ShotgunAds/blend_amount",
-						animation_tree.get("parameters/ShotgunAds/blend_amount"), 1.0, 0.05)
+						$"%AnimationTree".get("parameters/ShotgunAds/blend_amount"), 1.0, 0.05)
 					else:
 						operation_tween($"%AnimationTree",
 						"parameters/MediumAds/blend_amount",
 						$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 1.0, 0.005)
-						adjust_arm(Vector3(-0.054, -1.571, 0.257))
 						gun_cam.transform = lerp(gun_cam.transform, Vector3(0, 1.538, 0), 0.1)
+					adjust_arm(Vector3(-0.054, -1.571, 0.257))
 			else:
 				get_equipped_weapon().hold_position.translation = get_equipped_weapon().ads_reset_position
 				get_equipped_weapon().hold_position.rotation_degrees = get_equipped_weapon().ads_reset_rotation
 				get_equipped_weapon().transform = get_equipped_weapon().get_hold_transform()
 
 				if get_equipped_weapon().item_size == 0:
-
 					operation_tween(
 					$"%AnimationTree",
 					"parameters/SmallAds/blend_amount",
@@ -183,10 +182,15 @@ func do_ads(value):
 					adjust_arm(Vector3(0, -1.287, 0.063))
 
 				else:
-					operation_tween($"%AnimationTree",
-					"parameters/MediumAds/blend_amount",
-					$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
-					adjust_arm(Vector3(0.008, -1.364, 0.175))
+					if get_equipped_weapon().item_name == "Double-barrel shotgun":
+						operation_tween($"%AnimationTree",
+						"parameters/ShotgunAds/blend_amount",
+						$"%AnimationTree".get("parameters/ShotgunAds/blend_amount"), 0.0, 0.1)
+					else:
+						operation_tween($"%AnimationTree",
+						"parameters/MediumAds/blend_amount",
+						$"%AnimationTree".get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
+						adjust_arm(Vector3(0.008, -1.364, 0.175))
 				$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 70, 0.1)
 
 

@@ -18,6 +18,8 @@ var sound_sources := []
 func _ready() -> void:
 	connect("body_entered", self, "on_body_entered")
 	connect("body_exited", self, "on_body_exited")
+	collision_mask = 1 << 1 | 1 << 6 | 1 << 9
+	collision_layer = 0
 
 
 func on_body_entered(body: Spatial) -> void:

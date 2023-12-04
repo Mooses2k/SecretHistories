@@ -65,8 +65,7 @@ func get_most_interesting() -> Event:
 
 func tick(state: CharacterState) -> int:
 	var most_interesting := get_most_interesting()
-	# print(most_interesting)
-	
+
 	if is_instance_valid(most_interesting):
 		state.target_position = most_interesting.position
 		return Status.SUCCESS

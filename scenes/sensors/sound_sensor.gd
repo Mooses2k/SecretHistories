@@ -62,9 +62,12 @@ func get_interest_level(source: Spatial) -> int:
 
 
 func get_walls_in_between(target_position : Vector3) -> int:
-	var passes := 0
+	var shape := RayShape.new()
+	shape.length = global_transform.origin.distance_to(target_position)
 	
-	var result: Dictionary = owner.get_world().direct_space_state.intersect_ray(global_transform.origin, target_position, [self, owner], 1 << 0)
-	for each in result: if each.collider.name in WALL_NAMES:
-		passes += 1
-	return passes
+	var shape_params := PhysicsShapeQueryParameters.new()
+	shape_params.transform = Transform(global_transform).looking_at(-to_local(target_position), Vector3.UP)
+	shape_params.collision_mask = 1 << 0
+	shape_params.set_shape(shape)
+
+	return get_world().direct_space_state.intersect_shape(shape_params).size()

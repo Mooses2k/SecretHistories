@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RayShape" id=1]
 
 [node name="Spatial" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0306168, 0.0465221, -0.00631046 )
@@ -22,5 +24,24 @@ width = 0.182944
 height = 35.5211
 depth = 4.00155
 
+[node name="CSGBox3" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029633, -3.21698, 5.63314 )
+use_collision = true
+width = 6.68262
+height = 35.5211
+depth = 0.618674
+
+[node name="CSGBox4" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40998, -3.21698, 7.18422 )
+use_collision = true
+width = 6.68262
+height = 35.5211
+depth = 0.618674
+
 [node name="Player" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0894, -2.21698, -18.5718 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 1 )

@@ -7434,7 +7434,7 @@ input_5/auto_advance = false
 animation = "webley_reload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -479.998, -67.8943 )
+graph_offset = Vector2( -815.447, -88.2371 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 2/node" = SubResource( 419 )
@@ -7492,7 +7492,7 @@ nodes/Weapon_states/position = Vector2( 460, -540 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -700, 440 )
 nodes/output/position = Vector2( 2400, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "ReloadAnimations", 0, "DoubleBarrelReload", "ReloadAnimations", 1, "LeemetfordReload", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle" ]
+node_connections = [ "output", 0, "Hand_Transition", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "ReloadAnimations", 0, "DoubleBarrelReload", "ReloadAnimations", 1, "LeemetfordReload", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25

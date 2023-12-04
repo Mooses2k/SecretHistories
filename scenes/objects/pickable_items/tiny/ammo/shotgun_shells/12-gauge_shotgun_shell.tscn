@@ -25,6 +25,8 @@ height = 0.055
 radius = 0.01
 
 [node name="12-GaugeShotgunShell" instance=ExtResource( 1 )]
+collision_mask = 65
+mass = 1.0
 item_drop_sound = ExtResource( 4 )
 item_data = ExtResource( 2 )
 

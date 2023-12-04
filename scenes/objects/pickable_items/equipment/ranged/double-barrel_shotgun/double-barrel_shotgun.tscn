@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/_smoke.tscn" type="PackedScene" id=11]
 [ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=12]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" type="Script" id=13]
 
 [sub_resource type="Skin" id=375]
 resource_name = "Skin"
@@ -263,6 +264,29 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 0.8, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 0.866667, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00454131, -0.130831, 0.00556108, 0.991379, 1, 1, 1, 0.933333, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 3.73333, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00652232, -0.147611, 0.00406133, 0.989016, 1, 1, 1, 3.8, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, 0.00595577, -0.154862, 0.00658253, 0.987896, 1, 1, 1, 3.86667, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1, 4.88333, 1, -2.39743e-09, -8.56817e-08, -7.45058e-09, -3.81507e-10, 0, 0, 1, 1, 1, 1 )
+tracks/5/type = "method"
+tracks/5/path = NodePath("../AnimationPlayer/ShellReloadEffects")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 1.9, 2.2, 2.7, 3.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "player_add_shell"
+}, {
+"args": [  ],
+"method": "player_clear_shell"
+}, {
+"args": [  ],
+"method": "player_add_shell"
+}, {
+"args": [  ],
+"method": "player_clear_shell"
+} ]
+}
 
 [node name="Double-barrelShotgun" instance=ExtResource( 9 )]
 mass = 3.0
@@ -345,6 +369,14 @@ mesh = SubResource( 376 )
 skin = SubResource( 377 )
 script = ExtResource( 1 )
 
+[node name="ShellPosition1" type="Position3D" parent="MeshInstance/DoubleBarrel_Arm/Skeleton/DoubleBarrel_Mesh" index="0"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00315713, 0.0554754, -0.0139816 )
+
+[node name="ShellPosition2" type="Position3D" parent="MeshInstance/DoubleBarrel_Arm/Skeleton/DoubleBarrel_Mesh" index="1"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00270612, 0.0550244, 0.0130796 )
+
 [node name="CollisionShape" parent="." index="2"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.0358443, -0.0272417 )
 shape = SubResource( 378 )
@@ -383,6 +415,9 @@ anims/enter_shell_1_weapon = SubResource( 6 )
 anims/enter_shell_2_weapon = SubResource( 7 )
 anims/half_reload = SubResource( 4 )
 anims/reload = SubResource( 3 )
+
+[node name="ShellReloadEffects" type="Node" parent="AnimationPlayer" index="0"]
+script = ExtResource( 13 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

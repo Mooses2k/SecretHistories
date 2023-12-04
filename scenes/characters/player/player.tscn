@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://resources/animations/kyber_pass_martini_reload.tres" type="Animation" id=25]
 [ext_resource path="res://resources/animations/lee_metford_reload.tres" type="Animation" id=26]
 [ext_resource path="res://resources/animations/webley_reload.tres" type="Animation" id=27]
+[ext_resource path="res://scenes/characters/player/player_gun_reload_shells.gd" type="Script" id=28]
 [ext_resource path="res://scenes/characters/stamina.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/characters/player/player_anims.gd" type="Script" id=30]
 [ext_resource path="res://scenes/characters/player/player_animations_test.gd" type="Script" id=31]
@@ -7784,6 +7785,10 @@ anims/webley_reload = ExtResource( 27 )
 script = ExtResource( 30 )
 _cam_path = NodePath("../FPSCamera")
 
+[node name="PlayerGunReloadShells" type="Node" parent="PlayerAnimations" index="0"]
+unique_name_in_owner = true
+script = ExtResource( 28 )
+
 [node name="AnimationTree" parent="." index="26"]
 tree_root = SubResource( 365 )
 anim_player = NodePath("../PlayerAnimationPlayer")
@@ -7794,7 +7799,7 @@ parameters/MediumAds/blend_amount = 0.0
 parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
-parameters/ReloadAnimations/current = 2
+parameters/ReloadAnimations/current = 0
 parameters/ShotgunAds/blend_amount = 0.0
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
@@ -7837,6 +7842,10 @@ transform = Transform( 0.911884, -0.356852, -0.202792, -0.294348, -0.224219, -0.
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="ShellSpawnPosition" type="Position3D" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/OffHandAttachement/OffHandEquipmentRoot" index="0"]
+unique_name_in_owner = true
+transform = Transform( 0.898221, 0.316641, 0.304863, -0.190874, 0.905759, -0.378379, -0.39594, 0.281676, 0.874008, 0.0272431, -0.00431049, -0.0240837 )
 
 [node name="AimCast" type="RayCast" parent="FPSCamera" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0 )

@@ -130,6 +130,8 @@ func determine_weapon_reload_animation():
 		animation_value = 2
 	elif get_equipped_weapon().item_name == "Sawed-off Martini pistol":
 		animation_value = 4
+	elif get_equipped_weapon().item_name == "Lee-Metford rifle":
+		animation_value = 1
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
 
 
@@ -150,7 +152,7 @@ func do_idle():
 					$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 					$"%AnimationTree".set("parameters/Weapon_states/current", 1)
-				adjust_arm(Vector3(0.096, -1.391, 0.091))
+				adjust_arm(Vector3(0.008, -1.364, 0.175))
 
 
 func do_ads(value):
@@ -193,7 +195,6 @@ func do_ads(value):
 					"parameters/SmallAds/blend_amount",
 					$"%AnimationTree".get("parameters/SmallAds/blend_amount"), 0.0, 0.1)
 					adjust_arm(Vector3(0, -1.287, 0.063))
-
 				else:
 					if get_equipped_weapon().item_name == "Double-barrel shotgun":
 						operation_tween($"%AnimationTree",

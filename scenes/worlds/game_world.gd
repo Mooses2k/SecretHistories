@@ -42,13 +42,13 @@ func set_player_on_spawn_position(player: Player, _is_going_downstairs: bool) ->
 
 
 func world_to_grid(position : Vector3) -> Vector3:
-	var result : Vector3 = (position/WorldData.CELL_SIZE).floor()
+	var result : Vector3 = (position / WorldData.CELL_SIZE).floor()
 	result.y = 0
 	return result
 
 
 func grid_to_world(position : Vector3) -> Vector3:
-	var result : Vector3 = (position + Vector3.ONE*0.5)*WorldData.CELL_SIZE
+	var result : Vector3 = (position + Vector3.ONE * 0.5) * WorldData.CELL_SIZE
 	result.y = 0
 	return result
 

@@ -271,9 +271,12 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 1.9, 2.2, 2.7, 3.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.9, 1.9, 2.2, 2.7, 3.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "values": [ {
+"args": [  ],
+"method": "expell_shotgun_shells"
+}, {
 "args": [  ],
 "method": "player_add_shell"
 }, {

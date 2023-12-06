@@ -408,7 +408,7 @@ bus = "Effects"
 [node name="HoldPosition" parent="." index="8"]
 transform = Transform( 0.906545, 0.151185, -0.394107, -0.200015, 0.97604, -0.0856603, 0.371715, 0.156482, 0.915063, 0.112, 0.07, -0.277 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 unique_name_in_owner = true
 root_node = NodePath("../MeshInstance/lee_reload_weapon")
 anims/close_bolt_weapon = SubResource( 378 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -7317,8 +7317,19 @@ animation = "ads_idle_shotgun"
 [sub_resource type="AnimationNodeAnimation" id=427]
 animation = "hip_idle_shotgun"
 
+[sub_resource type="AnimationNodeAnimation" id=433]
+animation = "lee_metford_reload"
+
+[sub_resource type="AnimationNodeAnimation" id=434]
+animation = "martini_henry_reload"
+
+[sub_resource type="AnimationNodeAnimation" id=435]
+animation = "webley_reload"
+
 [sub_resource type="AnimationNodeAnimation" id=417]
 animation = "ads_idle"
+
+[sub_resource type="AnimationNodeOneShot" id=432]
 
 [sub_resource type="AnimationNodeAnimation" id=402]
 animation = "double_barrel_reload"
@@ -7343,8 +7354,7 @@ animation = "ItemHoldingHorizontal"
 [sub_resource type="AnimationNodeAnimation" id=431]
 animation = "kyber_pass_martini_reload"
 
-[sub_resource type="AnimationNodeAnimation" id=403]
-animation = "lee_metford_reload"
+[sub_resource type="AnimationNodeOneShot" id=439]
 
 [sub_resource type="AnimationNodeAnimation" id=412]
 animation = "OneHandedHipIdleL"
@@ -7358,8 +7368,7 @@ animation = "ItemHoldingVerticalL"
 [sub_resource type="AnimationNodeAnimation" id=414]
 animation = "idle-loop"
 
-[sub_resource type="AnimationNodeAnimation" id=404]
-animation = "martini_henry_reload"
+[sub_resource type="AnimationNodeOneShot" id=436]
 
 [sub_resource type="AnimationNodeBlend2" id=416]
 
@@ -7391,22 +7400,10 @@ animation = "idle-loop"
 [sub_resource type="AnimationNodeAnimation" id=369]
 animation = "One_Handed_Hip_Idle"
 
-[sub_resource type="AnimationNodeTransition" id=401]
-input_count = 5
-xfade_time = 0.2
-input_0/name = "Double-barrel shotgun"
-input_0/auto_advance = false
-input_1/name = "LeeMetfordReload"
-input_1/auto_advance = false
-input_2/name = "Martini-Henry rifle"
-input_2/auto_advance = false
-input_3/name = "WebleyReload"
-input_3/auto_advance = false
-input_4/name = "SawedOffMartiniPistol"
-input_4/auto_advance = false
-
 [sub_resource type="AnimationNodeAnimation" id=368]
 animation = "Hip_Idle"
+
+[sub_resource type="AnimationNodeOneShot" id=438]
 
 [sub_resource type="AnimationNodeBlend2" id=424]
 
@@ -7431,11 +7428,10 @@ input_4/auto_advance = false
 input_5/name = "Shotgun"
 input_5/auto_advance = false
 
-[sub_resource type="AnimationNodeAnimation" id=405]
-animation = "webley_reload"
+[sub_resource type="AnimationNodeOneShot" id=437]
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -100.133, -268.212 )
+graph_offset = Vector2( 405.194, -731.647 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 2/node" = SubResource( 419 )
@@ -7444,44 +7440,52 @@ nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 3/position" = Vector2( -160, 440 )
 "nodes/Animation 4/node" = SubResource( 427 )
 "nodes/Animation 4/position" = Vector2( -160, 280 )
+"nodes/Animation 5/node" = SubResource( 433 )
+"nodes/Animation 5/position" = Vector2( 860, -220 )
+"nodes/Animation 6/node" = SubResource( 434 )
+"nodes/Animation 6/position" = Vector2( 1180, -220 )
+"nodes/Animation 7/node" = SubResource( 435 )
+"nodes/Animation 7/position" = Vector2( 1540, -200 )
+"nodes/Double-barrel shotgun/node" = SubResource( 432 )
+"nodes/Double-barrel shotgun/position" = Vector2( 760, -480 )
 nodes/DoubleBarrelReload/node = SubResource( 402 )
-nodes/DoubleBarrelReload/position = Vector2( -700, 0 )
+nodes/DoubleBarrelReload/position = Vector2( 500, -220 )
 nodes/Hand_Transition/node = SubResource( 407 )
-nodes/Hand_Transition/position = Vector2( 2100, -140 )
+nodes/Hand_Transition/position = Vector2( 2620, -260 )
 nodes/Hold_Animation/node = SubResource( 400 )
 nodes/Hold_Animation/position = Vector2( -180, -860 )
 nodes/Horizontal_Hold_Animation/node = SubResource( 399 )
 nodes/Horizontal_Hold_Animation/position = Vector2( -680, -840 )
 nodes/KyberPassMartini/node = SubResource( 431 )
-nodes/KyberPassMartini/position = Vector2( -660, 600 )
-nodes/LeemetfordReload/node = SubResource( 403 )
-nodes/LeemetfordReload/position = Vector2( -700, 140 )
+nodes/KyberPassMartini/position = Vector2( 1780, -160 )
+"nodes/Lee-Metford rifle/node" = SubResource( 439 )
+"nodes/Lee-Metford rifle/position" = Vector2( 1080, -460 )
 nodes/LeftHanded_Pistol_Hold/node = SubResource( 412 )
-nodes/LeftHanded_Pistol_Hold/position = Vector2( 880, 240 )
+nodes/LeftHanded_Pistol_Hold/position = Vector2( 1460, 180 )
 nodes/Left_Horizontal_Hold_Animation/node = SubResource( 411 )
-nodes/Left_Horizontal_Hold_Animation/position = Vector2( 540, 240 )
+nodes/Left_Horizontal_Hold_Animation/position = Vector2( 1020, 180 )
 nodes/Left_Vertical_Hold_Animation/node = SubResource( 410 )
-nodes/Left_Vertical_Hold_Animation/position = Vector2( 540, 100 )
+nodes/Left_Vertical_Hold_Animation/position = Vector2( 1020, 20 )
 nodes/MainHand_Idle/node = SubResource( 414 )
 nodes/MainHand_Idle/position = Vector2( 40, 60 )
-nodes/MartiniHenryReload/node = SubResource( 404 )
-nodes/MartiniHenryReload/position = Vector2( -700, 280 )
+"nodes/Martini-Henry rifle/node" = SubResource( 436 )
+"nodes/Martini-Henry rifle/position" = Vector2( 1400, -440 )
 nodes/MediumAds/node = SubResource( 416 )
 nodes/MediumAds/position = Vector2( -180, -640 )
 nodes/OffHand_MainHand_Blend/node = SubResource( 413 )
-nodes/OffHand_MainHand_Blend/position = Vector2( 1660, -140 )
+nodes/OffHand_MainHand_Blend/position = Vector2( 2240, -140 )
 nodes/OffHand_Weapon_States/node = SubResource( 408 )
-nodes/OffHand_Weapon_States/position = Vector2( 1260, 160 )
+nodes/OffHand_Weapon_States/position = Vector2( 1900, 100 )
 nodes/Offhand_Hold_Animation/node = SubResource( 409 )
-nodes/Offhand_Hold_Animation/position = Vector2( 880, 60 )
+nodes/Offhand_Hold_Animation/position = Vector2( 1460, 20 )
 nodes/Offhand_Idle/node = SubResource( 415 )
-nodes/Offhand_Idle/position = Vector2( 880, 400 )
+nodes/Offhand_Idle/position = Vector2( 1460, 360 )
 nodes/Pistol_Anim/node = SubResource( 369 )
 nodes/Pistol_Anim/position = Vector2( -700, -360 )
-nodes/ReloadAnimations/node = SubResource( 401 )
-nodes/ReloadAnimations/position = Vector2( -200, 20 )
 nodes/Rifle_Anim/node = SubResource( 368 )
 nodes/Rifle_Anim/position = Vector2( -700, -660 )
+"nodes/Sawed-off Martini pistol/node" = SubResource( 438 )
+"nodes/Sawed-off Martini pistol/position" = Vector2( 2040, -360 )
 nodes/ShotgunAds/node = SubResource( 424 )
 nodes/ShotgunAds/position = Vector2( 100, 260 )
 nodes/SmallAds/node = SubResource( 418 )
@@ -7490,10 +7494,10 @@ nodes/Vertical_Hold_Animation/node = SubResource( 370 )
 nodes/Vertical_Hold_Animation/position = Vector2( -680, -1000 )
 nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 460, -540 )
-nodes/WebleyReload/node = SubResource( 405 )
-nodes/WebleyReload/position = Vector2( -700, 440 )
-nodes/output/position = Vector2( 2400, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "ReloadAnimations", 0, "DoubleBarrelReload", "ReloadAnimations", 1, "LeemetfordReload", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini" ]
+"nodes/Webley revolver/node" = SubResource( 437 )
+"nodes/Webley revolver/position" = Vector2( 1740, -440 )
+nodes/output/position = Vector2( 2900, -340 )
+node_connections = [ "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "output", 0, "Hand_Transition", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "OffHand_MainHand_Blend", 0, "Sawed-off Martini pistol", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -7786,20 +7790,26 @@ script = ExtResource( 28 )
 tree_root = SubResource( 365 )
 anim_player = NodePath("../PlayerAnimationPlayer")
 active = true
+"parameters/Double-barrel shotgun/active" = false
 parameters/Hand_Transition/current = 0
 parameters/Hold_Animation/current = 0
+"parameters/Lee-Metford rifle/active" = false
+"parameters/Martini-Henry rifle/active" = false
 parameters/MediumAds/blend_amount = 0.0
 parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 1
-parameters/ReloadAnimations/current = 0
+"parameters/Sawed-off Martini pistol/active" = false
 parameters/ShotgunAds/blend_amount = 0.0
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
+"parameters/Webley revolver/active" = false
 
 [node name="PlayerAnimationsTest" type="Node" parent="." index="26"]
 unique_name_in_owner = true
 script = ExtResource( 31 )
+current_weapon = "Double-barrel_shotgun"
+weapon_state = "RELOAD"
 reset_to_idle_pos = true
 ads_weapon_position = Vector3( 0.053, 0.02, -0.194 )
 ads_weapon_rotation = Vector3( -5.039, -26.317, 13.705 )
@@ -7943,6 +7953,8 @@ playback/repeat = true
 [connection signal="tween_completed" from="HitEffect/Tween2" to="HitEffect" method="_on_Tween2_tween_completed"]
 [connection signal="tween_completed" from="PlayerDeath/Tween" to="PlayerDeath" method="_on_Tween_tween_completed"]
 [connection signal="timeout" from="Audio/NoiseTimer" to="PlayerController" method="_on_NoiseTimer_timeout"]
+[connection signal="on_shoot" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun2" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun2/Effects" method="_on_GunItem_on_shoot"]
+[connection signal="target_hit" from="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun2" to="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton/MainHandAttachement/MainHandEquipmentRoot/Double-barrelShotgun2/Effects" method="_on_GunItem_target_hit"]
 [connection signal="area_entered" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_area_entered"]
 [connection signal="area_exited" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_area_exited"]
 [connection signal="body_entered" from="FPSCamera/GrabCastDot" to="PlayerController/FPSControlMode" method="_on_GrabCastDot_body_entered"]

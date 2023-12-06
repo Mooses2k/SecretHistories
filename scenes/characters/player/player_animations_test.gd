@@ -107,31 +107,13 @@ func set_weapon_state(value):
 		get_equipped_weapon().animation_player.play("reload")
 		player_reload()
 		yield(get_tree().create_timer(get_equipped_weapon().animation_player.get_animation("reload").length - 0.3), "timeout")
-		do_idle()
+#		do_idle()
 
 
 func player_reload():
 	adjust_arm(Vector3(0.008, -1.364, 0.175))
-
-	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
-	determine_weapon_reload_animation()
-
-
-func determine_weapon_reload_animation():
-	var animation_value : int
-	if get_equipped_weapon().item_name == "Double-barrel shotgun":
-		animation_value = 0
-	elif get_equipped_weapon().item_name == "Martini-Henry rifle":
-		animation_value = 2
-	elif get_equipped_weapon().item_name == "Sawed-off Martini pistol":
-		animation_value = 4
-	elif get_equipped_weapon().item_name == "Lee-Metford rifle":
-		animation_value = 1
-	elif get_equipped_weapon().item_name == "Webley revolver":
-		animation_value = 3
-	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
+	
+	$"%AnimationTree".set("parameters/" + str(get_equipped_weapon().item_name) + "/active", true)
 
 
 func do_idle():

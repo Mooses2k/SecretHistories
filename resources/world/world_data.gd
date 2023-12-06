@@ -126,7 +126,7 @@ func get_size_z() -> int:
 
 # Clears all the data, resetting everything back to default values
 func clear():
-	cell_count = world_size_x*world_size_z
+	cell_count = world_size_x * world_size_z
 	cell_type.resize(cell_count)
 	cell_surface_type.resize(cell_count)
 	ground_tile_index.resize(cell_count)
@@ -138,7 +138,7 @@ func clear():
 		ceiling_tile_index[i] = -1
 		pillar_tile_index[i] = -1
 	
-	wall_tile_index.resize(4*cell_count)
+	wall_tile_index.resize(4 * cell_count)
 	for i in wall_tile_index.size():
 		wall_tile_index[i] = -1
 	
@@ -354,7 +354,7 @@ func set_room(type: int, p_room_data: RoomData) -> void:
 	if not rooms.has(type):
 		rooms[type] = []
 	elif rooms[type].has(p_room_data):
-		push_warning("room data already on rooms[%s]: %s"%[
+		push_warning("room data already on rooms[%s]: %s" % [
 				RoomData.OriginalPurpose.keys()[type], 
 				p_room_data
 		])
@@ -489,11 +489,11 @@ func get_ceiling_tile_index(cell_index : int) -> int:
 
 
 func get_int_position_from_cell_index(cell_index : int) -> Array:
-	return [int(cell_index/world_size_z), cell_index%world_size_z]
+	return [int(cell_index / world_size_z), cell_index%world_size_z]
 
 
 func get_local_cell_position(cell_index : int) -> Vector3:
-	return Vector3(int(cell_index/world_size_z), 0, cell_index%world_size_z)*CELL_SIZE
+	return Vector3(int(cell_index / world_size_z), 0, cell_index % world_size_z) * CELL_SIZE
 
 
 func get_cell_type(cell_index : int) -> int:
@@ -554,7 +554,7 @@ func is_cell_free(cell_index: int) -> bool:
 
 func set_object_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
 	if _objects_to_spawn.has(cell_index):
-		push_error("Aborting. Cell %s is already occupied with: %s"%[cell_index, spawn_data])
+		push_error("Aborting. Cell %s is already occupied with: %s" % [cell_index, spawn_data])
 		return
 	
 	_objects_to_spawn[cell_index] = spawn_data
@@ -566,7 +566,7 @@ func get_objects_to_spawn() -> Dictionary:
 
 func set_character_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
 	if _characters_to_spawn.has(cell_index):
-		push_error("Aborting. Cell %s is already occupied with: %s"%[cell_index, spawn_data])
+		push_error("Aborting. Cell %s is already occupied with: %s" % [cell_index, spawn_data])
 		return
 	
 	_characters_to_spawn[cell_index] = spawn_data
@@ -785,4 +785,4 @@ func print_world_map() -> void:
 				print(line)
 				line = ""
 	
-	print("-".repeat(world_size_x)+"\n")
+	print("-".repeat(world_size_x) + "\n")

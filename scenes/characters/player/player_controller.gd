@@ -751,10 +751,11 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 
 func handle_binocs():
 	# Zoom in/out like binoculars or spyglass
-	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
-		if Input.is_action_just_pressed("ablty|binocs_spyglass"):
+	if Input.is_action_just_pressed("ablty|binocs_spyglass"):
+		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_ZOOM
-		if Input.is_action_just_released("ablty|binocs_spyglass"):
+	if Input.is_action_just_released("ablty|binocs_spyglass"):
+		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_NORMAL
 
 

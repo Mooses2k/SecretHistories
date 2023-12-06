@@ -1,6 +1,6 @@
 # Write your doc string for this file here
-
 extends LevelStaircase
+
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
 
@@ -9,17 +9,17 @@ extends LevelStaircase
 #--- constants ------------------------------------------------------------------------------------
 
 const DOWN_FACING_ROTATIONS = {
-	WorldData.Direction.NORTH: 1.5*PI,
+	WorldData.Direction.NORTH: 1.5 * PI,
 	WorldData.Direction.EAST: PI,
-	WorldData.Direction.SOUTH: 0.5*PI,
+	WorldData.Direction.SOUTH: 0.5 * PI,
 	WorldData.Direction.WEST: 0,
 }
 
 const PLAYER_FACING_ROTATIONS = {
 	WorldData.Direction.NORTH: 0,
-	WorldData.Direction.EAST: 1.5*PI,
+	WorldData.Direction.EAST: 1.5 * PI,
 	WorldData.Direction.SOUTH: PI,
-	WorldData.Direction.WEST: 0.5*PI,
+	WorldData.Direction.WEST: 0.5 * PI,
 }
 
 #--- public variables - order: export > normal var > onready --------------------------------------

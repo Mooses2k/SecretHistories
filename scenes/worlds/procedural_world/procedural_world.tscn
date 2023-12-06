@@ -129,7 +129,7 @@ _max_loot = 15
 script = ExtResource( 15 )
 _character_scene_path = "res://scenes/characters/cultists/neophyte.tscn"
 _density_by_type = {
-1: 0.03,
+1: 0.05,
 2: 0.0,
 3: 0
 }

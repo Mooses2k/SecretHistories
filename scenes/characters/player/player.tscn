@@ -7435,7 +7435,7 @@ input_5/auto_advance = false
 animation = "webley_reload"
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( -815.447, -88.2371 )
+graph_offset = Vector2( -100.133, -268.212 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 2/node" = SubResource( 419 )
@@ -7493,7 +7493,7 @@ nodes/Weapon_states/position = Vector2( 460, -540 )
 nodes/WebleyReload/node = SubResource( 405 )
 nodes/WebleyReload/position = Vector2( -700, 440 )
 nodes/output/position = Vector2( 2400, -140 )
-node_connections = [ "output", 0, "Hand_Transition", "Hand_Transition", 0, "OffHand_MainHand_Blend", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "ReloadAnimations", 0, "DoubleBarrelReload", "ReloadAnimations", 1, "LeemetfordReload", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3" ]
+node_connections = [ "output", 0, "Hand_Transition", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 3, "ReloadAnimations", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "OffHand_MainHand_Blend", 0, "Weapon_states", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "ReloadAnimations", 0, "DoubleBarrelReload", "ReloadAnimations", 1, "LeemetfordReload", "ReloadAnimations", 2, "MartiniHenryReload", "ReloadAnimations", 3, "WebleyReload", "ReloadAnimations", 4, "KyberPassMartini" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -7507,28 +7507,21 @@ collision_layer = 18
 script = ExtResource( 2 )
 animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 
-[node name="PlayerAnimationsTest" type="Node" parent="." index="0"]
-unique_name_in_owner = true
-script = ExtResource( 31 )
-reset_to_idle_pos = true
-ads_weapon_position = Vector3( 0.053, 0.02, -0.194 )
-ads_weapon_rotation = Vector3( -5.039, -26.317, 13.705 )
-
-[node name="CollisionShape" parent="." index="1"]
+[node name="CollisionShape" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
 
-[node name="CollisionShape2" parent="." index="2"]
+[node name="CollisionShape2" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.316957, 0 )
 disabled = true
 
-[node name="OffHandEquipmentRoot" parent="." index="3"]
+[node name="OffHandEquipmentRoot" parent="." index="2"]
 unique_name_in_owner = false
 
-[node name="MainHandEquipmentRoot" parent="." index="4"]
+[node name="MainHandEquipmentRoot" parent="." index="3"]
 unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
-[node name="BeltPosition" parent="." index="5"]
+[node name="BeltPosition" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.115, 0.916, -0.173 )
 
 [node name="LightDetection" parent="Body" index="0" instance=ExtResource( 18 )]
@@ -7554,7 +7547,7 @@ material_override = ExtResource( 23 )
 extra_cull_margin = 100.0
 mesh = SubResource( 38 )
 
-[node name="Hitbox" parent="." index="7" groups=["PLAYER"]]
+[node name="Hitbox" parent="." index="6" groups=["PLAYER"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0 )
 collision_layer = 4
 collision_mask = 64
@@ -7563,7 +7556,7 @@ monitoring = true
 [node name="CollisionShape" parent="ClamberableChecker" index="0"]
 shape = SubResource( 40 )
 
-[node name="PlayerController" type="Node" parent="." index="12"]
+[node name="PlayerController" type="Node" parent="." index="11"]
 script = ExtResource( 6 )
 throw_strength = 10.0
 grab_strength = 4.0
@@ -7588,7 +7581,7 @@ cast_shadow = 0
 mesh = SubResource( 19 )
 material/0 = SubResource( 21 )
 
-[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="13"]
+[node name="Tinnitus" type="AudioStreamPlayer" parent="." index="12"]
 process_priority = 100
 stream = ExtResource( 8 )
 volume_db = -13.0
@@ -7605,7 +7598,7 @@ mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 
-[node name="HitEffect" type="CanvasLayer" parent="." index="14"]
+[node name="HitEffect" type="CanvasLayer" parent="." index="13"]
 script = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="HitEffect" index="0"]
@@ -7673,7 +7666,7 @@ L - cycle look (shaders and debug light)
 
 F1 - show/hide this menu"
 
-[node name="Indication_canvas" type="CanvasLayer" parent="." index="15"]
+[node name="Indication_canvas" type="CanvasLayer" parent="." index="14"]
 pause_mode = 2
 script = ExtResource( 12 )
 
@@ -7729,7 +7722,7 @@ text = "Clamber (SPACE)"
 align = 1
 valign = 1
 
-[node name="PlayerDeath" type="CanvasLayer" parent="." index="16"]
+[node name="PlayerDeath" type="CanvasLayer" parent="." index="15"]
 pause_mode = 2
 script = ExtResource( 16 )
 
@@ -7758,10 +7751,10 @@ mouse_filter = 2
 wait_time = 0.2
 one_shot = true
 
-[node name="Stamina" parent="." index="19" instance=ExtResource( 29 )]
+[node name="Stamina" parent="." index="18" instance=ExtResource( 29 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5104, 0 )
 
-[node name="Legs" parent="." index="21"]
+[node name="Legs" parent="." index="20"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0379716, 0 )
 
 [node name="Feet" parent="Legs" index="0"]
@@ -7769,7 +7762,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 cast_to = Vector3( 0, -1, 0 )
 collide_with_areas = true
 
-[node name="PlayerAnimationPlayer" parent="." index="23" instance=ExtResource( 24 )]
+[node name="PlayerAnimationPlayer" parent="." index="22" instance=ExtResource( 24 )]
 anims/Hip_Idle = SubResource( 429 )
 anims/ads_idle = SubResource( 430 )
 anims/ads_idle_shotgun = SubResource( 425 )
@@ -7781,7 +7774,7 @@ anims/martini_henry_reload = SubResource( 423 )
 anims/one-handed_ads_idle = SubResource( 420 )
 anims/webley_reload = ExtResource( 27 )
 
-[node name="PlayerAnimations" type="Node" parent="." index="24"]
+[node name="PlayerAnimations" type="Node" parent="." index="23"]
 script = ExtResource( 30 )
 _cam_path = NodePath("../FPSCamera")
 
@@ -7789,7 +7782,7 @@ _cam_path = NodePath("../FPSCamera")
 unique_name_in_owner = true
 script = ExtResource( 28 )
 
-[node name="AnimationTree" parent="." index="26"]
+[node name="AnimationTree" parent="." index="25"]
 tree_root = SubResource( 365 )
 anim_player = NodePath("../PlayerAnimationPlayer")
 active = true
@@ -7803,6 +7796,13 @@ parameters/ReloadAnimations/current = 0
 parameters/ShotgunAds/blend_amount = 0.0
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
+
+[node name="PlayerAnimationsTest" type="Node" parent="." index="26"]
+unique_name_in_owner = true
+script = ExtResource( 31 )
+reset_to_idle_pos = true
+ads_weapon_position = Vector3( 0.053, 0.02, -0.194 )
+ads_weapon_rotation = Vector3( -5.039, -26.317, 13.705 )
 
 [node name="FPSCamera" type="Camera" parent="." index="27"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )

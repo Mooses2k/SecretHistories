@@ -213,6 +213,17 @@ func end_ads():
 	_camera.fov = lerp(_camera.fov, 70, 0.1)
 
 
+func reload_weapons():
+	get_available_gun().animation_player.play("reload")
+	adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
+	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
+	determine_weapon_reload_animation()
+	print("Animation length is ", get_available_gun().animation_player.get_animation("reload").length)
+	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")
+	check_player_animation()
+
+
 func determine_weapon_reload_animation():
 	var animation_value : int
 	if get_available_gun().item_name == "Double-barrel shotgun":
@@ -224,19 +235,9 @@ func determine_weapon_reload_animation():
 	elif get_available_gun().item_name == "Webley revolver":
 		animation_value = 3
 	
-	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-	$"%AnimationTree".set("parameters/Weapon_states/current", 3)
+	if get_available_gun().item_size == 0:
+		unequip_offhand()
 	$"%AnimationTree".set("parameters/ReloadAnimations/current", animation_value)
-	
-	print("Reloading started and reloading is: ", "parameters/ReloadAnimations/current", animation_value)
-
-
-func reload_weapons():
-	adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
-	get_available_gun().animation_player.play("reload")
-	determine_weapon_reload_animation()
-	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")
-	check_player_animation()
 
 
 func get_available_gun() -> GunItem:

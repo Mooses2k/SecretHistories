@@ -613,6 +613,7 @@ script = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0 )
 
 [node name="Webley_Arm" type="Spatial" parent="MeshInstance/webley_reload_weapon" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Skeleton" type="Skeleton" parent="MeshInstance/webley_reload_weapon/Webley_Arm" index="0"]
 bones/0/name = "Root"

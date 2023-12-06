@@ -107,13 +107,10 @@ func set_weapon_state(value):
 		get_equipped_weapon().animation_player.play("reload")
 		player_reload()
 		yield(get_tree().create_timer(get_equipped_weapon().animation_player.get_animation("reload").length - 0.3), "timeout")
-#		do_ads(false)
 		do_idle()
 
 
 func player_reload():
-#	get_equipped_weapon().hold_position.translation = get_equipped_weapon().reload_position
-#	get_equipped_weapon().hold_position.rotation_degrees = get_equipped_weapon().reload_rotation
 	adjust_arm(Vector3(0.008, -1.364, 0.175))
 
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)

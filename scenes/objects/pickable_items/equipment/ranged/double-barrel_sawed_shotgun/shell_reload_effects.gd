@@ -62,8 +62,6 @@ func expell_shotgun_shells():
 	
 	first_shell.apply_impulse(Vector3(0, 0.2, 0.1), Vector3(0, 0.3, 0.2) )
 	second_shell.apply_impulse(Vector3(0, 0.2, 0.1), Vector3(0, 0.3, 0.2) )
-#	first_shell.apply_torque_impulse(Vector3(0, 0.2, 0) * 0.2)
-#	second_shell.apply_torque_impulse(Vector3(0, 0.2, 0) * 0.2)
 
 
 func player_add_shell():

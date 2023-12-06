@@ -54,18 +54,16 @@ func expell_shotgun_shells():
 	first_shell.rotation_degrees.z = 100.695
 	second_shell.rotation_degrees.z = 100.695
 	var world_scene = owner.owner_character.owner as Spatial
-	print("Shell position 1 is: ", shell_position_1)
-	print("Shell position 2 is: ", shell_position_1)
 	first_shell.translation = shell_position_1
 	second_shell.translation = shell_position_2
+	
 	world_scene.add_child(first_shell)
 	world_scene.add_child(second_shell)
-	print("World Scene is: ", world_scene)
 	
-	first_shell.apply_torque_impulse(Vector3(0, 0.2, 0) * 0.3)
-	second_shell.apply_torque_impulse(Vector3(0, 0.2, 0) * 0.3)
-#	first_shell.apply_central_impulse(Vector3(0, 2, 0) * 2)
-#	second_shell.apply_central_impulse(Vector3(0, 2, 0) * 2)
+	first_shell.apply_impulse(Vector3(0, 0.2, 0.1), Vector3(0, 0.3, 0.2) )
+	second_shell.apply_impulse(Vector3(0, 0.2, 0.1), Vector3(0, 0.3, 0.2) )
+#	first_shell.apply_torque_impulse(Vector3(0, 0.2, 0) * 0.2)
+#	second_shell.apply_torque_impulse(Vector3(0, 0.2, 0) * 0.2)
 
 
 func player_add_shell():

@@ -128,33 +128,21 @@ animation_tree_path = NodePath("")
 
 [node name="303BritishBox" parent="." instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.63934, 0.521607, 0 )
-collision_layer = 0
-collision_mask = 0
 
 [node name="Martini-HenryBox" parent="." instance=ExtResource( 23 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30311, 0.0623416, -3.64026 )
-collision_layer = 0
-collision_mask = 0
 
 [node name="WebleyBox" parent="." instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.92614, 0.0623421, -2.43501 )
-collision_layer = 0
-collision_mask = 0
 
 [node name="12-GaugeBox" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.15189, 0.0623416, -3.82722 )
-collision_layer = 0
-collision_mask = 0
 
 [node name="12-GaugeBox2" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.0429, 0.0623416, 6.7309 )
-collision_layer = 0
-collision_mask = 0
 
 [node name="12-GaugeBox3" parent="." instance=ExtResource( 21 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.329305, 0.0623416, 8.46782 )
-collision_layer = 0
-collision_mask = 0
 
 [node name="Hammer" parent="." instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0737, 0.484759, 1.19271 )
@@ -163,6 +151,8 @@ collision_mask = 0
 
 [node name="Spyglass" parent="." instance=ExtResource( 25 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7102, 0.27303, 0 )
+collision_layer = 64
+collision_mask = 1
 
 [node name="Rock1" parent="." instance=ExtResource( 27 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09444, 0.0253901, -5.13427 )

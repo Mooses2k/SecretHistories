@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/models/large_objects/sarcophagi/M_SarcoLidClean.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/large_objects/sarcophagi/dragging_sound.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/sarcophagus_lid_scrape.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" type="AudioStream" id=4]
 [ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=5]
+[ext_resource path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Sarcophagus_Clean_Plane016"
@@ -110,3 +111,6 @@ script = ExtResource( 5 )
 [node name="PlacementAnchor11" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.994057, 0.130774, 0.379488 )
 script = ExtResource( 5 )
+
+[node name="ItemSpawnerOnPlacementAnchor" parent="." instance=ExtResource( 6 )]
+anchors_parent = NodePath("..")

@@ -226,6 +226,9 @@ var wall_tile_index : PoolIntArray
 var pillar_tile_index : PoolIntArray
 var ceiling_tile_index : PoolIntArray
 
+#items to spawn inside sarcophagus
+var sarco_item_list : PoolStringArray
+var sarco_lid_item_list : PoolStringArray
 
 # Player spawn position in World Coordinates
 # Keys are RoomData.OriginalPurpose STAIRCASE values
@@ -739,6 +742,21 @@ func get_neighbour_cell(cell_index : int, direction : int) -> int:
 			return _get_west_cell(cell_index)
 	return -1
 
+
+func set_sarco_item_list(item_list : PoolStringArray) -> void:
+	sarco_item_list = item_list
+
+
+func get_sarco_item_list() -> PoolStringArray:
+	return sarco_item_list
+
+
+func set_sarco_lid_item_list(item_list : PoolStringArray) -> void:
+	sarco_lid_item_list = item_list
+
+
+func get_sarco_lid_item_list() -> PoolStringArray:
+	return sarco_lid_item_list
 
 ###################################################################################################
 ### Debug Methods #################################################################################

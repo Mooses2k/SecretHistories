@@ -21,6 +21,7 @@ export(PossibleLids) var current_lid := PossibleLids.EMPTY setget _set_current_l
 export var transforms_by_direction := {
 	WorldData.Direction.NORTH: Transform(),
 }
+var spawnable_items : PoolStringArray setget _set_spawnable_items
 
 var wall_direction := -1 setget _set_wall_direction
 
@@ -96,6 +97,10 @@ func _set_wall_direction(value: int) -> void:
 	
 	if is_inside_tree():
 		_adjust_to_wall_direction()
+
+
+func _set_spawnable_items(value: PoolStringArray):
+	spawnable_items = value
 
 
 func _adjust_to_wall_direction() -> void:

@@ -217,6 +217,7 @@ func _set_sarco_spawn_data(
 	spawn_data.set_custom_property("current_lid", lid_type)
 	spawn_data.set_custom_property("wall_direction", wall_direction)
 	spawn_data.set_custom_property("spawnable_items", data.get_sarco_item_list())
+	spawn_data.set_custom_property("sarco_spawnable_items", data.get_sarco_lid_item_list())
 	
 	for cell_index in sarco_cells:
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)

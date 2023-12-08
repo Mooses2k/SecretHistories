@@ -6,21 +6,21 @@ export(NodePath) var anchors_parent: NodePath
 
 func _ready():
 	if not owner.spawnable_items.empty():
-		var list_size = owner.spawnable_items.size()
-		var spawned_num = 0
 		var random_num
+		var anchors = filter_list_anchors(get_node(anchors_parent).get_children())
 		
-		for anchor in get_node(anchors_parent).get_children():
-			random_num = randi() % 3
-			
-			if spawned_num > 10:
-				break;
-				
-			if random_num == 1:
-				continue;
-				
-			if anchor is Position3D and not "Position" in anchor.name:
-				random_num = randi() % list_size
-				var current_item = load(owner.spawnable_items[random_num]).instance() as RigidBody
-				anchor.add_child(current_item)
-				spawned_num += 1
+		for item_path in owner.spawnable_items:
+			random_num = randi() % anchors.size()
+			var new_item = load(item_path).instance()
+			anchors[random_num].add_child(new_item)
+			anchors.remove(random_num)
+
+
+func filter_list_anchors(anchor_nodes: Array) -> Array:
+	var filtered_list : Array
+	
+	for anchor_node in anchor_nodes:
+		if anchor_node is Position3D:
+			filtered_list.append(anchor_node)
+	
+	return filtered_list

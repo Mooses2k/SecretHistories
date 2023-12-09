@@ -98,6 +98,7 @@ script = ExtResource( 26 )
 door_dict = {
 14: ExtResource( 25 )
 }
+door_probability = 0.6
 
 [node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="9"]
 script = ExtResource( 6 )

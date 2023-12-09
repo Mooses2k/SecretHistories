@@ -1,11 +1,14 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_Wall_Metal.material" type="Material" id=1]
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_DoorSimple1.material" type="Material" id=2]
-[ext_resource path="res://scenes/objects/interactables/interactable.gd" type="Script" id=3]
+[ext_resource path="res://scenes/objects/large_objects/doors/door_interactable.gd" type="Script" id=3]
 [ext_resource path="res://scenes/objects/large_objects/doors/base_kinematic_door.gd" type="Script" id=4]
 [ext_resource path="res://resources/models/gridmap/modular_doors/M_DoorSimple1.material" type="Material" id=5]
 [ext_resource path="res://resources/models/gridmap/modular_doors/M_Wall_Metal.material" type="Material" id=6]
+[ext_resource path="res://resources/sounds/doors/damage/broken/160213__qubodup__kicking-forcing-breaking-wooden-door.ogg" type="AudioStream" id=7]
+[ext_resource path="res://resources/sounds/doors/damage/ineffective/363697__pfranzen__kicking-a-door.ogg" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/doors/damage/effective/452600__kyles__door-wood-kick-open-rattle-creak.wav" type="AudioStream" id=9]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.45, 0.95, 0.05 )
@@ -100,6 +103,10 @@ shape = SubResource( 1 )
 transform = Transform( -1, 0, -1.50996e-07, -2.01948e-28, 1, 8.47033e-22, 1.50996e-07, 0, -1, 0.5, -0.03, 0.05 )
 mesh = SubResource( 8 )
 
+[node name="BrokenDoorOrigin" type="Spatial" parent="DoorHingeZAxis/DoorBody/Door_Simple1"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.151 )
+
 [node name="Door_Simple2" type="MeshInstance" parent="DoorHingeZAxis/DoorBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.05 )
 visible = false
@@ -119,7 +126,6 @@ shape = SubResource( 6 )
 unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 19
-monitoring = false
 monitorable = false
 
 [node name="CollisionShape2" type="CollisionShape" parent="DoorHingeZAxis/DoorBody/OpenBlockDetector"]
@@ -131,7 +137,6 @@ unique_name_in_owner = true
 transform = Transform( 1, -7.52316e-37, -1.05879e-22, 1.50463e-36, 1, -1.69407e-21, 1.05879e-22, 0, 1, 0, 0, -0.2 )
 collision_layer = 0
 collision_mask = 19
-monitoring = false
 monitorable = false
 
 [node name="CollisionShape2" type="CollisionShape" parent="DoorHingeZAxis/DoorBody/CloseBlockDetector"]
@@ -173,6 +178,24 @@ shape = SubResource( 9 )
 wait_time = 0.5
 autostart = true
 
+[node name="Sounds" type="Spatial" parent="."]
+
+[node name="DoorKickIneffectiveSound" type="AudioStreamPlayer3D" parent="Sounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+stream = ExtResource( 8 )
+bus = "Effects"
+
+[node name="DoorKickEffectiveSound" type="AudioStreamPlayer3D" parent="Sounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+stream = ExtResource( 9 )
+bus = "Effects"
+
+[node name="DoorBreakSound" type="AudioStreamPlayer3D" parent="Sounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+stream = ExtResource( 7 )
+bus = "Effects"
+
 [connection signal="character_interacted" from="DoorHingeZAxis/DoorBody/Interactable" to="." method="_on_Interactable_character_interacted"]
+[connection signal="kicked" from="DoorHingeZAxis/DoorBody/Interactable" to="." method="_on_Interactable_kicked"]
 [connection signal="body_entered" from="NpcDetector" to="." method="_on_NpcDetector_body_entered"]
 [connection signal="timeout" from="NpcCheckTimer" to="." method="_on_NpcCheckTimer_timeout"]

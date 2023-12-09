@@ -11,5 +11,5 @@ dest_files=[ "res://.import/160213__qubodup__kicking-forcing-breaking-wooden-doo
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

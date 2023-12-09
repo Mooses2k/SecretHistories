@@ -214,6 +214,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/doors/door.gd"
 }, {
+"base": "Interactable",
+"class": "DoorInteractable",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/doors/door_interactable.gd"
+}, {
 "base": "RigidBody",
 "class": "Door_body",
 "language": "GDScript",
@@ -566,6 +571,7 @@ _global_script_class_icons={
 "Cultist": "",
 "DisposableLightItem": "",
 "Door": "",
+"DoorInteractable": "",
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",

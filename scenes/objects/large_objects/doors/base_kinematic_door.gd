@@ -1,12 +1,11 @@
+extends Spatial
+class_name BaseKinematicDoor
+
 #
 # This is a simplified door model, with toggle open/close
 # Done due to limitations in Godot 3 making it difficult to implement
 # a fully simulated Rigid Body door
 #
-
-extends Spatial
-class_name BaseKinematicDoor
-
 
 
 enum DoorState {
@@ -41,6 +40,7 @@ onready var door_kick_ineffective_sound: AudioStreamPlayer3D = $Sounds/DoorKickI
 onready var door_kick_effective_sound: AudioStreamPlayer3D = $Sounds/DoorKickEffectiveSound
 onready var door_break_sound: AudioStreamPlayer3D = $Sounds/DoorBreakSound
 
+
 func _physics_process(delta):
 	if not door_should_move:
 		return
@@ -69,6 +69,7 @@ func _physics_process(delta):
 		DoorState.STUCK:
 			door_should_move = false
 			pass
+
 
 func _on_Interactable_character_interacted(character):
 	match door_state:
@@ -103,9 +104,6 @@ func _on_Interactable_kicked(position, impulse, damage) -> void:
 		var global_door_transform = broken_door_origin.global_transform
 		door_hinge_z_axis.queue_free()
 		var broken_door_instance : Spatial = broken_door_scene.instance()
-		broken_door_instance.transform = global_transform.affine_inverse()*global_door_transform
+		broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
 		add_child(broken_door_instance)
-		broken_door_instance.apply_impulse(position, impulse*(damage/5.0), 0.0)
-		# TODO spawn broken door
-		pass
-	pass # Replace with function body.
+		broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)

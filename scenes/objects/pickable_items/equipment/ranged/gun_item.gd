@@ -94,7 +94,7 @@ func shoot():
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
 	raycast.cast_to = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
-	apply_damage(total_damage)
+	apply_knockback(total_damage)
 	print(owner_character, " shoots a ", self)
 	
 	# Cultists can't recoil for now
@@ -176,7 +176,7 @@ func unload():
 # while one of these timers is active should appropriately reset the timer and deal any of it's side effects
 
 
-func apply_damage(total_damage):
+func apply_knockback(total_damage):
 	if raycast.is_colliding():
 		var object_detected = raycast.get_collider()
 		if object_detected is RigidBody and has_method("apply_damage") :

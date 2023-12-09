@@ -760,29 +760,25 @@ func handle_binocs():
 
 
 func kick():
-	var kick_object = legcast.get_collider()
 	
-	if character.kick_timer.is_stopped():
+	if character.kick_timer.is_stopped() and legcast.is_colliding() and Input.is_action_just_pressed("player|kick"):
+		var kick_object = legcast.get_collider()
 		
-		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-			if is_grabbing == false:
-				if Input.is_action_just_pressed("player|kick"):
-					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
-					character.kick_timer.start(1)
-					kick_object.play_drop_sound(kick_object)
+		if kick_object is DoorInteractable and is_grabbing == false:
+			kick_object.emit_signal("kicked", legcast.get_collision_point(), -character.global_transform.basis.z, character.kick_damage)
+#			kick_object.play_drop_sound(kick_object)
 		
-		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-			if Input.is_action_just_pressed("player|kick"):
-				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-				character.kick_timer.start(1)
-				# sound handled by damage()
+		elif kick_object.is_in_group("CHARACTER"):
+			kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
+			character.kick_timer.start(1)
+			# sound handled by damage()
 		
-		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
-			if Input.is_action_just_pressed("player|kick"):
-				if kick_object is Area:
-					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
-				character.kick_timer.start(1)
+		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if kick_object is Area:
+				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+			kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
+			character.kick_timer.start(1)
+			if kick_object.has_method("play_drop_sound"):
 				kick_object.play_drop_sound(kick_object)
 
 

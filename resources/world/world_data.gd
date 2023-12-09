@@ -199,7 +199,7 @@ var cell_meta : Dictionary = Dictionary()
 var wall_type : PoolByteArray
 # additional data for wall type, stored as { id: value}, where id is the wall id on the type array
 var wall_meta : Dictionary
-# Stores a reference to the in-world door object relative to each wall that contains a door
+# Stores whether a given edge has a door associated with it, as a boolean
 var doors : Dictionary
 
 # Stores the pillar radius for each corner index, as shown
@@ -676,8 +676,18 @@ func set_wall_meta(cell_index : int, direction : int, value = null):
 		else:
 			wall_meta[idx] = value
 
+func get_wall_has_door(cell_index : int, direction : int):
+	var idx = _get_wall_index(cell_index, direction)
+	return doors.get(idx, false)
 
-func has_door(cell_index: int, direction: int) -> bool:
+func set_wall_has_door(cell_index : int, direction : int, value : bool):
+	var idx = _get_wall_index(cell_index, direction)
+	if value:
+		doors[idx] = value
+	else:
+		doors.erase(idx)
+
+func has_doorway(cell_index: int, direction: int) -> bool:
 	var wall_type = get_wall_type(cell_index, direction)
 	var value := false
 	if (

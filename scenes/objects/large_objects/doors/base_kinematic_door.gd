@@ -76,9 +76,17 @@ func _on_Interactable_character_interacted(character):
 		DoorState.CLOSED:
 			door_state = DoorState.OPEN
 			door_should_move = true
+			$Sounds/DoorClose.stop()
+			if !$Sounds/DoorOpen.playing:
+				$Sounds/DoorOpen.play()
+		
 		DoorState.OPEN:
 			door_state = DoorState.CLOSED
 			door_should_move = true
+			$Sounds/DoorOpen.stop()
+			if !$Sounds/DoorClose.playing:
+				$Sounds/DoorClose.play()
+		
 		DoorState.STUCK:
 			pass
 

@@ -44,7 +44,7 @@ func _unhandled_input(event):
 		match demo_state:
 			DemoState.NONE:
 				if is_instance_valid($"%BehaviorTree"):
-					$"%BehaviorTree".set_physics_process(true)
+					$"%BehaviorTree".set_process(true)
 				if tween is SceneTreeTween:
 					tween.kill()
 				tween = null
@@ -57,7 +57,7 @@ func _unhandled_input(event):
 			DemoState.STOPPED:
 				(owner as Character).character_state.move_direction = Vector3.ZERO
 				if is_instance_valid($"%BehaviorTree"):
-					$"%BehaviorTree".set_physics_process(false)
+					$"%BehaviorTree".set_process(false)
 			DemoState.IK:
 				if tween is SceneTreeTween:
 					tween.kill()

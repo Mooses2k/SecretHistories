@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -24,8 +24,9 @@
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/crypt.tres" type="Resource" id=22]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_sarcophagus.gd" type="Script" id=23]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" type="Script" id=24]
-[ext_resource path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" type="PackedScene" id=25]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" type="Script" id=26]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_large_obj_items.gd" type="Script" id=25]
+[ext_resource path="res://scenes/worlds/procedural_world/sarco_fountain_item_list.tres" type="Resource" id=26]
+[ext_resource path="res://scenes/worlds/procedural_world/sarco_lids_item_list.tres" type="Resource" id=27]
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
@@ -93,24 +94,22 @@ pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
 
-[node name="GenerateDoors" type="Node" parent="GenerationManager" index="8"]
-script = ExtResource( 26 )
-door_dict = {
-14: ExtResource( 25 )
-}
-door_probability = 0.6
-
-[node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="9"]
+[node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="8"]
 script = ExtResource( 6 )
 purpose_resources = [ ExtResource( 22 ), ExtResource( 7 ) ]
 
-[node name="PopulateRooms" type="Node" parent="GenerationManager" index="10"]
+[node name="PopulateRooms" type="Node" parent="GenerationManager" index="9"]
 script = ExtResource( 10 )
 
 [node name="GenerateStaircases" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
 script = ExtResource( 24 )
 
-[node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
+[node name="GenerateLargeObjectsItems" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
+script = ExtResource( 25 )
+_sarco_spawn_list_resource = ExtResource( 26 )
+_sarco_lids_spawn_list_resource = ExtResource( 27 )
+
+[node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="0"]
 script = ExtResource( 23 )
 vertical_center_rotation = 90
 _force_lid = -1

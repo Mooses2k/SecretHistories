@@ -348,7 +348,7 @@ bus = "Effects"
 [node name="HoldPosition" parent="." index="8"]
 transform = Transform( 0.983801, -0.159218, -0.0823734, 0.159761, 0.987156, 0, 0.0813154, -0.01316, 0.996602, -0.012, 0.026, -0.116 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 unique_name_in_owner = true
 root_node = NodePath("../MeshInstance")
 anims/close_breech_weapon = SubResource( 9 )

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
-[ext_resource path="res://resources/models/items/ranged/webley_revolver/Webley_001.material" type="Material" id=3]
+[ext_resource path="res://resources/models/items/ranged/webley_revolver/Webley.material" type="Material" id=3]
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/effects.gd" type="Script" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd" type="Script" id=6]
@@ -23,7 +23,6 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194911,
 "index_count": 12099,
-"material": ExtResource( 3 ),
 "primitive": 4,
 "skeleton_aabb": [ AABB( -0.155879, 1.15303, 0.440544, 0.0655985, 0.130163, 0.170252 ), AABB( -0.121667, 1.18849, 0.541747, 0.0134086, 0.0412203, 0.0222265 ), AABB( -0.137898, 1.24236, 0.520335, 0.0179242, 0.0422944, 0.0386334 ), AABB( -0.134287, 1.25499, 0.530577, 0.0220654, 0.0359614, 0.0323247 ), AABB( -0.131982, 1.21687, 0.54792, 0.0685431, 0.0695395, 0.14334 ), AABB( -0.138744, 1.22651, 0.548636, 0.0532288, 0.0497282, 0.0522329 ), AABB( -0.145393, 1.13913, 0.456401, 0.018618, 0.0192826, 0.00965175 ) ],
 "vertex_count": 4004
@@ -595,7 +594,6 @@ item_name = "Webley revolver"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 6
 reload_amount = 1
-reload_time = 1.0
 cooldown = 0.1
 handling = 17.0
 ads_hold_position = Vector3( -0.023, 0.026, -0.076 )
@@ -654,6 +652,7 @@ bones/6/bound_children = [  ]
 [node name="Webley" type="MeshInstance" parent="MeshInstance/webley_reload_weapon/Webley_Arm/Skeleton" index="0"]
 mesh = SubResource( 4 )
 skin = SubResource( 5 )
+material/0 = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape" parent="." index="1"]

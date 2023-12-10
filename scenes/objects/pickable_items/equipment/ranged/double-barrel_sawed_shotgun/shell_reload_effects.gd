@@ -1,4 +1,3 @@
-tool
 extends Node
 
 export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)

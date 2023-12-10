@@ -62,7 +62,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			_max_count = 5
 		-5:
 			pass   # set _density_by_type?
-			_max_count = 15
+			_max_count = 10
 	
 	var valid_cells := _get_valid_cells(data)
 	

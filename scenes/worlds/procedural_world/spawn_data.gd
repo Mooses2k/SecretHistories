@@ -56,6 +56,7 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 		if !is_instance_valid(item_scene):
 			return
 		var item = item_scene.instance()
+		
 		if item is Spatial:
 			item.transform = _transforms[index]
 		
@@ -74,7 +75,7 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 
 func set_center_position_in_cell(cell_position: Vector3, instance_index := INF) -> void:
 	if amount > 1 and instance_index == INF:
-		push_warning("Setting the smae position for multiple item instances")
+		push_warning("Setting the same position for multiple item instances")
 	
 	for i in amount:
 		if instance_index != INF and i != instance_index:

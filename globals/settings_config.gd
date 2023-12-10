@@ -2,8 +2,11 @@ extends Node
 
 var game_manager : GDScript = preload("res://globals/game_manager.gd")
 
-var file_name = "%s://globals/settings/settings_config.dict" % ("user" if OS.has_feature("standalone") else "res")
-var file_name_default = "%s://globals/settings/default_settings.dict" % ("user" if OS.has_feature("standalone") else "res")
+#var file_name = "%s://globals/settings/settings_config.dict" % ("user" if OS.has_feature("standalone") else "res")
+#var file_name_default = "%s://globals/settings/default_settings.dict" % ("user" if OS.has_feature("standalone") else "res")
+
+var file_name = "%s://globals/settings/settings_config.dict" % ("user")
+var file_name_default = "%s://globals/settings/default_settings.dict" % ("user")
 
 var setting_key = false
 
@@ -129,6 +132,10 @@ func setup_settings(settings_dict : Dictionary):
 func save_settings():
 	var key_dict = gen_dict_from_settings()
 	var file = File.new()
+	var dir = Directory.new()
+	var dir_path = file_name.get_base_dir()
+	if not dir.dir_exists(dir_path):
+		dir.make_dir_recursive(dir_path)
 	file.open(file_name, File.WRITE)
 	file.store_string(var2str(key_dict))
 	file.close()
@@ -138,6 +145,10 @@ func save_settings():
 func save_default_settings():
 	var key_dict = gen_dict_from_settings()
 	var file = File.new()
+	var dir = Directory.new()
+	var dir_path = file_name_default.get_base_dir()
+	if not dir.dir_exists(dir_path):
+		dir.make_dir_recursive(dir_path)
 	file.open(file_name_default, File.WRITE)
 	file.store_string(var2str(key_dict))
 	file.close()

@@ -19,6 +19,7 @@ signal player_died
 
 signal unequip_mainhand
 signal unequip_offhand
+
 # 0 is 1, 10 is empty_hands
 const HOTBAR_SIZE : int = 11
 

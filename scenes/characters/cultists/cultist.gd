@@ -23,8 +23,7 @@ onready var direct_player_sight_sensor : Node = $Body/DirectPlayerSight
 
 
 func _ready():
-	inventory.add_item(weapon_resource.instance())
+	inventory.add_item(weapon_resource.instance())   # Auto-equips it
 	print("cultist.gd added shotgun")
 	inventory.insert_tiny_item(ammo_resource, 555)
-	print("cultist.gd added 10 shotgun ammo")
-	inventory.equip_mainhand_item()
+	print("cultist.gd added shotgun ammo")

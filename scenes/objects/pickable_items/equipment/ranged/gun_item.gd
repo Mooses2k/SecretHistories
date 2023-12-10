@@ -100,7 +100,7 @@ func shoot():
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
 	raycast.cast_to = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
-	apply_damage(total_damage)
+	apply_knockback(total_damage)
 	print(owner_character, " shoots a ", self)
 	
 	# Cultists can't recoil for now
@@ -130,7 +130,8 @@ func _use_unload():
 	unload()
 
 
-# Needs more code for revolvers and bolt-actions as they're more complicated
+# TODO: Needs more code for revolvers and bolt-actions as they're more complicated
+# TODO: Needs some camera movement for immersion
 func reload():
 	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
 		var inventory = owner_character.inventory
@@ -153,7 +154,7 @@ func reload():
 					if "Player" in owner_character.name:
 						owner_character.player_animations.reload_weapons()
 #					print(player.owner)
-					# Eventually randomize which reload sound it uses
+					# TODO: Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
 					return
 
@@ -173,12 +174,12 @@ func unload():
 # while one of these timers is active should appropriately reset the timer and deal any of it's side effects
 
 
-func apply_damage(total_damage):
+func apply_knockback(total_damage):
 	if raycast.is_colliding():
 		var object_detected = raycast.get_collider()
 		if object_detected is RigidBody and has_method("apply_damage") :
 			print("detected rigidbody")
-			object_detected.apply_central_impulse(-player.global_transform.basis.z * total_damage * 5)
+			object_detected.apply_central_impulse(-self.global_transform.basis.z * total_damage * 5)
 
 
 func _on_ReloadTimer_timeout() -> void:

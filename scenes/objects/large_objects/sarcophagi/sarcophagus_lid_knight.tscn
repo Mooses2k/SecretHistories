@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/models/large_objects/sarcophagi/Sarcophagus_knight.glb" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/large_objects/sarcophagi/dragging_sound.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/sarcophagus_lid_scrape.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" type="AudioStream" id=4]
 [ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=5]
+[ext_resource path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Animation" id=7]
 resource_name = "SM_SarcoLid_Wight"
@@ -85,37 +86,37 @@ visible = false
 shape = SubResource( 5 )
 disabled = true
 
-[node name="KinematicBody" type="KinematicBody" parent="."]
-collision_layer = 2
-collision_mask = 2
+[node name="StaticBody" type="StaticBody" parent="."]
+collision_layer = 0
+collision_mask = 82
 
-[node name="CollisionShapeBase" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShapeBase" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.11555, 0, 0, 0, 0.0893484, 0, 0, 0, 0.545462, 0, 0.0508808, 0 )
 shape = SubResource( 6 )
 
-[node name="CollisionShapeBase2" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShapeBase2" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.01912, 0, 0, 0, 0.26303, 0, 0, 0, 0.342449, 0, 0.390682, 0 )
 shape = SubResource( 6 )
 
-[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0.0463267, 0 )
 visible = false
 shape = SubResource( 5 )
 disabled = true
 
-[node name="CollisionShape4" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape4" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0.0463267, 0 )
 visible = false
 shape = SubResource( 2 )
 disabled = true
 
-[node name="CollisionShape3" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape3" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0.0463267, 0 )
 visible = false
 shape = SubResource( 3 )
 disabled = true
 
-[node name="CollisionShape2" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0.0463267, 0 )
 visible = false
 shape = SubResource( 4 )
@@ -164,5 +165,8 @@ script = ExtResource( 5 )
 [node name="PlacementAnchor11" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.994057, 0.170658, 0.379488 )
 script = ExtResource( 5 )
+
+[node name="ItemSpawnerOnPlacementAnchor" parent="." instance=ExtResource( 6 )]
+anchors_parent = NodePath("..")
 
 [editable path="Sarcophagus_knight"]

@@ -7507,7 +7507,7 @@ size = Vector2( 2, 2 )
 
 [node name="Player" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-collision_layer = 18
+collision_layer = 2
 script = ExtResource( 2 )
 animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 

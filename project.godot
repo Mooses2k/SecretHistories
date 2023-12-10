@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/action_nodes/bt_go_to_target.gd"
 }, {
 "base": "BTNode",
+"class": "BTGoToTargetWithAgent",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_go_to_target_with_agent.gd"
+}, {
+"base": "BTNode",
 "class": "BTGunCooldown",
 "language": "GDScript",
 "path": "res://core/ai/check_nodes/bt_gun_cooldown.gd"
@@ -118,6 +123,11 @@ _global_script_classes=[ {
 "class": "BTWaitRandom",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_wait_random.gd"
+}, {
+"base": "Spatial",
+"class": "BaseKinematicDoor",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/doors/base_kinematic_door.gd"
 }, {
 "base": "Node",
 "class": "BehaviorTree",
@@ -203,6 +213,11 @@ _global_script_classes=[ {
 "class": "Door",
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/doors/door.gd"
+}, {
+"base": "Interactable",
+"class": "DoorInteractable",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/doors/door_interactable.gd"
 }, {
 "base": "RigidBody",
 "class": "Door_body",
@@ -523,6 +538,7 @@ _global_script_class_icons={
 "BTDie": "",
 "BTEquipNextWeapon": "",
 "BTGoToTarget": "",
+"BTGoToTargetWithAgent": "",
 "BTGunCooldown": "",
 "BTGunEquipped": "",
 "BTGunHasAmmo": "",
@@ -537,6 +553,7 @@ _global_script_class_icons={
 "BTShoot": "",
 "BTSoundListener": "",
 "BTWaitRandom": "",
+"BaseKinematicDoor": "",
 "BehaviorTree": "",
 "BombItem": "",
 "BoxOutlineMesh": "",
@@ -554,6 +571,7 @@ _global_script_class_icons={
 "Cultist": "",
 "DisposableLightItem": "",
 "Door": "",
+"DoorInteractable": "",
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",

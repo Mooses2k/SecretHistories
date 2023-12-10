@@ -73,6 +73,7 @@ onready var _ground_checker = get_node("../Body/GroundChecker")
 onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
 onready var _debug_light = get_node("../FPSCamera/DebugLight")
 
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
 
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
@@ -526,7 +527,7 @@ func _handle_inventory(delta : float):
 			character.inventory.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
 		
-	if Input.is_action_just_pressed("playerhand|offhand_use"):
+	if Input.is_action_just_pressed("playerhand|offhand_use") and owner.is_reloading == false:
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE
@@ -751,38 +752,39 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 
 func handle_binocs():
 	# Zoom in/out like binoculars or spyglass
-	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
-		if Input.is_action_just_pressed("ablty|binocs_spyglass"):
+	if Input.is_action_just_pressed("ablty|binocs_spyglass"):
+		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_ZOOM
-		if Input.is_action_just_released("ablty|binocs_spyglass"):
+	if Input.is_action_just_released("ablty|binocs_spyglass"):
+		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_NORMAL
 
 
 func kick():
-	var kick_object = legcast.get_collider()
 	
-	if character.kick_timer.is_stopped():
+	if character.kick_timer.is_stopped() and legcast.is_colliding() and Input.is_action_just_pressed("player|kick"):
+		var kick_object = legcast.get_collider()
+		_camera.add_stress(0.5)
+		character.kick_timer.start()
 		
-		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-			if is_grabbing == false:
-				if Input.is_action_just_pressed("player|kick"):
-					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
-					character.kick_timer.start(1)
-					kick_object.play_drop_sound(kick_object)
+		if kick_object is DoorInteractable and is_grabbing == false:
+			kick_object.emit_signal("kicked", legcast.get_collision_point(), -character.global_transform.basis.z, character.kick_damage)
+			
+		elif kick_object.is_in_group("CHARACTER"):
+			kick_object.get_parent().damage(character.kick_damage, kick_damage_type , kick_object)
+			$"../Audio/Movement".stream = item_drop_sound_flesh
+			$"../Audio/Movement".play()
 		
-		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-			if Input.is_action_just_pressed("player|kick"):
-				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-				character.kick_timer.start(1)
-				# sound handled by damage()
-		
-		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
-			if Input.is_action_just_pressed("player|kick"):
-				if kick_object is Area:
-					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if kick_object is Area:
+				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+			print(kick_object.get_class())
+			if kick_object is PickableItem:   # Is a large object like a floor candelabra
 				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
-				character.kick_timer.start(1)
 				kick_object.play_drop_sound(kick_object)
+			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse * 4)
+				kick_object.play_drop_sound(10, false)
 
 
 func _clamber():

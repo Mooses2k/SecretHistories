@@ -6,8 +6,9 @@ extends Node
 
 enum DemoState {
 	NONE,
+	ATTRACT_MODE,
 	STOPPED,
-	IK
+	TURN_HEAD
 }
 
 export var tween_duration = 5.0
@@ -44,21 +45,23 @@ func _unhandled_input(event):
 		match demo_state:
 			DemoState.NONE:
 				if is_instance_valid($"%BehaviorTree"):
-					$"%BehaviorTree".set_physics_process(true)
+					$"%BehaviorTree".set_process(true)
 				if tween is SceneTreeTween:
 					tween.kill()
 				tween = null
 				tween_value = 0.0
-				
 				# Keep the interpolation value above 0.01, because Godot does
 				# weird stuff when it's below that value, and the transition
 				# causes a sudden jump in the IK
 				always_on_skeleton_ik.interpolation =- 0.011
+			DemoState.ATTRACT_MODE:
+				# Attract cultists to player's position
+				(owner as Character).character_state.target_position = GameManager.game.player.global_translation
 			DemoState.STOPPED:
 				(owner as Character).character_state.move_direction = Vector3.ZERO
 				if is_instance_valid($"%BehaviorTree"):
-					$"%BehaviorTree".set_physics_process(false)
-			DemoState.IK:
+					$"%BehaviorTree".set_process(false)
+			DemoState.TURN_HEAD:
 				if tween is SceneTreeTween:
 					tween.kill()
 				tween = get_tree().create_tween()

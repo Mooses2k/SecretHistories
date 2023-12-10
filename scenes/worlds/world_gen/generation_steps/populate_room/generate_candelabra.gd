@@ -9,8 +9,8 @@ extends GenerationStep
 #--- constants ------------------------------------------------------------------------------------
 
 const UNLIT_KEYWORD = "unlit"
-const MAX_X_UNLIT_ROTATION = deg2rad(30)
-const MAX_Z_UNLIT_ROTATION = deg2rad(30)
+const MAX_X_UNLIT_ROTATION = deg2rad(20)   # 30 is enough to rarely glitch it into a wall
+const MAX_Z_UNLIT_ROTATION = deg2rad(20)
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -124,7 +124,7 @@ func _is_corner_next_to_door(
 	world_data
 	
 	for direction in corner_directions:
-		if world_data.has_door(corner_index, direction):
+		if world_data.has_doorway(corner_index, direction):
 			value = true
 			break
 	

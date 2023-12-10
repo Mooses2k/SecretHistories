@@ -98,16 +98,28 @@ func check_player_animation():
 
 
 	elif inventory.current_mainhand_equipment is EquipmentItem:
-		if inventory.current_mainhand_equipment.horizontal_holding == true:
-			inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
-			animation_tree.set("parameters/Hand_Transition/current", 0)
-			animation_tree.set("parameters/Weapon_states/current", 0)
-			animation_tree.set("parameters/Hold_Animation/current", 1)
+		if inventory.current_mainhand_equipment.item_size != 2:
+			print("Holding bulkier item")
+			if inventory.current_mainhand_equipment.horizontal_holding == true:
+				inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
+				animation_tree.set("parameters/Hand_Transition/current", 0)
+				animation_tree.set("parameters/Weapon_states/current", 0)
+				animation_tree.set("parameters/Hold_Animation/current", 1)
+			else:
+				animation_tree.set("parameters/Hand_Transition/current", 0)
+				animation_tree.set("parameters/Weapon_states/current", 0)
+				animation_tree.set("parameters/Hold_Animation/current", 0)
+			
 		else:
-			animation_tree.set("parameters/Hand_Transition/current", 0)
-			animation_tree.set("parameters/Weapon_states/current", 0)
-			animation_tree.set("parameters/Hold_Animation/current", 0)
-	
+			print("Holding bulkier item")
+			$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+			$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+			$"%AnimationTree".set("parameters/Weapon_states/current", 0)
+			$"%AnimationTree".set("parameters/Hold_Animation/current", 0)
+
+			$"%AnimationTree".set("parameters/OffHand_Weapon_States/current", 0)
+			$"%AnimationTree".set("parameters/Offhand_Hold_Animation/current", 0)
+		
 	elif inventory.current_mainhand_equipment == null:
 		animation_tree.set("parameters/Hand_Transition/current", 0)
 		animation_tree.set("parameters/Weapon_states/current", 4)
@@ -226,7 +238,7 @@ func player_reload():
 	animation_tree.set("parameters/" + str(get_available_gun().item_name) + "/active", true)
 
 
-func get_available_gun() -> GunItem:
+func get_available_gun() -> EquipmentItem:
 	return inventory.current_mainhand_equipment
 
 

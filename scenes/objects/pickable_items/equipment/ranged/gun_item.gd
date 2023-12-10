@@ -65,9 +65,7 @@ func _ready():
 
 func get_reload_length():
 	if animation_player:
-		print("Item name is :", item_name)
 		reload_time = animation_player.get_animation("reload").length - 0.3
-		print("Reload animations length is: ", animation_player.get_animation("reload").length - 0.3)
 
 
 func set_range(value : Vector2):

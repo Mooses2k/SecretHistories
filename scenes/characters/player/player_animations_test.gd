@@ -4,7 +4,7 @@ extends Node
 export(String, "None",
 "Webley", "Khyber_pass_martini", 
 "Lee-metford_rifle", "Double-barrel_sawed_shotgun", 
-"Double-barrel_shotgun", "Martini_henry_rifle") var current_weapon = "None" setget change_gun
+"Double-barrel_shotgun", "Martini_henry_rifle", "Comet_Shard") var current_weapon = "None" setget change_gun
 export (String, "IDLE", "ADS", "RELOAD") var weapon_state = "IDLE" setget set_weapon_state
 
 export (bool) var reset_to_idle_pos setget reset_animation_tree
@@ -51,7 +51,10 @@ func change_gun(value):
 	
 	elif value == "Martini_henry_rifle":
 		spawned_weapon = preload("res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/martini_henry_rifle.tscn").instance()
-
+		
+	elif value == "Comet_Shard":
+		spawned_weapon = preload("res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.tscn").instance()
+		
 	if get_equipped_weapon():
 		get_equipped_weapon().queue_free()
 	$"%MainHandEquipmentRoot".add_child(spawned_weapon)
@@ -86,10 +89,8 @@ func reset_animation_tree(value):
 		return
 	reset_to_idle_pos = true
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 	$"%AnimationTree".set("parameters/Weapon_states/current", 4)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
-
 
 func set_weapon_state(value):
 	property_list_changed_notify()
@@ -134,7 +135,26 @@ func do_idle():
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 					$"%AnimationTree".set("parameters/Weapon_states/current", 1)
 				adjust_arm(Vector3(0.008, -1.364, 0.175))
+			
+		else:
+				$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+				
+				$"%AnimationTree".set("parameters/Weapon_states/current", 0)
+				$"%AnimationTree".set("parameters/Hold_Animation/current", 0)
+				
+				$"%AnimationTree".set("parameters/OffHand_Weapon_States/current", 0)
+				$"%AnimationTree".set("parameters/Offhand_Hold_Animation/current", 0)
 
+#		elif get_equipped_weapon().item_size == 3:
+#				$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
+#				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+#
+#				$"%AnimationTree".set("parameters/Weapon_states/current", 0)
+#				$"%AnimationTree".set("parameters/Hold_Animation/current", 0)
+#
+#				$"%AnimationTree".set("parameters/OffHand_Weapon_States/current", 0)
+#				$"%AnimationTree".set("parameters/Offhand_Hold_Animation/current", 0)
 
 func do_ads(value):
 	if not Engine.editor_hint:
@@ -189,11 +209,11 @@ func do_ads(value):
 				$"../FPSCamera".fov = lerp($"../FPSCamera".fov, 70, 0.1)
 
 
-func get_equipped_weapon() -> GunItem:
+func get_equipped_weapon() -> EquipmentItem:
 	var equipped_weapon
-	for available_guns in $"%MainHandEquipmentRoot".get_children():
-		if available_guns is GunItem:
-			equipped_weapon = available_guns
+	for available_weapon in $"%MainHandEquipmentRoot".get_children():
+		if available_weapon is EquipmentItem:
+			equipped_weapon = available_weapon
 	return equipped_weapon
 
 

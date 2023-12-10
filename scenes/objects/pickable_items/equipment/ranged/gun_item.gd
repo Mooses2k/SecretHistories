@@ -18,7 +18,6 @@ export(Array, Resource) var ammo_types
 
 export var ammunition_capacity = 0
 export var reload_amount = 0
-export var reload_time = 0.0
 export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
@@ -29,16 +28,16 @@ export var reload_rotation : Vector3
 
 export var ads_hold_position : Vector3
 export var ads_hold_rotation : Vector3
-var ads_reset_position : Vector3
-var ads_reset_rotation : Vector3
-var mesh_reset_position : Vector3 = Vector3(0, 0, 0)
+
 
 export(MeleeStyle) var melee_style : int = 0
 export (NodePath) var player_path
 export (NodePath) var mesh_path
 
-
-
+var ads_reset_position : Vector3
+var ads_reset_rotation : Vector3
+var mesh_reset_position : Vector3 = Vector3(0, 0, 0)
+var reload_time : float = 0.0
 var current_ammo : int = 0
 var current_ammo_type : Resource = null
 
@@ -61,6 +60,14 @@ func _ready():
 #		transform = get_hold_transform()
 	ads_reset_position = hold_position.translation
 	ads_reset_rotation = hold_position.rotation_degrees
+	get_reload_length()
+
+
+func get_reload_length():
+	if animation_player:
+		print("Item name is :", item_name)
+		reload_time = animation_player.get_animation("reload").length - 0.3
+		print("Reload animations length is: ", animation_player.get_animation("reload").length - 0.3)
 
 
 func set_range(value : Vector2):

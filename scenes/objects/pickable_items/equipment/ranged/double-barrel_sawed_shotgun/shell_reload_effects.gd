@@ -18,7 +18,13 @@ func expell_shotgun_shells():
 	
 	first_shell.rotation_degrees.z = 100.695
 	second_shell.rotation_degrees.z = 100.695
-	var world_scene = owner.owner_character.owner as Spatial
+	
+	var world_scene
+	if is_instance_valid(GameManager.game):
+		world_scene = GameManager.game
+	else:
+		world_scene = owner.owner_character.owner as Spatial
+	
 	first_shell.translation = shell_position_1
 	second_shell.translation = shell_position_2
 	

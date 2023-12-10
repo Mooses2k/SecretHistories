@@ -55,7 +55,7 @@ expand = true
 wait_time = 5.95
 
 [node name="PreMusicTimer" type="Timer" parent="."]
-wait_time = 0.07
+wait_time = 0.01
 one_shot = true
 autostart = true
 

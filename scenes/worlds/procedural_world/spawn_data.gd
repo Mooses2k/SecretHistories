@@ -56,6 +56,7 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 		if !is_instance_valid(item_scene):
 			return
 		var item = item_scene.instance()
+		
 		if item is Spatial:
 			item.transform = _transforms[index]
 		

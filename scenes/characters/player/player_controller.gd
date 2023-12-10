@@ -527,7 +527,7 @@ func _handle_inventory(delta : float):
 			character.inventory.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
 		
-	if Input.is_action_just_pressed("playerhand|offhand_use"):
+	if Input.is_action_just_pressed("playerhand|offhand_use") and owner.is_reloading == false:
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()
 			throw_state = ThrowState.IDLE

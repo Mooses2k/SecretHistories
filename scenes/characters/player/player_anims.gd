@@ -110,18 +110,18 @@ func unequip_offhand():
 func check_if_ads():
 	# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
 	if GameSettings.ads_hold_enabled:
-		if Input.is_action_pressed("playerhand|main_use_secondary") and owner.do_sprint == false:
+		if Input.is_action_pressed("playerhand|main_use_secondary") and owner.do_sprint == false and owner.is_reloading == false:
 			
 			if inventory.current_mainhand_slot != null:
 				if inventory.current_mainhand_equipment is GunItem:
 					ads()
 		
 		else:
-			if ((Input.is_action_just_released("playerhand|main_use_secondary") or owner.do_sprint == true) and (inventory.current_mainhand_equipment is GunItem)):
+			if ((Input.is_action_just_released("playerhand|main_use_secondary") or owner.do_sprint == true or owner.is_reloading == true) and (inventory.current_mainhand_equipment is GunItem)):
 				end_ads()
 	
-	else:
-		if Input.is_action_just_pressed("playerhand|main_use_secondary") or owner.do_sprint == true:
+	else:   # ADS toggle mode
+		if Input.is_action_just_pressed("playerhand|main_use_secondary") and owner.do_sprint == false and owner.is_reloading == false:
 			
 			if not is_on_ads and owner.do_sprint == false:
 				if inventory.current_mainhand_slot != null:
@@ -169,7 +169,7 @@ func end_ads():
 	inventory.current_mainhand_equipment.hold_position.translation, 
 	inventory.current_mainhand_equipment.ads_reset_position, 0.1
 )
-
+	
 	if inventory.current_mainhand_equipment.item_size == 0:
 		operation_tween(
 		animation_tree,
@@ -182,6 +182,7 @@ func end_ads():
 		animation_tree.get("parameters/MediumAds/blend_amount"), 0.0, 0.1)
 		adjust_arm(Vector3(0.096, -1.391, 0.091), 0.1)
 	_camera.fov = lerp(_camera.fov, 70, 0.1)
+
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
 	var tweener = Tween.new() as Tween

@@ -32,6 +32,8 @@ var player
 var level : GameWorld
 var current_floor_level := HIGHEST_FLOOR_LEVEL
 
+var shard_has_spawned = false    # Tracks if the shard has spawned yet, so only one spawns
+
 onready var world_root : Node = $World
 onready var ui_root : CanvasLayer = $GameUI
 onready var local_settings : SettingsClass = $"%LocalSettings"

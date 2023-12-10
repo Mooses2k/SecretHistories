@@ -13,6 +13,7 @@ extends GenerationStep
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 export var _sarco_spawn_list_resource: Resource = null
+export var _sarco_shard_spawn_list_resource: Resource = null
 export var _sarco_lids_spawn_list_resource: Resource = null
 export var _min_item := 0 setget _set_min_item
 export var _max_item := 3 setget _set_max_item
@@ -38,6 +39,9 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	_rng.seed = generation_seed
 	var draw_amount := _rng.randi_range(_min_item, _max_item)
 	var temp_item_list : PoolStringArray
+	
+	if GameManager.game.current_floor_level == -5:
+		temp_item_list.append((_sarco_shard_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
 	
 	for _i in draw_amount:
 		temp_item_list.append((_sarco_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)

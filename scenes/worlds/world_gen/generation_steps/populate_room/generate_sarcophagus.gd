@@ -221,6 +221,8 @@ func _set_sarco_spawn_data(
 	
 	for cell_index in sarco_cells:
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
+		# if shard_has_spawned == false 
+
 
 ### -----------------------------------------------------------------------------------------------
 

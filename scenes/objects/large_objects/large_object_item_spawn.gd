@@ -12,6 +12,15 @@ func _ready():
 		for item_path in owner.spawnable_items:
 			random_num = randi() % anchors.size()
 			var new_item = load(item_path).instance()
+				
+			if new_item is ShardOfTheComet and GameManager.game.shard_has_spawned == false:
+				GameManager.game.shard_has_spawned = true
+				print("First shard spawned!!!!!", new_item)
+			elif new_item is ShardOfTheComet and GameManager.game.shard_has_spawned:
+				new_item.queue_free()
+				print("Wiped out an extra shard, ", new_item)
+				return
+					
 			anchors[random_num].add_child(new_item)
 			anchors.remove(random_num)
 

@@ -12,7 +12,7 @@ enum DoorState {
 	OPEN,
 	CLOSED,
 	STUCK,
-	BROKEN,
+	BROKEN
 }
 
 var broken_door_scene : PackedScene = preload("res://scenes/objects/large_objects/doors/base_broken_door.tscn")
@@ -91,6 +91,37 @@ func _on_Interactable_character_interacted(character):
 			pass
 
 
+# TODO: Shooting doors not currently working
+#func damage(damage_amount, damage_type, target):
+#	if damage_amount < 10:
+#		door_kick_ineffective_sound.play()
+#	else:
+#		door_kick_effective_sound.play()
+#	health -= damage_amount
+#	print("Door health : ", health)
+#	if health <= 0:
+#		break_door()
+
+
+func break_door(position, impulse, damage):
+	door_state = DoorState.BROKEN
+	door_break_sound.play()
+	var global_door_transform = broken_door_origin.global_transform
+	door_hinge_z_axis.queue_free()
+	var broken_door_instance : Spatial = broken_door_scene.instance()
+	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
+	add_child(broken_door_instance)
+	broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)
+
+
+func _on_Interactable_kicked(position, impulse, damage) -> void:
+	health -= damage
+	door_kick_effective_sound.play()
+	print("Door health : ", health)
+	if health <= 0:
+		break_door(position, impulse, damage)
+
+
 func _on_NpcDetector_body_entered(body):
 	door_state = DoorState.OPEN
 	door_should_move = true
@@ -100,18 +131,3 @@ func _on_NpcCheckTimer_timeout():
 	if npc_detector.get_overlapping_bodies().size() > 0:
 		door_state = DoorState.OPEN
 		door_should_move = true
-
-
-func _on_Interactable_kicked(position, impulse, damage) -> void:
-	health -= damage
-	door_kick_effective_sound.play()
-	print("Door health : ", health)
-	if health <= 0:
-		door_state = DoorState.BROKEN
-		door_break_sound.play()
-		var global_door_transform = broken_door_origin.global_transform
-		door_hinge_z_axis.queue_free()
-		var broken_door_instance : Spatial = broken_door_scene.instance()
-		broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
-		add_child(broken_door_instance)
-		broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)

@@ -134,6 +134,7 @@ func recoil(item, damage, handling):
 #    up_recoil += 1 
 	#compensate for delta application
 	up_recoil += 60 * damage / (handling)
+	_camera.add_stress(0.5)
 
 
 func update(delta):

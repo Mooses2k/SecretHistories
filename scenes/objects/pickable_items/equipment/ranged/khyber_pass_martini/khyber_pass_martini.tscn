@@ -11,7 +11,7 @@
 [ext_resource path="res://resources/sounds/reloading/lever-action/short1.wav" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" type="AudioStream" id=11]
 [ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=12]
-[ext_resource path="res://resources/models/items/ranged/martini-henry_pistol/model_and_animations/HenryMartini_001.material" type="Material" id=13]
+[ext_resource path="res://resources/models/items/ranged/martini-henry_pistol/HenryMartini_001.material" type="Material" id=13]
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "khyber_reload_weapon_Plane031"

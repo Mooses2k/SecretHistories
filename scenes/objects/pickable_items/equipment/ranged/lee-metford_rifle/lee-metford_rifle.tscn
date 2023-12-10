@@ -10,7 +10,7 @@
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=9]
 [ext_resource path="res://resources/sounds/reloading/lever-action/long1.wav" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=11]
-[ext_resource path="res://resources/models/items/ranged/lee-metford_rifle/model_and_animations/M_LeeMetford_001.material" type="Material" id=12]
+[ext_resource path="res://resources/models/items/ranged/lee-metford_rifle/M_LeeMetford_001.material" type="Material" id=12]
 
 [sub_resource type="ArrayMesh" id=376]
 resource_name = "lee_reload_weapon_Cube001"

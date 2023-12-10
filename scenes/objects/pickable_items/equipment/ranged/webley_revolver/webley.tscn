@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
-[ext_resource path="res://resources/models/items/ranged/webley_revolver/model_and_animations/Webley_001.material" type="Material" id=3]
+[ext_resource path="res://resources/models/items/ranged/webley_revolver/Webley_001.material" type="Material" id=3]
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=4]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/effects.gd" type="Script" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd" type="Script" id=6]
@@ -613,7 +613,6 @@ script = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0 )
 
 [node name="Webley_Arm" type="Spatial" parent="MeshInstance/webley_reload_weapon" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Skeleton" type="Skeleton" parent="MeshInstance/webley_reload_weapon/Webley_Arm" index="0"]
 bones/0/name = "Root"

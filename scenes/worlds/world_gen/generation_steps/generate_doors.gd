@@ -3,6 +3,7 @@ extends GenerationStep
 
 export var door_dict : Dictionary
 export var door_probability = 0.6
+export var door_stuck_probability = 0.2
 const DOUBLE_DOOR_OFFSET_FROM_DIRECTION_N : Dictionary = {
 	WorldData.Direction.NORTH : Vector3.ZERO,
 	WorldData.Direction.EAST : Vector3.RIGHT*WorldData.CELL_SIZE,
@@ -88,6 +89,9 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 						# an amount of 1
 						door_data_index = spawn_data.amount
 						spawn_data.amount += 1
+					
+					if fposmod(random.randf(), 1.0) < door_stuck_probability:
+						spawn_data.set_custom_property("door_state", BaseKinematicDoor.DoorState.STUCK, door_data_index)
 					
 					var origin = Vector3.ZERO
 					var basis = Basis.IDENTITY

@@ -3,7 +3,11 @@ extends GenerationStep
 
 export var floor_tile : int = -1
 export var wall_tile : int = -1
+export(Array, int) var alternative_wall_tiles : Array = []
+export var alternative_wall_tile_chance : float = 0.05
 export var double_wall_tile : int = -1
+export(Array, int) var alternative_double_wall_tiles : Array = []
+export var alternative_double_wall_tile_chance : float = 0.05
 export var door_tile : int = -1
 export var double_door_tile : int = -1
 export var ceiling_tile : int = -1
@@ -22,9 +26,11 @@ const PillarRoomGenerator = preload("res://scenes/worlds/world_gen/generation_st
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	var pillar_rooms = gen_data.get(PillarRoomGenerator.PILLAR_ROOMS_KEY, Array())
 	print(pillar_rooms)
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = generation_seed
 	select_floor_tiles(data, pillar_rooms)
 	select_ceiling_tiles(data, pillar_rooms)
-	select_wall_tiles(data)
+	select_wall_tiles(data, rng)
 	select_pillar_room_walls(data, pillar_rooms)
 	place_pillars(data)
 	place_pillar_room_pillars(data, pillar_rooms)
@@ -64,19 +70,72 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array):
 				data.set_ceiling_tile_index(cell, pillar_room_double_ceiling_tile)
 
 
-func select_wall_tiles(data : WorldData):
+func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
+	# For each cell id, store the edges that were already populated
+	var done_edges : Dictionary = {}
 	for i in data.cell_count:
 		var type = data.get_cell_type(i)
 		if type == data.CellType.EMPTY:
 			continue
 		var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
 		if not is_pillar_room:
+			var done_edges_for_cell : Array = done_edges.get(i, [])
+			if not done_edges.has(i):
+				done_edges[i] = done_edges_for_cell
 			for dir in data.Direction.DIRECTION_MAX:
 				var neighbour = data.get_neighbour_cell(i, dir)
 				var neighbour_is_pillar_room = data.get_cell_meta(neighbour, data.CellMetaKeys.META_PILLAR_ROOM, false)
 				match data.get_wall_type(i, dir):
 					data.EdgeType.WALL:
-						data.set_wall_tile_index(i, dir, wall_tile)
+						var wall_extension = []
+						# check how far the wall extends to the left
+						var extension_dir = WorldData.ROTATE_LEFT[dir]
+						var extension_cell = i
+						while true:
+							if not data.get_wall_type(extension_cell, extension_dir) == data.EdgeType.EMPTY:
+								break
+							extension_cell = data.get_neighbour_cell(extension_cell, extension_dir)
+							if not data.get_wall_type(extension_cell, dir) == data.EdgeType.WALL:
+								break
+							wall_extension.push_back(extension_cell)
+						wall_extension.invert()
+						wall_extension.push_back(i)
+						
+						# check how far the wall extends to the right
+						extension_dir = WorldData.ROTATE_RIGHT[dir]
+						extension_cell = i
+						while true:
+							if not data.get_wall_type(extension_cell, extension_dir) == data.EdgeType.EMPTY:
+								break
+							extension_cell = data.get_neighbour_cell(extension_cell, extension_dir)
+							if not data.get_wall_type(extension_cell, dir) == data.EdgeType.WALL:
+								break
+							wall_extension.push_back(extension_cell)
+						
+						# Even width wall, can use double tiles
+						if wall_extension.size()%2 == 0:
+							for _index in wall_extension.size()/2:
+								var cell_left = wall_extension[2*_index]
+								var cell_right = wall_extension[2*_index + 1]
+								var rnd = fposmod(rng.randf(), 1.0)
+								var selected_wall_tile : int = double_wall_tile
+								if rnd < alternative_double_wall_tile_chance and alternative_double_wall_tiles.size() > 0:
+									var index : int = rng.randi()%alternative_double_wall_tiles.size()
+									selected_wall_tile = alternative_double_wall_tiles[index]
+									print("Selected wall ", index)
+								data.set_wall_tile_index(cell_left, dir, selected_wall_tile)
+								for _cell in [cell_left, cell_right]:
+									var done_edges_for_extension = done_edges.get(_cell, []) as Array
+									done_edges_for_extension.push_back(dir)
+									if not done_edges.has(_cell):
+										done_edges[_cell] = done_edges_for_extension
+								
+						else:
+							var rnd = fposmod(rng.randf(), 1.0)
+							var selected_wall_tile : int = wall_tile
+							if rnd < alternative_wall_tile_chance and alternative_wall_tiles.size() > 0:
+									var index : int = rng.randi()%alternative_wall_tiles.size()
+							data.set_wall_tile_index(i, dir, selected_wall_tile)
 					data.EdgeType.DOOR:
 						data.set_wall_tile_index(i, dir, door_tile)
 						data.set_wall_meta(i, dir, 0.4)

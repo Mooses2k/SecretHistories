@@ -88,6 +88,7 @@ func _on_Interactable_character_interacted(character):
 				$Sounds/DoorClose.play()
 		
 		DoorState.STUCK:
+			$Sounds/DoorKickIneffectiveSound.play()
 			pass
 
 

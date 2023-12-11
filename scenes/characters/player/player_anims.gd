@@ -55,7 +55,6 @@ func check_player_animation():
 	
 	for bulky_item in owner.mainhand_equipment_root.get_children():
 		if bulky_item.item_size == 2:
-			print("This is a bulky item")
 			animation_tree.set("parameters/Hand_Transition/current", 0)
 			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 			animation_tree.set("parameters/Weapon_states/current", 0)

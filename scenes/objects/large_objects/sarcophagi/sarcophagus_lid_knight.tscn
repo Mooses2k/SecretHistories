@@ -37,6 +37,7 @@ points = PoolVector3Array( 0.734525, 0.0985415, 0.1696, -0.810326, -0.0635, -0.3
 [node name="SarcophagusLidKnight" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134346, 0 )
 collision_layer = 512
+collision_mask = 65
 mass = 100.0
 continuous_cd = true
 contacts_reported = 4
@@ -88,7 +89,7 @@ disabled = true
 
 [node name="StaticBody" type="StaticBody" parent="."]
 collision_layer = 0
-collision_mask = 82
+collision_mask = 18
 
 [node name="CollisionShapeBase" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.11555, 0, 0, 0, 0.0893484, 0, 0, 0, 0.545462, 0, 0.0508808, 0 )

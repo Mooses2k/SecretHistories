@@ -20,8 +20,10 @@ func _ready():
 				new_item.queue_free()
 				print("Wiped out an extra shard, ", new_item)
 				return
-					
-			anchors[random_num].add_child(new_item)
+			
+			new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
+			new_item.translation = anchors[random_num].translation + Vector3(0, 0.3, 0)
+			get_parent().get_parent().add_child(new_item)
 			anchors.remove(random_num)
 
 

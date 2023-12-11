@@ -47,22 +47,6 @@ func _process(delta):
 		pass
 
 
-
-#func equip_bulky_item(item : EquipmentItem):
-#	# Clear any currently equipped items
-#	unequip_mainhand_item()
-#	unequip_offhand_item()
-#	drop_bulky_item()
-#	if item:
-#		item.set_item_state(GlobalConsts.ItemState.EQUIPPED)
-#		item.transform = item.get_hold_transform()
-#		bulky_equipment = item
-#		emit_signal("bulky_item_changed")
-#		if item.get_parent():
-#			item.get_parent().remove_child(item)
-#		owner.mainhand_equipment_root.add_child(item)
-#		emit_signal("inventory_changed")
-
 func _physics_process(delta):
 	check_if_ads()
 
@@ -79,7 +63,7 @@ func check_player_animation():
 
 			animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
 			animation_tree.set("parameters/Offhand_Hold_Animation/current", 0)
-			
+			adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 			return
 	### Off-hand item
 	if inventory.current_offhand_equipment is GunItem:

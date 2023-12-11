@@ -103,7 +103,7 @@ transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 shape = SubResource( 2 )
 
 [node name="HoldPosition" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135, -0.006, -0.074 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.149, -0.003, -0.045 )
 
 [node name="OmniLight" type="OmniLight" parent="." index="3"]
 light_color = Color( 0.835294, 0.0196078, 0.647059, 1 )

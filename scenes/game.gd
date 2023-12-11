@@ -43,6 +43,7 @@ onready var world_environment: WorldEnvironment = $WorldEnvironment
 
 # Keys are floor level indices and values are FloorLevelHandler objects or null.
 var _loaded_levels := {}
+var _empty_ambience = preload("res://resources/sounds/music/ambience_empty_(mastered).ogg")
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -94,16 +95,16 @@ func load_level(packed : PackedScene):
 	# Ambient music controllerprint("Current floor level: ", current_floor_level)
 	match current_floor_level:
 		-1:
-			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.stream = _empty_ambience
 			BackgroundMusic.play()
 		-2:
-			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.stream = _empty_ambience
 			BackgroundMusic.play()
 		-3:
-			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.stream = _empty_ambience
 			BackgroundMusic.play()
 		-4:
-			BackgroundMusic.stream = preload("res://resources/sounds/music/ambience_empty_loop.mp3")
+			BackgroundMusic.stream = _empty_ambience
 			BackgroundMusic.play()
 		-5:
 			BackgroundMusic.stop()   # Music will be the gregorian chanting from the shard

@@ -91,6 +91,8 @@ func reset_animation_tree(value):
 	$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
 	$"%AnimationTree".set("parameters/Weapon_states/current", 4)
 	$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+	$"%AnimationTree".set("parameters/OffHand_Weapon_States/current", 2)
+
 
 func set_weapon_state(value):
 	property_list_changed_notify()

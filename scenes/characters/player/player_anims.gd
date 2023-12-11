@@ -47,11 +47,40 @@ func _process(delta):
 		pass
 
 
+
+#func equip_bulky_item(item : EquipmentItem):
+#	# Clear any currently equipped items
+#	unequip_mainhand_item()
+#	unequip_offhand_item()
+#	drop_bulky_item()
+#	if item:
+#		item.set_item_state(GlobalConsts.ItemState.EQUIPPED)
+#		item.transform = item.get_hold_transform()
+#		bulky_equipment = item
+#		emit_signal("bulky_item_changed")
+#		if item.get_parent():
+#			item.get_parent().remove_child(item)
+#		owner.mainhand_equipment_root.add_child(item)
+#		emit_signal("inventory_changed")
+
 func _physics_process(delta):
 	check_if_ads()
 
 
 func check_player_animation():
+	
+	for bulky_item in owner.mainhand_equipment_root.get_children():
+		if bulky_item.item_size == 2:
+			print("This is a bulky item")
+			animation_tree.set("parameters/Hand_Transition/current", 0)
+			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+			animation_tree.set("parameters/Weapon_states/current", 0)
+			animation_tree.set("parameters/Hold_Animation/current", 0)
+
+			animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
+			animation_tree.set("parameters/Offhand_Hold_Animation/current", 0)
+			
+			return
 	### Off-hand item
 	if inventory.current_offhand_equipment is GunItem:
 		animation_tree.set("parameters/Hand_Transition/current", 0)
@@ -61,7 +90,6 @@ func check_player_animation():
 		animation_tree.set("parameters/OffHand_Weapon_States/current", 2)
 		
 	elif inventory.current_offhand_equipment is EquipmentItem:
-	
 		if inventory.current_offhand_equipment.horizontal_holding == true:
 			inventory.current_offhand_equipment.hold_position.rotation_degrees.z = -90
 			animation_tree.set("parameters/Hand_Transition/current", 0)
@@ -98,28 +126,16 @@ func check_player_animation():
 
 
 	elif inventory.current_mainhand_equipment is EquipmentItem:
-		if inventory.current_mainhand_equipment.item_size != 2:
-			print("Holding bulkier item")
-			if inventory.current_mainhand_equipment.horizontal_holding == true:
-				inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
-				animation_tree.set("parameters/Hand_Transition/current", 0)
-				animation_tree.set("parameters/Weapon_states/current", 0)
-				animation_tree.set("parameters/Hold_Animation/current", 1)
-			else:
-				animation_tree.set("parameters/Hand_Transition/current", 0)
-				animation_tree.set("parameters/Weapon_states/current", 0)
-				animation_tree.set("parameters/Hold_Animation/current", 0)
-			
+		if inventory.current_mainhand_equipment.horizontal_holding == true:
+			inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
+			animation_tree.set("parameters/Hand_Transition/current", 0)
+			animation_tree.set("parameters/Weapon_states/current", 0)
+			animation_tree.set("parameters/Hold_Animation/current", 1)
 		else:
-			print("Holding bulkier item")
-			$"%AnimationTree".set("parameters/Hand_Transition/current", 0)
-			$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
-			$"%AnimationTree".set("parameters/Weapon_states/current", 0)
-			$"%AnimationTree".set("parameters/Hold_Animation/current", 0)
-
-			$"%AnimationTree".set("parameters/OffHand_Weapon_States/current", 0)
-			$"%AnimationTree".set("parameters/Offhand_Hold_Animation/current", 0)
-		
+			animation_tree.set("parameters/Hand_Transition/current", 0)
+			animation_tree.set("parameters/Weapon_states/current", 0)
+			animation_tree.set("parameters/Hold_Animation/current", 0)
+	
 	elif inventory.current_mainhand_equipment == null:
 		animation_tree.set("parameters/Hand_Transition/current", 0)
 		animation_tree.set("parameters/Weapon_states/current", 4)
@@ -255,6 +271,7 @@ func adjust_arm(final_position, interpolation_value):
 
 
 func _on_Inventory_inventory_changed():
+	print("Equipped new item")
 	yield(get_tree().create_timer(0.5), "timeout")
 	check_player_animation()
 

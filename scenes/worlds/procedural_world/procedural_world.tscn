@@ -106,7 +106,8 @@ pillar_tile = 16
 [node name="GenerateDoors" type="Node" parent="GenerationManager" index="8"]
 script = ExtResource( 28 )
 door_dict = {
-14: ExtResource( 29 )
+14: ExtResource( 29 ),
+19: ExtResource( 29 )
 }
 
 [node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="9"]

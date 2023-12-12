@@ -81,7 +81,7 @@ shape = SubResource( 6 )
 [node name="DirectPlayerSight" parent="Body" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 )
 character = NodePath("../..")
-FOV = 90.0
+fov = 90.0
 distance = 12.0
 
 [node name="Hitbox" type="Area" parent="."]

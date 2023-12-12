@@ -1,4 +1,4 @@
-class_name PlayerSensor
+class_name _PlayerSensor
 extends Spatial
 
 

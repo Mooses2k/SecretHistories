@@ -394,10 +394,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/sensors/light_detection/player_light_sensor/player_light_sensor.gd"
 }, {
-"base": "Spatial",
+"base": "Area",
 "class": "PlayerSensor",
 "language": "GDScript",
-"path": "res://scenes/sensors/player_sensor.gd"
+"path": "res://scenes/sensors/direct_player_sight/direct_player_sight.gd"
 }, {
 "base": "Area",
 "class": "PlayerSoundEmitter",
@@ -533,6 +533,11 @@ _global_script_classes=[ {
 "class": "WritingItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
+}, {
+"base": "Spatial",
+"class": "_PlayerSensor",
+"language": "GDScript",
+"path": "res://scenes/sensors/player_sensor.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -639,7 +644,8 @@ _global_script_class_icons={
 "VisibilityMask": "",
 "VisualFlame": "",
 "WorldData": "",
-"WritingItem": ""
+"WritingItem": "",
+"_PlayerSensor": ""
 }
 
 [application]

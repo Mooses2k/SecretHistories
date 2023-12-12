@@ -22,7 +22,7 @@ var door_locked_transform : Transform
 onready var door_body : RigidBody = $DoorBody
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	destroy_door()
 
 

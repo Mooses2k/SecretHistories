@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 	light_sources = get_overlapping_areas()
 	
 	if !light_sources.empty():
-		var light_source := check_light_with_player_light_area()
+		var light_source := check_light_with_node()
 		
 		if is_instance_valid(light_source):
 			emit_signal("detected_light_source", light_source)
@@ -56,20 +56,22 @@ func check_light() -> bool:
 	# Return `true` if both player's light area and enemy's fov area can reach that point.
 
 
-func check_light_with_player_light_area() -> PlayerLightArea:
+func check_light_with_node() -> Object:
 	var player_light_area := get_player_light_area()
-	if !is_instance_valid(player_light_area): return null
+	if !is_instance_valid(player_light_area) or !(player_light_area is PlayerLightArea):
+		return null
 
 	if !(player_light_area.parent_item is CandelabraItem or
 		player_light_area.parent_item is CandleItem or
-		player_light_area.parent_item is LanternItem):
+		player_light_area.parent_item is LanternItem
+		or player_light_area.parent_item.owner_character is Player):
 		return null
 	
 	if !player_light_area.parent_item.is_lit: return null
 
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
-	if player_light_area.check_point(point) and check_point(point): return player_light_area
+	if player_light_area.check_point(point) and check_point(point): return player_light_area.parent_item.owner_character
 	# Return `player_light_area` if both player's light area and enemy's fov area can reach that point.
 	return null
 

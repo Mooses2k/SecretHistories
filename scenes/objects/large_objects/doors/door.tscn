@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/objects/large_objects/doors/door_body.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/large_objects/doors/door.gd" type="Script" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://scenes/objects/interactables/lock/lock_door_half.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/objects/interactables/lock/lock_wall_half.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resources/sounds/doors/damage/effective/452600__kyles__door-wood-kick-open-rattle-creak.wav" type="AudioStream" id=7]
-[ext_resource path="res://resources/sounds/doors/squeak.wav" type="AudioStream" id=8]
 
 [sub_resource type="SpatialMaterial" id=8]
 albedo_color = Color( 0.6, 0.216, 0.12, 1 )
@@ -116,7 +115,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0, -0.0848467 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="DoorBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0.075 )
-stream = ExtResource( 8 )
 unit_db = -5.0
 
 [node name="Hinge" type="PinJoint" parent="."]

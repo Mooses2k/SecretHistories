@@ -424,11 +424,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd"
 }, {
-"base": "Reference",
-"class": "RockItem",
-"language": "GDScript",
-"path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
-}, {
 "base": "Resource",
 "class": "RoomData",
 "language": "GDScript",
@@ -613,7 +608,6 @@ _global_script_class_icons={
 "RequirementMinSize": "",
 "RequirementPillar": "",
 "RevolverItem": "",
-"RockItem": "",
 "RoomData": "",
 "RoomGraphViz": "",
 "RoomPurpose": "",

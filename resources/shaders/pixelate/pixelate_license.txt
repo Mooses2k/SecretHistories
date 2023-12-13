@@ -1,0 +1,4 @@
+Pixelate
+aricchi
+https://godotshaders.com/shader/pixelate-2/
+https://opensource.org/licenses/MIT

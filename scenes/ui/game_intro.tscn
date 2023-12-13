@@ -1,7 +1,7 @@
 [gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://resources/art/game_intro/black.png" type="Texture" id=1]
-[ext_resource path="res://resources/sounds/infrasound/infrasound.wav" type="AudioStream" id=2]
+[ext_resource path="res://resources/sounds/infrasound/infrasound.ogg" type="AudioStream" id=2]
 [ext_resource path="res://resources/sounds/radio/185698__thatjeffcarter__number-station-numbers.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/slide_projector/slide_projector1.ogg" type="AudioStream" id=4]
 [ext_resource path="res://scenes/ui/game_intro.gd" type="Script" id=5]

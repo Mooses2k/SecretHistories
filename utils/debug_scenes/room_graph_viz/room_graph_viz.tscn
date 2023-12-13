@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.gd" type="Script" id=1]
+[ext_resource path="res://utils/debug_scenes/room_graph_viz/graph_viz_player_icon.gd" type="Script" id=2]
+
+[node name="RoomGraphViz" type="Node2D"]
+script = ExtResource( 1 )
+distances_scale = 20.0
+draw_full_delaunay = false
+draw_chosen_connections = false
+draw_astar_grid = false
+draw_astar_connections = false
+
+[node name="PlayerIcon" type="Node2D" parent="."]
+script = ExtResource( 2 )

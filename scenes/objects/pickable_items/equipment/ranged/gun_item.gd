@@ -1,3 +1,5 @@
+### Is a tool to support use in player_animations_test.gd
+tool
 class_name GunItem
 extends EquipmentItem
 
@@ -21,14 +23,20 @@ export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 export var handling = 5.0
+
+export var ads_hold_position : Vector3
+export var ads_hold_rotation : Vector3
+var ads_reset_position : Vector3
+var ads_reset_rotation : Vector3
+
+
 export var animation_reload_sequence : int 
 export(MeleeStyle) var melee_style : int = 0
-export (NodePath) var player_path
+#export (NodePath) var player_path
+#
+#onready var player = get_node(player_path)
 
-onready var player = get_node(player_path)
-
-
-var current_ammo : int = 0
+export var current_ammo : int = 0
 var current_ammo_type : Resource = null
 
 #var is_reloading = false    # This has been changed to a character trait
@@ -39,6 +47,14 @@ var _queued_reload_amount : int = 0
 
 export (NodePath) var detection_raycast
 onready var raycast = get_node(detection_raycast)
+
+func _ready():
+#	print(get_parent().name)
+#	if get_parent().name == "MainHandEquipmentRoot":
+#		print("Transforming")
+#		transform = get_hold_transform()
+	ads_reset_position = hold_position.translation
+	ads_reset_rotation = hold_position.rotation_degrees
 
 
 func set_range(value : Vector2):
@@ -78,13 +94,12 @@ func shoot():
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
 	raycast.cast_to = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
-	apply_damage(total_damage)
+	apply_knockback(total_damage)
 	print(owner_character, " shoots a ", self)
 	
 	# Cultists can't recoil for now
 	if owner_character.get_node("PlayerController"):
 		owner_character.player_controller.current_control_mode.recoil(self, total_damage, handling)   # Should also send delta
-
 
 
 func _use_primary():
@@ -105,7 +120,12 @@ func _use_reload():
 	reload()
 
 
-# Needs more code for revolvers and bolt-actions as they're more complicated
+func _use_unload():
+	unload()
+
+
+# TODO: Needs more code for revolvers and bolt-actions as they're more complicated
+# TODO: Needs some camera movement for immersion
 func reload():
 	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
 		var inventory = owner_character.inventory
@@ -127,7 +147,7 @@ func reload():
 					print(owner_character.animation_tree)
 					reload_animation()
 #					print(player.owner)
-					# Eventually randomize which reload sound it uses
+					# TODO: Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
 					return
 
@@ -142,16 +162,27 @@ func reload_animation():
 		print(animation_reload_sequence)
 
 
+# Holding R unloads the weapon, for instance if you want the ammo from it to then drop the weapon
+func unload():
+	if current_ammo > 0:
+		$UnloadTimer.start(reload_time)
+		owner_character.is_reloading = true
+		
+		# Later, based on parts of the reload animation
+		$Sounds/Reload.play()
+# TODO ALSO: generalize Sounds spatial etc to gun_item
+
+
 #	TODO: Changing the status of the weapon (dropping the weapon or unequiping it)
 # while one of these timers is active should appropriately reset the timer and deal any of it's side effects
 
 
-func apply_damage(total_damage):
+func apply_knockback(total_damage):
 	if raycast.is_colliding():
 		var object_detected = raycast.get_collider()
 		if object_detected is RigidBody and has_method("apply_damage") :
 			print("detected rigidbody")
-			object_detected.apply_central_impulse(-player.global_transform.basis.z * total_damage * 5)
+			object_detected.apply_central_impulse(-self.global_transform.basis.z * total_damage * 5)
 
 
 func _on_ReloadTimer_timeout() -> void:
@@ -164,6 +195,16 @@ func _on_ReloadTimer_timeout() -> void:
 			current_ammo += _reload_amount
 	owner_character.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
+
+
+func _on_UnloadTimer_timeout() -> void:
+	if owner_character and owner_character.is_reloading:
+		var inventory = owner_character.inventory
+		inventory.insert_tiny_item(current_ammo_type, current_ammo)
+		print("Unload rounds: ", current_ammo)
+		current_ammo = 0
+		owner_character.is_reloading = false
+		$Sounds/Unload.play()
 
 
 func _on_CooldownTimer_timeout() -> void:

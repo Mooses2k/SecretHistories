@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scenes/worlds/procedural_world/object_spawn_list.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+_paths = [ "res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.tscn" ]
+_weights = [ 55555 ]
+_min_amounts = [ 1 ]
+_max_amounts = [ 1 ]

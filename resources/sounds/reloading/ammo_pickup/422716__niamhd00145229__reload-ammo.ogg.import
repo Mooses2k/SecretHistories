@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/422716__niamhd00145229__reload-ammo.ogg-74af80575f414448e91abcd0ac2a6e5c.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg"
+dest_files=[ "res://.import/422716__niamhd00145229__reload-ammo.ogg-74af80575f414448e91abcd0ac2a6e5c.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

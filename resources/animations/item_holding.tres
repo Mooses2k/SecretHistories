@@ -2,7 +2,7 @@
 
 [resource]
 resource_name = "ItemHoldingVertical"
-length = 1.98333
+length = 0.1
 tracks/0/type = "transform"
 tracks/0/path = NodePath("rig_deform/Skeleton:DEF-ear.L")
 tracks/0/interp = 1

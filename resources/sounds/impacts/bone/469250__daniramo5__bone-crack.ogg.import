@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/469250__daniramo5__bone-crack.ogg-1bd03d127842aeeff64f288845df4043.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/impacts/bone/469250__daniramo5__bone-crack.ogg"
+dest_files=[ "res://.import/469250__daniramo5__bone-crack.ogg-1bd03d127842aeeff64f288845df4043.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

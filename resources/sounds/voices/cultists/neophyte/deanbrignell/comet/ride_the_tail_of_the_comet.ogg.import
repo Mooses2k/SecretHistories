@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ride_the_tail_of_the_comet.ogg-8709cd6701ab8109d8509c58c5d646df.oggstr"
+
+[deps]
+
+source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/comet/ride_the_tail_of_the_comet.ogg"
+dest_files=[ "res://.import/ride_the_tail_of_the_comet.ogg-8709cd6701ab8109d8509c58c5d646df.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

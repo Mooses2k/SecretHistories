@@ -14,10 +14,10 @@ extends GenerationStep
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 export(String, FILE, "*.tscn") var _character_scene_path := ""
-export var _max_count = 5
+var _max_count = 0
 
 var _density_by_type := {
-	WorldData.CellType.ROOM: 0.025,
+	WorldData.CellType.ROOM: 2.0,   # Used to be 0.025
 	WorldData.CellType.CORRIDOR: 0.0,
 	WorldData.CellType.HALL: 0.0,
 }
@@ -46,6 +46,24 @@ func _ready():
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	_rng.seed = generation_seed
 	
+	# More cultists per DLvl as you go down
+	match GameManager.game.current_floor_level:
+		-1:
+			pass   # set _density_by_type?
+			_max_count = 0
+		-2:
+			pass   # set _density_by_type?
+			_max_count = 2
+		-3:
+			pass   # set _density_by_type?
+			_max_count = 5
+		-4:
+			pass   # set _density_by_type?
+			_max_count = 5
+		-5:
+			pass   # set _density_by_type?
+			_max_count = 10
+	
 	var valid_cells := _get_valid_cells(data)
 	
 	var count = 0
@@ -69,14 +87,24 @@ func _get_valid_cells(data: WorldData) -> Array:
 		valid_cells.append_array(data.get_cells_for(type))
 	valid_cells.sort()
 	
-	# Remove Starting Room cell indexes
-	var starting_room_indexes := data.get_starting_room_data().cell_indexes
-	for index in starting_room_indexes:
-		var invalid_cell_index := valid_cells.find(index)
-		if invalid_cell_index != -1:
-			valid_cells.remove(invalid_cell_index)
-	
+	_remove_used_cells_from(valid_cells, data)
 	return valid_cells
+
+
+
+func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:
+	for cell_index in data._objects_to_spawn.keys():
+		p_array.erase(cell_index)
+	
+	if data.is_spawn_position_valid():
+		var player_cells := [
+				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE),
+				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.DOWN_STAIRCASE),
+		]
+		for player_cell in player_cells:
+			p_array.erase(player_cell)
+	
+	return p_array
 
 ### -----------------------------------------------------------------------------------------------
 

@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://core/ai/action_nodes/bt_go_to_target.gd"
 }, {
 "base": "BTNode",
+"class": "BTGoToTargetWithAgent",
+"language": "GDScript",
+"path": "res://core/ai/action_nodes/bt_go_to_target_with_agent.gd"
+}, {
+"base": "BTNode",
 "class": "BTGunCooldown",
 "language": "GDScript",
 "path": "res://core/ai/check_nodes/bt_gun_cooldown.gd"
@@ -118,6 +123,11 @@ _global_script_classes=[ {
 "class": "BTWaitRandom",
 "language": "GDScript",
 "path": "res://core/ai/action_nodes/bt_wait_random.gd"
+}, {
+"base": "Spatial",
+"class": "BaseKinematicDoor",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/doors/base_kinematic_door.gd"
 }, {
 "base": "Node",
 "class": "BehaviorTree",
@@ -204,6 +214,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/doors/door.gd"
 }, {
+"base": "Interactable",
+"class": "DoorInteractable",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/doors/door_interactable.gd"
+}, {
 "base": "RigidBody",
 "class": "Door_body",
 "language": "GDScript",
@@ -228,6 +243,11 @@ _global_script_classes=[ {
 "class": "EquipmentItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/equipment_item.gd"
+}, {
+"base": "Reference",
+"class": "FloorLevelHandler",
+"language": "GDScript",
+"path": "res://scenes/worlds/floor_level_handler.gd"
 }, {
 "base": "Node",
 "class": "Game",
@@ -298,6 +318,11 @@ _global_script_classes=[ {
 "class": "LanternItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd"
+}, {
+"base": "RigidBody",
+"class": "LargeObjectDropSound",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/large_object_drop_sound.gd"
 }, {
 "base": "Spatial",
 "class": "LevelStaircase",
@@ -399,11 +424,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd"
 }, {
-"base": "MeleeItem",
-"class": "RockItem",
-"language": "GDScript",
-"path": "res://scenes/objects/pickable_items/equipment/components/rocks/rock.gd"
-}, {
 "base": "Resource",
 "class": "RoomData",
 "language": "GDScript",
@@ -412,7 +432,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "RoomGraphViz",
 "language": "GDScript",
-"path": "res://utils/debug_scenes/room_graph_viz.gd"
+"path": "res://utils/debug_scenes/room_graph_viz/room_graph_viz.gd"
 }, {
 "base": "Resource",
 "class": "RoomPurpose",
@@ -433,6 +453,11 @@ _global_script_classes=[ {
 "class": "ShakeCamera",
 "language": "GDScript",
 "path": "res://scenes/characters/player/player_camera.gd"
+}, {
+"base": "StrangeDevice",
+"class": "ShardOfTheComet",
+"language": "GDScript",
+"path": "res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.gd"
 }, {
 "base": "Node",
 "class": "SoundListener",
@@ -508,6 +533,7 @@ _global_script_class_icons={
 "BTDie": "",
 "BTEquipNextWeapon": "",
 "BTGoToTarget": "",
+"BTGoToTargetWithAgent": "",
 "BTGunCooldown": "",
 "BTGunEquipped": "",
 "BTGunHasAmmo": "",
@@ -522,6 +548,7 @@ _global_script_class_icons={
 "BTShoot": "",
 "BTSoundListener": "",
 "BTWaitRandom": "",
+"BaseKinematicDoor": "",
 "BehaviorTree": "",
 "BombItem": "",
 "BoxOutlineMesh": "",
@@ -539,11 +566,13 @@ _global_script_class_icons={
 "Cultist": "",
 "DisposableLightItem": "",
 "Door": "",
+"DoorInteractable": "",
 "Door_body": "",
 "Dynamite": "",
 "Effect": "",
 "EmptyHand": "",
 "EquipmentItem": "",
+"FloorLevelHandler": "",
 "Game": "",
 "GameWorld": "",
 "GenerationGroup": "",
@@ -558,6 +587,7 @@ _global_script_class_icons={
 "ItemSpawner": "",
 "KeyItem": "",
 "LanternItem": "",
+"LargeObjectDropSound": "",
 "LevelStaircase": "",
 "ManhattanAStar2D": "",
 "MedicalItem": "",
@@ -578,13 +608,13 @@ _global_script_class_icons={
 "RequirementMinSize": "",
 "RequirementPillar": "",
 "RevolverItem": "",
-"RockItem": "",
 "RoomData": "",
 "RoomGraphViz": "",
 "RoomPurpose": "",
 "RoomRequirements": "",
 "SettingsClass": "",
 "ShakeCamera": "",
+"ShardOfTheComet": "",
 "SoundListener": "",
 "SpawnData": "",
 "Spawner": "",
@@ -624,6 +654,7 @@ Settings="*res://globals/settings.gd"
 LoadScene="*res://globals/load_scene.gd"
 BackgroundMusic="*res://scenes/effects/background_music.tscn"
 SettingsConfig="*res://globals/settings_config.gd"
+Events="*res://globals/events.gd"
 
 [display]
 

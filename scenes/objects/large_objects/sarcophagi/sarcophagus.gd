@@ -22,6 +22,8 @@ export var transforms_by_direction := {
 	WorldData.Direction.NORTH: Transform(),
 }
 
+var spawnable_items : PoolStringArray
+var sarco_spawnable_items : PoolStringArray
 var wall_direction := -1 setget _set_wall_direction
 
 #--- private variables - order: export > normal var > onready -------------------------------------
@@ -70,6 +72,7 @@ func _spawn_lid() -> void:
 	var packed_scene := _lid_scenes.get_resource(PossibleLids.keys()[current_lid]) as PackedScene
 	_current_lid_node = packed_scene.instance() as RigidBody
 	
+	_current_lid_node.set("spawnable_items", sarco_spawnable_items)
 	var spawn_node := _lid_positions[current_lid] as Position3D
 	spawn_node.add_child(_current_lid_node, true)
 

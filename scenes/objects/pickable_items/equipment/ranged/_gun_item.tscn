@@ -27,10 +27,13 @@ detection_raycast = NodePath("")
 [node name="ReloadTimer" type="Timer" parent="." index="2"]
 one_shot = true
 
-[node name="CooldownTimer" type="Timer" parent="." index="3"]
+[node name="UnloadTimer" type="Timer" parent="." index="3"]
 one_shot = true
 
-[node name="RayCast" type="RayCast" parent="." index="4"]
+[node name="CooldownTimer" type="Timer" parent="." index="4"]
+one_shot = true
+
+[node name="RayCast" type="RayCast" parent="." index="5"]
 visible = false
 enabled = true
 cast_to = Vector3( 0, 0, -1000 )
@@ -38,4 +41,5 @@ collision_mask = 13
 collide_with_areas = true
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
+[connection signal="timeout" from="UnloadTimer" to="." method="_on_UnloadTimer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

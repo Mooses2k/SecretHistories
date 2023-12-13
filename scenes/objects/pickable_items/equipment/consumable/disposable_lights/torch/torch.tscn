@@ -23,11 +23,11 @@ surfaces/0 = {
 "vertex_count": 603
 }
 
-[sub_resource type="ConvexPolygonShape" id=17]
-points = PoolVector3Array( 0.0319144, 0.25357, 0.0158944, -0.0494771, 0.153376, 0.000435922, -0.0494771, 0.159647, -0.0058626, 0.0199104, -0.467904, -0.0216367, 0.0167488, 0.213216, -0.0468771, 0.00728371, -0.467904, 0.0256671, -0.0179301, 0.16282, 0.047749, -0.0242336, -0.467904, -0.0153289, 0.0514574, 0.178537, 0.0224993, -0.0210819, -0.467904, 0.0193593, -0.0305371, 0.232179, -0.0342523, 0.0482957, 0.206944, -0.024786, 0.0293755, 0.194327, 0.0445904, -0.00531334, -0.467904, -0.0279445, -0.0177226, 0.269032, 0.0129131, 0.0262139, -0.467904, -0.0058626, -0.0400021, 0.175438, 0.0319749, -0.00531334, 0.225834, -0.0468771, 0.00409382, 0.264383, -0.0212911, -0.0273853, -0.467904, 0.00674371, -0.0273853, 0.14703, -0.0374108, 0.0482957, 0.194327, 0.0319656, -0.00519863, 0.257058, 0.0314009, 0.0325272, 0.216389, -0.0405601, -0.0494771, 0.16282, 0.0130515, 0.0514574, 0.181709, -0.0121704, -0.0400021, 0.14703, -0.024786, -0.0329215, 0.252496, 0.00351463, 0.0135971, 0.206944, 0.047749, 0.0257639, 0.263278, -0.00264685, 0.0181257, -0.436124, 0.0147137, 0.00413198, -0.467904, -0.0279445, 0.0419824, 0.206944, 0.0382826, -0.0463155, 0.159647, 0.0225085, -0.0147685, -0.464731, -0.024786, 0.00414186, 0.153376, 0.047749, 0.0165309, 0.267964, 0.0190976, -0.0336987, 0.165993, 0.0382826, -0.0177163, 0.268907, -0.00890508, -0.0368504, 0.232179, -0.0279352, 0.0471947, 0.221336, 0.0219857, -0.0273853, -0.467904, -0.0058626, -0.0115022, -0.473997, -0.00893518, -0.0463155, 0.153376, -0.0153104, 0.0262237, 0.203772, -0.0437186, -0.0210819, 0.150203, -0.0405601, -0.0144581, 0.256288, 0.0282399, 0.0287911, 0.24383, -0.0273602, 0.0482957, 0.194327, -0.024786, 0.0439289, 0.232208, -0.00568927, -0.0179301, 0.153376, 0.047749, -0.0242336, 0.178537, 0.0445904, 0.0194887, 0.249436, 0.0312628, 0.0388307, 0.181709, -0.0342523, 0.0419824, 0.187981, 0.0382826, 0.0103021, 0.270666, -0.00886871, 0.0135971, 0.222735, -0.0468771, -0.00827205, 0.252846, -0.0304269, -0.00212955, 0.272544, 0.0160404, 0.0514574, 0.172265, -0.00270408, -0.0450062, 0.192265, 0.0127023, -0.00531334, 0.216389, -0.0468771, 0.0135971, 0.203772, -0.0468771, 0.0325272, 0.200599, -0.0405601 )
-
 [sub_resource type="BoxShape" id=27]
-extents = Vector3( 0.02, 0.2, 0.02 )
+extents = Vector3( 0.027, 0.219103, 0.027 )
+
+[sub_resource type="SphereShape" id=28]
+radius = 0.02
 
 [sub_resource type="Curve" id=18]
 _data = [ Vector2( 0.0305677, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248908, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -185,13 +185,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_editor_description_": ""
 }
-dropped_layers = 64
-dropped_mask = 1
 item_drop_sound = ExtResource( 7 )
 item_name = "Torch"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
 can_spin = true
 life_percentage_lose = 0.2
 prob_going_out = 0.1
@@ -201,17 +196,21 @@ transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.051402, 0 )
 mesh = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.051402, 0 )
-shape = SubResource( 17 )
-
-[node name="CollisionShapeStopRolling" type="CollisionShape" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0218193, -1.77636e-15 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0101435, 0 )
 shape = SubResource( 27 )
 
-[node name="HoldPosition" parent="." index="3"]
+[node name="CollisionShapeNoStandOnEnd" type="CollisionShape" parent="." index="2"]
+transform = Transform( 0.986421, 0.164238, 0, -0.164238, 0.986421, 0, 0, 0, 1, 0.00156125, 0.207031, 6.0705e-05 )
+shape = SubResource( 28 )
+
+[node name="CollisionShapeNoStandOnEnd2" type="CollisionShape" parent="." index="3"]
+transform = Transform( 0.986421, 0.164238, 0, -0.164238, 0.986421, 0, 0, 0, 1, -0.00132411, -0.218863, -0.0067575 )
+shape = SubResource( 28 )
+
+[node name="HoldPosition" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14973, 0 )
 
-[node name="FireOrigin" type="Position3D" parent="." index="4"]
+[node name="FireOrigin" type="Position3D" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.173342, 0 )
 script = ExtResource( 4 )
 
@@ -226,6 +225,7 @@ script = ExtResource( 6 )
 [node name="Light" type="OmniLight" parent="FireOrigin/Fire" index="0"]
 transform = Transform( -5, -4.37114e-07, 0, 4.37114e-07, -5, 0, 0, 0, 5, 9.05025e-10, 0.0103521, 0 )
 visible = false
+layers = 3
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 shadow_enabled = true
 omni_range = 13.0
@@ -250,12 +250,12 @@ process_material = SubResource( 23 )
 draw_pass_1 = SubResource( 24 )
 script = ExtResource( 6 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
 autoplay = "flicker"
 anims/RESET = SubResource( 25 )
 anims/flicker = SubResource( 26 )
 
-[node name="Ignite" parent="." index="8"]
+[node name="Ignite" parent="." index="9" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.177249, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

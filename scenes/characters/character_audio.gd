@@ -36,7 +36,8 @@ enum SpeechType {
 	SURPRISED,
 	FIRE,
 	SNAKE,
-	BOMB
+	BOMB,
+	COMET
 }
 
 var _idle_sounds : Array = []
@@ -55,6 +56,7 @@ var _surprised_sounds : Array = []
 var _fire_sounds : Array = []
 var _snake_sounds : Array = []
 var _bomb_sounds : Array = []
+var _comet_sounds : Array = []
 
 var _current_sound_dir : String = ""
 
@@ -164,6 +166,8 @@ func load_sounds(sound_dir, type : int) -> void:
 					_snake_sounds.append(load(sound_dir + "/" + sound))
 				28:
 					_bomb_sounds.append(load(sound_dir + "/" + sound))
+				29:
+					_comet_sounds.append(load(sound_dir + "/" + sound))
 					
 		sound = snd_dir.get_next()
 
@@ -199,6 +203,7 @@ func choose_voice():
 		load_sounds(character_voice_path + "fire", 26)
 		load_sounds(character_voice_path + "snake", 27)
 		load_sounds(character_voice_path + "bomb", 28)
+		load_sounds(character_voice_path + "comet", 29)
 
 
 func pitch_alter_voice():
@@ -244,8 +249,12 @@ func play_detection_sound():
 		if speech_audio.is_playing() == true:
 #			print("Sounds already playing (detection called this)")
 			return
-	_detection_sounds.shuffle()
-	speech_audio.stream = _detection_sounds.front()
+	if GameManager.game.player.inventory.bulky_equipment is ShardOfTheComet:
+		_comet_sounds.shuffle()
+		speech_audio.stream = _comet_sounds.front()
+	else:
+		_detection_sounds.shuffle()
+		speech_audio.stream = _detection_sounds.front()
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
@@ -382,6 +391,16 @@ func play_bomb_sound():
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = SpeechType.BOMB
+	speech_audio.play()
+
+
+func play_comet_sound():
+	_comet_sounds.shuffle()
+	speech_audio.stream = _comet_sounds.front()
+	if last_speech_line == speech_audio.stream:
+		return 
+	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
+	last_speech_type = SpeechType.COMET
 	speech_audio.play()
 
 

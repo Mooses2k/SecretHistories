@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/worlds/game_world.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/worlds/procedural_world/procedural_world.gd" type="Script" id=2]
@@ -8,12 +8,14 @@
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" type="Script" id=6]
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" type="Resource" id=7]
 [ext_resource path="res://scenes/worlds/procedural_world/initial_loot_list.tres" type="Resource" id=8]
+[ext_resource path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=10]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=11]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=12]
 [ext_resource path="res://scenes/worlds/procedural_world/generate_level_staircase.gd" type="Script" id=13]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_initial_loot.gd" type="Script" id=14]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_cultists.gd" type="Script" id=15]
+[ext_resource path="res://scenes/worlds/procedural_world/skeletal_remains_list.tres" type="Resource" id=16]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=17]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=18]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" type="Script" id=19]
@@ -22,6 +24,12 @@
 [ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/crypt.tres" type="Resource" id=22]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_sarcophagus.gd" type="Script" id=23]
 [ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" type="Script" id=24]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_large_obj_items.gd" type="Script" id=25]
+[ext_resource path="res://scenes/worlds/procedural_world/sarco_fountain_item_list.tres" type="Resource" id=26]
+[ext_resource path="res://scenes/worlds/procedural_world/sarco_lids_item_list.tres" type="Resource" id=27]
+[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" type="Script" id=28]
+[ext_resource path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" type="PackedScene" id=29]
+[ext_resource path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" type="Resource" id=30]
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_unshaded = true
@@ -33,16 +41,19 @@ script = ExtResource( 2 )
 [node name="Gridmaps" parent="." index="0"]
 mesh_library = ExtResource( 5 )
 
+[node name="Camera" parent="." index="1"]
+current = false
+
 [node name="DirectionalLight" parent="." index="2"]
 visible = false
 light_energy = 0.5
 shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
 
-[node name="Navigation" parent="." index="4"]
+[node name="Navigation" parent="." index="3"]
 preview_material = SubResource( 3 )
 
-[node name="GenerationManager" parent="." index="5"]
+[node name="GenerationManager" parent="." index="4"]
 world_size_x = 20
 world_size_z = 20
 
@@ -56,9 +67,11 @@ room_size_max = 3
 
 [node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="2"]
 script = ExtResource( 3 )
+path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource( 20 )
+_path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
 script = ExtResource( 19 )
@@ -74,6 +87,9 @@ pillar_tile = 16
 script = ExtResource( 21 )
 floor_tile = 6
 wall_tile = 5
+double_wall_tile = 4
+alternative_double_wall_tiles = [ 20, 21, 22 ]
+alternative_double_wall_tile_chance = 0.15
 door_tile = 19
 double_door_tile = 14
 ceiling_tile = 10
@@ -84,17 +100,29 @@ pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
 
-[node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="8"]
+[node name="GenerateDoors" type="Node" parent="GenerationManager" index="8"]
+script = ExtResource( 28 )
+door_dict = {
+14: ExtResource( 29 )
+}
+
+[node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="9"]
 script = ExtResource( 6 )
 purpose_resources = [ ExtResource( 22 ), ExtResource( 7 ) ]
 
-[node name="PopulateRooms" type="Node" parent="GenerationManager" index="9"]
+[node name="PopulateRooms" type="Node" parent="GenerationManager" index="10"]
 script = ExtResource( 10 )
 
 [node name="GenerateStaircases" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
 script = ExtResource( 24 )
 
-[node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
+[node name="GenerateLargeObjectsItems" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
+script = ExtResource( 25 )
+_sarco_spawn_list_resource = ExtResource( 26 )
+_sarco_shard_spawn_list_resource = ExtResource( 30 )
+_sarco_lids_spawn_list_resource = ExtResource( 27 )
+
+[node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="0"]
 script = ExtResource( 23 )
 vertical_center_rotation = 90
 _force_lid = -1
@@ -112,11 +140,19 @@ _loot_list_resource = ExtResource( 8 )
 _min_loot = 10
 _max_loot = 15
 
-[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
+[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
+script = ExtResource( 14 )
+_loot_list_resource = ExtResource( 16 )
+_min_loot = 10
+_max_loot = 15
+
+[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource( 15 )
 _character_scene_path = "res://scenes/characters/cultists/neophyte.tscn"
 _density_by_type = {
-1: 0.03,
+1: 0.05,
 2: 0.0,
 3: 0
 }
+
+[node name="RoomGraphViz" parent="." index="5" instance=ExtResource( 9 )]

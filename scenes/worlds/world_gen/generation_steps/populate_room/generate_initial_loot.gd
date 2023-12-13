@@ -49,6 +49,7 @@ func _execute_step(data: WorldData, gen_data : Dictionary, generation_seed : int
 	
 	_rng.seed = generation_seed
 	
+	# TODO: this is probably where we'll set the DLvl match for different floor-loot lists
 	_generate_initial_loot_spawn_data(data, _loot_list_resource)
 
 
@@ -65,7 +66,7 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 		
 		var lucky_index = _rng.randi() % possible_cells.size()
 		var cell_index := possible_cells[lucky_index] as int
-		possible_cells.remove(cell_index)   # Source of numerous red out of bounds debugger errors
+		possible_cells.remove(lucky_index)
 		
 		var cell_position := data.get_local_cell_position(cell_index)
 		var cell_radius := data.CELL_SIZE * 0.5
@@ -84,11 +85,12 @@ func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:
 		p_array.erase(cell_index)
 	
 	if data.is_spawn_position_valid():
-		# TODO For now using UP_STAIRCASE directly works, because it's always as if we came down 
-		# from the level above, but once we can actually navigate between dungeon levels this
-		# has to change
-		var player_cell := data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE)
-		p_array.erase(player_cell)
+		var player_cells := [
+				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE),
+				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.DOWN_STAIRCASE),
+		]
+		for player_cell in player_cells:
+			p_array.erase(player_cell)
 	
 	return p_array
 

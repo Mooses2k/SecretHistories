@@ -125,6 +125,7 @@ script = ExtResource( 25 )
 _sarco_spawn_list_resource = ExtResource( 26 )
 _sarco_shard_spawn_list_resource = ExtResource( 30 )
 _sarco_lids_spawn_list_resource = ExtResource( 27 )
+_max_item = 5
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="0"]
 script = ExtResource( 23 )
@@ -141,8 +142,7 @@ _spawn_list_resource = ExtResource( 12 )
 [node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
 script = ExtResource( 14 )
 _loot_list_resource = ExtResource( 8 )
-_min_loot = 10
-_max_loot = 15
+_max_loot = 7
 
 [node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
 script = ExtResource( 14 )

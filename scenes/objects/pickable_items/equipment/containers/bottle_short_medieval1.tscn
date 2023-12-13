@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/models/items/containers/dining/vessels/trn_Bottles_000.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/containers/_container_item.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/models/items/containers/dining/vessels/trn_Bottles_002.material" type="Material" id=3]
-[ext_resource path="res://resources/sounds/impacts/ceramic_and_glass/13929__adcbicycle__1_ding_hits.wav" type="AudioStream" id=4]
 
 [sub_resource type="ArrayMesh" id=1]
 blend_shape_mode = 0
@@ -32,29 +31,32 @@ points = PoolVector3Array( 0.101536, 0.0142607, 0.0265163, -0.115237, -0.0123086
 
 [node name="BottleShortMedieval2" instance=ExtResource( 2 )]
 mass = 1.0
-item_drop_sound = ExtResource( 4 )
 item_size = 0
 item_name = "Short Ceramic Bottle"
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.17336, 0 )
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -0.0463645, 0 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
 [node name="CollisionShape4" type="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.17336, 0 )
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -0.0463645, 0 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape3" type="CollisionShape" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.17336, 0 )
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -0.0463645, 0 )
 shape = SubResource( 3 )
 
 [node name="CollisionShape2" type="CollisionShape" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.17336, 0 )
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -0.0463645, 0 )
 shape = SubResource( 4 )
 
 [node name="CollisionShape" parent="." index="4"]
 shape = null
 
 [node name="HoldPosition" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0102378, 0.044211, 0 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.0102378, 0.059424, 0 )

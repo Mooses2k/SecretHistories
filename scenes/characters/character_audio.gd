@@ -459,3 +459,4 @@ func play_clamber_sound(clamber_in : bool) -> void:
 				_clamber_sounds["out"].shuffle()
 				movement_audio.stream = _clamber_sounds["out"].front()
 				movement_audio.play()
+

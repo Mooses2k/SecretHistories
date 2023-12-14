@@ -6,6 +6,5 @@ extends BTControlFlow
 func tick(state : CharacterState) -> int:
 	for child in self.child_nodes_bt:
 		var status = child.tick(state)
-		if status != Status.SUCCESS:
-			return status
-	return Status.SUCCESS
+		if status != OK: return status
+	return OK

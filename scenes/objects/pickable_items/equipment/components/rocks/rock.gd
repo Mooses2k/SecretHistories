@@ -1,7 +1,8 @@
-class_name RockItem
+class_name RockItem extends Node
 
 
 export (NodePath) var player_path
+
 
 onready var player = get_node(player_path)
 

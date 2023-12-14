@@ -68,5 +68,5 @@ func tick(state: CharacterState) -> int:
 
 	if is_instance_valid(most_interesting):
 		state.target_position = most_interesting.position
-		return Status.SUCCESS
-	return Status.FAILURE
+		return OK
+	return FAILED

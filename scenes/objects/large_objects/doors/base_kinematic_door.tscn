@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_Wall_Metal.material" type="Material" id=1]
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_DoorSimple1.material" type="Material" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://resources/sounds/doors/damage/effective/452600__kyles__door-wood-kick-open-rattle-creak.wav" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/doors/close/342241__inspectorj__door-squeak-normal-a.wav" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/doors/open/536076__eminyildirim__door-squeak.wav" type="AudioStream" id=11]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=12]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.45, 0.95, 0.05 )
@@ -84,9 +83,6 @@ extents = Vector3( 0.55, 0.05, 0.05 )
 
 [sub_resource type="CylinderShape" id=9]
 radius = 1.3
-
-[sub_resource type="BoxShape" id=10]
-extents = Vector3( 0.45, 0.95, 0.08 )
 
 [node name="BaseKinematicDoor" type="Spatial"]
 script = ExtResource( 4 )
@@ -220,15 +216,6 @@ shape = SubResource( 9 )
 [node name="NpcCheckTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
-
-[node name="Hitbox" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00724316, 0.987607, 0.085677 )
-collision_layer = 8
-collision_mask = 64
-script = ExtResource( 12 )
-
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-shape = SubResource( 10 )
 
 [connection signal="character_interacted" from="DoorHingeZAxis/DoorBody/Interactable" to="." method="_on_Interactable_character_interacted"]
 [connection signal="kicked" from="DoorHingeZAxis/DoorBody/Interactable" to="." method="_on_Interactable_kicked"]

@@ -54,7 +54,7 @@ func _physics_process(delta):
 							door_state = DoorState.CLOSED
 							door_should_move = true
 						return
-				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, door_open_angle, door_speed*delta)
+				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, door_open_angle, door_speed * delta)
 		DoorState.CLOSED:
 			if door_hinge_z_axis.rotation.y > 0.0:
 				for obstacle in close_block_detector.get_overlapping_bodies():
@@ -65,7 +65,7 @@ func _physics_process(delta):
 								if door_hinge_z_axis.rotation.y > door_open_angle - door_close_threshold:
 									door_should_move = true
 						return
-				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, 0.0, door_speed*delta)
+				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, 0.0, door_speed * delta)
 		DoorState.STUCK:
 			door_should_move = false
 			pass

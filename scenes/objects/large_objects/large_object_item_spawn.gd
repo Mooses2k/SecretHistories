@@ -11,6 +11,9 @@ func _ready():
 		
 		for item_path in owner.spawnable_items:
 			random_num = randi() % anchors.size()
+			# handle bad refs in the loot list
+			if !is_instance_valid(item_path):
+				return
 			var new_item = load(item_path).instance()
 				
 			if new_item is ShardOfTheComet and GameManager.game.shard_has_spawned == false:

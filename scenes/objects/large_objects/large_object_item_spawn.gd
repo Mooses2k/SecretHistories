@@ -29,7 +29,6 @@ func _ready():
 			if new_item.placement_position:
 				new_item.translation += new_item.placement_position.translation
 			
-			new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 			get_parent().get_parent().add_child(new_item)
 			anchors.remove(random_num)
 

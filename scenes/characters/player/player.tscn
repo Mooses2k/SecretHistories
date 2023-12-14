@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://scenes/characters/player/player_anims.gd" type="Script" id=30]
 [ext_resource path="res://scenes/characters/player/player_animations_test.gd" type="Script" id=31]
 [ext_resource path="res://resources/models/characters/player/fps_arms/main_char_only_arms_game_rig.glb" type="PackedScene" id=32]
+[ext_resource path="res://resources/animations/sawed_off_shotgun_reload.tres" type="Animation" id=33]
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
@@ -7326,6 +7327,9 @@ animation = "martini_henry_reload"
 [sub_resource type="AnimationNodeAnimation" id=435]
 animation = "webley_reload"
 
+[sub_resource type="AnimationNodeAnimation" id=440]
+animation = "sawed_off_shotgun_reload"
+
 [sub_resource type="AnimationNodeAnimation" id=417]
 animation = "ads_idle"
 
@@ -7405,6 +7409,8 @@ animation = "Hip_Idle"
 
 [sub_resource type="AnimationNodeOneShot" id=438]
 
+[sub_resource type="AnimationNodeOneShot" id=441]
+
 [sub_resource type="AnimationNodeBlend2" id=424]
 
 [sub_resource type="AnimationNodeBlend2" id=418]
@@ -7431,7 +7437,7 @@ input_5/auto_advance = false
 [sub_resource type="AnimationNodeOneShot" id=437]
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 1158.88, -10.9435 )
+graph_offset = Vector2( 1418.69, -269 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 2/node" = SubResource( 419 )
@@ -7446,12 +7452,14 @@ nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 6/position" = Vector2( 1180, -220 )
 "nodes/Animation 7/node" = SubResource( 435 )
 "nodes/Animation 7/position" = Vector2( 1540, -200 )
+"nodes/Animation 8/node" = SubResource( 440 )
+"nodes/Animation 8/position" = Vector2( 2380, -160 )
 "nodes/Double-barrel shotgun/node" = SubResource( 432 )
 "nodes/Double-barrel shotgun/position" = Vector2( 760, -480 )
 nodes/DoubleBarrelReload/node = SubResource( 402 )
 nodes/DoubleBarrelReload/position = Vector2( 500, -220 )
 nodes/Hand_Transition/node = SubResource( 407 )
-nodes/Hand_Transition/position = Vector2( 2620, -260 )
+nodes/Hand_Transition/position = Vector2( 3540, -240 )
 nodes/Hold_Animation/node = SubResource( 400 )
 nodes/Hold_Animation/position = Vector2( -180, -860 )
 nodes/Horizontal_Hold_Animation/node = SubResource( 399 )
@@ -7473,7 +7481,7 @@ nodes/MainHand_Idle/position = Vector2( 40, 60 )
 nodes/MediumAds/node = SubResource( 416 )
 nodes/MediumAds/position = Vector2( -180, -640 )
 nodes/OffHand_MainHand_Blend/node = SubResource( 413 )
-nodes/OffHand_MainHand_Blend/position = Vector2( 2240, -140 )
+nodes/OffHand_MainHand_Blend/position = Vector2( 3140, -60 )
 nodes/OffHand_Weapon_States/node = SubResource( 408 )
 nodes/OffHand_Weapon_States/position = Vector2( 1900, 100 )
 nodes/Offhand_Hold_Animation/node = SubResource( 409 )
@@ -7486,6 +7494,8 @@ nodes/Rifle_Anim/node = SubResource( 368 )
 nodes/Rifle_Anim/position = Vector2( -700, -660 )
 "nodes/Sawed-off Martini pistol/node" = SubResource( 438 )
 "nodes/Sawed-off Martini pistol/position" = Vector2( 2040, -360 )
+"nodes/Sawed-off shotgun/node" = SubResource( 441 )
+"nodes/Sawed-off shotgun/position" = Vector2( 2640, -320 )
 nodes/ShotgunAds/node = SubResource( 424 )
 nodes/ShotgunAds/position = Vector2( 100, 260 )
 nodes/SmallAds/node = SubResource( 418 )
@@ -7496,8 +7506,8 @@ nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 460, -540 )
 "nodes/Webley revolver/node" = SubResource( 437 )
 "nodes/Webley revolver/position" = Vector2( 1740, -440 )
-nodes/output/position = Vector2( 2900, -340 )
-node_connections = [ "output", 0, "Hand_Transition", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "OffHand_MainHand_Blend", 0, "Sawed-off Martini pistol", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3" ]
+nodes/output/position = Vector2( 3780, -460 )
+node_connections = [ "output", 0, "Hand_Transition", "Sawed-off shotgun", 0, "Sawed-off Martini pistol", "Sawed-off shotgun", 1, "Animation 8", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "OffHand_MainHand_Blend", 0, "Sawed-off shotgun", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -7515,8 +7525,8 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 unique_name_in_owner = true
 script = ExtResource( 31 )
 reset_to_idle_pos = true
-ads_weapon_position = Vector3( 0.053, 0.02, -0.194 )
-ads_weapon_rotation = Vector3( -5.039, -26.317, 13.705 )
+ads_weapon_position = Vector3( -0.019, 0.026, -0.136 )
+ads_weapon_rotation = Vector3( -4.559, 1.717, 10.901 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -7783,6 +7793,7 @@ anims/kyber_pass_martini_reload = ExtResource( 25 )
 anims/lee_metford_reload = ExtResource( 26 )
 anims/martini_henry_reload = SubResource( 423 )
 anims/one-handed_ads_idle = SubResource( 420 )
+anims/sawed_off_shotgun_reload = ExtResource( 33 )
 anims/webley_reload = ExtResource( 27 )
 
 [node name="PlayerAnimations" type="Node" parent="." index="24"]
@@ -7807,6 +7818,7 @@ parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 0
 "parameters/Sawed-off Martini pistol/active" = false
+"parameters/Sawed-off shotgun/active" = false
 parameters/ShotgunAds/blend_amount = 0.0
 parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
@@ -7820,7 +7832,7 @@ script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 32 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.008, -1.364, 0.175 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
 
 [node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2

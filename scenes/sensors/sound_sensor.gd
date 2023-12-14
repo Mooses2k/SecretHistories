@@ -1,7 +1,6 @@
-class_name SoundSensor extends Area
+class_name SoundSensor extends CharacterSense
 
 
-signal event(interest, position, object)
 signal sound_detected(source, interest)
 
 
@@ -32,9 +31,8 @@ func on_body_exited(body: Spatial) -> void:
 		sound_sources.erase(body)
 
 
-func _process(_delta: float) -> void:
-	if Engine.get_idle_frames() % check_frame_interval == 0:
-		check_for_sounds()
+func tick(_character: Character, _delta: float) -> int:
+	return OK if check_for_sounds() else FAILED
 
 
 func check_for_sounds() -> void:

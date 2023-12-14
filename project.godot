@@ -154,6 +154,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/character_audio.gd"
 }, {
+"base": "Area",
+"class": "CharacterSense",
+"language": "GDScript",
+"path": "res://scenes/sensors/character_senses.gd"
+}, {
+"base": "Spatial",
+"class": "CharacterSensors",
+"language": "GDScript",
+"path": "res://scenes/sensors/character_sensors.gd"
+}, {
 "base": "SpawnData",
 "class": "CharacterSpawnData",
 "language": "GDScript",
@@ -389,16 +399,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/sensors/light_detection/player_light_area/player_light_area.gd"
 }, {
-"base": "LightArea",
-"class": "PlayerLightSensor",
-"language": "GDScript",
-"path": "res://scenes/sensors/light_detection/player_light_sensor/player_light_sensor.gd"
-}, {
-"base": "Area",
-"class": "PlayerSensor",
-"language": "GDScript",
-"path": "res://scenes/sensors/direct_player_sight/direct_player_sight.gd"
-}, {
 "base": "Area",
 "class": "PlayerSoundEmitter",
 "language": "GDScript",
@@ -469,7 +469,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.gd"
 }, {
-"base": "Area",
+"base": "CharacterSense",
 "class": "SoundSensor",
 "language": "GDScript",
 "path": "res://scenes/sensors/sound_sensor.gd"
@@ -514,6 +514,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
 }, {
+"base": "CharacterSense",
+"class": "TouchSensor",
+"language": "GDScript",
+"path": "res://scenes/sensors/touch_sensor.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
@@ -524,6 +529,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd"
 }, {
+"base": "CharacterSense",
+"class": "VisualSensor",
+"language": "GDScript",
+"path": "res://scenes/sensors/visual_sensor.gd"
+}, {
 "base": "Resource",
 "class": "WorldData",
 "language": "GDScript",
@@ -533,11 +543,6 @@ _global_script_classes=[ {
 "class": "WritingItem",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/writing/writing_item.gd"
-}, {
-"base": "Spatial",
-"class": "_PlayerSensor",
-"language": "GDScript",
-"path": "res://scenes/sensors/player_sensor.gd"
 } ]
 _global_script_class_icons={
 "AmmunitionData": "",
@@ -569,6 +574,8 @@ _global_script_class_icons={
 "CandleItem": "",
 "Character": "",
 "CharacterAudio": "",
+"CharacterSense": "",
+"CharacterSensors": "",
 "CharacterSpawnData": "",
 "CharacterSpawner": "",
 "CharacterState": "",
@@ -616,8 +623,6 @@ _global_script_class_icons={
 "PlacementAnchor": "",
 "Player": "",
 "PlayerLightArea": "",
-"PlayerLightSensor": "",
-"PlayerSensor": "",
 "PlayerSoundEmitter": "",
 "RequirementDoorways": "",
 "RequirementMaxSize": "",
@@ -641,11 +646,12 @@ _global_script_class_icons={
 "TinyItemData": "",
 "ToolItem": "",
 "TorchItem": "",
+"TouchSensor": "",
 "VisibilityMask": "",
 "VisualFlame": "",
+"VisualSensor": "",
 "WorldData": "",
-"WritingItem": "",
-"_PlayerSensor": ""
+"WritingItem": ""
 }
 
 [application]
@@ -676,6 +682,7 @@ Events="*res://globals/events.gd"
 
 [debug]
 
+gdscript/warnings/unused_signal=false
 gdscript/warnings/return_value_discarded=false
 
 [display]

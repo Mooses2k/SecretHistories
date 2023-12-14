@@ -12,3 +12,6 @@ horizontal_holding = false
 
 [node name="HoldPosition" type="Position3D" parent="." index="2"]
 unique_name_in_owner = true
+
+[node name="PlacementPosition" type="Position3D" parent="." index="3"]
+unique_name_in_owner = true

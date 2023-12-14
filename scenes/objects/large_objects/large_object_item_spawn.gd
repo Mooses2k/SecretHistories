@@ -12,7 +12,7 @@ func _ready():
 		for item_path in owner.spawnable_items:
 			random_num = randi() % anchors.size()
 			# handle bad refs in the loot list
-			if !is_instance_valid(item_path):
+			if !is_instance_valid(load(item_path).instance()):
 				return
 			var new_item = load(item_path).instance()
 				
@@ -24,8 +24,12 @@ func _ready():
 				print("Wiped out an extra shard, ", new_item)
 				return
 			
+			new_item.translation = anchors[random_num].translation
+			
+			if new_item.placement_position:
+				new_item.translation += new_item.placement_position.translation
+			
 			new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
-			new_item.translation = anchors[random_num].translation + Vector3(0, 0.3, 0)
 			get_parent().get_parent().add_child(new_item)
 			anchors.remove(random_num)
 

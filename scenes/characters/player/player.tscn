@@ -7834,6 +7834,10 @@ script = ExtResource( 15 )
 unique_name_in_owner = true
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
 
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/113/bound_children = [ NodePath("OffHandAttachement") ]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
+
 [node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2
 

@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/reloading/shotgun/522289__filmmakersmanual__loading-shell-shotgun-4.wav" type="AudioStream" id=5]
-[ext_resource path="res://resources/models/characters/DoubleBarrel_002.material" type="Material" id=6]
+[ext_resource path="res://resources/models/items/ranged/double_barrel_shotguns/DoubleBarrel.material" type="Material" id=6]
 [ext_resource path="res://resources/tiny_items/ammunition/shotgun_shell.tres" type="Resource" id=7]
 [ext_resource path="res://scenes/effects/shotgun_audio.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=9]
@@ -42,7 +42,6 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194903,
 "index_count": 15675,
-"material": ExtResource( 6 ),
 "primitive": 4,
 "skeleton_aabb": [ AABB( -0.132257, 1.05663, -0.115385, 0.0620773, 0.18892, 0.504459 ), AABB( -0.131876, 1.18892, 0.326044, 0.0618844, 0.0599222, 0.548536 ), AABB( -0.1023, 1.14841, 0.25806, 0.00516, 0.0371511, 0.0312386 ), AABB( -0.107411, 1.14929, 0.251235, 0.00512069, 0.0479656, 0.023812 ), AABB( -0.110858, 1.22369, 0.255214, 0.0187145, 0.0204555, 0.0676182 ) ],
 "vertex_count": 4717
@@ -449,6 +448,7 @@ bones/4/bound_children = [  ]
 [node name="DoubleBarrel_Mesh" type="MeshInstance" parent="MeshInstance/double_barrel_weapon_reload/DoubleBarrel_Arm/Skeleton" index="0"]
 mesh = SubResource( 379 )
 skin = SubResource( 380 )
+material/0 = ExtResource( 6 )
 script = ExtResource( 1 )
 
 [node name="ShellPosition1" type="Position3D" parent="MeshInstance/double_barrel_weapon_reload/DoubleBarrel_Arm/Skeleton/DoubleBarrel_Mesh" index="0"]

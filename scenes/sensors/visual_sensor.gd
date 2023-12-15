@@ -90,9 +90,9 @@ func on_area_exited(area: Area) -> void:
 	if area is LightArea: light_area_exited(area)
 
 
-func tick(_character: Character, _delta: float) -> int:
-	if process_player_detection(): return OK
-	if process_light_detection(): return OK
+func tick(character: Character, _delta: float) -> int:
+	if process_player_detection(character): return OK
+	if process_light_detection(character): return OK
 	return FAILED
 
 #--------------------------------------------------------------------------#
@@ -104,8 +104,8 @@ func get_player() -> Player:
 	return null
 
 
-func process_player_detection() -> bool:
-	var player := can_see_player()
+func process_player_detection(character: Character) -> bool:
+	var player := can_see_player(character)
 	if is_instance_valid(player):
 		emit_signal\
 		(
@@ -124,7 +124,7 @@ func process_player_detection() -> bool:
 	return false
 
 
-func can_see_player() -> Player:
+func can_see_player(character: Character) -> Player:
 	var player := get_player()
 	
 	if is_instance_valid(player) and player.light_level > 0.01:
@@ -134,8 +134,9 @@ func can_see_player() -> Player:
 		var world := get_world()
 		
 		if is_instance_valid(world):
-			var result := world.direct_space_state.intersect_ray(global_transform.origin, target)
-			if result.empty() and result.collider.owner == player:
+			var result := world.direct_space_state.intersect_ray(global_transform.origin, target, [character], 1 << 0 | 1 << 1, true, false)
+			print(result)
+			if !result.empty() and result.collider.owner is Player:
 				return player
 	
 	return null
@@ -154,9 +155,9 @@ var light_idx := 0
 var voxel_idx := 0
 
 
-func process_light_detection() -> bool:
+func process_light_detection(_character: Character) -> bool:
 	# [ Evil hack in case of `on_light_entered` misbehaving ]
-	# light_sources = get_overlapping_areas()
+	light_sources = get_overlapping_areas()
 
 	if !light_sources.empty():
 		var light_area := check_light()

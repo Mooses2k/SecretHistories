@@ -69,7 +69,7 @@ func tick(state: CharacterState) -> int:
 
 	if is_instance_valid(most_interesting):
 		state.target_position = most_interesting.position
-		state.target = most_interesting.object
+		state.target = most_interesting
 		return OK
 	
 	state.target = null

@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/gun_nodes/action_nodes/bt_gun_shoot.gd"
 }, {
+"base": "BTCheck",
+"class": "BTShouldShootTarget",
+"language": "GDScript",
+"path": "res://core/ai/misc_nodes/check_nodes/bt_should_shoot_target.gd"
+}, {
 "base": "BTAction",
 "class": "BTWaitRandom",
 "language": "GDScript",
@@ -172,7 +177,7 @@ _global_script_classes=[ {
 "base": "Area",
 "class": "CharacterSense",
 "language": "GDScript",
-"path": "res://scenes/sensors/character_senses.gd"
+"path": "res://scenes/sensors/character_sense.gd"
 }, {
 "base": "Spatial",
 "class": "CharacterSensors",
@@ -584,6 +589,7 @@ _global_script_class_icons={
 "BTSelector": "res://core/ai/phold_icons/selector.svg",
 "BTSequence": "res://core/ai/phold_icons/sequence.svg",
 "BTShoot": "",
+"BTShouldShootTarget": "",
 "BTWaitRandom": "",
 "BaseKinematicDoor": "",
 "BombItem": "",

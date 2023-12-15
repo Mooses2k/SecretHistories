@@ -2,14 +2,15 @@ class_name CharacterState
 extends Reference
 
 
+var interest_machine
 var character
 var target
 
 
-var move_direction   := Vector3.ZERO setget set_move_direction
-var face_direction   := Vector3.FORWARD setget set_face_direction
-var target_position  := Vector3.ZERO setget set_target_position
-var interaction_target: Node = null
+var move_direction     := Vector3.ZERO    setget set_move_direction
+var face_direction     := Vector3.FORWARD setget set_face_direction
+var target_position    := Vector3.ZERO    setget set_target_position
+var interaction_target :  Node = null
 
 
 var path := [] setget , get_path

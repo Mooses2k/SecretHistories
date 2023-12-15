@@ -13,5 +13,5 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Engine.get_idle_frames() % 10 != 0: return
 	for sensor in sensors: sensor.tick(character, delta)
-

@@ -1,5 +1,5 @@
-class_name BTReloadGun
-extends BTNode
+class_name BTReloadGun extends BTNode
+
 
 # If have appropriate ammo for currently equipped (mainhand) gun, reload it
 
@@ -16,6 +16,5 @@ func tick(state : CharacterState) -> int:
 			if equipment.current_ammo < 1:
 				equipment.reload()
 				emit_signal("character_reloaded")
-				print(state.character, " is reloading.")
-				return Status.SUCCESS
-	return Status.FAILURE
+				return OK
+	return FAILED

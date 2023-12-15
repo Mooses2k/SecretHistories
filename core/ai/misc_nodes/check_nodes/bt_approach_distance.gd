@@ -26,7 +26,7 @@ func idle() -> void:
 func tick(state : CharacterState) -> int:
 	var _speech_chance = randf()
 	ticks_since_active = 0
-	var distance := state.character.global_transform.origin.distance_to(state.target_position)
+	var distance: float = state.character.global_transform.origin.distance_to(state.target_position)
 	
 	if target_reached:
 		# Since target distance changes every frame, this prevents the character from

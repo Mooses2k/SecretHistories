@@ -1,4 +1,4 @@
-class_name BTRoot extends BTSelector
+class_name BTRoot extends BTSequence
 
 
 onready var character: Character = owner

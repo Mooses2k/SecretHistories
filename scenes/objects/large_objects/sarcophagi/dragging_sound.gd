@@ -2,6 +2,7 @@ extends "res://scenes/objects/large_objects/large_object_drop_sound.gd"
 
 
 var spawnable_items : PoolStringArray
+var spawnable_items_amount : PoolIntArray
 var sound_vol : float = 10
 var drag_noise_level : float = 0
 var drag_audio_player = null

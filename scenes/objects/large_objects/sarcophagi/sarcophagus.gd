@@ -23,7 +23,9 @@ export var transforms_by_direction := {
 }
 
 var spawnable_items : PoolStringArray
+var spawnable_items_amount : PoolIntArray
 var sarco_spawnable_items : PoolStringArray
+var sarco_spawnable_items_amount : PoolIntArray
 var wall_direction := -1 setget _set_wall_direction
 
 #--- private variables - order: export > normal var > onready -------------------------------------
@@ -73,6 +75,7 @@ func _spawn_lid() -> void:
 	_current_lid_node = packed_scene.instance() as RigidBody
 	
 	_current_lid_node.set("spawnable_items", sarco_spawnable_items)
+	_current_lid_node.set("spawnable_items_amount", sarco_spawnable_items_amount)
 	var spawn_node := _lid_positions[current_lid] as Position3D
 	spawn_node.add_child(_current_lid_node, true)
 

@@ -129,7 +129,11 @@ func check_player_animation():
 		animation_tree.set("parameters/Weapon_states/current", 4)
 
 	if inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 1:
-		adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
+		if inventory.current_mainhand_equipment is GunItem:
+			adjust_arm(Vector3(0.008, -1.364, 0.175), 0.1)
+		else:
+			##This should be a melee item
+			adjust_arm(Vector3(0, -1.287, 0.072), 0.1)
 	elif inventory.current_mainhand_equipment and inventory.current_mainhand_equipment.item_size == 0:
 		adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 	elif inventory.current_offhand_equipment and inventory.current_offhand_equipment.item_size == 0:

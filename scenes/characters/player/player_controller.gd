@@ -498,7 +498,7 @@ func _handle_inventory(delta : float):
 					character.inventory.get_mainhand_item().use_primary()
 					
 					if character.inventory.get_mainhand_item() is MeleeItem:
-						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 						$"%AnimationTree".set("parameters/MeleeChop1/active", true)
 					throw_state = ThrowState.IDLE
 		
@@ -507,7 +507,7 @@ func _handle_inventory(delta : float):
 			if character.inventory.get_mainhand_item() and interaction_target == null:
 				character.inventory.get_mainhand_item().use_secondary()
 				if character.inventory.get_mainhand_item() is MeleeItem:
-					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 					$"%AnimationTree".set("parameters/MeleeThrust/active", true)
 				throw_state = ThrowState.IDLE
 	

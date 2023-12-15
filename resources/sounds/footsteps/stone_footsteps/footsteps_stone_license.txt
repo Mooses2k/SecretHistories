@@ -1,0 +1,4 @@
+First Person Stealth Character Controller
+Scipioceaser
+https://godotengine.org/asset-library/asset/734
+MIT license

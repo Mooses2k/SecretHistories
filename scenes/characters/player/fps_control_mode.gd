@@ -34,12 +34,15 @@ var crouch_cam_target_pos = 0.98
 export var _gun_camera : NodePath
 onready var gun_camera : Camera = get_node(_gun_camera) as Camera
 
+func _on_player_spawn(_player : Player):
+	pitch_yaw.y = owner.rotation.y
 
 func _ready():
+	GameManager.game.connect("player_spawned", self, "_on_player_spawn")
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-	
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
+
 
 
 func _process(delta):
@@ -54,7 +57,7 @@ func set_active(value : bool):
 	.set_active(value)
 	if value:
 		pitch_yaw.x = 0.0
-		pitch_yaw.y = 0.0 # owner.body.rotation.y
+		pitch_yaw.y = owner.rotation.y
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -81,13 +84,13 @@ func _input(event):
 #			m = _camera.zoom_camera_sens_mod
 #
 		# Vertical
-		pitch_yaw.x -= (event.relative.y * InputSettings.setting_mouse_sensitivity * 0.01 * _camera.mod) * get_parent().camera_movement_resistance   # if this is anything 0.01, even if same as below, vertical speed is diff than horizontal - why?
+		pitch_yaw.x -= (event.relative.y * InputSettings.setting_mouse_sensitivity * 0.01 * _camera.mod) * get_parent().camera_movement_resistance   # if this is anything than 0.01, even if same as below, vertical speed is diff than horizontal - why?
 		# Horizontal
-		owner.rotation_degrees.y -= (event.relative.x * InputSettings.setting_mouse_sensitivity * _camera.mod) * get_parent().camera_movement_resistance
 		pitch_yaw.y -= (event.relative.x * InputSettings.setting_mouse_sensitivity * 0.01 * _camera.mod) * get_parent().camera_movement_resistance   # From before fps_camera days 
 		
 		pitch_yaw.x = clamp(pitch_yaw.x, -PI * 0.5, PI * 0.5)
 		pitch_yaw.y = wrapf(pitch_yaw.y, -PI, PI)
+		
 		
 	#		if owner.state != owner.State.STATE_CRAWLING:
 	#			_camera.rotation_degrees.x -= event.relative.y * InputSettings.setting_mouse_sensitivity * m
@@ -134,6 +137,7 @@ func recoil(item, damage, handling):
 #    up_recoil += 1 
 	#compensate for delta application
 	up_recoil += 60 * damage / (handling)
+	_camera.add_stress(0.5)
 
 
 func update(delta):
@@ -141,7 +145,7 @@ func update(delta):
 	
 	if up_recoil > 0:
 		### Recoil
-		# Horiztontal recoil
+		# Horizontal recoil
 		pitch_yaw.y = lerp(pitch_yaw.y, deg2rad(side_recoil), delta)
 		# Vertical recoil
 	
@@ -157,7 +161,8 @@ func update(delta):
 	# Finally, apply rotations
 #	owner.character_body.rotation.y = pitch_yaw.y   # Horizontal (back before fps_camera)
 	_camera.rotation.x = pitch_yaw.x   # Vertical, you don't want to rotate the whole player scene, just camera
-	
+#	_camera.rotation.y = pitch_yaw.y
+	owner.rotation.y = pitch_yaw.y
 	# Guncam too - MUST BE DONE HERE OR WEIRD JITTERY HANDS BUG DEVELOPS
 	gun_camera.global_transform = _camera.global_transform
 

@@ -25,7 +25,7 @@ func _integrate_forces(state):
 	oldCount = state.get_contact_count()
 
 
-func play_drop_sound(linear_velo, is_heavy):
+func play_drop_sound(linear_velo, is_heavy = false):
 	if self.item_drop_sound and self.is_soundplayer_ready:
 		var drop_audio_player = drop_sound_scene.instance()
 		drop_audio_player.stream = self.item_drop_sound

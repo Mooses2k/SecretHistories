@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/gregorian_chant_full.mp3-0a8d292f8e4cd95bff536c16978c475b.mp3str"
+
+[deps]
+
+source_file="res://resources/sounds/music/gregorian_chant_full.mp3"
+dest_files=[ "res://.import/gregorian_chant_full.mp3-0a8d292f8e4cd95bff536c16978c475b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

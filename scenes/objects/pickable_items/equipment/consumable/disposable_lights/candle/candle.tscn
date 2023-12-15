@@ -142,13 +142,17 @@ shape = SubResource( 52 )
 transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -0.0109582, 0 )
 shape = SubResource( 56 )
 
-[node name="HoldPosition" parent="." index="3"]
+[node name="CollisionShapeStandSpawn" type="CollisionShape" parent="." index="3"]
+transform = Transform( -1.87637, 0, -2.85283e-07, 0, 0.223729, 0, 2.83324e-07, 0, -1.88934, 0, -0.0575844, 0 )
+shape = SubResource( 56 )
+
+[node name="HoldPosition" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000629678, -0.0187822, -0.000822701 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin" type="Position3D" parent="." index="4"]
+[node name="FireOrigin" type="Position3D" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00428984, 0.0887242, -0.00277551 )
 script = ExtResource( 2 )
 
@@ -187,11 +191,14 @@ anims/flicker = SubResource( 55 )
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
 
-[node name="Ignite" parent="." index="8" groups=["IGNITE"]]
+[node name="Ignite" parent="." index="9" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
 shape = SubResource( 57 )
+
+[node name="PlacementAnchor" parent="." index="10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0629706, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

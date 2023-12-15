@@ -63,7 +63,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, _generation_seed : i
 	var count := 0
 	for from_index in graph.keys():
 		for to_index in graph[from_index]:
-			print("generating corridoer from %s to %s"%[from_index, to_index])
+			print("generating corridor from %s to %s"%[from_index, to_index])
 			generate_double_corridor(data, astar, from_index, to_index)
 			
 			# This is here just to help debug by being able to stop at any corridor

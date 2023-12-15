@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/342241__inspectorj__door-squeak-normal-a_original.wav-787001d608859c49fafa2cca89b4aeab.sample"
+
+[deps]
+
+source_file="res://resources/sounds/doors/close/342241__inspectorj__door-squeak-normal-a_original.wav"
+dest_files=[ "res://.import/342241__inspectorj__door-squeak-normal-a_original.wav-787001d608859c49fafa2cca89b4aeab.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=1
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

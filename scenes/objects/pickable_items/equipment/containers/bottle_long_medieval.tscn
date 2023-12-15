@@ -36,16 +36,17 @@ throw_logic = false
 can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.164579, 0 )
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -0.0965296, 0 )
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.164864, 0 )
+transform = Transform( 0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -0.0968146, 0 )
 shape = SubResource( 2 )
 
 [node name="CollisionShapeAntiRoll" type="CollisionShape" parent="." index="2"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0680494, 0 )
 shape = SubResource( 3 )
 
 [node name="HoldPosition" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00542729, 0.180918, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00542729, 0.0849626, 0 )

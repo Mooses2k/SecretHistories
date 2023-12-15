@@ -21,6 +21,7 @@ export var can_spin : bool   # Some items should spin when thrown
 var is_in_belt = false
 
 onready var hold_position = $"%HoldPosition"
+onready var placement_position = $"%PlacementAnchor"
 onready var normal_pos = get_node(normal_pos_path)
 onready var throw_pos = get_node(throw_pos_path)
 

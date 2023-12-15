@@ -75,12 +75,15 @@ func check_player_animation():
 		
 	elif inventory.current_offhand_equipment is EquipmentItem:
 		if inventory.current_offhand_equipment.horizontal_holding == true:
+			print("Offhand holding melee 1")
 			inventory.current_offhand_equipment.hold_position.rotation_degrees.z = -90
 			animation_tree.set("parameters/Hand_Transition/current", 0)
 			animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
 			animation_tree.set("parameters/Offhand_Hold_Animation/current", 1)
 		else:
+			print("Offhand holding melee 2")
 			animation_tree.set("parameters/Hand_Transition/current", 0)
+			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 			animation_tree.set("parameters/OffHand_Weapon_States/current", 0)
 			animation_tree.set("parameters/Offhand_Hold_Animation/current", 0)
 	
@@ -92,6 +95,7 @@ func check_player_animation():
 #		
 		if inventory.current_mainhand_equipment.item_size == 0:
 			animation_tree.set("parameters/Hand_Transition/current", 0)
+			animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 			animation_tree.set("parameters/Weapon_states/current", 2)
 		else:
 			if inventory.current_mainhand_equipment.item_name == "Double-barrel shotgun":
@@ -233,6 +237,7 @@ func reload_weapons():
 	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")
 	if get_available_gun().item_size == 0:
 		inventory.equip_offhand_item()
+		yield(get_tree().create_timer(0.5), "timeout")
 	check_player_animation()
 
 
@@ -244,6 +249,10 @@ func player_reload():
 
 func get_available_gun() -> EquipmentItem:
 	return inventory.current_mainhand_equipment
+
+
+func get_available_offhand_item() -> EquipmentItem:
+	return inventory.current_offhand_equipment
 
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):

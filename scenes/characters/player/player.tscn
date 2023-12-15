@@ -7450,7 +7450,7 @@ input_5/auto_advance = false
 [sub_resource type="AnimationNodeOneShot" id=437]
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 2947.04, -277.963 )
+graph_offset = Vector2( 2052.36, -33.6788 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 10/node" = SubResource( 442 )
@@ -7546,8 +7546,8 @@ animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 unique_name_in_owner = true
 script = ExtResource( 31 )
 reset_to_idle_pos = true
-ads_weapon_position = Vector3( 0.053, 0.02, -0.194 )
-ads_weapon_rotation = Vector3( -5.039, -26.317, 13.705 )
+ads_weapon_position = Vector3( -0.021, 0.013, -0.078 )
+ads_weapon_rotation = Vector3( -6.331, 2.484, 9.833 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0 )
@@ -7858,7 +7858,7 @@ script = ExtResource( 15 )
 
 [node name="MainCharOnlyArmsGameRig" parent="FPSCamera" index="0" instance=ExtResource( 32 )]
 unique_name_in_owner = true
-transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.008, -1.364, 0.175 )
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.287, 0.063 )
 
 [node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2

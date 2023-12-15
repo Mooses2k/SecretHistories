@@ -1,4 +1,4 @@
-class_name BTLookAtTarget extends BTNode
+class_name BTLookAtTarget extends BTAction
 
 
 # Turn towards target position

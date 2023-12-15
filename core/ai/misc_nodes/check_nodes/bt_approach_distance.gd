@@ -1,4 +1,4 @@
-class_name BTApproachRandomDistance extends BTNode
+class_name BTApproachRandomDistance extends BTCheck
 
 
 # Choose and check if have reached an approach distance.

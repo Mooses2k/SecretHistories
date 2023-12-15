@@ -1,4 +1,4 @@
-class_name BTGunHasAmmo extends BTNode
+class_name BTGunHasAmmo extends BTCheck
 
 
 # Checks if the currently equipped (mainhand) item has ammo loaded

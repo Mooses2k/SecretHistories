@@ -1,4 +1,4 @@
-class_name BTGunEquipped extends BTNode
+class_name BTGunEquipped extends BTCheck
 
 
 # Checks if a gun is equipped (in the mainhand)

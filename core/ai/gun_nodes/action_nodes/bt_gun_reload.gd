@@ -1,4 +1,4 @@
-class_name BTReloadGun extends BTNode
+class_name BTReloadGun extends BTAction
 
 
 # If have appropriate ammo for currently equipped (mainhand) gun, reload it

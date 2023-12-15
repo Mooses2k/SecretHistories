@@ -1,4 +1,4 @@
-class_name BTIndirectSensor extends BTNode
+class_name BTInterestMachine extends BTCheck
 
 
 export var attention_span := 5.0
@@ -25,7 +25,7 @@ class Event:
 		interest = new_interest
 		time = 0.0
 
-	func tick(delta: float, indirect_sensor: BTIndirectSensor) -> bool:
+	func tick(delta: float, indirect_sensor: BTInterestMachine) -> bool:
 		time += delta
 
 		if time > indirect_sensor.attention_span:
@@ -65,8 +65,12 @@ func get_most_interesting() -> Event:
 
 func tick(state: CharacterState) -> int:
 	var most_interesting := get_most_interesting()
+	state.interest_machine = self
 
 	if is_instance_valid(most_interesting):
 		state.target_position = most_interesting.position
+		state.target = most_interesting.object
 		return OK
+	
+	state.target = null
 	return FAILED

@@ -1,4 +1,4 @@
-class_name BTEquipNextWeapon extends BTNode
+class_name BTEquipNextWeapon extends BTAction
 
 
 # Add something to prefer ranged weapons and don't switch if there's no ammo for it

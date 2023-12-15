@@ -1,11 +1,11 @@
-class_name BTSelectRandomTarget
-extends BTNode
+class_name BTSelectRandomTarget extends BTAction
+
 
 # Select a random nearby tile and set it as the target position
 
 
-export var minimum_radius : float = 1.0
-export var maximum_radius : float = 6.0
+export var minimum_radius := 1.0
+export var maximum_radius := 6.0
 
 
 func tick(state : CharacterState) -> int:

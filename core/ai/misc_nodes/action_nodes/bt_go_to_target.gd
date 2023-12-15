@@ -1,4 +1,4 @@
-class_name BTGoToTarget extends BTNode
+class_name BTGoToTarget extends BTAction
 
 
 # Move to currently selected target position

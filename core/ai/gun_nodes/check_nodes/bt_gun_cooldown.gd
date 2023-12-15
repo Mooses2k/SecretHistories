@@ -1,5 +1,4 @@
-class_name BTGunCooldown
-extends BTNode
+class_name BTGunCooldown extends BTCheck
 
 
 # Checks if the gun (in the mainhand) is on cooldown

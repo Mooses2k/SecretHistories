@@ -40,6 +40,7 @@ func _ready():
 	inventory.connect("inventory_changed", self, "_on_Inventory_inventory_changed")
 	inventory.connect("unequip_mainhand", self, "_on_Inventory_unequip_mainhand")
 	inventory.connect("unequip_offhand", self, "_on_Inventory_unequip_offhand")
+#	inventory.connect("equip_offhand", self, "_on_Inventory_equip_offhand")
 
 
 func _process(delta):
@@ -226,8 +227,12 @@ func end_ads():
 
 func reload_weapons():
 	get_available_gun().animation_player.play("reload")
+	if get_available_gun().item_size == 0:
+		unequip_offhand()
 	player_reload()
 	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")
+	if get_available_gun().item_size == 0:
+		inventory.equip_offhand_item()
 	check_player_animation()
 
 

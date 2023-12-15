@@ -496,12 +496,19 @@ func _handle_inventory(delta : float):
 			if no_click_after_load_period == false:
 				if character.inventory.get_mainhand_item():
 					character.inventory.get_mainhand_item().use_primary()
+					
+					if character.inventory.get_mainhand_item() is MeleeItem:
+						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+						$"%AnimationTree".set("parameters/MeleeChop1/active", true)
 					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
 			if character.inventory.get_mainhand_item() and interaction_target == null:
 				character.inventory.get_mainhand_item().use_secondary()
+				if character.inventory.get_mainhand_item() is MeleeItem:
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+					$"%AnimationTree".set("parameters/MeleeThrust/active", true)
 				throw_state = ThrowState.IDLE
 	
 	# Start timer to check if want to reload or unload

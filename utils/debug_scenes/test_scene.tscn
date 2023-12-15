@@ -34,7 +34,6 @@ extents = Vector3( 25, 0.05, 25 )
 [sub_resource type="Environment" id=4]
 background_mode = 2
 background_sky = SubResource( 3 )
-background_energy = 0.01
 
 [node name="TestWorld" type="Spatial"]
 

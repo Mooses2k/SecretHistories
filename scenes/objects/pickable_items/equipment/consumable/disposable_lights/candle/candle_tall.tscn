@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=2]
@@ -51,9 +51,6 @@ radius = 0.03
 
 [sub_resource type="BoxShape" id=59]
 extents = Vector3( 0.028, 0.06, 0.028 )
-
-[sub_resource type="BoxShape" id=60]
-extents = Vector3( 0.03761, 0.06, 0.0297388 )
 
 [sub_resource type="QuadMesh" id=53]
 size = Vector2( 0.033, 0.1 )
@@ -151,20 +148,16 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0127407, 0.000977516 )
 shape = SubResource( 58 )
 
 [node name="CollisionShapeStopRolling" type="CollisionShape" parent="." index="2"]
-transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0 )
+transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, -0.028411, 0 )
 shape = SubResource( 59 )
 
-[node name="CollisionShapeStandSpawn" type="CollisionShape" parent="." index="3"]
-transform = Transform( -1.87637, 0, -2.85283e-07, 0, 0.223729, 0, 2.83324e-07, 0, -1.88934, -7.85887e-05, -0.0742511, 0.000394985 )
-shape = SubResource( 60 )
-
-[node name="HoldPosition" parent="." index="4"]
+[node name="HoldPosition" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin" type="Position3D" parent="." index="5"]
+[node name="FireOrigin" type="Position3D" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00634081, 0.124777, 0.000872418 )
 script = ExtResource( 2 )
 
@@ -186,7 +179,7 @@ shadow_enabled = true
 omni_range = 4.5
 omni_attenuation = 4.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 autoplay = "flicker"
 anims/RESET = SubResource( 54 )
 anims/flicker = SubResource( 55 )
@@ -194,14 +187,14 @@ anims/flicker = SubResource( 55 )
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
 
-[node name="Ignite" parent="." index="9" groups=["IGNITE"]]
+[node name="Ignite" parent="." index="8" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
 shape = SubResource( 57 )
 
-[node name="PlacementAnchor" parent="." index="10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0776495, 0 )
+[node name="PlacementAnchor" parent="." index="9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0877446, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

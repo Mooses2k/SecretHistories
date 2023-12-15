@@ -120,10 +120,6 @@ extents = Vector3( 0.08, 0.08, 0.08 )
 [node name="BullseyeLantern" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
 item_name = "Bullseye Lantern"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
-can_spin = false
 is_oil_based = true
 life_percentage_lose = 0.5
 prob_going_out = 0.5
@@ -166,3 +162,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0142503, -0.0561469 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
 shape = SubResource( 9 )
+
+[node name="PlacementAnchor" parent="." index="9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0916858, 0 )

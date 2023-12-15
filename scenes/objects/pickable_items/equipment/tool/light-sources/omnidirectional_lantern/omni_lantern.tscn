@@ -74,7 +74,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.1, 0.1, 0.1 )
+extents = Vector3( 0.07, 0.07, 0.07 )
 
 [node name="OilLantern" instance=ExtResource( 1 )]
 item_name = "Oil Lantern"
@@ -154,10 +154,13 @@ stream = ExtResource( 6 )
 bus = "Effects"
 
 [node name="Ignite" parent="." index="10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0567762, 0.00329563 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.057, 0 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015177, 0 )
 shape = SubResource( 6 )
+
+[node name="PlacementAnchor" parent="." index="12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0721378, 0 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

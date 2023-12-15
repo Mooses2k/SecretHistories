@@ -1,13 +1,17 @@
 extends Position3D
 
+
 export var threshold_angle_degrees = 60
+
 onready var threshold_factor = cos(deg2rad(threshold_angle_degrees))
 onready var fire: Spatial = $Fire
 onready var light: Spatial = $Fire/Light
 
+
 func _physics_process(delta):
 	global_transform.basis = Basis.IDENTITY
 	handle_toppled_light()
+
 
 func handle_toppled_light():
 	if owner is TorchItem:

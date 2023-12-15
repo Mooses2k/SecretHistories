@@ -6,7 +6,7 @@ extends DisposableLightItem
 
 signal item_is_dropped
 
-var is_lit = true
+var is_lit = false
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false

@@ -89,10 +89,6 @@ script = ExtResource( 3 )
 item_drop_sound = ExtResource( 5 )
 item_size = 2
 item_name = "Shard of the Comet"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
-can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
@@ -139,6 +135,9 @@ bus = "Effects"
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 anims/RESET = SubResource( 4 )
 anims/flicker = SubResource( 5 )
+
+[node name="PlacementAnchor" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.204156, 0 )
 
 [connection signal="body_entered" from="DangerousRadiance" to="." method="_on_DangerousRadiance_body_entered"]
 [connection signal="body_exited" from="DangerousRadiance" to="." method="_on_DangerousRadiance_body_exited"]

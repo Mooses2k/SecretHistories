@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/455_webley.tres" type="Resource" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://resources/sounds/reloading/revolver/revolver5.wav" type="AudioStream" id=11]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" type="AudioStream" id=12]
 [ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=13]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/shell_reload_effects.gd" type="Script" id=14]
 
 [sub_resource type="ArrayMesh" id=4]
 resource_name = "webley_reload_weapon_Plane001"
@@ -584,6 +585,20 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = PoolRealArray( 0, 1, -2.98023e-08, -1.49012e-07, -5.42059e-09, -1.86265e-09, -1.01838e-08, 1.86265e-09, 1, 1, 1, 1, 8.06667, 1, -2.98023e-08, -1.49012e-07, -5.42059e-09, -1.86265e-09, -1.01838e-08, 1.86265e-09, 1, 1, 1, 1 )
+tracks/7/type = "method"
+tracks/7/path = NodePath("../../AnimationPlayer/ShellReloadEffects")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "expell_shells"
+} ]
+}
 
 [node name="WebleyRevolver" instance=ExtResource( 1 )]
 mass = 1.0
@@ -721,6 +736,11 @@ anims/enter_shell_4_weapon = SubResource( 11 )
 anims/enter_shell_5_weapon = SubResource( 12 )
 anims/enter_shell_weapon = SubResource( 13 )
 anims/reload = SubResource( 14 )
+
+[node name="ShellReloadEffects" type="Node" parent="AnimationPlayer" index="0"]
+script = ExtResource( 14 )
+impulse_position = Vector3( 0, 0.05, 0 )
+impulse_value = Vector3( 0.05, 0.09, 0.06 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_RevolverItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_RevolverItem_target_hit"]

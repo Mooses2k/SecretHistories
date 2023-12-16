@@ -241,11 +241,11 @@ func end_ads():
 
 
 func reload_weapons():
-	get_available_gun().animation_player.play("reload")
 	if get_available_gun().item_size == 0:
 		unequip_offhand()
 	
-	yield(get_tree().create_timer(0.1), "timeout")
+	yield(get_tree().create_timer(0.4), "timeout")
+	get_available_gun().animation_player.play("reload")
 	player_reload()
 	
 	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")

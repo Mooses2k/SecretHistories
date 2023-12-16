@@ -67,8 +67,6 @@ func check_player_animation():
 			return
 	### Off-hand item
 	if inventory.current_offhand_equipment is GunItem:
-		animation_tree.set("parameters/Hand_Transition/current", 0)
-		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 		animation_tree.set("parameters/OffHand_Weapon_States/current", 1)
 		
 	elif inventory.current_offhand_equipment is EmptyHand:
@@ -246,7 +244,10 @@ func reload_weapons():
 	get_available_gun().animation_player.play("reload")
 	if get_available_gun().item_size == 0:
 		unequip_offhand()
+	
+	yield(get_tree().create_timer(0.1), "timeout")
 	player_reload()
+	
 	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")
 	if get_available_gun().item_size == 0:
 		inventory.equip_offhand_item()

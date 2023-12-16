@@ -701,15 +701,16 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 
 
 func handle_screen_filters():
-	if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
-		if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
-			_set_screen_filter_to(GameManager.ScreenFilter.NONE)
-			_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)
-			changed_to_reduce_color = true
-	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
-	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# Cycle to next filter
-		_set_screen_filter_to()
+	if is_instance_valid(GameManager.game):
+		if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
+			if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
+				_set_screen_filter_to(GameManager.ScreenFilter.NONE)
+				_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)
+				changed_to_reduce_color = true
+		# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+		if Input.is_action_just_pressed("misc|change_screen_filter"):
+			# Cycle to next filter
+			_set_screen_filter_to()
 
 
 # function this out maybe to a screen_filters.gd attached to ScreenFilter

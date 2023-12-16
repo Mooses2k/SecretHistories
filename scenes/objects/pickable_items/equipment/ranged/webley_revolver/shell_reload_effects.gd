@@ -1,0 +1,66 @@
+extends Node
+
+export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)
+export var impulse_value : Vector3 = Vector3(0, 0.3, 0.2)
+
+var dropped_bullet_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/webley/webley_casing.tscn")
+var bullet_shells = preload("res://scenes/objects/pickable_items/tiny/ammo/webley/webley_round.tscn")
+var all_bullet_shells : Array = []
+
+onready var bullet_position_1 = $"%BulletPosition"
+onready var bullet_position_2 = $"%BulletPosition2"
+onready var bullet_position_3 = $"%BulletPosition3"
+onready var bullet_position_4 = $"%BulletPosition4"
+onready var bullet_position_5 = $"%BulletPosition5"
+onready var bullet_position_6 = $"%BulletPosition6"
+
+
+func expell_shells():
+	all_bullet_shells.clear()
+	print("Expelling shotgun shells")
+	
+	var first_shell = dropped_bullet_shell.instance() as RigidBody
+	var second_shell = dropped_bullet_shell.instance() as RigidBody
+	var third_shell = dropped_bullet_shell.instance() as RigidBody
+	var fourth_shell = dropped_bullet_shell.instance() as RigidBody
+	var fifth_shell = dropped_bullet_shell.instance() as RigidBody
+	var sixth_shell = dropped_bullet_shell.instance() as RigidBody
+	
+	all_bullet_shells.append(first_shell)
+	all_bullet_shells.append(second_shell)
+	all_bullet_shells.append(third_shell)
+	all_bullet_shells.append(fourth_shell)
+	all_bullet_shells.append(fifth_shell)
+	all_bullet_shells.append(sixth_shell)
+	
+	
+#	for bullet_shells in all_bullet_shells:
+#		bullet_shells.translation = Vector3(-0.008, 0.1, 0)
+#		bullet_shells.rotation_degrees = Vector3(0, 0, -61.824)
+		
+	
+	var world_scene
+	if is_instance_valid(GameManager.game):
+		world_scene = GameManager.game
+	else:
+		world_scene = owner.owner_character.owner as Spatial
+
+	first_shell.translation = bullet_position_1.global_translation
+	second_shell.translation = bullet_position_2.global_translation
+	third_shell.translation = bullet_position_3.global_translation
+	fourth_shell.translation = bullet_position_4.global_translation
+	fifth_shell.translation = bullet_position_5.global_translation
+	sixth_shell.translation = bullet_position_6.global_translation
+	
+	for bullet_shells in all_bullet_shells:
+		world_scene.add_child(bullet_shells)
+	
+	for bullet_shells in all_bullet_shells:
+		bullet_shells.apply_impulse(impulse_position, impulse_value)
+
+
+func player_add_shell():
+	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(bullet_shells, Vector3(), Vector3())
+
+func player_clear_shell():
+	owner.owner_character.player_gun_reload_shells.clear_shotgun_shells()

@@ -36,7 +36,7 @@ func expell_shotgun_shells():
 
 
 func player_add_shell():
-	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells()
+	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(shotgun_shell, Vector3(), Vector3())
 
 func player_clear_shell():
 	owner.owner_character.player_gun_reload_shells.clear_shotgun_shells()

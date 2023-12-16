@@ -68,6 +68,7 @@ func check_player_animation():
 	### Off-hand item
 	if inventory.current_offhand_equipment is GunItem:
 		animation_tree.set("parameters/Hand_Transition/current", 0)
+		animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 		animation_tree.set("parameters/OffHand_Weapon_States/current", 1)
 		
 	elif inventory.current_offhand_equipment is EmptyHand:

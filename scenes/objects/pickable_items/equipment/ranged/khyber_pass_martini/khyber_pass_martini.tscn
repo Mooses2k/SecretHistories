@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/tiny_items/ammunition/577_martini-henry.tres" type="Resource" id=2]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/kyber_pass_martini_shells.gd" type="Script" id=3]
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=4]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/_smoke.tscn" type="PackedScene" id=6]
@@ -88,6 +89,26 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = PoolRealArray( 0, 1, 2.79395e-09, 1.19209e-07, -2.34693e-07, 8.9407e-08, 1.74883e-09, -4.65647e-10, 1, 1, 1, 1, 2.35, 1, 2.79395e-09, 1.19209e-07, -2.34693e-07, 8.9407e-08, 1.74883e-09, -4.65647e-10, 1, 1, 1, 1 )
+tracks/5/type = "method"
+tracks/5/path = NodePath("../../AnimationPlayer/KyberPassMartiniShells")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.8, 1.2, 1.54 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "expell_shells"
+}, {
+"args": [  ],
+"method": "player_add_shell"
+}, {
+"args": [  ],
+"method": "player_clear_shell"
+} ]
+}
 
 [node name="SawedOffMartini-Henry" instance=ExtResource( 1 )]
 mass = 1.0
@@ -97,7 +118,6 @@ item_name = "Sawed-off Martini pistol"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1
-reload_time = 1.5
 damage_offset = -10
 dispersion_offset_degrees = 5
 cooldown = 0.1
@@ -173,6 +193,10 @@ mesh = SubResource( 7 )
 skin = SubResource( 8 )
 script = ExtResource( 4 )
 
+[node name="DropShellPosition" type="Position3D" parent="MeshInstance/khyber_reload_weapon/HenryPistolARM/Skeleton/HenryMartini" index="0"]
+unique_name_in_owner = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.31207e-09, -0.0320224, -0.0378857 )
+
 [node name="CollisionShape" parent="." index="2"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.0893607, -0.0235785 )
 shape = SubResource( 6 )
@@ -207,6 +231,9 @@ transform = Transform( 0.99503, -0.0995803, 0, 0.0995779, 0.995006, 0.006894, -0
 unique_name_in_owner = true
 root_node = NodePath("../MeshInstance/khyber_reload_weapon")
 anims/reload = SubResource( 10 )
+
+[node name="KyberPassMartiniShells" type="Node" parent="AnimationPlayer" index="0"]
+script = ExtResource( 3 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

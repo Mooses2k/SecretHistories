@@ -94,9 +94,6 @@ mass = 0.2
 script = ExtResource( 3 )
 item_drop_sound = ExtResource( 8 )
 item_name = "Candelabra"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
 can_spin = true
 life_percentage_lose = 0.2
 prob_going_out = 0.9
@@ -235,5 +232,8 @@ anims/flicker = SubResource( 51 )
 [node name="Timer2" type="Timer" parent="." index="14"]
 
 [node name="Timer3" type="Timer" parent="." index="15"]
+
+[node name="PlacementAnchor" parent="." index="16"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.179939, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

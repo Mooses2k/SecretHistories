@@ -39,6 +39,8 @@ var is_higher_damage = false
 var initial_linear_velocity
 var is_soundplayer_ready = false
 
+onready var placement_position = $"%PlacementAnchor"
+
 
 func _enter_tree():
 	if not audio_player:

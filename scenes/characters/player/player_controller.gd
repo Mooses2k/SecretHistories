@@ -14,6 +14,7 @@ const ON_GRAB_MAX_SPEED : float = 0.1
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 1000.0
 export var kick_impulse : float = 100
+export var kick_max_speed : float = 10.0
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -129,6 +130,7 @@ var current_screen_filter : int = GameManager.ScreenFilter.NONE
 #export var pixelated_material : Material
 #export var dither_material : Material
 #export var reduce_color_material : Material
+var changed_to_reduce_color = false   # Have we changed to reduce color filter on DLvl5?
 
 onready var noise_timer = $"../Audio/NoiseTimer"   # Because instant noises sometimes aren't detected
 
@@ -699,11 +701,15 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 
 
 func handle_screen_filters():
+	if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
+		if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
+			_set_screen_filter_to(GameManager.ScreenFilter.NONE)
+			_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)
+			changed_to_reduce_color = true
 	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
 	if Input.is_action_just_pressed("misc|change_screen_filter"):
 		# Cycle to next filter
 		_set_screen_filter_to()
-		pass
 
 
 # function this out maybe to a screen_filters.gd attached to ScreenFilter
@@ -785,12 +791,13 @@ func kick():
 		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
 			if kick_object is Area:
 				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
-			print(kick_object.get_class())
+#			print(kick_object.get_class())
+			var actual_kick_impulse = min(kick_impulse, kick_object.mass * kick_max_speed)
 			if kick_object is PickableItem:   # Is a large object like a floor candelabra
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
 				kick_object.play_drop_sound(kick_object)
 			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse * 4)
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
 				kick_object.play_drop_sound(10, false)
 
 

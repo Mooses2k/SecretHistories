@@ -124,47 +124,47 @@ shape = SubResource( 4 )
 disabled = true
 
 [node name="PlacementAnchor" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.956308, 0.170658, 0.39951 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.670335, 0.170658, 0.39951 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor2" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.915413, 0.170658, -0.412093 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.948086, 0.170658, -0.441519 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.788335, 0.170658, 0.386927 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.788335, 0.170658, 0.386927 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor4" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80723, 0.170658, -0.357747 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.80723, 0.170658, -0.4623 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor5" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.986914, 0.170658, 0.455452 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.986914, 0.170658, 0.455452 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor6" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.968891, 0.170658, -0.393219 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.968891, 0.170658, -0.393219 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor7" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.839915, 0.170658, 0.421531 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.839915, 0.170658, 0.421531 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor8" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.729814, 0.170658, -0.427822 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.04494, 0.170658, -0.485235 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor9" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.761271, 0.170658, -0.383781 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.761271, 0.170658, -0.383781 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor10" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.612377, 0.170658, 0.387803 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.612377, 0.170658, 0.387803 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor11" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.994057, 0.170658, 0.379488 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.994057, 0.170658, 0.379488 )
 script = ExtResource( 5 )
 
 [node name="ItemSpawnerOnPlacementAnchor" parent="." instance=ExtResource( 6 )]

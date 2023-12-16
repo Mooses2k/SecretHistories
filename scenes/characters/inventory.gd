@@ -232,6 +232,7 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_mainhand_item():
+	yield(get_tree().create_timer(0.5), "timeout")
 	# temporary hack (issue #409)
 	if not is_instance_valid(current_mainhand_equipment):
 		current_mainhand_equipment = null
@@ -249,13 +250,6 @@ func equip_mainhand_item():
 			
 		item.set_item_state(GlobalConsts.ItemState.EQUIPPED)
 		current_mainhand_equipment = item
-		
-		var equip_delay = 0.5
-		if current_mainhand_equipment is MeleeItem:
-			equip_delay = 0.1
-		else:
-			equip_delay = 0.5
-		yield(get_tree().create_timer(0.5), "timeout")
 		
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:

@@ -500,8 +500,9 @@ func get_local_cell_position(cell_index : int) -> Vector3:
 
 
 func get_cell_type(cell_index : int) -> int:
-	# needs protection - adding 50 items will crash game
-	return cell_type[cell_index] if cell_index >= 0 else -1
+	if cell_index >= 0 and cell_index < cell_type.size():
+		return cell_type[cell_index] 
+	return -1
 
 
 func set_cell_type(cell_index : int, value : int):

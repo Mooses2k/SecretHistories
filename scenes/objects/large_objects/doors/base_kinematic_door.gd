@@ -40,7 +40,9 @@ onready var open_block_detector = $"%OpenBlockDetector"
 onready var close_block_detector = $"%CloseBlockDetector"
 onready var doorway_gaps_filler = $"%DoorwayGapsFiller"
 onready var npc_detector = $"%NpcDetector"
+onready var npc_check_timer: Timer = $NpcCheckTimer
 onready var broken_door_origin: Spatial = $"%BrokenDoorOrigin"
+onready var navigation: Navigation = $Navigation
 
 onready var door_open_sound : AudioStreamPlayer3D = $Sounds/DoorOpen
 onready var door_close_sound : AudioStreamPlayer3D = $Sounds/DoorClose
@@ -107,7 +109,12 @@ func break_door(position, impulse, damage):
 	door_state = DoorState.BROKEN
 	door_break_sound.play()
 	var global_door_transform = broken_door_origin.global_transform
+	
 	door_hinge_z_axis.queue_free()
+	npc_detector.queue_free()
+	npc_check_timer.queue_free()
+	navigation.queue_free()
+	
 	var broken_door_instance : Spatial = broken_door_scene.instance()
 	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
 	add_child(broken_door_instance)
@@ -157,13 +164,15 @@ func _on_Interactable_kicked(position, impulse, damage) -> void:
 
 func _on_NpcDetector_body_entered(body):
 	if not body is Player:
-		door_state = DoorState.OPEN
-		door_should_move = true
+		if door_state == DoorState.CLOSED or door_state == DoorState.AUTO_CLOSING:
+			door_state = DoorState.OPEN
+			door_should_move = true
 
 
 func _on_NpcCheckTimer_timeout():
 	for body in npc_detector.get_overlapping_bodies():
 		if not body is Player:
-			door_state = DoorState.OPEN
-			door_should_move = true
-			return
+			if door_state == DoorState.CLOSED or door_state == DoorState.AUTO_CLOSING:
+				door_state = DoorState.OPEN
+				door_should_move = true
+				return

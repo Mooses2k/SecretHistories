@@ -500,6 +500,7 @@ func _handle_inventory(delta : float):
 					character.inventory.get_mainhand_item().use_primary()
 					
 					if character.inventory.get_mainhand_item() is MeleeItem:
+						$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
 						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 						$"%AnimationTree".set("parameters/MeleeChop1/active", true)
 					throw_state = ThrowState.IDLE
@@ -509,10 +510,17 @@ func _handle_inventory(delta : float):
 			if character.inventory.get_mainhand_item() and interaction_target == null:
 				character.inventory.get_mainhand_item().use_secondary()
 				if character.inventory.get_mainhand_item() is MeleeItem:
+					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 					$"%AnimationTree".set("parameters/MeleeThrust/active", true)
 				throw_state = ThrowState.IDLE
-	
+			
+		if Input.is_action_just_released("playerhand|main_use_primary"):
+			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+		
+		if Input.is_action_just_released("playerhand|main_use_primary"):
+			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():

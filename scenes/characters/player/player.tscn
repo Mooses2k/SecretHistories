@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=2]
+[gd_scene load_steps=96 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -7387,6 +7387,8 @@ animation = "idle-loop"
 
 [sub_resource type="AnimationNodeOneShot" id=444]
 
+[sub_resource type="AnimationNodeTimeScale" id=446]
+
 [sub_resource type="AnimationNodeOneShot" id=445]
 
 [sub_resource type="AnimationNodeBlend2" id=413]
@@ -7450,7 +7452,7 @@ input_5/auto_advance = false
 [sub_resource type="AnimationNodeOneShot" id=437]
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 1156.15, -342.223 )
+graph_offset = Vector2( 1913.24, -70.5064 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 10/node" = SubResource( 442 )
@@ -7499,6 +7501,8 @@ nodes/MediumAds/node = SubResource( 416 )
 nodes/MediumAds/position = Vector2( -180, -640 )
 nodes/MeleeChop1/node = SubResource( 444 )
 nodes/MeleeChop1/position = Vector2( 2960, -260 )
+nodes/MeleeSpeed/node = SubResource( 446 )
+nodes/MeleeSpeed/position = Vector2( 3260, 120 )
 nodes/MeleeThrust/node = SubResource( 445 )
 nodes/MeleeThrust/position = Vector2( 3220, -180 )
 nodes/OffHand_MainHand_Blend/node = SubResource( 413 )
@@ -7528,7 +7532,7 @@ nodes/Weapon_states/position = Vector2( 460, -540 )
 "nodes/Webley revolver/node" = SubResource( 437 )
 "nodes/Webley revolver/position" = Vector2( 1740, -440 )
 nodes/output/position = Vector2( 4380, -440 )
-node_connections = [ "output", 0, "Hand_Transition", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "MeleeThrust", 0, "MeleeChop1", "MeleeThrust", 1, "Animation 10", "OffHand_MainHand_Blend", 0, "MeleeThrust", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MeleeChop1", 0, "Sawed-off shotgun", "MeleeChop1", 1, "Animation 9", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini", "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7", "Sawed-off shotgun", 0, "Sawed-off Martini pistol", "Sawed-off shotgun", 1, "Animation 8", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload" ]
+node_connections = [ "MeleeSpeed", 0, "MeleeThrust", "output", 0, "Hand_Transition", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "MeleeThrust", 0, "MeleeChop1", "MeleeThrust", 1, "Animation 10", "OffHand_MainHand_Blend", 0, "MeleeSpeed", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MeleeChop1", 0, "Sawed-off shotgun", "MeleeChop1", 1, "Animation 9", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini", "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7", "Sawed-off shotgun", 0, "Sawed-off Martini pistol", "Sawed-off shotgun", 1, "Animation 8", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -7839,6 +7843,7 @@ parameters/Hold_Animation/current = 0
 "parameters/Martini-Henry rifle/active" = false
 parameters/MediumAds/blend_amount = 0.0
 parameters/MeleeChop1/active = false
+parameters/MeleeSpeed/scale = 1.0
 parameters/MeleeThrust/active = false
 parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2

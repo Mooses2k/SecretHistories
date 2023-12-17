@@ -46,6 +46,7 @@ can_spin = true
 weapon_type = 2
 primary_damage1 = 1
 secondary_damage1 = 40
+melee_attack_speed = 1.5
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.0416767, 0 )

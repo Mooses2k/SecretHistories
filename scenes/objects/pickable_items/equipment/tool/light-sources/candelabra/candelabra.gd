@@ -107,10 +107,10 @@ func unlight():
 		$Candle1/FireOrigin/Fire.visible = false
 		$Candle1/MeshInstance.cast_shadow = true
 		
-		if $Candle2 != null and not is_depleted_2:
+		if get_node_or_null("Candle2") != null and not is_depleted_2:
 			unlight_candle_2()
 		
-		if $Candle3 != null and not is_depleted_3:
+		if get_node_or_null("Candle3") != null and not is_depleted_3:
 			unlight_candle_3()
 		
 		firelight.visible = false

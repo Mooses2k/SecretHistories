@@ -329,14 +329,14 @@ func _handle_grab_input(delta : float):
 		wanna_grab = true
 	else:
 		wanna_grab = false
-	if Input.is_action_pressed("player|interact") or Input.is_action_pressed("playerhand|main_use_secondary"):
+	if Input.is_action_pressed("player|interact"):
 		if is_grabbing == false:
 			grab_press_length += delta
 			if grab_press_length >= 0.15:
 				wanna_grab = true
 				interaction_handled = true
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"):
 		grab_press_length = 0.0
 		if is_grabbing == true:
 			is_grabbing = false

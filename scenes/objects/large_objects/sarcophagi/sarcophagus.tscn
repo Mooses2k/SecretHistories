@@ -305,5 +305,6 @@ script = ExtResource( 6 )
 
 [node name="ItemGeneratorOnPlacementAnchor" parent="." instance=ExtResource( 7 )]
 anchors_parent = NodePath("../SarcophagusBase")
+max_items_to_spawn = 1
 
 [connection signal="tree_exiting" from="2Tiles" to="." method="_on_2Tiles_tree_exiting"]

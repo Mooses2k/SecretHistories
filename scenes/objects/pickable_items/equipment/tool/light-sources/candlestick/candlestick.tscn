@@ -98,9 +98,6 @@ mass = 0.2
 script = ExtResource( 3 )
 item_drop_sound = ExtResource( 9 )
 item_name = "Candlestick"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
 can_spin = true
 life_percentage_lose = 0.2
 prob_going_out = 0.9
@@ -186,6 +183,9 @@ stream = ExtResource( 8 )
 bus = "Effects"
 
 [node name="Timer" type="Timer" parent="." index="11"]
+
+[node name="PlacementAnchor" parent="." index="12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.203666, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

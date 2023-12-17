@@ -1,0 +1,4 @@
+Dither Gradient Shader
+SamBigos
+https://godotshaders.com/shader/dither-gradient-shader/
+https://opensource.org/licenses/MIT

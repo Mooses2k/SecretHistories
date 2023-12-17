@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/577273__trp__door-rattles-wood-2011.wav-8536378de515ab9a8de8fb5388775a13.sample"
+
+[deps]
+
+source_file="res://resources/sounds/doors/shake/577273__trp__door-rattles-wood-2011.wav"
+dest_files=[ "res://.import/577273__trp__door-rattles-wood-2011.wav-8536378de515ab9a8de8fb5388775a13.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

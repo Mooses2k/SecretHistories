@@ -6,7 +6,7 @@ extends DisposableLightItem
 
 signal item_is_dropped
 
-var is_lit = true
+var is_lit = false
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false
@@ -88,7 +88,13 @@ func _use_primary():
 
 
 func _item_state_changed(previous_state, current_state):
-	if current_state == GlobalConsts.ItemState.INVENTORY and previous_state == GlobalConsts.ItemState.INVENTORY:
+	if current_state == GlobalConsts.ItemState.INVENTORY:
+		if is_lit:
+			var sound = $Sounds/BlowOutSound.duplicate()
+			GameManager.game.level.add_child(sound)
+			sound.global_transform = $Sounds/BlowOutSound.global_transform
+			sound.connect("finished", sound, "queue_free")
+			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 
 
@@ -100,7 +106,7 @@ func _on_light_depleted():
 
 func stop_light_timer():
 	burn_time = light_timer.get_time_left()
-	print("current burn time " + str(burn_time))
+#	print("current burn time " + str(burn_time))
 	light_timer.stop()
 
 

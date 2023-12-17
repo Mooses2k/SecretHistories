@@ -43,11 +43,6 @@ func expell_shells():
 	all_bullet_shells.append(sixth_shell)
 	
 	
-#	for bullet_shells in all_bullet_shells:
-#		bullet_shells.translation = Vector3(-0.008, 0.1, 0)
-#		bullet_shells.rotation_degrees = Vector3(0, 0, -61.824)
-		
-	
 	var world_scene
 	if is_instance_valid(GameManager.game):
 		world_scene = GameManager.game
@@ -70,7 +65,7 @@ func expell_shells():
 
 func player_add_shell():
 	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(bullet_shells, Vector3(0.014, -0.001, -0.003), Vector3(1.372, 6.429, 0.474))
-	add_shells_to_slot()
+
 
 func player_clear_shell():
 	owner.owner_character.player_gun_reload_shells.clear_shotgun_shells()
@@ -78,10 +73,16 @@ func player_clear_shell():
 
 func add_shells_to_slot():
 	var added_new_shells = bullet_shells.instance()
-	for shells_positions in all_shell_positions:
-		if shells_positions.get_child_count() < 1:
-			shells_positions.add_child(added_new_shells)
-			added_new_shells.translation = Vector3(0.011, 0, 0)
+	added_new_shells.translation = Vector3(0.006, -0.009, 0)
+	added_new_shells.rotation_degrees = Vector3(0, 0, -68.136)
+	bullet_position_1.add_child(added_new_shells)
+
+#	for shells_positions in all_shell_positions:
+#		if shells_positions.get_child_count() < 1:
+#			added_new_shells.translation = Vector3(0.006, -0.009, 0)
+#			added_new_shells.rotation_degrees = Vector3(0, 0, -68.136)
+#			shells_positions.add_child(added_new_shells)
+
 
 func clear_all_slots():
 	var added_new_shells = bullet_shells.instance()

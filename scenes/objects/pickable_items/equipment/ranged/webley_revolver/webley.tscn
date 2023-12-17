@@ -683,6 +683,7 @@ script = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0 )
 
 [node name="Webley_Arm" type="Spatial" parent="MeshInstance/webley_reload_weapon" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="Skeleton" type="Skeleton" parent="MeshInstance/webley_reload_weapon/Webley_Arm" index="0"]
 bones/0/name = "Root"
@@ -729,27 +730,27 @@ script = ExtResource( 4 )
 
 [node name="BulletPosition" type="Position3D" parent="MeshInstance/webley_reload_weapon/Webley_Arm/Skeleton/Webley" index="0"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0388198, 0.0529808, 2.39145e-10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0388198, 0.0687621, 2.39145e-10 )
 
 [node name="BulletPosition2" type="Position3D" parent="MeshInstance/webley_reload_weapon/Webley_Arm/Skeleton/Webley" index="1"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0323072, 0.049771, 0.0127957 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0323072, 0.0655524, 0.0127957 )
 
 [node name="BulletPosition3" type="Position3D" parent="MeshInstance/webley_reload_weapon/Webley_Arm/Skeleton/Webley" index="2"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0189837, 0.0457327, 0.0119502 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0189837, 0.061514, 0.0119502 )
 
 [node name="BulletPosition4" type="Position3D" parent="MeshInstance/webley_reload_weapon/Webley_Arm/Skeleton/Webley" index="3"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0141671, 0.0411997, 0.000377949 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0141671, 0.056981, 0.000377949 )
 
 [node name="BulletPosition5" type="Position3D" parent="MeshInstance/webley_reload_weapon/Webley_Arm/Skeleton/Webley" index="4"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0196957, 0.0463661, -0.0128195 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0196957, 0.0621475, -0.0128195 )
 
 [node name="BulletPosition6" type="Position3D" parent="MeshInstance/webley_reload_weapon/Webley_Arm/Skeleton/Webley" index="5"]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0327991, 0.052188, -0.0128195 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0327991, 0.0679694, -0.0128195 )
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.108676, 0 )

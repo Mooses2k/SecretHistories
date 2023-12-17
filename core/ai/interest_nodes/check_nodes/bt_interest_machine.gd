@@ -1,8 +1,12 @@
 class_name BTInterestMachine extends BTCheck
 
 
+signal player_detected(player, position)
+
+
+export var redetection_threshold := 200.0
 export var attention_span := 5.0
-export var decay_rate := 1.0
+export var decay_rate := 2.0
 
 
 var events := {}
@@ -39,7 +43,12 @@ class Event:
 
 
 func set_event(interest: int, position: Vector3, object: Object, emissor: CharacterSense) -> void:
-	if events.has(object):
+	
+	if interest > redetection_threshold and (emissor is TouchSensor or emissor is VisualSensor) and object is Player:
+		if !events.has(object) or (events.has(object) and events[object].interest < redetection_threshold):
+			emit_signal("player_detected", object, position)
+
+	if events.has(object) and interest > events[object].interest:
 		events[object].set_interest_level(interest)
 		events[object].position = position
 		events[object].emissor = emissor
@@ -71,10 +80,6 @@ func tick(state: CharacterState) -> int:
 	state.interest_machine = self
 
 	if is_instance_valid(most_interesting):
-		if most_interesting.emissor is VisualSensor or most_interesting.emissor is TouchSensor:
-			# print(most_interesting)
-			pass
-		
 		state.target_position = most_interesting.position
 		state.target = most_interesting
 		return OK

@@ -460,3 +460,6 @@ func play_clamber_sound(clamber_in : bool) -> void:
 				movement_audio.stream = _clamber_sounds["out"].front()
 				movement_audio.play()
 
+
+func on_player_detected(_player, _position) -> void:
+	play_detection_sound()

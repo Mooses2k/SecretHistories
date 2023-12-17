@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/gun_nodes/check_nodes/bt_inventory_has_ammo.gd"
 }, {
+"base": "BTCheck",
+"class": "BTIsPlayer",
+"language": "GDScript",
+"path": "res://core/ai/misc_nodes/action_nodes/bt_is_player.gd"
+}, {
 "base": "BTAction",
 "class": "BTLookAtTarget",
 "language": "GDScript",
@@ -581,6 +586,7 @@ _global_script_class_icons={
 "BTGunHasAmmo": "",
 "BTInterestMachine": "",
 "BTInventoryHasAmmo": "",
+"BTIsPlayer": "",
 "BTLookAtTarget": "",
 "BTNode": "",
 "BTReloadGun": "",

@@ -694,7 +694,7 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 
 
 func handle_screen_filters():
-	if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
+	if is_instance_valid(GameManager.game) and GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
 		if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
 			_set_screen_filter_to(GameManager.ScreenFilter.NONE)
 			_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)

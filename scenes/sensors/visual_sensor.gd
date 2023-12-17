@@ -14,6 +14,10 @@ export var light_source_interest := 75
 export var player_interest := 300
 
 
+export var _ik_target: NodePath
+var ik_target: Spatial
+
+
 #--------------------------------------------------------------------------#
 #                 Programmatically sets the vision frustrum.               #
 #--------------------------------------------------------------------------#
@@ -30,7 +34,7 @@ func add_area_nodes() -> void:
 	add_child(_collision_shape)
 	add_child(_mesh_instance)
 	_mesh_instance.mesh = _mesh
-	_mesh_instance.visible = true
+	_mesh_instance.visible = false
 	_mesh_instance.rotation_degrees.x = 90
 	_collision_shape.rotation_degrees.x = 90
 	_collision_shape.global_transform.origin.z = -16
@@ -74,6 +78,8 @@ func get_aabb() -> AABB:
 
 
 func _ready() -> void:
+	ik_target = get_node(_ik_target)
+
 	add_area_nodes()
 	connect_signals()
 	set_collision_layers()
@@ -98,6 +104,7 @@ func on_area_exited(area: Area) -> void:
 
 
 func tick(character: Character, _delta: float) -> int:
+	if is_instance_valid(ik_target): look_at(ik_target.global_transform.origin, Vector3.UP)
 	if process_player_detection(character): return OK
 	if process_light_detection(character): return OK
 	return FAILED
@@ -114,7 +121,6 @@ func get_player() -> Player:
 func process_player_detection(character: Character) -> bool:
 	var player := can_see_player(character)
 	if is_instance_valid(player):
-		print(player)
 		emit_signal\
 		(
 			"player_detected",
@@ -136,7 +142,7 @@ func process_player_detection(character: Character) -> bool:
 func can_see_player(character: Character) -> Player:
 	var player := get_player()
 	
-	if is_instance_valid(player):
+	if is_instance_valid(player) and player.light_level > 0.01:
 		var target := player.global_transform.origin
 		target.y = global_transform.origin.y
 		
@@ -225,9 +231,7 @@ func check_light() -> PlayerLightArea:
 
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
-	if player_light_area.check_point(point) and check_point(point):
-		print("oi")
-		return player_light_area.parent_item.owner_character
+	if player_light_area.check_point(point) and check_point(point): return player_light_area.parent_item.owner_character
 	# Return `player_light_area` if both player's light area and enemy's fov area can reach that point.
 	return null
 

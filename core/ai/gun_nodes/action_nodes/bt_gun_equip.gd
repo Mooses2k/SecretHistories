@@ -13,3 +13,7 @@ class_name BTEquipNextWeapon extends BTAction
 #			inventory.current_slot = slot
 #			return Status.SUCCESS
 #	return Status.FAILURE # or maybe RUNNING for now?
+
+
+func tick(_character: CharacterState) -> int:
+	return OK

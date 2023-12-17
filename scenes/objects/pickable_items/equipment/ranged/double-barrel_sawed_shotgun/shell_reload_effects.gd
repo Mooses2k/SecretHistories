@@ -1,7 +1,10 @@
 extends Node
 
-export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)
-export var impulse_value : Vector3 = Vector3(0, 0.3, 0.2)
+export var impulse_position_1 : Vector3 = Vector3(0, 0.2, 0.1)
+export var impulse_position_2 : Vector3 = Vector3(0, 0.2, 0.1)
+
+export var impulse_value_1 : Vector3 = Vector3(0, 0.3, 0.2)
+export var impulse_value_2 : Vector3 = Vector3(0, 0.3, 0.2)
 
 var shotgun_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/shotgun_shells/12-gauge_shotgun_shell.tscn")
 
@@ -36,8 +39,8 @@ func expell_shotgun_shells():
 	world_scene.add_child(first_shell)
 	world_scene.add_child(second_shell)
 	
-	first_shell.apply_impulse(impulse_position, impulse_value)
-	second_shell.apply_impulse(impulse_position, impulse_value)
+	first_shell.apply_impulse(impulse_position_1, impulse_value_1)
+	second_shell.apply_impulse(impulse_position_2, impulse_value_2)
 
 
 func add_shells_to_slot():

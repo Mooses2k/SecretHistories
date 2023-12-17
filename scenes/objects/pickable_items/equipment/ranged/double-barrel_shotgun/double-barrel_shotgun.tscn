@@ -489,8 +489,8 @@ anims/reload = SubResource( 381 )
 
 [node name="ShellReloadEffects" type="Node" parent="AnimationPlayer" index="0"]
 script = ExtResource( 13 )
-impulse_position = Vector3( 0, 0.3, 0.22 )
-impulse_value = Vector3( 0.2, 1, 1.2 )
+impulse_value_1 = Vector3( 1.2, 0.3, 0.2 )
+impulse_value_2 = Vector3( 3.2, 0.3, 0.2 )
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

@@ -32,7 +32,9 @@ item_drop_sound = ExtResource( 4 )
 item_data = ExtResource( 2 )
 
 [node name="MeshInstance" parent="." index="0"]
+layers = 2
 mesh = SubResource( 1 )
+script = null
 
 [node name="CollisionShape" parent="." index="1"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.000983603, 0, 0 )

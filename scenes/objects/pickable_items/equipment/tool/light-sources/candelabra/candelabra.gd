@@ -107,10 +107,10 @@ func unlight():
 		$Candle1/FireOrigin/Fire.visible = false
 		$Candle1/MeshInstance.cast_shadow = true
 		
-		if $Candle2 != null and not is_depleted_2:
+		if get_node_or_null("Candle2") != null and not is_depleted_2:
 			unlight_candle_2()
 		
-		if $Candle3 != null and not is_depleted_3:
+		if get_node_or_null("Candle3") != null and not is_depleted_3:
 			unlight_candle_3()
 		
 		firelight.visible = false
@@ -134,7 +134,14 @@ func _use_primary():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
+		if is_lit:
+			var sound = $BlowOutSound.duplicate()
+			GameManager.game.level.add_child(sound)
+			sound.global_transform = $BlowOutSound.global_transform
+			sound.connect("finished", sound, "queue_free")
+			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
+		
 
 
 func stop_light_timer_2():

@@ -226,9 +226,6 @@ var wall_tile_index : PoolIntArray
 var pillar_tile_index : PoolIntArray
 var ceiling_tile_index : PoolIntArray
 
-#items to spawn inside sarcophagus
-var sarco_item_list : PoolStringArray
-var sarco_lid_item_list : PoolStringArray
 
 # Player spawn position in World Coordinates
 # Keys are RoomData.OriginalPurpose STAIRCASE values
@@ -500,8 +497,9 @@ func get_local_cell_position(cell_index : int) -> Vector3:
 
 
 func get_cell_type(cell_index : int) -> int:
-	# needs protection - adding 50 items will crash game
-	return cell_type[cell_index] if cell_index >= 0 else -1
+	if cell_index >= 0 and cell_index < cell_type.size():
+		return cell_type[cell_index] 
+	return -1
 
 
 func set_cell_type(cell_index : int, value : int):
@@ -754,20 +752,6 @@ func get_neighbour_cell(cell_index : int, direction : int) -> int:
 	return -1
 
 
-func set_sarco_item_list(item_list : PoolStringArray) -> void:
-	sarco_item_list = item_list
-
-
-func get_sarco_item_list() -> PoolStringArray:
-	return sarco_item_list
-
-
-func set_sarco_lid_item_list(item_list : PoolStringArray) -> void:
-	sarco_lid_item_list = item_list
-
-
-func get_sarco_lid_item_list() -> PoolStringArray:
-	return sarco_lid_item_list
 
 ###################################################################################################
 ### Debug Methods #################################################################################

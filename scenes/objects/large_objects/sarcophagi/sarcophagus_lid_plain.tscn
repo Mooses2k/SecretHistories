@@ -73,6 +73,22 @@ shape = SubResource( 3 )
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0432787, 0.130774, 0.0197602 )
 script = ExtResource( 5 )
 
+[node name="PlacementAnchorLong2" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.578877, 0.130774, 0.143552 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchorLong3" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.387707, 0.130774, -0.219442 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchorLong4" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.14976, 0.130774, -0.115437 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchorLong5" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.00328275, 0.130774, 0.241745 )
+script = ExtResource( 5 )
+
 [node name="PlacementAnchor" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.956308, 0.130774, 0.39951 )
 script = ExtResource( 5 )

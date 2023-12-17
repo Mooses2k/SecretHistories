@@ -66,7 +66,7 @@ func expell_shells():
 		world_scene.add_child(bullet_shells)
 	
 	for bullet_shells in all_bullet_shells:
-		bullet_shells.apply_impulse(impulse_position, owner.owner_character.global_transform.basis.z * 0.7)
+		bullet_shells.apply_impulse(Vector3(rand_range(0, 0.6), rand_range(0, 0.8), rand_range(0, 0.5)), owner.owner_character.global_transform.basis.z * rand_range(0.1, 0.5))
 
 
 func player_add_shell():

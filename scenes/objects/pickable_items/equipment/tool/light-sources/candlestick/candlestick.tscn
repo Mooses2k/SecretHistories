@@ -219,5 +219,8 @@ bus = "Effects"
 
 [node name="Timer" type="Timer" parent="." index="11"]
 
+[node name="PlacementAnchor" parent="." index="12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.203666, 0 )
+
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

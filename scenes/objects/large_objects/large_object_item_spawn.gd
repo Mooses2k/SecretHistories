@@ -11,6 +11,7 @@ func _ready():
 		
 		for item_path in owner.spawnable_items:
 			random_num = randi() % anchors.size()
+			
 			# handle bad refs in the loot list
 			var loaded = load(item_path)
 			if !loaded || (loaded and (!(loaded is PackedScene) || !is_instance_valid(loaded.instance()))):
@@ -24,13 +25,16 @@ func _ready():
 				new_item.queue_free()
 				return
 			
-			new_item.translation = anchors[random_num].translation
-			
-			if new_item.placement_position:
-				new_item.translation += new_item.placement_position.translation
-			
-			get_parent().get_parent().add_child(new_item)
-			anchors.remove(random_num)
+			if new_item is ShardOfTheComet:   # the code below this indent breaks this spawn, so have to use old version here
+				anchors[random_num].add_child(new_item)
+				new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
+			else:
+				new_item.translation = anchors[random_num].translation
+				if new_item.placement_position:
+					new_item.translation += new_item.placement_position.translation
+				new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
+				get_parent().get_parent().add_child(new_item)
+				anchors.remove(random_num)
 
 
 func filter_list_anchors(anchor_nodes: Array) -> Array:

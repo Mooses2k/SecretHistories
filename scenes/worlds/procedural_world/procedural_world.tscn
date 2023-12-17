@@ -147,8 +147,7 @@ _max_loot = 7
 [node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
 script = ExtResource( 14 )
 _loot_list_resource = ExtResource( 16 )
-_min_loot = 10
-_max_loot = 15
+_max_loot = 7
 
 [node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource( 15 )

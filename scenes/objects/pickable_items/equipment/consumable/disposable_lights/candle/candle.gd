@@ -6,7 +6,7 @@ extends DisposableLightItem
 
 signal item_is_dropped
 
-var is_lit = true
+var is_lit = false
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false
@@ -100,7 +100,7 @@ func _on_light_depleted():
 
 func stop_light_timer():
 	burn_time = light_timer.get_time_left()
-	print("current burn time " + str(burn_time))
+#	print("current burn time " + str(burn_time))
 	light_timer.stop()
 
 

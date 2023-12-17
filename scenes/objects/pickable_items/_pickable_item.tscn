@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/pickable_item.gd" type="Script" id=1]
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=3]
+[ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.2, 0.2, 0.2 )
@@ -11,8 +12,8 @@ size = Vector3( 0.2, 0.2, 0.2 )
 extents = Vector3( 0.1, 0.1, 0.1 )
 
 [node name="PickableItem" type="RigidBody"]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 64
+collision_mask = 65
 mass = 0.1
 continuous_cd = true
 contacts_reported = 5
@@ -30,3 +31,7 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )
+
+[node name="PlacementAnchor" type="Position3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 4 )

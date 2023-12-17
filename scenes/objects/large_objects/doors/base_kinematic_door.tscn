@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_Wall_Metal.material" type="Material" id=1]
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_DoorSimple1.material" type="Material" id=2]
@@ -6,11 +6,12 @@
 [ext_resource path="res://scenes/objects/large_objects/doors/base_kinematic_door.gd" type="Script" id=4]
 [ext_resource path="res://resources/models/gridmap/modular_doors/M_DoorSimple1.material" type="Material" id=5]
 [ext_resource path="res://resources/models/gridmap/modular_doors/M_Wall_Metal.material" type="Material" id=6]
-[ext_resource path="res://resources/sounds/doors/damage/broken/160213__qubodup__kicking-forcing-breaking-wooden-door.ogg" type="AudioStream" id=7]
+[ext_resource path="res://resources/sounds/doors/damage/broken/160213__qubodup__kicking-forcing-breaking-wooden-door.wav" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/doors/damage/ineffective/363697__pfranzen__kicking-a-door.ogg" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/doors/damage/effective/452600__kyles__door-wood-kick-open-rattle-creak.wav" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/doors/close/342241__inspectorj__door-squeak-normal-a.wav" type="AudioStream" id=10]
 [ext_resource path="res://resources/sounds/doors/open/536076__eminyildirim__door-squeak.wav" type="AudioStream" id=11]
+[ext_resource path="res://resources/sounds/doors/shake/577273__trp__door-rattles-wood-2011.wav" type="AudioStream" id=12]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.45, 0.95, 0.05 )
@@ -97,6 +98,11 @@ bus = "Effects"
 [node name="DoorClose" type="AudioStreamPlayer3D" parent="Sounds"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 stream = ExtResource( 10 )
+bus = "Effects"
+
+[node name="DoorShakeSound" type="AudioStreamPlayer3D" parent="Sounds"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+stream = ExtResource( 12 )
 bus = "Effects"
 
 [node name="DoorKickIneffectiveSound" type="AudioStreamPlayer3D" parent="Sounds"]
@@ -206,7 +212,7 @@ estimate_radius = false
 [node name="NpcDetector" type="Area" parent="."]
 unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 16
+collision_mask = 18
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="NpcDetector"]

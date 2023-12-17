@@ -19,6 +19,11 @@ func generate(is_last_floor: bool) -> WorldData:
 			generation_seed = setting_generation_seed
 		print("Generation Seed: %s"%[generation_seed])
 		GameManager.world_gen_rng.seed = generation_seed
+	 
+	# Set global random seed, so rng is consistent even
+	# when it isn't possible to use the world_gen_seed directly
+	# (for example, when using Array.shuffle())
+	rand_seed(GameManager.world_gen_rng.randi())
 	
 	var data : WorldData = WorldData.new()
 	data.resize(world_size_x, world_size_z)

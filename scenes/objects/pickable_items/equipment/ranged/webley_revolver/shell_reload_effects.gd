@@ -75,13 +75,9 @@ func add_shells_to_slot():
 	var added_new_shells = bullet_shells.instance()
 	added_new_shells.translation = Vector3(0.006, -0.009, 0)
 	added_new_shells.rotation_degrees = Vector3(0, 0, -68.136)
-	bullet_position_1.add_child(added_new_shells)
-
-#	for shells_positions in all_shell_positions:
-#		if shells_positions.get_child_count() < 1:
-#			added_new_shells.translation = Vector3(0.006, -0.009, 0)
-#			added_new_shells.rotation_degrees = Vector3(0, 0, -68.136)
-#			shells_positions.add_child(added_new_shells)
+	for shells_positions in all_shell_positions:
+		if shells_positions.get_child_count() < 1:
+			shells_positions.add_child(added_new_shells)
 
 
 func clear_all_slots():

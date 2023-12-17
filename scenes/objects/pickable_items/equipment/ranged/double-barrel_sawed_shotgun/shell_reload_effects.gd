@@ -22,6 +22,8 @@ func expell_shotgun_shells():
 	var shell_position_1 = $"%ShellPosition1".global_translation
 	var shell_position_2 =  $"%ShellPosition2".global_translation
 	
+	first_shell.translation.y += 2
+	second_shell.translation.y += 2
 	first_shell.rotation_degrees.z = 100.695
 	second_shell.rotation_degrees.z = 100.695
 	

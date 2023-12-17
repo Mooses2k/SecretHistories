@@ -74,9 +74,9 @@ func _spawn_initial_settings_items(data : WorldData):
 
 func _get_next_free_cell(data : WorldData) -> bool:
 	free_cell += 1
-	while data.get_cell_type(free_cell) == data.CellType.EMPTY and free_cell < data.cell_count:
+	while free_cell < data.cell_count and data.get_cell_type(free_cell) == data.CellType.EMPTY:
 		free_cell += 1
-	return true   # TODO: Unrecahable code, probably should be indented one tab further
+	return true
 	if free_cell >= data.cell_count:
 		return false
 

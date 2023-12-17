@@ -6,7 +6,7 @@ export var max_items_to_spawn : int = 5
 
 func _ready():
 	if not owner.spawnable_items.empty():	
-		var items_to_spawn = randi()%(max_items_to_spawn + 1)
+		var items_to_spawn = max_items_to_spawn
 		
 		var anchors = filter_list_anchors(get_node(anchors_parent).get_children())
 		anchors.shuffle()

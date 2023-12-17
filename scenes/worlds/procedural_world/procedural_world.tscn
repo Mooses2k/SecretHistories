@@ -122,14 +122,13 @@ script = ExtResource( 24 )
 
 [node name="GenerateLargeObjectsItems" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
 script = ExtResource( 25 )
-_sarco_spawn_list_resource = ExtResource( 26 )
-_sarco_shard_spawn_list_resource = ExtResource( 30 )
-_sarco_lids_spawn_list_resource = ExtResource( 27 )
-_max_item = 5
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="0"]
 script = ExtResource( 23 )
 vertical_center_rotation = 90
+_sarco_spawn_list_resource = ExtResource( 26 )
+_sarco_shard_spawn_list_resource = ExtResource( 30 )
+_sarco_lids_spawn_list_resource = ExtResource( 27 )
 _force_lid = -1
 
 [node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="2"]

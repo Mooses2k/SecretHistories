@@ -1,7 +1,6 @@
 extends Node
 
 export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)
-export var impulse_value : Vector3 = Vector3(0, 0.3, 0.2)
 
 var dropped_bullet_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/webley/webley_casing.tscn")
 var bullet_shells = preload("res://scenes/objects/pickable_items/tiny/ammo/webley/webley_round.tscn")
@@ -56,11 +55,18 @@ func expell_shells():
 	fifth_shell.translation = bullet_position_5.global_translation
 	sixth_shell.translation = bullet_position_6.global_translation
 	
+	first_shell.translation.y += 0.05
+	second_shell.translation.y += 0.05
+	third_shell.translation.y += 0.05
+	fourth_shell.translation.y += 0.05
+	fifth_shell.translation.y += 0.05
+	sixth_shell.translation.y += 0.05
+	
 	for bullet_shells in all_bullet_shells:
 		world_scene.add_child(bullet_shells)
 	
 	for bullet_shells in all_bullet_shells:
-		bullet_shells.apply_impulse(impulse_position, impulse_value)
+		bullet_shells.apply_impulse(impulse_position, owner.owner_character.global_transform.basis.z * 0.7)
 
 
 func player_add_shell():

@@ -824,8 +824,7 @@ anims/reload = SubResource( 14 )
 
 [node name="ShellReloadEffects" type="Node" parent="AnimationPlayer" index="0"]
 script = ExtResource( 14 )
-impulse_position = Vector3( 0, 0.05, 0 )
-impulse_value = Vector3( 0.05, 0.09, 0.06 )
+impulse_position = Vector3( 0.2, 0.09, 0.2 )
 
 [node name="PlacementAnchor" parent="." index="10"]
 visible = false

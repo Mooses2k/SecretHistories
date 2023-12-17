@@ -23,7 +23,7 @@ func expell_shells():
 	
 	first_shell.translation = shell_position_1
 	world_scene.add_child(first_shell)
-	first_shell.apply_impulse(impulse_position, impulse_value)
+	first_shell.apply_impulse(impulse_position, owner.owner_character.global_transform.basis.z * 3)
 
 
 func player_add_shell():

@@ -19,7 +19,8 @@ func on_body_entered(body: Spatial) -> void:
 			"event",
 			touch_interest,
 			body.global_transform.origin,
-			body
+			body,
+			self
 		)
 
 

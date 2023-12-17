@@ -41,7 +41,7 @@ func check_for_sounds() -> void:
 		if !interest_level: continue
 		
 		emit_signal("sound_detected", object, interest_level)
-		emit_signal("event", interest_level, object.global_transform.origin, object)
+		emit_signal("event", interest_level, object.global_transform.origin, object, self)
 
 
 func get_interest_level(source: Spatial) -> int:

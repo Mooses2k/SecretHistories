@@ -38,7 +38,7 @@ func _on_player_spawn(_player : Player):
 	pitch_yaw.y = owner.rotation.y
 
 func _ready():
-	GameManager.game.connect("player_spawned", self, "_on_player_spawn")
+	# GameManager.game.connect("player_spawned", self, "_on_player_spawn")
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y

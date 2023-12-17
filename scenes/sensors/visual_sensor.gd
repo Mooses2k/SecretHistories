@@ -30,8 +30,11 @@ func add_area_nodes() -> void:
 	add_child(_collision_shape)
 	add_child(_mesh_instance)
 	_mesh_instance.mesh = _mesh
-	_mesh_instance.visible = false
-	_mesh_instance.rotation_degrees.x += 90
+	_mesh_instance.visible = true
+	_mesh_instance.rotation_degrees.x = 90
+	_collision_shape.rotation_degrees.x = 90
+	_collision_shape.global_transform.origin.z = -16
+	update_mesh_and_collision()
 
 
 func set_distance(value : float) -> void:
@@ -54,6 +57,10 @@ func update_mesh_and_collision() -> void:
 	_mesh.top_radius = 0.0
 	_mesh.bottom_radius = distance * tan(deg2rad(fov / 2)) / (sqrt(2) * 0.5)
 	_mesh_instance.transform.origin.z = -distance * 0.5
+	call_deferred("update_collision")
+
+
+func update_collision() -> void:
 	_collision_shape.shape = _mesh.create_convex_shape()
 	_collision_shape.transform.origin.z = -distance * 0.5
 
@@ -107,6 +114,7 @@ func get_player() -> Player:
 func process_player_detection(character: Character) -> bool:
 	var player := can_see_player(character)
 	if is_instance_valid(player):
+		print(player)
 		emit_signal\
 		(
 			"player_detected",
@@ -118,7 +126,8 @@ func process_player_detection(character: Character) -> bool:
 			"event",
 			player_interest,
 			player.global_transform.origin,
-			player
+			player,
+			self
 		)
 		return true
 	return false
@@ -127,7 +136,7 @@ func process_player_detection(character: Character) -> bool:
 func can_see_player(character: Character) -> Player:
 	var player := get_player()
 	
-	if is_instance_valid(player) and player.light_level > 0.01:
+	if is_instance_valid(player):
 		var target := player.global_transform.origin
 		target.y = global_transform.origin.y
 		
@@ -135,8 +144,7 @@ func can_see_player(character: Character) -> Player:
 		
 		if is_instance_valid(world):
 			var result := world.direct_space_state.intersect_ray(global_transform.origin, target, [character], 1 << 0 | 1 << 1, true, false)
-			print(result)
-			if !result.empty() and result.collider.owner is Player:
+			if !result.empty() and result.collider is Player:
 				return player
 	
 	return null
@@ -155,25 +163,35 @@ var light_idx := 0
 var voxel_idx := 0
 
 
+func get_overlapping_lights() -> Array:
+	var result := []
+	for area in get_overlapping_areas():
+		if area is PlayerLightArea:
+			result.append(area)
+	return result
+
+
 func process_light_detection(_character: Character) -> bool:
 	# [ Evil hack in case of `on_light_entered` misbehaving ]
-	light_sources = get_overlapping_areas()
+	light_sources = get_overlapping_lights()
 
 	if !light_sources.empty():
 		var light_area := check_light()
+		print(light_area)
 		if is_instance_valid(light_area):
 			emit_signal\
 			(
 				"light_detected",
-				light_area.parent,
+				light_area,
 				light_area.global_transform.origin
 			)
 			emit_signal\
 			(
 				"event",
-				light_area,
+				light_source_interest,
 				light_area.global_transform.origin,
-				light_area.parent
+				light_area,
+				self
 			)
 			return true
 	return false
@@ -193,6 +211,7 @@ func light_area_exited(light_area: LightArea) -> void:
 
 func check_light() -> PlayerLightArea:
 	var player_light_area := get_player_light_area()
+	
 	if !is_instance_valid(player_light_area) or !(player_light_area is PlayerLightArea):
 		return null
 
@@ -206,7 +225,9 @@ func check_light() -> PlayerLightArea:
 
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
-	if player_light_area.check_point(point) and check_point(point): return player_light_area.parent_item.owner_character
+	if player_light_area.check_point(point) and check_point(point):
+		print("oi")
+		return player_light_area.parent_item.owner_character
 	# Return `player_light_area` if both player's light area and enemy's fov area can reach that point.
 	return null
 

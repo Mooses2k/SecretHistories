@@ -9,15 +9,17 @@ var events := {}
 
 
 class Event:
+	var emissor: CharacterSense = null
 	var position := Vector3.ZERO
-	var object: Object
 	var interest := 0.0
+	var object: Object
 	
 	var time := 0.0
 
-	func _init(_interest: int, _position: Vector3, _object: Object) -> void:
+	func _init(_interest: int, _position: Vector3, _object: Object, _emissor: CharacterSense) -> void:
 		interest = _interest
 		position = _position
+		emissor = _emissor
 		object = _object
 		time = 0.0
 	
@@ -36,11 +38,12 @@ class Event:
 		return str({"interest": interest, "position": position, "object": object.name})
 
 
-func set_event(interest: int, position: Vector3, object: Object) -> void:
+func set_event(interest: int, position: Vector3, object: Object, emissor: CharacterSense) -> void:
 	if events.has(object):
 		events[object].set_interest_level(interest)
 		events[object].position = position
-	else: events[object] = Event.new(interest, position, object)
+		events[object].emissor = emissor
+	else: events[object] = Event.new(interest, position, object, emissor)
 
 
 func remove_event(object: Object) -> void:
@@ -68,6 +71,10 @@ func tick(state: CharacterState) -> int:
 	state.interest_machine = self
 
 	if is_instance_valid(most_interesting):
+		if most_interesting.emissor is VisualSensor or most_interesting.emissor is TouchSensor:
+			# print(most_interesting)
+			pass
+		
 		state.target_position = most_interesting.position
 		state.target = most_interesting
 		return OK

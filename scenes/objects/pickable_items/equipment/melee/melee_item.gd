@@ -32,6 +32,8 @@ export var cooldown = 0.01
 #onready var collision_and_mesh = get_node(element_path)
 
 var can_hit = false
+var did_a_thrust = false
+var did_a_cut = false
 var on_cooldown = false
 
 onready var character = get_parent()
@@ -39,67 +41,75 @@ onready var character = get_parent()
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
-	var melee_anim
-	if weapon_type == WeaponType.COMPLEX_HILT_ONE_HAND:
-		melee_anim = owner_character.find_node("SabreTechniques")
-		if not melee_anim.is_playing():
-			can_hit = true
-			melee_anim.play("ThrustFromTierce")
-			$Sounds/Thrust.play()
-			yield(melee_anim, "animation_finished")
-			owner_character.stamina -= 50
-			can_hit = false
-			melee_anim.queue("RecoveryThrustToTierce")
-	if weapon_type == WeaponType.POLEARM:
-		melee_anim = owner_character.find_node("PolearmTechniques")
-		if not melee_anim.is_playing():
-			can_hit = true
-			melee_anim.play("polearm_thrust_from_right")
-			$Sounds/Thrust.play()
-			yield(melee_anim, "animation_finished")
-#			character.stamina -= 50 # this is bugged with halberd
-			can_hit = false
-			melee_anim.queue("polearm_recovery_from_right")
+	can_hit = true
+	did_a_thrust = true
+	$Sounds/Thrust.play()
+	$CooldownTimer.start(cooldown)
+	on_cooldown = true
+#	emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
+	
+#	var melee_anim
+#	if weapon_type == WeaponType.COMPLEX_HILT_ONE_HAND:
+#		melee_anim = owner_character.find_node("SabreTechniques")
+#		if not melee_anim.is_playing():
+#			can_hit = true
+#			melee_anim.play("ThrustFromTierce")
+#			$Sounds/Thrust.play()
+#			yield(melee_anim, "animation_finished")
+#			owner_character.stamina -= 30
+#			can_hit = false
+#			melee_anim.queue("RecoveryThrustToTierce")
+#	if weapon_type == WeaponType.POLEARM:
+#		melee_anim = owner_character.find_node("PolearmTechniques")
+#		if not melee_anim.is_playing():
+#			can_hit = true
+#			melee_anim.play("polearm_thrust_from_right")
+#			$Sounds/Thrust.play()
+#			yield(melee_anim, "animation_finished")
+##			character.stamina -= 30 # this is bugged with halberd
+#			can_hit = false
+#			melee_anim.queue("polearm_recovery_from_right")
 
 
 func attack_cut():
-	var melee_anim
-	if weapon_type == 3:
-		melee_anim = owner_character.find_node("SabreTechniques")
-		if not melee_anim.is_playing():
-			can_hit = true
-			melee_anim.play("Swing1FromTierce")
-			$Sounds/Cut.play()
-			yield(melee_anim, "animation_finished")
-			owner_character.stamina -= 50
-			can_hit = false
-			melee_anim.queue("Recovery1ToTierce")
-	if weapon_type == 6:
-		melee_anim = owner_character.find_node("PolearmTechniques")
-		if not melee_anim.is_playing():
-			can_hit = true
-			melee_anim.play("polearm_cut_2") # WIP, AnimationPlayer got wiped during import_items merge
-			$Sounds/Cut.play()
-			yield(melee_anim, "animation_finished")
-			character.stamina -= 50
-			can_hit = false
-			melee_anim.queue("polearm_cut_2_recovery") # WIP, AnimationPlayer got wiped during import_items merge
+	can_hit = true
+	did_a_cut = true
+	$Sounds/Cut.play()
+	$CooldownTimer.start(cooldown)
+	on_cooldown = true
+#	emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
+	
+#	var melee_anim
+#	if weapon_type == 3:
+#		melee_anim = owner_character.find_node("SabreTechniques")
+#		if not melee_anim.is_playing():
+#			can_hit = true
+#			melee_anim.play("Swing1FromTierce")
+#			$Sounds/Cut.play()
+#			yield(melee_anim, "animation_finished")
+#			owner_character.stamina -= 50
+#			can_hit = false
+#			melee_anim.queue("Recovery1ToTierce")
+#	if weapon_type == 6:
+#		melee_anim = owner_character.find_node("PolearmTechniques")
+#		if not melee_anim.is_playing():
+#			can_hit = true
+#			melee_anim.play("polearm_cut_2") # WIP, AnimationPlayer got wiped during import_items merge
+#			$Sounds/Cut.play()
+#			yield(melee_anim, "animation_finished")
+#			character.stamina -= 50
+#			can_hit = false
+#			melee_anim.queue("polearm_cut_2_recovery") # WIP, AnimationPlayer got wiped during import_items merge
 
 
 func _use_primary():
 	if not on_cooldown:
 		attack_thrust()
-		$CooldownTimer.start(cooldown)
-		on_cooldown = true
-#		emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
 
 
 func _use_secondary():
 	if not on_cooldown:
 		attack_cut()
-		$CooldownTimer.start(cooldown)
-		on_cooldown = true
-#		emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
 
 
 #
@@ -113,14 +123,19 @@ func _use_secondary():
 # Make sure that this is always connected from each individual weapon's scene
 func _on_CooldownTimer_timeout() -> void:
 	on_cooldown = false
+	did_a_cut = false
+	did_a_thrust = false
 
 
 func _on_Hitbox_hit(other):
 	if can_hit and other.owner != owner_character and other.owner.has_method("damage"):
-		other.owner.damage(primary_damage1, primary_damage_type1, other)
-		other.owner.damage(primary_damage2, primary_damage_type2, other)
-		other.owner.damage(secondary_damage1, secondary_damage_type1, other)
-		other.owner.damage(secondary_damage1, secondary_damage_type2, other)
+		if did_a_thrust:
+			other.owner.damage(primary_damage1, primary_damage_type1, other)
+			other.owner.damage(primary_damage2, primary_damage_type2, other)
+		if did_a_cut:
+			other.owner.damage(secondary_damage1, secondary_damage_type1, other)
+			other.owner.damage(secondary_damage1, secondary_damage_type2, other)
+		can_hit = false
 
 
 func _on_Hitbox_body_entered(body):

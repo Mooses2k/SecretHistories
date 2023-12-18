@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/59992__qubodup__swosh-sword-swing.mp3-efed5fc1bda022117e0f9658c6c7d242.mp3str"
+
+[deps]
+
+source_file="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3"
+dest_files=[ "res://.import/59992__qubodup__swosh-sword-swing.mp3-efed5fc1bda022117e0f9658c6c7d242.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

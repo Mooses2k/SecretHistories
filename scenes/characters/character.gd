@@ -129,6 +129,8 @@ onready var _ground_checker = $"%GroundChecker"
 onready var legcast : RayCast = get_node(_legcast) as RayCast
 onready var _speech_player = get_node("Audio/Speech")
 
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
+
 var stamina := 600.0
 
 #var current_control_mode_index = 0
@@ -279,6 +281,8 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)
+		$Audio/Movement.stream = item_drop_sound_flesh
+		$Audio/Movement.play()
 		
 		if self.current_health <= 0:
 			self._alive = false

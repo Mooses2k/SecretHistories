@@ -498,21 +498,22 @@ func _handle_inventory(delta : float):
 			if no_click_after_load_period == false:
 				if character.inventory.get_mainhand_item():
 					character.inventory.get_mainhand_item().use_primary()
-					
 					if character.inventory.get_mainhand_item() is MeleeItem:
 						$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
 						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
+						owner.noise_level = 8
 					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
-			if character.inventory.get_mainhand_item() and interaction_target == null:
+			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody doors
 				character.inventory.get_mainhand_item().use_secondary()
 				if character.inventory.get_mainhand_item() is MeleeItem:
 					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
+					owner.noise_level = 15
 				throw_state = ThrowState.IDLE
 			
 		if Input.is_action_just_released("playerhand|main_use_primary"):

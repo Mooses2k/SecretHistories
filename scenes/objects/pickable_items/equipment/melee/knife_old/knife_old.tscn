@@ -33,6 +33,10 @@ dropped_mask = 1
 item_drop_sound = ExtResource( 1 )
 item_size = 0
 item_name = "Knife"
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
+throw_logic = true
+can_spin = true
 weapon_type = 1
 primary_damage_type1 = 2
 primary_damage1 = 20
@@ -40,10 +44,7 @@ primary_damage_type2 = 1
 primary_damage2 = 5
 secondary_damage_type1 = 1
 secondary_damage1 = 25
-throw_logic = true
-can_spin = true
-normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
+melee_attack_speed = 2.0
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, -3.59989e-21, 4.37114e-08, 1, -4.37114e-08, 0, -0.0137128, 0 )

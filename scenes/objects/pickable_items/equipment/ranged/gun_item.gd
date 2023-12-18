@@ -18,25 +18,27 @@ export(Array, Resource) var ammo_types
 
 export var ammunition_capacity = 0
 export var reload_amount = 0
-export var reload_time = 0.0
 export var damage_offset = 0
 export var dispersion_offset_degrees = 0
 export var cooldown = 1.0
 export var handling = 5.0
 
+export var reload_position : Vector3
+export var reload_rotation : Vector3
+
 export var ads_hold_position : Vector3
 export var ads_hold_rotation : Vector3
+
+
+export(MeleeStyle) var melee_style : int = 0
+export (NodePath) var player_path
+export (NodePath) var mesh_path
+
 var ads_reset_position : Vector3
 var ads_reset_rotation : Vector3
-
-
-export var animation_reload_sequence : int 
-export(MeleeStyle) var melee_style : int = 0
-#export (NodePath) var player_path
-#
-#onready var player = get_node(player_path)
-
-export var current_ammo : int = 0
+var mesh_reset_position : Vector3 = Vector3(0, 0, 0)
+var reload_time : float = 0.0
+var current_ammo : int = 0
 var current_ammo_type : Resource = null
 
 #var is_reloading = false    # This has been changed to a character trait
@@ -47,6 +49,9 @@ var _queued_reload_amount : int = 0
 
 export (NodePath) var detection_raycast
 onready var raycast = get_node(detection_raycast)
+onready var animation_player = $"%AnimationPlayer"
+onready var player = get_node(player_path)
+onready var mesh = get_node(mesh_path)
 
 func _ready():
 #	print(get_parent().name)
@@ -55,6 +60,12 @@ func _ready():
 #		transform = get_hold_transform()
 	ads_reset_position = hold_position.translation
 	ads_reset_rotation = hold_position.rotation_degrees
+	get_reload_length()
+
+
+func get_reload_length():
+	if animation_player:
+		reload_time = animation_player.get_animation("reload").length - 0.3
 
 
 func set_range(value : Vector2):
@@ -144,22 +155,13 @@ func reload():
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
 					owner_character.is_reloading = true
-					print(owner_character.animation_tree)
-					reload_animation()
+					##This is responsible for the reload animations
+					if "Player" in owner_character.name:
+						owner_character.player_animations.reload_weapons()
 #					print(player.owner)
 					# TODO: Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
 					return
-
-
-func reload_animation():
-	print(owner_character)
-	if owner_character != null:
-		print(owner_character.animation_tree)
-		owner_character.animation_tree.set("parameters/AnimationState/current", 1)
-		owner_character.animation_tree.set("parameters/Weapon_states/current", 3)
-		owner_character.animation_tree.set("parameters/Reload_Animations/current", animation_reload_sequence )
-		print(animation_reload_sequence)
 
 
 # Holding R unloads the weapon, for instance if you want the ammo from it to then drop the weapon

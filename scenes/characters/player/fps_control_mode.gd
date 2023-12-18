@@ -40,6 +40,8 @@ func _on_player_spawn(_player : Player):
 
 
 func _ready():
+	if not is_instance_valid(GameManager.game):
+		return
 	GameManager.game.connect("player_spawned", self, "_on_player_spawn")
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees

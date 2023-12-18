@@ -250,6 +250,7 @@ func equip_mainhand_item():
 			
 		item.set_item_state(GlobalConsts.ItemState.EQUIPPED)
 		current_mainhand_equipment = item
+		
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:
 			item.get_parent().remove_child(item)
@@ -305,7 +306,13 @@ func drop_bulky_item():
 
 
 func equip_offhand_item():
-	yield(get_tree().create_timer(0.5), "timeout")
+	var equip_delay = 0.5
+	if current_offhand_equipment is MeleeItem:
+		equip_delay = 0.1
+	else:
+		equip_delay = 0.5
+		
+	yield(get_tree().create_timer(equip_delay), "timeout")
 	# Item already equipped or both slots set to the same item
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return

@@ -329,14 +329,14 @@ func _handle_grab_input(delta : float):
 		wanna_grab = true
 	else:
 		wanna_grab = false
-	if Input.is_action_pressed("player|interact") or Input.is_action_pressed("playerhand|main_use_secondary"):
+	if Input.is_action_pressed("player|interact"):
 		if is_grabbing == false:
 			grab_press_length += delta
 			if grab_press_length >= 0.15:
 				wanna_grab = true
 				interaction_handled = true
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"):
 		grab_press_length = 0.0
 		if is_grabbing == true:
 			is_grabbing = false
@@ -498,14 +498,29 @@ func _handle_inventory(delta : float):
 			if no_click_after_load_period == false:
 				if character.inventory.get_mainhand_item():
 					character.inventory.get_mainhand_item().use_primary()
+					
+					if character.inventory.get_mainhand_item() is MeleeItem:
+						$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
 					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
 			if character.inventory.get_mainhand_item() and interaction_target == null:
 				character.inventory.get_mainhand_item().use_secondary()
+				if character.inventory.get_mainhand_item() is MeleeItem:
+					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
 				throw_state = ThrowState.IDLE
-	
+			
+		if Input.is_action_just_released("playerhand|main_use_primary"):
+			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+		
+		if Input.is_action_just_released("playerhand|main_use_primary"):
+			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
@@ -694,15 +709,16 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 
 
 func handle_screen_filters():
-	if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
-		if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
-			_set_screen_filter_to(GameManager.ScreenFilter.NONE)
-			_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)
-			changed_to_reduce_color = true
-	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
-	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# Cycle to next filter
-		_set_screen_filter_to()
+	if is_instance_valid(GameManager.game):
+		if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
+			if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
+				_set_screen_filter_to(GameManager.ScreenFilter.NONE)
+				_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)
+				changed_to_reduce_color = true
+		# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+		if Input.is_action_just_pressed("misc|change_screen_filter"):
+			# Cycle to next filter
+			_set_screen_filter_to()
 
 
 # function this out maybe to a screen_filters.gd attached to ScreenFilter

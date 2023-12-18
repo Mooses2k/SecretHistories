@@ -18,8 +18,13 @@ func handle_sound():
 	var sound_instance = sound_effect.instance()
 	sound_instance.set_as_toplevel(true)
 	sound_instance.transform.origin = sound_origin.global_transform.origin
-	if GameManager.game:   # this is here so test worlds work
-		GameManager.game.level.call_deferred("add_child", sound_instance)
+	var world_scene
+	if is_instance_valid(GameManager.game):
+		world_scene = GameManager.game.level
+	else:
+		world_scene = owner.owner_character.owner as Spatial
+	
+	world_scene.call_deferred("add_child", sound_instance)
 
 
 func handle_flash():

@@ -23,6 +23,7 @@ export(AttackTypes.Types) var secondary_damage_type1 : int = 0
 export var secondary_damage1 = 0
 export(AttackTypes.Types) var secondary_damage_type2 : int = 0
 export var secondary_damage2 = 0
+export var melee_attack_speed : float = 1.0
 
 onready var melee_hitbox = $Hitbox as Area
 export var cooldown = 0.01

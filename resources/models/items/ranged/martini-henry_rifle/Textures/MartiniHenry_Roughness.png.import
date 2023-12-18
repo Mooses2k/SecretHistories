@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/MartiniHenry_Roughness.png-4ec2e2464d7434f85c32c78456ad0353.s3tc.stex"
-path.etc2="res://.import/MartiniHenry_Roughness.png-4ec2e2464d7434f85c32c78456ad0353.etc2.stex"
+path.s3tc="res://.import/MartiniHenry_Roughness.png-53e91f8f19fde393b1769ca10e8d4bc0.s3tc.stex"
+path.etc2="res://.import/MartiniHenry_Roughness.png-53e91f8f19fde393b1769ca10e8d4bc0.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/models/items/ranged/martini-henry_rifle/Textures/MartiniHenry_Roughness.png"
-dest_files=[ "res://.import/MartiniHenry_Roughness.png-4ec2e2464d7434f85c32c78456ad0353.s3tc.stex", "res://.import/MartiniHenry_Roughness.png-4ec2e2464d7434f85c32c78456ad0353.etc2.stex" ]
+source_file="res://resources/models/items/ranged/martini-henry_rifle/textures/MartiniHenry_Roughness.png"
+dest_files=[ "res://.import/MartiniHenry_Roughness.png-53e91f8f19fde393b1769ca10e8d4bc0.s3tc.stex", "res://.import/MartiniHenry_Roughness.png-53e91f8f19fde393b1769ca10e8d4bc0.etc2.stex" ]
 
 [params]
 

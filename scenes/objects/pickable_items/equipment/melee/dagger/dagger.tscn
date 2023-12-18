@@ -33,14 +33,15 @@ dropped_mask = 1
 item_drop_sound = ExtResource( 1 )
 item_size = 0
 item_name = "Dagger"
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
+can_spin = true
 weapon_type = 1
 primary_damage_type1 = 2
 primary_damage1 = 34
 secondary_damage_type1 = 1
 secondary_damage1 = 25
-can_spin = true
-normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
+melee_attack_speed = 2.0
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 0, -0.160186, 0 )

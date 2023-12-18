@@ -36,7 +36,11 @@ func _ready():
 # Bug here where when player rotates, items does a little circle thing in hand
 func _physics_process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
-		transform = get_hold_transform()
+		##This checks if the item is a gun
+		if self.get("ammunition_capacity") != null:
+			transform = get_hold_transform()
+		else:
+			transform = get_hold_transform().inverse()
 	
 	if !is_instance_valid(owner_character):   # this is still hacky, but don't do throw damage if grabbing, basically
 		throw_damage(delta)
@@ -128,8 +132,7 @@ func use_unload():
 
 
 func get_hold_transform() -> Transform:
-	return $HoldPosition.transform.inverse()
-
+	return $HoldPosition.transform
 
 func apply_throw_logic():
 	if throw_logic:

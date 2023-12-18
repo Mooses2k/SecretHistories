@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/T_LanternOil_Roughness.jpeg-962adfd042a9ec5998f3648cb07ecd40.stex"
+path="res://.import/T_LampMed_Crystal_Metallic_png-T_LampMed_Crystal_Roughness_png.png-60614df2603e726a5dacdec8929b305e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/models/items/tools/light_sources/omnidirectional_lantern/Textures/T_LanternOil_Roughness.jpeg"
-dest_files=[ "res://.import/T_LanternOil_Roughness.jpeg-962adfd042a9ec5998f3648cb07ecd40.stex" ]
+source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/T_LampMed_Crystal_Metallic_png-T_LampMed_Crystal_Roughness_png.png"
+dest_files=[ "res://.import/T_LampMed_Crystal_Metallic_png-T_LampMed_Crystal_Roughness_png.png-60614df2603e726a5dacdec8929b305e.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/T_LanternOil_Metallic.jpeg-3e680fddbde823e02e42fd3327ba1c98.stex"
+path="res://.import/T_LampMed_Crystal_Emissive.png-77ca02c2a4652d31dea4d56fe16760c6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/models/items/tools/light_sources/omnidirectional_lantern/Textures/T_LanternOil_Metallic.jpeg"
-dest_files=[ "res://.import/T_LanternOil_Metallic.jpeg-3e680fddbde823e02e42fd3327ba1c98.stex" ]
+source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/T_LampMed_Crystal_Emissive.png"
+dest_files=[ "res://.import/T_LampMed_Crystal_Emissive.png-77ca02c2a4652d31dea4d56fe16760c6.stex" ]
 
 [params]
 

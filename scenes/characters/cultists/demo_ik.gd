@@ -28,6 +28,8 @@ func _ready():
 
 func _process(delta):
 	update_ik_target(tween_value)
+	if GameManager.game.player.inventory.bulky_equipment is ShardOfTheComet:
+		demo_state = DemoState.TURN_HEAD
 
 
 func update_ik_target(t : float):

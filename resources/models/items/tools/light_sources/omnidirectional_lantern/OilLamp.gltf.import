@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/medievallantern.glb-beb27db0c1e1fa823b89b0f4858fdef9.scn"
+path="res://.import/OilLamp.gltf-a5009e66270514f517d92d8d383ca869.scn"
 
 [deps]
 
-source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/medievallantern.glb"
-dest_files=[ "res://.import/medievallantern.glb-beb27db0c1e1fa823b89b0f4858fdef9.scn" ]
+source_file="res://resources/models/items/tools/light_sources/omnidirectional_lantern/OilLamp.gltf"
+dest_files=[ "res://.import/OilLamp.gltf-a5009e66270514f517d92d8d383ca869.scn" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/T_LanternOil_Normal.png-f34622f52bc71d29c78e2780dc6831d2.stex"
+path="res://.import/T_LampMedieval_Metallic-T_LampMedieval_Roughness.png-97565bbd3fb890862d6a9bdb3a89d1a3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/models/items/tools/light_sources/omnidirectional_lantern/Textures/T_LanternOil_Normal.png"
-dest_files=[ "res://.import/T_LanternOil_Normal.png-f34622f52bc71d29c78e2780dc6831d2.stex" ]
+source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/T_LampMedieval_Metallic-T_LampMedieval_Roughness.png"
+dest_files=[ "res://.import/T_LampMedieval_Metallic-T_LampMedieval_Roughness.png-97565bbd3fb890862d6a9bdb3a89d1a3.stex" ]
 
 [params]
 

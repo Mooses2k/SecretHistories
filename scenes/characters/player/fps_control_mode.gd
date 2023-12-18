@@ -34,15 +34,16 @@ var crouch_cam_target_pos = 0.98
 export var _gun_camera : NodePath
 onready var gun_camera : Camera = get_node(_gun_camera) as Camera
 
+
 func _on_player_spawn(_player : Player):
 	pitch_yaw.y = owner.rotation.y
+
 
 func _ready():
 	GameManager.game.connect("player_spawned", self, "_on_player_spawn")
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
-
 
 
 func _process(delta):

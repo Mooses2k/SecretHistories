@@ -29,6 +29,7 @@ onready var _collision_shape := CollisionShape.new()
 onready var _mesh_instance := MeshInstance.new()
 var _mesh : CylinderMesh = CylinderMesh.new()
 
+var line_of_sight : bool = false
 
 func add_area_nodes() -> void:
 	add_child(_collision_shape)
@@ -104,6 +105,7 @@ func on_area_exited(area: Area) -> void:
 
 
 func tick(character: Character, _delta: float) -> int:
+	line_of_sight = false
 	if is_instance_valid(ik_target): look_at(ik_target.global_transform.origin, Vector3.UP)
 	if process_player_detection(character): return OK
 	if process_light_detection(character): return OK
@@ -151,6 +153,7 @@ func can_see_player(character: Character) -> Player:
 		if is_instance_valid(world):
 			var result := world.direct_space_state.intersect_ray(global_transform.origin, target, [character], 1 << 0 | 1 << 1, true, false)
 			if !result.empty() and result.collider is Player:
+				line_of_sight = true
 				return player
 	
 	return null

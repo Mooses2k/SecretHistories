@@ -1,14 +1,14 @@
-class_name BTNode
-extends Node
+class_name BTNode extends Node
 
 
-enum Status {
-	SUCCESS,
-	FAILURE,
-	RUNNING,
-	COUNT
+enum\
+{
+	OK,
+	FAILED,
+	BUSY,
+	SKIP,
 }
 
 
-func tick(state : CharacterState) -> int:
-	return Status.FAILURE
+func tick(_state : CharacterState) -> int:
+	return FAILED

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/omnidirectional_lantern/M_LampOIl.material" type="Material" id=2]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lantern_light.gd" type="Script" id=3]
+[ext_resource path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" type="Script" id=3]
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=4]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=5]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=6]
@@ -74,17 +74,58 @@ tracks/0/keys = {
 }
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.07, 0.07, 0.07 )
+extents = Vector3( 0.1, 0.1, 0.1 )
 
 [node name="OilLantern" instance=ExtResource( 1 )]
 item_name = "Oil Lantern"
 horizontal_holding = true
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 is_oil_based = true
 life_percentage_lose = 0.1
 prob_going_out = 0.5
 
-[node name="Skeleton" type="Skeleton" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0425666, 0 )
+[node name="MeshInstance" parent="." index="0"]
+transform = Transform( 0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0.000979346, 0.0794037, 8.01446e-05 )
+mesh = null
+skeleton = NodePath("")
+
+[node name="CollisionShape" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0709005, 0 )
+shape = SubResource( 7 )
+
+[node name="CollisionShapeAntiRoll" type="CollisionShape" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0635935, 0 )
+shape = SubResource( 8 )
+
+[node name="HoldPosition" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315746, -0.0179318 )
+
+[node name="Durability" type="Timer" parent="." index="4"]
+wait_time = 30000.0
+one_shot = true
+autostart = true
+
+[node name="Light" type="OmniLight" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0673865, 0 )
+layers = 3
+light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
+shadow_enabled = true
+omni_range = 13.0
+omni_attenuation = 4.0
+
+[node name="PlayerLightArea" type="Area" parent="Light" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+collision_layer = 1024
+collision_mask = 1024
+priority = 50.0
+script = ExtResource( 3 )
+parent_item_path = NodePath("../..")
+
+[node name="Skeleton" type="Skeleton" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0709005, 0 )
 bones/0/name = "Handle"
 bones/0/parent = -1
 bones/0/rest = Transform( -1.19209e-07, -4.36612e-07, -1, 1.56319e-13, -1, 4.36612e-07, -1, -8.52651e-14, 1.78814e-07, 3.4539e-08, 0.273509, 0 )
@@ -158,8 +199,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.019811, 0 )
 [node name="CollisionShape" parent="Ignite" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015177, 0 )
 shape = SubResource( 6 )
-
-[node name="PlacementAnchor" parent="." index="12"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0721378, 0 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

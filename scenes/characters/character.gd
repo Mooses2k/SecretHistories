@@ -103,7 +103,7 @@ var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
 
-onready var character_state : CharacterState = CharacterState.new(self)
+onready var character_state := CharacterState.new(self)
 
 onready var skeleton = $"%Skeleton"
 onready var inventory = $Inventory

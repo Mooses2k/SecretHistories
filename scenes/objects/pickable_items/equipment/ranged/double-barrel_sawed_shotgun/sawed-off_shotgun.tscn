@@ -2,12 +2,12 @@
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" type="Script" id=1]
 [ext_resource path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" type="AudioStream" id=2]
+[ext_resource path="res://resources/sounds/reloading/shotgun/shotgun_reload_2.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/tiny_items/ammunition/shotgun_shell.tres" type="Resource" id=4]
 [ext_resource path="res://scenes/effects/shotgun_audio.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/effects/hit_effect.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/_smoke.tscn" type="PackedScene" id=8]
-[ext_resource path="res://resources/sounds/reloading/shotgun/522289__filmmakersmanual__loading-shell-shotgun-4.wav" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" type="Script" id=11]
 [ext_resource path="res://resources/models/items/ranged/double_barrel_shotguns/double_barrel_sawed_off_files/DoubleBarrel_001.material" type="Material" id=12]
@@ -433,7 +433,7 @@ stream = ExtResource( 2 )
 bus = "Effects"
 
 [node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
-stream = ExtResource( 9 )
+stream = ExtResource( 3 )
 bus = "Effects"
 
 [node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4"]

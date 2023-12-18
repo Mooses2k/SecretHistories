@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/MartiniHenry_Metallic.png-a1cdbc450f57a860d0c22d7397267b41.s3tc.stex"
-path.etc2="res://.import/MartiniHenry_Metallic.png-a1cdbc450f57a860d0c22d7397267b41.etc2.stex"
+path.s3tc="res://.import/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.s3tc.stex"
+path.etc2="res://.import/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/models/items/ranged/martini-henry_rifle/textures/MartiniHenry_Metallic.png"
-dest_files=[ "res://.import/MartiniHenry_Metallic.png-a1cdbc450f57a860d0c22d7397267b41.s3tc.stex", "res://.import/MartiniHenry_Metallic.png-a1cdbc450f57a860d0c22d7397267b41.etc2.stex" ]
+source_file="res://resources/models/items/ranged/martini-henry_rifle/Textures/MartiniHenry_Metallic.png"
+dest_files=[ "res://.import/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.s3tc.stex", "res://.import/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.etc2.stex" ]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/MartiniHenry_Mixed_AO.png-00ac4a1bd4cf6d03758ee367f9d12d8d.s3tc.stex"
-path.etc2="res://.import/MartiniHenry_Mixed_AO.png-00ac4a1bd4cf6d03758ee367f9d12d8d.etc2.stex"
+path.s3tc="res://.import/MartiniHenry_Mixed_AO.png-14e2bd4dab563a8043d3342e118376ea.s3tc.stex"
+path.etc2="res://.import/MartiniHenry_Mixed_AO.png-14e2bd4dab563a8043d3342e118376ea.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/models/items/ranged/martini-henry_rifle/textures/MartiniHenry_Mixed_AO.png"
-dest_files=[ "res://.import/MartiniHenry_Mixed_AO.png-00ac4a1bd4cf6d03758ee367f9d12d8d.s3tc.stex", "res://.import/MartiniHenry_Mixed_AO.png-00ac4a1bd4cf6d03758ee367f9d12d8d.etc2.stex" ]
+source_file="res://resources/models/items/ranged/martini-henry_rifle/Textures/MartiniHenry_Mixed_AO.png"
+dest_files=[ "res://.import/MartiniHenry_Mixed_AO.png-14e2bd4dab563a8043d3342e118376ea.s3tc.stex", "res://.import/MartiniHenry_Mixed_AO.png-14e2bd4dab563a8043d3342e118376ea.etc2.stex" ]
 
 [params]
 

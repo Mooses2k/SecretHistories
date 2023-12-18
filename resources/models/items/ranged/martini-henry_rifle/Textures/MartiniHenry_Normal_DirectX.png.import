@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MartiniHenry_Normal_DirectX.png-fa44266267e58e152b1ceedfd3502cd7.stex"
+path="res://.import/MartiniHenry_Normal_DirectX.png-fb0329788f215805fd2aa446acdd551d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/models/items/ranged/martini-henry_rifle/textures/MartiniHenry_Normal_DirectX.png"
-dest_files=[ "res://.import/MartiniHenry_Normal_DirectX.png-fa44266267e58e152b1ceedfd3502cd7.stex" ]
+source_file="res://resources/models/items/ranged/martini-henry_rifle/Textures/MartiniHenry_Normal_DirectX.png"
+dest_files=[ "res://.import/MartiniHenry_Normal_DirectX.png-fb0329788f215805fd2aa446acdd551d.stex" ]
 
 [params]
 

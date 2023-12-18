@@ -61,6 +61,9 @@ func _ready():
 	ads_reset_position = hold_position.translation
 	ads_reset_rotation = hold_position.rotation_degrees
 	get_reload_length()
+	
+	if owner_character:   # start loaded, for now
+		reload()
 
 
 func get_reload_length():
@@ -132,6 +135,7 @@ func _use_reload():
 
 
 func _use_unload():
+	return   # TODO: when animations available for unload, remove this line
 	unload()
 
 

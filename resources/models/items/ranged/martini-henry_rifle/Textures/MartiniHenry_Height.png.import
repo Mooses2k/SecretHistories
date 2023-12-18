@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/MartiniHenry_Height.png-b55ad7771a18e44b8eb04df90cc821bb.stex"
+path="res://.import/MartiniHenry_Height.png-c10f7f6bf9b58ad19341204ba1f1160b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/models/items/ranged/martini-henry_rifle/textures/MartiniHenry_Height.png"
-dest_files=[ "res://.import/MartiniHenry_Height.png-b55ad7771a18e44b8eb04df90cc821bb.stex" ]
+source_file="res://resources/models/items/ranged/martini-henry_rifle/Textures/MartiniHenry_Height.png"
+dest_files=[ "res://.import/MartiniHenry_Height.png-c10f7f6bf9b58ad19341204ba1f1160b.stex" ]
 
 [params]
 

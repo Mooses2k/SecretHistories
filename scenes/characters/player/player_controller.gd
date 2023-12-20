@@ -548,7 +548,7 @@ func _handle_inventory(delta : float):
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()
 			if character.inventory.get_offhand_item() is MeleeItem:
-				$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+				$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
 				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
 				$"%AnimationTree".set("parameters/MeleeThrustL/active", true)
 			throw_state = ThrowState.IDLE

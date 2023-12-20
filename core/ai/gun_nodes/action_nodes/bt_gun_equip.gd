@@ -16,4 +16,4 @@ class_name BTEquipNextWeapon extends BTAction
 
 
 func tick(_character: CharacterState) -> int:
-	return OK
+	return BTResult.OK

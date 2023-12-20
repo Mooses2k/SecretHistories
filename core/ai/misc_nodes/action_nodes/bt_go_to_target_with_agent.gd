@@ -28,10 +28,10 @@ func tick(state : CharacterState) -> int:
 		velocity_computed = true
 	
 	if agent.is_target_reached():
-		return OK
+		return BTResult.OK
 	
 	if agent.is_navigation_finished():
-		return FAILED
+		return BTResult.FAILED
 	
 	if velocity_computed:
 		velocity_computed = false
@@ -44,5 +44,5 @@ func tick(state : CharacterState) -> int:
 		agent.set_velocity(velocity)
 		
 	
-	return BUSY
+	return BTResult.RUNNING
 

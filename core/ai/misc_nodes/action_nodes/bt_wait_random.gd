@@ -32,11 +32,11 @@ func tick(state : CharacterState) -> int:
 	if time_left > 0:
 		state.move_direction = Vector3.ZERO
 		active = true
-		return BUSY
+		return BTResult.RUNNING
 	
 	reset_timer() # Reset timer in preparation for next execution
 	active = false
-	return OK
+	return BTResult.OK
 
 
 func reset_timer():

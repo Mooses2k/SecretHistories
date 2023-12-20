@@ -83,7 +83,7 @@ extents = Vector3( 0.05, 1, 0.05 )
 extents = Vector3( 0.55, 0.05, 0.05 )
 
 [sub_resource type="CylinderShape" id=9]
-radius = 1.3
+radius = 1.6
 
 [node name="BaseKinematicDoor" type="Spatial"]
 script = ExtResource( 4 )

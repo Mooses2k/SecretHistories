@@ -51,6 +51,7 @@ shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
 
 [node name="Navigation" parent="." index="3"]
+margin = 0.5
 preview_material = SubResource( 3 )
 
 [node name="GenerationManager" parent="." index="4"]

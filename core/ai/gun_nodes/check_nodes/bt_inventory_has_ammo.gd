@@ -9,5 +9,5 @@ func tick(state : CharacterState) -> int:
 	var equipment := inventory.current_mainhand_equipment as GunItem
 	
 	if equipment: for ammo_type in equipment.ammo_types:
-		return FAILED
-	return OK
+		return BTResult.FAILED
+	return BTResult.OK

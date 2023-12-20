@@ -14,7 +14,10 @@ export var max_distance := 8.0
 var ticks_since_active := 0
 var target_distance := 0.0
 var target_reached := false
+var distance : float = INF
 
+func _ready():
+	get_tree().connect("physics_frame", self, "idle")
 
 func idle() -> void:
 	ticks_since_active += 1
@@ -22,22 +25,25 @@ func idle() -> void:
 		target_distance = rand_range(min_distance, max_distance)
 		target_reached = false
 
-
 func tick(state : CharacterState) -> int:
 	var _speech_chance = randf()
 	ticks_since_active = 0
-	var distance: float = state.character.global_transform.origin.distance_to(state.target_position)
+	distance = state.character.global_transform.origin.distance_to(state.target_position)
 	
 	if target_reached:
 		# Since target distance changes every frame, this prevents the character from
 		# constantly repositioning every time it changes
 		if distance > target_distance * threshold_factor:
 			target_reached = false
-			return FAILED
-		return OK
+			return BTResult.FAILED
+		state.move_direction = Vector3.ZERO
+		return BTResult.OK
 	
 	if distance < target_distance:
 		target_reached = true
-		return OK
-	return FAILED
+		state.move_direction = Vector3.ZERO
+		return BTResult.OK
+	return BTResult.FAILED
 
+func _get_node_state() -> Dictionary:
+	return {distance = distance, target_distance = target_distance}

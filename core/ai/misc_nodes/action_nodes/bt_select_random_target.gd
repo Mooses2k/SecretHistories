@@ -13,4 +13,4 @@ func tick(state : CharacterState) -> int:
 	var angle := rand_range(0, 2*PI)
 	var offset := (Vector3.FORWARD * radius).rotated(Vector3.UP, angle)
 	state.target_position = state.character.global_transform.origin + offset
-	return OK
+	return BTResult.OK

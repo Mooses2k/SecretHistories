@@ -18,7 +18,10 @@ func tick(state : CharacterState) -> int:
 	var character = state.character
 
 	if character.global_transform.origin.distance_squared_to(state.target_position) <= _thresold_squared:
-		return OK
+		# Stop moving after reaching destination
+#		state.move_direction = Vector3.ZERO
+
+		return BTResult.OK
 
 	while state.path.size() > 0 and state.path[0].distance_squared_to(character.global_transform.origin) <= _thresold_squared:
 		state.path.pop_front()
@@ -26,6 +29,6 @@ func tick(state : CharacterState) -> int:
 	if state.path.size() > 0:
 		state.move_direction = state.path[0] - character.global_transform.origin
 		state.face_direction = state.move_direction
-		return BUSY
+		return BTResult.RUNNING
 
-	return FAILED
+	return BTResult.FAILED

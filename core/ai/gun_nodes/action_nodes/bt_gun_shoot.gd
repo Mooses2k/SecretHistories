@@ -12,6 +12,8 @@ func tick(state : CharacterState) -> int:
 	if equipment:
 		if (speech_chance > 0.75):
 			emit_signal("fighting")
-		equipment._use_primary()
-		return OK
-	return FAILED
+#		TODO disable shooting for now
+		print("Pew")
+#		equipment._use_primary()
+		return BTResult.OK
+	return BTResult.FAILED

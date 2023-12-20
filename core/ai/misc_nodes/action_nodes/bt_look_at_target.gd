@@ -10,4 +10,4 @@ func tick(state : CharacterState) -> int:
 	# Note that the character may not be facing in the given direction yet
 	# When this node succeeds
 	state.face_direction = state.target_position - state.character.global_transform.origin
-	return OK
+	return BTResult.OK

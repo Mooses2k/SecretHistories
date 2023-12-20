@@ -49,10 +49,11 @@ func set_event(interest: int, position: Vector3, object: Object, emissor: Charac
 			emit_signal("player_detected", object, position)
 		else: emit_signal("indirect_event_detected")
 
-	if events.has(object) and interest > events[object].interest:
-		events[object].set_interest_level(interest)
-		events[object].position = position
-		events[object].emissor = emissor
+	if events.has(object):
+		if interest > events[object].interest:
+			events[object].set_interest_level(interest)
+			events[object].position = position
+			events[object].emissor = emissor
 	else: events[object] = Event.new(interest, position, object, emissor)
 
 
@@ -83,7 +84,7 @@ func tick(state: CharacterState) -> int:
 	if is_instance_valid(most_interesting):
 		state.target_position = most_interesting.position
 		state.target = most_interesting
-		return OK
+		return BTResult.OK
 	
 	state.target = null
-	return FAILED
+	return BTResult.FAILED

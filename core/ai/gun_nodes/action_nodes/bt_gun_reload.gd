@@ -16,5 +16,5 @@ func tick(state : CharacterState) -> int:
 			if equipment.current_ammo < 1:
 				equipment.reload()
 				emit_signal("character_reloaded")
-				return OK
-	return FAILED
+				return BTResult.OK
+	return BTResult.FAILED

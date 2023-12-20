@@ -45,9 +45,13 @@ func set_target_position(value : Vector3) -> void:
 	var map = character.get_world().navigation_map
 	var nav = NavigationServer
 	value = nav.map_get_closest_point(map, value)
-	if !value.distance_squared_to(target_position) < 0.25:
-		target_position = value
-		path_needs_update = true
+	
+	var data : WorldData = GameManager.game.level.world_data
+	var cell = data.get_cell_index_from_local_position(value)
+	if data.get_cell_type(cell) != data.CellType.EMPTY:
+		if !value.distance_squared_to(target_position) < 0.25:
+			target_position = value
+			path_needs_update = true
 
 
 # May or may not be necessary to make sure cultists aren't floppy after death

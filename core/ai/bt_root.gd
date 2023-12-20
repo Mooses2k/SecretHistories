@@ -6,7 +6,7 @@ onready var character: Character = owner
 
 # TODO: maybe multithread this. - Alek
 func _process(_delta: float) -> void:
-	.tick(character.character_state)
+	._tick(character.character_state, self)
 
 
 # Delete mind, cancelling further planning and speech.

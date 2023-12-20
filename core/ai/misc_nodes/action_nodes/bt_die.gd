@@ -5,5 +5,5 @@ class_name BTDie extends BTAction
 
 func tick(state : CharacterState) -> int:
 	if state.character.alive == false:
-		return OK # Because this is a Selector
-	return FAILED # Because this is a Selector, proceed with tree
+		return BTResult.OK # Because this is a Selector
+	return BTResult.FAILED # Because this is a Selector, proceed with tree

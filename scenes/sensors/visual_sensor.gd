@@ -186,7 +186,7 @@ func process_light_detection(_character: Character) -> bool:
 
 	if !light_sources.empty():
 		var light_area := check_light()
-		print(light_area)
+#		print(light_area)
 		if is_instance_valid(light_area):
 			emit_signal\
 			(

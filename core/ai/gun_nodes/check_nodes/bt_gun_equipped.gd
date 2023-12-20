@@ -5,4 +5,4 @@ class_name BTGunEquipped extends BTCheck
 
 
 func tick(state : CharacterState) -> int:
-	return OK if state.character.inventory.current_mainhand_equipment is GunItem else FAILED
+	return BTResult.OK if state.character.inventory.current_mainhand_equipment is GunItem else BTResult.FAILED

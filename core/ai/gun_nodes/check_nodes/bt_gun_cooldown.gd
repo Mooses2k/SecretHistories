@@ -6,5 +6,5 @@ class_name BTGunCooldown extends BTCheck
 
 func tick(state : CharacterState) -> int:
 	var equipment = state.character.inventory.current_mainhand_equipment as GunItem
-	if equipment: return BUSY if equipment.on_cooldown or state.character.is_reloading else OK
-	return FAILED
+	if equipment: return BTResult.RUNNING if equipment.on_cooldown or state.character.is_reloading else BTResult.OK
+	return BTResult.FAILED

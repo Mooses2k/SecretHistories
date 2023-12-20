@@ -978,6 +978,7 @@ demo|ik_toggle={
 [network]
 
 limits/debugger_stdout/max_chars_per_second=16384
+limits/debugger_stdout/max_messages_per_frame=100
 
 [physics]
 

@@ -15,6 +15,5 @@ func _on_ShotgunItem_target_hit(target, position, direction, normal):
 
 func _on_ShotgunItem_on_shoot():
 	handle_sound()
-	handle_particles()
 	handle_flash()
-	pass
+	handle_particles()

@@ -134,12 +134,12 @@ func crosshair_indicators():
 
 # Called from gun_item to add recoil
 func recoil(item, damage, handling):
-	side_recoil = rand_range(-5, 5)
+	side_recoil = rand_range(-1, 1)
 #    var recoil = rand_range(250 - item.handling, 500 - item.handling)
 #    up_recoil += recoil * delta
 #    up_recoil += 1 
 	#compensate for delta application
-	up_recoil += 30 * damage / (handling)
+	up_recoil += 60 * damage / (handling)
 #	_camera.add_stress(0.5)
 
 

@@ -41,7 +41,7 @@ primary_damage_type1 = 2
 primary_damage1 = 34
 secondary_damage_type1 = 1
 secondary_damage1 = 25
-melee_attack_speed = 2.0
+melee_attack_speed = 1.2
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -1.74846e-07, 0, 4, 0, 4, 0, -4, 0, -1.74846e-07, 0, -0.160186, 0 )

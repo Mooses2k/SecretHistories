@@ -515,11 +515,6 @@ func _handle_inventory(delta : float):
 					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
 				throw_state = ThrowState.IDLE
 			
-		if Input.is_action_just_released("playerhand|main_use_primary"):
-			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
-		
-		if Input.is_action_just_released("playerhand|main_use_secondary"):
-			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
 			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
@@ -553,8 +548,6 @@ func _handle_inventory(delta : float):
 				$"%AnimationTree".set("parameters/MeleeThrustL/active", true)
 			throw_state = ThrowState.IDLE
 	
-	if Input.is_action_just_released("playerhand|offhand_use"):
-		$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
 	update_throw_state(throw_item, delta)
 	
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):

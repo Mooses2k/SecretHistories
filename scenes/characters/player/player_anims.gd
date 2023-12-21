@@ -277,12 +277,14 @@ func adjust_arm(final_position, interpolation_value):
 
 
 func _on_Inventory_inventory_changed():
+	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
 	print("Equipped new item")
 	yield(get_tree().create_timer(0.5), "timeout")
 	check_player_animation()
 
 
 func switch_mainhand_item_animation():
+	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
 	animation_tree.set("parameters/Hand_Transition/current",0)
 	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 	animation_tree.set("parameters/Weapon_states/current",4)
@@ -292,10 +294,12 @@ func switch_mainhand_item_animation():
 
 
 func _on_Inventory_unequip_mainhand():
+	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
 	animation_tree.set("parameters/Hand_Transition/current", 0)
 	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 	animation_tree.set("parameters/Weapon_states/current", 4)
 
 
 func _on_Inventory_unequip_offhand():
+	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
 	animation_tree.set("parameters/OffHand_Weapon_States/current", 2)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=2]
+[gd_scene load_steps=99 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -36,6 +36,7 @@
 [ext_resource path="res://resources/animations/melee_thrust.tres" type="Animation" id=34]
 [ext_resource path="res://resources/animations/melee_chop_1.tres" type="Animation" id=35]
 [ext_resource path="res://resources/animations/melee_chop_2.tres" type="Animation" id=36]
+[ext_resource path="res://resources/animations/melee_thrust_l.tres" type="Animation" id=37]
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
@@ -7315,6 +7316,9 @@ tracks/170/keys = PoolRealArray( 0, 1, -2.8199e-08, 2.38419e-07, 0, 2.98023e-08,
 [sub_resource type="AnimationNodeAnimation" id=442]
 animation = "melee_thrust"
 
+[sub_resource type="AnimationNodeAnimation" id=447]
+animation = "melee_thrust_l"
+
 [sub_resource type="AnimationNodeAnimation" id=419]
 animation = "one-handed_ads_idle"
 
@@ -7391,6 +7395,9 @@ animation = "idle-loop"
 
 [sub_resource type="AnimationNodeOneShot" id=445]
 
+[sub_resource type="AnimationNodeOneShot" id=448]
+filters = [ "rig_deform/Skeleton:DEF-f_index.01.L", "rig_deform/Skeleton:DEF-f_index.02.L", "rig_deform/Skeleton:DEF-f_index.03.L", "rig_deform/Skeleton:DEF-f_middle.01.L", "rig_deform/Skeleton:DEF-f_middle.02.L", "rig_deform/Skeleton:DEF-f_middle.03.L", "rig_deform/Skeleton:DEF-f_pinky.01.L", "rig_deform/Skeleton:DEF-f_pinky.02.L", "rig_deform/Skeleton:DEF-f_pinky.03.L", "rig_deform/Skeleton:DEF-f_ring.01.L", "rig_deform/Skeleton:DEF-f_ring.02.L", "rig_deform/Skeleton:DEF-f_ring.03.L", "rig_deform/Skeleton:DEF-forearm.L", "rig_deform/Skeleton:DEF-forearm.L.001", "rig_deform/Skeleton:DEF-hand.L", "rig_deform/Skeleton:DEF-palm.01.L", "rig_deform/Skeleton:DEF-palm.02.L", "rig_deform/Skeleton:DEF-palm.03.L", "rig_deform/Skeleton:DEF-palm.04.L", "rig_deform/Skeleton:DEF-thumb.01.L", "rig_deform/Skeleton:DEF-thumb.02.L", "rig_deform/Skeleton:DEF-thumb.03.L", "rig_deform/Skeleton:DEF-upper_arm.L", "rig_deform/Skeleton:DEF-upper_arm.L.001" ]
+
 [sub_resource type="AnimationNodeBlend2" id=413]
 filter_enabled = true
 filters = [ "rig_deform/Skeleton:DEF-f_index.01.L", "rig_deform/Skeleton:DEF-f_index.02.L", "rig_deform/Skeleton:DEF-f_index.03.L", "rig_deform/Skeleton:DEF-f_middle.01.L", "rig_deform/Skeleton:DEF-f_middle.02.L", "rig_deform/Skeleton:DEF-f_middle.03.L", "rig_deform/Skeleton:DEF-f_pinky.01.L", "rig_deform/Skeleton:DEF-f_pinky.02.L", "rig_deform/Skeleton:DEF-f_pinky.03.L", "rig_deform/Skeleton:DEF-f_ring.01.L", "rig_deform/Skeleton:DEF-f_ring.02.L", "rig_deform/Skeleton:DEF-f_ring.03.L", "rig_deform/Skeleton:DEF-forearm.L", "rig_deform/Skeleton:DEF-forearm.L.001", "rig_deform/Skeleton:DEF-hand.L", "rig_deform/Skeleton:DEF-palm.01.L", "rig_deform/Skeleton:DEF-palm.02.L", "rig_deform/Skeleton:DEF-palm.03.L", "rig_deform/Skeleton:DEF-palm.04.L", "rig_deform/Skeleton:DEF-thumb.01.L", "rig_deform/Skeleton:DEF-thumb.02.L", "rig_deform/Skeleton:DEF-thumb.03.L", "rig_deform/Skeleton:DEF-upper_arm.L", "rig_deform/Skeleton:DEF-upper_arm.L.001" ]
@@ -7452,11 +7459,13 @@ input_5/auto_advance = false
 [sub_resource type="AnimationNodeOneShot" id=437]
 
 [sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 1913.24, -70.5064 )
+graph_offset = Vector2( 419.104, -429.485 )
 nodes/Animation/node = SubResource( 417 )
 nodes/Animation/position = Vector2( -700, -500 )
 "nodes/Animation 10/node" = SubResource( 442 )
 "nodes/Animation 10/position" = Vector2( 2980, 40 )
+"nodes/Animation 11/node" = SubResource( 447 )
+"nodes/Animation 11/position" = Vector2( 3300, 40 )
 "nodes/Animation 2/node" = SubResource( 419 )
 "nodes/Animation 2/position" = Vector2( -700, -220 )
 "nodes/Animation 3/node" = SubResource( 426 )
@@ -7478,7 +7487,7 @@ nodes/Animation/position = Vector2( -700, -500 )
 nodes/DoubleBarrelReload/node = SubResource( 402 )
 nodes/DoubleBarrelReload/position = Vector2( 500, -220 )
 nodes/Hand_Transition/node = SubResource( 407 )
-nodes/Hand_Transition/position = Vector2( 3940, -20 )
+nodes/Hand_Transition/position = Vector2( 4980, -200 )
 nodes/Hold_Animation/node = SubResource( 400 )
 nodes/Hold_Animation/position = Vector2( -180, -860 )
 nodes/Horizontal_Hold_Animation/node = SubResource( 399 )
@@ -7502,11 +7511,13 @@ nodes/MediumAds/position = Vector2( -180, -640 )
 nodes/MeleeChop1/node = SubResource( 444 )
 nodes/MeleeChop1/position = Vector2( 2960, -260 )
 nodes/MeleeSpeed/node = SubResource( 446 )
-nodes/MeleeSpeed/position = Vector2( 3260, 120 )
+nodes/MeleeSpeed/position = Vector2( 3940, 40 )
 nodes/MeleeThrust/node = SubResource( 445 )
 nodes/MeleeThrust/position = Vector2( 3220, -180 )
+nodes/MeleeThrustL/node = SubResource( 448 )
+nodes/MeleeThrustL/position = Vector2( 3498.49, -174.467 )
 nodes/OffHand_MainHand_Blend/node = SubResource( 413 )
-nodes/OffHand_MainHand_Blend/position = Vector2( 3460, 240 )
+nodes/OffHand_MainHand_Blend/position = Vector2( 4280, 200 )
 nodes/OffHand_Weapon_States/node = SubResource( 408 )
 nodes/OffHand_Weapon_States/position = Vector2( 1900, 100 )
 nodes/Offhand_Hold_Animation/node = SubResource( 409 )
@@ -7531,8 +7542,8 @@ nodes/Weapon_states/node = SubResource( 366 )
 nodes/Weapon_states/position = Vector2( 460, -540 )
 "nodes/Webley revolver/node" = SubResource( 437 )
 "nodes/Webley revolver/position" = Vector2( 1740, -440 )
-nodes/output/position = Vector2( 4380, -440 )
-node_connections = [ "MeleeSpeed", 0, "MeleeThrust", "output", 0, "Hand_Transition", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "MeleeThrust", 0, "MeleeChop1", "MeleeThrust", 1, "Animation 10", "OffHand_MainHand_Blend", 0, "MeleeSpeed", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MeleeChop1", 0, "Sawed-off shotgun", "MeleeChop1", 1, "Animation 9", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini", "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7", "Sawed-off shotgun", 0, "Sawed-off Martini pistol", "Sawed-off shotgun", 1, "Animation 8", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload" ]
+nodes/output/position = Vector2( 5400, -500 )
+node_connections = [ "output", 0, "Hand_Transition", "MeleeSpeed", 0, "MeleeThrustL", "Hand_Transition", 0, "OffHand_MainHand_Blend", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "Sawed-off shotgun", 0, "Sawed-off Martini pistol", "Sawed-off shotgun", 1, "Animation 8", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "MeleeChop1", 0, "Sawed-off shotgun", "MeleeChop1", 1, "Animation 9", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "MeleeThrust", 0, "MeleeChop1", "MeleeThrust", 1, "Animation 10", "OffHand_MainHand_Blend", 0, "MeleeSpeed", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "MeleeThrustL", 0, "MeleeThrust", "MeleeThrustL", 1, "Animation 11" ]
 
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
@@ -7820,6 +7831,7 @@ anims/martini_henry_reload = SubResource( 423 )
 anims/melee_chop_1 = ExtResource( 35 )
 anims/melee_chop_2 = ExtResource( 36 )
 anims/melee_thrust = ExtResource( 34 )
+anims/melee_thrust_l = ExtResource( 37 )
 anims/one-handed_ads_idle = SubResource( 420 )
 anims/sawed_off_shotgun_reload = ExtResource( 33 )
 anims/webley_reload = ExtResource( 27 )
@@ -7845,6 +7857,7 @@ parameters/MediumAds/blend_amount = 0.0
 parameters/MeleeChop1/active = false
 parameters/MeleeSpeed/scale = 1.0
 parameters/MeleeThrust/active = false
+parameters/MeleeThrustL/active = false
 parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
 parameters/Offhand_Hold_Animation/current = 0

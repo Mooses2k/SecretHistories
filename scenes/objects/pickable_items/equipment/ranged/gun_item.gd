@@ -165,6 +165,7 @@ func reload():
 #					print(player.owner)
 					# TODO: Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
+					noise_level = 8
 					return
 
 
@@ -176,6 +177,7 @@ func unload():
 		
 		# Later, based on parts of the reload animation
 		$Sounds/Reload.play()
+		noise_level = 8
 # TODO ALSO: generalize Sounds spatial etc to gun_item
 
 

@@ -19,7 +19,7 @@ export var throw_logic : bool   # Some items like swords should be thrown point 
 export var can_spin : bool   # Some items should spin when thrown
 
 var is_in_belt = false
-
+var use_hold_time : float = 0.0
 onready var hold_position = $"%HoldPosition"
 onready var normal_pos = get_node(normal_pos_path)
 onready var throw_pos = get_node(throw_pos_path)

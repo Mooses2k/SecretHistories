@@ -492,7 +492,6 @@ func _handle_inventory(delta : float):
 	# Item Usage
 	# temporary hack (issue #409)
 	if is_instance_valid(character.inventory.get_mainhand_item()):
-	
 		if Input.is_action_just_pressed("playerhand|main_use_primary"):
 			# Check if grace period has elapsed since loadscreen removed to avoid accidentally shooting after load
 			if no_click_after_load_period == false:
@@ -504,7 +503,7 @@ func _handle_inventory(delta : float):
 						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
 						owner.noise_level = 8
 					throw_state = ThrowState.IDLE
-		
+
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
 			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody doors
@@ -521,7 +520,6 @@ func _handle_inventory(delta : float):
 		
 		if Input.is_action_just_released("playerhand|main_use_secondary"):
 			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
-			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
@@ -556,6 +554,7 @@ func _handle_inventory(delta : float):
 	
 	if Input.is_action_just_released("playerhand|offhand_use"):
 		$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+	
 	update_throw_state(throw_item, delta)
 	
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
@@ -566,6 +565,8 @@ func _handle_inventory(delta : float):
 					interaction_target = null
 				elif interaction_target is Interactable:
 					interaction_target.interact(owner)
+	
+	#Block light sources control
 
 
 func previous_item():

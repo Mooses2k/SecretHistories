@@ -87,6 +87,48 @@ func _use_primary():
 		$Sounds/BlowOutSound.play()
 
 
+func _input(event) -> void:
+	if event is InputEventMouseButton and owner_character.is_reloading == false:
+		if event.pressed:
+			match event.button_index:
+				BUTTON_LEFT:
+					if is_lit:
+						if self == owner_character.inventory.get_mainhand_item():
+							if horizontal_holding:
+								owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+								owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+								owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+								owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
+							else:
+								owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+								owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+								owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+								owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
+							print("Raising light item")
+		else:
+			print("Dropping raised item")
+			if self == owner_character.inventory.get_mainhand_item():
+				if horizontal_holding == true:
+					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
+				else:
+					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
+#		else:
+#
+#			if horizontal_holding == true:
+#				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+#				owner_character.get_node("%AnimationTree").set("parameters/OffHand_Weapon_States/current", 0)
+#				owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 1)
+#			else:
+#				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+#				owner_character.get_node("%AnimationTree").set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+#				owner_character.get_node("%AnimationTree").set("parameters/OffHand_Weapon_States/current", 0)
+#				owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 0)
+
+
 func _item_state_changed(previous_state, current_state):
 	if not is_instance_valid(GameManager.game):
 		return

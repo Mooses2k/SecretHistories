@@ -48,6 +48,41 @@ func _process(delta):
 	# This ensures it's never emissive while off, also, that candles stay lit on level change
 	if $MeshInstance.get_surface_material(0).emission_enabled == true and $FireOrigin/Fire.visible == false:
 		light()
+	
+	
+	if Input.is_action_pressed("playerhand|main_use_primary") and owner_character.is_reloading == false:
+		use_hold_time += 0.1
+		print("Use hold time is: ", use_hold_time)
+		if  use_hold_time >= 1.5:
+			if is_lit:
+				if self == owner_character.inventory.get_mainhand_item():
+					if horizontal_holding:
+						owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+						owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+						owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
+					else:
+						owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+						owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+						owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
+		
+	else:
+		use_hold_time = 0
+		if self == owner_character.inventory.get_mainhand_item():
+			if horizontal_holding == true:
+				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+				owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+				owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
+			else:
+				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+				owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+				owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
+				
+				
+	
+#	if Input.is_action_just_pressed("playerhand|offhand_use"):
+#		pass
 
 
 func light():
@@ -82,51 +117,22 @@ func _use_primary():
 	print("Lit state before use_primary: ", is_lit)
 	if is_lit == false:
 		light()
-	else:
-		unlight()
-		$Sounds/BlowOutSound.play()
+#	else:
+#		unlight()
+#		$Sounds/BlowOutSound.play()
 
 
-func _input(event) -> void:
-	if event is InputEventMouseButton and owner_character.is_reloading == false:
-		if event.pressed:
-			match event.button_index:
-				BUTTON_LEFT:
-					if is_lit:
-						if self == owner_character.inventory.get_mainhand_item():
-							if horizontal_holding:
-								owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-								owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-								owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
-								owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
-							else:
-								owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-								owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-								owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
-								owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
-							print("Raising light item")
-		else:
-			print("Dropping raised item")
-			if self == owner_character.inventory.get_mainhand_item():
-				if horizontal_holding == true:
-					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
-				else:
-					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
-#		else:
-#
-#			if horizontal_holding == true:
-#				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-#				owner_character.get_node("%AnimationTree").set("parameters/OffHand_Weapon_States/current", 0)
-#				owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 1)
-#			else:
-#				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-#				owner_character.get_node("%AnimationTree").set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
-#				owner_character.get_node("%AnimationTree").set("parameters/OffHand_Weapon_States/current", 0)
-#				owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 0)
+
+func _on_timer_timeout():
+	# This function will be called when the timer reaches the specified hold time
+	# Add any logic you want to execute after holding the button for the required time
+	print("Button held for ", use_hold_time, " seconds.")
+	# Your existing logic here
+	if is_lit:
+		if self == owner_character.inventory.get_mainhand_item():
+			if horizontal_holding:
+				# Your existing logic here
+				print("Raising light item")
 
 
 func _item_state_changed(previous_state, current_state):

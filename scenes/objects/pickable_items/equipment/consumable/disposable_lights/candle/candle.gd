@@ -88,6 +88,8 @@ func _use_primary():
 
 
 func _item_state_changed(previous_state, current_state):
+	if not is_instance_valid(GameManager.game):
+		return
 	if current_state == GlobalConsts.ItemState.INVENTORY:
 		if is_lit:
 			var sound = $Sounds/BlowOutSound.duplicate()

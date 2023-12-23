@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/653370__triqystudio__dullthud.wav" type="AudioStream" id=2]
 [ext_resource path="res://resources/models/items/melee/sap/M_Sap.material" type="Material" id=3]
-[ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=7]
-[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=8]
+[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=17]
@@ -24,17 +23,15 @@ surfaces/0 = {
 "vertex_count": 3080
 }
 
-[sub_resource type="ConvexPolygonShape" id=5]
-points = PoolVector3Array( -0.0711513, -0.00105419, -0.0368264, -0.0753572, -0.00316097, -0.0357732, 0.0688601, -0.00526475, 0.00317436, 0.0688417, 0.0221024, 0.00844046, -0.0974565, 0.00526015, -0.00523698, 0.0688417, 0.0221024, -0.00944987, 0.0625329, -0.00526475, -0.0168152, -0.0684517, -0.00758316, -0.000966315, 0.0562241, -0.00526475, 0.0179122, -0.0690299, 0.00526015, 0.035817, 0.0899264, 0.0147332, 0.00949369, 0.040452, 0.0221024, -0.00944987, -0.0690299, 0.00526015, -0.0357732, -0.0900962, -0.00526475, 0.026338, 0.0899264, 0.0147332, -0.00944987, -0.0900962, 0.00526015, 0.026338, -0.0900962, -0.00526475, -0.0262942, 0.040452, 0.0221024, 0.00949369, -0.0690299, -0.00526475, 0.035817, -0.0900962, 0.00526015, -0.0262942, 0.0572571, 0.00315636, -0.0189216, -0.0542909, 0.00315338, 0.035817, -0.0690299, -0.00526475, -0.0357732, -0.0616696, 0.00315338, -0.0368264, 0.0572571, 0.00315636, 0.0189655, -0.0974565, -0.00526475, 0.0052808, 0.087805, 0.00736393, -0.00944987, 0.0804263, 0.0199986, 0.00949369, 0.087805, 0.00736393, 0.00949369, 0.0867351, 0.0178918, -0.00944987, -0.0542909, -0.00316097, -0.0357732, -0.096405, 0.00526015, 0.0116001, -0.0616696, -0.00316097, 0.0368702, -0.0827175, 0.00736393, -0.0010241, 0.0625329, -0.00315798, 0.0179122, -0.096405, -0.00526475, -0.0115563, 0.0625329, -0.00315798, -0.0178684, -0.0785116, 0.00526015, 0.0337106, -0.0848204, 0.00526015, -0.0305071, 0.0656873, -0.00526475, 0.0136994, -0.0623758, -0.00731712, 0.00587531, 0.0677902, -0.00526475, -0.00944987, -0.0943021, 0.00526015, -0.0178756, 0.0867351, 0.0178918, 0.00949369, -0.0943021, -0.00421286, 0.0200187, 0.0762204, 0.0210475, -0.00944987, -0.0637726, 0.00526015, 0.035817, -0.0795631, 0.00210148, 0.0347638, -0.0623898, -0.00732054, -0.00583291, -0.081666, 0.00315338, -0.0336667, 0.0899264, 0.0105196, -0.00944987, 0.0762204, 0.0210475, 0.00949369, -0.0985264, -0.00421286, 0.00106792, -0.0785116, -0.00526475, 0.0337106, -0.0627211, 0.00526015, -0.0357732, 0.0583085, -0.00105419, -0.0189216, -0.0943021, -0.00421286, -0.0199749, -0.0869233, -0.00316097, -0.0305071, 0.0572571, -0.00315798, 0.0189655, -0.0700814, 0.00315338, 0.0368702, -0.0879748, -0.00316097, 0.0294977, 0.0899264, 0.0105196, 0.00949369, -0.0943021, 0.00526015, 0.0179195, -0.0985264, 0.00420826, -0.0010241 )
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 0.0808703, 0.00628822, 0.0332283 )
 
 [sub_resource type="CylinderShape" id=3]
-height = 0.145875
-radius = 0.1
+height = 0.0864951
+radius = 0.0459393
 
 [node name="Sap" instance=ExtResource( 17 )]
 mass = 2.5
-dropped_layers = 64
-dropped_mask = 1
 item_drop_sound = ExtResource( 2 )
 item_throw_sound = ExtResource( 1 )
 item_size = 0
@@ -46,6 +43,7 @@ can_spin = true
 weapon_type = 2
 primary_damage1 = 1
 secondary_damage1 = 40
+melee_attack_speed = 1.5
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.0416767, 0 )
@@ -56,14 +54,14 @@ __meta__ = {
 }
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.0416767, 0 )
+transform = Transform( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.026485, 0 )
 shape = SubResource( 5 )
 
 [node name="Hitbox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175027, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139101, 0 )
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.119212, 0 )
 shape = SubResource( 3 )
 
 [node name="CooldownTimer" parent="." index="3"]
@@ -80,10 +78,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310187, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439791, 0 )
 
 [node name="Thrust" parent="Sounds" index="2"]
-stream = ExtResource( 7 )
+stream = ExtResource( 4 )
 
 [node name="Cut" parent="Sounds" index="3"]
-stream = ExtResource( 8 )
+stream = ExtResource( 4 )
 
 [node name="FleshThrust" parent="Sounds" index="5"]
 stream = ExtResource( 10 )

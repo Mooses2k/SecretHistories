@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/belt_clip_dark_lantern/M_Lamp1.material" type="Material" id=2]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=3]
+[ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lantern_light.gd" type="Script" id=4]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -127,6 +128,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0335044, 0.0963702 )
 
 [node name="Light" type="SpotLight" parent="." index="3"]
 transform = Transform( -1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0232877, -0.100272 )
+layers = 3
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.5
 shadow_enabled = true
@@ -134,6 +136,7 @@ spot_range = 20.0
 spot_attenuation = 4.0
 spot_angle = 20.0
 spot_angle_attenuation = 32.0
+script = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 anims/RESET = SubResource( 3 )
@@ -154,3 +157,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00113074, -0.0198332, -0.06
 [node name="CollisionShape" parent="Ignite" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00126629, 0.00708632 )
 shape = SubResource( 5 )
+
+[node name="PlacementAnchor" parent="." index="9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0970659, 0 )

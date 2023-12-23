@@ -14,6 +14,7 @@ const ON_GRAB_MAX_SPEED : float = 0.1
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 1000.0
 export var kick_impulse : float = 100
+export var kick_max_speed : float = 10.0
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -73,6 +74,7 @@ onready var _ground_checker = get_node("../Body/GroundChecker")
 onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
 onready var _debug_light = get_node("../FPSCamera/DebugLight")
 
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
 
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
@@ -128,6 +130,7 @@ var current_screen_filter : int = GameManager.ScreenFilter.NONE
 #export var pixelated_material : Material
 #export var dither_material : Material
 #export var reduce_color_material : Material
+var changed_to_reduce_color = false   # Have we changed to reduce color filter on DLvl5?
 
 onready var noise_timer = $"../Audio/NoiseTimer"   # Because instant noises sometimes aren't detected
 
@@ -326,14 +329,14 @@ func _handle_grab_input(delta : float):
 		wanna_grab = true
 	else:
 		wanna_grab = false
-	if Input.is_action_pressed("player|interact") or Input.is_action_pressed("playerhand|main_use_secondary"):
+	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
 		if is_grabbing == false:
 			grab_press_length += delta
 			if grab_press_length >= 0.15:
 				wanna_grab = true
 				interaction_handled = true
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
 		grab_press_length = 0.0
 		if is_grabbing == true:
 			is_grabbing = false
@@ -495,14 +498,30 @@ func _handle_inventory(delta : float):
 			if no_click_after_load_period == false:
 				if character.inventory.get_mainhand_item():
 					character.inventory.get_mainhand_item().use_primary()
+					if character.inventory.get_mainhand_item() is MeleeItem:
+						$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
+						owner.noise_level = 8
 					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
-			if character.inventory.get_mainhand_item() and interaction_target == null:
+			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody doors
 				character.inventory.get_mainhand_item().use_secondary()
+				if character.inventory.get_mainhand_item() is MeleeItem:
+					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
+					owner.noise_level = 15
 				throw_state = ThrowState.IDLE
-	
+			
+		if Input.is_action_just_released("playerhand|main_use_primary"):
+			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+		
+		if Input.is_action_just_released("playerhand|main_use_secondary"):
+			$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
@@ -526,11 +545,17 @@ func _handle_inventory(delta : float):
 			character.inventory.get_mainhand_item().use_reload()
 			throw_state = ThrowState.IDLE
 		
-	if Input.is_action_just_pressed("playerhand|offhand_use"):
+	if Input.is_action_just_pressed("playerhand|offhand_use") and owner.is_reloading == false:
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()
+			if character.inventory.get_offhand_item() is MeleeItem:
+				$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
+				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+				$"%AnimationTree".set("parameters/MeleeThrustL/active", true)
 			throw_state = ThrowState.IDLE
 	
+	if Input.is_action_just_released("playerhand|offhand_use"):
+		$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
 	update_throw_state(throw_item, delta)
 	
 	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
@@ -583,10 +608,14 @@ func drop_grabable():
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
 					grab_object.implement_throw_damage(false)
-				else:   # It's a tiny item
+				elif grab_object is PickableItem:   # It's a tiny item
 					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
 					grab_object.apply_central_impulse(impulse)
 					grab_object.add_collision_exception_with(character)
+				elif grab_object is RigidBody:   # It's a large object
+					grab_object.apply_central_impulse(impulse)
+				else:   # It's a static?
+					pass
 				wanna_grab = false
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false
@@ -685,12 +714,18 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
 
+
 func handle_screen_filters():
-	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
-	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# Cycle to next filter
-		_set_screen_filter_to()
-		pass
+	if is_instance_valid(GameManager.game):
+		if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
+			if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
+				_set_screen_filter_to(GameManager.ScreenFilter.NONE)
+				_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)
+				changed_to_reduce_color = true
+		# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+		if Input.is_action_just_pressed("misc|change_screen_filter"):
+			# Cycle to next filter
+			_set_screen_filter_to()
 
 
 # function this out maybe to a screen_filters.gd attached to ScreenFilter
@@ -728,7 +763,7 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 		print("Screen Filter: REDUCE_COLOR")
 		_screen_filter.visible = true
 		_screen_filter.set_surface_material(
-				0, preload("res://resources/shaders/reduce_color/reduce_color.tres")
+				0, preload("res://resources/shaders/psx/just_color_reduce.tres")
 		)
 	# We're haven't implemented the mesh shader yet
 	if current_screen_filter == GameManager.ScreenFilter.PSX:
@@ -746,38 +781,40 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 
 func handle_binocs():
 	# Zoom in/out like binoculars or spyglass
-	if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
-		if Input.is_action_just_pressed("ablty|binocs_spyglass"):
+	if Input.is_action_just_pressed("ablty|binocs_spyglass"):
+		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_ZOOM
-		if Input.is_action_just_released("ablty|binocs_spyglass"):
+	if Input.is_action_just_released("ablty|binocs_spyglass"):
+		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_NORMAL
 
 
 func kick():
-	var kick_object = legcast.get_collider()
 	
-	if character.kick_timer.is_stopped():
+	if character.kick_timer.is_stopped() and legcast.is_colliding() and Input.is_action_just_pressed("player|kick"):
+		var kick_object = legcast.get_collider()
+		_camera.add_stress(0.5)
+		character.kick_timer.start()
 		
-		if legcast.is_colliding() and kick_object.is_in_group("Door_hitbox"):
-			if is_grabbing == false:
-				if Input.is_action_just_pressed("player|kick"):
-					kick_object.get_parent().damage(-character.global_transform.basis.z , character.kick_damage)
-					character.kick_timer.start(1)
-					kick_object.play_drop_sound(kick_object)
+		if kick_object is DoorInteractable and is_grabbing == false:
+			kick_object.emit_signal("kicked", legcast.get_collision_point(), -character.global_transform.basis.z, character.kick_damage)
+			
+		elif kick_object.is_in_group("CHARACTER"):
+			kick_object.get_parent().damage(character.kick_damage, kick_damage_type , kick_object)
+			$"../Audio/Movement".stream = item_drop_sound_flesh
+			$"../Audio/Movement".play()
 		
-		elif legcast.is_colliding() and kick_object.is_in_group("CHARACTER"):
-			if Input.is_action_just_pressed("player|kick"):
-				kick_object.get_parent().damage(character.kick_damage , kick_damage_type , kick_object)
-				character.kick_timer.start(1)
-				# sound handled by damage()
-		
-		elif legcast.is_colliding() and (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
-			if Input.is_action_just_pressed("player|kick"):
-				if kick_object is Area:
-					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
-				character.kick_timer.start(1)
+		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if kick_object is Area:
+				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+#			print(kick_object.get_class())
+			var actual_kick_impulse = min(kick_impulse, kick_object.mass * kick_max_speed)
+			if kick_object is PickableItem:   # Is a large object like a floor candelabra
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
 				kick_object.play_drop_sound(kick_object)
+			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
+				kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
+				kick_object.play_drop_sound(10, false)
 
 
 func _clamber():

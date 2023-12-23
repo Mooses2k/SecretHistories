@@ -7,10 +7,14 @@
 
 [node name="GunItem" instance=ExtResource( 1 )]
 collision_layer = 64
-collision_mask = 1
+collision_mask = 65
 script = ExtResource( 2 )
 item_drop_sound = ExtResource( 4 )
 item_throw_sound = ExtResource( 3 )
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 ammo_types = [  ]
 ammunition_capacity = 0
 reload_amount = 0
@@ -19,9 +23,13 @@ damage_offset = 0
 dispersion_offset_degrees = 0
 cooldown = 1.0
 handling = 5.0
-animation_reload_sequence = 0
+reload_position = Vector3( 0, 0, 0 )
+reload_rotation = Vector3( 0, 0, 0 )
+ads_hold_position = Vector3( 0, 0, 0 )
+ads_hold_rotation = Vector3( 0, 0, 0 )
 melee_style = 0
 player_path = NodePath("")
+mesh_path = NodePath("")
 detection_raycast = NodePath("")
 
 [node name="ReloadTimer" type="Timer" parent="." index="2"]

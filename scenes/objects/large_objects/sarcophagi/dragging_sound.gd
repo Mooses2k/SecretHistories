@@ -1,16 +1,12 @@
-extends RigidBody
+extends "res://scenes/objects/large_objects/large_object_drop_sound.gd"
 
 
-var drop_sound_scene = preload("res://scenes/objects/large_objects/sarcophagi/drop_sound.tscn")
+var spawnable_items : PoolStringArray
 var sound_vol : float = 10
-var noise_level : float = 0
-var item_max_noise_level : int = 40
-var drop_sound_level : float = 60
-var is_soundplayer_ready = true 
+var drag_noise_level : float = 0
 var drag_audio_player = null
-#var drop_audio_player = null
 export var item_drag_sound : AudioStream
-export var item_drop_sound : AudioStream
+export var sarco_lid_drop_sound : AudioStream
 
 
 func _enter_tree():
@@ -27,11 +23,17 @@ func _enter_tree():
 
 
 func _ready():
-	self.connect("body_entered", self, "play_drop_sound")
-	self.is_soundplayer_ready = true
+	self.item_max_noise_level = 40
+	self.item_drop_sound = sarco_lid_drop_sound
 
 
 func _integrate_forces(state):
+	if state.get_contact_count() > 0:
+		if state.get_contact_count() > self.oldCount and state.linear_velocity.length() > 0.7:
+			.play_drop_sound(state.linear_velocity.length(), true)
+		
+	self.oldCount = state.get_contact_count()
+	
 	if self.drag_audio_player:
 		if state.linear_velocity.length() > (7 / self.mass):
 			sound_vol = state.linear_velocity.length()
@@ -41,29 +43,9 @@ func _integrate_forces(state):
 				sound_vol *= 10
 			
 			self.drag_audio_player.unit_db = clamp(sound_vol, 40.0, 60.0)
-			self.noise_level = 3 * self.drag_audio_player.unit_db     # noise is detection by enemies
+			self.drag_noise_level = 3 * self.drag_audio_player.unit_db     # noise is detection by enemies
 			
 			if not self.drag_audio_player.is_playing():
 				self.drag_audio_player.play()
 		else:
 			self.drag_audio_player.stop()
-
-
-func play_drop_sound(body):
-	print("dropped")
-	if self.item_drop_sound and self.is_soundplayer_ready and self.linear_velocity.length() > 0.3:
-		var drop_audio_player = drop_sound_scene.instance()
-		drop_audio_player.stream = item_drop_sound
-		drop_audio_player.bus = "Effects"
-		print("velo == " + str(self.linear_velocity.length()))
-		self.drop_sound_level = self.linear_velocity.length() * 10
-		drop_audio_player.unit_db = clamp(self.drop_sound_level, 5.0, 50.0)
-		self.noise_level = item_max_noise_level
-		self.add_child(drop_audio_player)
-		self.is_soundplayer_ready = false
-		self.start_delay()
-
-
-func start_delay():
-	yield(get_tree().create_timer(0.5), "timeout")
-	self.is_soundplayer_ready = true

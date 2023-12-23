@@ -49,11 +49,13 @@ func _execute_step(data: WorldData, gen_data : Dictionary, generation_seed : int
 	
 	_rng.seed = generation_seed
 	
+	# TODO: this is probably where we'll set the DLvl match for different floor-loot lists
 	_generate_initial_loot_spawn_data(data, _loot_list_resource)
 
 
 func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnList) -> void:
-	var draw_amount := _rng.randi_range(_min_loot, _max_loot)
+	var draw_amount := _rng.randi_range(_min_loot, (_max_loot * -GameManager.game.current_floor_level))
+	print("Spawning this many non-bone items on ground: ", draw_amount)
 	var possible_cells := data.get_cells_for(data.CellType.ROOM)
 	possible_cells = _remove_used_cells_from(possible_cells, data)
 	

@@ -14,10 +14,10 @@ extends GenerationStep
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 export(String, FILE, "*.tscn") var _character_scene_path := ""
-export var _max_count = 5
+var _max_count = 0
 
 var _density_by_type := {
-	WorldData.CellType.ROOM: 0.025,
+	WorldData.CellType.ROOM: 2.0,   # Used to be 0.025
 	WorldData.CellType.CORRIDOR: 0.0,
 	WorldData.CellType.HALL: 0.0,
 }
@@ -45,6 +45,24 @@ func _ready():
 
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	_rng.seed = generation_seed
+	
+	# More cultists per DLvl as you go down
+	match GameManager.game.current_floor_level:
+		-1:
+			pass   # set _density_by_type?
+			_max_count = 0
+		-2:
+			pass   # set _density_by_type?
+			_max_count = 2
+		-3:
+			pass   # set _density_by_type?
+			_max_count = 5
+		-4:
+			pass   # set _density_by_type?
+			_max_count = 5
+		-5:
+			pass   # set _density_by_type?
+			_max_count = 10
 	
 	var valid_cells := _get_valid_cells(data)
 	

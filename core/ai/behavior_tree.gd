@@ -8,7 +8,7 @@ onready var _bt_root_node = get_node(bt_root) as BTNode
 onready var character = owner
 
 
-func _physics_process(delta):
+func _process(delta):
 	_bt_root_node.tick(character.character_state)
 
 

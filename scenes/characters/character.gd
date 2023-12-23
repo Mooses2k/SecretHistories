@@ -1,11 +1,14 @@
 class_name Character
 extends KinematicBody
 
+# TODO: This script is a dog's dinner - needs total redesign
+
 
 signal character_died()
 signal is_hit(current_health)
 signal is_moving(is_player_moving)
 signal player_landed()
+const PI_BY_FOUR = PI / 4
 
 var _alive : bool = true
 var _type_damage_multiplier : PoolByteArray
@@ -121,10 +124,12 @@ onready var _crouch_collider = get_node("CollisionShape2")
 onready var _surface_detector = get_node("SurfaceDetector")
 onready var _sound_emitter = get_node("SoundEmitter")
 onready var _audio_player = get_node("Audio")
-onready var _player_hitbox = get_node("CanStandChecker")
+onready var _character_hitbox = get_node("CanStandChecker")
 onready var _ground_checker = $"%GroundChecker"
 onready var legcast : RayCast = get_node(_legcast) as RayCast
 onready var _speech_player = get_node("Audio/Speech")
+
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 
 var stamina := 600.0
 
@@ -196,7 +201,7 @@ func _physics_process(delta : float):
 		check_state_animation(delta)
 		check_current_item_animation()
 	can_stand = true
-	for body in _player_hitbox.get_overlapping_bodies():
+	for body in _character_hitbox.get_overlapping_bodies():
 		if body is RigidBody:
 			can_stand = false
 	
@@ -267,14 +272,17 @@ func _physics_process(delta : float):
 	move_effect()
 
 
-func slow_down(state : PhysicsDirectBodyState):
-	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
+# I believe this is for a RigidBody style controller we used to have; we can keep for now
+#func slow_down(state : PhysicsDirectBodyState):
+#	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
 
 
 func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
 		self.emit_signal("is_hit", current_health)
+		$Audio/Movement.stream = item_drop_sound_flesh
+		$Audio/Movement.play()
 		
 		if self.current_health <= 0:
 			self._alive = false
@@ -366,7 +374,6 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	
 	velocity += v1 + v2
 	
-	# This kinda just a double-check?
 	grounded = is_on_floor() or _ground_checker.is_colliding()
 	
 	if is_crouching and is_jumping:
@@ -419,7 +426,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 			do_jump = false
 			return
 		
-		if is_jumping or !is_on_floor():
+		if is_jumping or !grounded:
 			do_jump = false
 			return
 		
@@ -430,6 +437,8 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		
 		# Apply jump force with the calculated multiplier
 		velocity.y = jump_force * jump_multiplier
+		
+		# TODO: fix being able to "sprint" in air after non-sprinting jump
 		
 		if do_sprint:
 			velocity.x += move_dir.x * jump_force * 1.1
@@ -471,7 +480,7 @@ func _crouch(delta : float) -> void:
 #	from = offhand_equipment_root.transform.origin.y
 #	offhand_equipment_root.transform.origin.y = lerp(from, crouch_equipment_target_pos, 0.08)
 	
-	if !is_on_floor() and !is_jumping:
+	if !grounded and !is_jumping:
 		velocity.y -= 5 * (gravity * delta)
 	else:
 		velocity.y -= 0.05

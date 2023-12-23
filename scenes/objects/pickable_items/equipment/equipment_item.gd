@@ -15,7 +15,7 @@ export var item_name : String = "Equipment"
 export var horizontal_holding : bool = false
 export var normal_pos_path : NodePath
 export var throw_pos_path : NodePath
-export var throw_logic : bool   # Some items like swords should be thrown point first
+export var throw_logic : bool   # Some items like swords should be thrown point first; TODO: name better like thrown_point_first
 export var can_spin : bool   # Some items should spin when thrown
 
 var is_in_belt = false
@@ -32,18 +32,15 @@ func _ready():
 	connect("body_entered", self, "play_drop_sound")
 
 
-func _process(delta):
-	pass
-#	if throw_logic:
-#		if item_state == GlobalConsts.ItemState.EQUIPPED:
-#			self.global_rotation = normal_pos.global_rotation
-
-
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
 # Bug here where when player rotates, items does a little circle thing in hand
 func _physics_process(delta):
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
-		transform = get_hold_transform()
+		##This checks if the item is a gun
+		if self.get("ammunition_capacity") != null:
+			transform = get_hold_transform()
+		else:
+			transform = get_hold_transform().inverse()
 	
 	if !is_instance_valid(owner_character):   # this is still hacky, but don't do throw damage if grabbing, basically
 		throw_damage(delta)
@@ -84,7 +81,7 @@ func decelerate_item_velocity(delta, decelerate):
 				linear_velocity *= 0
 
 
-# TODO: needs commenting
+# TODO: needs commenting and probably fixing, is a messs
 func implement_throw_damage(higher_damage):
 	is_higher_damage = higher_damage
 	can_throw_damage = true
@@ -135,8 +132,7 @@ func use_unload():
 
 
 func get_hold_transform() -> Transform:
-	return $HoldPosition.transform.inverse()
-
+	return $HoldPosition.transform
 
 func apply_throw_logic():
 	if throw_logic:

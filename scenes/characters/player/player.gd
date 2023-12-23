@@ -11,6 +11,7 @@ var is_change_off_equip_in : bool = false
 
 var light_resource = preload("res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn")
 var light2_resource = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn")
+var spyglass_resource = preload("res://scenes/objects/pickable_items/tiny/spyglass/spyglass.tscn")
 
 onready var player_controller = $PlayerController
 onready var tinnitus = $Tinnitus
@@ -18,6 +19,9 @@ onready var fps_camera = $FPSCamera
 onready var gun_cam = $FPSCamera/ViewportContainer/Viewport/GunCam   # Fixed fov player viewport so stuff doesn't go through walls
 onready var player_animation_tree = $"%AnimationTree"
 onready var hit_effect = $HitEffect
+onready var player_animations_test = $"%PlayerAnimationsTest"
+onready var player_animations = $PlayerAnimations
+onready var player_gun_reload_shells = $"%PlayerGunReloadShells"
 
 
 func _ready():
@@ -27,6 +31,7 @@ func _ready():
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 	
 	# Add initial equipment to player
+	inventory.add_item(spyglass_resource.instance())
 	inventory.add_item(light2_resource.instance())
 	print("player.gd added oil lantern")
 	inventory.set_mainhand_slot(2)

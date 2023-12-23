@@ -11,5 +11,5 @@ dest_files=[ "res://.import/363697__pfranzen__kicking-a-door.ogg-6536fb8b84c0eaf
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

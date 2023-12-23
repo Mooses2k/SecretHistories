@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://resources/models/large_objects/sarcophagi/M_SarcoLidClean.material" type="Material" id=1]
 [ext_resource path="res://scenes/objects/large_objects/sarcophagi/dragging_sound.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/sarcophagus_lid_scrape.wav" type="AudioStream" id=3]
 [ext_resource path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" type="AudioStream" id=4]
 [ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=5]
+[ext_resource path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Sarcophagus_Clean_Plane016"
@@ -30,13 +31,14 @@ points = PoolVector3Array( 0.782934, 0.0723, 0.355712, -0.809155, -0.0635, -0.38
 [node name="SarcophagusLidPlain" type="RigidBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 512
+collision_mask = 65
 mass = 100.0
 continuous_cd = true
 contacts_reported = 4
 contact_monitor = true
 script = ExtResource( 2 )
 item_drag_sound = ExtResource( 3 )
-item_drop_sound = ExtResource( 4 )
+sarco_lid_drop_sound = ExtResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
@@ -53,19 +55,39 @@ disabled = true
 transform = Transform( 1.10811, 0, 0, 0, 0.0923371, 0, 0, 0, 0.529826, 0, 0.00496882, 0 )
 shape = SubResource( 3 )
 
-[node name="KinematicBody" type="KinematicBody" parent="."]
-collision_layer = 2
-collision_mask = 2
+[node name="StaticBody" type="StaticBody" parent="."]
+collision_layer = 0
+collision_mask = 18
 
-[node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 visible = false
 shape = SubResource( 2 )
 disabled = true
 
-[node name="CollisionShapeBase" type="CollisionShape" parent="KinematicBody"]
+[node name="CollisionShapeBase" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.11759, 0, 0, 0, 0.0946721, 0, 0, 0, 0.534198, 0, 0.00496882, 0 )
 shape = SubResource( 3 )
+
+[node name="PlacementAnchorLong" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0432787, 0.130774, 0.0197602 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchorLong2" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.578877, 0.130774, 0.143552 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchorLong3" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.387707, 0.130774, -0.219442 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchorLong4" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.14976, 0.130774, -0.115437 )
+script = ExtResource( 5 )
+
+[node name="PlacementAnchorLong5" type="Position3D" parent="."]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.00328275, 0.130774, 0.241745 )
+script = ExtResource( 5 )
 
 [node name="PlacementAnchor" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.956308, 0.130774, 0.39951 )
@@ -76,11 +98,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.915413, 0.130774, -0.412093
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.788335, 0.130774, 0.386927 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.788335, 0.130774, 0.310299 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor4" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80723, 0.130774, -0.357747 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.764459, 0.130774, -0.357747 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor5" type="Position3D" parent="."]
@@ -96,7 +118,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.839915, 0.130774, 0.421531 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor8" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.729814, 0.130774, -0.427822 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.860443, 0.130774, -0.45561 )
 script = ExtResource( 5 )
 
 [node name="PlacementAnchor9" type="Position3D" parent="."]
@@ -110,3 +132,6 @@ script = ExtResource( 5 )
 [node name="PlacementAnchor11" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.994057, 0.130774, 0.379488 )
 script = ExtResource( 5 )
+
+[node name="ItemSpawnerOnPlacementAnchor" parent="." instance=ExtResource( 6 )]
+anchors_parent = NodePath("..")

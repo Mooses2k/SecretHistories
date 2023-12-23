@@ -10,7 +10,7 @@ enum CameraState {
 export var max_yaw : float = 25.0
 export var max_pitch : float = 25.0
 export var max_roll : float = 25.0
-export var shakeReduction : float = 1.0
+export var shake_reduction : float = 1.0
 
 export(int, 1, 179) var normal_fov : int = 70
 export(int, 1, 179) var zoom_fov : int = 30
@@ -24,6 +24,15 @@ var state = CameraState.STATE_NORMAL
 var _camera_rotation_reset : Vector3 = Vector3()
 #var _crosshair_textures : Dictionary = {}
 
+# moved from _get_noise()
+var n = OpenSimplexNoise.new()
+
+
+func _ready():
+	n.octaves = 4
+	n.period = 20.0
+	n.persistence = 0.8
+
 
 # TODO: Add in some sort of rotation reset.
 func _physics_process(_delta):
@@ -35,6 +44,7 @@ func _physics_process(_delta):
 		fov = lerp(fov, zoom_fov, 0.25)
 #		zoom_overlay.visible = true
 	else:
+		mod = 1.0
 		fov = lerp(fov, normal_fov, 0.1)
 #		zoom_overlay.visible = false
 		
@@ -45,7 +55,7 @@ func _physics_process(_delta):
 func _process_shake(angle_center : Vector3, delta : float) -> Vector3:
 	shake = stress * stress
 	
-	stress -= (shakeReduction / 100.0)
+	stress -= (shake_reduction / 100.0)
 	stress = clamp(stress, 0.0, 1.0)
 	
 	var new_rotate = Vector3()
@@ -57,12 +67,7 @@ func _process_shake(angle_center : Vector3, delta : float) -> Vector3:
 
 
 func _get_noise(noise_seed : float, time : float) -> float:
-	var n = OpenSimplexNoise.new()
-	
 	n.seed = noise_seed
-	n.octaves = 4
-	n.period = 20.0
-	n.persistence = 0.8
 	
 	return n.get_noise_1d(time)
 

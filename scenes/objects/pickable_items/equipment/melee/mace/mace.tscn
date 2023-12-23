@@ -1,17 +1,23 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/653370__triqystudio__dullthud.wav" type="AudioStream" id=2]
+[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" type="AudioStream" id=3]
 [ext_resource path="res://resources/models/items/melee/mace/Mace.tres" type="Material" id=4]
 [ext_resource path="res://resources/models/items/melee/mace/source/Bulava.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=7]
-[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=17]
 
-[sub_resource type="ConvexPolygonShape" id=4]
-points = PoolVector3Array( 10.8337, 74.9096, -0.775749, -11.0003, 72.5887, 1.07723, -11.0003, 72.5887, 2.47071, 3.39827, -29.6048, 1.0751, -2.63301, 72.5887, -11.0003, 2.46643, 72.5887, 10.8337, -4.03076, -24.9524, -0.314107, 6.18736, 73.0528, -9.60466, 0.611315, -24.4883, -4.03076, -6.81557, 74.4454, 8.97004, -0.777887, -29.6048, 3.39827, -9.13661, 72.5887, -6.81771, 8.97004, 73.0528, 7.11278, -4.90429, 77.5956, -3.98661, 2.93449, -29.6048, -2.17136, 1.54101, -24.9524, 3.86419, 10.8337, 73.0528, -3.10106, 5.1922, 77.5302, 3.81525, -0.777887, -24.9524, -4.03076, -2.63728, -29.6048, 2.46857, 2.89836, 77.5243, -5.82064, -3.10106, -29.6048, -1.70758, -3.5627, 70.7319, 9.90401, -3.97887, 77.4898, 5.19031, 0.609177, 74.4454, 10.8337, -10.5301, 74.9096, 2.93449, 9.90401, 70.2678, 3.40041, -9.60253, 73.0528, -5.89015, -1.23953, 72.5887, -11.0003, 7.11278, 74.4454, -8.67496, -3.09679, 74.4454, -10.5344, -3.56484, -24.0241, 2.00479, -6.81557, 72.5887, 8.97004, 3.86418, -24.9524, -1.24167, 10.8337, 72.5887, -0.775749, -0.777887, -24.4883, 3.86419, 9.43809, 73.9812, 6.18736, -9.60253, 74.4454, -5.42423, 6.11413, 77.5401, -2.14487, 7.11278, 73.0528, -8.67496, 2.00479, -29.6048, 2.93449, 1.54101, -29.6048, -3.10106, -0.77575, 74.9096, -10.5344, 0.609177, 73.0528, 10.8337, 3.86418, -24.9524, 0.611316, 8.50839, 74.4454, 7.11278, 9.43809, 72.5887, 6.18736, -1.68555, 77.5083, -6.277, -5.81027, 77.4868, -3.06284, 2.41345, 77.0497, 6.05707, -11.0003, 74.4454, 0.613453, 5.7193, 74.4454, -9.60466, -5.77811, 77.1881, 2.4242, -11.0003, 73.9812, 2.47071 )
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.0541316, 0.0303402, 0.051851 )
+
+[sub_resource type="SphereShape" id=5]
+radius = 0.04
+
+[sub_resource type="CylinderShape" id=6]
+height = 0.5
+radius = 0.02
 
 [sub_resource type="CylinderShape" id=3]
 height = 0.145875
@@ -19,18 +25,16 @@ radius = 0.1
 
 [node name="Mace" instance=ExtResource( 17 )]
 mass = 2.5
-dropped_layers = 64
-dropped_mask = 1
 item_drop_sound = ExtResource( 2 )
 item_throw_sound = ExtResource( 1 )
 item_name = "Mace"
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
+throw_logic = true
+can_spin = true
 weapon_type = 2
 primary_damage1 = 20
 secondary_damage1 = 51
-throw_logic = true
-can_spin = true
-normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, -0.223767, 0 )
@@ -42,34 +46,42 @@ __meta__ = {
 }
 
 [node name="CollisionShape" parent="." index="1"]
-transform = Transform( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, -0.22035, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130931, 0 )
 shape = SubResource( 4 )
 
-[node name="Hitbox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175027, 0 )
+[node name="CollisionShape2" type="CollisionShape" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138753, 0 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.116707, 0 )
+shape = SubResource( 6 )
+
+[node name="Hitbox" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179844, 0 )
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
 shape = SubResource( 3 )
 
-[node name="CooldownTimer" parent="." index="3"]
+[node name="CooldownTimer" parent="." index="5"]
 wait_time = 0.5
 
-[node name="HoldPosition" parent="." index="4"]
+[node name="HoldPosition" parent="." index="6"]
 unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273457, 0 )
 
-[node name="NormalPosition" parent="." index="5"]
+[node name="NormalPosition" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310187, 0 )
 
-[node name="ThrowPosition" parent="." index="6"]
+[node name="ThrowPosition" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439791, 0 )
 
 [node name="Thrust" parent="Sounds" index="2"]
-stream = ExtResource( 7 )
+stream = ExtResource( 3 )
 
 [node name="Cut" parent="Sounds" index="3"]
-stream = ExtResource( 8 )
+stream = ExtResource( 3 )
 
 [node name="FleshThrust" parent="Sounds" index="5"]
 stream = ExtResource( 10 )

@@ -5,6 +5,7 @@ extends Spawner
 # This is a tool so that `_min_loot` and `_max_loot` setters can act as data validators when
 # changing values in the editor
 
+
 const ITEM_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
 
 var free_cell = 0
@@ -73,9 +74,9 @@ func _spawn_initial_settings_items(data : WorldData):
 
 func _get_next_free_cell(data : WorldData) -> bool:
 	free_cell += 1
-	while data.get_cell_type(free_cell) == data.CellType.EMPTY and free_cell < data.cell_count:
+	while free_cell < data.cell_count and data.get_cell_type(free_cell) == data.CellType.EMPTY:
 		free_cell += 1
-	return true   # TODO: Unrecahable code, probably should be indented one tab further
+	return true
 	if free_cell >= data.cell_count:
 		return false
 
@@ -85,6 +86,7 @@ func _spawn_item(scene_path: String, position: Vector3, angle := 0.0) -> void:
 	var item
 	var item_scene : PackedScene = load(scene_path)
 	item = item_scene.instance()
+	
 	if item is Spatial:
 		(item as Spatial).translation = position
 		(item as Spatial).rotate_y(angle)

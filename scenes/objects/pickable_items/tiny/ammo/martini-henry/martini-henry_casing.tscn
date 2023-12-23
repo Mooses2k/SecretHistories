@@ -24,6 +24,7 @@ height = 0.06
 radius = 0.01
 
 [node name="Martini-HenryCasing" instance=ExtResource( 1 )]
+collision_mask = 65
 item_drop_sound = ExtResource( 3 )
 
 [node name="MeshInstance" parent="." index="0"]

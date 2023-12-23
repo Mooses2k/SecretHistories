@@ -25,6 +25,7 @@ height = 0.08
 radius = 0.01
 
 [node name="Martini-HenryRound" instance=ExtResource( 1 )]
+collision_mask = 65
 item_drop_sound = ExtResource( 4 )
 item_data = ExtResource( 2 )
 

@@ -6,19 +6,29 @@ var min_angle = 0.0
 var max_angle = 90.0
 export var restitution = 0.5
 export var _hinge_node : NodePath
-onready var hinge_node : Spatial
+var hinge_node : Spatial
+var base_angle : float = 0.0
 
 var sound_vol = 20
+onready var debug_draw = $DebugDraw
 
+var last_torque_constraint : Vector3 = Vector3.ZERO
+var last_impulse_constraint : Vector3 = Vector3.ZERO
 
-func _integrate_forces(state):
+func _ready():
+	hinge_node = get_node(_hinge_node)
+	var door_to_hinge : Transform = hinge_node.global_transform*global_transform.inverse()
+	var base_vector : Vector3 = door_to_hinge*Vector3.ZERO
+	base_vector.y = 0.0
+	base_angle = -base_vector.angle_to(Vector3.RIGHT)*sign(base_vector.cross(Vector3.RIGHT).y)
+
+func __integrate_forces(state):
 #	state.angular_velocity = Vector3.ZERO
 #	return
-	if not hinge_node or not is_instance_valid(hinge_node):
-		hinge_node = get_node(_hinge_node)
-		if not hinge_node or not is_instance_valid(hinge_node):
-			return
+
 	var angle = wrapf(rotation.y, -PI, PI)
+	var hinge_to_door = global_transform.inverse()*hinge_node.global_transform
+	
 	var target_angle = clamp(angle, deg2rad(min_angle), deg2rad(max_angle))
 	var angle_diff = wrapf(target_angle - angle, -PI, PI)
 	
@@ -34,12 +44,6 @@ func _integrate_forces(state):
 	else:
 		$AudioStreamPlayer3D.stop()
 	
-	if not is_zero_approx(angle_diff):
-		var hinge_arm : Vector3 = state.transform.origin - hinge_node.global_transform.origin
-		hinge_arm.y = 0.0
-		var ang_vel : Vector3 = state.angular_velocity
-		if sign(ang_vel.y) != sign(angle_diff):
-			ang_vel.y *= -restitution
-		state.angular_velocity = ang_vel
-		state.linear_velocity = ang_vel.cross(hinge_arm)
-		state.transform.basis = get_parent().global_transform.basis.rotated(Vector3.UP, target_angle)
+	var torque_constraint = Vector3.UP*angle_diff/(state.inverse_inertia*state.step)
+	state.apply_torque_impulse(torque_constraint)
+	last_torque_constraint = torque_constraint

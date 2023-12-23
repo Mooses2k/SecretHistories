@@ -10,6 +10,12 @@ func _ready():
 	
 	if !BackgroundMusic.is_playing():
 		BackgroundMusic.play()
+	
+	# Slowly animate up the title text
+	get_tree().create_tween()\
+		.tween_property($VBoxContainer2/GameName, "percent_visible", 1.0, 5.0)\
+		.set_trans(Tween.TRANS_EXPO)\
+		.set_ease(Tween.EASE_IN)
 
 
 func _input(event):

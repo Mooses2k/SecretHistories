@@ -20,6 +20,12 @@ export(String, FILE, "*.tscn") var sarco_scene_path := \
 export var sarco_tile_size := Vector2(2,2)
 export(float, 0.0, 360.0, 90.0) var vertical_center_rotation := 90
 
+export var _sarco_spawn_list_resource: Resource = null
+export var _sarco_shard_spawn_list_resource: Resource = null
+export var _sarco_lids_spawn_list_resource: Resource = null
+export var _min_item := 0
+export var _max_item := 5
+
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 var _force_lid := -1
@@ -216,9 +222,30 @@ func _set_sarco_spawn_data(
 		lid_type = _force_lid
 	spawn_data.set_custom_property("current_lid", lid_type)
 	spawn_data.set_custom_property("wall_direction", wall_direction)
+	spawn_data.set_custom_property("spawnable_items", _get_sarcophagus_spawn_list())
+	spawn_data.set_custom_property("sarco_spawnable_items", _get_lid_spawn_list())
 	
 	for cell_index in sarco_cells:
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
+		# if shard_has_spawned == false 
+
+func _get_sarcophagus_spawn_list() -> PoolStringArray:
+	var draw_amount := _rng.randi_range(_min_item, _max_item)
+	var result : PoolStringArray
+	
+	if GameManager.game.current_floor_level == -5 and draw_amount > 0:
+		result.push_back((_sarco_shard_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
+		draw_amount -= 1
+	for _i in draw_amount:
+		result.push_back((_sarco_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
+	return result
+
+func _get_lid_spawn_list() -> PoolStringArray:
+	var draw_amount := _rng.randi_range(_min_item, _max_item)
+	var result : PoolStringArray
+	for _i in draw_amount:
+		result.push_back((_sarco_lids_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
+	return result
 
 ### -----------------------------------------------------------------------------------------------
 

@@ -28,36 +28,35 @@ func _ready():
 
 
 func _process(delta):
-	if Input.is_action_pressed("playerhand|main_use_primary") and owner_character.is_reloading == false:
-		use_hold_time += 0.1
-		print("Use hold time is: ", use_hold_time)
-		if  use_hold_time >= 1.5:
-			if is_lit:
-				if self == owner_character.inventory.get_mainhand_item():
-					if horizontal_holding:
-						owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-						owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
-						owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
-					else:
-						owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-						owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
-						owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
-		
-	else:
-		use_hold_time = 0
-		if self == owner_character.inventory.get_mainhand_item():
-			if horizontal_holding == true:
-				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-				owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-				owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
-			else:
-				owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-				owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
-				owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
-				
-				
+	if is_instance_valid(owner_character):
+		if Input.is_action_pressed("playerhand|main_use_primary") and owner_character.is_reloading == false:
+			use_hold_time += 0.1
+			print("Use hold time is: ", use_hold_time)
+			if  use_hold_time >= 1.1:
+				if is_lit:
+					if self == owner_character.inventory.get_mainhand_item():
+						if horizontal_holding:
+							owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+							owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
+						else:
+							owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+							owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
+			
+		else:
+			use_hold_time = 0
+			if self == owner_character.inventory.get_mainhand_item():
+				if horizontal_holding == true:
+					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
+				else:
+					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
 	
 #	if Input.is_action_just_pressed("playerhand|offhand_use"):
 #		pass

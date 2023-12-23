@@ -270,6 +270,8 @@ func unequip_mainhand_item():
 	
 	current_mainhand_equipment.set_item_state(GlobalConsts.ItemState.INVENTORY)
 	emit_signal("unequip_mainhand")
+	if current_mainhand_equipment is LanternItem or current_mainhand_equipment is CandleItem or current_mainhand_equipment is TorchItem or current_mainhand_equipment is CandelabraItem:
+		current_mainhand_equipment.unlight()
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item.can_attach == true:

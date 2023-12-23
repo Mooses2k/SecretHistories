@@ -66,6 +66,40 @@ func _ready():
 		light_timer_3.start()
 
 
+func _process(delta) -> void:
+	if is_instance_valid(owner_character):
+		if Input.is_action_pressed("playerhand|main_use_primary") and owner_character.is_reloading == false:
+			use_hold_time += 0.1
+			print("Use hold time is: ", use_hold_time)
+			if  use_hold_time >= 1.1:
+				if is_lit:
+					if self == owner_character.inventory.get_mainhand_item():
+						if horizontal_holding:
+							owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+							owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
+						else:
+							owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+							owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
+			
+		else:
+			use_hold_time = 0
+			if self == owner_character.inventory.get_mainhand_item():
+				if horizontal_holding == true:
+					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
+				else:
+					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
+				
+				
+
+
 func light():
 	if not is_depleted:
 		$AnimationPlayer.play("flicker")
@@ -127,9 +161,9 @@ func light_depleted_copy():
 func _use_primary():
 	if is_lit == false:
 		light()
-	else:
-		unlight()
-		$BlowOutSound.play()
+#	else:
+#		unlight()
+#		$BlowOutSound.play()
 
 
 func _item_state_changed(previous_state, current_state):

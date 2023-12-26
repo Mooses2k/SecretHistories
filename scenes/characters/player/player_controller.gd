@@ -75,6 +75,7 @@ onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
 onready var _debug_light = get_node("../FPSCamera/DebugLight")
 
 onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
+onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
@@ -225,6 +226,12 @@ func _input(event):
 
 
 func _walk(delta) -> void:
+	var move_dir = Vector3()
+	if !character.kick_timer.is_stopped():   # So you can't move while kicking
+		if character.grounded:   # So you can do jumpkicks
+			character.character_state.move_direction = Vector3.ZERO
+		return
+	
 	if Input.is_action_just_pressed("movement|move_right"):
 		is_movement_key1_held = true
 	if Input.is_action_just_pressed("movement|move_left"):
@@ -237,7 +244,6 @@ func _walk(delta) -> void:
 	
 	_check_movement_key(delta)
 	
-	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("movement|move_right") - Input.get_action_strength("movement|move_left"))
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))
 	character.character_state.move_direction = move_dir.normalized()
@@ -779,31 +785,35 @@ func handle_binocs():
 
 
 func kick():
-	
-	if character.kick_timer.is_stopped() and legcast.is_colliding() and Input.is_action_just_pressed("player|kick"):
-		var kick_object = legcast.get_collider()
-		_camera.add_stress(0.5)
+	if character.kick_timer.is_stopped() and Input.is_action_just_pressed("player|kick"):
 		character.kick_timer.start()
+		$"../Audio/Movement".stream = kick_sound
+		$"../Audio/Movement".play()
 		
-		if kick_object is DoorInteractable and is_grabbing == false:
-			kick_object.emit_signal("kicked", legcast.get_collision_point(), -character.global_transform.basis.z, character.kick_damage)
+		if legcast.is_colliding():
+			_camera.add_stress(0.5)
 			
-		elif kick_object.is_in_group("CHARACTER"):
-			kick_object.get_parent().damage(character.kick_damage, kick_damage_type , kick_object)
-			$"../Audio/Movement".stream = item_drop_sound_flesh
-			$"../Audio/Movement".play()
-		
-		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
-			if kick_object is Area:
-				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
-#			print(kick_object.get_class())
-			var actual_kick_impulse = min(kick_impulse, kick_object.mass * kick_max_speed)
-			if kick_object is PickableItem:   # Is a large object like a floor candelabra
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
-				kick_object.play_drop_sound(kick_object)
-			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
-				kick_object.play_drop_sound(10, false)
+			var kick_object = legcast.get_collider()
+			
+			if kick_object is DoorInteractable and is_grabbing == false:
+				kick_object.emit_signal("kicked", legcast.get_collision_point(), -character.global_transform.basis.z, character.kick_damage)
+				
+			elif kick_object.is_in_group("CHARACTER"):
+				kick_object.get_parent().damage(character.kick_damage, kick_damage_type , kick_object)
+				$"../Audio/Movement".stream = item_drop_sound_flesh
+				$"../Audio/Movement".play()
+			
+			elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+				if kick_object is Area:
+					kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+	#			print(kick_object.get_class())
+				var actual_kick_impulse = min(kick_impulse, kick_object.mass * kick_max_speed)
+				if kick_object is PickableItem:   # Is a large object like a floor candelabra
+					kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
+					kick_object.play_drop_sound(kick_object)
+				elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
+					kick_object.apply_central_impulse(-character.global_transform.basis.z * actual_kick_impulse)
+					kick_object.play_drop_sound(10, false)
 
 
 func _clamber():

@@ -232,15 +232,14 @@ func _try_to_stand():
 			owner.wanna_stand = false
 
 
-# Is_in_group("Door_hitbox") or Door_body  # Please rename this group to DOOR_HITBOX and/or DoorBody after door merge
 func _on_GrabCastDot_body_entered(body):
-	if body is PickableItem or body is Door_body :
+	if body is PickableItem or body is DoorBody:
 		if !colliding_pickable_items.has(body):
 			colliding_pickable_items.append(body)
 
 
 func _on_GrabCastDot_body_exited(body):
-	if body is PickableItem or body is Door_body:
+	if body is PickableItem or body is DoorBody:
 		colliding_pickable_items.remove(colliding_pickable_items.find(body))
 
 

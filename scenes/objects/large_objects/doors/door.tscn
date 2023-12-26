@@ -78,7 +78,7 @@ shape = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0 )
 shape = SubResource( 6 )
 
-[node name="DoorBody" type="RigidBody" parent="." groups=["Door_hitbox"]]
+[node name="DoorBody" type="RigidBody" parent="." groups=["DOOR_HITBOX"]]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 collision_layer = 5

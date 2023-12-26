@@ -1,7 +1,8 @@
-### Is a tool to support use in player_animations_test.gd
 tool
 class_name PickableItem
 extends RigidBody
+
+### Is a tool to support use in player_animations_test.gd
 
 
 signal item_state_changed(previous_state, current_state)
@@ -20,10 +21,6 @@ export var item_drop_sound : AudioStream
 export var item_throw_sound : AudioStream
 export(AttackTypes.Types) var melee_damage_type : int = 0
 
-onready var audio_player = get_node("DropSound")
-
-#onready var mesh_instance = $MeshInstance
-onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
@@ -38,6 +35,11 @@ var is_higher_damage = false
 #var deceleration_factor = 0.9
 var initial_linear_velocity
 var is_soundplayer_ready = false
+
+onready var audio_player = get_node("DropSound")
+
+#onready var mesh_instance = $MeshInstance
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 
 onready var placement_position = $"%PlacementAnchor"
 

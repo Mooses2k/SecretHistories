@@ -26,7 +26,7 @@ export var _legcast : NodePath
 #export(AttackTypes.Types) var damage_type : int = 0
 #export (float) var kick_impulse
 
-export (NodePath) var animation_tree_path 
+export var animation_tree_path : NodePath
 
 enum ItemSelection {
 	ITEM_MAINHAND,

@@ -31,8 +31,8 @@ export var ads_hold_rotation : Vector3
 
 
 export(MeleeStyle) var melee_style : int = 0
-export (NodePath) var player_path
-export (NodePath) var mesh_path
+export var player_path: NodePath
+export var mesh_path: NodePath
 
 var ads_reset_position : Vector3
 var ads_reset_rotation : Vector3
@@ -47,7 +47,7 @@ var on_cooldown = false
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
 
-export (NodePath) var detection_raycast
+export var detection_raycast: NodePath
 onready var raycast = get_node(detection_raycast)
 onready var animation_player = $"%AnimationPlayer"
 onready var player = get_node(player_path)

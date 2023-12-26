@@ -1,7 +1,7 @@
 extends Node
 
 
-export(NodePath) var anchors_parent: NodePath
+export var anchors_parent: NodePath
 export var max_items_to_spawn : int = 5
 
 func _ready():

@@ -83,7 +83,7 @@ func _on_light_depleted():
 
 func stop_light_timer():
 	burn_time = light_timer.get_time_left()
-	print("current burn time " + str(burn_time))
+#	print("current burn time " + str(burn_time))
 	light_timer.stop()
 
 

@@ -1,11 +1,11 @@
 tool
 extends Node
 
-export (String, "None",
+export(String, "None",
 "Webley", "Khyber_pass_martini", 
 "Lee-metford_rifle", "Double-barrel_sawed_shotgun", 
 "Double-barrel_shotgun", "Martini_henry_rifle", "Comet_Shard") var current_weapon = "None" setget change_gun
-export (String, "IDLE", "ADS", "RELOAD") var weapon_state = "IDLE" setget set_weapon_state
+export(String, "IDLE", "ADS", "RELOAD") var weapon_state = "IDLE" setget set_weapon_state
 
 export var reset_to_idle_pos : bool setget reset_animation_tree
 export var ads_weapon_position: Vector3 setget adjust_weapon_position

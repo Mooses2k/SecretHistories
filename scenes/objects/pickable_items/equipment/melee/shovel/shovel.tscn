@@ -91,7 +91,6 @@ item_size = 2
 item_name = "Shovel"
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-throw_logic = true
 weapon_type = 5
 primary_damage1 = 34
 primary_damage_type2 = 2

@@ -8,7 +8,7 @@ var is_player_moving : bool = false
 onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
-export var throw_strength : float = 2
+export var throw_strength : float = 20
 const ON_GRAB_MAX_SPEED : float = 0.1
 
 export var hold_time_to_grab : float = 0.4
@@ -590,25 +590,10 @@ func drop_grabable():
 				is_grabbing = false
 				print("Grab broken by throw")
 				interaction_handled = true
-				var impulse = current_control_mode.get_aim_direction() * throw_strength
-				if grab_object is MeleeItem:
-					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
-					grab_object.apply_throw_logic(impulse)
-					grab_object.add_collision_exception_with(character)
-					grab_object.implement_throw_damage(true)
-				elif grab_object is EquipmentItem:   # Non-Melee equipment item
-					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
-					grab_object.apply_central_impulse(impulse)
-					grab_object.add_collision_exception_with(character)
-					grab_object.implement_throw_damage(false)
-				elif grab_object is PickableItem:   # It's a tiny item
-					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
-					grab_object.apply_central_impulse(impulse)
-					grab_object.add_collision_exception_with(character)
-				elif grab_object is RigidBody:   # It's a large object
-					grab_object.apply_central_impulse(impulse)
-				else:   # It's a static?
-					pass
+				
+				throw_strength = 20 * grab_object.mass
+				throw_impulse_and_damage(grab_object)
+				
 				wanna_grab = false
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false
@@ -666,27 +651,15 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				character.inventory.drop_offhand_item()
 				
 			if throw_item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				throw_strength = 20
+				throw_strength = 20 * throw_item.mass
 			else:
-				throw_strength = 30
+				throw_strength = 30 * throw_item.mass
 				
-			var impulse = current_control_mode.get_aim_direction() * throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
 #			var x_pos = throw_item.global_transform.origin.x
 			# Applies unique throw  logic to item if its a melee item
-			if throw_item is EquipmentItem:
-				throw_item.apply_central_impulse(impulse)
-				throw_item.add_collision_exception_with(character)
-				throw_item.implement_throw_damage(true)
-#			elif throw_item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-#				throw_item.apply_throw_logic(impulse)
-#				throw_item.add_collision_exception_with(character)
-#				throw_item.implement_throw_damage(true)
-			else:
-				throw_item.apply_central_impulse(impulse)
-				throw_item.add_collision_exception_with(character)
-				throw_item.implement_throw_damage(false)
+			throw_impulse_and_damage(throw_item)
 	
 	# throw_state defined here, will this get wiped by the physics_process nulling of throw_item?
 	match throw_state:
@@ -706,6 +679,29 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				throw_state = ThrowState.SHOULD_PLACE if throw_press_length > hold_time_to_grab else ThrowState.SHOULD_THROW
 		ThrowState.SHOULD_PLACE, ThrowState.SHOULD_THROW:
 			throw_state = ThrowState.IDLE
+
+
+func throw_impulse_and_damage(item):
+	var impulse = current_control_mode.get_aim_direction() * throw_strength
+	
+	if item is MeleeItem:
+		item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		item.apply_throw_logic()
+		item.apply_central_impulse(impulse)
+	elif item is EquipmentItem:   # Non-Melee equipment item
+		item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		item.apply_central_impulse(impulse)
+	elif item is PickableItem:   # It's a tiny item
+		item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		item.apply_central_impulse(impulse)
+	elif item is RigidBody:   # It's a large object or broken door piece
+		item.apply_central_impulse(impulse)
+	else:   # It's a static?
+		pass
+	
+	item.add_collision_exception_with(character)
+	if item.has_method("play_throw_sound"):
+		item.play_throw_sound()
 
 
 func handle_screen_filters():

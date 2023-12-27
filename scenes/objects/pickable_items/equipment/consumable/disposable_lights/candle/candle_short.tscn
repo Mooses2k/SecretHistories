@@ -47,7 +47,7 @@ normal_texture = ExtResource( 8 )
 
 [sub_resource type="CylinderShape" id=58]
 height = 0.08
-radius = 0.03
+radius = 0.025
 
 [sub_resource type="BoxShape" id=56]
 extents = Vector3( 0.028, 0.04, 0.028 )
@@ -152,7 +152,7 @@ transform = Transform( -1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.01
 shape = SubResource( 56 )
 
 [node name="HoldPosition" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0.00757585 )
 __meta__ = {
 "_editor_description_": ""
 }

@@ -435,9 +435,9 @@ func _drop_item(item : EquipmentItem):
 			GameManager.game.level.add_child(item)
 			print("Item added to level at position: ", item.global_translation)
 			
-		if item is EquipmentItem:
-			if item.item_state == GlobalConsts.ItemState.DAMAGING:
-				item.apply_throw_logic()
+#		if item is EquipmentItem:
+#			if item.item_state == GlobalConsts.ItemState.DAMAGING:
+#				item.apply_throw_logic()
 	
 	elif !GameManager.game:   # This is here for test scenes
 		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
@@ -448,6 +448,8 @@ func _drop_item(item : EquipmentItem):
 		find_parent("TestWorld").add_child(item)
 		if item.item_state == GlobalConsts.ItemState.DAMAGING:
 			item.apply_throw_logic()
+			
+	item.owner_character = null
 		
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1

@@ -31,15 +31,13 @@ height = 0.0864951
 radius = 0.0459393
 
 [node name="Sap" instance=ExtResource( 17 )]
-mass = 2.5
+mass = 2.0
 item_drop_sound = ExtResource( 2 )
 item_throw_sound = ExtResource( 1 )
 item_size = 0
 item_name = "Sap"
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-throw_logic = true
-can_spin = true
 weapon_type = 2
 primary_damage1 = 1
 secondary_damage1 = 40

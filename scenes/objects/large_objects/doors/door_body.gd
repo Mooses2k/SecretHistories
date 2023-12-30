@@ -1,5 +1,5 @@
 extends RigidBody
-class_name Door_body
+class_name DoorBody
 
 
 var min_angle = 0.0

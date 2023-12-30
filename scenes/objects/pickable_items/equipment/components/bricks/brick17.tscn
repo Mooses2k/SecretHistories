@@ -28,17 +28,11 @@ extents = Vector3( 0.045, 0.035, 0.12 )
 radius = 0.101082
 
 [node name="Brick17" instance=ExtResource( 10 )]
-collision_layer = 64
-collision_mask = 65
-mass = 1.0
+mass = 2.0
 item_drop_sound = ExtResource( 1 )
 item_throw_sound = ExtResource( 3 )
 item_size = 0
 item_name = "Brick"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
-can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( 0.962455, 0, 0.27144, -0.0169351, 0.998052, 0.0600475, -0.270912, -0.0623899, 0.96058, 0, 0, 0 )

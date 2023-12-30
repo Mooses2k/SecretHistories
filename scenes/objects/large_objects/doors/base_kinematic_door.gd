@@ -160,6 +160,11 @@ func _on_Interactable_kicked(position, impulse, damage) -> void:
 	print("Door health : ", health)
 	if health <= 0:
 		break_door(position, impulse, damage)
+	
+	# TODO: kick currently always opens it, but if you kick from hinge side, should close door
+	# This should automatically be fixed by using RigidBody doors in the future
+	if door_state == DoorState.AUTO_CLOSING and door_hinge_z_axis.rotation.y > door_close_threshold:
+		door_state = DoorState.OPEN
 
 
 func _on_NpcDetector_body_entered(body):

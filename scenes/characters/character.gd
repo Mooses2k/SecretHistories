@@ -24,9 +24,8 @@ export var kick_damage : int = 15   # 3 kicks for a cultist, 5 for a door to sta
 onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
 export var _legcast : NodePath
 #export(AttackTypes.Types) var damage_type : int = 0
-#export (float) var kick_impulse
 
-export (NodePath) var animation_tree_path 
+export var animation_tree_path : NodePath
 
 enum ItemSelection {
 	ITEM_MAINHAND,

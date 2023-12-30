@@ -5,11 +5,11 @@ export(String, "None",
 "Webley", "Khyber_pass_martini", 
 "Lee-metford_rifle", "Double-barrel_sawed_shotgun", 
 "Double-barrel_shotgun", "Martini_henry_rifle", "Comet_Shard") var current_weapon = "None" setget change_gun
-export (String, "IDLE", "ADS", "RELOAD") var weapon_state = "IDLE" setget set_weapon_state
+export(String, "IDLE", "ADS", "RELOAD") var weapon_state = "IDLE" setget set_weapon_state
 
-export (bool) var reset_to_idle_pos setget reset_animation_tree
-export (Vector3) var ads_weapon_position setget adjust_weapon_position
-export (Vector3) var ads_weapon_rotation setget adjust_weapon_rotation
+export var reset_to_idle_pos : bool setget reset_animation_tree
+export var ads_weapon_position: Vector3 setget adjust_weapon_position
+export var ads_weapon_rotation : Vector3 setget adjust_weapon_rotation
 
 var spawned_weapon
 
@@ -18,10 +18,6 @@ onready var main_hand_equipment_root = $"../MainHandEquipmentRoot"
 onready var animation_tree = $"%AnimationTree"
 onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
 onready var gun_cam = $"../FPSCamera/ViewportContainer/Viewport/GunCam" as Camera
-
-
-func _ready():
-	pass
 
 
 func change_gun(value):

@@ -24,9 +24,9 @@ export var secondary_damage1 = 0
 export(AttackTypes.Types) var secondary_damage_type2 : int = 0
 export var secondary_damage2 = 0
 export var melee_attack_speed : float = 1.0
+export var cooldown = 0.01
 
 onready var melee_hitbox = $Hitbox as Area
-export var cooldown = 0.01
 
 #export var element_path : NodePath
 #onready var collision_and_mesh = get_node(element_path)
@@ -118,6 +118,20 @@ func _use_secondary():
 #
 # currently if changed away from and changed back to melee weapon, first swing does nothing
 #
+
+
+func melee_throw_damage():
+	var item_damage
+	
+	if can_spin:
+		print("Item thrown can spin")
+		item_damage = secondary_damage1 + secondary_damage2
+		print(item_damage, " damage calculated")
+	elif thrown_point_first:
+		item_damage = primary_damage1 + primary_damage2
+		print(item_damage, " damage calculated")
+	
+	return item_damage
 
 
 # Make sure that this is always connected from each individual weapon's scene

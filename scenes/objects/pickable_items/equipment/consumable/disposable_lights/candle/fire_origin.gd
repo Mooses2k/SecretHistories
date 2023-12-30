@@ -10,7 +10,8 @@ onready var light: Spatial = $Fire/Light
 
 func _physics_process(delta):
 	global_transform.basis = Basis.IDENTITY
-	handle_toppled_light()
+	if !owner.sleeping:   # For performance, unknown impact
+		handle_toppled_light()
 
 
 func handle_toppled_light():

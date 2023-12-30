@@ -72,7 +72,7 @@ wait_time = 0.5
 
 [node name="HoldPosition" parent="." index="5"]
 unique_name_in_owner = false
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0790088, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0556971, 0 )
 
 [node name="NormalPosition" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125598, 0 )

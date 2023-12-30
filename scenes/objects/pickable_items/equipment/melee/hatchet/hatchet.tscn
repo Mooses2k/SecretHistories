@@ -42,16 +42,16 @@ radius = 0.118034
 mass = 1.5
 item_drop_sound = ExtResource( 2 )
 item_throw_sound = ExtResource( 1 )
+can_spin = true
 item_size = 0
 item_name = "Hatchet"
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-can_spin = true
 weapon_type = 2
 primary_damage1 = 15
-secondary_damage1 = 26
+secondary_damage1 = 18
 secondary_damage_type2 = 1
-secondary_damage2 = 26
+secondary_damage2 = 18
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, -0.272767, 0 )

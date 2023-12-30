@@ -94,11 +94,11 @@ tracks/0/keys = {
 extents = Vector3( 0.0642877, 0.0986133, 0.0627713 )
 
 [node name="Candlestick" instance=ExtResource( 21 )]
-mass = 0.2
+mass = 1.0
 script = ExtResource( 3 )
 item_drop_sound = ExtResource( 9 )
-item_name = "Candlestick"
 can_spin = true
+item_name = "Candlestick"
 life_percentage_lose = 0.2
 prob_going_out = 0.9
 number_of_candles = 1

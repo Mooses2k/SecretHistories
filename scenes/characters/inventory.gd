@@ -173,16 +173,15 @@ func add_item(item : PickableItem) -> bool:
 				# (we currently don't check if it's lit)
 				if current_mainhand_slot == slot and not bulky_equipment:
 					print("current slot is added item slot, which is ", slot + 1)
-					if  current_offhand_equipment:
-						if current_offhand_equipment.has_method("light"):
-							print("...and current offhand is a light")
-							if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-								equip_mainhand_item()
-								print("...and picked up item is a small item")
-								return true
-							if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
-								equip_mainhand_item()
-								print("...and picked up item is a medium melee weapon")
+					if current_offhand_equipment and current_offhand_equipment.has_method("light"):
+						print("...and current offhand is a light")
+						if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+							equip_mainhand_item()
+							print("...and picked up item is a small item")
+							return true
+						if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
+							equip_mainhand_item()
+							print("...and picked up item is a medium melee weapon")
 	
 					elif item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 						equip_mainhand_item()
@@ -523,6 +522,7 @@ func swap_hands():
 		
 
 	are_swapping = false
+
 
 func switch_away_from_light(light_source) -> void:
 	if not light_source.can_attach:

@@ -74,29 +74,38 @@ func _process(delta) -> void:
 				if is_lit:
 					if self == owner_character.inventory.get_mainhand_item():
 						if horizontal_holding:
-							owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-							owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
 							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
 							owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
 						else:
-							owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-							owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
 							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
 							owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
+
+		elif Input.is_action_pressed("playerhand|offhand_use") and owner_character.is_reloading == false:
+			use_hold_time += 0.1
+			if  use_hold_time >= 0.8:
+				if is_lit:
+					if self == owner_character.inventory.get_offhand_item():
+						if horizontal_holding:
+							owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 2)
+							owner_character.get_node("%AnimationTree").set("parameters/OffhandLightSourceHoldTransition/current", 0)
+						else:
+							owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 2)
+							owner_character.get_node("%AnimationTree").set("parameters/OffhandLightSourceHoldTransition/current", 2)
 			
 		else:
 			use_hold_time = 0
-			if self == owner_character.inventory.get_mainhand_item():
+			
+			if self == owner_character.inventory.get_offhand_item():
 				if horizontal_holding == true:
-					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
+					owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 1)
+				else:
+					owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 0)
+					
+			elif self == owner_character.inventory.get_mainhand_item():
+				if horizontal_holding == true:
 					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
 				else:
-					owner_character.get_node("%AnimationTree").set("parameters/Hand_Transition/current", 0)
-					owner_character.get_node("%AnimationTree").set("parameters/Weapon_states/current", 0)
 					owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
-				
-				
 
 
 func light():

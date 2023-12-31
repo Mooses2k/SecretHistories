@@ -16,16 +16,13 @@ var target_distance := 0.0
 var target_reached := false
 var distance : float = INF
 
-func _ready():
-	get_tree().connect("physics_frame", self, "idle")
-
-func idle() -> void:
+func _pre_tick() -> void:
 	ticks_since_active += 1
 	if ticks_since_active > 1:
 		target_distance = rand_range(min_distance, max_distance)
 		target_reached = false
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	var _speech_chance = randf()
 	ticks_since_active = 0
 	distance = state.character.global_transform.origin.distance_to(state.target_position)

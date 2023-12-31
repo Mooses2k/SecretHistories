@@ -20,7 +20,7 @@ func on_agent_velocity_computed(velocity : Vector3):
 	queued_velocity = velocity
 	velocity_computed = true
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	var character = state.character as Character
 	if agent.get_target_location() != state.target_position:
 		agent.set_target_location(state.target_position)

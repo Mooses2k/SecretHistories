@@ -5,7 +5,7 @@ class_name BTLookAtTarget extends BTAction
 # TODO: eventually, turn the head towards it, a bit faster than body
 
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	# This sets the target facing direction, and immediately exits.
 	# Note that the character may not be facing in the given direction yet
 	# When this node succeeds

@@ -322,7 +322,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 			# Z
 			#-1    +1
 			#forms a straight line, adding a point at *, taking the door(°) edges into account
-			var half_gap = data.get_wall_meta(cell, direction) * 0.5 / half_cell - local_margin
+			var half_gap = 0.5*data.get_wall_meta(cell, direction) / half_cell - local_margin
 			half_gap = max(half_gap, 0.05)
 			new_points = [
 				Vector2(1.0 + local_margin + local_thickness, half_gap),
@@ -471,7 +471,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 				# Z
 				#-1    +1
 				#forms a straight line, adding a point at *, taking the door(°) edges into account
-				var half_gap = data.get_wall_meta(current_cell, current_direction) * 0.5 / half_cell - local_margin
+				var half_gap = 0.5*data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin
 				half_gap = max(half_gap, 0.05)
 				new_points = [
 					Vector2(1.0 - local_margin - local_thickness, half_gap),

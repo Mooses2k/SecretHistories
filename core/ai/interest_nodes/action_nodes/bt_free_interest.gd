@@ -1,7 +1,7 @@
 class_name BTFreeInterest extends BTAction
 
 
-func tick(state: CharacterState) -> int:
+func _tick(state: CharacterState) -> int:
 	if !is_instance_valid(state.target):
 		return BTResult.FAILED
 	

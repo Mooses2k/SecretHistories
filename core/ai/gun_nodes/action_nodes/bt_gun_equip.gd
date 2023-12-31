@@ -15,5 +15,5 @@ class_name BTEquipNextWeapon extends BTAction
 #	return Status.FAILURE # or maybe RUNNING for now?
 
 
-func tick(_character: CharacterState) -> int:
+func _tick(_character: CharacterState) -> int:
 	return BTResult.OK

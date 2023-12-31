@@ -7,7 +7,7 @@ class_name BTReloadGun extends BTAction
 signal character_reloaded   # For signalling speech
 
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	var inventory = state.character.inventory
 	var equipment = state.character.inventory.current_mainhand_equipment as GunItem
 

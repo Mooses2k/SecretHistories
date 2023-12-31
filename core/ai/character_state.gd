@@ -49,7 +49,7 @@ func set_target_position(value : Vector3) -> void:
 	var data : WorldData = GameManager.game.level.world_data
 	var cell = data.get_cell_index_from_local_position(value)
 	if data.get_cell_type(cell) != data.CellType.EMPTY:
-		if !value.distance_squared_to(target_position) < 0.25:
+#		if !value.distance_squared_to(target_position) < 0.01:
 			target_position = value
 			path_needs_update = true
 

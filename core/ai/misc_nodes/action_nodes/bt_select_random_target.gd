@@ -8,7 +8,7 @@ export var minimum_radius := 1.0
 export var maximum_radius := 6.0
 
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	var radius := rand_range(minimum_radius, maximum_radius)
 	var angle := rand_range(0, 2*PI)
 	var offset := (Vector3.FORWARD * radius).rotated(Vector3.UP, angle)

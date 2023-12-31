@@ -14,7 +14,7 @@ func set_threshold(value : float):
 
 
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	var character = state.character
 
 	if character.global_transform.origin.distance_squared_to(state.target_position) <= _thresold_squared:

@@ -6,14 +6,14 @@ class_name BTShoot extends BTAction
 signal fighting   # For signalling speech
 
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	var speech_chance = randf()
 	var equipment = state.character.inventory.current_mainhand_equipment as GunItem
 	if equipment:
 		if (speech_chance > 0.75):
 			emit_signal("fighting")
 #		TODO disable shooting for now
-		print("Pew")
-#		equipment._use_primary()
+#		print("Pew")
+		equipment._use_primary()
 		return BTResult.OK
 	return BTResult.FAILED

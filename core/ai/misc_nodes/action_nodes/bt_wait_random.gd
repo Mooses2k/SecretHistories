@@ -15,20 +15,16 @@ var active := false
 var reset := false
 
 
-func _ready():
-	get_tree().connect("physics_frame", self, "idle")
-
-
-func idle():
+func _pre_tick():
 	if active:
 		active = false
-		time_left -= get_physics_process_delta_time()
+		time_left -= get_root().tick_delta
 		reset = false
 	elif !reset:
 		reset_timer()
 
 
-func tick(state : CharacterState) -> int:
+func _tick(state : CharacterState) -> int:
 	if time_left > 0:
 		state.move_direction = Vector3.ZERO
 		active = true

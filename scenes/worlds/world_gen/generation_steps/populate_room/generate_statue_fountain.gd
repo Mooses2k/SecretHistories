@@ -41,8 +41,9 @@ var min_tile_size : Vector2
 
 func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
 	min_tile_size = Vector2(room_purpose_data.requirements[0].min_x_tiles, room_purpose_data.requirements[0].min_y_tiles)
-	var statue_fountain_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.FOUNTAIN)
 	
+	var statue_fountain_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.FOUNTAIN)
+	print("<<<<<<room available = " + str(statue_fountain_rooms))
 	if statue_fountain_rooms.empty():
 		return
 	
@@ -58,9 +59,11 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 func _spawn_middle(world_data: WorldData, statue_fountain: RoomData, walls_data: RoomWalls) -> void:
 	var remaining_rect := _get_remaining_rect(statue_fountain, walls_data)
 	
+	print("<<<<<<check if fountain fits the room>>>>>>>>>")
 	if remaining_rect.size < min_tile_size:
 		return
-	
+	print("<<<<<<SUCCESS fountain fits the room>>>>>>>>>")
+
 	var statue_fountain_rect := Rect2(Vector2.ZERO, min_tile_size)
 	statue_fountain_rect.position = remaining_rect.position
 	statue_fountain_rect.position += remaining_rect.size / 2.0 - statue_fountain_rect.size / 2.0

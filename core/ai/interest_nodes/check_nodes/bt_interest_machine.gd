@@ -50,10 +50,10 @@ func set_event(interest: int, position: Vector3, object: Object, emissor: Charac
 		else: emit_signal("indirect_event_detected")
 
 	if events.has(object):
-		prints("Has object", events[object].interest, interest)
+#		prints("Has object", events[object].interest, interest)
 		
 		if interest >= events[object].interest:
-			print("Overriding event")
+#			print("Overriding event")
 			events[object].set_interest_level(interest)
 			events[object].position = position
 			events[object].emissor = emissor
@@ -87,7 +87,7 @@ func _tick(state: CharacterState) -> int:
 	if is_instance_valid(most_interesting):
 		state.target_position = most_interesting.position
 		state.target = most_interesting
-		prints("Set new position", state.target.position , state.target.interest, state.target.emissor.name, state.target.object.name)
+#		prints("Set new position", state.target.position , state.target.interest, state.target.emissor.name, state.target.object.name)
 		return BTResult.OK
 	
 	state.target = null

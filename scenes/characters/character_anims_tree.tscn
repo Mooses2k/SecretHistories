@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=2]
+[gd_scene load_steps=144 format=2]
 
 [sub_resource type="AnimationNodeTransition" id=172]
 input_count = 4
@@ -41,6 +41,27 @@ input_2/auto_advance = false
 [sub_resource type="AnimationNodeAnimation" id=241]
 animation = "crouch_loop"
 
+[sub_resource type="AnimationNodeAnimation" id=420]
+animation = "hip_idle_shotgun"
+
+[sub_resource type="AnimationNodeAnimation" id=421]
+animation = "hip_idle_shotgun"
+
+[sub_resource type="AnimationNodeAnimation" id=437]
+animation = "hip_idle_shotgun"
+
+[sub_resource type="AnimationNodeAnimation" id=438]
+animation = "run_forward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=439]
+animation = "hip_idle_shotgun"
+
+[sub_resource type="AnimationNodeAnimation" id=440]
+animation = "crouch_loop"
+
+[sub_resource type="AnimationNodeAnimation" id=441]
+animation = "hip_idle_shotgun"
+
 [sub_resource type="AnimationNodeAnimation" id=129]
 animation = "run_forward-loop"
 
@@ -61,6 +82,109 @@ input_4/auto_advance = false
 [sub_resource type="AnimationNodeBlend2" id=240]
 filter_enabled = true
 filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeBlend2" id=424]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeAnimation" id=426]
+animation = "hip_idle_shotgun"
+
+[sub_resource type="AnimationNodeAnimation" id=427]
+animation = "walk_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=428]
+animation = "walk_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=429]
+animation = "walk_backward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=430]
+animation = "walk_forward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=431]
+animation = "walk_forward_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=432]
+animation = "walk_forward_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=433]
+animation = "walk_back_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=434]
+animation = "walk_back_left-loop"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=435]
+blend_point_0/node = SubResource( 426 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 427 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 428 )
+blend_point_2/pos = Vector2( -1, 0 )
+blend_point_3/node = SubResource( 429 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_point_4/node = SubResource( 430 )
+blend_point_4/pos = Vector2( 0, 1 )
+blend_point_5/node = SubResource( 431 )
+blend_point_5/pos = Vector2( 1, 1 )
+blend_point_6/node = SubResource( 432 )
+blend_point_6/pos = Vector2( -1, 1 )
+blend_point_7/node = SubResource( 433 )
+blend_point_7/pos = Vector2( 1, -1 )
+blend_point_8/node = SubResource( 434 )
+blend_point_8/pos = Vector2( -1, -1 )
+
+[sub_resource type="AnimationNodeAnimation" id=442]
+animation = "hip_idle_shotgun"
+
+[sub_resource type="AnimationNodeAnimation" id=443]
+animation = "hip_idle_shotgun"
+
+[sub_resource type="AnimationNodeAnimation" id=444]
+animation = "crouch_walk_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=445]
+animation = "crouch_walk_back_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=446]
+animation = "crouch_walk_back-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=447]
+animation = "crouch_walk_forward-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=448]
+animation = "crouch_walk_forward_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=449]
+animation = "crouch_walk_forward_left-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=450]
+animation = "crouch_walk_back_right-loop"
+
+[sub_resource type="AnimationNodeAnimation" id=451]
+animation = "crouch_walk_back_left-loop"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=452]
+blend_point_0/node = SubResource( 442 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 443 )
+blend_point_1/pos = Vector2( 0, 0 )
+blend_point_2/node = SubResource( 444 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 445 )
+blend_point_3/pos = Vector2( -1, 0 )
+blend_point_4/node = SubResource( 446 )
+blend_point_4/pos = Vector2( 0, -1 )
+blend_point_5/node = SubResource( 447 )
+blend_point_5/pos = Vector2( 0, 1 )
+blend_point_6/node = SubResource( 448 )
+blend_point_6/pos = Vector2( 1, 1 )
+blend_point_7/node = SubResource( 449 )
+blend_point_7/pos = Vector2( -1, 1 )
+blend_point_8/node = SubResource( 450 )
+blend_point_8/pos = Vector2( 1, -1 )
+blend_point_9/node = SubResource( 451 )
+blend_point_9/pos = Vector2( -1, -1 )
 
 [sub_resource type="AnimationNodeAnimation" id=374]
 animation = "crouch_loop"
@@ -170,12 +294,14 @@ input_1/auto_advance = false
 animation = "falling"
 
 [sub_resource type="AnimationNodeTransition" id=127]
-input_count = 2
+input_count = 3
 xfade_time = 0.2
 input_0/name = "Small_guns"
 input_0/auto_advance = false
 input_1/name = "Large_guns"
 input_1/auto_advance = false
+input_2/name = "Shotgun"
+input_2/auto_advance = false
 
 [sub_resource type="AnimationNodeOneShot" id=121]
 
@@ -348,6 +474,31 @@ blend_point_7/pos = Vector2( -1, -1 )
 blend_point_8/node = SubResource( 400 )
 blend_point_8/pos = Vector2( 0, 0 )
 
+[sub_resource type="AnimationNodeBlend2" id=423]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeBlend2" id=422]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeBlend2" id=425]
+filter_enabled = true
+filters = [ "rig_deform/Skeleton:DEF-breast.L", "rig_deform/Skeleton:DEF-breast.R", "rig_deform/Skeleton:DEF-foot.L", "rig_deform/Skeleton:DEF-foot.R", "rig_deform/Skeleton:DEF-pelvis.L", "rig_deform/Skeleton:DEF-pelvis.R", "rig_deform/Skeleton:DEF-shin.L", "rig_deform/Skeleton:DEF-shin.L.001", "rig_deform/Skeleton:DEF-shin.R", "rig_deform/Skeleton:DEF-shin.R.001", "rig_deform/Skeleton:DEF-spine", "rig_deform/Skeleton:DEF-spine.001", "rig_deform/Skeleton:DEF-spine.002", "rig_deform/Skeleton:DEF-spine.003", "rig_deform/Skeleton:DEF-spine.004", "rig_deform/Skeleton:DEF-spine.005", "rig_deform/Skeleton:DEF-spine.006", "rig_deform/Skeleton:DEF-thigh.L", "rig_deform/Skeleton:DEF-thigh.L.001", "rig_deform/Skeleton:DEF-thigh.R", "rig_deform/Skeleton:DEF-thigh.R.001", "rig_deform/Skeleton:DEF-toe.L", "rig_deform/Skeleton:DEF-toe.R" ]
+
+[sub_resource type="AnimationNodeTransition" id=436]
+input_count = 5
+input_0/name = "ShotgunIdle"
+input_0/auto_advance = false
+input_1/name = "ShotgunStrafe"
+input_1/auto_advance = false
+input_2/name = "ShotgunRun"
+input_2/auto_advance = false
+input_3/name = "ShotgunCrouch"
+input_3/auto_advance = false
+input_4/name = "ShotgunCrouchIdle"
+input_4/auto_advance = false
+
 [sub_resource type="AnimationNodeTransition" id=158]
 input_count = 5
 xfade_time = 0.2
@@ -488,7 +639,7 @@ blend_point_8/node = SubResource( 418 )
 blend_point_8/pos = Vector2( -1, -1 )
 
 [sub_resource type="AnimationNodeBlendTree" id=419]
-graph_offset = Vector2( -608.947, -103.657 )
+graph_offset = Vector2( -1396.21, 2347.8 )
 nodes/ADS_Pistol_state/node = SubResource( 172 )
 nodes/ADS_Pistol_state/position = Vector2( -580, -20 )
 nodes/ADS_Rifle_Run/node = SubResource( 182 )
@@ -501,12 +652,32 @@ nodes/Animation/node = SubResource( 129 )
 nodes/Animation/position = Vector2( -2060, 2560 )
 "nodes/Animation 2/node" = SubResource( 241 )
 "nodes/Animation 2/position" = Vector2( -2040, 3300 )
+"nodes/Animation 3/node" = SubResource( 420 )
+"nodes/Animation 3/position" = Vector2( -1540, 3500 )
+"nodes/Animation 4/node" = SubResource( 421 )
+"nodes/Animation 4/position" = Vector2( -1955.31, 3738.4 )
+"nodes/Animation 5/node" = SubResource( 437 )
+"nodes/Animation 5/position" = Vector2( -1940, 4100 )
+"nodes/Animation 6/node" = SubResource( 438 )
+"nodes/Animation 6/position" = Vector2( -1940, 4240 )
+"nodes/Animation 7/node" = SubResource( 439 )
+"nodes/Animation 7/position" = Vector2( -1980, 4900 )
+"nodes/Animation 8/node" = SubResource( 440 )
+"nodes/Animation 8/position" = Vector2( -1980, 5120 )
+"nodes/Animation 9/node" = SubResource( 441 )
+"nodes/Animation 9/position" = Vector2( -1940, 4400 )
 nodes/Big_guns_transition/node = SubResource( 132 )
 nodes/Big_guns_transition/position = Vector2( -1020, 2000 )
 "nodes/Blend2 2/node" = SubResource( 240 )
 "nodes/Blend2 2/position" = Vector2( -1600, 3040 )
+"nodes/Blend2 5/node" = SubResource( 424 )
+"nodes/Blend2 5/position" = Vector2( -1500, 4760 )
 nodes/BlendSpace2D/node = SubResource( 187 )
 nodes/BlendSpace2D/position = Vector2( -2120, -800 )
+"nodes/BlendSpace2D 2/node" = SubResource( 435 )
+"nodes/BlendSpace2D 2/position" = Vector2( -1940, 3880 )
+"nodes/BlendSpace2D 3/node" = SubResource( 452 )
+"nodes/BlendSpace2D 3/position" = Vector2( -1940, 4580 )
 nodes/Crouch_Rifle_vector/node = SubResource( 148 )
 nodes/Crouch_Rifle_vector/position = Vector2( -2040, 2900 )
 nodes/Equipped_state/node = SubResource( 126 )
@@ -516,7 +687,7 @@ nodes/Falling/position = Vector2( 2300, 160 )
 nodes/Falling_anim/node = SubResource( 123 )
 nodes/Falling_anim/position = Vector2( 2000, 440 )
 nodes/Gun_transition/node = SubResource( 127 )
-nodes/Gun_transition/position = Vector2( -480, 1300 )
+nodes/Gun_transition/position = Vector2( -640, 1980 )
 nodes/High_kick/node = SubResource( 121 )
 nodes/High_kick/position = Vector2( 1880, 140 )
 nodes/High_kick_anim/node = SubResource( 122 )
@@ -591,6 +762,14 @@ nodes/Rifle_gun_run_blend/node = SubResource( 130 )
 nodes/Rifle_gun_run_blend/position = Vector2( -1620, 2480 )
 nodes/Rifle_strafe_vector/node = SubResource( 135 )
 nodes/Rifle_strafe_vector/position = Vector2( -2080, 2100 )
+nodes/ShotgunCrouchStrafe/node = SubResource( 423 )
+nodes/ShotgunCrouchStrafe/position = Vector2( -1520, 4360 )
+"nodes/ShotgunRunBlend 2/node" = SubResource( 422 )
+"nodes/ShotgunRunBlend 2/position" = Vector2( -1520, 4060 )
+nodes/ShotgunStrafe/node = SubResource( 425 )
+nodes/ShotgunStrafe/position = Vector2( -1520, 3760 )
+nodes/ShotgunTransitions/node = SubResource( 436 )
+nodes/ShotgunTransitions/position = Vector2( -740, 3680 )
 nodes/Small_guns_transitions/node = SubResource( 158 )
 nodes/Small_guns_transitions/position = Vector2( -1000, 700 )
 nodes/air_anim/node = SubResource( 87 )
@@ -618,7 +797,7 @@ nodes/small_gun_run_blend/node = SubResource( 169 )
 nodes/small_gun_run_blend/position = Vector2( -1660, 920 )
 nodes/walk_strafe/node = SubResource( 101 )
 nodes/walk_strafe/position = Vector2( 0, 800 )
-node_connections = [ "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_Idle _Walk", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "One_Handed_crouch", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Idle_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "One_Handed_Idle2", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "output", 0, "Falling" ]
+node_connections = [ "output", 0, "Falling", "ShotgunTransitions", 0, "Animation 3", "ShotgunTransitions", 1, "ShotgunStrafe", "ShotgunTransitions", 2, "ShotgunRunBlend 2", "ShotgunTransitions", 3, "ShotgunCrouchStrafe", "ShotgunTransitions", 4, "Blend2 5", "ADS_State", 0, "ADS_Rifle_state", "ADS_State", 1, "ADS_Pistol_state", "ADS_State", 2, "Gun_transition", "ADS_Rifle_Run", 0, "Rifle_ADS_Idle _Run", "ADS_Rifle_Run", 1, "Rifle_ADS_Idle _Run_Loop", "ADS_Rifle_state", 0, "Rifle_ADS_Idle", "ADS_Rifle_state", 1, "Rifle_ADS_Idle _Walk", "ADS_Rifle_state", 2, "ADS_Rifle_Run", "ADS_Rifle_state", 3, "Rifle_ADS_Crouch", "ADS_Pistol_state", 0, "One_Handed_ADS_Idle", "ADS_Pistol_state", 1, "One_Handed_ADS_Idle_Strafe", "ADS_Pistol_state", 2, "One_Handed_ADS_Run", "ADS_Pistol_state", 3, "One_Handed_ADS_Crouch", "Rifle_ADS_Crouch", 0, "Rifle_ADS_Idle _Crouch", "Rifle_ADS_Crouch", 1, "BlendSpace2D", "Pistol_crouch_strafe", 0, "One_handed_ADS_idle_crouch 2", "Pistol_crouch_strafe", 1, "One_Handed_crouch", "Rifle_crouch", 0, "Hip_Crouch_Idle", "Rifle_crouch", 1, "Crouch_Rifle_vector", "jump", 0, "Equipped_state", "jump", 1, "Jump_anim", "Big_guns_transition", 0, "Hip_medium_Idle", "Big_guns_transition", 1, "Rifle_Strafe", "Big_guns_transition", 2, "Rifle_gun_run_blend", "Big_guns_transition", 3, "Rifle_crouch", "Big_guns_transition", 4, "Blend2 2", "Falling", 0, "High_kick", "Falling", 1, "Falling_anim", "Land", 0, "Low_Kick", "Land", 1, "Land_anim", "Low_Kick", 0, "jump", "Low_Kick", 1, "Kick_anim", "High_kick", 0, "Land", "High_kick", 1, "High_kick_anim", "Gun_transition", 0, "Small_guns_transitions", "Gun_transition", 1, "Big_guns_transition", "Gun_transition", 2, "ShotgunTransitions", "One_Handed_ADS_Crouch", 0, "One_Handed_Idle_ADS_Crouch", "One_Handed_ADS_Crouch", 1, "One_Handed_ADS_Crouch_Vector", "Rifle_Strafe", 0, "Rifle_Idle_walk", "Rifle_Strafe", 1, "Rifle_strafe_vector", "Small_guns_transitions", 0, "One_Handed_Idle", "Small_guns_transitions", 1, "One_Handed_Idle2", "Small_guns_transitions", 2, "small_gun_run_blend", "Small_guns_transitions", 3, "Pistol_crouch_strafe", "Small_guns_transitions", 4, "small_gun_crouch_idle", "small_gun_crouch_idle", 0, "One_handed_ADS_idle_crouch", "small_gun_crouch_idle", 1, "small_gun_crouch", "Equipped_state", 0, "ADS_State", "Equipped_state", 1, "Normal_state", "Rifle_gun_run_blend", 0, "Hip_ildle_anim", "Rifle_gun_run_blend", 1, "Animation", "Normal_state", 0, "idle_anim", "Normal_state", 1, "walk_strafe", "Normal_state", 2, "run_anim", "Normal_state", 3, "air_anim", "Normal_state", 4, "crouch_idle", "Normal_state", 5, "crouch_strafe", "small_gun_run_blend", 0, "small_gun_idle", "small_gun_run_blend", 1, "small_gun_run", "Blend2 2", 0, "Rifle_crouch_Idle", "Blend2 2", 1, "Animation 2", "One_Handed_ADS_Run", 0, "One_Handed_Idle_ADS_Run", "One_Handed_ADS_Run", 1, "One_Handed_ADS_Run_loop", "ShotgunRunBlend 2", 0, "Animation 5", "ShotgunRunBlend 2", 1, "Animation 6", "Blend2 5", 0, "Animation 7", "Blend2 5", 1, "Animation 8", "ShotgunCrouchStrafe", 0, "Animation 9", "ShotgunCrouchStrafe", 1, "BlendSpace2D 3", "ShotgunStrafe", 0, "Animation 4", "ShotgunStrafe", 1, "BlendSpace2D 2" ]
 
 [node name="AnimationTree" type="AnimationTree"]
 tree_root = SubResource( 419 )
@@ -629,7 +808,10 @@ parameters/ADS_Rifle_state/current = 3
 parameters/ADS_State/current = 0
 parameters/Big_guns_transition/current = 0
 "parameters/Blend2 2/blend_amount" = 1.0
+"parameters/Blend2 5/blend_amount" = 0
 parameters/BlendSpace2D/blend_position = Vector2( 0.99262, -0.991379 )
+"parameters/BlendSpace2D 2/blend_position" = Vector2( 0, 0 )
+"parameters/BlendSpace2D 3/blend_position" = Vector2( 0, 0 )
 parameters/Crouch_Rifle_vector/blend_position = Vector2( 0, 0.0344827 )
 parameters/Equipped_state/current = 0
 parameters/Falling/active = false
@@ -647,6 +829,10 @@ parameters/Rifle_Strafe/blend_amount = 1.0
 parameters/Rifle_crouch/blend_amount = 0.0
 parameters/Rifle_gun_run_blend/blend_amount = 1.0
 parameters/Rifle_strafe_vector/blend_position = Vector2( 0.00364304, 0.00391126 )
+parameters/ShotgunCrouchStrafe/blend_amount = 0
+"parameters/ShotgunRunBlend 2/blend_amount" = 0
+parameters/ShotgunStrafe/blend_amount = 0
+parameters/ShotgunTransitions/current = 0
 parameters/Small_guns_transitions/current = 2
 parameters/crouch_strafe/blend_position = Vector2( -0.00364298, 0.0431035 )
 parameters/jump/active = false

@@ -639,7 +639,7 @@ blend_point_8/node = SubResource( 418 )
 blend_point_8/pos = Vector2( -1, -1 )
 
 [sub_resource type="AnimationNodeBlendTree" id=419]
-graph_offset = Vector2( -1396.21, 2347.8 )
+graph_offset = Vector2( -1106.71, 1995.84 )
 nodes/ADS_Pistol_state/node = SubResource( 172 )
 nodes/ADS_Pistol_state/position = Vector2( -580, -20 )
 nodes/ADS_Rifle_Run/node = SubResource( 182 )

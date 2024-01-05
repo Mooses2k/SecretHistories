@@ -688,7 +688,7 @@ _global_script_class_icons={
 
 config/name="Secret Histories"
 config/description="An entirely forgettable game"
-run/main_scene="res://utils/debug_scenes/standalone_game_debug.tscn"
+run/main_scene="res://scenes/ui/opening_screens.tscn"
 run/flush_stdout_on_print=true
 boot_splash/show_image=false
 config/icon="res://icon.png"
@@ -717,8 +717,11 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/width=1280
-window/size/height=720
+window/size/width=1920
+window/size/height=1080
+window/size/fullscreen=true
+window/size/test_width=1280
+window/size/test_height=720
 
 [editor]
 

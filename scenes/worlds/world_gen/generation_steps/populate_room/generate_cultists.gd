@@ -50,7 +50,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	match GameManager.game.current_floor_level:
 		-1:
 			pass   # set _density_by_type?
-			_max_count = 1
+			_max_count = 0
 		-2:
 			pass   # set _density_by_type?
 			_max_count = 2

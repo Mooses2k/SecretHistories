@@ -78,17 +78,12 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 	else:
 		doors[idx] = value
 
-
 func update_navigation():
 	var cell_size = 0.1
-	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
-	
-	var map = get_world().navigation_map
-	for region in NavigationServer.map_get_regions(map):
-		NavigationServer.free_rid(region)
-	NavigationServer.map_force_update(map)
 
+	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
 	var cell_height = NavigationServer.map_get_cell_height(get_world().navigation_map)
+	
 	var all_points = Array()
 	# This array stores, for each cell, the room index of the room that cell belongs to
 	# A room is defined, in this script, as a connected walkable area (without going through any doors)
@@ -146,7 +141,7 @@ func update_navigation():
 							navmesh.vertices = verts_3d
 							all_points.append_array(Array(verts_3d))
 							navmesh.polygons = [PoolIntArray([0, 1, 2, 3])]
-							var navmesh_instance = NavigationMeshInstance.new()
+							var navmesh_instance = AutoCleanNavigationMeshInstance.new()
 							navmesh_instance.navmesh = navmesh
 							
 							call_deferred("add_child", navmesh_instance)
@@ -178,7 +173,7 @@ func update_navigation():
 			navmesh.vertices = vertices_3d
 			all_points.append_array(Array(vertices_3d))
 			navmesh.polygons = navpoly.polygons
-			var nav_instance = NavigationMeshInstance.new()
+			var nav_instance = AutoCleanNavigationMeshInstance.new()
 			nav_instance.navmesh = navmesh
 			call_deferred("add_child", nav_instance)
 #			navmesh_add(navmesh, Transform.IDENTITY)
@@ -363,6 +358,8 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 	var current_cell = start_cell
 	var current_direction = start_direction
 	while not (current_cell == start_cell and current_direction == start_direction) or result.size() == 0:
+		if current_cell == -1:
+			break
 		if not walls_done.has(current_cell):
 			walls_done[current_cell] = Array()
 		(walls_done[current_cell] as Array).push_back(current_direction)

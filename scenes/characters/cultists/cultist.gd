@@ -27,3 +27,7 @@ func _ready():
 	print("cultist.gd added shotgun")
 	inventory.insert_tiny_item(ammo_resource, 555)
 	print("cultist.gd added shotgun ammo")
+
+
+func reload_weapons():
+	animation_tree.set("parameters/" + str(inventory.get_mainhand_item().item_name) + "/active", true)

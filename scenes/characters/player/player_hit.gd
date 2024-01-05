@@ -13,7 +13,7 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var tween: Tween = $Tween
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	var player := owner as Player
 	if is_instance_valid(GameManager.game):
 		debug_label.text = (

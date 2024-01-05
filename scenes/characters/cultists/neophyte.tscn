@@ -1,37 +1,44 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
-[ext_resource path="res://core/ai/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
-[ext_resource path="res://core/ai/action_nodes/bt_shoot.gd" type="Script" id=3]
+[ext_resource path="res://core/ai/gun_nodes/check_nodes/bt_gun_cooldown.gd" type="Script" id=2]
+[ext_resource path="res://core/ai/gun_nodes/action_nodes/bt_gun_reload.gd" type="Script" id=3]
 [ext_resource path="res://scenes/characters/body.gd" type="Script" id=4]
-[ext_resource path="res://scenes/sensors/direct_player_sight/direct_player_sight.tscn" type="PackedScene" id=5]
-[ext_resource path="res://core/ai/behavior_tree.gd" type="Script" id=6]
-[ext_resource path="res://core/ai/action_nodes/bt_select_random_target.gd" type="Script" id=7]
+[ext_resource path="res://scenes/sensors/touch_sensor.gd" type="Script" id=5]
+[ext_resource path="res://core/ai/bt_root.gd" type="Script" id=6]
+[ext_resource path="res://core/ai/gun_nodes/action_nodes/bt_gun_equip.gd" type="Script" id=7]
 [ext_resource path="res://core/ai/flow_nodes/bt_selector.gd" type="Script" id=8]
 [ext_resource path="res://core/ai/flow_nodes/bt_sequence.gd" type="Script" id=9]
-[ext_resource path="res://core/ai/action_nodes/bt_wait_random.gd" type="Script" id=10]
-[ext_resource path="res://core/ai/check_nodes/bt_player_sensor.gd" type="Script" id=11]
-[ext_resource path="res://core/ai/check_nodes/bt_approach_distance.gd" type="Script" id=13]
-[ext_resource path="res://core/ai/action_nodes/bt_look_at_target.gd" type="Script" id=14]
+[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_wait_random.gd" type="Script" id=10]
+[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_select_random_target.gd" type="Script" id=11]
+[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_go_to_target.gd" type="Script" id=12]
+[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_look_at_target.gd" type="Script" id=13]
+[ext_resource path="res://core/ai/gun_nodes/action_nodes/bt_gun_shoot.gd" type="Script" id=14]
 [ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Material_003.material" type="Material" id=15]
-[ext_resource path="res://scenes/sensors/sound_listener.tscn" type="PackedScene" id=16]
-[ext_resource path="res://core/ai/check_nodes/bt_sound_listener.gd" type="Script" id=17]
+[ext_resource path="res://scenes/sensors/sound_sensor.gd" type="Script" id=16]
+[ext_resource path="res://scenes/sensors/visual_sensor.gd" type="Script" id=17]
 [ext_resource path="res://scenes/characters/cultists/cultist.gd" type="Script" id=18]
-[ext_resource path="res://core/ai/check_nodes/bt_inventory_has_ammo.gd" type="Script" id=19]
-[ext_resource path="res://core/ai/check_nodes/bt_gun_has_ammo.gd" type="Script" id=20]
-[ext_resource path="res://core/ai/action_nodes/bt_reload_gun.gd" type="Script" id=21]
-[ext_resource path="res://core/ai/check_nodes/bt_collision_sensor.gd" type="Script" id=22]
-[ext_resource path="res://scenes/sensors/touch_sensor.tscn" type="PackedScene" id=23]
+[ext_resource path="res://scenes/sensors/character_sensors.gd" type="Script" id=19]
+[ext_resource path="res://core/ai/interest_nodes/action_nodes/bt_free_interest.gd" type="Script" id=20]
+[ext_resource path="res://core/ai/misc_nodes/check_nodes/bt_approach_distance.gd" type="Script" id=21]
+[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_is_player.gd" type="Script" id=22]
+[ext_resource path="res://core/ai/gun_nodes/check_nodes/bt_inventory_has_ammo.gd" type="Script" id=23]
 [ext_resource path="res://scenes/characters/cultists/always_on_skeleton_IK.gd" type="Script" id=24]
 [ext_resource path="res://scenes/characters/cultists/demo_ik.gd" type="Script" id=25]
 [ext_resource path="res://resources/animations/crouch_walk_forward_left-loop.tres" type="Animation" id=26]
 [ext_resource path="res://resources/models/characters/cultists/cultist_neophyte/Darkness.material" type="Material" id=27]
-[ext_resource path="res://core/ai/action_nodes/bt_equip_next_weapon.gd" type="Script" id=28]
-[ext_resource path="res://core/ai/action_nodes/bt_go_to_target_with_agent.gd" type="Script" id=29]
+[ext_resource path="res://core/ai/gun_nodes/check_nodes/bt_gun_has_ammo.gd" type="Script" id=28]
+[ext_resource path="res://scenes/characters/cultists/bt_line_of_sight.gd" type="Script" id=29]
+[ext_resource path="res://core/ai/interest_nodes/check_nodes/bt_interest_machine.gd" type="Script" id=30]
+[ext_resource path="res://scenes/characters/cultists/debugviz_target_position.gd" type="Script" id=31]
+[ext_resource path="res://scenes/characters/cultists/auto_kick_doors.gd" type="Script" id=32]
+[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_clear_current_interest.gd" type="Script" id=33]
+[ext_resource path="res://scenes/characters/cultists/debugviz_path.gd" type="Script" id=34]
 
 [sub_resource type="CapsuleShape" id=6]
 margin = 0.001
-radius = 0.4
+radius = 0.25
+height = 1.3
 
 [sub_resource type="ArrayMesh" id=7]
 resource_name = "neophyte_scaled_no_cape_Cube013"
@@ -685,6 +692,23 @@ height = 0.162729
 radius = 0.06
 height = 0.162729
 
+[sub_resource type="SphereShape" id=38]
+radius = 25.0
+
+[sub_resource type="CapsuleShape" id=39]
+radius = 0.4
+height = 1.2
+
+[sub_resource type="SpatialMaterial" id=40]
+flags_unshaded = true
+
+[sub_resource type="CubeMesh" id=41]
+material = SubResource( 40 )
+size = Vector3( 0.1, 0.1, 0.1 )
+
+[sub_resource type="SpatialMaterial" id=42]
+flags_unshaded = true
+
 [node name="Cultist" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 18 )
@@ -693,131 +717,22 @@ move_speed = 1.5
 acceleration = 5.0
 mass = 70.0
 
-[node name="NavigationAgent" type="NavigationAgent" parent="." index="0"]
-unique_name_in_owner = true
-avoidance_enabled = true
-radius = 0.5
-neighbor_dist = 5.0
+[node name="CollisionShape" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.947582, -0.158151 )
+shape = SubResource( 6 )
 
 [node name="IKLookTarget" type="Position3D" parent="." index="1"]
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2 )
 
-[node name="CollisionShape" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.947582, -0.158151 )
-shape = SubResource( 6 )
-
-[node name="MainHandEquipmentRoot" parent="." index="5"]
+[node name="MainHandEquipmentRoot" parent="." index="4"]
 unique_name_in_owner = false
 transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
 
-[node name="BehaviorTree" type="Node" parent="." index="7"]
-unique_name_in_owner = true
-script = ExtResource( 6 )
-bt_root = NodePath("BTSelector")
-
-[node name="BTSelector" type="Node" parent="BehaviorTree" index="0"]
-script = ExtResource( 8 )
-
-[node name="BTSequenceActive" type="Node" parent="BehaviorTree/BTSelector" index="0"]
-script = ExtResource( 9 )
-
-[node name="BTSelectorSensor" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive" index="0"]
-script = ExtResource( 8 )
-
-[node name="BTCollisionSensor2" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor" index="0"]
-script = ExtResource( 22 )
-sensor = NodePath("../../../../../Body/TouchSensor")
-
-[node name="BTPlayerSensor" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor" index="1"]
-script = ExtResource( 11 )
-sensor = NodePath("../../../../../Body/DirectPlayerSight")
-
-[node name="BTSoundListener" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor" index="2"]
-script = ExtResource( 17 )
-direct_player_sight = NodePath("../../../../../Body/DirectPlayerSight")
-listener = NodePath("../../../../../Body/SoundListener")
-
-[node name="BTSequence" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive" index="1"]
-script = ExtResource( 9 )
-
-[node name="BTSelectorAmmo" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="0"]
-script = ExtResource( 8 )
-
-[node name="BTGunHasAmmo" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="0"]
-script = ExtResource( 20 )
-
-[node name="BTInventoryHasAmmo" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="1"]
-script = ExtResource( 19 )
-
-[node name="BTReloadGun" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="2"]
-script = ExtResource( 21 )
-
-[node name="BTEquipNextWeapon" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelectorAmmo" index="3"]
-script = ExtResource( 28 )
-
-[node name="BTSelector" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="1"]
-script = ExtResource( 8 )
-
-[node name="BTApproachRandom_Distance" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelector" index="0"]
-script = ExtResource( 13 )
-listener = NodePath("../../../../../../Body/SoundListener")
-
-[node name="BTGoToTargetWithAgent" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTSelector" index="1"]
-script = ExtResource( 29 )
-
-[node name="BTLookAtTarget3" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="2"]
-script = ExtResource( 14 )
-
-[node name="BTGunCooldown" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="3"]
-script = ExtResource( 2 )
-
-[node name="BTWaitRandom3" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="4"]
-script = ExtResource( 10 )
-max_time = 1.6
-min_time = 0.8
-
-[node name="BTShoot" type="Node" parent="BehaviorTree/BTSelector/BTSequenceActive/BTSequence" index="5"]
-script = ExtResource( 3 )
-
-[node name="BT_Sequence_Idle" type="Node" parent="BehaviorTree/BTSelector" index="1"]
-script = ExtResource( 9 )
-
-[node name="BTLookAtTarget4" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="0"]
-script = ExtResource( 14 )
-
-[node name="BTSelector" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="1"]
-script = ExtResource( 8 )
-
-[node name="BTGoToTargetWithAgent" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle/BTSelector" index="0"]
-script = ExtResource( 29 )
-
-[node name="BTSelectRandomTarget" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle/BTSelector" index="1"]
-script = ExtResource( 7 )
-
-[node name="BTWaitRandom" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="2"]
-script = ExtResource( 10 )
-max_time = 10.0
-min_time = 5.0
-
-[node name="BTSelectRandomTarget" type="Node" parent="BehaviorTree/BTSelector/BT_Sequence_Idle" index="3"]
-script = ExtResource( 7 )
-
-[node name="Body" parent="." index="8"]
+[node name="Body" parent="." index="6"]
 script = ExtResource( 4 )
 
-[node name="TouchSensor" parent="Body" index="0" instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0237128 )
-character = NodePath("../..")
-
-[node name="DirectPlayerSight" parent="Body" index="1" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6969, 0 )
-character = NodePath("../..")
-
-[node name="SoundListener" parent="Body" index="2" instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60308, 0 )
-
-[node name="CultistNeophyteNoCape" type="Spatial" parent="Body" index="5"]
+[node name="CultistNeophyteNoCape" type="Spatial" parent="Body" index="2"]
 transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="rig_deform" type="Spatial" parent="Body/CultistNeophyteNoCape" index="0"]
@@ -1963,8 +1878,8 @@ shape = SubResource( 22 )
 transform = Transform( -0.0434588, -0.177081, 0.983236, 0.997508, 0.0470434, 0.0525621, -0.0555634, 0.983071, 0.174595, -0.248827, 1.42351, -0.0385519 )
 collision_layer = 32
 joint_type = 3
-joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00892908, -0.0254913, 0.0671489 )
-body_offset = Transform( 0.173531, -0.0225389, -0.98457, -0.984563, -0.0271562, -0.172908, -0.0228403, 0.999376, -0.0269037, 0.0639888, 0.0197096, 0.0274859 )
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00892911, -0.0254916, 0.0671488 )
+body_offset = Transform( 0.173531, -0.0225389, -0.98457, -0.984563, -0.0271562, -0.172908, -0.0228403, 0.999376, -0.0269037, 0.0639887, 0.0197096, 0.0274862 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.R"
@@ -1983,7 +1898,7 @@ transform = Transform( -0.0434566, -0.177079, 0.983236, 0.997509, 0.0470432, 0.0
 collision_layer = 32
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135961, -0.0294876, 0.188866 )
-body_offset = Transform( 0.170734, 0.0684531, -0.982936, -0.984563, -0.0271563, -0.172908, -0.0385296, 0.997285, 0.0627601, 0.210875, -0.102006, 0.0123158 )
+body_offset = Transform( 0.170734, 0.0684527, -0.982936, -0.984563, -0.0271563, -0.172908, -0.0385296, 0.997287, 0.0627604, 0.210875, -0.102006, 0.0123158 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-upper_arm.R.001"
@@ -2101,7 +2016,7 @@ transform = Transform( 0.764481, -0.644543, -0.0115758, 0.029249, 0.0167422, 0.9
 collision_layer = 32
 joint_type = 3
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0125871, 0.0184555, 0.127263 )
-body_offset = Transform( 0.980896, -0.193791, -0.0169299, -0.0187131, -0.00737241, -0.999798, 0.193626, 0.981015, -0.010858, -0.00661559, 0.127609, -0.0191605 )
+body_offset = Transform( 0.980896, -0.193791, -0.0169299, -0.0187131, -0.00737244, -0.999798, 0.193626, 0.981016, -0.010858, -0.00661557, 0.127609, -0.0191605 )
 mass = 0.2
 weight = 1.96
 bone_name = "DEF-thigh.L.001"
@@ -2296,6 +2211,145 @@ shape = SubResource( 33 )
 unique_name_in_owner = true
 transform = Transform( 0.999997, 0, 1.74845e-07, 0, 1, 0, -1.74845e-07, 0, 0.999997, 0, 1.6, 2 )
 
+[node name="LegsRemoteTransform" type="RemoteTransform" parent="Body" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0513327, 0.249145, 0 )
+remote_path = NodePath("../../Legs")
+update_position = false
+update_scale = false
+
+[node name="BTRoot" type="Node" parent="." index="7"]
+script = ExtResource( 6 )
+
+[node name="SEL_Behaviors" type="Node" parent="BTRoot" index="0"]
+script = ExtResource( 8 )
+
+[node name="SEQ_Interest" type="Node" parent="BTRoot/SEL_Behaviors" index="0"]
+script = ExtResource( 9 )
+
+[node name="InterestMachine" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest" index="0"]
+script = ExtResource( 30 )
+
+[node name="SEL_Action" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest" index="1"]
+script = ExtResource( 8 )
+
+[node name="SEQ_ApproachAndShoot" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action" index="0"]
+script = ExtResource( 9 )
+
+[node name="SEL_Reach" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot" index="0"]
+script = ExtResource( 8 )
+
+[node name="Approach" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEL_Reach" index="0"]
+script = ExtResource( 21 )
+
+[node name="ReachTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEL_Reach" index="1"]
+script = ExtResource( 12 )
+threshold = 0.3
+
+[node name="SEQ_ShouldShoot" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot" index="1"]
+script = ExtResource( 9 )
+
+[node name="BTIsPlayer" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="0"]
+script = ExtResource( 22 )
+
+[node name="BTLineOfSight" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="1"]
+script = ExtResource( 29 )
+visual_sensor = NodePath("../../../../../../../Sensors/VisualSensor")
+
+[node name="EquipWeapon (does nothing\?)" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="2"]
+script = ExtResource( 7 )
+
+[node name="SEL_Reload" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="3"]
+script = ExtResource( 8 )
+
+[node name="BTGunHasAmmo" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="0"]
+script = ExtResource( 28 )
+
+[node name="BTInventoryHasAmmo" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="1"]
+script = ExtResource( 23 )
+
+[node name="ReloadAmmo" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="2"]
+script = ExtResource( 3 )
+
+[node name="LookAtTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="4"]
+script = ExtResource( 13 )
+
+[node name="GunNotOnCooldown" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="5"]
+script = ExtResource( 2 )
+
+[node name="WaitRandom2" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="6"]
+script = ExtResource( 10 )
+
+[node name="Shoot" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="7"]
+script = ExtResource( 14 )
+
+[node name="SEQ_Follow" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action" index="1"]
+script = ExtResource( 9 )
+
+[node name="LookAtTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="0"]
+script = ExtResource( 13 )
+
+[node name="ReachTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="1"]
+script = ExtResource( 12 )
+threshold = 0.3
+
+[node name="ClearCurrentInterest" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="2"]
+script = ExtResource( 33 )
+
+[node name="FreeInterest" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest" index="2"]
+script = ExtResource( 20 )
+
+[node name="SEQ_Idle" type="Node" parent="BTRoot/SEL_Behaviors" index="1"]
+script = ExtResource( 9 )
+
+[node name="LookAtTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle" index="0"]
+script = ExtResource( 13 )
+
+[node name="SEL_MoveOrChooseTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle" index="1"]
+script = ExtResource( 8 )
+
+[node name="ReachTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle/SEL_MoveOrChooseTarget" index="0"]
+script = ExtResource( 12 )
+threshold = 0.3
+
+[node name="SelectRandomTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle/SEL_MoveOrChooseTarget" index="1"]
+script = ExtResource( 11 )
+
+[node name="WaitRandom" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle" index="2"]
+script = ExtResource( 10 )
+
+[node name="SelectRandomTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle" index="3"]
+script = ExtResource( 11 )
+
+[node name="Sensors" type="Spatial" parent="." index="8"]
+script = ExtResource( 19 )
+
+[node name="SoundSensor" type="Area" parent="Sensors" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21336, 0 )
+collision_layer = 0
+collision_mask = 578
+script = ExtResource( 16 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Sensors/SoundSensor" index="0"]
+shape = SubResource( 38 )
+
+[node name="VisualSensor" type="Area" parent="Sensors" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )
+collision_layer = 18
+collision_mask = 1042
+monitorable = false
+script = ExtResource( 17 )
+_ik_target = NodePath("../../IKLookTarget")
+
+[node name="TouchSensor" type="Area" parent="Sensors" index="2"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 5 )
+touch_interest = 300
+
+[node name="CollisionShape" type="CollisionShape" parent="Sensors/TouchSensor" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
+shape = SubResource( 39 )
+
 [node name="Hitbox" parent="." index="9" groups=["CHARACTER"]]
 visible = true
 collision_layer = 8
@@ -2309,6 +2363,10 @@ visible = false
 unit_db = 10.0
 max_db = 6.0
 max_distance = 12.0
+
+[node name="AutoKickDoors" type="Node" parent="Legs" index="2"]
+script = ExtResource( 32 )
+frame_interval = 60
 
 [node name="AnimationPlayer" parent="." index="19"]
 root_node = NodePath("../Body/CultistNeophyteNoCape")
@@ -2326,3 +2384,30 @@ script = ExtResource( 25 )
 [connection signal="character_detected" from="BehaviorTree/BTSelector/BTSequenceActive/BTSelectorSensor/BTPlayerSensor" to="Audio" method="_on_BT_Player_Sensor_character_detected"]
 [connection signal="fighting" from="BehaviorTree/BTSelector/BTSequenceActive/BTSequence/BTShoot" to="Audio" method="_on_BT_Shoot_fighting"]
 [connection signal="character_idled" from="BehaviorTree/BTSelector/BT_Sequence_Idle/BTWaitRandom" to="Audio" method="_on_BT_Wait_Random_character_idled"]
+
+[node name="Spatial" type="Spatial" parent="DebugVisualizers" index="0"]
+visible = false
+
+[node name="TargetPosition" type="MeshInstance" parent="DebugVisualizers/Spatial" index="0"]
+mesh = SubResource( 41 )
+skeleton = NodePath("../..")
+script = ExtResource( 31 )
+
+[node name="Path" type="ImmediateGeometry" parent="DebugVisualizers/Spatial" index="1"]
+material_override = SubResource( 42 )
+script = ExtResource( 34 )
+
+[node name="NavigationAgent" type="NavigationAgent" parent="." index="24"]
+unique_name_in_owner = true
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 1.0
+
+[connection signal="indirect_event_detected" from="BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" to="Audio" method="play_alert_sound"]
+[connection signal="player_detected" from="BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" to="Audio" method="on_player_detected"]
+[connection signal="character_reloaded" from="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload/ReloadAmmo" to="Audio" method="play_reload_sound"]
+[connection signal="character_idled" from="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/WaitRandom2" to="Audio" method="play_idle_sound"]
+[connection signal="character_idled" from="BTRoot/SEL_Behaviors/SEQ_Idle/WaitRandom" to="Audio" method="play_idle_sound"]
+[connection signal="event" from="Sensors/SoundSensor" to="BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" method="set_event"]
+[connection signal="event" from="Sensors/VisualSensor" to="BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" method="set_event"]
+[connection signal="event" from="Sensors/TouchSensor" to="BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" method="set_event"]

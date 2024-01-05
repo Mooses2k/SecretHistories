@@ -29,10 +29,12 @@ export var reload_rotation : Vector3
 export var ads_hold_position : Vector3
 export var ads_hold_rotation : Vector3
 
-
 export(MeleeStyle) var melee_style : int = 0
 export var player_path: NodePath
 export var mesh_path: NodePath
+
+export var max_raycast_correction_angle_degrees : float = 15
+
 
 var ads_reset_position : Vector3
 var ads_reset_rotation : Vector3
@@ -47,8 +49,9 @@ var on_cooldown = false
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
 
-export var detection_raycast: NodePath
-onready var raycast = get_node(detection_raycast)
+export (NodePath) var detection_raycast
+
+onready var raycast : RayCast = get_node(detection_raycast) as RayCast
 onready var animation_player = $"%AnimationPlayer"
 onready var player = get_node(player_path)
 onready var mesh = get_node(mesh_path)
@@ -64,6 +67,38 @@ func _ready():
 	
 	if owner_character:   # start loaded, for now
 		reload()
+
+
+#TODO move this out of here
+func _physics_process(delta):
+	._physics_process(delta)
+	if Engine.editor_hint or item_state != GlobalConsts.ItemState.EQUIPPED:
+		return
+	if (not is_instance_valid(owner_character)) or (not "character_state" in owner_character):
+		return
+	if owner_character.is_in_group("Player"):
+		return
+	var owner_state : CharacterState = owner_character.character_state as CharacterState
+	if not is_instance_valid(owner_state):
+		return
+	var target = owner_state.target
+	var target_object : Spatial
+	if not is_instance_valid(target):
+		return
+	if target is Spatial:
+		target_object = target
+	elif "object" in target:
+		target_object = target.object as Spatial
+	
+	if not is_instance_valid(target_object):
+		return
+	var target_position_global = target_object.global_translation + Vector3.UP
+	var local_position = self.global_translation
+	var target_position : Vector3 = to_local(target_position_global)
+	var delta_angle = Vector3.FORWARD.angle_to(target_position)
+	if delta_angle > deg2rad(max_raycast_correction_angle_degrees):
+		return
+	raycast.look_at(target_position_global, Vector3.UP)
 
 
 func get_reload_length():

@@ -24,10 +24,10 @@ script = ExtResource( 3 )
 has_pillars = false
 
 [sub_resource type="Resource" id=4]
-resource_name = "1~2 Doorways"
+resource_name = "1 Doorways"
 script = ExtResource( 5 )
 min_doorways = 1
-max_doorways = 2
+max_doorways = 1
 
 [resource]
 script = ExtResource( 1 )

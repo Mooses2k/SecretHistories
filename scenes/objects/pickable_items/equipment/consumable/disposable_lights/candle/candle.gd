@@ -54,7 +54,7 @@ func _process(delta):
 	if is_instance_valid(owner_character):
 		if Input.is_action_pressed("playerhand|main_use_primary") and owner_character.is_reloading == false:
 			use_hold_time += 0.1
-			if  use_hold_time >= 0.8:
+			if  use_hold_time >= use_hold_treshold:
 				if is_lit:
 					if self == owner_character.inventory.get_mainhand_item():
 						if horizontal_holding:
@@ -66,7 +66,7 @@ func _process(delta):
 
 		elif Input.is_action_pressed("playerhand|offhand_use") and owner_character.is_reloading == false:
 			use_hold_time += 0.1
-			if  use_hold_time >= 0.8:
+			if  use_hold_time >= use_hold_treshold:
 				if is_lit:
 					if self == owner_character.inventory.get_offhand_item():
 						if horizontal_holding:

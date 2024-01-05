@@ -16,8 +16,10 @@ export var horizontal_holding : bool = false
 export var normal_pos_path : NodePath
 export var throw_pos_path : NodePath
 
-var is_in_belt = false
+var is_in_belt : bool = false
 var use_hold_time : float = 0.0
+var use_hold_treshold : float = 0.45
+
 onready var hold_position = $"%HoldPosition"
 onready var normal_pos = get_node(normal_pos_path)
 onready var throw_pos = get_node(throw_pos_path)

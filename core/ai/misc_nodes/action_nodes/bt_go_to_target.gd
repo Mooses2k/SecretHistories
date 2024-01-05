@@ -16,18 +16,26 @@ func set_threshold(value : float):
 
 func _tick(state : CharacterState) -> int:
 	var character = state.character
-
-	if character.global_transform.origin.distance_squared_to(state.target_position) <= _thresold_squared:
+	var target_delta : Vector3 = state.target_position - character.global_transform.origin
+	target_delta.y = 0.0
+	if target_delta.length_squared() <= _thresold_squared:
 		# Stop moving after reaching destination
 #		state.move_direction = Vector3.ZERO
 
 		return BTResult.OK
-
-	while state.path.size() > 0 and state.path[0].distance_squared_to(character.global_transform.origin) <= _thresold_squared:
-		state.path.pop_front()
-
+	
+	while state.path.size() > 0:
+		var waypoint_delta : Vector3 = state.path[0] - character.global_transform.origin
+		waypoint_delta.y = 0.0
+		if waypoint_delta.length_squared() < _thresold_squared:
+			state.path.pop_front()
+		else:
+			break
+	
 	if state.path.size() > 0:
-		state.move_direction = state.path[0] - character.global_transform.origin
+		var waypoint_delta : Vector3 = state.path[0] - character.global_transform.origin
+		waypoint_delta.y = 0.0
+		state.move_direction = waypoint_delta
 		state.face_direction = state.move_direction
 		return BTResult.RUNNING
 

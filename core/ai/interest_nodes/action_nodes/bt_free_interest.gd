@@ -6,6 +6,6 @@ func _tick(state: CharacterState) -> int:
 		return BTResult.FAILED
 	
 	if !(state.target.object is Player):
-		state.interest_machine.remove_event(state.target)
+		state.interest_machine.remove_event(state.target.object)
 	
 	return BTResult.OK

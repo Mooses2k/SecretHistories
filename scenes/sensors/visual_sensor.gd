@@ -9,14 +9,11 @@ tool class_name VisualSensor extends CharacterSense
 signal player_detected(player, position)
 signal light_detected(light, position)
 
-
 export var light_source_interest := 75
 export var player_interest := 300
 
-
 export var _ik_target: NodePath
 var ik_target: Spatial
-
 
 #--------------------------------------------------------------------------#
 #                 Programmatically sets the vision frustrum.               #
@@ -24,12 +21,12 @@ var ik_target: Spatial
 export var distance := 32.0 setget set_distance
 export var fov := 120.0 setget set_fov
 
-
 onready var _collision_shape := CollisionShape.new()
 onready var _mesh_instance := MeshInstance.new()
 var _mesh : CylinderMesh = CylinderMesh.new()
 
 var line_of_sight : bool = false
+
 
 func add_area_nodes() -> void:
 	add_child(_collision_shape)
@@ -146,7 +143,8 @@ func can_see_player(character: Character) -> Player:
 	
 	if is_instance_valid(player) and player.light_level > 0.01:
 		var target := player.global_transform.origin
-		target.y = global_transform.origin.y
+#		target.y = global_transform.origin.y
+		target.y += 0.5
 		
 		var world := get_world()
 		

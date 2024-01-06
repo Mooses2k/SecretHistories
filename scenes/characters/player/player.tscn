@@ -7837,11 +7837,11 @@ anims/webley_reload = ExtResource( 27 )
 script = ExtResource( 30 )
 _cam_path = NodePath("../FPSCamera")
 
-[node name="GunReloadShells" type="Node" parent="PlayerAnimations" index="0"]
+[node name="GunReloadShells" type="Node" parent="." index="25"]
 unique_name_in_owner = true
 script = ExtResource( 28 )
 
-[node name="AnimationTree" parent="." index="26"]
+[node name="AnimationTree" parent="." index="27"]
 tree_root = SubResource( 365 )
 anim_player = NodePath("../PlayerAnimationPlayer")
 active = true
@@ -7864,7 +7864,7 @@ parameters/SmallAds/blend_amount = 0.0
 parameters/Weapon_states/current = 4
 "parameters/Webley revolver/active" = false
 
-[node name="FPSCamera" type="Camera" parent="." index="27"]
+[node name="FPSCamera" type="Camera" parent="." index="28"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0 )
 cull_mask = 1048573
 current = true
@@ -7989,7 +7989,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0 )
 
-[node name="KinestheticSense" type="OmniLight" parent="." index="29"]
+[node name="KinestheticSense" type="OmniLight" parent="." index="30"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953 )
 layers = 512
 light_color = Color( 0, 0.647059, 1, 1 )

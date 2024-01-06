@@ -295,8 +295,8 @@ func kick():
 			
 		elif kick_object.is_in_group("CHARACTER"):
 			kick_object.get_parent().damage(kick_damage, kick_damage_type , kick_object)
-			$"../Audio/Movement".stream = item_drop_sound_flesh
-			$"../Audio/Movement".play()
+			$"Audio/Movement".stream = item_drop_sound_flesh
+			$"Audio/Movement".play()
 		
 		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
 			if kick_object is Area:

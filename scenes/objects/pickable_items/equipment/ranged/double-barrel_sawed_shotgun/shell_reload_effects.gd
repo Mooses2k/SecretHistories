@@ -61,6 +61,7 @@ func clear_all_slots():
 
 
 func player_add_shell():
+	
 	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(shotgun_shell, Vector3(), Vector3())
 
 

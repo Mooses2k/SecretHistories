@@ -615,7 +615,6 @@ func check_state_animation(delta):
 		elif current_mainhand_item_animation == HoldStates.LARGE_GUN_ITEM:
 			 
 			if inventory.get_mainhand_item() and inventory.get_mainhand_item().item_name == "Double-barrel shotgun":
-				print("Cultist is holding double barell shotgun")
 				if state == State.STATE_CROUCHING:
 					animation_tree.set("parameters/Equipped_state/current",0)
 					animation_tree.set("parameters/ADS_State/current",2)
@@ -627,7 +626,6 @@ func check_state_animation(delta):
 					animation_tree.set("parameters/ADS_State/current",2)
 					animation_tree.set("parameters/Gun_transition/current",2)
 					animation_tree.set("parameters/ShotgunTransitions/current",0)
-					print("With shotgun idle")
 					
 				elif move_dir == Vector3.ZERO and state == State.STATE_CROUCHING :
 					animation_tree.set("parameters/Equipped_state/current",0)
@@ -643,7 +641,6 @@ func check_state_animation(delta):
 					animation_tree.set("parameters/ShotgunTransitions/current",1)
 					animation_tree.set("parameters/ShotgunStrafe/blend_amount",1)
 					animation_tree.set("parameters/ShotgunStrafe/blend_position", Vector2(sideways_velocity, forwards_velocity))
-					print("Moving with a shotgun")
 					
 				elif not move_dir == Vector3.ZERO and state == State.STATE_CROUCHING and do_sprint == false:
 					animation_tree.set("parameters/Equipped_state/current",0)

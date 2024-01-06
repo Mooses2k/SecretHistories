@@ -6,6 +6,7 @@ var weapon_resource = preload("res://scenes/objects/pickable_items/equipment/ran
 var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell.tres")
 
 onready var direct_player_sight_sensor : Node = $Body/DirectPlayerSight
+onready var player_gun_reload_shells = $"%GunReloadShells"
 
 #enum #LOADOUT PACKAGES FOR NEOPHYTES:
 #(# in parentheses is probability weight) {
@@ -28,6 +29,3 @@ func _ready():
 	inventory.insert_tiny_item(ammo_resource, 555)
 	print("cultist.gd added shotgun ammo")
 
-
-func reload_weapons():
-	animation_tree.set("parameters/" + str(inventory.get_mainhand_item().item_name) + "/active", true)

@@ -141,7 +141,7 @@ func process_player_detection(character: Character) -> bool:
 func can_see_player(character: Character) -> Player:
 	var player := get_player()
 	
-	if is_instance_valid(player) and player.light_level > 0.01:
+	if is_instance_valid(player) and player.light_level > 0.02:
 		var target := player.global_transform.origin
 #		target.y = global_transform.origin.y
 		target.y += 0.5

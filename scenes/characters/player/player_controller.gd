@@ -515,7 +515,7 @@ func _handle_inventory(delta : float):
 					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
 					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
-					owner.noise_level = 15
+					owner.noise_level = 10
 				throw_state = ThrowState.IDLE
 			
 			

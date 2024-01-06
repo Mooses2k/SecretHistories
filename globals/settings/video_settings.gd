@@ -69,7 +69,7 @@ func on_setting_changed(setting_name, old_value, new_value):
 			SettingsConfig.save_settings()
 		SETTING_BRIGHTNESS:
 			if is_instance_valid(GameManager.game):   # If the game is loaded, change immediately
-				GameManager.game.level.set_brightness()
+				GameManager.game.set_brightness()
 			brightness = new_value
 			emit_signal("brightness_changed", new_value)   # TODO: make this signal
 			SettingsConfig.save_settings()

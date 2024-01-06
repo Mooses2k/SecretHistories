@@ -39,7 +39,7 @@ func _ready():
 	print("player.gd added candle")
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	if is_reloading == true:
 		if noise_level < 8:
 			noise_level = 8

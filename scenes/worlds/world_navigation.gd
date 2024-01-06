@@ -82,6 +82,12 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 func update_navigation():
 	var cell_size = 0.1
 	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
+	
+	var map = get_world().navigation_map
+	for region in NavigationServer.map_get_regions(map):
+		NavigationServer.free_rid(region)
+	NavigationServer.map_force_update(map)
+
 	var cell_height = NavigationServer.map_get_cell_height(get_world().navigation_map)
 	var all_points = Array()
 	# This array stores, for each cell, the room index of the room that cell belongs to
@@ -322,7 +328,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 			# Z
 			#-1    +1
 			#forms a straight line, adding a point at *, taking the door(°) edges into account
-			var half_gap = data.get_wall_meta(cell, direction) * 0.5 / half_cell - local_margin
+			var half_gap = 0.5*data.get_wall_meta(cell, direction) / half_cell - local_margin
 			half_gap = max(half_gap, 0.05)
 			new_points = [
 				Vector2(1.0 + local_margin + local_thickness, half_gap),
@@ -471,7 +477,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 				# Z
 				#-1    +1
 				#forms a straight line, adding a point at *, taking the door(°) edges into account
-				var half_gap = data.get_wall_meta(current_cell, current_direction) * 0.5 / half_cell - local_margin
+				var half_gap = 0.5*data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin
 				half_gap = max(half_gap, 0.05)
 				new_points = [
 					Vector2(1.0 - local_margin - local_thickness, half_gap),

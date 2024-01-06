@@ -29,7 +29,7 @@ func _ready():
 	update_ik_target(tween_value)
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	update_ik_target(tween_value)
 	if GameManager.game.player.inventory.bulky_equipment is ShardOfTheComet and !last_level_switched_on:
 		last_level_switched_on = true

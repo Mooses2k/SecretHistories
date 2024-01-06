@@ -24,6 +24,7 @@
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn" type="PackedScene" id=24]
 
 
+
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 50, 50 )
 

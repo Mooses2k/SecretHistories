@@ -208,9 +208,9 @@ func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 						data.set_wall_tile_index(cell, dir, pillar_room_double_wall_tile)
 					data.EdgeType.HALFDOOR_N:
 						data.set_wall_tile_index(cell, dir, pillar_room_double_door_tile)
-						data.set_wall_meta(cell, dir, 0.8)
+						data.set_wall_meta(cell, dir, pillar_room_double_door_width)
 						var side_cell = data.get_neighbour_cell(cell, side)
-						data.set_wall_meta(side_cell, dir, 0.8)
+						data.set_wall_meta(side_cell, dir, pillar_room_double_door_width)
 						var other_cell = data.get_neighbour_cell(side_cell, dir)
 						data.set_wall_tile_index(other_cell, inv_dir, pillar_room_double_door_tile)
 					_:
@@ -226,9 +226,9 @@ func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):
 						data.set_wall_tile_index(cell, dir, pillar_room_double_wall_tile)
 					data.EdgeType.HALFDOOR_P:
 						data.set_wall_tile_index(cell, dir, pillar_room_double_door_tile)
-						data.set_wall_meta(cell, dir, 0.8)
+						data.set_wall_meta(cell, dir, pillar_room_double_door_width)
 						var side_cell = data.get_neighbour_cell(cell, side)
-						data.set_wall_meta(side_cell, dir, 0.8)
+						data.set_wall_meta(side_cell, dir, pillar_room_double_door_width)
 						var other_cell = data.get_neighbour_cell(side_cell, dir)
 						data.set_wall_tile_index(other_cell, inv_dir, pillar_room_double_door_tile)
 					_:

@@ -18,7 +18,7 @@ func _tick(state : CharacterState) -> int:
 				equipment.reload()
 				animation_tree.set("parameters/" + str(equipment.item_name) + "/active", true)
 				equipment.animation_player.play("reload")
-				yield(get_tree().create_timer(equipment.animation_player.get_animation("reload").length), "timeout")
+#				yield(get_tree().create_timer(equipment.animation_player.get_animation("reload").length), "timeout")
 				emit_signal("character_reloaded")
 				return BTResult.OK
 	return BTResult.FAILED

@@ -7877,6 +7877,9 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.2
 [node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
 
+[node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
+layers = 2
+
 [node name="InnerShirtLP" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="1"]
 layers = 2
 material/0 = ExtResource( 14 )

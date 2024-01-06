@@ -284,11 +284,13 @@ func _physics_process(delta : float):
 func kick():
 	prints("Kick timer stopped:", kick_timer.is_stopped())
 	prints("legcast colliding:", legcast.is_colliding())
-	if kick_timer.is_stopped() and legcast.is_colliding():
+	if kick_timer.is_stopped() and legcast.is_colliding() and stamina > 50:
 		var kick_object = legcast.get_collider()
 		if is_instance_valid(_camera):
 			_camera.add_stress(0.5)
 		kick_timer.start()
+		
+		stamina -= 50
 		
 		if kick_object is DoorInteractable and is_grabbing == false:
 			kick_object.emit_signal("kicked", legcast.get_collision_point(), -global_transform.basis.z, kick_damage)
@@ -332,6 +334,9 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 				
 #				self.queue_free()
 				skeleton.physical_bones_start_simulation()   # This ragdolls
+				if is_instance_valid($Audio/Speech):
+					$Audio/Speech.unit_db = -80
+					$Audio/Speech.stop()
 
 
 func heal(amount):

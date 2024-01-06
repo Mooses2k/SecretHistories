@@ -73,7 +73,7 @@ noise = SubResource( 9 )
 
 [sub_resource type="ShaderMaterial" id=57]
 shader = ExtResource( 13 )
-shader_param/noise_seed = 746.694
+shader_param/noise_seed = 640.455
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -118,7 +118,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="BoxShape" id=53]
-extents = Vector3( 0.0642877, 0.0986133, 0.0627713 )
+extents = Vector3( 0.0509815, 0.0598058, 0.045033 )
 
 [node name="Candlestick" instance=ExtResource( 21 )]
 mass = 1.0

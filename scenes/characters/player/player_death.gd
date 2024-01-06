@@ -24,6 +24,7 @@ func _on_Player_character_died():
 	yield(get_tree().create_timer(1.5), "timeout")   # Darkness for 1.5 seconds
 	$BW.show()
 	is_bw = true
+	$"../HitEffect".visible = false
 	_player_arms.visible = false
 	_gun_cam.cull_mask = 0
 	_white_effect_rect.hide()

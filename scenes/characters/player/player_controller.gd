@@ -653,9 +653,9 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				character.inventory.drop_offhand_item()
 				
 			if throw_item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				throw_strength = 20 * throw_item.mass
-			else:
 				throw_strength = 30 * throw_item.mass
+			else:
+				throw_strength = 40 * throw_item.mass
 				
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world

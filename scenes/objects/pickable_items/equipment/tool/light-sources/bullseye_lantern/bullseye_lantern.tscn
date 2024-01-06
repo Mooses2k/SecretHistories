@@ -115,15 +115,11 @@ tracks/2/keys = {
 }
 
 [sub_resource type="BoxShape" id=9]
-extents = Vector3( 0.08, 0.08, 0.08 )
+extents = Vector3( 0.0562816, 0.0545644, 0.0550197 )
 
 [node name="BullseyeLantern" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0271944, 0 )
 item_name = "Bullseye Lantern"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
-can_spin = false
 is_oil_based = true
 life_percentage_lose = 0.5
 prob_going_out = 0.5

@@ -31,10 +31,10 @@ func _ready():
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 	
 	# Add initial equipment to player
-	inventory.add_item(spyglass_resource.instance())
-	inventory.add_item(light2_resource.instance())
-	print("player.gd added oil lantern")
-	inventory.set_mainhand_slot(2)
+#	inventory.add_item(spyglass_resource.instance())
+#	inventory.add_item(light2_resource.instance())
+#	print("player.gd added oil lantern")
+#	inventory.set_mainhand_slot(2)s
 	inventory.add_item(light_resource.instance())
 	print("player.gd added candle")
 

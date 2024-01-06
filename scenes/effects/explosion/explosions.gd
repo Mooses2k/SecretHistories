@@ -43,6 +43,8 @@ func _on_Bomb_explosion():
 					
 		# If the body has a hitbox, apply damage
 		elif intersection.collider is Hitbox:
+#			print("Bomb area intersected with hitbox")
 			var object = intersection.collider.owner
 			if is_instance_valid(object) and object.has_method("damage"):
+#				print("Bomb exploded and detect a character with damage() method")
 				object.damage(floor(scaled_damage), owner.damage_type, intersection.collider)

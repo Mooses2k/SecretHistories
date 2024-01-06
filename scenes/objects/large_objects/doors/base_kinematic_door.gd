@@ -11,22 +11,28 @@ class_name BaseKinematicDoor
 enum DoorState {
 	OPEN,
 	CLOSED,
+	AUTO_CLOSING,
 	STUCK,
 	BROKEN
 }
 
+export var health : float = 75.0
+
 var broken_door_scene : PackedScene = preload("res://scenes/objects/large_objects/doors/base_broken_door.tscn")
 
-export var health : float = 100.0
-
 var navigation_areas : Array
-var door_state : int = DoorState.CLOSED
+var door_state : int = DoorState.CLOSED setget set_door_state
 
-var door_move_time = 0.5
-var door_open_angle = deg2rad(100)
-var door_close_threshold = deg2rad(5)
-var door_speed = door_open_angle/door_move_time
-var door_should_move = false
+var door_move_time : float = 0.5
+var door_open_angle : float = deg2rad(100)
+var door_close_threshold : float = deg2rad(5)
+var door_speed : float = door_open_angle/door_move_time
+var door_auto_close_speed : float = 0.05*door_speed
+var door_auto_close_delay_min : float = 25.0
+var door_auto_close_delay_max : float = 55.0
+var door_should_move : float = false
+var door_stuck_on_close_probability = 0.01   # TODO make this optional in settings menu
+var time_to_auto_close = 0.0
 
 onready var door_body = $"%DoorBody"
 onready var door_hinge_z_axis = $"%DoorHingeZAxis"
@@ -34,62 +40,106 @@ onready var open_block_detector = $"%OpenBlockDetector"
 onready var close_block_detector = $"%CloseBlockDetector"
 onready var doorway_gaps_filler = $"%DoorwayGapsFiller"
 onready var npc_detector = $"%NpcDetector"
+onready var npc_check_timer: Timer = $NpcCheckTimer
 onready var broken_door_origin: Spatial = $"%BrokenDoorOrigin"
+onready var navigation: Navigation = $Navigation
 
-onready var door_kick_ineffective_sound: AudioStreamPlayer3D = $Sounds/DoorKickIneffectiveSound
-onready var door_kick_effective_sound: AudioStreamPlayer3D = $Sounds/DoorKickEffectiveSound
-onready var door_break_sound: AudioStreamPlayer3D = $Sounds/DoorBreakSound
+onready var door_open_sound : AudioStreamPlayer3D = $Sounds/DoorOpen
+onready var door_close_sound : AudioStreamPlayer3D = $Sounds/DoorClose
+onready var door_shake_sound : AudioStreamPlayer3D = $Sounds/DoorShakeSound
+onready var door_kick_ineffective_sound : AudioStreamPlayer3D = $Sounds/DoorKickIneffectiveSound
+onready var door_kick_effective_sound : AudioStreamPlayer3D = $Sounds/DoorKickEffectiveSound
+onready var door_break_sound : AudioStreamPlayer3D = $Sounds/DoorBreakSound
 
 
 func _physics_process(delta):
-	if not door_should_move:
-		return
 	match door_state:
 		DoorState.OPEN:
-			if door_hinge_z_axis.rotation.y < door_open_angle:
+			# Delay auto closing if a character is nearby
+			if npc_detector.get_overlapping_bodies().size() > 0:
+				reset_auto_close_timer()
+			time_to_auto_close -= delta
+			if time_to_auto_close <= 0.0:
+				self.door_state = DoorState.AUTO_CLOSING
+			if door_hinge_z_axis.rotation.y < door_open_angle and door_should_move:
 				for obstacle in open_block_detector.get_overlapping_bodies():
 					if not obstacle in [door_body, doorway_gaps_filler]:
 						door_should_move = false
 						if door_hinge_z_axis.rotation.y < door_close_threshold:
-							door_state = DoorState.CLOSED
+							self.door_state = DoorState.CLOSED
 							door_should_move = true
 						return
-				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, door_open_angle, door_speed*delta)
-		DoorState.CLOSED:
-			if door_hinge_z_axis.rotation.y > 0.0:
+				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, door_open_angle, door_speed * delta)
+		DoorState.CLOSED, DoorState.AUTO_CLOSING:
+			if door_hinge_z_axis.rotation.y > 0.0 and door_should_move:
 				for obstacle in close_block_detector.get_overlapping_bodies():
 					if not obstacle in [door_body, doorway_gaps_filler]:
 						door_should_move = false
 						if door_hinge_z_axis.rotation.y > door_close_threshold:
-								door_state = DoorState.OPEN
+								self.door_state = DoorState.OPEN
 								if door_hinge_z_axis.rotation.y > door_open_angle - door_close_threshold:
 									door_should_move = true
 						return
-				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, 0.0, door_speed*delta)
+				var close_speed = door_speed if door_state == DoorState.CLOSED else door_auto_close_speed
+				door_hinge_z_axis.rotation.y = move_toward(door_hinge_z_axis.rotation.y, 0.0, close_speed * delta)
+				door_should_move = door_hinge_z_axis.rotation.y > 0
+				if not door_should_move:
+					# This is when the door actually closes
+					# TODO: play a sound?
+					if fposmod(randf(), 1.0) < door_stuck_on_close_probability:
+						self.door_state = DoorState.STUCK
+				
 		DoorState.STUCK:
 			door_should_move = false
 			pass
 
 
+func set_door_state(value : int):
+	if door_state != value:
+		if value == DoorState.OPEN:
+			reset_auto_close_timer()
+	door_state = value
+
+
+func reset_auto_close_timer():
+	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)
+
+
+func break_door(position, impulse, damage):
+	door_state = DoorState.BROKEN
+	door_break_sound.play()
+	var global_door_transform = broken_door_origin.global_transform
+	
+	door_hinge_z_axis.queue_free()
+	npc_detector.queue_free()
+	npc_check_timer.queue_free()
+	navigation.queue_free()
+	
+	var broken_door_instance : Spatial = broken_door_scene.instance()
+	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
+	add_child(broken_door_instance)
+	broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)
+
+
 func _on_Interactable_character_interacted(character):
 	match door_state:
-		DoorState.CLOSED:
-			door_state = DoorState.OPEN
+		DoorState.CLOSED, DoorState.AUTO_CLOSING:
+			self.door_state = DoorState.OPEN
 			door_should_move = true
-			$Sounds/DoorClose.stop()
-			if !$Sounds/DoorOpen.playing:
-				$Sounds/DoorOpen.play()
+			door_close_sound.stop()
+			if !door_open_sound.playing:
+				door_open_sound.play()
 		
 		DoorState.OPEN:
-			door_state = DoorState.CLOSED
+			self.door_state = DoorState.CLOSED
 			door_should_move = true
-			$Sounds/DoorOpen.stop()
-			if !$Sounds/DoorClose.playing:
-				$Sounds/DoorClose.play()
+			door_open_sound.stop()
+			if !door_close_sound.playing:
+				door_close_sound.play()
 		
 		DoorState.STUCK:
-			$Sounds/DoorKickIneffectiveSound.play()
-			pass
+			if !door_shake_sound.playing:
+				door_shake_sound.play()
 
 
 # TODO: Shooting doors not currently working
@@ -104,31 +154,30 @@ func _on_Interactable_character_interacted(character):
 #		break_door()
 
 
-func break_door(position, impulse, damage):
-	door_state = DoorState.BROKEN
-	door_break_sound.play()
-	var global_door_transform = broken_door_origin.global_transform
-	door_hinge_z_axis.queue_free()
-	var broken_door_instance : Spatial = broken_door_scene.instance()
-	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
-	add_child(broken_door_instance)
-	broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)
-
-
 func _on_Interactable_kicked(position, impulse, damage) -> void:
 	health -= damage
 	door_kick_effective_sound.play()
 	print("Door health : ", health)
 	if health <= 0:
 		break_door(position, impulse, damage)
+	
+	# TODO: kick currently always opens it, but if you kick from hinge side, should close door
+	# This should automatically be fixed by using RigidBody doors in the future
+	if door_state == DoorState.AUTO_CLOSING and door_hinge_z_axis.rotation.y > door_close_threshold:
+		door_state = DoorState.OPEN
 
 
 func _on_NpcDetector_body_entered(body):
-	door_state = DoorState.OPEN
-	door_should_move = true
+	if not body is Player:
+		if door_state == DoorState.CLOSED or door_state == DoorState.AUTO_CLOSING:
+			door_state = DoorState.OPEN
+			door_should_move = true
 
 
 func _on_NpcCheckTimer_timeout():
-	if npc_detector.get_overlapping_bodies().size() > 0:
-		door_state = DoorState.OPEN
-		door_should_move = true
+	for body in npc_detector.get_overlapping_bodies():
+		if not body is Player:
+			if door_state == DoorState.CLOSED or door_state == DoorState.AUTO_CLOSING:
+				door_state = DoorState.OPEN
+				door_should_move = true
+				return

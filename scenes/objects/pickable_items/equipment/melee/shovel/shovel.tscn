@@ -1,9 +1,8 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=1]
+[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" type="AudioStream" id=2]
 [ext_resource path="res://resources/models/items/melee/shovel/M_Shovel.material" type="Material" id=3]
-[ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=6]
-[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=7]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=33]
@@ -86,19 +85,17 @@ radius = 0.118034
 
 [node name="Shovel" instance=ExtResource( 33 )]
 mass = 2.5
-dropped_layers = 64
 dropped_mask = 1
 item_throw_sound = ExtResource( 1 )
 item_size = 2
 item_name = "Shovel"
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
 weapon_type = 5
 primary_damage1 = 34
 primary_damage_type2 = 2
 primary_damage2 = 5
 secondary_damage1 = 51
-throw_logic = true
-normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -1.2, 1.81195e-07, 0, -1.81195e-07, -1.2, 0, 0, 0, 1.2, 0, 0.0456869, 0 )
@@ -205,10 +202,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0960931, 0 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.187441, 0 )
 
 [node name="Thrust" parent="Sounds" index="2"]
-stream = ExtResource( 6 )
+stream = ExtResource( 2 )
 
 [node name="Cut" parent="Sounds" index="3"]
-stream = ExtResource( 7 )
+stream = ExtResource( 2 )
 
 [node name="FleshThrust" parent="Sounds" index="5"]
 stream = ExtResource( 9 )

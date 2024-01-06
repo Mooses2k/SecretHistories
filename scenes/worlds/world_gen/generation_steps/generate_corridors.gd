@@ -181,8 +181,10 @@ func _get_weight_for(room_mask: int) -> float:
 
 
 func _connect_points_in_astar_grid(data: WorldData, astar: AStar2D) -> void:
-	for x in range(1, data.world_size_x-1):
-		for z in range(1, data.world_size_z-1):
+	# This adds the corner points of the map to the A* grid, with some
+	# margin to avoid generating corridors at the world edge
+	for x in range(2, data.world_size_x-1):
+		for z in range(2, data.world_size_z-1):
 			var cell_index = data.get_cell_index_from_int_position(x, z)
 			if not astar.has_point(cell_index):
 				continue

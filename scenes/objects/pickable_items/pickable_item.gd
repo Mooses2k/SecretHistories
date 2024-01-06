@@ -1,7 +1,8 @@
-### Is a tool to support use in player_animations_test.gd
 tool
 class_name PickableItem
 extends RigidBody
+
+### Is a tool to support use in player_animations_test.gd
 
 
 signal item_state_changed(previous_state, current_state)
@@ -20,10 +21,6 @@ export var item_drop_sound : AudioStream
 export var item_throw_sound : AudioStream
 export(AttackTypes.Types) var melee_damage_type : int = 0
 
-onready var audio_player = get_node("DropSound")
-
-#onready var mesh_instance = $MeshInstance
-onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
@@ -32,12 +29,21 @@ var item_sound_level = 10
 var item_drop_sound_level = 10
 var item_drop_pitch_level = 10
 
-var can_throw_damage : bool
+export var thrown_point_first : bool   # Some items like swords and spears should be thrown point first
+export var can_spin : bool   # Some items should spin when thrown
+
 var has_thrown = false
-var is_higher_damage = false
 #var deceleration_factor = 0.9
+
 var initial_linear_velocity
 var is_soundplayer_ready = false
+
+onready var audio_player = get_node("DropSound")
+
+#onready var mesh_instance = $MeshInstance
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
+
+onready var placement_position = $"%PlacementAnchor"
 
 
 func _enter_tree():
@@ -55,6 +61,12 @@ func _process(delta):
 	if self.noise_level > 0:
 		yield(get_tree().create_timer(0.2), "timeout")
 		self.noise_level = 0
+
+
+func _physics_process(delta):
+	if !sleeping:
+		if !is_instance_valid(owner_character):   # this is still hacky, but don't do throw damage if grabbing, basically
+			throw_damage(delta)
 
 
 func check_item_state():
@@ -140,6 +152,47 @@ func set_physics_equipped():
 	self.collision_layer = equipped_layers
 	self.collision_mask = equipped_mask
 	self.mode = equipped_mode
+
+
+func throw_damage(delta):
+	if item_state == GlobalConsts.ItemState.DAMAGING:
+		var bodies = get_colliding_bodies()
+		if has_thrown == false:
+			initial_linear_velocity = linear_velocity.z
+			has_thrown = true
+		
+		for body_found in bodies:
+			if body_found.is_in_group("CHARACTER"):
+				var item_damage_by_momentum = int(abs(initial_linear_velocity)) * mass * 0.3
+				var item_damage
+				if can_spin or thrown_point_first:
+					item_damage = melee_throw_damage()
+					print(item_damage, " damage calculated in pickable_item")
+				else:
+					print("Item thrown is NOT a melee item")
+					item_damage = item_damage_by_momentum
+					print(item_damage, " damage calculated")
+				print("Damage inflicted on: ", body_found.name, " is: ", item_damage)
+				body_found.damage(item_damage, melee_damage_type, body_found)
+				has_thrown = false
+				decelerate_item_velocity(delta, true)
+				set_item_state(GlobalConsts.ItemState.DROPPED)
+			else:
+				has_thrown = false
+#				decelerate_item_velocity(delta, true)   # Causes glitches like thrown objects sticking in arched wall collisions
+				set_item_state(GlobalConsts.ItemState.DROPPED)
+
+
+func melee_throw_damage():   # Override in melee.gd
+	pass
+
+
+func decelerate_item_velocity(delta, decelerate):
+	if is_in_group("TINY_ITEM"):
+		if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+			if decelerate == true:
+				print("decelerating item")
+				linear_velocity *= 0
 
 
 func _integrate_forces(state):

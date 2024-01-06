@@ -19,85 +19,110 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://globals/attack_types.gd"
 }, {
+"base": "NavigationMeshInstance",
+"class": "AutoCleanNavigationMeshInstance",
+"language": "GDScript",
+"path": "res://scenes/worlds/auto_clean_navigation_mesh_instance.gd"
+}, {
 "base": "BTNode",
+"class": "BTAction",
+"language": "GDScript",
+"path": "res://core/ai/bt_action.gd"
+}, {
+"base": "BTCheck",
 "class": "BTApproachRandomDistance",
 "language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_approach_distance.gd"
+"path": "res://core/ai/misc_nodes/check_nodes/bt_approach_distance.gd"
 }, {
-"base": "BTPlayerSensor",
-"class": "BTCollisionSensor",
+"base": "BTNode",
+"class": "BTCheck",
 "language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_collision_sensor.gd"
+"path": "res://core/ai/bt_check.gd"
 }, {
 "base": "BTNode",
 "class": "BTControlFlow",
 "language": "GDScript",
 "path": "res://core/ai/flow_nodes/bt_control_flow.gd"
 }, {
-"base": "BTNode",
+"base": "BTAction",
 "class": "BTDie",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_die.gd"
+"path": "res://core/ai/misc_nodes/action_nodes/bt_die.gd"
 }, {
-"base": "BTNode",
+"base": "BTAction",
 "class": "BTEquipNextWeapon",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_equip_next_weapon.gd"
+"path": "res://core/ai/gun_nodes/action_nodes/bt_gun_equip.gd"
 }, {
-"base": "BTNode",
+"base": "BTAction",
+"class": "BTFreeInterest",
+"language": "GDScript",
+"path": "res://core/ai/interest_nodes/action_nodes/bt_free_interest.gd"
+}, {
+"base": "BTAction",
 "class": "BTGoToTarget",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_go_to_target.gd"
+"path": "res://core/ai/misc_nodes/action_nodes/bt_go_to_target.gd"
 }, {
-"base": "BTNode",
+"base": "BTAction",
 "class": "BTGoToTargetWithAgent",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_go_to_target_with_agent.gd"
+"path": "res://core/ai/misc_nodes/action_nodes/bt_go_to_target_with_agent.gd"
 }, {
-"base": "BTNode",
+"base": "BTCheck",
 "class": "BTGunCooldown",
 "language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_gun_cooldown.gd"
+"path": "res://core/ai/gun_nodes/check_nodes/bt_gun_cooldown.gd"
 }, {
-"base": "BTNode",
+"base": "BTCheck",
 "class": "BTGunEquipped",
 "language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_gun_equipped.gd"
+"path": "res://core/ai/gun_nodes/check_nodes/bt_gun_equipped.gd"
 }, {
-"base": "BTNode",
+"base": "BTCheck",
 "class": "BTGunHasAmmo",
 "language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_gun_has_ammo.gd"
+"path": "res://core/ai/gun_nodes/check_nodes/bt_gun_has_ammo.gd"
 }, {
-"base": "BTNode",
+"base": "BTCheck",
+"class": "BTInterestMachine",
+"language": "GDScript",
+"path": "res://core/ai/interest_nodes/check_nodes/bt_interest_machine.gd"
+}, {
+"base": "BTCheck",
 "class": "BTInventoryHasAmmo",
 "language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_inventory_has_ammo.gd"
+"path": "res://core/ai/gun_nodes/check_nodes/bt_inventory_has_ammo.gd"
 }, {
-"base": "BTNode",
+"base": "BTCheck",
+"class": "BTIsPlayer",
+"language": "GDScript",
+"path": "res://core/ai/misc_nodes/action_nodes/bt_is_player.gd"
+}, {
+"base": "BTAction",
 "class": "BTLookAtTarget",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_look_at_target.gd"
+"path": "res://core/ai/misc_nodes/action_nodes/bt_look_at_target.gd"
 }, {
 "base": "Node",
 "class": "BTNode",
 "language": "GDScript",
 "path": "res://core/ai/bt_node.gd"
 }, {
-"base": "BTNode",
-"class": "BTPlayerSensor",
-"language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_player_sensor.gd"
-}, {
-"base": "BTNode",
+"base": "BTAction",
 "class": "BTReloadGun",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_reload_gun.gd"
+"path": "res://core/ai/gun_nodes/action_nodes/bt_gun_reload.gd"
 }, {
-"base": "BTNode",
+"base": "BTSequence",
+"class": "BTRoot",
+"language": "GDScript",
+"path": "res://core/ai/bt_root.gd"
+}, {
+"base": "BTAction",
 "class": "BTSelectRandomTarget",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_select_random_target.gd"
+"path": "res://core/ai/misc_nodes/action_nodes/bt_select_random_target.gd"
 }, {
 "base": "BTControlFlow",
 "class": "BTSelector",
@@ -109,30 +134,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/ai/flow_nodes/bt_sequence.gd"
 }, {
-"base": "BTNode",
+"base": "BTAction",
 "class": "BTShoot",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_shoot.gd"
+"path": "res://core/ai/gun_nodes/action_nodes/bt_gun_shoot.gd"
 }, {
-"base": "BTNode",
-"class": "BTSoundListener",
+"base": "BTCheck",
+"class": "BTShouldShootTarget",
 "language": "GDScript",
-"path": "res://core/ai/check_nodes/bt_sound_listener.gd"
+"path": "res://core/ai/misc_nodes/check_nodes/bt_should_shoot_target.gd"
 }, {
-"base": "BTNode",
+"base": "BTAction",
 "class": "BTWaitRandom",
 "language": "GDScript",
-"path": "res://core/ai/action_nodes/bt_wait_random.gd"
+"path": "res://core/ai/misc_nodes/action_nodes/bt_wait_random.gd"
 }, {
 "base": "Spatial",
 "class": "BaseKinematicDoor",
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/doors/base_kinematic_door.gd"
-}, {
-"base": "Node",
-"class": "BehaviorTree",
-"language": "GDScript",
-"path": "res://core/ai/behavior_tree.gd"
 }, {
 "base": "ConsumableItem",
 "class": "BombItem",
@@ -164,6 +184,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/character_audio.gd"
 }, {
+"base": "Area",
+"class": "CharacterSense",
+"language": "GDScript",
+"path": "res://scenes/sensors/character_sense.gd"
+}, {
+"base": "Spatial",
+"class": "CharacterSensors",
+"language": "GDScript",
+"path": "res://scenes/sensors/character_sensors.gd"
+}, {
 "base": "SpawnData",
 "class": "CharacterSpawnData",
 "language": "GDScript",
@@ -183,6 +213,11 @@ _global_script_classes=[ {
 "class": "ClamberManager",
 "language": "GDScript",
 "path": "res://scenes/characters/clamber_manager.gd"
+}, {
+"base": "ConvexPolygonShape",
+"class": "ConeShape",
+"language": "GDScript",
+"path": "res://scenes/sensors/light_detection/cone_shape.gd"
 }, {
 "base": "EquipmentItem",
 "class": "ConsumableItem",
@@ -214,15 +249,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/doors/door.gd"
 }, {
+"base": "RigidBody",
+"class": "DoorBody",
+"language": "GDScript",
+"path": "res://scenes/objects/large_objects/doors/door_body.gd"
+}, {
 "base": "Interactable",
 "class": "DoorInteractable",
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/doors/door_interactable.gd"
-}, {
-"base": "RigidBody",
-"class": "Door_body",
-"language": "GDScript",
-"path": "res://scenes/objects/large_objects/doors/door_body.gd"
 }, {
 "base": "BombItem",
 "class": "Dynamite",
@@ -329,6 +364,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/large_objects/staircases/level_staircase.gd"
 }, {
+"base": "Area",
+"class": "LightArea",
+"language": "GDScript",
+"path": "res://scenes/sensors/light_detection/light_area/light_area.gd"
+}, {
 "base": "AStar2D",
 "class": "ManhattanAStar2D",
 "language": "GDScript",
@@ -389,10 +429,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/characters/player/player.gd"
 }, {
-"base": "Spatial",
-"class": "PlayerSensor",
+"base": "LightArea",
+"class": "PlayerLightArea",
 "language": "GDScript",
-"path": "res://scenes/sensors/player_sensor.gd"
+"path": "res://scenes/sensors/light_detection/player_light_area/player_light_area.gd"
 }, {
 "base": "Area",
 "class": "PlayerSoundEmitter",
@@ -459,10 +499,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.gd"
 }, {
-"base": "Node",
-"class": "SoundListener",
+"base": "CharacterSense",
+"class": "SoundSensor",
 "language": "GDScript",
-"path": "res://scenes/sensors/sound_listener.gd"
+"path": "res://scenes/sensors/sound_sensor.gd"
 }, {
 "base": "Resource",
 "class": "SpawnData",
@@ -504,6 +544,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd"
 }, {
+"base": "CharacterSense",
+"class": "TouchSensor",
+"language": "GDScript",
+"path": "res://scenes/sensors/touch_sensor.gd"
+}, {
 "base": "MeshInstance",
 "class": "VisibilityMask",
 "language": "GDScript",
@@ -513,6 +558,11 @@ _global_script_classes=[ {
 "class": "VisualFlame",
 "language": "GDScript",
 "path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd"
+}, {
+"base": "CharacterSense",
+"class": "VisualSensor",
+"language": "GDScript",
+"path": "res://scenes/sensors/visual_sensor.gd"
 }, {
 "base": "Resource",
 "class": "WorldData",
@@ -527,47 +577,54 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AmmunitionData": "",
 "AttackTypes": "",
+"AutoCleanNavigationMeshInstance": "",
+"BTAction": "res://core/ai/phold_icons/action.svg",
 "BTApproachRandomDistance": "",
-"BTCollisionSensor": "",
+"BTCheck": "res://core/ai/phold_icons/check.svg",
 "BTControlFlow": "",
 "BTDie": "",
 "BTEquipNextWeapon": "",
+"BTFreeInterest": "",
 "BTGoToTarget": "",
 "BTGoToTargetWithAgent": "",
 "BTGunCooldown": "",
 "BTGunEquipped": "",
 "BTGunHasAmmo": "",
+"BTInterestMachine": "",
 "BTInventoryHasAmmo": "",
+"BTIsPlayer": "",
 "BTLookAtTarget": "",
 "BTNode": "",
-"BTPlayerSensor": "",
 "BTReloadGun": "",
+"BTRoot": "",
 "BTSelectRandomTarget": "",
-"BTSelector": "",
-"BTSequence": "",
+"BTSelector": "res://core/ai/phold_icons/selector.svg",
+"BTSequence": "res://core/ai/phold_icons/sequence.svg",
 "BTShoot": "",
-"BTSoundListener": "",
+"BTShouldShootTarget": "",
 "BTWaitRandom": "",
 "BaseKinematicDoor": "",
-"BehaviorTree": "",
 "BombItem": "",
 "BoxOutlineMesh": "",
 "CandelabraItem": "",
 "CandleItem": "",
 "Character": "",
 "CharacterAudio": "",
+"CharacterSense": "",
+"CharacterSensors": "",
 "CharacterSpawnData": "",
 "CharacterSpawner": "",
 "CharacterState": "",
 "ClamberManager": "",
+"ConeShape": "",
 "ConsumableItem": "",
 "ContainerItem": "",
 "ControlMode": "",
 "Cultist": "",
 "DisposableLightItem": "",
 "Door": "",
+"DoorBody": "",
 "DoorInteractable": "",
-"Door_body": "",
 "Dynamite": "",
 "Effect": "",
 "EmptyHand": "",
@@ -589,6 +646,7 @@ _global_script_class_icons={
 "LanternItem": "",
 "LargeObjectDropSound": "",
 "LevelStaircase": "",
+"LightArea": "",
 "ManhattanAStar2D": "",
 "MedicalItem": "",
 "MeleeItem": "",
@@ -601,7 +659,7 @@ _global_script_class_icons={
 "PickupArea": "",
 "PlacementAnchor": "",
 "Player": "",
-"PlayerSensor": "",
+"PlayerLightArea": "",
 "PlayerSoundEmitter": "",
 "RequirementDoorways": "",
 "RequirementMaxSize": "",
@@ -615,7 +673,7 @@ _global_script_class_icons={
 "SettingsClass": "",
 "ShakeCamera": "",
 "ShardOfTheComet": "",
-"SoundListener": "",
+"SoundSensor": "",
 "SpawnData": "",
 "Spawner": "",
 "Spike": "",
@@ -624,8 +682,10 @@ _global_script_class_icons={
 "TinyItemData": "",
 "ToolItem": "",
 "TorchItem": "",
+"TouchSensor": "",
 "VisibilityMask": "",
 "VisualFlame": "",
+"VisualSensor": "",
 "WorldData": "",
 "WritingItem": ""
 }
@@ -656,11 +716,18 @@ BackgroundMusic="*res://scenes/effects/background_music.tscn"
 SettingsConfig="*res://globals/settings_config.gd"
 Events="*res://globals/events.gd"
 
+[debug]
+
+gdscript/warnings/unused_signal=false
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=1920
 window/size/height=1080
 window/size/fullscreen=true
+window/size/test_width=1280
+window/size/test_height=720
 
 [editor]
 
@@ -914,10 +981,12 @@ demo|ik_toggle={
 3d_physics/layer_8="ItemDropsSoftCollisions"
 3d_physics/layer_9="Portals"
 3d_physics/layer_10="Interactables"
+3d_physics/layer_11="Light"
 
 [network]
 
 limits/debugger_stdout/max_chars_per_second=16384
+limits/debugger_stdout/max_messages_per_frame=100
 
 [physics]
 

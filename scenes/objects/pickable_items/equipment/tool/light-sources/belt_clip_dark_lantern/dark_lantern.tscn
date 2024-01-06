@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/belt_clip_dark_lantern/M_Lamp1.material" type="Material" id=2]
 [ext_resource path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" type="AudioStream" id=3]
+[ext_resource path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" type="Script" id=4]
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=5]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -139,6 +140,14 @@ spot_range = 20.0
 spot_attenuation = 4.0
 spot_angle = 20.0
 spot_angle_attenuation = 32.0
+
+[node name="PlayerLightArea" type="Area" parent="Light" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+collision_layer = 1024
+collision_mask = 1024
+priority = 50.0
+script = ExtResource( 4 )
+parent_item_path = NodePath("../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 anims/RESET = SubResource( 3 )

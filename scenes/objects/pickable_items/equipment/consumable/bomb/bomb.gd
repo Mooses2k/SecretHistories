@@ -60,7 +60,7 @@ func _on_Countdown_timeout():
 	$Explosion._on_Bomb_explosion()
 	countdown_started = true
 	# If it blows up in hand
-	if owner_character.is_in_group("CHARACTER") and !item_state == GlobalConsts.ItemState.DROPPED:
+	if owner_character.is_in_group("CHARACTER") and item_state == GlobalConsts.ItemState.EQUIPPED:
 #		print("Bomb blew up in ", owner_character, "'s hand for ", fragments / 4 * bomb_damage, " damage.")
 		owner_character.damage(bomb_damage, damage_type, owner_character)
 		throwing = true

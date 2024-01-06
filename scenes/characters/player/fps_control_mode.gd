@@ -35,10 +35,16 @@ export var _gun_camera : NodePath
 onready var gun_camera : Camera = get_node(_gun_camera) as Camera
 
 
+func _on_player_spawn(_player : Player):
+	pitch_yaw.y = owner.rotation.y
+
+
 func _ready():
+	if not is_instance_valid(GameManager.game):
+		return
+	GameManager.game.connect("player_spawned", self, "_on_player_spawn")
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
-	
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
 
 
@@ -54,7 +60,7 @@ func set_active(value : bool):
 	.set_active(value)
 	if value:
 		pitch_yaw.x = 0.0
-		pitch_yaw.y = 0.0 # owner.body.rotation.y
+		pitch_yaw.y = owner.rotation.y
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -128,13 +134,13 @@ func crosshair_indicators():
 
 # Called from gun_item to add recoil
 func recoil(item, damage, handling):
-	side_recoil = rand_range(-5, 5)
+	side_recoil = rand_range(-1, 1)
 #    var recoil = rand_range(250 - item.handling, 500 - item.handling)
 #    up_recoil += recoil * delta
 #    up_recoil += 1 
 	#compensate for delta application
 	up_recoil += 60 * damage / (handling)
-	_camera.add_stress(0.5)
+#	_camera.add_stress(0.5)
 
 
 func update(delta):
@@ -226,15 +232,14 @@ func _try_to_stand():
 			owner.wanna_stand = false
 
 
-# Is_in_group("Door_hitbox") or Door_body  # Please rename this group to DOOR_HITBOX and/or DoorBody after door merge
 func _on_GrabCastDot_body_entered(body):
-	if body is PickableItem or body is Door_body :
+	if body is PickableItem or body is DoorBody:
 		if !colliding_pickable_items.has(body):
 			colliding_pickable_items.append(body)
 
 
 func _on_GrabCastDot_body_exited(body):
-	if body is PickableItem or body is Door_body:
+	if body is PickableItem or body is DoorBody:
 		colliding_pickable_items.remove(colliding_pickable_items.find(body))
 
 

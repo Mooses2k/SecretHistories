@@ -19,6 +19,9 @@ onready var fps_camera = $FPSCamera
 onready var gun_cam = $FPSCamera/ViewportContainer/Viewport/GunCam   # Fixed fov player viewport so stuff doesn't go through walls
 onready var player_animation_tree = $"%AnimationTree"
 onready var hit_effect = $HitEffect
+onready var player_animations_test = $"%PlayerAnimationsTest"
+onready var player_animations = $PlayerAnimations
+onready var player_gun_reload_shells = $"%PlayerGunReloadShells"
 
 
 func _ready():
@@ -36,7 +39,7 @@ func _ready():
 	print("player.gd added candle")
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	if is_reloading == true:
 		if noise_level < 8:
 			noise_level = 8

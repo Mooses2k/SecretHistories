@@ -11,6 +11,10 @@ size = Vector3( 0.2, 0.2, 0.2 )
 script = ExtResource( 2 )
 item_throw_sound = ExtResource( 3 )
 item_size = 0
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
+throw_logic = false
+can_spin = false
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = SubResource( 1 )

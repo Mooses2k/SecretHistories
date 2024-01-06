@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://resources/models/items/tools/light_sources/candlestick/trn_CandleStand_001.material" type="Material" id=1]
 [ext_resource path="res://resources/models/items/tools/light_sources/candelabra/trn_Candelabra_001.material" type="Material" id=2]
@@ -10,7 +10,10 @@
 [ext_resource path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" type="AudioStream" id=8]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=9]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" type="Script" id=10]
-[ext_resource path="res://resources/shaders/candle/flame.material" type="Material" id=11]
+[ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png" type="Texture" id=11]
+[ext_resource path="res://resources/models/items/consumables/light_sources/candle/flame.webp" type="Texture" id=12]
+[ext_resource path="res://resources/shaders/candle/flame.gdshader" type="Shader" id=13]
+[ext_resource path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" type="Script" id=14]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" type="PackedScene" id=21]
 
 [sub_resource type="ArrayMesh" id=1]
@@ -58,6 +61,30 @@ surfaces/0 = {
 [sub_resource type="QuadMesh" id=55]
 size = Vector2( 0.033, 0.1 )
 
+[sub_resource type="OpenSimplexNoise" id=9]
+seed = 13245
+period = 56.6
+persistence = 1.0
+
+[sub_resource type="NoiseTexture" id=10]
+seamless = true
+bump_strength = 19.9
+noise = SubResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=57]
+shader = ExtResource( 13 )
+shader_param/noise_seed = 746.694
+shader_param/top_offset = Vector3( 0, 0, 0 )
+shader_param/model_height_range = Vector2( -1, 1 )
+shader_param/noise_scale = 0.079
+shader_param/timescale = 1.0
+shader_param/scale = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/noise = SubResource( 10 )
+shader_param/texture_albedo = ExtResource( 12 )
+shader_param/gradient = ExtResource( 11 )
+
 [sub_resource type="Animation" id=51]
 length = 0.001
 tracks/0/type = "value"
@@ -94,14 +121,11 @@ tracks/0/keys = {
 extents = Vector3( 0.0642877, 0.0986133, 0.0627713 )
 
 [node name="Candlestick" instance=ExtResource( 21 )]
-mass = 0.2
+mass = 1.0
 script = ExtResource( 3 )
 item_drop_sound = ExtResource( 9 )
-item_name = "Candlestick"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
 can_spin = true
+item_name = "Candlestick"
 life_percentage_lose = 0.2
 prob_going_out = 0.9
 number_of_candles = 1
@@ -151,7 +175,7 @@ script = ExtResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00139325, -0.00322887, -9.63585e-16 )
 cast_shadow = 0
 mesh = SubResource( 55 )
-material/0 = ExtResource( 11 )
+material/0 = SubResource( 57 )
 script = ExtResource( 10 )
 __meta__ = {
 "_editor_description_": ""
@@ -164,6 +188,14 @@ light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.25
 shadow_enabled = true
 omni_attenuation = 4.0
+
+[node name="PlayerLightArea" type="Area" parent="Candle1/FireOrigin/Fire/Light" index="0"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+collision_layer = 1024
+collision_mask = 1024
+priority = 50.0
+script = ExtResource( 14 )
+parent_item_path = NodePath("../../../../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="7"]
 autoplay = "flicker"
@@ -186,6 +218,9 @@ stream = ExtResource( 8 )
 bus = "Effects"
 
 [node name="Timer" type="Timer" parent="." index="11"]
+
+[node name="PlacementAnchor" parent="." index="12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.203666, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

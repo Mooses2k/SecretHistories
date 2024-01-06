@@ -8,12 +8,12 @@ var is_player_moving : bool = false
 onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
-export var throw_strength : float = 2
+export var throw_strength : float = 20
 const ON_GRAB_MAX_SPEED : float = 0.1
 
 export var hold_time_to_grab : float = 0.4
 export var grab_strength : float = 1000.0
-export var kick_impulse : float = 100
+
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
 
@@ -29,10 +29,7 @@ var target_placement_position : Vector3 = Vector3.ZERO
 #export var _aimcast : NodePath
 #onready var aimcast : RayCast = get_node(_aimcast) as RayCast
 
-export var _legcast : NodePath
-onready var legcast : RayCast = get_node(_legcast) as RayCast
 
-export(AttackTypes.Types) var kick_damage_type : int = 0
 
 enum ItemSelection {
 	ITEM_MAINHAND,
@@ -74,6 +71,7 @@ onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
 onready var _debug_light = get_node("../FPSCamera/DebugLight")
 
 onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
+onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
@@ -129,6 +127,7 @@ var current_screen_filter : int = GameManager.ScreenFilter.NONE
 #export var pixelated_material : Material
 #export var dither_material : Material
 #export var reduce_color_material : Material
+var changed_to_reduce_color = false   # Have we changed to reduce color filter on DLvl5?
 
 onready var noise_timer = $"../Audio/NoiseTimer"   # Because instant noises sometimes aren't detected
 
@@ -223,6 +222,12 @@ func _input(event):
 
 
 func _walk(delta) -> void:
+	var move_dir = Vector3()
+	if !character.kick_timer.is_stopped():   # So you can't move while kicking
+		if character.grounded:   # So you can do jumpkicks
+			character.character_state.move_direction = Vector3.ZERO
+		return
+	
 	if Input.is_action_just_pressed("movement|move_right"):
 		is_movement_key1_held = true
 	if Input.is_action_just_pressed("movement|move_left"):
@@ -235,7 +240,6 @@ func _walk(delta) -> void:
 	
 	_check_movement_key(delta)
 	
-	var move_dir = Vector3()
 	move_dir.x = (Input.get_action_strength("movement|move_right") - Input.get_action_strength("movement|move_left"))
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))
 	character.character_state.move_direction = move_dir.normalized()
@@ -327,14 +331,14 @@ func _handle_grab_input(delta : float):
 		wanna_grab = true
 	else:
 		wanna_grab = false
-	if Input.is_action_pressed("player|interact") or Input.is_action_pressed("playerhand|main_use_secondary"):
+	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
 		if is_grabbing == false:
 			grab_press_length += delta
 			if grab_press_length >= 0.15:
 				wanna_grab = true
 				interaction_handled = true
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
 		grab_press_length = 0.0
 		if is_grabbing == true:
 			is_grabbing = false
@@ -496,14 +500,25 @@ func _handle_inventory(delta : float):
 			if no_click_after_load_period == false:
 				if character.inventory.get_mainhand_item():
 					character.inventory.get_mainhand_item().use_primary()
+					if character.inventory.get_mainhand_item() is MeleeItem:
+						$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
+						owner.noise_level = 8
 					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
-			if character.inventory.get_mainhand_item() and interaction_target == null:
+			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody doors
 				character.inventory.get_mainhand_item().use_secondary()
+				if character.inventory.get_mainhand_item() is MeleeItem:
+					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
+					owner.noise_level = 10
 				throw_state = ThrowState.IDLE
-	
+			
+			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
@@ -530,6 +545,10 @@ func _handle_inventory(delta : float):
 	if Input.is_action_just_pressed("playerhand|offhand_use") and owner.is_reloading == false:
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()
+			if character.inventory.get_offhand_item() is MeleeItem:
+				$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
+				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+				$"%AnimationTree".set("parameters/MeleeThrustL/active", true)
 			throw_state = ThrowState.IDLE
 	
 	update_throw_state(throw_item, delta)
@@ -573,25 +592,10 @@ func drop_grabable():
 				is_grabbing = false
 				print("Grab broken by throw")
 				interaction_handled = true
-				var impulse = current_control_mode.get_aim_direction() * throw_strength
-				if grab_object is MeleeItem:
-					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
-					grab_object.apply_throw_logic(impulse)
-					grab_object.add_collision_exception_with(character)
-					grab_object.implement_throw_damage(true)
-				elif grab_object is EquipmentItem:   # Non-Melee equipment item
-					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
-					grab_object.apply_central_impulse(impulse)
-					grab_object.add_collision_exception_with(character)
-					grab_object.implement_throw_damage(false)
-				elif grab_object is PickableItem:   # It's a tiny item
-					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)
-					grab_object.apply_central_impulse(impulse)
-					grab_object.add_collision_exception_with(character)
-				elif grab_object is RigidBody:   # It's a large object
-					grab_object.apply_central_impulse(impulse)
-				else:   # It's a static?
-					pass
+				
+				throw_strength = 20 * grab_object.mass
+				throw_impulse_and_damage(grab_object)
+				
 				wanna_grab = false
 	if Input.is_action_just_released("playerhand|main_throw") or Input.is_action_just_released("playerhand|offhand_throw"):
 		wants_to_drop = false
@@ -649,27 +653,15 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				character.inventory.drop_offhand_item()
 				
 			if throw_item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				throw_strength = 20
+				throw_strength = 20 * throw_item.mass
 			else:
-				throw_strength = 30
+				throw_strength = 30 * throw_item.mass
 				
-			var impulse = current_control_mode.get_aim_direction() * throw_strength
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
 #			var x_pos = throw_item.global_transform.origin.x
 			# Applies unique throw  logic to item if its a melee item
-			if throw_item is EquipmentItem:
-				throw_item.apply_central_impulse(impulse)
-				throw_item.add_collision_exception_with(character)
-				throw_item.implement_throw_damage(true)
-#			elif throw_item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-#				throw_item.apply_throw_logic(impulse)
-#				throw_item.add_collision_exception_with(character)
-#				throw_item.implement_throw_damage(true)
-			else:
-				throw_item.apply_central_impulse(impulse)
-				throw_item.add_collision_exception_with(character)
-				throw_item.implement_throw_damage(false)
+			throw_impulse_and_damage(throw_item)
 	
 	# throw_state defined here, will this get wiped by the physics_process nulling of throw_item?
 	match throw_state:
@@ -691,12 +683,40 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 			throw_state = ThrowState.IDLE
 
 
-func handle_screen_filters():
-	# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
-	if Input.is_action_just_pressed("misc|change_screen_filter"):
-		# Cycle to next filter
-		_set_screen_filter_to()
+func throw_impulse_and_damage(item):
+	var impulse = current_control_mode.get_aim_direction() * throw_strength
+	
+	if item is MeleeItem:
+		item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		item.apply_throw_logic()
+		item.apply_central_impulse(impulse)
+	elif item is EquipmentItem:   # Non-Melee equipment item
+		item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		item.apply_central_impulse(impulse)
+	elif item is PickableItem:   # It's a tiny item
+		item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		item.apply_central_impulse(impulse)
+	elif item is RigidBody:   # It's a large object or broken door piece
+		item.apply_central_impulse(impulse)
+	else:   # It's a static?
 		pass
+	
+	item.add_collision_exception_with(character)
+	if item.has_method("play_throw_sound"):
+		item.play_throw_sound()
+
+
+func handle_screen_filters():
+	if is_instance_valid(GameManager.game):
+		if GameManager.game.current_floor_level == GameManager.game.LOWEST_FLOOR_LEVEL:
+			if current_screen_filter != GameManager.ScreenFilter.REDUCE_COLOR and !changed_to_reduce_color:
+				_set_screen_filter_to(GameManager.ScreenFilter.NONE)
+				_set_screen_filter_to(GameManager.ScreenFilter.REDUCE_COLOR)
+				changed_to_reduce_color = true
+		# Change the visual filter to change art style of game, such as dither, pixelation, VHS, etc
+		if Input.is_action_just_pressed("misc|change_screen_filter"):
+			# Cycle to next filter
+			_set_screen_filter_to()
 
 
 # function this out maybe to a screen_filters.gd attached to ScreenFilter
@@ -761,30 +781,8 @@ func handle_binocs():
 
 
 func kick():
-	
-	if character.kick_timer.is_stopped() and legcast.is_colliding() and Input.is_action_just_pressed("player|kick"):
-		var kick_object = legcast.get_collider()
-		_camera.add_stress(0.5)
-		character.kick_timer.start()
-		
-		if kick_object is DoorInteractable and is_grabbing == false:
-			kick_object.emit_signal("kicked", legcast.get_collision_point(), -character.global_transform.basis.z, character.kick_damage)
-			
-		elif kick_object.is_in_group("CHARACTER"):
-			kick_object.get_parent().damage(character.kick_damage, kick_damage_type , kick_object)
-			$"../Audio/Movement".stream = item_drop_sound_flesh
-			$"../Audio/Movement".play()
-		
-		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
-			if kick_object is Area:
-				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
-			print(kick_object.get_class())
-			if kick_object is PickableItem:   # Is a large object like a floor candelabra
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse)
-				kick_object.play_drop_sound(kick_object)
-			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
-				kick_object.apply_central_impulse(-character.global_transform.basis.z * kick_impulse * 4)
-				kick_object.play_drop_sound(10, false)
+	if Input.is_action_just_pressed("player|kick"):
+		character.kick()
 
 
 func _clamber():

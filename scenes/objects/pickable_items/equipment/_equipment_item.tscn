@@ -9,6 +9,8 @@ can_attach = false
 item_size = 1
 item_name = "Equipment"
 horizontal_holding = false
+normal_pos_path = NodePath("")
+throw_pos_path = NodePath("")
 
 [node name="HoldPosition" type="Position3D" parent="." index="2"]
 unique_name_in_owner = true

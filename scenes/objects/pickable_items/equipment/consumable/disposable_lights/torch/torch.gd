@@ -46,8 +46,6 @@ func light():
 func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		if !is_dropped and burn_time > 0:
-			$Sounds/BlowOutSound.play()
 		$Sounds/Burning.stop()
 		$FireOrigin/Fire.emitting = false
 		$FireOrigin/EmberDrip.emitting = false
@@ -61,6 +59,12 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
+		if is_lit and burn_time > 0:
+			var sound = $Sounds/BlowOutSound.duplicate()
+			GameManager.game.level.add_child(sound)
+			sound.global_transform = $Sounds/BlowOutSound.global_transform
+			sound.connect("finished", sound, "queue_free")
+			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 
 
@@ -79,7 +83,7 @@ func _on_light_depleted():
 
 func stop_light_timer():
 	burn_time = light_timer.get_time_left()
-	print("current burn time " + str(burn_time))
+#	print("current burn time " + str(burn_time))
 	light_timer.stop()
 
 

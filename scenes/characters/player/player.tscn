@@ -7815,7 +7815,6 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.03
 [node name="Feet" parent="Legs" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 cast_to = Vector3( 0, -1, 0 )
-collide_with_areas = true
 
 [node name="PlayerAnimationPlayer" parent="." index="23" instance=ExtResource( 24 )]
 anims/Hip_Idle = SubResource( 429 )
@@ -7878,6 +7877,8 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.2
 
 [node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
+
+layers = 2
 
 [node name="InnerShirtLP" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="1"]
 layers = 2

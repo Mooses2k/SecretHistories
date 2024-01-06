@@ -8,7 +8,7 @@ const WALL_NAMES := ["wall_xp", "wall_zp", "wall_xn", "wall_zn", "ceiling", "gro
 
 
 export var check_frame_interval := 10
-export var hearing_sensitivity := 6.0
+export var hearing_sensitivity := 5.0
 
 var sound_sources := []
 

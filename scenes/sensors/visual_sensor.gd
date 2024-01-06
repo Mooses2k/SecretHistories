@@ -12,6 +12,8 @@ signal light_detected(light, position)
 export var light_source_interest := 75
 export var player_interest := 300
 
+export var light_sensitivity_level := 0.003
+
 export var _ik_target: NodePath
 var ik_target: Spatial
 
@@ -141,7 +143,7 @@ func process_player_detection(character: Character) -> bool:
 func can_see_player(character: Character) -> Player:
 	var player := get_player()
 	
-	if is_instance_valid(player) and player.light_level > 0.02:
+	if is_instance_valid(player) and player.light_level > light_sensitivity_level:
 		var target := player.global_transform.origin
 #		target.y = global_transform.origin.y
 		target.y += 0.5

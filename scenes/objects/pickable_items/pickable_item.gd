@@ -164,7 +164,9 @@ func throw_damage(delta):
 		for body_found in bodies:
 			if body_found.is_in_group("CHARACTER"):
 				var item_damage_by_momentum = int(abs(initial_linear_velocity)) * mass * 0.3
-				var item_damage
+				var item_damage = 1
+				
+				# TODO: deal with can_spin items that aren't melee items like torch
 				if can_spin or thrown_point_first:
 					item_damage = melee_throw_damage()
 					print(item_damage, " damage calculated in pickable_item")
@@ -172,6 +174,11 @@ func throw_damage(delta):
 					print("Item thrown is NOT a melee item")
 					item_damage = item_damage_by_momentum
 					print(item_damage, " damage calculated")
+				
+				# Handle bad case (like torches apparently)
+				if item_damage == null:
+					item_damage = 1
+				
 				print("Damage inflicted on: ", body_found.name, " is: ", item_damage)
 				body_found.damage(item_damage, melee_damage_type, body_found)
 				has_thrown = false

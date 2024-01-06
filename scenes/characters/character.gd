@@ -20,9 +20,13 @@ export var move_speed : float = 7.0
 export var acceleration : float = 32.0
 export var mass : float = 80.0
 
-export var kick_damage : int = 15   # 3 kicks for a cultist, 5 for a door to start with?
 onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
 export var _legcast : NodePath
+
+export var kick_damage : int = 15   # 3 kicks for a cultist, 5 for a door to start with?
+export var kick_impulse : float = 7
+export var kick_max_speed : float = 10.0
+export(AttackTypes.Types) var kick_damage_type : int = 0
 #export(AttackTypes.Types) var damage_type : int = 0
 
 export var animation_tree_path : NodePath
@@ -102,7 +106,7 @@ var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
 
-onready var character_state : CharacterState = CharacterState.new(self)
+onready var character_state := CharacterState.new(self)
 
 onready var skeleton = $"%Skeleton"
 onready var inventory = $Inventory
@@ -276,6 +280,40 @@ func _physics_process(delta : float):
 #	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
 
 
+
+func kick():
+	prints("Kick timer stopped:", kick_timer.is_stopped())
+	prints("legcast colliding:", legcast.is_colliding())
+	if kick_timer.is_stopped() and legcast.is_colliding() and stamina > 50:
+		var kick_object = legcast.get_collider()
+		if is_instance_valid(_camera):
+			_camera.add_stress(0.5)
+		kick_timer.start()
+		
+		stamina -= 50
+		
+		if kick_object is DoorInteractable and is_grabbing == false:
+			kick_object.emit_signal("kicked", legcast.get_collision_point(), -global_transform.basis.z, kick_damage)
+			
+		elif kick_object.is_in_group("CHARACTER"):
+			kick_object.get_parent().damage(kick_damage, kick_damage_type , kick_object)
+			$"Audio/Movement".stream = item_drop_sound_flesh
+			$"Audio/Movement".play()
+		
+		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
+			if kick_object is Area:
+				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
+#			print(kick_object.get_class())
+			var actual_kick_impulse = min(kick_impulse, kick_object.mass * kick_max_speed)
+			if kick_object is PickableItem:   # Is a large object like a floor candelabra
+				kick_object.apply_central_impulse(-global_transform.basis.z * actual_kick_impulse)
+				kick_object.play_drop_sound(kick_object)
+			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
+				kick_object.apply_central_impulse(-global_transform.basis.z * actual_kick_impulse)
+				kick_object.play_drop_sound(10, false)
+
+
+
 func damage(value : int, type : int, on_hitbox : Hitbox):
 	if self._alive:
 		self.current_health -= self._type_damage_multiplier[type] * value
@@ -296,6 +334,9 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 				
 #				self.queue_free()
 				skeleton.physical_bones_start_simulation()   # This ragdolls
+				if is_instance_valid($Audio/Speech):
+					$Audio/Speech.unit_db = -80
+					$Audio/Speech.stop()
 
 
 func heal(amount):

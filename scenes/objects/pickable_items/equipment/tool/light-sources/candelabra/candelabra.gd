@@ -6,7 +6,7 @@ extends ToolItem
 # TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candle.gd
 
 
-signal item_is_dropped
+signal item_dropped
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false

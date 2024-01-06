@@ -22,6 +22,7 @@ var last_level_switched_on = false
 onready var ik_look_target = $"%IKLookTarget"
 onready var always_on_skeleton_ik = $"%AlwaysOnSkeletonIK"
 onready var ik_base_target = $"%IKBaseTarget"
+onready var bt_root = $"../BTRoot"
 
 
 func _ready():
@@ -29,7 +30,7 @@ func _ready():
 	update_ik_target(tween_value)
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	update_ik_target(tween_value)
 	if GameManager.game.player.inventory.bulky_equipment is ShardOfTheComet and !last_level_switched_on:
 		last_level_switched_on = true
@@ -55,8 +56,8 @@ func _unhandled_input(event):
 func handle_demo_ik_state():
 	match demo_state:
 		DemoState.NONE:
-			if is_instance_valid($"%BehaviorTree"):
-				$"%BehaviorTree".set_process(true)
+			if is_instance_valid(bt_root):
+				bt_root.set_process(true)
 			if tween is SceneTreeTween:
 				tween.kill()
 			tween = null
@@ -70,8 +71,9 @@ func handle_demo_ik_state():
 			(owner as Character).character_state.target_position = GameManager.game.player.global_translation
 		DemoState.STOPPED:
 			(owner as Character).character_state.move_direction = Vector3.ZERO
-			if is_instance_valid($"%BehaviorTree"):
-				$"%BehaviorTree".set_process(false)
+			if is_instance_valid(bt_root):
+				# this no longer freezes cultists after recent Jan2024 rework of AI
+				bt_root.set_process(false)
 		DemoState.TURN_HEAD:
 			if tween is SceneTreeTween:
 				tween.kill()
@@ -79,8 +81,8 @@ func handle_demo_ik_state():
 			tween.tween_property(always_on_skeleton_ik, "interpolation", 1.0, tween_duration)
 			tween.parallel().tween_property(self, "tween_value", 1.0, tween_duration).from(0.0)
 		DemoState.TURN_HEAD_ALLOW_MOVE:   # For final level, when have Shard
-			if is_instance_valid($"%BehaviorTree"):
-				$"%BehaviorTree".set_process(true)
+			if is_instance_valid(bt_root):
+				bt_root.set_process(true)
 			if tween is SceneTreeTween:
 				tween.kill()
 			tween = get_tree().create_tween()

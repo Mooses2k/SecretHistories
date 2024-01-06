@@ -25,6 +25,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/khyber_pass_martini.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/medical/bandage.tscn" type="PackedScene" id=31]
 
+
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 50, 0.1, 50 )
 

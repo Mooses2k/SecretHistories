@@ -31,21 +31,21 @@ func _ready():
 	offhand_orig_origin = offhand_equipment_root.transform.origin
 	
 	# Add initial equipment to player
-	inventory.add_item(spyglass_resource.instance())
-	inventory.add_item(light2_resource.instance())
-	print("player.gd added oil lantern")
-	inventory.set_mainhand_slot(2)
+#	inventory.add_item(spyglass_resource.instance())
+#	inventory.add_item(light2_resource.instance())
+#	print("player.gd added oil lantern")
+#	inventory.set_mainhand_slot(2)s
 	inventory.add_item(light_resource.instance())
 	print("player.gd added candle")
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	if is_reloading == true:
 		if noise_level < 8:
 			noise_level = 8
 			$Audio/NoiseTimer.start()
 			
-	if light_level > 0.001:   # Light detection by cultists is (currently) 0.01, so this is when darker still.
+	if light_level > 0.001:
 #		$KinestheticSense.visible = false
 		$KinestheticSense/Tween.interpolate_property($KinestheticSense, "light_energy", $KinestheticSense.light_energy, 0.0, 1.0)
 		$KinestheticSense/Tween.start()

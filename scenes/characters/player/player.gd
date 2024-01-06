@@ -21,7 +21,7 @@ onready var player_animation_tree = $"%AnimationTree"
 onready var hit_effect = $HitEffect
 onready var player_animations_test = $"%PlayerAnimationsTest"
 onready var player_animations = $PlayerAnimations
-onready var player_gun_reload_shells = $"%PlayerGunReloadShells"
+onready var player_gun_reload_shells = $"%GunReloadShells"
 
 
 func _ready():

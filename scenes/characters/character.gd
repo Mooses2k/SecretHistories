@@ -284,11 +284,13 @@ func _physics_process(delta : float):
 func kick():
 	prints("Kick timer stopped:", kick_timer.is_stopped())
 	prints("legcast colliding:", legcast.is_colliding())
-	if kick_timer.is_stopped() and legcast.is_colliding():
+	if kick_timer.is_stopped() and legcast.is_colliding() and stamina > 50:
 		var kick_object = legcast.get_collider()
 		if is_instance_valid(_camera):
 			_camera.add_stress(0.5)
 		kick_timer.start()
+		
+		stamina -= 50
 		
 		if kick_object is DoorInteractable and is_grabbing == false:
 			kick_object.emit_signal("kicked", legcast.get_collision_point(), -global_transform.basis.z, kick_damage)

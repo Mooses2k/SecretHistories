@@ -2278,6 +2278,8 @@ script = ExtResource( 2 )
 
 [node name="WaitRandom2" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="6"]
 script = ExtResource( 10 )
+max_time = 1.55
+min_time = 0.75
 
 [node name="Shoot" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="7"]
 script = ExtResource( 14 )
@@ -2316,6 +2318,8 @@ script = ExtResource( 11 )
 
 [node name="WaitRandom" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle" index="2"]
 script = ExtResource( 10 )
+max_time = 15.0
+min_time = 5.0
 
 [node name="SelectRandomTarget" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Idle" index="3"]
 script = ExtResource( 11 )

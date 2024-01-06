@@ -89,7 +89,7 @@ disabled = true
 
 [node name="StaticBody" type="StaticBody" parent="."]
 collision_layer = 0
-collision_mask = 18
+collision_mask = 2
 
 [node name="CollisionShapeBase" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1.11555, 0, 0, 0, 0.0893484, 0, 0, 0, 0.545462, 0, 0.0508808, 0 )

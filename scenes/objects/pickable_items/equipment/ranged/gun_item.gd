@@ -33,8 +33,7 @@ export(MeleeStyle) var melee_style : int = 0
 export var player_path: NodePath
 export var mesh_path: NodePath
 
-export var max_raycast_correction_angle_degrees : float = 15
-
+var max_raycast_correction_angle_degrees : float = 45
 
 var ads_reset_position : Vector3
 var ads_reset_rotation : Vector3
@@ -92,7 +91,7 @@ func _physics_process(delta):
 	
 	if not is_instance_valid(target_object):
 		return
-	var target_position_global = target_object.global_translation + Vector3.UP
+	var target_position_global = target_object.global_translation + Vector3.UP * 0.5 # for 0.5 meters from ground
 	var local_position = self.global_translation
 	var target_position : Vector3 = to_local(target_position_global)
 	var delta_angle = Vector3.FORWARD.angle_to(target_position)

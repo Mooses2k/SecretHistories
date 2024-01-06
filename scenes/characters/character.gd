@@ -334,6 +334,9 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 				
 #				self.queue_free()
 				skeleton.physical_bones_start_simulation()   # This ragdolls
+				if is_instance_valid($Audio/Speech):
+					$Audio/Speech.unit_db = -80
+					$Audio/Speech.stop()
 
 
 func heal(amount):

@@ -40,6 +40,7 @@ func _ready():
 
 
 func _process(_delta: float) -> void:
+	# TODO: This should probably be in character.gd
 	if is_reloading == true:
 		if noise_level < 8:
 			noise_level = 8

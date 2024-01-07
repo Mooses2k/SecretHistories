@@ -5,7 +5,6 @@ signal is_moving(is_player_moving)
 
 var is_player_moving : bool = false
 
-onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
 export var throw_strength : float = 20
@@ -28,8 +27,6 @@ var target_placement_position : Vector3 = Vector3.ZERO
 
 #export var _aimcast : NodePath
 #onready var aimcast : RayCast = get_node(_aimcast) as RayCast
-
-
 
 enum ItemSelection {
 	ITEM_MAINHAND,
@@ -59,6 +56,7 @@ var velocity : Vector3 = Vector3.ZERO
 
 var _clamber_m = null
 
+onready var character = get_parent()
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
 #export var _gun_cam_path : NodePath
@@ -153,7 +151,7 @@ func _physics_process(delta : float):
 	throw_item = null
 	current_grab_object = current_control_mode.get_grab_target()
 	
-	### TODO: many of these shouldn't be here, shouldn't be checked every _physics_process
+	### TODO: many of these shouldn't be here and probably shouldn't be checked every _physics_process (moved in _input()?)
 	_walk(delta)
 	_crouch()
 	_handle_grab_input(delta)
@@ -297,7 +295,6 @@ func _check_movement_key(delta):
 
 
 func _crouch() -> void:
-#	if owner.is_player_crouch_toggle:
 	if GameSettings.crouch_hold_enabled:
 		if Input.is_action_pressed("player|crouch"):
 			if owner.do_sprint:
@@ -517,7 +514,6 @@ func _handle_inventory(delta : float):
 					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
 					owner.noise_level = 10
 				throw_state = ThrowState.IDLE
-			
 			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
@@ -765,7 +761,7 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 		)
 	if current_screen_filter == GameManager.ScreenFilter.DEBUG_LIGHT:
 		print("Screen Filter: DEBUG_LIGHT")
-#		GameManager.game.level.toggle_directional_light()
+#		GameManager.game.level.toggle_directional_light()   # At one point, this lagged everything
 		_screen_filter.visible = false
 		_debug_light.visible = true
 

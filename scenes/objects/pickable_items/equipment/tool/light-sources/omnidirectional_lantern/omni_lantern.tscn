@@ -136,7 +136,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0527362, 0 )
 shape = SubResource( 8 )
 
 [node name="HoldPosition" parent="." index="4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315746, -0.0179318 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.269326, -0.0179318 )
 
 [node name="Durability" type="Timer" parent="." index="5"]
 wait_time = 30000.0

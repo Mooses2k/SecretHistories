@@ -106,34 +106,6 @@ var light_level : float = 0.0
 var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
 
-onready var character_state := CharacterState.new(self)
-
-onready var skeleton = $"%Skeleton"
-onready var inventory = $Inventory
-onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
-onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
-onready var belt_position = $"%BeltPosition"
-
-onready var drop_position_node = $Body/DropPosition as Spatial
-onready var throw_position_node = $"%ThrowPosition" as Spatial
-
-onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
-onready var animation_tree = $"%AnimationTree"
-onready var additional_animations  = $AdditionalAnimations
-
-onready var _camera = get_node("FPSCamera")
-onready var _collider = get_node("CollisionShape")
-onready var _crouch_collider = get_node("CollisionShape2")
-onready var _surface_detector = get_node("SurfaceDetector")
-onready var _sound_emitter = get_node("SoundEmitter")
-onready var _audio_player = get_node("Audio")
-onready var _character_hitbox = get_node("CanStandChecker")
-onready var _ground_checker = $"%GroundChecker"
-onready var legcast : RayCast = get_node(_legcast) as RayCast
-onready var _speech_player = get_node("Audio/Speech")
-
-onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
-
 var stamina := 600.0
 
 #var current_control_mode_index = 0
@@ -184,6 +156,34 @@ var noise_level : float = 0   # Noise detectable by characters; is a float for s
 
 var is_reloading = false
 
+onready var character_state := CharacterState.new(self)
+
+onready var skeleton = $"%Skeleton"
+onready var inventory = $Inventory
+onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
+onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
+onready var belt_position = $"%BeltPosition"
+
+onready var drop_position_node = $Body/DropPosition as Spatial
+onready var throw_position_node = $"%ThrowPosition" as Spatial
+
+onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
+onready var animation_tree = $"%AnimationTree"
+onready var additional_animations  = $AdditionalAnimations
+
+onready var _camera = get_node("FPSCamera")
+onready var _collider = get_node("CollisionShape")
+onready var _crouch_collider = get_node("CollisionShape2")
+onready var _surface_detector = get_node("SurfaceDetector")
+onready var _sound_emitter = get_node("SoundEmitter")
+onready var _audio_player = get_node("Audio")
+onready var _character_hitbox = get_node("CanStandChecker")
+onready var _ground_checker = $"%GroundChecker"
+onready var legcast : RayCast = get_node(_legcast) as RayCast
+onready var _speech_player = get_node("Audio/Speech")
+
+onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
+
 
 func _ready():
 	_type_damage_multiplier.resize(AttackTypes.Types._COUNT)
@@ -214,21 +214,21 @@ func _physics_process(delta : float):
 		if _collider.disabled:
 			_collider.set_deferred("disabled", false)
 			_crouch_collider.set_deferred("disabled", true)
-	
+			
 		var from = mainhand_equipment_root.transform.origin.y
 		mainhand_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
-	
+		
 		from = offhand_equipment_root.transform.origin.y
 		offhand_equipment_root.transform.origin.y = lerp(from, equipment_orig_pos, 0.08)
 		var d1 = mainhand_equipment_root.transform.origin.y - equipment_orig_pos
 		if d1 > -0.04:
 			mainhand_equipment_root.transform.origin.y = equipment_orig_pos
 			offhand_equipment_root.transform.origin.y = equipment_orig_pos
-	
+			
 	match state:
 		State.STATE_WALKING:
 			_walk(delta)
-	
+			
 		State.STATE_CROUCHING:
 			if !do_crouch and is_player_crouch_toggle:
 				if do_sprint or (is_crouching and can_stand):
@@ -236,37 +236,37 @@ func _physics_process(delta : float):
 					wanna_stand = true
 					state = State.STATE_WALKING
 					return
-	
+					
 			is_crouching = true
 			_crouch(delta)
 			_walk(delta, 0.75)
-	
+			
 		State.STATE_CLAMBERING_RISE:
 			var pos = global_transform.origin
 			var clamber_target = Vector3(pos.x, clamber_destination.y, pos.z)
 			# Clamber speed affected by encumbrance
 			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
 			global_transform.origin = lerp(pos, clamber_target, clamber_speed)
-	
+			
 			var d = pos - clamber_target
 			if d.length() < 0.1:
 				state = State.STATE_CLAMBERING_LEDGE
 				return
-	
+				
 		State.STATE_CLAMBERING_LEDGE:
 			#_audio_player.play_clamber_sound(false)
 			var pos = global_transform.origin
 			# Clamber speed affected by encumbrance
 			var clamber_speed = default_clamber_speed / (1 + inventory.encumbrance)
 			global_transform.origin = lerp(pos, clamber_destination, clamber_speed)
-
+			
 			var d = global_transform.origin - clamber_destination
 			if d.length() < 0.1:
 				is_clambering = false
 				global_transform.origin = clamber_destination
 				if clamberable_obj and clamberable_obj is RigidBody:   # Altered to allow statics
 					clamberable_obj.mode = 0
-
+					
 				if is_crouching:
 					state = State.STATE_CROUCHING
 					return
@@ -278,7 +278,6 @@ func _physics_process(delta : float):
 # I believe this is for a RigidBody style controller we used to have; we can keep for now
 #func slow_down(state : PhysicsDirectBodyState):
 #	state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), move_speed)
-
 
 
 func kick():
@@ -311,7 +310,6 @@ func kick():
 			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
 				kick_object.apply_central_impulse(-global_transform.basis.z * actual_kick_impulse)
 				kick_object.play_drop_sound(10, false)
-
 
 
 func damage(value : int, type : int, on_hitbox : Hitbox):

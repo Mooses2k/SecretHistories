@@ -783,7 +783,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0460132, -0.0354128 )
 visible = false
 
 [node name="RayCast" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0481794, -0.0297382 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0281493, -0.0297382 )
+visible = true
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 
@@ -807,7 +808,6 @@ bus = "Effects"
 
 [node name="HoldPosition" parent="." index="8"]
 transform = Transform( 0.990265, -0.138034, -0.0179346, 0.139175, 0.984048, 0.11081, 0.00235294, -0.112227, 0.99368, -0.02, 0.031, -0.081 )
-visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 unique_name_in_owner = true

@@ -13,7 +13,8 @@
 
 Demo trailer: https://youtu.be/pLpF8yBGvFg
 
-<i>A dead God lies dreaming beneath Ribblehead.<br>
+<br>
+<i>A dead god lies dreaming beneath Ribblehead.<br>
 A comet sighting brings with it the glory of the Fifth World.<br>
 Star-crazed cultists call to the Constellation Starfish.<br>
 Explore, sneak, loot, survive, escape.<br>
@@ -43,7 +44,8 @@ The project is GPLv3 open-source and the intention is to make a platform for any
 
 Two and a half years in the making, so far. Finally have something decent to show.
 
-Anyone is welcome to help - first timers and GODOT pros alike! Just comment here or PM me.
+Anyone is welcome to help - first timers and Godot pros alike!
+Join us on Discord at https://discord.gg/dwkGszs5b5
 
 The design doc is in the form of the Github wiki here: https://github.com/Mooses2k/SecretHistories/wiki
 

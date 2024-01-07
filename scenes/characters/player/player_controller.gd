@@ -344,7 +344,7 @@ func _handle_grab_input(delta : float):
 				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
 			wanna_grab = false
 			interaction_handled = true
-			camera_movement_resistance = 1.0
+		camera_movement_resistance = 1.0   # In case of a grab-throw, make sure the camera turning still isn't slowed
 
 
 func handle_grab(delta : float):
@@ -589,7 +589,12 @@ func drop_grabable():
 				print("Grab broken by throw")
 				interaction_handled = true
 				
+				# TODO: This duplicates code in update_throw_state(); fix that
 				throw_strength = 20 * grab_object.mass
+				print(throw_strength, " is throw_strength before 55 cap")
+				if throw_strength > 55:
+					throw_strength = 55
+				
 				throw_impulse_and_damage(grab_object)
 				
 				wanna_grab = false
@@ -658,6 +663,9 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				throw_strength = 30 * throw_item.mass
 			else:
 				throw_strength = 40 * throw_item.mass
+			print(throw_strength, " is throw_strength before 55 cap")
+			if throw_strength > 55:
+				throw_strength = 55
 				
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world

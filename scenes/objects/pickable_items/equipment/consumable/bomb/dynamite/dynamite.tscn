@@ -137,7 +137,7 @@ __meta__ = {
 }
 
 [node name="Fuse" type="Particles" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14717, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00700194, 0.117903, 0 )
 emitting = false
 amount = 20
 randomness = 0.16

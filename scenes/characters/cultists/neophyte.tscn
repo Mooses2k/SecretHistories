@@ -734,7 +734,7 @@ script = ExtResource( 34 )
 visible = false
 
 [node name="CollisionShape" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.947582, -0.158151 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.948, 0 )
 shape = SubResource( 6 )
 
 [node name="IKLookTarget" type="Position3D" parent="." index="4"]

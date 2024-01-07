@@ -549,7 +549,7 @@ func _handle_inventory(delta : float):
 	
 	update_throw_state(throw_item, delta)
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"): # Later, when we have RigidBody doors, add this back for convenience and deal with edge cases with ADS and melee:  or Input.is_action_just_released("playerhand|main_use_secondary"):
 		if !(wanna_grab or is_grabbing or interaction_handled):
 			if interaction_target != null:
 				if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
@@ -634,6 +634,12 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 	# Always test Left-Clicking twice with a bomb in main hand after changing anything here. Bomb throws are an edge case of throw as they don't have to happen with the usual throw keys.
 	elif throw_state == ThrowState.SHOULD_THROW:
 		print("Should throw")
+		if throw_item:   # This is a lit bomb that has already set itself as throw_item
+			if throw_item == character.inventory.get_mainhand_item():
+				throw_item_hand = ItemSelection.ITEM_MAINHAND
+			else: 
+				throw_item_hand = ItemSelection.ITEM_OFFHAND
+		
 		if !throw_item:   # If the throw item hasn't already been selected, which should be all cases except use_primary of a lit bomb.
 			if throw_item_hand == ItemSelection.ITEM_MAINHAND:
 				throw_item = character.inventory.get_mainhand_item()

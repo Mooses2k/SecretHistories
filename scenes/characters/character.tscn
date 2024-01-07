@@ -318,7 +318,6 @@ collision_layer = 16
 collision_mask = 19
 script = ExtResource( 1 )
 _legcast = NodePath("Legs/Feet")
-animation_tree_path = NodePath("AnimationTree")
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
@@ -450,6 +449,16 @@ anims/Belt_bob = SubResource( 82 )
 
 [node name="AnimationTree" parent="." instance=ExtResource( 5 )]
 unique_name_in_owner = true
+parameters/ADS_State/current = 2
+"parameters/Blend2 5/blend_amount" = 0.0
+"parameters/BlendSpace2D 2/blend_position" = Vector2( 0.00374532, -0.0172414 )
+parameters/Gun_transition/current = 2
+parameters/Normal_state/current = 0
+parameters/Rifle_crouch/blend_amount = 1.0
+parameters/ShotgunCrouchStrafe/blend_amount = 0.0
+"parameters/ShotgunRunBlend 2/blend_amount" = 0.0
+parameters/ShotgunStrafe/blend_amount = 0.0
+parameters/ShotgunTransitions/current = 3
 
 [node name="ADSTween" type="Tween" parent="."]
 unique_name_in_owner = true

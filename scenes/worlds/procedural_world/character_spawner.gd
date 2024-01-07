@@ -42,7 +42,7 @@ const ENEMY_GROUP : String = "CULTIST"
 
 export(Array, Dictionary) var character_loadout : Array
 export var continuous_spawn_level : int = -5
-export var continuous_spawn_max : int = 5
+export var continuous_spawn_max : int = 7   # too many more than 5 can lag the game
 
 var data : WorldData
 

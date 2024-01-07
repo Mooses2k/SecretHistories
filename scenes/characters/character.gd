@@ -335,6 +335,10 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 				if is_instance_valid($Audio/Speech):
 					$Audio/Speech.unit_db = -80
 					$Audio/Speech.stop()
+				# This is to make the infinite spawner on DLvl -5 work
+				# If in the future, they can somehow come back alive, change this or readd them to the group
+				if is_in_group("CULTIST"):
+					remove_from_group("CULTIST")
 
 
 func heal(amount):

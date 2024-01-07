@@ -8,8 +8,10 @@
 </p>
 <br>
 <br>
-Trailer: https://youtu.be/pLpF8yBGvFg<br>
-<br>
+
+
+
+Demo trailer: https://youtu.be/pLpF8yBGvFg
 
 <i>A dead God lies dreaming beneath Ribblehead.<br>
 A comet sighting brings with it the glory of the Fifth World.<br>
@@ -19,18 +21,35 @@ Go die in a hole.</i><br>
 <br>
 
 Simulationist dungeon delving:
+* Procedurally generated dungeon levels
+* Realistic light-levels and stealth
+* Intricate impact and object-dragging sound system
+* Opponents can detect noise, your light-sources, etc
+* Hardcore old-school OSR D&D gameplay
+* Detailed main-hand and off-hand inventory system with intuitive controls
+* Hundreds of voice lines by talented voice actors
 
-* _Controls and some gameplay of Amnesia_
-* _Same for Delver_
-* _Gameplay of OSR D&D_
-* _Story and world, some gameplay, and stealth of Infra Arcana_
-* _World-building of SCP Foundation, specifically the work of qntm_
-* _Time period, guns, & stealth of Hunt: Showdown_
-* _Fiddly gun mechanics of Receiver_
-* _Melee of Hellish Quart_
+Some inspiration touchstones:
+* Thief: the Dark Project
+* Amnesia: The Dark Descent
+* Pathways Into Darkness
+* Lost In Vivo
+* Monstrum
+* Receiver
+* Hellish Quart
+* SCP Foundation
 
+The project is GPLv3 open-source and the intention is to make a platform for anyone to make their own adventures in this system without reinventing the wheel. 
 
-Anyone is welcome to help - first timers and GODOT pros alike!
+Two and a half years in the making, so far. Finally have something decent to show.
+
+Anyone is welcome to help - first timers and GODOT pros alike! Just comment here or PM me.
 
 The design doc is in the form of the Github wiki here: https://github.com/Mooses2k/SecretHistories/wiki
 
+Milestones and open issues are tracked here:
+https://github.com/Mooses2k/SecretHistories/milestones?direction=asc&sort=title&state=open
+
+Pre-alpha demo: https://github.com/Mooses2k/SecretHistories/releases/tag/2024-1-7-pa
+
+Let's go die in a hole!

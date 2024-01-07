@@ -2284,6 +2284,7 @@ script = ExtResource( 22 )
 [node name="BTLineOfSight" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="1"]
 script = ExtResource( 29 )
 visual_sensor = NodePath("../../../../../../../Sensors/VisualSensor")
+touch_sensor = NodePath("../../../../../../../Sensors/TouchSensor")
 
 [node name="EquipWeapon (does nothing\?)" type="Node" parent="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="2"]
 script = ExtResource( 7 )
@@ -2378,7 +2379,6 @@ _ik_target = NodePath("../../IKLookTarget")
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 5 )
-touch_interest = 300
 
 [node name="CollisionShape" type="CollisionShape" parent="Sensors/TouchSensor" index="0"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0 )
@@ -2434,4 +2434,5 @@ script = ExtResource( 36 )
 [connection signal="character_idled" from="BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/WaitRandom2" to="Audio" method="play_idle_sound"]
 [connection signal="character_idled" from="BTRoot/SEL_Behaviors/SEQ_Idle/WaitRandom" to="Audio" method="play_idle_sound"]
 [connection signal="event" from="Sensors/VisualSensor" to="BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" method="set_event"]
+[connection signal="body_entered" from="Sensors/TouchSensor" to="Sensors/TouchSensor" method="on_body_entered"]
 [connection signal="event" from="Sensors/TouchSensor" to="BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" method="set_event"]

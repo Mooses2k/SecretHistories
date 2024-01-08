@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://resources/animations/ads_idle.tres" type="Animation" id=1]
 [ext_resource path="res://resources/animations/one-handed_hip_idle.tres" type="Animation" id=2]
@@ -34,6 +34,8 @@
 [ext_resource path="res://resources/animations/walk_left-loop.tres" type="Animation" id=32]
 [ext_resource path="res://resources/animations/walk_right-loop.tres" type="Animation" id=33]
 [ext_resource path="res://resources/animations/jump_and_land.tres" type="Animation" id=34]
+[ext_resource path="res://resources/animations/double_barrel_reload.tres" type="Animation" id=35]
+[ext_resource path="res://resources/animations/hip_idle_shotgun.tres" type="Animation" id=36]
 
 [node name="AnimationPlayer" type="AnimationPlayer"]
 root_node = NodePath("")
@@ -46,8 +48,10 @@ anims/crouch_walk_forward-loop = ExtResource( 13 )
 anims/crouch_walk_forward_right-loop = ExtResource( 9 )
 anims/crouch_walk_left-loop = ExtResource( 8 )
 anims/crouch_walk_right-loop = ExtResource( 10 )
+anims/double_barrel_reload = ExtResource( 35 )
 anims/falling = ExtResource( 11 )
 anims/hip_idle = ExtResource( 12 )
+anims/hip_idle_shotgun = ExtResource( 36 )
 anims/idle-loop = ExtResource( 14 )
 anims/item_holding = ExtResource( 15 )
 anims/item_holding_horizontal_left = ExtResource( 16 )

@@ -320,10 +320,9 @@ tracks/5/keys = {
 
 [node name="SawedOffShotgun" instance=ExtResource( 7 )]
 mass = 3.0
+can_spin = true
 item_size = 0
 item_name = "Sawed-off shotgun"
-throw_logic = true
-can_spin = true
 ammo_types = [ ExtResource( 4 ) ]
 ammunition_capacity = 2
 reload_amount = 2

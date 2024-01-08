@@ -5,7 +5,6 @@ signal is_moving(is_player_moving)
 
 var is_player_moving : bool = false
 
-onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
 export var throw_strength : float = 20
@@ -28,8 +27,6 @@ var target_placement_position : Vector3 = Vector3.ZERO
 
 #export var _aimcast : NodePath
 #onready var aimcast : RayCast = get_node(_aimcast) as RayCast
-
-
 
 enum ItemSelection {
 	ITEM_MAINHAND,
@@ -59,6 +56,7 @@ var velocity : Vector3 = Vector3.ZERO
 
 var _clamber_m = null
 
+onready var character = get_parent()
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
 #export var _gun_cam_path : NodePath
@@ -153,7 +151,7 @@ func _physics_process(delta : float):
 	throw_item = null
 	current_grab_object = current_control_mode.get_grab_target()
 	
-	### TODO: many of these shouldn't be here, shouldn't be checked every _physics_process
+	### TODO: many of these shouldn't be here and probably shouldn't be checked every _physics_process (moved in _input()?)
 	_walk(delta)
 	_crouch()
 	_handle_grab_input(delta)
@@ -297,7 +295,6 @@ func _check_movement_key(delta):
 
 
 func _crouch() -> void:
-#	if owner.is_player_crouch_toggle:
 	if GameSettings.crouch_hold_enabled:
 		if Input.is_action_pressed("player|crouch"):
 			if owner.do_sprint:
@@ -347,7 +344,7 @@ func _handle_grab_input(delta : float):
 				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
 			wanna_grab = false
 			interaction_handled = true
-			camera_movement_resistance = 1.0
+		camera_movement_resistance = 1.0   # In case of a grab-throw, make sure the camera turning still isn't slowed
 
 
 func handle_grab(delta : float):
@@ -518,7 +515,6 @@ func _handle_inventory(delta : float):
 					owner.noise_level = 10
 				throw_state = ThrowState.IDLE
 			
-			
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
@@ -553,7 +549,7 @@ func _handle_inventory(delta : float):
 	
 	update_throw_state(throw_item, delta)
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"): # Later, when we have RigidBody doors, add this back for convenience and deal with edge cases with ADS and melee:  or Input.is_action_just_released("playerhand|main_use_secondary"):
 		if !(wanna_grab or is_grabbing or interaction_handled):
 			if interaction_target != null:
 				if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
@@ -593,7 +589,12 @@ func drop_grabable():
 				print("Grab broken by throw")
 				interaction_handled = true
 				
+				# TODO: This duplicates code in update_throw_state(); fix that
 				throw_strength = 20 * grab_object.mass
+				print(throw_strength, " is throw_strength before 55 cap")
+				if throw_strength > 55:
+					throw_strength = 55
+				
 				throw_impulse_and_damage(grab_object)
 				
 				wanna_grab = false
@@ -638,6 +639,12 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 	# Always test Left-Clicking twice with a bomb in main hand after changing anything here. Bomb throws are an edge case of throw as they don't have to happen with the usual throw keys.
 	elif throw_state == ThrowState.SHOULD_THROW:
 		print("Should throw")
+		if throw_item:   # This is a lit bomb that has already set itself as throw_item
+			if throw_item == character.inventory.get_mainhand_item():
+				throw_item_hand = ItemSelection.ITEM_MAINHAND
+			else: 
+				throw_item_hand = ItemSelection.ITEM_OFFHAND
+		
 		if !throw_item:   # If the throw item hasn't already been selected, which should be all cases except use_primary of a lit bomb.
 			if throw_item_hand == ItemSelection.ITEM_MAINHAND:
 				throw_item = character.inventory.get_mainhand_item()
@@ -653,9 +660,12 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				character.inventory.drop_offhand_item()
 				
 			if throw_item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				throw_strength = 20 * throw_item.mass
-			else:
 				throw_strength = 30 * throw_item.mass
+			else:
+				throw_strength = 40 * throw_item.mass
+			print(throw_strength, " is throw_strength before 55 cap")
+			if throw_strength > 55:
+				throw_strength = 55
 				
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
@@ -765,7 +775,7 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 		)
 	if current_screen_filter == GameManager.ScreenFilter.DEBUG_LIGHT:
 		print("Screen Filter: DEBUG_LIGHT")
-#		GameManager.game.level.toggle_directional_light()
+#		GameManager.game.level.toggle_directional_light()   # At one point, this lagged everything
 		_screen_filter.visible = false
 		_debug_light.visible = true
 

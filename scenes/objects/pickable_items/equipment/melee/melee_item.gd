@@ -26,8 +26,6 @@ export var secondary_damage2 = 0
 export var melee_attack_speed : float = 1.0
 export var cooldown = 0.01
 
-onready var melee_hitbox = $Hitbox as Area
-
 #export var element_path : NodePath
 #onready var collision_and_mesh = get_node(element_path)
 
@@ -35,6 +33,8 @@ var can_hit = false
 var did_a_thrust = false
 var did_a_cut = false
 var on_cooldown = false
+
+onready var melee_hitbox = $Hitbox as Area
 
 onready var character = get_parent()
 
@@ -66,7 +66,7 @@ func attack_thrust():
 #			melee_anim.play("polearm_thrust_from_right")
 #			$Sounds/Thrust.play()
 #			yield(melee_anim, "animation_finished")
-##			character.stamina -= 30 # this is bugged with halberd
+#			character.stamina -= 30 # this is bugged with halberd
 #			can_hit = false
 #			melee_anim.queue("polearm_recovery_from_right")
 
@@ -153,6 +153,8 @@ func _on_Hitbox_hit(other):
 
 
 func _on_Hitbox_body_entered(body):
+	print(body, " hit by", self)
+	# This is so slashing damage doesn't impulse objects as much
 	if primary_damage_type1 == 0:
 		primary_damage1 / 2
 	elif primary_damage_type2 == 0:
@@ -163,8 +165,9 @@ func _on_Hitbox_body_entered(body):
 		secondary_damage2 / 2
 	
 	# This pushes the hit object if it's a RigidBody
-	if body is RigidBody and can_hit == true:
-		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage1)
-		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage2)
-		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage1)
-		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage2)
+#	if body is RigidBody and can_hit == true:
+		# TODO: fix this, it's always pointing one direction possible because base character scene doesn't rotate?
+#		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage1)
+#		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage2)
+#		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage1)
+#		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage2)

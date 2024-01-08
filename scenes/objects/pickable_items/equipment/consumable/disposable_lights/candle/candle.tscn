@@ -55,33 +55,6 @@ radius = 0.025
 [sub_resource type="BoxShape" id=56]
 extents = Vector3( 0.028, 0.06, 0.028 )
 
-[sub_resource type="QuadMesh" id=53]
-size = Vector2( 0.033, 0.1 )
-
-[sub_resource type="OpenSimplexNoise" id=9]
-seed = 13245
-period = 56.6
-persistence = 1.0
-
-[sub_resource type="NoiseTexture" id=10]
-seamless = true
-bump_strength = 19.9
-noise = SubResource( 9 )
-
-[sub_resource type="ShaderMaterial" id=58]
-shader = ExtResource( 13 )
-shader_param/noise_seed = 416.176
-shader_param/top_offset = Vector3( 0, 0, 0 )
-shader_param/model_height_range = Vector2( -1, 1 )
-shader_param/noise_scale = 0.079
-shader_param/timescale = 1.0
-shader_param/scale = 1.0
-shader_param/uv1_scale = Vector3( 1, 1, 1 )
-shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/noise = SubResource( 10 )
-shader_param/texture_albedo = ExtResource( 12 )
-shader_param/gradient = ExtResource( 11 )
-
 [sub_resource type="Animation" id=54]
 length = 0.001
 tracks/0/type = "value"
@@ -113,6 +86,33 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0.3, 0.31, 0.28, 0.32 ]
 }
+
+[sub_resource type="QuadMesh" id=53]
+size = Vector2( 0.033, 0.1 )
+
+[sub_resource type="OpenSimplexNoise" id=9]
+seed = 13245
+period = 56.6
+persistence = 1.0
+
+[sub_resource type="NoiseTexture" id=10]
+seamless = true
+bump_strength = 19.9
+noise = SubResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=58]
+shader = ExtResource( 13 )
+shader_param/noise_seed = 538.216
+shader_param/top_offset = Vector3( 0, 0, 0 )
+shader_param/model_height_range = Vector2( -1, 1 )
+shader_param/noise_scale = 0.079
+shader_param/timescale = 1.0
+shader_param/scale = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/noise = SubResource( 10 )
+shader_param/texture_albedo = ExtResource( 12 )
+shader_param/gradient = ExtResource( 11 )
 
 [sub_resource type="BoxShape" id=57]
 extents = Vector3( 0.02, 0.02, 0.02 )
@@ -148,7 +148,12 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin" type="Position3D" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+autoplay = "flicker"
+anims/RESET = SubResource( 54 )
+anims/flicker = SubResource( 55 )
+
+[node name="FireOrigin" type="Position3D" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00428984, 0.0887242, -0.00277551 )
 script = ExtResource( 2 )
 
@@ -179,21 +184,16 @@ priority = 50.0
 script = ExtResource( 1 )
 parent_item_path = NodePath("../../../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
-autoplay = "flicker"
-anims/RESET = SubResource( 54 )
-anims/flicker = SubResource( 55 )
-
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
 
-[node name="Ignite" parent="." index="9" groups=["IGNITE"]]
+[node name="Ignite" parent="." index="8" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
 shape = SubResource( 57 )
 
-[node name="PlacementAnchor" parent="." index="10"]
+[node name="PlacementAnchor" parent="." index="9"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0629706, 0 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]

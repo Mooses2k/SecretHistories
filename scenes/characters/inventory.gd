@@ -48,10 +48,10 @@ var current_offhand_equipment : EquipmentItem = null
 # Are we currently in the middle of swapping hands?
 var are_swapping : bool = false
 
+var encumbrance : float = 0   # Is a float to allow easy division
+
 # Where to drop items from
 onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
-
-var encumbrance : float = 0   # Is a float to allow easy division
 
 
 func _ready():

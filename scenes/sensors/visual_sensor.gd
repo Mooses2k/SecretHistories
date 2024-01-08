@@ -1,6 +1,5 @@
 tool class_name VisualSensor extends CharacterSense
 
-
 # Whatever you do, for the love of Cthulhu, please don't set Mask 1 for the DirectSightArea
 # You will lag so hard
 # Don't remove this comment :)
@@ -12,6 +11,8 @@ signal light_detected(light, position)
 export var light_source_interest := 75
 export var player_interest := 300
 
+export var light_sensitivity_level := 0.003
+
 export var _ik_target: NodePath
 var ik_target: Spatial
 
@@ -21,11 +22,12 @@ var ik_target: Spatial
 export var distance := 32.0 setget set_distance
 export var fov := 120.0 setget set_fov
 
-onready var _collision_shape := CollisionShape.new()
-onready var _mesh_instance := MeshInstance.new()
+var line_of_sight : bool = false
+
 var _mesh : CylinderMesh = CylinderMesh.new()
 
-var line_of_sight : bool = false
+onready var _collision_shape := CollisionShape.new()
+onready var _mesh_instance := MeshInstance.new()
 
 
 func add_area_nodes() -> void:
@@ -77,7 +79,7 @@ func get_aabb() -> AABB:
 
 func _ready() -> void:
 	ik_target = get_node(_ik_target)
-
+	
 	add_area_nodes()
 	connect_signals()
 	set_collision_layers()
@@ -141,7 +143,7 @@ func process_player_detection(character: Character) -> bool:
 func can_see_player(character: Character) -> Player:
 	var player := get_player()
 	
-	if is_instance_valid(player) and player.light_level > 0.02:
+	if is_instance_valid(player) and player.light_level > light_sensitivity_level:
 		var target := player.global_transform.origin
 #		target.y = global_transform.origin.y
 		target.y += 0.5
@@ -181,10 +183,9 @@ func get_overlapping_lights() -> Array:
 func process_light_detection(_character: Character) -> bool:
 	# [ Evil hack in case of `on_light_entered` misbehaving ]
 	light_sources = get_overlapping_lights()
-
+	
 	if !light_sources.empty():
 		var light_area := check_light()
-#		print(light_area)
 		if is_instance_valid(light_area):
 			emit_signal\
 			(
@@ -200,6 +201,7 @@ func process_light_detection(_character: Character) -> bool:
 				light_area,
 				self
 			)
+			print(light_area, " light area detected")
 			return true
 	return false
 
@@ -221,7 +223,7 @@ func check_light() -> PlayerLightArea:
 	
 	if !is_instance_valid(player_light_area) or !(player_light_area is PlayerLightArea):
 		return null
-
+	
 	if !(player_light_area.parent_item is CandelabraItem or
 		player_light_area.parent_item is CandleItem or
 		player_light_area.parent_item is LanternItem
@@ -229,7 +231,7 @@ func check_light() -> PlayerLightArea:
 		return null
 	
 	if !player_light_area.parent_item.is_lit: return null
-
+	
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
 	if player_light_area.check_point(point) and check_point(point): return player_light_area.parent_item.owner_character

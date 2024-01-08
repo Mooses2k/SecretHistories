@@ -59,15 +59,17 @@ func _on_Countdown_timeout():
 	$MeshInstance.visible = false
 	$Explosion._on_Bomb_explosion()
 	countdown_started = true
-	# If it blows up in hand
-	if owner_character.is_in_group("CHARACTER") and item_state == GlobalConsts.ItemState.EQUIPPED:
-#		print("Bomb blew up in ", owner_character, "'s hand for ", fragments / 4 * bomb_damage, " damage.")
-		owner_character.damage(bomb_damage, damage_type, owner_character)
-		throwing = true
 	
-	# Camera shake, untested
-	if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies(owner_character):
-		owner_character.fps_camera.add_stress(0.5)   # Eventually maybe based on distance from explosion
+	if is_instance_valid(owner_character):
+		# If it blows up in hand
+		if owner_character.is_in_group("CHARACTER") and item_state == GlobalConsts.ItemState.EQUIPPED:
+	#		print("Bomb blew up in ", owner_character, "'s hand for ", fragments / 4 * bomb_damage, " damage.")
+			owner_character.damage(bomb_damage, damage_type, owner_character)
+			throwing = true
+		
+		# Camera shake, untested
+		if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies().has(owner_character):
+			owner_character.fps_camera.add_stress(0.5)   # Eventually maybe based on distance from explosion
 
 
 func _on_FlashTimer_timeout():

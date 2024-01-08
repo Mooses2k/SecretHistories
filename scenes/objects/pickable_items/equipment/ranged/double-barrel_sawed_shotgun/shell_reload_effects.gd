@@ -12,7 +12,7 @@ onready var shell_position_1 = $"%ShellPosition1"
 onready var shell_position_2 = $"%ShellPosition2"
 
 
-func expell_shotgun_shells():
+func expell_shotgun_shells() -> void:
 	all_shell_positions.append(shell_position_1)
 	all_shell_positions.append(shell_position_2)
 	
@@ -44,7 +44,7 @@ func expell_shotgun_shells():
 	second_shell.apply_impulse(impulse_position_2, owner.owner_character.global_transform.basis.z * 3)
 
 
-func add_shells_to_slot():
+func add_shells_to_slot() -> void:
 	var added_new_shells = shotgun_shell.instance()
 	added_new_shells.translation = Vector3(0.001, -0.035, 0)
 	added_new_shells.rotation_degrees = Vector3(0, 0, -82.59)
@@ -53,16 +53,16 @@ func add_shells_to_slot():
 			shells_positions.add_child(added_new_shells)
 
 
-func clear_all_slots():
+func clear_all_slots() -> void:
 	var added_new_shells = shotgun_shell.instance()
 	for shells_positions in all_shell_positions:
 		for bullet_shells in shells_positions.get_children():
 			bullet_shells.queue_free()
 
 
-func player_add_shell():
+func player_add_shell() -> void:
 	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(shotgun_shell, Vector3(), Vector3())
 
 
-func player_clear_shell():
+func player_clear_shell() -> void:
 	owner.owner_character.player_gun_reload_shells.clear_shotgun_shells()

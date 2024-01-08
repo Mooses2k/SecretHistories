@@ -1,6 +1,5 @@
 class_name BTSelector, "res://core/ai/phold_icons/selector.svg" extends BTControlFlow
 
-
 # If and when a node is a SUCCESS, end Selector.
 
 
@@ -10,7 +9,8 @@ func _tick(state : CharacterState) -> int:
 		if status != BTResult.FAILED:
 			return status
 	return BTResult.FAILED
-#
+
+
 #func _tick(_state : CharacterState, root : BTNode) -> int:
 #	var result = BTResult.OK
 #	for child in self.child_nodes_bt:

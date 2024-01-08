@@ -134,7 +134,7 @@ func crosshair_indicators():
 
 # Called from gun_item to add recoil
 func recoil(item, damage, handling):
-	side_recoil = rand_range(-1, 1)
+#	side_recoil = rand_range(-5, 5)
 #    var recoil = rand_range(250 - item.handling, 500 - item.handling)
 #    up_recoil += recoil * delta
 #    up_recoil += 1 
@@ -149,7 +149,7 @@ func update(delta):
 	if up_recoil > 0:
 		### Recoil
 		# Horizontal recoil
-		pitch_yaw.y = lerp(pitch_yaw.y, deg2rad(side_recoil), delta)
+#		pitch_yaw.y = lerp(pitch_yaw.y, deg2rad(side_recoil), delta)   # TODO: fix this, currently based on global rotation for some reason
 		# Vertical recoil
 	
 #        if up_recoil >= 35:

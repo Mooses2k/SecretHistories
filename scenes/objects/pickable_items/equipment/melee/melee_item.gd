@@ -153,6 +153,8 @@ func _on_Hitbox_hit(other):
 
 
 func _on_Hitbox_body_entered(body):
+	print(body, " hit by", self)
+	# This is so slashing damage doesn't impulse objects as much
 	if primary_damage_type1 == 0:
 		primary_damage1 / 2
 	elif primary_damage_type2 == 0:
@@ -163,8 +165,9 @@ func _on_Hitbox_body_entered(body):
 		secondary_damage2 / 2
 	
 	# This pushes the hit object if it's a RigidBody
-	if body is RigidBody and can_hit == true:
-		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage1)
-		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage2)
-		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage1)
-		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage2)
+#	if body is RigidBody and can_hit == true:
+		# TODO: fix this, it's always pointing one direction possible because base character scene doesn't rotate?
+#		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage1)
+#		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage2)
+#		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage1)
+#		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage2)

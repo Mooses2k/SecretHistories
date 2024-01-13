@@ -84,7 +84,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1.3, 2.6, 3.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.3, 0.31, 0.28, 0.32 ]
+"values": [ 0.4, 0.42, 0.41, 0.37 ]
 }
 
 [sub_resource type="QuadMesh" id=53]
@@ -102,7 +102,7 @@ noise = SubResource( 9 )
 
 [sub_resource type="ShaderMaterial" id=58]
 shader = ExtResource( 13 )
-shader_param/noise_seed = 538.216
+shader_param/noise_seed = 752.089
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079

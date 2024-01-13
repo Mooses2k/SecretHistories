@@ -102,7 +102,8 @@ func set_door_state(value : int):
 
 
 func reset_auto_close_timer():
-	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)
+	time_to_auto_close = 55555   # Set to this because this feature didn't playtest well - navigation is even more confusing if you can't rely on tracking which doors you opened or not
+#	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)   # Actual logic
 
 
 func break_door(position, impulse, damage):

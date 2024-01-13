@@ -98,6 +98,8 @@ var is_movement_key3_held = false
 var is_movement_key4_held = false
 var movement_press_length = 0
 
+var has_moved_after_pressing_sprint = false
+
 var crouch_target_pos = -0.55
 
 var clamberable_obj : RigidBody
@@ -167,7 +169,6 @@ func _physics_process(delta : float):
 	previous_item()
 	drop_grabable()
 	empty_slot()
-	kick()
 	_clamber()
 
 
@@ -246,14 +247,21 @@ func _walk(delta) -> void:
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))
 	character.character_state.move_direction = move_dir.normalized()
 	
+	# This logic has the player kick if they hit sprint and release it without moving
 	if Input.is_action_pressed("player|sprint"):
-		owner.do_sprint = true
-	else:
+		has_moved_after_pressing_sprint = false
+		if is_movement_key1_held or is_movement_key2_held or is_movement_key3_held or is_movement_key4_held:
+			has_moved_after_pressing_sprint = true
+			owner.do_sprint = true
+			$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
+			# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+			# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+			owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+	
+	if Input.is_action_just_released("player|sprint"):
 		owner.do_sprint = false
-	$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
-	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
-	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
-	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+		if !has_moved_after_pressing_sprint:
+			character.kick()
 	
 	if Input.is_action_just_released("movement|move_right"):
 		is_movement_key1_held = false
@@ -793,11 +801,6 @@ func handle_binocs():
 	if Input.is_action_just_released("ablty|binocs_spyglass"):
 		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_NORMAL
-
-
-func kick():
-	if Input.is_action_just_pressed("player|kick"):
-		character.kick()
 
 
 func _clamber():

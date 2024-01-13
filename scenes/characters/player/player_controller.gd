@@ -1,5 +1,8 @@
 extends Node
 
+# There can be multiple types of controller using this, such as an fps_control_mode, top_down, vr, etc
+# This script is for things agnostic to the type of player controller
+
 
 signal is_moving(is_player_moving)
 
@@ -390,6 +393,7 @@ func handle_grab(delta : float):
 		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
 		
+		# Slows down camera turn sensitivity to simulate moving something heavy
 		camera_movement_resistance = min(5 / grab_object.mass, 1)   # Camera goes nuts if you don't do this
 		
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
@@ -564,7 +568,7 @@ func previous_item():
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 	
-	elif  Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
+	elif Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
@@ -574,7 +578,7 @@ func next_item():
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 	
-	elif  Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
+	elif Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
 
@@ -611,7 +615,7 @@ func empty_slot():
 func update_throw_state(throw_item : EquipmentItem, delta : float):
 	# Place item upright on pointed-at surface or, if no surface in range, simply drop in front of player
 	if throw_state == ThrowState.SHOULD_PLACE:
-		print("Should place")
+		print("Should place rather than throw item")
 		throw_item = character.inventory.get_mainhand_item() if throw_item_hand == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		throw_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 		if throw_item:

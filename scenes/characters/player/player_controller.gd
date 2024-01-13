@@ -66,7 +66,7 @@ onready var _camera : ShakeCamera = get_node(_cam_path)
 #onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
-onready var _player_hitbox = get_node("../CanStandChecker")
+#onready var _player_hitbox = get_node("../CanStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
 onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
 onready var _debug_light = get_node("../FPSCamera/DebugLight")
@@ -74,6 +74,7 @@ onready var _debug_light = get_node("../FPSCamera/DebugLight")
 onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
 onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
+# Control modes are things like FPS, topdown, VR
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
 

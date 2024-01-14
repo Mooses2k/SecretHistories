@@ -7,11 +7,8 @@
 [node name="BombItem" instance=ExtResource( 3 )]
 mass = 0.5
 script = ExtResource( 1 )
-item_name = "Bomb"
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
 can_spin = true
+item_name = "Bomb"
 radius = 5
 bomb_damage = 0.0
 damage_type = 0

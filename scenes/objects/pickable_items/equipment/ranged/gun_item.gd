@@ -55,6 +55,7 @@ onready var animation_player = $"%AnimationPlayer"
 onready var player = get_node(player_path)
 onready var mesh = get_node(mesh_path)
 
+
 func _ready():
 #	print(get_parent().name)
 #	if get_parent().name == "MainHandEquipmentRoot":
@@ -75,7 +76,7 @@ func _physics_process(delta):
 		return
 	if (not is_instance_valid(owner_character)) or (not "character_state" in owner_character):
 		return
-	if owner_character.is_in_group("Player"):
+	if owner_character.is_in_group("PLAYER"):
 		return
 	var owner_state : CharacterState = owner_character.character_state as CharacterState
 	if not is_instance_valid(owner_state):
@@ -116,13 +117,13 @@ func set_range(value : Vector2):
 func shoot():
 	print("shoot")
 	var ammo_type = current_ammo_type as AmmunitionData
-
+	
 	# The reason it's MINUS damage_offset (thus louder) is more of the powder is exploding outside the barrel
 	noise_level = ammo_type.damage - damage_offset   # damage_offset is a negative so this is a addition operation
-
+	
 	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion) / 2.0
 	var total_damage : int = damage_offset + ammo_type.damage
-
+	
 	var raycast_range = raycast.cast_to.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)

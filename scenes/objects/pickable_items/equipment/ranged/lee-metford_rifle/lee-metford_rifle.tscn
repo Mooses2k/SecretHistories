@@ -295,7 +295,6 @@ item_name = "Lee-Metford rifle"
 ammo_types = [ ExtResource( 3 ) ]
 ammunition_capacity = 10
 reload_amount = 1
-reload_time = 2.0
 handling = 25.0
 ads_hold_position = Vector3( 0.078, 0.037, -0.322 )
 ads_hold_rotation = Vector3( -2.752, -23.514, 13.292 )
@@ -384,6 +383,7 @@ shape = SubResource( 375 )
 
 [node name="RayCast" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00202578, 0.0666256 )
+visible = true
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

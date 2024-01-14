@@ -28,6 +28,9 @@ func _on_ContinueButton_pressed():
 
 
 func _on_StartButton_pressed():
+	$VBoxContainer/StartButton.text = "Loading"   # On slower machines, there's a significant delay before the Start Game Menu 
+	$VBoxContainer/StartButton.disabled = true
+	yield(get_tree().create_timer(0.1), "timeout")   # If we don't pause briefly, the engine doesn't have enough time to change the text
 	var _error = get_tree().change_scene("res://scenes/ui/start_game_menu.tscn")
 
 

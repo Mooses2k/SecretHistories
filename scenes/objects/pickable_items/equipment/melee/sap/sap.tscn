@@ -1,14 +1,30 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/653370__triqystudio__dullthud.wav" type="AudioStream" id=2]
-[ext_resource path="res://resources/models/items/melee/sap/M_Sap.material" type="Material" id=3]
+[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Normal_OpenGL.png" type="Texture" id=3]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" type="AudioStream" id=4]
+[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Base_color.png" type="Texture" id=5]
+[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Metallic-T_Sap_Roughness.png" type="Texture" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=17]
 
-[sub_resource type="ArrayMesh" id=4]
+[sub_resource type="SpatialMaterial" id=1]
+resource_name = "M_Sap"
+vertex_color_use_as_albedo = true
+params_cull_mode = 2
+albedo_texture = ExtResource( 5 )
+metallic = 1.0
+metallic_texture = ExtResource( 6 )
+metallic_texture_channel = 2
+roughness_texture = ExtResource( 6 )
+roughness_texture_channel = 1
+normal_enabled = true
+normal_scale = 1.0
+normal_texture = ExtResource( 3 )
+
+[sub_resource type="ArrayMesh" id=2]
 resource_name = "sap_SM_Sap"
 surfaces/0 = {
 "aabb": AABB( -0.098021, -0.00791919, -0.0362662, 0.187452, 0.0295587, 0.0725324 ),
@@ -17,7 +33,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 16152,
-"material": ExtResource( 3 ),
+"material": SubResource( 1 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 3080
@@ -45,7 +61,7 @@ melee_attack_speed = 1.5
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.0416767, 0 )
-mesh = SubResource( 4 )
+mesh = SubResource( 2 )
 skeleton = NodePath("")
 __meta__ = {
 "_editor_description_": ""

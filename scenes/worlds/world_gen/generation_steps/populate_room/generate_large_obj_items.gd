@@ -31,7 +31,7 @@ var _rng := RandomNumberGenerator.new()
 
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	_rng.seed = generation_seed
-
+	
 	for child in get_children():
 		if child is GenerationStep:
 			child.execute_step(data, gen_data, _rng.randi())

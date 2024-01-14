@@ -68,7 +68,7 @@ noise = SubResource( 9 )
 
 [sub_resource type="ShaderMaterial" id=129]
 shader = ExtResource( 10 )
-shader_param/noise_seed = 575.583
+shader_param/noise_seed = 899.775
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -82,7 +82,7 @@ shader_param/gradient = ExtResource( 11 )
 
 [sub_resource type="ShaderMaterial" id=130]
 shader = ExtResource( 10 )
-shader_param/noise_seed = 958.832
+shader_param/noise_seed = 471.675
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -96,7 +96,7 @@ shader_param/gradient = ExtResource( 11 )
 
 [sub_resource type="ShaderMaterial" id=131]
 shader = ExtResource( 10 )
-shader_param/noise_seed = 301.898
+shader_param/noise_seed = 982.604
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -140,7 +140,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1.7, 3.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.4, 0.42, 0.38 ]
+"values": [ 0.5, 0.53, 0.46 ]
 }
 
 [node name="Candelabra" instance=ExtResource( 56 )]

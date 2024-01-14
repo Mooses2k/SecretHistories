@@ -114,7 +114,6 @@ item_name = "Martini-Henry rifle"
 ammo_types = [ ExtResource( 2 ) ]
 ammunition_capacity = 1
 reload_amount = 1
-reload_time = 2.0
 cooldown = 0.1
 handling = 13.0
 ads_hold_position = Vector3( 0.067, -0.081, 0.261 )
@@ -204,7 +203,8 @@ material/0 = ExtResource( 6 )
 script = ExtResource( 4 )
 
 [node name="RayCast" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0403607, 0.140579 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0352297, 0.140579 )
+visible = true
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

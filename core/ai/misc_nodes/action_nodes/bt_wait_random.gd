@@ -37,7 +37,7 @@ func _tick(state : CharacterState) -> int:
 
 func reset_timer():
 	var speech_chance = randf()
-	if (speech_chance > 0.95):
+	if (speech_chance > 0.55):
 		emit_signal("character_idled")
 	time_left = rand_range(min_time, max_time)
 	reset = true

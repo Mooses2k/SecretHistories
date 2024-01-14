@@ -70,7 +70,7 @@ noise = SubResource( 9 )
 
 [sub_resource type="ShaderMaterial" id=60]
 shader = ExtResource( 12 )
-shader_param/noise_seed = 274.777
+shader_param/noise_seed = 752.333
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -82,7 +82,10 @@ shader_param/noise = SubResource( 10 )
 shader_param/texture_albedo = ExtResource( 11 )
 shader_param/gradient = ExtResource( 1 )
 
-[sub_resource type="Animation" id=54]
+[sub_resource type="BoxShape" id=57]
+extents = Vector3( 0.02, 0.02, 0.02 )
+
+[sub_resource type="Animation" id=61]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("FireOrigin/Fire/Light:light_energy")
@@ -97,7 +100,7 @@ tracks/0/keys = {
 "values": [ 0.25 ]
 }
 
-[sub_resource type="Animation" id=55]
+[sub_resource type="Animation" id=62]
 resource_name = "flicker"
 length = 5.0
 loop = true
@@ -111,11 +114,8 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1.3, 2.6, 3.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.3, 0.31, 0.28, 0.32 ]
+"values": [ 0.4, 0.42, 0.41, 0.37 ]
 }
-
-[sub_resource type="BoxShape" id=57]
-extents = Vector3( 0.02, 0.02, 0.02 )
 
 [node name="CandleTall" instance=ExtResource( 4 )]
 script = ExtResource( 3 )
@@ -178,19 +178,19 @@ priority = 50.0
 script = ExtResource( 13 )
 parent_item_path = NodePath("../../../..")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
-autoplay = "flicker"
-anims/RESET = SubResource( 54 )
-anims/flicker = SubResource( 55 )
-
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
 
-[node name="Ignite" parent="." index="8" groups=["IGNITE"]]
+[node name="Ignite" parent="." index="7" groups=["IGNITE"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0 )
 
 [node name="CollisionShape" parent="Ignite" index="0"]
 shape = SubResource( 57 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+autoplay = "flicker"
+anims/RESET = SubResource( 61 )
+anims/flicker = SubResource( 62 )
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]

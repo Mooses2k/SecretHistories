@@ -203,6 +203,7 @@ shape = SubResource( 6 )
 
 [node name="RayCast" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0363873, -0.0374446 )
+visible = true
 
 [node name="Sounds" type="Spatial" parent="." index="7"]
 

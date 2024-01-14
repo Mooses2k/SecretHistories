@@ -1,6 +1,5 @@
 class_name BTSelector, "res://core/ai/phold_icons/selector.svg" extends BTControlFlow
 
-
 # If and when a node is a SUCCESS, end Selector.
 
 

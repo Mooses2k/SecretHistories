@@ -3,9 +3,7 @@ class_name SoundSensor extends CharacterSense
 
 signal sound_detected(source, interest)
 
-
 const WALL_NAMES := ["wall_xp", "wall_zp", "wall_xn", "wall_zn", "ceiling", "ground"]
-
 
 export var check_frame_interval := 10
 export var hearing_sensitivity := 5.0
@@ -46,7 +44,7 @@ func check_for_sounds() -> void:
 func get_interest_level(source: Spatial) -> int:
 	if !(source is Character or source is PickableItem or source is LargeObjectDropSound): return 0
 	if !source.noise_level: return 0
-
+	
 	var interest := source.noise_level as int
 	var walls_in_between := get_walls_in_between(source.global_transform.origin)
 	if walls_in_between: interest /= walls_in_between
@@ -54,7 +52,7 @@ func get_interest_level(source: Spatial) -> int:
 	var distance := global_transform.origin.distance_to(source.global_transform.origin)
 	if source is BombItem and interest >= 80: interest += 100
 	if distance < 1.0: interest += 100 
-
+	
 	return interest if interest >= hearing_sensitivity else 0
 
 
@@ -66,5 +64,5 @@ func get_walls_in_between(target_position : Vector3) -> int:
 	shape_params.transform = Transform(global_transform).looking_at(-to_local(target_position), Vector3.UP)
 	shape_params.collision_mask = 1 << 0
 	shape_params.set_shape(shape)
-
+	
 	return get_world().direct_space_state.intersect_shape(shape_params).size()

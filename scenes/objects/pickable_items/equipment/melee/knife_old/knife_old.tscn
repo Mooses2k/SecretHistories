@@ -29,12 +29,11 @@ radius = 0.0555477
 
 [node name="OldKnife" instance=ExtResource( 14 )]
 item_drop_sound = ExtResource( 1 )
+can_spin = true
 item_size = 0
 item_name = "Knife"
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
-throw_logic = true
-can_spin = true
 weapon_type = 1
 primary_damage_type1 = 2
 primary_damage1 = 20
@@ -77,3 +76,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.217718, 0 )
 
 [node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 8 )
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

@@ -1,11 +1,13 @@
 extends Node
 
+# There can be multiple types of controller using this, such as an fps_control_mode, top_down, vr, etc
+# This script is for things agnostic to the type of player controller
+
 
 signal is_moving(is_player_moving)
 
 var is_player_moving : bool = false
 
-onready var character = get_parent()
 export var max_placement_distance = 1.5
 export var hold_time_to_place = 0.4
 export var throw_strength : float = 20
@@ -28,8 +30,6 @@ var target_placement_position : Vector3 = Vector3.ZERO
 
 #export var _aimcast : NodePath
 #onready var aimcast : RayCast = get_node(_aimcast) as RayCast
-
-
 
 enum ItemSelection {
 	ITEM_MAINHAND,
@@ -59,13 +59,14 @@ var velocity : Vector3 = Vector3.ZERO
 
 var _clamber_m = null
 
+onready var character = get_parent()
 export var _cam_path : NodePath
 onready var _camera : ShakeCamera = get_node(_cam_path)
 #export var _gun_cam_path : NodePath
 #onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
-onready var _player_hitbox = get_node("../CanStandChecker")
+#onready var _player_hitbox = get_node("../CanStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
 onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
 onready var _debug_light = get_node("../FPSCamera/DebugLight")
@@ -73,6 +74,7 @@ onready var _debug_light = get_node("../FPSCamera/DebugLight")
 onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
 onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
+# Control modes are things like FPS, topdown, VR
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
 
@@ -95,6 +97,8 @@ var is_movement_key2_held = false
 var is_movement_key3_held = false
 var is_movement_key4_held = false
 var movement_press_length = 0
+
+var has_moved_after_pressing_sprint = false
 
 var crouch_target_pos = -0.55
 
@@ -153,7 +157,7 @@ func _physics_process(delta : float):
 	throw_item = null
 	current_grab_object = current_control_mode.get_grab_target()
 	
-	### TODO: many of these shouldn't be here, shouldn't be checked every _physics_process
+	### TODO: many of these shouldn't be here and probably shouldn't be checked every _physics_process (moved in _input()?)
 	_walk(delta)
 	_crouch()
 	_handle_grab_input(delta)
@@ -165,7 +169,6 @@ func _physics_process(delta : float):
 	previous_item()
 	drop_grabable()
 	empty_slot()
-	kick()
 	_clamber()
 
 
@@ -244,14 +247,21 @@ func _walk(delta) -> void:
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))
 	character.character_state.move_direction = move_dir.normalized()
 	
+	# This logic has the player kick if they hit sprint and release it without moving
 	if Input.is_action_pressed("player|sprint"):
-		owner.do_sprint = true
-	else:
+		has_moved_after_pressing_sprint = false
+		if is_movement_key1_held or is_movement_key2_held or is_movement_key3_held or is_movement_key4_held:
+			has_moved_after_pressing_sprint = true
+			owner.do_sprint = true
+			$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
+			# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+			# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+			owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+	
+	if Input.is_action_just_released("player|sprint"):
 		owner.do_sprint = false
-	$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
-	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
-	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
-	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+		if !has_moved_after_pressing_sprint:
+			character.kick()
 	
 	if Input.is_action_just_released("movement|move_right"):
 		is_movement_key1_held = false
@@ -297,7 +307,6 @@ func _check_movement_key(delta):
 
 
 func _crouch() -> void:
-#	if owner.is_player_crouch_toggle:
 	if GameSettings.crouch_hold_enabled:
 		if Input.is_action_pressed("player|crouch"):
 			if owner.do_sprint:
@@ -347,7 +356,7 @@ func _handle_grab_input(delta : float):
 				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
 			wanna_grab = false
 			interaction_handled = true
-			camera_movement_resistance = 1.0
+		camera_movement_resistance = 1.0   # In case of a grab-throw, make sure the camera turning still isn't slowed
 
 
 func handle_grab(delta : float):
@@ -393,6 +402,7 @@ func handle_grab(delta : float):
 		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
 		
+		# Slows down camera turn sensitivity to simulate moving something heavy
 		camera_movement_resistance = min(5 / grab_object.mass, 1)   # Camera goes nuts if you don't do this
 		
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
@@ -556,7 +566,7 @@ func _handle_inventory(delta : float):
 	
 	update_throw_state(throw_item, delta)
 	
-	if Input.is_action_just_released("player|interact") or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"): # Later, when we have RigidBody doors, add this back for convenience and deal with edge cases with ADS and melee:  or Input.is_action_just_released("playerhand|main_use_secondary"):
 		if !(wanna_grab or is_grabbing or interaction_handled):
 			if interaction_target != null:
 				if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
@@ -573,7 +583,7 @@ func previous_item():
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 	
-	elif  Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
+	elif Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
@@ -583,7 +593,7 @@ func next_item():
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 	
-	elif  Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
+	elif Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
 
@@ -598,7 +608,12 @@ func drop_grabable():
 				print("Grab broken by throw")
 				interaction_handled = true
 				
+				# TODO: This duplicates code in update_throw_state(); fix that
 				throw_strength = 20 * grab_object.mass
+				print(throw_strength, " is throw_strength before 55 cap")
+				if throw_strength > 55:
+					throw_strength = 55
+				
 				throw_impulse_and_damage(grab_object)
 				
 				wanna_grab = false
@@ -615,7 +630,7 @@ func empty_slot():
 func update_throw_state(throw_item : EquipmentItem, delta : float):
 	# Place item upright on pointed-at surface or, if no surface in range, simply drop in front of player
 	if throw_state == ThrowState.SHOULD_PLACE:
-		print("Should place")
+		print("Should place rather than throw item")
 		throw_item = character.inventory.get_mainhand_item() if throw_item_hand == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		throw_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 		if throw_item:
@@ -643,6 +658,12 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 	# Always test Left-Clicking twice with a bomb in main hand after changing anything here. Bomb throws are an edge case of throw as they don't have to happen with the usual throw keys.
 	elif throw_state == ThrowState.SHOULD_THROW:
 		print("Should throw")
+		if throw_item:   # This is a lit bomb that has already set itself as throw_item
+			if throw_item == character.inventory.get_mainhand_item():
+				throw_item_hand = ItemSelection.ITEM_MAINHAND
+			else: 
+				throw_item_hand = ItemSelection.ITEM_OFFHAND
+		
 		if !throw_item:   # If the throw item hasn't already been selected, which should be all cases except use_primary of a lit bomb.
 			if throw_item_hand == ItemSelection.ITEM_MAINHAND:
 				throw_item = character.inventory.get_mainhand_item()
@@ -661,6 +682,9 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				throw_strength = 30 * throw_item.mass
 			else:
 				throw_strength = 40 * throw_item.mass
+			print(throw_strength, " is throw_strength before 55 cap")
+			if throw_strength > 55:
+				throw_strength = 55
 				
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
@@ -770,7 +794,7 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 		)
 	if current_screen_filter == GameManager.ScreenFilter.DEBUG_LIGHT:
 		print("Screen Filter: DEBUG_LIGHT")
-#		GameManager.game.level.toggle_directional_light()
+#		GameManager.game.level.toggle_directional_light()   # At one point, this lagged everything
 		_screen_filter.visible = false
 		_debug_light.visible = true
 
@@ -783,11 +807,6 @@ func handle_binocs():
 	if Input.is_action_just_released("ablty|binocs_spyglass"):
 		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_NORMAL
-
-
-func kick():
-	if Input.is_action_just_pressed("player|kick"):
-		character.kick()
 
 
 func _clamber():

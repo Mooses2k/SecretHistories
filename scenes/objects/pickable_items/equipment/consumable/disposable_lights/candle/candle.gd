@@ -129,18 +129,6 @@ func _use_primary() -> void:
 #		$Sounds/BlowOutSound.play()
 
 
-func _on_timer_timeout():
-	# This function will be called when the timer reaches the specified hold time
-	# Add any logic you want to execute after holding the button for the required time
-	print("Button held for ", use_hold_time, " seconds.")
-	# Your existing logic here
-	if is_lit:
-		if self == owner_character.inventory.get_mainhand_item():
-			if horizontal_holding:
-				# Your existing logic here
-				print("Raising light item")
-
-
 func _item_state_changed(previous_state, current_state):
 	if not is_instance_valid(GameManager.game):
 		return

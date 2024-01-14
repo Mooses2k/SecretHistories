@@ -18,7 +18,7 @@ export var throw_pos_path : NodePath
 
 var is_in_belt : bool = false
 var use_hold_time : float = 0.0
-var use_hold_treshold : float = 0.45
+var use_hold_threshold  : float = 0.45
 
 onready var hold_position = $"%HoldPosition"
 onready var normal_pos = get_node(normal_pos_path)
@@ -30,6 +30,50 @@ func _ready():
 		hold_position.rotation_degrees.z = 90
 		
 	connect("body_entered", self, "play_drop_sound")
+
+
+func _process(delta : float) -> void:
+	if self.has_method("light"):
+		if is_instance_valid(owner_character):
+			if Input.is_action_pressed("playerhand|main_use_primary") and owner_character.is_reloading == false:
+				use_hold_time += 0.1
+				if  use_hold_time >= use_hold_threshold :
+					if get("is_lit"):
+						if self == owner_character.inventory.get_mainhand_item():
+							if horizontal_holding:
+								owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+								owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 0)
+							else:
+								owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
+								owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
+
+			elif Input.is_action_pressed("playerhand|offhand_use") and owner_character.is_reloading == false:
+				use_hold_time += 0.1
+				if  use_hold_time >= use_hold_threshold :
+					if get("is_lit"):
+						if self == owner_character.inventory.get_offhand_item():
+							if horizontal_holding:
+								owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 2)
+								owner_character.get_node("%AnimationTree").set("parameters/OffhandLightSourceHoldTransition/current", 0)
+							else:
+								owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 2)
+								owner_character.get_node("%AnimationTree").set("parameters/OffhandLightSourceHoldTransition/current", 2)
+				
+			else:
+				use_hold_time = 0
+				
+				if self == owner_character.inventory.get_offhand_item():
+					if horizontal_holding == true:
+						owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 1)
+					else:
+						owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 0)
+						
+				elif self == owner_character.inventory.get_mainhand_item():
+					if horizontal_holding == true:
+						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
+					else:
+						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
+						
 
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435

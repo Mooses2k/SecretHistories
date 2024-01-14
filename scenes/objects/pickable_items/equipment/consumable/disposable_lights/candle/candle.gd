@@ -81,12 +81,12 @@ func unlight() -> void:
 
 
 func _use_primary() -> void:
-	print("Lit state before use_primary: ", is_lit)
+	print("Is lit is :", is_lit)
 	if is_lit == false:
 		light()
-#	else:
-#		unlight()
-#		$Sounds/BlowOutSound.play()
+	else:
+		unlight()
+		$Sounds/BlowOutSound.play()
 
 
 func _item_state_changed(previous_state, current_state):

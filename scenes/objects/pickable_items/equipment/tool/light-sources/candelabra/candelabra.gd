@@ -125,11 +125,12 @@ func light_depleted_copy():
 
 
 func _use_primary():
+	print("Is lit is :", is_lit)
 	if is_lit == false:
 		light()
-#	else:
-#		unlight()
-#		$BlowOutSound.play()
+	else:
+		unlight()
+		$BlowOutSound.play()
 
 
 func _item_state_changed(previous_state, current_state):

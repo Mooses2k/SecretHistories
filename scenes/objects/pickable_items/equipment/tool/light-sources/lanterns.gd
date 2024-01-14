@@ -50,10 +50,11 @@ func _process(delta):
 
 
 func _use_primary():
+	print("Is lit is :", is_lit)
 	if is_lit == false:
 		light()
-#	else:
-#		unlight()
+	else:
+		unlight()
 
 
 func light():

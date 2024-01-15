@@ -125,6 +125,7 @@ func light_depleted_copy():
 
 
 func _use_primary():
+	print("Is lit is :", is_lit)
 	if is_lit == false:
 		light()
 	else:

@@ -40,6 +40,7 @@ func _process(_delta: float) -> void:
 			is_just_dropped = true
 			self.emit_signal("item_is_dropped")
 			item_drop()
+	
 	else:
 		$Ignite/CollisionShape.disabled = true
 		is_dropped = false
@@ -48,6 +49,7 @@ func _process(_delta: float) -> void:
 	# This ensures it's never emissive while off, also, that candles stay lit on level change
 	if $MeshInstance.get_surface_material(0).emission_enabled == true and $FireOrigin/Fire.visible == false:
 		light()
+
 
 
 func light() -> void:
@@ -79,7 +81,7 @@ func unlight() -> void:
 
 
 func _use_primary() -> void:
-	print("Lit state before use_primary: ", is_lit)
+	print("Is lit is :", is_lit)
 	if is_lit == false:
 		light()
 	else:
@@ -88,6 +90,8 @@ func _use_primary() -> void:
 
 
 func _item_state_changed(previous_state, current_state):
+	if not is_instance_valid(GameManager.game):
+		return
 	if current_state == GlobalConsts.ItemState.INVENTORY:
 		if is_lit:
 			var sound = $Sounds/BlowOutSound.duplicate()

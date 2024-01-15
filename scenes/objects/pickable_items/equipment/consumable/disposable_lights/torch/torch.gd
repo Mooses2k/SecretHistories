@@ -69,6 +69,7 @@ func _item_state_changed(previous_state, current_state):
 
 
 func _use_primary():
+	print("Is lit is :", is_lit)
 	if is_lit == false:
 		light()
 	else:

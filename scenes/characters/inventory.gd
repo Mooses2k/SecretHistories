@@ -173,7 +173,7 @@ func add_item(item : PickableItem) -> bool:
 				# (we currently don't check if it's lit)
 				if current_mainhand_slot == slot and not bulky_equipment:
 					print("current slot is added item slot, which is ", slot + 1)
-					if current_offhand_equipment is LanternItem or current_offhand_equipment is CandleItem or current_offhand_equipment is TorchItem or current_offhand_equipment is CandelabraItem:
+					if current_offhand_equipment and current_offhand_equipment.has_method("light"):
 						print("...and current offhand is a light")
 						if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 							equip_mainhand_item()
@@ -270,6 +270,12 @@ func unequip_mainhand_item():
 	
 	current_mainhand_equipment.set_item_state(GlobalConsts.ItemState.INVENTORY)
 	emit_signal("unequip_mainhand")
+	if current_mainhand_equipment.has_method("unlight"):
+		print("Thinking swapping")
+		print("Are swapping: ", are_swapping)
+		if not are_swapping:
+			print("Not swapping")
+			current_mainhand_equipment.unlight()
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item.can_attach == true:
@@ -513,11 +519,12 @@ func swap_hands():
 	else:
 		set_mainhand_slot(previous_offhand)
 		set_offhand_slot(previous_mainhand)
-	
+		
+
 	are_swapping = false
 
 
-func switch_away_from_light(light_source):
+func switch_away_from_light(light_source) -> void:
 	if not light_source.can_attach:
 		if not are_swapping:
 			print("unlighting light when putting it away because not swapping hands now")

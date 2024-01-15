@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://scenes/characters/character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.gd" type="Script" id=2]
@@ -37,6 +37,7 @@
 [ext_resource path="res://resources/animations/melee_chop_1.tres" type="Animation" id=35]
 [ext_resource path="res://resources/animations/melee_chop_2.tres" type="Animation" id=36]
 [ext_resource path="res://resources/animations/melee_thrust_l.tres" type="Animation" id=37]
+[ext_resource path="res://scenes/characters/player/player_animation_tree.tres" type="AnimationNodeBlendTree" id=38]
 
 [sub_resource type="QuadMesh" id=38]
 size = Vector2( 2, 2 )
@@ -7313,238 +7314,6 @@ tracks/170/imported = false
 tracks/170/enabled = true
 tracks/170/keys = PoolRealArray( 0, 1, -2.8199e-08, 2.38419e-07, 0, 2.98023e-08, -4.34282e-10, 1.78e-10, 1, 1, 1, 1, 10.125, 1, -2.8199e-08, 2.38419e-07, 0, 2.98023e-08, -4.34282e-10, 1.78e-10, 1, 1, 1, 1 )
 
-[sub_resource type="AnimationNodeAnimation" id=442]
-animation = "melee_thrust"
-
-[sub_resource type="AnimationNodeAnimation" id=447]
-animation = "melee_thrust_l"
-
-[sub_resource type="AnimationNodeAnimation" id=419]
-animation = "one-handed_ads_idle"
-
-[sub_resource type="AnimationNodeAnimation" id=426]
-animation = "ads_idle_shotgun"
-
-[sub_resource type="AnimationNodeAnimation" id=427]
-animation = "hip_idle_shotgun"
-
-[sub_resource type="AnimationNodeAnimation" id=433]
-animation = "lee_metford_reload"
-
-[sub_resource type="AnimationNodeAnimation" id=434]
-animation = "martini_henry_reload"
-
-[sub_resource type="AnimationNodeAnimation" id=435]
-animation = "webley_reload"
-
-[sub_resource type="AnimationNodeAnimation" id=440]
-animation = "sawed_off_shotgun_reload"
-
-[sub_resource type="AnimationNodeAnimation" id=443]
-animation = "melee_chop_1"
-
-[sub_resource type="AnimationNodeAnimation" id=417]
-animation = "ads_idle"
-
-[sub_resource type="AnimationNodeOneShot" id=432]
-
-[sub_resource type="AnimationNodeAnimation" id=402]
-animation = "double_barrel_reload"
-
-[sub_resource type="AnimationNodeTransition" id=407]
-input_count = 1
-xfade_time = 0.2
-input_0/name = "Hand_Combinations"
-input_0/auto_advance = false
-
-[sub_resource type="AnimationNodeTransition" id=400]
-input_count = 2
-xfade_time = 0.2
-input_0/name = "VerticalAnimation"
-input_0/auto_advance = false
-input_1/name = "HorizontalAnimation"
-input_1/auto_advance = false
-
-[sub_resource type="AnimationNodeAnimation" id=399]
-animation = "ItemHoldingHorizontal"
-
-[sub_resource type="AnimationNodeAnimation" id=431]
-animation = "kyber_pass_martini_reload"
-
-[sub_resource type="AnimationNodeOneShot" id=439]
-
-[sub_resource type="AnimationNodeAnimation" id=412]
-animation = "OneHandedHipIdleL"
-
-[sub_resource type="AnimationNodeAnimation" id=411]
-animation = "ItemHoldingHorizontalL"
-
-[sub_resource type="AnimationNodeAnimation" id=410]
-animation = "ItemHoldingVerticalL"
-
-[sub_resource type="AnimationNodeAnimation" id=414]
-animation = "idle-loop"
-
-[sub_resource type="AnimationNodeOneShot" id=436]
-
-[sub_resource type="AnimationNodeBlend2" id=416]
-
-[sub_resource type="AnimationNodeOneShot" id=444]
-
-[sub_resource type="AnimationNodeTimeScale" id=446]
-
-[sub_resource type="AnimationNodeOneShot" id=445]
-
-[sub_resource type="AnimationNodeOneShot" id=448]
-filters = [ "rig_deform/Skeleton:DEF-f_index.01.L", "rig_deform/Skeleton:DEF-f_index.02.L", "rig_deform/Skeleton:DEF-f_index.03.L", "rig_deform/Skeleton:DEF-f_middle.01.L", "rig_deform/Skeleton:DEF-f_middle.02.L", "rig_deform/Skeleton:DEF-f_middle.03.L", "rig_deform/Skeleton:DEF-f_pinky.01.L", "rig_deform/Skeleton:DEF-f_pinky.02.L", "rig_deform/Skeleton:DEF-f_pinky.03.L", "rig_deform/Skeleton:DEF-f_ring.01.L", "rig_deform/Skeleton:DEF-f_ring.02.L", "rig_deform/Skeleton:DEF-f_ring.03.L", "rig_deform/Skeleton:DEF-forearm.L", "rig_deform/Skeleton:DEF-forearm.L.001", "rig_deform/Skeleton:DEF-hand.L", "rig_deform/Skeleton:DEF-palm.01.L", "rig_deform/Skeleton:DEF-palm.02.L", "rig_deform/Skeleton:DEF-palm.03.L", "rig_deform/Skeleton:DEF-palm.04.L", "rig_deform/Skeleton:DEF-thumb.01.L", "rig_deform/Skeleton:DEF-thumb.02.L", "rig_deform/Skeleton:DEF-thumb.03.L", "rig_deform/Skeleton:DEF-upper_arm.L", "rig_deform/Skeleton:DEF-upper_arm.L.001" ]
-
-[sub_resource type="AnimationNodeBlend2" id=413]
-filter_enabled = true
-filters = [ "rig_deform/Skeleton:DEF-f_index.01.L", "rig_deform/Skeleton:DEF-f_index.02.L", "rig_deform/Skeleton:DEF-f_index.03.L", "rig_deform/Skeleton:DEF-f_middle.01.L", "rig_deform/Skeleton:DEF-f_middle.02.L", "rig_deform/Skeleton:DEF-f_middle.03.L", "rig_deform/Skeleton:DEF-f_pinky.01.L", "rig_deform/Skeleton:DEF-f_pinky.02.L", "rig_deform/Skeleton:DEF-f_pinky.03.L", "rig_deform/Skeleton:DEF-f_ring.01.L", "rig_deform/Skeleton:DEF-f_ring.02.L", "rig_deform/Skeleton:DEF-f_ring.03.L", "rig_deform/Skeleton:DEF-forearm.L", "rig_deform/Skeleton:DEF-forearm.L.001", "rig_deform/Skeleton:DEF-hand.L", "rig_deform/Skeleton:DEF-palm.01.L", "rig_deform/Skeleton:DEF-palm.02.L", "rig_deform/Skeleton:DEF-palm.03.L", "rig_deform/Skeleton:DEF-palm.04.L", "rig_deform/Skeleton:DEF-thumb.01.L", "rig_deform/Skeleton:DEF-thumb.02.L", "rig_deform/Skeleton:DEF-thumb.03.L", "rig_deform/Skeleton:DEF-upper_arm.L", "rig_deform/Skeleton:DEF-upper_arm.L.001" ]
-
-[sub_resource type="AnimationNodeTransition" id=408]
-input_count = 3
-xfade_time = 0.2
-input_0/name = "Melee"
-input_0/auto_advance = false
-input_1/name = "Pistol"
-input_1/auto_advance = false
-input_2/name = "Idle"
-input_2/auto_advance = false
-
-[sub_resource type="AnimationNodeTransition" id=409]
-input_count = 2
-xfade_time = 0.2
-input_0/name = "LeftVerticalAnimation"
-input_0/auto_advance = false
-input_1/name = "LeftHorizontalAnimation"
-input_1/auto_advance = false
-
-[sub_resource type="AnimationNodeAnimation" id=415]
-animation = "idle-loop"
-
-[sub_resource type="AnimationNodeAnimation" id=369]
-animation = "One_Handed_Hip_Idle"
-
-[sub_resource type="AnimationNodeAnimation" id=368]
-animation = "Hip_Idle"
-
-[sub_resource type="AnimationNodeOneShot" id=438]
-
-[sub_resource type="AnimationNodeOneShot" id=441]
-
-[sub_resource type="AnimationNodeBlend2" id=424]
-
-[sub_resource type="AnimationNodeBlend2" id=418]
-
-[sub_resource type="AnimationNodeAnimation" id=370]
-animation = "ItemHoldingVertical"
-
-[sub_resource type="AnimationNodeTransition" id=366]
-input_count = 6
-xfade_time = 0.2
-input_0/name = "Melee"
-input_0/auto_advance = false
-input_1/name = "Rifle"
-input_1/auto_advance = false
-input_2/name = "Pistol"
-input_2/auto_advance = false
-input_3/name = "Reloads"
-input_3/auto_advance = false
-input_4/name = "Idle"
-input_4/auto_advance = false
-input_5/name = "Shotgun"
-input_5/auto_advance = false
-
-[sub_resource type="AnimationNodeOneShot" id=437]
-
-[sub_resource type="AnimationNodeBlendTree" id=365]
-graph_offset = Vector2( 419.104, -429.485 )
-nodes/Animation/node = SubResource( 417 )
-nodes/Animation/position = Vector2( -700, -500 )
-"nodes/Animation 10/node" = SubResource( 442 )
-"nodes/Animation 10/position" = Vector2( 2980, 40 )
-"nodes/Animation 11/node" = SubResource( 447 )
-"nodes/Animation 11/position" = Vector2( 3300, 40 )
-"nodes/Animation 2/node" = SubResource( 419 )
-"nodes/Animation 2/position" = Vector2( -700, -220 )
-"nodes/Animation 3/node" = SubResource( 426 )
-"nodes/Animation 3/position" = Vector2( -160, 440 )
-"nodes/Animation 4/node" = SubResource( 427 )
-"nodes/Animation 4/position" = Vector2( -160, 280 )
-"nodes/Animation 5/node" = SubResource( 433 )
-"nodes/Animation 5/position" = Vector2( 860, -220 )
-"nodes/Animation 6/node" = SubResource( 434 )
-"nodes/Animation 6/position" = Vector2( 1180, -220 )
-"nodes/Animation 7/node" = SubResource( 435 )
-"nodes/Animation 7/position" = Vector2( 1540, -200 )
-"nodes/Animation 8/node" = SubResource( 440 )
-"nodes/Animation 8/position" = Vector2( 2280, -160 )
-"nodes/Animation 9/node" = SubResource( 443 )
-"nodes/Animation 9/position" = Vector2( 2640, -80 )
-"nodes/Double-barrel shotgun/node" = SubResource( 432 )
-"nodes/Double-barrel shotgun/position" = Vector2( 760, -480 )
-nodes/DoubleBarrelReload/node = SubResource( 402 )
-nodes/DoubleBarrelReload/position = Vector2( 500, -220 )
-nodes/Hand_Transition/node = SubResource( 407 )
-nodes/Hand_Transition/position = Vector2( 4980, -200 )
-nodes/Hold_Animation/node = SubResource( 400 )
-nodes/Hold_Animation/position = Vector2( -180, -860 )
-nodes/Horizontal_Hold_Animation/node = SubResource( 399 )
-nodes/Horizontal_Hold_Animation/position = Vector2( -680, -840 )
-nodes/KyberPassMartini/node = SubResource( 431 )
-nodes/KyberPassMartini/position = Vector2( 1780, -160 )
-"nodes/Lee-Metford rifle/node" = SubResource( 439 )
-"nodes/Lee-Metford rifle/position" = Vector2( 1080, -460 )
-nodes/LeftHanded_Pistol_Hold/node = SubResource( 412 )
-nodes/LeftHanded_Pistol_Hold/position = Vector2( 1460, 180 )
-nodes/Left_Horizontal_Hold_Animation/node = SubResource( 411 )
-nodes/Left_Horizontal_Hold_Animation/position = Vector2( 1020, 180 )
-nodes/Left_Vertical_Hold_Animation/node = SubResource( 410 )
-nodes/Left_Vertical_Hold_Animation/position = Vector2( 1020, 20 )
-nodes/MainHand_Idle/node = SubResource( 414 )
-nodes/MainHand_Idle/position = Vector2( 40, 60 )
-"nodes/Martini-Henry rifle/node" = SubResource( 436 )
-"nodes/Martini-Henry rifle/position" = Vector2( 1400, -440 )
-nodes/MediumAds/node = SubResource( 416 )
-nodes/MediumAds/position = Vector2( -180, -640 )
-nodes/MeleeChop1/node = SubResource( 444 )
-nodes/MeleeChop1/position = Vector2( 2960, -260 )
-nodes/MeleeSpeed/node = SubResource( 446 )
-nodes/MeleeSpeed/position = Vector2( 3940, 40 )
-nodes/MeleeThrust/node = SubResource( 445 )
-nodes/MeleeThrust/position = Vector2( 3220, -180 )
-nodes/MeleeThrustL/node = SubResource( 448 )
-nodes/MeleeThrustL/position = Vector2( 3498.49, -174.467 )
-nodes/OffHand_MainHand_Blend/node = SubResource( 413 )
-nodes/OffHand_MainHand_Blend/position = Vector2( 4280, 200 )
-nodes/OffHand_Weapon_States/node = SubResource( 408 )
-nodes/OffHand_Weapon_States/position = Vector2( 1900, 100 )
-nodes/Offhand_Hold_Animation/node = SubResource( 409 )
-nodes/Offhand_Hold_Animation/position = Vector2( 1460, 20 )
-nodes/Offhand_Idle/node = SubResource( 415 )
-nodes/Offhand_Idle/position = Vector2( 1460, 360 )
-nodes/Pistol_Anim/node = SubResource( 369 )
-nodes/Pistol_Anim/position = Vector2( -700, -360 )
-nodes/Rifle_Anim/node = SubResource( 368 )
-nodes/Rifle_Anim/position = Vector2( -700, -660 )
-"nodes/Sawed-off Martini pistol/node" = SubResource( 438 )
-"nodes/Sawed-off Martini pistol/position" = Vector2( 2040, -360 )
-"nodes/Sawed-off shotgun/node" = SubResource( 441 )
-"nodes/Sawed-off shotgun/position" = Vector2( 2560, -400 )
-nodes/ShotgunAds/node = SubResource( 424 )
-nodes/ShotgunAds/position = Vector2( 100, 260 )
-nodes/SmallAds/node = SubResource( 418 )
-nodes/SmallAds/position = Vector2( -180, -380 )
-nodes/Vertical_Hold_Animation/node = SubResource( 370 )
-nodes/Vertical_Hold_Animation/position = Vector2( -680, -1000 )
-nodes/Weapon_states/node = SubResource( 366 )
-nodes/Weapon_states/position = Vector2( 460, -540 )
-"nodes/Webley revolver/node" = SubResource( 437 )
-"nodes/Webley revolver/position" = Vector2( 1740, -440 )
-nodes/output/position = Vector2( 5400, -500 )
-node_connections = [ "output", 0, "Hand_Transition", "Double-barrel shotgun", 0, "Weapon_states", "Double-barrel shotgun", 1, "DoubleBarrelReload", "Hand_Transition", 0, "OffHand_MainHand_Blend", "MeleeSpeed", 0, "MeleeThrustL", "Hold_Animation", 0, "Vertical_Hold_Animation", "Hold_Animation", 1, "Horizontal_Hold_Animation", "OffHand_MainHand_Blend", 0, "MeleeSpeed", "OffHand_MainHand_Blend", 1, "OffHand_Weapon_States", "Martini-Henry rifle", 0, "Lee-Metford rifle", "Martini-Henry rifle", 1, "Animation 6", "Offhand_Hold_Animation", 0, "Left_Vertical_Hold_Animation", "Offhand_Hold_Animation", 1, "Left_Horizontal_Hold_Animation", "MeleeThrust", 0, "MeleeChop1", "MeleeThrust", 1, "Animation 10", "MeleeThrustL", 0, "MeleeThrust", "MeleeThrustL", 1, "Animation 11", "OffHand_Weapon_States", 0, "Offhand_Hold_Animation", "OffHand_Weapon_States", 1, "LeftHanded_Pistol_Hold", "OffHand_Weapon_States", 2, "Offhand_Idle", "Sawed-off Martini pistol", 0, "Webley revolver", "Sawed-off Martini pistol", 1, "KyberPassMartini", "Lee-Metford rifle", 0, "Double-barrel shotgun", "Lee-Metford rifle", 1, "Animation 5", "MediumAds", 0, "Rifle_Anim", "MediumAds", 1, "Animation", "MeleeChop1", 0, "Sawed-off shotgun", "MeleeChop1", 1, "Animation 9", "ShotgunAds", 0, "Animation 4", "ShotgunAds", 1, "Animation 3", "SmallAds", 0, "Pistol_Anim", "SmallAds", 1, "Animation 2", "Webley revolver", 0, "Martini-Henry rifle", "Webley revolver", 1, "Animation 7", "Weapon_states", 0, "Hold_Animation", "Weapon_states", 1, "MediumAds", "Weapon_states", 2, "SmallAds", "Weapon_states", 4, "MainHand_Idle", "Weapon_states", 5, "ShotgunAds", "Sawed-off shotgun", 0, "Sawed-off Martini pistol", "Sawed-off shotgun", 1, "Animation 8" ]
-
 [sub_resource type="CylinderShape" id=41]
 radius = 0.25
 
@@ -7846,12 +7615,13 @@ unique_name_in_owner = true
 script = ExtResource( 28 )
 
 [node name="AnimationTree" parent="." index="27"]
-tree_root = SubResource( 365 )
+tree_root = ExtResource( 38 )
 anim_player = NodePath("../PlayerAnimationPlayer")
 active = true
 parameters/Hand_Transition/current = 0
 parameters/Hold_Animation/current = 0
 "parameters/Lee-Metford rifle/active" = false
+parameters/LightSourceHoldTransition/current = 0
 "parameters/Martini-Henry rifle/active" = false
 parameters/MediumAds/blend_amount = 0.0
 parameters/MeleeChop1/active = false
@@ -7860,6 +7630,7 @@ parameters/MeleeThrust/active = false
 parameters/MeleeThrustL/active = false
 parameters/OffHand_MainHand_Blend/blend_amount = 1
 parameters/OffHand_Weapon_States/current = 2
+parameters/OffhandLightSourceHoldTransition/current = 0
 parameters/Offhand_Hold_Animation/current = 0
 "parameters/Sawed-off Martini pistol/active" = false
 "parameters/Sawed-off shotgun/active" = false
@@ -7880,6 +7651,10 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.2
 
 [node name="rig_deform" parent="FPSCamera/MainCharOnlyArmsGameRig" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00435042, 0 )
+
+[node name="Skeleton" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform" index="0"]
+bones/113/bound_children = [ NodePath("OffHandAttachement") ]
+bones/137/bound_children = [ NodePath("MainHandAttachement") ]
 
 [node name="Body" parent="FPSCamera/MainCharOnlyArmsGameRig/rig_deform/Skeleton" index="0"]
 layers = 2

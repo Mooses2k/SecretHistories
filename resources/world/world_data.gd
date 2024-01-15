@@ -760,7 +760,7 @@ func get_neighbour_cell(cell_index : int, direction : int) -> int:
 func print_world_map() -> void:
 	var line := ""
 	
-	var title = "--- Generated World Map "
+	var title = "--- Generated Level Map "
 	var padding := world_size_x - title.length() as int
 	var append_title := ""
 	if padding > 0:

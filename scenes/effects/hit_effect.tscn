@@ -12,7 +12,7 @@ params_billboard_mode = 3
 particles_anim_h_frames = 8
 particles_anim_v_frames = 8
 particles_anim_loop = true
-albedo_color = Color( 1, 0, 0, 1 )
+albedo_color = Color( 0.254902, 0.105882, 0.105882, 1 )
 albedo_texture = ExtResource( 2 )
 
 [sub_resource type="Curve" id=2]

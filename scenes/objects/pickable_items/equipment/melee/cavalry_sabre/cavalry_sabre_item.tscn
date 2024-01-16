@@ -50,7 +50,7 @@ transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0.08
 shape = SubResource( 4 )
 
 [node name="Hitbox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.345196, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.477986, 0 )
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -74,3 +74,6 @@ __meta__ = {
 
 [node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 8 )
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

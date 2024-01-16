@@ -3,6 +3,7 @@ extends Effect
 
 func _on_ShotgunItem_target_hit(target, position, direction, normal):
 	var effect = hit_effect.instance()
+	# TODO: set material_override, albedo_color ff0000 if character
 	effect.set_orientation(position, normal)
 	var world_scene
 	if is_instance_valid(GameManager.game):

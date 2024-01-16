@@ -78,9 +78,10 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 	else:
 		doors[idx] = value
 
+
 func update_navigation():
 	var cell_size = 0.1
-
+	
 	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
 	var cell_height = NavigationServer.map_get_cell_height(get_world().navigation_map)
 	
@@ -133,7 +134,7 @@ func update_navigation():
 								var vert = verts[v]
 								verts_3d[v] = Vector3(vert.x, cell_height, vert.y)
 								pos += verts_3d[v]
-							pos/= 4.0
+							pos /= 4.0
 							pos.y = 0.0
 							var navmesh = NavigationMesh.new()
 							navmesh.cell_size = cell_size
@@ -149,7 +150,7 @@ func update_navigation():
 							set_door_navmesh_instance(current, dir, navmesh_instance)
 				var pillar = gen_pillar_navmesh(current)
 				if pillar:
-						holes.push_back(pillar)
+					holes.push_back(pillar)
 				queue.erase(current)
 			
 			navpoly.clear_outlines()
@@ -249,7 +250,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 	var wall_type = data.get_wall_type(cell, direction)
 	match wall_type:
 		WorldData.EdgeType.HALFDOOR_N:
-			var gap = 0.5*data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
+			var gap = 0.5 * data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
 			gap = max(gap, 0.05)
 			if direction == WorldData.Direction.EAST or direction == WorldData.Direction.NORTH:
 				# ┌   * ┐ * - X -1
@@ -282,7 +283,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 					Vector2(1.0 - local_margin - local_thickness, 1.0)
 				]
 		WorldData.EdgeType.HALFDOOR_P:
-			var gap = 0.5*data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
+			var gap = 0.5 * data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
 			gap = max(gap, 0.05)
 			if direction == WorldData.Direction.WEST or direction == WorldData.Direction.SOUTH:
 				# ┌   * ┐ - X -1
@@ -323,7 +324,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 			# Z
 			#-1    +1
 			#forms a straight line, adding a point at *, taking the door(°) edges into account
-			var half_gap = 0.5*data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
+			var half_gap = 0.5 * data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
 			half_gap = max(half_gap, 0.05)
 			new_points = [
 				Vector2(1.0 + local_margin + local_thickness, half_gap),
@@ -406,7 +407,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 #				new_points = [Vector2(1.0 - local_margin - local_thickness, -1.0 + end_margin + local_thickness)]
 				pass
 			data.EdgeType.HALFDOOR_N:
-				var gap = 0.5*data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
+				var gap = 0.5 * data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
 				gap = max(gap, 0.05)
 				# HALFDOOR_N means that the open side of the door is on the lower coordinate direction (i.e, if a
 				# door is along the X axis, the opening will be on the West side of the edge)
@@ -437,7 +438,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 #						Vector2(1.0 - local_margin - local_thickness, -1.0 + end_margin + local_thickness)
 					]
 			data.EdgeType.HALFDOOR_P:
-				var gap = 0.5*data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
+				var gap = 0.5 * data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
 				gap = max(gap, 0.05)
 				if follow_direction == WorldData.Direction.SOUTH or follow_direction == WorldData.Direction.EAST:
 					# ┌   * ┐ - X -1
@@ -474,7 +475,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 				# Z
 				#-1    +1
 				#forms a straight line, adding a point at *, taking the door(°) edges into account
-				var half_gap = 0.5*data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
+				var half_gap = 0.5 * data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
 				half_gap = max(half_gap, 0.05)
 				new_points = [
 					Vector2(1.0 - local_margin - local_thickness, half_gap),

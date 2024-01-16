@@ -11,6 +11,7 @@ func _init() -> void:
 	collision_mask = 1 << 10
 	priority = 50
 
+
 func _ready() -> void:
 	if !collision_shape.is_inside_tree():
 		add_child(collision_shape)

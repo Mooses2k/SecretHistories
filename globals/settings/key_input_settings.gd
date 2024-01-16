@@ -34,7 +34,7 @@ func _ready():
 		index = -1
 		
 		for x in range(arr_size):
-			if not "ui_" in actions_copy[x] or "movement" == actions_copy[x]:
+			if not "ui_" in actions_copy[x] or "movement" == actions_copy[x] or not "debug_" in actions_copy[x]:
 				match flag:
 					1:
 						if "movement|" in actions_copy[x]:

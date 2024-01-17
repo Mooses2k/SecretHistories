@@ -573,21 +573,21 @@ func _handle_inventory(delta : float):
 
 
 func previous_item():
-	if Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot != 0:
+	if Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot != 0 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 	
-	elif Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
+	elif Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
 
 func next_item():
-	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10:
+	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 	
-	elif Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
+	elif Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
 

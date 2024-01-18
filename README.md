@@ -52,6 +52,6 @@ The design doc is in the form of the Github wiki here: https://github.com/Mooses
 Milestones and open issues are tracked here:
 https://github.com/Mooses2k/SecretHistories/milestones?direction=asc&sort=title&state=open
 
-Pre-alpha demo: https://github.com/Mooses2k/SecretHistories/releases/tag/2024-1-7-pa
+Pre-alpha demo: https://github.com/Mooses2k/SecretHistories/releases
 
 Let's go die in a hole!

@@ -95,14 +95,14 @@ seed = 13245
 period = 56.6
 persistence = 1.0
 
-[sub_resource type="NoiseTexture" id=10]
+[sub_resource type="NoiseTexture" id=58]
 seamless = true
 bump_strength = 19.9
 noise = SubResource( 9 )
 
-[sub_resource type="ShaderMaterial" id=58]
+[sub_resource type="ShaderMaterial" id=59]
 shader = ExtResource( 13 )
-shader_param/noise_seed = 752.089
+shader_param/noise_seed = 486.843
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -110,7 +110,7 @@ shader_param/timescale = 1.0
 shader_param/scale = 1.0
 shader_param/uv1_scale = Vector3( 1, 1, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
-shader_param/noise = SubResource( 10 )
+shader_param/noise = SubResource( 58 )
 shader_param/texture_albedo = ExtResource( 12 )
 shader_param/gradient = ExtResource( 11 )
 
@@ -161,7 +161,7 @@ script = ExtResource( 2 )
 visible = false
 cast_shadow = 0
 mesh = SubResource( 53 )
-material/0 = SubResource( 58 )
+material/0 = SubResource( 59 )
 script = ExtResource( 6 )
 __meta__ = {
 "_editor_description_": ""

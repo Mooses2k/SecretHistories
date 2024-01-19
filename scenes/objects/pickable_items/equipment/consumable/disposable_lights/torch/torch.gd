@@ -73,6 +73,7 @@ func _use_primary():
 		light()
 	else:
 		unlight()
+		$Sounds/BlowOutSound.play()
 
 
 func _on_light_depleted():

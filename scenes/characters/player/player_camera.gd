@@ -60,7 +60,7 @@ func _process_shake(angle_center : Vector3, delta : float) -> Vector3:
 	
 	var new_rotate = Vector3()
 	new_rotate.x = max_yaw * mod * shake * _get_noise(randi(), delta)
-	new_rotate.y = max_pitch * mod  * shake * _get_noise(randi(), delta + 1.0)
+	new_rotate.y = max_pitch * mod * shake * _get_noise(randi(), delta + 1.0)
 	new_rotate.z = max_roll * mod * shake * _get_noise(randi(), delta + 2.0)
 	
 	return angle_center + new_rotate

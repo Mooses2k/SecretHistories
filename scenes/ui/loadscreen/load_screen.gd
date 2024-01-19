@@ -17,7 +17,7 @@ func _input(event: InputEvent):
 		if (
 				(
 					(event is InputEventMouseButton and event.is_pressed())
-					or event.is_action_released("ui_accept")
+					or event.is_action_released("ui_accept") or event.is_action_released("ui_cancel")
 				)
 				and not is_loading
 		):

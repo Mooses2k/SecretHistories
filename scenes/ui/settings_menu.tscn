@@ -15,7 +15,6 @@ corner_radius_bottom_left = 8
 anchor_left = 0.2
 anchor_right = 0.8
 anchor_bottom = 1.0
-rect_min_size = Vector2( 768, 768 )
 custom_constants/margin_right = 64
 custom_constants/margin_top = 32
 custom_constants/margin_left = 64

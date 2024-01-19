@@ -244,6 +244,7 @@ func _walk(delta) -> void:
 		owner.is_moving_forward = true
 	
 	_check_movement_key(delta)
+	owner.do_sprint = false   # Attempt to fix occasional sprinting after level load without holding sprint
 	
 	move_dir.x = (Input.get_action_strength("movement|move_right") - Input.get_action_strength("movement|move_left"))
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))

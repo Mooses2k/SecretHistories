@@ -1,5 +1,8 @@
 extends Node
 
+# There can be multiple types of controller using this, such as an fps_control_mode, top_down, vr, etc
+# This script is for things agnostic to the type of player controller
+
 
 signal is_moving(is_player_moving)
 
@@ -63,7 +66,7 @@ onready var _camera : ShakeCamera = get_node(_cam_path)
 #onready var _gun_cam = get_node(_gun_cam_path)
 onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
 onready var _text = get_node("..//Indication_canvas/Label")
-onready var _player_hitbox = get_node("../CanStandChecker")
+#onready var _player_hitbox = get_node("../CanStandChecker")
 onready var _ground_checker = get_node("../Body/GroundChecker")
 onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
 onready var _debug_light = get_node("../FPSCamera/DebugLight")
@@ -71,6 +74,7 @@ onready var _debug_light = get_node("../FPSCamera/DebugLight")
 onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
 onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
+# Control modes are things like FPS, topdown, VR
 var current_control_mode_index = 0
 onready var current_control_mode : ControlMode = get_child(0)
 
@@ -93,6 +97,8 @@ var is_movement_key2_held = false
 var is_movement_key3_held = false
 var is_movement_key4_held = false
 var movement_press_length = 0
+
+var has_moved_after_pressing_sprint = false
 
 var crouch_target_pos = -0.55
 
@@ -163,7 +169,6 @@ func _physics_process(delta : float):
 	previous_item()
 	drop_grabable()
 	empty_slot()
-	kick()
 	_clamber()
 
 
@@ -242,14 +247,21 @@ func _walk(delta) -> void:
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))
 	character.character_state.move_direction = move_dir.normalized()
 	
+	# This logic has the player kick if they hit sprint and release it without moving
 	if Input.is_action_pressed("player|sprint"):
-		owner.do_sprint = true
-	else:
+		has_moved_after_pressing_sprint = false
+		if is_movement_key1_held or is_movement_key2_held or is_movement_key3_held or is_movement_key4_held:
+			has_moved_after_pressing_sprint = true
+			owner.do_sprint = true
+			$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
+			# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+			# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+			owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+	
+	if Input.is_action_just_released("player|sprint"):
 		owner.do_sprint = false
-	$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
-	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
-	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
-	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+		if !has_moved_after_pressing_sprint:
+			character.kick()
 	
 	if Input.is_action_just_released("movement|move_right"):
 		is_movement_key1_held = false
@@ -390,6 +402,7 @@ func handle_grab(delta : float):
 		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
 		
+		# Slows down camera turn sensitivity to simulate moving something heavy
 		camera_movement_resistance = min(5 / grab_object.mass, 1)   # Camera goes nuts if you don't do this
 		
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
@@ -560,21 +573,21 @@ func _handle_inventory(delta : float):
 
 
 func previous_item():
-	if Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot != 0:
+	if Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot != 0 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 	
-	elif  Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
+	elif Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
 
 func next_item():
-	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10:
+	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 	
-	elif  Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
+	elif Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
 
@@ -611,7 +624,7 @@ func empty_slot():
 func update_throw_state(throw_item : EquipmentItem, delta : float):
 	# Place item upright on pointed-at surface or, if no surface in range, simply drop in front of player
 	if throw_state == ThrowState.SHOULD_PLACE:
-		print("Should place")
+		print("Should place rather than throw item")
 		throw_item = character.inventory.get_mainhand_item() if throw_item_hand == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		throw_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 		if throw_item:
@@ -788,11 +801,6 @@ func handle_binocs():
 	if Input.is_action_just_released("ablty|binocs_spyglass"):
 		if character.inventory.tiny_items.has(load("res://resources/tiny_items/spyglass.tres")):
 			_camera.state = _camera.CameraState.STATE_NORMAL
-
-
-func kick():
-	if Input.is_action_just_pressed("player|kick"):
-		character.kick()
 
 
 func _clamber():

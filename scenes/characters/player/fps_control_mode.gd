@@ -218,15 +218,15 @@ func head_bob(delta : float) -> void:
 
 func crouch_cam():
 	var from = _camera.transform.origin.y
-	_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, 0.08)
+	_camera.transform.origin.y = lerp(from, crouch_cam_target_pos, owner.crouch_rate)
 
 
 func _try_to_stand():
 	if owner.wanna_stand:
 		var from = _camera.transform.origin.y
-		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, 0.08)
+		_camera.transform.origin.y = lerp(from, _camera_orig_pos.y, owner.crouch_rate)
 		var d1 = _camera.transform.origin.y - _camera_orig_pos.y
-		if d1 > -0.02:
+		if d1 > -0.001:
 			_camera.transform.origin.y = _camera_orig_pos.y
 			owner.is_crouching = false
 			owner.wanna_stand = false

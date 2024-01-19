@@ -34,7 +34,7 @@ func _ready():
 		index = -1
 		
 		for x in range(arr_size):
-			if not "ui_" in actions_copy[x] or "movement" == actions_copy[x]:
+			if not "ui_" in actions_copy[x] or "movement" == actions_copy[x] or not "debug_" in actions_copy[x]:
 				match flag:
 					1:
 						if "movement|" in actions_copy[x]:
@@ -52,13 +52,13 @@ func _ready():
 								set_keys(x)
 							elif "reload" in actions_copy[x] and counter == 1:
 								set_keys(x)
-							elif "kick" in actions_copy[x] and counter == 2:
+#							elif "kick" in actions_copy[x] and counter == 2:
+#								set_keys(x)
+							elif "jump" in actions_copy[x] and counter == 2:
 								set_keys(x)
-							elif "jump" in actions_copy[x] and counter == 3:
+							elif "crouch" in actions_copy[x] and counter == 3:
 								set_keys(x)
-							elif "crouch" in actions_copy[x] and counter == 4:
-								set_keys(x)
-							elif "sprint" in actions_copy[x] and counter == 5:
+							elif "sprint" in actions_copy[x] and counter == 4:
 								set_keys(x)
 					3:
 						if "playerhand|" in actions_copy[x]:
@@ -130,7 +130,6 @@ func _ready():
 			if key_removed:
 				break
 			
-		
 		if index == arr_size - 1: 
 			if counter == counter_max:
 				flag += 1
@@ -140,7 +139,7 @@ func _ready():
 				1:
 					counter_max = 4
 				2:
-					counter_max = 6
+					counter_max = 5
 				3:
 					counter_max = 6
 				4:

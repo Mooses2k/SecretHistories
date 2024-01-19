@@ -36,10 +36,9 @@
 "playerhand|main_use_secondary": [ "mouse(2)" ],
 "playerhand|offhand_throw": [ "key(T)" ],
 "playerhand|offhand_use": [ "key(E)" ],
-"player|crouch": [ "key(Alt)", "key(C)" ],
+"player|crouch": [ "key(Alt)", "key(C)", "key(Control)" ],
 "player|interact": [ "key(F)" ],
 "player|jump": [ "key(Space)" ],
-"player|kick": [ "key(Control)" ],
 "player|reload": [ "key(R)" ],
 "player|sprint": [ "key(Shift)" ]
 }

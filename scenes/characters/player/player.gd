@@ -9,7 +9,7 @@ var is_change_main_equip_in : bool = false
 var is_change_off_equip_out : bool = false
 var is_change_off_equip_in : bool = false
 
-var light_resource = preload("res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn")
+var light_resource = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/candle_lantern/candle_lantern.tscn")
 var light2_resource = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/omnidirectional_lantern/omni_lantern.tscn")
 var spyglass_resource = preload("res://scenes/objects/pickable_items/tiny/spyglass/spyglass.tscn")
 

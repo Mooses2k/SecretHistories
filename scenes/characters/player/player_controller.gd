@@ -92,6 +92,8 @@ var _click_timer : float = 0.0
 var _throw_wait_time : float = 400
 var drag_object : RigidBody = null
 
+var ads_handled = false
+
 var is_movement_key1_held = false
 var is_movement_key2_held = false
 var is_movement_key3_held = false
@@ -160,9 +162,8 @@ func _physics_process(delta : float):
 	### TODO: many of these shouldn't be here and probably shouldn't be checked every _physics_process (moved in _input()?)
 	_walk(delta)
 	_crouch()
-	_handle_grab_input(delta)
 	handle_grab(delta)
-	_handle_inventory(delta)
+	_handle_inventory_and_grab_input(delta)
 	handle_screen_filters()
 	handle_binocs()
 	next_item()
@@ -258,6 +259,9 @@ func _walk(delta) -> void:
 			# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
 			# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
 			owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+		if character.inventory.current_mainhand_slot != null:
+			if character.inventory.current_mainhand_equipment is GunItem == true and character.player_animations.is_on_ads:
+				character.player_animations.end_ads()
 	
 	if Input.is_action_just_released("player|sprint"):
 		owner.do_sprint = false
@@ -334,30 +338,6 @@ func _crouch() -> void:
 		if owner.do_crouch:
 			if current_control_mode.has_method("crouch_cam"):
 				current_control_mode.crouch_cam()
-
-
-func _handle_grab_input(delta : float):
-	if is_grabbing:
-		wanna_grab = true
-	else:
-		wanna_grab = false
-	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
-		if is_grabbing == false:
-			grab_press_length += delta
-			if grab_press_length >= 0.15:
-				wanna_grab = true
-				interaction_handled = true
-	
-	if Input.is_action_just_released("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
-		grab_press_length = 0.0
-		if is_grabbing == true:
-			is_grabbing = false
-			print("Grab broken by letting go of grab key")
-			if grab_object is PickableItem:   # So no plain RigidBodies or large objects
-				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
-			wanna_grab = false
-			interaction_handled = true
-		camera_movement_resistance = 1.0   # In case of a grab-throw, make sure the camera turning still isn't slowed
 
 
 func handle_grab(delta : float):
@@ -450,7 +430,7 @@ func handle_grab(delta : float):
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
 
 
-func _handle_inventory(delta : float):
+func _handle_inventory_and_grab_input(delta : float):
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE - 1):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
@@ -517,10 +497,9 @@ func _handle_inventory(delta : float):
 						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
 						owner.noise_level = 8
 					throw_state = ThrowState.IDLE
-		
+
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
-			# This means R-Click can be used to interact when pointing at an interactable
-			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody doors
+			if character.inventory.get_mainhand_item() and !interaction_target is PickableItem and !interaction_target is Interactable:   # TODO: replace this with double-tap use_primary
 				character.inventory.get_mainhand_item().use_secondary()
 				if character.inventory.get_mainhand_item() is MeleeItem:
 					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
@@ -528,7 +507,7 @@ func _handle_inventory(delta : float):
 					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
 					owner.noise_level = 10
 				throw_state = ThrowState.IDLE
-			
+
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
@@ -554,6 +533,7 @@ func _handle_inventory(delta : float):
 		
 	if Input.is_action_just_pressed("playerhand|offhand_use") and owner.is_reloading == false:
 		if character.inventory.get_offhand_item():
+			# TODO: implement double-tap for use_secondary
 			character.inventory.get_offhand_item().use_primary()
 			if character.inventory.get_offhand_item() is MeleeItem:
 				$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
@@ -563,7 +543,53 @@ func _handle_inventory(delta : float):
 	
 	update_throw_state(throw_item, delta)
 	
-	if Input.is_action_just_released("player|interact"): # Later, when we have RigidBody doors, add this back for convenience and deal with edge cases with ADS and melee:  or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if is_grabbing:
+		wanna_grab = true
+	else:
+		wanna_grab = false
+	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
+#		# TODO: if on_fire: put out fire
+#		# TODO: elif in_close_eyes_area: close eyes
+#		# TODO: elif in_hold_breath_area: hold breath
+		if interaction_target and is_grabbing == false:
+			grab_press_length += delta
+			if grab_press_length >= 0.2:
+				wanna_grab = true
+				interaction_handled = true
+		
+		# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
+		if GameSettings.ads_hold_enabled:   # ADS hold mode
+			if owner.do_sprint == false and owner.is_reloading == false and interaction_target == null and is_grabbing == false:
+				if character.inventory.current_mainhand_slot != null:
+					if character.inventory.current_mainhand_equipment is GunItem:
+						character.player_animations.ads()
+			elif character.inventory.current_mainhand_equipment is GunItem:
+				character.player_animations.end_ads()
+		
+		else:   # ADS toggle mode
+			if owner.do_sprint == false and owner.is_reloading == false and interaction_target == null and is_grabbing == false:
+				if character.inventory.current_mainhand_slot != null:
+					if character.inventory.current_mainhand_equipment is GunItem and ads_handled == false:
+						if character.player_animations.is_on_ads or owner.do_sprint == true or owner.is_reloading == true:
+							character.player_animations.end_ads()
+						else:
+							character.player_animations.ads()
+						ads_handled = true
+			elif character.inventory.current_mainhand_slot != null:
+				if character.inventory.current_mainhand_equipment is GunItem == true:
+					character.player_animations.end_ads()
+		# TODO: If nothing else covered, interact zooms slightly
+	
+	if Input.is_action_just_released("player|interact"):
+		grab_press_length = 0.0
+		if is_grabbing == true:
+			is_grabbing = false
+			print("Grab broken by letting go of grab key")
+			if grab_object is PickableItem:   # So no plain RigidBodies or large objects
+				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
+			wanna_grab = false
+			interaction_handled = true
+		camera_movement_resistance = 1.0   # In case of a grab-throw, make sure the camera turning still isn't slowed
 		if !(wanna_grab or is_grabbing or interaction_handled):
 			if interaction_target != null:
 				if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
@@ -571,6 +597,10 @@ func _handle_inventory(delta : float):
 					interaction_target = null
 				elif interaction_target is Interactable:
 					interaction_target.interact(owner)
+		if GameSettings.ads_hold_enabled:   # ADS hold mode
+			if character.player_animations.is_on_ads:
+				character.player_animations.end_ads()
+		ads_handled = false   # Gets it ready for next press
 
 
 func previous_item():

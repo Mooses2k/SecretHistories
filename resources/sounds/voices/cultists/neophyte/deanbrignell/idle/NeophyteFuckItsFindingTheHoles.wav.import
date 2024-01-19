@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteFuckItsFindingTheHoles.wav-4efea964d5d61c9bb0bbaeacf1a126ac.sample"
+type="AudioStreamWAV"
+uid="uid://c5a3xo01d73cl"
+path="res://.godot/imported/NeophyteFuckItsFindingTheHoles.wav-4efea964d5d61c9bb0bbaeacf1a126ac.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteFuckItsFindingTheHoles.wav"
-dest_files=[ "res://.import/NeophyteFuckItsFindingTheHoles.wav-4efea964d5d61c9bb0bbaeacf1a126ac.sample" ]
+dest_files=["res://.godot/imported/NeophyteFuckItsFindingTheHoles.wav-4efea964d5d61c9bb0bbaeacf1a126ac.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAtLeastImNotOnWiringDuty.wav-d42b725ebbdee0dc8a069b1685796322.sample"
+type="AudioStreamWAV"
+uid="uid://cqdyad0oynky2"
+path="res://.godot/imported/NeophyteAtLeastImNotOnWiringDuty.wav-d42b725ebbdee0dc8a069b1685796322.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteAtLeastImNotOnWiringDuty.wav"
-dest_files=[ "res://.import/NeophyteAtLeastImNotOnWiringDuty.wav-d42b725ebbdee0dc8a069b1685796322.sample" ]
+dest_files=["res://.godot/imported/NeophyteAtLeastImNotOnWiringDuty.wav-d42b725ebbdee0dc8a069b1685796322.sample"]
 
 [params]
 

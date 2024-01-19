@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/have_a_taste_of_this.wav-5777ea5898b351d463625036a02ab009.sample"
+type="AudioStreamWAV"
+uid="uid://body5e4j37kot"
+path="res://.godot/imported/have_a_taste_of_this.wav-5777ea5898b351d463625036a02ab009.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/have_a_taste_of_this.wav"
-dest_files=[ "res://.import/have_a_taste_of_this.wav-5777ea5898b351d463625036a02ab009.sample" ]
+dest_files=["res://.godot/imported/have_a_taste_of_this.wav-5777ea5898b351d463625036a02ab009.sample"]
 
 [params]
 

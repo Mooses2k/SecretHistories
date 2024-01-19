@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteABomb.wav-87fe0ff061c0c164917e8bc046c1f30e.sample"
+type="AudioStreamWAV"
+uid="uid://blo8eypbrbxhq"
+path="res://.godot/imported/NeophyteABomb.wav-87fe0ff061c0c164917e8bc046c1f30e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/bomb/NeophyteABomb.wav"
-dest_files=[ "res://.import/NeophyteABomb.wav-87fe0ff061c0c164917e8bc046c1f30e.sample" ]
+dest_files=["res://.godot/imported/NeophyteABomb.wav-87fe0ff061c0c164917e8bc046c1f30e.sample"]
 
 [params]
 

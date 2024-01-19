@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/536104__eminyildirim__sword-hit-heavy.wav-11374e945ab6c3be159c26bf698c093a.sample"
+type="AudioStreamWAV"
+uid="uid://rp3ann4ybohe"
+path="res://.godot/imported/536104__eminyildirim__sword-hit-heavy.wav-11374e945ab6c3be159c26bf698c093a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/metal_and_gun/536104__eminyildirim__sword-hit-heavy.wav"
-dest_files=[ "res://.import/536104__eminyildirim__sword-hit-heavy.wav-11374e945ab6c3be159c26bf698c093a.sample" ]
+dest_files=["res://.godot/imported/536104__eminyildirim__sword-hit-heavy.wav-11374e945ab6c3be159c26bf698c093a.sample"]
 
 [params]
 

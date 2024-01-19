@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/478145__aris621__nasty-knife-stab-2.wav-3487516b5ecc965eb07f602ba23c07d5.sample"
+type="AudioStreamWAV"
+uid="uid://bv6pls6psfidy"
+path="res://.godot/imported/478145__aris621__nasty-knife-stab-2.wav-3487516b5ecc965eb07f602ba23c07d5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/blade_to_flesh/478145__aris621__nasty-knife-stab-2.wav"
-dest_files=[ "res://.import/478145__aris621__nasty-knife-stab-2.wav-3487516b5ecc965eb07f602ba23c07d5.sample" ]
+dest_files=["res://.godot/imported/478145__aris621__nasty-knife-stab-2.wav-3487516b5ecc965eb07f602ba23c07d5.sample"]
 
 [params]
 

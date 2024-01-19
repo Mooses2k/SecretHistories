@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteNoEscape.wav-f1ffe2f59e60dcf8576b70090b4f9d28.sample"
+type="AudioStreamWAV"
+uid="uid://cm12ng5w1ftwt"
+path="res://.godot/imported/NeophyteNoEscape.wav-f1ffe2f59e60dcf8576b70090b4f9d28.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteNoEscape.wav"
-dest_files=[ "res://.import/NeophyteNoEscape.wav-f1ffe2f59e60dcf8576b70090b4f9d28.sample" ]
+dest_files=["res://.godot/imported/NeophyteNoEscape.wav-f1ffe2f59e60dcf8576b70090b4f9d28.sample"]
 
 [params]
 

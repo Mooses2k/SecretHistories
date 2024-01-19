@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIDreamtACityOfBlood.wav-beac1b6307618a514c36c770b189b62d.sample"
+type="AudioStreamWAV"
+uid="uid://dkdub344u42sw"
+path="res://.godot/imported/NeophyteIDreamtACityOfBlood.wav-beac1b6307618a514c36c770b189b62d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhere/NeophyteIDreamtACityOfBlood.wav"
-dest_files=[ "res://.import/NeophyteIDreamtACityOfBlood.wav-beac1b6307618a514c36c770b189b62d.sample" ]
+dest_files=["res://.godot/imported/NeophyteIDreamtACityOfBlood.wav-beac1b6307618a514c36c770b189b62d.sample"]
 
 [params]
 

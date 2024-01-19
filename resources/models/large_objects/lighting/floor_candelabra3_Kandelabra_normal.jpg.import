@@ -1,0 +1,36 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://b2m21bwa6o2po"
+path.s3tc="res://.godot/imported/floor_candelabra3_Kandelabra_normal.jpg-c1f657503f6b59449c0f010db6897e96.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={}
+
+[deps]
+
+source_file="res://resources/models/large_objects/lighting/floor_candelabra3_Kandelabra_normal.jpg"
+dest_files=["res://.godot/imported/floor_candelabra3_Kandelabra_normal.jpg-c1f657503f6b59449c0f010db6897e96.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://resources/models/large_objects/lighting/floor_candelabra3_Kandelabra_normal.jpg"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

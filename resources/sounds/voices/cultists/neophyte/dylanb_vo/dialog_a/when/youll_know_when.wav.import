@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/youll_know_when.wav-55dff5546acf8b24bacc607eea7838cf.sample"
+type="AudioStreamWAV"
+uid="uid://wpa1pofsm3tc"
+path="res://.godot/imported/youll_know_when.wav-55dff5546acf8b24bacc607eea7838cf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/when/youll_know_when.wav"
-dest_files=[ "res://.import/youll_know_when.wav-55dff5546acf8b24bacc607eea7838cf.sample" ]
+dest_files=["res://.godot/imported/youll_know_when.wav-55dff5546acf8b24bacc607eea7838cf.sample"]
 
 [params]
 

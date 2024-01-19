@@ -8,7 +8,7 @@ extends Node2D
 
 #--- constants ------------------------------------------------------------------------------------
 
-const COLOR_PLAYER = Color.blue
+const COLOR_PLAYER = Color.BLUE
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -23,14 +23,14 @@ var player: Player = null
 
 func _process(_delta: float) -> void:
 	if is_instance_valid(player):
-		update()
+		queue_redraw()
 
 
 func _draw() -> void:
 	if is_instance_valid(player):
 		var local_position = to_local(Vector2(
-				player.global_translation.x,
-				player.global_translation.z
+				player.global_position.x,
+				player.global_position.z
 		)) * owner.distances_scale / WorldData.CELL_SIZE
 		draw_circle(local_position, owner.distances_scale / 2.0, COLOR_PLAYER)
 

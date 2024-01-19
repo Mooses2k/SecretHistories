@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/342617__spacejoe__lock-1-insert-key-1.wav-faefa20851075a37bae273d4a88ab35f.sample"
+type="AudioStreamWAV"
+uid="uid://dsttdwxs4osrg"
+path="res://.godot/imported/342617__spacejoe__lock-1-insert-key-1.wav-faefa20851075a37bae273d4a88ab35f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/locks/342617__spacejoe__lock-1-insert-key-1.wav"
-dest_files=[ "res://.import/342617__spacejoe__lock-1-insert-key-1.wav-faefa20851075a37bae273d4a88ab35f.sample" ]
+dest_files=["res://.godot/imported/342617__spacejoe__lock-1-insert-key-1.wav-faefa20851075a37bae273d4a88ab35f.sample"]
 
 [params]
 

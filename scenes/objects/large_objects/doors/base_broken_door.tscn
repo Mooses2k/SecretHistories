@@ -36,517 +36,517 @@
 [ext_resource path="res://resources/models/gridmap/modular_doors/M_Wall_Metal.material" type="Material" id=34]
 [ext_resource path="res://scenes/objects/large_objects/doors/base_broken_door.gd" type="Script" id=35]
 
-[sub_resource type="BoxShape" id=65]
+[sub_resource type="BoxShape3D" id=65]
 extents = Vector3( 0.00914269, 0.0730399, 0.0436947 )
 
-[sub_resource type="BoxShape" id=66]
+[sub_resource type="BoxShape3D" id=66]
 extents = Vector3( 0.121657, 0.306864, 0.0481168 )
 
-[sub_resource type="BoxShape" id=67]
+[sub_resource type="BoxShape3D" id=67]
 extents = Vector3( 0.0264477, 0.142233, 0.0481118 )
 
-[sub_resource type="BoxShape" id=68]
+[sub_resource type="BoxShape3D" id=68]
 extents = Vector3( 0.0382832, 0.205357, 0.0481168 )
 
-[sub_resource type="BoxShape" id=69]
+[sub_resource type="BoxShape3D" id=69]
 extents = Vector3( 0.296511, 0.31372, 0.0481168 )
 
-[sub_resource type="BoxShape" id=70]
+[sub_resource type="BoxShape3D" id=70]
 extents = Vector3( 0.314956, 0.3084, 0.0481168 )
 
-[sub_resource type="BoxShape" id=71]
+[sub_resource type="BoxShape3D" id=71]
 extents = Vector3( 0.204866, 0.249074, 0.0481168 )
 
-[sub_resource type="BoxShape" id=72]
+[sub_resource type="BoxShape3D" id=72]
 extents = Vector3( 0.23697, 0.297778, 0.0481168 )
 
-[sub_resource type="BoxShape" id=73]
+[sub_resource type="BoxShape3D" id=73]
 extents = Vector3( 0.11692, 0.11396, 0.0481118 )
 
-[sub_resource type="BoxShape" id=74]
+[sub_resource type="BoxShape3D" id=74]
 extents = Vector3( 0.272536, 0.211713, 0.0481168 )
 
-[sub_resource type="BoxShape" id=75]
+[sub_resource type="BoxShape3D" id=75]
 extents = Vector3( 0.332994, 0.312889, 0.0481168 )
 
-[sub_resource type="BoxShape" id=76]
+[sub_resource type="BoxShape3D" id=76]
 extents = Vector3( 0.0443135, 0.0907663, 0.0481118 )
 
-[sub_resource type="BoxShape" id=77]
+[sub_resource type="BoxShape3D" id=77]
 extents = Vector3( 0.0245361, 0.195555, 0.0481118 )
 
-[sub_resource type="BoxShape" id=78]
+[sub_resource type="BoxShape3D" id=78]
 extents = Vector3( 0.182641, 0.274836, 0.0481168 )
 
-[sub_resource type="BoxShape" id=79]
+[sub_resource type="BoxShape3D" id=79]
 extents = Vector3( 0.284304, 0.192616, 0.0481168 )
 
-[sub_resource type="BoxShape" id=80]
+[sub_resource type="BoxShape3D" id=80]
 extents = Vector3( 0.303874, 0.107487, 0.0481118 )
 
-[sub_resource type="BoxShape" id=81]
+[sub_resource type="BoxShape3D" id=81]
 extents = Vector3( 0.183246, 0.399995, 0.0481168 )
 
-[sub_resource type="BoxShape" id=82]
+[sub_resource type="BoxShape3D" id=82]
 extents = Vector3( 0.0883929, 0.229632, 0.0481118 )
 
-[sub_resource type="BoxShape" id=83]
+[sub_resource type="BoxShape3D" id=83]
 extents = Vector3( 0.319696, 0.23527, 0.0481168 )
 
-[sub_resource type="BoxShape" id=84]
+[sub_resource type="BoxShape3D" id=84]
 extents = Vector3( 0.184042, 0.258162, 0.0481168 )
 
-[sub_resource type="BoxShape" id=85]
+[sub_resource type="BoxShape3D" id=85]
 extents = Vector3( 0.267914, 0.275741, 0.0481168 )
 
-[sub_resource type="BoxShape" id=86]
+[sub_resource type="BoxShape3D" id=86]
 extents = Vector3( 0.143723, 0.0871097, 0.0481168 )
 
-[sub_resource type="BoxShape" id=87]
+[sub_resource type="BoxShape3D" id=87]
 extents = Vector3( 0.46688, 0.0669364, 0.00791724 )
 
-[sub_resource type="BoxShape" id=88]
+[sub_resource type="BoxShape3D" id=88]
 extents = Vector3( 0.466731, 0.066531, 0.00791725 )
 
-[sub_resource type="BoxShape" id=89]
+[sub_resource type="BoxShape3D" id=89]
 extents = Vector3( 0.466731, 0.066531, 0.00791229 )
 
-[sub_resource type="BoxShape" id=90]
+[sub_resource type="BoxShape3D" id=90]
 extents = Vector3( 0.46688, 0.0669365, 0.00791229 )
 
-[sub_resource type="BoxShape" id=91]
+[sub_resource type="BoxShape3D" id=91]
 extents = Vector3( 0.467107, 0.0665317, 0.00791229 )
 
-[sub_resource type="BoxShape" id=92]
+[sub_resource type="BoxShape3D" id=92]
 extents = Vector3( 0.467107, 0.0665317, 0.00791725 )
 
-[sub_resource type="BoxShape" id=93]
+[sub_resource type="BoxShape3D" id=93]
 extents = Vector3( 0.0147754, 0.0830835, 0.0646256 )
 
-[sub_resource type="BoxShape" id=94]
+[sub_resource type="BoxShape3D" id=94]
 extents = Vector3( 0.0147754, 0.0830835, 0.0646255 )
 
-[sub_resource type="BoxShape" id=95]
+[sub_resource type="BoxShape3D" id=95]
 extents = Vector3( 0.0147754, 0.0830834, 0.0646254 )
 
-[sub_resource type="BoxShape" id=96]
+[sub_resource type="BoxShape3D" id=96]
 extents = Vector3( 0.0253753, 0.222687, 0.0546516 )
 
-[node name="BaseBrokenDoor" type="Spatial"]
+[node name="BaseBrokenDoor" type="Node3D"]
 script = ExtResource( 35 )
 
-[node name="RigidBody10" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.979505, 0.31328, -0.0100492 )
+[node name="RigidBody10" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.979505, 0.31328, -0.0100492 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken001" type="MeshInstance" parent="RigidBody10"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0189e-06, -8.9407e-08, -0.000943217 )
+[node name="SM_Door1_Metal_Broken001" type="MeshInstance3D" parent="RigidBody10"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0189e-06, -8.9407e-08, -0.000943217 )
 mesh = ExtResource( 5 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody10"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody10"]
 shape = SubResource( 65 )
 
-[node name="RigidBody3" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.126562, 0.0336227, -0.0865613 )
+[node name="RigidBody3" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.126562, 0.0336227, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken021" type="MeshInstance" parent="RigidBody3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0333622, 0.000707299, -1.51694e-05 )
+[node name="SM_Door1_Wood_Broken021" type="MeshInstance3D" parent="RigidBody3"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0333622, 0.000707299, -1.51694e-05 )
 mesh = ExtResource( 2 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3"]
 shape = SubResource( 66 )
 
-[node name="RigidBody17" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.966729, 0.509719, -0.0865664 )
+[node name="RigidBody17" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.966729, 0.509719, -0.0865664 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken008" type="MeshInstance" parent="RigidBody17"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00937069, 0.0124311, -2.00048e-05 )
+[node name="SM_Door1_Wood_Broken008" type="MeshInstance3D" parent="RigidBody17"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00937069, 0.0124311, -2.00048e-05 )
 mesh = ExtResource( 4 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody17"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody17"]
 shape = SubResource( 67 )
 
-[node name="RigidBody18" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.954902, -0.763643, -0.0865613 )
+[node name="RigidBody18" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.954902, -0.763643, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken020" type="MeshInstance" parent="RigidBody18"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0158992, -0.029742, 0.000412922 )
+[node name="SM_Door1_Wood_Broken020" type="MeshInstance3D" parent="RigidBody18"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0158992, -0.029742, 0.000412922 )
 mesh = ExtResource( 7 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody18"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody18"]
 shape = SubResource( 68 )
 
-[node name="RigidBody13" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.301342, 0.420031, -0.0865614 )
+[node name="RigidBody13" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.301342, 0.420031, -0.0865614 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken012" type="MeshInstance" parent="RigidBody13"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00594163, -0.0230406, -0.000278283 )
+[node name="SM_Door1_Wood_Broken012" type="MeshInstance3D" parent="RigidBody13"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00594163, -0.0230406, -0.000278283 )
 mesh = ExtResource( 30 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody13"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody13"]
 shape = SubResource( 69 )
 
-[node name="RigidBody16" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417329, -0.199919, -0.0865613 )
+[node name="RigidBody16" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.417329, -0.199919, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken" type="MeshInstance" parent="RigidBody16"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00642842, -0.0109635, -1.28597e-05 )
+[node name="SM_Door1_Wood_Broken" type="MeshInstance3D" parent="RigidBody16"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00642842, -0.0109635, -1.28597e-05 )
 mesh = ExtResource( 18 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody16"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody16"]
 shape = SubResource( 70 )
 
-[node name="RigidBody" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.754523, 0.0831099, -0.0865614 )
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.754523, 0.0831099, -0.0865614 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken009" type="MeshInstance" parent="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0117232, 0.00902024, -3.87393e-05 )
+[node name="SM_Door1_Wood_Broken009" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0117232, 0.00902024, -3.87393e-05 )
 mesh = ExtResource( 6 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource( 71 )
 
-[node name="RigidBody19" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.241823, -0.671222, -0.0865614 )
+[node name="RigidBody19" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.241823, -0.671222, -0.0865614 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken017" type="MeshInstance" parent="RigidBody19"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0292235, -0.0656138, 0.000191212 )
+[node name="SM_Door1_Wood_Broken017" type="MeshInstance3D" parent="RigidBody19"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0292235, -0.0656138, 0.000191212 )
 mesh = ExtResource( 25 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody19"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody19"]
 shape = SubResource( 72 )
 
-[node name="RigidBody12" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.121762, 0.909456, -0.0865664 )
+[node name="RigidBody12" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.121762, 0.909456, -0.0865664 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken001" type="MeshInstance" parent="RigidBody12"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0292628, 0.0263344, -0.000172094 )
+[node name="SM_Door1_Wood_Broken001" type="MeshInstance3D" parent="RigidBody12"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0292628, 0.0263344, -0.000172094 )
 mesh = ExtResource( 23 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody12"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody12"]
 shape = SubResource( 73 )
 
-[node name="RigidBody20" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.606215, 0.130922, -0.0865614 )
+[node name="RigidBody20" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.606215, 0.130922, -0.0865614 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken013" type="MeshInstance" parent="RigidBody20"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00921428, 0.0334876, -2.39909e-06 )
+[node name="SM_Door1_Wood_Broken013" type="MeshInstance3D" parent="RigidBody20"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00921428, 0.0334876, -2.39909e-06 )
 mesh = ExtResource( 17 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody20"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody20"]
 shape = SubResource( 74 )
 
-[node name="RigidBody14" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33788, -0.585319, -0.0865614 )
+[node name="RigidBody14" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.33788, -0.585319, -0.0865614 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken015" type="MeshInstance" parent="RigidBody14"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0164205, 0.0383637, -0.00029562 )
+[node name="SM_Door1_Wood_Broken015" type="MeshInstance3D" parent="RigidBody14"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0164205, 0.0383637, -0.00029562 )
 mesh = ExtResource( 9 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody14"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody14"]
 shape = SubResource( 75 )
 
-[node name="RigidBody31" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491705, -0.257715, -0.0865663 )
+[node name="RigidBody31" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491705, -0.257715, -0.0865663 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken016" type="MeshInstance" parent="RigidBody31"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0169704, -0.00322264, 9.96329e-05 )
+[node name="SM_Door1_Wood_Broken016" type="MeshInstance3D" parent="RigidBody31"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0169704, -0.00322264, 9.96329e-05 )
 mesh = ExtResource( 10 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody31"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody31"]
 shape = SubResource( 76 )
 
-[node name="RigidBody30" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.968653, 0.825357, -0.0865664 )
+[node name="RigidBody30" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.968653, 0.825357, -0.0865664 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken005" type="MeshInstance" parent="RigidBody30"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000352638, 0.000273436, -6.21751e-06 )
+[node name="SM_Door1_Wood_Broken005" type="MeshInstance3D" parent="RigidBody30"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000352638, 0.000273436, -6.21751e-06 )
 mesh = ExtResource( 15 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody30"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody30"]
 shape = SubResource( 77 )
 
-[node name="RigidBody9" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.786329, 0.0587447, -0.0865613 )
+[node name="RigidBody9" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.786329, 0.0587447, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken011" type="MeshInstance" parent="RigidBody9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0103295, -0.0100447, -1.7263e-05 )
+[node name="SM_Door1_Wood_Broken011" type="MeshInstance3D" parent="RigidBody9"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0103295, -0.0100447, -1.7263e-05 )
 mesh = ExtResource( 32 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody9"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody9"]
 shape = SubResource( 78 )
 
-[node name="RigidBody15" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.658915, 0.776867, -0.0865614 )
+[node name="RigidBody15" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.658915, 0.776867, -0.0865614 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken004" type="MeshInstance" parent="RigidBody15"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0810855, 0.0085627, 5.59017e-05 )
+[node name="SM_Door1_Wood_Broken004" type="MeshInstance3D" parent="RigidBody15"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0810855, 0.0085627, 5.59017e-05 )
 mesh = ExtResource( 27 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody15"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody15"]
 shape = SubResource( 79 )
 
-[node name="RigidBody2" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664285, 0.915925, -0.0865664 )
+[node name="RigidBody2" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.664285, 0.915925, -0.0865664 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken003" type="MeshInstance" parent="RigidBody2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0293842, 0.0291647, 3.298e-05 )
+[node name="SM_Door1_Wood_Broken003" type="MeshInstance3D" parent="RigidBody2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0293842, 0.0291647, 3.298e-05 )
 mesh = ExtResource( 19 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody2"]
 shape = SubResource( 80 )
 
-[node name="RigidBody28" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.809937, -0.0618894, -0.0865613 )
+[node name="RigidBody28" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.809937, -0.0618894, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken010" type="MeshInstance" parent="RigidBody28"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.047863, -0.0652106, 0.000241127 )
+[node name="SM_Door1_Wood_Broken010" type="MeshInstance3D" parent="RigidBody28"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.047863, -0.0652106, 0.000241127 )
 mesh = ExtResource( 12 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody28"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody28"]
 shape = SubResource( 81 )
 
-[node name="RigidBody25" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0932732, -0.739368, -0.0865664 )
+[node name="RigidBody25" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0932732, -0.739368, -0.0865664 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken018" type="MeshInstance" parent="RigidBody25"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0330731, -0.0518999, -0.000264917 )
+[node name="SM_Door1_Wood_Broken018" type="MeshInstance3D" parent="RigidBody25"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0330731, -0.0518999, -0.000264917 )
 mesh = ExtResource( 8 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody25"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody25"]
 shape = SubResource( 82 )
 
-[node name="RigidBody7" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.673493, 0.561737, -0.0865614 )
+[node name="RigidBody7" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.673493, 0.561737, -0.0865614 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken007" type="MeshInstance" parent="RigidBody7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00940692, -0.0276066, -2.1331e-05 )
+[node name="SM_Door1_Wood_Broken007" type="MeshInstance3D" parent="RigidBody7"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00940692, -0.0276066, -2.1331e-05 )
 mesh = ExtResource( 22 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody7"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody7"]
 shape = SubResource( 83 )
 
-[node name="RigidBody6" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188926, 0.704052, -0.0865613 )
+[node name="RigidBody6" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.188926, 0.704052, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken006" type="MeshInstance" parent="RigidBody6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0284254, 0.0212277, -9.22941e-05 )
+[node name="SM_Door1_Wood_Broken006" type="MeshInstance3D" parent="RigidBody6"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0284254, 0.0212277, -9.22941e-05 )
 mesh = ExtResource( 21 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody6"]
 shape = SubResource( 84 )
 
-[node name="RigidBody27" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.725287, -0.693258, -0.0865613 )
+[node name="RigidBody27" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.725287, -0.693258, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken019" type="MeshInstance" parent="RigidBody27"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0385129, -0.0329117, 0.000359144 )
+[node name="SM_Door1_Wood_Broken019" type="MeshInstance3D" parent="RigidBody27"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0385129, -0.0329117, 0.000359144 )
 mesh = ExtResource( 31 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody27"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody27"]
 shape = SubResource( 85 )
 
-[node name="RigidBody32" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327542, 0.936306, -0.0865613 )
+[node name="RigidBody32" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.327542, 0.936306, -0.0865613 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Wood_Broken002" type="MeshInstance" parent="RigidBody32"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00765838, 0.0303341, 0.000209935 )
+[node name="SM_Door1_Wood_Broken002" type="MeshInstance3D" parent="RigidBody32"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00765838, 0.0303341, 0.000209935 )
 mesh = ExtResource( 20 )
-material/0 = ExtResource( 33 )
+surface_material_override/0 = ExtResource( 33 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody32"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody32"]
 shape = SubResource( 86 )
 
-[node name="RigidBody4" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474564, -0.0156372, -0.0323046 )
+[node name="RigidBody4" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474564, -0.0156372, -0.0323046 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken002" type="MeshInstance" parent="RigidBody4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0244634, -0.000685826, 0.00555182 )
+[node name="SM_Door1_Metal_Broken002" type="MeshInstance3D" parent="RigidBody4"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0244634, -0.000685826, 0.00555182 )
 mesh = ExtResource( 16 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody4"]
 shape = SubResource( 87 )
 
-[node name="RigidBody29" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474739, -0.75233, -0.0330033 )
+[node name="RigidBody29" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474739, -0.75233, -0.0330033 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken003" type="MeshInstance" parent="RigidBody29"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0246396, -0.00170053, 0.00552089 )
+[node name="SM_Door1_Metal_Broken003" type="MeshInstance3D" parent="RigidBody29"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0246396, -0.00170053, 0.00552089 )
 mesh = ExtResource( 26 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody29"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody29"]
 shape = SubResource( 88 )
 
-[node name="RigidBody23" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474739, -0.75233, -0.140124 )
+[node name="RigidBody23" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474739, -0.75233, -0.140124 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken008" type="MeshInstance" parent="RigidBody23"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0246395, -0.00170049, -0.00552585 )
+[node name="SM_Door1_Metal_Broken008" type="MeshInstance3D" parent="RigidBody23"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0246395, -0.00170049, -0.00552585 )
 mesh = ExtResource( 24 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody23"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody23"]
 shape = SubResource( 89 )
 
-[node name="RigidBody24" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474564, -0.0156372, -0.140823 )
+[node name="RigidBody24" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474564, -0.0156372, -0.140823 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken007" type="MeshInstance" parent="RigidBody24"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0244634, -0.000685811, -0.00555686 )
+[node name="SM_Door1_Metal_Broken007" type="MeshInstance3D" parent="RigidBody24"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0244634, -0.000685811, -0.00555686 )
 mesh = ExtResource( 14 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody24"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody24"]
 shape = SubResource( 90 )
 
-[node name="RigidBody11" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474334, 0.77262, -0.140124 )
+[node name="RigidBody11" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474334, 0.77262, -0.140124 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken006" type="MeshInstance" parent="RigidBody11"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267331, -0.00138041, -0.00555296 )
+[node name="SM_Door1_Metal_Broken006" type="MeshInstance3D" parent="RigidBody11"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267331, -0.00138041, -0.00555296 )
 mesh = ExtResource( 13 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody11"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody11"]
 shape = SubResource( 91 )
 
-[node name="RigidBody26" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474334, 0.77262, -0.0330036 )
+[node name="RigidBody26" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474334, 0.77262, -0.0330036 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken004" type="MeshInstance" parent="RigidBody26"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267332, -0.00138029, 0.00554799 )
+[node name="SM_Door1_Metal_Broken004" type="MeshInstance3D" parent="RigidBody26"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0267332, -0.00138029, 0.00554799 )
 mesh = ExtResource( 3 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody26"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody26"]
 shape = SubResource( 92 )
 
-[node name="RigidBody21" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, -0.752268, -0.0825789 )
+[node name="RigidBody21" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, -0.752268, -0.0825789 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken009" type="MeshInstance" parent="RigidBody21"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00176428, 0.000591673, -0.0142434 )
+[node name="SM_Door1_Metal_Broken009" type="MeshInstance3D" parent="RigidBody21"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00176428, 0.000591673, -0.0142434 )
 mesh = ExtResource( 11 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody21"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody21"]
 shape = SubResource( 93 )
 
-[node name="RigidBody22" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, -0.0159795, -0.0825791 )
+[node name="RigidBody22" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, -0.0159795, -0.0825791 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken010" type="MeshInstance" parent="RigidBody22"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00176429, 0.000591576, -0.0142434 )
+[node name="SM_Door1_Metal_Broken010" type="MeshInstance3D" parent="RigidBody22"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00176429, 0.000591576, -0.0142434 )
 mesh = ExtResource( 28 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody22"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody22"]
 shape = SubResource( 94 )
 
-[node name="RigidBody8" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, 0.772688, -0.0825795 )
+[node name="RigidBody8" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, 0.772688, -0.0825795 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken005" type="MeshInstance" parent="RigidBody8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00176428, 0.000591636, -0.0142435 )
+[node name="SM_Door1_Metal_Broken005" type="MeshInstance3D" parent="RigidBody8"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00176428, 0.000591636, -0.0142435 )
 mesh = ExtResource( 29 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody8"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody8"]
 shape = SubResource( 95 )
 
-[node name="RigidBody5" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9174, -0.022671, 0.0159113 )
+[node name="RigidBody5" type="RigidBody3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9174, -0.022671, 0.0159113 )
 collision_layer = 64
 collision_mask = 65
 
-[node name="SM_Door1_Metal_Broken" type="MeshInstance" parent="RigidBody5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58794e-09, 0.043414, -0.000310827 )
+[node name="SM_Door1_Metal_Broken" type="MeshInstance3D" parent="RigidBody5"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58794e-09, 0.043414, -0.000310827 )
 mesh = ExtResource( 1 )
-material/0 = ExtResource( 34 )
+surface_material_override/0 = ExtResource( 34 )
 
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody5"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody5"]
 shape = SubResource( 96 )

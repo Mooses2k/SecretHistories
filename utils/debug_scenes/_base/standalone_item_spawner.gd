@@ -35,6 +35,6 @@ extends "res://scenes/worlds/procedural_world/item_spawner.gd"
 func _on_game_world_generation_finished():
 	var data := owner.world_data as WorldData
 	_spawn_world_data_objects(data)
-	yield(get_tree(), "idle_frame")
+	await get_tree().idle_frame
 
 ### -----------------------------------------------------------------------------------------------

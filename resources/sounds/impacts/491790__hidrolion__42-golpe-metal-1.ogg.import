@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/491790__hidrolion__42-golpe-metal-1.ogg-dc2044d3b5b00c6b51b4e478641af78a.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://74l856553kcp"
+path="res://.godot/imported/491790__hidrolion__42-golpe-metal-1.ogg-dc2044d3b5b00c6b51b4e478641af78a.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg"
-dest_files=[ "res://.import/491790__hidrolion__42-golpe-metal-1.ogg-dc2044d3b5b00c6b51b4e478641af78a.oggstr" ]
+dest_files=["res://.godot/imported/491790__hidrolion__42-golpe-metal-1.ogg-dc2044d3b5b00c6b51b4e478641af78a.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

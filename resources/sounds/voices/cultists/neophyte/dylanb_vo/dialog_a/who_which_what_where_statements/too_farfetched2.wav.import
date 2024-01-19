@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/too_farfetched2.wav-f1e5e372d71e715fb8b1cfb2a56ec848.sample"
+type="AudioStreamWAV"
+uid="uid://derht5chery7l"
+path="res://.godot/imported/too_farfetched2.wav-f1e5e372d71e715fb8b1cfb2a56ec848.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/too_farfetched2.wav"
-dest_files=[ "res://.import/too_farfetched2.wav-f1e5e372d71e715fb8b1cfb2a56ec848.sample" ]
+dest_files=["res://.godot/imported/too_farfetched2.wav-f1e5e372d71e715fb8b1cfb2a56ec848.sample"]
 
 [params]
 

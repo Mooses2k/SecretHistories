@@ -1,58 +1,78 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://cjm6so1i3v5sg"]
 
-[ext_resource path="res://scenes/ui/opening_screens.gd" type="Script" id=1]
-[ext_resource path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together (orange).png" type="Texture" id=2]
-[ext_resource path="res://resources/art/opening_screens/NFTStab_noir.png" type="Texture" id=3]
-[ext_resource path="res://resources/ui_themes/main_menu.tres" type="Theme" id=4]
-[ext_resource path="res://resources/art/opening_screens/loadscreen_1_godot.png" type="Texture" id=5]
-[ext_resource path="res://resources/art/opening_screens/gpl_artboard_1.png" type="Texture" id=6]
+[ext_resource type="Script" path="res://scenes/ui/opening_screens.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://beb8raax6yquc" path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together (orange).png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bsyaqa6ib504y" path="res://resources/art/opening_screens/NFTStab_noir.png" id="3"]
+[ext_resource type="Theme" uid="uid://d1bhwd8v505pu" path="res://resources/ui_themes/main_menu.tres" id="4"]
+[ext_resource type="Texture2D" uid="uid://6tp2j0n8b5bn" path="res://resources/art/opening_screens/loadscreen_1_godot.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://b1gscsj6n1qa5" path="res://resources/art/opening_screens/gpl_artboard_1.png" id="6"]
 
 [node name="OpeningScreens" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme = ExtResource( 4 )
-script = ExtResource( 1 )
+theme = ExtResource("4")
+script = ExtResource("1")
 
 [node name="Help" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 1, 1 )
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture_normal = ExtResource( 2 )
-expand = true
+texture_normal = ExtResource("2")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Winners" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 1, 1 )
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture_normal = ExtResource( 3 )
-expand = true
+texture_normal = ExtResource("3")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="GPL" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 1, 1 )
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture_normal = ExtResource( 6 )
-expand = true
+texture_normal = ExtResource("6")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="MadeWithGodot" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 1, 1 )
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture_normal = ExtResource( 5 )
-expand = true
+texture_normal = ExtResource("5")
+ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Timer" type="Timer" parent="."]

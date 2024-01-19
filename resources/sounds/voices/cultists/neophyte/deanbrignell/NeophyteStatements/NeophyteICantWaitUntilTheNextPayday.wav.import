@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteICantWaitUntilTheNextPayday.wav-e3e3ab2264a5066367af4d8873c9336a.sample"
+type="AudioStreamWAV"
+uid="uid://qaigf450gwhc"
+path="res://.godot/imported/NeophyteICantWaitUntilTheNextPayday.wav-e3e3ab2264a5066367af4d8873c9336a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteICantWaitUntilTheNextPayday.wav"
-dest_files=[ "res://.import/NeophyteICantWaitUntilTheNextPayday.wav-e3e3ab2264a5066367af4d8873c9336a.sample" ]
+dest_files=["res://.godot/imported/NeophyteICantWaitUntilTheNextPayday.wav-e3e3ab2264a5066367af4d8873c9336a.sample"]
 
 [params]
 

@@ -5,25 +5,25 @@ signal sound_detected(source, interest)
 
 const WALL_NAMES := ["wall_xp", "wall_zp", "wall_xn", "wall_zn", "ceiling", "ground"]
 
-export var check_frame_interval := 10
-export var hearing_sensitivity := 5.0
+@export var check_frame_interval := 10
+@export var hearing_sensitivity := 5.0
 
 var sound_sources := []
 
 
 func _ready() -> void:
-	connect("body_entered", self, "on_body_entered")
-	connect("body_exited", self, "on_body_exited")
+	connect("body_entered", Callable(self, "on_body_entered"))
+	connect("body_exited", Callable(self, "on_body_exited"))
 	collision_mask = 1 << 1 | 1 << 6 | 1 << 9
 	collision_layer = 0
 
 
-func on_body_entered(body: Spatial) -> void:
+func on_body_entered(body: Node3D) -> void:
 	if !(body is Character or body is PickableItem or body is LargeObjectDropSound): return
 	if !sound_sources.has(body): sound_sources.append(body)
 
 
-func on_body_exited(body: Spatial) -> void:
+func on_body_exited(body: Node3D) -> void:
 	if sound_sources.has(body):
 		sound_sources.erase(body)
 
@@ -41,7 +41,7 @@ func check_for_sounds() -> void:
 		emit_signal("event", interest_level, object.global_transform.origin, object, self)
 
 
-func get_interest_level(source: Spatial) -> int:
+func get_interest_level(source: Node3D) -> int:
 	if !(source is Character or source is PickableItem or source is LargeObjectDropSound): return 0
 	if !source.noise_level: return 0
 	
@@ -57,12 +57,12 @@ func get_interest_level(source: Spatial) -> int:
 
 
 func get_walls_in_between(target_position : Vector3) -> int:
-	var shape := RayShape.new()
+	var shape := SeparationRayShape3D.new()
 	shape.length = global_transform.origin.distance_to(target_position)
 	
-	var shape_params := PhysicsShapeQueryParameters.new()
-	shape_params.transform = Transform(global_transform).looking_at(-to_local(target_position), Vector3.UP)
+	var shape_params := PhysicsShapeQueryParameters3D.new()
+	shape_params.transform = Transform3D(global_transform).looking_at(-to_local(target_position), Vector3.UP)
 	shape_params.collision_mask = 1 << 0
 	shape_params.set_shape(shape)
 	
-	return get_world().direct_space_state.intersect_shape(shape_params).size()
+	return get_world_3d().direct_space_state.intersect_shape(shape_params).size()

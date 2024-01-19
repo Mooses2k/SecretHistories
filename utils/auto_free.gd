@@ -1,5 +1,5 @@
 # Write your doc string for this file here
-extends Spatial
+extends Node3D
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ extends Spatial
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var should_auto_exclude := true
+@export var should_auto_exclude := true
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -21,7 +21,7 @@ export var should_auto_exclude := true
 
 func _ready() -> void:
 	if owner != null:
-		yield(owner, "ready")
+		await owner.ready
 	if should_auto_exclude:
 		hide()
 		queue_free()

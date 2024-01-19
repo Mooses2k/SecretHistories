@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/574077__valentinpetiteau__potion-drink-swallow.wav-bac998fb3ccecea02760981e9acce3e4.sample"
+type="AudioStreamWAV"
+uid="uid://cqljxcb35ctuk"
+path="res://.godot/imported/574077__valentinpetiteau__potion-drink-swallow.wav-bac998fb3ccecea02760981e9acce3e4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/bottles_and_drinking/574077__valentinpetiteau__potion-drink-swallow.wav"
-dest_files=[ "res://.import/574077__valentinpetiteau__potion-drink-swallow.wav-bac998fb3ccecea02760981e9acce3e4.sample" ]
+dest_files=["res://.godot/imported/574077__valentinpetiteau__potion-drink-swallow.wav-bac998fb3ccecea02760981e9acce3e4.sample"]
 
 [params]
 

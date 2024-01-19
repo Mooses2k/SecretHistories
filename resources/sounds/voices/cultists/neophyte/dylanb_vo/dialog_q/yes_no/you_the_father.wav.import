@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/you_the_father.wav-642318b76ef6bd121062a1a752814118.sample"
+type="AudioStreamWAV"
+uid="uid://cpyxhd2vp2vaj"
+path="res://.godot/imported/you_the_father.wav-642318b76ef6bd121062a1a752814118.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/you_the_father.wav"
-dest_files=[ "res://.import/you_the_father.wav-642318b76ef6bd121062a1a752814118.sample" ]
+dest_files=["res://.godot/imported/you_the_father.wav-642318b76ef6bd121062a1a752814118.sample"]
 
 [params]
 

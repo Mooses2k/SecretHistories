@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/blade_to_flesh.wav-b4196da1f30421e377668b7afee4e14c.sample"
+type="AudioStreamWAV"
+uid="uid://dahncr7g87rmw"
+path="res://.godot/imported/blade_to_flesh.wav-b4196da1f30421e377668b7afee4e14c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav"
-dest_files=[ "res://.import/blade_to_flesh.wav-b4196da1f30421e377668b7afee4e14c.sample" ]
+dest_files=["res://.godot/imported/blade_to_flesh.wav-b4196da1f30421e377668b7afee4e14c.sample"]
 
 [params]
 

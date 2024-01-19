@@ -35,18 +35,18 @@ const MASK_FULL_ROOM = 0b1111
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var existing_corridor_weight : float = 0.5
-export var already_walked_room_weight := 0.5
-export var existing_room_weight : float = 2.0
-export var room_edge_cost_multiplier : float = 1.5
+@export var existing_corridor_weight : float = 0.5
+@export var already_walked_room_weight := 0.5
+@export var existing_room_weight : float = 2.0
+@export var room_edge_cost_multiplier : float = 1.5
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-export var _path_graph_viz := NodePath()
+@export var _path_graph_viz := NodePath()
 # This is to help debugging only and is ignored outside of editor builds.
-export var _stop_at_corridor_count := -1
+@export var _stop_at_corridor_count := -1
 
-onready var _room_graph_viz := get_node_or_null(_path_graph_viz) as RoomGraphViz
+@onready var _room_graph_viz := get_node_or_null(_path_graph_viz) as RoomGraphViz
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -205,8 +205,8 @@ func _generate_corridor_until_first_door(
 		status = CorridorGenerationResults.GOAL,
 		door_room_index = -1
 	}
-	var path : PoolIntArray = astar.get_id_path(from_index, to_index)
-	if path.empty() or not (path.size() > 0 and path[0] == from_index and path[-1] == to_index):
+	var path : PackedInt64Array = astar.get_id_path(from_index, to_index)
+	if path.is_empty() or not (path.size() > 0 and path[0] == from_index and path[-1] == to_index):
 		if path.size() >= 2:
 			print("a: %s (%s) | b: %s (%s) | path[0]: %s | path[-1]: %s"%[
 					from_index, data.get_int_position_from_cell_index(from_index), 
@@ -300,7 +300,7 @@ func _add_door_direction(data : WorldData, cell : int, value : int):
 
 func _set_doorways_meta(data: WorldData, cells: Array, direction: int) -> bool:
 	var did_add_door := true
-	if cells.empty():
+	if cells.is_empty():
 		return false
 	
 	for cell in cells:

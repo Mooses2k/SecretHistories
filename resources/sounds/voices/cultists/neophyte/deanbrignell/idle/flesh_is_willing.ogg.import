@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/flesh_is_willing.ogg-f6eb5002e6f38ab7f1b3f0428ea6f954.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c26n4t0x2fiw3"
+path="res://.godot/imported/flesh_is_willing.ogg-f6eb5002e6f38ab7f1b3f0428ea6f954.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/flesh_is_willing.ogg"
-dest_files=[ "res://.import/flesh_is_willing.ogg-f6eb5002e6f38ab7f1b3f0428ea6f954.oggstr" ]
+dest_files=["res://.godot/imported/flesh_is_willing.ogg-f6eb5002e6f38ab7f1b3f0428ea6f954.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

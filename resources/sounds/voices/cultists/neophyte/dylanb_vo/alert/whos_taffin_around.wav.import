@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/whos_taffin_around.wav-3a3453fbedbba89609e3d529730e22d9.sample"
+type="AudioStreamWAV"
+uid="uid://cqk83t247vpfo"
+path="res://.godot/imported/whos_taffin_around.wav-3a3453fbedbba89609e3d529730e22d9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/whos_taffin_around.wav"
-dest_files=[ "res://.import/whos_taffin_around.wav-3a3453fbedbba89609e3d529730e22d9.sample" ]
+dest_files=["res://.godot/imported/whos_taffin_around.wav-3a3453fbedbba89609e3d529730e22d9.sample"]
 
 [params]
 

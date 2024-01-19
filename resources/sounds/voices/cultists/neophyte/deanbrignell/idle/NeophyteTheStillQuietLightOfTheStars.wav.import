@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheStillQuietLightOfTheStars.wav-088b7d1deb1a1219c9550a2a5f3bea94.sample"
+type="AudioStreamWAV"
+uid="uid://7ju11g7r7380"
+path="res://.godot/imported/NeophyteTheStillQuietLightOfTheStars.wav-088b7d1deb1a1219c9550a2a5f3bea94.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteTheStillQuietLightOfTheStars.wav"
-dest_files=[ "res://.import/NeophyteTheStillQuietLightOfTheStars.wav-088b7d1deb1a1219c9550a2a5f3bea94.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheStillQuietLightOfTheStars.wav-088b7d1deb1a1219c9550a2a5f3bea94.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/does_the_black_moon_howl.wav-90ba3a4d4c41cf24d98bce17aa01838c.sample"
+type="AudioStreamWAV"
+uid="uid://gts4maewuabi"
+path="res://.godot/imported/does_the_black_moon_howl.wav-90ba3a4d4c41cf24d98bce17aa01838c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/does_the_black_moon_howl.wav"
-dest_files=[ "res://.import/does_the_black_moon_howl.wav-90ba3a4d4c41cf24d98bce17aa01838c.sample" ]
+dest_files=["res://.godot/imported/does_the_black_moon_howl.wav-90ba3a4d4c41cf24d98bce17aa01838c.sample"]
 
 [params]
 

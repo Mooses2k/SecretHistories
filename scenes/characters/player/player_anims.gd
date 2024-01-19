@@ -17,17 +17,17 @@ enum HoldStates {
 }
 
 
-export var _cam_path : NodePath
+@export var _cam_path : NodePath
 
 var offhand_active = false
 var mainhand_active = false
 var is_on_ads = false
 
-onready var inventory = $"../Inventory"
-onready var arm_position = $"%MainCharOnlyArmsGameRig".translation
-onready var _camera : ShakeCamera = get_node(_cam_path) as Camera
-onready var animation_tree = $"%AnimationTree"
-onready var gun_cam = $"../FPSCamera/ViewportContainer/Viewport/GunCam"
+@onready var inventory = $"../Inventory"
+@onready var arm_position = %MainCharOnlyArmsGameRig.position
+@onready var _camera : ShakeCamera = get_node(_cam_path) as Camera3D
+@onready var animation_tree = %AnimationTree
+@onready var gun_cam = $"../FPSCamera/SubViewportContainer/SubViewport/GunCam"
 
 #signal inventory_changed
 ## Emitted to hide the HUD UI when player dies
@@ -37,9 +37,9 @@ onready var gun_cam = $"../FPSCamera/ViewportContainer/Viewport/GunCam"
 #signal unequip_offhand
 
 func _ready():
-	inventory.connect("inventory_changed", self, "_on_Inventory_inventory_changed")
-	inventory.connect("unequip_mainhand", self, "_on_Inventory_unequip_mainhand")
-	inventory.connect("unequip_offhand", self, "_on_Inventory_unequip_offhand")
+	inventory.connect("inventory_changed", Callable(self, "_on_Inventory_inventory_changed"))
+	inventory.connect("unequip_mainhand", Callable(self, "_on_Inventory_unequip_mainhand"))
+	inventory.connect("unequip_offhand", Callable(self, "_on_Inventory_unequip_offhand"))
 #	inventory.connect("equip_offhand", self, "_on_Inventory_equip_offhand")
 
 
@@ -181,8 +181,8 @@ func ads():
 	inventory.current_mainhand_equipment.ads_hold_rotation, 0.0
 )
 	operation_tween(
-	inventory.current_mainhand_equipment.hold_position, "translation", 
-	inventory.current_mainhand_equipment.hold_position.translation, 
+	inventory.current_mainhand_equipment.hold_position, "position", 
+	inventory.current_mainhand_equipment.hold_position.position, 
 	inventory.current_mainhand_equipment.ads_hold_position, 0.0
 )
 	if inventory.current_mainhand_equipment.item_size == 0:
@@ -212,8 +212,8 @@ func end_ads():
 	inventory.current_mainhand_equipment.ads_reset_rotation, 0.1
 )
 	operation_tween(
-	inventory.current_mainhand_equipment.hold_position, "translation", 
-	inventory.current_mainhand_equipment.hold_position.translation, 
+	inventory.current_mainhand_equipment.hold_position, "position", 
+	inventory.current_mainhand_equipment.hold_position.position, 
 	inventory.current_mainhand_equipment.ads_reset_position, 0.1
 )
 	
@@ -243,10 +243,10 @@ func reload_weapons():
 	
 	get_available_gun().animation_player.play("reload")
 	player_reload()
-	yield(get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3), "timeout")
+	await get_tree().create_timer(get_available_gun().animation_player.get_animation("reload").length - 0.3).timeout
 	if get_available_gun().item_size == 0:
 		inventory.equip_offhand_item()
-		yield(get_tree().create_timer(0.5), "timeout")
+		await get_tree().create_timer(0.5).timeout
 	check_player_animation()
 
 
@@ -265,41 +265,47 @@ func get_available_offhand_item() -> EquipmentItem:
 
 
 func operation_tween(object : Object, method, tweening_from, tweening_to, duration):
-	var tweener = Tween.new() as Tween
-	tweener.interpolate_property(object, method, tweening_from, tweening_to, duration, Tween.TRANS_LINEAR)
-	add_child(tweener)
-	tweener.start()
+	#var tweener = Tween.new() as Tween
+	#tweener.interpolate_property(object, method, tweening_from, tweening_to, duration, Tween.TRANS_LINEAR)
+	#add_child(tweener)
+	#tweener.start()
+	var tweener = get_tree().create_tween()
+	tweener.tween_property(object, method, tweening_to, duration)\
+	.from(tweening_from)\
+	.set_trans(Tween.TRANS_LINEAR)
 
-
+var ads_tween : Tween
 func adjust_arm(final_position, interpolation_value):
-	$"%ADSTween".interpolate_property($"%MainCharOnlyArmsGameRig", "translation", $"%MainCharOnlyArmsGameRig".translation, final_position, interpolation_value)
-	$"%ADSTween".start()
+	if is_instance_valid(ads_tween):
+		ads_tween.kill()
+	ads_tween = get_tree().create_tween()
+	ads_tween.tween_property(%MainCharOnlyArmsGameRig, "position", final_position, interpolation_value)
 
 
 func _on_Inventory_inventory_changed():
-	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+	%AnimationTree.set("parameters/MeleeSpeed/scale", 1)
 	print("Equipped new item")
-	yield(get_tree().create_timer(0.5), "timeout")
+	await get_tree().create_timer(0.5).timeout
 	check_player_animation()
 
 
 func switch_mainhand_item_animation():
-	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+	%AnimationTree.set("parameters/MeleeSpeed/scale", 1)
 	animation_tree.set("parameters/Hand_Transition/current",0)
 	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount",1)
 	animation_tree.set("parameters/Weapon_states/current",4)
 	
-	yield(get_tree().create_timer(0.5), "timeout")
+	await get_tree().create_timer(0.5).timeout
 	check_player_animation()
 
 
 func _on_Inventory_unequip_mainhand():
-	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+	%AnimationTree.set("parameters/MeleeSpeed/scale", 1)
 	animation_tree.set("parameters/Hand_Transition/current", 0)
 	animation_tree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 	animation_tree.set("parameters/Weapon_states/current", 4)
 
 
 func _on_Inventory_unequip_offhand():
-	$"%AnimationTree".set("parameters/MeleeSpeed/scale", 1)
+	%AnimationTree.set("parameters/MeleeSpeed/scale", 1)
 	animation_tree.set("parameters/OffHand_Weapon_States/current", 2)

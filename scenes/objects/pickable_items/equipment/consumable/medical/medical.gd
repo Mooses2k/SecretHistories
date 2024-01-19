@@ -7,14 +7,14 @@ extends ConsumableItem
 ### TODO: Eventually move the bag and box to containers
 
 
-export var heal_amount : int = 10   # Should probably be 10 for consumables & 1 for containers
-export var speed_boost : int = 0
+@export var heal_amount : int = 10   # Should probably be 10 for consumables & 1 for containers
+@export var speed_boost : int = 0
 
-export var time_to_use : int = 5
-onready var use_timer = $UseTime
+@export var time_to_use : int = 5
+@onready var use_timer = $UseTime
 
-export var max_charges_held : int = 1
-export var max_charges_usable_at_once = 1
+@export var max_charges_held : int = 1
+@export var max_charges_usable_at_once = 1
 var charges_held : int = 1
 var charges_used : int = 0
 

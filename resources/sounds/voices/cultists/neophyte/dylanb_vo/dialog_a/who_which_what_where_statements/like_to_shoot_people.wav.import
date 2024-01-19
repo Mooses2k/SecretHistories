@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/like_to_shoot_people.wav-c6221928963af32b1169417d4806c7f9.sample"
+type="AudioStreamWAV"
+uid="uid://mkqpvbfckqhm"
+path="res://.godot/imported/like_to_shoot_people.wav-c6221928963af32b1169417d4806c7f9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/like_to_shoot_people.wav"
-dest_files=[ "res://.import/like_to_shoot_people.wav-c6221928963af32b1169417d4806c7f9.sample" ]
+dest_files=["res://.godot/imported/like_to_shoot_people.wav-c6221928963af32b1169417d4806c7f9.sample"]
 
 [params]
 

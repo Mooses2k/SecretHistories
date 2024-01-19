@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/snakes2.wav-e3cd6e240232de1c472a0a48c62b2720.sample"
+type="AudioStreamWAV"
+uid="uid://bmix84s2s3x0o"
+path="res://.godot/imported/snakes2.wav-e3cd6e240232de1c472a0a48c62b2720.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/snake/snakes2.wav"
-dest_files=[ "res://.import/snakes2.wav-e3cd6e240232de1c472a0a48c62b2720.sample" ]
+dest_files=["res://.godot/imported/snakes2.wav-e3cd6e240232de1c472a0a48c62b2720.sample"]
 
 [params]
 

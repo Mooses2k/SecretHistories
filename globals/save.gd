@@ -11,8 +11,7 @@ func _ready():
 
 
 func load_data():
-	var file = File.new()
-	if not file.file_exists((SAVEFILE)):
+	if not FileAccess.file_exists((SAVEFILE)):
 		game_data = {
 			"fullscreen": true,
 			"vsync": true,
@@ -23,13 +22,12 @@ func load_data():
 			"voice_vol": 50,
 		}
 		save_data()
-	file.open(SAVEFILE, File.READ)
+	var file = FileAccess.open(SAVEFILE, FileAccess.READ)
 	game_data = file.get_var()
 	file.close()
 
 
 func save_data():
-	var file = File.new()
-	file.open(SAVEFILE, File.WRITE)
+	var file = FileAccess.open(SAVEFILE, FileAccess.WRITE)
 	file.store_var(game_data)
 	file.close()

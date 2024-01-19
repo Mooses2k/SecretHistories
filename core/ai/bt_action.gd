@@ -1,1 +1,3 @@
-class_name BTAction, "res://core/ai/phold_icons/action.svg" extends BTNode
+@icon("res://core/ai/phold_icons/action.svg")
+class_name BTAction
+extends BTNode

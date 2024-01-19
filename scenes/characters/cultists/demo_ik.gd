@@ -12,21 +12,21 @@ enum DemoState {
 	TURN_HEAD_ALLOW_MOVE
 }
 
-export var tween_duration = 5.0
+@export var tween_duration = 5.0
 
 var demo_state : int = DemoState.NONE
 var tween_value : float = 0.0
 var tween
 var last_level_switched_on = false
 
-onready var ik_look_target = $"%IKLookTarget"
-onready var always_on_skeleton_ik = $"%AlwaysOnSkeletonIK"
-onready var ik_base_target = $"%IKBaseTarget"
-onready var bt_root = $"../BTRoot"
+@onready var ik_look_target = %IKLookTarget
+@onready var always_on_skeleton_ik = %AlwaysOnSkeletonIK
+@onready var ik_base_target = %IKBaseTarget
+@onready var bt_root = $"../BTRoot"
 
 
 func _ready():
-	ik_look_target.set_as_toplevel(true)
+	ik_look_target.set_as_top_level(true)
 	update_ik_target(tween_value)
 
 
@@ -40,11 +40,11 @@ func _process(_delta: float) -> void:
 
 func update_ik_target(t : float):
 	if GameManager.game:   # True unless this is a test scene
-		var player = GameManager.game.player as Spatial
+		var player = GameManager.game.player as Node3D
 		if is_instance_valid(player):
-			var pos = player.global_translation
+			var pos = player.global_position
 			pos.y += 1.5
-			ik_look_target.global_translation = ik_base_target.global_translation.linear_interpolate(pos, t)
+			ik_look_target.global_position = ik_base_target.global_position.lerp(pos, t)
 
 
 func _unhandled_input(event):
@@ -58,7 +58,7 @@ func handle_demo_ik_state():
 		DemoState.NONE:
 			if is_instance_valid(bt_root):
 				bt_root.set_process(true)
-			if tween is SceneTreeTween:
+			if tween is Tween:
 				tween.kill()
 			tween = null
 			tween_value = 0.0
@@ -68,14 +68,14 @@ func handle_demo_ik_state():
 			always_on_skeleton_ik.interpolation =- 0.011
 		DemoState.ATTRACT_MODE:
 			# Attract cultists to player's position
-			(owner as Character).character_state.target_position = GameManager.game.player.global_translation
+			(owner as Character).character_state.target_position = GameManager.game.player.global_position
 		DemoState.STOPPED:
 			(owner as Character).character_state.move_direction = Vector3.ZERO
 			if is_instance_valid(bt_root):
 				# this no longer freezes cultists after recent Jan2024 rework of AI
 				bt_root.set_process(false)
 		DemoState.TURN_HEAD:
-			if tween is SceneTreeTween:
+			if tween is Tween:
 				tween.kill()
 			tween = get_tree().create_tween()
 			tween.tween_property(always_on_skeleton_ik, "interpolation", 1.0, tween_duration)
@@ -83,7 +83,7 @@ func handle_demo_ik_state():
 		DemoState.TURN_HEAD_ALLOW_MOVE:   # For final level, when have Shard
 			if is_instance_valid(bt_root):
 				bt_root.set_process(true)
-			if tween is SceneTreeTween:
+			if tween is Tween:
 				tween.kill()
 			tween = get_tree().create_tween()
 			tween.tween_property(always_on_skeleton_ik, "interpolation", 1.0, tween_duration)

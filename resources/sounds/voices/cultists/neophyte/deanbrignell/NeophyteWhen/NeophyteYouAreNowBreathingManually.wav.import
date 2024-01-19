@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYouAreNowBreathingManually.wav-edc139e42070b06c31b810fe1593844e.sample"
+type="AudioStreamWAV"
+uid="uid://daitupp7qrqfd"
+path="res://.godot/imported/NeophyteYouAreNowBreathingManually.wav-edc139e42070b06c31b810fe1593844e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhen/NeophyteYouAreNowBreathingManually.wav"
-dest_files=[ "res://.import/NeophyteYouAreNowBreathingManually.wav-edc139e42070b06c31b810fe1593844e.sample" ]
+dest_files=["res://.godot/imported/NeophyteYouAreNowBreathingManually.wav-edc139e42070b06c31b810fe1593844e.sample"]
 
 [params]
 

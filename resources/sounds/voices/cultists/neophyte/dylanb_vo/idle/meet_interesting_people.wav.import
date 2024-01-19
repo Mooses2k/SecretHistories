@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/meet_interesting_people.wav-d8c81bb255d2cb67baa6999d8dc7ccba.sample"
+type="AudioStreamWAV"
+uid="uid://chodcooceehfm"
+path="res://.godot/imported/meet_interesting_people.wav-d8c81bb255d2cb67baa6999d8dc7ccba.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/meet_interesting_people.wav"
-dest_files=[ "res://.import/meet_interesting_people.wav-d8c81bb255d2cb67baa6999d8dc7ccba.sample" ]
+dest_files=["res://.godot/imported/meet_interesting_people.wav-d8c81bb255d2cb67baa6999d8dc7ccba.sample"]
 
 [params]
 

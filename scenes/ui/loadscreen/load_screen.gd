@@ -7,9 +7,9 @@ var random_num
 var is_loading = true
 var clicked = false   # User clicked after Click to Continue shown, but loadscreen still present until timeout
 
-onready var color_rect = get_node("ColorRect")
-onready var label = get_node("Label")
-onready var quote = get_node("Holder/Quote")
+@onready var color_rect = get_node("ColorRect")
+@onready var label = get_node("Label")
+@onready var quote = get_node("Holder/Quote")
 
 
 func _input(event: InputEvent):
@@ -28,7 +28,7 @@ func _input(event: InputEvent):
 
 func _ready():
 #	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	LoadScene.connect("scene_loaded", self, "on_scene_loaded")
+	LoadScene.connect("scene_loaded", Callable(self, "on_scene_loaded"))
 
 	random_num_gen.randomize()
 	if GameManager.act > 4:

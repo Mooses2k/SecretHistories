@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYourLifeLeavesYou.wav-8045dd9a4345e3e67efe3ec76704e8c7.sample"
+type="AudioStreamWAV"
+uid="uid://8le7jkfd21ya"
+path="res://.godot/imported/NeophyteYourLifeLeavesYou.wav-8045dd9a4345e3e67efe3ec76704e8c7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteYourLifeLeavesYou.wav"
-dest_files=[ "res://.import/NeophyteYourLifeLeavesYou.wav-8045dd9a4345e3e67efe3ec76704e8c7.sample" ]
+dest_files=["res://.godot/imported/NeophyteYourLifeLeavesYou.wav-8045dd9a4345e3e67efe3ec76704e8c7.sample"]
 
 [params]
 

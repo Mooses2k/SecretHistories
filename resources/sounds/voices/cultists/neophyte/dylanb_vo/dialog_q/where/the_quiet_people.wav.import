@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/the_quiet_people.wav-42606ba462e25557397a77e9d00a940a.sample"
+type="AudioStreamWAV"
+uid="uid://dy4l3bf7oghgn"
+path="res://.godot/imported/the_quiet_people.wav-42606ba462e25557397a77e9d00a940a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/where/the_quiet_people.wav"
-dest_files=[ "res://.import/the_quiet_people.wav-42606ba462e25557397a77e9d00a940a.sample" ]
+dest_files=["res://.godot/imported/the_quiet_people.wav-42606ba462e25557397a77e9d00a940a.sample"]
 
 [params]
 

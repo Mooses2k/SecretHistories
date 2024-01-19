@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/queerness_surrounding_my_mind.wav-fc078f873a04652162e07c6eff49a076.sample"
+type="AudioStreamWAV"
+uid="uid://bcgjcbf2uda5y"
+path="res://.godot/imported/queerness_surrounding_my_mind.wav-fc078f873a04652162e07c6eff49a076.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/queerness_surrounding_my_mind.wav"
-dest_files=[ "res://.import/queerness_surrounding_my_mind.wav-fc078f873a04652162e07c6eff49a076.sample" ]
+dest_files=["res://.godot/imported/queerness_surrounding_my_mind.wav-fc078f873a04652162e07c6eff49a076.sample"]
 
 [params]
 

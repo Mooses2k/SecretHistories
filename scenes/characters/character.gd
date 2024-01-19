@@ -1,5 +1,5 @@
 class_name Character
-extends KinematicBody
+extends CharacterBody3D
 
 # TODO: This script is a dog's dinner - needs total redesign
 
@@ -11,25 +11,25 @@ signal player_landed()
 const PI_BY_FOUR = PI / 4
 
 var _alive : bool = true
-var _type_damage_multiplier : PoolByteArray
-export(Array, AttackTypes.Types) var immunities : Array
-export var max_health : int = 100
-onready var current_health : int = self.max_health
+var _type_damage_multiplier : PackedByteArray
+@export var immunities : Array # (Array, AttackTypes.Types)
+@export var max_health : int = 100
+@onready var current_health : int = self.max_health
 
-export var move_speed : float = 7.0
-export var acceleration : float = 32.0
-export var mass : float = 80.0
+@export var move_speed : float = 7.0
+@export var acceleration : float = 32.0
+@export var mass : float = 80.0
 
-onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
-export var _legcast : NodePath
+@onready var kick_timer = $Legs/KickTimer   # Later, this should replaced by animations
+@export var _legcast : NodePath
 
-export var kick_damage : int = 15   # 3 kicks for a cultist, 5 for a door to start with?
-export var kick_impulse : float = 7
-export var kick_max_speed : float = 10.0
-export(AttackTypes.Types) var kick_damage_type : int = 0
+@export var kick_damage : int = 15   # 3 kicks for a cultist, 5 for a door to start with?
+@export var kick_impulse : float = 7
+@export var kick_max_speed : float = 10.0
+@export var kick_damage_type : int = 0 # (AttackTypes.Types)
 #export(AttackTypes.Types) var damage_type : int = 0
 
-export var animation_tree_path : NodePath
+@export var animation_tree_path : NodePath
 
 enum ItemSelection {
 	ITEM_MAINHAND,
@@ -92,18 +92,18 @@ var current_mainhand_item_animation = HoldStates.MELEE_ITEM
 #	}
 #}
 
-export var gravity : float = 10.0
-export(float, 0.05, 1.0) var crouch_rate = 0.08
-export(float, 0.1, 1.0) var crawl_rate = 0.5
-export var move_drag : float = 0.2
+@export var gravity : float = 10.0
+@export var crouch_rate = 0.08 # (float, 0.05, 1.0)
+@export var crawl_rate = 0.5 # (float, 0.1, 1.0)
+@export var move_drag : float = 0.2
 #export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
-export var interact_distance : float = 0.75
+@export var interact_distance : float = 0.75
 
 var state = State.STATE_WALKING
 
 var light_level : float = 0.0
 
-var velocity : Vector3 = Vector3.ZERO
+#var velocity : Vector3 = Vector3.ZERO
 var _current_velocity : Vector3 = Vector3.ZERO
 
 var stamina := 600.0
@@ -121,10 +121,10 @@ var grab_press_length : float = 0.0
 var wanna_grab : bool = false
 var is_grabbing : bool = false
 var interaction_handled : bool = false
-var grab_object : RigidBody = null
+var grab_object : RigidBody3D = null
 var grab_relative_object_position : Vector3
 var grab_distance : float = 0
-var drag_object : RigidBody = null
+var drag_object : RigidBody3D = null
 #var current_object = null
 
 var wants_to_drop = false
@@ -135,8 +135,8 @@ var clamber_destination : Vector3 = Vector3.ZERO
 var _clamber_m = null
 var clamber_target
 var is_clambering : bool = false
-var clamberable_obj # : RigidBody      # Commented to allow static bodies too
-var is_clamberable # : RigidBody = null   # Commented to allow static bodies too
+var clamberable_obj # : RigidBody3D      # Commented to allow static bodies too
+var is_clamberable # : RigidBody3D = null   # Commented to allow static bodies too
 var default_clamber_speed : float = 0.1   # Added to allow encumbrance to slow clambering.
 
 var is_player_moving : bool = false
@@ -145,7 +145,7 @@ var is_to_move : bool = true
 var move_dir = Vector3()
 var do_sprint : bool = false
 
-export var jump_force : float = 3.5
+@export var jump_force : float = 3.5
 var grounded = false
 var do_jump : bool = false
 var is_jumping : bool = false
@@ -156,33 +156,33 @@ var noise_level : float = 0   # Noise detectable by characters; is a float for s
 
 var is_reloading = false
 
-onready var character_state := CharacterState.new(self)
+@onready var character_state := CharacterState.new(self)
 
-onready var skeleton = $"%Skeleton"
-onready var inventory = $Inventory
-onready var mainhand_equipment_root = $"%MainHandEquipmentRoot"
-onready var offhand_equipment_root = $"%OffHandEquipmentRoot"
-onready var belt_position = $"%BeltPosition"
+@onready var skeleton = %Skeleton3D
+@onready var inventory = $Inventory
+@onready var mainhand_equipment_root = %MainHandEquipmentRoot
+@onready var offhand_equipment_root = %OffHandEquipmentRoot
+@onready var belt_position = %BeltPosition
 
-onready var drop_position_node = $Body/DropPosition as Spatial
-onready var throw_position_node = $"%ThrowPosition" as Spatial
+@onready var drop_position_node = $Body/DropPosition as Node3D
+@onready var throw_position_node = %ThrowPosition as Node3D
 
-onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
-onready var animation_tree = $"%AnimationTree"
-onready var additional_animations  = $AdditionalAnimations
+@onready var character_body = $Body   # Don't name this just plain 'body' unless you want bugs with collisions
+@onready var animation_tree = %AnimationTree
+@onready var additional_animations  = $AdditionalAnimations
 
-onready var _camera = get_node("FPSCamera")
-onready var _collider = get_node("CollisionShape")
-onready var _crouch_collider = get_node("CollisionShape2")
-onready var _surface_detector = get_node("SurfaceDetector")
-onready var _sound_emitter = get_node("SoundEmitter")
-onready var _audio_player = get_node("Audio")
-onready var _character_hitbox = get_node("CanStandChecker")
-onready var _ground_checker = $"%GroundChecker"
-onready var legcast : RayCast = get_node(_legcast) as RayCast
-onready var _speech_player = get_node("Audio/Speech")
+@onready var _camera = get_node("FPSCamera")
+@onready var _collider = get_node("CollisionShape3D")
+@onready var _crouch_collider = get_node("CollisionShape2")
+@onready var _surface_detector = get_node("SurfaceDetector")
+@onready var _sound_emitter = get_node("SoundEmitter")
+@onready var _audio_player = get_node("Audio")
+@onready var _character_hitbox = get_node("CanStandChecker")
+@onready var _ground_checker = %GroundChecker
+@onready var legcast : RayCast3D = get_node(_legcast) as RayCast3D
+@onready var _speech_player = get_node("Audio/Speech")
 
-onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
+@onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 
 
 func _ready():
@@ -192,7 +192,7 @@ func _ready():
 	for immunity in self.immunities:
 		_type_damage_multiplier[immunity] = 0
 	
-	_clamber_m = ClamberManager.new(self, _camera, get_world())
+	_clamber_m = ClamberManager.new(self, _camera, get_world_3d())
 	equipment_orig_pos = mainhand_equipment_root.transform.origin.y
 
 
@@ -205,7 +205,7 @@ func _physics_process(delta : float):
 		check_current_item_animation()
 	can_stand = true
 	for body in _character_hitbox.get_overlapping_bodies():
-		if body is RigidBody:
+		if body is RigidBody3D:
 			can_stand = false
 	
 	interaction_handled = false
@@ -264,7 +264,7 @@ func _physics_process(delta : float):
 			if d.length() < 0.1:
 				is_clambering = false
 				global_transform.origin = clamber_destination
-				if clamberable_obj and clamberable_obj is RigidBody:   # Altered to allow statics
+				if clamberable_obj and clamberable_obj is RigidBody3D:   # Altered to allow statics
 					clamberable_obj.mode = 0
 					
 				if is_crouching:
@@ -299,8 +299,8 @@ func kick():
 			$"Audio/Movement".stream = item_drop_sound_flesh
 			$"Audio/Movement".play()
 		
-		elif (kick_object is RigidBody or kick_object.is_in_group("IGNITE")):
-			if kick_object is Area:
+		elif (kick_object is RigidBody3D or kick_object.is_in_group("IGNITE")):
+			if kick_object is Area3D:
 				kick_object = kick_object.get_parent()   # You just kicked the IGNITE area
 #			print(kick_object.get_class())
 			var actual_kick_impulse = min(kick_impulse, kick_object.mass * kick_max_speed)
@@ -333,7 +333,7 @@ func damage(value : int, type : int, on_hitbox : Hitbox):
 #				self.queue_free()
 				skeleton.physical_bones_start_simulation()   # This ragdolls
 				if is_instance_valid($Audio/Speech):
-					$Audio/Speech.unit_db = -80
+					$Audio/Speech.volume_db = -80
 					$Audio/Speech.stop()
 				# This is to make the infinite spawner on DLvl -5 work
 				# If in the future, they can somehow come back alive, change this or readd them to the group
@@ -419,11 +419,14 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 	grounded = is_on_floor() or _ground_checker.is_colliding()
 	
 	if is_crouching and is_jumping:
-		velocity = move_and_slide((velocity) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, true)
+		move_and_slide()
+	#velocity = move_and_slide((velocity) + get_platform_velocity(),
+			#Vector3.UP, true, 4, PI / 4, true)
 	else:
-		velocity = move_and_slide((velocity * speed_mod) + get_floor_velocity(),
-				Vector3.UP, true, 4, PI / 4, true)
+		velocity *= speed_mod
+		move_and_slide()
+		#velocity = move_and_slide((velocity * speed_mod) + get_platform_velocity(),
+				#Vector3.UP, true, 4, PI / 4, true)
 	
 	if move_dir == Vector3.ZERO:
 		is_player_moving = false
@@ -459,7 +462,7 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		if c != Vector3.ZERO:
 			if is_clamberable:
 				clamberable_obj = is_clamberable
-				if clamberable_obj is RigidBody:   # To allow static objects
+				if clamberable_obj is RigidBody3D:   # To allow static objects
 					clamberable_obj.mode = 1
 			clamber_destination = c
 			state = State.STATE_CLAMBERING_RISE

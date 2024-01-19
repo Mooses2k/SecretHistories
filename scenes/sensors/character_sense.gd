@@ -1,4 +1,4 @@
-tool class_name CharacterSense extends Area
+tool class_name CharacterSense extends Area3D
 
 
 signal event(interest, position, object, emitter)

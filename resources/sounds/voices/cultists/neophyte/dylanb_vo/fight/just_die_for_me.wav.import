@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/just_die_for_me.wav-a1fb83c65265ed19fef72c41114b317c.sample"
+type="AudioStreamWAV"
+uid="uid://bloit042qa4d1"
+path="res://.godot/imported/just_die_for_me.wav-a1fb83c65265ed19fef72c41114b317c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/just_die_for_me.wav"
-dest_files=[ "res://.import/just_die_for_me.wav-a1fb83c65265ed19fef72c41114b317c.sample" ]
+dest_files=["res://.godot/imported/just_die_for_me.wav-a1fb83c65265ed19fef72c41114b317c.sample"]
 
 [params]
 

@@ -51,11 +51,11 @@ enum OriginalPurpose {
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var type := OriginalPurpose.EMPTY
-export var rect2 := Rect2()
-export var cell_indexes: Array
-export var polygons: Array
-export var has_pillars := false
+@export var type := OriginalPurpose.EMPTY
+@export var rect2 := Rect2i()
+@export var cell_indexes: Array
+@export var polygons: Array
+@export var has_pillars := false
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -65,7 +65,7 @@ export var has_pillars := false
 #	WorldData.Direction.WEST: [59,60],
 #}
 # This means that on cell indexes 57 and 87 there is a door facing NORTH
-export var _doorways: Dictionary
+@export var _doorways: Dictionary
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -190,7 +190,7 @@ func get_corners_data() -> CornerData:
 
 ### -----------------------------------------------------------------------------------------------
 
-class CornerData extends Reference:
+class CornerData extends RefCounted:
 	const FACING_DIRECTIONS := {
 		CORNER_TOP_LEFT: Vector2(-1, -1),
 		CORNER_TOP_RIGHT: Vector2(1, -1),

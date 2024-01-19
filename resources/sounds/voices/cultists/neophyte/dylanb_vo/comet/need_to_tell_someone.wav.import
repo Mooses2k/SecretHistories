@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/need_to_tell_someone.wav-7092f1cb091a692c3c7b07eaf91541f1.sample"
+type="AudioStreamWAV"
+uid="uid://dp1et22xk50wr"
+path="res://.godot/imported/need_to_tell_someone.wav-7092f1cb091a692c3c7b07eaf91541f1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/comet/need_to_tell_someone.wav"
-dest_files=[ "res://.import/need_to_tell_someone.wav-7092f1cb091a692c3c7b07eaf91541f1.sample" ]
+dest_files=["res://.godot/imported/need_to_tell_someone.wav-7092f1cb091a692c3c7b07eaf91541f1.sample"]
 
 [params]
 

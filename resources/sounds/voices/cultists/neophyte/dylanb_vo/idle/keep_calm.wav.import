@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/keep_calm.wav-f54d94718630c52c42fbf8f58609d2ed.sample"
+type="AudioStreamWAV"
+uid="uid://bvo42r1wcs2hd"
+path="res://.godot/imported/keep_calm.wav-f54d94718630c52c42fbf8f58609d2ed.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/keep_calm.wav"
-dest_files=[ "res://.import/keep_calm.wav-f54d94718630c52c42fbf8f58609d2ed.sample" ]
+dest_files=["res://.godot/imported/keep_calm.wav-f54d94718630c52c42fbf8f58609d2ed.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYoullBeFlungApartYoullSee.wav-fc93d29f0e887acb8cbe8152830bd34e.sample"
+type="AudioStreamWAV"
+uid="uid://bl8v5u8ihvsfp"
+path="res://.godot/imported/NeophyteYoullBeFlungApartYoullSee.wav-fc93d29f0e887acb8cbe8152830bd34e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteYoullBeFlungApartYoullSee.wav"
-dest_files=[ "res://.import/NeophyteYoullBeFlungApartYoullSee.wav-fc93d29f0e887acb8cbe8152830bd34e.sample" ]
+dest_files=["res://.godot/imported/NeophyteYoullBeFlungApartYoullSee.wav-fc93d29f0e887acb8cbe8152830bd34e.sample"]
 
 [params]
 

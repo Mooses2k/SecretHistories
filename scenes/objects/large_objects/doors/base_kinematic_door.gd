@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 class_name BaseKinematicDoor
 
 #
@@ -16,16 +16,16 @@ enum DoorState {
 	BROKEN
 }
 
-export var health : float = 75.0
+@export var health : float = 75.0
 
 var broken_door_scene : PackedScene = preload("res://scenes/objects/large_objects/doors/base_broken_door.tscn")
 
 var navigation_areas : Array
-var door_state : int = DoorState.CLOSED setget set_door_state
+var door_state : int = DoorState.CLOSED: set = set_door_state
 
 var door_move_time : float = 0.5
-var door_open_angle : float = deg2rad(100)
-var door_close_threshold : float = deg2rad(5)
+var door_open_angle : float = deg_to_rad(100)
+var door_close_threshold : float = deg_to_rad(5)
 var door_speed : float = door_open_angle/door_move_time
 var door_auto_close_speed : float = 0.05*door_speed
 var door_auto_close_delay_min : float = 25.0
@@ -34,22 +34,23 @@ var door_should_move : float = false
 var door_stuck_on_close_probability = 0.01   # TODO make this optional in settings menu
 var time_to_auto_close = 0.0
 
-onready var door_body = $"%DoorBody"
-onready var door_hinge_z_axis = $"%DoorHingeZAxis"
-onready var open_block_detector = $"%OpenBlockDetector"
-onready var close_block_detector = $"%CloseBlockDetector"
-onready var doorway_gaps_filler = $"%DoorwayGapsFiller"
-onready var npc_detector = $"%NpcDetector"
-onready var npc_check_timer: Timer = $NpcCheckTimer
-onready var broken_door_origin: Spatial = $"%BrokenDoorOrigin"
-onready var navigation: Navigation = $Navigation
+@onready var door_body = %DoorBody
+@onready var door_hinge_z_axis = %DoorHingeZAxis
+@onready var open_block_detector = %OpenBlockDetector
+@onready var close_block_detector = %CloseBlockDetector
+@onready var doorway_gaps_filler = %DoorwayGapsFiller
+@onready var npc_detector = %NpcDetector
+@onready var npc_check_timer: Timer = $NpcCheckTimer
+@onready var broken_door_origin: Node3D = %BrokenDoorOrigin
+@onready var navigation_obstacle_3d : NavigationObstacle3D = $NavigationObstacle3D
+#@onready var navigation: Navigation = $Navigation
 
-onready var door_open_sound : AudioStreamPlayer3D = $Sounds/DoorOpen
-onready var door_close_sound : AudioStreamPlayer3D = $Sounds/DoorClose
-onready var door_shake_sound : AudioStreamPlayer3D = $Sounds/DoorShakeSound
-onready var door_kick_ineffective_sound : AudioStreamPlayer3D = $Sounds/DoorKickIneffectiveSound
-onready var door_kick_effective_sound : AudioStreamPlayer3D = $Sounds/DoorKickEffectiveSound
-onready var door_break_sound : AudioStreamPlayer3D = $Sounds/DoorBreakSound
+@onready var door_open_sound : AudioStreamPlayer3D = $Sounds/DoorOpen
+@onready var door_close_sound : AudioStreamPlayer3D = $Sounds/DoorClose
+@onready var door_shake_sound : AudioStreamPlayer3D = $Sounds/DoorShakeSound
+@onready var door_kick_ineffective_sound : AudioStreamPlayer3D = $Sounds/DoorKickIneffectiveSound
+@onready var door_kick_effective_sound : AudioStreamPlayer3D = $Sounds/DoorKickEffectiveSound
+@onready var door_break_sound : AudioStreamPlayer3D = $Sounds/DoorBreakSound
 
 
 func _physics_process(delta):
@@ -102,7 +103,7 @@ func set_door_state(value : int):
 
 
 func reset_auto_close_timer():
-	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)
+	time_to_auto_close = randf_range(door_auto_close_delay_min, door_auto_close_delay_max)
 
 
 func break_door(position, impulse, damage):
@@ -113,9 +114,9 @@ func break_door(position, impulse, damage):
 	door_hinge_z_axis.queue_free()
 	npc_detector.queue_free()
 	npc_check_timer.queue_free()
-	navigation.queue_free()
+	navigation_obstacle_3d.queue_free()
 	
-	var broken_door_instance : Spatial = broken_door_scene.instance()
+	var broken_door_instance : Node3D = broken_door_scene.instance()
 	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
 	add_child(broken_door_instance)
 	broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)

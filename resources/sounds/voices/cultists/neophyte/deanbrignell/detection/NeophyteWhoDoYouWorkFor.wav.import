@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhoDoYouWorkFor.wav-e0fdd9ec70697b6d42f6332eaec16130.sample"
+type="AudioStreamWAV"
+uid="uid://caaav0m6sa25o"
+path="res://.godot/imported/NeophyteWhoDoYouWorkFor.wav-e0fdd9ec70697b6d42f6332eaec16130.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteWhoDoYouWorkFor.wav"
-dest_files=[ "res://.import/NeophyteWhoDoYouWorkFor.wav-e0fdd9ec70697b6d42f6332eaec16130.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhoDoYouWorkFor.wav-e0fdd9ec70697b6d42f6332eaec16130.sample"]
 
 [params]
 

@@ -28,120 +28,120 @@
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 50, 50 )
 
-[sub_resource type="ConcavePolygonShape" id=2]
-data = PoolVector3Array( 25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25 )
+[sub_resource type="ConcavePolygonShape3D" id=2]
+data = PackedVector3Array( 25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25 )
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="BoxMesh" id=3]
 size = Vector3( 2, 1, 2 )
 
-[sub_resource type="ConvexPolygonShape" id=7]
-points = PoolVector3Array( 0.954305, 0.5, 0.954305, -0.985089, -0.5, -0.985089, -0.985089, -0.5, 0.985089, 0.985089, -0.5, -0.985089, -0.954305, 0.5, -0.954305, 0.985089, -0.5, 0.985089, -0.954305, 0.5, 0.954305, 0.954305, 0.5, -0.954305 )
+[sub_resource type="ConvexPolygonShape3D" id=7]
+points = PackedVector3Array( 0.954305, 0.5, 0.954305, -0.985089, -0.5, -0.985089, -0.985089, -0.5, 0.985089, 0.985089, -0.5, -0.985089, -0.954305, 0.5, -0.954305, 0.985089, -0.5, 0.985089, -0.954305, 0.5, 0.954305, 0.954305, 0.5, -0.954305 )
 
-[sub_resource type="ProceduralSky" id=6]
+[sub_resource type="Sky" id=6]
 
 [sub_resource type="Environment" id=5]
 background_mode = 2
 background_sky = SubResource( 6 )
 background_energy = 0.05
 
-[node name="TestWorld" type="Spatial"]
+[node name="TestWorld" type="Node3D"]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource( 1 )
 
-[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
 
-[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource( 2 )
 
 [node name="Door" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0252524, -1.79481 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0252524, -1.79481 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762986, 3.9354 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.762986, 3.9354 )
 
 [node name="Cultist" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67079, -0.0378679, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.67079, -0.0378679, 0 )
 _legcast = NodePath("")
 
 [node name="TableRoundMedieval" parent="." instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.46256, 0.665421, -2.23561 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.46256, 0.665421, -2.23561 )
 
-[node name="Bookcase" type="RigidBody" parent="." groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.59865, 1.65813, 3.77069 )
+[node name="Bookcase" type="RigidBody3D" parent="." groups=["CLAMBERABLE"]]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.59865, 1.65813, 3.77069 )
 mass = 100.0
 
-[node name="MeshInstance" type="MeshInstance" parent="Bookcase"]
-transform = Transform( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, -0.869383, 0 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bookcase"]
+transform = Transform3D( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, -0.869383, 0 )
 mesh = SubResource( 3 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Bookcase"]
-transform = Transform( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, -0.869383, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bookcase"]
+transform = Transform3D( 0.310026, 0, 0, 0, 1.57576, 0, 0, 0, 1, 0, -0.869383, 0 )
 shape = SubResource( 7 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0 )
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0 )
 light_energy = 0.344
 
 [node name="DarkLantern" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0335044, -0.0744317 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0335044, -0.0744317 )
 
 [node name="BullseyeLantern" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00540176, -0.0626888 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00540176, -0.0626888 )
 
 [node name="CavalrySabre" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.396395, 0.324721, 0.657561 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.396395, 0.324721, 0.657561 )
 
 [node name="Candelabra" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0317, 0.426447, 0.07644 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0317, 0.426447, 0.07644 )
 
 [node name="Crowbar" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.487249, 1.78328 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00422263, 0.487249, 1.78328 )
 
 [node name="Dagger" parent="." instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57244, 0.314143, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57244, 0.314143, 0 )
 
 [node name="Halberd" parent="." instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63022, 1.27144, 0.00388288 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63022, 1.27144, 0.00388288 )
 
 [node name="OldKnife" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.470416, 1.28765 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.470416, 1.28765 )
 
 [node name="Pitchfork" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68504, 0.801997, 1.3485 )
 
 [node name="khyber_pass_martini" parent="." instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125584, -0.0662795 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0125584, -0.0662795 )
 
 [node name="Sarcophagus" parent="." instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.80584 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7.80584 )
 
 [node name="Sarcophagus2" parent="." instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.65914 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.65914 )
 current_lid = 2
 
 [node name="Webley revolver" parent="." instance=ExtResource( 16 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0288613, -0.0769493 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0288613, -0.0769493 )
 
 [node name="Shotgun_sawed_item" parent="." instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0290546, -0.101385 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0290546, -0.101385 )
 
 [node name="ShotgunItem" parent="." instance=ExtResource( 18 )]
-transform = Transform( 0.967347, -0.200553, -0.154979, 0.204731, 0.978753, 0.0113183, 0.149416, -0.0426778, 0.987853, -0.00463274, 0.040694, -0.0993858 )
+transform = Transform3D( 0.967347, -0.200553, -0.154979, 0.204731, 0.978753, 0.0113183, 0.149416, -0.0426778, 0.987853, -0.00463274, 0.040694, -0.0993858 )
 
 [node name="Grenade" parent="." instance=ExtResource( 20 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3765, 0.679409, 3.13212 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3765, 0.679409, 3.13212 )
 
 [node name="Dynamite" parent="." instance=ExtResource( 19 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5429, 0.42392, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5429, 0.42392, 0 )
 
 [node name="Torch" parent="." instance=ExtResource( 21 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72904, 0.639007, -3.17716 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72904, 0.639007, -3.17716 )
 
 [node name="FloorCandelabraUnlit" parent="." instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9974, 1.09599, 1.39967 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9974, 1.09599, 1.39967 )
 collision_layer = 512
 collision_mask = 3

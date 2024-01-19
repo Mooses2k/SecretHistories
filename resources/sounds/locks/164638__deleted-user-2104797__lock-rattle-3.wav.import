@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/164638__deleted-user-2104797__lock-rattle-3.wav-35346583b5cc2181b96a9a89bc98acdf.sample"
+type="AudioStreamWAV"
+uid="uid://cknruf7esnief"
+path="res://.godot/imported/164638__deleted-user-2104797__lock-rattle-3.wav-35346583b5cc2181b96a9a89bc98acdf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/locks/164638__deleted-user-2104797__lock-rattle-3.wav"
-dest_files=[ "res://.import/164638__deleted-user-2104797__lock-rattle-3.wav-35346583b5cc2181b96a9a89bc98acdf.sample" ]
+dest_files=["res://.godot/imported/164638__deleted-user-2104797__lock-rattle-3.wav-35346583b5cc2181b96a9a89bc98acdf.sample"]
 
 [params]
 

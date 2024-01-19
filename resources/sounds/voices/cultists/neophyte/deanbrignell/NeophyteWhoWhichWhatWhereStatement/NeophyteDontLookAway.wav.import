@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDontLookAway.wav-990cbe1f6a04994d27665c0a1f8d7813.sample"
+type="AudioStreamWAV"
+uid="uid://ddmwedd4l0spu"
+path="res://.godot/imported/NeophyteDontLookAway.wav-990cbe1f6a04994d27665c0a1f8d7813.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteDontLookAway.wav"
-dest_files=[ "res://.import/NeophyteDontLookAway.wav-990cbe1f6a04994d27665c0a1f8d7813.sample" ]
+dest_files=["res://.godot/imported/NeophyteDontLookAway.wav-990cbe1f6a04994d27665c0a1f8d7813.sample"]
 
 [params]
 

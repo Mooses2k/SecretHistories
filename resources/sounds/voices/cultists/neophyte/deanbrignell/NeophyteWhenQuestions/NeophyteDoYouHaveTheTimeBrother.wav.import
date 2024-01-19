@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDoYouHaveTheTimeBrother.wav-21ef3c3416df7bf3cd39fa01db06c3ac.sample"
+type="AudioStreamWAV"
+uid="uid://ekvad7ntyn8o"
+path="res://.godot/imported/NeophyteDoYouHaveTheTimeBrother.wav-21ef3c3416df7bf3cd39fa01db06c3ac.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhenQuestions/NeophyteDoYouHaveTheTimeBrother.wav"
-dest_files=[ "res://.import/NeophyteDoYouHaveTheTimeBrother.wav-21ef3c3416df7bf3cd39fa01db06c3ac.sample" ]
+dest_files=["res://.godot/imported/NeophyteDoYouHaveTheTimeBrother.wav-21ef3c3416df7bf3cd39fa01db06c3ac.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteSeeTheWorldMeetInterestingPeople.wav-f2025de9f72ce31bd6f658af23dff8c3.sample"
+type="AudioStreamWAV"
+uid="uid://bibw8mi5crlbc"
+path="res://.godot/imported/NeophyteSeeTheWorldMeetInterestingPeople.wav-f2025de9f72ce31bd6f658af23dff8c3.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteSeeTheWorldMeetInterestingPeople.wav"
-dest_files=[ "res://.import/NeophyteSeeTheWorldMeetInterestingPeople.wav-f2025de9f72ce31bd6f658af23dff8c3.sample" ]
+dest_files=["res://.godot/imported/NeophyteSeeTheWorldMeetInterestingPeople.wav-f2025de9f72ce31bd6f658af23dff8c3.sample"]
 
 [params]
 

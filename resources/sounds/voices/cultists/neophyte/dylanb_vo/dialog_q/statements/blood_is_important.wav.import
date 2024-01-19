@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/blood_is_important.wav-5ed5e6c5369ea86efed57c1286b4c6d1.sample"
+type="AudioStreamWAV"
+uid="uid://dnsci3l1b02dq"
+path="res://.godot/imported/blood_is_important.wav-5ed5e6c5369ea86efed57c1286b4c6d1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/blood_is_important.wav"
-dest_files=[ "res://.import/blood_is_important.wav-5ed5e6c5369ea86efed57c1286b4c6d1.sample" ]
+dest_files=["res://.godot/imported/blood_is_important.wav-5ed5e6c5369ea86efed57c1286b4c6d1.sample"]
 
 [params]
 

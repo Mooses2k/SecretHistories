@@ -1,8 +1,8 @@
 class_name ParticleInstanceLayered
-extends Particles
+extends GPUParticles3D
 
 
-onready var parent = get_owner()
+@onready var parent = get_owner()
 
 
 # Tracking the object's state in order to prevent clipping into walls when equipped

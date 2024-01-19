@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhydItHadToBeSnakes.wav-8209575bf82ceeb71462b1f1b517884d.sample"
+type="AudioStreamWAV"
+uid="uid://d0kdrvbrq3p30"
+path="res://.godot/imported/NeophyteWhydItHadToBeSnakes.wav-8209575bf82ceeb71462b1f1b517884d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/snake/NeophyteWhydItHadToBeSnakes.wav"
-dest_files=[ "res://.import/NeophyteWhydItHadToBeSnakes.wav-8209575bf82ceeb71462b1f1b517884d.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhydItHadToBeSnakes.wav-8209575bf82ceeb71462b1f1b517884d.sample"]
 
 [params]
 

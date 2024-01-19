@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_two_men_look_up_at_a_star_filled_sky.ogg-e297a54944cf42c39127663bf34ecb38.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://db8fkx3rra5kh"
+path="res://.godot/imported/neophyte_two_men_look_up_at_a_star_filled_sky.ogg-e297a54944cf42c39127663bf34ecb38.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/two_men_look_up/neophyte_two_men_look_up_at_a_star_filled_sky.ogg"
-dest_files=[ "res://.import/neophyte_two_men_look_up_at_a_star_filled_sky.ogg-e297a54944cf42c39127663bf34ecb38.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_two_men_look_up_at_a_star_filled_sky.ogg-e297a54944cf42c39127663bf34ecb38.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

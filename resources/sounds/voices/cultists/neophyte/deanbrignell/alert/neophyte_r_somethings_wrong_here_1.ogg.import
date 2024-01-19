@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_r_somethings_wrong_here_1.ogg-976723ba1b2e1bffc25d8273f57542ed.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://hbsfijm0e0gn"
+path="res://.godot/imported/neophyte_r_somethings_wrong_here_1.ogg-976723ba1b2e1bffc25d8273f57542ed.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/neophyte_r_somethings_wrong_here_1.ogg"
-dest_files=[ "res://.import/neophyte_r_somethings_wrong_here_1.ogg-976723ba1b2e1bffc25d8273f57542ed.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_r_somethings_wrong_here_1.ogg-976723ba1b2e1bffc25d8273f57542ed.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

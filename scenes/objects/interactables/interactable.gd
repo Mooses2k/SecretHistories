@@ -1,5 +1,5 @@
 class_name Interactable
-extends Area
+extends Area3D
 
 
 signal character_interacted(character)

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheStarsAreJustAboutRightWouldYouSay.wav-bd89426f41bbb69e6663a6409cf69df2.sample"
+type="AudioStreamWAV"
+uid="uid://jhqo0ysw840n"
+path="res://.godot/imported/NeophyteTheStarsAreJustAboutRightWouldYouSay.wav-bd89426f41bbb69e6663a6409cf69df2.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhenQuestions/NeophyteTheStarsAreJustAboutRightWouldYouSay.wav"
-dest_files=[ "res://.import/NeophyteTheStarsAreJustAboutRightWouldYouSay.wav-bd89426f41bbb69e6663a6409cf69df2.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheStarsAreJustAboutRightWouldYouSay.wav-bd89426f41bbb69e6663a6409cf69df2.sample"]
 
 [params]
 

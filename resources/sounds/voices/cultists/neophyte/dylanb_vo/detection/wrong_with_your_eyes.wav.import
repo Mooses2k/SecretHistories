@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/wrong_with_your_eyes.wav-b9fd3c572f334bd84187d189216364d7.sample"
+type="AudioStreamWAV"
+uid="uid://bg5g2bhy0qd8u"
+path="res://.godot/imported/wrong_with_your_eyes.wav-b9fd3c572f334bd84187d189216364d7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/wrong_with_your_eyes.wav"
-dest_files=[ "res://.import/wrong_with_your_eyes.wav-b9fd3c572f334bd84187d189216364d7.sample" ]
+dest_files=["res://.godot/imported/wrong_with_your_eyes.wav-b9fd3c572f334bd84187d189216364d7.sample"]
 
 [params]
 

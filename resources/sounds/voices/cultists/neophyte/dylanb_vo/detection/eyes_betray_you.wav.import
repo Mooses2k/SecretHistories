@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/eyes_betray_you.wav-051557dddfc78a533204dc7bb842bf30.sample"
+type="AudioStreamWAV"
+uid="uid://blrt77nu653io"
+path="res://.godot/imported/eyes_betray_you.wav-051557dddfc78a533204dc7bb842bf30.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/eyes_betray_you.wav"
-dest_files=[ "res://.import/eyes_betray_you.wav-051557dddfc78a533204dc7bb842bf30.sample" ]
+dest_files=["res://.godot/imported/eyes_betray_you.wav-051557dddfc78a533204dc7bb842bf30.sample"]
 
 [params]
 

@@ -1,36 +1,31 @@
-tool
+@tool
 class_name PickableItem
-extends RigidBody
+extends RigidBody3D
 
 ### Is a tool to support use in player_animations_test.gd
 
 
 signal item_state_changed(previous_state, current_state)
 
-export(int, LAYERS_3D_PHYSICS) var dropped_layers : int = 0
-export(int, LAYERS_3D_PHYSICS) var dropped_mask : int = 0
-export(int, LAYERS_3D_PHYSICS) var damage_mask : int = 0
-export(int, "Rigid", "Static", "Character", "Kinematic") var dropped_mode : int = MODE_RIGID
+@export var dropped_layers : int = 0 # (int, LAYERS_3D_PHYSICS)
+@export var dropped_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
+@export var damage_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
 
-export(int, LAYERS_3D_PHYSICS) var equipped_layers : int = 0
-export(int, LAYERS_3D_PHYSICS) var equipped_mask : int = 0
-export(int, "Rigid", "Static", "Character", "Kinematic") var equipped_mode : int = MODE_KINEMATIC
-
-export var max_speed : float = 12.0
-export var item_drop_sound : AudioStream
-export var item_throw_sound : AudioStream
-export(AttackTypes.Types) var melee_damage_type : int = 0
+@export var max_speed : float = 12.0
+@export var item_drop_sound : AudioStream
+@export var item_throw_sound : AudioStream
+@export var melee_damage_type : int = 0 # (AttackTypes.Types)
 
 var owner_character : Node = null
-var item_state = GlobalConsts.ItemState.DROPPED setget set_item_state
+var item_state = GlobalConsts.ItemState.DROPPED: set = set_item_state
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 5
 var item_sound_level = 10
 var item_drop_sound_level = 10
 var item_drop_pitch_level = 10
 
-export var thrown_point_first : bool   # Some items like swords and spears should be thrown point first
-export var can_spin : bool   # Some items should spin when thrown
+@export var thrown_point_first : bool   # Some items like swords and spears should be thrown point first
+@export var can_spin : bool   # Some items should spin when thrown
 
 var has_thrown = false
 #var deceleration_factor = 0.9
@@ -38,12 +33,12 @@ var has_thrown = false
 var initial_linear_velocity
 var is_soundplayer_ready = false
 
-onready var audio_player = get_node("DropSound")
+@onready var audio_player = get_node("DropSound")
 
 #onready var mesh_instance = $MeshInstance
-onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
+@onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 
-onready var placement_position = $"%PlacementAnchor"
+@onready var placement_position = %PlacementAnchor
 
 
 func _enter_tree():
@@ -59,7 +54,7 @@ func _enter_tree():
 
 func _process(delta):
 	if self.noise_level > 0:
-		yield(get_tree().create_timer(0.2), "timeout")
+		await get_tree().create_timer(0.2).timeout
 		self.noise_level = 0
 
 
@@ -90,7 +85,7 @@ func set_item_state(value : int) :
 func play_throw_sound():
 	if self.item_drop_sound and self.audio_player:
 		self.audio_player.stream = self.item_throw_sound
-		self.audio_player.unit_db = item_sound_level   # This could be adjusted
+		self.audio_player.volume_db = item_sound_level   # This could be adjusted
 		self.audio_player.bus = "Effects"
 		self.audio_player.play()
 		self.noise_level = 3
@@ -119,7 +114,7 @@ func play_drop_sound(body):
 				self.item_drop_sound_level = self.linear_velocity.length() * 5.0
 				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
 				
-			self.audio_player.unit_db = clamp(self.item_drop_sound_level, 5.0, 20.0)  
+			self.audio_player.volume_db = clamp(self.item_drop_sound_level, 5.0, 20.0)  
 			self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
 			self.audio_player.bus = "Effects"
 			self.audio_player.play()
@@ -131,27 +126,26 @@ func play_drop_sound(body):
 
 func start_delay():
 	if self.is_inside_tree():
-		yield(get_tree().create_timer(0.2), "timeout")
+		await get_tree().create_timer(0.2).timeout
 		self.is_soundplayer_ready = true
 
 
 func set_physics_dropped():
 	self.collision_layer = dropped_layers
 	self.collision_mask = dropped_mask
-	self.mode = dropped_mode
+	self.freeze = false
 
 
 func set_item_damaging():
 	self.collision_layer = dropped_layers
 	self.collision_mask = damage_mask
 	print("Line 141 pickable_item.gd self's collision_mask: ", self.collision_mask)
-	self.mode = dropped_mode
+	self.freeze = false
 
 
 func set_physics_equipped():
-	self.collision_layer = equipped_layers
-	self.collision_mask = equipped_mask
-	self.mode = equipped_mode
+	self.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+	self.freeze = true
 
 
 func throw_damage(delta):

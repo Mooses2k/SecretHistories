@@ -2,7 +2,7 @@ extends Control
 
 
 func _ready():
-	if LoadQuotes.list2.empty() and LoadQuotes.list1.empty():
+	if LoadQuotes.list2.is_empty() and LoadQuotes.list1.is_empty():
 		LoadQuotes.load_files()
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -13,7 +13,7 @@ func _ready():
 	
 	# Slowly animate up the title text
 	get_tree().create_tween()\
-		.tween_property($VBoxContainer2/GameName, "percent_visible", 1.0, 5.0)\
+		.tween_property($VBoxContainer2/GameName, "visible_ratio", 1.0, 5.0)\
 		.set_trans(Tween.TRANS_EXPO)\
 		.set_ease(Tween.EASE_IN)
 
@@ -28,11 +28,11 @@ func _on_ContinueButton_pressed():
 
 
 func _on_StartButton_pressed():
-	var _error = get_tree().change_scene("res://scenes/ui/start_game_menu.tscn")
+	var _error = get_tree().change_scene_to_file("res://scenes/ui/start_game_menu.tscn")
 
 
 func _on_SettingsButton_pressed():
-	$"%SettingsMenu".show()
+	%SettingsMenu.show()
 
 
 func _on_CreditsButton_pressed():

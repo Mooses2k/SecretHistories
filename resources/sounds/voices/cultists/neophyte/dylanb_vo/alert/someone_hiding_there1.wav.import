@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/someone_hiding_there1.wav-cd46413ef0b7f3fbed9a56df42509738.sample"
+type="AudioStreamWAV"
+uid="uid://co5lon6hfi1v6"
+path="res://.godot/imported/someone_hiding_there1.wav-cd46413ef0b7f3fbed9a56df42509738.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/someone_hiding_there1.wav"
-dest_files=[ "res://.import/someone_hiding_there1.wav-cd46413ef0b7f3fbed9a56df42509738.sample" ]
+dest_files=["res://.godot/imported/someone_hiding_there1.wav-cd46413ef0b7f3fbed9a56df42509738.sample"]
 
 [params]
 

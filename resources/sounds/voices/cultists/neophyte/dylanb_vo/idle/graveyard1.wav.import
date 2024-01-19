@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/graveyard1.wav-c91ee070fe046e1997349374b757c7bd.sample"
+type="AudioStreamWAV"
+uid="uid://mnkunixpie8h"
+path="res://.godot/imported/graveyard1.wav-c91ee070fe046e1997349374b757c7bd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/graveyard1.wav"
-dest_files=[ "res://.import/graveyard1.wav-c91ee070fe046e1997349374b757c7bd.sample" ]
+dest_files=["res://.godot/imported/graveyard1.wav-c91ee070fe046e1997349374b757c7bd.sample"]
 
 [params]
 

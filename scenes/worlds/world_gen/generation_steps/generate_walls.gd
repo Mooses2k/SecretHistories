@@ -53,7 +53,7 @@ func contour_walls(data : WorldData):
 										extends_left = not extends_right
 										var remove_door = max(r, l)
 										(data.get_cell_meta(remove_door, data.CellMetaKeys.META_DOOR_DIRECTIONS) as Array).erase(dir)
-										if (data.get_cell_meta(remove_door, data.CellMetaKeys.META_DOOR_DIRECTIONS) as Array).empty():
+										if (data.get_cell_meta(remove_door, data.CellMetaKeys.META_DOOR_DIRECTIONS) as Array).is_empty():
 											data.set_cell_meta(remove_door, data.CellMetaKeys.META_DOOR_DIRECTIONS, null)
 											data.set_cell_type(remove_door, data.CellType.CORRIDOR)
 									if not extends_right and not extends_left:

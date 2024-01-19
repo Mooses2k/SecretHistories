@@ -1,10 +1,10 @@
-extends Spatial
+extends Node3D
 
 
-export var margin : float = 0.3
-export var wall_thickness : float = 0.15
-export var preview : bool = false
-export var preview_material : Material
+@export var margin : float = 0.3
+@export var wall_thickness : float = 0.15
+@export var preview : bool = false
+@export var preview_material : Material
 #export var doors_enabled : bool = true setget set_doors_enabled
 var data : WorldData
 var walls_done = Dictionary()
@@ -22,7 +22,7 @@ var sarcophagus : Array = [
 	"res://scenes/objects/large_objects/sarcophagi/sarcophagus_base.tscn",
 ]
 
-var point_viewer = MultiMeshInstance.new()
+var point_viewer = MultiMeshInstance3D.new()
 #func set_doors_enabled(value : bool):
 #	doors_enabled = value
 #	var xform = Transform.IDENTITY
@@ -61,13 +61,13 @@ func set_door_navmesh_enabled(cell_index : int, direction : int, value : bool):
 
 
 func is_door_navmesh_enabled(cell_index : int, direction : int) -> bool:
-	var navmesh = doors.get(data._get_wall_index(cell_index, direction)) as NavigationMeshInstance
-	if navmesh:
-		return (navmesh as NavigationMeshInstance).enabled
+	var navigation_mesh = doors.get(data._get_wall_index(cell_index, direction)) as NavigationRegion3D
+	if navigation_mesh:
+		return (navigation_mesh as NavigationRegion3D).enabled
 	return false
 
 
-func get_door_navmesh_instance(cell_index : int, direction : int) -> NavigationMeshInstance:
+func get_door_navmesh_instance(cell_index : int, direction : int) -> NavigationRegion3D:
 	return doors.get(data._get_wall_index(cell_index, direction))
 
 
@@ -81,21 +81,21 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 func update_navigation():
 	var cell_size = 0.1
 
-	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
-	var cell_height = NavigationServer.map_get_cell_height(get_world().navigation_map)
+	NavigationServer3D.map_set_cell_size(get_world_3d().navigation_map, cell_size)
+	var cell_height = NavigationServer3D.map_get_cell_height(get_world_3d().navigation_map)
 	
 	var all_points = Array()
 	# This array stores, for each cell, the room index of the room that cell belongs to
 	# A room is defined, in this script, as a connected walkable area (without going through any doors)
 	# and may not match the room definitions in the map data itself
-	var rooms = PoolIntArray()
+	var rooms = PackedInt32Array()
 	rooms.resize(data.cell_count)
 	# A room index of 0 means the cell doesn't belong to any room yet
 	rooms.fill(0)
 	
 	var current_room = 0
 	
-	var navpoly = NavigationPolygon.new()
+	var navigation_polygon = NavigationPolygon.new()
 	for i in data.cell_count:
 		# Found the first walkable cell in a given room
 		if is_cell_walkable(i) and rooms[i] == 0:
@@ -110,7 +110,7 @@ func update_navigation():
 			var queue = Dictionary()
 			# Immediately adds current cell to the queue
 			queue[i] = true
-			while not queue.empty():
+			while not queue.is_empty():
 				var current = queue.keys()[0]
 				rooms[current] = current_room
 				for dir in WorldData.Direction.DIRECTION_MAX:
@@ -126,7 +126,7 @@ func update_navigation():
 					if wall_type == WorldData.EdgeType.DOOR or wall_type == WorldData.EdgeType.HALFDOOR_N or wall_type == WorldData.EdgeType.HALFDOOR_P:
 						if get_door_navmesh_instance(current, dir) == null:
 							var verts = gen_door_navmesh(current, dir)
-							var verts_3d = PoolVector3Array()
+							var verts_3d = PackedVector3Array()
 							verts_3d.resize(verts.size())
 							var pos = Vector3.ZERO
 							for v in verts.size():
@@ -135,14 +135,14 @@ func update_navigation():
 								pos += verts_3d[v]
 							pos/= 4.0
 							pos.y = 0.0
-							var navmesh = NavigationMesh.new()
-							navmesh.cell_size = cell_size
-							navmesh.cell_height = cell_height
-							navmesh.vertices = verts_3d
+							var navigation_mesh = NavigationMesh.new()
+							navigation_mesh.cell_size = cell_size
+							navigation_mesh.cell_height = cell_height
+							navigation_mesh.vertices = verts_3d
 							all_points.append_array(Array(verts_3d))
-							navmesh.polygons = [PoolIntArray([0, 1, 2, 3])]
+							navigation_mesh.polygons = [PackedInt32Array([0, 1, 2, 3])]
 							var navmesh_instance = AutoCleanNavigationMeshInstance.new()
-							navmesh_instance.navmesh = navmesh
+							navmesh_instance.navigation_mesh = navigation_mesh
 							
 							call_deferred("add_child", navmesh_instance)
 #							var navmesh_index = navmesh_add(navmesh, Transform.IDENTITY)
@@ -152,43 +152,43 @@ func update_navigation():
 						holes.push_back(pillar)
 				queue.erase(current)
 			
-			navpoly.clear_outlines()
-			navpoly.add_outline(contour)
+			navigation_polygon.clear_outlines()
+			navigation_polygon.add_outline(contour)
 #			print("holes :")
 			for hole in holes:
 #				print(var2str(hole))
-				navpoly.add_outline(hole)
-			navpoly.make_polygons_from_outlines()
+				navigation_polygon.add_outline(hole)
+			navigation_polygon.make_polygons_from_outlines()
 			
-			var vertices_3d = PoolVector3Array()
-			var vertices_2d = navpoly.vertices
+			var vertices_3d = PackedVector3Array()
+			var vertices_2d = navigation_polygon.vertices
 			vertices_3d.resize(vertices_2d.size())
 			for v in vertices_2d.size():
 				var vertex_2d = vertices_2d[v]
 				vertices_3d[v] = Vector3(vertex_2d.x, cell_height, vertex_2d.y)
 			
-			var navmesh = NavigationMesh.new()
-			navmesh.cell_size = cell_size
-			navmesh.cell_height = cell_height
-			navmesh.vertices = vertices_3d
+			var navigation_mesh = NavigationMesh.new()
+			navigation_mesh.cell_size = cell_size
+			navigation_mesh.cell_height = cell_height
+			navigation_mesh.vertices = vertices_3d
 			all_points.append_array(Array(vertices_3d))
-			navmesh.polygons = navpoly.polygons
+			navigation_mesh.polygons = navigation_polygon.polygons
 			var nav_instance = AutoCleanNavigationMeshInstance.new()
-			nav_instance.navmesh = navmesh
+			nav_instance.navigation_mesh = navigation_mesh
 			call_deferred("add_child", nav_instance)
 #			navmesh_add(navmesh, Transform.IDENTITY)
 	walls_done.clear()
 	var multimesh = MultiMesh.new()
-	multimesh.mesh = CubeMesh.new()
-	(multimesh.mesh as CubeMesh).size = 0.1 * Vector3.ONE
+	multimesh.mesh = BoxMesh.new()
+	(multimesh.mesh as BoxMesh).size = 0.1 * Vector3.ONE
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D
-	multimesh.color_format = MultiMesh.COLOR_8BIT
+	#multimesh.color_format = MultiMesh.COLOR_8BIT
 	multimesh.instance_count = all_points.size()
 	multimesh.visible_instance_count = multimesh.instance_count
 	for i in all_points.size():
 		var p = all_points[i]
 		p.y = randf() + 0.5
-		multimesh.set_instance_transform(i, Transform.IDENTITY.translated(p))
+		multimesh.set_instance_transform(i, Transform3D.IDENTITY.translated(p))
 		multimesh.set_instance_color(i, Color.from_hsv(randf(), 0.8, 1.0))
 	point_viewer.multimesh = multimesh
 	point_viewer.material_override = preview_material
@@ -222,7 +222,7 @@ func gen_pillar_navmesh(cell: int):
 		var empty = data.EdgeType.EMPTY
 		var are_walls_free = n_wall == empty and s_wall == empty and e_wall == empty and w_wall == empty
 		
-		var result = PoolVector2Array()
+		var result = PackedVector2Array()
 		if are_cells_walkable and are_walls_free:
 			var origin = data.get_local_cell_position(cell)
 			var origin_2d = Vector2(origin.x, origin.z)
@@ -234,8 +234,8 @@ func gen_pillar_navmesh(cell: int):
 	return null
 
 
-func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
-	var vec_direction = PoolVector2Array()
+func gen_door_navmesh(cell : int, direction : int) -> PackedVector2Array:
+	var vec_direction = PackedVector2Array()
 	vec_direction.resize(WorldData.Direction.DIRECTION_MAX)
 	vec_direction[WorldData.Direction.NORTH] = Vector2(0.0, -1.0)
 	vec_direction[WorldData.Direction.SOUTH] = Vector2(0.0,  1.0)
@@ -337,12 +337,12 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 	var offset = Vector2.ONE * half_cell + Vector2(cell_pos.x, cell_pos.z)
 	for p in new_points:
 		result.push_back((p.x * cell_x + p.y * cell_y) * half_cell + offset)
-	return PoolVector2Array(result)
+	return PackedVector2Array(result)
 
 
-func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2Array:
+func get_contour_polygon(start_cell : int, start_direction : int) -> PackedVector2Array:
 	
-	var vec_direction = PoolVector2Array()
+	var vec_direction = PackedVector2Array()
 	vec_direction.resize(WorldData.Direction.DIRECTION_MAX)
 	vec_direction[WorldData.Direction.NORTH] = Vector2(0.0, -1.0)
 	vec_direction[WorldData.Direction.SOUTH] = Vector2(0.0,  1.0)
@@ -494,4 +494,4 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 			current_cell = data.get_neighbour_cell(current_cell, follow_direction)
 		else:
 			current_direction = follow_direction
-	return PoolVector2Array(result)
+	return PackedVector2Array(result)

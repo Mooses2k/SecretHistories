@@ -1,5 +1,5 @@
+@tool
 # Write your doc string for this file here
-tool
 extends GenerationStep
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -40,7 +40,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 			continue
 
 		var valid_rooms := _get_valid_rooms(data, purpose)
-		if valid_rooms.empty():
+		if valid_rooms.is_empty():
 			continue
 
 		var chosen_rooms := _get_chosen_rooms(purpose, valid_rooms)
@@ -79,7 +79,7 @@ func _get_chosen_rooms(purpose: RoomPurpose, valid_rooms: Array) -> Array:
 				var chosen_index := _rng.randi() % valid_rooms.size()
 				var chosen_room := valid_rooms[chosen_index] as RoomData
 				chosen_rooms.append(chosen_room)
-				valid_rooms.remove(chosen_index)
+				valid_rooms.remove_at(chosen_index)
 	else:
 		chosen_rooms = valid_rooms
 	

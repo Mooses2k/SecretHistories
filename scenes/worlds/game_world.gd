@@ -1,16 +1,16 @@
 class_name GameWorld
-extends Spatial
+extends Node3D
 
 
 signal generation_finished()
 signal spawning_world_scenes_finished
 
 var world_data : WorldData
-onready var world_generator : GenerationManager = $GenerationManager
-onready var gridmaps = $Gridmaps
-onready var navigation = $Navigation
+@onready var world_generator : GenerationManager = $GenerationManager
+@onready var gridmaps = $Gridmaps
+@onready var navigation = $Navigation
 
-onready var _spawners := [$ItemSpawner, $CharacterSpawner]
+@onready var _spawners := [$ItemSpawner, $CharacterSpawner]
 
 
 func _ready() -> void:
@@ -37,7 +37,7 @@ func set_player_on_spawn_position(player: Player, _is_going_downstairs: bool) ->
 		"y_rotation": 0.0,
 	}
 	
-	player.translation = spawn_data.position
+	player.position = spawn_data.position
 	player.rotation.y = spawn_data.y_rotation
 
 
@@ -56,11 +56,11 @@ func grid_to_world(position : Vector3) -> Vector3:
 func _connect_signals() -> void:
 	for node in _spawners:
 		var spawner := node as Spawner
-		if not is_connected("generation_finished", spawner, "_on_game_world_generation_finished"):
-			connect("generation_finished", spawner, "_on_game_world_generation_finished")
+		if not is_connected("generation_finished", Callable(spawner, "_on_game_world_generation_finished")):
+			connect("generation_finished", Callable(spawner, "_on_game_world_generation_finished"))
 		
-		if not spawner.is_connected("spawning_finished", self, "_on_spawner_spawning_finished"):
-			spawner.connect("spawning_finished", self, "_on_spawner_spawning_finished")
+		if not spawner.is_connected("spawning_finished", Callable(self, "_on_spawner_spawning_finished")):
+			spawner.connect("spawning_finished", Callable(self, "_on_spawner_spawning_finished"))
 
 
 func _on_spawner_spawning_finished() -> void:

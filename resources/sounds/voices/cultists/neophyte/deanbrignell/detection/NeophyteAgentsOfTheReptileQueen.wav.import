@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAgentsOfTheReptileQueen.wav-ebab8a4dc0d457a4a128a7c14eafab28.sample"
+type="AudioStreamWAV"
+uid="uid://cvdlgtfmcqmwb"
+path="res://.godot/imported/NeophyteAgentsOfTheReptileQueen.wav-ebab8a4dc0d457a4a128a7c14eafab28.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteAgentsOfTheReptileQueen.wav"
-dest_files=[ "res://.import/NeophyteAgentsOfTheReptileQueen.wav-ebab8a4dc0d457a4a128a7c14eafab28.sample" ]
+dest_files=["res://.godot/imported/NeophyteAgentsOfTheReptileQueen.wav-ebab8a4dc0d457a4a128a7c14eafab28.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/not_the_true_way.wav-fe2b076e871e4d743bcaa8a2543dce74.sample"
+type="AudioStreamWAV"
+uid="uid://8lhkrjcs5q1c"
+path="res://.godot/imported/not_the_true_way.wav-fe2b076e871e4d743bcaa8a2543dce74.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/not_the_true_way.wav"
-dest_files=[ "res://.import/not_the_true_way.wav-fe2b076e871e4d743bcaa8a2543dce74.sample" ]
+dest_files=["res://.godot/imported/not_the_true_way.wav-fe2b076e871e4d743bcaa8a2543dce74.sample"]
 
 [params]
 

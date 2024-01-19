@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/slowly_quietly.wav-6f37e4573518caea73489f65139ecf1a.sample"
+type="AudioStreamWAV"
+uid="uid://cgrga6h56b82x"
+path="res://.godot/imported/slowly_quietly.wav-6f37e4573518caea73489f65139ecf1a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/slowly_quietly.wav"
-dest_files=[ "res://.import/slowly_quietly.wav-6f37e4573518caea73489f65139ecf1a.sample" ]
+dest_files=["res://.godot/imported/slowly_quietly.wav-6f37e4573518caea73489f65139ecf1a.sample"]
 
 [params]
 

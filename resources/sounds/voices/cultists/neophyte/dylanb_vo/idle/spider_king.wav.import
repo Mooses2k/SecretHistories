@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/spider_king.wav-4264eeb80eb7c764a5150e246e112301.sample"
+type="AudioStreamWAV"
+uid="uid://c67ylgrk4d6l4"
+path="res://.godot/imported/spider_king.wav-4264eeb80eb7c764a5150e246e112301.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/spider_king.wav"
-dest_files=[ "res://.import/spider_king.wav-4264eeb80eb7c764a5150e246e112301.sample" ]
+dest_files=["res://.godot/imported/spider_king.wav-4264eeb80eb7c764a5150e246e112301.sample"]
 
 [params]
 

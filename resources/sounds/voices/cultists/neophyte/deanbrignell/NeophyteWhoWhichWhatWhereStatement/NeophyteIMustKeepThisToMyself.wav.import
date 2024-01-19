@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIMustKeepThisToMyself.wav-c7c7dcef352794d21d8f5fbab18cbcdd.sample"
+type="AudioStreamWAV"
+uid="uid://c7c0v0pcgkc7l"
+path="res://.godot/imported/NeophyteIMustKeepThisToMyself.wav-c7c7dcef352794d21d8f5fbab18cbcdd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteIMustKeepThisToMyself.wav"
-dest_files=[ "res://.import/NeophyteIMustKeepThisToMyself.wav-c7c7dcef352794d21d8f5fbab18cbcdd.sample" ]
+dest_files=["res://.godot/imported/NeophyteIMustKeepThisToMyself.wav-c7c7dcef352794d21d8f5fbab18cbcdd.sample"]
 
 [params]
 

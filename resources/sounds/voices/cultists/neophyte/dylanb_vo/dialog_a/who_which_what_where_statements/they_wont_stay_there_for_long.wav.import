@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/they_wont_stay_there_for_long.wav-a20ccce204802631a464408d1961c20e.sample"
+type="AudioStreamWAV"
+uid="uid://dbgkiiogyvlvd"
+path="res://.godot/imported/they_wont_stay_there_for_long.wav-a20ccce204802631a464408d1961c20e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/they_wont_stay_there_for_long.wav"
-dest_files=[ "res://.import/they_wont_stay_there_for_long.wav-a20ccce204802631a464408d1961c20e.sample" ]
+dest_files=["res://.godot/imported/they_wont_stay_there_for_long.wav-a20ccce204802631a464408d1961c20e.sample"]
 
 [params]
 

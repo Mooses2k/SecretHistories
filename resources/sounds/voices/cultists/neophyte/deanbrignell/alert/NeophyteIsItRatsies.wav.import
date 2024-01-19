@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIsItRatsies.wav-186a1d338af9bd61711d05f178f92d68.sample"
+type="AudioStreamWAV"
+uid="uid://tjjvx3cr5tk2"
+path="res://.godot/imported/NeophyteIsItRatsies.wav-186a1d338af9bd61711d05f178f92d68.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteIsItRatsies.wav"
-dest_files=[ "res://.import/NeophyteIsItRatsies.wav-186a1d338af9bd61711d05f178f92d68.sample" ]
+dest_files=["res://.godot/imported/NeophyteIsItRatsies.wav-186a1d338af9bd61711d05f178f92d68.sample"]
 
 [params]
 

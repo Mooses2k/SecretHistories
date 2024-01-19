@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhatIsTheTime.wav-9efccd9d4600c39c20591c804776f6d8.sample"
+type="AudioStreamWAV"
+uid="uid://ckkjr2m4ft53w"
+path="res://.godot/imported/NeophyteWhatIsTheTime.wav-9efccd9d4600c39c20591c804776f6d8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhenQuestions/NeophyteWhatIsTheTime.wav"
-dest_files=[ "res://.import/NeophyteWhatIsTheTime.wav-9efccd9d4600c39c20591c804776f6d8.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhatIsTheTime.wav-9efccd9d4600c39c20591c804776f6d8.sample"]
 
 [params]
 

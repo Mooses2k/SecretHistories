@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/crystal_radio.wav-cdc4d0396a7686b758819083d5404f70.sample"
+type="AudioStreamWAV"
+uid="uid://bpye425tldgqv"
+path="res://.godot/imported/crystal_radio.wav-cdc4d0396a7686b758819083d5404f70.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/comet/crystal_radio.wav"
-dest_files=[ "res://.import/crystal_radio.wav-cdc4d0396a7686b758819083d5404f70.sample" ]
+dest_files=["res://.godot/imported/crystal_radio.wav-cdc4d0396a7686b758819083d5404f70.sample"]
 
 [params]
 

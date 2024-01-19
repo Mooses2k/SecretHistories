@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/revolver1.wav-186bfffc95950cccc74435c2aecdc0a0.sample"
+type="AudioStreamWAV"
+uid="uid://de62xutqvb86u"
+path="res://.godot/imported/revolver1.wav-186bfffc95950cccc74435c2aecdc0a0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/reloading/revolver/revolver1.wav"
-dest_files=[ "res://.import/revolver1.wav-186bfffc95950cccc74435c2aecdc0a0.sample" ]
+dest_files=["res://.godot/imported/revolver1.wav-186bfffc95950cccc74435c2aecdc0a0.sample"]
 
 [params]
 

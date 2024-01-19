@@ -31,7 +31,7 @@
 [ext_resource path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" type="Resource" id=30]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="StandardMaterial3D" id=3]
 flags_unshaded = true
 vertex_color_use_as_albedo = true
 
@@ -41,10 +41,10 @@ script = ExtResource( 2 )
 [node name="Gridmaps" parent="." index="0"]
 mesh_library = ExtResource( 5 )
 
-[node name="Camera" parent="." index="1"]
+[node name="Camera3D" parent="." index="1"]
 current = false
 
-[node name="DirectionalLight" parent="." index="2"]
+[node name="DirectionalLight3D" parent="." index="2"]
 visible = false
 light_energy = 0.5
 shadow_bias = 0.05

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhatWereWeTalkingAbout.wav-2c69550b2a343641e2af6be0ff472df8.sample"
+type="AudioStreamWAV"
+uid="uid://tvnymuhuo5jr"
+path="res://.godot/imported/NeophyteWhatWereWeTalkingAbout.wav-2c69550b2a343641e2af6be0ff472df8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteWhatWereWeTalkingAbout.wav"
-dest_files=[ "res://.import/NeophyteWhatWereWeTalkingAbout.wav-2c69550b2a343641e2af6be0ff472df8.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhatWereWeTalkingAbout.wav-2c69550b2a343641e2af6be0ff472df8.sample"]
 
 [params]
 

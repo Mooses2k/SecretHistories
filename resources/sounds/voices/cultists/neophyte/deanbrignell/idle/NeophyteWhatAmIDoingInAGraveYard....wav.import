@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhatAmIDoingInAGraveYard....wav-f84426bfddb30bdb1a7bfa9fc0430894.sample"
+type="AudioStreamWAV"
+uid="uid://c3f14rd60kill"
+path="res://.godot/imported/NeophyteWhatAmIDoingInAGraveYard....wav-f84426bfddb30bdb1a7bfa9fc0430894.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteWhatAmIDoingInAGraveYard....wav"
-dest_files=[ "res://.import/NeophyteWhatAmIDoingInAGraveYard....wav-f84426bfddb30bdb1a7bfa9fc0430894.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhatAmIDoingInAGraveYard....wav-f84426bfddb30bdb1a7bfa9fc0430894.sample"]
 
 [params]
 

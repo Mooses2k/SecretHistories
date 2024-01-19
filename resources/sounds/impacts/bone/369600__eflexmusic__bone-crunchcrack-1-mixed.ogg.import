@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg-31d6ea69e2c68b7ccef89ec0ef2448a4.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bwwn7jj2r7ps4"
+path="res://.godot/imported/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg-31d6ea69e2c68b7ccef89ec0ef2448a4.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/bone/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg"
-dest_files=[ "res://.import/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg-31d6ea69e2c68b7ccef89ec0ef2448a4.oggstr" ]
+dest_files=["res://.godot/imported/369600__eflexmusic__bone-crunchcrack-1-mixed.ogg-31d6ea69e2c68b7ccef89ec0ef2448a4.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

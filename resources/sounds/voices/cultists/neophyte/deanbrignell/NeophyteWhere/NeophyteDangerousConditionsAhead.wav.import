@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDangerousConditionsAhead.wav-ef30573ace0e68c131cf51ad28831b2e.sample"
+type="AudioStreamWAV"
+uid="uid://cmjma101pkddy"
+path="res://.godot/imported/NeophyteDangerousConditionsAhead.wav-ef30573ace0e68c131cf51ad28831b2e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhere/NeophyteDangerousConditionsAhead.wav"
-dest_files=[ "res://.import/NeophyteDangerousConditionsAhead.wav-ef30573ace0e68c131cf51ad28831b2e.sample" ]
+dest_files=["res://.godot/imported/NeophyteDangerousConditionsAhead.wav-ef30573ace0e68c131cf51ad28831b2e.sample"]
 
 [params]
 

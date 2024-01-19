@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/346373__denao270__throwing-whip-effect.wav-c9c3c5d492df034e94d75f6665eddde4.sample"
+type="AudioStreamWAV"
+uid="uid://bfhflhuea8p8f"
+path="res://.godot/imported/346373__denao270__throwing-whip-effect.wav-c9c3c5d492df034e94d75f6665eddde4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav"
-dest_files=[ "res://.import/346373__denao270__throwing-whip-effect.wav-c9c3c5d492df034e94d75f6665eddde4.sample" ]
+dest_files=["res://.godot/imported/346373__denao270__throwing-whip-effect.wav-c9c3c5d492df034e94d75f6665eddde4.sample"]
 
 [params]
 

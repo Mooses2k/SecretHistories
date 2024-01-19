@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/make_some_memories2.wav-093f06d8699f19b2be5789419d7edb1e.sample"
+type="AudioStreamWAV"
+uid="uid://drphuwhrjbuwm"
+path="res://.godot/imported/make_some_memories2.wav-093f06d8699f19b2be5789419d7edb1e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/make_some_memories2.wav"
-dest_files=[ "res://.import/make_some_memories2.wav-093f06d8699f19b2be5789419d7edb1e.sample" ]
+dest_files=["res://.godot/imported/make_some_memories2.wav-093f06d8699f19b2be5789419d7edb1e.sample"]
 
 [params]
 

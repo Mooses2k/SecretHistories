@@ -8,17 +8,17 @@ func _ready():
 	var game = GameManager.game
 	var player = game.player
 	if player == null:
-		yield(game, "player_spawned")
+		await game.player_spawned
 		player = game.player
 	inventory = player.inventory
 	if inventory == null:
-		yield(player, "ready")
+		await player.ready
 		inventory = player.inventory
 	initialize_hotbar()
 
 
 func initialize_hotbar():
-	inventory.connect("hotbar_changed", self, "hotbar_changed")
+	inventory.connect("hotbar_changed", Callable(self, "hotbar_changed"))
 #	inventory.connect("current_slot_changed", self, "current_slot_changed")
 #
 	for i in inventory.HOTBAR_SIZE: #0 to 9

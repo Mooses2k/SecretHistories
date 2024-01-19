@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/gregorian_chant.ogg-55b61c19154b866eb30c6bf8d275d60a.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bqexco44ctf0j"
+path="res://.godot/imported/gregorian_chant.ogg-55b61c19154b866eb30c6bf8d275d60a.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/music/gregorian_chant.ogg"
-dest_files=[ "res://.import/gregorian_chant.ogg-55b61c19154b866eb30c6bf8d275d60a.oggstr" ]
+dest_files=["res://.godot/imported/gregorian_chant.ogg-55b61c19154b866eb30c6bf8d275d60a.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

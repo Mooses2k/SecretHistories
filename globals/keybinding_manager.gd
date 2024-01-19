@@ -35,19 +35,16 @@ func gen_dict_from_input_map() -> Dictionary:
 		# ignore built in ui actions
 		if not action.begins_with("ui_"):
 			result[action] = Array()
-			for event in InputMap.get_action_list(action):
+			for event in InputMap.action_get_events(action):
 				result[action].push_back(event2str(event))
 	return result
 
 
 # We'll use this when the game loads
 func load_keys():
-	var file = File.new()
-	if(file.file_exists(file_name)):
-		file.open(file_name,File.READ)
-		var file_str = file.get_as_text()
-		file.close()
-		var data = str2var(file_str)
+	if(FileAccess.file_exists(file_name)):
+		var file_str = FileAccess.get_file_as_string(file_name)
+		var data = str_to_var(file_str)
 		if(typeof(data) == TYPE_DICTIONARY):
 			setup_keys(data)
 		else:
@@ -57,11 +54,8 @@ func load_keys():
 		save_keys()
 		save_default_keys()
 	
-	file = File.new()
-	file.open(file_name_default, File.READ)
-	var file_str = file.get_as_text()
-	file.close()
-	var data = str2var(file_str)
+	var file_str = FileAccess.get_file_as_string(file_name_default)
+	var data = str_to_var(file_str)
 	if(typeof(data) == TYPE_DICTIONARY):
 		keys_default = data
 	else:
@@ -91,19 +85,19 @@ func setup_keys(key_dict : Dictionary):
 func event2str(event : InputEvent) -> String:
 	if event is InputEventKey:
 		var ev_type = EventType.KEY
-		var scancode = event.scancode
-		if event.scancode == 0:
+		var keycode = event.keycode
+		if event.keycode == 0:
 			ev_type = EventType.KEY_PHYSICAL
-			scancode = event.physical_scancode
-		print("event == " + "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)])
-		return "%s(%s)" % [event_prefixes[ev_type], OS.get_scancode_string(scancode)]
+			keycode = event.physical_keycode
+		print("event == " + "%s(%s)" % [event_prefixes[ev_type], OS.get_keycode_string(keycode)])
+		return "%s(%s)" % [event_prefixes[ev_type], OS.get_keycode_string(keycode)]
 	elif event is InputEventMouseButton:
 		print("Mouse Button " + str(event.get_button_index() ))
 		var ev_type = EventType.MOUSE_BUTTON
-		var scancode = event.get_button_index() 
-		return "%s(%s)" % [event_prefixes[ev_type], scancode]
+		var keycode = event.get_button_index() 
+		return "%s(%s)" % [event_prefixes[ev_type], keycode]
 	else:
-		print(var2str(event))
+		print(var_to_str(event))
 	return "?"
 
 
@@ -115,14 +109,14 @@ func str2event(string : String) -> InputEvent:
 			string = string.trim_prefix("(").trim_suffix(")")
 			match ev_type:
 				EventType.KEY:
-					var scancode = OS.find_scancode_from_string(string)
+					var keycode = OS.find_keycode_from_string(string)
 					var event = InputEventKey.new()
-					event.scancode = scancode
+					event.keycode = keycode
 					return event
 				EventType.KEY_PHYSICAL:
-					var scancode = OS.find_scancode_from_string(string)
+					var keycode = OS.find_keycode_from_string(string)
 					var event = InputEventKey.new()
-					event.physical_scancode = scancode
+					event.physical_keycode = keycode
 					return event
 				EventType.MOUSE_BUTTON:
 					var button_index = int(string)
@@ -134,17 +128,15 @@ func str2event(string : String) -> InputEvent:
 
 func save_keys():
 	var key_dict = gen_dict_from_input_map()
-	var file = File.new()
-	file.open(file_name, File.WRITE)
-	file.store_string(var2str(key_dict))
+	var file = FileAccess.open(file_name, FileAccess.WRITE)
+	file.store_string(var_to_str(key_dict))
 	file.close()
 	print("saved keys")
 
 
 func save_default_keys():
 	var key_dict = gen_dict_from_input_map()
-	var file = File.new()
-	file.open(file_name_default, File.WRITE)
-	file.store_string(var2str(key_dict))
+	var file = FileAccess.open(file_name_default, FileAccess.WRITE)
+	file.store_string(var_to_str(key_dict))
 	file.close()
 	print("saved keys")

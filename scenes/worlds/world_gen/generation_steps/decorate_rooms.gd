@@ -31,8 +31,8 @@ enum PlacementTags {
 	MAKES_SMOKE # larger fire that will smoke up a place if not vented
 }
 
-export var place_first = false # important for room; any of these are placed before other things
-export var must_have = false # if this isn't there at the end, regenerate the room
+@export var place_first = false # important for room; any of these are placed before other things
+@export var must_have = false # if this isn't there at the end, regenerate the room
 
 
 # Called when the node enters the scene tree for the first time.

@@ -1,6 +1,6 @@
 # Write your doc string for this file here
 class_name FloorLevelHandler
-extends Reference
+extends RefCounted
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -44,16 +44,16 @@ func _to_string() -> String:
 ### Public Methods --------------------------------------------------------------------------------
 
 func update_floor_data(current_index: int) -> void:
-	var distance := abs(current_index - _floor_index)
+	var distance := absi(current_index - _floor_index)
 	
 	if distance == 0:
 		return
 	
 	if distance <= MAX_DISTANCE_TO_KEEP_INSTANCE:
-		if not _floor_serialized.empty() and not is_instance_valid(_floor_level):
+		if not _floor_serialized.is_empty() and not is_instance_valid(_floor_level):
 			_restore_floor_level()
 	else:
-		if _floor_serialized.empty() and is_instance_valid(_floor_level):
+		if _floor_serialized.is_empty() and is_instance_valid(_floor_level):
 			_serialize_floor_level()
 	
 	print("Updated floor data: %s"%[self])

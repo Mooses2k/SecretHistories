@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/youre_against_us.wav-024a82499eb4060cc4e801ce2edc647e.sample"
+type="AudioStreamWAV"
+uid="uid://c52irsfrrq6bd"
+path="res://.godot/imported/youre_against_us.wav-024a82499eb4060cc4e801ce2edc647e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/youre_against_us.wav"
-dest_files=[ "res://.import/youre_against_us.wav-024a82499eb4060cc4e801ce2edc647e.sample" ]
+dest_files=["res://.godot/imported/youre_against_us.wav-024a82499eb4060cc4e801ce2edc647e.sample"]
 
 [params]
 

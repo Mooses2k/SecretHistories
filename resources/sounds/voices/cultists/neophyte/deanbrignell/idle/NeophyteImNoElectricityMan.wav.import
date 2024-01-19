@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteImNoElectricityMan.wav-2786af8af44183ba03053fc3a4ad4313.sample"
+type="AudioStreamWAV"
+uid="uid://cjk7ohgeqf1vw"
+path="res://.godot/imported/NeophyteImNoElectricityMan.wav-2786af8af44183ba03053fc3a4ad4313.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteImNoElectricityMan.wav"
-dest_files=[ "res://.import/NeophyteImNoElectricityMan.wav-2786af8af44183ba03053fc3a4ad4313.sample" ]
+dest_files=["res://.godot/imported/NeophyteImNoElectricityMan.wav-2786af8af44183ba03053fc3a4ad4313.sample"]
 
 [params]
 

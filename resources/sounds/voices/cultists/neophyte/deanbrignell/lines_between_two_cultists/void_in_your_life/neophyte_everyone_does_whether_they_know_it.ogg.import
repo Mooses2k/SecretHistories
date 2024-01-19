@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_everyone_does_whether_they_know_it.ogg-1842a0c5b582c1a697c49df427048670.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://xa5ewmk87uvl"
+path="res://.godot/imported/neophyte_everyone_does_whether_they_know_it.ogg-1842a0c5b582c1a697c49df427048670.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/void_in_your_life/neophyte_everyone_does_whether_they_know_it.ogg"
-dest_files=[ "res://.import/neophyte_everyone_does_whether_they_know_it.ogg-1842a0c5b582c1a697c49df427048670.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_everyone_does_whether_they_know_it.ogg-1842a0c5b582c1a697c49df427048670.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

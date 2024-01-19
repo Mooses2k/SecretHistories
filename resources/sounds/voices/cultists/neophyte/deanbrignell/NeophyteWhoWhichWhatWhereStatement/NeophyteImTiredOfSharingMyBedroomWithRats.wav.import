@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteImTiredOfSharingMyBedroomWithRats.wav-0bed517d5888950ca494b6ddf3c62737.sample"
+type="AudioStreamWAV"
+uid="uid://b5erbsf7wdbhs"
+path="res://.godot/imported/NeophyteImTiredOfSharingMyBedroomWithRats.wav-0bed517d5888950ca494b6ddf3c62737.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteImTiredOfSharingMyBedroomWithRats.wav"
-dest_files=[ "res://.import/NeophyteImTiredOfSharingMyBedroomWithRats.wav-0bed517d5888950ca494b6ddf3c62737.sample" ]
+dest_files=["res://.godot/imported/NeophyteImTiredOfSharingMyBedroomWithRats.wav-0bed517d5888950ca494b6ddf3c62737.sample"]
 
 [params]
 

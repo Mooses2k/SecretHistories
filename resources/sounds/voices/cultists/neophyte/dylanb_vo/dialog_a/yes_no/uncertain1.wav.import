@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/uncertain1.wav-d977b481168f95a0430275b5260c3b73.sample"
+type="AudioStreamWAV"
+uid="uid://bgatd8tltihve"
+path="res://.godot/imported/uncertain1.wav-d977b481168f95a0430275b5260c3b73.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/yes_no/uncertain1.wav"
-dest_files=[ "res://.import/uncertain1.wav-d977b481168f95a0430275b5260c3b73.sample" ]
+dest_files=["res://.godot/imported/uncertain1.wav-d977b481168f95a0430275b5260c3b73.sample"]
 
 [params]
 

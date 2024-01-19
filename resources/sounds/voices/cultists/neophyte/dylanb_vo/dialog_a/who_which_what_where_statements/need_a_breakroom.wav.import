@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/need_a_breakroom.wav-0efceb8e1c260eadbd082bca90b6a5d5.sample"
+type="AudioStreamWAV"
+uid="uid://cl27eu3qrfxjy"
+path="res://.godot/imported/need_a_breakroom.wav-0efceb8e1c260eadbd082bca90b6a5d5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/need_a_breakroom.wav"
-dest_files=[ "res://.import/need_a_breakroom.wav-0efceb8e1c260eadbd082bca90b6a5d5.sample" ]
+dest_files=["res://.godot/imported/need_a_breakroom.wav-0efceb8e1c260eadbd082bca90b6a5d5.sample"]
 
 [params]
 

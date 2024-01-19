@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/waiting_for_you.wav-c93fca28d7bf20c0be76012035f85f59.sample"
+type="AudioStreamWAV"
+uid="uid://upv1mefni7kd"
+path="res://.godot/imported/waiting_for_you.wav-c93fca28d7bf20c0be76012035f85f59.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/waiting_for_you.wav"
-dest_files=[ "res://.import/waiting_for_you.wav-c93fca28d7bf20c0be76012035f85f59.sample" ]
+dest_files=["res://.godot/imported/waiting_for_you.wav-c93fca28d7bf20c0be76012035f85f59.sample"]
 
 [params]
 

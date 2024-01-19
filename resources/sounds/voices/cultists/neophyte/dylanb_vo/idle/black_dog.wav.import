@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/black_dog.wav-7f58f366f73e9130a2200a615a9043ed.sample"
+type="AudioStreamWAV"
+uid="uid://bobbcd4mnn6eu"
+path="res://.godot/imported/black_dog.wav-7f58f366f73e9130a2200a615a9043ed.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/black_dog.wav"
-dest_files=[ "res://.import/black_dog.wav-7f58f366f73e9130a2200a615a9043ed.sample" ]
+dest_files=["res://.godot/imported/black_dog.wav-7f58f366f73e9130a2200a615a9043ed.sample"]
 
 [params]
 

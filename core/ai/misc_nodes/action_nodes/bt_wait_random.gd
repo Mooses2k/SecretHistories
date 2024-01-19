@@ -7,8 +7,8 @@ class_name BTWaitRandom extends BTAction
 signal character_idled
 
 
-export var max_time := 2.0
-export var min_time := 1.0
+@export var max_time := 2.0
+@export var min_time := 1.0
 
 var time_left := 0.0
 var active := false
@@ -39,5 +39,5 @@ func reset_timer():
 	var speech_chance = randf()
 	if (speech_chance > 0.95):
 		emit_signal("character_idled")
-	time_left = rand_range(min_time, max_time)
+	time_left = randf_range(min_time, max_time)
 	reset = true

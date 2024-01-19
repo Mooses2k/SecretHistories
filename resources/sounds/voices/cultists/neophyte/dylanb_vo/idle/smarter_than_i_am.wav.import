@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/smarter_than_i_am.wav-38492006de4865800f1992a92668f9cf.sample"
+type="AudioStreamWAV"
+uid="uid://lj2inynfwx0"
+path="res://.godot/imported/smarter_than_i_am.wav-38492006de4865800f1992a92668f9cf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/smarter_than_i_am.wav"
-dest_files=[ "res://.import/smarter_than_i_am.wav-38492006de4865800f1992a92668f9cf.sample" ]
+dest_files=["res://.godot/imported/smarter_than_i_am.wav-38492006de4865800f1992a92668f9cf.sample"]
 
 [params]
 

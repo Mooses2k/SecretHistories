@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/536104__eminyildirim__sword-hit-heavy.wav-4e86183e74530af695c9ae9dc7d45dad.sample"
+type="AudioStreamWAV"
+uid="uid://5qtu6as4dt7p"
+path="res://.godot/imported/536104__eminyildirim__sword-hit-heavy.wav-4e86183e74530af695c9ae9dc7d45dad.sample"
 
 [deps]
 
 source_file="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav"
-dest_files=[ "res://.import/536104__eminyildirim__sword-hit-heavy.wav-4e86183e74530af695c9ae9dc7d45dad.sample" ]
+dest_files=["res://.godot/imported/536104__eminyildirim__sword-hit-heavy.wav-4e86183e74530af695c9ae9dc7d45dad.sample"]
 
 [params]
 

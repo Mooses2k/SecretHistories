@@ -7,13 +7,13 @@ var temp_setting_name : String = ""
 
 # Override this function
 func _get_value():
-	return str($"%Value".text)
+	return str(%Value.text)
 	pass
 
 
 # Override this function
 func _set_value(value):
-	$"%Value".text = ""
+	%Value.text = ""
 	if value == null:
 		return
 	
@@ -30,9 +30,9 @@ func _set_value(value):
 				temp_event = "Mouse Wheel Up"
 			"Mouse Button 5":
 				temp_event = "Mouse Wheel Down"
-		$"%Value".text += temp_event
+		%Value.text += temp_event
 		if value.find(event) != (value.size() - 1):
-			$"%Value".text += ", "
+			%Value.text += ", "
 
 
 # Override this function
@@ -45,7 +45,7 @@ func _on_value_edited():
 
 # Override this function
 func _on_setting_attached():
-#	$"%Value".connect("value_changed", self, "on_value_edited")
+#	%Value.connect("value_changed", self, "on_value_edited")
 	temp_setting_name = _setting_name
 	
 	if "movement|" in temp_setting_name:
@@ -70,7 +70,7 @@ func _on_setting_attached():
 		temp_setting_name.erase(0, 4)
 	
 	temp_setting_name = temp_setting_name.replace("_", " ")
-	$"%Name".text = temp_setting_name[0].to_upper() + temp_setting_name.substr(1,-1)
+	%Name.text = temp_setting_name[0].to_upper() + temp_setting_name.substr(1,-1)
 	pass
 
 
@@ -95,13 +95,13 @@ func _input(event):
 			elif event is InputEventJoypadMotion:
 				print("Joypad Motion " + str(event.get_axis()))
 			elif event is InputEventKey:
-				if event.physical_scancode:
-					if event.physical_scancode == 16777217:
+				if event.physical_keycode:
+					if event.physical_keycode == 16777217:
 						return
 				else:
-					if event.scancode == 16777217:
+					if event.keycode == 16777217:
 						return
-				print(str(OS.get_scancode_string(event.physical_scancode)))
+				print(str(OS.get_keycode_string(event.physical_keycode)))
 			
 			get_parent().get_parent().get_parent().get_parent().owner.get_node("ChangeKeyPanel").hide()
 			is_waiting_input = false

@@ -1,5 +1,5 @@
 class_name ShakeCamera
-extends Camera
+extends Camera3D
 
 
 enum CameraState {
@@ -7,14 +7,14 @@ enum CameraState {
 	STATE_ZOOM
 }
 
-export var max_yaw : float = 25.0
-export var max_pitch : float = 25.0
-export var max_roll : float = 25.0
-export var shake_reduction : float = 1.0
+@export var max_yaw : float = 25.0
+@export var max_pitch : float = 25.0
+@export var max_roll : float = 25.0
+@export var shake_reduction : float = 1.0
 
-export(int, 1, 179) var normal_fov : int = 70
-export(int, 1, 179) var zoom_fov : int = 30
-export(float, 0.1, 1.0, 0.05) var zoom_camera_sens_mod = 0.25
+@export_range(1, 179) var normal_fov : float = 70 # (int, 1, 179)
+@export_range(1, 179) var zoom_fov : float = 30 # (int, 1, 179)
+@export_range(0.1, 1.0, 0.05) var zoom_camera_sens_mod = 0.25 # (float, 0.1, 1.0, 0.05)
 var mod = 1.0
 
 var stress : float = 0.0
@@ -25,13 +25,13 @@ var _camera_rotation_reset : Vector3 = Vector3()
 #var _crosshair_textures : Dictionary = {}
 
 # moved from _get_noise()
-var n = OpenSimplexNoise.new()
+var n = FastNoiseLite.new()
 
 
 func _ready():
-	n.octaves = 4
-	n.period = 20.0
-	n.persistence = 0.8
+	n.fractal_octaves = 4
+	n.frequency = 1.0/20.0
+	n.fractal_gain = 0.8
 
 
 # TODO: Add in some sort of rotation reset.

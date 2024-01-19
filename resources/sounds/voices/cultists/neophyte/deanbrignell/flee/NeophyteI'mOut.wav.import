@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteI'mOut.wav-2a1dae33bc499ba2a4b7672b154a3d2f.sample"
+type="AudioStreamWAV"
+uid="uid://dfr3sig6usghg"
+path="res://.godot/imported/NeophyteI'mOut.wav-2a1dae33bc499ba2a4b7672b154a3d2f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteI'mOut.wav"
-dest_files=[ "res://.import/NeophyteI'mOut.wav-2a1dae33bc499ba2a4b7672b154a3d2f.sample" ]
+dest_files=["res://.godot/imported/NeophyteI'mOut.wav-2a1dae33bc499ba2a4b7672b154a3d2f.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteRepositioning.wav-7fd97f815edeea518ddd1dd55a9a4969.sample"
+type="AudioStreamWAV"
+uid="uid://dlqxjoapulw7o"
+path="res://.godot/imported/NeophyteRepositioning.wav-7fd97f815edeea518ddd1dd55a9a4969.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteRepositioning.wav"
-dest_files=[ "res://.import/NeophyteRepositioning.wav-7fd97f815edeea518ddd1dd55a9a4969.sample" ]
+dest_files=["res://.godot/imported/NeophyteRepositioning.wav-7fd97f815edeea518ddd1dd55a9a4969.sample"]
 
 [params]
 

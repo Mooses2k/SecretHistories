@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIKnowYou.wav-c7336be39b772b4c006ad718221989a3.sample"
+type="AudioStreamWAV"
+uid="uid://b8w6hdhb4pom6"
+path="res://.godot/imported/NeophyteIKnowYou.wav-c7336be39b772b4c006ad718221989a3.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteIKnowYou.wav"
-dest_files=[ "res://.import/NeophyteIKnowYou.wav-c7336be39b772b4c006ad718221989a3.sample" ]
+dest_files=["res://.godot/imported/NeophyteIKnowYou.wav-c7336be39b772b4c006ad718221989a3.sample"]
 
 [params]
 

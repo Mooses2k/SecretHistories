@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteShutUpYouFooll.wav-25b1026522e77d1ca5885cc00ce2bac6.sample"
+type="AudioStreamWAV"
+uid="uid://c4ujm4ufvltc5"
+path="res://.godot/imported/NeophyteShutUpYouFooll.wav-25b1026522e77d1ca5885cc00ce2bac6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteShutUpYouFooll.wav"
-dest_files=[ "res://.import/NeophyteShutUpYouFooll.wav-25b1026522e77d1ca5885cc00ce2bac6.sample" ]
+dest_files=["res://.godot/imported/NeophyteShutUpYouFooll.wav-25b1026522e77d1ca5885cc00ce2bac6.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/by_the_stars.wav-ae86f436e5f4bbf1d7511f5754728e70.sample"
+type="AudioStreamWAV"
+uid="uid://cfhupxtic1yt6"
+path="res://.godot/imported/by_the_stars.wav-ae86f436e5f4bbf1d7511f5754728e70.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/comet/by_the_stars.wav"
-dest_files=[ "res://.import/by_the_stars.wav-ae86f436e5f4bbf1d7511f5754728e70.sample" ]
+dest_files=["res://.godot/imported/by_the_stars.wav-ae86f436e5f4bbf1d7511f5754728e70.sample"]
 
 [params]
 

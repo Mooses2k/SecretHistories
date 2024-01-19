@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/impossible_things2.wav-8f7f428070175d36d4a56d138ef5a5ca.sample"
+type="AudioStreamWAV"
+uid="uid://bfbatjolcdnm5"
+path="res://.godot/imported/impossible_things2.wav-8f7f428070175d36d4a56d138ef5a5ca.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/impossible_things2.wav"
-dest_files=[ "res://.import/impossible_things2.wav-8f7f428070175d36d4a56d138ef5a5ca.sample" ]
+dest_files=["res://.godot/imported/impossible_things2.wav-8f7f428070175d36d4a56d138ef5a5ca.sample"]
 
 [params]
 

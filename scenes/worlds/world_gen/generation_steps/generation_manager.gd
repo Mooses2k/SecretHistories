@@ -2,9 +2,9 @@ class_name GenerationManager
 extends Node
 
 
-export var world_size_x : int = 40
-export var world_size_z : int = 40
-export var generation_seed : int = 0
+@export var world_size_x : int = 40
+@export var world_size_z : int = 40
+@export var generation_seed : int = 0
 
 signal generation_started(data, gen_data)
 signal step_finished(data)
@@ -23,7 +23,7 @@ func generate(is_last_floor: bool) -> WorldData:
 	# Set global random seed, so rng is consistent even
 	# when it isn't possible to use the world_gen_seed directly
 	# (for example, when using Array.shuffle())
-	rand_seed(GameManager.world_gen_rng.randi())
+	seed(GameManager.world_gen_rng.randi())
 	
 	var data : WorldData = WorldData.new()
 	data.resize(world_size_x, world_size_z)
@@ -34,9 +34,9 @@ func generate(is_last_floor: bool) -> WorldData:
 	for _step in get_children():
 		var step = _step as GenerationStep
 		if step:
-			var start = OS.get_ticks_usec()
+			var start = Time.get_ticks_usec()
 			step.execute_step(data, gen_data, GameManager.world_gen_rng.randi())
-			var end = OS.get_ticks_usec()
+			var end = Time.get_ticks_usec()
 			print("Step took ", end - start, " usec")
 			emit_signal("step_finished", data, gen_data)
 	emit_signal("generation_finished", data, gen_data)

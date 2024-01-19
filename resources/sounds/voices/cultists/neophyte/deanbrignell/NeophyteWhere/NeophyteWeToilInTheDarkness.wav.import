@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWeToilInTheDarkness.wav-829a5a95a6e88c24fde24c4fe3956838.sample"
+type="AudioStreamWAV"
+uid="uid://bpu1r66xpq8rh"
+path="res://.godot/imported/NeophyteWeToilInTheDarkness.wav-829a5a95a6e88c24fde24c4fe3956838.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhere/NeophyteWeToilInTheDarkness.wav"
-dest_files=[ "res://.import/NeophyteWeToilInTheDarkness.wav-829a5a95a6e88c24fde24c4fe3956838.sample" ]
+dest_files=["res://.godot/imported/NeophyteWeToilInTheDarkness.wav-829a5a95a6e88c24fde24c4fe3956838.sample"]
 
 [params]
 

@@ -1,5 +1,5 @@
+@tool
 # Write your doc string for this file here
-tool
 extends GenerationStep
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -11,7 +11,7 @@ extends GenerationStep
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var room_rect := Rect2(1,1,4,4) setget _set_room_rect
+@export var room_rect := Rect2(1,1,4,4): set = _set_room_rect
 
 var room_purpose := 0
 var doorways := {
@@ -71,7 +71,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 				offset = Vector2(-1, 0)
 		
 		var door_direction := data.direction_inverse(direction)
-		if not x_range.empty():
+		if not x_range.is_empty():
 			for x in x_range:
 				var room_cell := starting_wall_cell + Vector2(x, 0)
 				var door_cell := room_cell + offset
@@ -81,7 +81,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 				_set_doorways_meta(data, room_index, door_direction)
 				_set_doorways_meta(data, door_index, door_direction)
 		
-		if not y_range.empty():
+		if not y_range.is_empty():
 			for y in y_range:
 				var room_cell := starting_wall_cell + Vector2(0, y)
 				var door_cell := room_cell + offset
@@ -109,7 +109,7 @@ func _set_doorways_meta(data: WorldData, cell_index: int, direction: int) -> voi
 
 func _set_room_rect(value: Rect2) -> void:
 	room_rect = value
-	property_list_changed_notify()
+	notify_property_list_changed()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -128,7 +128,7 @@ const DOORWAY_HINT = "doorway_"
 func _get_property_list() -> Array:
 	var properties: = []
 	
-	var enum_hint := (RoomData.OriginalPurpose.keys() as PoolStringArray).join(",")
+	var enum_hint := (RoomData.OriginalPurpose.keys() as ",".join(PackedStringArray))
 	properties.append({
 		name = "room_purpose",
 		type = TYPE_INT,

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteSomewhereInTheHeavens.wav-ee93c7109ec19075c721aa001e49046e.sample"
+type="AudioStreamWAV"
+uid="uid://dkpjkrbs1pi4k"
+path="res://.godot/imported/NeophyteSomewhereInTheHeavens.wav-ee93c7109ec19075c721aa001e49046e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteSomewhereInTheHeavens.wav"
-dest_files=[ "res://.import/NeophyteSomewhereInTheHeavens.wav-ee93c7109ec19075c721aa001e49046e.sample" ]
+dest_files=["res://.godot/imported/NeophyteSomewhereInTheHeavens.wav-ee93c7109ec19075c721aa001e49046e.sample"]
 
 [params]
 

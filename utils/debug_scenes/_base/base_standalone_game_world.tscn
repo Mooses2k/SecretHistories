@@ -7,7 +7,7 @@
 [ext_resource path="res://utils/debug_scenes/_base/standalone_item_spawner.gd" type="Script" id=5]
 
 [node name="DebugWorld" instance=ExtResource( 3 )]
-pause_mode = 2
+process_mode = 3
 __meta__ = {
 "_editor_description_": ""
 }
@@ -18,15 +18,15 @@ __meta__ = {
 }
 mesh_library = ExtResource( 2 )
 
-[node name="Camera" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0 )
+[node name="Camera3D" parent="." index="1"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15, 0 )
 fov = 75.0
 script = ExtResource( 4 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="DirectionalLight" parent="." index="2"]
+[node name="DirectionalLight3D" parent="." index="2"]
 light_energy = 2.488
 shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2

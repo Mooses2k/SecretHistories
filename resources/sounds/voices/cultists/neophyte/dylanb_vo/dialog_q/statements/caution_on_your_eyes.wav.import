@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/caution_on_your_eyes.wav-14e9287bb6563953306d457dbfac07bd.sample"
+type="AudioStreamWAV"
+uid="uid://dqm8cjhm4t28d"
+path="res://.godot/imported/caution_on_your_eyes.wav-14e9287bb6563953306d457dbfac07bd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/caution_on_your_eyes.wav"
-dest_files=[ "res://.import/caution_on_your_eyes.wav-14e9287bb6563953306d457dbfac07bd.sample" ]
+dest_files=["res://.godot/imported/caution_on_your_eyes.wav-14e9287bb6563953306d457dbfac07bd.sample"]
 
 [params]
 

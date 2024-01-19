@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/make_your_time.wav-78572753f680729a4a11fc0c6e5bf424.sample"
+type="AudioStreamWAV"
+uid="uid://7y6wdkma488s"
+path="res://.godot/imported/make_your_time.wav-78572753f680729a4a11fc0c6e5bf424.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/make_your_time.wav"
-dest_files=[ "res://.import/make_your_time.wav-78572753f680729a4a11fc0c6e5bf424.sample" ]
+dest_files=["res://.godot/imported/make_your_time.wav-78572753f680729a4a11fc0c6e5bf424.sample"]
 
 [params]
 

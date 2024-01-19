@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/void_in_your_life.wav-75ce2e9d66f9e81f0b0cfe6f44024019.sample"
+type="AudioStreamWAV"
+uid="uid://j6q1emii8aj6"
+path="res://.godot/imported/void_in_your_life.wav-75ce2e9d66f9e81f0b0cfe6f44024019.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/void_in_your_life.wav"
-dest_files=[ "res://.import/void_in_your_life.wav-75ce2e9d66f9e81f0b0cfe6f44024019.sample" ]
+dest_files=["res://.godot/imported/void_in_your_life.wav-75ce2e9d66f9e81f0b0cfe6f44024019.sample"]
 
 [params]
 

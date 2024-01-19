@@ -1,0 +1,36 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://tac8yrcds1dw"
+path.s3tc="res://.godot/imported/comet_shard_T_Tetra_occlusionRoughnessMetallic_3.png-23c99315ac5f71ea06fc081c4d81df60.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={}
+
+[deps]
+
+source_file="res://resources/models/items/strange_devices/comet_shard/comet_shard_T_Tetra_occlusionRoughnessMetallic_3.png"
+dest_files=["res://.godot/imported/comet_shard_T_Tetra_occlusionRoughnessMetallic_3.png-23c99315ac5f71ea06fc081c4d81df60.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

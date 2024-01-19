@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/593473__georgesavic__throwing-brick2.ogg-8dc13d7aa960a70090aed51565fadfc1.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c1fbw0pkbvdug"
+path="res://.godot/imported/593473__georgesavic__throwing-brick2.ogg-8dc13d7aa960a70090aed51565fadfc1.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/brick/593473__georgesavic__throwing-brick2.ogg"
-dest_files=[ "res://.import/593473__georgesavic__throwing-brick2.ogg-8dc13d7aa960a70090aed51565fadfc1.oggstr" ]
+dest_files=["res://.godot/imported/593473__georgesavic__throwing-brick2.ogg-8dc13d7aa960a70090aed51565fadfc1.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

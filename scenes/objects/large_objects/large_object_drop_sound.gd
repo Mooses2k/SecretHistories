@@ -1,5 +1,5 @@
 class_name LargeObjectDropSound
-extends RigidBody
+extends RigidBody3D
 
 
 var drop_sound_scene = preload("res://scenes/objects/large_objects/sarcophagi/drop_sound.tscn")
@@ -27,17 +27,17 @@ func _integrate_forces(state):
 
 func play_drop_sound(linear_velo, is_heavy = false):
 	if self.item_drop_sound and self.is_soundplayer_ready:
-		var drop_audio_player = drop_sound_scene.instance()
+		var drop_audio_player = drop_sound_scene.instantiate()
 		drop_audio_player.stream = self.item_drop_sound
 		drop_audio_player.bus = "Effects"
 	
 		if is_heavy:
 			self.item_drop_sound_level = self.linear_velocity.length() * 10
-			drop_audio_player.unit_db = clamp(self.item_drop_sound_level, 5.0, 50.0)
+			drop_audio_player.volume_db = clamp(self.item_drop_sound_level, 5.0, 50.0)
 		else:
 			self.item_drop_sound_level = linear_velo * 2.0
 			self.item_drop_pitch_level = linear_velo * 0.4
-			drop_audio_player.unit_db = clamp(self.item_drop_sound_level, 1.0, 20.0)
+			drop_audio_player.volume_db = clamp(self.item_drop_sound_level, 1.0, 20.0)
 		
 		self.noise_level = clamp((self.item_max_noise_level * linear_velo), 1.0, 5.0)
 		self.add_child(drop_audio_player)
@@ -46,5 +46,5 @@ func play_drop_sound(linear_velo, is_heavy = false):
 
 
 func start_delay():
-	yield(get_tree().create_timer(0.2), "timeout")
+	await get_tree().create_timer(0.2).timeout
 	self.is_soundplayer_ready = true

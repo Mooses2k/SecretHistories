@@ -1,4 +1,4 @@
-[gd_resource type="ConvexPolygonShape" format=2]
+[gd_resource type="ConvexPolygonShape3D" format=2]
 
 [resource]
-points = PoolVector3Array( -0.0153427, -16, -78.3837, -78.3837, -16, -0.0153427, -0.0153427, 16, -0.0153427, 78.3683, -16, -0.0153427, -0.0153427, -16, 78.3683 )
+points = PackedVector3Array( -0.0153427, -16, -78.3837, -78.3837, -16, -0.0153427, -0.0153427, 16, -0.0153427, 78.3683, -16, -0.0153427, -0.0153427, -16, 78.3683 )

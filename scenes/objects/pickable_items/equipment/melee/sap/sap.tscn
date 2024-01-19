@@ -2,15 +2,15 @@
 
 [ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/653370__triqystudio__dullthud.wav" type="AudioStream" id=2]
-[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Normal_OpenGL.png" type="Texture" id=3]
+[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Normal_OpenGL.png" type="Texture2D" id=3]
 [ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" type="AudioStream" id=4]
-[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Base_color.png" type="Texture" id=5]
-[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Metallic-T_Sap_Roughness.png" type="Texture" id=6]
+[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Base_color.png" type="Texture2D" id=5]
+[ext_resource path="res://resources/models/items/melee/sap/T_Sap_Metallic-T_Sap_Roughness.png" type="Texture2D" id=6]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=10]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=17]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 resource_name = "M_Sap"
 vertex_color_use_as_albedo = true
 params_cull_mode = 2
@@ -39,10 +39,10 @@ surfaces/0 = {
 "vertex_count": 3080
 }
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape3D" id=5]
 extents = Vector3( 0.0808703, 0.00628822, 0.0332283 )
 
-[sub_resource type="CylinderShape" id=3]
+[sub_resource type="CylinderShape3D" id=3]
 height = 0.0864951
 radius = 0.0459393
 
@@ -59,23 +59,23 @@ primary_damage1 = 1
 secondary_damage1 = 40
 melee_attack_speed = 1.5
 
-[node name="MeshInstance" parent="." index="0"]
-transform = Transform( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.0416767, 0 )
+[node name="MeshInstance3D" parent="." index="0"]
+transform = Transform3D( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.0416767, 0 )
 mesh = SubResource( 2 )
 skeleton = NodePath("")
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CollisionShape" parent="." index="1"]
-transform = Transform( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.026485, 0 )
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D( -2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.026485, 0 )
 shape = SubResource( 5 )
 
 [node name="Hitbox" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139101, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139101, 0 )
 
-[node name="CollisionShape" parent="Hitbox" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.119212, 0 )
+[node name="CollisionShape3D" parent="Hitbox" index="0"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.119212, 0 )
 shape = SubResource( 3 )
 
 [node name="CooldownTimer" parent="." index="3"]
@@ -83,13 +83,13 @@ wait_time = 0.5
 
 [node name="HoldPosition" parent="." index="4"]
 unique_name_in_owner = false
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0675571, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0675571, 0 )
 
 [node name="NormalPosition" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310187, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310187, 0 )
 
 [node name="ThrowPosition" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439791, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439791, 0 )
 
 [node name="Thrust" parent="Sounds" index="2"]
 stream = ExtResource( 4 )

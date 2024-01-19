@@ -36,7 +36,7 @@ func _ready() -> void:
 	if game_world and is_instance_valid(_spawn_position):
 		game_world.world_data.player_spawn_positions[RoomData.OriginalPurpose.UP_STAIRCASE] = \
 				{
-					"position": _spawn_position.global_translation,
+					"position": _spawn_position.global_position,
 					"y_rotation": PLAYER_FACING_ROTATIONS[facing_direction],
 				}
 	
@@ -92,7 +92,7 @@ func _on_UpDetector_body_entered(body: Node) -> void:
 func _on_Timer_timeout():
 	var tween := get_tree().create_tween().tween_property($LevelMessage, "modulate", Color(0, 0, 0, 0), 1.0)
 	if tween: assert(tween.set_ease(Tween.EASE_IN))
-	yield(get_tree().create_timer(1), "timeout")
+	await get_tree().create_timer(1).timeout
 	$LevelMessage.visible = false
 
 
@@ -100,7 +100,7 @@ func _on_CantLeaveTimer_timeout():
 	get_tree().create_tween()\
 		.tween_property($CantLeaveMessage, "modulate", Color(0, 0, 0, 0), 1.0)\
 		.set_ease(Tween.EASE_IN)
-	yield(get_tree().create_timer(1), "timeout")
+	await get_tree().create_timer(1).timeout
 	$CantLeaveMessage.visible = false
 
 ### -----------------------------------------------------------------------------------------------

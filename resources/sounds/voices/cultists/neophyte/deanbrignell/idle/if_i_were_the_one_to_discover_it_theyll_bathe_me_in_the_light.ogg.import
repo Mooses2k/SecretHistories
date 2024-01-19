@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/if_i_were_the_one_to_discover_it_theyll_bathe_me_in_the_light.ogg-c264de2880a6363de9ee7aed5ea931fc.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://7s4fc34qulx0"
+path="res://.godot/imported/if_i_were_the_one_to_discover_it_theyll_bathe_me_in_the_light.ogg-c264de2880a6363de9ee7aed5ea931fc.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/if_i_were_the_one_to_discover_it_theyll_bathe_me_in_the_light.ogg"
-dest_files=[ "res://.import/if_i_were_the_one_to_discover_it_theyll_bathe_me_in_the_light.ogg-c264de2880a6363de9ee7aed5ea931fc.oggstr" ]
+dest_files=["res://.godot/imported/if_i_were_the_one_to_discover_it_theyll_bathe_me_in_the_light.ogg-c264de2880a6363de9ee7aed5ea931fc.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

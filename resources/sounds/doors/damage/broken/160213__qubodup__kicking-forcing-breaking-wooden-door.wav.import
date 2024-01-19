@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/160213__qubodup__kicking-forcing-breaking-wooden-door.wav-55e8278dc4c076b2bc85117f0a92aba2.sample"
+type="AudioStreamWAV"
+uid="uid://bontcdvuuvf8q"
+path="res://.godot/imported/160213__qubodup__kicking-forcing-breaking-wooden-door.wav-55e8278dc4c076b2bc85117f0a92aba2.sample"
 
 [deps]
 
 source_file="res://resources/sounds/doors/damage/broken/160213__qubodup__kicking-forcing-breaking-wooden-door.wav"
-dest_files=[ "res://.import/160213__qubodup__kicking-forcing-breaking-wooden-door.wav-55e8278dc4c076b2bc85117f0a92aba2.sample" ]
+dest_files=["res://.godot/imported/160213__qubodup__kicking-forcing-breaking-wooden-door.wav-55e8278dc4c076b2bc85117f0a92aba2.sample"]
 
 [params]
 

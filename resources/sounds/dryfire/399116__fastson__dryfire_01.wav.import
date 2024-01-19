@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/399116__fastson__dryfire_01.wav-8fb90f92bdab4927b51671323360725b.sample"
+type="AudioStreamWAV"
+uid="uid://277pt4sgxhf8"
+path="res://.godot/imported/399116__fastson__dryfire_01.wav-8fb90f92bdab4927b51671323360725b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/dryfire/399116__fastson__dryfire_01.wav"
-dest_files=[ "res://.import/399116__fastson__dryfire_01.wav-8fb90f92bdab4927b51671323360725b.sample" ]
+dest_files=["res://.godot/imported/399116__fastson__dryfire_01.wav-8fb90f92bdab4927b51671323360725b.sample"]
 
 [params]
 

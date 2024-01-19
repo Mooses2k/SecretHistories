@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/union_bastards.wav-625f12adc75a3152067cba67525f6536.sample"
+type="AudioStreamWAV"
+uid="uid://cokhielam63k5"
+path="res://.godot/imported/union_bastards.wav-625f12adc75a3152067cba67525f6536.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/union_bastards.wav"
-dest_files=[ "res://.import/union_bastards.wav-625f12adc75a3152067cba67525f6536.sample" ]
+dest_files=["res://.godot/imported/union_bastards.wav-625f12adc75a3152067cba67525f6536.sample"]
 
 [params]
 

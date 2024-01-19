@@ -1,9 +1,9 @@
 extends GenerationStep
 
 
-export var door_dict : Dictionary
-export var door_probability = 0.6
-export var door_stuck_probability = 0.2
+@export var door_dict : Dictionary
+@export var door_probability = 0.6
+@export var door_stuck_probability = 0.2
 const DOUBLE_DOOR_OFFSET_FROM_DIRECTION_N : Dictionary = {
 	WorldData.Direction.NORTH : Vector3.ZERO,
 	WorldData.Direction.EAST : Vector3.RIGHT*WorldData.CELL_SIZE,

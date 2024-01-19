@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_do_you_ever_feel_a_void_in_your_life.ogg-26615327726f65dc6e27c18a2b5785e7.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cbqt5o0uoqai7"
+path="res://.godot/imported/neophyte_do_you_ever_feel_a_void_in_your_life.ogg-26615327726f65dc6e27c18a2b5785e7.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/void_in_your_life/neophyte_do_you_ever_feel_a_void_in_your_life.ogg"
-dest_files=[ "res://.import/neophyte_do_you_ever_feel_a_void_in_your_life.ogg-26615327726f65dc6e27c18a2b5785e7.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_do_you_ever_feel_a_void_in_your_life.ogg-26615327726f65dc6e27c18a2b5785e7.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

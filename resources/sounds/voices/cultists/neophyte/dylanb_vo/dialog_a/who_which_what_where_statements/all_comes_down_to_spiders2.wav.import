@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/all_comes_down_to_spiders2.wav-27338fa4f5a789ffb3b603730645fe70.sample"
+type="AudioStreamWAV"
+uid="uid://c5pgij244kgs2"
+path="res://.godot/imported/all_comes_down_to_spiders2.wav-27338fa4f5a789ffb3b603730645fe70.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/all_comes_down_to_spiders2.wav"
-dest_files=[ "res://.import/all_comes_down_to_spiders2.wav-27338fa4f5a789ffb3b603730645fe70.sample" ]
+dest_files=["res://.godot/imported/all_comes_down_to_spiders2.wav-27338fa4f5a789ffb3b603730645fe70.sample"]
 
 [params]
 

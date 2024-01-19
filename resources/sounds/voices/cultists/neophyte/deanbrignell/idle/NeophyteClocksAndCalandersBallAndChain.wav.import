@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteClocksAndCalandersBallAndChain.wav-2896ff00cd718e910699ddbe7eb86b38.sample"
+type="AudioStreamWAV"
+uid="uid://c00pgx5ku7w7j"
+path="res://.godot/imported/NeophyteClocksAndCalandersBallAndChain.wav-2896ff00cd718e910699ddbe7eb86b38.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteClocksAndCalandersBallAndChain.wav"
-dest_files=[ "res://.import/NeophyteClocksAndCalandersBallAndChain.wav-2896ff00cd718e910699ddbe7eb86b38.sample" ]
+dest_files=["res://.godot/imported/NeophyteClocksAndCalandersBallAndChain.wav-2896ff00cd718e910699ddbe7eb86b38.sample"]
 
 [params]
 

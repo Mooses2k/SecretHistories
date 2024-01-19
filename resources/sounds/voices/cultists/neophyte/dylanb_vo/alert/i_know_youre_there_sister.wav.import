@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/i_know_youre_there_sister.wav-6c34e7134047eb4c0c319ebeb990545f.sample"
+type="AudioStreamWAV"
+uid="uid://b5sohilf0utud"
+path="res://.godot/imported/i_know_youre_there_sister.wav-6c34e7134047eb4c0c319ebeb990545f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/i_know_youre_there_sister.wav"
-dest_files=[ "res://.import/i_know_youre_there_sister.wav-6c34e7134047eb4c0c319ebeb990545f.sample" ]
+dest_files=["res://.godot/imported/i_know_youre_there_sister.wav-6c34e7134047eb4c0c319ebeb990545f.sample"]
 
 [params]
 

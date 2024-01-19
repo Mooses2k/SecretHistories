@@ -1,11 +1,11 @@
-extends Position3D
+extends Marker3D
 
 
-export var threshold_angle_degrees = 60
+@export var threshold_angle_degrees = 60
 
-onready var threshold_factor = cos(deg2rad(threshold_angle_degrees))
-onready var fire: Spatial = $Fire
-onready var light: Spatial = $Fire/Light
+@onready var threshold_factor = cos(deg_to_rad(threshold_angle_degrees))
+@onready var fire: Node3D = $Fire
+@onready var light: Node3D = $Fire/Light3D
 
 
 func _physics_process(delta):

@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_r_which_star_is_your_star.ogg-fba3a2bf60ef7afc9574031a7baad388.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b8tftjlte2co5"
+path="res://.godot/imported/neophyte_r_which_star_is_your_star.ogg-fba3a2bf60ef7afc9574031a7baad388.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhat/neophyte_r_which_star_is_your_star.ogg"
-dest_files=[ "res://.import/neophyte_r_which_star_is_your_star.ogg-fba3a2bf60ef7afc9574031a7baad388.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_r_which_star_is_your_star.ogg-fba3a2bf60ef7afc9574031a7baad388.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

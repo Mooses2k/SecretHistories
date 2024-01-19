@@ -1,5 +1,5 @@
+@tool
 # Write your doc string for this file here
-tool
 extends GenerationStep
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -13,11 +13,11 @@ extends GenerationStep
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-export var _loot_list_resource: Resource = null
-export var _min_loot := 5 setget _set_min_loot
-export var _max_loot := 10 setget _set_max_loot
-export var _min_radius_multiplier := 0.1
-export var _max_radius_multiplier := 0.3
+@export var _loot_list_resource: Resource = null
+@export var _min_loot := 5: set = _set_min_loot
+@export var _max_loot := 10: set = _set_max_loot
+@export var _min_radius_multiplier := 0.1
+@export var _max_radius_multiplier := 0.3
 
 var _rng := RandomNumberGenerator.new()
 
@@ -27,7 +27,7 @@ var _rng := RandomNumberGenerator.new()
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _ready() -> void:
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 
 ### -----------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ func _ready() -> void:
 ### Private Methods -------------------------------------------------------------------------------
 
 func _execute_step(data: WorldData, gen_data : Dictionary, generation_seed : int):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	elif _loot_list_resource == null or not _loot_list_resource is ObjectSpawnList:
 		push_error("No resource, or invalid resource, on _loot_list_resource property")
@@ -62,12 +62,12 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 	for _i in draw_amount:
 		var spawn_data := loot_list.get_random_spawn_data(_rng)
 		
-		if possible_cells.empty():
+		if possible_cells.is_empty():
 			return
 		
 		var lucky_index = _rng.randi() % possible_cells.size()
 		var cell_index := possible_cells[lucky_index] as int
-		possible_cells.remove(lucky_index)
+		possible_cells.remove_at(lucky_index)
 		
 		var cell_position := data.get_local_cell_position(cell_index)
 		var cell_radius := data.CELL_SIZE * 0.5

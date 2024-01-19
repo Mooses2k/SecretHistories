@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteNowISeeThingsThatIShouldNot.wav-3f67e5f041aee7156c97baba156b9238.sample"
+type="AudioStreamWAV"
+uid="uid://ce650y7hoq5a"
+path="res://.godot/imported/NeophyteNowISeeThingsThatIShouldNot.wav-3f67e5f041aee7156c97baba156b9238.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteNowISeeThingsThatIShouldNot.wav"
-dest_files=[ "res://.import/NeophyteNowISeeThingsThatIShouldNot.wav-3f67e5f041aee7156c97baba156b9238.sample" ]
+dest_files=["res://.godot/imported/NeophyteNowISeeThingsThatIShouldNot.wav-3f67e5f041aee7156c97baba156b9238.sample"]
 
 [params]
 

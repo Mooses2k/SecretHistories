@@ -41,10 +41,10 @@ one_shot = true
 [node name="CooldownTimer" type="Timer" parent="." index="4"]
 one_shot = true
 
-[node name="RayCast" type="RayCast" parent="." index="5"]
+[node name="RayCast3D" type="RayCast3D" parent="." index="5"]
 visible = false
 enabled = true
-cast_to = Vector3( 0, 0, -1000 )
+target_position = Vector3( 0, 0, -1000 )
 collision_mask = 13
 collide_with_areas = true
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/footsteps_gravel6.wav-e1d4e8ab1123cacbf87d1286cf80c726.sample"
+type="AudioStreamWAV"
+uid="uid://bt3l08m80x16n"
+path="res://.godot/imported/footsteps_gravel6.wav-e1d4e8ab1123cacbf87d1286cf80c726.sample"
 
 [deps]
 
 source_file="res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel6.wav"
-dest_files=[ "res://.import/footsteps_gravel6.wav-e1d4e8ab1123cacbf87d1286cf80c726.sample" ]
+dest_files=["res://.godot/imported/footsteps_gravel6.wav-e1d4e8ab1123cacbf87d1286cf80c726.sample"]
 
 [params]
 

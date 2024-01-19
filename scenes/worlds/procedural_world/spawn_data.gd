@@ -1,5 +1,5 @@
+@tool
 # Helper class for spawning objects
-tool
 class_name SpawnData
 extends Resource
 
@@ -14,15 +14,15 @@ const ITEM_CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var scene_path: String = ""
-export var amount: int = 1 setget _set_amount
+@export var scene_path: String = ""
+@export var amount: int = 1: set = _set_amount
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-export var _transforms: Array
+@export var _transforms: Array
 
 # Array of Dictionary of properties to be applied to the spawned node, after spawn.
-export var _custom_properties: Array
+@export var _custom_properties: Array
 
 var _has_spawned := false
 
@@ -55,9 +55,9 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 		# handle bad refs in the loot list
 		if !is_instance_valid(item_scene):
 			return
-		var item = item_scene.instance()
+		var item = item_scene.instantiate()
 		
-		if item is Spatial:
+		if item is Node3D:
 			item.transform = _transforms[index]
 		
 		var custom_properties := _custom_properties[index] as Dictionary
@@ -81,7 +81,7 @@ func set_center_position_in_cell(cell_position: Vector3, instance_index := INF) 
 		if instance_index != INF and i != instance_index:
 			continue
 		
-		var transform := Transform.IDENTITY.translated(cell_position + _get_center_offset())
+		var transform := Transform3D.IDENTITY.translated(cell_position + _get_center_offset())
 		_transforms[i] = transform
 
 
@@ -102,7 +102,7 @@ func set_random_position_in_cell(
 		if instance_index != INF and i != instance_index:
 			continue
 		
-		var transform := _transforms[i] as Transform
+		var transform := _transforms[i] as Transform3D
 		var angle := p_angle
 		var center_position := cell_position + _get_center_offset()
 		
@@ -129,12 +129,13 @@ func set_random_rotation_in_all_axis(
 		if instance_index != INF and i != instance_index:
 			continue
 		
-		var transform = _transforms[i] as Transform
-		var random_rotation = Quat(Vector3(
+		var transform = _transforms[i] as Transform3D
+		var axis_angle := Vector3(
 			rng.randf_range(0, limit_x),
 			rng.randf_range(0, limit_y),
 			rng.randf_range(0, limit_z)
-		))
+		)
+		var random_rotation := Quaternion(axis_angle.normalized(), axis_angle.length())
 		transform.basis = Basis(random_rotation)
 		_transforms[i] = transform
 
@@ -144,7 +145,7 @@ func set_y_rotation(angle_rad: float, instance_index := INF) -> void:
 		if instance_index != INF and i != instance_index:
 			continue
 		
-		var transform = _transforms[i] as Transform
+		var transform = _transforms[i] as Transform3D
 		transform.basis = transform.basis.rotated(Vector3.UP, angle_rad)
 		_transforms[i] = transform
 
@@ -154,7 +155,7 @@ func set_position_in_cell(cell_position: Vector3, instance_index := INF) -> void
 		if instance_index != INF and i != instance_index:
 			continue
 		
-		var transform = _transforms[i] as Transform
+		var transform = _transforms[i] as Transform3D
 		transform.origin = cell_position
 		_transforms[i] = transform
 
@@ -177,7 +178,7 @@ func _set_amount(value: int) -> void:
 	_transforms.resize(amount)
 	_custom_properties.resize(amount)
 	
-	_transforms.fill(Transform.IDENTITY)
+	_transforms.fill(Transform3D.IDENTITY)
 	
 	for index in _transforms.size():
 		if index < old_tranforms.size() and _transforms[index] != old_tranforms[index]:

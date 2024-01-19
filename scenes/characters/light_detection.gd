@@ -1,16 +1,16 @@
-extends Spatial
+extends Node3D
 
 
 # TODO: Needs commenting
 var light_level_bottom : float
 var light_level_top : float
 
-export var light_detect_interval : float = 0.25   # For performance, only check about 4 times a second
+@export var light_detect_interval : float = 0.25   # For performance, only check about 4 times a second
 var _last_time_since_detect : float = 0.00
 
 
 func _get_time() -> float:
-	return OS.get_ticks_msec() / 1000.0
+	return Time.get_ticks_msec() / 1000.0
 
 
 func _process(delta):
@@ -22,22 +22,22 @@ func _process(delta):
 	if Performance.get_monitor(Performance.TIME_FPS) > 20:
 #		var meshInstance := get_node("MeshInstance")
 		var meshInstance2 := get_node("MeshInstance2")
-		get_node("ViewportContainer/Viewport/Camera").global_transform.origin = (
+		get_node("SubViewportContainer/SubViewport/Camera3D").global_transform.origin = (
 				Vector3(meshInstance2.global_transform.origin.x,
 				meshInstance2.global_transform.origin.y - .3, 
 				meshInstance2.global_transform.origin.z))
-		get_node("ViewportContainer2/Viewport/Camera").global_transform.origin = (
+		get_node("ViewportContainer2/SubViewport/Camera3D").global_transform.origin = (
 				Vector3(meshInstance2.global_transform.origin.x,
 				meshInstance2.global_transform.origin.y + .3, 
 				meshInstance2.global_transform.origin.z))
 		
 		# Bottom camera image
-		var image : Image = get_node("ViewportContainer/Viewport").get_texture().get_data()
+		var image : Image = get_node("SubViewportContainer/SubViewport").get_texture().get_image()
 		
 		light_level_bottom = _average(_build_pixel_array(image))
 		
 		# Top camera image
-		image = get_node("ViewportContainer2/Viewport").get_texture().get_data() as Image
+		image = get_node("ViewportContainer2/SubViewport").get_texture().get_image() as Image
 		
 		light_level_top = _average(_build_pixel_array(image))
 		
@@ -59,7 +59,7 @@ func _process(delta):
 func _build_pixel_array(image):
 	var floats = []
 	
-	image.lock()
+	false # image.lock() # TODOConverter3To4, Image no longer requires locking, `false` helps to not break one line if/else, so it can freely be removed
 		
 	for y in range(0, image.get_height()):
 		for x in range(0, image.get_width()):

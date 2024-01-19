@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/crazy_static.ogg-5a2f55d28991dba3dbec394f0cfc07de.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bkr4lxmwfoig8"
+path="res://.godot/imported/crazy_static.ogg-5a2f55d28991dba3dbec394f0cfc07de.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/radio/crazy_static.ogg"
-dest_files=[ "res://.import/crazy_static.ogg-5a2f55d28991dba3dbec394f0cfc07de.oggstr" ]
+dest_files=["res://.godot/imported/crazy_static.ogg-5a2f55d28991dba3dbec394f0cfc07de.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

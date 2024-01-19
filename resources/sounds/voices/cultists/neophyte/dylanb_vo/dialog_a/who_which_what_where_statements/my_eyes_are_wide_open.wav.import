@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/my_eyes_are_wide_open.wav-4aafeb54061e046e98050ca8cab7db27.sample"
+type="AudioStreamWAV"
+uid="uid://cl1156ry1me2r"
+path="res://.godot/imported/my_eyes_are_wide_open.wav-4aafeb54061e046e98050ca8cab7db27.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/my_eyes_are_wide_open.wav"
-dest_files=[ "res://.import/my_eyes_are_wide_open.wav-4aafeb54061e046e98050ca8cab7db27.sample" ]
+dest_files=["res://.godot/imported/my_eyes_are_wide_open.wav-4aafeb54061e046e98050ca8cab7db27.sample"]
 
 [params]
 

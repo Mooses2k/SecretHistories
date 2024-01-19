@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/probably_just_rats.wav-42b84fc187a2222a7cf2b80046840e21.sample"
+type="AudioStreamWAV"
+uid="uid://c2bp4gw0yaf38"
+path="res://.godot/imported/probably_just_rats.wav-42b84fc187a2222a7cf2b80046840e21.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/probably_just_rats.wav"
-dest_files=[ "res://.import/probably_just_rats.wav-42b84fc187a2222a7cf2b80046840e21.sample" ]
+dest_files=["res://.godot/imported/probably_just_rats.wav-42b84fc187a2222a7cf2b80046840e21.sample"]
 
 [params]
 

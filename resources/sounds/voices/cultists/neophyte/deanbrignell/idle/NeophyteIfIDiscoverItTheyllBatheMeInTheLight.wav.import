@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIfIDiscoverItTheyllBatheMeInTheLight.wav-97124ebdd3e44d14bb049183a9b2b0c8.sample"
+type="AudioStreamWAV"
+uid="uid://cxge61gkmbn13"
+path="res://.godot/imported/NeophyteIfIDiscoverItTheyllBatheMeInTheLight.wav-97124ebdd3e44d14bb049183a9b2b0c8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIfIDiscoverItTheyllBatheMeInTheLight.wav"
-dest_files=[ "res://.import/NeophyteIfIDiscoverItTheyllBatheMeInTheLight.wav-97124ebdd3e44d14bb049183a9b2b0c8.sample" ]
+dest_files=["res://.godot/imported/NeophyteIfIDiscoverItTheyllBatheMeInTheLight.wav-97124ebdd3e44d14bb049183a9b2b0c8.sample"]
 
 [params]
 

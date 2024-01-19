@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIAmYourSisterInGrief.wav-ff89673c76b70f17112f29484f899777.sample"
+type="AudioStreamWAV"
+uid="uid://ecggwhbetnqx"
+path="res://.godot/imported/NeophyteIAmYourSisterInGrief.wav-ff89673c76b70f17112f29484f899777.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteIAmYourSisterInGrief.wav"
-dest_files=[ "res://.import/NeophyteIAmYourSisterInGrief.wav-ff89673c76b70f17112f29484f899777.sample" ]
+dest_files=["res://.godot/imported/NeophyteIAmYourSisterInGrief.wav-ff89673c76b70f17112f29484f899777.sample"]
 
 [params]
 

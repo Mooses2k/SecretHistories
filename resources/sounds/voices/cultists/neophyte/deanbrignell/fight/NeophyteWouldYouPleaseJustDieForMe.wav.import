@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWouldYouPleaseJustDieForMe.wav-2d2d5c3c873fdc6c348c90311127d6e7.sample"
+type="AudioStreamWAV"
+uid="uid://b3ysgxkx1333u"
+path="res://.godot/imported/NeophyteWouldYouPleaseJustDieForMe.wav-2d2d5c3c873fdc6c348c90311127d6e7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteWouldYouPleaseJustDieForMe.wav"
-dest_files=[ "res://.import/NeophyteWouldYouPleaseJustDieForMe.wav-2d2d5c3c873fdc6c348c90311127d6e7.sample" ]
+dest_files=["res://.godot/imported/NeophyteWouldYouPleaseJustDieForMe.wav-2d2d5c3c873fdc6c348c90311127d6e7.sample"]
 
 [params]
 

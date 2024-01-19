@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/bathe_me_in_the_light.wav-10f65ceec101e7100825a1697a36cc71.sample"
+type="AudioStreamWAV"
+uid="uid://b2cqa7s7sp3yt"
+path="res://.godot/imported/bathe_me_in_the_light.wav-10f65ceec101e7100825a1697a36cc71.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/bathe_me_in_the_light.wav"
-dest_files=[ "res://.import/bathe_me_in_the_light.wav-10f65ceec101e7100825a1697a36cc71.sample" ]
+dest_files=["res://.godot/imported/bathe_me_in_the_light.wav-10f65ceec101e7100825a1697a36cc71.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteSorryGotABitCarriedAwayThere.wav-e7452ed8cc38051603affc78804c5497.sample"
+type="AudioStreamWAV"
+uid="uid://5haxb1w3hyxe"
+path="res://.godot/imported/NeophyteSorryGotABitCarriedAwayThere.wav-e7452ed8cc38051603affc78804c5497.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteSorryGotABitCarriedAwayThere.wav"
-dest_files=[ "res://.import/NeophyteSorryGotABitCarriedAwayThere.wav-e7452ed8cc38051603affc78804c5497.sample" ]
+dest_files=["res://.godot/imported/NeophyteSorryGotABitCarriedAwayThere.wav-e7452ed8cc38051603affc78804c5497.sample"]
 
 [params]
 

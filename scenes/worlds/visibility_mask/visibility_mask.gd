@@ -1,42 +1,41 @@
 class_name VisibilityMask
-extends MeshInstance
+extends MeshInstance3D
 
 ### Legacy visibility determiner ala the roguelike 'what you can see from your position', top-eown
 ### Not working since code changes in 2022
 
 
-export var wall_height : float = 16.0
-export var resolution : int = 2048
-export var margin : float = 1.0
+@export var wall_height : float = 16.0
+@export var resolution : int = 2048
+@export var margin : float = 1.0
 
 var cell_size = 2
 var grid_size = 12
-var target_node : Spatial
+var target_node : Node3D
 
-onready var mesh_instance = $Viewport/MeshInstance
-onready var visibility_agent = $Viewport/VisibilityAgent
-onready var viewport = $Viewport
-onready var camera = $Viewport/Camera
+@onready var mesh_instance = $SubViewport/MeshInstance3D
+@onready var visibility_agent = $SubViewport/VisibilityAgent
+@onready var viewport = $SubViewport
+@onready var camera = $SubViewport/Camera3D
 
 var world : GameWorld
 
 
 func _ready():
-	var _error = GameManager.game.connect("player_spawned", self, "on_player_spawn")
+	var _error = GameManager.game.connect("player_spawned", Callable(self, "on_player_spawn"))
 
 	if self.get_parent() is GameWorld:
 		world = self.get_parent() as GameWorld
-		_error = world.connect("world_data_changed", self, "world_changed")
+		_error = world.connect("world_data_changed", Callable(self, "world_changed"))
 	else:
 		printerr("Visibility mask should be a child of a GameWorld node")
 		queue_free()
 
 	var texture = viewport.get_texture()
-	texture.flags = Texture.FLAG_FILTER
-	(self.material_override as ShaderMaterial).set_shader_param("data_texture", texture)
+	(self.material_override as ShaderMaterial).set_shader_parameter("data_texture", texture)
 
 
-func on_player_spawn(player : Spatial):
+func on_player_spawn(player : Node3D):
 	self.target_node = player
 
 
@@ -156,9 +155,9 @@ func generate_mesh(grid_data : Array):
 					last_index += 4
 	var arrays = []
 	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = PoolVector3Array(vertices)
-	arrays[Mesh.ARRAY_NORMAL] = PoolVector3Array(normals)
-	arrays[Mesh.ARRAY_INDEX] = PoolIntArray(indices)
+	arrays[Mesh.ARRAY_VERTEX] = PackedVector3Array(vertices)
+	arrays[Mesh.ARRAY_NORMAL] = PackedVector3Array(normals)
+	arrays[Mesh.ARRAY_INDEX] = PackedInt32Array(indices)
 	(mesh_instance.mesh as ArrayMesh).add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 
 
@@ -166,7 +165,7 @@ func _process(_delta):
 	if self.target_node and is_instance_valid(self.target_node):
 		self.visibility_agent.global_transform = self.target_node.global_transform
 
-	var active_camera : Camera = get_viewport().get_camera()
+	var active_camera : Camera3D = get_viewport().get_camera_3d()
 	self.camera.global_transform.origin.x = active_camera.global_transform.origin.x + active_camera.h_offset
 	self.camera.global_transform.origin.z = active_camera.global_transform.origin.z - active_camera.v_offset
 
@@ -178,8 +177,8 @@ func _process(_delta):
 
 	viewport.size = Vector2.ONE*resolution
 
-	(self.material_override as ShaderMaterial).set_shader_param("offset", self.camera.global_transform.origin)
-	(self.material_override as ShaderMaterial).set_shader_param("view_width", width)
+	(self.material_override as ShaderMaterial).set_shader_parameter("offset", self.camera.global_transform.origin)
+	(self.material_override as ShaderMaterial).set_shader_parameter("view_width", width)
 
 
 func world_changed(world_data : Array, world_size : int):

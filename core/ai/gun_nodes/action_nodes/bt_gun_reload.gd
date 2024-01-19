@@ -10,8 +10,8 @@ signal character_reloaded   # For signalling speech
 func _tick(state : CharacterState) -> int:
 	var inventory = state.character.inventory
 	var equipment = state.character.inventory.current_mainhand_equipment as GunItem
-	var animation_tree : AnimationTree = $"%AnimationTree"
-	var animation_player : AnimationPlayer = $"%AnimationPlayer"
+	var animation_tree : AnimationTree = %AnimationTree
+	var animation_player : AnimationPlayer = %AnimationPlayer
 	for ammo_type in equipment.ammo_types:
 		if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
 			if equipment.current_ammo < 1:

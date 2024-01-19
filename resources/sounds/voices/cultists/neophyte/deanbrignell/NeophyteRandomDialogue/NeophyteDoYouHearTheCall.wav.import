@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDoYouHearTheCall.wav-1e11c869fc33ebc5badedf0892b26aa8.sample"
+type="AudioStreamWAV"
+uid="uid://6q5cj74yja30"
+path="res://.godot/imported/NeophyteDoYouHearTheCall.wav-1e11c869fc33ebc5badedf0892b26aa8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteDoYouHearTheCall.wav"
-dest_files=[ "res://.import/NeophyteDoYouHearTheCall.wav-1e11c869fc33ebc5badedf0892b26aa8.sample" ]
+dest_files=["res://.godot/imported/NeophyteDoYouHearTheCall.wav-1e11c869fc33ebc5badedf0892b26aa8.sample"]
 
 [params]
 

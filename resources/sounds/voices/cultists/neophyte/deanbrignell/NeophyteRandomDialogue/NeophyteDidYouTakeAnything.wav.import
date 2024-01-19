@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDidYouTakeAnything.wav-6ee07f770c9608cb424477d08058a56a.sample"
+type="AudioStreamWAV"
+uid="uid://ckf0h8k0qb01p"
+path="res://.godot/imported/NeophyteDidYouTakeAnything.wav-6ee07f770c9608cb424477d08058a56a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteDidYouTakeAnything.wav"
-dest_files=[ "res://.import/NeophyteDidYouTakeAnything.wav-6ee07f770c9608cb424477d08058a56a.sample" ]
+dest_files=["res://.godot/imported/NeophyteDidYouTakeAnything.wav-6ee07f770c9608cb424477d08058a56a.sample"]
 
 [params]
 

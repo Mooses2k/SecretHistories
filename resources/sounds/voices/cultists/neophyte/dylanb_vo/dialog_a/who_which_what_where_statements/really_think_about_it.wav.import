@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/really_think_about_it.wav-3414c17d87e482e34636d7fbc0446211.sample"
+type="AudioStreamWAV"
+uid="uid://cb70hdeyvvisx"
+path="res://.godot/imported/really_think_about_it.wav-3414c17d87e482e34636d7fbc0446211.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/really_think_about_it.wav"
-dest_files=[ "res://.import/really_think_about_it.wav-3414c17d87e482e34636d7fbc0446211.sample" ]
+dest_files=["res://.godot/imported/really_think_about_it.wav-3414c17d87e482e34636d7fbc0446211.sample"]
 
 [params]
 

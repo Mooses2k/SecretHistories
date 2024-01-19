@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteHaveYouConsideredThePossibility.wav-b9673ca16d84f13dc39f0c3c328adcc0.sample"
+type="AudioStreamWAV"
+uid="uid://t15pxf384kbv"
+path="res://.godot/imported/NeophyteHaveYouConsideredThePossibility.wav-b9673ca16d84f13dc39f0c3c328adcc0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteHaveYouConsideredThePossibility.wav"
-dest_files=[ "res://.import/NeophyteHaveYouConsideredThePossibility.wav-b9673ca16d84f13dc39f0c3c328adcc0.sample" ]
+dest_files=["res://.godot/imported/NeophyteHaveYouConsideredThePossibility.wav-b9673ca16d84f13dc39f0c3c328adcc0.sample"]
 
 [params]
 

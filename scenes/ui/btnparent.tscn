@@ -4,10 +4,10 @@
 
 
 [node name="btnparent" type="Button"]
-margin_top = 18.0
-margin_right = 214.0
-margin_bottom = 38.0
+offset_top = 18.0
+offset_right = 214.0
+offset_bottom = 38.0
 focus_mode = 0
-enabled_focus_mode = 0
+focus_mode = 0
 text = "W"
 script = ExtResource( 1 )

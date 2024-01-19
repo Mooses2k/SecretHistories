@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAllWillBeExplainedOnceYoureDead.wav-84ebc23c72bcd6b9ebbfcd4e62efb7fb.sample"
+type="AudioStreamWAV"
+uid="uid://cw2nr262igf8u"
+path="res://.godot/imported/NeophyteAllWillBeExplainedOnceYoureDead.wav-84ebc23c72bcd6b9ebbfcd4e62efb7fb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteAllWillBeExplainedOnceYoureDead.wav"
-dest_files=[ "res://.import/NeophyteAllWillBeExplainedOnceYoureDead.wav-84ebc23c72bcd6b9ebbfcd4e62efb7fb.sample" ]
+dest_files=["res://.godot/imported/NeophyteAllWillBeExplainedOnceYoureDead.wav-84ebc23c72bcd6b9ebbfcd4e62efb7fb.sample"]
 
 [params]
 

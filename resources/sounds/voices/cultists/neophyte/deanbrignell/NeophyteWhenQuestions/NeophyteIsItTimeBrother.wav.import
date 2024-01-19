@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIsItTimeBrother.wav-c11c71e2c2f4e0ce949fa228de05851f.sample"
+type="AudioStreamWAV"
+uid="uid://bip8ys0v1deo3"
+path="res://.godot/imported/NeophyteIsItTimeBrother.wav-c11c71e2c2f4e0ce949fa228de05851f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhenQuestions/NeophyteIsItTimeBrother.wav"
-dest_files=[ "res://.import/NeophyteIsItTimeBrother.wav-c11c71e2c2f4e0ce949fa228de05851f.sample" ]
+dest_files=["res://.godot/imported/NeophyteIsItTimeBrother.wav-c11c71e2c2f4e0ce949fa228de05851f.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsTheMongols.wav-ade4333bff4f0c75d3f8e3ec35f078a3.sample"
+type="AudioStreamWAV"
+uid="uid://bhxfbvrkw23yh"
+path="res://.godot/imported/NeophyteItsTheMongols.wav-ade4333bff4f0c75d3f8e3ec35f078a3.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItsTheMongols.wav"
-dest_files=[ "res://.import/NeophyteItsTheMongols.wav-ade4333bff4f0c75d3f8e3ec35f078a3.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsTheMongols.wav-ade4333bff4f0c75d3f8e3ec35f078a3.sample"]
 
 [params]
 

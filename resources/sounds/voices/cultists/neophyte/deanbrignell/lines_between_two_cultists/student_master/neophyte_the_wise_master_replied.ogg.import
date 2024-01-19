@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_the_wise_master_replied.ogg-acc7a4717f476a3be1fee5ca218e0b76.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ds5xdqoekhmub"
+path="res://.godot/imported/neophyte_the_wise_master_replied.ogg-acc7a4717f476a3be1fee5ca218e0b76.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/student_master/neophyte_the_wise_master_replied.ogg"
-dest_files=[ "res://.import/neophyte_the_wise_master_replied.ogg-acc7a4717f476a3be1fee5ca218e0b76.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_the_wise_master_replied.ogg-acc7a4717f476a3be1fee5ca218e0b76.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

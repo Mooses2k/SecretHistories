@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWeWorkInTheSewers.wav-1d21e4d9973d4b61ec03502e91599f57.sample"
+type="AudioStreamWAV"
+uid="uid://bwss2b0i1r1jm"
+path="res://.godot/imported/NeophyteWeWorkInTheSewers.wav-1d21e4d9973d4b61ec03502e91599f57.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhere/NeophyteWeWorkInTheSewers.wav"
-dest_files=[ "res://.import/NeophyteWeWorkInTheSewers.wav-1d21e4d9973d4b61ec03502e91599f57.sample" ]
+dest_files=["res://.godot/imported/NeophyteWeWorkInTheSewers.wav-1d21e4d9973d4b61ec03502e91599f57.sample"]
 
 [params]
 

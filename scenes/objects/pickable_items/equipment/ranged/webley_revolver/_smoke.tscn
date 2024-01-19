@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/smoke.gd" type="Script" id=2]
 
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticleProcessMaterial" id=1]
 direction = Vector3( 0, 0, -90 )
 spread = 27.51
 gravity = Vector3( 0, 0, 0 )
@@ -19,7 +19,7 @@ angle_random = 1.0
 size = Vector2( 0.5, 0.5 )
 
 [node name="Smoke" type="Particles"]
-transform = Transform( 0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479 )
+transform = Transform3D( 0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479 )
 material_override = ExtResource( 1 )
 emitting = false
 amount = 20

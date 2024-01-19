@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDoesTheBlackMoonHowl.wav-0dcb16ea28d8d98908d48fbbabee2cc9.sample"
+type="AudioStreamWAV"
+uid="uid://d25giq22dsmhd"
+path="res://.godot/imported/NeophyteDoesTheBlackMoonHowl.wav-0dcb16ea28d8d98908d48fbbabee2cc9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteDoesTheBlackMoonHowl.wav"
-dest_files=[ "res://.import/NeophyteDoesTheBlackMoonHowl.wav-0dcb16ea28d8d98908d48fbbabee2cc9.sample" ]
+dest_files=["res://.godot/imported/NeophyteDoesTheBlackMoonHowl.wav-0dcb16ea28d8d98908d48fbbabee2cc9.sample"]
 
 [params]
 

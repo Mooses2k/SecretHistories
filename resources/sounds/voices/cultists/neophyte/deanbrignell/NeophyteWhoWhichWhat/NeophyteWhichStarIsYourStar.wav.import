@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhichStarIsYourStar.wav-54492a9081531099f3c4da425d74f06d.sample"
+type="AudioStreamWAV"
+uid="uid://cfolpver3vrlb"
+path="res://.godot/imported/NeophyteWhichStarIsYourStar.wav-54492a9081531099f3c4da425d74f06d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhat/NeophyteWhichStarIsYourStar.wav"
-dest_files=[ "res://.import/NeophyteWhichStarIsYourStar.wav-54492a9081531099f3c4da425d74f06d.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhichStarIsYourStar.wav-54492a9081531099f3c4da425d74f06d.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThisIsMyHoleItWasMadeForMe.wav-22504f012ddf0cfa3af45cc1b122a5bb.sample"
+type="AudioStreamWAV"
+uid="uid://c53eqs73o2h1"
+path="res://.godot/imported/NeophyteThisIsMyHoleItWasMadeForMe.wav-22504f012ddf0cfa3af45cc1b122a5bb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteThisIsMyHoleItWasMadeForMe.wav"
-dest_files=[ "res://.import/NeophyteThisIsMyHoleItWasMadeForMe.wav-22504f012ddf0cfa3af45cc1b122a5bb.sample" ]
+dest_files=["res://.godot/imported/NeophyteThisIsMyHoleItWasMadeForMe.wav-22504f012ddf0cfa3af45cc1b122a5bb.sample"]
 
 [params]
 

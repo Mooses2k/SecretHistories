@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/342241__inspectorj__door-squeak-normal-a.wav-c10bed776763580d8e522ebcafff0d6d.sample"
+type="AudioStreamWAV"
+uid="uid://dogj7bkbk0bwu"
+path="res://.godot/imported/342241__inspectorj__door-squeak-normal-a.wav-c10bed776763580d8e522ebcafff0d6d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/doors/close/342241__inspectorj__door-squeak-normal-a.wav"
-dest_files=[ "res://.import/342241__inspectorj__door-squeak-normal-a.wav-c10bed776763580d8e522ebcafff0d6d.sample" ]
+dest_files=["res://.godot/imported/342241__inspectorj__door-squeak-normal-a.wav-c10bed776763580d8e522ebcafff0d6d.sample"]
 
 [params]
 

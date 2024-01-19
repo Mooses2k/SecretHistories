@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYourEyesAreWrong.wav-5bcb0b632e4798eb1ce255919bc84c32.sample"
+type="AudioStreamWAV"
+uid="uid://csnqcoxyl3fk"
+path="res://.godot/imported/NeophyteYourEyesAreWrong.wav-5bcb0b632e4798eb1ce255919bc84c32.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteYourEyesAreWrong.wav"
-dest_files=[ "res://.import/NeophyteYourEyesAreWrong.wav-5bcb0b632e4798eb1ce255919bc84c32.sample" ]
+dest_files=["res://.godot/imported/NeophyteYourEyesAreWrong.wav-5bcb0b632e4798eb1ce255919bc84c32.sample"]
 
 [params]
 

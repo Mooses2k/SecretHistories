@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/elections_are_shams.wav-0654cd7e63276f293cac1c26a51bd55a.sample"
+type="AudioStreamWAV"
+uid="uid://dwrflveu74bdo"
+path="res://.godot/imported/elections_are_shams.wav-0654cd7e63276f293cac1c26a51bd55a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/elections_are_shams.wav"
-dest_files=[ "res://.import/elections_are_shams.wav-0654cd7e63276f293cac1c26a51bd55a.sample" ]
+dest_files=["res://.godot/imported/elections_are_shams.wav-0654cd7e63276f293cac1c26a51bd55a.sample"]
 
 [params]
 

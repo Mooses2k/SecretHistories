@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTuneToMeCrystalRadio.wav-bf986dfdc98ab2329d3d3da922befe27.sample"
+type="AudioStreamWAV"
+uid="uid://cmkj2vj1hsys8"
+path="res://.godot/imported/NeophyteTuneToMeCrystalRadio.wav-bf986dfdc98ab2329d3d3da922befe27.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/comet/NeophyteTuneToMeCrystalRadio.wav"
-dest_files=[ "res://.import/NeophyteTuneToMeCrystalRadio.wav-bf986dfdc98ab2329d3d3da922befe27.sample" ]
+dest_files=["res://.godot/imported/NeophyteTuneToMeCrystalRadio.wav-bf986dfdc98ab2329d3d3da922befe27.sample"]
 
 [params]
 

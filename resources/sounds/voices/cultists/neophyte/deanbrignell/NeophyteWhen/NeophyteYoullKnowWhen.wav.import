@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYoullKnowWhen.wav-a1a9cda75e527d460a16ca11bab36547.sample"
+type="AudioStreamWAV"
+uid="uid://ds0pdxnjvqnxp"
+path="res://.godot/imported/NeophyteYoullKnowWhen.wav-a1a9cda75e527d460a16ca11bab36547.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhen/NeophyteYoullKnowWhen.wav"
-dest_files=[ "res://.import/NeophyteYoullKnowWhen.wav-a1a9cda75e527d460a16ca11bab36547.sample" ]
+dest_files=["res://.godot/imported/NeophyteYoullKnowWhen.wav-a1a9cda75e527d460a16ca11bab36547.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/somethings_wrong_here2.wav-31d50ff16b6c7b54cfe0bc5e181c50c2.sample"
+type="AudioStreamWAV"
+uid="uid://cdimsuu5o2xnr"
+path="res://.godot/imported/somethings_wrong_here2.wav-31d50ff16b6c7b54cfe0bc5e181c50c2.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/somethings_wrong_here2.wav"
-dest_files=[ "res://.import/somethings_wrong_here2.wav-31d50ff16b6c7b54cfe0bc5e181c50c2.sample" ]
+dest_files=["res://.godot/imported/somethings_wrong_here2.wav-31d50ff16b6c7b54cfe0bc5e181c50c2.sample"]
 
 [params]
 

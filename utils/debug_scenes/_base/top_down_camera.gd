@@ -1,5 +1,5 @@
 # Write your doc string for this file here
-extends Camera
+extends Camera3D
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -10,7 +10,7 @@ extends Camera
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var move_speed := 10
+@export var move_speed := 10
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -22,10 +22,10 @@ export var move_speed := 10
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		var mouse_event := event as InputEventMouseButton
-		if mouse_event.button_index == BUTTON_WHEEL_UP:
-			translation.y -= 1
-		elif mouse_event.button_index == BUTTON_WHEEL_DOWN:
-			translation.y += 1
+		if mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			position.y -= 1
+		elif mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			position.y += 1
 
 
 func _physics_process(delta: float) -> void:
@@ -35,8 +35,8 @@ func _physics_process(delta: float) -> void:
 	if input_direction != Vector2.ZERO:
 		var move_direction := Vector3(input_direction.x, 0, input_direction.y)
 		var ground_speed := Vector3(move_speed, 1, move_speed)
-		var final_position := translation + move_direction
-		translation = translation.move_toward(final_position, delta * move_speed)
+		var final_position := position + move_direction
+		position = position.move_toward(final_position, delta * move_speed)
 
 
 ### -----------------------------------------------------------------------------------------------

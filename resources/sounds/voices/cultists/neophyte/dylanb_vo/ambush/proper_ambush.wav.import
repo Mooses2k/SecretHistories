@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/proper_ambush.wav-0671f656e6c5a018b15f672209690a1e.sample"
+type="AudioStreamWAV"
+uid="uid://d2d4bx3lrkase"
+path="res://.godot/imported/proper_ambush.wav-0671f656e6c5a018b15f672209690a1e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/proper_ambush.wav"
-dest_files=[ "res://.import/proper_ambush.wav-0671f656e6c5a018b15f672209690a1e.sample" ]
+dest_files=["res://.godot/imported/proper_ambush.wav-0671f656e6c5a018b15f672209690a1e.sample"]
 
 [params]
 

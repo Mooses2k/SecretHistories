@@ -1,10 +1,10 @@
 extends GenerationStep
 
 
-export var max_hall_size : int = 8
-export var hall_creation_chance : float = 0.5
+@export var max_hall_size : int = 8
+@export var hall_creation_chance : float = 0.5
 
-export(Array, WorldData.CellType) var valid_neighbours = [WorldData.CellType.CORRIDOR]
+@export var valid_neighbours = [WorldData.CellType.CORRIDOR] # (Array, WorldData.CellType)
 
 
 # Override this function
@@ -16,7 +16,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 
 
 func generate_halls(data : WorldData, random : RandomNumberGenerator):
-	var region_id : PoolIntArray = PoolIntArray()
+	var region_id : PackedInt32Array = PackedInt32Array()
 	region_id.resize(data.cell_count)
 	region_id.fill(-1)
 	var current_region = 0

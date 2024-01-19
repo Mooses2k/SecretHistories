@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/your_mind_will_be_pulled_out.wav-3037e365bcf634df0ad8a0344cef799f.sample"
+type="AudioStreamWAV"
+uid="uid://biipjmw2suhrt"
+path="res://.godot/imported/your_mind_will_be_pulled_out.wav-3037e365bcf634df0ad8a0344cef799f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/your_mind_will_be_pulled_out.wav"
-dest_files=[ "res://.import/your_mind_will_be_pulled_out.wav-3037e365bcf634df0ad8a0344cef799f.sample" ]
+dest_files=["res://.godot/imported/your_mind_will_be_pulled_out.wav-3037e365bcf634df0ad8a0344cef799f.sample"]
 
 [params]
 

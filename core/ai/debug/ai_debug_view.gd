@@ -2,10 +2,10 @@ extends Tree
 
 var node_to_view : Dictionary = {}
 
-export var success_color : Color = Color.forestgreen
-export var running_color : Color = Color.darkgoldenrod
-export var failed_color : Color = Color.red
-export var skip_color : Color = Color.darkgray
+@export var success_color : Color = Color.FOREST_GREEN
+@export var running_color : Color = Color.DARK_GOLDENROD
+@export var failed_color : Color = Color.RED
+@export var skip_color : Color = Color.DARK_GRAY
 
 func _ready() -> void:
 	pass # Replace with function body.

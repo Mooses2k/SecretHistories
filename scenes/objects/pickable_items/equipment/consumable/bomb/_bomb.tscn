@@ -14,5 +14,5 @@ bomb_damage = 0.0
 damage_type = 0
 
 [node name="Explosion" parent="." index="3" instance=ExtResource( 2 )]
-transform = Transform( -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0 )
+transform = Transform3D( -8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0 )
 amount = 40

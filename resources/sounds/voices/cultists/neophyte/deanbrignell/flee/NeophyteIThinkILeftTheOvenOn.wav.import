@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIThinkILeftTheOvenOn.wav-fddb78532d1fdf76452684f1eb53f89a.sample"
+type="AudioStreamWAV"
+uid="uid://box4nheuc0km"
+path="res://.godot/imported/NeophyteIThinkILeftTheOvenOn.wav-fddb78532d1fdf76452684f1eb53f89a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteIThinkILeftTheOvenOn.wav"
-dest_files=[ "res://.import/NeophyteIThinkILeftTheOvenOn.wav-fddb78532d1fdf76452684f1eb53f89a.sample" ]
+dest_files=["res://.godot/imported/NeophyteIThinkILeftTheOvenOn.wav-fddb78532d1fdf76452684f1eb53f89a.sample"]
 
 [params]
 

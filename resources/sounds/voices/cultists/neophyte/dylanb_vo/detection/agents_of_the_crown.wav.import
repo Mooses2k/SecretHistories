@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/agents_of_the_crown.wav-1e55fb5c8c873058261b4b5f1e401849.sample"
+type="AudioStreamWAV"
+uid="uid://bm8mtj05by185"
+path="res://.godot/imported/agents_of_the_crown.wav-1e55fb5c8c873058261b4b5f1e401849.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/agents_of_the_crown.wav"
-dest_files=[ "res://.import/agents_of_the_crown.wav-1e55fb5c8c873058261b4b5f1e401849.sample" ]
+dest_files=["res://.godot/imported/agents_of_the_crown.wav-1e55fb5c8c873058261b4b5f1e401849.sample"]
 
 [params]
 

@@ -1,13 +1,13 @@
 extends Node
 
 
-var chasing : bool = false setget set_chasing
+var chasing : bool = false: set = set_chasing
 
-onready var detection_area : Area = get_node("../DetectionArea") as Area
-onready var damage_area : Area = get_node("../DamageArea") as Area
-onready var character = owner
+@onready var detection_area : Area3D = get_node("../DetectionArea") as Area3D
+@onready var damage_area : Area3D = get_node("../DamageArea") as Area3D
+@onready var character = owner
 
-onready var target_position : Vector3 = self.global_transform.origin
+@onready var target_position : Vector3 = self.global_transform.origin
 
 
 func _process(delta):
@@ -25,8 +25,8 @@ func update_target():
 	if self.target_position.distance_to(self.global_transform.origin) < 0.1:
 		var level = GameManager.game.level
 		if level:
-			var x : int = rand_range(0, level.world_size)
-			var z : int = rand_range(0, level.world_size)
+			var x : int = randf_range(0, level.world_size)
+			var z : int = randf_range(0, level.world_size)
 			self.target_position = level.grid_to_world(Vector3(x, 0, z).floor())
 			print_debug("going to ", self.target_position)
 

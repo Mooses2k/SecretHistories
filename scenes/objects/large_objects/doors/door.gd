@@ -1,5 +1,5 @@
 class_name Door
-extends Spatial
+extends Node3D
 
 
 enum HingeSide {
@@ -8,18 +8,18 @@ enum HingeSide {
 }
 
 #export(HingeSide) var hinge_side : int = HingeSide.RIGHT setget set_hinge_side
-export var max_angle = 90.0 setget set_max_angle
-export var min_angle = 0.0 setget set_min_angle
-export var lock_angle_limit = 5.0
-export var door_health : int 
-export var kick_impulse : int 
+@export var max_angle = 90.0: set = set_max_angle
+@export var min_angle = 0.0: set = set_min_angle
+@export var lock_angle_limit = 5.0
+@export var door_health : int 
+@export var kick_impulse : int 
 
 
-var navmesh : NavigationMeshInstance = null
-export var door_lock_count : int = 0 setget set_door_lock_count
-var door_locked_transform : Transform
+var navigation_mesh : NavigationRegion3D = null
+@export var door_lock_count : int = 0: set = set_door_lock_count
+var door_locked_transform : Transform3D
 
-onready var door_body : RigidBody = $DoorBody
+@onready var door_body : RigidBody3D = $DoorBody
 
 
 func _process(_delta: float) -> void:
@@ -31,16 +31,16 @@ func set_door_lock_count(value : int):
 		return
 	door_lock_count = value
 	if not is_inside_tree():
-		yield(self, "tree_entered")
+		await self.tree_entered
 	if door_lock_count == 0: #unlock door
-		$DoorBody.mode = RigidBody.MODE_RIGID
-		if navmesh:
-			navmesh.enabled = true
+		$DoorBody.mode = RigidBody3D.MODE_RIGID
+		if navigation_mesh:
+			navigation_mesh.enabled = true
 	else: #lock door
-		if navmesh:
-			navmesh.enabled = false
+		if navigation_mesh:
+			navigation_mesh.enabled = false
 		$DoorBody.transform = door_locked_transform
-		$DoorBody.mode = RigidBody.MODE_KINEMATIC
+		$DoorBody.mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 
 
 func _enter_tree():
@@ -69,20 +69,20 @@ func _enter_tree():
 
 
 func can_lock() -> bool:
-	return abs(door_body.rotation.y) < deg2rad(lock_angle_limit)
+	return abs(door_body.rotation.y) < deg_to_rad(lock_angle_limit)
 
 
 func set_max_angle(value : float):
 	max_angle = value
 	if not is_inside_tree():
-		yield(self, "tree_entered")
+		await self.tree_entered
 	$DoorBody.max_angle = max_angle
 
 
 func set_min_angle(value : float):
 	min_angle = value
 	if not is_inside_tree():
-		yield(self, "tree_entered")
+		await self.tree_entered
 	$DoorBody.min_angle = min_angle
 
 
@@ -101,5 +101,5 @@ func destroy_door():
 	if door_health < 1:
 		$Sounds/DoorBreakSound.play()
 		$DoorBody.visible = false
-		$DoorBody/CollisionShape.disabled = true
+		$DoorBody/CollisionShape3D.disabled = true
 		$DoorBody/AudioStreamPlayer3D.stop()

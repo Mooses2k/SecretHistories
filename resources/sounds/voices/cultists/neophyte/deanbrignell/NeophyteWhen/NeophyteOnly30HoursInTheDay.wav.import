@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteOnly30HoursInTheDay.wav-b897f9f8f12e95e278be7050735b9b24.sample"
+type="AudioStreamWAV"
+uid="uid://ba7pkv3jsrc1"
+path="res://.godot/imported/NeophyteOnly30HoursInTheDay.wav-b897f9f8f12e95e278be7050735b9b24.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhen/NeophyteOnly30HoursInTheDay.wav"
-dest_files=[ "res://.import/NeophyteOnly30HoursInTheDay.wav-b897f9f8f12e95e278be7050735b9b24.sample" ]
+dest_files=["res://.godot/imported/NeophyteOnly30HoursInTheDay.wav-b897f9f8f12e95e278be7050735b9b24.sample"]
 
 [params]
 

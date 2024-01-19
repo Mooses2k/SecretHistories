@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteJustOpenYourThroatAlready.wav-158906a6d907de9011713df0a99c124f.sample"
+type="AudioStreamWAV"
+uid="uid://cgwecbgwchgk4"
+path="res://.godot/imported/NeophyteJustOpenYourThroatAlready.wav-158906a6d907de9011713df0a99c124f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteJustOpenYourThroatAlready.wav"
-dest_files=[ "res://.import/NeophyteJustOpenYourThroatAlready.wav-158906a6d907de9011713df0a99c124f.sample" ]
+dest_files=["res://.godot/imported/NeophyteJustOpenYourThroatAlready.wav-158906a6d907de9011713df0a99c124f.sample"]
 
 [params]
 

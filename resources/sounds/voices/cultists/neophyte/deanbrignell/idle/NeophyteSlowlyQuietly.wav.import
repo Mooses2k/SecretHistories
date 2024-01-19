@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteSlowlyQuietly.wav-ebd1a59a06fd1ce86e13a5dcd8faa8e8.sample"
+type="AudioStreamWAV"
+uid="uid://16mnurveiqks"
+path="res://.godot/imported/NeophyteSlowlyQuietly.wav-ebd1a59a06fd1ce86e13a5dcd8faa8e8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteSlowlyQuietly.wav"
-dest_files=[ "res://.import/NeophyteSlowlyQuietly.wav-ebd1a59a06fd1ce86e13a5dcd8faa8e8.sample" ]
+dest_files=["res://.godot/imported/NeophyteSlowlyQuietly.wav-ebd1a59a06fd1ce86e13a5dcd8faa8e8.sample"]
 
 [params]
 

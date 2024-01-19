@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/look_ma_no_eyes.wav-0ffa244d2f73a3d2c1f9ff37145e9022.sample"
+type="AudioStreamWAV"
+uid="uid://bhfsg2xo3om54"
+path="res://.godot/imported/look_ma_no_eyes.wav-0ffa244d2f73a3d2c1f9ff37145e9022.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/look_ma_no_eyes.wav"
-dest_files=[ "res://.import/look_ma_no_eyes.wav-0ffa244d2f73a3d2c1f9ff37145e9022.sample" ]
+dest_files=["res://.godot/imported/look_ma_no_eyes.wav-0ffa244d2f73a3d2c1f9ff37145e9022.sample"]
 
 [params]
 

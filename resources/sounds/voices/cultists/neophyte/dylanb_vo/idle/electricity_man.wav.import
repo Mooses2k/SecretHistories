@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/electricity_man.wav-aac76571150a0b68b9db68769d8edb84.sample"
+type="AudioStreamWAV"
+uid="uid://dw75sani3egtt"
+path="res://.godot/imported/electricity_man.wav-aac76571150a0b68b9db68769d8edb84.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/electricity_man.wav"
-dest_files=[ "res://.import/electricity_man.wav-aac76571150a0b68b9db68769d8edb84.sample" ]
+dest_files=["res://.godot/imported/electricity_man.wav-aac76571150a0b68b9db68769d8edb84.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteSlowDown.wav-7209c8f46273c45c15ce181b0f7000e1.sample"
+type="AudioStreamWAV"
+uid="uid://dsbnd0s5g53tg"
+path="res://.godot/imported/NeophyteSlowDown.wav-7209c8f46273c45c15ce181b0f7000e1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteSlowDown.wav"
-dest_files=[ "res://.import/NeophyteSlowDown.wav-7209c8f46273c45c15ce181b0f7000e1.sample" ]
+dest_files=["res://.godot/imported/NeophyteSlowDown.wav-7209c8f46273c45c15ce181b0f7000e1.sample"]
 
 [params]
 

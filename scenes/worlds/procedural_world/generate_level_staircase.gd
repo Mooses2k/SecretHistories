@@ -10,10 +10,10 @@ extends GenerationStep
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var single_tile_width := 2
-export var single_tile_height := 2
-export var minimum_distance_between_staircases := 3
-export var player_offset := Vector2.ONE
+@export var single_tile_width := 2
+@export var single_tile_height := 2
+@export var minimum_distance_between_staircases := 3
+@export var player_offset := Vector2.ONE
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 

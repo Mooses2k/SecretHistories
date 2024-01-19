@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsTheAnarchists.wav-c4ee34a71a9e4b2607a0ad5a2dc34e15.sample"
+type="AudioStreamWAV"
+uid="uid://cjlpumipyqbjh"
+path="res://.godot/imported/NeophyteItsTheAnarchists.wav-c4ee34a71a9e4b2607a0ad5a2dc34e15.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItsTheAnarchists.wav"
-dest_files=[ "res://.import/NeophyteItsTheAnarchists.wav-c4ee34a71a9e4b2607a0ad5a2dc34e15.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsTheAnarchists.wav-c4ee34a71a9e4b2607a0ad5a2dc34e15.sample"]
 
 [params]
 

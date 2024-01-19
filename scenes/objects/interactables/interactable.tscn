@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/interactables/interactable.gd" type="Script" id=1]
 
-[node name="Interactable" type="Area"]
+[node name="Interactable" type="Area3D"]
 collision_layer = 512
 collision_mask = 0
 monitoring = false

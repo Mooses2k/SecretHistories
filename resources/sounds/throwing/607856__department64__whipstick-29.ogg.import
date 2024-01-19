@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/607856__department64__whipstick-29.ogg-cae2d1149390716fb271ccc9ee00ffb2.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ct80va2cymb30"
+path="res://.godot/imported/607856__department64__whipstick-29.ogg-cae2d1149390716fb271ccc9ee00ffb2.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg"
-dest_files=[ "res://.import/607856__department64__whipstick-29.ogg-cae2d1149390716fb271ccc9ee00ffb2.oggstr" ]
+dest_files=["res://.godot/imported/607856__department64__whipstick-29.ogg-cae2d1149390716fb271ccc9ee00ffb2.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

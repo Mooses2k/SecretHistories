@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheFleshIsWilling.wav-8a0996786a2c6dffe270a17bf3e2d1ed.sample"
+type="AudioStreamWAV"
+uid="uid://bse37phikldnd"
+path="res://.godot/imported/NeophyteTheFleshIsWilling.wav-8a0996786a2c6dffe270a17bf3e2d1ed.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteTheFleshIsWilling.wav"
-dest_files=[ "res://.import/NeophyteTheFleshIsWilling.wav-8a0996786a2c6dffe270a17bf3e2d1ed.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheFleshIsWilling.wav-8a0996786a2c6dffe270a17bf3e2d1ed.sample"]
 
 [params]
 

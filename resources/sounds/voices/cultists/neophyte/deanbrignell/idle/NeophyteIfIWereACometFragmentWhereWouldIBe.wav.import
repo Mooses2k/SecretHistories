@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIfIWereACometFragmentWhereWouldIBe.wav-fef34feeb76198ed7a2146d1fc3491ba.sample"
+type="AudioStreamWAV"
+uid="uid://dbt4ai8tntptb"
+path="res://.godot/imported/NeophyteIfIWereACometFragmentWhereWouldIBe.wav-fef34feeb76198ed7a2146d1fc3491ba.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIfIWereACometFragmentWhereWouldIBe.wav"
-dest_files=[ "res://.import/NeophyteIfIWereACometFragmentWhereWouldIBe.wav-fef34feeb76198ed7a2146d1fc3491ba.sample" ]
+dest_files=["res://.godot/imported/NeophyteIfIWereACometFragmentWhereWouldIBe.wav-fef34feeb76198ed7a2146d1fc3491ba.sample"]
 
 [params]
 

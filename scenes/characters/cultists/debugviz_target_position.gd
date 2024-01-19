@@ -1,4 +1,4 @@
-extends MeshInstance
+extends MeshInstance3D
 
 
 # Declare member variables here. Examples:
@@ -19,4 +19,4 @@ func _process(delta: float) -> void:
 #		if not path.empty():
 #			var pos = state.path[0]
 #			global_translation = pos
-		global_translation = state.target_position
+		global_position = state.target_position

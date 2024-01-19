@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThisIsMyGun.wav-46f21ad7fbe9dacffa94ac44eba51dee.sample"
+type="AudioStreamWAV"
+uid="uid://duucmigcv1t57"
+path="res://.godot/imported/NeophyteThisIsMyGun.wav-46f21ad7fbe9dacffa94ac44eba51dee.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteThisIsMyGun.wav"
-dest_files=[ "res://.import/NeophyteThisIsMyGun.wav-46f21ad7fbe9dacffa94ac44eba51dee.sample" ]
+dest_files=["res://.godot/imported/NeophyteThisIsMyGun.wav-46f21ad7fbe9dacffa94ac44eba51dee.sample"]
 
 [params]
 

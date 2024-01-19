@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteI'mCold.wav-c5ac79c6f421ad868311916bcb7b5f63.sample"
+type="AudioStreamWAV"
+uid="uid://dkugpenriglsi"
+path="res://.godot/imported/NeophyteI'mCold.wav-c5ac79c6f421ad868311916bcb7b5f63.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteI'mCold.wav"
-dest_files=[ "res://.import/NeophyteI'mCold.wav-c5ac79c6f421ad868311916bcb7b5f63.sample" ]
+dest_files=["res://.godot/imported/NeophyteI'mCold.wav-c5ac79c6f421ad868311916bcb7b5f63.sample"]
 
 [params]
 

@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/ui/hotbar/hotbar.tscn" type="PackedScene" id=2]
 
 [node name="HUD" type="Control"]
-pause_mode = 1
+process_mode = 1
 unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,5 +15,5 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_constants/margin_left = 2
-custom_constants/margin_bottom = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_bottom = 2

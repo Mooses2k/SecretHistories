@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/we_all_work_in_the_sewers.wav-91879174d2887b2237e47348c33daa09.sample"
+type="AudioStreamWAV"
+uid="uid://dmvs7ooeheicr"
+path="res://.godot/imported/we_all_work_in_the_sewers.wav-91879174d2887b2237e47348c33daa09.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/where/we_all_work_in_the_sewers.wav"
-dest_files=[ "res://.import/we_all_work_in_the_sewers.wav-91879174d2887b2237e47348c33daa09.sample" ]
+dest_files=["res://.godot/imported/we_all_work_in_the_sewers.wav-91879174d2887b2237e47348c33daa09.sample"]
 
 [params]
 

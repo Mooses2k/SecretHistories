@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/my_head_hurts.wav-819b4eea00f2afaa724f2b50062ee179.sample"
+type="AudioStreamWAV"
+uid="uid://dhgjw6m53rh3u"
+path="res://.godot/imported/my_head_hurts.wav-819b4eea00f2afaa724f2b50062ee179.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/my_head_hurts.wav"
-dest_files=[ "res://.import/my_head_hurts.wav-819b4eea00f2afaa724f2b50062ee179.sample" ]
+dest_files=["res://.godot/imported/my_head_hurts.wav-819b4eea00f2afaa724f2b50062ee179.sample"]
 
 [params]
 

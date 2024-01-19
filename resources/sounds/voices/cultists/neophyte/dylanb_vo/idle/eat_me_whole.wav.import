@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/eat_me_whole.wav-06679af639fdb34ade074d47bf4fed01.sample"
+type="AudioStreamWAV"
+uid="uid://306vk75kcwgg"
+path="res://.godot/imported/eat_me_whole.wav-06679af639fdb34ade074d47bf4fed01.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/eat_me_whole.wav"
-dest_files=[ "res://.import/eat_me_whole.wav-06679af639fdb34ade074d47bf4fed01.sample" ]
+dest_files=["res://.godot/imported/eat_me_whole.wav-06679af639fdb34ade074d47bf4fed01.sample"]
 
 [params]
 

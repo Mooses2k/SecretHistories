@@ -40,9 +40,9 @@ const ENEMY_GROUP : String = "CULTIST"
 # a random amount of ammunition within the selected range
 #
 
-export(Array, Dictionary) var character_loadout : Array
-export var continuous_spawn_level : int = -5
-export var continuous_spawn_max : int = 7   # too many more than 5 can lag the game
+@export var character_loadout : Array # (Array, Dictionary)
+@export var continuous_spawn_level : int = -5
+@export var continuous_spawn_max : int = 7   # too many more than 5 can lag the game
 
 var data : WorldData
 
@@ -50,11 +50,11 @@ var _rng := RandomNumberGenerator.new()
 
 var _total_weights_by_set := []
 
-onready var characters_root = Node.new()
+@onready var characters_root = Node.new()
 
 
 func _ready():
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	
 	characters_root.name = "CharactersRoot"
@@ -92,7 +92,7 @@ func spawn_characters():
 
 func try_spawn_character_away_from_player():
 	var original_spawn_data = data.get_characters_to_spawn()
-	if original_spawn_data.empty():
+	if original_spawn_data.is_empty():
 		return
 	var keys = original_spawn_data.keys()
 	var random_key = keys[randi()%keys.size()]
@@ -101,7 +101,7 @@ func try_spawn_character_away_from_player():
 	var player = GameManager.game.player
 	if not is_instance_valid(player):
 		return
-	var player_pos = player.global_translation
+	var player_pos = player.global_position
 	var player_cell = data.get_cell_index_from_local_position(player_pos)
 	var player_int_coords = data.get_int_position_from_cell_index(player_cell)
 	var try_pos : Vector3 = Vector3(data.world_size_x - 1, 0, data.world_size_z - 1)
@@ -112,7 +112,7 @@ func try_spawn_character_away_from_player():
 		try_pos.z = 0
 	
 	try_pos = data.get_local_cell_position(data.get_cell_index_from_int_position(try_pos.x, try_pos.z))
-	try_pos = NavigationServer.map_get_closest_point(owner.get_world().navigation_map, try_pos)
+	try_pos = NavigationServer3D.map_get_closest_point(owner.get_world_3d().navigation_map, try_pos)
 	try_pos = data.get_local_cell_position(data.get_cell_index_from_local_position(try_pos))
 	
 	random_spawn_data.set_center_position_in_cell(try_pos)
@@ -125,7 +125,7 @@ func _spawn_single_character(spawn_data : CharacterSpawnData):
 	_set_random_loadout(character)
 
 
-func _set_random_loadout(character: Spatial) -> void:
+func _set_random_loadout(character: Node3D) -> void:
 	var inventory = character.get_node("Inventory")
 	for set_index in character_loadout.size():
 		var total_weight := _total_weights_by_set[set_index] as int
@@ -146,7 +146,7 @@ func _set_random_loadout(character: Spatial) -> void:
 				inventory.tiny_items[item] += amount
 				pass
 			elif item is PackedScene:
-				var instanced = item.instance()
+				var instanced = item.instantiate()
 				if instanced is PickableItem:
 					inventory.add_item(instanced)
 					instanced.set_range(chosen_pack[item])

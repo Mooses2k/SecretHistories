@@ -8,26 +8,26 @@ tool class_name VisualSensor extends CharacterSense
 signal player_detected(player, position)
 signal light_detected(light, position)
 
-export var light_source_interest := 75
-export var player_interest := 300
+@export var light_source_interest := 75
+@export var player_interest := 300
 
-export var light_sensitivity_level := 0.003
+@export var light_sensitivity_level := 0.003
 
-export var _ik_target: NodePath
-var ik_target: Spatial
+@export var _ik_target: NodePath
+var ik_target: Node3D
 
 #--------------------------------------------------------------------------#
 #                 Programmatically sets the vision frustrum.               #
 #--------------------------------------------------------------------------#
-export var distance := 32.0 setget set_distance
-export var fov := 120.0 setget set_fov
+@export var distance := 32.0: set = set_distance
+@export var fov := 120.0: set = set_fov
 
 var line_of_sight : bool = false
 
 var _mesh : CylinderMesh = CylinderMesh.new()
 
-onready var _collision_shape := CollisionShape.new()
-onready var _mesh_instance := MeshInstance.new()
+@onready var _collision_shape := CollisionShape3D.new()
+@onready var _mesh_instance := MeshInstance3D.new()
 
 
 func add_area_nodes() -> void:
@@ -59,7 +59,7 @@ func update_mesh_and_collision() -> void:
 	_mesh.radial_segments = 4
 	_mesh.height = distance
 	_mesh.top_radius = 0.0
-	_mesh.bottom_radius = distance * tan(deg2rad(fov / 2)) / (sqrt(2) * 0.5)
+	_mesh.bottom_radius = distance * tan(deg_to_rad(fov / 2)) / (sqrt(2) * 0.5)
 	_mesh_instance.transform.origin.z = -distance * 0.5
 	call_deferred("update_collision")
 
@@ -91,15 +91,15 @@ func set_collision_layers() -> void:
 
 
 func connect_signals() -> void:
-	connect("area_entered", self, "on_area_entered")
-	connect("area_exited", self, "on_area_exited")
+	connect("area_entered", Callable(self, "on_area_entered"))
+	connect("area_exited", Callable(self, "on_area_exited"))
 
 
-func on_area_entered(area: Area) -> void:
+func on_area_entered(area: Area3D) -> void:
 	if area is LightArea: light_area_entered(area)
 
 
-func on_area_exited(area: Area) -> void:
+func on_area_exited(area: Area3D) -> void:
 	if area is LightArea: light_area_exited(area)
 
 
@@ -148,11 +148,11 @@ func can_see_player(character: Character) -> Player:
 #		target.y = global_transform.origin.y
 		target.y += 0.5
 		
-		var world := get_world()
+		var world := get_world_3d()
 		
 		if is_instance_valid(world):
 			var result := world.direct_space_state.intersect_ray(global_transform.origin, target, [character], 1 << 0 | 1 << 1, true, false)
-			if !result.empty() and result.collider is Player:
+			if !result.is_empty() and result.collider is Player:
 				line_of_sight = true
 				return player
 	
@@ -164,7 +164,7 @@ func can_see_player(character: Character) -> Player:
 #--------------------------------------------------------------------------#
 #                         Light detection related.                         #
 #--------------------------------------------------------------------------#
-export var light_points_grid_size := 1.0
+@export var light_points_grid_size := 1.0
 
 
 var light_sources: Array
@@ -184,7 +184,7 @@ func process_light_detection(_character: Character) -> bool:
 	# [ Evil hack in case of `on_light_entered` misbehaving ]
 	light_sources = get_overlapping_lights()
 	
-	if !light_sources.empty():
+	if !light_sources.is_empty():
 		var light_area := check_light()
 		if is_instance_valid(light_area):
 			emit_signal\
@@ -241,14 +241,14 @@ func check_light() -> PlayerLightArea:
 
 # Returns `true` if the raycast towards the point doesn't collide.
 func check_point(point: Vector3) -> bool: 
-	var world := get_world()
+	var world := get_world_3d()
 	if !is_instance_valid(world): return false
-	return world.direct_space_state.intersect_ray(global_transform.origin, point, [], 1 << 0).empty()
+	return world.direct_space_state.intersect_ray(global_transform.origin, point, [], 1 << 0).is_empty()
 
 
 # Return's a `PlayerLightArea` from `light_sources`, automatically shuffling if multiple sources are available.
 func get_player_light_area() -> PlayerLightArea:
-	while !light_sources.empty():
+	while !light_sources.is_empty():
 		light_idx = wrapi(light_idx + 1, 0, light_sources.size() - 1)
 		
 		if !is_instance_valid(light_sources[light_idx]):

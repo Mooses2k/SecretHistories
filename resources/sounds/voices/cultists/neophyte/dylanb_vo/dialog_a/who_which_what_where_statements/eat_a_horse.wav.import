@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/eat_a_horse.wav-44daea5b43c3a77ff8a39109d8d6b179.sample"
+type="AudioStreamWAV"
+uid="uid://du2n6gs2trtwb"
+path="res://.godot/imported/eat_a_horse.wav-44daea5b43c3a77ff8a39109d8d6b179.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/eat_a_horse.wav"
-dest_files=[ "res://.import/eat_a_horse.wav-44daea5b43c3a77ff8a39109d8d6b179.sample" ]
+dest_files=["res://.godot/imported/eat_a_horse.wav-44daea5b43c3a77ff8a39109d8d6b179.sample"]
 
 [params]
 

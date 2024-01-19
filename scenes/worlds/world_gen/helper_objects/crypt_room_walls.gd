@@ -1,5 +1,5 @@
 # Helper class for Handling Crypt Room Walls, when spawning sarcophagi.
-extends Reference
+extends RefCounted
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -83,9 +83,9 @@ func get_sanitized_segments_for(
 			if not is_free:
 				indexes_to_remove.append(index)
 		
-		if not indexes_to_remove.empty():
+		if not indexes_to_remove.is_empty():
 			for r_index in range(indexes_to_remove.size()-1, -1, -1):
-				raw_segment.remove(indexes_to_remove[r_index])
+				raw_segment.remove_at(indexes_to_remove[r_index])
 			
 			if raw_segment.size() >= sarco_tile_size.x:
 				free_segments.append(raw_segment)
@@ -143,7 +143,7 @@ func _group_wall_cells_by_valid_segments(
 		world_data: WorldData, sarco_length: int, possible_cells: Dictionary
 ) -> void:
 	for direction in possible_cells:
-		if possible_cells[direction].empty():
+		if possible_cells[direction].is_empty():
 			continue
 		
 		var neighbour_cells := []
@@ -155,7 +155,7 @@ func _group_wall_cells_by_valid_segments(
 			var previous_cell := possible_cells[direction][index - 1] as int
 			var current_cell := possible_cells[direction][index] as int
 			if current_cell == world_data.get_neighbour_cell(previous_cell, length_direction):
-				if neighbour_cells.empty():
+				if neighbour_cells.is_empty():
 					neighbour_cells.append(previous_cell)
 				neighbour_cells.append(current_cell)
 			else:

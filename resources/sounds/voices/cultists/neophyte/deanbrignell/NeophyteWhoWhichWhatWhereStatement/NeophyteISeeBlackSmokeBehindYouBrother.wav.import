@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteISeeBlackSmokeBehindYouBrother.wav-9ccf405fd9f4b91e3ae0e30aad84843a.sample"
+type="AudioStreamWAV"
+uid="uid://de5ggkxhoj4sd"
+path="res://.godot/imported/NeophyteISeeBlackSmokeBehindYouBrother.wav-9ccf405fd9f4b91e3ae0e30aad84843a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteISeeBlackSmokeBehindYouBrother.wav"
-dest_files=[ "res://.import/NeophyteISeeBlackSmokeBehindYouBrother.wav-9ccf405fd9f4b91e3ae0e30aad84843a.sample" ]
+dest_files=["res://.godot/imported/NeophyteISeeBlackSmokeBehindYouBrother.wav-9ccf405fd9f4b91e3ae0e30aad84843a.sample"]
 
 [params]
 

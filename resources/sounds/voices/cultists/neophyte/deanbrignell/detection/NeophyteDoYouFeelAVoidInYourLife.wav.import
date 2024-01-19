@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDoYouFeelAVoidInYourLife.wav-cd684f35fdd9a6d70a30237e685303c5.sample"
+type="AudioStreamWAV"
+uid="uid://bpe4gddd2ewmx"
+path="res://.godot/imported/NeophyteDoYouFeelAVoidInYourLife.wav-cd684f35fdd9a6d70a30237e685303c5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteDoYouFeelAVoidInYourLife.wav"
-dest_files=[ "res://.import/NeophyteDoYouFeelAVoidInYourLife.wav-cd684f35fdd9a6d70a30237e685303c5.sample" ]
+dest_files=["res://.godot/imported/NeophyteDoYouFeelAVoidInYourLife.wav-cd684f35fdd9a6d70a30237e685303c5.sample"]
 
 [params]
 

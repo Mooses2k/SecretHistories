@@ -1,4 +1,4 @@
-class_name CharacterSensors extends Spatial
+class_name CharacterSensors extends Node3D
 
 
 var _character: NodePath
@@ -13,5 +13,5 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Engine.get_idle_frames() % 2 != 0: return
+	if Engine.get_process_frames() % 2 != 0: return
 	for sensor in sensors: sensor.tick(character, delta)

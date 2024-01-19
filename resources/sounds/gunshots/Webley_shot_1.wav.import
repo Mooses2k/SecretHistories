@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Webley_shot_1.wav-94a801d0346655f40654b6dd03fccd39.sample"
+type="AudioStreamWAV"
+uid="uid://dentyj4ortuc8"
+path="res://.godot/imported/Webley_shot_1.wav-94a801d0346655f40654b6dd03fccd39.sample"
 
 [deps]
 
 source_file="res://resources/sounds/gunshots/Webley_shot_1.wav"
-dest_files=[ "res://.import/Webley_shot_1.wav-94a801d0346655f40654b6dd03fccd39.sample" ]
+dest_files=["res://.godot/imported/Webley_shot_1.wav-94a801d0346655f40654b6dd03fccd39.sample"]
 
 [params]
 

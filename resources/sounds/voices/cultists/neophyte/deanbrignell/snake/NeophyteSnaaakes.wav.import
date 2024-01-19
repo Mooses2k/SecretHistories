@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteSnaaakes.wav-e93291ebd23d007bae34a2d6ea7447fd.sample"
+type="AudioStreamWAV"
+uid="uid://cnr6d2gts3sjm"
+path="res://.godot/imported/NeophyteSnaaakes.wav-e93291ebd23d007bae34a2d6ea7447fd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/snake/NeophyteSnaaakes.wav"
-dest_files=[ "res://.import/NeophyteSnaaakes.wav-e93291ebd23d007bae34a2d6ea7447fd.sample" ]
+dest_files=["res://.godot/imported/NeophyteSnaaakes.wav-e93291ebd23d007bae34a2d6ea7447fd.sample"]
 
 [params]
 

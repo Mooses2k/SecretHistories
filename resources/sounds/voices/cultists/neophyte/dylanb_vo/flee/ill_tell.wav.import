@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/ill_tell.wav-760319c44625f59d9eb6ad688f20294f.sample"
+type="AudioStreamWAV"
+uid="uid://rqfe8upyyt32"
+path="res://.godot/imported/ill_tell.wav-760319c44625f59d9eb6ad688f20294f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/ill_tell.wav"
-dest_files=[ "res://.import/ill_tell.wav-760319c44625f59d9eb6ad688f20294f.sample" ]
+dest_files=["res://.godot/imported/ill_tell.wav-760319c44625f59d9eb6ad688f20294f.sample"]
 
 [params]
 

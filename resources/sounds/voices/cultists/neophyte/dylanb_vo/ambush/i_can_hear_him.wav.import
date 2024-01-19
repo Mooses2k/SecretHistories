@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/i_can_hear_him.wav-ac8d3d8da132a93c1be31909e3b65cb2.sample"
+type="AudioStreamWAV"
+uid="uid://exbqjxr2nfas"
+path="res://.godot/imported/i_can_hear_him.wav-ac8d3d8da132a93c1be31909e3b65cb2.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/i_can_hear_him.wav"
-dest_files=[ "res://.import/i_can_hear_him.wav-ac8d3d8da132a93c1be31909e3b65cb2.sample" ]
+dest_files=["res://.godot/imported/i_can_hear_him.wav-ac8d3d8da132a93c1be31909e3b65cb2.sample"]
 
 [params]
 

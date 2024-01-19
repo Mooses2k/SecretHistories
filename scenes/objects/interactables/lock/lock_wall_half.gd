@@ -4,17 +4,17 @@ extends Interactable
 signal lock_locked()
 signal lock_unlocked()
 
-var is_locked : bool = false setget set_locked
+var is_locked : bool = false: set = set_locked
 
-export var _door_half : NodePath
-onready var other_half = get_node(_door_half) if not other_half else other_half
+@export var _door_half : NodePath
+@onready var other_half = get_node(_door_half) if not other_half else other_half
 
-onready var unlock_sound = $UnlockSound
-onready var lock_sound = $LockSound
+@onready var unlock_sound = $UnlockSound
+@onready var lock_sound = $LockSound
 
 
 func _ready():
-	other_half.connect("padlock_unlocked", self, "on_padlock_unlocked")
+	other_half.connect("padlock_unlocked", Callable(self, "on_padlock_unlocked"))
 
 
 func on_padlock_unlocked():

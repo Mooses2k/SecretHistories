@@ -1,26 +1,26 @@
 extends GenerationStep
 
 
-export var floor_tile : int = -1
-export var wall_tile : int = -1
-export(Array, int) var alternative_wall_tiles : Array = []
-export var alternative_wall_tile_chance : float = 0.05
-export var double_wall_tile : int = -1
-export(Array, int) var alternative_double_wall_tiles : Array = []
-export var alternative_double_wall_tile_chance : float = 0.05
-export var door_tile : int = -1
-export var door_width : float = 0.0
-export var double_door_tile : int = -1
-export var double_door_width : float = 0.0
-export var ceiling_tile : int = -1
+@export var floor_tile : int = -1
+@export var wall_tile : int = -1
+@export var alternative_wall_tiles : Array = [] # (Array, int)
+@export var alternative_wall_tile_chance : float = 0.05
+@export var double_wall_tile : int = -1
+@export var alternative_double_wall_tiles : Array = [] # (Array, int)
+@export var alternative_double_wall_tile_chance : float = 0.05
+@export var door_tile : int = -1
+@export var door_width : float = 0.0
+@export var double_door_tile : int = -1
+@export var double_door_width : float = 0.0
+@export var ceiling_tile : int = -1
 
-export var pillar_room_double_wall_tile : int = -1
-export var pillar_room_double_door_tile : int = -1
-export var pillar_room_double_door_width : float = 0.0
-export var pillar_room_double_ceiling_tile : int = -1
-export var pillar_room_double_floor_tile : int = -1
-export var pillar_room_pillar_tile : int = -1
-export var pillar_tile : int = -1
+@export var pillar_room_double_wall_tile : int = -1
+@export var pillar_room_double_door_tile : int = -1
+@export var pillar_room_double_door_width : float = 0.0
+@export var pillar_room_double_ceiling_tile : int = -1
+@export var pillar_room_double_floor_tile : int = -1
+@export var pillar_room_pillar_tile : int = -1
+@export var pillar_tile : int = -1
 
 const PillarRoomGenerator = preload("res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd")
 
@@ -101,7 +101,7 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 							if not data.get_wall_type(extension_cell, dir) == data.EdgeType.WALL:
 								break
 							wall_extension.push_back(extension_cell)
-						wall_extension.invert()
+						wall_extension.reverse()
 						wall_extension.push_back(i)
 						
 						# check how far the wall extends to the right

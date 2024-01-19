@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/is_it_time1.wav-e80eeb19de8af6ba442e5184ed8cfacc.sample"
+type="AudioStreamWAV"
+uid="uid://cok5puk78p4cc"
+path="res://.godot/imported/is_it_time1.wav-e80eeb19de8af6ba442e5184ed8cfacc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/when/is_it_time1.wav"
-dest_files=[ "res://.import/is_it_time1.wav-e80eeb19de8af6ba442e5184ed8cfacc.sample" ]
+dest_files=["res://.godot/imported/is_it_time1.wav-e80eeb19de8af6ba442e5184ed8cfacc.sample"]
 
 [params]
 

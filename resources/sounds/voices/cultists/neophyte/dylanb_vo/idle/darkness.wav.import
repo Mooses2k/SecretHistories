@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/darkness.wav-4c1c3cb4f8efa68eeb6f7e7fffba89a7.sample"
+type="AudioStreamWAV"
+uid="uid://yqwvs8lmxk00"
+path="res://.godot/imported/darkness.wav-4c1c3cb4f8efa68eeb6f7e7fffba89a7.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/darkness.wav"
-dest_files=[ "res://.import/darkness.wav-4c1c3cb4f8efa68eeb6f7e7fffba89a7.sample" ]
+dest_files=["res://.godot/imported/darkness.wav-4c1c3cb4f8efa68eeb6f7e7fffba89a7.sample"]
 
 [params]
 

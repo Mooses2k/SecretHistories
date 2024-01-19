@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/445970__breviceps__drink-drinking-liquid.wav-919e9cf41a76f3f9172619e67ca6406d.sample"
+type="AudioStreamWAV"
+uid="uid://bdk5biynr45bq"
+path="res://.godot/imported/445970__breviceps__drink-drinking-liquid.wav-919e9cf41a76f3f9172619e67ca6406d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/bottles_and_drinking/445970__breviceps__drink-drinking-liquid.wav"
-dest_files=[ "res://.import/445970__breviceps__drink-drinking-liquid.wav-919e9cf41a76f3f9172619e67ca6406d.sample" ]
+dest_files=["res://.godot/imported/445970__breviceps__drink-drinking-liquid.wav-919e9cf41a76f3f9172619e67ca6406d.sample"]
 
 [params]
 

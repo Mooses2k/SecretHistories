@@ -6,9 +6,9 @@ class_name BTApproachRandomDistance extends BTCheck
 # 4-8m of the target.
 
 
-export var threshold_factor := 1.5
-export var min_distance := 4.0
-export var max_distance := 8.0
+@export var threshold_factor := 1.5
+@export var min_distance := 4.0
+@export var max_distance := 8.0
 
 
 var ticks_since_active := 0
@@ -19,7 +19,7 @@ var distance : float = INF
 func _pre_tick() -> void:
 	ticks_since_active += 1
 	if ticks_since_active > 1:
-		target_distance = rand_range(min_distance, max_distance)
+		target_distance = randf_range(min_distance, max_distance)
 		target_reached = false
 
 func _tick(state : CharacterState) -> int:

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/two_men_look_up.wav-cbdd4007aaf35d8fb429b52c1aebdb4b.sample"
+type="AudioStreamWAV"
+uid="uid://djkebhfyyrirp"
+path="res://.godot/imported/two_men_look_up.wav-cbdd4007aaf35d8fb429b52c1aebdb4b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/star_filled_sky/two_men_look_up.wav"
-dest_files=[ "res://.import/two_men_look_up.wav-cbdd4007aaf35d8fb429b52c1aebdb4b.sample" ]
+dest_files=["res://.godot/imported/two_men_look_up.wav-cbdd4007aaf35d8fb429b52c1aebdb4b.sample"]
 
 [params]
 

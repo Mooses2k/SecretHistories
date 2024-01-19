@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/my_hole.wav-fa78d14f2753e13f5fb8a225334a4b1d.sample"
+type="AudioStreamWAV"
+uid="uid://o8sa7kymsqv6"
+path="res://.godot/imported/my_hole.wav-fa78d14f2753e13f5fb8a225334a4b1d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/my_hole.wav"
-dest_files=[ "res://.import/my_hole.wav-fa78d14f2753e13f5fb8a225334a4b1d.sample" ]
+dest_files=["res://.godot/imported/my_hole.wav-fa78d14f2753e13f5fb8a225334a4b1d.sample"]
 
 [params]
 

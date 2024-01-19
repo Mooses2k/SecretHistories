@@ -1,9 +1,9 @@
 class_name CharacterAudio
-extends Spatial
+extends Node3D
 
 
 # TODO: Eventually get working or ensure working different footstep sounds
-onready var _footstep_sounds : Array = _stone_footstep_sounds   # Unsure if onready needed
+@onready var _footstep_sounds : Array = _stone_footstep_sounds   # Unsure if onready needed
 var _stone_footstep_sounds : Array = []
 var _wood_footstep_sounds : Array = []
 var _carpet_footstep_sounds : Array = []
@@ -19,7 +19,7 @@ var _clamber_sounds : Dictionary = {
 }
 
 # Speech
-export var character_voice_path : String = ""   # "res:// path to folder structure of this voice pack"
+@export var character_voice_path : String = ""   # "res:// path to folder structure of this voice pack"
 
 enum SpeechType {
 	IDLE,
@@ -60,12 +60,12 @@ var _comet_sounds : Array = []
 
 var _current_sound_dir : String = ""
 
-onready var speech_audio = $Speech as AudioStreamPlayer3D
-onready var manipulation_audio = $Manipulation as AudioStreamPlayer3D
-onready var movement_audio = $Movement as AudioStreamPlayer3D
+@onready var speech_audio = $Speech as AudioStreamPlayer3D
+@onready var manipulation_audio = $Manipulation as AudioStreamPlayer3D
+@onready var movement_audio = $Movement as AudioStreamPlayer3D
 
 var last_speech_type   # Tracked to avoid interrupting self to say same type of thing
-onready var last_speech_line   # Tracked to avoid repeating the same line
+@onready var last_speech_line   # Tracked to avoid repeating the same line
 
 
 func _ready():
@@ -97,12 +97,18 @@ func load_sounds(sound_dir, type : int) -> void:
 	if sound_dir.ends_with("/"):
 		sound_dir.erase(sound_dir.length() - 1, 1)
 
-	if not "res://" in sound_dir:
+	if sound_dir.begins_with("res://"):
 		sound_dir = "res://" + sound_dir
 
-	var snd_dir = Directory.new()
-	snd_dir.open(sound_dir)
-	snd_dir.list_dir_begin(true)
+	var snd_dir = DirAccess.open(sound_dir)
+	
+	if not is_instance_valid(snd_dir):
+		push_error("Unable to open sound directory :", sound_dir)
+		return
+	
+	snd_dir.include_hidden = false
+	snd_dir.include_navigational = false
+	snd_dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 
 	var sound = snd_dir.get_next()
 	while sound != "":
@@ -207,7 +213,7 @@ func choose_voice():
 
 
 func pitch_alter_voice():
-	speech_audio.set_pitch_scale(rand_range(0.7, 1.1))
+	speech_audio.set_pitch_scale(randf_range(0.7, 1.1))
 
 
 func play_idle_sound():
@@ -245,7 +251,7 @@ func play_alert_sound():
 
 func get_player() -> Player:
 	var players := get_tree().get_nodes_in_group("Player")
-	return players[0] if !players.empty() else null
+	return players[0] if !players.is_empty() else null
 
 
 func play_detection_sound() -> void:
@@ -433,9 +439,9 @@ func _on_BT_Reload_Gun_character_reloaded():
 # Movement
 
 func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float = 0.0):
-	movement_audio.unit_db = rate
+	movement_audio.volume_db = rate
 	movement_audio.pitch_scale = pitch
-	movement_audio.unit_db = volume
+	movement_audio.volume_db = volume
 	if _footstep_sounds.size() > 0:
 		_footstep_sounds.shuffle()
 		movement_audio.stream = _footstep_sounds.front()

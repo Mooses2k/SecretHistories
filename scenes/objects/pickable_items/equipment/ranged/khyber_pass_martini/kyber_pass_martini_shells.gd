@@ -1,7 +1,7 @@
 extends Node
 
-export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)
-export var impulse_value : Vector3 = Vector3(0, 0.3, 0.2)
+@export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)
+@export var impulse_value : Vector3 = Vector3(0, 0.3, 0.2)
 
 var webley_expell_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/shotgun_shells/12-gauge_shotgun_shell.tscn")
 var webley_reload_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_round.tscn")
@@ -9,9 +9,9 @@ var webley_reload_shell = preload("res://scenes/objects/pickable_items/tiny/ammo
 
 func expell_shells():
 	print("Expelling shotgun shells")
-	var first_shell = webley_expell_shell.instance() as RigidBody
+	var first_shell = webley_expell_shell.instantiate() as RigidBody3D
 
-	var shell_position_1 = $"%DropShellPosition".global_translation
+	var shell_position_1 = %DropShellPosition.global_position
 	
 	first_shell.rotation_degrees.z = 100.695
 	
@@ -19,11 +19,11 @@ func expell_shells():
 	if is_instance_valid(GameManager.game):
 		world_scene = GameManager.game
 	else:
-		world_scene = owner.owner_character.owner as Spatial
+		world_scene = owner.owner_character.owner as Node3D
 	
-	first_shell.translation = shell_position_1
+	first_shell.position = shell_position_1
 	world_scene.add_child(first_shell)
-	first_shell.apply_impulse(impulse_position, owner.owner_character.global_transform.basis.z * 3)
+	first_shell.apply_impulse(owner.owner_character.global_transform.basis.z * 3, impulse_position)
 
 
 func player_add_shell():

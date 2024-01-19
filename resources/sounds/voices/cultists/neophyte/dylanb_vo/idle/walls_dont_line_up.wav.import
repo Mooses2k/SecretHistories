@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/walls_dont_line_up.wav-20cbc0d1b2e0136a2fefa9989f99ff40.sample"
+type="AudioStreamWAV"
+uid="uid://cs1jrfw5qn7l8"
+path="res://.godot/imported/walls_dont_line_up.wav-20cbc0d1b2e0136a2fefa9989f99ff40.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/walls_dont_line_up.wav"
-dest_files=[ "res://.import/walls_dont_line_up.wav-20cbc0d1b2e0136a2fefa9989f99ff40.sample" ]
+dest_files=["res://.godot/imported/walls_dont_line_up.wav-20cbc0d1b2e0136a2fefa9989f99ff40.sample"]
 
 [params]
 

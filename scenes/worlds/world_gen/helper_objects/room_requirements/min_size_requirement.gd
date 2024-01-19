@@ -1,5 +1,5 @@
+@tool
 # Requirements for minimum size of room. Properties are expressed in single tiles.
-tool
 class_name RequirementMinSize
 extends RoomRequirements
 
@@ -14,8 +14,8 @@ const EDITOR_NAME_PREVIEW = "Min Size %sx%s"
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-var min_x_tiles := 0 setget _set_min_x_tiles
-var min_y_tiles := 0 setget _set_min_y_tiles
+var min_x_tiles := 0: set = _set_min_x_tiles
+var min_y_tiles := 0: set = _set_min_y_tiles
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 

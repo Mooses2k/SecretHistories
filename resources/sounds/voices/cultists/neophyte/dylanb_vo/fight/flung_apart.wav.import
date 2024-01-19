@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/flung_apart.wav-51583f8efea6ac63961c1501b1e5f10c.sample"
+type="AudioStreamWAV"
+uid="uid://dr4e87b0w1pnc"
+path="res://.godot/imported/flung_apart.wav-51583f8efea6ac63961c1501b1e5f10c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/flung_apart.wav"
-dest_files=[ "res://.import/flung_apart.wav-51583f8efea6ac63961c1501b1e5f10c.sample" ]
+dest_files=["res://.godot/imported/flung_apart.wav-51583f8efea6ac63961c1501b1e5f10c.sample"]
 
 [params]
 

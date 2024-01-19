@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteArrrghItBurns.wav-9a3d2bceb0b46d100e12563de7e2cc21.sample"
+type="AudioStreamWAV"
+uid="uid://c4ytj31fdolif"
+path="res://.godot/imported/NeophyteArrrghItBurns.wav-9a3d2bceb0b46d100e12563de7e2cc21.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fire/NeophyteArrrghItBurns.wav"
-dest_files=[ "res://.import/NeophyteArrrghItBurns.wav-9a3d2bceb0b46d100e12563de7e2cc21.sample" ]
+dest_files=["res://.godot/imported/NeophyteArrrghItBurns.wav-9a3d2bceb0b46d100e12563de7e2cc21.sample"]
 
 [params]
 

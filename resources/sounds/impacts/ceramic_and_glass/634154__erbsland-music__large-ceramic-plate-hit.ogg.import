@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/634154__erbsland-music__large-ceramic-plate-hit.ogg-2e17be36a45cc53435b4f57ebfd8eee7.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://mstw2442p4tt"
+path="res://.godot/imported/634154__erbsland-music__large-ceramic-plate-hit.ogg-2e17be36a45cc53435b4f57ebfd8eee7.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/ceramic_and_glass/634154__erbsland-music__large-ceramic-plate-hit.ogg"
-dest_files=[ "res://.import/634154__erbsland-music__large-ceramic-plate-hit.ogg-2e17be36a45cc53435b4f57ebfd8eee7.oggstr" ]
+dest_files=["res://.godot/imported/634154__erbsland-music__large-ceramic-plate-hit.ogg-2e17be36a45cc53435b4f57ebfd8eee7.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

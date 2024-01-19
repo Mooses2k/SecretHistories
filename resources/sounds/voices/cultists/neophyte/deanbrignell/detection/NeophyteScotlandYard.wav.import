@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteScotlandYard.wav-333abb043cdd7b74d7932f6aaa06f2b9.sample"
+type="AudioStreamWAV"
+uid="uid://btppfr3j6el01"
+path="res://.godot/imported/NeophyteScotlandYard.wav-333abb043cdd7b74d7932f6aaa06f2b9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteScotlandYard.wav"
-dest_files=[ "res://.import/NeophyteScotlandYard.wav-333abb043cdd7b74d7932f6aaa06f2b9.sample" ]
+dest_files=["res://.godot/imported/NeophyteScotlandYard.wav-333abb043cdd7b74d7932f6aaa06f2b9.sample"]
 
 [params]
 

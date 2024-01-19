@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/no_chance_to_survive.wav-a9fc6a0262a01412061d443a46a2dd2c.sample"
+type="AudioStreamWAV"
+uid="uid://clcvcchtuwt8m"
+path="res://.godot/imported/no_chance_to_survive.wav-a9fc6a0262a01412061d443a46a2dd2c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/no_chance_to_survive.wav"
-dest_files=[ "res://.import/no_chance_to_survive.wav-a9fc6a0262a01412061d443a46a2dd2c.sample" ]
+dest_files=["res://.godot/imported/no_chance_to_survive.wav-a9fc6a0262a01412061d443a46a2dd2c.sample"]
 
 [params]
 

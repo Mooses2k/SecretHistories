@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/13929__adcbicycle__1_ding_hits.wav-96407a8909e2dffdd510ab972e55efc6.sample"
+type="AudioStreamWAV"
+uid="uid://0hu8bqeeab2g"
+path="res://.godot/imported/13929__adcbicycle__1_ding_hits.wav-96407a8909e2dffdd510ab972e55efc6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/ceramic_and_glass/13929__adcbicycle__1_ding_hits.wav"
-dest_files=[ "res://.import/13929__adcbicycle__1_ding_hits.wav-96407a8909e2dffdd510ab972e55efc6.sample" ]
+dest_files=["res://.godot/imported/13929__adcbicycle__1_ding_hits.wav-96407a8909e2dffdd510ab972e55efc6.sample"]
 
 [params]
 

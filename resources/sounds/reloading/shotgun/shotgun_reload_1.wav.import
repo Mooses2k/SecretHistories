@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/shotgun_reload_1.wav-64129dc9087342f83e2792f5d87f81a8.sample"
+type="AudioStreamWAV"
+uid="uid://cwwsn3iuhstsp"
+path="res://.godot/imported/shotgun_reload_1.wav-64129dc9087342f83e2792f5d87f81a8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/reloading/shotgun/shotgun_reload_1.wav"
-dest_files=[ "res://.import/shotgun_reload_1.wav-64129dc9087342f83e2792f5d87f81a8.sample" ]
+dest_files=["res://.godot/imported/shotgun_reload_1.wav-64129dc9087342f83e2792f5d87f81a8.sample"]
 
 [params]
 

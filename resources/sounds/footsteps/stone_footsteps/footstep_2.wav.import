@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/footstep_2.wav-0d656f52b7eafff30382174c9164befc.sample"
+type="AudioStreamWAV"
+uid="uid://c88q6fvogxlw6"
+path="res://.godot/imported/footstep_2.wav-0d656f52b7eafff30382174c9164befc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/footsteps/stone_footsteps/footstep_2.wav"
-dest_files=[ "res://.import/footstep_2.wav-0d656f52b7eafff30382174c9164befc.sample" ]
+dest_files=["res://.godot/imported/footstep_2.wav-0d656f52b7eafff30382174c9164befc.sample"]
 
 [params]
 

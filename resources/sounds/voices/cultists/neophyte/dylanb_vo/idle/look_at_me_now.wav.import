@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/look_at_me_now.wav-f30a4052cb1f007622551b14d000f3fb.sample"
+type="AudioStreamWAV"
+uid="uid://cu0fqxisk81q"
+path="res://.godot/imported/look_at_me_now.wav-f30a4052cb1f007622551b14d000f3fb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/look_at_me_now.wav"
-dest_files=[ "res://.import/look_at_me_now.wav-f30a4052cb1f007622551b14d000f3fb.sample" ]
+dest_files=["res://.godot/imported/look_at_me_now.wav-f30a4052cb1f007622551b14d000f3fb.sample"]
 
 [params]
 

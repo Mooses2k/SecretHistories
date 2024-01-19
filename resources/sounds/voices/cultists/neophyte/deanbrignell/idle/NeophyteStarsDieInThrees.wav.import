@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteStarsDieInThrees.wav-1ce0b2e914d00aeaaa0ca05bfcc0ef1c.sample"
+type="AudioStreamWAV"
+uid="uid://k67ehiw2rgqv"
+path="res://.godot/imported/NeophyteStarsDieInThrees.wav-1ce0b2e914d00aeaaa0ca05bfcc0ef1c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteStarsDieInThrees.wav"
-dest_files=[ "res://.import/NeophyteStarsDieInThrees.wav-1ce0b2e914d00aeaaa0ca05bfcc0ef1c.sample" ]
+dest_files=["res://.godot/imported/NeophyteStarsDieInThrees.wav-1ce0b2e914d00aeaaa0ca05bfcc0ef1c.sample"]
 
 [params]
 

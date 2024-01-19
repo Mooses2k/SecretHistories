@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThinkAboutIt.wav-da6d0ab5bb853d471200eec95e1d4a8d.sample"
+type="AudioStreamWAV"
+uid="uid://belesyaibqm7j"
+path="res://.godot/imported/NeophyteThinkAboutIt.wav-da6d0ab5bb853d471200eec95e1d4a8d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteThinkAboutIt.wav"
-dest_files=[ "res://.import/NeophyteThinkAboutIt.wav-da6d0ab5bb853d471200eec95e1d4a8d.sample" ]
+dest_files=["res://.godot/imported/NeophyteThinkAboutIt.wav-da6d0ab5bb853d471200eec95e1d4a8d.sample"]
 
 [params]
 

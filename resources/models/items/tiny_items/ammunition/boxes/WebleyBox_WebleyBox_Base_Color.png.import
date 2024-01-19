@@ -1,0 +1,36 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bjw0yt8h4aae1"
+path.s3tc="res://.godot/imported/WebleyBox_WebleyBox_Base_Color.png-9068ec861132f522db9cace43631cc72.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={}
+
+[deps]
+
+source_file="res://resources/models/items/tiny_items/ammunition/boxes/WebleyBox_WebleyBox_Base_Color.png"
+dest_files=["res://.godot/imported/WebleyBox_WebleyBox_Base_Color.png-9068ec861132f522db9cace43631cc72.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

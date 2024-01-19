@@ -51,7 +51,7 @@ func _populate_staircase(room: RoomData, world_data: WorldData) -> void:
 	var door_directions := room.get_doorway_directions()
 	if door_directions.size() > 1:
 		push_error("Staircase room has more than 1 doors | room_data: %s"%[room])
-	elif door_directions.empty():
+	elif door_directions.is_empty():
 		push_error("Staircase room has no doors, aborting staircase | room_data: %s"%[room])
 		return
 	

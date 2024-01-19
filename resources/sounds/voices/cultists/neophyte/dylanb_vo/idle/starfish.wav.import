@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/starfish.wav-033dc1b667ce169d68d5ebabf8e83cf9.sample"
+type="AudioStreamWAV"
+uid="uid://bnpehoo6d2ubn"
+path="res://.godot/imported/starfish.wav-033dc1b667ce169d68d5ebabf8e83cf9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/starfish.wav"
-dest_files=[ "res://.import/starfish.wav-033dc1b667ce169d68d5ebabf8e83cf9.sample" ]
+dest_files=["res://.godot/imported/starfish.wav-033dc1b667ce169d68d5ebabf8e83cf9.sample"]
 
 [params]
 

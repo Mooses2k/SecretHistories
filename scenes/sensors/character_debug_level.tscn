@@ -3,55 +3,55 @@
 [ext_resource path="res://scenes/characters/cultists/neophyte.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RayShape" id=1]
+[sub_resource type="SeparationRayShape3D" id=1]
 
-[sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( -0.0153427, -16, -78.3837, -78.3837, -16, -0.0153427, -0.0153427, 16, -0.0153427, 78.3683, -16, -0.0153427, -0.0153427, -16, 78.3683 )
+[sub_resource type="ConvexPolygonShape3D" id=2]
+points = PackedVector3Array( -0.0153427, -16, -78.3837, -78.3837, -16, -0.0153427, -0.0153427, 16, -0.0153427, 78.3683, -16, -0.0153427, -0.0153427, -16, 78.3683 )
 
-[node name="Spatial" type="Spatial"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0306168, 0.0465221, -0.00631046 )
+[node name="Node3D" type="Node3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0306168, 0.0465221, -0.00631046 )
 
 [node name="Cultist" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6663 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.6663 )
 
-[node name="CSGBox" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029633, -3.21698, 3.0852 )
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029633, -3.21698, 3.0852 )
 use_collision = true
 width = 90.4554
 depth = 108.248
 
-[node name="CSGBox2" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029633, -3.21698, -1.39018 )
+[node name="CSGBox2" type="CSGBox3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029633, -3.21698, -1.39018 )
 use_collision = true
 width = 0.182944
 height = 35.5211
 depth = 4.00155
 
-[node name="CSGBox3" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029633, -3.21698, 5.63314 )
+[node name="CSGBox3" type="CSGBox3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.029633, -3.21698, 5.63314 )
 use_collision = true
 width = 6.68262
 height = 35.5211
 depth = 0.618674
 
-[node name="CSGBox4" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40998, -3.21698, 7.18422 )
+[node name="CSGBox4" type="CSGBox3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40998, -3.21698, 7.18422 )
 use_collision = true
 width = 6.68262
 height = 35.5211
 depth = 0.618674
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0894, -2.21698, -18.5718 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0894, -2.21698, -18.5718 )
 
-[node name="Area" type="Area" parent="."]
+[node name="Area3D" type="Area3D" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 24, 27 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 24, 27 )
 shape = SubResource( 2 )
 
-[node name="Spatial" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 0, 5.3 )
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3, 0, 5.3 )

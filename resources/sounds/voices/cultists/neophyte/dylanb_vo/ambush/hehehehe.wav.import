@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/hehehehe.wav-5b8adf7cca02fc7967eec2a9bfe9dfd5.sample"
+type="AudioStreamWAV"
+uid="uid://c0ut8x7bnfd76"
+path="res://.godot/imported/hehehehe.wav-5b8adf7cca02fc7967eec2a9bfe9dfd5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/hehehehe.wav"
-dest_files=[ "res://.import/hehehehe.wav-5b8adf7cca02fc7967eec2a9bfe9dfd5.sample" ]
+dest_files=["res://.godot/imported/hehehehe.wav-5b8adf7cca02fc7967eec2a9bfe9dfd5.sample"]
 
 [params]
 

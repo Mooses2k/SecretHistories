@@ -17,7 +17,7 @@ max_charges_usable_at_once = 1
 [node name="UseTime" type="Timer" parent="." index="3"]
 wait_time = 5.0
 
-[node name="Sounds" type="Spatial" parent="." index="4"]
+[node name="Sounds" type="Node3D" parent="." index="4"]
 
 [node name="Equip" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 

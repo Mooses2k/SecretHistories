@@ -1,11 +1,11 @@
-extends Spatial
+extends Node3D
 
 # This code is duplicated from "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd"
 
 
-export var threshold_angle_degrees = 60
+@export var threshold_angle_degrees = 60
 
-onready var threshold_factor = cos(deg2rad(threshold_angle_degrees))
+@onready var threshold_factor = cos(deg_to_rad(threshold_angle_degrees))
 
 
 func _physics_process(delta: float) -> void:

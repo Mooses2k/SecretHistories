@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/doombeat.ogg-6810ff99df7509841ea89e690e06f36e.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dlkrdsshf3qn2"
+path="res://.godot/imported/doombeat.ogg-6810ff99df7509841ea89e690e06f36e.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/ambience/doombeat.ogg"
-dest_files=[ "res://.import/doombeat.ogg-6810ff99df7509841ea89e690e06f36e.oggstr" ]
+dest_files=["res://.godot/imported/doombeat.ogg-6810ff99df7509841ea89e690e06f36e.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

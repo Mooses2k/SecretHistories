@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/420674__sypherzent__deep-cut-slash-gash.wav-849a2fefd280adb1b9e75076b87d80d3.sample"
+type="AudioStreamWAV"
+uid="uid://cllhmw6oauy3k"
+path="res://.godot/imported/420674__sypherzent__deep-cut-slash-gash.wav-849a2fefd280adb1b9e75076b87d80d3.sample"
 
 [deps]
 
 source_file="res://resources/sounds/melee/blade/slash_flesh/420674__sypherzent__deep-cut-slash-gash.wav"
-dest_files=[ "res://.import/420674__sypherzent__deep-cut-slash-gash.wav-849a2fefd280adb1b9e75076b87d80d3.sample" ]
+dest_files=["res://.godot/imported/420674__sypherzent__deep-cut-slash-gash.wav-849a2fefd280adb1b9e75076b87d80d3.sample"]
 
 [params]
 

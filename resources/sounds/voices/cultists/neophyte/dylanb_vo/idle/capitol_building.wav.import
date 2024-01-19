@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/capitol_building.wav-6d420e3045151b5e5a18e0ed4bd722ce.sample"
+type="AudioStreamWAV"
+uid="uid://68tfdj5k4hkj"
+path="res://.godot/imported/capitol_building.wav-6d420e3045151b5e5a18e0ed4bd722ce.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/capitol_building.wav"
-dest_files=[ "res://.import/capitol_building.wav-6d420e3045151b5e5a18e0ed4bd722ce.sample" ]
+dest_files=["res://.godot/imported/capitol_building.wav-6d420e3045151b5e5a18e0ed4bd722ce.sample"]
 
 [params]
 

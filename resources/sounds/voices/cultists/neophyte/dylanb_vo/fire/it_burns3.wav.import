@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/it_burns3.wav-c37f96042daba4f452a73493d682db91.sample"
+type="AudioStreamWAV"
+uid="uid://j67woompjvpp"
+path="res://.godot/imported/it_burns3.wav-c37f96042daba4f452a73493d682db91.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fire/it_burns3.wav"
-dest_files=[ "res://.import/it_burns3.wav-c37f96042daba4f452a73493d682db91.sample" ]
+dest_files=["res://.godot/imported/it_burns3.wav-c37f96042daba4f452a73493d682db91.sample"]
 
 [params]
 

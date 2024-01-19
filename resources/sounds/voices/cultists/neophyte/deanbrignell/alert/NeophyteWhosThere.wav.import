@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhosThere.wav-663ad28bed761d677a505c5931fafd92.sample"
+type="AudioStreamWAV"
+uid="uid://cr4r1l4qjs7yx"
+path="res://.godot/imported/NeophyteWhosThere.wav-663ad28bed761d677a505c5931fafd92.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteWhosThere.wav"
-dest_files=[ "res://.import/NeophyteWhosThere.wav-663ad28bed761d677a505c5931fafd92.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhosThere.wav-663ad28bed761d677a505c5931fafd92.sample"]
 
 [params]
 

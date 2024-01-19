@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/i_am_alone_now.wav-b35e0f67f264caac671383e4f4b89595.sample"
+type="AudioStreamWAV"
+uid="uid://dqdahd7cnoxrr"
+path="res://.godot/imported/i_am_alone_now.wav-b35e0f67f264caac671383e4f4b89595.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/i_am_alone_now.wav"
-dest_files=[ "res://.import/i_am_alone_now.wav-b35e0f67f264caac671383e4f4b89595.sample" ]
+dest_files=["res://.godot/imported/i_am_alone_now.wav-b35e0f67f264caac671383e4f4b89595.sample"]
 
 [params]
 

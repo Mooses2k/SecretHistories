@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThereIsAParticularQueernessSurroundingMyMind.wav-2af8c5312f1952e2a0002468b464bf39.sample"
+type="AudioStreamWAV"
+uid="uid://bxneas4jkeydu"
+path="res://.godot/imported/NeophyteThereIsAParticularQueernessSurroundingMyMind.wav-2af8c5312f1952e2a0002468b464bf39.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteThereIsAParticularQueernessSurroundingMyMind.wav"
-dest_files=[ "res://.import/NeophyteThereIsAParticularQueernessSurroundingMyMind.wav-2af8c5312f1952e2a0002468b464bf39.sample" ]
+dest_files=["res://.godot/imported/NeophyteThereIsAParticularQueernessSurroundingMyMind.wav-2af8c5312f1952e2a0002468b464bf39.sample"]
 
 [params]
 

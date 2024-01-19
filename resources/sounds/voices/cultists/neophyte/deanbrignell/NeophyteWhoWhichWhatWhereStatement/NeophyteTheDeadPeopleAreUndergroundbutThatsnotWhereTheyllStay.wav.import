@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheDeadPeopleAreUndergroundbutThatsnotWhereTheyllStay.wav-38eaa0b4a5ec609bd6e3484c6cedf753.sample"
+type="AudioStreamWAV"
+uid="uid://da6r6gc51rl5l"
+path="res://.godot/imported/NeophyteTheDeadPeopleAreUndergroundbutThatsnotWhereTheyllStay.wav-38eaa0b4a5ec609bd6e3484c6cedf753.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteTheDeadPeopleAreUndergroundbutThatsnotWhereTheyllStay.wav"
-dest_files=[ "res://.import/NeophyteTheDeadPeopleAreUndergroundbutThatsnotWhereTheyllStay.wav-38eaa0b4a5ec609bd6e3484c6cedf753.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheDeadPeopleAreUndergroundbutThatsnotWhereTheyllStay.wav-38eaa0b4a5ec609bd6e3484c6cedf753.sample"]
 
 [params]
 

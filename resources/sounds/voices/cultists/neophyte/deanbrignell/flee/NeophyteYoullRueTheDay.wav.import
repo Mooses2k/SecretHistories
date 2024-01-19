@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYoullRueTheDay.wav-67fdd7814f88ccaec5df8983fa7b1fcf.sample"
+type="AudioStreamWAV"
+uid="uid://dp6gp16jjpssu"
+path="res://.godot/imported/NeophyteYoullRueTheDay.wav-67fdd7814f88ccaec5df8983fa7b1fcf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteYoullRueTheDay.wav"
-dest_files=[ "res://.import/NeophyteYoullRueTheDay.wav-67fdd7814f88ccaec5df8983fa7b1fcf.sample" ]
+dest_files=["res://.godot/imported/NeophyteYoullRueTheDay.wav-67fdd7814f88ccaec5df8983fa7b1fcf.sample"]
 
 [params]
 

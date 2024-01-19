@@ -12,19 +12,19 @@ enum WeaponType {
 	POLEARM,
 	COUNT
 }
-export(WeaponType) var weapon_type : int = 0
+@export var weapon_type: WeaponType = 0
 
 # primary and secondary here refer to primary use (L-Click) and secondary use (R-Click)
-export(AttackTypes.Types) var primary_damage_type1 : int = 0
-export var primary_damage1 = 0
-export(AttackTypes.Types) var primary_damage_type2 : int = 0
-export var primary_damage2 = 0
-export(AttackTypes.Types) var secondary_damage_type1 : int = 0
-export var secondary_damage1 = 0
-export(AttackTypes.Types) var secondary_damage_type2 : int = 0
-export var secondary_damage2 = 0
-export var melee_attack_speed : float = 1.0
-export var cooldown = 0.01
+@export var primary_damage_type1 : int = 0 # (AttackTypes.Types)
+@export var primary_damage1 = 0
+@export var primary_damage_type2 : int = 0 # (AttackTypes.Types)
+@export var primary_damage2 = 0
+@export var secondary_damage_type1 : int = 0 # (AttackTypes.Types)
+@export var secondary_damage1 = 0
+@export var secondary_damage_type2 : int = 0 # (AttackTypes.Types)
+@export var secondary_damage2 = 0
+@export var melee_attack_speed : float = 1.0
+@export var cooldown = 0.01
 
 #export var element_path : NodePath
 #onready var collision_and_mesh = get_node(element_path)
@@ -34,9 +34,9 @@ var did_a_thrust = false
 var did_a_cut = false
 var on_cooldown = false
 
-onready var melee_hitbox = $Hitbox as Area
+@onready var melee_hitbox = $Hitbox as Area3D
 
-onready var character = get_parent()
+@onready var character = get_parent()
 
 
 # Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards

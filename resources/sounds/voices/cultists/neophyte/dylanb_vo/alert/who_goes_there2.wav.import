@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/who_goes_there2.wav-b4bb97d3ccb79a22ca80aa1fa8fb393b.sample"
+type="AudioStreamWAV"
+uid="uid://xn7tx0hntgqb"
+path="res://.godot/imported/who_goes_there2.wav-b4bb97d3ccb79a22ca80aa1fa8fb393b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/who_goes_there2.wav"
-dest_files=[ "res://.import/who_goes_there2.wav-b4bb97d3ccb79a22ca80aa1fa8fb393b.sample" ]
+dest_files=["res://.godot/imported/who_goes_there2.wav-b4bb97d3ccb79a22ca80aa1fa8fb393b.sample"]
 
 [params]
 

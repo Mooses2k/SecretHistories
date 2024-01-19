@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/pie_flavor2.wav-565df2b6ef5c32beaa99a360f7632c10.sample"
+type="AudioStreamWAV"
+uid="uid://cqhgc0f0lbtgb"
+path="res://.godot/imported/pie_flavor2.wav-565df2b6ef5c32beaa99a360f7632c10.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/pie_flavor2.wav"
-dest_files=[ "res://.import/pie_flavor2.wav-565df2b6ef5c32beaa99a360f7632c10.sample" ]
+dest_files=["res://.godot/imported/pie_flavor2.wav-565df2b6ef5c32beaa99a360f7632c10.sample"]
 
 [params]
 

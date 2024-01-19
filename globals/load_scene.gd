@@ -10,7 +10,7 @@ var loadscreen : Node
 
 
 func setup_loadscreen() -> void:
-	loadscreen = Loadscreen.instance()
+	loadscreen = Loadscreen.instantiate()
 	get_tree().current_scene.add_child(loadscreen)
 	get_tree().paused = true
 
@@ -35,19 +35,19 @@ func remove_loadscreen() -> void:
 	
 	# Disable LeftClick for a moment so player doesn't accidentally shoot or something immediately
 	GameManager.game.player.player_controller.no_click_after_load_period = true
-	yield(get_tree().create_timer(1), "timeout")   # Possibly 0.5 better?
+	await get_tree().create_timer(1).timeout   # Possibly 0.5 better?
 	GameManager.game.player.player_controller.no_click_after_load_period = false
 	loadscreen.visible = false
 	
 	# Wait another moment then kill the loadscreen
 	# Be aware, during this time period drop_sound doesn't play to avoid stuff falling and making sound on start
-	yield(get_tree().create_timer(2), "timeout")
+	await get_tree().create_timer(2).timeout
 	if is_instance_valid(loadscreen):
 		loadscreen.queue_free()   # Crashes if hit button too many times
 	emit_signal("loading_screen_removed")
 
 
-func change_scene(path) -> void:
+func change_scene_to_file(path) -> void:
 	get_tree().current_scene.queue_free()
 	get_tree().root.add_child(path)
 	get_tree().current_scene = path

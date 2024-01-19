@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/412295__jaklocke__gun-hitting-ground.mp3-c07437de357276cb28d3342fbf1d27ff.mp3str"
+uid="uid://ct3crbxdeurn6"
+path="res://.godot/imported/412295__jaklocke__gun-hitting-ground.mp3-c07437de357276cb28d3342fbf1d27ff.mp3str"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3"
-dest_files=[ "res://.import/412295__jaklocke__gun-hitting-ground.mp3-c07437de357276cb28d3342fbf1d27ff.mp3str" ]
+dest_files=["res://.godot/imported/412295__jaklocke__gun-hitting-ground.mp3-c07437de357276cb28d3342fbf1d27ff.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

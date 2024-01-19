@@ -4,32 +4,32 @@
 [ext_resource path="res://scenes/objects/large_objects/doors/lock_loop/lock_loop_interactable.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/large_objects/doors/lock_loop/lock_loop.gd" type="Script" id=3]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="StandardMaterial3D" id=2]
 metallic = 1.0
 roughness = 0.4
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="BoxMesh" id=3]
 size = Vector3( 0.02, 0.1, 0.04 )
 
-[sub_resource type="BoxShape" id=1]
+[sub_resource type="BoxShape3D" id=1]
 extents = Vector3( 0.05, 0.08, 0.03 )
 
-[node name="LockLoop" type="Spatial"]
+[node name="LockLoop" type="Node3D"]
 script = ExtResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02 )
 material_override = SubResource( 2 )
 mesh = SubResource( 3 )
 skeleton = NodePath("")
-material/0 = null
+surface_material_override/0 = null
 
-[node name="LockPosition" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02 )
+[node name="LockPosition" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.02 )
 
 [node name="Interactable" parent="." instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Interactable"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.03 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.03 )
 shape = SubResource( 1 )

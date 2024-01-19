@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/pig_mother.wav-c7c2a0f04e56a7826f2c3c9e1d8fedb1.sample"
+type="AudioStreamWAV"
+uid="uid://dhkihnuyorwtc"
+path="res://.godot/imported/pig_mother.wav-c7c2a0f04e56a7826f2c3c9e1d8fedb1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/pig_mother.wav"
-dest_files=[ "res://.import/pig_mother.wav-c7c2a0f04e56a7826f2c3c9e1d8fedb1.sample" ]
+dest_files=["res://.godot/imported/pig_mother.wav-c7c2a0f04e56a7826f2c3c9e1d8fedb1.sample"]
 
 [params]
 

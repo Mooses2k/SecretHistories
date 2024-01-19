@@ -1,5 +1,5 @@
+@tool
 # Requirements for maximum size of room. Properties are expressed in single tiles.
-tool
 class_name RequirementMaxSize
 extends RoomRequirements
 
@@ -14,8 +14,8 @@ const EDITOR_NAME_PREVIEW = "Max Size %sx%s"
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-var max_x_tiles := 1 setget _set_max_x_tiles
-var max_y_tiles := 1 setget _set_max_y_tiles
+var max_x_tiles := 1: set = _set_max_x_tiles
+var max_y_tiles := 1: set = _set_max_y_tiles
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAreYouHoldingTheSmokeInBrother.wav-3147607552eafe181cbd8faea878e9c1.sample"
+type="AudioStreamWAV"
+uid="uid://cioft3qty3k01"
+path="res://.godot/imported/NeophyteAreYouHoldingTheSmokeInBrother.wav-3147607552eafe181cbd8faea878e9c1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteAreYouHoldingTheSmokeInBrother.wav"
-dest_files=[ "res://.import/NeophyteAreYouHoldingTheSmokeInBrother.wav-3147607552eafe181cbd8faea878e9c1.sample" ]
+dest_files=["res://.godot/imported/NeophyteAreYouHoldingTheSmokeInBrother.wav-3147607552eafe181cbd8faea878e9c1.sample"]
 
 [params]
 

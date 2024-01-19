@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAgentsOfTheCrown.wav-c0d71413772a4614b7bc891c50d332dd.sample"
+type="AudioStreamWAV"
+uid="uid://bku6p6fgtui7g"
+path="res://.godot/imported/NeophyteAgentsOfTheCrown.wav-c0d71413772a4614b7bc891c50d332dd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteAgentsOfTheCrown.wav"
-dest_files=[ "res://.import/NeophyteAgentsOfTheCrown.wav-c0d71413772a4614b7bc891c50d332dd.sample" ]
+dest_files=["res://.godot/imported/NeophyteAgentsOfTheCrown.wav-c0d71413772a4614b7bc891c50d332dd.sample"]
 
 [params]
 

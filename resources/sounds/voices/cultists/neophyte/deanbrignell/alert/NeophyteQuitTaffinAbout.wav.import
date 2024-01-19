@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteQuitTaffinAbout.wav-74d40cb2faea8d206f2b14c7b930ad84.sample"
+type="AudioStreamWAV"
+uid="uid://3d3mx7bnsp1"
+path="res://.godot/imported/NeophyteQuitTaffinAbout.wav-74d40cb2faea8d206f2b14c7b930ad84.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteQuitTaffinAbout.wav"
-dest_files=[ "res://.import/NeophyteQuitTaffinAbout.wav-74d40cb2faea8d206f2b14c7b930ad84.sample" ]
+dest_files=["res://.godot/imported/NeophyteQuitTaffinAbout.wav-74d40cb2faea8d206f2b14c7b930ad84.sample"]
 
 [params]
 

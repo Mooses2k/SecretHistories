@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/past_is_never_dead.wav-13fab345542840df659204fdff05fd88.sample"
+type="AudioStreamWAV"
+uid="uid://bwxi3jdeadd82"
+path="res://.godot/imported/past_is_never_dead.wav-13fab345542840df659204fdff05fd88.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/past_is_never_dead.wav"
-dest_files=[ "res://.import/past_is_never_dead.wav-13fab345542840df659204fdff05fd88.sample" ]
+dest_files=["res://.godot/imported/past_is_never_dead.wav-13fab345542840df659204fdff05fd88.sample"]
 
 [params]
 

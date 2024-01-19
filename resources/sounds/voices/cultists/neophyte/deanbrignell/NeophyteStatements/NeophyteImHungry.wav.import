@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteImHungry.wav-a82c9eeaa29d280b4f8e7bf6acebed15.sample"
+type="AudioStreamWAV"
+uid="uid://nb8kqcqi8aud"
+path="res://.godot/imported/NeophyteImHungry.wav-a82c9eeaa29d280b4f8e7bf6acebed15.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteImHungry.wav"
-dest_files=[ "res://.import/NeophyteImHungry.wav-a82c9eeaa29d280b4f8e7bf6acebed15.sample" ]
+dest_files=["res://.godot/imported/NeophyteImHungry.wav-a82c9eeaa29d280b4f8e7bf6acebed15.sample"]
 
 [params]
 

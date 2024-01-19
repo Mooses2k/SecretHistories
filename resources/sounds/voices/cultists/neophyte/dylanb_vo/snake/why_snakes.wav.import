@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/why_snakes.wav-5566780c4a4cf504a863bed93a703908.sample"
+type="AudioStreamWAV"
+uid="uid://qnet127ch6s5"
+path="res://.godot/imported/why_snakes.wav-5566780c4a4cf504a863bed93a703908.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/snake/why_snakes.wav"
-dest_files=[ "res://.import/why_snakes.wav-5566780c4a4cf504a863bed93a703908.sample" ]
+dest_files=["res://.godot/imported/why_snakes.wav-5566780c4a4cf504a863bed93a703908.sample"]
 
 [params]
 

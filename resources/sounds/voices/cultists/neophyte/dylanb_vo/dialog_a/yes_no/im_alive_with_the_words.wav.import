@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/im_alive_with_the_words.wav-c62050c6c1397d6bd8386c4a7fb8bfa0.sample"
+type="AudioStreamWAV"
+uid="uid://pb74p5317bqe"
+path="res://.godot/imported/im_alive_with_the_words.wav-c62050c6c1397d6bd8386c4a7fb8bfa0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/yes_no/im_alive_with_the_words.wav"
-dest_files=[ "res://.import/im_alive_with_the_words.wav-c62050c6c1397d6bd8386c4a7fb8bfa0.sample" ]
+dest_files=["res://.godot/imported/im_alive_with_the_words.wav-c62050c6c1397d6bd8386c4a7fb8bfa0.sample"]
 
 [params]
 

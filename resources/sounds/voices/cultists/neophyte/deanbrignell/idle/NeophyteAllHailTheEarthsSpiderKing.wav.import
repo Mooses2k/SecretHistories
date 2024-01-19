@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAllHailTheEarthsSpiderKing.wav-b99436b8873c2bb80515421ec3416cfb.sample"
+type="AudioStreamWAV"
+uid="uid://bhfbcnijfvtff"
+path="res://.godot/imported/NeophyteAllHailTheEarthsSpiderKing.wav-b99436b8873c2bb80515421ec3416cfb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteAllHailTheEarthsSpiderKing.wav"
-dest_files=[ "res://.import/NeophyteAllHailTheEarthsSpiderKing.wav-b99436b8873c2bb80515421ec3416cfb.sample" ]
+dest_files=["res://.godot/imported/NeophyteAllHailTheEarthsSpiderKing.wav-b99436b8873c2bb80515421ec3416cfb.sample"]
 
 [params]
 

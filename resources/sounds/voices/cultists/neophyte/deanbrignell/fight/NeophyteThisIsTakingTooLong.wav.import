@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThisIsTakingTooLong.wav-1430bd7862b9f8515f7fde6ef04199b1.sample"
+type="AudioStreamWAV"
+uid="uid://plp5jlfvrpsj"
+path="res://.godot/imported/NeophyteThisIsTakingTooLong.wav-1430bd7862b9f8515f7fde6ef04199b1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteThisIsTakingTooLong.wav"
-dest_files=[ "res://.import/NeophyteThisIsTakingTooLong.wav-1430bd7862b9f8515f7fde6ef04199b1.sample" ]
+dest_files=["res://.godot/imported/NeophyteThisIsTakingTooLong.wav-1430bd7862b9f8515f7fde6ef04199b1.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/522400__filmmakersmanual__bullet-concrete-hit-1.wav-67bb2136198a63a1376ddbad262b8e68.sample"
+type="AudioStreamWAV"
+uid="uid://csmnd6mic6rlb"
+path="res://.godot/imported/522400__filmmakersmanual__bullet-concrete-hit-1.wav-67bb2136198a63a1376ddbad262b8e68.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav"
-dest_files=[ "res://.import/522400__filmmakersmanual__bullet-concrete-hit-1.wav-67bb2136198a63a1376ddbad262b8e68.sample" ]
+dest_files=["res://.godot/imported/522400__filmmakersmanual__bullet-concrete-hit-1.wav-67bb2136198a63a1376ddbad262b8e68.sample"]
 
 [params]
 

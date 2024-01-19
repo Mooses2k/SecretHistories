@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/256568__sjnewton__cork.mp3-2d005b597df0c672ff2abea666da8260.mp3str"
+uid="uid://dv0bd0pmmgo8f"
+path="res://.godot/imported/256568__sjnewton__cork.mp3-2d005b597df0c672ff2abea666da8260.mp3str"
 
 [deps]
 
 source_file="res://resources/sounds/bottles_and_drinking/256568__sjnewton__cork.mp3"
-dest_files=[ "res://.import/256568__sjnewton__cork.mp3-2d005b597df0c672ff2abea666da8260.mp3str" ]
+dest_files=["res://.godot/imported/256568__sjnewton__cork.mp3-2d005b597df0c672ff2abea666da8260.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

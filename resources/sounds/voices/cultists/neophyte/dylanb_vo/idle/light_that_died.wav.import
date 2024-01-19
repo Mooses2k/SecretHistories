@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/light_that_died.wav-314b93dd3c1f3b343a7646edec20fad0.sample"
+type="AudioStreamWAV"
+uid="uid://cwsr3m8gcquyc"
+path="res://.godot/imported/light_that_died.wav-314b93dd3c1f3b343a7646edec20fad0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/light_that_died.wav"
-dest_files=[ "res://.import/light_that_died.wav-314b93dd3c1f3b343a7646edec20fad0.sample" ]
+dest_files=["res://.godot/imported/light_that_died.wav-314b93dd3c1f3b343a7646edec20fad0.sample"]
 
 [params]
 

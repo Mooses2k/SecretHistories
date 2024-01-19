@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteCanHeHearUsShhh.wav-f8192e7f0c1848a879c8ebb0bc51b373.sample"
+type="AudioStreamWAV"
+uid="uid://ccu6hkas5whtx"
+path="res://.godot/imported/NeophyteCanHeHearUsShhh.wav-f8192e7f0c1848a879c8ebb0bc51b373.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/ambush/NeophyteCanHeHearUsShhh.wav"
-dest_files=[ "res://.import/NeophyteCanHeHearUsShhh.wav-f8192e7f0c1848a879c8ebb0bc51b373.sample" ]
+dest_files=["res://.godot/imported/NeophyteCanHeHearUsShhh.wav-f8192e7f0c1848a879c8ebb0bc51b373.sample"]
 
 [params]
 

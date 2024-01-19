@@ -1,6 +1,6 @@
-extends Area
+extends Area3D
 
-export var dps = 5.0
+@export var dps = 5.0
 
 func _process(delta):
 	for body in self.get_overlapping_bodies():

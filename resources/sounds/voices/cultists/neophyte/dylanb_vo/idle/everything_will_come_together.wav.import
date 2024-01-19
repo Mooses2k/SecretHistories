@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/everything_will_come_together.wav-1135a093d80bef2ebaee06bb5f9096c5.sample"
+type="AudioStreamWAV"
+uid="uid://1vuh10ujfscl"
+path="res://.godot/imported/everything_will_come_together.wav-1135a093d80bef2ebaee06bb5f9096c5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/everything_will_come_together.wav"
-dest_files=[ "res://.import/everything_will_come_together.wav-1135a093d80bef2ebaee06bb5f9096c5.sample" ]
+dest_files=["res://.godot/imported/everything_will_come_together.wav-1135a093d80bef2ebaee06bb5f9096c5.sample"]
 
 [params]
 

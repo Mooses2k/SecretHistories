@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/long-bottle-cork-open.wav-ca8506c682a2e72c87738813ea783721.sample"
+type="AudioStreamWAV"
+uid="uid://l1epe0b1nc80"
+path="res://.godot/imported/long-bottle-cork-open.wav-ca8506c682a2e72c87738813ea783721.sample"
 
 [deps]
 
 source_file="res://resources/sounds/bottles_and_drinking/long-bottle-cork-open.wav"
-dest_files=[ "res://.import/long-bottle-cork-open.wav-ca8506c682a2e72c87738813ea783721.sample" ]
+dest_files=["res://.godot/imported/long-bottle-cork-open.wav-ca8506c682a2e72c87738813ea783721.sample"]
 
 [params]
 

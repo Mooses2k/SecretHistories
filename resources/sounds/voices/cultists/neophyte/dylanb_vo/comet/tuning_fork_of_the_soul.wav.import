@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/tuning_fork_of_the_soul.wav-84e91c615c0372a67b9f0cf6185c685a.sample"
+type="AudioStreamWAV"
+uid="uid://clmah1vub8tne"
+path="res://.godot/imported/tuning_fork_of_the_soul.wav-84e91c615c0372a67b9f0cf6185c685a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/comet/tuning_fork_of_the_soul.wav"
-dest_files=[ "res://.import/tuning_fork_of_the_soul.wav-84e91c615c0372a67b9f0cf6185c685a.sample" ]
+dest_files=["res://.godot/imported/tuning_fork_of_the_soul.wav-84e91c615c0372a67b9f0cf6185c685a.sample"]
 
 [params]
 

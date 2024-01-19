@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/536076__eminyildirim__door-squeak_original.wav-23c0a61a1bd2f68e70b9cb0b2f8c3ec1.sample"
+type="AudioStreamWAV"
+uid="uid://cw60yvqhri763"
+path="res://.godot/imported/536076__eminyildirim__door-squeak_original.wav-23c0a61a1bd2f68e70b9cb0b2f8c3ec1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/doors/open/536076__eminyildirim__door-squeak_original.wav"
-dest_files=[ "res://.import/536076__eminyildirim__door-squeak_original.wav-23c0a61a1bd2f68e70b9cb0b2f8c3ec1.sample" ]
+dest_files=["res://.godot/imported/536076__eminyildirim__door-squeak_original.wav-23c0a61a1bd2f68e70b9cb0b2f8c3ec1.sample"]
 
 [params]
 

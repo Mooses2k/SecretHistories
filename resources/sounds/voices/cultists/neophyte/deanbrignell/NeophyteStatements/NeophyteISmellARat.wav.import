@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteISmellARat.wav-27da933f8a79950d28e6fc2f993a5227.sample"
+type="AudioStreamWAV"
+uid="uid://dqixn3hq3lk7m"
+path="res://.godot/imported/NeophyteISmellARat.wav-27da933f8a79950d28e6fc2f993a5227.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteISmellARat.wav"
-dest_files=[ "res://.import/NeophyteISmellARat.wav-27da933f8a79950d28e6fc2f993a5227.sample" ]
+dest_files=["res://.godot/imported/NeophyteISmellARat.wav-27da933f8a79950d28e6fc2f993a5227.sample"]
 
 [params]
 

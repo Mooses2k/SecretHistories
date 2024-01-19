@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/dont_look_away1.wav-04e6e60b5ee5468bf656bd6b920ff2be.sample"
+type="AudioStreamWAV"
+uid="uid://csihip8o6v1ue"
+path="res://.godot/imported/dont_look_away1.wav-04e6e60b5ee5468bf656bd6b920ff2be.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/dont_look_away1.wav"
-dest_files=[ "res://.import/dont_look_away1.wav-04e6e60b5ee5468bf656bd6b920ff2be.sample" ]
+dest_files=["res://.godot/imported/dont_look_away1.wav-04e6e60b5ee5468bf656bd6b920ff2be.sample"]
 
 [params]
 

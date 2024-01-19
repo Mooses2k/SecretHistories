@@ -1,5 +1,5 @@
 class_name PlacementAnchor
-extends Position3D
+extends Marker3D
 
 
 enum PlacementTags {
@@ -140,14 +140,14 @@ enum PlacementTags {
 	DGD # pertaining to the DGD
 }
 
-export(Array, PlacementTags) var allowed_tags
-export(Array, PlacementTags) var forbidden_tags
+@export var allowed_tags : Array[PlacementTags] # (Array, PlacementTags)
+@export var forbidden_tags : Array[PlacementTags] # (Array, PlacementTags)
 
-export var anchor_fill_probability = 1.0 # percent chance that an anchor slot will be filled
-export var min_quantity_wanted = 1 # we want at least this many
-export var max_quantity_wanted = 1 # we want no more than this many
+@export var anchor_fill_probability = 1.0 # percent chance that an anchor slot will be filled
+@export var min_quantity_wanted = 1 # we want at least this many
+@export var max_quantity_wanted = 1 # we want no more than this many
 
-export var allow_recursive = true
+@export var allow_recursive = true
 
 
 func _ready():

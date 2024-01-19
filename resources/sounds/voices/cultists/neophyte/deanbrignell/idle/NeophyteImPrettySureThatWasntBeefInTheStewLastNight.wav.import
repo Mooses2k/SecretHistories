@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteImPrettySureThatWasntBeefInTheStewLastNight.wav-c52223bde45eb1bacad12491e7d25854.sample"
+type="AudioStreamWAV"
+uid="uid://b11w5qqqmbj02"
+path="res://.godot/imported/NeophyteImPrettySureThatWasntBeefInTheStewLastNight.wav-c52223bde45eb1bacad12491e7d25854.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteImPrettySureThatWasntBeefInTheStewLastNight.wav"
-dest_files=[ "res://.import/NeophyteImPrettySureThatWasntBeefInTheStewLastNight.wav-c52223bde45eb1bacad12491e7d25854.sample" ]
+dest_files=["res://.godot/imported/NeophyteImPrettySureThatWasntBeefInTheStewLastNight.wav-c52223bde45eb1bacad12491e7d25854.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteMyHeadHurts.wav-db656c853cd216f645b1a644c3f34d9a.sample"
+type="AudioStreamWAV"
+uid="uid://d4ckuq0d0mrx4"
+path="res://.godot/imported/NeophyteMyHeadHurts.wav-db656c853cd216f645b1a644c3f34d9a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteMyHeadHurts.wav"
-dest_files=[ "res://.import/NeophyteMyHeadHurts.wav-db656c853cd216f645b1a644c3f34d9a.sample" ]
+dest_files=["res://.godot/imported/NeophyteMyHeadHurts.wav-db656c853cd216f645b1a644c3f34d9a.sample"]
 
 [params]
 

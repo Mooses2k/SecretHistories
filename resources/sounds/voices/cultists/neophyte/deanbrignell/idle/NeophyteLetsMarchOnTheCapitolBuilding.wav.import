@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteLetsMarchOnTheCapitolBuilding.wav-9145fe2ace0260babdcaed68da33e4e9.sample"
+type="AudioStreamWAV"
+uid="uid://cu4sst032mr8k"
+path="res://.godot/imported/NeophyteLetsMarchOnTheCapitolBuilding.wav-9145fe2ace0260babdcaed68da33e4e9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteLetsMarchOnTheCapitolBuilding.wav"
-dest_files=[ "res://.import/NeophyteLetsMarchOnTheCapitolBuilding.wav-9145fe2ace0260babdcaed68da33e4e9.sample" ]
+dest_files=["res://.godot/imported/NeophyteLetsMarchOnTheCapitolBuilding.wav-9145fe2ace0260babdcaed68da33e4e9.sample"]
 
 [params]
 

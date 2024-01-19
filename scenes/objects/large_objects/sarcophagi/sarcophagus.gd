@@ -1,5 +1,5 @@
 # Write your doc string for this file here
-extends Spatial
+extends Node3D
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -17,22 +17,22 @@ enum PossibleLids {
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export(PossibleLids) var current_lid := PossibleLids.EMPTY setget _set_current_lid
-export var transforms_by_direction := {
-	WorldData.Direction.NORTH: Transform(),
+@export var current_lid := PossibleLids.EMPTY: set = _set_current_lid
+@export var transforms_by_direction := {
+	WorldData.Direction.NORTH: Transform3D(),
 }
 
-var spawnable_items : PoolStringArray
-var sarco_spawnable_items : PoolStringArray
-var wall_direction := -1 setget _set_wall_direction
+var spawnable_items : PackedStringArray
+var sarco_spawnable_items : PackedStringArray
+var wall_direction := -1: set = _set_wall_direction
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-var _current_lid_node: RigidBody = null
+var _current_lid_node: RigidBody3D = null
 
-onready var _animation_player := $AnimationPlayer as AnimationPlayer
-onready var _lid_scenes := $LidScenes as ResourcePreloader
-onready var _lid_positions := {
+@onready var _animation_player := $AnimationPlayer as AnimationPlayer
+@onready var _lid_scenes := $LidScenes as ResourcePreloader
+@onready var _lid_positions := {
 		PossibleLids.PLAIN: $SarcophagusBase/PositionPlain,
 		PossibleLids.KNIGHT: $SarcophagusBase/PositionKnight,
 		PossibleLids.SAINT: $SarcophagusBase/PositionSaint,
@@ -44,7 +44,7 @@ onready var _lid_positions := {
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _ready() -> void:
-	yield(_adjust_to_wall_direction(), "completed")
+	await _adjust_to_wall_direction()
 	_spawn_lid()
 
 ### -----------------------------------------------------------------------------------------------
@@ -70,10 +70,10 @@ func _spawn_lid() -> void:
 		return
 	
 	var packed_scene := _lid_scenes.get_resource(PossibleLids.keys()[current_lid]) as PackedScene
-	_current_lid_node = packed_scene.instance() as RigidBody
+	_current_lid_node = packed_scene.instantiate() as RigidBody3D
 	
 	_current_lid_node.set("spawnable_items", sarco_spawnable_items)
-	var spawn_node := _lid_positions[current_lid] as Position3D
+	var spawn_node := _lid_positions[current_lid] as Marker3D
 	spawn_node.add_child(_current_lid_node, true)
 
 
@@ -114,7 +114,7 @@ func _adjust_to_wall_direction() -> void:
 		_:
 			_animation_player.play("center")
 	
-	yield(_animation_player, "animation_finished")
+	await _animation_player.animation_finished
 
 ### -----------------------------------------------------------------------------------------------
 

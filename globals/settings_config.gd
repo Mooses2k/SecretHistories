@@ -70,12 +70,11 @@ func gen_dict_from_settings() -> Dictionary:
 
 
 func load_settings_config():
-	var file = File.new()
-	if(file.file_exists(file_name)):
-		file.open(file_name,File.READ)
+	if(FileAccess.file_exists(file_name)):
+		var file = FileAccess.open(file_name,FileAccess.READ)
 		var file_str = file.get_as_text()
 		file.close()
-		var data = str2var(file_str)
+		var data = str_to_var(file_str)
 		if(typeof(data) == TYPE_DICTIONARY):
 			setup_settings(data)
 		else:
@@ -131,25 +130,23 @@ func setup_settings(settings_dict : Dictionary):
 
 func save_settings():
 	var key_dict = gen_dict_from_settings()
-	var file = File.new()
-	var dir = Directory.new()
 	var dir_path = file_name.get_base_dir()
+	var dir = DirAccess.open("res://")
 	if not dir.dir_exists(dir_path):
-		dir.make_dir_recursive(dir_path)
-	file.open(file_name, File.WRITE)
-	file.store_string(var2str(key_dict))
+		DirAccess.make_dir_recursive_absolute(dir_path)
+	var file = FileAccess.open(file_name, FileAccess.WRITE)
+	file.store_string(var_to_str(key_dict))
 	file.close()
 	print("settings config saved")
 
 
 func save_default_settings():
 	var key_dict = gen_dict_from_settings()
-	var file = File.new()
-	var dir = Directory.new()
+	var dir = DirAccess.open("res://")
 	var dir_path = file_name_default.get_base_dir()
 	if not dir.dir_exists(dir_path):
 		dir.make_dir_recursive(dir_path)
-	file.open(file_name_default, File.WRITE)
-	file.store_string(var2str(key_dict))
+	var file = FileAccess.open(file_name_default, FileAccess.WRITE)
+	file.store_string(var_to_str(key_dict))
 	file.close()
 	print("settings default config saved")

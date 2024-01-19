@@ -6,11 +6,11 @@ enum PauseMenuState {
 	SETTINGS_MENU
 }
 
-var gui_state = PauseMenuState.ESC_MENU setget set_gui_state
+var gui_state = PauseMenuState.ESC_MENU: set = set_gui_state
 
-onready var esc_menu = $EscMenu
+@onready var esc_menu = $EscMenu
 
-onready var states = [
+@onready var states = [
 	$EscMenu,
 	$SettingsMenu
 ]
@@ -45,7 +45,7 @@ func _input(event: InputEvent) -> void:
 		match gui_state:
 			PauseMenuState.SETTINGS_MENU:
 				self.gui_state = PauseMenuState.ESC_MENU
-				get_tree().set_input_as_handled()
+				get_viewport().set_input_as_handled()
 
 
 func _on_EscMenu_button_pressed(button) -> void:

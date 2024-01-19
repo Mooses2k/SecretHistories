@@ -1,4 +1,4 @@
-tool
+@tool
 class_name ObjectSpawnList
 extends Resource
 
@@ -20,7 +20,7 @@ var _current_total_weight := 0
 func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 	var spawn_data: SpawnData = SpawnData.new()
 	
-	if _current_paths.empty():
+	if _current_paths.is_empty():
 		_initialize_current_arrays()
 	
 	var random_value = rng.randi() % _current_total_weight
@@ -56,10 +56,10 @@ func _initialize_current_arrays() -> void:
 
 
 func _exclude_used_index(p_index: int) -> void:
-	_current_paths.remove(p_index)
-	_current_weights.remove(p_index)
-	_current_min_amounts.remove(p_index)
-	_current_max_amounts.remove(p_index)
+	_current_paths.remove_at(p_index)
+	_current_weights.remove_at(p_index)
+	_current_min_amounts.remove_at(p_index)
+	_current_max_amounts.remove_at(p_index)
 
 
 func _calculate_total_weight() -> int:
@@ -160,13 +160,13 @@ func _get_property_list() -> Array:
 	return properties
 
 
-func _get(property: String):
+func _get(property: StringName):
 	var value
 	
 	if property == "total_items":
 		value = _paths.size()
 	elif property.begins_with(GROUP_PREFIX):
-		var prop_data := property.replace(GROUP_PREFIX, "").split("_", false, 1) as PoolStringArray
+		var prop_data := property.replace(GROUP_PREFIX, "").split("_", false, 1) as PackedStringArray
 		var index := (prop_data[0] as String).to_int()
 		var key := prop_data[1] as String
 		match key:
@@ -192,16 +192,16 @@ func _get(property: String):
 	return value
 
 
-func _set(property: String, value) -> bool:
+func _set(property: StringName, value) -> bool:
 	var has_handled: = true
 	
 	if property == "total_items":
 		for item in [_paths, _weights, _min_amounts, _max_amounts]:
 			var array := item as Array
 			array.resize(value)
-			property_list_changed_notify()
+			notify_property_list_changed()
 	elif property.begins_with(GROUP_PREFIX):
-		var prop_data := property.replace(GROUP_PREFIX, "").split("_", false, 1) as PoolStringArray
+		var prop_data := property.replace(GROUP_PREFIX, "").split("_", false, 1) as PackedStringArray
 		var index := (prop_data[0] as String).to_int()
 		var key := prop_data[1] as String
 		match key:

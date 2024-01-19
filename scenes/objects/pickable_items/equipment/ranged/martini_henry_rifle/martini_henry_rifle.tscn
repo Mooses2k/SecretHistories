@@ -12,8 +12,8 @@
 [ext_resource path="res://resources/sounds/dryfire/171211__brianhanson2nd__dry-fire.wav" type="AudioStream" id=13]
 [ext_resource path="res://resources/sounds/reloading/lever-action/long1.wav" type="AudioStream" id=14]
 
-[sub_resource type="ConvexPolygonShape" id=3]
-points = PoolVector3Array( -0.0074919, -0.124901, -0.551035, 0.00610333, -0.124901, -0.551035, -0.00408893, 0.000958506, 0.676793, -0.0142978, -0.012668, -0.544192, -0.0177008, 0.0315533, 0.585024, 0.0163156, 0.0349469, 0.585024, 0.0129093, 0.0519844, -0.20412, 0.0163156, -0.101041, -0.547614, 0.0129059, -0.0194553, 0.578181, -0.0142978, -0.12149, -0.540771, -0.00722157, 0.048468, -0.1964, -0.0074919, -0.114685, -0.244933, -0.0142912, -0.0160617, 0.578181, -0.00408893, 0.0485735, 0.659808, 0.0127401, -0.0264014, -0.543462, -0.0177008, 0.0145504, -0.180291, 0.00610333, -0.114685, -0.244933, 0.0095063, 0.0383579, 0.693901, -0.0177008, 0.00776312, 0.578181, 0.0129059, -0.12149, -0.537349, 0.0163156, 0.00776312, 0.585024, -0.0108949, 0.0383579, 0.693901, 0.00605214, -0.0128472, -0.542963, 0.0095063, 0.0213377, 0.693901, -0.0142978, -0.0840732, -0.554456, -0.0177008, 0.000941191, -0.183713, -0.0108949, 0.0247487, 0.693901, 0.0163156, -0.101041, -0.533928, 0.0127556, -0.0666976, -0.547555, -0.0142978, -0.107863, -0.551035, -0.00744914, -0.0567092, -0.55053 )
+[sub_resource type="ConvexPolygonShape3D" id=3]
+points = PackedVector3Array( -0.0074919, -0.124901, -0.551035, 0.00610333, -0.124901, -0.551035, -0.00408893, 0.000958506, 0.676793, -0.0142978, -0.012668, -0.544192, -0.0177008, 0.0315533, 0.585024, 0.0163156, 0.0349469, 0.585024, 0.0129093, 0.0519844, -0.20412, 0.0163156, -0.101041, -0.547614, 0.0129059, -0.0194553, 0.578181, -0.0142978, -0.12149, -0.540771, -0.00722157, 0.048468, -0.1964, -0.0074919, -0.114685, -0.244933, -0.0142912, -0.0160617, 0.578181, -0.00408893, 0.0485735, 0.659808, 0.0127401, -0.0264014, -0.543462, -0.0177008, 0.0145504, -0.180291, 0.00610333, -0.114685, -0.244933, 0.0095063, 0.0383579, 0.693901, -0.0177008, 0.00776312, 0.578181, 0.0129059, -0.12149, -0.537349, 0.0163156, 0.00776312, 0.585024, -0.0108949, 0.0383579, 0.693901, 0.00605214, -0.0128472, -0.542963, 0.0095063, 0.0213377, 0.693901, -0.0142978, -0.0840732, -0.554456, -0.0177008, 0.000941191, -0.183713, -0.0108949, 0.0247487, 0.693901, 0.0163156, -0.101041, -0.533928, 0.0127556, -0.0666976, -0.547555, -0.0142978, -0.107863, -0.551035, -0.00744914, -0.0567092, -0.55053 )
 
 [sub_resource type="ArrayMesh" id=4]
 resource_name = "martini_henry_reload_weapon_Cube023"
@@ -34,78 +34,78 @@ resource_name = "Skin"
 bind_count = 7
 bind/0/name = "Root"
 bind/0/bone = -1
-bind/0/pose = Transform( -0.998601, 0.0316873, 0.0423416, 0.0438525, 0.0486138, 0.997854, 0.0295608, 0.998315, -0.0499355, -0.162192, -0.204743, -1.14455 )
+bind/0/pose = Transform3D( -0.998601, 0.0316873, 0.0423416, 0.0438525, 0.0486138, 0.997854, 0.0295608, 0.998315, -0.0499355, -0.162192, -0.204743, -1.14455 )
 bind/1/name = "Lever"
 bind/1/bone = -1
-bind/1/pose = Transform( -0.998601, 0.0316874, 0.0423416, -0.0142534, 0.609742, -0.792472, -0.0509288, -0.791966, -0.608437, -0.162192, -0.529179, 1.08137 )
+bind/1/pose = Transform3D( -0.998601, 0.0316874, 0.0423416, -0.0142534, 0.609742, -0.792472, -0.0509288, -0.791966, -0.608437, -0.162192, -0.529179, 1.08137 )
 bind/2/name = "Trigger"
 bind/2/bone = -1
-bind/2/pose = Transform( -0.998601, 0.0316874, 0.0423417, -0.0207527, 0.501624, -0.864837, -0.048644, -0.864506, -0.500264, -0.162192, -0.356999, 1.15124 )
+bind/2/pose = Transform3D( -0.998601, 0.0316874, 0.0423417, -0.0207527, 0.501624, -0.864837, -0.048644, -0.864506, -0.500264, -0.162192, -0.356999, 1.15124 )
 bind/3/name = "BottomLoop1"
 bind/3/bone = -1
-bind/3/pose = Transform( -0.998601, 0.0316872, 0.0423414, -0.0295608, -0.998315, 0.0499357, 0.0438524, 0.048614, 0.997854, -0.162192, 1.15763, -0.358328 )
+bind/3/pose = Transform3D( -0.998601, 0.0316872, 0.0423414, -0.0295608, -0.998315, 0.0499357, 0.0438524, 0.048614, 0.997854, -0.162192, 1.15763, -0.358328 )
 bind/4/name = "BottomLoop2"
 bind/4/bone = -1
-bind/4/pose = Transform( -0.998601, 0.0316875, 0.0423416, -0.0438525, -0.0486138, -0.997854, -0.029561, -0.998315, 0.0499356, -0.162192, 1.06128, 1.16463 )
+bind/4/pose = Transform3D( -0.998601, 0.0316875, 0.0423416, -0.0438525, -0.0486138, -0.997854, -0.029561, -0.998315, 0.0499356, -0.162192, 1.06128, 1.16463 )
 bind/5/name = "LoadingPort"
 bind/5/bone = -1
-bind/5/pose = Transform( -0.998601, 0.0316875, 0.0423416, -0.0375785, -0.988497, -0.1465, 0.0372123, -0.147887, 0.988304, -0.162192, 1.25025, -0.0439792 )
+bind/5/pose = Transform3D( -0.998601, 0.0316875, 0.0423416, -0.0375785, -0.988497, -0.1465, 0.0372123, -0.147887, 0.988304, -0.162192, 1.25025, -0.0439792 )
 bind/6/name = "Selector"
 bind/6/bone = -1
-bind/6/pose = Transform( -0.998601, 0.0316873, 0.0423417, 0.0438527, 0.0486138, 0.997854, 0.0295608, 0.998315, -0.0499356, -0.17385, -0.304415, -1.17169 )
+bind/6/pose = Transform3D( -0.998601, 0.0316873, 0.0423417, 0.0438527, 0.0486138, 0.997854, 0.0295608, 0.998315, -0.0499356, -0.17385, -0.304415, -1.17169 )
 
 [sub_resource type="Animation" id=7]
 resource_name = "reload"
 length = 3.15
 tracks/0/type = "transform"
-tracks/0/path = NodePath("MartiniHenry_Arm/Skeleton:Lever")
+tracks/0/path = NodePath("MartiniHenry_Arm/Skeleton3D:Lever")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/keys = PoolRealArray( 0, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.270346, -0.00983374, -0.00836353, 0.962677, 1, 1, 1, 0.466667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.270346, -0.00983374, -0.00836353, 0.962677, 1, 1, 1, 0.533333, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.177405, -0.00738148, -0.00627792, 0.98409, 1, 1, 1, 0.6, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0511641, -0.00125044, -0.00106352, 0.998689, 1, 1, 1, 0.666667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0971571, 1.59717e-08, -2.12986e-08, 0.995269, 1, 1, 1, 2.53333, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0971571, 1.59717e-08, -2.12986e-08, 0.995269, 1, 1, 1, 2.6, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0936619, 1.32249e-08, -2.08112e-08, 0.995604, 1, 1, 1, 2.66667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0230505, 1.34199e-08, -2.10736e-08, 0.999734, 1, 1, 1, 2.73333, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.0983082, 1.35976e-08, -2.12778e-08, 0.995156, 1, 1, 1, 2.8, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.210946, 1.35819e-08, -2.11838e-08, 0.977498, 1, 1, 1, 2.86667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.259221, -5.89333e-09, -1.06146e-07, 0.965818, 1, 1, 1, 3.15, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.259221, -5.89333e-09, -1.06146e-07, 0.965818, 1, 1, 1 )
+tracks/0/keys = PackedFloat32Array( 0, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.270346, -0.00983374, -0.00836353, 0.962677, 1, 1, 1, 0.466667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.270346, -0.00983374, -0.00836353, 0.962677, 1, 1, 1, 0.533333, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.177405, -0.00738148, -0.00627792, 0.98409, 1, 1, 1, 0.6, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0511641, -0.00125044, -0.00106352, 0.998689, 1, 1, 1, 0.666667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0971571, 1.59717e-08, -2.12986e-08, 0.995269, 1, 1, 1, 2.53333, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0971571, 1.59717e-08, -2.12986e-08, 0.995269, 1, 1, 1, 2.6, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0936619, 1.32249e-08, -2.08112e-08, 0.995604, 1, 1, 1, 2.66667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, 0.0230505, 1.34199e-08, -2.10736e-08, 0.999734, 1, 1, 1, 2.73333, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.0983082, 1.35976e-08, -2.12778e-08, 0.995156, 1, 1, 1, 2.8, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.210946, 1.35819e-08, -2.11838e-08, 0.977498, 1, 1, 1, 2.86667, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.259221, -5.89333e-09, -1.06146e-07, 0.965818, 1, 1, 1, 3.15, 1, -4.34269e-09, 1.08033e-07, -1.2666e-07, -0.259221, -5.89333e-09, -1.06146e-07, 0.965818, 1, 1, 1 )
 tracks/1/type = "transform"
-tracks/1/path = NodePath("MartiniHenry_Arm/Skeleton:Trigger")
+tracks/1/path = NodePath("MartiniHenry_Arm/Skeleton3D:Trigger")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/keys = PoolRealArray( 0, 1, 2.5184e-09, 8.19564e-08, -1.11759e-07, -1.12773e-18, -6.29155e-10, -1.79249e-09, 1, 1, 1, 1, 3.15, 1, 2.5184e-09, 8.19564e-08, -1.11759e-07, -1.12773e-18, -6.29155e-10, -1.79249e-09, 1, 1, 1, 1 )
+tracks/1/keys = PackedFloat32Array( 0, 1, 2.5184e-09, 8.19564e-08, -1.11759e-07, -1.12773e-18, -6.29155e-10, -1.79249e-09, 1, 1, 1, 1, 3.15, 1, 2.5184e-09, 8.19564e-08, -1.11759e-07, -1.12773e-18, -6.29155e-10, -1.79249e-09, 1, 1, 1, 1 )
 tracks/2/type = "transform"
-tracks/2/path = NodePath("MartiniHenry_Arm/Skeleton:BottomLoop1")
+tracks/2/path = NodePath("MartiniHenry_Arm/Skeleton3D:BottomLoop1")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/keys = PoolRealArray( 0, 1, -2.2867e-09, -1.95578e-07, 0, 4.02552e-18, -1.89839e-09, 2.12052e-09, 1, 1, 1, 1, 3.15, 1, -2.2867e-09, -1.95578e-07, 0, 4.02552e-18, -1.89839e-09, 2.12052e-09, 1, 1, 1, 1 )
+tracks/2/keys = PackedFloat32Array( 0, 1, -2.2867e-09, -1.95578e-07, 0, 4.02552e-18, -1.89839e-09, 2.12052e-09, 1, 1, 1, 1, 3.15, 1, -2.2867e-09, -1.95578e-07, 0, 4.02552e-18, -1.89839e-09, 2.12052e-09, 1, 1, 1, 1 )
 tracks/3/type = "transform"
-tracks/3/path = NodePath("MartiniHenry_Arm/Skeleton:BottomLoop2")
+tracks/3/path = NodePath("MartiniHenry_Arm/Skeleton3D:BottomLoop2")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/keys = PoolRealArray( 0, 1, -1.25119e-08, 5.96046e-08, -3.35276e-08, -9.60426e-10, -7.54135e-10, -9.60427e-10, 1, 1, 1, 1, 3.15, 1, -1.25119e-08, 5.96046e-08, -3.35276e-08, -9.60426e-10, -7.54135e-10, -9.60427e-10, 1, 1, 1, 1 )
+tracks/3/keys = PackedFloat32Array( 0, 1, -1.25119e-08, 5.96046e-08, -3.35276e-08, -9.60426e-10, -7.54135e-10, -9.60427e-10, 1, 1, 1, 1, 3.15, 1, -1.25119e-08, 5.96046e-08, -3.35276e-08, -9.60426e-10, -7.54135e-10, -9.60427e-10, 1, 1, 1, 1 )
 tracks/4/type = "transform"
-tracks/4/path = NodePath("MartiniHenry_Arm/Skeleton:LoadingPort")
+tracks/4/path = NodePath("MartiniHenry_Arm/Skeleton3D:LoadingPort")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/keys = PoolRealArray( 0, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -5.21541e-08, -9.32368e-10, -2.53841e-10, 1, 1, 1, 1, 0.4, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -5.21541e-08, -9.32368e-10, -2.53841e-10, 1, 1, 1, 1, 0.466667, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.00477839, -9.31134e-10, -2.58287e-10, 0.999989, 1, 1, 1, 0.533333, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.0761042, -9.10346e-10, -3.24062e-10, 0.9971, 1, 1, 1, 0.6, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.11118, 4.45852e-09, 2.15191e-08, 0.9938, 1, 1, 1, 2.53333, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.11118, 4.18556e-09, 2.14885e-08, 0.9938, 1, 1, 1, 2.6, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.0954152, 4.18396e-09, 2.15197e-08, 0.995438, 1, 1, 1, 2.73333, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.021696, 4.16268e-09, 2.15936e-08, 0.999765, 1, 1, 1, 2.8, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, 0.000795946, 4.15167e-09, 2.15928e-08, 1, 1, 1, 1, 2.86667, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, 0.00192394, 2.4857e-08, 9.53276e-09, 0.999998, 1, 1, 1, 3.15, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, 0.00192394, 2.4857e-08, 9.53276e-09, 0.999998, 1, 1, 1 )
+tracks/4/keys = PackedFloat32Array( 0, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -5.21541e-08, -9.32368e-10, -2.53841e-10, 1, 1, 1, 1, 0.4, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -5.21541e-08, -9.32368e-10, -2.53841e-10, 1, 1, 1, 1, 0.466667, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.00477839, -9.31134e-10, -2.58287e-10, 0.999989, 1, 1, 1, 0.533333, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.0761042, -9.10346e-10, -3.24062e-10, 0.9971, 1, 1, 1, 0.6, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.11118, 4.45852e-09, 2.15191e-08, 0.9938, 1, 1, 1, 2.53333, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.11118, 4.18556e-09, 2.14885e-08, 0.9938, 1, 1, 1, 2.6, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.0954152, 4.18396e-09, 2.15197e-08, 0.995438, 1, 1, 1, 2.73333, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, -0.021696, 4.16268e-09, 2.15936e-08, 0.999765, 1, 1, 1, 2.8, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, 0.000795946, 4.15167e-09, 2.15928e-08, 1, 1, 1, 1, 2.86667, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, 0.00192394, 2.4857e-08, 9.53276e-09, 0.999998, 1, 1, 1, 3.15, 1, -4.30752e-10, -1.19209e-07, -3.72529e-08, 0.00192394, 2.4857e-08, 9.53276e-09, 0.999998, 1, 1, 1 )
 tracks/5/type = "transform"
-tracks/5/path = NodePath("MartiniHenry_Arm/Skeleton:Selector")
+tracks/5/path = NodePath("MartiniHenry_Arm/Skeleton3D:Selector")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/keys = PoolRealArray( 0, 1, -1.11759e-08, 0, 5.21541e-08, -6.69388e-10, 1.57161e-09, 1.67097e-09, 1, 1, 1, 1, 3.15, 1, -1.11759e-08, 0, 5.21541e-08, -6.69388e-10, 1.57161e-09, 1.67097e-09, 1, 1, 1, 1 )
+tracks/5/keys = PackedFloat32Array( 0, 1, -1.11759e-08, 0, 5.21541e-08, -6.69388e-10, 1.57161e-09, 1.67097e-09, 1, 1, 1, 1, 3.15, 1, -1.11759e-08, 0, 5.21541e-08, -6.69388e-10, 1.57161e-09, 1.67097e-09, 1, 1, 1, 1 )
 tracks/6/type = "transform"
-tracks/6/path = NodePath("MartiniHenry_Arm/Skeleton:Root")
+tracks/6/path = NodePath("MartiniHenry_Arm/Skeleton3D:Root")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/keys = PoolRealArray( 0, 1, 2.16824e-09, 2.98023e-08, -1.30385e-08, 2.5411e-21, -2.91039e-11, -8.73115e-11, 1, 1, 1, 1, 3.15, 1, 2.16824e-09, 2.98023e-08, -1.30385e-08, 2.5411e-21, -2.91039e-11, -8.73115e-11, 1, 1, 1, 1 )
+tracks/6/keys = PackedFloat32Array( 0, 1, 2.16824e-09, 2.98023e-08, -1.30385e-08, 2.5411e-21, -2.91039e-11, -8.73115e-11, 1, 1, 1, 1, 3.15, 1, 2.16824e-09, 2.98023e-08, -1.30385e-08, 2.5411e-21, -2.91039e-11, -8.73115e-11, 1, 1, 1, 1 )
 
 [node name="Martini-HenryRifle" instance=ExtResource( 1 )]
 mass = 1.0
@@ -119,25 +119,25 @@ handling = 13.0
 ads_hold_position = Vector3( 0.067, -0.081, 0.261 )
 ads_hold_rotation = Vector3( 13.347, 26.479, -7.829 )
 player_path = NodePath(".")
-detection_raycast = NodePath("RayCast")
+detection_raycast = NodePath("RayCast3D")
 
-[node name="MeshInstance" parent="." index="0"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0 )
+[node name="MeshInstance3D" parent="." index="0"]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0 )
 mesh = null
 script = null
 
-[node name="CollisionShape" parent="." index="1"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 shape = SubResource( 3 )
 
-[node name="Effects" type="Spatial" parent="." index="2"]
+[node name="Effects" type="Node3D" parent="." index="2"]
 script = ExtResource( 12 )
 smoke_particles = ExtResource( 10 )
 sound_effect = ExtResource( 11 )
 hit_effect = ExtResource( 9 )
 
-[node name="Flash" type="OmniLight" parent="Effects" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
+[node name="Flash" type="OmniLight3D" parent="Effects" index="0"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.381674 )
 visible = false
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 5.0
@@ -148,65 +148,65 @@ omni_attenuation = 7.0
 [node name="FlashTimer" type="Timer" parent="Effects/Flash" index="0"]
 one_shot = true
 
-[node name="SmokeOrigin" type="Position3D" parent="Effects" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.38389 )
+[node name="SmokeOrigin" type="Marker3D" parent="Effects" index="1"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0264926, -0.38389 )
 
-[node name="SoundOrigin" type="Position3D" parent="Effects" index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
+[node name="SoundOrigin" type="Marker3D" parent="Effects" index="2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026, -0.383703 )
 
-[node name="martini_henry_reload_weapon" type="Spatial" parent="Effects" index="3"]
+[node name="martini_henry_reload_weapon" type="Node3D" parent="Effects" index="3"]
 
-[node name="MartiniHenry_Arm" type="Spatial" parent="Effects/martini_henry_reload_weapon" index="0"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+[node name="MartiniHenry_Arm" type="Node3D" parent="Effects/martini_henry_reload_weapon" index="0"]
+transform = Transform3D( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
-[node name="Skeleton" type="Skeleton" parent="Effects/martini_henry_reload_weapon/MartiniHenry_Arm" index="0"]
+[node name="Skeleton3D" type="Skeleton3D" parent="Effects/martini_henry_reload_weapon/MartiniHenry_Arm" index="0"]
 bones/0/name = "Root"
 bones/0/parent = -1
-bones/0/rest = Transform( -1, 1.74623e-10, -5.82077e-11, -5.82077e-11, 0, 1, 1.74623e-10, 1, 0, 9.94955e-05, -0.0266618, -0.279545 )
+bones/0/rest = Transform3D( -1, 1.74623e-10, -5.82077e-11, -5.82077e-11, 0, 1, 1.74623e-10, 1, 0, 9.94955e-05, -0.0266618, -0.279545 )
 bones/0/enabled = true
 bones/0/bound_children = [  ]
 bones/1/name = "Lever"
 bones/1/parent = 0
-bones/1/rest = Transform( 1, -3.74656e-08, 7.58258e-08, 2.05854e-08, -0.761755, -0.647866, 8.20334e-08, 0.647866, -0.761755, 2.70084e-08, 0.0927334, 0.0220246 )
+bones/1/rest = Transform3D( 1, -3.74656e-08, 7.58258e-08, 2.05854e-08, -0.761755, -0.647866, 8.20334e-08, 0.647866, -0.761755, 2.70084e-08, 0.0927334, 0.0220246 )
 bones/1/enabled = true
 bones/1/bound_children = [  ]
 bones/2/name = "Trigger"
 bones/2/parent = 0
-bones/2/rest = Transform( 1, 1.21838e-07, 1.25728e-07, 1.70598e-07, -0.839505, -0.543351, 3.93489e-08, 0.543351, -0.839505, 1.67638e-08, 0.121081, 0.0158983 )
+bones/2/rest = Transform3D( 1, 1.21838e-07, 1.25728e-07, 1.70598e-07, -0.839505, -0.543351, 3.93489e-08, 0.543351, -0.839505, 1.67638e-08, 0.121081, 0.0158983 )
 bones/2/enabled = true
 bones/2/bound_children = [  ]
 bones/3/name = "BottomLoop1"
 bones/3/parent = 0
-bones/3/rest = Transform( 1, -8.00355e-08, 1.75496e-07, -1.75496e-07, 1.78814e-07, 1, -8.00355e-08, -1, 1.78814e-07, 1.02445e-08, 0.153584, 0.0130826 )
+bones/3/rest = Transform3D( 1, -8.00355e-08, 1.75496e-07, -1.75496e-07, 1.78814e-07, 1, -8.00355e-08, -1, 1.78814e-07, 1.02445e-08, 0.153584, 0.0130826 )
 bones/3/enabled = true
 bones/3/bound_children = [  ]
 bones/4/name = "BottomLoop2"
 bones/4/parent = 0
-bones/4/rest = Transform( 1, -1.92085e-09, 1.52504e-07, -1.92085e-09, -1, 1.92085e-09, 1.52504e-07, -1.92085e-09, -1, 1.00583e-07, 0.856542, 0.0200786 )
+bones/4/rest = Transform3D( 1, -1.92085e-09, 1.52504e-07, -1.92085e-09, -1, 1.92085e-09, 1.52504e-07, -1.92085e-09, -1, 1.00583e-07, 0.856542, 0.0200786 )
 bones/4/enabled = true
 bones/4/bound_children = [  ]
 bones/5/name = "LoadingPort"
 bones/5/parent = 0
-bones/5/rest = Transform( 1, 1.36213e-07, 4.07501e-08, -1.32781e-08, -0.195889, 0.980626, 1.41556e-07, -0.980626, -0.195889, 2.04891e-08, 0.0832931, 0.0728605 )
+bones/5/rest = Transform3D( 1, 1.36213e-07, 4.07501e-08, -1.32781e-08, -0.195889, 0.980626, 1.41556e-07, -0.980626, -0.195889, 2.04891e-08, 0.0832931, 0.0728605 )
 bones/5/enabled = true
 bones/5/bound_children = [  ]
 bones/6/name = "Selector"
 bones/6/parent = 0
-bones/6/rest = Transform( 1, -1.13912e-07, -3.14321e-09, 1.13912e-07, 1, -1.33878e-09, 3.14321e-09, 1.33878e-09, 1, 0.0116581, 0.0996715, 0.0271441 )
+bones/6/rest = Transform3D( 1, -1.13912e-07, -3.14321e-09, 1.13912e-07, 1, -1.33878e-09, 3.14321e-09, 1.33878e-09, 1, 0.0116581, 0.0996715, 0.0271441 )
 bones/6/enabled = true
 bones/6/bound_children = [  ]
 
-[node name="MartiniHenry_Mesh" type="MeshInstance" parent="Effects/martini_henry_reload_weapon/MartiniHenry_Arm/Skeleton" index="0"]
+[node name="MartiniHenry_Mesh" type="MeshInstance3D" parent="Effects/martini_henry_reload_weapon/MartiniHenry_Arm/Skeleton3D" index="0"]
 mesh = SubResource( 4 )
 skin = SubResource( 5 )
-material/0 = ExtResource( 6 )
+surface_material_override/0 = ExtResource( 6 )
 script = ExtResource( 4 )
 
-[node name="RayCast" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0352297, 0.140579 )
+[node name="RayCast3D" parent="." index="6"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0352297, 0.140579 )
 visible = true
 
-[node name="Sounds" type="Spatial" parent="." index="7"]
+[node name="Sounds" type="Node3D" parent="." index="7"]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 bus = "Effects"
@@ -227,7 +227,7 @@ stream = ExtResource( 5 )
 bus = "Effects"
 
 [node name="HoldPosition" parent="." index="8"]
-transform = Transform( 0.891663, 0.222748, -0.394108, -0.276947, 0.957058, -0.0856604, 0.358104, 0.185527, 0.915064, 0.087, 0.035, -0.235 )
+transform = Transform3D( 0.891663, 0.222748, -0.394108, -0.276947, 0.957058, -0.0856604, 0.358104, 0.185527, 0.915064, 0.087, 0.035, -0.235 )
 __meta__ = {
 "_editor_description_": ""
 }

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteINeedToTellSomeone.wav-9377ac6bcc3e545708ca35f2e5a3664e.sample"
+type="AudioStreamWAV"
+uid="uid://bxc7gkl38nkfa"
+path="res://.godot/imported/NeophyteINeedToTellSomeone.wav-9377ac6bcc3e545708ca35f2e5a3664e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/comet/NeophyteINeedToTellSomeone.wav"
-dest_files=[ "res://.import/NeophyteINeedToTellSomeone.wav-9377ac6bcc3e545708ca35f2e5a3664e.sample" ]
+dest_files=["res://.godot/imported/NeophyteINeedToTellSomeone.wav-9377ac6bcc3e545708ca35f2e5a3664e.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/politics3.wav-24960f39f356116aa36a705a928e56fa.sample"
+type="AudioStreamWAV"
+uid="uid://bjmvlsh87qc61"
+path="res://.godot/imported/politics3.wav-24960f39f356116aa36a705a928e56fa.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/politics3.wav"
-dest_files=[ "res://.import/politics3.wav-24960f39f356116aa36a705a928e56fa.sample" ]
+dest_files=["res://.godot/imported/politics3.wav-24960f39f356116aa36a705a928e56fa.sample"]
 
 [params]
 

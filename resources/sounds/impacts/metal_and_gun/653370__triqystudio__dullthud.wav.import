@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/653370__triqystudio__dullthud.wav-f07b2835ecaf7be9476d02c7acff9910.sample"
+type="AudioStreamWAV"
+uid="uid://4sf0a2k8q4d6"
+path="res://.godot/imported/653370__triqystudio__dullthud.wav-f07b2835ecaf7be9476d02c7acff9910.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/metal_and_gun/653370__triqystudio__dullthud.wav"
-dest_files=[ "res://.import/653370__triqystudio__dullthud.wav-f07b2835ecaf7be9476d02c7acff9910.sample" ]
+dest_files=["res://.godot/imported/653370__triqystudio__dullthud.wav-f07b2835ecaf7be9476d02c7acff9910.sample"]
 
 [params]
 

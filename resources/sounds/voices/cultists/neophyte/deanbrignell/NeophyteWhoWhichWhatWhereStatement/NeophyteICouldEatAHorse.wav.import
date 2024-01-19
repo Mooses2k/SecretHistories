@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteICouldEatAHorse.wav-859b15bcbc6da14b5e429c0440dd9122.sample"
+type="AudioStreamWAV"
+uid="uid://drup8qgw3qf46"
+path="res://.godot/imported/NeophyteICouldEatAHorse.wav-859b15bcbc6da14b5e429c0440dd9122.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteICouldEatAHorse.wav"
-dest_files=[ "res://.import/NeophyteICouldEatAHorse.wav-859b15bcbc6da14b5e429c0440dd9122.sample" ]
+dest_files=["res://.godot/imported/NeophyteICouldEatAHorse.wav-859b15bcbc6da14b5e429c0440dd9122.sample"]
 
 [params]
 

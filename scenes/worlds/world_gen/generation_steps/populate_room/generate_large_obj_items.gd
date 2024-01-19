@@ -36,7 +36,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		if child is GenerationStep:
 			child.execute_step(data, gen_data, _rng.randi())
 		else:
-			push_error("Node (%s) is not GenerationStep and is inside GenerationGroup. Path:%s"%[
+			push_error("Node (%s) is not GenerationStep and is inside GenerationGroup. Path3D:%s"%[
 					child, (child as Node).get_path()
 			])
 

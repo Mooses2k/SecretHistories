@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/673671__davidnagel__sigh.wav-605a0b78dabf28b50b8c734cc97e6200.sample"
+type="AudioStreamWAV"
+uid="uid://cq2gvau23sx84"
+path="res://.godot/imported/673671__davidnagel__sigh.wav-605a0b78dabf28b50b8c734cc97e6200.sample"
 
 [deps]
 
 source_file="res://resources/sounds/breathing/sigh/673671__davidnagel__sigh.wav"
-dest_files=[ "res://.import/673671__davidnagel__sigh.wav-605a0b78dabf28b50b8c734cc97e6200.sample" ]
+dest_files=["res://.godot/imported/673671__davidnagel__sigh.wav-605a0b78dabf28b50b8c734cc97e6200.sample"]
 
 [params]
 

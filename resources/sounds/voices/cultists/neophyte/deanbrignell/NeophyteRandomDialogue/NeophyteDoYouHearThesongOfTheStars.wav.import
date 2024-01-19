@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDoYouHearThesongOfTheStars.wav-331bf90025dda12d659ab4ad52e2e42e.sample"
+type="AudioStreamWAV"
+uid="uid://dns3gtc4xfn5g"
+path="res://.godot/imported/NeophyteDoYouHearThesongOfTheStars.wav-331bf90025dda12d659ab4ad52e2e42e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteDoYouHearThesongOfTheStars.wav"
-dest_files=[ "res://.import/NeophyteDoYouHearThesongOfTheStars.wav-331bf90025dda12d659ab4ad52e2e42e.sample" ]
+dest_files=["res://.godot/imported/NeophyteDoYouHearThesongOfTheStars.wav-331bf90025dda12d659ab4ad52e2e42e.sample"]
 
 [params]
 

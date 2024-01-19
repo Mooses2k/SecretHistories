@@ -5,9 +5,9 @@ code = "shader_type spatial;
 render_mode vertex_lighting, skip_vertex_transform, 
 			specular_phong, diffuse_lambert_wrap;
 
-uniform sampler2D albedo: hint_black_albedo;
-uniform sampler2D specular: hint_black;
-uniform sampler2D emission: hint_black;
+uniform sampler2D albedo: hint_default_black;
+uniform sampler2D specular: hint_default_black;
+uniform sampler2D emission: hint_default_black;
 
 uniform float jitter: hint_range(0.0, 1.0) = 0.5;
 uniform bool jitter_z_coordinate = true;
@@ -46,7 +46,7 @@ void fragment() {
 	
 	ALBEDO = texture(albedo, uv).rgb;
 	ALPHA = texture(albedo, uv).a;
-	ALPHA_SCISSOR = alpha_scissor;
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor;
 	EMISSION = texture(emission, uv).rgb;
 	SPECULAR = texture(specular, uv).r;
 }"

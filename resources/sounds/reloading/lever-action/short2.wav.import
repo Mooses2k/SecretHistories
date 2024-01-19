@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/short2.wav-b3f64b923e6a69acd0242851d6a52759.sample"
+type="AudioStreamWAV"
+uid="uid://dhseykxpbuykv"
+path="res://.godot/imported/short2.wav-b3f64b923e6a69acd0242851d6a52759.sample"
 
 [deps]
 
 source_file="res://resources/sounds/reloading/lever-action/short2.wav"
-dest_files=[ "res://.import/short2.wav-b3f64b923e6a69acd0242851d6a52759.sample" ]
+dest_files=["res://.godot/imported/short2.wav-b3f64b923e6a69acd0242851d6a52759.sample"]
 
 [params]
 

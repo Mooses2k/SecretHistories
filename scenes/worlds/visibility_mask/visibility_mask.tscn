@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://dn64eq7oqvcvs"]
 
-[ext_resource path="res://scenes/worlds/visibility_mask/visibility_mask.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scenes/worlds/visibility_mask/visibility_mask.gd" id="1"]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id="1"]
 code = "shader_type spatial;
 render_mode unshaded, blend_mul;
 
-uniform sampler2D data_texture;
+uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear;
+uniform sampler2D data_texture : hint_default_white, filter_linear;
 uniform vec3 offset;
 uniform float view_width;
 
@@ -14,7 +15,7 @@ varying mat4 CAMERA;
 
 void vertex() {
 	POSITION = vec4(VERTEX, 1.0);
-	CAMERA = CAMERA_MATRIX;
+	CAMERA = INV_VIEW_MATRIX;
 }
 
 void fragment() {
@@ -29,24 +30,16 @@ void fragment() {
 //	ALBEDO = vec3(fract(10.0*uv), 0);
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id="2"]
 render_priority = 100
-shader = SubResource( 1 )
-shader_param/offset = null
-shader_param/view_width = null
+shader = SubResource("1")
+shader_parameter/offset = null
+shader_parameter/view_width = null
 
-[sub_resource type="QuadMesh" id=3]
-size = Vector2( 2, 2 )
+[sub_resource type="QuadMesh" id="3"]
+size = Vector2(2, 2)
 
-[sub_resource type="Environment" id=4]
-background_mode = 1
-ambient_light_energy = 0.0
-ambient_light_sky_contribution = 0.0
-
-[sub_resource type="World" id=5]
-environment = SubResource( 4 )
-
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id="6"]
 code = "shader_type spatial;
 render_mode diffuse_toon, specular_disabled;
 
@@ -54,50 +47,39 @@ void fragment() {
 	ALBEDO = vec3(1);
 }"
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id="7"]
+render_priority = 0
+shader = SubResource("6")
 
-[node name="VisibilityMask" type="MeshInstance"]
+[node name="VisibilityMask" type="MeshInstance3D"]
 process_priority = 100
-material_override = SubResource( 2 )
+material_override = SubResource("2")
 extra_cull_margin = 16384.0
-mesh = SubResource( 3 )
-material/0 = null
-script = ExtResource( 1 )
+mesh = SubResource("3")
+script = ExtResource("1")
 resolution = 1024
 
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 1, 1 )
-own_world = true
-world = SubResource( 5 )
+[node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
-hdr = false
-keep_3d_linear = true
-usage = 3
-render_target_v_flip = true
-render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
-shadow_atlas_size = 1024
-shadow_atlas_quad_0 = 1
-shadow_atlas_quad_1 = 0
-shadow_atlas_quad_2 = 0
-shadow_atlas_quad_3 = 0
+size = Vector2i(2, 2)
+render_target_update_mode = 3
 
-[node name="VisibilityAgent" type="Spatial" parent="Viewport"]
+[node name="VisibilityAgent" type="Node3D" parent="SubViewport"]
 
-[node name="SpotLight" type="SpotLight" parent="Viewport/VisibilityAgent"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16, 0 )
+[node name="SpotLight3D" type="SpotLight3D" parent="SubViewport/VisibilityAgent"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 16, 0)
 shadow_enabled = true
 spot_range = 32.0
 spot_angle = 20.0
 
-[node name="Camera" type="Camera" parent="Viewport"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0 )
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0)
 projection = 1
 current = true
 near = 1.0
 far = 3.0
 
-[node name="MeshInstance" type="MeshInstance" parent="Viewport"]
-material_override = SubResource( 7 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport"]
+material_override = SubResource("7")
 cast_shadow = 2

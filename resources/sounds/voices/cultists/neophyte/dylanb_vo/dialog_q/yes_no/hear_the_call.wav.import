@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/hear_the_call.wav-8d821202e52292de9351a31b75abbef8.sample"
+type="AudioStreamWAV"
+uid="uid://4wchqlp2jlxy"
+path="res://.godot/imported/hear_the_call.wav-8d821202e52292de9351a31b75abbef8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/hear_the_call.wav"
-dest_files=[ "res://.import/hear_the_call.wav-8d821202e52292de9351a31b75abbef8.sample" ]
+dest_files=["res://.godot/imported/hear_the_call.wav-8d821202e52292de9351a31b75abbef8.sample"]
 
 [params]
 

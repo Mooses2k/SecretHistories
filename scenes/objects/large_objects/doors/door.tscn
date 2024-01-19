@@ -8,28 +8,28 @@
 [ext_resource path="res://scenes/objects/interactables/lock/lock_wall_half.tscn" type="PackedScene" id=6]
 [ext_resource path="res://resources/sounds/doors/damage/effective/452600__kyles__door-wood-kick-open-rattle-creak.wav" type="AudioStream" id=7]
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="StandardMaterial3D" id=8]
 albedo_color = Color( 0.6, 0.216, 0.12, 1 )
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 size = Vector3( 1.01, 0.27, 0.35 )
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="BoxMesh" id=2]
 size = Vector3( 0.11, 2, 0.35 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape3D" id=5]
 extents = Vector3( 0.6, 0.125, 0.15 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape3D" id=6]
 extents = Vector3( 0.1, 1, 0.15 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape3D" id=3]
 extents = Vector3( 0.38, 0.95, 0.075 )
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="BoxMesh" id=4]
 size = Vector3( 0.78, 1.96, 0.15 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="StandardMaterial3D" id=9]
 metallic = 1.0
 roughness = 0.4
 
@@ -39,48 +39,48 @@ bottom_radius = 0.02
 height = 0.08
 radial_segments = 6
 
-[node name="Door" type="Spatial"]
+[node name="Door" type="Node3D"]
 script = ExtResource( 2 )
 max_angle = 175.0
 door_health = 200
 kick_impulse = 40
 
 [node name="LockWallHalf" parent="." instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 1, -0.16 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 1, -0.16 )
 _door_half = NodePath("../DoorBody/LockDoorHalf")
 
-[node name="DoorFrame" type="StaticBody" parent="."]
+[node name="DoorFrame" type="StaticBody3D" parent="."]
 
-[node name="Top" type="MeshInstance" parent="DoorFrame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
+[node name="Top" type="MeshInstance3D" parent="DoorFrame"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
 material_override = SubResource( 8 )
 mesh = SubResource( 1 )
 
-[node name="Left" type="MeshInstance" parent="DoorFrame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1, 0 )
+[node name="Left" type="MeshInstance3D" parent="DoorFrame"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1, 0 )
 material_override = SubResource( 8 )
 mesh = SubResource( 2 )
 
-[node name="Right" type="MeshInstance" parent="DoorFrame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1, 0 )
+[node name="Right" type="MeshInstance3D" parent="DoorFrame"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45, 1, 0 )
 material_override = SubResource( 8 )
 mesh = SubResource( 2 )
 
-[node name="CollisionShape" type="CollisionShape" parent="DoorFrame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorFrame"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.125, 0 )
 shape = SubResource( 5 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="DoorFrame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0 )
+[node name="CollisionShape2" type="CollisionShape3D" parent="DoorFrame"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, 0 )
 shape = SubResource( 6 )
 
-[node name="CollisionShape3" type="CollisionShape" parent="DoorFrame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0 )
+[node name="CollisionShape3" type="CollisionShape3D" parent="DoorFrame"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0 )
 shape = SubResource( 6 )
 
-[node name="DoorBody" type="RigidBody" parent="." groups=["DOOR_HITBOX"]]
+[node name="DoorBody" type="RigidBody3D" parent="." groups=["DOOR_HITBOX"]]
 unique_name_in_owner = true
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 collision_layer = 5
 mass = 30.0
 axis_lock_linear_y = true
@@ -91,58 +91,58 @@ angular_damp = 1.0
 script = ExtResource( 1 )
 _hinge_node = NodePath("../Hinge")
 
-[node name="CollisionShape" type="CollisionShape" parent="DoorBody"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorBody"]
 shape = SubResource( 3 )
 
-[node name="Body" type="MeshInstance" parent="DoorBody"]
+[node name="Body" type="MeshInstance3D" parent="DoorBody"]
 material_override = SubResource( 8 )
 mesh = SubResource( 4 )
 
-[node name="BottomHinge" type="MeshInstance" parent="DoorBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, -0.515, -0.085 )
+[node name="BottomHinge" type="MeshInstance3D" parent="DoorBody"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, -0.515, -0.085 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 skeleton = NodePath("../../Hinge")
 
-[node name="TopHinge" type="MeshInstance" parent="DoorBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0.685, -0.085 )
+[node name="TopHinge" type="MeshInstance3D" parent="DoorBody"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0.685, -0.085 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 skeleton = NodePath("../../Hinge")
 
 [node name="LockDoorHalf" parent="DoorBody" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0, -0.0848467 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.38, 0, -0.0848467 )
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="DoorBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0.075 )
-unit_db = -5.0
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0.075 )
+volume_db = -5.0
 
-[node name="Hinge" type="PinJoint" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0, -0.16 )
+[node name="Hinge" type="PinJoint3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.395, 0, -0.16 )
 nodes/node_a = NodePath("../DoorFrame")
 nodes/node_b = NodePath("../DoorBody")
 collision/exclude_nodes = false
 
-[node name="BottomHinge" type="MeshInstance" parent="Hinge"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
+[node name="BottomHinge" type="MeshInstance3D" parent="Hinge"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 
-[node name="TopHinge" type="MeshInstance" parent="Hinge"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
+[node name="TopHinge" type="MeshInstance3D" parent="Hinge"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0 )
 material_override = SubResource( 9 )
 mesh = SubResource( 7 )
 
-[node name="Sounds" type="Spatial" parent="."]
+[node name="Sounds" type="Node3D" parent="."]
 
 [node name="DoorKickIneffectiveSound" type="AudioStreamPlayer3D" parent="Sounds"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 stream = ExtResource( 3 )
 
 [node name="DoorKickEffectiveSound" type="AudioStreamPlayer3D" parent="Sounds"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 stream = ExtResource( 7 )
 
 [node name="DoorBreakSound" type="AudioStreamPlayer3D" parent="Sounds"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.075 )
 stream = ExtResource( 4 )

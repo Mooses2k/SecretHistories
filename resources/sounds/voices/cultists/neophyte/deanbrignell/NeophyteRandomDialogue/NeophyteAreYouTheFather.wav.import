@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAreYouTheFather.wav-f4b15a87603ee22b907961f3b70a0055.sample"
+type="AudioStreamWAV"
+uid="uid://bk0lpifdoixrn"
+path="res://.godot/imported/NeophyteAreYouTheFather.wav-f4b15a87603ee22b907961f3b70a0055.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteAreYouTheFather.wav"
-dest_files=[ "res://.import/NeophyteAreYouTheFather.wav-f4b15a87603ee22b907961f3b70a0055.sample" ]
+dest_files=["res://.godot/imported/NeophyteAreYouTheFather.wav-f4b15a87603ee22b907961f3b70a0055.sample"]
 
 [params]
 

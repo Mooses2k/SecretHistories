@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/69396__angel_perez_grandi__bone-click.wav-72c323a5aa1f39b232316d99ae5a83e8.sample"
+type="AudioStreamWAV"
+uid="uid://bxfvr86h2sc7o"
+path="res://.godot/imported/69396__angel_perez_grandi__bone-click.wav-72c323a5aa1f39b232316d99ae5a83e8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/bone/69396__angel_perez_grandi__bone-click.wav"
-dest_files=[ "res://.import/69396__angel_perez_grandi__bone-click.wav-72c323a5aa1f39b232316d99ae5a83e8.sample" ]
+dest_files=["res://.godot/imported/69396__angel_perez_grandi__bone-click.wav-72c323a5aa1f39b232316d99ae5a83e8.sample"]
 
 [params]
 

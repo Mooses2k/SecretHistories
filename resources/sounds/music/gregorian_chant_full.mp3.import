@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/gregorian_chant_full.mp3-0a8d292f8e4cd95bff536c16978c475b.mp3str"
+uid="uid://mmp1lkcf4ijc"
+path="res://.godot/imported/gregorian_chant_full.mp3-0a8d292f8e4cd95bff536c16978c475b.mp3str"
 
 [deps]
 
 source_file="res://resources/sounds/music/gregorian_chant_full.mp3"
-dest_files=[ "res://.import/gregorian_chant_full.mp3-0a8d292f8e4cd95bff536c16978c475b.mp3str" ]
+dest_files=["res://.godot/imported/gregorian_chant_full.mp3-0a8d292f8e4cd95bff536c16978c475b.mp3str"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

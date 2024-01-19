@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/five_elements.wav-f0b80feca8df3ff2c86319b379f679d1.sample"
+type="AudioStreamWAV"
+uid="uid://d8svhrhapfpb"
+path="res://.godot/imported/five_elements.wav-f0b80feca8df3ff2c86319b379f679d1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/think_five/five_elements.wav"
-dest_files=[ "res://.import/five_elements.wav-f0b80feca8df3ff2c86319b379f679d1.sample" ]
+dest_files=["res://.godot/imported/five_elements.wav-f0b80feca8df3ff2c86319b379f679d1.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/close_it_more2.wav-5637dfe46251a58c85ec1d256ae85c62.sample"
+type="AudioStreamWAV"
+uid="uid://emhhxcmd3v8t"
+path="res://.godot/imported/close_it_more2.wav-5637dfe46251a58c85ec1d256ae85c62.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/close_door/close_it_more2.wav"
-dest_files=[ "res://.import/close_it_more2.wav-5637dfe46251a58c85ec1d256ae85c62.sample" ]
+dest_files=["res://.godot/imported/close_it_more2.wav-5637dfe46251a58c85ec1d256ae85c62.sample"]
 
 [params]
 

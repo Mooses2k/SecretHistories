@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/under_the_sea.wav-d6bd2967e4a987745f4004da79e73870.sample"
+type="AudioStreamWAV"
+uid="uid://ca2q575d40xnl"
+path="res://.godot/imported/under_the_sea.wav-d6bd2967e4a987745f4004da79e73870.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/under_the_sea.wav"
-dest_files=[ "res://.import/under_the_sea.wav-d6bd2967e4a987745f4004da79e73870.sample" ]
+dest_files=["res://.godot/imported/under_the_sea.wav-d6bd2967e4a987745f4004da79e73870.sample"]
 
 [params]
 

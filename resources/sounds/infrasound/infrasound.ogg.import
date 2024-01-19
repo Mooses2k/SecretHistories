@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/infrasound.ogg-ce88f3fd4275a7982ed4320ed6792e5f.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bbxyhju3bc4yt"
+path="res://.godot/imported/infrasound.ogg-ce88f3fd4275a7982ed4320ed6792e5f.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/infrasound/infrasound.ogg"
-dest_files=[ "res://.import/infrasound.ogg-ce88f3fd4275a7982ed4320ed6792e5f.oggstr" ]
+dest_files=["res://.godot/imported/infrasound.ogg-ce88f3fd4275a7982ed4320ed6792e5f.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

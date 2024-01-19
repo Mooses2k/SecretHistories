@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIveBeenWaitingForYou.wav-7a74e1d9f395d8fc90dc7123a98a168a.sample"
+type="AudioStreamWAV"
+uid="uid://b8u175ifgvs4y"
+path="res://.godot/imported/NeophyteIveBeenWaitingForYou.wav-7a74e1d9f395d8fc90dc7123a98a168a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteIveBeenWaitingForYou.wav"
-dest_files=[ "res://.import/NeophyteIveBeenWaitingForYou.wav-7a74e1d9f395d8fc90dc7123a98a168a.sample" ]
+dest_files=["res://.godot/imported/NeophyteIveBeenWaitingForYou.wav-7a74e1d9f395d8fc90dc7123a98a168a.sample"]
 
 [params]
 

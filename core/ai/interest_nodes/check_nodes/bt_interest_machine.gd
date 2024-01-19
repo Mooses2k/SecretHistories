@@ -4,9 +4,9 @@ class_name BTInterestMachine extends BTCheck
 signal player_detected(player, position)
 signal indirect_event_detected()
 
-export var detection_threshold := 0.8
-export var attention_span := 5.0
-export var decay_rate := 2.0
+@export var detection_threshold := 0.8
+@export var attention_span := 5.0
+@export var decay_rate := 2.0
 
 var events := {}
 
@@ -73,8 +73,8 @@ func sort_event_custom_sort(a: Event, b: Event) -> bool:
 
 func get_most_interesting() -> Event:
 	var sorted_events := events.values()
-	if sorted_events.empty(): return null
-	sorted_events.sort_custom(self, "sort_event_custom_sort")
+	if sorted_events.is_empty(): return null
+	sorted_events.sort_custom(Callable(self, "sort_event_custom_sort"))
 	return sorted_events[0]
 
 

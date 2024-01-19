@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAreYouAwareYoureBeingFollowBrother.wav-17be38ab8036764410af3ca63b8fd129.sample"
+type="AudioStreamWAV"
+uid="uid://d3y2oqrm1sm8u"
+path="res://.godot/imported/NeophyteAreYouAwareYoureBeingFollowBrother.wav-17be38ab8036764410af3ca63b8fd129.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteAreYouAwareYoureBeingFollowBrother.wav"
-dest_files=[ "res://.import/NeophyteAreYouAwareYoureBeingFollowBrother.wav-17be38ab8036764410af3ca63b8fd129.sample" ]
+dest_files=["res://.godot/imported/NeophyteAreYouAwareYoureBeingFollowBrother.wav-17be38ab8036764410af3ca63b8fd129.sample"]
 
 [params]
 

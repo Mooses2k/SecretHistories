@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteJustLetMeSlipThisBetweenYourRibs.wav-fdda3f16fe26ac6e2cc59693ac8be944.sample"
+type="AudioStreamWAV"
+uid="uid://dacxlqbjuh10s"
+path="res://.godot/imported/NeophyteJustLetMeSlipThisBetweenYourRibs.wav-fdda3f16fe26ac6e2cc59693ac8be944.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteJustLetMeSlipThisBetweenYourRibs.wav"
-dest_files=[ "res://.import/NeophyteJustLetMeSlipThisBetweenYourRibs.wav-fdda3f16fe26ac6e2cc59693ac8be944.sample" ]
+dest_files=["res://.godot/imported/NeophyteJustLetMeSlipThisBetweenYourRibs.wav-fdda3f16fe26ac6e2cc59693ac8be944.sample"]
 
 [params]
 

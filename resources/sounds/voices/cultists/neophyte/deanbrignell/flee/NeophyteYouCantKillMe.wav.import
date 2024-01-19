@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYouCantKillMe.wav-770dbfff4b8274b2d35e15dc79444256.sample"
+type="AudioStreamWAV"
+uid="uid://5iu8eci2megm"
+path="res://.godot/imported/NeophyteYouCantKillMe.wav-770dbfff4b8274b2d35e15dc79444256.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteYouCantKillMe.wav"
-dest_files=[ "res://.import/NeophyteYouCantKillMe.wav-770dbfff4b8274b2d35e15dc79444256.sample" ]
+dest_files=["res://.godot/imported/NeophyteYouCantKillMe.wav-770dbfff4b8274b2d35e15dc79444256.sample"]
 
 [params]
 

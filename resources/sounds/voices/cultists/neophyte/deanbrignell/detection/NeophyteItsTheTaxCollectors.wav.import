@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsTheTaxCollectors.wav-318fe39d8e685895d552895db3a24587.sample"
+type="AudioStreamWAV"
+uid="uid://b1it1ckluhvra"
+path="res://.godot/imported/NeophyteItsTheTaxCollectors.wav-318fe39d8e685895d552895db3a24587.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItsTheTaxCollectors.wav"
-dest_files=[ "res://.import/NeophyteItsTheTaxCollectors.wav-318fe39d8e685895d552895db3a24587.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsTheTaxCollectors.wav-318fe39d8e685895d552895db3a24587.sample"]
 
 [params]
 

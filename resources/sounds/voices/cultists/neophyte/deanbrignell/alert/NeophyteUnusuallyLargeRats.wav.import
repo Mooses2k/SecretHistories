@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteUnusuallyLargeRats.wav-85fd5234fa821ba2df737659e268c899.sample"
+type="AudioStreamWAV"
+uid="uid://cguca3wrbql8q"
+path="res://.godot/imported/NeophyteUnusuallyLargeRats.wav-85fd5234fa821ba2df737659e268c899.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteUnusuallyLargeRats.wav"
-dest_files=[ "res://.import/NeophyteUnusuallyLargeRats.wav-85fd5234fa821ba2df737659e268c899.sample" ]
+dest_files=["res://.godot/imported/NeophyteUnusuallyLargeRats.wav-85fd5234fa821ba2df737659e268c899.sample"]
 
 [params]
 

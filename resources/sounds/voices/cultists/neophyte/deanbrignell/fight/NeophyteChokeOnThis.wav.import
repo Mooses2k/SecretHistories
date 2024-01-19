@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteChokeOnThis.wav-27d92d341ac42c6885746e05a3f6f496.sample"
+type="AudioStreamWAV"
+uid="uid://df808w7jly2x1"
+path="res://.godot/imported/NeophyteChokeOnThis.wav-27d92d341ac42c6885746e05a3f6f496.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteChokeOnThis.wav"
-dest_files=[ "res://.import/NeophyteChokeOnThis.wav-27d92d341ac42c6885746e05a3f6f496.sample" ]
+dest_files=["res://.godot/imported/NeophyteChokeOnThis.wav-27d92d341ac42c6885746e05a3f6f496.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhereAreYouHidingPreciousSkyCrystal.wav-2a88dea7024f90759a924cdcfba4b3d1.sample"
+type="AudioStreamWAV"
+uid="uid://csnsqkfcbsy28"
+path="res://.godot/imported/NeophyteWhereAreYouHidingPreciousSkyCrystal.wav-2a88dea7024f90759a924cdcfba4b3d1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteWhereAreYouHidingPreciousSkyCrystal.wav"
-dest_files=[ "res://.import/NeophyteWhereAreYouHidingPreciousSkyCrystal.wav-2a88dea7024f90759a924cdcfba4b3d1.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhereAreYouHidingPreciousSkyCrystal.wav-2a88dea7024f90759a924cdcfba4b3d1.sample"]
 
 [params]
 

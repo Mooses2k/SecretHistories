@@ -10,7 +10,7 @@ extends GenerationManager
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export(int, -5, -1, -1) var dungeon_level := -1
+@export var dungeon_level := -1 # (int, -5, -1, -1)
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -44,9 +44,9 @@ func generate(is_last_floor: bool) -> WorldData:
 	for _step in get_children():
 		var step = _step as GenerationStep
 		if step:
-			var start = OS.get_ticks_usec()
+			var start = Time.get_ticks_usec()
 			step.execute_step(data, gen_data, GameManager.world_gen_rng.randi())
-			var end = OS.get_ticks_usec()
+			var end = Time.get_ticks_usec()
 			print("Step took ", end - start, " usec")
 			emit_signal("step_finished", data, gen_data)
 	emit_signal("generation_finished", data, gen_data)

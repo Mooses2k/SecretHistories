@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_r_argh_it_burns_2.ogg-0ec14532dd36cc8414f1cd61f814de25.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://do8u0ac0gfkx5"
+path="res://.godot/imported/neophyte_r_argh_it_burns_2.ogg-0ec14532dd36cc8414f1cd61f814de25.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fire/neophyte_r_argh_it_burns_2.ogg"
-dest_files=[ "res://.import/neophyte_r_argh_it_burns_2.ogg-0ec14532dd36cc8414f1cd61f814de25.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_r_argh_it_burns_2.ogg-0ec14532dd36cc8414f1cd61f814de25.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

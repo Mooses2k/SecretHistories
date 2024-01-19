@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_five_elements_that_forever_spar.ogg-9f75844c5dcaa97e97aac3d5c8cc6808.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chloob4wrfjw0"
+path="res://.godot/imported/neophyte_five_elements_that_forever_spar.ogg-9f75844c5dcaa97e97aac3d5c8cc6808.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/five_irrational_thoughts/neophyte_five_elements_that_forever_spar.ogg"
-dest_files=[ "res://.import/neophyte_five_elements_that_forever_spar.ogg-9f75844c5dcaa97e97aac3d5c8cc6808.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_five_elements_that_forever_spar.ogg-9f75844c5dcaa97e97aac3d5c8cc6808.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -13,27 +13,27 @@ var is_dropped: bool = false
 var is_just_dropped: bool = true
 var light_timer
 var random_number
-export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
-export(float, 0.0, 1.0) var prob_going_out : float = 0.0
+@export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
+@export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 
 var material
 var new_material
 
-onready var firelight = $FireOrigin/Fire/Light
+@onready var firelight = $FireOrigin/Fire/Light3D
 
 
 func _ready() -> void:
 	light_timer = $BurnTime
-	self.connect("item_is_dropped", self, "item_drop")
-	if not light_timer.is_connected("timeout", self, "_light_depleted"):
-		light_timer.connect("timeout", self, "_light_depleted")
+	self.connect("item_is_dropped", Callable(self, "item_drop"))
+	if not light_timer.is_connected("timeout", Callable(self, "_light_depleted")):
+		light_timer.connect("timeout", Callable(self, "_light_depleted"))
 	burn_time = 3600.0
 	light()
 
 
 func _process(_delta: float) -> void:
 	if item_state == GlobalConsts.ItemState.DROPPED:
-		$Ignite/CollisionShape.disabled = false
+		$Ignite/CollisionShape3D.disabled = false
 		is_dropped = true
 		
 		if is_dropped and not is_just_dropped:
@@ -41,12 +41,12 @@ func _process(_delta: float) -> void:
 			self.emit_signal("item_is_dropped")
 			item_drop()
 	else:
-		$Ignite/CollisionShape.disabled = true
+		$Ignite/CollisionShape3D.disabled = true
 		is_dropped = false
 		is_just_dropped = false
 		
 	# This ensures it's never emissive while off, also, that candles stay lit on level change
-	if $MeshInstance.get_surface_material(0).emission_enabled == true and $FireOrigin/Fire.visible == false:
+	if $MeshInstance3D.get_surface_override_material(0).emission_enabled == true and $FireOrigin/Fire.visible == false:
 		light()
 
 
@@ -57,8 +57,8 @@ func light() -> void:
 	#	$FireOrigin/Fire.emitting = not $FireOrigin/Fire.emitting
 		$FireOrigin/Fire.visible = not $FireOrigin/Fire.visible
 		firelight.visible = not firelight.visible
-		$MeshInstance.cast_shadow = false
-		$MeshInstance.get_surface_material(0).emission_enabled = true
+		$MeshInstance3D.cast_shadow = false
+		$MeshInstance3D.get_surface_override_material(0).emission_enabled = true
 		
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
@@ -68,11 +68,11 @@ func light() -> void:
 func unlight() -> void:
 	if not is_depleted:
 		$AnimationPlayer.stop()
-		$MeshInstance.get_surface_material(0).emission_enabled = false
+		$MeshInstance3D.get_surface_override_material(0).emission_enabled = false
 	#	$FireOrigin/Fire.emitting = false
 		$FireOrigin/Fire.visible = false
 		firelight.visible = false
-		$MeshInstance.cast_shadow = true
+		$MeshInstance3D.cast_shadow = true
 		
 		is_lit = false
 		stop_light_timer()
@@ -93,7 +93,7 @@ func _item_state_changed(previous_state, current_state):
 			var sound = $Sounds/BlowOutSound.duplicate()
 			GameManager.game.level.add_child(sound)
 			sound.global_transform = $Sounds/BlowOutSound.global_transform
-			sound.connect("finished", sound, "queue_free")
+			sound.connect("finished", Callable(sound, "queue_free"))
 			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 
@@ -114,7 +114,7 @@ func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)
 	print("reduced burn time " + str(burn_time))
-	random_number = rand_range(0.0, 1.0)
+	random_number = randf_range(0.0, 1.0)
 	
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()

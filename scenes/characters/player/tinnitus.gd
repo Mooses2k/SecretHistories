@@ -2,8 +2,8 @@ extends AudioStreamPlayer
 
 
 var occuring = false
-export var curve : Curve
-export var period = 1.0
+@export var curve : Curve
+@export var period = 1.0
 
 var t = 0
 var threshold = 1.0
@@ -11,7 +11,7 @@ var is_dead = false
 
 
 func _ready():
-	volume_db = curve.interpolate(0)
+	volume_db = curve.sample(0)
 
 
 func enable():
@@ -23,7 +23,7 @@ func _physics_process(delta):
 		var dir = 1.0 if occuring else -0.25
 		t += delta*dir/period
 		t = clamp(t, 0, 1)
-		volume_db = curve.interpolate(t)
+		volume_db = curve.sample(t)
 		var should_play = not is_equal_approx(t, 0)
 		
 		if playing != should_play:

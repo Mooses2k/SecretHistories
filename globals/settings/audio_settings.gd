@@ -8,21 +8,21 @@ const SETTING_MUSIC_VOLUME : String = "Music Volume"
 const SETTING_EFFECTS_VOLUME : String = "Effects Volume"
 const SETTING_VOICE_VOLUME : String = "Voice Volume"
 
-onready var bus_master = AudioServer.get_bus_index("Master") # 0
-onready var bus_music = AudioServer.get_bus_index("Music") # 1
-onready var bus_effects = AudioServer.get_bus_index("Effects") # 2
-onready var bus_voice = AudioServer.get_bus_index("Voice") # 3
+@onready var bus_master = AudioServer.get_bus_index("Master") # 0
+@onready var bus_music = AudioServer.get_bus_index("Music") # 1
+@onready var bus_effects = AudioServer.get_bus_index("Effects") # 2
+@onready var bus_voice = AudioServer.get_bus_index("Voice") # 3
 
 const MAX_VALUE = 100.0
 const STEP_VALUE = 1.0
 const MIN_VALUE = 0.0
 
-var setting_master_volume : float setget set_master_volume, get_master_volume
-var setting_music_volume : float setget set_music_volume, get_music_volume
-var setting_effects_volume : float setget set_effects_volume, get_effects_volume
-var setting_voice_volume : float setget set_voice_volume, get_voice_volume
+var setting_master_volume : float: get = get_master_volume, set = set_master_volume
+var setting_music_volume : float: get = get_music_volume, set = set_music_volume
+var setting_effects_volume : float: get = get_effects_volume, set = set_effects_volume
+var setting_voice_volume : float: get = get_voice_volume, set = set_voice_volume
 
-var internal_effects_volume : float = 1.0 setget set_internal_effects_volume
+var internal_effects_volume : float = 1.0: set = set_internal_effects_volume
 
 
 func _ready():
@@ -34,7 +34,7 @@ func _ready():
 	Settings.set_setting_group(SETTING_EFFECTS_VOLUME, GROUP_NAME)
 	Settings.add_float_setting(SETTING_VOICE_VOLUME, MIN_VALUE, MAX_VALUE, STEP_VALUE, get_volume(bus_voice))
 	Settings.set_setting_group(SETTING_VOICE_VOLUME, GROUP_NAME)
-	Settings.connect("setting_changed", self, "on_setting_changed")
+	Settings.connect("setting_changed", Callable(self, "on_setting_changed"))
 
 
 func set_master_volume(value : float):
@@ -71,12 +71,12 @@ func get_voice_volume() -> float:
 
 
 func set_volume(idx : int, value : float, is_from_sett : bool):
-	AudioServer.set_bus_volume_db(idx, linear2db(value/MAX_VALUE))
+	AudioServer.set_bus_volume_db(idx, linear_to_db(value/MAX_VALUE))
 	if is_from_sett:
 		SettingsConfig.save_settings()
 
 func get_volume(idx : int) -> float:
-	return db2linear(AudioServer.get_bus_volume_db(idx)) * MAX_VALUE
+	return db_to_linear(AudioServer.get_bus_volume_db(idx)) * MAX_VALUE
 
 
 func on_setting_changed(setting_name, old_value, new_value):

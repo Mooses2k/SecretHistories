@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/181679__gingie__knife-throw.ogg-a29e7bfb300cdb31916d003a306ff6f3.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dbuauufu364yl"
+path="res://.godot/imported/181679__gingie__knife-throw.ogg-a29e7bfb300cdb31916d003a306ff6f3.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/throwing/181679__gingie__knife-throw.ogg"
-dest_files=[ "res://.import/181679__gingie__knife-throw.ogg-a29e7bfb300cdb31916d003a306ff6f3.oggstr" ]
+dest_files=["res://.godot/imported/181679__gingie__knife-throw.ogg-a29e7bfb300cdb31916d003a306ff6f3.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIAmAloneNow...AndGrieving.wav-9b229d2b1220f729fc3f5c37157d339b.sample"
+type="AudioStreamWAV"
+uid="uid://cjiqws4pm41ea"
+path="res://.godot/imported/NeophyteIAmAloneNow...AndGrieving.wav-9b229d2b1220f729fc3f5c37157d339b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteIAmAloneNow...AndGrieving.wav"
-dest_files=[ "res://.import/NeophyteIAmAloneNow...AndGrieving.wav-9b229d2b1220f729fc3f5c37157d339b.sample" ]
+dest_files=["res://.godot/imported/NeophyteIAmAloneNow...AndGrieving.wav-9b229d2b1220f729fc3f5c37157d339b.sample"]
 
 [params]
 

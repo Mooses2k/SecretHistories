@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDontMakeTheWrongTurnNow.wav-9bfad052f7651237a9869c31b39041f3.sample"
+type="AudioStreamWAV"
+uid="uid://mpynpte4eu6p"
+path="res://.godot/imported/NeophyteDontMakeTheWrongTurnNow.wav-9bfad052f7651237a9869c31b39041f3.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteDontMakeTheWrongTurnNow.wav"
-dest_files=[ "res://.import/NeophyteDontMakeTheWrongTurnNow.wav-9bfad052f7651237a9869c31b39041f3.sample" ]
+dest_files=["res://.godot/imported/NeophyteDontMakeTheWrongTurnNow.wav-9bfad052f7651237a9869c31b39041f3.sample"]
 
 [params]
 

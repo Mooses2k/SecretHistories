@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheOwlsAreNotWhatTheySeem.wav-80c7caf99183ac329f265dc4135648b1.sample"
+type="AudioStreamWAV"
+uid="uid://dcig746x8f3b5"
+path="res://.godot/imported/NeophyteTheOwlsAreNotWhatTheySeem.wav-80c7caf99183ac329f265dc4135648b1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteTheOwlsAreNotWhatTheySeem.wav"
-dest_files=[ "res://.import/NeophyteTheOwlsAreNotWhatTheySeem.wav-80c7caf99183ac329f265dc4135648b1.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheOwlsAreNotWhatTheySeem.wav-80c7caf99183ac329f265dc4135648b1.sample"]
 
 [params]
 

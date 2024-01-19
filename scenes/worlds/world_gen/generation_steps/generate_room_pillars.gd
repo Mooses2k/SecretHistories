@@ -9,8 +9,8 @@ const PILLAR_ROOMS_KEY = "pillar_rooms"
 # a pillar room is any rectangular room that has all dimensins as a multiple of 2
 # these rooms will be populated with pillars and use 2-wide tiles
 
-export var pillar_tile : int = -1
-export var min_room_dimension : int = 4 # changing to 4 puts pillars in any room with 4+ on a side
+@export var pillar_tile : int = -1
+@export var min_room_dimension : int = 4 # changing to 4 puts pillars in any room with 4+ on a side
 
 
 # Override this function

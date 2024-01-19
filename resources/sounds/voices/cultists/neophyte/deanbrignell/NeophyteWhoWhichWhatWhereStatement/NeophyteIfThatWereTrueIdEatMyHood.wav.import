@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIfThatWereTrueIdEatMyHood.wav-31650a9f334473b7d7177cd151cce693.sample"
+type="AudioStreamWAV"
+uid="uid://cpk4gj4bvxmhy"
+path="res://.godot/imported/NeophyteIfThatWereTrueIdEatMyHood.wav-31650a9f334473b7d7177cd151cce693.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteIfThatWereTrueIdEatMyHood.wav"
-dest_files=[ "res://.import/NeophyteIfThatWereTrueIdEatMyHood.wav-31650a9f334473b7d7177cd151cce693.sample" ]
+dest_files=["res://.godot/imported/NeophyteIfThatWereTrueIdEatMyHood.wav-31650a9f334473b7d7177cd151cce693.sample"]
 
 [params]
 

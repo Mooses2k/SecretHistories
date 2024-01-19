@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteMyEyesAreWideOpen.wav-c1c75770db473c625cf65ee17a4895c0.sample"
+type="AudioStreamWAV"
+uid="uid://c0td7p3sk2uv3"
+path="res://.godot/imported/NeophyteMyEyesAreWideOpen.wav-c1c75770db473c625cf65ee17a4895c0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteMyEyesAreWideOpen.wav"
-dest_files=[ "res://.import/NeophyteMyEyesAreWideOpen.wav-c1c75770db473c625cf65ee17a4895c0.sample" ]
+dest_files=["res://.godot/imported/NeophyteMyEyesAreWideOpen.wav-c1c75770db473c625cf65ee17a4895c0.sample"]
 
 [params]
 

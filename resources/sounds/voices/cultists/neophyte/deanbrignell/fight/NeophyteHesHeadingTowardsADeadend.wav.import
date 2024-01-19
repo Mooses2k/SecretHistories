@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteHesHeadingTowardsADeadend.wav-0918dfdc1bd15358cadb25dadbac7d8e.sample"
+type="AudioStreamWAV"
+uid="uid://cwaniyq5oy0cq"
+path="res://.godot/imported/NeophyteHesHeadingTowardsADeadend.wav-0918dfdc1bd15358cadb25dadbac7d8e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteHesHeadingTowardsADeadend.wav"
-dest_files=[ "res://.import/NeophyteHesHeadingTowardsADeadend.wav-0918dfdc1bd15358cadb25dadbac7d8e.sample" ]
+dest_files=["res://.godot/imported/NeophyteHesHeadingTowardsADeadend.wav-0918dfdc1bd15358cadb25dadbac7d8e.sample"]
 
 [params]
 

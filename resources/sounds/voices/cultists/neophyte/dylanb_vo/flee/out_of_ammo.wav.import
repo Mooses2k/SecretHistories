@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/out_of_ammo.wav-549d367e16bd8bc90807bf48219bbdbd.sample"
+type="AudioStreamWAV"
+uid="uid://cx6v7q18ceiet"
+path="res://.godot/imported/out_of_ammo.wav-549d367e16bd8bc90807bf48219bbdbd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/out_of_ammo.wav"
-dest_files=[ "res://.import/out_of_ammo.wav-549d367e16bd8bc90807bf48219bbdbd.sample" ]
+dest_files=["res://.godot/imported/out_of_ammo.wav-549d367e16bd8bc90807bf48219bbdbd.sample"]
 
 [params]
 

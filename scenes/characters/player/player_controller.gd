@@ -5,13 +5,13 @@ signal is_moving(is_player_moving)
 
 var is_player_moving : bool = false
 
-export var max_placement_distance = 1.5
-export var hold_time_to_place = 0.4
-export var throw_strength : float = 20
+@export var max_placement_distance = 1.5
+@export var hold_time_to_place = 0.4
+@export var throw_strength : float = 20
 const ON_GRAB_MAX_SPEED : float = 0.1
 
-export var hold_time_to_grab : float = 0.4
-export var grab_strength : float = 1000.0
+@export var hold_time_to_grab : float = 0.4
+@export var grab_strength : float = 1000.0
 
 #export var grab_spring_distance : float = 0.1
 #export var grab_damping : float = 0.2
@@ -45,40 +45,40 @@ var throw_item_hand : int = ItemSelection.ITEM_MAINHAND
 var throw_item : EquipmentItem
 var throw_press_length : float = 0.0
 
-export(float, 0.05, 1.0) var crouch_rate = 0.08
-export(float, 0.1, 1.0) var crawl_rate = 0.5
-export var move_drag : float = 0.2
-export(float, -45.0, -8.0, 1.0) var max_lean = -10.0
-export var interact_distance : float = 0.75
-export var head_bob_enabled : bool = true   # TODO: Should be in settings not here
+@export var crouch_rate = 0.08 # (float, 0.05, 1.0)
+@export var crawl_rate = 0.5 # (float, 0.1, 1.0)
+@export var move_drag : float = 0.2
+@export var max_lean = -10.0 # (float, -45.0, -8.0, 1.0)
+@export var interact_distance : float = 0.75
+@export var head_bob_enabled : bool = true   # TODO: Should be in settings not here
 
 var velocity : Vector3 = Vector3.ZERO
 
 var _clamber_m = null
 
-onready var character = get_parent()
-export var _cam_path : NodePath
-onready var _camera : ShakeCamera = get_node(_cam_path)
+@onready var character = get_parent()
+@export var _cam_path : NodePath
+@onready var _camera : ShakeCamera = get_node(_cam_path)
 #export var _gun_cam_path : NodePath
 #onready var _gun_cam = get_node(_gun_cam_path)
-onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
-onready var _text = get_node("..//Indication_canvas/Label")
-onready var _player_hitbox = get_node("../CanStandChecker")
-onready var _ground_checker = get_node("../Body/GroundChecker")
-onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
-onready var _debug_light = get_node("../FPSCamera/DebugLight")
+@onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
+@onready var _text = get_node("..//Indication_canvas/Label")
+@onready var _player_hitbox = get_node("../CanStandChecker")
+@onready var _ground_checker = get_node("../Body/GroundChecker")
+@onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
+@onready var _debug_light = get_node("../FPSCamera/DebugLight")
 
-onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
-onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
+@onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
+@onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
 var current_control_mode_index = 0
-onready var current_control_mode : ControlMode = get_child(0)
+@onready var current_control_mode : ControlMode = get_child(0)
 
 var grab_press_length : float = 0.0
 var wanna_grab : bool = false
 var is_grabbing : bool = false
 var interaction_handled : bool = false
-var grab_object : RigidBody = null
+var grab_object : RigidBody3D = null
 var grab_relative_object_position : Vector3
 var grab_distance : float = 0
 #var target
@@ -86,7 +86,7 @@ var current_grab_object = null   # Can this be replaced by just grab_object?
 var wants_to_drop = false
 var _click_timer : float = 0.0
 var _throw_wait_time : float = 400
-var drag_object : RigidBody = null
+var drag_object : RigidBody3D = null
 
 var is_movement_key1_held = false
 var is_movement_key2_held = false
@@ -96,7 +96,7 @@ var movement_press_length = 0
 
 var crouch_target_pos = -0.55
 
-var clamberable_obj : RigidBody
+var clamberable_obj : RigidBody3D
 var item_up = false
 var camera_movement_resistance : float = 1.0
 
@@ -127,12 +127,12 @@ var current_screen_filter : int = GameManager.ScreenFilter.NONE
 #export var reduce_color_material : Material
 var changed_to_reduce_color = false   # Have we changed to reduce color filter on DLvl5?
 
-onready var noise_timer = $"../Audio/NoiseTimer"   # Because instant noises sometimes aren't detected
+@onready var noise_timer = $"../Audio/NoiseTimer"   # Because instant noises sometimes aren't detected
 
 
 func _ready():
 	owner.is_to_move = false
-	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world())
+	_clamber_m = ClamberManager.new(owner, _camera, owner.get_world_3d())
 	
 	current_control_mode.set_deferred("is_active", true)
 	
@@ -171,7 +171,7 @@ func _input(event):
 	if event is InputEventMouseButton and owner.is_reloading == false:
 		if event.pressed:
 			match event.button_index:
-				BUTTON_WHEEL_UP:
+				MOUSE_BUTTON_WHEEL_UP:
 					item_up = true
 					if item_up:
 						if character.inventory.current_mainhand_slot != 0:
@@ -195,7 +195,7 @@ func _input(event):
 						elif character.inventory.current_mainhand_slot == 0:
 							character.inventory.current_mainhand_slot = 10
 				
-				BUTTON_WHEEL_DOWN:
+				MOUSE_BUTTON_WHEEL_DOWN:
 					item_up = false
 					if !item_up:
 						if character.inventory.current_mainhand_slot != 10:
@@ -328,14 +328,14 @@ func _handle_grab_input(delta : float):
 		wanna_grab = true
 	else:
 		wanna_grab = false
-	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
+	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody3D doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
 		if is_grabbing == false:
 			grab_press_length += delta
 			if grab_press_length >= 0.15:
 				wanna_grab = true
 				interaction_handled = true
 	
-	if Input.is_action_just_released("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"):   # TODO: when RigidBody3D doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
 		grab_press_length = 0.0
 		if is_grabbing == true:
 			is_grabbing = false
@@ -369,7 +369,7 @@ func handle_grab(delta : float):
 	$GrabCurrent.visible = false
 	
 	if is_grabbing:
-		var direct_state : PhysicsDirectBodyState = PhysicsServer.body_get_direct_state(grab_object.get_rid())
+		var direct_state : PhysicsDirectBodyState3D = PhysicsServer3D.body_get_direct_state(grab_object.get_rid())
 #		print("mass : ", direct_state.inverse_mass)
 #		print("inertia : ", direct_state.inverse_inertia)
 		
@@ -380,7 +380,7 @@ func handle_grab(delta : float):
 		var grab_object_local : Vector3 = grab_relative_object_position
 		
 		# The position the object was grabbed at, in global space
-		var grab_object_global : Vector3 = direct_state.transform.xform(grab_object_local)
+		var grab_object_global : Vector3 = direct_state.transform * (grab_object_local)
 		
 		# The offset from the center of the object to where it is being grabbed, in global space
 		# this is required by some physics functions
@@ -390,7 +390,7 @@ func handle_grab(delta : float):
 		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
 		
-		camera_movement_resistance = min(5 / grab_object.mass, 1)   # Camera goes nuts if you don't do this
+		camera_movement_resistance = min(5 / grab_object.mass, 1)   # Camera3D goes nuts if you don't do this
 		
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
@@ -498,20 +498,20 @@ func _handle_inventory(delta : float):
 				if character.inventory.get_mainhand_item():
 					character.inventory.get_mainhand_item().use_primary()
 					if character.inventory.get_mainhand_item() is MeleeItem:
-						$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
-						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
-						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
+						%AnimationTree.set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+						%AnimationTree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+						%AnimationTree.set("parameters/MeleeThrust/active", true)
 						owner.noise_level = 8
 					throw_state = ThrowState.IDLE
 		
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
-			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody doors
+			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody3D doors
 				character.inventory.get_mainhand_item().use_secondary()
 				if character.inventory.get_mainhand_item() is MeleeItem:
-					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
-					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
-					$"%AnimationTree".set("parameters/MeleeChop1/active", true)
+					%AnimationTree.set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+					%AnimationTree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+					%AnimationTree.set("parameters/MeleeChop1/active", true)
 					owner.noise_level = 10
 				throw_state = ThrowState.IDLE
 			
@@ -542,14 +542,14 @@ func _handle_inventory(delta : float):
 		if character.inventory.get_offhand_item():
 			character.inventory.get_offhand_item().use_primary()
 			if character.inventory.get_offhand_item() is MeleeItem:
-				$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
-				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
-				$"%AnimationTree".set("parameters/MeleeThrustL/active", true)
+				%AnimationTree.set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
+				%AnimationTree.set("parameters/OffHand_MainHand_Blend/blend_amount", 0)
+				%AnimationTree.set("parameters/MeleeThrustL/active", true)
 			throw_state = ThrowState.IDLE
 	
 	update_throw_state(throw_item, delta)
 	
-	if Input.is_action_just_released("player|interact"): # Later, when we have RigidBody doors, add this back for convenience and deal with edge cases with ADS and melee:  or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if Input.is_action_just_released("player|interact"): # Later, when we have RigidBody3D doors, add this back for convenience and deal with edge cases with ADS and melee:  or Input.is_action_just_released("playerhand|main_use_secondary"):
 		if !(wanna_grab or is_grabbing or interaction_handled):
 			if interaction_target != null:
 				if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
@@ -604,7 +604,7 @@ func drop_grabable():
 
 func empty_slot():
 	if character.inventory.hotbar != null and not is_instance_valid(character.inventory.hotbar[10]):
-		var empty_hand = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instance()
+		var empty_hand = preload("res://scenes/objects/pickable_items/equipment/empty_slot/_empty_hand.tscn").instantiate()
 		character.inventory.hotbar[10] = empty_hand
 
 
@@ -624,9 +624,13 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 			var mask = throw_item.collision_mask
 			throw_item.collision_layer = throw_item.dropped_layers
 			throw_item.collision_mask = throw_item.dropped_mask
-			var result = PhysicsTestMotionResult.new()
+			var result = PhysicsTestMotionResult3D.new()
 			# The return value can be ignored, since extra information is put into the 'result' variable
-			PhysicsServer.body_test_motion(throw_item.get_rid(), owner.drop_position_node.global_transform, dir, false, result, true)
+			var motion_params = PhysicsTestMotionParameters3D.new()
+			motion_params.from = owner.drop_position_node.global_transform
+			motion_params.motion = dir
+			
+			PhysicsServer3D.body_test_motion(throw_item.get_rid(), motion_params, result)
 			throw_item.collision_layer = layers
 			throw_item.collision_mask = mask
 			if result.motion.length() > 0.1:
@@ -706,7 +710,7 @@ func throw_impulse_and_damage(item):
 	elif item is PickableItem:   # It's a tiny item
 		item.set_item_state(GlobalConsts.ItemState.DAMAGING)
 		item.apply_central_impulse(impulse)
-	elif item is RigidBody:   # It's a large object or broken door piece
+	elif item is RigidBody3D:   # It's a large object or broken door piece
 		item.apply_central_impulse(impulse)
 	else:   # It's a static?
 		pass
@@ -745,32 +749,32 @@ func _set_screen_filter_to(filter_value: int = -1) -> void:
 	if current_screen_filter == GameManager.ScreenFilter.OLD_FILM:
 		print("Screen Filter: OLD_FILM")
 		_screen_filter.visible = true
-		_screen_filter.set_surface_material(
+		_screen_filter.set_surface_override_material(
 				0, preload("res://resources/shaders/old_film/old_film.tres")
 		)
 	if current_screen_filter == GameManager.ScreenFilter.PIXELATE:
 		print("Screen Filter: PIXELATE")
 		_screen_filter.visible = true
-		_screen_filter.set_surface_material(
+		_screen_filter.set_surface_override_material(
 				0, preload("res://resources/shaders/pixelate/pixelate.tres")
 		)
 	if current_screen_filter == GameManager.ScreenFilter.DITHER:
 		print("Screen Filter: DITHER")
 		_screen_filter.visible = true
-		_screen_filter.set_surface_material(
+		_screen_filter.set_surface_override_material(
 				0, preload("res://resources/shaders/dither/dither.tres")
 		)
 	if current_screen_filter == GameManager.ScreenFilter.REDUCE_COLOR:
 		print("Screen Filter: REDUCE_COLOR")
 		_screen_filter.visible = true
-		_screen_filter.set_surface_material(
+		_screen_filter.set_surface_override_material(
 				0, preload("res://resources/shaders/psx/just_color_reduce.tres")
 		)
 	# We're haven't implemented the mesh shader yet
 	if current_screen_filter == GameManager.ScreenFilter.PSX:
 		print("Screen Filter: PSX")
 		_screen_filter.visible = true
-		_screen_filter.set_surface_material(
+		_screen_filter.set_surface_override_material(
 				0, preload("res://resources/shaders/psx/psx_material.tres")
 		)
 	if current_screen_filter == GameManager.ScreenFilter.DEBUG_LIGHT:

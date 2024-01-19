@@ -33,7 +33,7 @@ func _get_node_state() -> Dictionary:
 # These functions are the entry points of the virtual ones
 # and perform common functionality, usually should not be overriden
 
-func pre_tick():
+func on_pre_tick():
 	_current_status = BTResult.SKIP
 	_pre_tick()
 
@@ -42,7 +42,7 @@ func tick(_state : CharacterState) -> int:
 	_current_status = result
 	return result
 
-func post_tick():
+func on_post_tick():
 	_post_tick()
 
 func get_node_state() -> Dictionary:

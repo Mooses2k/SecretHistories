@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/slide_projector5.ogg-0e405105be1dc2d6ec28dc4482106f2c.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://de54vic2uwpip"
+path="res://.godot/imported/slide_projector5.ogg-0e405105be1dc2d6ec28dc4482106f2c.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/slide_projector/slide_projector5.ogg"
-dest_files=[ "res://.import/slide_projector5.ogg-0e405105be1dc2d6ec28dc4482106f2c.oggstr" ]
+dest_files=["res://.godot/imported/slide_projector5.ogg-0e405105be1dc2d6ec28dc4482106f2c.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

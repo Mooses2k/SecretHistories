@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheFoodSucksThePaySucks.wav-0939eebc15061f33445af1080647e7e4.sample"
+type="AudioStreamWAV"
+uid="uid://ci1sl8ud6prjg"
+path="res://.godot/imported/NeophyteTheFoodSucksThePaySucks.wav-0939eebc15061f33445af1080647e7e4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteTheFoodSucksThePaySucks.wav"
-dest_files=[ "res://.import/NeophyteTheFoodSucksThePaySucks.wav-0939eebc15061f33445af1080647e7e4.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheFoodSucksThePaySucks.wav-0939eebc15061f33445af1080647e7e4.sample"]
 
 [params]
 

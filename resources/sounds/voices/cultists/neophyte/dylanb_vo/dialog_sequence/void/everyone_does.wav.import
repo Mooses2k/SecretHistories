@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/everyone_does.wav-23231c181404dddea9eee8f4ff8e51cb.sample"
+type="AudioStreamWAV"
+uid="uid://bsrsp4xxsc7dp"
+path="res://.godot/imported/everyone_does.wav-23231c181404dddea9eee8f4ff8e51cb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/void/everyone_does.wav"
-dest_files=[ "res://.import/everyone_does.wav-23231c181404dddea9eee8f4ff8e51cb.sample" ]
+dest_files=["res://.godot/imported/everyone_does.wav-23231c181404dddea9eee8f4ff8e51cb.sample"]
 
 [params]
 

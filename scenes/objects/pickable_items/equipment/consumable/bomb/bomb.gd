@@ -2,15 +2,15 @@ class_name BombItem
 extends ConsumableItem
 
 
-export var radius = 5 # meters
+@export var radius = 5 # meters
 #export var fragments = 200 # number of raycasts and/or particles
-export var bomb_damage : float #amount of damage to be registered
-export(AttackTypes.Types) var damage_type : int = 0
+@export var bomb_damage : float #amount of damage to be registered
+@export var damage_type : int = 0 # (AttackTypes.Types)
 
 var countdown_started = false
 
-onready var countdown_timer = $Countdown
-onready var flash = $Flash
+@onready var countdown_timer = $Countdown
+@onready var flash = $Flash
 var fuse_sound
 
 var throwing = false
@@ -56,7 +56,7 @@ func _on_Countdown_timeout():
 	$Explosion.emitting = true
 	$Shrapnel.emitting = true
 	$Fuse.emitting = false
-	$MeshInstance.visible = false
+	$MeshInstance3D.visible = false
 	$Explosion._on_Bomb_explosion()
 	countdown_started = true
 	

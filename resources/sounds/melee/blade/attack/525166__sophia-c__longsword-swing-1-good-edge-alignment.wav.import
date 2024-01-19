@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav-82602e311debbd088c85bfb5e4f1c5f4.sample"
+type="AudioStreamWAV"
+uid="uid://lhy76hfleimx"
+path="res://.godot/imported/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav-82602e311debbd088c85bfb5e4f1c5f4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav"
-dest_files=[ "res://.import/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav-82602e311debbd088c85bfb5e4f1c5f4.sample" ]
+dest_files=["res://.godot/imported/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav-82602e311debbd088c85bfb5e4f1c5f4.sample"]
 
 [params]
 

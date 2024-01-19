@@ -1,5 +1,5 @@
+@tool
 ### Is a tool to support use in player_animations_test.gd
-tool
 class_name GunItem
 extends EquipmentItem
 
@@ -14,24 +14,24 @@ enum MeleeStyle {
 	COUNT
 }
 
-export(Array, Resource) var ammo_types
+@export var ammo_types : Array[Resource]# (Array, Resource)
 
-export var ammunition_capacity = 0
-export var reload_amount = 0
-export var damage_offset = 0
-export var dispersion_offset_degrees = 0
-export var cooldown = 1.0
-export var handling = 5.0
+@export var ammunition_capacity = 0
+@export var reload_amount = 0
+@export var damage_offset = 0
+@export var dispersion_offset_degrees = 0
+@export var cooldown = 1.0
+@export var handling = 5.0
 
-export var reload_position : Vector3
-export var reload_rotation : Vector3
+@export var reload_position : Vector3
+@export var reload_rotation : Vector3
 
-export var ads_hold_position : Vector3
-export var ads_hold_rotation : Vector3
+@export var ads_hold_position : Vector3
+@export var ads_hold_rotation : Vector3
 
-export(MeleeStyle) var melee_style : int = 0
-export var player_path: NodePath
-export var mesh_path: NodePath
+@export var melee_style: MeleeStyle = 0
+@export var player_path: NodePath
+@export var mesh_path: NodePath
 
 var max_raycast_correction_angle_degrees : float = 45
 
@@ -48,12 +48,12 @@ var on_cooldown = false
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
 
-export (NodePath) var detection_raycast
+@export var detection_raycast : NodePath
 
-onready var raycast : RayCast = get_node(detection_raycast) as RayCast
-onready var animation_player = $"%AnimationPlayer"
-onready var player = get_node(player_path)
-onready var mesh = get_node(mesh_path)
+@onready var raycast : RayCast3D = get_node(detection_raycast) as RayCast3D
+@onready var animation_player = %AnimationPlayer
+@onready var player = get_node(player_path)
+@onready var mesh = get_node(mesh_path)
 
 
 func _ready():
@@ -61,7 +61,7 @@ func _ready():
 #	if get_parent().name == "MainHandEquipmentRoot":
 #		print("Transforming")
 #		transform = get_hold_transform()
-	ads_reset_position = hold_position.translation
+	ads_reset_position = hold_position.position
 	ads_reset_rotation = hold_position.rotation_degrees
 	get_reload_length()
 	
@@ -71,8 +71,8 @@ func _ready():
 
 #TODO move this out of here
 func _physics_process(delta):
-	._physics_process(delta)
-	if Engine.editor_hint or item_state != GlobalConsts.ItemState.EQUIPPED:
+	super._physics_process(delta)
+	if Engine.is_editor_hint() or item_state != GlobalConsts.ItemState.EQUIPPED:
 		return
 	if (not is_instance_valid(owner_character)) or (not "character_state" in owner_character):
 		return
@@ -82,21 +82,21 @@ func _physics_process(delta):
 	if not is_instance_valid(owner_state):
 		return
 	var target = owner_state.target
-	var target_object : Spatial
+	var target_object : Node3D
 	if not is_instance_valid(target):
 		return
-	if target is Spatial:
+	if target is Node3D:
 		target_object = target
 	elif "object" in target:
-		target_object = target.object as Spatial
+		target_object = target.object as Node3D
 	
 	if not is_instance_valid(target_object):
 		return
-	var target_position_global = target_object.global_translation + Vector3.UP * 0.5 # for 0.5 meters from ground
-	var local_position = self.global_translation
+	var target_position_global = target_object.global_position + Vector3.UP * 0.5 # for 0.5 meters from ground
+	var local_position = self.global_position
 	var target_position : Vector3 = to_local(target_position_global)
 	var delta_angle = Vector3.FORWARD.angle_to(target_position)
-	if delta_angle > deg2rad(max_raycast_correction_angle_degrees):
+	if delta_angle > deg_to_rad(max_raycast_correction_angle_degrees):
 		return
 	raycast.look_at(target_position_global, Vector3.UP)
 
@@ -121,27 +121,27 @@ func shoot():
 	# The reason it's MINUS damage_offset (thus louder) is more of the powder is exploding outside the barrel
 	noise_level = ammo_type.damage - damage_offset   # damage_offset is a negative so this is a addition operation
 	
-	var max_dispersion_radians : float = deg2rad(dispersion_offset_degrees + ammo_type.dispersion) / 2.0
+	var max_dispersion_radians : float = deg_to_rad(dispersion_offset_degrees + ammo_type.dispersion) / 2.0
 	var total_damage : int = damage_offset + ammo_type.damage
 	
-	var raycast_range = raycast.cast_to.length()
+	var raycast_range = raycast.target_position.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)
 #	print("shoot")
 	for pellet in ammo_type.pellet_count:
 		var shoot_direction : Vector3 = Vector3.FORWARD.rotated(Vector3.RIGHT, randf() * max_dispersion_radians)
 		shoot_direction = shoot_direction.rotated(Vector3.FORWARD, randf() * 2 * PI)
-		raycast.cast_to = shoot_direction*raycast_range
+		raycast.target_position = shoot_direction*raycast_range
 		raycast.force_raycast_update()
 		if raycast.is_colliding():
 			var target = raycast.get_collider()
 			var global_hit_position = raycast.get_collision_point()
-			var global_hit_direction = raycast.global_transform.basis.xform(shoot_direction)
+			var global_hit_direction = raycast.global_transform.basis * (shoot_direction)
 			var global_hit_normal = raycast.get_collision_normal()
 			if target is Hitbox and target.owner.has_method("damage"):
 				target.owner.damage(total_damage, ammo_type.attack_type, target)
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
-	raycast.cast_to = Vector3.FORWARD * raycast_range
+	raycast.target_position = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
 	apply_knockback(total_damage)
 	print(owner_character, " shoots a ", self)
@@ -225,7 +225,7 @@ func unload():
 func apply_knockback(total_damage):
 	if raycast.is_colliding():
 		var object_detected = raycast.get_collider()
-		if object_detected is RigidBody and has_method("apply_damage") :
+		if object_detected is RigidBody3D and has_method("apply_damage") :
 			print("detected rigidbody")
 			object_detected.apply_central_impulse(-self.global_transform.basis.z * total_damage * 5)
 

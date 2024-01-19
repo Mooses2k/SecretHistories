@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteICanNoLongerTellIfIamAwakeOrDreaming.wav-b44e6024c7af29c271a1fb0b8978c7bc.sample"
+type="AudioStreamWAV"
+uid="uid://cmxsiprdhuaka"
+path="res://.godot/imported/NeophyteICanNoLongerTellIfIamAwakeOrDreaming.wav-b44e6024c7af29c271a1fb0b8978c7bc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteICanNoLongerTellIfIamAwakeOrDreaming.wav"
-dest_files=[ "res://.import/NeophyteICanNoLongerTellIfIamAwakeOrDreaming.wav-b44e6024c7af29c271a1fb0b8978c7bc.sample" ]
+dest_files=["res://.godot/imported/NeophyteICanNoLongerTellIfIamAwakeOrDreaming.wav-b44e6024c7af29c271a1fb0b8978c7bc.sample"]
 
 [params]
 

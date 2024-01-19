@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/city_all_of_blood.wav-76ba124ffaaec957f18bca6ed8ce2428.sample"
+type="AudioStreamWAV"
+uid="uid://be013k56kmrp8"
+path="res://.godot/imported/city_all_of_blood.wav-76ba124ffaaec957f18bca6ed8ce2428.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/where/city_all_of_blood.wav"
-dest_files=[ "res://.import/city_all_of_blood.wav-76ba124ffaaec957f18bca6ed8ce2428.sample" ]
+dest_files=["res://.godot/imported/city_all_of_blood.wav-76ba124ffaaec957f18bca6ed8ce2428.sample"]
 
 [params]
 

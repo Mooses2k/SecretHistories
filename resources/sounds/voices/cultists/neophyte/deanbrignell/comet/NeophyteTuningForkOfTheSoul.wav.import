@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTuningForkOfTheSoul.wav-e6e69b6d74ea427f753857a31a47c22d.sample"
+type="AudioStreamWAV"
+uid="uid://cxqab4mkrmw1"
+path="res://.godot/imported/NeophyteTuningForkOfTheSoul.wav-e6e69b6d74ea427f753857a31a47c22d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/comet/NeophyteTuningForkOfTheSoul.wav"
-dest_files=[ "res://.import/NeophyteTuningForkOfTheSoul.wav-e6e69b6d74ea427f753857a31a47c22d.sample" ]
+dest_files=["res://.godot/imported/NeophyteTuningForkOfTheSoul.wav-e6e69b6d74ea427f753857a31a47c22d.sample"]
 
 [params]
 

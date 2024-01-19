@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteILoveHowTheWallsDontLineUpAnymore.wav-3c27f400dfc3bd3c0c5f5cc0e3c816d5.sample"
+type="AudioStreamWAV"
+uid="uid://vtu5yememsia"
+path="res://.godot/imported/NeophyteILoveHowTheWallsDontLineUpAnymore.wav-3c27f400dfc3bd3c0c5f5cc0e3c816d5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteILoveHowTheWallsDontLineUpAnymore.wav"
-dest_files=[ "res://.import/NeophyteILoveHowTheWallsDontLineUpAnymore.wav-3c27f400dfc3bd3c0c5f5cc0e3c816d5.sample" ]
+dest_files=["res://.godot/imported/NeophyteILoveHowTheWallsDontLineUpAnymore.wav-3c27f400dfc3bd3c0c5f5cc0e3c816d5.sample"]
 
 [params]
 

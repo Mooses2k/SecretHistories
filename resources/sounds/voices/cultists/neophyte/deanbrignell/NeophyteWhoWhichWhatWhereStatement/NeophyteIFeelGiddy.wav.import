@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIFeelGiddy.wav-6a85720f51c26f64ceb422cf6e546731.sample"
+type="AudioStreamWAV"
+uid="uid://dbr2st8linl7f"
+path="res://.godot/imported/NeophyteIFeelGiddy.wav-6a85720f51c26f64ceb422cf6e546731.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteIFeelGiddy.wav"
-dest_files=[ "res://.import/NeophyteIFeelGiddy.wav-6a85720f51c26f64ceb422cf6e546731.sample" ]
+dest_files=["res://.godot/imported/NeophyteIFeelGiddy.wav-6a85720f51c26f64ceb422cf6e546731.sample"]
 
 [params]
 

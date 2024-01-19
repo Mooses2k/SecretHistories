@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/objects/pickable_items/equipment/tool/tool_item.gd" type="Script" id=2]
 [ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="BoxMesh" id=1]
 size = Vector3( 0.2, 0.2, 0.2 )
 
 [node name="ToolItem" instance=ExtResource( 1 )]
@@ -16,5 +16,5 @@ throw_pos_path = NodePath("")
 throw_logic = false
 can_spin = false
 
-[node name="MeshInstance" parent="." index="0"]
+[node name="MeshInstance3D" parent="." index="0"]
 mesh = SubResource( 1 )

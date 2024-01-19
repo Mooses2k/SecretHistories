@@ -3,16 +3,16 @@ extends ControlMode
 
 var colliding_pickable_items = []
 var colliding_interactable_items = []
-onready var player_controller = $".."
-onready var grab_indicator = $"../../Indication_canvas/Indication_system/Grab"
-onready var ignite_indicator = $"../../Indication_canvas/Indication_system/Ignite"
-onready var dot_indicator = $"../../Indication_canvas/Indication_system/Dot"
+@onready var player_controller = $".."
+@onready var grab_indicator = $"../../Indication_canvas/Indication_system/Grab"
+@onready var ignite_indicator = $"../../Indication_canvas/Indication_system/Ignite"
+@onready var dot_indicator = $"../../Indication_canvas/Indication_system/Dot"
 
-export var _aimcast : NodePath
-onready var aimcast : RayCast = get_node(_aimcast) as RayCast
+@export var _aimcast : NodePath
+@onready var aimcast : RayCast3D = get_node(_aimcast) as RayCast3D
 
-export var _grabcast : NodePath
-onready var grabcast : RayCast = get_node(_grabcast) as RayCast
+@export var _grabcast : NodePath
+@onready var grabcast : RayCast3D = get_node(_grabcast) as RayCast3D
 
 var _camera_orig_pos : Vector3
 var _camera_orig_rotation : Vector3
@@ -31,8 +31,8 @@ var _bob_reset : float = 0.0
 
 var crouch_cam_target_pos = 0.98
 
-export var _gun_camera : NodePath
-onready var gun_camera : Camera = get_node(_gun_camera) as Camera
+@export var _gun_camera : NodePath
+@onready var gun_camera : Camera3D = get_node(_gun_camera) as Camera3D
 
 
 func _on_player_spawn(_player : Player):
@@ -42,7 +42,7 @@ func _on_player_spawn(_player : Player):
 func _ready():
 	if not is_instance_valid(GameManager.game):
 		return
-	GameManager.game.connect("player_spawned", self, "_on_player_spawn")
+	GameManager.game.connect("player_spawned", Callable(self, "_on_player_spawn"))
 	_camera_orig_pos = _camera.transform.origin
 	_camera_orig_rotation = _camera.rotation_degrees
 	_bob_reset = _camera.global_transform.origin.y - owner.global_transform.origin.y
@@ -57,7 +57,7 @@ func _physics_process(delta):
 
 
 func set_active(value : bool):
-	.set_active(value)
+	super.set_active(value)
 	if value:
 		pitch_yaw.x = 0.0
 		pitch_yaw.y = owner.rotation.y
@@ -102,7 +102,7 @@ func _input(event):
 
 
 func crosshair_indicators():
-	if colliding_pickable_items.empty() and colliding_interactable_items.empty():
+	if colliding_pickable_items.is_empty() and colliding_interactable_items.is_empty():
 		dot_indicator.hide()
 	else :
 		dot_indicator.show()
@@ -112,7 +112,7 @@ func crosshair_indicators():
 	if grabable_object != null:
 		if grabcast.is_colliding() and grabable_object is PickableItem and player_controller.is_grabbing == false:
 			grab_indicator.show()
-		elif grabcast.is_colliding() and grabable_object is RigidBody and player_controller.is_grabbing == false:
+		elif grabcast.is_colliding() and grabable_object is RigidBody3D and player_controller.is_grabbing == false:
 			grab_indicator.show()
 		else:
 			grab_indicator.hide()
@@ -156,7 +156,7 @@ func update(delta):
 #            up_recoil = 35
 		up_recoil = min(up_recoil, MAX_RECOIL)
 		if _camera:   # For now, no vertical recoil for cultists
-			pitch_yaw.x += deg2rad(up_recoil) * delta
+			pitch_yaw.x += deg_to_rad(up_recoil) * delta
 			pitch_yaw.x = min(pitch_yaw.x, PI * 0.5)
 #            pitch_yaw.x = lerp(pitch_yaw.x, deg2rad(pitch_yaw.x + up_recoil), delta)
 		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER) * delta
@@ -182,15 +182,15 @@ func get_target_placement_position() -> Vector3:
 	if aimcast.is_colliding():
 		return aimcast.get_collision_point()
 	else:
-		return aimcast.to_global(aimcast.cast_to)
+		return aimcast.to_global(aimcast.target_position)
 
 
 func get_aim_direction() -> Vector3:
 	return -_camera.global_transform.basis.z
 
 
-func get_grab_target() -> RigidBody:
-	return grabcast.get_collider() as RigidBody
+func get_grab_target() -> RigidBody3D:
+	return grabcast.get_collider() as RigidBody3D
 
 
 func get_grab_global_position() -> Vector3:
@@ -240,7 +240,7 @@ func _on_GrabCastDot_body_entered(body):
 
 func _on_GrabCastDot_body_exited(body):
 	if body is PickableItem or body is DoorBody:
-		colliding_pickable_items.remove(colliding_pickable_items.find(body))
+		colliding_pickable_items.remove_at(colliding_pickable_items.find(body))
 
 
 func _on_GrabCastDot_area_entered(area):
@@ -251,5 +251,5 @@ func _on_GrabCastDot_area_entered(area):
 
 func _on_GrabCastDot_area_exited(area):
 	if area is Interactable:
-		colliding_interactable_items.remove(colliding_interactable_items.find(area))
+		colliding_interactable_items.remove_at(colliding_interactable_items.find(area))
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/theyre_here.wav-f0ac694fc210651d400f0c074354b984.sample"
+type="AudioStreamWAV"
+uid="uid://dooriw1ly50lh"
+path="res://.godot/imported/theyre_here.wav-f0ac694fc210651d400f0c074354b984.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/theyre_here.wav"
-dest_files=[ "res://.import/theyre_here.wav-f0ac694fc210651d400f0c074354b984.sample" ]
+dest_files=["res://.godot/imported/theyre_here.wav-f0ac694fc210651d400f0c074354b984.sample"]
 
 [params]
 

@@ -1,4 +1,4 @@
-tool
+@tool
 class_name EquipmentItem
 extends PickableItem
 
@@ -8,26 +8,26 @@ signal used_secondary()
 signal used_reload()
 signal used_unload()
 
-export var can_attach : bool = false
-export(GlobalConsts.ItemSize) var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM
+@export var can_attach : bool = false
+@export var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM # (GlobalConsts.ItemSize)
 
-export var item_name : String = "Equipment"
-export var horizontal_holding : bool = false
-export var normal_pos_path : NodePath
-export var throw_pos_path : NodePath
+@export var item_name : String = "Equipment"
+@export var horizontal_holding : bool = false
+@export var normal_pos_path : NodePath
+@export var throw_pos_path : NodePath
 
 var is_in_belt = false
 
-onready var hold_position = $"%HoldPosition"
-onready var normal_pos = get_node(normal_pos_path)
-onready var throw_pos = get_node(throw_pos_path)
+@onready var hold_position = %HoldPosition
+@onready var normal_pos = get_node(normal_pos_path)
+@onready var throw_pos = get_node(throw_pos_path)
 
 
 func _ready():
 	if horizontal_holding == true:
 		hold_position.rotation_degrees.z = 90
 		
-	connect("body_entered", self, "play_drop_sound")
+	connect("body_entered", Callable(self, "play_drop_sound"))
 
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
@@ -94,5 +94,5 @@ func use_unload():
 	emit_signal("used_unload")
 
 
-func get_hold_transform() -> Transform:
+func get_hold_transform() -> Transform3D:
 	return $HoldPosition.transform

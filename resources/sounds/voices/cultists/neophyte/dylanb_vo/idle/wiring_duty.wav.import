@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/wiring_duty.wav-7d38be04c8b49b41dda5d020381ebefc.sample"
+type="AudioStreamWAV"
+uid="uid://bampbu5nqjq7q"
+path="res://.godot/imported/wiring_duty.wav-7d38be04c8b49b41dda5d020381ebefc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/wiring_duty.wav"
-dest_files=[ "res://.import/wiring_duty.wav-7d38be04c8b49b41dda5d020381ebefc.sample" ]
+dest_files=["res://.godot/imported/wiring_duty.wav-7d38be04c8b49b41dda5d020381ebefc.sample"]
 
 [params]
 

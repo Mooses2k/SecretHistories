@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsNotSupposedToBeOut.wav-330ffb175b42afb106596e07f661327d.sample"
+type="AudioStreamWAV"
+uid="uid://bc76ntv3clw15"
+path="res://.godot/imported/NeophyteItsNotSupposedToBeOut.wav-330ffb175b42afb106596e07f661327d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItsNotSupposedToBeOut.wav"
-dest_files=[ "res://.import/NeophyteItsNotSupposedToBeOut.wav-330ffb175b42afb106596e07f661327d.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsNotSupposedToBeOut.wav-330ffb175b42afb106596e07f661327d.sample"]
 
 [params]
 

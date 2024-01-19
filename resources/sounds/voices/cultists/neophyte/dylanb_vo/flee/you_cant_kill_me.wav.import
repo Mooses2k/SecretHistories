@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/you_cant_kill_me.wav-e46271f6276fcabf5ad083faa4f3368d.sample"
+type="AudioStreamWAV"
+uid="uid://c4ghimjm0m6i4"
+path="res://.godot/imported/you_cant_kill_me.wav-e46271f6276fcabf5ad083faa4f3368d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/you_cant_kill_me.wav"
-dest_files=[ "res://.import/you_cant_kill_me.wav-e46271f6276fcabf5ad083faa4f3368d.sample" ]
+dest_files=["res://.godot/imported/you_cant_kill_me.wav-e46271f6276fcabf5ad083faa4f3368d.sample"]
 
 [params]
 

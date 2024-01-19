@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/beef_in_the_stew.wav-9d87df3eb964a4fd5ceafa20e7473b85.sample"
+type="AudioStreamWAV"
+uid="uid://b38lys8fl8x57"
+path="res://.godot/imported/beef_in_the_stew.wav-9d87df3eb964a4fd5ceafa20e7473b85.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/beef_in_the_stew.wav"
-dest_files=[ "res://.import/beef_in_the_stew.wav-9d87df3eb964a4fd5ceafa20e7473b85.sample" ]
+dest_files=["res://.godot/imported/beef_in_the_stew.wav-9d87df3eb964a4fd5ceafa20e7473b85.sample"]
 
 [params]
 

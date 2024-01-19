@@ -4,14 +4,15 @@ extends CanvasLayer
 var tween_speed = 0.7
 var is_fade_in = false
 
-onready var opacity_target = [0.1, 0.2]
-onready var debug_label: RichTextLabel = $RichTextLabel
-onready var keybind_defaults: RichTextLabel = $KeybindDefaults
-onready var color_rect: TextureRect = $ColorRect
-onready var texture_rect: TextureRect = $TextureRect
-onready var animation_player: AnimationPlayer = $AnimationPlayer
-onready var tween: Tween = $Tween
+@onready var opacity_target = [0.1, 0.2]
+@onready var debug_label: RichTextLabel = $RichTextLabel
+@onready var keybind_defaults: RichTextLabel = $KeybindDefaults
+@onready var color_rect: TextureRect = $ColorRect
+@onready var texture_rect: TextureRect = $TextureRect
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+#@onready var tween: Tween = $Tween
 
+var tween : Tween = null
 
 func _process(_delta: float) -> void:
 	var player := owner as Player
@@ -23,7 +24,7 @@ func _process(_delta: float) -> void:
 			+ "Player noise_level = " + str(player.noise_level) + "\n"
 			+ "Player on floor = " +  str(player.grounded) + "\n"
 			+ "Current strata = " +  str(GameManager.game.current_floor_level) + "\n"
-			+ "Player position = " +  str(player.translation) + "\n"
+			+ "Player position = " +  str(player.position) + "\n"
 			+ "Current FPS = " +  str(Performance.get_monitor(Performance.TIME_FPS)) + "\n"
 		)
 
@@ -70,7 +71,7 @@ func _on_Player_is_hit(current_health):
 		if not texture_rect.is_visible_in_tree():
 			texture_rect.show()
 		
-		if not tween.is_active() and not tween.is_active():
+		if (not is_instance_valid(tween)) or not tween.is_running():
 			_start_fade_in()
 		opacity_target[0] = 0.05
 		opacity_target[1] = 0.2
@@ -78,19 +79,25 @@ func _on_Player_is_hit(current_health):
 
 func _start_fade_in():
 	is_fade_in = true
-	tween.interpolate_property(texture_rect, "modulate", 
-			Color(1, 1, 1, opacity_target[0]), Color(1, 1, 1, opacity_target[1]), tween_speed, Tween.TRANS_SINE, Tween.EASE_OUT)    
-	tween.start()
-
+	
+	tween = get_tree().create_tween()
+	tween.tween_property(texture_rect, "modulate", Color(1, 1, 1, opacity_target[1]), tween_speed)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).from(Color(1, 1, 1, opacity_target[0]))
+	tween.finished.connect(_on_tween_finished)
+	#tween.interpolate_property(texture_rect, "modulate", 
+			#Color(1, 1, 1, opacity_target[0]), Color(1, 1, 1, opacity_target[1]), tween_speed, Tween.TRANS_SINE, Tween.EASE_OUT)
 
 func _start_fade_out():
 	is_fade_in = false
-	tween.interpolate_property(texture_rect, "modulate", 
-			Color(1, 1, 1, opacity_target[1]), Color(1, 1, 1, opacity_target[0]), tween_speed, Tween.TRANS_SINE, Tween.EASE_IN)    
-	tween.start()
+	tween = get_tree().create_tween()
+	tween.tween_property(texture_rect, "modulate", Color(1, 1, 1, opacity_target[0]), tween_speed)\
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN).from(Color(1, 1, 1, opacity_target[1]))
+	tween.finished.connect(_on_tween_finished)
+	#tween.interpolate_property(texture_rect, "modulate", 
+			#Color(1, 1, 1, opacity_target[1]), Color(1, 1, 1, opacity_target[0]), tween_speed, Tween.TRANS_SINE, Tween.EASE_IN)    
 
 
-func _on_Tween_tween_completed(object, key):
+func _on_tween_finished():
 	if is_fade_in:
 		_start_fade_out()
 	else:

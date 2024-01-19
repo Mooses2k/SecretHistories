@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsNotCowardiceIfILive.wav-cd266c95c883360e49a49070100ca2ac.sample"
+type="AudioStreamWAV"
+uid="uid://v3ajrudsd87p"
+path="res://.godot/imported/NeophyteItsNotCowardiceIfILive.wav-cd266c95c883360e49a49070100ca2ac.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteItsNotCowardiceIfILive.wav"
-dest_files=[ "res://.import/NeophyteItsNotCowardiceIfILive.wav-cd266c95c883360e49a49070100ca2ac.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsNotCowardiceIfILive.wav-cd266c95c883360e49a49070100ca2ac.sample"]
 
 [params]
 

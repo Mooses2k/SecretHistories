@@ -12,20 +12,20 @@ var is_dropped: bool = false
 var is_just_dropped: bool = true
 var light_timer
 var random_number
-export var is_oil_based : bool = false
-export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
-export(float, 0.0, 1.0) var prob_going_out : float = 0.0
+@export var is_oil_based : bool = false
+@export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
+@export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 
 var is_lit = true # starts on
-onready var firelight = $Light
+@onready var firelight = $Light3D
 
 
 func _ready():
-	if not is_connected("body_entered", self, "play_drop_sound"):
-		connect("body_entered", self, "play_drop_sound")
+	if not is_connected("body_entered", Callable(self, "play_drop_sound")):
+		connect("body_entered", Callable(self, "play_drop_sound"))
 	light_timer = $Timer
 	
-	light_timer.connect("timeout", self, "light_depleted")
+	light_timer.connect("timeout", Callable(self, "light_depleted"))
 	if is_oil_based:
 		burn_time = 1800.0
 	else:
@@ -36,7 +36,7 @@ func _ready():
 
 func _process(delta):
 	if item_state == GlobalConsts.ItemState.DROPPED:
-		$Ignite/CollisionShape.disabled = false
+		$Ignite/CollisionShape3D.disabled = false
 		is_dropped = true
 		
 		if is_dropped and not is_just_dropped:
@@ -44,7 +44,7 @@ func _process(delta):
 			self.emit_signal("item_is_dropped")
 			item_drop()
 	else:
-		$Ignite/CollisionShape.disabled = true
+		$Ignite/CollisionShape3D.disabled = true
 		is_dropped = false
 		is_just_dropped = false
 
@@ -61,7 +61,7 @@ func light():
 		$AnimationPlayer.play("flicker")
 		$LightSound.play()
 		firelight.visible = true
-		$MeshInstance.cast_shadow = false
+		$MeshInstance3D.cast_shadow = false
 		
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
@@ -72,7 +72,7 @@ func unlight():
 	if not is_depleted:
 		$AnimationPlayer.stop()
 		firelight.visible = false
-		$MeshInstance.cast_shadow = true
+		$MeshInstance3D.cast_shadow = true
 		
 		is_lit = false
 		stop_light_timer()
@@ -84,7 +84,7 @@ func _item_state_changed(previous_state, current_state):
 			var sound = $BlowOutSound.duplicate()
 			GameManager.game.level.add_child(sound)
 			sound.global_transform = $BlowOutSound.global_transform
-			sound.connect("finished", sound, "queue_free")
+			sound.connect("finished", Callable(sound, "queue_free"))
 			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 
@@ -110,7 +110,7 @@ func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)
 	print("reduced burn time " + str(burn_time))
-	random_number = rand_range(0.0, 1.0)
+	random_number = randf_range(0.0, 1.0)
 	
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/poor_bastard.wav-150501af43bde222bfacc257fdde6810.sample"
+type="AudioStreamWAV"
+uid="uid://jgk0semg0h7j"
+path="res://.godot/imported/poor_bastard.wav-150501af43bde222bfacc257fdde6810.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/poor_bastard.wav"
-dest_files=[ "res://.import/poor_bastard.wav-150501af43bde222bfacc257fdde6810.sample" ]
+dest_files=["res://.godot/imported/poor_bastard.wav-150501af43bde222bfacc257fdde6810.sample"]
 
 [params]
 

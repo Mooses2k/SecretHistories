@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 ### This is the floating ring HP display when you look down while stationary
 
@@ -6,8 +6,8 @@ extends Spatial
 #onready var health_label = $Viewport/HBoxContainer/Health
 #onready var input_label = $Viewport/HBoxContainer/InputPrompt
 #onready var character = owner
-export var raycast : NodePath
-onready var pointcast = get_node(raycast)
+@export var raycast : NodePath
+@onready var pointcast = get_node(raycast)
 var is_hp_triggered : bool = false
 var is_hp_visible : bool = false
 var is_moving : bool = false
@@ -26,7 +26,7 @@ func _physics_process(delta):
 	#input_label.visible = owner.pickup_area.get_item_list().size() > 0
 	if not player_health < 40:
 		if pointcast.is_colliding():
-			if pointcast.get_collider().name == "ground" and owner.colliding_pickable_items.empty():
+			if pointcast.get_collider().name == "ground" and owner.colliding_pickable_items.is_empty():
 				if not is_moving:
 					if not is_hp_triggered:
 						$Timer.stop()
@@ -63,8 +63,8 @@ func _on_Player_is_hit(current_health):
 			$MeshInstance2.hide()
 	
 	if player_health < 40:
-		if $MeshInstance.is_visible_in_tree():
-			$MeshInstance.hide()
+		if $MeshInstance3D.is_visible_in_tree():
+			$MeshInstance3D.hide()
 
 
 func _on_Timer_timeout():

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/the_next_payday1.wav-e761335d1f692bc9de0e0669e0927613.sample"
+type="AudioStreamWAV"
+uid="uid://c783wr6pqtyw3"
+path="res://.godot/imported/the_next_payday1.wav-e761335d1f692bc9de0e0669e0927613.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/the_next_payday1.wav"
-dest_files=[ "res://.import/the_next_payday1.wav-e761335d1f692bc9de0e0669e0927613.sample" ]
+dest_files=["res://.godot/imported/the_next_payday1.wav-e761335d1f692bc9de0e0669e0927613.sample"]
 
 [params]
 

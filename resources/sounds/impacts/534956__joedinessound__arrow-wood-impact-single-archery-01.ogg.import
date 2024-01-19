@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg-013dad96560f7a2c71598bcb2e6af873.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dd4kk0o7ikt72"
+path="res://.godot/imported/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg-013dad96560f7a2c71598bcb2e6af873.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg"
-dest_files=[ "res://.import/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg-013dad96560f7a2c71598bcb2e6af873.oggstr" ]
+dest_files=["res://.godot/imported/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg-013dad96560f7a2c71598bcb2e6af873.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

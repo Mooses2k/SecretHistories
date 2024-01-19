@@ -1,5 +1,5 @@
 class_name Hitbox
-extends Area
+extends Area3D
 
 
 # This class represents a generic hitbox
@@ -18,10 +18,10 @@ signal hit(other)
 
 
 func _ready():
-	connect("area_entered", self, "on_area_entered")
+	connect("area_entered", Callable(self, "on_area_entered"))
 
 
 func on_area_entered(area):
 	# Checks if the other area is also a hitbox
-	if area is get_script():
+	if area is Hitbox:
 		emit_signal("hit", area)

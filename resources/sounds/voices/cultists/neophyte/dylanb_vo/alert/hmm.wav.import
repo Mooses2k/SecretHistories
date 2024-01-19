@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/hmm.wav-92965655ff33cf2462ffbb3c42a04af0.sample"
+type="AudioStreamWAV"
+uid="uid://c5x3not5vkeea"
+path="res://.godot/imported/hmm.wav-92965655ff33cf2462ffbb3c42a04af0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/hmm.wav"
-dest_files=[ "res://.import/hmm.wav-92965655ff33cf2462ffbb3c42a04af0.sample" ]
+dest_files=["res://.godot/imported/hmm.wav-92965655ff33cf2462ffbb3c42a04af0.sample"]
 
 [params]
 

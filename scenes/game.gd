@@ -18,9 +18,9 @@ const LOWEST_FLOOR_LEVEL = -5
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var start_level_scn : PackedScene
-export var player_scn : PackedScene
-export var floor_sizes := {
+@export var start_level_scn : PackedScene
+@export var player_scn : PackedScene
+@export var floor_sizes := {
 	HIGHEST_FLOOR_LEVEL: 15,
 	-2: 25,
 	-3: 25,
@@ -34,10 +34,10 @@ var current_floor_level := HIGHEST_FLOOR_LEVEL
 
 var shard_has_spawned = false    # Tracks if the shard has spawned yet, so only one spawns
 
-onready var world_root : Node = $World
-onready var ui_root : CanvasLayer = $GameUI
-onready var local_settings : SettingsClass = $"%LocalSettings"
-onready var world_environment: WorldEnvironment = $WorldEnvironment
+@onready var world_root : Node = $World
+@onready var ui_root : CanvasLayer = $GameUI
+@onready var local_settings : SettingsClass = %LocalSettings
+@onready var world_environment: WorldEnvironment = $WorldEnvironment
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -58,8 +58,8 @@ func _ready():
 	for floor_index in range(HIGHEST_FLOOR_LEVEL, LOWEST_FLOOR_LEVEL - 1, -1):
 		_loaded_levels[floor_index] = null
 	
-	yield(get_tree().create_timer(1), "timeout")
-	var _error = connect("level_loaded", self, "_on_first_level_loaded", [], CONNECT_ONESHOT)
+	await get_tree().create_timer(1).timeout
+	var _error = connect("level_loaded", Callable(self, "_on_first_level_loaded").bind(), CONNECT_ONE_SHOT)
 	load_level(start_level_scn)
 	
 	BackgroundMusic.stop()
@@ -76,7 +76,7 @@ func set_brightness():
 
 func load_level(packed : PackedScene):
 	if _loaded_levels[current_floor_level] == null:
-		level = packed.instance() as GameWorld
+		level = packed.instantiate() as GameWorld
 		world_root.add_child(level)
 		
 		var is_lowest_level := current_floor_level == LOWEST_FLOOR_LEVEL
@@ -84,13 +84,13 @@ func load_level(packed : PackedScene):
 		level.create_world(is_lowest_level, current_floor_size)
 		
 		_loaded_levels[current_floor_level] = FloorLevelHandler.new(level, current_floor_level)
-		yield(level, "spawning_world_scenes_finished")
+		await level.spawning_world_scenes_finished
 	else:
 		var level_handler: FloorLevelHandler = _loaded_levels[current_floor_level]
 		level = level_handler.get_level_instance()
 		world_root.add_child(level)
 		# this needs a yield because this function is called from within another yield
-		yield(get_tree(), "idle_frame")
+		await get_tree().idle_frame
 	
 	# Ambient music controllerprint("Current floor level: ", current_floor_level)
 	match current_floor_level:
@@ -114,10 +114,10 @@ func load_level(packed : PackedScene):
 
 
 func spawn_player():
-	player = player_scn.instance()
+	player = player_scn.instantiate()
 	level.set_player_on_spawn_position(player, true)
 	world_root.call_deferred("add_child", player)
-	yield(player, "ready")
+	await player.ready
 	emit_signal("player_spawned", player)
 	
 	LoadScene.emit_signal("scene_loaded")
@@ -128,23 +128,23 @@ func spawn_player():
 ### Private Methods -------------------------------------------------------------------------------
 
 func _connect_staircase_events() -> void:
-	if not Events.is_connected("up_staircase_used", self, "_on_Events_up_staircase_used"):
+	if not Events.is_connected("up_staircase_used", Callable(self, "_on_Events_up_staircase_used")):
 		# warning-ignore:return_value_discarded
-		Events.connect("up_staircase_used", self, "_on_Events_up_staircase_used")
+		Events.connect("up_staircase_used", Callable(self, "_on_Events_up_staircase_used"))
 	
-	if not Events.is_connected("down_staircase_used", self, "_on_Events_down_staircase_used"):
+	if not Events.is_connected("down_staircase_used", Callable(self, "_on_Events_down_staircase_used")):
 		# warning-ignore:return_value_discarded
-		Events.connect("down_staircase_used", self, "_on_Events_down_staircase_used")
+		Events.connect("down_staircase_used", Callable(self, "_on_Events_down_staircase_used"))
 
 
 func disconnect_staircase_events() -> void:
-	if Events.is_connected("up_staircase_used", self, "_on_Events_up_staircase_used"):
+	if Events.is_connected("up_staircase_used", Callable(self, "_on_Events_up_staircase_used")):
 		# warning-ignore:return_value_discarded
-		Events.disconnect("up_staircase_used", self, "_on_Events_up_staircase_used")
+		Events.disconnect("up_staircase_used", Callable(self, "_on_Events_up_staircase_used"))
 	
-	if Events.is_connected("down_staircase_used", self, "_on_Events_down_staircase_used"):
+	if Events.is_connected("down_staircase_used", Callable(self, "_on_Events_down_staircase_used")):
 		# warning-ignore:return_value_discarded
-		Events.disconnect("down_staircase_used", self, "_on_Events_down_staircase_used")
+		Events.disconnect("down_staircase_used", Callable(self, "_on_Events_down_staircase_used"))
 
 func _check_if_loadscreen_freed():
 	return !is_instance_valid(LoadScene.loadscreen)
@@ -161,9 +161,9 @@ func _on_first_level_loaded(_level : GameWorld):
 
 
 func _handle_floor_change(is_going_downstairs: bool) -> void:
-	yield(_show_load_screen(), "completed")
+	await _show_load_screen()
 	_handle_floor_levels()
-	yield(load_level(start_level_scn), "completed")
+	await load_level(start_level_scn)
 	_set_new_position_for_player(is_going_downstairs)
 	LoadScene.emit_signal("scene_loaded")
 
@@ -171,7 +171,7 @@ func _handle_floor_change(is_going_downstairs: bool) -> void:
 func _show_load_screen() -> void:
 	LoadScene.setup_loadscreen()
 	# Wait a bit so that the load screen is visible
-	yield(get_tree().create_timer(0.1), "timeout")
+	await get_tree().create_timer(0.1).timeout
 
 
 func _handle_floor_levels() -> void:
@@ -196,11 +196,11 @@ func _on_Events_up_staircase_used() -> void:
 		
 		if has_changed:
 			print("Floor level changed from: %s to: %s" % [old_value, current_floor_level])
-			yield(_handle_floor_change(false), "completed")
+			await _handle_floor_change(false)
 		elif current_floor_level == HIGHEST_FLOOR_LEVEL:
 			if player.inventory.bulky_equipment is ShardOfTheComet:
 				print("Win screen")
-				get_tree().change_scene("res://scenes/ui/victory_screen.tscn")
+				get_tree().change_scene_to_file("res://scenes/ui/victory_screen.tscn")
 			else:
 				print("You're already at the top of the dungeon, can't go up.")
 
@@ -213,7 +213,7 @@ func _on_Events_down_staircase_used() -> void:
 		
 		if has_changed:
 			print("Went down from: %s to: %s" % [old_value, current_floor_level])
-			yield(_handle_floor_change(true), "completed")
+			await _handle_floor_change(true)
 		elif current_floor_level == LOWEST_FLOOR_LEVEL:
 			print("You're already at the bottom of the dungeon, can't go lower.")
 

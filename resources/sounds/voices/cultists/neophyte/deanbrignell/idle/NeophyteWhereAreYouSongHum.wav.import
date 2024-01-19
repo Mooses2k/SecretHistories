@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhereAreYouSongHum.wav-d1d668e756d4aaa1cb1231fdd197647a.sample"
+type="AudioStreamWAV"
+uid="uid://drob236oi00hv"
+path="res://.godot/imported/NeophyteWhereAreYouSongHum.wav-d1d668e756d4aaa1cb1231fdd197647a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteWhereAreYouSongHum.wav"
-dest_files=[ "res://.import/NeophyteWhereAreYouSongHum.wav-d1d668e756d4aaa1cb1231fdd197647a.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhereAreYouSongHum.wav-d1d668e756d4aaa1cb1231fdd197647a.sample"]
 
 [params]
 

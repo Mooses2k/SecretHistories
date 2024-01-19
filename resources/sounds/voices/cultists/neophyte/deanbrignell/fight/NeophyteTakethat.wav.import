@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTakethat.wav-8cefd448964958a1ed780102999ca794.sample"
+type="AudioStreamWAV"
+uid="uid://dnn4hn6nnk0ne"
+path="res://.godot/imported/NeophyteTakethat.wav-8cefd448964958a1ed780102999ca794.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteTakethat.wav"
-dest_files=[ "res://.import/NeophyteTakethat.wav-8cefd448964958a1ed780102999ca794.sample" ]
+dest_files=["res://.godot/imported/NeophyteTakethat.wav-8cefd448964958a1ed780102999ca794.sample"]
 
 [params]
 

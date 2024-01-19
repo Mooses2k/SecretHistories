@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_five_pieces_slowly_unwind.ogg-8203116ab45901f5c65e284895d8411a.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ed3dwo3mk8cy"
+path="res://.godot/imported/neophyte_five_pieces_slowly_unwind.ogg-8203116ab45901f5c65e284895d8411a.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/five_irrational_thoughts/neophyte_five_pieces_slowly_unwind.ogg"
-dest_files=[ "res://.import/neophyte_five_pieces_slowly_unwind.ogg-8203116ab45901f5c65e284895d8411a.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_five_pieces_slowly_unwind.ogg-8203116ab45901f5c65e284895d8411a.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/you_know_what_to_do.wav-e2b479197324dc97b2bbbbe8b85851d9.sample"
+type="AudioStreamWAV"
+uid="uid://o06bp7x8i7qa"
+path="res://.godot/imported/you_know_what_to_do.wav-e2b479197324dc97b2bbbbe8b85851d9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/you_know_what_to_do.wav"
-dest_files=[ "res://.import/you_know_what_to_do.wav-e2b479197324dc97b2bbbbe8b85851d9.sample" ]
+dest_files=["res://.godot/imported/you_know_what_to_do.wav-e2b479197324dc97b2bbbbe8b85851d9.sample"]
 
 [params]
 

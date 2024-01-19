@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/inside_you_too.wav-33e5e094581a5d2df40eabbbb90063a5.sample"
+type="AudioStreamWAV"
+uid="uid://bcixyliusn7mv"
+path="res://.godot/imported/inside_you_too.wav-33e5e094581a5d2df40eabbbb90063a5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/inside_you_too.wav"
-dest_files=[ "res://.import/inside_you_too.wav-33e5e094581a5d2df40eabbbb90063a5.sample" ]
+dest_files=["res://.godot/imported/inside_you_too.wav-33e5e094581a5d2df40eabbbb90063a5.sample"]
 
 [params]
 

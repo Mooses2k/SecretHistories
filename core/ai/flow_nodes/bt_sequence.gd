@@ -1,4 +1,6 @@
-class_name BTSequence, "res://core/ai/phold_icons/sequence.svg" extends BTControlFlow
+@icon("res://core/ai/phold_icons/sequence.svg")
+class_name BTSequence
+extends BTControlFlow
 
 
 # If SUCCESS, continue processing any other nodes in the Sequence

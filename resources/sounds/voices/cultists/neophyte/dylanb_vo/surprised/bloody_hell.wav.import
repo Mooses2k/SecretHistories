@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/bloody_hell.wav-3f0b72c9b726f8f90b68d36e01602a2f.sample"
+type="AudioStreamWAV"
+uid="uid://fjyqwsteq10t"
+path="res://.godot/imported/bloody_hell.wav-3f0b72c9b726f8f90b68d36e01602a2f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised/bloody_hell.wav"
-dest_files=[ "res://.import/bloody_hell.wav-3f0b72c9b726f8f90b68d36e01602a2f.sample" ]
+dest_files=["res://.godot/imported/bloody_hell.wav-3f0b72c9b726f8f90b68d36e01602a2f.sample"]
 
 [params]
 

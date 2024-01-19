@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsTheUnionBusters.wav-ec8b71db2f81da4f64e8c4aa802d600b.sample"
+type="AudioStreamWAV"
+uid="uid://072qqou621kc"
+path="res://.godot/imported/NeophyteItsTheUnionBusters.wav-ec8b71db2f81da4f64e8c4aa802d600b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItsTheUnionBusters.wav"
-dest_files=[ "res://.import/NeophyteItsTheUnionBusters.wav-ec8b71db2f81da4f64e8c4aa802d600b.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsTheUnionBusters.wav-ec8b71db2f81da4f64e8c4aa802d600b.sample"]
 
 [params]
 

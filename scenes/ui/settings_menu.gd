@@ -16,7 +16,7 @@ func _process(delta):
 
 func _ready() -> void:
 	self.hide()
-	$"%SettingsUI".attach_settings(Settings, true)
+	%SettingsUI.attach_settings(Settings, true)
 
 
 func exit_state():

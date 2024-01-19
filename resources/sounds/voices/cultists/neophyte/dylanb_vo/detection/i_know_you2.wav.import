@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/i_know_you2.wav-6333cf93900c4cb4ef7a9f1ecce1fe8b.sample"
+type="AudioStreamWAV"
+uid="uid://48y38oo1fm7c"
+path="res://.godot/imported/i_know_you2.wav-6333cf93900c4cb4ef7a9f1ecce1fe8b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/i_know_you2.wav"
-dest_files=[ "res://.import/i_know_you2.wav-6333cf93900c4cb4ef7a9f1ecce1fe8b.sample" ]
+dest_files=["res://.godot/imported/i_know_you2.wav-6333cf93900c4cb4ef7a9f1ecce1fe8b.sample"]
 
 [params]
 

@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg-d35960b8a28efda17659bdc53037fb7a.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dlv1xim0jpdye"
+path="res://.godot/imported/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg-d35960b8a28efda17659bdc53037fb7a.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg"
-dest_files=[ "res://.import/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg-d35960b8a28efda17659bdc53037fb7a.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_r_do_you_feel_the_stars_inside_your_void.ogg-d35960b8a28efda17659bdc53037fb7a.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

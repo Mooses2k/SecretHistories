@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/179005__smartwentcody__bullet-casing-on-concrete-2.wav-4731a2ce9ebae2fe291a7678417ff344.sample"
+type="AudioStreamWAV"
+uid="uid://clg24or8pyrxe"
+path="res://.godot/imported/179005__smartwentcody__bullet-casing-on-concrete-2.wav-4731a2ce9ebae2fe291a7678417ff344.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/bullets_and_casings/179005__smartwentcody__bullet-casing-on-concrete-2.wav"
-dest_files=[ "res://.import/179005__smartwentcody__bullet-casing-on-concrete-2.wav-4731a2ce9ebae2fe291a7678417ff344.sample" ]
+dest_files=["res://.godot/imported/179005__smartwentcody__bullet-casing-on-concrete-2.wav-4731a2ce9ebae2fe291a7678417ff344.sample"]
 
 [params]
 

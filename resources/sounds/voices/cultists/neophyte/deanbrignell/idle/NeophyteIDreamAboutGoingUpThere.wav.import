@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIDreamAboutGoingUpThere.wav-ee3a3455fc53ac6cb3d940fc9498a145.sample"
+type="AudioStreamWAV"
+uid="uid://ewkqljjw7lkr"
+path="res://.godot/imported/NeophyteIDreamAboutGoingUpThere.wav-ee3a3455fc53ac6cb3d940fc9498a145.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIDreamAboutGoingUpThere.wav"
-dest_files=[ "res://.import/NeophyteIDreamAboutGoingUpThere.wav-ee3a3455fc53ac6cb3d940fc9498a145.sample" ]
+dest_files=["res://.godot/imported/NeophyteIDreamAboutGoingUpThere.wav-ee3a3455fc53ac6cb3d940fc9498a145.sample"]
 
 [params]
 

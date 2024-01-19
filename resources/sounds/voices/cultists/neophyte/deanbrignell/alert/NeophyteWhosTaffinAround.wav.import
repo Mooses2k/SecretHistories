@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhosTaffinAround.wav-743599a11d4c64b0a80b814f82a49406.sample"
+type="AudioStreamWAV"
+uid="uid://dv00ck100ul8e"
+path="res://.godot/imported/NeophyteWhosTaffinAround.wav-743599a11d4c64b0a80b814f82a49406.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteWhosTaffinAround.wav"
-dest_files=[ "res://.import/NeophyteWhosTaffinAround.wav-743599a11d4c64b0a80b814f82a49406.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhosTaffinAround.wav-743599a11d4c64b0a80b814f82a49406.sample"]
 
 [params]
 

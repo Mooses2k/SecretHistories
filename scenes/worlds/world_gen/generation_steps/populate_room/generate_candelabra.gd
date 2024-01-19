@@ -9,8 +9,8 @@ extends GenerationStep
 #--- constants ------------------------------------------------------------------------------------
 
 const UNLIT_KEYWORD = "unlit"
-const MAX_X_UNLIT_ROTATION = deg2rad(20)   # 30 is enough to rarely glitch it into a wall
-const MAX_Z_UNLIT_ROTATION = deg2rad(20)
+const MAX_X_UNLIT_ROTATION = deg_to_rad(20)   # 30 is enough to rarely glitch it into a wall
+const MAX_Z_UNLIT_ROTATION = deg_to_rad(20)
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -18,9 +18,9 @@ const MAX_Z_UNLIT_ROTATION = deg2rad(20)
 
 # Rooms must have both sides greater or equal to this value to be considered 
 # for spawning candelabra
-export var _single_tile_size_threshold := 4
-export(float, 0.0,1.0,0.01) var _room_chance := 0.6
-export var _spawn_list_resource: Resource = null
+@export var _single_tile_size_threshold := 4
+@export var _room_chance := 0.6 # (float, 0.0,1.0,0.01)
+@export var _spawn_list_resource: Resource = null
 
 var _rng := RandomNumberGenerator.new()
 
@@ -79,7 +79,7 @@ func _handle_candelabra(world_data: WorldData, room_data: RoomData) -> void:
 		
 		var cell_position := world_data.get_local_cell_position(corner_index)
 		var spawn_data := spawn_list.get_random_spawn_data(_rng)
-		if not spawn_data.scene_path.empty():
+		if not spawn_data.scene_path.is_empty():
 			spawn_data.set_center_position_in_cell(cell_position)
 			if spawn_data.scene_path.find(UNLIT_KEYWORD) != -1:
 				spawn_data.set_random_rotation_in_all_axis(

@@ -1,4 +1,5 @@
-tool class_name ConeShape extends ConvexPolygonShape
+@tool 
+class_name ConeShape extends ConvexPolygonShape3D
 
 
 #|===========================================================================|#
@@ -6,9 +7,9 @@ tool class_name ConeShape extends ConvexPolygonShape
 #|===========================================================================|#
 
 
-export var segments : = 16  setget set_segments
-export var height   : float setget set_height
-export var radius   : float setget set_radius
+@export var segments : = 16: set = set_segments
+@export var height   : float: set = set_height
+@export var radius   : float: set = set_radius
 
 
 func set_height(value: float) -> void:
@@ -28,7 +29,7 @@ func set_segments(value: int) -> void:
 
 func update_shape() -> void:
 	# Add the cone's tip
-	var points := PoolVector3Array([Vector3.ZERO])
+	var points := PackedVector3Array([Vector3.ZERO])
 	
 	# Add base circle points
 	for i in range(segments):
@@ -38,6 +39,3 @@ func update_shape() -> void:
 	# Register points to polygon.
 	set_points(points)
 
-
-func get_class() -> String:
-	return "ConeShape"

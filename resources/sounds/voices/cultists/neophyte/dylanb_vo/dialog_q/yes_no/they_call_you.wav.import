@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/they_call_you.wav-21944414a38f5951f657472159b00985.sample"
+type="AudioStreamWAV"
+uid="uid://u5pcalhnaktr"
+path="res://.godot/imported/they_call_you.wav-21944414a38f5951f657472159b00985.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/they_call_you.wav"
-dest_files=[ "res://.import/they_call_you.wav-21944414a38f5951f657472159b00985.sample" ]
+dest_files=["res://.godot/imported/they_call_you.wav-21944414a38f5951f657472159b00985.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteILikeToShootPeople.wav-946e9eaa1c141e0831084b6d91bf8a9d.sample"
+type="AudioStreamWAV"
+uid="uid://cuqgttmcsnh6o"
+path="res://.godot/imported/NeophyteILikeToShootPeople.wav-946e9eaa1c141e0831084b6d91bf8a9d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteILikeToShootPeople.wav"
-dest_files=[ "res://.import/NeophyteILikeToShootPeople.wav-946e9eaa1c141e0831084b6d91bf8a9d.sample" ]
+dest_files=["res://.godot/imported/NeophyteILikeToShootPeople.wav-946e9eaa1c141e0831084b6d91bf8a9d.sample"]
 
 [params]
 

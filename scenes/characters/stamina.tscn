@@ -3,7 +3,7 @@
 [ext_resource path="res://resources/sounds/breathing/heavy_breath.mp3" type="AudioStream" id=1]
 
 [sub_resource type="GDScript" id=1]
-script/source = "extends Spatial
+script/source = "extends Node3D
 
 
 enum stamina_values\\
@@ -12,7 +12,7 @@ enum stamina_values\\
 	minimum = -30
 }
 
-onready var stamina: AudioStreamPlayer = $HeavyBreathing;
+@onready var stamina: AudioStreamPlayer = $HeavyBreathing;
 
 
 func tired(amount: float) -> void:
@@ -23,8 +23,8 @@ func tired(amount: float) -> void:
 	stamina.volume_db = volume;
 "
 
-[node name="Stamina" type="Spatial"]
-pause_mode = 1
+[node name="Stamina" type="Node3D"]
+process_mode = 1
 script = SubResource( 1 )
 
 [node name="HeavyBreathing" type="AudioStreamPlayer" parent="."]

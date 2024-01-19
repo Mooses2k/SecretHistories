@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mongols.wav-8680f2eaa2565b967b7bddd03b34c7b6.sample"
+type="AudioStreamWAV"
+uid="uid://cc6q54uu7aogq"
+path="res://.godot/imported/mongols.wav-8680f2eaa2565b967b7bddd03b34c7b6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/mongols.wav"
-dest_files=[ "res://.import/mongols.wav-8680f2eaa2565b967b7bddd03b34c7b6.sample" ]
+dest_files=["res://.godot/imported/mongols.wav-8680f2eaa2565b967b7bddd03b34c7b6.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteALightThatDiedIsShiningInTheWater.wav-425908bfb19577d73ae66bec5988f445.sample"
+type="AudioStreamWAV"
+uid="uid://cggvdlis8cvdb"
+path="res://.godot/imported/NeophyteALightThatDiedIsShiningInTheWater.wav-425908bfb19577d73ae66bec5988f445.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteALightThatDiedIsShiningInTheWater.wav"
-dest_files=[ "res://.import/NeophyteALightThatDiedIsShiningInTheWater.wav-425908bfb19577d73ae66bec5988f445.sample" ]
+dest_files=["res://.godot/imported/NeophyteALightThatDiedIsShiningInTheWater.wav-425908bfb19577d73ae66bec5988f445.sample"]
 
 [params]
 

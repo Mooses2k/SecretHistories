@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/i_know_youre_there_brother.wav-2cb7f006d3cbaaca8a4d411f2031d3ea.sample"
+type="AudioStreamWAV"
+uid="uid://q6yee44paktn"
+path="res://.godot/imported/i_know_youre_there_brother.wav-2cb7f006d3cbaaca8a4d411f2031d3ea.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/i_know_youre_there_brother.wav"
-dest_files=[ "res://.import/i_know_youre_there_brother.wav-2cb7f006d3cbaaca8a4d411f2031d3ea.sample" ]
+dest_files=["res://.godot/imported/i_know_youre_there_brother.wav-2cb7f006d3cbaaca8a4d411f2031d3ea.sample"]
 
 [params]
 

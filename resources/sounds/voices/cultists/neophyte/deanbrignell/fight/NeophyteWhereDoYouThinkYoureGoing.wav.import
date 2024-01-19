@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhereDoYouThinkYoureGoing.wav-5ef57618c5dbe3d83d6ffa053a2e5863.sample"
+type="AudioStreamWAV"
+uid="uid://o8qccqhawfyb"
+path="res://.godot/imported/NeophyteWhereDoYouThinkYoureGoing.wav-5ef57618c5dbe3d83d6ffa053a2e5863.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteWhereDoYouThinkYoureGoing.wav"
-dest_files=[ "res://.import/NeophyteWhereDoYouThinkYoureGoing.wav-5ef57618c5dbe3d83d6ffa053a2e5863.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhereDoYouThinkYoureGoing.wav-5ef57618c5dbe3d83d6ffa053a2e5863.sample"]
 
 [params]
 

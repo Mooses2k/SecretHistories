@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/tune_to_me_crystal_radio.ogg-7ae0b5b808775cba22b55d154d1737a2.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cxfce06ylknr8"
+path="res://.godot/imported/tune_to_me_crystal_radio.ogg-7ae0b5b808775cba22b55d154d1737a2.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/tune_to_me_crystal_radio.ogg"
-dest_files=[ "res://.import/tune_to_me_crystal_radio.ogg-7ae0b5b808775cba22b55d154d1737a2.oggstr" ]
+dest_files=["res://.godot/imported/tune_to_me_crystal_radio.ogg-7ae0b5b808775cba22b55d154d1737a2.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

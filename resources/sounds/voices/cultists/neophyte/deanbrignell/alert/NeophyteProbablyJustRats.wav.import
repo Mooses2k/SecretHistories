@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteProbablyJustRats.wav-f71d50dc93103ec376c857f2c3884834.sample"
+type="AudioStreamWAV"
+uid="uid://dthgpaic5k4wj"
+path="res://.godot/imported/NeophyteProbablyJustRats.wav-f71d50dc93103ec376c857f2c3884834.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteProbablyJustRats.wav"
-dest_files=[ "res://.import/NeophyteProbablyJustRats.wav-f71d50dc93103ec376c857f2c3884834.sample" ]
+dest_files=["res://.godot/imported/NeophyteProbablyJustRats.wav-f71d50dc93103ec376c857f2c3884834.sample"]
 
 [params]
 

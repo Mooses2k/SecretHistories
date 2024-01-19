@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/forget_someone.wav-b2b08d12ebac842c527c1c9f1b581f4c.sample"
+type="AudioStreamWAV"
+uid="uid://yryhu4xw2se8"
+path="res://.godot/imported/forget_someone.wav-b2b08d12ebac842c527c1c9f1b581f4c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/forget_someone.wav"
-dest_files=[ "res://.import/forget_someone.wav-b2b08d12ebac842c527c1c9f1b581f4c.sample" ]
+dest_files=["res://.godot/imported/forget_someone.wav-b2b08d12ebac842c527c1c9f1b581f4c.sample"]
 
 [params]
 

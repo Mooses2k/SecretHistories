@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYourFateIsSealed.wav-a4ca3e82f066e586d6e93a7bc4c20925.sample"
+type="AudioStreamWAV"
+uid="uid://dmu6dvolaf38s"
+path="res://.godot/imported/NeophyteYourFateIsSealed.wav-a4ca3e82f066e586d6e93a7bc4c20925.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteYourFateIsSealed.wav"
-dest_files=[ "res://.import/NeophyteYourFateIsSealed.wav-a4ca3e82f066e586d6e93a7bc4c20925.sample" ]
+dest_files=["res://.godot/imported/NeophyteYourFateIsSealed.wav-a4ca3e82f066e586d6e93a7bc4c20925.sample"]
 
 [params]
 

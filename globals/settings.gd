@@ -306,7 +306,7 @@ func is_setting_bool(setting_name : String) -> bool:
 # if adding was successful, `false` otherwise
 # Note that the value of the setting itself is an int, that indicates an entry
 # in the list of possible values
-func add_enum_setting(setting_name : String, variants : PoolStringArray, default : int) -> bool:
+func add_enum_setting(setting_name : String, variants : PackedStringArray, default : int) -> bool:
 	if _settings.has(setting_name) or default > variants.size() - 1 or default < 0:
 		return false
 	_settings[setting_name] = {
@@ -320,17 +320,17 @@ func add_enum_setting(setting_name : String, variants : PoolStringArray, default
 	return true
 
 
-func get_setting_variants(setting_name : String) -> PoolStringArray:
+func get_setting_variants(setting_name : String) -> PackedStringArray:
 	var setting_data = _settings.get(setting_name)
 	var variants = setting_data.get(_FIELD_VARIANTS)
-	return variants if variants is PoolStringArray else PoolStringArray()
+	return variants if variants is PackedStringArray else PackedStringArray()
 
 
 func is_setting_enum(setting_name : String) -> bool:
 	return get_setting_type(setting_name) == SettingType.ENUM
 
 
-func add_string_setting(setting_name : String, default : PoolStringArray) -> bool:
+func add_string_setting(setting_name : String, default : PackedStringArray) -> bool:
 	if _settings.has(setting_name):
 		return false
 	_settings[setting_name] = {

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIKnowYoureThereSister.wav-274029fd2d84cd836abff97080953c16.sample"
+type="AudioStreamWAV"
+uid="uid://bq7t6aohyo2dm"
+path="res://.godot/imported/NeophyteIKnowYoureThereSister.wav-274029fd2d84cd836abff97080953c16.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert/NeophyteIKnowYoureThereSister.wav"
-dest_files=[ "res://.import/NeophyteIKnowYoureThereSister.wav-274029fd2d84cd836abff97080953c16.sample" ]
+dest_files=["res://.godot/imported/NeophyteIKnowYoureThereSister.wav-274029fd2d84cd836abff97080953c16.sample"]
 
 [params]
 

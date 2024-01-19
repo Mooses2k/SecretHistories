@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/not_enough_hours1.wav-ed8899cd2db1a7a01f1eb006641080a8.sample"
+type="AudioStreamWAV"
+uid="uid://bhodnrgmui6lk"
+path="res://.godot/imported/not_enough_hours1.wav-ed8899cd2db1a7a01f1eb006641080a8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/when/not_enough_hours1.wav"
-dest_files=[ "res://.import/not_enough_hours1.wav-ed8899cd2db1a7a01f1eb006641080a8.sample" ]
+dest_files=["res://.godot/imported/not_enough_hours1.wav-ed8899cd2db1a7a01f1eb006641080a8.sample"]
 
 [params]
 

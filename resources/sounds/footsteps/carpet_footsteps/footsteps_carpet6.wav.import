@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/footsteps_carpet6.wav-bee0803912ce5228907e3d9b2d51496f.sample"
+type="AudioStreamWAV"
+uid="uid://cng7y8y0frni5"
+path="res://.godot/imported/footsteps_carpet6.wav-bee0803912ce5228907e3d9b2d51496f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet6.wav"
-dest_files=[ "res://.import/footsteps_carpet6.wav-bee0803912ce5228907e3d9b2d51496f.sample" ]
+dest_files=["res://.godot/imported/footsteps_carpet6.wav-bee0803912ce5228907e3d9b2d51496f.sample"]
 
 [params]
 

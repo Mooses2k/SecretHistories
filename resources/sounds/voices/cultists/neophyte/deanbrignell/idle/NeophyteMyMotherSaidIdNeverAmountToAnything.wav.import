@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteMyMotherSaidIdNeverAmountToAnything.wav-ae4339e604532cfb41e14d2506de7e16.sample"
+type="AudioStreamWAV"
+uid="uid://cj14ep0baa3si"
+path="res://.godot/imported/NeophyteMyMotherSaidIdNeverAmountToAnything.wav-ae4339e604532cfb41e14d2506de7e16.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteMyMotherSaidIdNeverAmountToAnything.wav"
-dest_files=[ "res://.import/NeophyteMyMotherSaidIdNeverAmountToAnything.wav-ae4339e604532cfb41e14d2506de7e16.sample" ]
+dest_files=["res://.godot/imported/NeophyteMyMotherSaidIdNeverAmountToAnything.wav-ae4339e604532cfb41e14d2506de7e16.sample"]
 
 [params]
 

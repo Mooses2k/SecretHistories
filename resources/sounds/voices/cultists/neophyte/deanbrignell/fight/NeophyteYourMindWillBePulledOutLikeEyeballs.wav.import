@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYourMindWillBePulledOutLikeEyeballs.wav-83e7ab641560f84ac16d626a910862b3.sample"
+type="AudioStreamWAV"
+uid="uid://5o2kth3ghlw"
+path="res://.godot/imported/NeophyteYourMindWillBePulledOutLikeEyeballs.wav-83e7ab641560f84ac16d626a910862b3.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteYourMindWillBePulledOutLikeEyeballs.wav"
-dest_files=[ "res://.import/NeophyteYourMindWillBePulledOutLikeEyeballs.wav-83e7ab641560f84ac16d626a910862b3.sample" ]
+dest_files=["res://.godot/imported/NeophyteYourMindWillBePulledOutLikeEyeballs.wav-83e7ab641560f84ac16d626a910862b3.sample"]
 
 [params]
 

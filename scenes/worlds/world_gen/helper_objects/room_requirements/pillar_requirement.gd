@@ -1,5 +1,5 @@
+@tool
 # Write your doc string for this file here
-tool
 class_name RequirementPillar
 extends RoomRequirements
 
@@ -17,7 +17,7 @@ const PREVIEW_TEXT = {
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var has_pillars := true setget _set_has_pillars
+@export var has_pillars := true: set = _set_has_pillars
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/what_is_the_time.wav-a7eef26dcfa95e860d0e4ca53fdb1e06.sample"
+type="AudioStreamWAV"
+uid="uid://yelyc68xi8kg"
+path="res://.godot/imported/what_is_the_time.wav-a7eef26dcfa95e860d0e4ca53fdb1e06.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/when/what_is_the_time.wav"
-dest_files=[ "res://.import/what_is_the_time.wav-a7eef26dcfa95e860d0e4ca53fdb1e06.sample" ]
+dest_files=["res://.godot/imported/what_is_the_time.wav-a7eef26dcfa95e860d0e4ca53fdb1e06.sample"]
 
 [params]
 

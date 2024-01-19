@@ -53,11 +53,11 @@ enum CellType {
 	CORRIDOR,
 	
 	# The cell belongs to a Hall, which is an area enclosed by a corridor
-	HALL
+	HALL,
 	
 	# The cell has a door in some direction, meta data is an Array of Directions
 	# indicating the directions, from this cell, where one can find a door
-	DOOR,
+	DOOR
 }
 
 enum CellMetaKeys {
@@ -97,7 +97,7 @@ enum SurfaceType {
 	TILE
 }
 
-var cell_surface_type : PoolByteArray
+var cell_surface_type : PackedByteArray
 
 # Physical parameters of the world
 const CELL_SIZE : float = 1.5
@@ -178,7 +178,7 @@ var rooms : Dictionary
 # │
 # ▼
 # Z
-var cell_type : PoolByteArray
+var cell_type : PackedByteArray
 
 # Stores meta data for any cell if required by the cell's type, (for example, a
 # Cell of type door would store the direction the door points toward)
@@ -196,7 +196,7 @@ var cell_meta : Dictionary = Dictionary()
 # Z
 # All X aligned walls are stored in sequence, and then all of the Z aligned walls
 # are stores in sequence after that
-var wall_type : PoolByteArray
+var wall_type : PackedByteArray
 # additional data for wall type, stored as { id: value}, where id is the wall id on the type array
 var wall_meta : Dictionary
 # Stores whether a given edge has a door associated with it, as a boolean
@@ -219,12 +219,12 @@ var doors : Dictionary
 var pillar_radius : Dictionary
 
 #Stores the tiles used for each cell
-var ground_tile_index : PoolIntArray
+var ground_tile_index : PackedInt32Array
 # the 4 tile indexes for the 4 walls of each cell are stored in sequence, following
 # the Direction enum values, so, for example, the North wall of cell I is at (4*I + North)
-var wall_tile_index : PoolIntArray
-var pillar_tile_index : PoolIntArray
-var ceiling_tile_index : PoolIntArray
+var wall_tile_index : PackedInt32Array
+var pillar_tile_index : PackedInt32Array
+var ceiling_tile_index : PackedInt32Array
 
 
 # Player spawn position in World Coordinates
@@ -272,7 +272,7 @@ func _get_property_list() -> Array:
 		},
 		{
 			"name" : "cell_type",
-			"type" : TYPE_RAW_ARRAY,
+			"type" : TYPE_PACKED_BYTE_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
@@ -282,7 +282,7 @@ func _get_property_list() -> Array:
 		},
 		{
 			"name" : "wall_type",
-			"type" : TYPE_RAW_ARRAY,
+			"type" : TYPE_PACKED_BYTE_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
@@ -303,22 +303,22 @@ func _get_property_list() -> Array:
 
 		{
 			"name" : "ground_tile_index",
-			"type" : TYPE_INT_ARRAY,
+			"type" : TYPE_PACKED_INT32_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
 			"name" : "wall_tile_index",
-			"type" : TYPE_INT_ARRAY,
+			"type" : TYPE_PACKED_INT32_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
 			"name" : "pillar_tile_index",
-			"type" : TYPE_INT_ARRAY,
+			"type" : TYPE_PACKED_INT32_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
 			"name" : "ceiling_tile_index",
-			"type" : TYPE_INT_ARRAY,
+			"type" : TYPE_PACKED_INT32_ARRAY,
 			"usage" : PROPERTY_USAGE_STORAGE
 		},
 		{
@@ -335,7 +335,7 @@ func _get_property_list() -> Array:
 
 
 func is_spawn_position_valid() -> bool:
-	return not player_spawn_positions.empty()
+	return not player_spawn_positions.is_empty()
 
 
 func fill_room_data(room: Rect2, p_type: int) -> void:
@@ -407,7 +407,7 @@ func get_starting_room_data() -> RoomData:
 	var value: RoomData = null
 	
 	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.UP_STAIRCASE)
-	if starting_rooms.empty():
+	if starting_rooms.is_empty():
 		push_error("No starting room found.")
 		return value
 	elif starting_rooms.size() > 1:
@@ -600,7 +600,7 @@ func set_cell_meta(cell_index : int, key, value):
 			meta.erase(key)
 		else:
 			meta[key] = value
-		if meta.empty():
+		if meta.is_empty():
 			cell_meta.erase(cell_index)
 		cell_meta[cell_index] = meta
 			
@@ -778,12 +778,12 @@ func print_world_map() -> void:
 					line += "."
 				CellType.ROOM:
 					var room_value := "R"
-					if not starting_cells.empty():
+					if not starting_cells.is_empty():
 						var cell_index := get_cell_index_from_int_position(x, y)
 						var starting_cell_index := starting_cells.find(cell_index)
 						if starting_cell_index != -1:
 							room_value = "S"
-							starting_cells.remove(starting_cell_index)
+							starting_cells.remove_at(starting_cell_index)
 					line += room_value
 				CellType.CORRIDOR:
 					line += "="

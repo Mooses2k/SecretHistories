@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteHehehHowCanYouEvenMoveLikeThat.wav-a299205f3076e1f29242c8942fabf905.sample"
+type="AudioStreamWAV"
+uid="uid://54vh72ec7ll0"
+path="res://.godot/imported/NeophyteHehehHowCanYouEvenMoveLikeThat.wav-a299205f3076e1f29242c8942fabf905.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteHehehHowCanYouEvenMoveLikeThat.wav"
-dest_files=[ "res://.import/NeophyteHehehHowCanYouEvenMoveLikeThat.wav-a299205f3076e1f29242c8942fabf905.sample" ]
+dest_files=["res://.godot/imported/NeophyteHehehHowCanYouEvenMoveLikeThat.wav-a299205f3076e1f29242c8942fabf905.sample"]
 
 [params]
 

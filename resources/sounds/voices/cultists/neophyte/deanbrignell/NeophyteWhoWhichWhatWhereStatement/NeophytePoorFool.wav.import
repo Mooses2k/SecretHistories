@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophytePoorFool.wav-d5661b5d5d4ffe53fa0f2faeae6db041.sample"
+type="AudioStreamWAV"
+uid="uid://ktwynhellm8n"
+path="res://.godot/imported/NeophytePoorFool.wav-d5661b5d5d4ffe53fa0f2faeae6db041.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophytePoorFool.wav"
-dest_files=[ "res://.import/NeophytePoorFool.wav-d5661b5d5d4ffe53fa0f2faeae6db041.sample" ]
+dest_files=["res://.godot/imported/NeophytePoorFool.wav-d5661b5d5d4ffe53fa0f2faeae6db041.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/take_anything.wav-2500f19ce49e536fe3b84142c6ee7147.sample"
+type="AudioStreamWAV"
+uid="uid://dqpxu1j7nfb6g"
+path="res://.godot/imported/take_anything.wav-2500f19ce49e536fe3b84142c6ee7147.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/take_anything.wav"
-dest_files=[ "res://.import/take_anything.wav-2500f19ce49e536fe3b84142c6ee7147.sample" ]
+dest_files=["res://.godot/imported/take_anything.wav-2500f19ce49e536fe3b84142c6ee7147.sample"]
 
 [params]
 

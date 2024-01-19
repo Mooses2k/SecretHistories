@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIfYourNotWithUsYouDontExist.wav-faa10c7a44c35b5101d14e62ad8be600.sample"
+type="AudioStreamWAV"
+uid="uid://c5bsjp7xnt4ir"
+path="res://.godot/imported/NeophyteIfYourNotWithUsYouDontExist.wav-faa10c7a44c35b5101d14e62ad8be600.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteIfYourNotWithUsYouDontExist.wav"
-dest_files=[ "res://.import/NeophyteIfYourNotWithUsYouDontExist.wav-faa10c7a44c35b5101d14e62ad8be600.sample" ]
+dest_files=["res://.godot/imported/NeophyteIfYourNotWithUsYouDontExist.wav-faa10c7a44c35b5101d14e62ad8be600.sample"]
 
 [params]
 

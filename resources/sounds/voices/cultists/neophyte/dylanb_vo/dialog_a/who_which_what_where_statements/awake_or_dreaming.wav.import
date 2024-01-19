@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/awake_or_dreaming.wav-aa740d79241c620d1a58bb9229c35a6b.sample"
+type="AudioStreamWAV"
+uid="uid://vl0jxjd3m4r4"
+path="res://.godot/imported/awake_or_dreaming.wav-aa740d79241c620d1a58bb9229c35a6b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/awake_or_dreaming.wav"
-dest_files=[ "res://.import/awake_or_dreaming.wav-aa740d79241c620d1a58bb9229c35a6b.sample" ]
+dest_files=["res://.godot/imported/awake_or_dreaming.wav-aa740d79241c620d1a58bb9229c35a6b.sample"]
 
 [params]
 

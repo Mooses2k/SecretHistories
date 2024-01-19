@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/hahahaha1.wav-3bab7e0f7f380a731508cf928b1751db.sample"
+type="AudioStreamWAV"
+uid="uid://o0ya3sm2t4a1"
+path="res://.godot/imported/hahahaha1.wav-3bab7e0f7f380a731508cf928b1751db.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/hahahaha1.wav"
-dest_files=[ "res://.import/hahahaha1.wav-3bab7e0f7f380a731508cf928b1751db.sample" ]
+dest_files=["res://.godot/imported/hahahaha1.wav-3bab7e0f7f380a731508cf928b1751db.sample"]
 
 [params]
 

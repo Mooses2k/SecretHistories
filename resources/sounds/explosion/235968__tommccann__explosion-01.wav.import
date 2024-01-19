@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/235968__tommccann__explosion-01.wav-8bae5fbca4e5727840059f65f7512914.sample"
+type="AudioStreamWAV"
+uid="uid://d1qibg6m5gmq6"
+path="res://.godot/imported/235968__tommccann__explosion-01.wav-8bae5fbca4e5727840059f65f7512914.sample"
 
 [deps]
 
 source_file="res://resources/sounds/explosion/235968__tommccann__explosion-01.wav"
-dest_files=[ "res://.import/235968__tommccann__explosion-01.wav-8bae5fbca4e5727840059f65f7512914.sample" ]
+dest_files=["res://.godot/imported/235968__tommccann__explosion-01.wav-8bae5fbca4e5727840059f65f7512914.sample"]
 
 [params]
 

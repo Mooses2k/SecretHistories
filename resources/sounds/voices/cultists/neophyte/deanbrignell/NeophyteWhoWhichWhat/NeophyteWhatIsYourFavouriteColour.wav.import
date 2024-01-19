@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhatIsYourFavouriteColour.wav-984f131cf6c40450dae5617adf052f49.sample"
+type="AudioStreamWAV"
+uid="uid://br3n6b5bef31a"
+path="res://.godot/imported/NeophyteWhatIsYourFavouriteColour.wav-984f131cf6c40450dae5617adf052f49.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhat/NeophyteWhatIsYourFavouriteColour.wav"
-dest_files=[ "res://.import/NeophyteWhatIsYourFavouriteColour.wav-984f131cf6c40450dae5617adf052f49.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhatIsYourFavouriteColour.wav-984f131cf6c40450dae5617adf052f49.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/171211__brianhanson2nd__dry-fire.wav-4b7a499a3eea2bd97ec279f66e900ff6.sample"
+type="AudioStreamWAV"
+uid="uid://bidqqtke0s6hw"
+path="res://.godot/imported/171211__brianhanson2nd__dry-fire.wav-4b7a499a3eea2bd97ec279f66e900ff6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/dryfire/171211__brianhanson2nd__dry-fire.wav"
-dest_files=[ "res://.import/171211__brianhanson2nd__dry-fire.wav-4b7a499a3eea2bd97ec279f66e900ff6.sample" ]
+dest_files=["res://.godot/imported/171211__brianhanson2nd__dry-fire.wav-4b7a499a3eea2bd97ec279f66e900ff6.sample"]
 
 [params]
 

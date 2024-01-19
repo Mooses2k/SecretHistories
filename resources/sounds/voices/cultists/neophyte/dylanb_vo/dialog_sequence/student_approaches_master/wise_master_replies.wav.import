@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/wise_master_replies.wav-77369e87cb230b880a84a8b47293320e.sample"
+type="AudioStreamWAV"
+uid="uid://c0cy3gyof38pn"
+path="res://.godot/imported/wise_master_replies.wav-77369e87cb230b880a84a8b47293320e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/student_approaches_master/wise_master_replies.wav"
-dest_files=[ "res://.import/wise_master_replies.wav-77369e87cb230b880a84a8b47293320e.sample" ]
+dest_files=["res://.godot/imported/wise_master_replies.wav-77369e87cb230b880a84a8b47293320e.sample"]
 
 [params]
 

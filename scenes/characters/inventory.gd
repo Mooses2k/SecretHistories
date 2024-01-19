@@ -38,11 +38,11 @@ var hotbar : Array
 var bulky_equipment : EquipmentItem = null
 
 # Information about the item equipped on the main hand
-var current_mainhand_slot : int = 0 setget set_mainhand_slot
+var current_mainhand_slot : int = 0: set = set_mainhand_slot
 var current_mainhand_equipment : EquipmentItem = null
 
 # Information about the item equipped on the offhand
-var current_offhand_slot : int = 0 setget set_offhand_slot
+var current_offhand_slot : int = 0: set = set_offhand_slot
 var current_offhand_equipment : EquipmentItem = null
 
 # Are we currently in the middle of swapping hands?
@@ -51,7 +51,7 @@ var are_swapping : bool = false
 var encumbrance : float = 0   # Is a float to allow easy division
 
 # Where to drop items from
-onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
+@onready var Animations : AnimationPlayer = %AdditionalAnimations as AnimationPlayer
 
 
 func _ready():
@@ -135,7 +135,7 @@ func add_item(item : PickableItem) -> bool:
 						slot += 1
 					if slot != 10:
 						hotbar[slot] = item
-						print("Light-source going to slot ", slot + 1)
+						print("Light3D-source going to slot ", slot + 1)
 						# Schedule the item removal from the world
 						if item.is_inside_tree():
 							item.get_parent().remove_child(item)
@@ -232,7 +232,7 @@ func tiny_item_amount(item : TinyItemData) -> int:
 
 
 func equip_mainhand_item():
-	yield(get_tree().create_timer(0.5), "timeout")
+	await get_tree().create_timer(0.5).timeout
 	# temporary hack (issue #409)
 	if not is_instance_valid(current_mainhand_equipment):
 		current_mainhand_equipment = null
@@ -312,7 +312,7 @@ func equip_offhand_item():
 	else:
 		equip_delay = 0.5
 		
-	yield(get_tree().create_timer(equip_delay), "timeout")
+	await get_tree().create_timer(equip_delay).timeout
 	# Item already equipped or both slots set to the same item
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
@@ -431,7 +431,7 @@ func _drop_item(item : EquipmentItem):
 			GameManager.game.level.add_child(item)
 		else:
 			GameManager.game.level.add_child(item)
-			print("Item added to level at position: ", item.global_translation)
+			print("Item added to level at position: ", item.global_position)
 			
 #		if item is EquipmentItem:
 #			if item.item_state == GlobalConsts.ItemState.DAMAGING:
@@ -531,7 +531,7 @@ func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position:
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
-		$"%AdditionalAnimations".play("Belt_Equip")
+		%AdditionalAnimations.play("Belt_Equip")
 		print("Attached to belt in inventory.gd")
 
 

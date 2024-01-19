@@ -16,11 +16,11 @@ func set_player_on_spawn_position(player: Player, is_going_downstairs: bool) -> 
 			"y_rotation": 0.0,
 		}
 	
-	player.translation = spawn_data.position
+	player.position = spawn_data.position
 	player.rotation.y = spawn_data.y_rotation
 	player.velocity = Vector3.ZERO
 
 
 # May lag everything for some reason
 func toggle_directional_light():
-	$DirectionalLight.visible = !$DirectionalLight.visible
+	$DirectionalLight3D.visible = !$DirectionalLight3D.visible

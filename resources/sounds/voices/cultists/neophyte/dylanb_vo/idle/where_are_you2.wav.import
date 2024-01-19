@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/where_are_you2.wav-c3d09bc33ae482dc8c69dd0883d2dbcb.sample"
+type="AudioStreamWAV"
+uid="uid://dk0rxrowl7oji"
+path="res://.godot/imported/where_are_you2.wav-c3d09bc33ae482dc8c69dd0883d2dbcb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/where_are_you2.wav"
-dest_files=[ "res://.import/where_are_you2.wav-c3d09bc33ae482dc8c69dd0883d2dbcb.sample" ]
+dest_files=["res://.godot/imported/where_are_you2.wav-c3d09bc33ae482dc8c69dd0883d2dbcb.sample"]
 
 [params]
 

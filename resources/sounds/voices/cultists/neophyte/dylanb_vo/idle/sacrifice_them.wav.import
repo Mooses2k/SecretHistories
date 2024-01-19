@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/sacrifice_them.wav-8f22f623fea3f49718ce1f4a464e1de0.sample"
+type="AudioStreamWAV"
+uid="uid://dfwy3og1spn4g"
+path="res://.godot/imported/sacrifice_them.wav-8f22f623fea3f49718ce1f4a464e1de0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/sacrifice_them.wav"
-dest_files=[ "res://.import/sacrifice_them.wav-8f22f623fea3f49718ce1f4a464e1de0.sample" ]
+dest_files=["res://.godot/imported/sacrifice_them.wav-8f22f623fea3f49718ce1f4a464e1de0.sample"]
 
 [params]
 

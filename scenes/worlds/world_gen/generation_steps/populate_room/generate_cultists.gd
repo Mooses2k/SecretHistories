@@ -1,5 +1,5 @@
+@tool
 # Write your doc string for this file here
-tool
 extends GenerationStep
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -13,7 +13,7 @@ extends GenerationStep
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-export(String, FILE, "*.tscn") var _character_scene_path := ""
+@export var _character_scene_path := "" # (String, FILE, "*.tscn")
 var _max_count = 0
 
 var _density_by_type := {
@@ -30,7 +30,7 @@ var _rng := RandomNumberGenerator.new()
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _ready():
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 
 ### -----------------------------------------------------------------------------------------------
@@ -139,7 +139,7 @@ func _get_property_list() -> Array:
 	for type in ["room", "corridor", "hall"]:
 		properties.append({
 			name = GROUP_PREFIX_DENSITY + type,
-			type = TYPE_REAL,
+			type = TYPE_FLOAT,
 			usage = PROPERTY_USAGE_EDITOR,
 			hint = PROPERTY_HINT_RANGE,
 			hint_string = "0.0,100.0,0.05"
@@ -148,7 +148,7 @@ func _get_property_list() -> Array:
 	return properties
 
 
-func _get(property: String):
+func _get(property: StringName):
 	var value
 	
 	if property.begins_with(GROUP_PREFIX_DENSITY):
@@ -166,7 +166,7 @@ func _get(property: String):
 	return value
 
 
-func _set(property: String, value) -> bool:
+func _set(property: StringName, value) -> bool:
 	var has_handled = false
 	
 	if property.begins_with(GROUP_PREFIX_DENSITY):

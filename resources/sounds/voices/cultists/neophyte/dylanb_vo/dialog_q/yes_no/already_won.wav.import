@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/already_won.wav-b0ffb34eb9970ccb4d1f68294a3a706c.sample"
+type="AudioStreamWAV"
+uid="uid://boursg2hivkys"
+path="res://.godot/imported/already_won.wav-b0ffb34eb9970ccb4d1f68294a3a706c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/already_won.wav"
-dest_files=[ "res://.import/already_won.wav-b0ffb34eb9970ccb4d1f68294a3a706c.sample" ]
+dest_files=["res://.godot/imported/already_won.wav-b0ffb34eb9970ccb4d1f68294a3a706c.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsTheCavalry.wav-c95c7773eb2df2c1347f5797196964c0.sample"
+type="AudioStreamWAV"
+uid="uid://bp7oqlv4ptkyi"
+path="res://.godot/imported/NeophyteItsTheCavalry.wav-c95c7773eb2df2c1347f5797196964c0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItsTheCavalry.wav"
-dest_files=[ "res://.import/NeophyteItsTheCavalry.wav-c95c7773eb2df2c1347f5797196964c0.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsTheCavalry.wav-c95c7773eb2df2c1347f5797196964c0.sample"]
 
 [params]
 

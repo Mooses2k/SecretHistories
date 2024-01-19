@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/explained_once_youre_dead.wav-501647c37d58ee069adbd75bf2d3076b.sample"
+type="AudioStreamWAV"
+uid="uid://14msly5lc6in"
+path="res://.godot/imported/explained_once_youre_dead.wav-501647c37d58ee069adbd75bf2d3076b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/explained_once_youre_dead.wav"
-dest_files=[ "res://.import/explained_once_youre_dead.wav-501647c37d58ee069adbd75bf2d3076b.sample" ]
+dest_files=["res://.godot/imported/explained_once_youre_dead.wav-501647c37d58ee069adbd75bf2d3076b.sample"]
 
 [params]
 

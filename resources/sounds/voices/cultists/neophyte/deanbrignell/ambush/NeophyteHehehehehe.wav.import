@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteHehehehehe.wav-447459bd44b1682e2cca80a4e4a96b99.sample"
+type="AudioStreamWAV"
+uid="uid://cgpci2h8w1h2b"
+path="res://.godot/imported/NeophyteHehehehehe.wav-447459bd44b1682e2cca80a4e4a96b99.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/ambush/NeophyteHehehehehe.wav"
-dest_files=[ "res://.import/NeophyteHehehehehe.wav-447459bd44b1682e2cca80a4e4a96b99.sample" ]
+dest_files=["res://.godot/imported/NeophyteHehehehehe.wav-447459bd44b1682e2cca80a4e4a96b99.sample"]
 
 [params]
 

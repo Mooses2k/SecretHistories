@@ -36,7 +36,7 @@ func _ready() -> void:
 	if game_world and is_instance_valid(_spawn_position):
 		game_world.world_data.player_spawn_positions[RoomData.OriginalPurpose.DOWN_STAIRCASE] = \
 				{
-					"position": _spawn_position.global_translation,
+					"position": _spawn_position.global_position,
 					"y_rotation": PLAYER_FACING_ROTATIONS[facing_direction],
 				}
 

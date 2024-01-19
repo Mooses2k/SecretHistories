@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/my_gun2.wav-661529885f96400927ec6f65c67ba81e.sample"
+type="AudioStreamWAV"
+uid="uid://di3g7vphahgvt"
+path="res://.godot/imported/my_gun2.wav-661529885f96400927ec6f65c67ba81e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/my_gun2.wav"
-dest_files=[ "res://.import/my_gun2.wav-661529885f96400927ec6f65c67ba81e.sample" ]
+dest_files=["res://.godot/imported/my_gun2.wav-661529885f96400927ec6f65c67ba81e.sample"]
 
 [params]
 

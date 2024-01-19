@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYouKnowWhatToDo.wav-544b188cd529d46fc583e1af106f2c62.sample"
+type="AudioStreamWAV"
+uid="uid://om2f4h1pw5po"
+path="res://.godot/imported/NeophyteYouKnowWhatToDo.wav-544b188cd529d46fc583e1af106f2c62.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/ambush/NeophyteYouKnowWhatToDo.wav"
-dest_files=[ "res://.import/NeophyteYouKnowWhatToDo.wav-544b188cd529d46fc583e1af106f2c62.sample" ]
+dest_files=["res://.godot/imported/NeophyteYouKnowWhatToDo.wav-544b188cd529d46fc583e1af106f2c62.sample"]
 
 [params]
 

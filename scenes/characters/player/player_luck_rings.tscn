@@ -1,19 +1,19 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/characters/player/hp_display.gd" type="Script" id=1]
-[ext_resource path="res://resources/art/health/health.png" type="Texture" id=2]
+[ext_resource path="res://resources/art/health/health.png" type="Texture2D" id=2]
 
 [sub_resource type="Animation" id=32]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:rotation_degrees")
+tracks/0/path = NodePath("MeshInstance3D:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ) ]
 }
@@ -24,8 +24,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ) ]
 }
@@ -35,14 +35,14 @@ resource_name = "rotate"
 length = 15.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:rotation_degrees")
+tracks/0/path = NodePath("MeshInstance3D:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 15 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 15 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 360, 0 ) ]
 }
@@ -53,8 +53,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 15 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 15 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, -360, 0 ) ]
 }
@@ -66,14 +66,14 @@ length = 0.001
 resource_name = "fadeIn"
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/0/path = NodePath("MeshInstance3D:mesh:material:albedo_color")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1.5 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
@@ -84,8 +84,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1.5 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
@@ -100,25 +100,25 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.5 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("MeshInstance:mesh:material:albedo_color")
+tracks/1/path = NodePath("MeshInstance3D:mesh:material:albedo_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.5 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="SpatialMaterial" id=25]
+[sub_resource type="StandardMaterial3D" id=25]
 flags_transparent = true
 albedo_color = Color( 1, 1, 1, 0 )
 albedo_texture = ExtResource( 2 )
@@ -131,7 +131,7 @@ emission_on_uv2 = false
 [sub_resource type="PlaneMesh" id=26]
 material = SubResource( 25 )
 
-[sub_resource type="SpatialMaterial" id=28]
+[sub_resource type="StandardMaterial3D" id=28]
 flags_transparent = true
 albedo_color = Color( 1, 1, 1, 0 )
 albedo_texture = ExtResource( 2 )
@@ -144,7 +144,7 @@ emission_on_uv2 = false
 [sub_resource type="PlaneMesh" id=29]
 material = SubResource( 28 )
 
-[node name="HP" type="Spatial"]
+[node name="HP" type="Node3D"]
 script = ExtResource( 1 )
 raycast = NodePath("../FPSCamera/GroundCast")
 
@@ -157,13 +157,13 @@ anims/RESET = SubResource( 27 )
 anims/fadeIn = SubResource( 24 )
 anims/fadeOut = SubResource( 30 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0298637, 0 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0298637, 0 )
 layers = 4
 mesh = SubResource( 26 )
 
-[node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0298637, 0 )
+[node name="MeshInstance2" type="MeshInstance3D" parent="."]
+transform = Transform3D( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0298637, 0 )
 layers = 4
 mesh = SubResource( 29 )
 

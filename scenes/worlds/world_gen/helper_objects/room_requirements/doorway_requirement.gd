@@ -1,5 +1,5 @@
+@tool
 # Write your doc string for this file here
-tool
 class_name RequirementDoorways
 extends RoomRequirements
 
@@ -12,8 +12,8 @@ extends RoomRequirements
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export var min_doorways := 1 setget _set_min_doorways
-export var max_doorways := 1 setget _set_max_doorways
+@export var min_doorways := 1: set = _set_min_doorways
+@export var max_doorways := 1: set = _set_max_doorways
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 

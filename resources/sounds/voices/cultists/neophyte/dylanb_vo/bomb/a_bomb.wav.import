@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/a_bomb.wav-7fa66dfe2a26ddf9d32b05d4f1c92048.sample"
+type="AudioStreamWAV"
+uid="uid://dymtecrv7usvx"
+path="res://.godot/imported/a_bomb.wav-7fa66dfe2a26ddf9d32b05d4f1c92048.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb/a_bomb.wav"
-dest_files=[ "res://.import/a_bomb.wav-7fa66dfe2a26ddf9d32b05d4f1c92048.sample" ]
+dest_files=["res://.godot/imported/a_bomb.wav-7fa66dfe2a26ddf9d32b05d4f1c92048.sample"]
 
 [params]
 

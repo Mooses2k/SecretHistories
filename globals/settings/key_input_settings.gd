@@ -5,9 +5,9 @@ const GROUP_NAME : String = "Input Key Settings"
 
 var setting_key_inputs : String = ""
 var is_waiting_input : bool = false
-var events : PoolStringArray = []
-var actions : PoolStringArray = []
-var actions_copy : PoolStringArray
+var events : PackedStringArray = []
+var actions : PackedStringArray = []
+var actions_copy : PackedStringArray
 var flag : int = 1
 var index : int = 0
 var is_done : bool = false
@@ -21,7 +21,7 @@ const MAX_VALUE = 4.0
 const STEP_VALUE = 0.05
 const MIN_VALUE = 0.05
 
-var setting_action_event : float setget set_action_event, get_action_event
+var setting_action_event : float: get = get_action_event, set = set_action_event
 
 
 func _ready():
@@ -120,10 +120,10 @@ func _ready():
 							elif "change_screen_filter" in actions_copy[x] and counter == 5:
 								set_keys(x)
 					_:
-						actions_copy.remove(actions_copy.find(actions_copy[x]))
+						actions_copy.remove_at(actions_copy.find(actions_copy[x]))
 						key_removed = true
 			else:
-				actions_copy.remove(actions_copy.find(actions_copy[x]))
+				actions_copy.remove_at(actions_copy.find(actions_copy[x]))
 				key_removed = true
 			
 			index = x
@@ -157,25 +157,25 @@ func _ready():
 		if actions_copy.size() < 1 or safe_counter > 100:
 			is_done = true
 		
-	Settings.connect("setting_changed", self, "on_setting_changed")
+	Settings.connect("setting_changed", Callable(self, "on_setting_changed"))
 
 
 func set_keys(x):
-	for event in InputMap.get_action_list(actions_copy[x]):
+	for event in InputMap.action_get_events(actions_copy[x]):
 		if event is InputEventMouseButton:
 			events.insert(0, "Mouse Button " + str(event.button_index))
 		elif event is InputEventJoypadButton:
 			events.insert(0, "Joypad Button " + str(event.button_index))
 		else:
-			if event.physical_scancode:
-				events.insert(0, str(OS.get_scancode_string(event.physical_scancode)))
+			if event.physical_keycode:
+				events.insert(0, str(OS.get_keycode_string(event.physical_keycode)))
 			else:
-				events.insert(0, str(OS.get_scancode_string(event.scancode)))
+				events.insert(0, str(OS.get_keycode_string(event.keycode)))
 	
 	actions.append(actions_copy[x])
 	Settings.add_string_setting(actions_copy[x], events)
 	Settings.set_setting_group(actions_copy[x], GROUP_NAME)
-	actions_copy.remove(actions_copy.find(actions_copy[x]))
+	actions_copy.remove_at(actions_copy.find(actions_copy[x]))
 	events.resize(0)
 	key_removed = true
 	counter += 1
@@ -183,7 +183,7 @@ func set_keys(x):
 
 func _input(event):
 	if event is InputEvent and is_waiting_input:
-		print("key pressed " + str(OS.get_scancode_string(event.physical_scancode)))
+		print("key pressed " + str(OS.get_keycode_string(event.physical_keycode)))
 		pass
 
 
@@ -200,7 +200,7 @@ func set_event(setting_name, old_value, new_value):
 	if new_value == null:
 		InputMap.action_erase_events(setting_name)
 	else:
-		var events_setting = InputMap.get_action_list(setting_name)
+		var events_setting = InputMap.action_get_events(setting_name)
 		if events_setting.size() > 1:
 			InputMap.action_erase_event(setting_name, events_setting[0])
 		InputMap.action_add_event(setting_name, new_value)
@@ -212,16 +212,16 @@ func set_event(setting_name, old_value, new_value):
 
 func save_keys(setting_name : String, old_value):
 	events.resize(0)
-	for event in InputMap.get_action_list(setting_name):
+	for event in InputMap.action_get_events(setting_name):
 		if event is InputEventMouseButton:
 			events.insert(0, "Mouse Button " + str(event.button_index))
 		elif event is InputEventJoypadButton:
 			events.insert(0, "Joypad Button " + str(event.button_index))
 		else:
-			if event.physical_scancode:
-				events.insert(0, str(OS.get_scancode_string(event.physical_scancode)))
+			if event.physical_keycode:
+				events.insert(0, str(OS.get_keycode_string(event.physical_keycode)))
 			else:
-				events.insert(0, str(OS.get_scancode_string(event.scancode)))
+				events.insert(0, str(OS.get_keycode_string(event.keycode)))
 	
 	if old_value == null:
 		old_value = Settings._settings[setting_name][Settings._FIELD_VALUE]

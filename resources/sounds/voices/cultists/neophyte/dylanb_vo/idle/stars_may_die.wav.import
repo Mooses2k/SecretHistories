@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/stars_may_die.wav-8d37d67374baa06dd32d78cc573aa17d.sample"
+type="AudioStreamWAV"
+uid="uid://ddsxoda3412j"
+path="res://.godot/imported/stars_may_die.wav-8d37d67374baa06dd32d78cc573aa17d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/stars_may_die.wav"
-dest_files=[ "res://.import/stars_may_die.wav-8d37d67374baa06dd32d78cc573aa17d.sample" ]
+dest_files=["res://.godot/imported/stars_may_die.wav-8d37d67374baa06dd32d78cc573aa17d.sample"]
 
 [params]
 

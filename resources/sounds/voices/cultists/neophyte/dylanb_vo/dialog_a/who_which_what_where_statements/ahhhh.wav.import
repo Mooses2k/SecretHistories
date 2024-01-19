@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/ahhhh.wav-602316505e17c1f1665b5cc21d0271b5.sample"
+type="AudioStreamWAV"
+uid="uid://rybfnm3pyatf"
+path="res://.godot/imported/ahhhh.wav-602316505e17c1f1665b5cc21d0271b5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/ahhhh.wav"
-dest_files=[ "res://.import/ahhhh.wav-602316505e17c1f1665b5cc21d0271b5.sample" ]
+dest_files=["res://.godot/imported/ahhhh.wav-602316505e17c1f1665b5cc21d0271b5.sample"]
 
 [params]
 

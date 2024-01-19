@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYourEyesBetrayYou.wav-29855a31812f554ad03645c382cb1b7f.sample"
+type="AudioStreamWAV"
+uid="uid://c48qsq7l88h85"
+path="res://.godot/imported/NeophyteYourEyesBetrayYou.wav-29855a31812f554ad03645c382cb1b7f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteYourEyesBetrayYou.wav"
-dest_files=[ "res://.import/NeophyteYourEyesBetrayYou.wav-29855a31812f554ad03645c382cb1b7f.sample" ]
+dest_files=["res://.godot/imported/NeophyteYourEyesBetrayYou.wav-29855a31812f554ad03645c382cb1b7f.sample"]
 
 [params]
 

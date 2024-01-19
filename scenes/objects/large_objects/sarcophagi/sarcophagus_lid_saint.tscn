@@ -16,139 +16,139 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/keys = PoolRealArray( 0, 1, 5.11943e-08, 0.540239, 1.21663e-08, 0, 0, 0, 1, 1, 1, 1, 0.291667, 1, 5.11943e-08, 0.540239, 1.21663e-08, 0, 0, 0, 1, 1, 1, 1 )
+tracks/0/keys = PackedFloat32Array( 0, 1, 5.11943e-08, 0.540239, 1.21663e-08, 0, 0, 0, 1, 1, 1, 1, 0.291667, 1, 5.11943e-08, 0.540239, 1.21663e-08, 0, 0, 0, 1, 1, 1, 1 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape3D" id=5]
 
-[sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( -0.135864, 0.211343, -0.241721, 0.809783, 0.190097, -0.244789, -0.601216, 0.0723, 0.181932, 0.794964, 0.0957389, 0.240743, -0.634382, 0.434496, -0.0355536, -0.597113, 0.0919482, -0.179352, 0.577884, 0.0723, -0.271581, 0.744231, 0.370014, -0.0321318, -0.531561, 0.304558, 0.213219, 0.237027, 0.435435, -0.146659, 0.188, 0.402707, 0.196821, 0.577884, 0.0723, 0.272703, 0.793395, 0.206444, 0.245912, -0.515172, 0.304558, -0.19575, -0.633185, 0.434233, 0.0726739, -0.00810595, 0.320904, -0.244789, -0.564199, 0.157404, 0.229514, 0.0609747, 0.28699, 0.242737, 0.796809, 0.0952668, -0.240264, 0.711593, 0.370014, 0.0659469, -0.187962, 0.451817, 0.0332028, -0.580587, 0.124676, -0.212096, 0.267988, 0.418994, 0.132937, 0.793395, 0.206444, -0.244789, -0.564199, 0.337251, -0.163006, 0.646178, 0.370014, -0.0975688, 0.809783, 0.190097, 0.245912, -0.302541, 0.451817, -0.0321318, 0.283942, 0.375529, -0.192036, -0.580587, 0.173751, -0.212096, -0.482396, 0.239207, 0.229514, -0.580587, 0.304558, 0.196821, 0.744231, 0.370014, 0.033254, -0.302541, 0.451817, 0.0495492, -0.449758, 0.353597, -0.163006, 0.345714, 0.421509, -0.0143935, -0.580587, 0.124676, 0.213219, 0.711593, 0.370014, -0.0648247, -0.090205, 0.24166, 0.242657, -0.155323, 0.451817, 0.0168563, -0.547811, 0.320904, 0.196821, -0.466146, 0.337251, -0.179352, -0.564199, 0.173751, 0.229514, -0.547811, 0.288211, -0.19575 )
+[sub_resource type="ConvexPolygonShape3D" id=2]
+points = PackedVector3Array( -0.135864, 0.211343, -0.241721, 0.809783, 0.190097, -0.244789, -0.601216, 0.0723, 0.181932, 0.794964, 0.0957389, 0.240743, -0.634382, 0.434496, -0.0355536, -0.597113, 0.0919482, -0.179352, 0.577884, 0.0723, -0.271581, 0.744231, 0.370014, -0.0321318, -0.531561, 0.304558, 0.213219, 0.237027, 0.435435, -0.146659, 0.188, 0.402707, 0.196821, 0.577884, 0.0723, 0.272703, 0.793395, 0.206444, 0.245912, -0.515172, 0.304558, -0.19575, -0.633185, 0.434233, 0.0726739, -0.00810595, 0.320904, -0.244789, -0.564199, 0.157404, 0.229514, 0.0609747, 0.28699, 0.242737, 0.796809, 0.0952668, -0.240264, 0.711593, 0.370014, 0.0659469, -0.187962, 0.451817, 0.0332028, -0.580587, 0.124676, -0.212096, 0.267988, 0.418994, 0.132937, 0.793395, 0.206444, -0.244789, -0.564199, 0.337251, -0.163006, 0.646178, 0.370014, -0.0975688, 0.809783, 0.190097, 0.245912, -0.302541, 0.451817, -0.0321318, 0.283942, 0.375529, -0.192036, -0.580587, 0.173751, -0.212096, -0.482396, 0.239207, 0.229514, -0.580587, 0.304558, 0.196821, 0.744231, 0.370014, 0.033254, -0.302541, 0.451817, 0.0495492, -0.449758, 0.353597, -0.163006, 0.345714, 0.421509, -0.0143935, -0.580587, 0.124676, 0.213219, 0.711593, 0.370014, -0.0648247, -0.090205, 0.24166, 0.242657, -0.155323, 0.451817, 0.0168563, -0.547811, 0.320904, 0.196821, -0.466146, 0.337251, -0.179352, -0.564199, 0.173751, 0.229514, -0.547811, 0.288211, -0.19575 )
 
-[sub_resource type="ConvexPolygonShape" id=3]
-points = PoolVector3Array( -0.611761, 0.373838, 0.0719136, -0.826143, 0.0919514, -0.19575, -0.812679, 0.331512, -0.172666, -0.826143, 0.0919514, 0.196872, -0.585696, 0.0723, -0.179381, -0.639678, 0.0723, 0.216526, -0.812679, 0.331512, 0.173788, -0.629863, 0.484535, -0.0485167, -0.646228, 0.288243, -0.19575, -0.678933, 0.468126, 0.0987167, -0.585696, 0.0723, 0.108543, -0.646228, 0.288243, 0.196872, -0.639678, 0.0723, -0.215403, -0.695297, 0.337278, -0.19575, -0.695297, 0.337278, 0.196872, -0.597158, 0.239209, 0.131422, -0.662569, 0.484535, -0.0485167, -0.640397, 0.459254, 0.0718112, -0.612953, 0.372816, -0.0417461, -0.597158, 0.157395, -0.163006 )
+[sub_resource type="ConvexPolygonShape3D" id=3]
+points = PackedVector3Array( -0.611761, 0.373838, 0.0719136, -0.826143, 0.0919514, -0.19575, -0.812679, 0.331512, -0.172666, -0.826143, 0.0919514, 0.196872, -0.585696, 0.0723, -0.179381, -0.639678, 0.0723, 0.216526, -0.812679, 0.331512, 0.173788, -0.629863, 0.484535, -0.0485167, -0.646228, 0.288243, -0.19575, -0.678933, 0.468126, 0.0987167, -0.585696, 0.0723, 0.108543, -0.646228, 0.288243, 0.196872, -0.639678, 0.0723, -0.215403, -0.695297, 0.337278, -0.19575, -0.695297, 0.337278, 0.196872, -0.597158, 0.239209, 0.131422, -0.662569, 0.484535, -0.0485167, -0.640397, 0.459254, 0.0718112, -0.612953, 0.372816, -0.0417461, -0.597158, 0.157395, -0.163006 )
 
-[sub_resource type="ConvexPolygonShape" id=4]
+[sub_resource type="ConvexPolygonShape3D" id=4]
 margin = 0.001
-points = PoolVector3Array( 0.793934, 0.0903185, 0.24101, -0.802422, -0.0635, -0.382246, -0.802422, -0.0635, 0.383368, 0.802422, -0.0635, -0.382246, -0.816145, 0.0723, -0.372569, 0.802422, -0.0635, 0.383368, -0.816145, 0.0723, 0.373692, 0.816145, 0.0723, -0.372569, -0.808036, 0.0901389, -0.191448, 0.816145, 0.0723, 0.373692, 0.795785, 0.0905055, -0.24053, -0.835567, -0.0205433, -0.398058, 0.833047, -0.0204509, 0.397978, -0.80537, 0.0898749, 0.191937, 0.835567, -0.0205433, -0.398058, -0.833047, -0.0204509, 0.397978, 0.531492, 0.091913, 0.24579, 0.531492, 0.091913, -0.244751 )
+points = PackedVector3Array( 0.793934, 0.0903185, 0.24101, -0.802422, -0.0635, -0.382246, -0.802422, -0.0635, 0.383368, 0.802422, -0.0635, -0.382246, -0.816145, 0.0723, -0.372569, 0.802422, -0.0635, 0.383368, -0.816145, 0.0723, 0.373692, 0.816145, 0.0723, -0.372569, -0.808036, 0.0901389, -0.191448, 0.816145, 0.0723, 0.373692, 0.795785, 0.0905055, -0.24053, -0.835567, -0.0205433, -0.398058, 0.833047, -0.0204509, 0.397978, -0.80537, 0.0898749, 0.191937, 0.835567, -0.0205433, -0.398058, -0.833047, -0.0204509, 0.397978, 0.531492, 0.091913, 0.24579, 0.531492, 0.091913, -0.244751 )
 
-[node name="SarcophagusLidSaint" type="RigidBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134346, 0 )
+[node name="SarcophagusLidSaint" type="RigidBody3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134346, 0 )
 collision_layer = 512
 collision_mask = 65
 mass = 100.0
 continuous_cd = true
-contacts_reported = 4
+max_contacts_reported = 4
 contact_monitor = true
 script = ExtResource( 2 )
 item_drag_sound = ExtResource( 3 )
 sarco_lid_drop_sound = ExtResource( 4 )
 
 [node name="Sarcophagus_Statue" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
+transform = Transform3D( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 
 [node name="SM_SarcoLid_Statue" parent="Sarcophagus_Statue" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 
 [node name="AnimationPlayer" parent="Sarcophagus_Statue" index="1"]
 anims/SM_SarcoLid_Statue = SubResource( 6 )
 
-[node name="CollisionShapeBase" type="CollisionShape" parent="."]
-transform = Transform( 1.14301, 0, 0, 0, 0.0907913, 0, 0, 0, 0.534361, 0, 0.00470936, 0 )
+[node name="CollisionShapeBase" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1.14301, 0, 0, 0, 0.0907913, 0, 0, 0, 0.534361, 0, 0.00470936, 0 )
 shape = SubResource( 5 )
 
-[node name="CollisionShapeBase2" type="CollisionShape" parent="."]
-transform = Transform( 1.06334, 0, 0, 0, 0.248568, 0, 0, 0, 0.332248, -0.017077, 0.34894, 0 )
+[node name="CollisionShapeBase2" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1.06334, 0, 0, 0, 0.248568, 0, 0, 0, 0.332248, -0.017077, 0.34894, 0 )
 shape = SubResource( 5 )
 
-[node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
+[node name="CollisionShape3" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 visible = false
 shape = SubResource( 2 )
 disabled = true
 
-[node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
+[node name="CollisionShape2" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 visible = false
 shape = SubResource( 3 )
 disabled = true
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 visible = false
 shape = SubResource( 4 )
 disabled = true
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 visible = false
 shape = SubResource( 4 )
 disabled = true
 
-[node name="CollisionShape3" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
+[node name="CollisionShape3" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 visible = false
 shape = SubResource( 2 )
 disabled = true
 
-[node name="CollisionShape2" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
+[node name="CollisionShape2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D( 1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0 )
 visible = false
 shape = SubResource( 3 )
 disabled = true
 
-[node name="CollisionShapeBase" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.15262, 0, 0, 0, 0.0937718, 0, 0, 0, 0.539001, 0, 0.00470936, 0 )
+[node name="CollisionShapeBase" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D( 1.15262, 0, 0, 0, 0.0937718, 0, 0, 0, 0.539001, 0, 0.00470936, 0 )
 shape = SubResource( 5 )
 
-[node name="CollisionShapeBase2" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1.07244, 0, 0, 0, 0.254721, 0, 0, 0, 0.338131, -0.017077, 0.34894, 0 )
+[node name="CollisionShapeBase2" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D( 1.07244, 0, 0, 0, 0.254721, 0, 0, 0, 0.338131, -0.017077, 0.34894, 0 )
 shape = SubResource( 5 )
 
-[node name="PlacementAnchor" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.956308, 0.130774, 0.39951 )
+[node name="PlacementAnchor" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.956308, 0.130774, 0.39951 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor2" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.915413, 0.130774, -0.412093 )
+[node name="PlacementAnchor2" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.915413, 0.130774, -0.412093 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor3" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.788335, 0.130774, 0.386927 )
+[node name="PlacementAnchor3" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.788335, 0.130774, 0.386927 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor4" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.80723, 0.130774, -0.357747 )
+[node name="PlacementAnchor4" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.80723, 0.130774, -0.357747 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor5" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.986914, 0.130774, 0.455452 )
+[node name="PlacementAnchor5" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.986914, 0.130774, 0.455452 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor6" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.968891, 0.130774, -0.393219 )
+[node name="PlacementAnchor6" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.968891, 0.130774, -0.393219 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor7" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.839915, 0.130774, 0.421531 )
+[node name="PlacementAnchor7" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.839915, 0.130774, 0.421531 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor8" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.729814, 0.130774, -0.427822 )
+[node name="PlacementAnchor8" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.729814, 0.130774, -0.427822 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor9" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.761271, 0.130774, -0.383781 )
+[node name="PlacementAnchor9" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.761271, 0.130774, -0.383781 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor10" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.612377, 0.130774, 0.387803 )
+[node name="PlacementAnchor10" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.612377, 0.130774, 0.387803 )
 script = ExtResource( 5 )
 
-[node name="PlacementAnchor11" type="Position3D" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.994057, 0.130774, 0.379488 )
+[node name="PlacementAnchor11" type="Marker3D" parent="."]
+transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.994057, 0.130774, 0.379488 )
 script = ExtResource( 5 )
 
 [node name="ItemSpawnerOnPlacementAnchor" parent="." instance=ExtResource( 6 )]

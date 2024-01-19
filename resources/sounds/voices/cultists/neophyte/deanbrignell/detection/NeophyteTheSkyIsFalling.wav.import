@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheSkyIsFalling.wav-ed0e3735131110c84633cb304a16a7bb.sample"
+type="AudioStreamWAV"
+uid="uid://dp3udypf5dt81"
+path="res://.godot/imported/NeophyteTheSkyIsFalling.wav-ed0e3735131110c84633cb304a16a7bb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteTheSkyIsFalling.wav"
-dest_files=[ "res://.import/NeophyteTheSkyIsFalling.wav-ed0e3735131110c84633cb304a16a7bb.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheSkyIsFalling.wav-ed0e3735131110c84633cb304a16a7bb.sample"]
 
 [params]
 

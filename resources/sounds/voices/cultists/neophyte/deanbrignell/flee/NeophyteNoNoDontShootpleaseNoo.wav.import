@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteNoNoDontShootpleaseNoo.wav-52dc4fd22b0c667d772dc97117685b9f.sample"
+type="AudioStreamWAV"
+uid="uid://eg0nww27nwi5"
+path="res://.godot/imported/NeophyteNoNoDontShootpleaseNoo.wav-52dc4fd22b0c667d772dc97117685b9f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteNoNoDontShootpleaseNoo.wav"
-dest_files=[ "res://.import/NeophyteNoNoDontShootpleaseNoo.wav-52dc4fd22b0c667d772dc97117685b9f.sample" ]
+dest_files=["res://.godot/imported/NeophyteNoNoDontShootpleaseNoo.wav-52dc4fd22b0c667d772dc97117685b9f.sample"]
 
 [params]
 

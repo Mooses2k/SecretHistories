@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsHardToForgetSomeone.wav-5ac5b10f3c70850ca545adce295accec.sample"
+type="AudioStreamWAV"
+uid="uid://cg1b8iehlbxi8"
+path="res://.godot/imported/NeophyteItsHardToForgetSomeone.wav-5ac5b10f3c70850ca545adce295accec.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteItsHardToForgetSomeone.wav"
-dest_files=[ "res://.import/NeophyteItsHardToForgetSomeone.wav-5ac5b10f3c70850ca545adce295accec.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsHardToForgetSomeone.wav-5ac5b10f3c70850ca545adce295accec.sample"]
 
 [params]
 

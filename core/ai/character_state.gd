@@ -1,17 +1,17 @@
 class_name CharacterState
-extends Reference
+extends RefCounted
 
 
 var interest_machine
 var character
 var target
 
-var move_direction     := Vector3.ZERO    setget set_move_direction
-var face_direction     := Vector3.FORWARD setget set_face_direction
-var target_position    := Vector3.ZERO    setget set_target_position
+var move_direction     := Vector3.ZERO: set = set_move_direction
+var face_direction     := Vector3.FORWARD: set = set_face_direction
+var target_position    := Vector3.ZERO: set = set_target_position
 var interaction_target :  Node = null
 
-var path := [] setget , get_path
+var path := []: get = get_path
 var path_needs_update := false
 
 
@@ -32,16 +32,16 @@ func set_move_direction(value : Vector3) -> void:
 
 func get_path() -> Array:
 	if path_needs_update:
-		var map = character.get_world().navigation_map
-		var nav = NavigationServer
+		var map = character.get_world_3d().navigation_map
+		var nav = NavigationServer3D
 		path = nav.map_get_path(map, character.global_transform.origin, target_position, false)
 		path_needs_update = false
 	return path
 
 
 func set_target_position(value : Vector3) -> void:
-	var map = character.get_world().navigation_map
-	var nav = NavigationServer
+	var map = character.get_world_3d().navigation_map
+	var nav = NavigationServer3D
 	value = nav.map_get_closest_point(map, value)
 	
 	var data : WorldData = GameManager.game.level.world_data

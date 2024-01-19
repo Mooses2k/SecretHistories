@@ -1,4 +1,6 @@
-class_name BTSelector, "res://core/ai/phold_icons/selector.svg" extends BTControlFlow
+@icon("res://core/ai/phold_icons/selector.svg")
+class_name BTSelector
+extends BTControlFlow
 
 # If and when a node is a SUCCESS, end Selector.
 

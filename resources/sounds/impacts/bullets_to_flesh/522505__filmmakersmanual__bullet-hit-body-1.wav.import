@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/522505__filmmakersmanual__bullet-hit-body-1.wav-6d1e074d00ceb7330dd91ef4ff7a4df9.sample"
+type="AudioStreamWAV"
+uid="uid://mfl3rq84obox"
+path="res://.godot/imported/522505__filmmakersmanual__bullet-hit-body-1.wav-6d1e074d00ceb7330dd91ef4ff7a4df9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/bullets_to_flesh/522505__filmmakersmanual__bullet-hit-body-1.wav"
-dest_files=[ "res://.import/522505__filmmakersmanual__bullet-hit-body-1.wav-6d1e074d00ceb7330dd91ef4ff7a4df9.sample" ]
+dest_files=["res://.godot/imported/522505__filmmakersmanual__bullet-hit-body-1.wav-6d1e074d00ceb7330dd91ef4ff7a4df9.sample"]
 
 [params]
 

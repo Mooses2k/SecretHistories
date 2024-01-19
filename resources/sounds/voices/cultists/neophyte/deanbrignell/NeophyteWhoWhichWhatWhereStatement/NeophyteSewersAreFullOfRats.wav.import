@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteSewersAreFullOfRats.wav-b96f310e716297e5d5d49a4f2ad144f8.sample"
+type="AudioStreamWAV"
+uid="uid://b6pbgjdq6vylo"
+path="res://.godot/imported/NeophyteSewersAreFullOfRats.wav-b96f310e716297e5d5d49a4f2ad144f8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteSewersAreFullOfRats.wav"
-dest_files=[ "res://.import/NeophyteSewersAreFullOfRats.wav-b96f310e716297e5d5d49a4f2ad144f8.sample" ]
+dest_files=["res://.godot/imported/NeophyteSewersAreFullOfRats.wav-b96f310e716297e5d5d49a4f2ad144f8.sample"]
 
 [params]
 

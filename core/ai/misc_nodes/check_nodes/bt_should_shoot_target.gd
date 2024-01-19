@@ -1,7 +1,7 @@
 class_name BTShouldShootTarget extends BTCheck
 
 
-export var interest_threshold := 100.0
+@export var interest_threshold := 100.0
 
 
 func _tick(state: CharacterState) -> int:

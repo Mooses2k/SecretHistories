@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/dont_shoot1.wav-e43747b437c677dfb53846ad2f6edc69.sample"
+type="AudioStreamWAV"
+uid="uid://d0ky05jqpferu"
+path="res://.godot/imported/dont_shoot1.wav-e43747b437c677dfb53846ad2f6edc69.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/dont_shoot1.wav"
-dest_files=[ "res://.import/dont_shoot1.wav-e43747b437c677dfb53846ad2f6edc69.sample" ]
+dest_files=["res://.godot/imported/dont_shoot1.wav-e43747b437c677dfb53846ad2f6edc69.sample"]
 
 [params]
 

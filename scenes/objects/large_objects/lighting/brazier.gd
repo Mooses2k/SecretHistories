@@ -46,7 +46,7 @@ extends "res://scenes/objects/large_objects/large_object_drop_sound.gd"
 #	$FireOrigin/Fire.emitting = false
 #	$FireOrigin/Smoke.emitting = false
 
-onready var floor_candelabra_drop_sound : AudioStream = load("res://resources/sounds/impacts/metal_and_gun/414848__link-boy__metal-bang.wav")
+@onready var floor_candelabra_drop_sound : AudioStream = load("res://resources/sounds/impacts/metal_and_gun/414848__link-boy__metal-bang.wav")
 
 
 func _enter_tree():

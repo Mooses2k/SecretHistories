@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAreYouAliveWithTheWords.wav-c9cab78b5f76b65f27c78185bc4a16b1.sample"
+type="AudioStreamWAV"
+uid="uid://dgbf3mrjadaoh"
+path="res://.godot/imported/NeophyteAreYouAliveWithTheWords.wav-c9cab78b5f76b65f27c78185bc4a16b1.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteAreYouAliveWithTheWords.wav"
-dest_files=[ "res://.import/NeophyteAreYouAliveWithTheWords.wav-c9cab78b5f76b65f27c78185bc4a16b1.sample" ]
+dest_files=["res://.godot/imported/NeophyteAreYouAliveWithTheWords.wav-c9cab78b5f76b65f27c78185bc4a16b1.sample"]
 
 [params]
 

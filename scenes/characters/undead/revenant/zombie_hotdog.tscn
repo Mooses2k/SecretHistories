@@ -15,80 +15,80 @@
 
 
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="CapsuleShape3D" id=1]
 radius = 0.3
 height = 1.2
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="StandardMaterial3D" id=2]
 albedo_color = Color( 1, 0.266667, 0.2, 1 )
 
 [sub_resource type="CapsuleMesh" id=3]
 radius = 0.3
-mid_height = 1.2
+height = 1.2
 
-[sub_resource type="CubeMesh" id=4]
+[sub_resource type="BoxMesh" id=4]
 size = Vector3( 0.1, 0.15, 1 )
 
 [sub_resource type="Curve" id=5]
 max_value = 32.0
 _data = [ Vector2( 0.5, 32 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="SphereShape" id=6]
+[sub_resource type="SphereShape3D" id=6]
 radius = 0.4
 
-[sub_resource type="CapsuleShape" id=7]
+[sub_resource type="CapsuleShape3D" id=7]
 radius = 0.4
 height = 1.2
 
-[node name="Zombie" type="KinematicBody"]
+[node name="Zombie" type="CharacterBody3D"]
 collision_layer = 16
 collision_mask = 19
 script = ExtResource( 1 )
 move_speed = 2.0
 acceleration = 2.0
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
 shape = SubResource( 1 )
 
-[node name="Body" type="Spatial" parent="."]
+[node name="Body" type="Node3D" parent="."]
 script = ExtResource( 8 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Body"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
 material_override = SubResource( 2 )
 mesh = SubResource( 3 )
 
-[node name="MeshInstance2" type="MeshInstance" parent="Body"]
-transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.4, 1.2, -0.5 )
+[node name="MeshInstance2" type="MeshInstance3D" parent="Body"]
+transform = Transform3D( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.4, 1.2, -0.5 )
 mesh = SubResource( 4 )
 
-[node name="MeshInstance3" type="MeshInstance" parent="Body"]
-transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.4, 1.2, -0.5 )
+[node name="MeshInstance3" type="MeshInstance3D" parent="Body"]
+transform = Transform3D( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.4, 1.2, -0.5 )
 mesh = SubResource( 4 )
 
-[node name="GrabArea" type="Area" parent="Body"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8 )
+[node name="GrabArea" type="Area3D" parent="Body"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8 )
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 3 )
 force_curve = SubResource( 5 )
 max_distance = 0.8
 
-[node name="CollisionShape" type="CollisionShape" parent="Body/GrabArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body/GrabArea"]
 shape = SubResource( 6 )
 
 [node name="DirectPlayerSight" parent="Body" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 )
 character = NodePath("../..")
 fov = 90.0
 distance = 12.0
 
-[node name="Hitbox" type="Area" parent="."]
+[node name="Hitbox" type="Area3D" parent="."]
 script = ExtResource( 2 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
+[node name="CollisionShape2" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
 shape = SubResource( 7 )
 
 [node name="ZombieController" type="Node" parent="."]

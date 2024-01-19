@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteJoinTheCultTheySaidSeeTheWorldTheySaid.wav-90efd233baecb322fe8421a0b851e97a.sample"
+type="AudioStreamWAV"
+uid="uid://bvm3m420xpbk5"
+path="res://.godot/imported/NeophyteJoinTheCultTheySaidSeeTheWorldTheySaid.wav-90efd233baecb322fe8421a0b851e97a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteJoinTheCultTheySaidSeeTheWorldTheySaid.wav"
-dest_files=[ "res://.import/NeophyteJoinTheCultTheySaidSeeTheWorldTheySaid.wav-90efd233baecb322fe8421a0b851e97a.sample" ]
+dest_files=["res://.godot/imported/NeophyteJoinTheCultTheySaidSeeTheWorldTheySaid.wav-90efd233baecb322fe8421a0b851e97a.sample"]
 
 [params]
 

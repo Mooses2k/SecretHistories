@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/you_dont_exist.wav-d9ec67560710eabe3fb87411a2220d49.sample"
+type="AudioStreamWAV"
+uid="uid://calkjy15rttnm"
+path="res://.godot/imported/you_dont_exist.wav-d9ec67560710eabe3fb87411a2220d49.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/you_dont_exist.wav"
-dest_files=[ "res://.import/you_dont_exist.wav-d9ec67560710eabe3fb87411a2220d49.sample" ]
+dest_files=["res://.godot/imported/you_dont_exist.wav-d9ec67560710eabe3fb87411a2220d49.sample"]
 
 [params]
 

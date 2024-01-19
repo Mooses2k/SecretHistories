@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheRealityIs....wav-bebf42d35a6dbf29378abf193094df30.sample"
+type="AudioStreamWAV"
+uid="uid://bbs2612ugr636"
+path="res://.godot/imported/NeophyteTheRealityIs....wav-bebf42d35a6dbf29378abf193094df30.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteTheRealityIs....wav"
-dest_files=[ "res://.import/NeophyteTheRealityIs....wav-bebf42d35a6dbf29378abf193094df30.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheRealityIs....wav-bebf42d35a6dbf29378abf193094df30.sample"]
 
 [params]
 

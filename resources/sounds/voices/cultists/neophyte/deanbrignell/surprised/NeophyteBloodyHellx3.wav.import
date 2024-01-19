@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteBloodyHellx3.wav-87e2e7bf0e702cd03fc235181cb12f52.sample"
+type="AudioStreamWAV"
+uid="uid://cun15y3s113ii"
+path="res://.godot/imported/NeophyteBloodyHellx3.wav-87e2e7bf0e702cd03fc235181cb12f52.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/surprised/NeophyteBloodyHellx3.wav"
-dest_files=[ "res://.import/NeophyteBloodyHellx3.wav-87e2e7bf0e702cd03fc235181cb12f52.sample" ]
+dest_files=["res://.godot/imported/NeophyteBloodyHellx3.wav-87e2e7bf0e702cd03fc235181cb12f52.sample"]
 
 [params]
 

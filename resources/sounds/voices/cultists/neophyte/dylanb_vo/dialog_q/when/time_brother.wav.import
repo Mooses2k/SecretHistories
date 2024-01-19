@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/time_brother.wav-6184ad62699ed80454627c91af549bec.sample"
+type="AudioStreamWAV"
+uid="uid://k41tu62rnwd6"
+path="res://.godot/imported/time_brother.wav-6184ad62699ed80454627c91af549bec.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/when/time_brother.wav"
-dest_files=[ "res://.import/time_brother.wav-6184ad62699ed80454627c91af549bec.sample" ]
+dest_files=["res://.godot/imported/time_brother.wav-6184ad62699ed80454627c91af549bec.sample"]
 
 [params]
 

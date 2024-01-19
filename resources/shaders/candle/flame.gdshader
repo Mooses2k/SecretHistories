@@ -28,26 +28,26 @@
 /**************************************************************************/
 
 shader_type spatial;
-render_mode async_visible,blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
 
 uniform float noise_seed = 0.0;
 
 uniform vec3 top_offset = vec3(0.0, 0.0, 0.0);
 uniform vec2 model_height_range = vec2(-1.0, 1.0);
 
-uniform sampler2D noise : hint_albedo;
+uniform sampler2D noise : source_color;
 uniform float noise_scale = 0.5;
-uniform sampler2D texture_albedo : hint_albedo;
+uniform sampler2D texture_albedo : source_color;
 uniform float timescale : hint_range(0.0, 9.0, 0.1) = 1.0;
 uniform float scale = 1;
-uniform sampler2D gradient : hint_albedo;
+uniform sampler2D gradient : source_color;
 uniform vec3 uv1_scale;
 uniform vec3 uv1_offset;
 
 void vertex()
 {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
-	MODELVIEW_MATRIX = INV_CAMERA_MATRIX * mat4(CAMERA_MATRIX[0], CAMERA_MATRIX[1], CAMERA_MATRIX[2], WORLD_MATRIX[3]);
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat4(INV_VIEW_MATRIX[0], INV_VIEW_MATRIX[1], INV_VIEW_MATRIX[2], MODEL_MATRIX[3]);
 	VERTEX += VERTEX.y > ((model_height_range.x / 2.0) + (model_height_range.y / 2.0)) ? top_offset : vec3(0.0);
 	VERTEX *= scale;
 	VERTEX.y -= (1.0 - scale);
@@ -55,7 +55,7 @@ void vertex()
 
 void fragment()
 {
-	vec4 world_position = inverse(WORLD_MATRIX) * vec4(VERTEX, 1.0);
+	vec4 world_position = inverse(MODEL_MATRIX) * vec4(VERTEX, 1.0);
 	float absolute_timescale = TIME * timescale;
 	vec4 noise_tex = texture(noise, (UV + absolute_timescale + vec2(noise_seed*666.0)) * noise_scale);
 	vec4 albedo_tex = texture(texture_albedo, (UV) + (noise_tex.r - 0.5));

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/oi_whos_that_then4.wav-b407c8eb71d0af2a28535903c7796afb.sample"
+type="AudioStreamWAV"
+uid="uid://db7jivqttud6g"
+path="res://.godot/imported/oi_whos_that_then4.wav-b407c8eb71d0af2a28535903c7796afb.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/oi_whos_that_then4.wav"
-dest_files=[ "res://.import/oi_whos_that_then4.wav-b407c8eb71d0af2a28535903c7796afb.sample" ]
+dest_files=["res://.godot/imported/oi_whos_that_then4.wav-b407c8eb71d0af2a28535903c7796afb.sample"]
 
 [params]
 

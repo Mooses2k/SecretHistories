@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/past_is_never_dead.ogg-45b09f6c2f595680a654f5c8852fd699.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ji81a0l8n8pi"
+path="res://.godot/imported/past_is_never_dead.ogg-45b09f6c2f595680a654f5c8852fd699.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/past_is_never_dead.ogg"
-dest_files=[ "res://.import/past_is_never_dead.ogg-45b09f6c2f595680a654f5c8852fd699.oggstr" ]
+dest_files=["res://.godot/imported/past_is_never_dead.ogg-45b09f6c2f595680a654f5c8852fd699.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

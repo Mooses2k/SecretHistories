@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/whispers.wav-7f063c4874605525d328a629302cdea6.sample"
+type="AudioStreamWAV"
+uid="uid://b7rc6vfysbo0i"
+path="res://.godot/imported/whispers.wav-7f063c4874605525d328a629302cdea6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/ghost/whispers.wav"
-dest_files=[ "res://.import/whispers.wav-7f063c4874605525d328a629302cdea6.sample" ]
+dest_files=["res://.godot/imported/whispers.wav-7f063c4874605525d328a629302cdea6.sample"]
 
 [params]
 

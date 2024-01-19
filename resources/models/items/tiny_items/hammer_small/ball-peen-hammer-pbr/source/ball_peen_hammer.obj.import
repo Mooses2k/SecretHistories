@@ -1,20 +1,22 @@
 [remap]
 
 importer="wavefront_obj"
+importer_version=1
 type="Mesh"
-path="res://.import/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh"
+uid="uid://ddr4s4xkpfajf"
+path="res://.godot/imported/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh"
 
 [deps]
 
-files=[ "res://.import/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh" ]
+files=["res://.godot/imported/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh"]
 
 source_file="res://resources/models/items/tiny_items/hammer_small/ball-peen-hammer-pbr/source/ball_peen_hammer.obj"
-dest_files=[ "res://.import/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh", "res://.import/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh" ]
+dest_files=["res://.godot/imported/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh", "res://.godot/imported/ball_peen_hammer.obj-1442494ac8fb539a89169ad94f737b8e.mesh"]
 
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3( 1, 1, 1 )
-offset_mesh=Vector3( 0, 0, 0 )
-octahedral_compression=true
-optimize_mesh_flags=4286
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

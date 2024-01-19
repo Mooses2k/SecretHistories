@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/machine_elves.ogg-2b89e0f9ed2f1fd8fd5fe73e09aa3345.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://sqyblq5vh1u4"
+path="res://.godot/imported/machine_elves.ogg-2b89e0f9ed2f1fd8fd5fe73e09aa3345.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/machine_elves.ogg"
-dest_files=[ "res://.import/machine_elves.ogg-2b89e0f9ed2f1fd8fd5fe73e09aa3345.oggstr" ]
+dest_files=["res://.godot/imported/machine_elves.ogg-2b89e0f9ed2f1fd8fd5fe73e09aa3345.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

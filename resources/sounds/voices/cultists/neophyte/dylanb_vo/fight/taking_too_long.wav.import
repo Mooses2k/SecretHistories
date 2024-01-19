@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/taking_too_long.wav-c314c6964c668f311271184857bb4815.sample"
+type="AudioStreamWAV"
+uid="uid://dm8cqeswpmm2y"
+path="res://.godot/imported/taking_too_long.wav-c314c6964c668f311271184857bb4815.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/taking_too_long.wav"
-dest_files=[ "res://.import/taking_too_long.wav-c314c6964c668f311271184857bb4815.sample" ]
+dest_files=["res://.godot/imported/taking_too_long.wav-c314c6964c668f311271184857bb4815.sample"]
 
 [params]
 

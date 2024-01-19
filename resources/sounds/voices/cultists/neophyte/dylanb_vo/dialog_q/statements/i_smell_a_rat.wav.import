@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/i_smell_a_rat.wav-ef04366e88706dc032b8cca2fb2ff3b4.sample"
+type="AudioStreamWAV"
+uid="uid://cfr2uea8x77wp"
+path="res://.godot/imported/i_smell_a_rat.wav-ef04366e88706dc032b8cca2fb2ff3b4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/statements/i_smell_a_rat.wav"
-dest_files=[ "res://.import/i_smell_a_rat.wav-ef04366e88706dc032b8cca2fb2ff3b4.sample" ]
+dest_files=["res://.godot/imported/i_smell_a_rat.wav-ef04366e88706dc032b8cca2fb2ff3b4.sample"]
 
 [params]
 

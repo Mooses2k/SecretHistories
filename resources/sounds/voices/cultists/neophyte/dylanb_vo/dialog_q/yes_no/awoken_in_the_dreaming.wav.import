@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/awoken_in_the_dreaming.wav-a963768056de653048a6fedaa8a661de.sample"
+type="AudioStreamWAV"
+uid="uid://5ix82a2yuy28"
+path="res://.godot/imported/awoken_in_the_dreaming.wav-a963768056de653048a6fedaa8a661de.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/awoken_in_the_dreaming.wav"
-dest_files=[ "res://.import/awoken_in_the_dreaming.wav-a963768056de653048a6fedaa8a661de.sample" ]
+dest_files=["res://.godot/imported/awoken_in_the_dreaming.wav-a963768056de653048a6fedaa8a661de.sample"]
 
 [params]
 

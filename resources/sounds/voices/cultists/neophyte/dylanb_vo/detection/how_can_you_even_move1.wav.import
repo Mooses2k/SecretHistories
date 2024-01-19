@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/how_can_you_even_move1.wav-dddea65a339c9faf964de9f7623f273e.sample"
+type="AudioStreamWAV"
+uid="uid://cqmd42xgd73wy"
+path="res://.godot/imported/how_can_you_even_move1.wav-dddea65a339c9faf964de9f7623f273e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/how_can_you_even_move1.wav"
-dest_files=[ "res://.import/how_can_you_even_move1.wav-dddea65a339c9faf964de9f7623f273e.sample" ]
+dest_files=["res://.godot/imported/how_can_you_even_move1.wav-dddea65a339c9faf964de9f7623f273e.sample"]
 
 [params]
 

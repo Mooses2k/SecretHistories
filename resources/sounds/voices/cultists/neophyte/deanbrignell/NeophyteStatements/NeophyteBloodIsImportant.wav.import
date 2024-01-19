@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteBloodIsImportant.wav-6263d0f68f90b60a40984e7755da43e9.sample"
+type="AudioStreamWAV"
+uid="uid://cd3o62cx8gi5x"
+path="res://.godot/imported/NeophyteBloodIsImportant.wav-6263d0f68f90b60a40984e7755da43e9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteBloodIsImportant.wav"
-dest_files=[ "res://.import/NeophyteBloodIsImportant.wav-6263d0f68f90b60a40984e7755da43e9.sample" ]
+dest_files=["res://.godot/imported/NeophyteBloodIsImportant.wav-6263d0f68f90b60a40984e7755da43e9.sample"]
 
 [params]
 

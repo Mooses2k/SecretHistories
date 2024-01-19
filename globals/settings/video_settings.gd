@@ -21,13 +21,13 @@ const GUI_SCALE_MAX = 2.0
 const GUI_SCALE_STEP = 0.25
 const GUI_SCALE_DEFAULT = 1.0
 
-var fullscreen_enabled : bool setget set_fullscreen_enabled, get_fullscreen_enabled
-var brightness : bool setget set_brightness, get_brightness
-var gui_scale : float setget set_gui_scale, get_gui_scale
+var fullscreen_enabled : bool: get = get_fullscreen_enabled, set = set_fullscreen_enabled
+var brightness : bool: get = get_brightness, set = set_brightness
+var gui_scale : float: get = get_gui_scale, set = set_gui_scale
 
 
 func _ready():
-	Settings.add_bool_setting(SETTING_FULLSCREEN, OS.window_fullscreen)
+	Settings.add_bool_setting(SETTING_FULLSCREEN, ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)))
 	Settings.set_setting_group(SETTING_FULLSCREEN, GROUP_NAME)
 	
 	Settings.add_float_setting(SETTING_BRIGHTNESS, BRIGHTNESS_MIN, BRIGHTNESS_MAX, BRIGHTNESS_STEP, BRIGHTNESS_DEFAULT)
@@ -36,7 +36,7 @@ func _ready():
 	Settings.add_float_setting(SETTING_GUI_SCALE, GUI_SCALE_MIN, GUI_SCALE_MAX, GUI_SCALE_STEP, GUI_SCALE_DEFAULT)
 	Settings.set_setting_group(SETTING_GUI_SCALE, GROUP_NAME)
 	
-	Settings.connect("setting_changed", self, "on_setting_changed")
+	Settings.connect("setting_changed", Callable(self, "on_setting_changed"))
 
 
 func set_fullscreen_enabled(value : bool):
@@ -63,17 +63,17 @@ func get_gui_scale() -> float:
 func on_setting_changed(setting_name, old_value, new_value):
 	match setting_name:
 		SETTING_FULLSCREEN:
-			OS.window_fullscreen = new_value
-			fullscreen_enabled = new_value
+			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (new_value) else Window.MODE_WINDOWED
+			#fullscreen_enabled = new_value
 			emit_signal("fullscreen_changed", new_value)
 			SettingsConfig.save_settings()
 		SETTING_BRIGHTNESS:
 			if is_instance_valid(GameManager.game):   # If the game is loaded, change immediately
 				GameManager.game.set_brightness()
-			brightness = new_value
+			#brightness = new_value
 			emit_signal("brightness_changed", new_value)   # TODO: make this signal
 			SettingsConfig.save_settings()
 		SETTING_GUI_SCALE:
-			gui_scale = new_value
+			#gui_scale = new_value
 			emit_signal("gui_scale_changed", new_value)
 			SettingsConfig.save_settings()

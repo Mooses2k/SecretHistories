@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/414848__link-boy__metal-bang.wav-6a829caaf3537540152c47da6201058d.sample"
+type="AudioStreamWAV"
+uid="uid://dtfc8vnh1k7ss"
+path="res://.godot/imported/414848__link-boy__metal-bang.wav-6a829caaf3537540152c47da6201058d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/metal_and_gun/414848__link-boy__metal-bang.wav"
-dest_files=[ "res://.import/414848__link-boy__metal-bang.wav-6a829caaf3537540152c47da6201058d.sample" ]
+dest_files=["res://.godot/imported/414848__link-boy__metal-bang.wav-6a829caaf3537540152c47da6201058d.sample"]
 
 [params]
 

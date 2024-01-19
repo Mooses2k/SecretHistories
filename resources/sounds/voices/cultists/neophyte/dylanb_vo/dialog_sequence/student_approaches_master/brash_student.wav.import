@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/brash_student.wav-133f027c387f60139da715a4d1508300.sample"
+type="AudioStreamWAV"
+uid="uid://dxwajjdyfv046"
+path="res://.godot/imported/brash_student.wav-133f027c387f60139da715a4d1508300.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/student_approaches_master/brash_student.wav"
-dest_files=[ "res://.import/brash_student.wav-133f027c387f60139da715a4d1508300.sample" ]
+dest_files=["res://.godot/imported/brash_student.wav-133f027c387f60139da715a4d1508300.sample"]
 
 [params]
 

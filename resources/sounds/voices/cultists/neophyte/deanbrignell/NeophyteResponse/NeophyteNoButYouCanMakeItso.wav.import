@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteNoButYouCanMakeItso.wav-ccefe01995868939ba9b1fce1bc25342.sample"
+type="AudioStreamWAV"
+uid="uid://dumc1eqoa64h3"
+path="res://.godot/imported/NeophyteNoButYouCanMakeItso.wav-ccefe01995868939ba9b1fce1bc25342.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteResponse/NeophyteNoButYouCanMakeItso.wav"
-dest_files=[ "res://.import/NeophyteNoButYouCanMakeItso.wav-ccefe01995868939ba9b1fce1bc25342.sample" ]
+dest_files=["res://.godot/imported/NeophyteNoButYouCanMakeItso.wav-ccefe01995868939ba9b1fce1bc25342.sample"]
 
 [params]
 

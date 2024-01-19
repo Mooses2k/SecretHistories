@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhyYaRunnin.wav-d317a9ab7497a4c55fe476c4db799811.sample"
+type="AudioStreamWAV"
+uid="uid://bjm4byjoxpr1x"
+path="res://.godot/imported/NeophyteWhyYaRunnin.wav-d317a9ab7497a4c55fe476c4db799811.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteWhyYaRunnin.wav"
-dest_files=[ "res://.import/NeophyteWhyYaRunnin.wav-d317a9ab7497a4c55fe476c4db799811.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhyYaRunnin.wav-d317a9ab7497a4c55fe476c4db799811.sample"]
 
 [params]
 

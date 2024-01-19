@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/repay_all_debts.wav-734ee31d992cad66845e04b3a3da016e.sample"
+type="AudioStreamWAV"
+uid="uid://cl2u6m5oyouvc"
+path="res://.godot/imported/repay_all_debts.wav-734ee31d992cad66845e04b3a3da016e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence/student_approaches_master/repay_all_debts.wav"
-dest_files=[ "res://.import/repay_all_debts.wav-734ee31d992cad66845e04b3a3da016e.sample" ]
+dest_files=["res://.godot/imported/repay_all_debts.wav-734ee31d992cad66845e04b3a3da016e.sample"]
 
 [params]
 

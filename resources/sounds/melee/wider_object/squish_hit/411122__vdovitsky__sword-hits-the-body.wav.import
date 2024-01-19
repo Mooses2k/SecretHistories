@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/411122__vdovitsky__sword-hits-the-body.wav-33141d209158477aaedb0f5899c4d1c0.sample"
+type="AudioStreamWAV"
+uid="uid://em0b7as3g50m"
+path="res://.godot/imported/411122__vdovitsky__sword-hits-the-body.wav-33141d209158477aaedb0f5899c4d1c0.sample"
 
 [deps]
 
 source_file="res://resources/sounds/melee/wider_object/squish_hit/411122__vdovitsky__sword-hits-the-body.wav"
-dest_files=[ "res://.import/411122__vdovitsky__sword-hits-the-body.wav-33141d209158477aaedb0f5899c4d1c0.sample" ]
+dest_files=["res://.godot/imported/411122__vdovitsky__sword-hits-the-body.wav-33141d209158477aaedb0f5899c4d1c0.sample"]
 
 [params]
 

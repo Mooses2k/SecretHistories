@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhatAmIDoingInThisSmellySewer.wav-27875718a5395ea0a61ea438aebdcf97.sample"
+type="AudioStreamWAV"
+uid="uid://8a2g0ugkr87r"
+path="res://.godot/imported/NeophyteWhatAmIDoingInThisSmellySewer.wav-27875718a5395ea0a61ea438aebdcf97.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteWhatAmIDoingInThisSmellySewer.wav"
-dest_files=[ "res://.import/NeophyteWhatAmIDoingInThisSmellySewer.wav-27875718a5395ea0a61ea438aebdcf97.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhatAmIDoingInThisSmellySewer.wav-27875718a5395ea0a61ea438aebdcf97.sample"]
 
 [params]
 

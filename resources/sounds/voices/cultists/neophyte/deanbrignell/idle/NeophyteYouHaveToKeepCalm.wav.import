@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYouHaveToKeepCalm.wav-571b204fa65a08821d09756ae8415518.sample"
+type="AudioStreamWAV"
+uid="uid://bwigayrxs4mw6"
+path="res://.godot/imported/NeophyteYouHaveToKeepCalm.wav-571b204fa65a08821d09756ae8415518.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteYouHaveToKeepCalm.wav"
-dest_files=[ "res://.import/NeophyteYouHaveToKeepCalm.wav-571b204fa65a08821d09756ae8415518.sample" ]
+dest_files=["res://.godot/imported/NeophyteYouHaveToKeepCalm.wav-571b204fa65a08821d09756ae8415518.sample"]
 
 [params]
 

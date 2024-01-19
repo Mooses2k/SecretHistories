@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/i_needed_to_do_this.wav-daf8963209f1bc95e12af93879625892.sample"
+type="AudioStreamWAV"
+uid="uid://dlh46xmb3ngb"
+path="res://.godot/imported/i_needed_to_do_this.wav-daf8963209f1bc95e12af93879625892.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/i_needed_to_do_this.wav"
-dest_files=[ "res://.import/i_needed_to_do_this.wav-daf8963209f1bc95e12af93879625892.sample" ]
+dest_files=["res://.godot/imported/i_needed_to_do_this.wav-daf8963209f1bc95e12af93879625892.sample"]
 
 [params]
 

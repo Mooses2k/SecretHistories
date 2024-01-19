@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteDoYouFeelTheStarsInsideYourVoid.wav-58b0d97310a1b0af108b13f2d55985ac.sample"
+type="AudioStreamWAV"
+uid="uid://ck53hl1ixh066"
+path="res://.godot/imported/NeophyteDoYouFeelTheStarsInsideYourVoid.wav-58b0d97310a1b0af108b13f2d55985ac.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteDoYouFeelTheStarsInsideYourVoid.wav"
-dest_files=[ "res://.import/NeophyteDoYouFeelTheStarsInsideYourVoid.wav-58b0d97310a1b0af108b13f2d55985ac.sample" ]
+dest_files=["res://.godot/imported/NeophyteDoYouFeelTheStarsInsideYourVoid.wav-58b0d97310a1b0af108b13f2d55985ac.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav-6a47a7384e4cddee77d2a25293f74625.sample"
+type="AudioStreamWAV"
+uid="uid://dg2lnc331wub4"
+path="res://.godot/imported/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav-6a47a7384e4cddee77d2a25293f74625.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav"
-dest_files=[ "res://.import/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav-6a47a7384e4cddee77d2a25293f74625.sample" ]
+dest_files=["res://.godot/imported/NeophyteIllRideTheTailOfTheCometOnceIFindIt.wav-6a47a7384e4cddee77d2a25293f74625.sample"]
 
 [params]
 

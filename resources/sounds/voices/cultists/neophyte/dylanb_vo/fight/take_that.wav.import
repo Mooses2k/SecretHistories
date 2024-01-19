@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/take_that.wav-9918fae0312297775fc8a81bd849686a.sample"
+type="AudioStreamWAV"
+uid="uid://4gmli1bj1e6g"
+path="res://.godot/imported/take_that.wav-9918fae0312297775fc8a81bd849686a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/take_that.wav"
-dest_files=[ "res://.import/take_that.wav-9918fae0312297775fc8a81bd849686a.sample" ]
+dest_files=["res://.godot/imported/take_that.wav-9918fae0312297775fc8a81bd849686a.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/faced_doubt.wav-1c62289301788a5b82e8f337602badfc.sample"
+type="AudioStreamWAV"
+uid="uid://b5o13knlvb2o6"
+path="res://.godot/imported/faced_doubt.wav-1c62289301788a5b82e8f337602badfc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/yes_no/faced_doubt.wav"
-dest_files=[ "res://.import/faced_doubt.wav-1c62289301788a5b82e8f337602badfc.sample" ]
+dest_files=["res://.godot/imported/faced_doubt.wav-1c62289301788a5b82e8f337602badfc.sample"]
 
 [params]
 

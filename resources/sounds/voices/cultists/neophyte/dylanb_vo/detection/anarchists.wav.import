@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample"
+type="AudioStreamWAV"
+uid="uid://dyh3swovo38id"
+path="res://.godot/imported/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/anarchists.wav"
-dest_files=[ "res://.import/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample" ]
+dest_files=["res://.godot/imported/anarchists.wav-1ab4e0aef8e0e1bf4f07c8f5ee209ccf.sample"]
 
 [params]
 

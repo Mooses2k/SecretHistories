@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIfIWereTheOneToFindIt.wav-fd1198de3223fcc46a5e9d147253d046.sample"
+type="AudioStreamWAV"
+uid="uid://be586wr21iwc7"
+path="res://.godot/imported/NeophyteIfIWereTheOneToFindIt.wav-fd1198de3223fcc46a5e9d147253d046.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIfIWereTheOneToFindIt.wav"
-dest_files=[ "res://.import/NeophyteIfIWereTheOneToFindIt.wav-fd1198de3223fcc46a5e9d147253d046.sample" ]
+dest_files=["res://.godot/imported/NeophyteIfIWereTheOneToFindIt.wav-fd1198de3223fcc46a5e9d147253d046.sample"]
 
 [params]
 

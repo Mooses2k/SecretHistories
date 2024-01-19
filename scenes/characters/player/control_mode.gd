@@ -2,9 +2,9 @@ class_name ControlMode
 extends Node
 
 
-export var _cam_path : NodePath
-var is_active : bool = false setget set_active
-onready var _camera : ShakeCamera = get_node(_cam_path) as ShakeCamera
+@export var _cam_path : NodePath
+var is_active : bool = false: set = set_active
+@onready var _camera : ShakeCamera = get_node(_cam_path) as ShakeCamera
 
 
 func _ready():
@@ -30,7 +30,7 @@ func get_interaction_target() -> Node:
 	return null
 
 
-func get_grab_target() -> RigidBody:
+func get_grab_target() -> RigidBody3D:
 	return null
 
 

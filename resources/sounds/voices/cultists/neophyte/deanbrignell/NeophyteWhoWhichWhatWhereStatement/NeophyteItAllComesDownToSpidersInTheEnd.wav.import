@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItAllComesDownToSpidersInTheEnd.wav-de0ce6be59a5765bca29b8df35c77fd9.sample"
+type="AudioStreamWAV"
+uid="uid://cj66pwg71drin"
+path="res://.godot/imported/NeophyteItAllComesDownToSpidersInTheEnd.wav-de0ce6be59a5765bca29b8df35c77fd9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteItAllComesDownToSpidersInTheEnd.wav"
-dest_files=[ "res://.import/NeophyteItAllComesDownToSpidersInTheEnd.wav-de0ce6be59a5765bca29b8df35c77fd9.sample" ]
+dest_files=["res://.godot/imported/NeophyteItAllComesDownToSpidersInTheEnd.wav-de0ce6be59a5765bca29b8df35c77fd9.sample"]
 
 [params]
 

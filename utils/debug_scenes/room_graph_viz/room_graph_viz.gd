@@ -13,38 +13,38 @@ const COLOR_ROOMS = Color(0.3,0.3,0.3,1.0)
 const COLOR_CORRIDORS = Color(0.5,0.3,0.3,1.0)
 const COLOR_DOORS = Color(0.3,0.5,0.3,1.0)
 const COLOR_HALLS = Color(0.3,0.3,0.5,1.0)
-const COLOR_DELAUNAY = Color.cyan
-const COLOR_CONNECTIONS = Color.yellowgreen
-const COLOR_ASTAR = Color.orangered
+const COLOR_DELAUNAY = Color.CYAN
+const COLOR_CONNECTIONS = Color.YELLOW_GREEN
+const COLOR_ASTAR = Color.ORANGE_RED
 
 const PATH_FONT = "res://resources/fonts/godot_default_bitmapfont.tres"
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-export(float, 0.1, 1.0, 0.1) var max_minimap_screen_height := 0.5
-export(float, 0.0, 50.0, 0.5) var distances_scale := 30.0 setget _set_distances_scale
-export var draw_basic_grid := true setget _set_draw_basic_grid
-export var draw_map := true setget _set_draw_map
-export var draw_full_delaunay := true setget _set_draw_full_delaunay
-export var draw_chosen_connections := true setget _set_draw_chosen_connections
-export var draw_astar_grid := true setget _set_draw_astar_grid
-export var draw_astar_connections := true setget _set_draw_astar_connections
-export var draw_player := true setget _set_draw_player
+@export var max_minimap_screen_height := 0.5 # (float, 0.1, 1.0, 0.1)
+@export var distances_scale := 30.0: set = _set_distances_scale
+@export var draw_basic_grid := true: set = _set_draw_basic_grid
+@export var draw_map := true: set = _set_draw_map
+@export var draw_full_delaunay := true: set = _set_draw_full_delaunay
+@export var draw_chosen_connections := true: set = _set_draw_chosen_connections
+@export var draw_astar_grid := true: set = _set_draw_astar_grid
+@export var draw_astar_connections := true: set = _set_draw_astar_connections
+@export var draw_player := true: set = _set_draw_player
 
 var font: Font = null
 
-var world_data: WorldData = null setget _set_world_data
+var world_data: WorldData = null: set = _set_world_data
 
-var room_centers_cell_indexes := PoolIntArray()
-var room_centers := PoolVector2Array() setget _set_room_centers
-var delaunay := PoolIntArray()
-var room_connections := {} setget _set_room_connections
+var room_centers_cell_indexes := PackedInt32Array()
+var room_centers := PackedVector2Array(): set = _set_room_centers
+var delaunay := PackedInt32Array()
+var room_connections := {}: set = _set_room_connections
 
 var astar: ManhattanAStar2D = null
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
-onready var _player_icon: Node2D = $PlayerIcon 
+@onready var _player_icon: Node2D = $PlayerIcon 
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ onready var _player_icon: Node2D = $PlayerIcon
 func _ready() -> void:
 	if is_instance_valid(GameManager.game):
 		# warning-ignore:return_value_discarded
-		GameManager.game.connect("player_spawned", self, "_on_game_player_spawned")
+		GameManager.game.connect("player_spawned", Callable(self, "_on_game_player_spawned"))
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -70,7 +70,7 @@ func _draw() -> void:
 		if draw_basic_grid:
 			for cell_index in world_data.cell_count:
 				var cell_rect := _get_cell_rect_from_cell_index(cell_index)
-				var color = Color.gray
+				var color = Color.GRAY
 				color.a = 0.2
 				draw_rect(cell_rect, color, false)
 		
@@ -96,7 +96,7 @@ func _draw() -> void:
 				draw_rect(cell_rect, COLOR_HALLS)
 	
 	if astar != null:
-		var astar_points := astar.get_points()
+		var astar_points := astar.get_point_ids()
 		
 		for cell_index in astar_points:
 			var cell_rect := _get_cell_rect_from_cell_index(cell_index)
@@ -107,7 +107,7 @@ func _draw() -> void:
 				
 				var weight := astar.get_point_weight_scale(cell_index)
 				var weight_position := cell_rect.position + Vector2(0, distances_scale / 2.0)
-				draw_string(font, weight_position, "%.1f"%[weight], faded_color)
+				draw_string(font, weight_position, "%.1f"%[weight], 0, -1, 16, faded_color)
 			
 			if draw_astar_connections:
 				var connections := astar.get_point_connections(cell_index)
@@ -115,7 +115,7 @@ func _draw() -> void:
 				for to_index in connections:
 					var to_cell := _get_cell_rect_from_cell_index(to_index)
 					var to_middle_point := to_cell.position + to_cell.size / 2.0
-					draw_line(from_middle_point, to_middle_point, Color.orange)
+					draw_line(from_middle_point, to_middle_point, Color.ORANGE)
 	
 	if draw_full_delaunay:
 		for point in room_centers:
@@ -160,9 +160,9 @@ func _get_cell_rect_from_cell_index(cell_index: int) -> Rect2:
 	return value
 
 
-func _set_room_centers(value: PoolVector2Array) -> void:
+func _set_room_centers(value: PackedVector2Array) -> void:
 	room_centers = value
-	if not room_centers.empty() and is_inside_tree():
+	if not room_centers.is_empty() and is_inside_tree():
 		for index in room_centers.size():
 			var point := room_centers[index]
 			room_centers[index] = point * distances_scale
@@ -170,44 +170,44 @@ func _set_room_centers(value: PoolVector2Array) -> void:
 
 func _set_room_connections(value: Dictionary) -> void:
 	room_connections = value.duplicate(true)
-	if not room_connections.empty() and is_inside_tree():
+	if not room_connections.is_empty() and is_inside_tree():
 		print("room indexes: %s"%[room_centers_cell_indexes])
 		print("room_connections: %s"%[room_connections])
 
 
 func _set_distances_scale(value: float) -> void:
 	distances_scale = value
-	update()
+	queue_redraw()
 
 
 func _set_draw_basic_grid(value: bool) -> void:
 	draw_basic_grid = value
-	update()
+	queue_redraw()
 
 
 func _set_draw_map(value: bool) -> void:
 	draw_map = value
-	update()
+	queue_redraw()
 
 
 func _set_draw_full_delaunay(value: bool) -> void:
 	draw_full_delaunay = value
-	update()
+	queue_redraw()
 
 
 func _set_draw_chosen_connections(value: bool) -> void:
 	draw_chosen_connections = value
-	update()
+	queue_redraw()
 
 
 func _set_draw_astar_grid(value: bool) -> void:
 	draw_astar_grid = value
-	update()
+	queue_redraw()
 
 
 func _set_draw_astar_connections(value: bool) -> void:
 	draw_astar_connections = value
-	update()
+	queue_redraw()
 
 
 func _set_draw_player(value: bool) -> void:
@@ -228,15 +228,15 @@ func _set_world_data(value: WorldData) -> void:
 ### Signal Callbacks ------------------------------------------------------------------------------
 
 func _on_world_generation_finished() -> void:
-	update()
+	queue_redraw()
 
 
 func _on_game_player_spawned(p_player: Player) -> void:
 	_player_icon.player = p_player
 	hide()   # Hidden by default
 	
-	if not p_player.is_connected("character_died", self, "_on_player_character_died"):
-		p_player.connect("character_died", self, "_on_player_character_died")
+	if not p_player.is_connected("character_died", Callable(self, "_on_player_character_died")):
+		p_player.connect("character_died", Callable(self, "_on_player_character_died"))
 
 
 func _on_player_character_died() -> void:

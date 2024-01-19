@@ -11,7 +11,7 @@
 [ext_resource path="res://resources/sounds/throwing/181679__gingie__knife-throw.ogg" type="AudioStream" id=9]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=10]
 
-[sub_resource type="CylinderShape" id=1]
+[sub_resource type="CylinderShape3D" id=1]
 height = 0.431874
 radius = 0.118034
 
@@ -33,27 +33,27 @@ secondary_damage2 = 0
 melee_attack_speed = 1.0
 cooldown = 1.0
 
-[node name="Hitbox" type="Area" parent="." index="2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.607795, 0 )
+[node name="Hitbox" type="Area3D" parent="." index="2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.607795, 0 )
 collision_layer = 0
 collision_mask = 12
 monitorable = false
 script = ExtResource( 8 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.681336, 0.00937342 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" index="0"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.681336, 0.00937342 )
 shape = SubResource( 1 )
 
 [node name="CooldownTimer" type="Timer" parent="." index="3"]
 one_shot = true
 
-[node name="NormalPosition" type="Position3D" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+[node name="NormalPosition" type="Marker3D" parent="." index="5"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 
-[node name="ThrowPosition" type="Position3D" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.423551, 0 )
+[node name="ThrowPosition" type="Marker3D" parent="." index="6"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.423551, 0 )
 
-[node name="Sounds" type="Spatial" parent="." index="7"]
+[node name="Sounds" type="Node3D" parent="." index="7"]
 
 [node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 bus = "Effects"

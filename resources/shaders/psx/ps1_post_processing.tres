@@ -1,8 +1,10 @@
-[gd_resource type="Shader" format=2]
+[gd_resource type="Shader" format=3 uid="uid://e0j6lwyjeryw"]
 
 [resource]
 code = "shader_type spatial;
-render_mode unshaded, shadows_disabled, depth_test_disable, depth_draw_never;
+render_mode unshaded, shadows_disabled, depth_test_disabled, depth_draw_never;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 uniform int color_depth : hint_range(1, 8) = 5;
 uniform bool dithering = false;

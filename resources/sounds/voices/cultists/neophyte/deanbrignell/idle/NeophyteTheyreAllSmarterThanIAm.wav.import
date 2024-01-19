@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheyreAllSmarterThanIAm.wav-c445d18d1c53b4e0a6f62da0792e032d.sample"
+type="AudioStreamWAV"
+uid="uid://b13u8deu2otw"
+path="res://.godot/imported/NeophyteTheyreAllSmarterThanIAm.wav-c445d18d1c53b4e0a6f62da0792e032d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteTheyreAllSmarterThanIAm.wav"
-dest_files=[ "res://.import/NeophyteTheyreAllSmarterThanIAm.wav-c445d18d1c53b4e0a6f62da0792e032d.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheyreAllSmarterThanIAm.wav-c445d18d1c53b4e0a6f62da0792e032d.sample"]
 
 [params]
 

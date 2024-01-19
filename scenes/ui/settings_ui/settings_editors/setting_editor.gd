@@ -1,7 +1,7 @@
 extends Node
 
 
-export(SettingsClass.SettingType) var _setting_type : int = SettingsClass.SettingType.NIL
+@export var _setting_type : int = SettingsClass.SettingType.NIL # (SettingsClass.SettingType)
 var _setting_name : String
 var settings : SettingsClass
 
@@ -42,9 +42,9 @@ func attach_setting(setting_name : String, _settings : SettingsClass):
 		printerr("settings controller at ", settings.get_path(), " has setting ", setting_name, "\n",\
 		"But the type doesn't match: real = ", settings.get_setting_type(setting_name), " expected :", _setting_type)
 	_setting_name = setting_name
-	settings.connect("setting_changed", self, "on_setting_changed")
-	settings.connect("setting_removed", self, "on_setting_removed")
-	settings.connect("keys_saved", self, "on_setting_changed")
+	settings.connect("setting_changed", Callable(self, "on_setting_changed"))
+	settings.connect("setting_removed", Callable(self, "on_setting_removed"))
+	settings.connect("keys_saved", Callable(self, "on_setting_changed"))
 	_on_setting_attached()
 	set_value(settings.get_setting(setting_name))
 

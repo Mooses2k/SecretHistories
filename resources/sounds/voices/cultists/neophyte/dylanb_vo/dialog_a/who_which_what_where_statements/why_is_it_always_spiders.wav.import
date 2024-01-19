@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/why_is_it_always_spiders.wav-c53221f5674fc62b5683df69a6fcb914.sample"
+type="AudioStreamWAV"
+uid="uid://cidhrc3cva83b"
+path="res://.godot/imported/why_is_it_always_spiders.wav-c53221f5674fc62b5683df69a6fcb914.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/why_is_it_always_spiders.wav"
-dest_files=[ "res://.import/why_is_it_always_spiders.wav-c53221f5674fc62b5683df69a6fcb914.sample" ]
+dest_files=["res://.godot/imported/why_is_it_always_spiders.wav-c53221f5674fc62b5683df69a6fcb914.sample"]
 
 [params]
 

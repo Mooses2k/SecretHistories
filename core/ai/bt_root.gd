@@ -6,16 +6,16 @@ signal post_tick()
 
 var tick_delta : float = 0.1
 
-onready var character: Character = owner
+@onready var character: Character = owner
 
 
 func _ready() -> void:
-	._ready()
+	super._ready()
 	_setup_ai_tree()
-	var timer = Timer.new()
+	var timer := Timer.new()
 	timer.one_shot = false
 	timer.wait_time = tick_delta
-	timer.connect("timeout", self, "run_tick")
+	timer.timeout.connect(run_tick)
 	add_child(timer)
 	timer.start()
 
@@ -32,8 +32,8 @@ func _setup_ai_tree() -> void:
 
 
 func _setup_node(node : BTNode) -> void:
-	connect("pre_tick", node, "pre_tick")
-	connect("post_tick", node, "post_tick")
+	pre_tick.connect(node.on_pre_tick)
+	post_tick.connect(node.on_post_tick)
 	node._root = self
 	for child in node.get_children():
 		if child is BTNode:

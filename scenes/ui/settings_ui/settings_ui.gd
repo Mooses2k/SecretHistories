@@ -114,10 +114,10 @@ func add_setting(setting_name : String):
 	
 	if group_name == "Input Key Settings" and is_first_key_settings:
 		is_first_key_settings = false
-		settings_group.add_editor(SetDefaultKeyBtn.instance())
-		settings_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed", get_parent().owner.get_node("ResetPanel"), "toggle_panel")
+		settings_group.add_editor(SetDefaultKeyBtn.instantiate())
+		settings_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed", Callable(get_parent().owner.get_node("ResetPanel"), "toggle_panel"))
 	
-	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instance() as SettingEditor
+	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instantiate() as SettingEditor
 	settings_group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
 
@@ -131,7 +131,7 @@ func add_group(group_name : String) -> bool:
 	else:
 		add_blank_row()
 	
-	var new_group = GroupScene.instance()
+	var new_group = GroupScene.instantiate()
 	add_child(new_group)
 	group_nodes[group_name] = new_group
 	new_group.group_name = str(group_name) + "\n"
@@ -139,7 +139,7 @@ func add_group(group_name : String) -> bool:
 
 
 func add_blank_row() -> void:
-	var new_group = BlankRowScene.instance()
+	var new_group = BlankRowScene.instantiate()
 	add_child(new_group)
 
 

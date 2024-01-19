@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWearCautionOnYourEyes.wav-f036b2be3d18fcb2fd561d285d846d6c.sample"
+type="AudioStreamWAV"
+uid="uid://pjm8d7sq0f88"
+path="res://.godot/imported/NeophyteWearCautionOnYourEyes.wav-f036b2be3d18fcb2fd561d285d846d6c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteWearCautionOnYourEyes.wav"
-dest_files=[ "res://.import/NeophyteWearCautionOnYourEyes.wav-f036b2be3d18fcb2fd561d285d846d6c.sample" ]
+dest_files=["res://.godot/imported/NeophyteWearCautionOnYourEyes.wav-f036b2be3d18fcb2fd561d285d846d6c.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/toil_in_the_darkness1.wav-48ac9c36dbf581afe889ecab25ed01f5.sample"
+type="AudioStreamWAV"
+uid="uid://sfnfk2u6hi3w"
+path="res://.godot/imported/toil_in_the_darkness1.wav-48ac9c36dbf581afe889ecab25ed01f5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/where/toil_in_the_darkness1.wav"
-dest_files=[ "res://.import/toil_in_the_darkness1.wav-48ac9c36dbf581afe889ecab25ed01f5.sample" ]
+dest_files=["res://.godot/imported/toil_in_the_darkness1.wav-48ac9c36dbf581afe889ecab25ed01f5.sample"]
 
 [params]
 

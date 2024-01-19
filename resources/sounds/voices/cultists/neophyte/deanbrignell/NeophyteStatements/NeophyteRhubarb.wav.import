@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteRhubarb.wav-93fad3501d8da8502ae7adabf153bf3d.sample"
+type="AudioStreamWAV"
+uid="uid://cnafpd6rn5s7x"
+path="res://.godot/imported/NeophyteRhubarb.wav-93fad3501d8da8502ae7adabf153bf3d.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteRhubarb.wav"
-dest_files=[ "res://.import/NeophyteRhubarb.wav-93fad3501d8da8502ae7adabf153bf3d.sample" ]
+dest_files=["res://.godot/imported/NeophyteRhubarb.wav-93fad3501d8da8502ae7adabf153bf3d.sample"]
 
 [params]
 

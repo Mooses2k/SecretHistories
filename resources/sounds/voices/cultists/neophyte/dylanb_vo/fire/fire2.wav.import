@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/fire2.wav-9ad652076a1ffd1c9efd7225eaac712e.sample"
+type="AudioStreamWAV"
+uid="uid://cbb5trdge8sae"
+path="res://.godot/imported/fire2.wav-9ad652076a1ffd1c9efd7225eaac712e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fire/fire2.wav"
-dest_files=[ "res://.import/fire2.wav-9ad652076a1ffd1c9efd7225eaac712e.sample" ]
+dest_files=["res://.godot/imported/fire2.wav-9ad652076a1ffd1c9efd7225eaac712e.sample"]
 
 [params]
 

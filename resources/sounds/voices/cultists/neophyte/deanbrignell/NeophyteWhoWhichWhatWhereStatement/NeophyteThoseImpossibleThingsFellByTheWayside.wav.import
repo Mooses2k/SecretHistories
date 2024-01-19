@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThoseImpossibleThingsFellByTheWayside.wav-8b2c1fd01b0edf5e7bd504526d39fd7e.sample"
+type="AudioStreamWAV"
+uid="uid://eqq426lry3fs"
+path="res://.godot/imported/NeophyteThoseImpossibleThingsFellByTheWayside.wav-8b2c1fd01b0edf5e7bd504526d39fd7e.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteThoseImpossibleThingsFellByTheWayside.wav"
-dest_files=[ "res://.import/NeophyteThoseImpossibleThingsFellByTheWayside.wav-8b2c1fd01b0edf5e7bd504526d39fd7e.sample" ]
+dest_files=["res://.godot/imported/NeophyteThoseImpossibleThingsFellByTheWayside.wav-8b2c1fd01b0edf5e7bd504526d39fd7e.sample"]
 
 [params]
 

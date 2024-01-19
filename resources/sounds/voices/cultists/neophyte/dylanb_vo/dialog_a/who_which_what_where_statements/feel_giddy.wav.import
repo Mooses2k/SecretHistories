@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/feel_giddy.wav-7f5b7961676931601e25288d155e4728.sample"
+type="AudioStreamWAV"
+uid="uid://b500i5se1f5ep"
+path="res://.godot/imported/feel_giddy.wav-7f5b7961676931601e25288d155e4728.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/feel_giddy.wav"
-dest_files=[ "res://.import/feel_giddy.wav-7f5b7961676931601e25288d155e4728.sample" ]
+dest_files=["res://.godot/imported/feel_giddy.wav-7f5b7961676931601e25288d155e4728.sample"]
 
 [params]
 

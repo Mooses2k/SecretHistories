@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/its_happening.wav-f53ac87eac4bb8b1e30bb6b409173e46.sample"
+type="AudioStreamWAV"
+uid="uid://cbmg7e7ekvnyv"
+path="res://.godot/imported/its_happening.wav-f53ac87eac4bb8b1e30bb6b409173e46.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/its_happening.wav"
-dest_files=[ "res://.import/its_happening.wav-f53ac87eac4bb8b1e30bb6b409173e46.sample" ]
+dest_files=["res://.godot/imported/its_happening.wav-f53ac87eac4bb8b1e30bb6b409173e46.sample"]
 
 [params]
 

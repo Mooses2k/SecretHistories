@@ -17,44 +17,44 @@ surfaces/0 = {
 "vertex_count": 7953
 }
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape3D" id=2]
 extents = Vector3( 0.3, 0.5, 0.3 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape3D" id=3]
 extents = Vector3( 0.4, 0.03, 0.4 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape3D" id=4]
 extents = Vector3( 0.4, 0.15, 0.4 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape3D" id=5]
 extents = Vector3( 0.35, 0.1, 0.35 )
 
-[node name="Pedestal" type="StaticBody" groups=["CLAMBERABLE"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
+[node name="Pedestal" type="StaticBody3D" groups=["CLAMBERABLE"]]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0 )
 collision_layer = 513
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0120674, 0.0241874, 0.0076589 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0120674, 0.0241874, 0.0076589 )
 mesh = SubResource( 1 )
 
 [node name="Durability" type="Timer" parent="."]
 wait_time = 300.0
 one_shot = true
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0113986, 0.887701, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0113986, 0.887701, 0 )
 shape = SubResource( 2 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 1.29059, 0 )
+[node name="CollisionShape2" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 1.29059, 0 )
 shape = SubResource( 3 )
 
-[node name="CollisionShape3" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.173186, 0 )
+[node name="CollisionShape3" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.173186, 0 )
 shape = SubResource( 4 )
 
-[node name="CollisionShape4" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.334678, 0 )
+[node name="CollisionShape4" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.334678, 0 )
 shape = SubResource( 5 )
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

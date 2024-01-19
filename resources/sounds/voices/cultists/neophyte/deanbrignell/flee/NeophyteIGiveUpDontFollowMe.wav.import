@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIGiveUpDontFollowMe.wav-0ff0fde6f7c19c7d04a31bc4d14d29c5.sample"
+type="AudioStreamWAV"
+uid="uid://pkrbyu2lovpa"
+path="res://.godot/imported/NeophyteIGiveUpDontFollowMe.wav-0ff0fde6f7c19c7d04a31bc4d14d29c5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteIGiveUpDontFollowMe.wav"
-dest_files=[ "res://.import/NeophyteIGiveUpDontFollowMe.wav-0ff0fde6f7c19c7d04a31bc4d14d29c5.sample" ]
+dest_files=["res://.godot/imported/NeophyteIGiveUpDontFollowMe.wav-0ff0fde6f7c19c7d04a31bc4d14d29c5.sample"]
 
 [params]
 

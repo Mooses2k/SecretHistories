@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_a_student_approaches_his_master.ogg-30d2070ae0b0f7b47b314e2b62f1b3b8.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dmpq07opgbb4f"
+path="res://.godot/imported/neophyte_a_student_approaches_his_master.ogg-30d2070ae0b0f7b47b314e2b62f1b3b8.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/student_master/neophyte_a_student_approaches_his_master.ogg"
-dest_files=[ "res://.import/neophyte_a_student_approaches_his_master.ogg-30d2070ae0b0f7b47b314e2b62f1b3b8.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_a_student_approaches_his_master.ogg-30d2070ae0b0f7b47b314e2b62f1b3b8.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

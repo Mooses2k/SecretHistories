@@ -6,13 +6,13 @@ enum States {
 	GRAB,
 }
 
-export var max_wander = 6.0
-export var wander_speed_factor : float = 0.6
+@export var max_wander = 6.0
+@export var wander_speed_factor : float = 0.6
 
-onready var character = owner
-onready var body = $"../Body" as Spatial
-onready var view_area = $"../Body/ViewArea" as Area
-onready var view_raycast = $"../Body/ViewRayCast" as RayCast
+@onready var character = owner
+@onready var body = $"../Body" as Node3D
+@onready var view_area = $"../Body/ViewArea" as Area3D
+@onready var view_raycast = $"../Body/ViewRayCast" as RayCast3D
 
 var current_state = States.WANDER
 

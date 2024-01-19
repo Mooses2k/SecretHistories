@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteNoShotsLeft.wav-6023a7ce9fa3bc9577037b194e3fa474.sample"
+type="AudioStreamWAV"
+uid="uid://01i4lj4rwont"
+path="res://.godot/imported/NeophyteNoShotsLeft.wav-6023a7ce9fa3bc9577037b194e3fa474.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/out_of_ammo/NeophyteNoShotsLeft.wav"
-dest_files=[ "res://.import/NeophyteNoShotsLeft.wav-6023a7ce9fa3bc9577037b194e3fa474.sample" ]
+dest_files=["res://.godot/imported/NeophyteNoShotsLeft.wav-6023a7ce9fa3bc9577037b194e3fa474.sample"]
 
 [params]
 

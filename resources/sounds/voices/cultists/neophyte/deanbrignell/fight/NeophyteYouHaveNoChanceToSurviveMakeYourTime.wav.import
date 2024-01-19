@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYouHaveNoChanceToSurviveMakeYourTime.wav-b712c94060198bccff939b49f52827dc.sample"
+type="AudioStreamWAV"
+uid="uid://cojafogmymkwf"
+path="res://.godot/imported/NeophyteYouHaveNoChanceToSurviveMakeYourTime.wav-b712c94060198bccff939b49f52827dc.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteYouHaveNoChanceToSurviveMakeYourTime.wav"
-dest_files=[ "res://.import/NeophyteYouHaveNoChanceToSurviveMakeYourTime.wav-b712c94060198bccff939b49f52827dc.sample" ]
+dest_files=["res://.godot/imported/NeophyteYouHaveNoChanceToSurviveMakeYourTime.wav-b712c94060198bccff939b49f52827dc.sample"]
 
 [params]
 

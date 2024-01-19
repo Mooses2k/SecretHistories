@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_r_you_have_no_eyes_to_see_2.ogg-d1ba63d91f0a603fb8b363148822dbdc.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bcnh5mpdadkhd"
+path="res://.godot/imported/neophyte_r_you_have_no_eyes_to_see_2.ogg-d1ba63d91f0a603fb8b363148822dbdc.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/neophyte_r_you_have_no_eyes_to_see_2.ogg"
-dest_files=[ "res://.import/neophyte_r_you_have_no_eyes_to_see_2.ogg-d1ba63d91f0a603fb8b363148822dbdc.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_r_you_have_no_eyes_to_see_2.ogg-d1ba63d91f0a603fb8b363148822dbdc.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

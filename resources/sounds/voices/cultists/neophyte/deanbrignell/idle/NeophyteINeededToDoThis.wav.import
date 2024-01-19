@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteINeededToDoThis.wav-5b2b51f0efa8fe8c0c17c9ee71868238.sample"
+type="AudioStreamWAV"
+uid="uid://huarvea0q63l"
+path="res://.godot/imported/NeophyteINeededToDoThis.wav-5b2b51f0efa8fe8c0c17c9ee71868238.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteINeededToDoThis.wav"
-dest_files=[ "res://.import/NeophyteINeededToDoThis.wav-5b2b51f0efa8fe8c0c17c9ee71868238.sample" ]
+dest_files=["res://.godot/imported/NeophyteINeededToDoThis.wav-5b2b51f0efa8fe8c0c17c9ee71868238.sample"]
 
 [params]
 

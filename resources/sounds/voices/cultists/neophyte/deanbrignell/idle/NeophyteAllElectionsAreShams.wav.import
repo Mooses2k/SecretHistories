@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteAllElectionsAreShams.wav-62bdab0eeabbcc199ad2836a7f485d07.sample"
+type="AudioStreamWAV"
+uid="uid://ci32r04435ywt"
+path="res://.godot/imported/NeophyteAllElectionsAreShams.wav-62bdab0eeabbcc199ad2836a7f485d07.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteAllElectionsAreShams.wav"
-dest_files=[ "res://.import/NeophyteAllElectionsAreShams.wav-62bdab0eeabbcc199ad2836a7f485d07.sample" ]
+dest_files=["res://.godot/imported/NeophyteAllElectionsAreShams.wav-62bdab0eeabbcc199ad2836a7f485d07.sample"]
 
 [params]
 

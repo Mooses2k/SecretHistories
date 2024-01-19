@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteButWhyIsItAlwaysSpiders.wav-76c35d9690e6d57c12b6ffe094a837e5.sample"
+type="AudioStreamWAV"
+uid="uid://cwmws01blwrpm"
+path="res://.godot/imported/NeophyteButWhyIsItAlwaysSpiders.wav-76c35d9690e6d57c12b6ffe094a837e5.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteButWhyIsItAlwaysSpiders.wav"
-dest_files=[ "res://.import/NeophyteButWhyIsItAlwaysSpiders.wav-76c35d9690e6d57c12b6ffe094a837e5.sample" ]
+dest_files=["res://.godot/imported/NeophyteButWhyIsItAlwaysSpiders.wav-76c35d9690e6d57c12b6ffe094a837e5.sample"]
 
 [params]
 

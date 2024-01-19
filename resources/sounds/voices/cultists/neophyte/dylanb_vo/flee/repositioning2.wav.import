@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/repositioning2.wav-4dd81e51a47962502741e56991532e48.sample"
+type="AudioStreamWAV"
+uid="uid://dq5k8strsu6os"
+path="res://.godot/imported/repositioning2.wav-4dd81e51a47962502741e56991532e48.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/repositioning2.wav"
-dest_files=[ "res://.import/repositioning2.wav-4dd81e51a47962502741e56991532e48.sample" ]
+dest_files=["res://.godot/imported/repositioning2.wav-4dd81e51a47962502741e56991532e48.sample"]
 
 [params]
 

@@ -3,22 +3,22 @@ extends Control
 
 const CONTAINER_COUNT_TEMPLATE = "%d + %d"   # Typically how much ammo in weapon / ammo total
 
-export var can_equip_modulate : Color
-export var equipped_modulate : Color
-export var can_not_equip_modulate : Color
+@export var can_equip_modulate : Color
+@export var equipped_modulate : Color
+@export var can_not_equip_modulate : Color
 
-var item : EquipmentItem = null setget set_item
+var item : EquipmentItem = null: set = set_item
 var tracking_tiny_item = null
-var inventory = null setget set_inventory
-export var index : int = -1
-export var is_bulky : bool  = false
+var inventory = null: set = set_inventory
+@export var index : int = -1
+@export var is_bulky : bool  = false
 
 var is_equipped_mainhand : bool = false 
 var is_equipped_offhand : bool = false
 var is_equippable_mainhand : bool = false
 var is_equippable_offhand : bool = false
 
-onready var fadeanimations = $"../../FadeAnim"
+@onready var fadeanimations = $"../../FadeAnim"
 
 
 func update_mainhand_indicator():
@@ -41,8 +41,9 @@ func update_offhand_indicator():
 
 
 func set_item(value : EquipmentItem):
-	item = value
-	update_item_data()
+	if item != value:
+		item = value
+		update_item_data()
 
 
 func _ready():
@@ -55,10 +56,10 @@ func _ready():
 	var game = GameManager.game
 	var player = game.player
 	if player == null:
-		yield(game, "player_spawned")
+		await game.player_spawned
 		player = game.player
 	if player.inventory == null:
-		yield(player, "ready")
+		await player.ready
 		inventory = player.inventory
 	self.inventory = player.inventory
 
@@ -70,13 +71,13 @@ func set_inventory(value : Node):
 	else:
 		inventory_bulky_item_changed()
 	update_equipped_status()
-	inventory.connect("hotbar_changed", self, "inventory_slot_changed")
-	inventory.connect("bulky_item_changed", self, "inventory_bulky_item_changed")
-	inventory.connect("tiny_item_changed", self, "inventory_tiny_item_changed")
-	inventory.connect("mainhand_slot_changed", self, "inventory_mainhand_slot_changed")
-	inventory.connect("offhand_slot_changed", self, "inventory_offhand_slot_changed")
-	inventory.connect("inventory_changed",self, "hud_visibility")
-	inventory.connect("player_died",self, "hide_hud")
+	inventory.connect("hotbar_changed", Callable(self, "inventory_slot_changed"))
+	inventory.connect("bulky_item_changed", Callable(self, "inventory_bulky_item_changed"))
+	inventory.connect("tiny_item_changed", Callable(self, "inventory_tiny_item_changed"))
+	inventory.connect("mainhand_slot_changed", Callable(self, "inventory_mainhand_slot_changed"))
+	inventory.connect("offhand_slot_changed", Callable(self, "inventory_offhand_slot_changed"))
+	inventory.connect("inventory_changed", Callable(self, "hud_visibility"))
+	inventory.connect("player_died", Callable(self, "hide_hud"))
 
 
 func hide_hud():

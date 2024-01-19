@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/think_i_left_oven_on1.wav-64bdb81bf76cd81b64a229ce451eac66.sample"
+type="AudioStreamWAV"
+uid="uid://c2l65je4k5edd"
+path="res://.godot/imported/think_i_left_oven_on1.wav-64bdb81bf76cd81b64a229ce451eac66.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee/think_i_left_oven_on1.wav"
-dest_files=[ "res://.import/think_i_left_oven_on1.wav-64bdb81bf76cd81b64a229ce451eac66.sample" ]
+dest_files=["res://.godot/imported/think_i_left_oven_on1.wav-64bdb81bf76cd81b64a229ce451eac66.sample"]
 
 [params]
 

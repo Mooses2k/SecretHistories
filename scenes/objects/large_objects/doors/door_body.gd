@@ -1,23 +1,23 @@
-extends RigidBody
+extends RigidBody3D
 class_name DoorBody
 
 
 var min_angle = 0.0
 var max_angle = 90.0
-export var restitution = 0.5
-export var _hinge_node : NodePath
-var hinge_node : Spatial
+@export var restitution = 0.5
+@export var _hinge_node : NodePath
+var hinge_node : Node3D
 var base_angle : float = 0.0
 
 var sound_vol = 20
-onready var debug_draw = $DebugDraw
+@onready var debug_draw = $DebugDraw
 
 var last_torque_constraint : Vector3 = Vector3.ZERO
 var last_impulse_constraint : Vector3 = Vector3.ZERO
 
 func _ready():
 	hinge_node = get_node(_hinge_node)
-	var door_to_hinge : Transform = hinge_node.global_transform*global_transform.inverse()
+	var door_to_hinge : Transform3D = hinge_node.global_transform*global_transform.inverse()
 	var base_vector : Vector3 = door_to_hinge*Vector3.ZERO
 	base_vector.y = 0.0
 	base_angle = -base_vector.angle_to(Vector3.RIGHT)*sign(base_vector.cross(Vector3.RIGHT).y)
@@ -29,7 +29,7 @@ func __integrate_forces(state):
 	var angle = wrapf(rotation.y, -PI, PI)
 	var hinge_to_door = global_transform.inverse()*hinge_node.global_transform
 	
-	var target_angle = clamp(angle, deg2rad(min_angle), deg2rad(max_angle))
+	var target_angle = clamp(angle, deg_to_rad(min_angle), deg_to_rad(max_angle))
 	var angle_diff = wrapf(target_angle - angle, -PI, PI)
 	
 	if (state.angular_velocity.abs().length() > 0.03):
@@ -37,7 +37,7 @@ func __integrate_forces(state):
 		if sound_vol < 1.5:
 			sound_vol = -(2 / sound_vol)
 			
-		$AudioStreamPlayer3D.unit_db = clamp(sound_vol, 00.0, 40.0)
+		$AudioStreamPlayer3D.volume_db = clamp(sound_vol, 00.0, 40.0)
 		
 		if not $AudioStreamPlayer3D.playing:
 			$AudioStreamPlayer3D.play()

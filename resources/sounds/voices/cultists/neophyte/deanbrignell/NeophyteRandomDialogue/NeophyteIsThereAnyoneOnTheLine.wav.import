@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIsThereAnyoneOnTheLine.wav-f9a92c5bb09822d5fd33da303e617afe.sample"
+type="AudioStreamWAV"
+uid="uid://lccc082tlwn0"
+path="res://.godot/imported/NeophyteIsThereAnyoneOnTheLine.wav-f9a92c5bb09822d5fd33da303e617afe.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/NeophyteIsThereAnyoneOnTheLine.wav"
-dest_files=[ "res://.import/NeophyteIsThereAnyoneOnTheLine.wav-f9a92c5bb09822d5fd33da303e617afe.sample" ]
+dest_files=["res://.godot/imported/NeophyteIsThereAnyoneOnTheLine.wav-f9a92c5bb09822d5fd33da303e617afe.sample"]
 
 [params]
 

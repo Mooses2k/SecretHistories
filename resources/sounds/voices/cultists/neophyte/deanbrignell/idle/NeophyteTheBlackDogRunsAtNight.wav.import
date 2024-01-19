@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteTheBlackDogRunsAtNight.wav-3cdf5dec71689a6addc3c641923ed0a9.sample"
+type="AudioStreamWAV"
+uid="uid://qxmfa8manlgb"
+path="res://.godot/imported/NeophyteTheBlackDogRunsAtNight.wav-3cdf5dec71689a6addc3c641923ed0a9.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteTheBlackDogRunsAtNight.wav"
-dest_files=[ "res://.import/NeophyteTheBlackDogRunsAtNight.wav-3cdf5dec71689a6addc3c641923ed0a9.sample" ]
+dest_files=["res://.godot/imported/NeophyteTheBlackDogRunsAtNight.wav-3cdf5dec71689a6addc3c641923ed0a9.sample"]
 
 [params]
 

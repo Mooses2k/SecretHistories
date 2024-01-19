@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteHmphPolitics.wav-529867477337a7f8b322ab8030617607.sample"
+type="AudioStreamWAV"
+uid="uid://chwlh6cx1v7aw"
+path="res://.godot/imported/NeophyteHmphPolitics.wav-529867477337a7f8b322ab8030617607.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteHmphPolitics.wav"
-dest_files=[ "res://.import/NeophyteHmphPolitics.wav-529867477337a7f8b322ab8030617607.sample" ]
+dest_files=["res://.godot/imported/NeophyteHmphPolitics.wav-529867477337a7f8b322ab8030617607.sample"]
 
 [params]
 

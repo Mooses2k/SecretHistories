@@ -1,5 +1,5 @@
+@tool
 # Generic resource that defines the rules for a room to fit a certain purpose
-tool
 class_name RoomPurpose
 extends Resource
 
@@ -65,7 +65,7 @@ func is_compatible(room_data: RoomData) -> bool:
 func _get_property_list() -> Array:
 	var properties: = []
 	
-	var enum_hint := (RoomData.OriginalPurpose.keys() as PoolStringArray).join(",")
+	var enum_hint := ",".join(RoomData.OriginalPurpose.keys() as PackedStringArray)
 	properties.append({
 		name = "purpose_id",
 		type = TYPE_INT,

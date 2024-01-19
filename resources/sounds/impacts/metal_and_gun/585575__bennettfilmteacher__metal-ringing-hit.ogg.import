@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/585575__bennettfilmteacher__metal-ringing-hit.ogg-58d9f95af74e399e0cd6a17d81d92dd3.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://6vh6wtn4tgau"
+path="res://.godot/imported/585575__bennettfilmteacher__metal-ringing-hit.ogg-58d9f95af74e399e0cd6a17d81d92dd3.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/metal_and_gun/585575__bennettfilmteacher__metal-ringing-hit.ogg"
-dest_files=[ "res://.import/585575__bennettfilmteacher__metal-ringing-hit.ogg-58d9f95af74e399e0cd6a17d81d92dd3.oggstr" ]
+dest_files=["res://.godot/imported/585575__bennettfilmteacher__metal-ringing-hit.ogg-58d9f95af74e399e0cd6a17d81d92dd3.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

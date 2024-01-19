@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/dream_about_going_up_there.wav-ad48a97f631ac90266156ed78b281510.sample"
+type="AudioStreamWAV"
+uid="uid://b0qa14i0myr4g"
+path="res://.godot/imported/dream_about_going_up_there.wav-ad48a97f631ac90266156ed78b281510.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/dream_about_going_up_there.wav"
-dest_files=[ "res://.import/dream_about_going_up_there.wav-ad48a97f631ac90266156ed78b281510.sample" ]
+dest_files=["res://.godot/imported/dream_about_going_up_there.wav-ad48a97f631ac90266156ed78b281510.sample"]
 
 [params]
 

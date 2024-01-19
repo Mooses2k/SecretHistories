@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_r_two_men_look_up_at_the_stars.ogg-55667fdbe754543c22f79412fae8e231.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dem6aj2u7q5po"
+path="res://.godot/imported/neophyte_r_two_men_look_up_at_the_stars.ogg-55667fdbe754543c22f79412fae8e231.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/lines_between_two_cultists/two_men_look_up/neophyte_r_two_men_look_up_at_the_stars.ogg"
-dest_files=[ "res://.import/neophyte_r_two_men_look_up_at_the_stars.ogg-55667fdbe754543c22f79412fae8e231.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_r_two_men_look_up_at_the_stars.ogg-55667fdbe754543c22f79412fae8e231.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

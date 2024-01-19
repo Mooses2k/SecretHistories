@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItsThePigMother.wav-6fef32608e43f65bf5e0d9c5ed02185a.sample"
+type="AudioStreamWAV"
+uid="uid://bjc1hohsp67mj"
+path="res://.godot/imported/NeophyteItsThePigMother.wav-6fef32608e43f65bf5e0d9c5ed02185a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItsThePigMother.wav"
-dest_files=[ "res://.import/NeophyteItsThePigMother.wav-6fef32608e43f65bf5e0d9c5ed02185a.sample" ]
+dest_files=["res://.godot/imported/NeophyteItsThePigMother.wav-6fef32608e43f65bf5e0d9c5ed02185a.sample"]
 
 [params]
 

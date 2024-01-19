@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/think_youre_fooling.wav-693822a6c2bc6d15f518770dd0a6225b.sample"
+type="AudioStreamWAV"
+uid="uid://boslkbjh44ac3"
+path="res://.godot/imported/think_youre_fooling.wav-693822a6c2bc6d15f518770dd0a6225b.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q/who_which_what/think_youre_fooling.wav"
-dest_files=[ "res://.import/think_youre_fooling.wav-693822a6c2bc6d15f518770dd0a6225b.sample" ]
+dest_files=["res://.godot/imported/think_youre_fooling.wav-693822a6c2bc6d15f518770dd0a6225b.sample"]
 
 [params]
 

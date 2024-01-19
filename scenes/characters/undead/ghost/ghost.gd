@@ -1,4 +1,4 @@
-extends KinematicBody
+extends CharacterBody3D
 
 
 const SPEED = 1.0  # quite slow
@@ -9,10 +9,9 @@ var path = null
 var health = 200
 
 #onready var fog = $Fog as Particles
-onready var hitbox = $HitboxArea
-onready var game_world = GameManager.game
-onready var player = game_world.player
-onready var navigation : Navigation = game_world.level.navigation
+@onready var hitbox = $HitboxArea
+@onready var game_world = GameManager.game
+@onready var player = game_world.player
 
 
 func _ready():
@@ -20,12 +19,12 @@ func _ready():
 	
 #	fog.emitting = true
 	
-	hitbox.connect("body_entered", self, "on_hit_player")
+	hitbox.connect("body_entered", Callable(self, "on_hit_player"))
 	
 	var timer = Timer.new()
 	timer.wait_time = 0.1
 	add_child(timer)
-	timer.connect("timeout", self, "find_path_timer")
+	timer.connect("timeout", Callable(self, "find_path_timer"))
 	timer.start()
 
 
@@ -43,12 +42,14 @@ func _physics_process(delta):
 
 func move_along_path(path):
 	if global_transform.origin.distance_to(path[0]) < 0.1:
-		path.remove(0)
+		path.remove_at(0)
 		if path.size() == 0:
 			return
 	
 	vel = (path[0] - global_transform.origin).normalized() * SPEED
-	vel = move_and_slide(vel)
+	set_velocity(vel)
+	move_and_slide()
+	vel = velocity
 
 
 func set_target(target):
@@ -66,6 +67,7 @@ func set_target(target):
 
 func find_path_timer():
 	self.set_target(player)
-	path = navigation.get_simple_path(global_transform.origin, target.global_transform.origin)
-	path.remove(0)
+	var nav_map = get_world_3d().navigation_map
+	path = NavigationServer3D.map_get_path(nav_map, global_transform.origin, target.global_transform.origin, true)
+	path.remove_at(0)
 #	path = path_finder.find_path(global_transform.origin, target.global_transform.origin)

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIllTellTheOthers.wav-739fa8dc0816e70287a00e5305c2d416.sample"
+type="AudioStreamWAV"
+uid="uid://m5p1xwga0uml"
+path="res://.godot/imported/NeophyteIllTellTheOthers.wav-739fa8dc0816e70287a00e5305c2d416.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteIllTellTheOthers.wav"
-dest_files=[ "res://.import/NeophyteIllTellTheOthers.wav-739fa8dc0816e70287a00e5305c2d416.sample" ]
+dest_files=["res://.godot/imported/NeophyteIllTellTheOthers.wav-739fa8dc0816e70287a00e5305c2d416.sample"]
 
 [params]
 

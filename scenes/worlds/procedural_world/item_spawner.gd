@@ -1,4 +1,4 @@
-tool
+@tool
 class_name ItemSpawner
 extends Spawner
 
@@ -16,7 +16,7 @@ var _used_cell_indexes := []
 ### Built in Engine Methods -----------------------------------------------------------------------
 
 func _ready() -> void:
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 
 ### -----------------------------------------------------------------------------------------------
@@ -85,11 +85,11 @@ func _get_next_free_cell(data : WorldData) -> bool:
 func _spawn_item(scene_path: String, position: Vector3, angle := 0.0) -> void:
 	var item
 	var item_scene : PackedScene = load(scene_path)
-	item = item_scene.instance()
+	item = item_scene.instantiate()
 	
-	if item is Spatial:
-		(item as Spatial).translation = position
-		(item as Spatial).rotate_y(angle)
+	if item is Node3D:
+		(item as Node3D).position = position
+		(item as Node3D).rotate_y(angle)
 	
 	owner.add_child(item)
 #	print("item spawned: %s | at: %s | rotated y by: %s"%[scene_path, position, angle])
@@ -97,10 +97,10 @@ func _spawn_item(scene_path: String, position: Vector3, angle := 0.0) -> void:
 
 func _spawn_tiny_item(item_data_path: String, amount: int, position: Vector3) -> void:
 	var tiny_item_scene = preload("res://scenes/objects/pickable_items/tiny/_tiny_item.tscn")
-	var item : TinyItem = tiny_item_scene.instance()
+	var item : TinyItem = tiny_item_scene.instantiate()
 	item.amount = amount
 	item.item_data = load(item_data_path)
-	item.translation = position
+	item.position = position
 	owner.add_child(item)
 
 ### -----------------------------------------------------------------------------------------------

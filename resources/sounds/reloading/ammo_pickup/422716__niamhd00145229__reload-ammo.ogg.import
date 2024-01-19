@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/422716__niamhd00145229__reload-ammo.ogg-74af80575f414448e91abcd0ac2a6e5c.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://biqwhqeb70a3r"
+path="res://.godot/imported/422716__niamhd00145229__reload-ammo.ogg-74af80575f414448e91abcd0ac2a6e5c.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg"
-dest_files=[ "res://.import/422716__niamhd00145229__reload-ammo.ogg-74af80575f414448e91abcd0ac2a6e5c.oggstr" ]
+dest_files=["res://.godot/imported/422716__niamhd00145229__reload-ammo.ogg-74af80575f414448e91abcd0ac2a6e5c.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

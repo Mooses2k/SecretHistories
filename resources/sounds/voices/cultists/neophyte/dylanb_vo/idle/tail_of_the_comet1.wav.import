@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/tail_of_the_comet1.wav-6d95ebfc348a9d741d332793076f97b4.sample"
+type="AudioStreamWAV"
+uid="uid://dbbq1vv53od10"
+path="res://.godot/imported/tail_of_the_comet1.wav-6d95ebfc348a9d741d332793076f97b4.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/tail_of_the_comet1.wav"
-dest_files=[ "res://.import/tail_of_the_comet1.wav-6d95ebfc348a9d741d332793076f97b4.sample" ]
+dest_files=["res://.godot/imported/tail_of_the_comet1.wav-6d95ebfc348a9d741d332793076f97b4.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/still_quiet_light.wav-eb83090d9ca57ea6353533dd44aab90c.sample"
+type="AudioStreamWAV"
+uid="uid://dbljxqt2j8xt4"
+path="res://.godot/imported/still_quiet_light.wav-eb83090d9ca57ea6353533dd44aab90c.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle/still_quiet_light.wav"
-dest_files=[ "res://.import/still_quiet_light.wav-eb83090d9ca57ea6353533dd44aab90c.sample" ]
+dest_files=["res://.godot/imported/still_quiet_light.wav-eb83090d9ca57ea6353533dd44aab90c.sample"]
 
 [params]
 

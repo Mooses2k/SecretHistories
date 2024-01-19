@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteStrangestThoughts.wav-27b46aafefe08b87d06f46b613efecc8.sample"
+type="AudioStreamWAV"
+uid="uid://b051nt3cukegu"
+path="res://.godot/imported/NeophyteStrangestThoughts.wav-27b46aafefe08b87d06f46b613efecc8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteStatements/NeophyteStrangestThoughts.wav"
-dest_files=[ "res://.import/NeophyteStrangestThoughts.wav-27b46aafefe08b87d06f46b613efecc8.sample" ]
+dest_files=["res://.godot/imported/NeophyteStrangestThoughts.wav-27b46aafefe08b87d06f46b613efecc8.sample"]
 
 [params]
 

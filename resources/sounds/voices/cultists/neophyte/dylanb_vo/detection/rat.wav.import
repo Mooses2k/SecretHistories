@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/rat.wav-2a9aa64264c290d56b73627a1441c3ea.sample"
+type="AudioStreamWAV"
+uid="uid://dwa8861gs26uu"
+path="res://.godot/imported/rat.wav-2a9aa64264c290d56b73627a1441c3ea.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection/rat.wav"
-dest_files=[ "res://.import/rat.wav-2a9aa64264c290d56b73627a1441c3ea.sample" ]
+dest_files=["res://.godot/imported/rat.wav-2a9aa64264c290d56b73627a1441c3ea.sample"]
 
 [params]
 

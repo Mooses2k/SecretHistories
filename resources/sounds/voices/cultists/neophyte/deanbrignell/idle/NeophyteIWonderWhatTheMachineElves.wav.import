@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIWonderWhatTheMachineElves.wav-772318cc2b1e9ff13d7a5e6335204ab8.sample"
+type="AudioStreamWAV"
+uid="uid://3eawjpu0v852"
+path="res://.godot/imported/NeophyteIWonderWhatTheMachineElves.wav-772318cc2b1e9ff13d7a5e6335204ab8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIWonderWhatTheMachineElves.wav"
-dest_files=[ "res://.import/NeophyteIWonderWhatTheMachineElves.wav-772318cc2b1e9ff13d7a5e6335204ab8.sample" ]
+dest_files=["res://.godot/imported/NeophyteIWonderWhatTheMachineElves.wav-772318cc2b1e9ff13d7a5e6335204ab8.sample"]
 
 [params]
 

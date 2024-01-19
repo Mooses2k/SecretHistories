@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/this_too_shall_pass.wav-8724a48b7742f856933e3333fbb0ae3f.sample"
+type="AudioStreamWAV"
+uid="uid://vqr8x74f8jro"
+path="res://.godot/imported/this_too_shall_pass.wav-8724a48b7742f856933e3333fbb0ae3f.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight/this_too_shall_pass.wav"
-dest_files=[ "res://.import/this_too_shall_pass.wav-8724a48b7742f856933e3333fbb0ae3f.sample" ]
+dest_files=["res://.godot/imported/this_too_shall_pass.wav-8724a48b7742f856933e3333fbb0ae3f.sample"]
 
 [params]
 

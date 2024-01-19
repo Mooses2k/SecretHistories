@@ -6,10 +6,10 @@ const CONNECTION_GRAPH_KEY = "connection_graph"
 const DELAUNAY_GRAPH_KEY = "delaunay_graph"
 const SORTED_GRAPH_INDEXES = "sorted_graph_indexes"
 
-export var edges_to_keep_min_ratio : float = 0.1
-export var edges_to_keep_max_ratio : float = 0.4
-export var edges_to_keep_abs_min : int = 2
-export var path_graph_viz := NodePath()
+@export var edges_to_keep_min_ratio : float = 0.1
+@export var edges_to_keep_max_ratio : float = 0.4
+@export var edges_to_keep_abs_min : int = 2
+@export var path_graph_viz := NodePath()
 
 
 # Array of indices that represent "entry" or "up" staircases. These can only connect TO other rooms
@@ -24,7 +24,7 @@ var _exit_staircases := []
 
 var _cell_index_connections_count := {}
 
-onready var _room_graph_viz := get_node_or_null(path_graph_viz) as RoomGraphViz
+@onready var _room_graph_viz := get_node_or_null(path_graph_viz) as RoomGraphViz
 
 
 # Generates a graph connecting rooms to each other, the graph is generated
@@ -51,7 +51,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		var sorted_indexes := graph.keys()
 		# This sorts indexes by staricase rooms first and then rooms with smaller number of
 		# connections
-		sorted_indexes.sort_custom(self, "_sort_cell_index_by_connections")
+		sorted_indexes.sort_custom(Callable(self, "_sort_cell_index_by_connections"))
 		gen_data[SORTED_GRAPH_INDEXES] = sorted_indexes
 	pass
 
@@ -110,15 +110,15 @@ func group_intersecting_rooms(rooms : Array) -> Array:
 
 func rooms_intersect(a : Rect2, b : Rect2) -> bool:
 	var a_border : Rect2 = a.grow(1)
-	var clip : Rect2 = a_border.clip(b)
+	var clip : Rect2 = a_border.intersection(b)
 	return clip.size.x > 1 or clip.size.y > 1
 
 
 func get_delaunay_from_groupings(data : WorldData, groups : Array, random : RandomNumberGenerator) -> Dictionary:
 	var edges : Dictionary = Dictionary()
-	var room_centers = PoolVector2Array()
+	var room_centers = PackedVector2Array()
 	room_centers.resize(groups.size())
-	var cells = PoolIntArray()
+	var cells = PackedInt32Array()
 	cells.resize(groups.size())
 	for i in groups.size():
 		var r = random.randi_range(0, groups[i].size() - 1)
@@ -137,7 +137,7 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 		cells[i] = cell_index
 		room_centers[i] = center
 	
-	var delaunay : PoolIntArray = Geometry.triangulate_delaunay_2d(room_centers)
+	var delaunay : PackedInt32Array = Geometry2D.triangulate_delaunay(room_centers)
 	for vertex in delaunay:
 		var cell_index = cells[vertex]
 		if not _cell_index_connections_count.has(cell_index):
@@ -222,7 +222,7 @@ func graph_remove_edge(graph : Dictionary, from : int, to : int):
 		var b = max(from, to)
 		if graph.has(a):
 			graph[a].erase(b)
-			if (graph[a] as Array).empty():
+			if (graph[a] as Array).is_empty():
 				graph.erase(a)
 
 

@@ -13,15 +13,15 @@ var is_dropped: bool = false
 var is_just_dropped: bool = true
 var light_timer
 var random_number
-export(float, 0.0, 1.0) var life_percentage_lose : float = 0.0
-export(float, 0.0, 1.0) var prob_going_out : float = 0.0
+@export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
+@export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 
-onready var firelight = $FireOrigin/Fire/Light
+@onready var firelight = $FireOrigin/Fire/Light3D
 
 
 func _ready():
 	light_timer = $BurnTime
-	light_timer.connect("timeout", self, "light_depleted")
+	light_timer.connect("timeout", Callable(self, "light_depleted"))
 	burn_time = 600.0
 #	light_timer.set_wait_time(burn_time)
 #	light_timer.start()
@@ -36,7 +36,7 @@ func light():
 		$FireOrigin/EmberDrip.emitting = true
 		$FireOrigin/Smoke.emitting = true
 		firelight.visible = true
-		$MeshInstance.cast_shadow = false
+		$MeshInstance3D.cast_shadow = false
 		
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
@@ -51,7 +51,7 @@ func unlight():
 		$FireOrigin/EmberDrip.emitting = false
 		$FireOrigin/Smoke.emitting = false
 		firelight.visible = false
-		$MeshInstance.cast_shadow = true
+		$MeshInstance3D.cast_shadow = true
 		
 		is_lit = false
 		stop_light_timer()
@@ -63,7 +63,7 @@ func _item_state_changed(previous_state, current_state):
 			var sound = $Sounds/BlowOutSound.duplicate()
 			GameManager.game.level.add_child(sound)
 			sound.global_transform = $Sounds/BlowOutSound.global_transform
-			sound.connect("finished", sound, "queue_free")
+			sound.connect("finished", Callable(sound, "queue_free"))
 			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 
@@ -91,7 +91,7 @@ func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)
 	print("reduced burn time " + str(burn_time))
-	random_number = rand_range(0.0, 1.0)
+	random_number = randf_range(0.0, 1.0)
 	
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()

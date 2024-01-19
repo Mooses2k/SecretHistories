@@ -1,18 +1,18 @@
 extends GenerationStep
 
-export var room_size_min : int = 1
-export var room_size_max : int = 4
+@export var room_size_min : int = 1
+@export var room_size_max : int = 4
 
-export var room_count_min : int = 32
-export var room_count_max : int = 32
+@export var room_count_min : int = 32
+@export var room_count_max : int = 32
 
-export var room_size_scale : int = 2
+@export var room_size_scale : int = 2
 
-export var room_min_distance : int = 1
-export var intersection_chance : float = 1
-export var min_intersection_size : int = 3
+@export var room_min_distance : int = 1
+@export var intersection_chance : float = 1
+@export var min_intersection_size : int = 3
 
-export(Array, WorldData.CellType) var override_cells : Array = [WorldData.CellType.EMPTY]
+@export var override_cells : Array = [WorldData.CellType.EMPTY] # (Array, WorldData.CellType)
 
 var _initial_rooms_size := 0
 
@@ -46,12 +46,12 @@ func generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : i
 			var other_room : Rect2 = _r as Rect2
 			if intersection_test.intersects(other_room):
 				intersecting_rooms.push_back(other_room)
-		var should_add_room = intersecting_rooms.empty()
+		var should_add_room = intersecting_rooms.is_empty()
 		if random.randf() <= intersection_chance and intersection_chance != 0.0:
 			var room_border = room.grow(1)
 			for _r in intersecting_rooms:
 				var other_room : Rect2 = _r as Rect2
-				var intersection = room_border.clip(other_room)
+				var intersection = room_border.intersection(other_room)
 				var big_intersection_size = max(intersection.size.x, intersection.size.y)
 				if big_intersection_size - 1 < min_intersection_size:
 					should_add_room = false

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mask_of_a_horse1.wav-3705681742fc3f60f7fb4a01bd4c21bd.sample"
+type="AudioStreamWAV"
+uid="uid://b5t33utv85hvq"
+path="res://.godot/imported/mask_of_a_horse1.wav-3705681742fc3f60f7fb4a01bd4c21bd.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a/who_which_what_where_statements/mask_of_a_horse1.wav"
-dest_files=[ "res://.import/mask_of_a_horse1.wav-3705681742fc3f60f7fb4a01bd4c21bd.sample" ]
+dest_files=["res://.godot/imported/mask_of_a_horse1.wav-3705681742fc3f60f7fb4a01bd4c21bd.sample"]
 
 [params]
 

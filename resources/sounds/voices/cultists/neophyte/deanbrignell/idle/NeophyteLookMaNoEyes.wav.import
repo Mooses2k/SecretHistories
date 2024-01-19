@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteLookMaNoEyes.wav-8e2ad8bdbfd10f298e6cb1ddf09d181a.sample"
+type="AudioStreamWAV"
+uid="uid://bhdrbmrtm0nkn"
+path="res://.godot/imported/NeophyteLookMaNoEyes.wav-8e2ad8bdbfd10f298e6cb1ddf09d181a.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteLookMaNoEyes.wav"
-dest_files=[ "res://.import/NeophyteLookMaNoEyes.wav-8e2ad8bdbfd10f298e6cb1ddf09d181a.sample" ]
+dest_files=["res://.godot/imported/NeophyteLookMaNoEyes.wav-8e2ad8bdbfd10f298e6cb1ddf09d181a.sample"]
 
 [params]
 

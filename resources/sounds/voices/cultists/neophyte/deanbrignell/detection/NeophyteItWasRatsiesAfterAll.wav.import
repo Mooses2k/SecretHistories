@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteItWasRatsiesAfterAll.wav-8a9cfc15ecd5c9a63bb2951db39ffc05.sample"
+type="AudioStreamWAV"
+uid="uid://bomtoaauieak8"
+path="res://.godot/imported/NeophyteItWasRatsiesAfterAll.wav-8a9cfc15ecd5c9a63bb2951db39ffc05.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection/NeophyteItWasRatsiesAfterAll.wav"
-dest_files=[ "res://.import/NeophyteItWasRatsiesAfterAll.wav-8a9cfc15ecd5c9a63bb2951db39ffc05.sample" ]
+dest_files=["res://.godot/imported/NeophyteItWasRatsiesAfterAll.wav-8a9cfc15ecd5c9a63bb2951db39ffc05.sample"]
 
 [params]
 

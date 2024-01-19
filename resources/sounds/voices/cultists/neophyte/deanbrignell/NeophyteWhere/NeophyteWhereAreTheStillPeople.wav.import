@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWhereAreTheStillPeople.wav-add6ebe593399a205072a1a801e9ba58.sample"
+type="AudioStreamWAV"
+uid="uid://cxmt4b4odnnqw"
+path="res://.godot/imported/NeophyteWhereAreTheStillPeople.wav-add6ebe593399a205072a1a801e9ba58.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhere/NeophyteWhereAreTheStillPeople.wav"
-dest_files=[ "res://.import/NeophyteWhereAreTheStillPeople.wav-add6ebe593399a205072a1a801e9ba58.sample" ]
+dest_files=["res://.godot/imported/NeophyteWhereAreTheStillPeople.wav-add6ebe593399a205072a1a801e9ba58.sample"]
 
 [params]
 

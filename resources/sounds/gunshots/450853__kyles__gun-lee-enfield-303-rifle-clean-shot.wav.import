@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/450853__kyles__gun-lee-enfield-303-rifle-clean-shot.wav-63a790725d17ffe07f3788696a724129.sample"
+type="AudioStreamWAV"
+uid="uid://csfrawtvf202i"
+path="res://.godot/imported/450853__kyles__gun-lee-enfield-303-rifle-clean-shot.wav-63a790725d17ffe07f3788696a724129.sample"
 
 [deps]
 
 source_file="res://resources/sounds/gunshots/450853__kyles__gun-lee-enfield-303-rifle-clean-shot.wav"
-dest_files=[ "res://.import/450853__kyles__gun-lee-enfield-303-rifle-clean-shot.wav-63a790725d17ffe07f3788696a724129.sample" ]
+dest_files=["res://.godot/imported/450853__kyles__gun-lee-enfield-303-rifle-clean-shot.wav-63a790725d17ffe07f3788696a724129.sample"]
 
 [params]
 

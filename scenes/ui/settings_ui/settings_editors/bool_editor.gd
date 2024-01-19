@@ -3,13 +3,13 @@ extends "setting_editor.gd"
 
 #Override this function
 func _get_value():
-	return $"%Value".pressed
+	return %Value.button_pressed
 	pass
 
 
 #Override this function
 func _set_value(value):
-	$"%Value".pressed = value
+	%Value.button_pressed = value
 	pass
 
 
@@ -23,8 +23,8 @@ func _on_value_edited():
 
 #Override this function
 func _on_setting_attached():
-#	$"%Value".connect("value_changed", self, "on_value_edited")
-	$"%Name".text = _setting_name
+#	%Value.connect("value_changed", self, "on_value_edited")
+	%Name.text = _setting_name
 	pass
 
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThereIsOnlyTheStarfish.wav-c36dba11b5573747fd5052814cd9b167.sample"
+type="AudioStreamWAV"
+uid="uid://8utk332lclb1"
+path="res://.godot/imported/NeophyteThereIsOnlyTheStarfish.wav-c36dba11b5573747fd5052814cd9b167.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteThereIsOnlyTheStarfish.wav"
-dest_files=[ "res://.import/NeophyteThereIsOnlyTheStarfish.wav-c36dba11b5573747fd5052814cd9b167.sample" ]
+dest_files=["res://.godot/imported/NeophyteThereIsOnlyTheStarfish.wav-c36dba11b5573747fd5052814cd9b167.sample"]
 
 [params]
 

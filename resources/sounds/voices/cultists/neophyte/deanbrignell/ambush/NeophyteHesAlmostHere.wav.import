@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteHesAlmostHere.wav-72a060f1727482092a141c0d5b4211ec.sample"
+type="AudioStreamWAV"
+uid="uid://couaph6v76nui"
+path="res://.godot/imported/NeophyteHesAlmostHere.wav-72a060f1727482092a141c0d5b4211ec.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/ambush/NeophyteHesAlmostHere.wav"
-dest_files=[ "res://.import/NeophyteHesAlmostHere.wav-72a060f1727482092a141c0d5b4211ec.sample" ]
+dest_files=["res://.godot/imported/NeophyteHesAlmostHere.wav-72a060f1727482092a141c0d5b4211ec.sample"]
 
 [params]
 

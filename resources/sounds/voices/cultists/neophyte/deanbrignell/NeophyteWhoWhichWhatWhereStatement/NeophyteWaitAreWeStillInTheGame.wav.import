@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteWaitAreWeStillInTheGame.wav-33a0601e52b4f18c1ef59e985fcb4875.sample"
+type="AudioStreamWAV"
+uid="uid://twkl7r786xjv"
+path="res://.godot/imported/NeophyteWaitAreWeStillInTheGame.wav-33a0601e52b4f18c1ef59e985fcb4875.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteWhoWhichWhatWhereStatement/NeophyteWaitAreWeStillInTheGame.wav"
-dest_files=[ "res://.import/NeophyteWaitAreWeStillInTheGame.wav-33a0601e52b4f18c1ef59e985fcb4875.sample" ]
+dest_files=["res://.godot/imported/NeophyteWaitAreWeStillInTheGame.wav-33a0601e52b4f18c1ef59e985fcb4875.sample"]
 
 [params]
 

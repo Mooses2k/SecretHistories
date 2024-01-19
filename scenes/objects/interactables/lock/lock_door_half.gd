@@ -1,7 +1,7 @@
 extends Interactable
 
 
-var loop_position : Vector3 setget ,get_loop_position
+var loop_position : Vector3: get = get_loop_position
 
 var current_padlock : PadlockItem = null
 
@@ -9,12 +9,12 @@ signal padlock_added()
 signal padlock_removed()
 signal padlock_unlocked()
 
-onready var jiggle_sound = $JiggleSound
-onready var add_padlock_sound = $AddPadlockSound
+@onready var jiggle_sound = $JiggleSound
+@onready var add_padlock_sound = $AddPadlockSound
 
 
 func get_loop_position() -> Vector3:
-	return $LoopPosition.translation
+	return $LoopPosition.position
 
 
 func has_padlock() -> bool:
@@ -81,5 +81,5 @@ func _physics_process(delta):
 
 func update_lock_position():
 	if current_padlock:
-		current_padlock.transform = Transform.IDENTITY
-		current_padlock.translation = self.loop_position - current_padlock.loop_position
+		current_padlock.transform = Transform3D.IDENTITY
+		current_padlock.position = self.loop_position - current_padlock.loop_position

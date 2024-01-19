@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/259542__nicktermer__stabs.wav-b8fbc754db6907e61b3c43d2818e0640.sample"
+type="AudioStreamWAV"
+uid="uid://2fyjsa45meys"
+path="res://.godot/imported/259542__nicktermer__stabs.wav-b8fbc754db6907e61b3c43d2818e0640.sample"
 
 [deps]
 
 source_file="res://resources/sounds/impacts/blade_to_flesh/259542__nicktermer__stabs.wav"
-dest_files=[ "res://.import/259542__nicktermer__stabs.wav-b8fbc754db6907e61b3c43d2818e0640.sample" ]
+dest_files=["res://.godot/imported/259542__nicktermer__stabs.wav-b8fbc754db6907e61b3c43d2818e0640.sample"]
 
 [params]
 

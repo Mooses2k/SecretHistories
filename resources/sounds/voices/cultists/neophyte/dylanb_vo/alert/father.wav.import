@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/father.wav-a59ea827a05f641da9d0948de44e9122.sample"
+type="AudioStreamWAV"
+uid="uid://dj827caja3ji2"
+path="res://.godot/imported/father.wav-a59ea827a05f641da9d0948de44e9122.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert/father.wav"
-dest_files=[ "res://.import/father.wav-a59ea827a05f641da9d0948de44e9122.sample" ]
+dest_files=["res://.godot/imported/father.wav-a59ea827a05f641da9d0948de44e9122.sample"]
 
 [params]
 

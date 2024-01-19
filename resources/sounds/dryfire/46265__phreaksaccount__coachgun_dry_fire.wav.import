@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/46265__phreaksaccount__coachgun_dry_fire.wav-187c3676b5ce7c4c3b5d200512bff792.sample"
+type="AudioStreamWAV"
+uid="uid://5yf0bei0ff5s"
+path="res://.godot/imported/46265__phreaksaccount__coachgun_dry_fire.wav-187c3676b5ce7c4c3b5d200512bff792.sample"
 
 [deps]
 
 source_file="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav"
-dest_files=[ "res://.import/46265__phreaksaccount__coachgun_dry_fire.wav-187c3676b5ce7c4c3b5d200512bff792.sample" ]
+dest_files=["res://.godot/imported/46265__phreaksaccount__coachgun_dry_fire.wav-187c3676b5ce7c4c3b5d200512bff792.sample"]
 
 [params]
 

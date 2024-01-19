@@ -4,9 +4,9 @@
 [ext_resource path="res://resources/models/large_objects/lighting/floor_candelabra2/M_Candelabra2.material" type="Material" id=2]
 [ext_resource path="res://scenes/objects/large_objects/lighting/floor_candelabra.gd" type="Script" id=3]
 [ext_resource path="res://resources/shaders/candle/flame.gdshader" type="Shader" id=4]
-[ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png" type="Texture" id=5]
+[ext_resource path="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png" type="Texture2D" id=5]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" type="Script" id=6]
-[ext_resource path="res://resources/models/items/consumables/light_sources/candle/flame.webp" type="Texture" id=7]
+[ext_resource path="res://resources/models/items/consumables/light_sources/candle/flame.webp" type="Texture2D" id=7]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "candelabra2_v2_Mesh"
@@ -23,20 +23,20 @@ surfaces/0 = {
 "vertex_count": 8089
 }
 
-[sub_resource type="ConvexPolygonShape" id=215]
-points = PoolVector3Array( 0.103255, -1.04078, -0.0566254, 0.145021, 0.420913, 0.12426, 0.019175, 0.225637, -0.209343, -0.00105125, -1.04078, 0.110353, -0.10549, 0.511431, 0.138168, -0.0776308, -1.04078, -0.0775751, 0.214647, -0.0940323, -0.014903, -0.120969, 0.475352, -0.120869, 0.0197214, -0.0940323, 0.214747, 0.12416, 0.420913, -0.140203, -0.209929, -0.0940323, 0.0128234, 0.0823935, -1.04078, 0.0824492, 0.0336731, 0.66464, -0.000995521, -0.0776308, -1.04078, 0.0754955, -0.112399, -0.0591662, 0.145121, 0.0197214, -0.0940323, -0.209829, -0.112399, -0.0591662, -0.140203, -0.209203, 0.245229, 0.0124603, 0.138068, -0.0591662, 0.124216, 0.0197214, -1.04078, -0.112388, 0.12416, -0.0591662, -0.133249, -0.00766525, 0.197581, 0.213612, 0.212666, 0.155851, -0.0141954, -0.209929, -0.101073, -0.014903, -0.105534, -1.04078, 0.0128676, -0.00804927, -0.101073, -0.209829, 0.214647, -0.0940323, 0.0128676, -0.00804927, -0.0940323, 0.214747, 0.117206, -1.04078, 0.00591392, 0.122499, 0.481437, 0.129458, -0.133349, 0.511431, 0.096401, -0.119442, 0.420913, -0.140203, -0.0846289, 0.497518, -0.133249, 0.0823935, -1.04078, -0.0844846, -0.0219567, 0.65056, -0.0218567, -0.140303, -0.0591662, 0.117306, -0.0219567, 0.240045, -0.209829, -0.0497716, -1.04078, -0.0984363, -0.21661, 0.0847655, -0.014345, -0.140303, -0.0591662, -0.112388, 0.0058139, 0.6576, 0.0267751, -0.0497716, -1.04078, 0.096401, 0.0475363, -1.04078, 0.103355, 0.0190039, 0.188124, 0.212106, -0.105534, -1.04078, -0.0148587, 0.130122, 0.424757, -0.112168, 0.103255, -1.04078, 0.0546343, 0.0126773, 0.657267, -0.0216456, 0.12416, -0.0591662, 0.138168, 0.138068, -0.0591662, -0.119297, 0.0191199, 0.0840692, -0.215944, -0.133349, 0.420913, -0.126296, 0.21352, 0.0834525, 0.0191815, -0.216756, 0.0849456, 0.012497, -0.127019, 0.478966, 0.118579, 0.131114, 0.420913, 0.138168, 0.214398, 0.0845667, -0.0210579, -0.00800497, -1.04078, -0.112388, -0.000948394, 0.0853164, 0.221876, -0.0915826, -1.04078, 0.0546343, 0.0614437, -1.04078, -0.0984363, -0.0915826, -1.04078, -0.0566254, -0.205213, 0.237125, -0.0206044, -0.0219567, 0.65056, 0.0128676 )
+[sub_resource type="ConvexPolygonShape3D" id=215]
+points = PackedVector3Array( 0.103255, -1.04078, -0.0566254, 0.145021, 0.420913, 0.12426, 0.019175, 0.225637, -0.209343, -0.00105125, -1.04078, 0.110353, -0.10549, 0.511431, 0.138168, -0.0776308, -1.04078, -0.0775751, 0.214647, -0.0940323, -0.014903, -0.120969, 0.475352, -0.120869, 0.0197214, -0.0940323, 0.214747, 0.12416, 0.420913, -0.140203, -0.209929, -0.0940323, 0.0128234, 0.0823935, -1.04078, 0.0824492, 0.0336731, 0.66464, -0.000995521, -0.0776308, -1.04078, 0.0754955, -0.112399, -0.0591662, 0.145121, 0.0197214, -0.0940323, -0.209829, -0.112399, -0.0591662, -0.140203, -0.209203, 0.245229, 0.0124603, 0.138068, -0.0591662, 0.124216, 0.0197214, -1.04078, -0.112388, 0.12416, -0.0591662, -0.133249, -0.00766525, 0.197581, 0.213612, 0.212666, 0.155851, -0.0141954, -0.209929, -0.101073, -0.014903, -0.105534, -1.04078, 0.0128676, -0.00804927, -0.101073, -0.209829, 0.214647, -0.0940323, 0.0128676, -0.00804927, -0.0940323, 0.214747, 0.117206, -1.04078, 0.00591392, 0.122499, 0.481437, 0.129458, -0.133349, 0.511431, 0.096401, -0.119442, 0.420913, -0.140203, -0.0846289, 0.497518, -0.133249, 0.0823935, -1.04078, -0.0844846, -0.0219567, 0.65056, -0.0218567, -0.140303, -0.0591662, 0.117306, -0.0219567, 0.240045, -0.209829, -0.0497716, -1.04078, -0.0984363, -0.21661, 0.0847655, -0.014345, -0.140303, -0.0591662, -0.112388, 0.0058139, 0.6576, 0.0267751, -0.0497716, -1.04078, 0.096401, 0.0475363, -1.04078, 0.103355, 0.0190039, 0.188124, 0.212106, -0.105534, -1.04078, -0.0148587, 0.130122, 0.424757, -0.112168, 0.103255, -1.04078, 0.0546343, 0.0126773, 0.657267, -0.0216456, 0.12416, -0.0591662, 0.138168, 0.138068, -0.0591662, -0.119297, 0.0191199, 0.0840692, -0.215944, -0.133349, 0.420913, -0.126296, 0.21352, 0.0834525, 0.0191815, -0.216756, 0.0849456, 0.012497, -0.127019, 0.478966, 0.118579, 0.131114, 0.420913, 0.138168, 0.214398, 0.0845667, -0.0210579, -0.00800497, -1.04078, -0.112388, -0.000948394, 0.0853164, 0.221876, -0.0915826, -1.04078, 0.0546343, 0.0614437, -1.04078, -0.0984363, -0.0915826, -1.04078, -0.0566254, -0.205213, 0.237125, -0.0206044, -0.0219567, 0.65056, 0.0128676 )
 
 [sub_resource type="Animation" id=14]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/0/path = NodePath("FireOrigin/Fire/Light3D:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 0.4 ]
 }
@@ -50,14 +50,14 @@ loop = true
 resource_name = "unlit"
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("FireOrigin/Fire/Light:light_energy")
+tracks/0/path = NodePath("FireOrigin/Fire/Light3D:light_energy")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
@@ -65,7 +65,7 @@ tracks/0/keys = {
 [sub_resource type="QuadMesh" id=214]
 size = Vector2( 0.033, 0.1 )
 
-[sub_resource type="OpenSimplexNoise" id=9]
+[sub_resource type="FastNoiseLite" id=9]
 seed = 13245
 period = 56.6
 persistence = 1.0
@@ -201,29 +201,29 @@ shader_param/noise = SubResource( 10 )
 shader_param/texture_albedo = ExtResource( 7 )
 shader_param/gradient = ExtResource( 5 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape3D" id=2]
 extents = Vector3( 0.157328, 0.236264, 0.160202 )
 
-[sub_resource type="CylinderShape" id=216]
+[sub_resource type="CylinderShape3D" id=216]
 height = 1.7
 radius = 0.2
 
-[node name="FloorCandelabra" type="RigidBody"]
+[node name="FloorCandelabra" type="RigidBody3D"]
 collision_layer = 512
 mass = 30.0
 continuous_cd = true
-contacts_reported = 4
+max_contacts_reported = 4
 contact_monitor = true
 script = ExtResource( 3 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0794037, 8.01446e-05 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0794037, 8.01446e-05 )
 cast_shadow = 0
 mesh = SubResource( 1 )
 skeleton = NodePath("")
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0794037, 8.01446e-05 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, 0.0794037, 8.01446e-05 )
 shape = SubResource( 215 )
 
 [node name="Durability" type="Timer" parent="."]
@@ -235,134 +235,134 @@ anims/RESET = SubResource( 14 )
 anims/flicker = SubResource( 15 )
 anims/unlit = SubResource( 213 )
 
-[node name="FireOrigin8" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103154, 0.585903, -0.107178 )
+[node name="FireOrigin8" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.103154, 0.585903, -0.107178 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin8"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin8"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 217 )
+surface_material_override/0 = SubResource( 217 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin7" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112444, 0.547287, -0.111578 )
+[node name="FireOrigin7" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.112444, 0.547287, -0.111578 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00948143, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin7"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00948143, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 218 )
+surface_material_override/0 = SubResource( 218 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin6" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117706, 0.576186, 0.108528 )
+[node name="FireOrigin6" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.117706, 0.576186, 0.108528 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin6"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 219 )
+surface_material_override/0 = SubResource( 219 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin5" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188207, 0.343174, -0.00112151 )
+[node name="FireOrigin5" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.188207, 0.343174, -0.00112151 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0140193, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin5"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0140193, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 220 )
+surface_material_override/0 = SubResource( 220 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin4" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00840224, 0.324049, -0.190523 )
+[node name="FireOrigin4" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00840224, 0.324049, -0.190523 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00988299, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin4"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00988299, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 221 )
+surface_material_override/0 = SubResource( 221 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin3" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193048, 0.257107, 0 )
+[node name="FireOrigin3" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.193048, 0.257107, 0 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0179245, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin3"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0179245, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 222 )
+surface_material_override/0 = SubResource( 222 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin9" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.108816, 0.593761, 0.112045 )
+[node name="FireOrigin9" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.108816, 0.593761, 0.112045 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin9"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00945556, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin9"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00945556, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 223 )
+surface_material_override/0 = SubResource( 223 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin2" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00589418, 0.296207, 0.196027 )
+[node name="FireOrigin2" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00589418, 0.296207, 0.196027 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0135171, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin2"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0135171, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 224 )
+surface_material_override/0 = SubResource( 224 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="FireOrigin" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743802, 0 )
+[node name="FireOrigin" type="Marker3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.743802, 0 )
 script = ExtResource( 6 )
 
-[node name="Fire" type="MeshInstance" parent="FireOrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00492221, 0 )
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00492221, 0 )
 cast_shadow = 0
 mesh = SubResource( 214 )
-material/0 = SubResource( 225 )
+surface_material_override/0 = SubResource( 225 )
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Light" type="OmniLight" parent="FireOrigin/Fire"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0305131, 0 )
+[node name="Light3D" type="OmniLight3D" parent="FireOrigin/Fire"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0305131, 0 )
 layers = 3
 light_color = Color( 0.980392, 0.529412, 0, 1 )
 light_energy = 0.4
@@ -370,16 +370,16 @@ shadow_enabled = true
 omni_range = 9.0
 omni_attenuation = 4.0
 
-[node name="Ignite" type="Area" parent="." groups=["Ignite"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )
+[node name="Ignite" type="Area3D" parent="." groups=["Ignite"]]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Ignite"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite"]
 shape = SubResource( 2 )
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 0
 collision_mask = 66
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.107974, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.107974, 0 )
 shape = SubResource( 216 )

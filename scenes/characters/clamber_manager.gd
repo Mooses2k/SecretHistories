@@ -5,12 +5,12 @@ extends Object
 # Having clamber as a seperate class let's any object use the clamber function,
 # it just needs a clamber manager.
 
-var _camera : Camera = null
-var _world : World = null
-var _user : KinematicBody = null
+var _camera : Camera3D = null
+var _world : World3D = null
+var _user : CharacterBody3D = null
 
 
-func _init(User : KinematicBody, Current_Camera : Camera, User_World : World):
+func _init(User : CharacterBody3D, Current_Camera : Camera3D, User_World : World3D):
 	_camera = Current_Camera
 	_user = User
 	_world = User_World
@@ -77,15 +77,23 @@ func _test_clamber_ledge() -> Vector3:
 	var d2 = d1 + user_forward 
 	var d3 = d2 + Vector3.DOWN * 32 #16
 
-	if not space.intersect_ray(pos, d1):
+	if not space.intersect_ray(PhysicsRayQueryParameters3D.create(pos, d1)):
 		for i in range(5):
-			if not space.intersect_ray(d1, d2 + user_forward * i):
+			var ray_parameters := PhysicsRayQueryParameters3D.create(
+				d1,
+				d2 + user_forward * i,
+			)
+			if not space.intersect_ray(ray_parameters):
 				for j in range(5):
 					d2 = d1 + user_forward * (j + 1)
-					var r = space.intersect_ray(d2, d3)
+					var r = space.intersect_ray(PhysicsRayQueryParameters3D.create(d2, d3))
 					if r and r.collider.is_in_group("CLAMBERABLE"):
-						var ground_check = space.intersect_ray(pos, 
-								pos + Vector3.DOWN * 2)
+						var ground_check = space.intersect_ray(
+							PhysicsRayQueryParameters3D.create(
+								pos, 
+								pos + Vector3.DOWN * 2
+							)
+						)
 
 						if !ground_check:
 							return Vector3.ZERO
@@ -112,12 +120,18 @@ func _test_clamber_vent() -> Vector3:
 	var d1 = _camera.global_transform.origin + cam_forward
 	var d2 = d1 + Vector3.DOWN * 6 #6
 	
-	if not space.intersect_ray(pos, d1, [_user]):
+	if not space.intersect_ray(PhysicsRayQueryParameters3D.create(pos, d1, 0x7FFFFFFF,[_user])):
 		for i in range(5):
-			var r = space.intersect_ray(d1 + cam_forward * i, d2, [_user])
+			var r = space.intersect_ray(
+				PhysicsRayQueryParameters3D.create(d1 + cam_forward * i, d2, 0x7FFFFFFF, [_user])
+			)
 			if r and r.collider.is_in_group("CLAMBERABLE"):
-				var ground_check = space.intersect_ray(pos,
-						pos + Vector3.DOWN * 2)
+				var ground_check = space.intersect_ray(
+					PhysicsRayQueryParameters3D.create(
+						pos,
+						pos + Vector3.DOWN * 2
+					)
+				)
 			
 				if ground_check and ground_check.collider == r.collider:
 					return Vector3.ZERO
@@ -137,17 +151,17 @@ func _test_clamber_vent() -> Vector3:
 # Nudging may need some refining
 func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
 	var state = _world.direct_space_state
-	var shape = BoxShape.new()
+	var shape = BoxShape3D.new()
 	shape.extents = Vector3.ONE * box_size
 	
-	var params = PhysicsShapeQueryParameters.new()
+	var params = PhysicsShapeQueryParameters3D.new()
 	params.set_shape(shape)
 	params.transform.origin = pos
 	var result = state.intersect_shape(params)
 	
 	for i in range(result.size() - 1):
 		if result[i].collider == _user:
-			result.remove(i)
+			result.remove_at(i)
 	
 	if result.size() == 0:
 		return Vector3.ZERO
@@ -180,7 +194,7 @@ func _check_clamber_box(pos : Vector3, box_size : float = 0.15) -> Vector3:
 			break
 	
 	if checkPos != Vector3.ZERO:
-		if state.intersect_ray(checkPos, checkPos + Vector3.DOWN * 2):
+		if state.intersect_ray(PhysicsRayQueryParameters3D.create(checkPos, checkPos + Vector3.DOWN * 2)):
 			return offset
 	
 	return -Vector3.ONE
@@ -193,8 +207,8 @@ func _check_gap(pos : Vector3) -> bool:
 	
 	for i in range(4):
 		var r = i * 90
-		var v = Vector3.UP.rotated(Vector3.FORWARD, deg2rad(r))
-		var result = space.intersect_ray(pos, pos + v, [_user])
+		var v = Vector3.UP.rotated(Vector3.FORWARD, deg_to_rad(r))
+		var result = space.intersect_ray(PhysicsRayQueryParameters3D.create(pos, pos + v, 0x7FFFFFFF, [_user]))
 		if result and (result.position - pos).length() < 0.2:
 			c += 1
 			

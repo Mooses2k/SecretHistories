@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteLetsParley.wav-5f3d0a37eab7aef8ba66dc03adf20bf6.sample"
+type="AudioStreamWAV"
+uid="uid://dm3yanuqy6yx7"
+path="res://.godot/imported/NeophyteLetsParley.wav-5f3d0a37eab7aef8ba66dc03adf20bf6.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee/NeophyteLetsParley.wav"
-dest_files=[ "res://.import/NeophyteLetsParley.wav-5f3d0a37eab7aef8ba66dc03adf20bf6.sample" ]
+dest_files=["res://.godot/imported/NeophyteLetsParley.wav-5f3d0a37eab7aef8ba66dc03adf20bf6.sample"]
 
 [params]
 

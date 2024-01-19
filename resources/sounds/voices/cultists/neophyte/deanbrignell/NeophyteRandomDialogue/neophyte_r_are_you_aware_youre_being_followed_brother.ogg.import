@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/neophyte_r_are_you_aware_youre_being_followed_brother.ogg-56227f1e332b45194faa1a87157bb9c1.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://qo7awl5a0y4u"
+path="res://.godot/imported/neophyte_r_are_you_aware_youre_being_followed_brother.ogg-56227f1e332b45194faa1a87157bb9c1.oggvorbisstr"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteRandomDialogue/neophyte_r_are_you_aware_youre_being_followed_brother.ogg"
-dest_files=[ "res://.import/neophyte_r_are_you_aware_youre_being_followed_brother.ogg-56227f1e332b45194faa1a87157bb9c1.oggstr" ]
+dest_files=["res://.godot/imported/neophyte_r_are_you_aware_youre_being_followed_brother.ogg-56227f1e332b45194faa1a87157bb9c1.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

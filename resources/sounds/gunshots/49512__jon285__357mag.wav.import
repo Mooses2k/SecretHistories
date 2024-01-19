@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/49512__jon285__357mag.wav-33ac11ffaf4adbf36c7cc197e3e2fdd8.sample"
+type="AudioStreamWAV"
+uid="uid://bu7mr384hwiar"
+path="res://.godot/imported/49512__jon285__357mag.wav-33ac11ffaf4adbf36c7cc197e3e2fdd8.sample"
 
 [deps]
 
 source_file="res://resources/sounds/gunshots/49512__jon285__357mag.wav"
-dest_files=[ "res://.import/49512__jon285__357mag.wav-33ac11ffaf4adbf36c7cc197e3e2fdd8.sample" ]
+dest_files=["res://.godot/imported/49512__jon285__357mag.wav-33ac11ffaf4adbf36c7cc197e3e2fdd8.sample"]
 
 [params]
 

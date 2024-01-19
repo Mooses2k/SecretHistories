@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThisTooShallPass.wav-37e60f027adc55dcc9417c0926219cad.sample"
+type="AudioStreamWAV"
+uid="uid://4ypsidxn5k72"
+path="res://.godot/imported/NeophyteThisTooShallPass.wav-37e60f027adc55dcc9417c0926219cad.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight/NeophyteThisTooShallPass.wav"
-dest_files=[ "res://.import/NeophyteThisTooShallPass.wav-37e60f027adc55dcc9417c0926219cad.sample" ]
+dest_files=["res://.godot/imported/NeophyteThisTooShallPass.wav-37e60f027adc55dcc9417c0926219cad.sample"]
 
 [params]
 

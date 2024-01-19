@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/hes_coming.wav-e39fdd65d7f4e6200815dba31d472b36.sample"
+type="AudioStreamWAV"
+uid="uid://cv6lbcc7tuiyq"
+path="res://.godot/imported/hes_coming.wav-e39fdd65d7f4e6200815dba31d472b36.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush/hes_coming.wav"
-dest_files=[ "res://.import/hes_coming.wav-e39fdd65d7f4e6200815dba31d472b36.sample" ]
+dest_files=["res://.godot/imported/hes_coming.wav-e39fdd65d7f4e6200815dba31d472b36.sample"]
 
 [params]
 

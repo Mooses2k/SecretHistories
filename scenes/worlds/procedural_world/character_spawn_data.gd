@@ -1,5 +1,5 @@
+@tool
 # Write your doc string for this file here
-tool
 class_name CharacterSpawnData
 extends SpawnData
 
@@ -32,17 +32,17 @@ func _to_string() -> String:
 
 ### Public Methods --------------------------------------------------------------------------------
 
-func spawn_character_in(node: Node, should_log := false) -> Spatial:
-	var character = load(scene_path).instance() as Spatial
+func spawn_character_in(node: Node, should_log := false) -> Node3D:
+	var character = load(scene_path).instantiate() as Node3D
 	if character == null:
-		push_error("scene_path is not a Spatial: %s"%[scene_path])
+		push_error("scene_path is not a Node3D: %s"%[scene_path])
 		return character
 	
 	character.transform = _transforms.front()
 	node.add_child(character, true)
 	
 	if should_log:
-		print("Character spawned: %s at: %s"%[character, character.translation])
+		print("Character spawned: %s at: %s"%[character, character.position])
 	
 	return character
 
@@ -56,7 +56,7 @@ func _set_amount(value: int) -> void:
 		value = 1
 		push_warning("Can't spawn more than 1 character per cell")
 	
-	._set_amount(value)
+	super._set_amount(value)
 
 
 func _get_center_offset() -> Vector3:

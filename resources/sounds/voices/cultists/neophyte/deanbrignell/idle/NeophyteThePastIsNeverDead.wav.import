@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteThePastIsNeverDead.wav-47ea791d0a346592847e7bb6d009ec95.sample"
+type="AudioStreamWAV"
+uid="uid://dx7i7dp2a2omr"
+path="res://.godot/imported/NeophyteThePastIsNeverDead.wav-47ea791d0a346592847e7bb6d009ec95.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteThePastIsNeverDead.wav"
-dest_files=[ "res://.import/NeophyteThePastIsNeverDead.wav-47ea791d0a346592847e7bb6d009ec95.sample" ]
+dest_files=["res://.godot/imported/NeophyteThePastIsNeverDead.wav-47ea791d0a346592847e7bb6d009ec95.sample"]
 
 [params]
 

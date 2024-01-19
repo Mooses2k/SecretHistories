@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/268227__xxchr0nosxx__swing.mp3-69a51fef59364024e4f2124fc43045fc.mp3str"
+uid="uid://cbi0e6oeb2a67"
+path="res://.godot/imported/268227__xxchr0nosxx__swing.mp3-69a51fef59364024e4f2124fc43045fc.mp3str"
 
 [deps]
 
 source_file="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3"
-dest_files=[ "res://.import/268227__xxchr0nosxx__swing.mp3-69a51fef59364024e4f2124fc43045fc.mp3str" ]
+dest_files=["res://.godot/imported/268227__xxchr0nosxx__swing.mp3-69a51fef59364024e4f2124fc43045fc.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

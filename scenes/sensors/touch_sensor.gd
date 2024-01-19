@@ -3,7 +3,7 @@ tool class_name TouchSensor extends CharacterSense
 # Kinesthetic sense. Bumping up against something.
 
 
-export var touch_interest := 300
+@export var touch_interest := 300
 
 var player_touching = false
 
@@ -14,7 +14,7 @@ var player_touching = false
 #	connect("area_exited", self, "on_body_exited")
 
 
-func on_body_entered(body: Spatial) -> void:
+func on_body_entered(body: Node3D) -> void:
 	if body is Player:
 		emit_signal\
 		(
@@ -28,6 +28,6 @@ func on_body_entered(body: Spatial) -> void:
 		print("Touch detected by Player")
 
 
-func on_body_exited(_body: Spatial) -> void:
+func on_body_exited(_body: Node3D) -> void:
 	if _body is Player:
 		player_touching = false

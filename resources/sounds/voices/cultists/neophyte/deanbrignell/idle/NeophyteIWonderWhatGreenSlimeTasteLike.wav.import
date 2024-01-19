@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteIWonderWhatGreenSlimeTasteLike.wav-7039ade64b1088aba6443def60b83332.sample"
+type="AudioStreamWAV"
+uid="uid://bq8kx1phavui"
+path="res://.godot/imported/NeophyteIWonderWhatGreenSlimeTasteLike.wav-7039ade64b1088aba6443def60b83332.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle/NeophyteIWonderWhatGreenSlimeTasteLike.wav"
-dest_files=[ "res://.import/NeophyteIWonderWhatGreenSlimeTasteLike.wav-7039ade64b1088aba6443def60b83332.sample" ]
+dest_files=["res://.godot/imported/NeophyteIWonderWhatGreenSlimeTasteLike.wav-7039ade64b1088aba6443def60b83332.sample"]
 
 [params]
 

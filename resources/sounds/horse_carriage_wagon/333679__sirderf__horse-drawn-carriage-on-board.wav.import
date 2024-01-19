@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/333679__sirderf__horse-drawn-carriage-on-board.wav-977254f4a21a74ab42ef4738e3841cdf.sample"
+type="AudioStreamWAV"
+uid="uid://dmr6qxv0bbpsw"
+path="res://.godot/imported/333679__sirderf__horse-drawn-carriage-on-board.wav-977254f4a21a74ab42ef4738e3841cdf.sample"
 
 [deps]
 
 source_file="res://resources/sounds/horse_carriage_wagon/333679__sirderf__horse-drawn-carriage-on-board.wav"
-dest_files=[ "res://.import/333679__sirderf__horse-drawn-carriage-on-board.wav-977254f4a21a74ab42ef4738e3841cdf.sample" ]
+dest_files=["res://.godot/imported/333679__sirderf__horse-drawn-carriage-on-board.wav-977254f4a21a74ab42ef4738e3841cdf.sample"]
 
 [params]
 

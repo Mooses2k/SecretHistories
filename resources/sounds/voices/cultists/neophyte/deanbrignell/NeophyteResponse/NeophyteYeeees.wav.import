@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/NeophyteYeeees.wav-7bac311c8d79e89cd7dfeb79ebab8775.sample"
+type="AudioStreamWAV"
+uid="uid://dk0khfcfwoiyp"
+path="res://.godot/imported/NeophyteYeeees.wav-7bac311c8d79e89cd7dfeb79ebab8775.sample"
 
 [deps]
 
 source_file="res://resources/sounds/voices/cultists/neophyte/deanbrignell/NeophyteResponse/NeophyteYeeees.wav"
-dest_files=[ "res://.import/NeophyteYeeees.wav-7bac311c8d79e89cd7dfeb79ebab8775.sample" ]
+dest_files=["res://.godot/imported/NeophyteYeeees.wav-7bac311c8d79e89cd7dfeb79ebab8775.sample"]
 
 [params]
 

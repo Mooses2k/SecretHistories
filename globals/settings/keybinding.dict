@@ -1,6 +1,6 @@
 {
 "ablty|binocs_spyglass": [ "key(B)" ],
-"ablty|nightvision_darksight": [ "key(N)" ],
+"ablty|nightvision_darksight": [ "key(N)", "key(F)" ],
 "ablty|zap_spell": [ "key(Z)" ],
 "com|communication_go": [ "key(V)" ],
 "com|communication_stop": [ "key(X)" ],

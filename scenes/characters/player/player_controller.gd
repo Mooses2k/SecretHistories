@@ -601,6 +601,14 @@ func _handle_inventory_and_grab_input(delta : float):
 			if character.player_animations.is_on_ads:
 				character.player_animations.end_ads()
 		ads_handled = false   # Gets it ready for next press
+		
+	if Input.is_action_just_released("ablty|nightvision_darksight"):
+		if character.inventory.belt_item:
+			character.inventory.belt_item.use_primary()
+		elif character.inventory.get_offhand_item():
+			character.inventory.get_offhand_item().use_primary()
+		elif character.inventory.get_mainhand_item():
+			character.inventory.get_mainhand_item().use_primary()
 
 
 func previous_item():

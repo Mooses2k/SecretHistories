@@ -28,7 +28,6 @@ func _input(event: InputEvent):
 
 func _ready():
 #	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	LoadScene.connect("scene_loaded", self, "on_scene_loaded")
 
 	random_num_gen.randomize()
 	if GameManager.act > 4:
@@ -43,6 +42,10 @@ func _ready():
 		# early game
 		random_num = random_num_gen.randi_range(0, LoadQuotes.list1.size()-1)
 		quote.text = LoadQuotes.list1[random_num]
+	
+	# Is here to hopefully ensure the quotes showup before the freeze on loading
+	yield(get_tree().create_timer(0.1), "timeout")   # To attempt to ensure lowend computers get something showing before it freezes
+	LoadScene.connect("scene_loaded", self, "on_scene_loaded")
 
 
 func on_scene_loaded():

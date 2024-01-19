@@ -170,6 +170,7 @@ func _physics_process(delta : float):
 	drop_grabable()
 	empty_slot()
 	_clamber()
+	_cheats()
 
 
 func _input(event):
@@ -811,6 +812,31 @@ func _clamber():
 #		_text.show()
 #	else:
 #		_text.hide()
+
+
+func _cheats():
+	if Input.is_action_just_pressed("debug_godmode"):
+		if owner.max_health != 55555:
+			owner.max_health = 55555
+			owner.current_health = 55555
+			print("CHEAT: godmode enabled")
+		else:
+			owner.max_health = 100
+			owner.current_health = 100
+			print("CHEAT: godmode disabled")
+	if Input.is_action_just_pressed("debug_noclip"):
+		if owner._collider.disabled == false or owner._crouch_collider.disabled == false:
+			owner._collider.disabled = true
+			owner._crouch_collider.disabled = true
+			owner.gravity = 0
+			print("CHEAT: noclip enabled")
+		else:
+			owner.gravity = 10
+			# Always end standing
+			owner.wanna_stand
+			owner._collider.disabled = false
+			owner._crouch_collider.disabled = true
+			print("CHEAT: noclip disabled")
 
 
 func _on_Player_player_landed():

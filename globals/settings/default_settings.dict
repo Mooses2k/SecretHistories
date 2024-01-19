@@ -3,7 +3,7 @@
 "full_screen": "bool(True)",
 "gui_scale": "float(1)",
 "is_ads_hold": "bool(True)",
-"is_crouch_hold": "bool(False)",
+"is_crouch_hold": "bool(True)",
 "master_volume": "float(80.216184)",
 "mouse_sensitivity": "float(0.1)",
 "music_volume": "float(49.503455)",

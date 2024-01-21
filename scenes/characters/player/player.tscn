@@ -7695,25 +7695,23 @@ mouse_filter = 2
 tab_size = 8
 text = "WASD - movement
 Space - jump
-LCtrl or LAlt or C - crouch
+LCtrl or C - crouch
 LShift (move forward)- sprint
 LShift (without moving forward) - kick (doors, objects, opponents)
 
-L-Click - main-hand primary use
-R-Click - main-hand secondary use
+LMB - main-hand primary use
+RMB (tap) - interact, pick up, otherwise main-hand secondary use
+RMB (held) - grab & drag things around
 Number row & mouse-wheel - cycle main-hand item
 Scroll-wheel Click - throw main-hand item
 
-E - use off-hand item
+LAlt & E - use off-hand item
 Q (tap) - cycle off-hand items
 Q (held & released) - swap hands
 T or G - throw off-hand item
 
 R (tap) - reload (can't with item in offhand)
 R (held) - unload
-
-F (tap) - interact with object in world, pickup
-F (held) - grab and drag things around
 
 B - bioncs/spyglass (if you have the item)
 

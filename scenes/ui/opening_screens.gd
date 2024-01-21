@@ -31,8 +31,8 @@ func _on_GPL_pressed():
 	$GPL.visible = false
 
 
-func _on_Winners_pressed():
-	$Winners.visible = false
+func _on_GoDieInAHole_pressed():
+	$GoDieInAHole.visible = false
 
 
 func _on_Help_pressed():
@@ -44,7 +44,7 @@ func _on_Timer_timeout():
 		$MadeWithGodot.visible = false
 	elif $GPL.visible == true:
 		$GPL.visible = false
-	elif $Winners.visible == true:
-		$Winners.visible = false
+	elif $GoDieInAHole.visible == true:
+		$GoDieInAHole.visible = false
 	elif $Help.visible == true:
 		var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")

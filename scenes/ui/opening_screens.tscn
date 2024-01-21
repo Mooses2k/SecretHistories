@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/ui/opening_screens.gd" type="Script" id=1]
 [ext_resource path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together (orange).png" type="Texture" id=2]
-[ext_resource path="res://resources/art/opening_screens/NFTStab_noir.png" type="Texture" id=3]
+[ext_resource path="res://resources/art/opening_screens/go_die_in_a_hole.png" type="Texture" id=3]
 [ext_resource path="res://resources/ui_themes/main_menu.tres" type="Theme" id=4]
 [ext_resource path="res://resources/art/opening_screens/loadscreen_1_godot.png" type="Texture" id=5]
 [ext_resource path="res://resources/art/opening_screens/gpl_artboard_1.png" type="Texture" id=6]
@@ -25,7 +25,7 @@ texture_normal = ExtResource( 2 )
 expand = true
 stretch_mode = 5
 
-[node name="Winners" type="TextureButton" parent="."]
+[node name="GoDieInAHole" type="TextureButton" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1, 1 )
@@ -64,7 +64,7 @@ one_shot = true
 autostart = true
 
 [connection signal="pressed" from="Help" to="." method="_on_Help_pressed"]
-[connection signal="pressed" from="Winners" to="." method="_on_Winners_pressed"]
+[connection signal="pressed" from="GoDieInAHole" to="." method="_on_GoDieInAHole_pressed"]
 [connection signal="pressed" from="GPL" to="." method="_on_GPL_pressed"]
 [connection signal="pressed" from="MadeWithGodot" to="." method="_on_MadeWithGodot_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

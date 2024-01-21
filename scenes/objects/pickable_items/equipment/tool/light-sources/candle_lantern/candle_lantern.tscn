@@ -82,9 +82,9 @@ seamless = true
 bump_strength = 19.9
 noise = SubResource( 9 )
 
-[sub_resource type="ShaderMaterial" id=137]
+[sub_resource type="ShaderMaterial" id=140]
 shader = ExtResource( 12 )
-shader_param/noise_seed = 902.397
+shader_param/noise_seed = 874.307
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -208,7 +208,7 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, -4.83592e-23, -0.0134874, -2.68334e-15 )
 cast_shadow = 0
 mesh = SubResource( 136 )
-material/0 = SubResource( 137 )
+material/0 = SubResource( 140 )
 script = ExtResource( 10 )
 __meta__ = {
 "_editor_description_": ""

@@ -125,7 +125,11 @@ func light_depleted_copy():
 
 
 func _use_primary():
-	print("Is lit is :", is_lit)
+	print("Is lssit is :", is_lit)
+	yield(get_tree().create_timer(1), "timeout")
+	if self == owner_character.inventory.get_offhand_item():
+		if self.offhand_use_hold_time > use_hold_threshold:
+			return
 	if is_lit == false:
 		light()
 	else:

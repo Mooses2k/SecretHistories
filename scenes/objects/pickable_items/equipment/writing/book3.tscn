@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/writing/Book_02.material" type="Material" id=3]
 
-
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "book3_defaultMaterial"
 surfaces/0 = {
@@ -146,6 +145,9 @@ item_name = "Book"
 [node name="MeshInstance" parent="." index="0"]
 mesh = null
 
+[node name="CollisionShape" parent="." index="1"]
+shape = null
+
 [node name="SK_Book3" type="Spatial" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0146318, 0 )
 
@@ -187,6 +189,7 @@ skin = SubResource( 2 )
 script = ExtResource( 2 )
 
 [node name="CollisionShapeOpen" type="CollisionShape" parent="SK_Book3/Skeleton" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0111006, 0 )
 shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]

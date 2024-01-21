@@ -244,7 +244,7 @@ func _walk(delta) -> void:
 		owner.is_moving_forward = true
 	
 	_check_movement_key(delta)
-	owner.do_sprint = false   # Attempt to fix occasional sprinting after level load without holding sprint
+	owner.do_sprint = false   # Fixes sprinting after level load without holding sprint if sprinted into exit of previous level
 	
 	move_dir.x = (Input.get_action_strength("movement|move_right") - Input.get_action_strength("movement|move_left"))
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))
@@ -560,10 +560,15 @@ func _handle_inventory_and_grab_input(delta : float):
 		
 		# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
 		if GameSettings.ads_hold_enabled:   # ADS hold mode
-			if owner.do_sprint == false and owner.is_reloading == false and interaction_target == null and is_grabbing == false:
+			if owner.do_sprint == false and owner.is_reloading == false and is_grabbing == false:
 				if character.inventory.current_mainhand_slot != null:
 					if character.inventory.current_mainhand_equipment is GunItem:
-						character.player_animations.ads()
+						# If already on ADS, we don't care if an interaction_target is available
+						if character.player_animations.is_on_ads:
+							character.player_animations.ads()
+						# If just starting to ADS, make sure no interaction_target available
+						elif !character.player_animations.is_on_ads and interaction_target == null:
+							character.player_animations.ads()
 			elif character.inventory.current_mainhand_equipment is GunItem:
 				character.player_animations.end_ads()
 		

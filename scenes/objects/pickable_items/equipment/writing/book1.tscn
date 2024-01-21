@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=2]
 [ext_resource path="res://resources/models/items/writing/Book.material" type="Material" id=3]
 
-
 [sub_resource type="ArrayMesh" id=5]
 resource_name = "book1_Book_Book_0"
 surfaces/0 = {
@@ -104,6 +103,9 @@ item_name = "Book"
 
 [node name="MeshInstance" parent="." index="0"]
 mesh = null
+
+[node name="CollisionShape" parent="." index="1"]
+shape = null
 
 [node name="SK_Book1" type="Spatial" parent="." index="3"]
 

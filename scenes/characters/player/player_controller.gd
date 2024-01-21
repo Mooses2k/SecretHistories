@@ -648,10 +648,10 @@ func drop_grabable():
 				interaction_handled = true
 				
 				# TODO: This duplicates code in update_throw_state(); fix that
-				throw_strength = 20 * grab_object.mass
-				print(throw_strength, " is throw_strength before 55 cap")
-				if throw_strength > 55:
-					throw_strength = 55
+				throw_strength = 40 * grab_object.mass
+				print(throw_strength, " is throw_strength before 75 cap")
+				if throw_strength > 75:
+					throw_strength = 75
 				
 				throw_impulse_and_damage(grab_object)
 				
@@ -718,12 +718,12 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				character.inventory.drop_offhand_item()
 				
 			if throw_item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				throw_strength = 30 * throw_item.mass
-			else:
 				throw_strength = 40 * throw_item.mass
-			print(throw_strength, " is throw_strength before 55 cap")
-			if throw_strength > 55:
-				throw_strength = 55
+			else:
+				throw_strength = 50 * throw_item.mass
+#			print(throw_strength, " is throw_strength before 75 cap")
+#			if throw_strength > 75:
+#				throw_strength = 75
 				
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world

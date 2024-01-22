@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://resources/models/gridmap/modular_pieces/M_Wall_PillarShort.material" type="Material" id=1]
 [ext_resource path="res://resources/models/gridmap/modular_pieces/T_Wall_RoughAO.png" type="Texture" id=2]
@@ -564,6 +564,22 @@ surfaces/1 = {
 "vertex_count": 48
 }
 
+[sub_resource type="BoxShape" id=85]
+extents = Vector3( 0.550631, 3, 0.15 )
+
+[sub_resource type="BoxShape" id=86]
+extents = Vector3( 0.560514, 3, 0.15 )
+
+[sub_resource type="BoxShape" id=83]
+extents = Vector3( 0.550392, 1.35338, 0.15 )
+
+[sub_resource type="BoxShape" id=84]
+extents = Vector3( 0.5, 0.5, 0.075 )
+
+[sub_resource type="SpatialMaterial" id=82]
+flags_unshaded = true
+albedo_color = Color( 0, 0, 0, 1 )
+
 [sub_resource type="ArrayMesh" id=79]
 resource_name = "ModularPiecesExport_Plane234"
 surfaces/0 = {
@@ -609,7 +625,7 @@ surfaces/3 = {
 "blend_shape_data": [  ],
 "format": 2194719,
 "index_count": 54,
-"material": ExtResource( 14 ),
+"material": SubResource( 82 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 36
@@ -741,6 +757,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.5, 0 )
 shape = SubResource( 52 )
 
 [node name="Floor_15m" type="MeshInstance" parent="."]
+visible = false
 mesh = SubResource( 8 )
 
 [node name="StaticBody2" type="StaticBody" parent="Floor_15m"]
@@ -764,6 +781,7 @@ shape = SubResource( 59 )
 
 [node name="Ceiling_Steps_Open" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75 )
+visible = false
 mesh = SubResource( 20 )
 
 [node name="StaticBody" type="StaticBody" parent="Ceiling_Steps_Open"]
@@ -949,14 +967,31 @@ environment = SubResource( 28 )
 
 [node name="Wall_3x3x015_Window" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, 0, 0.89 )
+visible = false
 mesh = SubResource( 78 )
 
 [node name="StaticBody3" type="StaticBody" parent="Wall_3x3x015_Window"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, -0.15 )
 
 [node name="CollisionShape6" type="CollisionShape" parent="Wall_3x3x015_Window/StaticBody3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 1.51, -1.49 )
-shape = SubResource( 51 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.949071, 1.51, -1.49 )
+shape = SubResource( 85 )
+
+[node name="CollisionShape7" type="CollisionShape" parent="Wall_3x3x015_Window/StaticBody3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.944332, 1.51, -1.49 )
+shape = SubResource( 86 )
+
+[node name="CollisionShape8" type="CollisionShape" parent="Wall_3x3x015_Window/StaticBody3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00999999, 3.15063, -1.49 )
+shape = SubResource( 83 )
+
+[node name="CollisionShape9" type="CollisionShape" parent="Wall_3x3x015_Window/StaticBody3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00999999, -0.125743, -1.49 )
+shape = SubResource( 83 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Wall_3x3x015_Window/StaticBody3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00999999, 1.4568, -1.56461 )
+shape = SubResource( 84 )
 
 [node name="Wall_3x3x015_Grates" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, 0, 0.89 )

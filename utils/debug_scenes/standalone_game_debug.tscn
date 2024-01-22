@@ -5,7 +5,7 @@
 
 [node name="DebugGame" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-world_seed = 0
+world_seed = 31213
 _window_size = Vector2( 1280, 720 )
 _window_position = Vector2( 1920, 0 )
 _screen_filter = 6

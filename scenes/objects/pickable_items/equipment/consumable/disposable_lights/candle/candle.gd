@@ -22,7 +22,7 @@ var new_material
 onready var firelight = $FireOrigin/Fire/Light
 
 
-func _ready():
+func _ready() -> void:
 	light_timer = $BurnTime
 	self.connect("item_is_dropped", self, "item_drop")
 	if not light_timer.is_connected("timeout", self, "_light_depleted"):
@@ -31,7 +31,7 @@ func _ready():
 	light()
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		$Ignite/CollisionShape.disabled = false
 		is_dropped = true
@@ -50,7 +50,7 @@ func _process(delta):
 		light()
 
 
-func light():
+func light() -> void:
 	if not is_depleted:
 		$AnimationPlayer.play("flicker")
 		$Sounds/LightSound.play()
@@ -65,7 +65,7 @@ func light():
 		light_timer.start()
 
 
-func unlight():
+func unlight() -> void:
 	if not is_depleted:
 		$AnimationPlayer.stop()
 		$MeshInstance.get_surface_material(0).emission_enabled = false
@@ -78,7 +78,7 @@ func unlight():
 		stop_light_timer()
 
 
-func _use_primary():
+func _use_primary() -> void:
 	print("Lit state before use_primary: ", is_lit)
 	if is_lit == false:
 		light()
@@ -89,12 +89,12 @@ func _use_primary():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-		if is_lit:
-			var sound = $Sounds/BlowOutSound.duplicate()
-			GameManager.game.level.add_child(sound)
-			sound.global_transform = $Sounds/BlowOutSound.global_transform
-			sound.connect("finished", sound, "queue_free")
-			sound.play()
+#		if is_lit:
+#			var sound = $Sounds/BlowOutSound.duplicate()
+#			GameManager.game.level.add_child(sound)
+#			sound.global_transform = $Sounds/BlowOutSound.global_transform
+#			sound.connect("finished", sound, "queue_free")
+#			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 
 

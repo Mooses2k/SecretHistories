@@ -7,7 +7,8 @@
 [ext_resource path="res://resources/sounds/death_sound.wav" type="AudioStream" id=5]
 
 [node name="StartGameMenu" type="MarginContainer"]
-anchor_right = 1.0
+anchor_left = 0.2
+anchor_right = 0.8
 anchor_bottom = 1.0
 custom_constants/margin_right = 128
 custom_constants/margin_top = 64
@@ -18,7 +19,7 @@ script = ExtResource( 1 )
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_left = 128.0
 margin_top = 64.0
-margin_right = 1792.0
+margin_right = 1024.0
 margin_bottom = 1016.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer"]
@@ -38,60 +39,62 @@ size_flags_horizontal = 3
 custom_constants/separation = 16
 
 [node name="Column4" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 1664.0
+margin_right = 896.0
 margin_bottom = 952.0
 size_flags_horizontal = 3
 alignment = 2
 
 [node name="Pre-AlphaNotice" type="Label" parent="HBoxContainer/Column4"]
-margin_top = 692.0
-margin_right = 1664.0
+margin_top = 658.0
+margin_right = 896.0
 margin_bottom = 791.0
 text = "This is a very early pre-alpha of the first part of the underground. 
 Most systems are not in place and art assets do not represent final quality. 
 
 Headphones recommended.
 
-Don't let them find you."
+What you seek is five strata below.
+Find it and return your prize to the surface.
+ Don't let them find you."
 align = 1
 
 [node name="Spacer" type="Label" parent="HBoxContainer/Column4"]
 margin_top = 795.0
-margin_right = 1664.0
+margin_right = 896.0
 margin_bottom = 809.0
 align = 1
 
 [node name="StartGame" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
 margin_top = 813.0
-margin_right = 1664.0
+margin_right = 896.0
 margin_bottom = 868.0
 rect_min_size = Vector2( 0, 55 )
 text = "Start Game"
 
 [node name="Spacer2" type="Label" parent="HBoxContainer/Column4"]
 margin_top = 872.0
-margin_right = 1664.0
+margin_right = 896.0
 margin_bottom = 886.0
 align = 1
 
 [node name="ShowDebugOptions" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
 margin_top = 890.0
-margin_right = 1664.0
+margin_right = 896.0
 margin_bottom = 910.0
 text = "Debug/Cheat Options"
 
 [node name="Spacer3" type="Label" parent="HBoxContainer/Column4"]
 margin_top = 914.0
-margin_right = 1664.0
+margin_right = 896.0
 margin_bottom = 928.0
 align = 1
 
 [node name="ReturnButton" type="Button" parent="HBoxContainer/Column4"]
 unique_name_in_owner = true
 margin_top = 932.0
-margin_right = 1664.0
+margin_right = 896.0
 margin_bottom = 952.0
 text = "Back"
 
@@ -105,7 +108,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 128.0
 margin_top = 64.0
-margin_right = 1792.0
+margin_right = 1024.0
 margin_bottom = 1016.0
 
 [node name="Timer" type="Timer" parent="."]

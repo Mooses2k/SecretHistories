@@ -24,15 +24,15 @@ func _on_PreMusicTimer_timeout():
 
 
 func _on_MadeWithGodot_pressed():
-	$MarginContainer/MadeWithGodot.visible = false
+	$MadeWithGodot.visible = false
 
 
 func _on_GPL_pressed():
-	$MarginContainer/GPL.visible = false
+	$GPL.visible = false
 
 
-func _on_Winners_pressed():
-	$MarginContainer/Winners.visible = false
+func _on_GoDieInAHole_pressed():
+	$GoDieInAHole.visible = false
 
 
 func _on_Help_pressed():
@@ -40,11 +40,11 @@ func _on_Help_pressed():
 
 
 func _on_Timer_timeout():
-	if $MarginContainer/MadeWithGodot.visible == true:
-		$MarginContainer/MadeWithGodot.visible = false
-	elif $MarginContainer/GPL.visible == true:
-		$MarginContainer/GPL.visible = false
-	elif $MarginContainer/Winners.visible == true:
-		$MarginContainer/Winners.visible = false
-	elif $MarginContainer/Help.visible == true:
+	if $MadeWithGodot.visible == true:
+		$MadeWithGodot.visible = false
+	elif $GPL.visible == true:
+		$GPL.visible = false
+	elif $GoDieInAHole.visible == true:
+		$GoDieInAHole.visible = false
+	elif $Help.visible == true:
 		var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")

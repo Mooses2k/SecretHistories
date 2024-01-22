@@ -19,7 +19,7 @@ const MAX_Z_UNLIT_ROTATION = deg2rad(20)
 # Rooms must have both sides greater or equal to this value to be considered 
 # for spawning candelabra
 export var _single_tile_size_threshold := 4
-export(float, 0.0,1.0,0.01) var _room_chance := 0.6
+export(float, 0.0, 1.0, 0.01) var _room_chance := 0.6
 export var _spawn_list_resource: Resource = null
 
 var _rng := RandomNumberGenerator.new()

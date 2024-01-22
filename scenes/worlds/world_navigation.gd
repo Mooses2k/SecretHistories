@@ -81,8 +81,10 @@ func set_door_navmesh_instance(cell_index : int, direction : int, value = null):
 
 func update_navigation():
 	var cell_size = 0.1
+	
 	NavigationServer.map_set_cell_size(get_world().navigation_map, cell_size)
 	var cell_height = NavigationServer.map_get_cell_height(get_world().navigation_map)
+	
 	var all_points = Array()
 	# This array stores, for each cell, the room index of the room that cell belongs to
 	# A room is defined, in this script, as a connected walkable area (without going through any doors)
@@ -132,7 +134,7 @@ func update_navigation():
 								var vert = verts[v]
 								verts_3d[v] = Vector3(vert.x, cell_height, vert.y)
 								pos += verts_3d[v]
-							pos/= 4.0
+							pos /= 4.0
 							pos.y = 0.0
 							var navmesh = NavigationMesh.new()
 							navmesh.cell_size = cell_size
@@ -140,7 +142,7 @@ func update_navigation():
 							navmesh.vertices = verts_3d
 							all_points.append_array(Array(verts_3d))
 							navmesh.polygons = [PoolIntArray([0, 1, 2, 3])]
-							var navmesh_instance = NavigationMeshInstance.new()
+							var navmesh_instance = AutoCleanNavigationMeshInstance.new()
 							navmesh_instance.navmesh = navmesh
 							
 							call_deferred("add_child", navmesh_instance)
@@ -148,7 +150,7 @@ func update_navigation():
 							set_door_navmesh_instance(current, dir, navmesh_instance)
 				var pillar = gen_pillar_navmesh(current)
 				if pillar:
-						holes.push_back(pillar)
+					holes.push_back(pillar)
 				queue.erase(current)
 			
 			navpoly.clear_outlines()
@@ -172,7 +174,7 @@ func update_navigation():
 			navmesh.vertices = vertices_3d
 			all_points.append_array(Array(vertices_3d))
 			navmesh.polygons = navpoly.polygons
-			var nav_instance = NavigationMeshInstance.new()
+			var nav_instance = AutoCleanNavigationMeshInstance.new()
 			nav_instance.navmesh = navmesh
 			call_deferred("add_child", nav_instance)
 #			navmesh_add(navmesh, Transform.IDENTITY)
@@ -248,7 +250,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 	var wall_type = data.get_wall_type(cell, direction)
 	match wall_type:
 		WorldData.EdgeType.HALFDOOR_N:
-			var gap = 0.5*data.get_wall_meta(cell, direction) / half_cell - local_margin
+			var gap = 0.5 * data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
 			gap = max(gap, 0.05)
 			if direction == WorldData.Direction.EAST or direction == WorldData.Direction.NORTH:
 				# ┌   * ┐ * - X -1
@@ -281,7 +283,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 					Vector2(1.0 - local_margin - local_thickness, 1.0)
 				]
 		WorldData.EdgeType.HALFDOOR_P:
-			var gap = 0.5*data.get_wall_meta(cell, direction) / half_cell - local_margin
+			var gap = 0.5 * data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
 			gap = max(gap, 0.05)
 			if direction == WorldData.Direction.WEST or direction == WorldData.Direction.SOUTH:
 				# ┌   * ┐ - X -1
@@ -322,7 +324,7 @@ func gen_door_navmesh(cell : int, direction : int) -> PoolVector2Array:
 			# Z
 			#-1    +1
 			#forms a straight line, adding a point at *, taking the door(°) edges into account
-			var half_gap = data.get_wall_meta(cell, direction) * 0.5 / half_cell - local_margin
+			var half_gap = 0.5 * data.get_wall_meta(cell, direction) / half_cell - local_margin - local_thickness
 			half_gap = max(half_gap, 0.05)
 			new_points = [
 				Vector2(1.0 + local_margin + local_thickness, half_gap),
@@ -357,6 +359,8 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 	var current_cell = start_cell
 	var current_direction = start_direction
 	while not (current_cell == start_cell and current_direction == start_direction) or result.size() == 0:
+		if current_cell == -1:
+			break
 		if not walls_done.has(current_cell):
 			walls_done[current_cell] = Array()
 		(walls_done[current_cell] as Array).push_back(current_direction)
@@ -403,7 +407,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 #				new_points = [Vector2(1.0 - local_margin - local_thickness, -1.0 + end_margin + local_thickness)]
 				pass
 			data.EdgeType.HALFDOOR_N:
-				var gap = 0.5*data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin
+				var gap = 0.5 * data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
 				gap = max(gap, 0.05)
 				# HALFDOOR_N means that the open side of the door is on the lower coordinate direction (i.e, if a
 				# door is along the X axis, the opening will be on the West side of the edge)
@@ -434,7 +438,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 #						Vector2(1.0 - local_margin - local_thickness, -1.0 + end_margin + local_thickness)
 					]
 			data.EdgeType.HALFDOOR_P:
-				var gap = 0.5*data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin
+				var gap = 0.5 * data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
 				gap = max(gap, 0.05)
 				if follow_direction == WorldData.Direction.SOUTH or follow_direction == WorldData.Direction.EAST:
 					# ┌   * ┐ - X -1
@@ -471,7 +475,7 @@ func get_contour_polygon(start_cell : int, start_direction : int) -> PoolVector2
 				# Z
 				#-1    +1
 				#forms a straight line, adding a point at *, taking the door(°) edges into account
-				var half_gap = data.get_wall_meta(current_cell, current_direction) * 0.5 / half_cell - local_margin
+				var half_gap = 0.5 * data.get_wall_meta(current_cell, current_direction) / half_cell - local_margin - local_thickness
 				half_gap = max(half_gap, 0.05)
 				new_points = [
 					Vector2(1.0 - local_margin - local_thickness, half_gap),

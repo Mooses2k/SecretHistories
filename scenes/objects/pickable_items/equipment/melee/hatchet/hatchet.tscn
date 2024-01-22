@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
 [ext_resource path="res://resources/sounds/impacts/metal_and_gun/585575__bennettfilmteacher__metal-ringing-hit.ogg" type="AudioStream" id=2]
 [ext_resource path="res://resources/models/items/melee/hatchet/Main.material" type="Material" id=3]
-[ext_resource path="res://resources/sounds/melee/wider_object/268227__xxchr0nosxx__swing.mp3" type="AudioStream" id=5]
-[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.ogg" type="AudioStream" id=6]
+[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" type="AudioStream" id=4]
 [ext_resource path="res://resources/sounds/melee/wider_object/squish_hit/411122__vdovitsky__sword-hits-the-body.wav" type="AudioStream" id=7]
 [ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=17]
 
@@ -36,25 +35,23 @@ points = PoolVector3Array( -0.000309041, -0.130521, 0.328649, -0.00234327, -0.12
 points = PoolVector3Array( -0.0062981, 0.0191671, 0.270313, -0.00036866, -0.0297065, 0.228602, -0.00550141, -0.0261319, 0.211864, 0.0114956, 0.0290618, 0.0883993, -0.0142112, 0.011259, 0.0883993, 0.0134739, 0.00533107, 0.270313, 0.0114956, -0.000584041, 0.0883993, -0.0122302, -0.0243148, 0.268318, -0.0062981, 0.0330222, 0.104247, 0.0134739, -0.0164067, 0.260412, -0.0122302, -0.00257065, 0.0904114, -0.0122302, 0.011259, 0.270313, 0.00556349, 0.0191671, 0.270313, -0.0122302, 0.027088, 0.0883993, 0.00556349, -0.00652471, 0.0883993, 0.00512386, -0.0298176, 0.259895, 0.0134739, 0.0191671, 0.0883993, -0.0142112, -0.00850493, 0.270313, 0.00556349, 0.0330222, 0.104247, 0.00492003, -0.0269253, 0.212837, 0.0134739, -0.0144264, 0.270313, 0.0134739, -0.000584041, 0.1082, -0.00431981, -0.00652471, 0.0883993, 0.0114956, 0.0132392, 0.270313, 0.00985673, -0.0209016, 0.216833, -0.0142112, 0.015213, 0.100294, -0.00397559, -0.0257776, 0.199204, -0.0122302, 0.027088, 0.102271, 0.0114956, 0.0290618, 0.0983176, -0.00573438, -0.0291336, 0.258072, 0.00528477, -0.0288093, 0.266039, -0.0142112, 0.00533107, 0.118083, 0.00498461, -0.0236964, 0.188274, -0.010252, 0.015213, 0.270313, -0.0142112, -0.00454449, 0.270313, 0.0114956, -0.00257065, 0.0963411, -0.00562578, -0.028536, 0.230192, -0.0122302, -0.0223409, 0.270313, -0.0142112, -0.0104724, 0.264365, 0.0134739, 0.0191671, 0.112153, 0.0134739, 0.00533107, 0.0883993, 0.00753635, -0.00652471, 0.0943645, 0.0104305, -0.0220966, 0.262147, 0.00951735, 0.0310356, 0.0963411, -0.0062981, -0.00652471, 0.092388, -0.00887413, -0.0225799, 0.215077, 0.00487592, -0.0284538, 0.226553, 0.00832976, -0.0248313, 0.24024, -0.00591522, -0.0282704, 0.264439, -0.0122302, -0.000584041, 0.0883993 )
 
 [sub_resource type="CylinderShape" id=3]
-height = 0.181495
+height = 0.117199
 radius = 0.118034
 
 [node name="Hatchet" instance=ExtResource( 17 )]
 mass = 1.5
-dropped_layers = 64
-dropped_mask = 1
 item_drop_sound = ExtResource( 2 )
 item_throw_sound = ExtResource( 1 )
+can_spin = true
 item_size = 0
 item_name = "Hatchet"
-weapon_type = 2
-primary_damage1 = 15
-secondary_damage1 = 26
-secondary_damage_type2 = 1
-secondary_damage2 = 26
-can_spin = true
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
+weapon_type = 2
+primary_damage1 = 15
+secondary_damage1 = 18
+secondary_damage_type2 = 1
+secondary_damage2 = 18
 
 [node name="MeshInstance" parent="." index="0"]
 transform = Transform( -1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, -0.272767, 0 )
@@ -82,9 +79,10 @@ shape = SubResource( 7 )
 
 [node name="Hitbox" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0943692, -0.0389023 )
+collision_mask = 589
 
 [node name="CollisionShape" parent="Hitbox" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0059844, 0 )
 shape = SubResource( 3 )
 
 [node name="CooldownTimer" parent="." index="6"]
@@ -101,10 +99,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.105544, -0.0127318 )
 
 [node name="Thrust" parent="Sounds" index="2"]
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
 
 [node name="Cut" parent="Sounds" index="3"]
-stream = ExtResource( 6 )
+stream = ExtResource( 4 )
 
 [node name="FleshCut" parent="Sounds" index="6"]
 stream = ExtResource( 7 )

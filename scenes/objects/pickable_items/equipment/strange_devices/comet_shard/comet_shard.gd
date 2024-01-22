@@ -23,7 +23,8 @@ func _physics_process(delta):
 
 # func which alters pitch_scale of $AudioStreamPlayer3D based on distance from player with 1 being when close
 func _pitch_alter_chant_based_on_distance():
-	$AudioStreamPlayer.pitch_scale = 1 - (1 / self.global_translation.distance_to(GameManager.game.player.global_translation))
+	if is_instance_valid(GameManager.game):
+		$AudioStreamPlayer.pitch_scale = 1 - (1 / self.global_translation.distance_to(GameManager.game.player.global_translation))
 
 
 func _on_DangerousRadiance_body_entered(body):

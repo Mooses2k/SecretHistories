@@ -2,7 +2,6 @@
 
 [ext_resource path="res://scenes/ui/esc_menu.gd" type="Script" id=1]
 
-
 [node name="EscMenu" type="CenterContainer"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -64,6 +63,7 @@ unique_name_in_owner = true
 margin_top = 20.0
 margin_right = 83.0
 margin_bottom = 40.0
+disabled = true
 text = "Save Game"
 
 [node name="SettingsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]

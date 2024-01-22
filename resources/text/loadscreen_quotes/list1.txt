@@ -89,7 +89,7 @@ Light is your primary resource.
 Time is your primary resource.
 Ammo is your primary resource.
 Your life is your primary resource.
-Resourcefulness if your primary resource.
+Resourcefulness is your primary resource.
 Returning the game for a full refund is your primary recourse.
 "The real war will never get in the books." --Walt Whitman
 "We are like the spider. We weave our life and then move along in it. We are like the dreamer who dreams and then lives in the dream. This is true for the entire universe." --The Upanishads
@@ -112,3 +112,4 @@ Returning the game for a full refund is your primary recourse.
 "Gary loves you!" --Eternal Order of the Second Death
 Fair fights are for suckers. Stack the odds in your favor.
 Getting into uncontrolled open combat should be seen as a failure state. Control your environment.
+"Break the front door if you want to enter your home." --Dogen

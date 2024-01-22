@@ -186,8 +186,8 @@ __meta__ = {
 "_editor_description_": ""
 }
 item_drop_sound = ExtResource( 7 )
-item_name = "Torch"
 can_spin = true
+item_name = "Torch"
 life_percentage_lose = 0.2
 prob_going_out = 0.1
 

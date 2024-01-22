@@ -12,6 +12,10 @@ var loadscreen : Node
 func setup_loadscreen() -> void:
 	loadscreen = Loadscreen.instance()
 	get_tree().current_scene.add_child(loadscreen)
+	
+	# Is here to hopefully ensure the quotes showup before the freeze on loading
+	yield(get_tree().create_timer(0.1), "timeout")   # To attempt to ensure lowend computers get something showing before it freezes
+	
 	get_tree().paused = true
 
 

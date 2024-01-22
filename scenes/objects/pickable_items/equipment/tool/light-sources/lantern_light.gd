@@ -1,6 +1,5 @@
 extends Spatial
 
-
 # This code is duplicated from "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd"
 
 

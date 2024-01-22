@@ -48,10 +48,12 @@ var current_offhand_equipment : EquipmentItem = null
 # Are we currently in the middle of swapping hands?
 var are_swapping : bool = false
 
+var encumbrance : float = 0   # Is a float to allow easy division
+
+var belt_item = null   # The item currently in the belt_position slot
+
 # Where to drop items from
 onready var Animations : AnimationPlayer = $"%AdditionalAnimations" as AnimationPlayer
-
-var encumbrance : float = 0   # Is a float to allow easy division
 
 
 func _ready():
@@ -250,10 +252,12 @@ func equip_mainhand_item():
 			
 		item.set_item_state(GlobalConsts.ItemState.EQUIPPED)
 		current_mainhand_equipment = item
+		
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:
 			item.get_parent().remove_child(item)
 			owner.mainhand_equipment_root.add_child(item)
+			belt_item = null
 		else:
 			owner.mainhand_equipment_root.add_child(item)
 		emit_signal("inventory_changed")
@@ -305,7 +309,13 @@ func drop_bulky_item():
 
 
 func equip_offhand_item():
-	yield(get_tree().create_timer(0.5), "timeout")
+	var equip_delay = 0.5
+	if current_offhand_equipment is MeleeItem:
+		equip_delay = 0.1
+	else:
+		equip_delay = 0.5
+		
+	yield(get_tree().create_timer(equip_delay), "timeout")
 	# Item already equipped or both slots set to the same item
 	if current_offhand_equipment != null or current_offhand_slot == current_mainhand_slot:
 		return
@@ -334,6 +344,7 @@ func equip_offhand_item():
 	if item.is_in_belt == true:
 		item.get_parent().remove_child(item)
 		owner.offhand_equipment_root.add_child(item)
+		belt_item = null
 	else:
 		owner.offhand_equipment_root.add_child(item)
 
@@ -390,6 +401,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 			if item_node.can_attach == true:
 				item_node.get_parent().remove_child(item_node)
 				item_node.is_in_belt = false
+				belt_item = null
 				_drop_item(item_node)
 			else:
 				_drop_item(item_node)
@@ -426,9 +438,9 @@ func _drop_item(item : EquipmentItem):
 			GameManager.game.level.add_child(item)
 			print("Item added to level at position: ", item.global_translation)
 			
-		if item is EquipmentItem:
-			if item.item_state == GlobalConsts.ItemState.DAMAGING:
-				item.apply_throw_logic()
+#		if item is EquipmentItem:
+#			if item.item_state == GlobalConsts.ItemState.DAMAGING:
+#				item.apply_throw_logic()
 	
 	elif !GameManager.game:   # This is here for test scenes
 		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
@@ -439,6 +451,8 @@ func _drop_item(item : EquipmentItem):
 		find_parent("TestWorld").add_child(item)
 		if item.item_state == GlobalConsts.ItemState.DAMAGING:
 			item.apply_throw_logic()
+			
+	item.owner_character = null
 		
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
@@ -522,6 +536,7 @@ func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position:
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
+		belt_item = item
 		$"%AdditionalAnimations".play("Belt_Equip")
 		print("Attached to belt in inventory.gd")
 

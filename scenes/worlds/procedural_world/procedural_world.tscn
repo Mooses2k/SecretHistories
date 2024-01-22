@@ -52,6 +52,7 @@ shadow_bias = 0.05
 directional_shadow_normal_bias = 0.2
 
 [node name="Navigation" parent="." index="3"]
+margin = 0.55
 preview_material = SubResource( 3 )
 
 [node name="GenerationManager" parent="." index="4"]
@@ -92,9 +93,9 @@ double_wall_tile = 4
 alternative_double_wall_tiles = [ 20, 21, 22 ]
 alternative_double_wall_tile_chance = 0.15
 door_tile = 19
-door_width = 1.0
+door_width = 1.5
 double_door_tile = 14
-double_door_width = 1.0
+double_door_width = 1.5
 ceiling_tile = 10
 pillar_room_double_wall_tile = 3
 pillar_room_double_door_tile = 1
@@ -146,12 +147,13 @@ _spawn_list_resource = ExtResource( 12 )
 [node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
 script = ExtResource( 14 )
 _loot_list_resource = ExtResource( 8 )
-_max_loot = 7
+_max_loot = 5
 
 [node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource( 14 )
 _loot_list_resource = ExtResource( 16 )
-_max_loot = 7
+_min_loot = 3
+_max_loot = 5
 
 [node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
 script = ExtResource( 15 )

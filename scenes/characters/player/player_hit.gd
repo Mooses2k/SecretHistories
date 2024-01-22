@@ -5,7 +5,7 @@ var tween_speed = 0.7
 var is_fade_in = false
 
 onready var opacity_target = [0.1, 0.2]
-onready var debug_label: RichTextLabel = $RichTextLabel
+onready var debug_label: RichTextLabel = $DebugInfo
 onready var keybind_defaults: RichTextLabel = $KeybindDefaults
 onready var color_rect: TextureRect = $ColorRect
 onready var texture_rect: TextureRect = $TextureRect
@@ -13,18 +13,19 @@ onready var animation_player: AnimationPlayer = $AnimationPlayer
 onready var tween: Tween = $Tween
 
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	var player := owner as Player
-	debug_label.text = (
-		"Player current_health = " + str(player.current_health) + "\n"
-		+ "Player stamina = " + str(player.stamina) + "\n"
-		+ "Player light_level = " + str(player.light_level) + "\n"
-		+ "Player noise_level = " + str(player.noise_level) + "\n"
-		+ "Player on floor = " +  str(player.grounded) + "\n"
-		+ "Current strata = " +  str(GameManager.game.current_floor_level) + "\n"
-		+ "Player position = " +  str(player.translation) + "\n"
-		+ "Current FPS = " +  str(Performance.get_monitor(Performance.TIME_FPS)) + "\n"
-	)
+	if is_instance_valid(GameManager.game):
+		debug_label.text = (
+			"Player current_health = " + str(player.current_health) + "\n"
+			+ "Player stamina = " + str(player.stamina) + "\n"
+			+ "Player light_level = " + str(player.light_level) + "\n"
+			+ "Player noise_level = " + str(player.noise_level) + "\n"
+			+ "Player on floor = " +  str(player.grounded) + "\n"
+			+ "Current strata = " +  str(GameManager.game.current_floor_level) + "\n"
+			+ "Player position = " +  str(player.translation) + "\n"
+			+ "Current FPS = " +  str(Performance.get_monitor(Performance.TIME_FPS)) + "\n"
+		)
 
 
 func _input(event):

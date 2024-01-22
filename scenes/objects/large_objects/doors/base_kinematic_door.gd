@@ -28,8 +28,8 @@ var door_open_angle : float = deg2rad(100)
 var door_close_threshold : float = deg2rad(5)
 var door_speed : float = door_open_angle/door_move_time
 var door_auto_close_speed : float = 0.05*door_speed
-var door_auto_close_delay_min : float = 5.0
-var door_auto_close_delay_max : float = 10.0
+var door_auto_close_delay_min : float = 25.0
+var door_auto_close_delay_max : float = 55.0
 var door_should_move : float = false
 var door_stuck_on_close_probability = 0.01   # TODO make this optional in settings menu
 var time_to_auto_close = 0.0
@@ -102,7 +102,8 @@ func set_door_state(value : int):
 
 
 func reset_auto_close_timer():
-	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)
+	time_to_auto_close = 55555   # Set to this because this feature didn't playtest well - navigation is even more confusing if you can't rely on tracking which doors you opened or not
+#	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)   # Actual logic
 
 
 func break_door(position, impulse, damage):
@@ -160,6 +161,11 @@ func _on_Interactable_kicked(position, impulse, damage) -> void:
 	print("Door health : ", health)
 	if health <= 0:
 		break_door(position, impulse, damage)
+	
+	# TODO: kick currently always opens it, but if you kick from hinge side, should close door
+	# This should automatically be fixed by using RigidBody doors in the future
+	if door_state == DoorState.AUTO_CLOSING and door_hinge_z_axis.rotation.y > door_close_threshold:
+		door_state = DoorState.OPEN
 
 
 func _on_NpcDetector_body_entered(body):

@@ -419,7 +419,7 @@ func get_starting_room_data() -> RoomData:
 
 func get_cell_index_from_local_position(pos : Vector3) -> int:
 	pos /= CELL_SIZE
-	return get_cell_index_from_int_position(pos.x, pos.z)
+	return get_cell_index_from_int_position(int(pos.x), int(pos.z))
 
 
 func is_inside_world_bounds(x: int, z: int) -> bool:
@@ -760,7 +760,7 @@ func get_neighbour_cell(cell_index : int, direction : int) -> int:
 func print_world_map() -> void:
 	var line := ""
 	
-	var title = "--- Generated World Map "
+	var title = "--- Generated Level Map "
 	var padding := world_size_x - title.length() as int
 	var append_title := ""
 	if padding > 0:

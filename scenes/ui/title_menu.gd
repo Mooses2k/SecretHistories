@@ -12,10 +12,10 @@ func _ready():
 		BackgroundMusic.play()
 	
 	# Slowly animate up the title text
-	get_tree().create_tween()\
-		.tween_property($VBoxContainer2/GameName, "percent_visible", 1.0, 5.0)\
-		.set_trans(Tween.TRANS_EXPO)\
-		.set_ease(Tween.EASE_IN)
+#	get_tree().create_tween()\
+#		.tween_property($VBoxContainer2/GameName, "percent_visible", 1.0, 5.0)\
+#		.set_trans(Tween.TRANS_EXPO)\
+#		.set_ease(Tween.EASE_IN)
 
 
 func _input(event):
@@ -28,6 +28,9 @@ func _on_ContinueButton_pressed():
 
 
 func _on_StartButton_pressed():
+	$VBoxContainer/StartButton.text = "Loading"   # On slower machines, there's a significant delay before the Start Game Menu 
+	$VBoxContainer/StartButton.disabled = true
+	yield(get_tree().create_timer(0.1), "timeout")   # If we don't pause briefly, the engine doesn't have enough time to change the text
 	var _error = get_tree().change_scene("res://scenes/ui/start_game_menu.tscn")
 
 

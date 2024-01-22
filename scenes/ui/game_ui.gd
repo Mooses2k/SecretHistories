@@ -36,6 +36,9 @@ func on_gui_scale_changed(value):
 
 
 func _input(event: InputEvent) -> void:
+	if is_instance_valid(LoadScene.loadscreen):
+		if LoadScene.loadscreen.visible:
+			return
 	if event.is_action_pressed("esc_menu") and not GameManager.is_player_dead:
 		match gui_state:
 			GUIState.HUD:

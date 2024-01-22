@@ -1,5 +1,5 @@
 # Write your doc string for this file here
-extends %BASE%
+#extends %BASE%
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------

@@ -40,7 +40,7 @@ var min_tile_size : Vector2
 ### Private Methods -------------------------------------------------------------------------------
 
 func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
-	min_tile_size = Vector2(room_purpose_data.requirements[0].min_x_tiles, room_purpose_data.requirements[0].min_y_tiles)
+	min_tile_size = Vector2(2, 2) # Vector2(room_purpose_data.requirements[0].min_x_tiles, room_purpose_data.requirements[0].min_y_tiles)
 	
 	var statue_fountain_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.FOUNTAIN)
 	print("<<<<<<room available = " + str(statue_fountain_rooms))

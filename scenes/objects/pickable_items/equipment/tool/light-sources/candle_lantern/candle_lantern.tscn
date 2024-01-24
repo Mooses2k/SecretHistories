@@ -84,7 +84,7 @@ noise = SubResource( 9 )
 
 [sub_resource type="ShaderMaterial" id=140]
 shader = ExtResource( 12 )
-shader_param/noise_seed = 874.307
+shader_param/noise_seed = 344.263
 shader_param/top_offset = Vector3( 0, 0, 0 )
 shader_param/model_height_range = Vector2( -1, 1 )
 shader_param/noise_scale = 0.079
@@ -219,6 +219,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.000501111, 0 )
 layers = 3
 light_color = Color( 0.760784, 0.364706, 0.0470588, 1 )
 light_energy = 0.3
+omni_range = 29.791
 omni_attenuation = 4.0
 
 [node name="PlayerLightArea" type="Area" parent="Candle1/FireOrigin/Fire/Light" index="0"]

@@ -34,15 +34,13 @@ func _ready():
 	connect("body_entered", self, "play_drop_sound")
 
 
-
-#func _process(delta : float) -> void:
 func _input(event):
 	if event.is_pressed():
 		if self.has_method("light"):
 			if is_instance_valid(owner_character):
 				if Input.is_action_pressed("playerhand|main_use_primary") and owner_character.is_reloading == false:
 					mainhand_use_hold_time += 0.1
-					print("Mainhand hold use time:", mainhand_use_hold_time)
+					print("Mainhand use hold time: ", mainhand_use_hold_time)
 					if  mainhand_use_hold_time > use_hold_threshold:
 						if not get("is_lit"):
 							call("light")
@@ -53,19 +51,9 @@ func _input(event):
 							else:
 								owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 2)
 								owner_character.get_node("%AnimationTree").set("parameters/LightSourceHoldTransition/current", 2)
-
-#
-#				else:
-#					if self == owner_character.inventory.get_mainhand_item():
-#						mainhand_use_hold_time = 0.0
-#						if horizontal_holding == true:
-#							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
-#						else:
-#							owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
-
+				
 				if Input.is_action_pressed("playerhand|offhand_use") and owner_character.is_reloading == false:
 					offhand_use_hold_time += 0.1
-					print("Offhand hold use time:", offhand_use_hold_time)
 					if offhand_use_hold_time > use_hold_threshold :
 						if not get("is_lit"):
 							call("light")
@@ -86,17 +74,17 @@ func _input(event):
 						owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 1)
 					else:
 						owner_character.get_node("%AnimationTree").set("parameters/Offhand_Hold_Animation/current", 0)
-					
+	
 	elif event.is_action_released("playerhand|main_use_primary"):
 		if self.has_method("light"):
 			if is_instance_valid(owner_character):
 				if self == owner_character.inventory.get_mainhand_item():
-					
 					mainhand_use_hold_time = 0.0
 					if horizontal_holding == true:
 						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 1)
 					else:
 						owner_character.get_node("%AnimationTree").set("parameters/Hold_Animation/current", 0)
+
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
 # Bug here where when player rotates, items does a little circle thing in hand

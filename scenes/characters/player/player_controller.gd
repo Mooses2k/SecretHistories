@@ -507,14 +507,19 @@ func _handle_inventory(delta : float):
 		if Input.is_action_just_pressed("playerhand|main_use_primary"):
 			# Check if grace period has elapsed since loadscreen removed to avoid accidentally shooting after load
 			if no_click_after_load_period == false:
-				if character.inventory.get_mainhand_item():
+				if character.inventory.get_mainhand_item().has_method("light"):
+					yield(get_tree().create_timer(1), "timeout")
+					if character.inventory.get_mainhand_item().mainhand_use_hold_time > character.inventory.get_mainhand_item().use_hold_threshold:
+						return
 					character.inventory.get_mainhand_item().use_primary()
-					if character.inventory.get_mainhand_item() is MeleeItem:
-						$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
-						$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
-						$"%AnimationTree".set("parameters/MeleeThrust/active", true)
-						owner.noise_level = 8
-					throw_state = ThrowState.IDLE
+				else:
+					character.inventory.get_mainhand_item().use_primary()
+				if character.inventory.get_mainhand_item() is MeleeItem:
+					$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
+					$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
+					$"%AnimationTree".set("parameters/MeleeThrust/active", true)
+					owner.noise_level = 8
+				throw_state = ThrowState.IDLE
 
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
 			# This means R-Click can be used to interact when pointing at an interactable
@@ -557,7 +562,13 @@ func _handle_inventory(delta : float):
 		
 	if Input.is_action_just_pressed("playerhand|offhand_use") and owner.is_reloading == false:
 		if character.inventory.get_offhand_item():
-			character.inventory.get_offhand_item().use_primary()
+			if character.inventory.get_offhand_item().has_method("light"):
+				yield(get_tree().create_timer(1), "timeout")
+				if character.inventory.get_offhand_item().offhand_use_hold_time > character.inventory.get_offhand_item().use_hold_threshold:
+					return
+				character.inventory.get_offhand_item().use_primary()
+			else:
+				character.inventory.get_offhand_item().use_primary()
 			if character.inventory.get_offhand_item() is MeleeItem:
 				$"%AnimationTree".set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
 				$"%AnimationTree".set("parameters/OffHand_MainHand_Blend/blend_amount", 0)

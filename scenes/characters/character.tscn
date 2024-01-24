@@ -44,15 +44,15 @@
 
 [sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.3
-height = 1.2
+height = 1.75
 
 [sub_resource type="CapsuleShape3D" id="14"]
-radius = 0.048
-height = 0.096
+radius = 0.3
+height = 1.0
 
 [sub_resource type="CapsuleShape3D" id="15"]
 radius = 0.3
-height = 1.2
+height = 1.75
 
 [sub_resource type="SphereShape3D" id="16"]
 radius = 0.6
@@ -142,11 +142,11 @@ script = ExtResource("1")
 _legcast = NodePath("Legs/Feet")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.914419, 0)
 shape = SubResource("1")
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.348012, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.539094, 0)
 shape = SubResource("14")
 
 [node name="OffHandEquipmentRoot" type="Marker3D" parent="."]
@@ -197,7 +197,7 @@ collision_layer = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CanStandChecker"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.900284, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.916132, 0)
 shape = SubResource("15")
 
 [node name="ClamberableChecker" type="Area3D" parent="."]
@@ -206,7 +206,7 @@ collision_layer = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClamberableChecker"]
-transform = Transform3D(0.53918, 0, 0, 0, 1, 0, 0, 0, 1, -0.00335217, -0.211382, -0.213174)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00335217, -0.211382, -0.213174)
 shape = SubResource("16")
 
 [node name="SurfaceDetector" type="RayCast3D" parent="."]
@@ -309,16 +309,6 @@ parameters/Small_guns_transitions/transition_request = ""
 parameters/Small_guns_transitions/current_index = -1
 parameters/jump/internal_active = false
 parameters/jump/request = 0
-
-[node name="ADSTween" type="Tween" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = true
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
 
 [connection signal="mainhand_slot_changed" from="Inventory" to="." method="_on_Inventory_mainhand_slot_changed"]
 [connection signal="body_entered" from="ClamberableChecker" to="." method="_on_ClamberableChecker_body_entered"]

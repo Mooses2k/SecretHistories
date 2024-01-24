@@ -3,6 +3,6 @@ extends Node
 
 func _process(delta):
 	if get_tree().paused == true:
-		$Indication_system.hide()
+		$IndicationSystem.hide()
 	else:
-		$Indication_system.show()
+		$IndicationSystem.show()

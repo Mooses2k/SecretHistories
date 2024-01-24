@@ -62,7 +62,7 @@ var _clamber_m = null
 #export var _gun_cam_path : NodePath
 #onready var _gun_cam = get_node(_gun_cam_path)
 @onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
-@onready var _text = get_node("..//Indication_canvas/Label")
+@onready var _text = get_node("..//IndicationCanvas/Label")
 @onready var _player_hitbox = get_node("../CanStandChecker")
 @onready var _ground_checker = get_node("../Body/GroundChecker")
 @onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")

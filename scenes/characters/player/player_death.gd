@@ -32,25 +32,26 @@ func _on_Player_character_died():
 
 
 func _move_cam():
-	$Tween.interpolate_property($ColorRect, "modulate:a", 1, 0, 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.interpolate_property(_main_cam, "position", 
-			Vector3(_main_cam.transform.origin.x, _main_cam.transform.origin.y, _main_cam.transform.origin.z), 
+	var cam_tween = get_tree().create_tween()
+	cam_tween.tween_property($ColorRect, "modulate:a", 0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	cam_tween.tween_property(_main_cam, "position", 
 			Vector3(_main_cam.transform.origin.x, _main_cam.transform.origin.y + 1, _main_cam.transform.origin.z),   # Previously z+1.8
-			8, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.interpolate_property(_main_cam, "rotation_degrees", 
-			Vector3(_main_cam.transform.basis.x.x, _main_cam.transform.basis.y.y, _main_cam.transform.basis.z.z), 
-			Vector3(_main_cam.transform.basis.x.x-90, _main_cam.transform.basis.y.y, _main_cam.transform.basis.z.z),   # Previously x-45
-			5, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.start()
+			8).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	cam_tween.tween_property(_main_cam, "rotation_degrees", 
+			Vector3(_main_cam.transform.basis.x.x - 90, _main_cam.transform.basis.y.y, _main_cam.transform.basis.z.z),   # Previously x-45
+			5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	cam_tween.start()
 
 
 func _fade_to_black():
-	$Tween.interpolate_property($ColorRect, "modulate:a", 0, 1, 0.7, Tween.TRANS_QUAD, Tween.EASE_OUT)
-	$Tween.start()
+	var fade_tween
+	fade_tween.tween_property($ColorRect, "modulate:a", 0, 1, 0.7).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	fade_tween.start()
+	fade_tween.finished.connect(_on_Tween_tween_completed)
 
 
-func _on_Tween_tween_completed(object, key):
-	if object.name == "ColorRect" and $ColorRect.modulate.a == 1:
+func _on_Tween_tween_completed():
+	if $ColorRect.modulate.a == 1:
 		await get_tree().create_timer(1).timeout
 		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

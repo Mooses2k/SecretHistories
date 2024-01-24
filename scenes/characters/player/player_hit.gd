@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 
+#@onready var tween: Tween = $Tween
+var tween : Tween = null
 var tween_speed = 0.7
 var is_fade_in = false
 
@@ -10,9 +12,7 @@ var is_fade_in = false
 @onready var color_rect: TextureRect = $ColorRect
 @onready var texture_rect: TextureRect = $TextureRect
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-#@onready var tween: Tween = $Tween
 
-var tween : Tween = null
 
 func _process(_delta: float) -> void:
 	var player := owner as Player
@@ -87,8 +87,10 @@ func _start_fade_in():
 	#tween.interpolate_property(texture_rect, "modulate", 
 			#Color(1, 1, 1, opacity_target[0]), Color(1, 1, 1, opacity_target[1]), tween_speed, Tween.TRANS_SINE, Tween.EASE_OUT)
 
+
 func _start_fade_out():
 	is_fade_in = false
+	
 	tween = get_tree().create_tween()
 	tween.tween_property(texture_rect, "modulate", Color(1, 1, 1, opacity_target[0]), tween_speed)\
 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN).from(Color(1, 1, 1, opacity_target[1]))

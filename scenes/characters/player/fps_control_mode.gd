@@ -4,9 +4,9 @@ extends ControlMode
 var colliding_pickable_items = []
 var colliding_interactable_items = []
 @onready var player_controller = $".."
-@onready var grab_indicator = $"../../Indication_canvas/Indication_system/Grab"
-@onready var ignite_indicator = $"../../Indication_canvas/Indication_system/Ignite"
-@onready var dot_indicator = $"../../Indication_canvas/Indication_system/Dot"
+@onready var grab_indicator = $"../../IndicationCanvas/IndicationSystem/Grab"
+@onready var ignite_indicator = $"../../IndicationCanvas/IndicationSystem/Ignite"
+@onready var dot_indicator = $"../../IndicationCanvas/IndicationSystem/Dot"
 
 @export var _aimcast : NodePath
 @onready var aimcast : RayCast3D = get_node(_aimcast) as RayCast3D
@@ -106,6 +106,7 @@ func crosshair_indicators():
 		dot_indicator.hide()
 	else :
 		dot_indicator.show()
+		# TODO: broken it's self-colliding with stuff in player's hands
 	
 	var grabable_object = grabcast.get_collider()
 	
@@ -252,4 +253,3 @@ func _on_GrabCastDot_area_entered(area):
 func _on_GrabCastDot_area_exited(area):
 	if area is Interactable:
 		colliding_interactable_items.remove_at(colliding_interactable_items.find(area))
-

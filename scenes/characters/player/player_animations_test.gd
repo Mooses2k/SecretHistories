@@ -229,6 +229,8 @@ func operation_tween(object : Object, method, tweening_from, tweening_to, durati
 	.set_trans(Tween.TRANS_LINEAR)
 
 
+# TODO: haven't tested since changing tween
 func adjust_arm(final_position):
-	%ADSTween.interpolate_property(%MainCharOnlyArmsGameRig, "position", %MainCharOnlyArmsGameRig.position, final_position, 0.01)
-	%ADSTween.start()
+	var ads_tween = get_tree().create_tween()
+	ads_tween.tween_property(%MainCharOnlyArmsGameRig, "position", final_position, 0.01) 
+	ads_tween.start()

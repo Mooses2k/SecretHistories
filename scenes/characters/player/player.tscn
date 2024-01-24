@@ -1,4 +1,4 @@
-[gd_scene load_steps=148 format=3 uid="uid://bg7aeaviu8ftd"]
+[gd_scene load_steps=138 format=3 uid="uid://bg7aeaviu8ftd"]
 
 [ext_resource type="PackedScene" uid="uid://id4ldu0s15ut" path="res://scenes/characters/character.tscn" id="1"]
 [ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="2"]
@@ -73,278 +73,6 @@
 
 [sub_resource type="QuadMesh" id="38"]
 size = Vector2(2, 2)
-
-[sub_resource type="Animation" id="4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.2, 1.2, -0.3)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-30, 0, 0)]
-}
-
-[sub_resource type="Animation" id="5"]
-resource_name = "Recovery1ToTierce"
-length = 0.3
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.09, 0.19, 0.28),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0.9, -0.6), Vector3(-0.1, 0.9, -0.6), Vector3(0, 1, -0.5), Vector3(0.3, 1.2, -0.4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.09, 0.19, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-250, 0, 40), Vector3(-310, 0, 32), Vector3(-360, 0, 24), Vector3(-390, 0, 0)]
-}
-
-[sub_resource type="Animation" id="9"]
-resource_name = "Recovery2ToQuarte"
-length = 0.3
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.09, 0.19, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0.9, -0.7), Vector3(0.1, 0.9, -0.6), Vector3(0, 1, -0.5), Vector3(-0.3, 1.2, -0.4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.09, 0.19, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-250, 0, -40), Vector3(-310, 0, -32), Vector3(-360, 0, -24), Vector3(-390, 0, 0)]
-}
-
-[sub_resource type="Animation" id="12"]
-resource_name = "RecoveryThrustToQuarte"
-length = 0.2
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 0.933033),
-"update": 0,
-"values": [Vector3(-0.3, 1.45, -1), Vector3(-0.3, 1.2, -0.4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(3, 70, -100), Vector3(-30, 0, 0)]
-}
-
-[sub_resource type="Animation" id="13"]
-resource_name = "RecoveryThrustToTierce"
-length = 0.2
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 0.933033),
-"update": 0,
-"values": [Vector3(0.3, 1.45, -1), Vector3(0.3, 1.2, -0.4)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(3, -70, 100), Vector3(-30, 0, 0)]
-}
-
-[sub_resource type="Animation" id="3"]
-resource_name = "Swing1FromTierce"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
-"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.3, 1.2, -0.4), Vector3(0, 1.2, -0.6), Vector3(0, 0.9, -0.7), Vector3(0, 0.9, -0.7)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-30, 0, 0), Vector3(-30, 0, -25), Vector3(-135, 0, 25), Vector3(-250, 0, 40)]
-}
-
-[sub_resource type="Animation" id="8"]
-resource_name = "Swing2FromQuarte"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
-"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.3, 1.2, -0.4), Vector3(0, 1.2, -0.6), Vector3(0, 0.9, -0.7), Vector3(0, 0.9, -0.7)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-30, 0, 0), Vector3(-30, 0, 25), Vector3(-135, 0, -25), Vector3(-250, 0, -40)]
-}
-
-[sub_resource type="Animation" id="11"]
-resource_name = "ThrustFromQuarte"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.15, 0.25),
-"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-0.3, 1.2, -0.4), Vector3(-0.5, 1.5, -0.5), Vector3(-0.3, 1.5, -0.65), Vector3(-0.3, 1.45, -1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.08, 0.15, 0.25),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-30, 0, 0), Vector3(-13, 45, -55), Vector3(0, 75, -95), Vector3(3, 70, -100)]
-}
-
-[sub_resource type="Animation" id="10"]
-resource_name = "ThrustFromTierce"
-length = 0.25
-step = 0.01
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainHandEquipmentRoot:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.07, 0.12, 0.2),
-"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0.3, 1.2, -0.4), Vector3(0.5, 1.5, -0.5), Vector3(0.3, 1.5, -0.65), Vector3(0.3, 1.45, -1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.07, 0.12, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(-30, 0, 0), Vector3(-13, -45, 55), Vector3(0, -75, 95), Vector3(3, -70, 100)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_voedc"]
-_data = {
-"RESET": SubResource("4"),
-"Recovery1ToTierce": SubResource("5"),
-"Recovery2ToQuarte": SubResource("9"),
-"RecoveryThrustToQuarte": SubResource("12"),
-"RecoveryThrustToTierce": SubResource("13"),
-"Swing1FromTierce": SubResource("3"),
-"Swing2FromQuarte": SubResource("8"),
-"ThrustFromQuarte": SubResource("11"),
-"ThrustFromTierce": SubResource("10")
-}
 
 [sub_resource type="SphereShape3D" id="40"]
 
@@ -462,6 +190,46 @@ _data = {
 "Belt_bob": SubResource("82")
 }
 
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_licmc"]
+_data = {
+"ads_idle": ExtResource("43_h8wkm"),
+"crouch_loop": ExtResource("44_uj15e"),
+"crouch_walk_back-loop": ExtResource("45_up4j1"),
+"crouch_walk_back_left-loop": ExtResource("46_hugbe"),
+"crouch_walk_back_right-loop": ExtResource("47_j4le0"),
+"crouch_walk_forward-loop": ExtResource("48_7jqxn"),
+"crouch_walk_forward_right-loop": ExtResource("49_fm8cs"),
+"crouch_walk_left-loop": ExtResource("50_y8qul"),
+"crouch_walk_right-loop": ExtResource("51_lfhoc"),
+"double_barrel_reload": ExtResource("13"),
+"falling": ExtResource("52_r4qyb"),
+"hip_idle": ExtResource("53_6iekj"),
+"hip_idle_shotgun": ExtResource("54_gyogg"),
+"idle-loop": ExtResource("31_taxme"),
+"item_holding": ExtResource("27_vb6pq"),
+"item_holding_horizontal_left": ExtResource("26_cp5fw"),
+"item_holding_horizontal_right": ExtResource("25_06b8b"),
+"item_holding_vertical_left": ExtResource("28_a7tq0"),
+"item_holding_vertical_right": ExtResource("27_vb6pq"),
+"jump": ExtResource("55_k02h4"),
+"jump_and_land": ExtResource("56_fekft"),
+"kick_low_toe": ExtResource("57_j4tcf"),
+"kick_mid_stomp": ExtResource("58_fciwl"),
+"landing": ExtResource("59_eed7m"),
+"one-handed_ads_idle": ExtResource("30_et47h"),
+"one-handed_hip_idle": ExtResource("30_et47h"),
+"one_handed_hip_idle_left": ExtResource("29_4wi7n"),
+"run_forward-loop": ExtResource("61_b2myb"),
+"walk_back_left-loop": ExtResource("62_kw8l7"),
+"walk_back_right-loop": ExtResource("63_d8l0c"),
+"walk_backward-loop": ExtResource("64_fag0d"),
+"walk_forward-loop": ExtResource("65_pxsew"),
+"walk_forward_left-loop": ExtResource("66_473vl"),
+"walk_forward_right-loop": ExtResource("67_63u3i"),
+"walk_left-loop": ExtResource("68_8m5vm"),
+"walk_right-loop": ExtResource("69_um6j7")
+}
+
 [sub_resource type="Animation" id="429"]
 resource_name = "Hip_Idle"
 length = 0.1
@@ -511,46 +279,6 @@ _data = {
 "one-handed_ads_idle": SubResource("420"),
 "sawed_off_shotgun_reload": ExtResource("33"),
 "webley_reload": ExtResource("27")
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_licmc"]
-_data = {
-"ads_idle": ExtResource("43_h8wkm"),
-"crouch_loop": ExtResource("44_uj15e"),
-"crouch_walk_back-loop": ExtResource("45_up4j1"),
-"crouch_walk_back_left-loop": ExtResource("46_hugbe"),
-"crouch_walk_back_right-loop": ExtResource("47_j4le0"),
-"crouch_walk_forward-loop": ExtResource("48_7jqxn"),
-"crouch_walk_forward_right-loop": ExtResource("49_fm8cs"),
-"crouch_walk_left-loop": ExtResource("50_y8qul"),
-"crouch_walk_right-loop": ExtResource("51_lfhoc"),
-"double_barrel_reload": ExtResource("13"),
-"falling": ExtResource("52_r4qyb"),
-"hip_idle": ExtResource("53_6iekj"),
-"hip_idle_shotgun": ExtResource("54_gyogg"),
-"idle-loop": ExtResource("31_taxme"),
-"item_holding": ExtResource("27_vb6pq"),
-"item_holding_horizontal_left": ExtResource("26_cp5fw"),
-"item_holding_horizontal_right": ExtResource("25_06b8b"),
-"item_holding_vertical_left": ExtResource("28_a7tq0"),
-"item_holding_vertical_right": ExtResource("27_vb6pq"),
-"jump": ExtResource("55_k02h4"),
-"jump_and_land": ExtResource("56_fekft"),
-"kick_low_toe": ExtResource("57_j4tcf"),
-"kick_mid_stomp": ExtResource("58_fciwl"),
-"landing": ExtResource("59_eed7m"),
-"one-handed_ads_idle": ExtResource("30_et47h"),
-"one-handed_hip_idle": ExtResource("30_et47h"),
-"one_handed_hip_idle_left": ExtResource("29_4wi7n"),
-"run_forward-loop": ExtResource("61_b2myb"),
-"walk_back_left-loop": ExtResource("62_kw8l7"),
-"walk_back_right-loop": ExtResource("63_d8l0c"),
-"walk_backward-loop": ExtResource("64_fag0d"),
-"walk_forward-loop": ExtResource("65_pxsew"),
-"walk_forward_left-loop": ExtResource("66_473vl"),
-"walk_forward_right-loop": ExtResource("67_63u3i"),
-"walk_left-loop": ExtResource("68_8m5vm"),
-"walk_right-loop": ExtResource("69_um6j7")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="442"]
@@ -805,11 +533,7 @@ collision_layer = 2
 script = ExtResource("2")
 animation_tree_path = NodePath("PlayerAnimationPlayer/PlayerAnimationTree")
 
-[node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.869678, 0)
-
 [node name="CollisionShape2" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.316957, 0)
 disabled = true
 
 [node name="OffHandEquipmentRoot" parent="." index="2"]
@@ -850,11 +574,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0303217, 0)
 collision_layer = 4
 collision_mask = 64
 monitoring = true
-
-[node name="SabreTechniques" parent="." index="8"]
-libraries = {
-"": SubResource("AnimationLibrary_voedc")
-}
 
 [node name="CollisionShape3D" parent="ClamberableChecker" index="0"]
 shape = SubResource("40")
@@ -926,27 +645,7 @@ libraries = {
 "": SubResource("AnimationLibrary_wm27q")
 }
 
-[node name="Tween" type="Tween" parent="HitEffect" index="3"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
-[node name="Tween2" type="Tween" parent="HitEffect" index="4"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
-[node name="RichTextLabel" type="RichTextLabel" parent="HitEffect" index="5"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HitEffect" index="3"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -954,7 +653,7 @@ mouse_filter = 2
 text = "dsafsdfd"
 tab_size = 8
 
-[node name="KeybindDefaults" type="RichTextLabel" parent="HitEffect" index="6"]
+[node name="KeybindDefaults" type="RichTextLabel" parent="HitEffect" index="4"]
 anchors_preset = -1
 anchor_top = 0.2
 anchor_right = 1.0
@@ -989,11 +688,12 @@ L - cycle look (shaders and debug light)
 F1 - show/hide this menu"
 tab_size = 8
 
-[node name="Indication_canvas" type="CanvasLayer" parent="." index="14"]
+[node name="IndicationCanvas" type="CanvasLayer" parent="." index="14"]
 process_mode = 3
 script = ExtResource("12")
 
-[node name="Indication_system" type="Control" parent="Indication_canvas" index="0"]
+[node name="IndicationSystem" type="Control" parent="IndicationCanvas" index="0"]
+light_mask = 0
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1002,7 +702,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Grab" type="TextureRect" parent="Indication_canvas/Indication_system" index="0"]
+[node name="Grab" type="TextureRect" parent="IndicationCanvas/IndicationSystem" index="0"]
 visible = false
 layout_mode = 0
 anchor_left = 0.5
@@ -1017,7 +717,7 @@ mouse_filter = 2
 texture = ExtResource("7")
 expand_mode = 1
 
-[node name="Ignite" type="TextureRect" parent="Indication_canvas/Indication_system" index="1"]
+[node name="Ignite" type="TextureRect" parent="IndicationCanvas/IndicationSystem" index="1"]
 visible = false
 layout_mode = 0
 anchor_left = 0.5
@@ -1032,17 +732,17 @@ mouse_filter = 2
 texture = ExtResource("19")
 expand_mode = 1
 
-[node name="Dot" type="TextureRect" parent="Indication_canvas/Indication_system" index="2"]
+[node name="Dot" type="TextureRect" parent="IndicationCanvas/IndicationSystem" index="2"]
 visible = false
+light_mask = 0
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource("20")
-expand_mode = 1
-stretch_mode = 4
+stretch_mode = 3
 
-[node name="Label" type="Label" parent="Indication_canvas" index="1"]
+[node name="Label" type="Label" parent="IndicationCanvas" index="1"]
 visible = false
 anchors_preset = -1
 anchor_top = 0.86
@@ -1055,17 +755,7 @@ text = "Clamber (SPACE)"
 process_mode = 3
 script = ExtResource("16")
 
-[node name="Tween" type="Tween" parent="PlayerDeath" index="0"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
-[node name="ColorRect" type="ColorRect" parent="PlayerDeath" index="1"]
+[node name="ColorRect" type="ColorRect" parent="PlayerDeath" index="0"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -1073,27 +763,18 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Death" type="AudioStreamPlayer" parent="PlayerDeath" index="2"]
+[node name="Death" type="AudioStreamPlayer" parent="PlayerDeath" index="1"]
 stream = ExtResource("17")
 volume_db = 20.263
 pitch_scale = 1.74
 
-[node name="BW" type="ColorRect" parent="PlayerDeath" index="3"]
+[node name="BW" type="ColorRect" parent="PlayerDeath" index="2"]
 visible = false
 material = SubResource("34")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-
-[node name="Speech" parent="Audio" index="0"]
-bus = &"Voice"
-
-[node name="Manipulation" parent="Audio" index="1"]
-bus = &"Effects"
-
-[node name="Movement" parent="Audio" index="2"]
-bus = &"Effects"
 
 [node name="NoiseTimer" type="Timer" parent="Audio" index="3"]
 wait_time = 0.2
@@ -1102,16 +783,21 @@ one_shot = true
 [node name="Stamina" parent="." index="18" instance=ExtResource("29")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5104, 0)
 
-[node name="Legs" parent="." index="20"]
+[node name="Legs" parent="." index="19"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0379716, 0)
 
 [node name="Feet" parent="Legs" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 target_position = Vector3(0, -1, 0)
 
-[node name="AdditionalAnimations" parent="." index="21"]
+[node name="AdditionalAnimations" parent="." index="20"]
 libraries = {
 "": SubResource("AnimationLibrary_orj0v")
+}
+
+[node name="AnimationPlayer" parent="." index="21"]
+libraries = {
+"": SubResource("AnimationLibrary_licmc")
 }
 
 [node name="PlayerAnimationPlayer" parent="." index="22" instance=ExtResource("24")]
@@ -1135,20 +821,13 @@ _cam_path = NodePath("../FPSCamera")
 unique_name_in_owner = true
 script = ExtResource("28")
 
-[node name="AnimationPlayer" parent="." index="25"]
-libraries = {
-"": SubResource("AnimationLibrary_licmc")
-}
-
-[node name="AnimationTree" parent="." index="26"]
+[node name="AnimationTree" parent="." index="25"]
 root_node = NodePath("%MainCharOnlyArmsGameRig")
 libraries = {
 "": SubResource("AnimationLibrary_1g5ph")
 }
 tree_root = SubResource("365")
 anim_player = NodePath("../PlayerAnimationPlayer")
-"parameters/Double-barrel shotgun/internal_active" = false
-"parameters/Double-barrel shotgun/request" = 0
 parameters/Hand_Transition/current_state = "Hand_Combinations"
 parameters/Hand_Transition/transition_request = ""
 parameters/Hand_Transition/current_index = 0
@@ -1194,7 +873,7 @@ parameters/Weapon_states/current_index = 0
 "parameters/Webley revolver/internal_active" = false
 "parameters/Webley revolver/request" = 0
 
-[node name="FPSCamera" type="Camera3D" parent="." index="27"]
+[node name="FPSCamera" type="Camera3D" parent="." index="26"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
 cull_mask = 1048573
 current = true
@@ -1399,14 +1078,14 @@ collision_mask = 65
 debug_shape_thickness = 3
 
 [node name="GrabCastDot" type="Area3D" parent="FPSCamera" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -0.805458)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -1.02295)
 collision_layer = 2
 collision_mask = 577
 input_ray_pickable = false
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FPSCamera/GrabCastDot" index="0"]
-transform = Transform3D(0.999999, 0, 0, 0, -4.37114e-08, 0.999999, 0, -1, -4.37114e-08, 0, 0, -0.20499)
+transform = Transform3D(0.999999, 0, 0, 0, -4.37114e-08, 0.999999, 0, -1, -4.37114e-08, 0, 0, -0.0465835)
 shape = SubResource("41")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="FPSCamera" index="5"]
@@ -1443,6 +1122,7 @@ render_target_update_mode = 4
 
 [node name="GunCam" type="Camera3D" parent="FPSCamera/SubViewportContainer/SubViewport" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0.00338322)
+visible = false
 cull_mask = 2
 current = true
 
@@ -1453,35 +1133,14 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
 
-[node name="ADSTween" parent="." index="28"]
-_import_path = NodePath("")
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
-[node name="KinestheticSense" type="OmniLight3D" parent="." index="29"]
+[node name="KinestheticSense" type="OmniLight3D" parent="." index="27"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953)
 layers = 512
 light_color = Color(0, 0.647059, 1, 1)
 light_energy = 0.0
 omni_range = 1.5
 
-[node name="Tween" type="Tween" parent="KinestheticSense" index="0"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-repeat = true
-playback/repeat = true
-script = null
-
-[node name="PlayerAnimationsTest" type="Node" parent="." index="30"]
+[node name="PlayerAnimationsTest" type="Node" parent="." index="28"]
 unique_name_in_owner = true
 script = ExtResource("31")
 reset_to_idle_pos = true

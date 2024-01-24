@@ -2,6 +2,7 @@ extends Node
 #TODO actually implement this
 class_name TweenNode
 
+
 @export var repeat : bool = false
 @export var playback_process_mode : Tween.TweenProcessMode = Tween.TWEEN_PROCESS_IDLE
 @export var playback_speed : float = 1.0
@@ -9,6 +10,7 @@ class_name TweenNode
 var _internal_tween : Tween
 
 var _internal_tween_properties : Dictionary = {}
+
 
 func is_active() -> bool :
 	for object in _internal_tween_properties:
@@ -18,6 +20,7 @@ func is_active() -> bool :
 				return true
 	return false
 
+
 func clean_property(object : Object, property : NodePath):
 	if _internal_tween_properties.has(object):
 		var tween_properties = _internal_tween_properties[object] as Dictionary
@@ -25,6 +28,7 @@ func clean_property(object : Object, property : NodePath):
 			tween_properties.erase(property)
 		if tween_properties.is_empty():
 			_internal_tween_properties.erase(object)
+
 
 func interpolate_property(
 	object : Object, 

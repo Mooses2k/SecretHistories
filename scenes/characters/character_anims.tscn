@@ -1,77 +1,83 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=37 format=3 uid="uid://dwjr3myw4kmoa"]
 
-[ext_resource path="res://resources/animations/ads_idle.tres" type="Animation" id=1]
-[ext_resource path="res://resources/animations/one-handed_hip_idle.tres" type="Animation" id=2]
-[ext_resource path="res://resources/animations/crouch_walk_back-loop.tres" type="Animation" id=3]
-[ext_resource path="res://resources/animations/crouch_loop.tres" type="Animation" id=4]
-[ext_resource path="res://resources/animations/crouch_walk_back_left-loop.tres" type="Animation" id=5]
-[ext_resource path="res://resources/animations/crouch_walk_back_right-loop.tres" type="Animation" id=6]
-[ext_resource path="res://resources/animations/one_handed_hip_idle_left.tres" type="Animation" id=7]
-[ext_resource path="res://resources/animations/crouch_walk_left-loop.tres" type="Animation" id=8]
-[ext_resource path="res://resources/animations/crouch_walk_forward_right-loop.tres" type="Animation" id=9]
-[ext_resource path="res://resources/animations/crouch_walk_right-loop.tres" type="Animation" id=10]
-[ext_resource path="res://resources/animations/falling.tres" type="Animation" id=11]
-[ext_resource path="res://resources/animations/hip_idle.tres" type="Animation" id=12]
-[ext_resource path="res://resources/animations/crouch_walk_forward-loop.tres" type="Animation" id=13]
-[ext_resource path="res://resources/animations/idle-loop.tres" type="Animation" id=14]
-[ext_resource path="res://resources/animations/item_holding.tres" type="Animation" id=15]
-[ext_resource path="res://resources/animations/item_holding_horizontal_left.tres" type="Animation" id=16]
-[ext_resource path="res://resources/animations/item_holding_horizontal_right.tres" type="Animation" id=17]
-[ext_resource path="res://resources/animations/item_holding_vertical_left.tres" type="Animation" id=18]
-[ext_resource path="res://resources/animations/item_holding_vertical_right.tres" type="Animation" id=19]
-[ext_resource path="res://resources/animations/jump.tres" type="Animation" id=20]
-[ext_resource path="res://resources/animations/kick_low_toe.tres" type="Animation" id=21]
-[ext_resource path="res://resources/animations/one-handed_ads_idle.tres" type="Animation" id=22]
-[ext_resource path="res://resources/animations/kick_mid_stomp.tres" type="Animation" id=23]
-[ext_resource path="res://resources/animations/landing.tres" type="Animation" id=24]
-[ext_resource path="res://resources/animations/run_forward-loop.tres" type="Animation" id=25]
-[ext_resource path="res://resources/animations/walk_backward-loop.tres" type="Animation" id=26]
-[ext_resource path="res://resources/animations/walk_back_left-loop.tres" type="Animation" id=27]
-[ext_resource path="res://resources/animations/walk_back_right-loop.tres" type="Animation" id=28]
-[ext_resource path="res://resources/animations/walk_forward-loop.tres" type="Animation" id=29]
-[ext_resource path="res://resources/animations/walk_forward_left-loop.tres" type="Animation" id=30]
-[ext_resource path="res://resources/animations/walk_forward_right-loop.tres" type="Animation" id=31]
-[ext_resource path="res://resources/animations/walk_left-loop.tres" type="Animation" id=32]
-[ext_resource path="res://resources/animations/walk_right-loop.tres" type="Animation" id=33]
-[ext_resource path="res://resources/animations/jump_and_land.tres" type="Animation" id=34]
-[ext_resource path="res://resources/animations/double_barrel_reload.tres" type="Animation" id=35]
-[ext_resource path="res://resources/animations/hip_idle_shotgun.tres" type="Animation" id=36]
+[ext_resource type="Animation" uid="uid://dtprg438dlasp" path="res://resources/animations/ads_idle.res" id="1"]
+[ext_resource type="Animation" uid="uid://bgau2s6cjp88t" path="res://resources/animations/one-handed_hip_idle_right.res" id="2"]
+[ext_resource type="Animation" uid="uid://bkkjbm060haoa" path="res://resources/animations/crouch_walk_back-loop.res" id="3"]
+[ext_resource type="Animation" uid="uid://da7h2ah61x6f7" path="res://resources/animations/crouch_loop.res" id="4"]
+[ext_resource type="Animation" uid="uid://da15tchisur8f" path="res://resources/animations/crouch_walk_back_left-loop.res" id="5"]
+[ext_resource type="Animation" uid="uid://dp0yqirpoffos" path="res://resources/animations/crouch_walk_back_right-loop.res" id="6"]
+[ext_resource type="Animation" uid="uid://k316nwi61gan" path="res://resources/animations/one-handed_hip_idle_left.res" id="7"]
+[ext_resource type="Animation" uid="uid://b0k1e514trqlg" path="res://resources/animations/crouch_walk_left-loop.res" id="8"]
+[ext_resource type="Animation" uid="uid://bpxwnd84m02ab" path="res://resources/animations/crouch_walk_forward_right-loop.res" id="9"]
+[ext_resource type="Animation" uid="uid://cbtq8hnaksig6" path="res://resources/animations/crouch_walk_right-loop.res" id="10"]
+[ext_resource type="Animation" uid="uid://bx0ldj4af4a74" path="res://resources/animations/falling.res" id="11"]
+[ext_resource type="Animation" uid="uid://bi6xy7cf77oro" path="res://resources/animations/hip_idle.res" id="12"]
+[ext_resource type="Animation" uid="uid://d4epqsjf0o1i3" path="res://resources/animations/crouch_walk_forward-loop.res" id="13"]
+[ext_resource type="Animation" uid="uid://ds4816bp1p2px" path="res://resources/animations/idle-loop.res" id="14"]
+[ext_resource type="Animation" uid="uid://cs6ie3rp55s41" path="res://resources/animations/item_holding_horizontal_left.res" id="16"]
+[ext_resource type="Animation" uid="uid://f7685si0woia" path="res://resources/animations/item_holding_horizontal_right.res" id="17"]
+[ext_resource type="Animation" uid="uid://b2v5qkcnqt10p" path="res://resources/animations/item_holding_vertical_left.res" id="18"]
+[ext_resource type="Animation" uid="uid://bxokbk5xl0qxi" path="res://resources/animations/item_holding_vertical_right.res" id="19"]
+[ext_resource type="Animation" uid="uid://dui83o4y2prr6" path="res://resources/animations/jump.res" id="20"]
+[ext_resource type="Animation" uid="uid://cd21wyhy2xssr" path="res://resources/animations/kick_low_toe.res" id="21"]
+[ext_resource type="Animation" uid="uid://bocwvglbinqg1" path="res://resources/animations/one-handed_ads_idle_right.res" id="22"]
+[ext_resource type="Animation" uid="uid://byq7o3scifwqk" path="res://resources/animations/kick_mid_stomp.res" id="23"]
+[ext_resource type="Animation" uid="uid://ckko82tb6iixf" path="res://resources/animations/landing.res" id="24"]
+[ext_resource type="Animation" uid="uid://dxkbphnwpjpir" path="res://resources/animations/run_forward-loop.res" id="25"]
+[ext_resource type="Animation" uid="uid://dvf7aox3rf0iy" path="res://resources/animations/walk-backward-loop.res" id="26"]
+[ext_resource type="Animation" uid="uid://l5mrruntw2vd" path="res://resources/animations/walk_back_left-loop.res" id="27"]
+[ext_resource type="Animation" uid="uid://bsfuj62xpxypx" path="res://resources/animations/walk_back_right-loop.res" id="28"]
+[ext_resource type="Animation" uid="uid://d1hhcsfodt3n" path="res://resources/animations/walk_forward-loop.res" id="29"]
+[ext_resource type="Animation" uid="uid://720rgbidueei" path="res://resources/animations/walk_forward_left-loop.res" id="30"]
+[ext_resource type="Animation" uid="uid://bh7lh73m18wm5" path="res://resources/animations/walk_forward-right-loop.res" id="31"]
+[ext_resource type="Animation" uid="uid://da80siifodmkc" path="res://resources/animations/walk_left-loop.res" id="32"]
+[ext_resource type="Animation" uid="uid://b8sw7paftuh2t" path="res://resources/animations/walk_right-loop.res" id="33"]
+[ext_resource type="Animation" uid="uid://ca6uqf8fhjea4" path="res://resources/animations/jump_and_land.res" id="34"]
+[ext_resource type="Animation" path="res://resources/animations/double-barrel_shotgun_reload.res" id="35"]
+[ext_resource type="Animation" uid="uid://c088ejqlnhao3" path="res://resources/animations/hip_idle_shotgun.res" id="36"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnmk4"]
+_data = {
+"ads_idle": ExtResource("1"),
+"crouch_loop": ExtResource("4"),
+"crouch_walk_back-loop": ExtResource("3"),
+"crouch_walk_back_left-loop": ExtResource("5"),
+"crouch_walk_back_right-loop": ExtResource("6"),
+"crouch_walk_forward-loop": ExtResource("13"),
+"crouch_walk_forward_right-loop": ExtResource("9"),
+"crouch_walk_left-loop": ExtResource("8"),
+"crouch_walk_right-loop": ExtResource("10"),
+"double_barrel_reload": ExtResource("35"),
+"falling": ExtResource("11"),
+"hip_idle": ExtResource("12"),
+"hip_idle_shotgun": ExtResource("36"),
+"idle-loop": ExtResource("14"),
+"item_holding": ExtResource("19"),
+"item_holding_horizontal_left": ExtResource("16"),
+"item_holding_horizontal_right": ExtResource("17"),
+"item_holding_vertical_left": ExtResource("18"),
+"item_holding_vertical_right": ExtResource("19"),
+"jump": ExtResource("20"),
+"jump_and_land": ExtResource("34"),
+"kick_low_toe": ExtResource("21"),
+"kick_mid_stomp": ExtResource("23"),
+"landing": ExtResource("24"),
+"one-handed_ads_idle": ExtResource("22"),
+"one-handed_hip_idle": ExtResource("2"),
+"one_handed_hip_idle_left": ExtResource("7"),
+"run_forward-loop": ExtResource("25"),
+"walk_back_left-loop": ExtResource("27"),
+"walk_back_right-loop": ExtResource("28"),
+"walk_backward-loop": ExtResource("26"),
+"walk_forward-loop": ExtResource("29"),
+"walk_forward_left-loop": ExtResource("30"),
+"walk_forward_right-loop": ExtResource("31"),
+"walk_left-loop": ExtResource("32"),
+"walk_right-loop": ExtResource("33")
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer"]
 root_node = NodePath("")
-anims/ads_idle = ExtResource( 1 )
-anims/crouch_loop = ExtResource( 4 )
-anims/crouch_walk_back-loop = ExtResource( 3 )
-anims/crouch_walk_back_left-loop = ExtResource( 5 )
-anims/crouch_walk_back_right-loop = ExtResource( 6 )
-anims/crouch_walk_forward-loop = ExtResource( 13 )
-anims/crouch_walk_forward_right-loop = ExtResource( 9 )
-anims/crouch_walk_left-loop = ExtResource( 8 )
-anims/crouch_walk_right-loop = ExtResource( 10 )
-anims/double_barrel_reload = ExtResource( 35 )
-anims/falling = ExtResource( 11 )
-anims/hip_idle = ExtResource( 12 )
-anims/hip_idle_shotgun = ExtResource( 36 )
-anims/idle-loop = ExtResource( 14 )
-anims/item_holding = ExtResource( 15 )
-anims/item_holding_horizontal_left = ExtResource( 16 )
-anims/item_holding_horizontal_right = ExtResource( 17 )
-anims/item_holding_vertical_left = ExtResource( 18 )
-anims/item_holding_vertical_right = ExtResource( 19 )
-anims/jump = ExtResource( 20 )
-anims/jump_and_land = ExtResource( 34 )
-anims/kick_low_toe = ExtResource( 21 )
-anims/kick_mid_stomp = ExtResource( 23 )
-anims/landing = ExtResource( 24 )
-anims/one-handed_ads_idle = ExtResource( 22 )
-anims/one-handed_hip_idle = ExtResource( 2 )
-anims/one_handed_hip_idle_left = ExtResource( 7 )
-anims/run_forward-loop = ExtResource( 25 )
-anims/walk_back_left-loop = ExtResource( 27 )
-anims/walk_back_right-loop = ExtResource( 28 )
-anims/walk_backward-loop = ExtResource( 26 )
-anims/walk_forward-loop = ExtResource( 29 )
-anims/walk_forward_left-loop = ExtResource( 30 )
-anims/walk_forward_right-loop = ExtResource( 31 )
-anims/walk_left-loop = ExtResource( 32 )
-anims/walk_right-loop = ExtResource( 33 )
+libraries = {
+"": SubResource("AnimationLibrary_dnmk4")
+}

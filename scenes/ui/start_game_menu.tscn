@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/ui/start_game_menu.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/ui/start_game_settings.gd" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_ui/settings_ui.tscn" id="3"]
-[ext_resource type="PackedScene" path="res://scenes/ui/game_intro.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b240lsu1npran" path="res://scenes/ui/game_intro.tscn" id="4"]
 [ext_resource type="AudioStream" uid="uid://4trkmwlj2tu0" path="res://resources/sounds/death_sound.wav" id="5"]
 
 [node name="StartGameMenu" type="MarginContainer"]
@@ -45,6 +45,7 @@ Most systems are not in place and art assets do not represent final quality.
 Headphones recommended.
 
 Don't let them find you."
+horizontal_alignment = 1
 
 [node name="Spacer" type="Label" parent="HBoxContainer/Column4"]
 layout_mode = 2

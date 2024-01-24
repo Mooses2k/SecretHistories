@@ -1,7 +1,11 @@
-[gd_resource type="Environment" format=2]
+[gd_resource type="Environment" format=3 uid="uid://bxgnfe0qgcrm"]
 
 [resource]
 background_mode = 1
-background_energy = 0.0
-ambient_light_energy = 0.0
 ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false

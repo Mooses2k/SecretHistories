@@ -458,18 +458,18 @@ func _walk(delta, speed_mod : float = 1.0) -> void:
 		elif state != State.STATE_WALKING:
 			return
 	
-		var c = _clamber_m.attempt_clamber(is_crouching, is_jumping)
-		if c != Vector3.ZERO:
-			if is_clamberable:
-				clamberable_obj = is_clamberable
-				if clamberable_obj is RigidBody3D:   # To allow static objects
-					clamberable_obj.mode = 1
-			clamber_destination = c
-			state = State.STATE_CLAMBERING_RISE
-			is_clambering = true
-			_audio_player.play_clamber_sound(true)
-			do_jump = false
-			return
+		#var c = _clamber_m.attempt_clamber(is_crouching, is_jumping)
+		#if c != Vector3.ZERO:
+			#if is_clamberable:
+				#clamberable_obj = is_clamberable
+				#if clamberable_obj is RigidBody3D:   # To allow static objects
+					#clamberable_obj.mode = 1
+			#clamber_destination = c
+			#state = State.STATE_CLAMBERING_RISE
+			#is_clambering = true
+			#_audio_player.play_clamber_sound(true)
+			#do_jump = false
+			#return
 		
 		if is_jumping or !grounded:
 			do_jump = false

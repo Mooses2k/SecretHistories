@@ -1,424 +1,510 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=60 format=3 uid="uid://id4ldu0s15ut"]
 
-[ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/characters/character_audio.gd" type="Script" id=3]
-[ext_resource path="res://scenes/characters/inventory.gd" type="Script" id=4]
-[ext_resource path="res://scenes/characters/character_anims_tree.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/characters/character_anims.tscn" type="PackedScene" id=6]
+[ext_resource type="Script" path="res://scenes/characters/character.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/characters/hitbox.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/characters/character_audio.gd" id="3"]
+[ext_resource type="Script" path="res://scenes/characters/inventory.gd" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/characters/character_anims_tree.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/characters/character_anims.tscn" id="6"]
+[ext_resource type="Animation" uid="uid://dtprg438dlasp" path="res://resources/animations/ads_idle.res" id="6_ihxib"]
+[ext_resource type="Animation" uid="uid://da7h2ah61x6f7" path="res://resources/animations/crouch_loop.res" id="7_rv86j"]
+[ext_resource type="Animation" uid="uid://bkkjbm060haoa" path="res://resources/animations/crouch_walk_back-loop.res" id="8_67arj"]
+[ext_resource type="Animation" uid="uid://da15tchisur8f" path="res://resources/animations/crouch_walk_back_left-loop.res" id="9_gdl2x"]
+[ext_resource type="Animation" uid="uid://dp0yqirpoffos" path="res://resources/animations/crouch_walk_back_right-loop.res" id="10_5esfo"]
+[ext_resource type="Animation" uid="uid://d4epqsjf0o1i3" path="res://resources/animations/crouch_walk_forward-loop.res" id="11_0mfce"]
+[ext_resource type="Animation" uid="uid://bpxwnd84m02ab" path="res://resources/animations/crouch_walk_forward_right-loop.res" id="12_4vki8"]
+[ext_resource type="Animation" uid="uid://b0k1e514trqlg" path="res://resources/animations/crouch_walk_left-loop.res" id="13_b8vre"]
+[ext_resource type="Animation" uid="uid://cbtq8hnaksig6" path="res://resources/animations/crouch_walk_right-loop.res" id="14_2ylma"]
+[ext_resource type="Animation" path="res://resources/animations/double-barrel_shotgun_reload.res" id="15_7bx4w"]
+[ext_resource type="Animation" uid="uid://bx0ldj4af4a74" path="res://resources/animations/falling.res" id="16_hy25t"]
+[ext_resource type="Animation" uid="uid://bi6xy7cf77oro" path="res://resources/animations/hip_idle.res" id="17_gyrfc"]
+[ext_resource type="Animation" uid="uid://c088ejqlnhao3" path="res://resources/animations/hip_idle_shotgun.res" id="18_u54rd"]
+[ext_resource type="Animation" uid="uid://ds4816bp1p2px" path="res://resources/animations/idle-loop.res" id="19_tgbtu"]
+[ext_resource type="Animation" uid="uid://bxokbk5xl0qxi" path="res://resources/animations/item_holding_vertical_right.res" id="20_xwhmw"]
+[ext_resource type="Animation" uid="uid://cs6ie3rp55s41" path="res://resources/animations/item_holding_horizontal_left.res" id="21_a54qt"]
+[ext_resource type="Animation" uid="uid://f7685si0woia" path="res://resources/animations/item_holding_horizontal_right.res" id="22_mh8bl"]
+[ext_resource type="Animation" uid="uid://b2v5qkcnqt10p" path="res://resources/animations/item_holding_vertical_left.res" id="23_vyiv2"]
+[ext_resource type="Animation" uid="uid://dui83o4y2prr6" path="res://resources/animations/jump.res" id="24_chmai"]
+[ext_resource type="Animation" uid="uid://ca6uqf8fhjea4" path="res://resources/animations/jump_and_land.res" id="25_6a1kl"]
+[ext_resource type="Animation" uid="uid://cd21wyhy2xssr" path="res://resources/animations/kick_low_toe.res" id="26_y6yiu"]
+[ext_resource type="Animation" uid="uid://byq7o3scifwqk" path="res://resources/animations/kick_mid_stomp.res" id="27_7mu2m"]
+[ext_resource type="Animation" uid="uid://ckko82tb6iixf" path="res://resources/animations/landing.res" id="28_2oj7y"]
+[ext_resource type="Animation" uid="uid://bocwvglbinqg1" path="res://resources/animations/one-handed_ads_idle_right.res" id="29_ip7bs"]
+[ext_resource type="Animation" uid="uid://bgau2s6cjp88t" path="res://resources/animations/one-handed_hip_idle_right.res" id="30_gbfdi"]
+[ext_resource type="Animation" uid="uid://k316nwi61gan" path="res://resources/animations/one-handed_hip_idle_left.res" id="31_3ba3f"]
+[ext_resource type="Animation" uid="uid://dxkbphnwpjpir" path="res://resources/animations/run_forward-loop.res" id="32_ni8b7"]
+[ext_resource type="Animation" uid="uid://l5mrruntw2vd" path="res://resources/animations/walk_back_left-loop.res" id="33_7gaey"]
+[ext_resource type="Animation" uid="uid://bsfuj62xpxypx" path="res://resources/animations/walk_back_right-loop.res" id="34_mg4q5"]
+[ext_resource type="Animation" uid="uid://dvf7aox3rf0iy" path="res://resources/animations/walk-backward-loop.res" id="35_nuorb"]
+[ext_resource type="Animation" uid="uid://d1hhcsfodt3n" path="res://resources/animations/walk_forward-loop.res" id="36_wr6e8"]
+[ext_resource type="Animation" uid="uid://720rgbidueei" path="res://resources/animations/walk_forward_left-loop.res" id="37_n2xih"]
+[ext_resource type="Animation" uid="uid://bh7lh73m18wm5" path="res://resources/animations/walk_forward-right-loop.res" id="38_650k1"]
+[ext_resource type="Animation" uid="uid://da80siifodmkc" path="res://resources/animations/walk_left-loop.res" id="39_fphj0"]
+[ext_resource type="Animation" uid="uid://b8sw7paftuh2t" path="res://resources/animations/walk_right-loop.res" id="40_n5lkv"]
 
-[sub_resource type="CapsuleShape3D" id=1]
+[sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.3
 height = 1.2
 
-[sub_resource type="CapsuleShape3D" id=14]
-radius = 0.3
+[sub_resource type="CapsuleShape3D" id="14"]
+radius = 0.048
 height = 0.096
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id="4"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.2, 1.2, -0.3 ) ]
+"values": [Vector3(0.2, 1.2, -0.3)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( -30, 0, 0 ) ]
+"values": [Vector3(-30, 0, 0)]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id="5"]
 resource_name = "Recovery1ToTierce"
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.09, 0.19, 0.28 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.09, 0.19, 0.28),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( 0, 0.9, -0.6 ), Vector3( -0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( 0.3, 1.2, -0.4 ) ]
+"values": [Vector3(0, 0.9, -0.6), Vector3(-0.1, 0.9, -0.6), Vector3(0, 1, -0.5), Vector3(0.3, 1.2, -0.4)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.09, 0.19, 0.3 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.09, 0.19, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -250, 0, 40 ), Vector3( -310, 0, 32 ), Vector3( -360, 0, 24 ), Vector3( -390, 0, 0 ) ]
+"values": [Vector3(-250, 0, 40), Vector3(-310, 0, 32), Vector3(-360, 0, 24), Vector3(-390, 0, 0)]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id="9"]
 resource_name = "Recovery2ToQuarte"
 length = 0.3
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.09, 0.19, 0.3 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.09, 0.19, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( 0, 0.9, -0.7 ), Vector3( 0.1, 0.9, -0.6 ), Vector3( 0, 1, -0.5 ), Vector3( -0.3, 1.2, -0.4 ) ]
+"values": [Vector3(0, 0.9, -0.7), Vector3(0.1, 0.9, -0.6), Vector3(0, 1, -0.5), Vector3(-0.3, 1.2, -0.4)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.09, 0.19, 0.3 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.09, 0.19, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -250, 0, -40 ), Vector3( -310, 0, -32 ), Vector3( -360, 0, -24 ), Vector3( -390, 0, 0 ) ]
+"values": [Vector3(-250, 0, -40), Vector3(-310, 0, -32), Vector3(-360, 0, -24), Vector3(-390, 0, 0)]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id="12"]
 resource_name = "RecoveryThrustToQuarte"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.2 ),
-"transitions": PackedFloat32Array( 1, 0.933033 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 0.933033),
 "update": 0,
-"values": [ Vector3( -0.3, 1.45, -1 ), Vector3( -0.3, 1.2, -0.4 ) ]
+"values": [Vector3(-0.3, 1.45, -1), Vector3(-0.3, 1.2, -0.4)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.2 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector3( 3, 70, -100 ), Vector3( -30, 0, 0 ) ]
+"values": [Vector3(3, 70, -100), Vector3(-30, 0, 0)]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id="13"]
 resource_name = "RecoveryThrustToTierce"
 length = 0.2
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.2 ),
-"transitions": PackedFloat32Array( 1, 0.933033 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 0.933033),
 "update": 0,
-"values": [ Vector3( 0.3, 1.45, -1 ), Vector3( 0.3, 1.2, -0.4 ) ]
+"values": [Vector3(0.3, 1.45, -1), Vector3(0.3, 1.2, -0.4)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.2 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector3( 3, -70, 100 ), Vector3( -30, 0, 0 ) ]
+"values": [Vector3(3, -70, 100), Vector3(-30, 0, 0)]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 resource_name = "Swing1FromTierce"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.08, 0.17, 0.25 ),
-"transitions": PackedFloat32Array( 0.933033, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
+"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
+"values": [Vector3(0.3, 1.2, -0.4), Vector3(0, 1.2, -0.6), Vector3(0, 0.9, -0.7), Vector3(0, 0.9, -0.7)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.08, 0.17, 0.25 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -30, 0, 0 ), Vector3( -30, 0, -25 ), Vector3( -135, 0, 25 ), Vector3( -250, 0, 40 ) ]
+"values": [Vector3(-30, 0, 0), Vector3(-30, 0, -25), Vector3(-135, 0, 25), Vector3(-250, 0, 40)]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id="8"]
 resource_name = "Swing2FromQuarte"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.08, 0.17, 0.25 ),
-"transitions": PackedFloat32Array( 0.933033, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
+"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( 0, 1.2, -0.6 ), Vector3( 0, 0.9, -0.7 ), Vector3( 0, 0.9, -0.7 ) ]
+"values": [Vector3(-0.3, 1.2, -0.4), Vector3(0, 1.2, -0.6), Vector3(0, 0.9, -0.7), Vector3(0, 0.9, -0.7)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.08, 0.17, 0.25 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.08, 0.17, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -30, 0, 0 ), Vector3( -30, 0, 25 ), Vector3( -135, 0, -25 ), Vector3( -250, 0, -40 ) ]
+"values": [Vector3(-30, 0, 0), Vector3(-30, 0, 25), Vector3(-135, 0, -25), Vector3(-250, 0, -40)]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id="11"]
 resource_name = "ThrustFromQuarte"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.08, 0.15, 0.25 ),
-"transitions": PackedFloat32Array( 0.933033, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.08, 0.15, 0.25),
+"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -0.3, 1.2, -0.4 ), Vector3( -0.5, 1.5, -0.5 ), Vector3( -0.3, 1.5, -0.65 ), Vector3( -0.3, 1.45, -1 ) ]
+"values": [Vector3(-0.3, 1.2, -0.4), Vector3(-0.5, 1.5, -0.5), Vector3(-0.3, 1.5, -0.65), Vector3(-0.3, 1.45, -1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.08, 0.15, 0.25 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.08, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -30, 0, 0 ), Vector3( -13, 45, -55 ), Vector3( 0, 75, -95 ), Vector3( 3, 70, -100 ) ]
+"values": [Vector3(-30, 0, 0), Vector3(-13, 45, -55), Vector3(0, 75, -95), Vector3(3, 70, -100)]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id="10"]
 resource_name = "ThrustFromTierce"
 length = 0.25
 step = 0.01
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("MainHandEquipmentRoot:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.07, 0.12, 0.2 ),
-"transitions": PackedFloat32Array( 0.933033, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.07, 0.12, 0.2),
+"transitions": PackedFloat32Array(0.933033, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( 0.3, 1.2, -0.4 ), Vector3( 0.5, 1.5, -0.5 ), Vector3( 0.3, 1.5, -0.65 ), Vector3( 0.3, 1.45, -1 ) ]
+"values": [Vector3(0.3, 1.2, -0.4), Vector3(0.5, 1.5, -0.5), Vector3(0.3, 1.5, -0.65), Vector3(0.3, 1.45, -1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("MainHandEquipmentRoot:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.07, 0.12, 0.2 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.07, 0.12, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector3( -30, 0, 0 ), Vector3( -13, -45, 55 ), Vector3( 0, -75, 95 ), Vector3( 3, -70, 100 ) ]
+"values": [Vector3(-30, 0, 0), Vector3(-13, -45, 55), Vector3(0, -75, 95), Vector3(3, -70, 100)]
 }
 
-[sub_resource type="CapsuleShape3D" id=15]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0a47a"]
+_data = {
+"RESET": SubResource("4"),
+"Recovery1ToTierce": SubResource("5"),
+"Recovery2ToQuarte": SubResource("9"),
+"RecoveryThrustToQuarte": SubResource("12"),
+"RecoveryThrustToTierce": SubResource("13"),
+"Swing1FromTierce": SubResource("3"),
+"Swing2FromQuarte": SubResource("8"),
+"ThrustFromQuarte": SubResource("11"),
+"ThrustFromTierce": SubResource("10")
+}
+
+[sub_resource type="CapsuleShape3D" id="15"]
 radius = 0.3
 height = 1.2
 
-[sub_resource type="SphereShape3D" id=16]
+[sub_resource type="SphereShape3D" id="16"]
 radius = 0.6
 
-[sub_resource type="Animation" id=83]
+[sub_resource type="Animation" id="83"]
 resource_name = "Belt_Equip"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("BeltPosition:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 1 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector3( 0.2, 1.2, -0.3 ), Vector3( 0.115, 0.916, -0.173 ) ]
+"values": [Vector3(0.2, 1.2, -0.3), Vector3(0.115, 0.916, -0.173)]
 }
 
-[sub_resource type="Animation" id=82]
+[sub_resource type="Animation" id="82"]
 resource_name = "Belt_bob"
 length = 0.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("BeltPosition:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.2, 0.5 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Vector3( 0.114709, 0.916063, -0.172938 ), Vector3( 0.115, 0.659, -0.173 ), Vector3( 0.114709, 0.916063, -0.172938 ) ]
+"values": [Vector3(0.114709, 0.916063, -0.172938), Vector3(0.115, 0.659, -0.173), Vector3(0.114709, 0.916063, -0.172938)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kbtv5"]
+_data = {
+"Belt_Equip": SubResource("83"),
+"Belt_bob": SubResource("82")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_koo2v"]
+_data = {
+"ads_idle": ExtResource("6_ihxib"),
+"crouch_loop": ExtResource("7_rv86j"),
+"crouch_walk_back-loop": ExtResource("8_67arj"),
+"crouch_walk_back_left-loop": ExtResource("9_gdl2x"),
+"crouch_walk_back_right-loop": ExtResource("10_5esfo"),
+"crouch_walk_forward-loop": ExtResource("11_0mfce"),
+"crouch_walk_forward_right-loop": ExtResource("12_4vki8"),
+"crouch_walk_left-loop": ExtResource("13_b8vre"),
+"crouch_walk_right-loop": ExtResource("14_2ylma"),
+"double_barrel_reload": ExtResource("15_7bx4w"),
+"falling": ExtResource("16_hy25t"),
+"hip_idle": ExtResource("17_gyrfc"),
+"hip_idle_shotgun": ExtResource("18_u54rd"),
+"idle-loop": ExtResource("19_tgbtu"),
+"item_holding": ExtResource("20_xwhmw"),
+"item_holding_horizontal_left": ExtResource("21_a54qt"),
+"item_holding_horizontal_right": ExtResource("22_mh8bl"),
+"item_holding_vertical_left": ExtResource("23_vyiv2"),
+"item_holding_vertical_right": ExtResource("20_xwhmw"),
+"jump": ExtResource("24_chmai"),
+"jump_and_land": ExtResource("25_6a1kl"),
+"kick_low_toe": ExtResource("26_y6yiu"),
+"kick_mid_stomp": ExtResource("27_7mu2m"),
+"landing": ExtResource("28_2oj7y"),
+"one-handed_ads_idle": ExtResource("29_ip7bs"),
+"one-handed_hip_idle": ExtResource("30_gbfdi"),
+"one_handed_hip_idle_left": ExtResource("31_3ba3f"),
+"run_forward-loop": ExtResource("32_ni8b7"),
+"walk_back_left-loop": ExtResource("33_7gaey"),
+"walk_back_right-loop": ExtResource("34_mg4q5"),
+"walk_backward-loop": ExtResource("35_nuorb"),
+"walk_forward-loop": ExtResource("36_wr6e8"),
+"walk_forward_left-loop": ExtResource("37_n2xih"),
+"walk_forward_right-loop": ExtResource("38_650k1"),
+"walk_left-loop": ExtResource("39_fphj0"),
+"walk_right-loop": ExtResource("40_n5lkv")
 }
 
 [node name="Character" type="CharacterBody3D" groups=["CHARACTER"]]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0378679, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0378679, 0)
 collision_layer = 16
 collision_mask = 19
-script = ExtResource( 1 )
+script = ExtResource("1")
 _legcast = NodePath("Legs/Feet")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0)
+shape = SubResource("1")
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.348012, 0 )
-shape = SubResource( 14 )
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.348012, 0)
+shape = SubResource("14")
 
 [node name="OffHandEquipmentRoot" type="Marker3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.3, -0.3 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 1.3, -0.3)
 
 [node name="MainHandEquipmentRoot" type="Marker3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3 )
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0.2, 1.2, -0.3)
 
 [node name="BeltPosition" type="Marker3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.3 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.3)
 
 [node name="Body" type="Node3D" parent="."]
 
 [node name="DropPosition" type="Marker3D" parent="Body"]
 unique_name_in_owner = true
-transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08 )
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.4, 5.96046e-08)
 visible = false
 
 [node name="ThrowPosition" type="Marker3D" parent="Body"]
 unique_name_in_owner = true
-transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.51, 0 )
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.51, 0)
 visible = false
 
 [node name="GroundChecker" type="RayCast3D" parent="Body"]
 unique_name_in_owner = true
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0 )
-enabled = true
-target_position = Vector3( 0, -0.04, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, 0)
+target_position = Vector3(0, -0.04, 0)
 
 [node name="Hitbox" type="Area3D" parent="."]
 visible = false
 collision_layer = 0
 collision_mask = 0
 monitoring = false
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0 )
-shape = SubResource( 1 )
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0.9, 0)
+shape = SubResource("1")
 
 [node name="Inventory" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="SabreTechniques" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 4 )
-anims/Recovery1ToTierce = SubResource( 5 )
-anims/Recovery2ToQuarte = SubResource( 9 )
-anims/RecoveryThrustToQuarte = SubResource( 12 )
-anims/RecoveryThrustToTierce = SubResource( 13 )
-anims/Swing1FromTierce = SubResource( 3 )
-anims/Swing2FromQuarte = SubResource( 8 )
-anims/ThrustFromQuarte = SubResource( 11 )
-anims/ThrustFromTierce = SubResource( 10 )
+libraries = {
+"": SubResource("AnimationLibrary_0a47a")
+}
 
 [node name="CanStandChecker" type="Area3D" parent="."]
 collision_layer = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CanStandChecker"]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.900284, 0 )
-shape = SubResource( 15 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.900284, 0)
+shape = SubResource("15")
 
 [node name="ClamberableChecker" type="Area3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512443, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.512443, 0)
 collision_layer = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ClamberableChecker"]
-transform = Transform3D( 0.53918, 0, 0, 0, 1, 0, 0, 0, 1, -0.00335217, -0.211382, -0.213174 )
-shape = SubResource( 16 )
+transform = Transform3D(0.53918, 0, 0, 0, 1, 0, 0, 0, 1, -0.00335217, -0.211382, -0.213174)
+shape = SubResource("16")
 
 [node name="SurfaceDetector" type="RayCast3D" parent="."]
-enabled = true
-target_position = Vector3( 0, -0.5, 0 )
+target_position = Vector3(0, -0.5, 0)
 
 [node name="Audio" type="Node3D" parent="."]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Speech" type="AudioStreamPlayer3D" parent="Audio"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54833, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54833, 0)
 max_distance = 15.0
-bus = "Voice"
+bus = &"Voice"
 
 [node name="Manipulation" type="AudioStreamPlayer3D" parent="Audio"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15504, -0.512259 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15504, -0.512259)
 max_distance = 12.0
-bus = "Effects"
+bus = &"Effects"
 
 [node name="Movement" type="AudioStreamPlayer3D" parent="Audio"]
 max_distance = 12.0
-bus = "Effects"
+bus = &"Effects"
 
 [node name="SoundEmitter" type="Area3D" parent="."]
 collision_layer = 2
@@ -426,42 +512,90 @@ collision_layer = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SoundEmitter"]
 
 [node name="Legs" type="Node3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0513327, 0.249145, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0513327, 0.249145, 0)
 
 [node name="Feet" type="RayCast3D" parent="Legs"]
 unique_name_in_owner = true
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-enabled = true
-target_position = Vector3( 0, -0.7, 0 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -0.7, 0)
 collision_mask = 585
 collide_with_areas = true
-debug_shape_custom_color = Color( 1, 0, 0, 1 )
+debug_shape_custom_color = Color(1, 0, 0, 1)
 
 [node name="KickTimer" type="Timer" parent="Legs"]
 one_shot = true
 
 [node name="AdditionalAnimations" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-anims/Belt_Equip = SubResource( 83 )
-anims/Belt_bob = SubResource( 82 )
+libraries = {
+"": SubResource("AnimationLibrary_kbtv5")
+}
 
-[node name="AnimationPlayer" parent="." instance=ExtResource( 6 )]
+[node name="AnimationPlayer" parent="." instance=ExtResource("6")]
+libraries = {
+"": SubResource("AnimationLibrary_koo2v")
+}
 
-[node name="AnimationTree" parent="." instance=ExtResource( 5 )]
+[node name="AnimationTree" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
-parameters/ADS_State/current = 2
+libraries = {
+"": SubResource("AnimationLibrary_koo2v")
+}
+parameters/ADS_Pistol_state/current_state = ""
+parameters/ADS_Pistol_state/transition_request = ""
+parameters/ADS_Pistol_state/current_index = -1
+parameters/ADS_Rifle_state/current_state = "ADS_Rifle_Idle"
+parameters/ADS_Rifle_state/transition_request = ""
+parameters/ADS_Rifle_state/current_index = 0
+parameters/ADS_State/current_state = "Rifle_ADS"
+parameters/ADS_State/transition_request = ""
+parameters/ADS_State/current_index = 0
+parameters/Big_guns_transition/current_state = ""
+parameters/Big_guns_transition/transition_request = ""
+parameters/Big_guns_transition/current_index = -1
 "parameters/Blend2 5/blend_amount" = 0.0
-"parameters/BlendSpace2D 2/blend_position" = Vector2( 0.00374532, -0.0172414 )
-parameters/Gun_transition/current = 2
-parameters/Normal_state/current = 0
+"parameters/BlendSpace2D 2/blend_position" = Vector2(0.00374532, -0.0172414)
+"parameters/Double-barrel shotgun/internal_active" = false
+"parameters/Double-barrel shotgun/request" = 0
+parameters/Equipped_state/current_state = "Equipped"
+parameters/Equipped_state/transition_request = ""
+parameters/Equipped_state/current_index = 0
+parameters/Falling/internal_active = false
+parameters/Falling/request = 0
+parameters/Gun_transition/current_state = ""
+parameters/Gun_transition/transition_request = ""
+parameters/Gun_transition/current_index = -1
+parameters/High_kick/internal_active = false
+parameters/High_kick/request = 0
+parameters/Land/internal_active = false
+parameters/Land/request = 0
+parameters/Low_Kick/internal_active = false
+parameters/Low_Kick/request = 0
+parameters/Normal_state/current_state = ""
+parameters/Normal_state/transition_request = ""
+parameters/Normal_state/current_index = -1
 parameters/Rifle_crouch/blend_amount = 1.0
 parameters/ShotgunCrouchStrafe/blend_amount = 0.0
 "parameters/ShotgunRunBlend 2/blend_amount" = 0.0
 parameters/ShotgunStrafe/blend_amount = 0.0
-parameters/ShotgunTransitions/current = 3
+parameters/ShotgunTransitions/current_state = ""
+parameters/ShotgunTransitions/transition_request = ""
+parameters/ShotgunTransitions/current_index = -1
+parameters/Small_guns_transitions/current_state = ""
+parameters/Small_guns_transitions/transition_request = ""
+parameters/Small_guns_transitions/current_index = -1
+parameters/jump/internal_active = false
+parameters/jump/request = 0
 
 [node name="ADSTween" type="Tween" parent="."]
+_import_path = NodePath("")
 unique_name_in_owner = true
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+editor_description = ""
+script = null
 
 [connection signal="mainhand_slot_changed" from="Inventory" to="." method="_on_Inventory_mainhand_slot_changed"]
 [connection signal="body_entered" from="ClamberableChecker" to="." method="_on_ClamberableChecker_body_entered"]

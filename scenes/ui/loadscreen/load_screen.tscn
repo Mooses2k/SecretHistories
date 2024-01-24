@@ -1,46 +1,133 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://d0h4ce7jlo0b0"]
 
-[ext_resource path="res://resources/fonts/conjuring.ttf" type="FontFile" id=1]
-[ext_resource path="res://resources/ui_themes/main_menu.tres" type="Theme" id=2]
-[ext_resource path="res://scenes/ui/loadscreen/load_screen.gd" type="Script" id=3]
+[ext_resource type="FontFile" uid="uid://3xm8131455un" path="res://resources/fonts/conjuring.ttf" id="1"]
+[ext_resource type="Theme" uid="uid://d1bhwd8v505pu" path="res://resources/ui_themes/main_menu.tres" id="2"]
+[ext_resource type="Script" path="res://scenes/ui/loadscreen/load_screen.gd" id="3"]
 
-[sub_resource type="FontFile" id=2]
-size = 70
-font_data = ExtResource( 1 )
+[sub_resource type="FontFile" id="2"]
+fallbacks = Array[Font]([ExtResource("1")])
+cache/0/38/0/ascent = 0.0
+cache/0/38/0/descent = 0.0
+cache/0/38/0/underline_position = 0.0
+cache/0/38/0/underline_thickness = 0.0
+cache/0/38/0/scale = 1.0
+cache/0/38/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/38/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/38/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/38/0/kerning_overrides/72/0 = Vector2(0, 0)
+cache/0/38/0/kerning_overrides/96/0 = Vector2(0, 0)
+cache/0/64/0/ascent = 0.0
+cache/0/64/0/descent = 0.0
+cache/0/64/0/underline_position = 0.0
+cache/0/64/0/underline_thickness = 0.0
+cache/0/64/0/scale = 1.0
+cache/0/64/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/72/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/96/0 = Vector2(0, 0)
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/72/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/96/0 = Vector2(0, 0)
+cache/0/72/0/ascent = 0.0
+cache/0/72/0/descent = 0.0
+cache/0/72/0/underline_position = 0.0
+cache/0/72/0/underline_thickness = 0.0
+cache/0/72/0/scale = 1.0
+cache/0/72/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/72/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/72/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/72/0/kerning_overrides/72/0 = Vector2(0, 0)
+cache/0/72/0/kerning_overrides/96/0 = Vector2(0, 0)
+cache/0/96/0/ascent = 0.0
+cache/0/96/0/descent = 0.0
+cache/0/96/0/underline_position = 0.0
+cache/0/96/0/underline_thickness = 0.0
+cache/0/96/0/scale = 1.0
+cache/0/96/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/96/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/96/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/96/0/kerning_overrides/72/0 = Vector2(0, 0)
+cache/0/96/0/kerning_overrides/96/0 = Vector2(0, 0)
 
-[sub_resource type="FontFile" id=1]
-size = 23
-font_data = ExtResource( 1 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("1")])
+cache/0/38/0/ascent = 0.0
+cache/0/38/0/descent = 0.0
+cache/0/38/0/underline_position = 0.0
+cache/0/38/0/underline_thickness = 0.0
+cache/0/38/0/scale = 1.0
+cache/0/38/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/38/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/38/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/38/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/64/0/ascent = 0.0
+cache/0/64/0/descent = 0.0
+cache/0/64/0/underline_position = 0.0
+cache/0/64/0/underline_thickness = 0.0
+cache/0/64/0/scale = 1.0
+cache/0/64/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/64/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/24/0 = Vector2(0, 0)
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/24/0/kerning_overrides/38/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/64/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/24/0/kerning_overrides/24/0 = Vector2(0, 0)
 
 [node name="Loading" type="CanvasLayer"]
 process_mode = 3
 layer = 2
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
+color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -200.0
-theme = ExtResource( 2 )
-theme_override_fonts/font = SubResource( 2 )
+theme = ExtResource("2")
+theme_override_fonts/font = SubResource("2")
+theme_override_font_sizes/font_size = 96
 text = "Loading..."
-align = 1
-valign = 1
+horizontal_alignment = 1
+vertical_alignment = 1
 uppercase = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="Holder" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Quote" type="Label" parent="Holder"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -49,11 +136,12 @@ offset_left = -450.0
 offset_top = -150.0
 offset_right = 450.0
 offset_bottom = -38.9999
-scale = Vector2( 0.994928, 1.01796 )
+scale = Vector2(0.994928, 1.01796)
 size_flags_vertical = 5
-theme = ExtResource( 2 )
-theme_override_fonts/font = SubResource( 1 )
+theme = ExtResource("2")
+theme_override_fonts/font = SubResource("1")
+theme_override_font_sizes/font_size = 24
 text = "“The sun went down with practiced bravado. Twilight crawled across the sky, laden with foreboding. I didn’t like the way the show started. But they had given me the best seat in the house. Front row center.”"
-align = 1
-valign = 1
-autowrap = true
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

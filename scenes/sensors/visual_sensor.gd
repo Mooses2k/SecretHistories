@@ -1,4 +1,5 @@
-tool class_name VisualSensor extends CharacterSense
+@tool
+class_name VisualSensor extends CharacterSense
 
 # Whatever you do, for the love of Cthulhu, please don't set Mask 1 for the DirectSightArea
 # You will lag so hard

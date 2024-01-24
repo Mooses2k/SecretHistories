@@ -1,4 +1,5 @@
-tool class_name TouchSensor extends CharacterSense
+@tool
+class_name TouchSensor extends CharacterSense
 
 # Kinesthetic sense. Bumping up against something.
 

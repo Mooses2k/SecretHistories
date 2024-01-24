@@ -1,14 +1,14 @@
 [gd_scene load_steps=121 format=3 uid="uid://s6at1mb16ktl"]
 
-[ext_resource type="Animation" path="res://resources/animations/item_holding_vertical_right.tres" id="1"]
-[ext_resource type="Animation" path="res://resources/animations/item_holding_vertical_left.tres" id="2"]
-[ext_resource type="Animation" path="res://resources/animations/hip_idle.tres" id="3"]
+[ext_resource type="Animation" path="res://resources/animations/item_holding_vertical_right.res" id="1"]
+[ext_resource type="Animation" path="res://resources/animations/item_holding_vertical_left.res" id="2"]
+[ext_resource type="Animation" path="res://resources/animations/hip_idle.res" id="3"]
 [ext_resource type="Animation" path="res://resources/animations/item_holding.tres" id="4"]
-[ext_resource type="Animation" path="res://resources/animations/idle-loop.tres" id="5"]
-[ext_resource type="Animation" path="res://resources/animations/item_holding_horizontal_right.tres" id="6"]
-[ext_resource type="Animation" path="res://resources/animations/item_holding_horizontal_left.tres" id="7"]
-[ext_resource type="Animation" path="res://resources/animations/one_handed_hip_idle_left.tres" id="8"]
-[ext_resource type="Animation" path="res://resources/animations/one-handed_hip_idle.tres" id="10"]
+[ext_resource type="Animation" path="res://resources/animations/idle-loop.res" id="5"]
+[ext_resource type="Animation" path="res://resources/animations/item_holding_horizontal_right.res" id="6"]
+[ext_resource type="Animation" path="res://resources/animations/item_holding_horizontal_left.res" id="7"]
+[ext_resource type="Animation" path="res://resources/animations/one_handed_hip_idle_left.res" id="8"]
+[ext_resource type="Animation" path="res://resources/animations/one-handed_hip_idle_right.res" id="10"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r3atx"]
 _data = {

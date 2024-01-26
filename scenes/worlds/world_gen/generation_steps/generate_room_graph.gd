@@ -1,5 +1,6 @@
 extends GenerationStep
 
+
 const RoomGenerator = preload("generate_rooms.gd")
 
 const CONNECTION_GRAPH_KEY = "connection_graph"
@@ -10,7 +11,6 @@ const SORTED_GRAPH_INDEXES = "sorted_graph_indexes"
 @export var edges_to_keep_max_ratio : float = 0.4
 @export var edges_to_keep_abs_min : int = 2
 @export var path_graph_viz := NodePath()
-
 
 # Array of indices that represent "entry" or "up" staircases. These can only connect TO other rooms
 # but not be connected FROM other rooms, because Mooses2k wants level staircases to only have one
@@ -251,6 +251,7 @@ func graph_get_edges(graph : Dictionary, from : int) -> Array:
 			result.push_back(i)
 	result.append_array(graph.get(from, []))
 	return result
+
 
 # This sorts indexes by staricase rooms first and then rooms with smaller number of
 # connections

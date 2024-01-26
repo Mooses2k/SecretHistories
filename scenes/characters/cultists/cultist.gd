@@ -10,16 +10,12 @@ var ammo_resource = preload("res://resources/tiny_items/ammunition/shotgun_shell
 
 #enum #LOADOUT PACKAGES FOR NEOPHYTES:
 #(# in parentheses is probability weight) {
-#    (50) Double-barrel shotgun + 2 loaded + 1-3 spare + old knife
-#    (50) Double-barrel shotgun + 2 loaded + 1-3 spare + dagger
-#    (10) Sawed-off shotgun + 2 loaded + 1-3 spare + old knife
-#    (10) Sawed-off shotgun + 2 loaded + 1-3 spare + dagger
-#    (10) Martini-Henry rifle + 1 loaded + 2-3 spare + old knife
-#    (10) Martini-Henry rifle + 1 loaded + 2-3 spare + dagger
-#    (3) Webley + 6 loaded + old knife
-#    (3) Webley + 6 loaded + dagger
-#    (1) Khyber-pass Martini + 1 loaded + 2-3 spare + old knife
-#    (1) Khyber-pass Martini + 1 loaded + 2-3 spare + dagger
+#    (50) Double-barrel shotgun + 2 loaded + 1-3 spare + old knife/dagger
+#    (10) Sawed-off shotgun + 2 loaded + 1-3 spare + oil lantern/candle lantern + old knife/dagger
+#    (10) Martini-Henry rifle + 1 loaded + 2-3 spare + old knife/dagger
+#    (3) Webley + 6 loaded + oil lantern/candle lantern + old knife/dagger
+#    (1) Khyber-pass Martini + 1 loaded + 2-3 spare + old knife/dagger
+#    (1) Lee-Metford + 1-10 loaded + 1-5 spare + old knife/dagger
 #}
 
 
@@ -28,4 +24,3 @@ func _ready():
 	print("cultist.gd added shotgun")
 	inventory.insert_tiny_item(ammo_resource, 555)
 	print("cultist.gd added shotgun ammo")
-

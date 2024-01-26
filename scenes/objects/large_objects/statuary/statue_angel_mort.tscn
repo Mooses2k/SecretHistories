@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://resources/models/large_objects/statues/angelMort/sm_angelmort.glb" type="PackedScene" id=1]
 

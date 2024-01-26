@@ -85,7 +85,7 @@ func spawn_characters():
 		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
 		_spawn_single_character(spawn_data)
 	
-	print("Total Characters Spawned: %s"%[characters_by_index.size()])
+	print("Total Characters Spawned: %s" % [characters_by_index.size()])
 	has_finished_spawning = true
 	emit_signal("spawning_finished")
 
@@ -95,7 +95,7 @@ func try_spawn_character_away_from_player():
 	if original_spawn_data.is_empty():
 		return
 	var keys = original_spawn_data.keys()
-	var random_key = keys[randi()%keys.size()]
+	var random_key = keys[randi() % keys.size()]
 	var random_spawn_data = original_spawn_data[random_key].duplicate()
 	
 	var player = GameManager.game.player

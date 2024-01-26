@@ -64,6 +64,15 @@ func _ready():
 	
 	BackgroundMusic.stop()
 
+
+func _input(event):
+	if Input.is_action_just_pressed("debug_level_down"):
+		if current_floor_level != HIGHEST_FLOOR_LEVEL:
+			_on_Events_up_staircase_used()
+	if Input.is_action_just_pressed("debug_level_up"):
+		if current_floor_level != LOWEST_FLOOR_LEVEL:
+			_on_Events_down_staircase_used()
+
 ### -----------------------------------------------------------------------------------------------
 
 

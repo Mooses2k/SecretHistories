@@ -157,7 +157,7 @@ func throw_damage(delta):
 		
 		for body_found in bodies:
 			if body_found.is_in_group("CHARACTER"):
-				var item_damage_by_momentum = int(abs(initial_linear_velocity)) * mass * 0.3
+				var item_damage_by_momentum = int(abs(initial_linear_velocity)) * mass * 0.5
 				var item_damage = 1
 				
 				# TODO: deal with can_spin items that aren't melee items like torch

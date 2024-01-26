@@ -54,6 +54,7 @@ func _use_primary():
 		light()
 	else:
 		unlight()
+		$BlowOutSound.play()
 
 
 func light():
@@ -80,12 +81,12 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-		if is_lit:
-			var sound = $BlowOutSound.duplicate()
-			GameManager.game.level.add_child(sound)
-			sound.global_transform = $BlowOutSound.global_transform
-			sound.connect("finished", Callable(sound, "queue_free"))
-			sound.play()
+#		if is_lit and !previous_state == GlobalConsts.ItemState.INVENTORY:
+#			var sound = $BlowOutSound.duplicate()
+#			GameManager.game.level.add_child(sound)
+#			sound.global_transform = $BlowOutSound.global_transform
+#			sound.connect("finished", sound, "queue_free")
+#			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 
 

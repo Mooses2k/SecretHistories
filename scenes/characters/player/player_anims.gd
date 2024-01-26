@@ -36,6 +36,7 @@ var is_on_ads = false
 #signal unequip_mainhand
 #signal unequip_offhand
 
+
 func _ready():
 	inventory.connect("inventory_changed", Callable(self, "_on_Inventory_inventory_changed"))
 	inventory.connect("unequip_mainhand", Callable(self, "_on_Inventory_unequip_mainhand"))
@@ -46,10 +47,6 @@ func _ready():
 func _process(delta):
 	if not $"..".is_reloading:   # TODO: messy
 		pass
-
-
-func _physics_process(delta):
-	check_if_ads()
 
 
 func check_player_animation():
@@ -107,8 +104,7 @@ func check_player_animation():
 	elif inventory.current_mainhand_equipment is EmptyHand:
 		animation_tree.set("parameters/Hand_Transition/current", 0)
 		animation_tree.set("parameters/Weapon_states/current", 4)
-
-
+	
 	elif inventory.current_mainhand_equipment is EquipmentItem:
 		if inventory.current_mainhand_equipment.horizontal_holding == true:
 			inventory.current_mainhand_equipment.hold_position.rotation_degrees.z = 90
@@ -144,37 +140,14 @@ func check_player_animation():
 		##This should be a melee item
 			adjust_arm(Vector3(0, -1.280, 0.135), 0.1)
 
+
 func unequip_offhand():
 	inventory.unequip_offhand_item()
 
 
-func check_if_ads():
-	# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
-	if GameSettings.ads_hold_enabled:
-		if Input.is_action_pressed("playerhand|main_use_secondary") and owner.do_sprint == false and owner.is_reloading == false:
-			
-			if inventory.current_mainhand_slot != null:
-				if inventory.current_mainhand_equipment is GunItem:
-					ads()
-		
-		else:
-			if ((Input.is_action_just_released("playerhand|main_use_secondary") or owner.do_sprint == true or owner.is_reloading == true) and (inventory.current_mainhand_equipment is GunItem)):
-				end_ads()
-	
-	else:   # ADS toggle mode
-		if Input.is_action_just_pressed("playerhand|main_use_secondary") and owner.do_sprint == false and owner.is_reloading == false:
-			
-			if not is_on_ads and owner.do_sprint == false:
-				if inventory.current_mainhand_slot != null:
-					if inventory.current_mainhand_equipment is GunItem:
-						ads()
-			
-			else:
-				if (inventory.current_mainhand_equipment is GunItem or (owner.do_sprint == true and inventory.current_mainhand_equipment is GunItem)):
-					end_ads()
-
-
 func ads():
+	is_on_ads = true
+	
 	operation_tween(
 	inventory.current_mainhand_equipment.hold_position, "rotation_degrees", 
 	inventory.current_mainhand_equipment.hold_position.rotation_degrees, 
@@ -206,6 +179,8 @@ func ads():
 
 
 func end_ads():
+	is_on_ads = false
+	
 	operation_tween(
 	inventory.current_mainhand_equipment.hold_position, "rotation_degrees", 
 	inventory.current_mainhand_equipment.hold_position.rotation_degrees, 

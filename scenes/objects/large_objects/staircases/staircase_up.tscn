@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://resources/models/large_objects/level_staircase/staircase_bottom.mesh" type="ArrayMesh" id=1]
 [ext_resource path="res://scenes/objects/large_objects/staircases/staircase_up.gd" type="Script" id=2]
@@ -80,5 +80,5 @@ wait_time = 2.0
 
 [connection signal="body_entered" from="UpDetector" to="." method="_on_UpDetector_body_entered"]
 [connection signal="timeout" from="LevelMessage/Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_CantLeaveTimer_timeout"]
+[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_Timer_timeout"]

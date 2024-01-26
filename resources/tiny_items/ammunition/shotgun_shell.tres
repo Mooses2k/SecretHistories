@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 name = "shotgun shell"
 attack_type = 3
-damage = 12
+damage = 8
 dispersion = 10.0
 pellet_count = 9

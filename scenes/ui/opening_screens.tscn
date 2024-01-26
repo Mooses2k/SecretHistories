@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/ui/opening_screens.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://beb8raax6yquc" path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together (orange).png" id="2"]
-[ext_resource type="Texture2D" uid="uid://bsyaqa6ib504y" path="res://resources/art/opening_screens/NFTStab_noir.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://b6hmagd0fuikk" path="res://resources/art/opening_screens/go_die_in_a_hole.png" id="3"]
 [ext_resource type="Theme" uid="uid://d1bhwd8v505pu" path="res://resources/ui_themes/main_menu.tres" id="4"]
 [ext_resource type="Texture2D" uid="uid://6tp2j0n8b5bn" path="res://resources/art/opening_screens/loadscreen_1_godot.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://b1gscsj6n1qa5" path="res://resources/art/opening_screens/gpl_artboard_1.png" id="6"]
@@ -33,7 +33,7 @@ texture_normal = ExtResource("2")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Winners" type="TextureButton" parent="."]
+[node name="GoDieInAHole" type="TextureButton" parent="."]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -84,7 +84,7 @@ one_shot = true
 autostart = true
 
 [connection signal="pressed" from="Help" to="." method="_on_Help_pressed"]
-[connection signal="pressed" from="Winners" to="." method="_on_Winners_pressed"]
+[connection signal="pressed" from="GoDieInAHole" to="." method="_on_GoDieInAHole_pressed"]
 [connection signal="pressed" from="GPL" to="." method="_on_GPL_pressed"]
 [connection signal="pressed" from="MadeWithGodot" to="." method="_on_MadeWithGodot_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

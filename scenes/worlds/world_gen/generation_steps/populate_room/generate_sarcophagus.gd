@@ -228,6 +228,7 @@ func _set_sarco_spawn_data(
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
 		# if shard_has_spawned == false 
 
+
 func _get_sarcophagus_spawn_list() -> PackedStringArray:
 	var draw_amount := _rng.randi_range(_min_item, _max_item)
 	var result : PackedStringArray
@@ -238,6 +239,7 @@ func _get_sarcophagus_spawn_list() -> PackedStringArray:
 	for _i in draw_amount:
 		result.push_back((_sarco_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
 	return result
+
 
 func _get_lid_spawn_list() -> PackedStringArray:
 	var draw_amount := _rng.randi_range(_min_item, _max_item)
@@ -260,6 +262,7 @@ func _get_lid_spawn_list() -> PackedStringArray:
 ### Custom Inspector built in functions -----------------------------------------------------------
 
 const ROTATION_GROUP_HINT = "rotation_"
+
 
 func _get_property_list() -> Array:
 	var properties: = []

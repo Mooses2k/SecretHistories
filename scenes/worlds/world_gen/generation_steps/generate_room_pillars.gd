@@ -34,7 +34,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			continue
 		
 		# Check that the room dimensions are even
-		if int(room_rect.size.x)%2 != 0 and int(room_rect.size.y)%2 != 0:
+		if int(room_rect.size.x) % 2 != 0 and int(room_rect.size.y) % 2 != 0:
 			continue
 		
 		# Check that the room fills all cells of the rectangle
@@ -50,11 +50,11 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			var cell = data.get_cell_index_from_int_position(room_rect.position.x + i, room_rect.position.y)
 			var wall_type = data.get_wall_type(cell, data.Direction.NORTH)
 			# check even cells
-			if i%2==0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
+			if i % 2 == 0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
 				walls_even_aligned = false
 				break
 			# check odd cells
-			if i%2==1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
+			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
 			
@@ -62,11 +62,11 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			cell = data.get_cell_index_from_int_position(room_rect.position.x + i, room_rect.position.y + room_rect.size.y - 1)
 			wall_type = data.get_wall_type(cell, data.Direction.SOUTH)
 			# check even cells
-			if i%2==0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
+			if i % 2 == 0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
 				walls_even_aligned = false
 				break
 			# check odd cells
-			if i%2==1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
+			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
 		
@@ -76,11 +76,11 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			var cell = data.get_cell_index_from_int_position(room_rect.position.x, room_rect.position.y + i)
 			var wall_type = data.get_wall_type(cell, data.Direction.WEST)
 			# check even cells
-			if i%2==0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
+			if i % 2 == 0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
 				walls_even_aligned = false
 				break
 			# check odd cells
-			if i%2==1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
+			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
 			
@@ -88,11 +88,11 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			cell = data.get_cell_index_from_int_position(room_rect.position.x + room_rect.size.x - 1, room_rect.position.y + i)
 			wall_type = data.get_wall_type(cell, data.Direction.EAST)
 			# check even cells
-			if i%2==0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
+			if i % 2 == 0 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_P):
 				walls_even_aligned = false
 				break
 			# check odd cells
-			if i%2==1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
+			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
 		
@@ -106,7 +106,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		
 		pillar_rooms.push_back(room_rect)
 	
-	print("pillar rooms: %s"%[pillar_rooms])
+	print("pillar rooms: %s" % [pillar_rooms])
 	if gen_data.has(PILLAR_ROOMS_KEY):
 		printerr("Generation data already contains pillar room data")
 		return

@@ -171,8 +171,8 @@ func _set_room_centers(value: PackedVector2Array) -> void:
 func _set_room_connections(value: Dictionary) -> void:
 	room_connections = value.duplicate(true)
 	if not room_connections.is_empty() and is_inside_tree():
-		print("room indexes: %s"%[room_centers_cell_indexes])
-		print("room_connections: %s"%[room_connections])
+		print("room indexes: %s" % [room_centers_cell_indexes])
+		print("room_connections: %s" % [room_connections])
 
 
 func _set_distances_scale(value: float) -> void:

@@ -1,5 +1,8 @@
 extends Node
 
+# There can be multiple types of controller using this, such as an fps_control_mode, top_down, vr, etc
+# This script is for things agnostic to the type of player controller
+
 
 signal is_moving(is_player_moving)
 
@@ -71,6 +74,7 @@ var _clamber_m = null
 @onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
 @onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
+# Control modes are things like FPS, topdown, VR
 var current_control_mode_index = 0
 @onready var current_control_mode : ControlMode = get_child(0)
 
@@ -88,11 +92,15 @@ var _click_timer : float = 0.0
 var _throw_wait_time : float = 400
 var drag_object : RigidBody3D = null
 
+var ads_handled = false
+
 var is_movement_key1_held = false
 var is_movement_key2_held = false
 var is_movement_key3_held = false
 var is_movement_key4_held = false
 var movement_press_length = 0
+
+var has_moved_after_pressing_sprint = false
 
 var crouch_target_pos = -0.55
 
@@ -154,17 +162,16 @@ func _physics_process(delta : float):
 	### TODO: many of these shouldn't be here and probably shouldn't be checked every _physics_process (moved in _input()?)
 	_walk(delta)
 	_crouch()
-	_handle_grab_input(delta)
 	handle_grab(delta)
-	_handle_inventory(delta)
+	_handle_inventory_and_grab_input(delta)
 	handle_screen_filters()
 	handle_binocs()
 	next_item()
 	previous_item()
 	drop_grabable()
 	empty_slot()
-	kick()
 	_clamber()
+	_cheats()
 
 
 func _input(event):
@@ -237,19 +244,30 @@ func _walk(delta) -> void:
 		owner.is_moving_forward = true
 	
 	_check_movement_key(delta)
+	owner.do_sprint = false   # Fixes sprinting after level load without holding sprint if sprinted into exit of previous level
 	
 	move_dir.x = (Input.get_action_strength("movement|move_right") - Input.get_action_strength("movement|move_left"))
 	move_dir.z = (Input.get_action_strength("movement|move_down") - Input.get_action_strength("movement|move_up"))
 	character.character_state.move_direction = move_dir.normalized()
 	
+	# This logic has the player kick if they hit sprint and release it without moving
 	if Input.is_action_pressed("player|sprint"):
-		owner.do_sprint = true
-	else:
+		has_moved_after_pressing_sprint = false
+		if is_movement_key1_held or is_movement_key2_held or is_movement_key3_held or is_movement_key4_held:
+			has_moved_after_pressing_sprint = true
+			owner.do_sprint = true
+			$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
+			# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
+			# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
+			owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+		if character.inventory.current_mainhand_slot != null:
+			if character.inventory.current_mainhand_equipment is GunItem == true and character.player_animations.is_on_ads:
+				character.player_animations.end_ads()
+	
+	if Input.is_action_just_released("player|sprint"):
 		owner.do_sprint = false
-	$"../Stamina".tired(owner.stamina)   # TODO: get this working for character too
-	# Lower the stamina, higher the noise, from 1 to 7 given 600 stamina
-	# This does make noise_level a float not an int and is the only place this happens as of 6/11/2023
-	owner.noise_level = 7 - owner.stamina * 0.01   # It's 7 so extremely acute hearing can hear you breathe at rest
+		if !has_moved_after_pressing_sprint:
+			character.kick()
 	
 	if Input.is_action_just_released("movement|move_right"):
 		is_movement_key1_held = false
@@ -323,30 +341,6 @@ func _crouch() -> void:
 				current_control_mode.crouch_cam()
 
 
-func _handle_grab_input(delta : float):
-	if is_grabbing:
-		wanna_grab = true
-	else:
-		wanna_grab = false
-	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody3D doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
-		if is_grabbing == false:
-			grab_press_length += delta
-			if grab_press_length >= 0.15:
-				wanna_grab = true
-				interaction_handled = true
-	
-	if Input.is_action_just_released("player|interact"):   # TODO: when RigidBody3D doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
-		grab_press_length = 0.0
-		if is_grabbing == true:
-			is_grabbing = false
-			print("Grab broken by letting go of grab key")
-			if grab_object is PickableItem:   # So no plain RigidBodies or large objects
-				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
-			wanna_grab = false
-			interaction_handled = true
-		camera_movement_resistance = 1.0   # In case of a grab-throw, make sure the camera turning still isn't slowed
-
-
 func handle_grab(delta : float):
 	if wants_to_drop == false:
 		if wanna_grab and not is_grabbing:
@@ -390,7 +384,8 @@ func handle_grab(delta : float):
 		$GrabInitial.global_transform.origin = grab_target_global
 		$GrabCurrent.global_transform.origin = grab_object_global
 		
-		camera_movement_resistance = min(5 / grab_object.mass, 1)   # Camera3D goes nuts if you don't do this
+		# Slows down camera turn sensitivity to simulate moving something heavy
+		camera_movement_resistance = min(5 / grab_object.mass, 1)   # Camera goes nuts if you don't do this
 		
 		if $GrabInitial.global_transform.origin.distance_to($GrabCurrent.global_transform.origin) >= 0.3 and !grab_object is PickableItem:
 			is_grabbing = false
@@ -436,7 +431,7 @@ func handle_grab(delta : float):
 		direct_state.angular_velocity = direct_state.angular_velocity.normalized() * min(direct_state.angular_velocity.length(), 4.0)
 
 
-func _handle_inventory(delta : float):
+func _handle_inventory_and_grab_input(delta : float):
 	# Main-hand slot selection
 	for i in range(character.inventory.HOTBAR_SIZE - 1):
 		# hotbar_%d is a nasty hack which prevents renaming hotbar_11 to holster_offhand in Input Map
@@ -503,10 +498,9 @@ func _handle_inventory(delta : float):
 						%AnimationTree.set("parameters/MeleeThrust/active", true)
 						owner.noise_level = 8
 					throw_state = ThrowState.IDLE
-		
+
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
-			# This means R-Click can be used to interact when pointing at an interactable
-			if character.inventory.get_mainhand_item(): # and interaction_target == null:   # TODO: put this back in when we have RClick also as interact after RigidBody3D doors
+			if character.inventory.get_mainhand_item() and !interaction_target is PickableItem and !interaction_target is Interactable:   # TODO: replace this with double-tap use_primary
 				character.inventory.get_mainhand_item().use_secondary()
 				if character.inventory.get_mainhand_item() is MeleeItem:
 					%AnimationTree.set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
@@ -514,7 +508,7 @@ func _handle_inventory(delta : float):
 					%AnimationTree.set("parameters/MeleeChop1/active", true)
 					owner.noise_level = 10
 				throw_state = ThrowState.IDLE
-			
+
 	# Start timer to check if want to reload or unload
 	if Input.is_action_just_pressed("player|reload"):
 		if character.inventory.get_mainhand_item():
@@ -540,6 +534,7 @@ func _handle_inventory(delta : float):
 		
 	if Input.is_action_just_pressed("playerhand|offhand_use") and owner.is_reloading == false:
 		if character.inventory.get_offhand_item():
+			# TODO: implement double-tap for use_secondary
 			character.inventory.get_offhand_item().use_primary()
 			if character.inventory.get_offhand_item() is MeleeItem:
 				%AnimationTree.set("parameters/MeleeSpeed/scale", character.inventory.get_offhand_item().melee_attack_speed)
@@ -549,7 +544,58 @@ func _handle_inventory(delta : float):
 	
 	update_throw_state(throw_item, delta)
 	
-	if Input.is_action_just_released("player|interact"): # Later, when we have RigidBody3D doors, add this back for convenience and deal with edge cases with ADS and melee:  or Input.is_action_just_released("playerhand|main_use_secondary"):
+	if is_grabbing:
+		wanna_grab = true
+	else:
+		wanna_grab = false
+	if Input.is_action_pressed("player|interact"):   # TODO: when RigidBody doors are back, reinclude:  or Input.is_action_pressed("playerhand|main_use_secondary"):
+#		# TODO: if on_fire: put out fire
+#		# TODO: elif in_close_eyes_area: close eyes
+#		# TODO: elif in_hold_breath_area: hold breath
+		if interaction_target and is_grabbing == false:
+			grab_press_length += delta
+			if grab_press_length >= 0.2:
+				wanna_grab = true
+				interaction_handled = true
+		
+		# This checks if the ADS mouse button is pressed then lerps the weapon to that position and when the button is released the weapon goes to its normal position
+		if GameSettings.ads_hold_enabled:   # ADS hold mode
+			if owner.do_sprint == false and owner.is_reloading == false and is_grabbing == false:
+				if character.inventory.current_mainhand_slot != null:
+					if character.inventory.current_mainhand_equipment is GunItem:
+						# If already on ADS, we don't care if an interaction_target is available
+						if character.player_animations.is_on_ads:
+							character.player_animations.ads()
+						# If just starting to ADS, make sure no interaction_target available
+						elif !character.player_animations.is_on_ads and interaction_target == null:
+							character.player_animations.ads()
+			elif character.inventory.current_mainhand_equipment is GunItem:
+				character.player_animations.end_ads()
+		
+		else:   # ADS toggle mode
+			if owner.do_sprint == false and owner.is_reloading == false and interaction_target == null and is_grabbing == false:
+				if character.inventory.current_mainhand_slot != null:
+					if character.inventory.current_mainhand_equipment is GunItem and ads_handled == false:
+						if character.player_animations.is_on_ads or owner.do_sprint == true or owner.is_reloading == true:
+							character.player_animations.end_ads()
+						else:
+							character.player_animations.ads()
+						ads_handled = true
+			elif character.inventory.current_mainhand_slot != null:
+				if character.inventory.current_mainhand_equipment is GunItem == true:
+					character.player_animations.end_ads()
+		# TODO: If nothing else covered, interact zooms slightly
+	
+	if Input.is_action_just_released("player|interact"):
+		grab_press_length = 0.0
+		if is_grabbing == true:
+			is_grabbing = false
+			print("Grab broken by letting go of grab key")
+			if grab_object is PickableItem:   # So no plain RigidBodies or large objects
+				grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)    # This allows dropped items to hit cultists
+			wanna_grab = false
+			interaction_handled = true
+		camera_movement_resistance = 1.0   # In case of a grab-throw, make sure the camera turning still isn't slowed
 		if !(wanna_grab or is_grabbing or interaction_handled):
 			if interaction_target != null:
 				if interaction_target is PickableItem:   # and character.inventory.current_mainhand_slot != 10:
@@ -557,24 +603,36 @@ func _handle_inventory(delta : float):
 					interaction_target = null
 				elif interaction_target is Interactable:
 					interaction_target.interact(owner)
+		if GameSettings.ads_hold_enabled:   # ADS hold mode
+			if character.player_animations.is_on_ads:
+				character.player_animations.end_ads()
+		ads_handled = false   # Gets it ready for next press
+		
+	if Input.is_action_just_released("ablty|nightvision_darksight"):
+		if character.inventory.belt_item:
+			character.inventory.belt_item.use_primary()
+		elif character.inventory.get_offhand_item():
+			character.inventory.get_offhand_item().use_primary()
+		elif character.inventory.get_mainhand_item():
+			character.inventory.get_mainhand_item().use_primary()
 
 
 func previous_item():
-	if Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot != 0:
+	if Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot != 0 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot -=1
 	
-	elif  Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0:
+	elif Input.is_action_just_pressed("itm|previous_hotbar_item") and character.inventory.current_mainhand_slot == 0 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 10
 
 
 func next_item():
-	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10:
+	if Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot != 10 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot += 1
 	
-	elif  Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10:
+	elif Input.is_action_just_pressed("itm|next_hotbar_item") and character.inventory.current_mainhand_slot == 10 and !Input.is_key_pressed(KEY_SHIFT):
 		character.inventory.drop_bulky_item()
 		character.inventory.current_mainhand_slot = 0
 
@@ -590,10 +648,10 @@ func drop_grabable():
 				interaction_handled = true
 				
 				# TODO: This duplicates code in update_throw_state(); fix that
-				throw_strength = 20 * grab_object.mass
-				print(throw_strength, " is throw_strength before 55 cap")
-				if throw_strength > 55:
-					throw_strength = 55
+				throw_strength = 40 * grab_object.mass
+				print(throw_strength, " is throw_strength before 75 cap")
+				if throw_strength > 75:
+					throw_strength = 75
 				
 				throw_impulse_and_damage(grab_object)
 				
@@ -611,7 +669,7 @@ func empty_slot():
 func update_throw_state(throw_item : EquipmentItem, delta : float):
 	# Place item upright on pointed-at surface or, if no surface in range, simply drop in front of player
 	if throw_state == ThrowState.SHOULD_PLACE:
-		print("Should place")
+		print("Should place rather than throw item")
 		throw_item = character.inventory.get_mainhand_item() if throw_item_hand == ItemSelection.ITEM_MAINHAND else character.inventory.get_offhand_item()
 		throw_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 		if throw_item:
@@ -664,12 +722,12 @@ func update_throw_state(throw_item : EquipmentItem, delta : float):
 				character.inventory.drop_offhand_item()
 				
 			if throw_item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-				throw_strength = 30 * throw_item.mass
-			else:
 				throw_strength = 40 * throw_item.mass
-			print(throw_strength, " is throw_strength before 55 cap")
-			if throw_strength > 55:
-				throw_strength = 55
+			else:
+				throw_strength = 50 * throw_item.mass
+#			print(throw_strength, " is throw_strength before 75 cap")
+#			if throw_strength > 75:
+#				throw_strength = 75
 				
 			# At this point, the item is still equipped, so we wait until
 			# it exits the tree and is re inserted in the world
@@ -794,11 +852,6 @@ func handle_binocs():
 			_camera.state = _camera.CameraState.STATE_NORMAL
 
 
-func kick():
-	if Input.is_action_just_pressed("player|kick"):
-		character.kick()
-
-
 func _clamber():
 	pass
 # TODO: FIX CLAMBERING RIGID BODIES (possibly involving switching player to a RigidBody rather than Kinematic) THEN RENABLE HERE, Issue #419
@@ -807,6 +860,31 @@ func _clamber():
 #		_text.show()
 #	else:
 #		_text.hide()
+
+
+func _cheats():
+	if Input.is_action_just_pressed("debug_godmode"):
+		if owner.max_health != 55555:
+			owner.max_health = 55555
+			owner.current_health = 55555
+			print("CHEAT: godmode enabled")
+		else:
+			owner.max_health = 100
+			owner.current_health = 100
+			print("CHEAT: godmode disabled")
+	if Input.is_action_just_pressed("debug_noclip"):
+		if owner._collider.disabled == false or owner._crouch_collider.disabled == false:
+			owner._collider.disabled = true
+			owner._crouch_collider.disabled = true
+			owner.gravity = 0
+			print("CHEAT: noclip enabled")
+		else:
+			owner.gravity = 10
+			# Always end standing
+			owner.wanna_stand
+			owner._collider.disabled = false
+			owner._crouch_collider.disabled = true
+			print("CHEAT: noclip disabled")
 
 
 func _on_Player_player_landed():

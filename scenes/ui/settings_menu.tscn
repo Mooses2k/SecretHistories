@@ -12,8 +12,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="SettingsMenu" type="MarginContainer"]
-anchor_left = 0.2
-anchor_right = 0.8
+anchor_right = 1.0
 anchor_bottom = 1.0
 custom_minimum_size = Vector2( 768, 768 )
 theme_override_constants/margin_right = 64

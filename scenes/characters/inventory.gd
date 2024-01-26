@@ -50,6 +50,8 @@ var are_swapping : bool = false
 
 var encumbrance : float = 0   # Is a float to allow easy division
 
+var belt_item = null   # The item currently in the belt_position slot
+
 # Where to drop items from
 @onready var Animations : AnimationPlayer = %AdditionalAnimations as AnimationPlayer
 
@@ -255,6 +257,7 @@ func equip_mainhand_item():
 		if item.is_in_belt == true:
 			item.get_parent().remove_child(item)
 			owner.mainhand_equipment_root.add_child(item)
+			belt_item = null
 		else:
 			owner.mainhand_equipment_root.add_child(item)
 		emit_signal("inventory_changed")
@@ -341,6 +344,7 @@ func equip_offhand_item():
 	if item.is_in_belt == true:
 		item.get_parent().remove_child(item)
 		owner.offhand_equipment_root.add_child(item)
+		belt_item = null
 	else:
 		owner.offhand_equipment_root.add_child(item)
 
@@ -397,6 +401,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 			if item_node.can_attach == true:
 				item_node.get_parent().remove_child(item_node)
 				item_node.is_in_belt = false
+				belt_item = null
 				_drop_item(item_node)
 			else:
 				_drop_item(item_node)
@@ -531,7 +536,8 @@ func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position:
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
-		%AdditionalAnimations.play("Belt_Equip")
+		belt_item = item
+		$"%AdditionalAnimations".play("Belt_Equip")
 		print("Attached to belt in inventory.gd")
 
 

@@ -645,12 +645,12 @@ libraries = {
 "": SubResource("AnimationLibrary_wm27q")
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HitEffect" index="3"]
+[node name="DebugInfo" type="RichTextLabel" parent="HitEffect" index="3"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-text = "dsafsdfd"
+text = "<this is replaced through code with debug info>"
 tab_size = 8
 
 [node name="KeybindDefaults" type="RichTextLabel" parent="HitEffect" index="4"]
@@ -660,32 +660,34 @@ anchor_right = 1.0
 anchor_bottom = 5.0
 mouse_filter = 2
 text = "WASD - movement
-Space - jump and clamber
-LAlt or C - toggle crouch
-LShift - sprint
+Space - jump
+LCtrl or C - crouch
+LShift (move forward)- sprint
+LShift (without moving forward) - kick (doors, objects, opponents)
 
-L-Click - main-hand primary use
-R-Click - main-hand secondary use (interact if close)
+LMB - main-hand primary use
+RMB (tap) - interact, pick up, otherwise main-hand secondary use
+RMB (held) - grab & drag things around
 Number row & mouse-wheel - cycle main-hand item
 Scroll-wheel Click - throw main-hand item
 
-E - use off-hand item
-Q - cycle off-hand items (hold and release to swap hands)
-T - throw off-hand item
+LAlt & E - use off-hand item
+Q (tap) - cycle off-hand items
+Q (held & released) - swap hands
+T or G - throw off-hand item
+
 R (tap) - reload (can't with item in offhand)
 R (held) - unload
 
-F or R-Click - interact with object in world
-(hold to grab and drag)
+B - bioncs/spyglass (if you have the item)
 
-Ctrl - kick
-
-B - bioncs/spyglass
-
-M - minimap
+M - minimap (currently for debug/cheating)
 L - cycle look (shaders and debug light)
+F11 - fullscreen toggle
 
-F1 - show/hide this menu"
+F1 - show/hide this menu
+
+(almost all keys rebindable as you like)"
 tab_size = 8
 
 [node name="IndicationCanvas" type="CanvasLayer" parent="." index="14"]

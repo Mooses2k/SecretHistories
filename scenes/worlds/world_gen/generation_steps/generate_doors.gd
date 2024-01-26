@@ -4,6 +4,7 @@ extends GenerationStep
 @export var door_dict : Dictionary
 @export var door_probability = 0.6
 @export var door_stuck_probability = 0.2
+
 const DOUBLE_DOOR_OFFSET_FROM_DIRECTION_N : Dictionary = {
 	WorldData.Direction.NORTH : Vector3.ZERO,
 	WorldData.Direction.EAST : Vector3.RIGHT*WorldData.CELL_SIZE,
@@ -31,6 +32,7 @@ const DOUBLE_DOOR_ADJACENT_DIRECTION_P : Dictionary = {
 	WorldData.Direction.SOUTH : WorldData.Direction.EAST,
 	WorldData.Direction.WEST : WorldData.Direction.SOUTH,
 }
+
 
 func _get_transform_for_cell_direction(data : WorldData, cell_index : int, direction : int):
 	pass
@@ -97,7 +99,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 					var basis = Basis.IDENTITY
 					var rotation_basis = Basis(Vector3.BACK, Vector3.UP, Vector3.LEFT)
 					for i in dir:
-						basis = rotation_basis*basis
+						basis = rotation_basis * basis
 					spawn_data.set_y_rotation(basis.get_euler().y, door_data_index)
 					var cell_corner = data.get_local_cell_position(cell)
 					var wall_type = data.get_wall_type(cell, dir)
@@ -105,7 +107,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 					
 					match wall_type:
 						data.EdgeType.DOOR:
-							origin = cell_corner + (Vector3(1, 0, 1) - basis.z)*0.5*data.CELL_SIZE
+							origin = cell_corner + (Vector3(1, 0, 1) - basis.z) * 0.5 * data.CELL_SIZE
 							data.set_wall_has_door(cell, dir, true)
 							spawn_data.set_position_in_cell(origin, door_data_index)
 						
@@ -122,5 +124,3 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 							var neighbour_cell = data.get_neighbour_cell(cell, DOUBLE_DOOR_ADJACENT_DIRECTION_P[dir])
 							data.set_wall_has_door(neighbour_cell, dir, true)
 							spawn_data.set_position_in_cell(origin, door_data_index)
-
-			pass

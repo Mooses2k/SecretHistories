@@ -103,7 +103,7 @@ flat = true
 [node name="SettingsMenu" parent="Menus" instance=ExtResource("3")]
 unique_name_in_owner = true
 visible = false
-anchors_preset = -1
+anchors_preset = 15
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

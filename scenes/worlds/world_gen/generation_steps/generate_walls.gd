@@ -1,7 +1,7 @@
 extends GenerationStep
 
-
 # Generates walls based on certain adjacency rules
+
 
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	contour_walls(data)

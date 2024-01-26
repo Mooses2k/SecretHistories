@@ -52,7 +52,7 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 			data.set_ground_tile_index(i, floor_tile)
 	for _room in pillar_rooms:
 		var room : Rect2 = _room as Rect2
-		print("pillar_room: %s"%[room])
+		print("pillar_room: %s" % [room])
 		for i in room.size.x / 2:
 			for j in room.size.y / 2:
 				var cell = data.get_cell_index_from_int_position(room.position.x + 2 * i, room.position.y + 2 * j)
@@ -116,10 +116,10 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 							wall_extension.push_back(extension_cell)
 						
 						# Even width wall, can use double tiles
-						if wall_extension.size()%2 == 0:
-							for _index in wall_extension.size()/2:
-								var cell_left = wall_extension[2*_index]
-								var cell_right = wall_extension[2*_index + 1]
+						if wall_extension.size() % 2 == 0:
+							for _index in wall_extension.size() / 2:
+								var cell_left = wall_extension[2 * _index]
+								var cell_right = wall_extension[2 * _index + 1]
 								var rnd = fposmod(rng.randf(), 1.0)
 								var selected_wall_tile : int = double_wall_tile
 								if rnd < alternative_double_wall_tile_chance and alternative_double_wall_tiles.size() > 0:
@@ -137,7 +137,7 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 							var rnd = fposmod(rng.randf(), 1.0)
 							var selected_wall_tile : int = wall_tile
 							if rnd < alternative_wall_tile_chance and alternative_wall_tiles.size() > 0:
-									var index : int = rng.randi()%alternative_wall_tiles.size()
+									var index : int = rng.randi() % alternative_wall_tiles.size()
 							data.set_wall_tile_index(i, dir, selected_wall_tile)
 					data.EdgeType.DOOR:
 						data.set_wall_tile_index(i, dir, door_tile)

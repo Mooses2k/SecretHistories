@@ -8,7 +8,7 @@ var vel = Vector3()
 var path = null
 var health = 200
 
-#onready var fog = $Fog as Particles
+#onready var fog = $Fog as GPUParticles3D
 @onready var hitbox = $HitboxArea
 @onready var game_world = GameManager.game
 @onready var player = game_world.player

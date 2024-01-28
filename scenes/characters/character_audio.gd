@@ -71,14 +71,14 @@ var last_speech_type   # Tracked to avoid interrupting self to say same type of 
 func _ready():
 	# Movement audio	
 	load_sounds("resources/sounds/footsteps/stone_footsteps", 3)
-	load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
-	load_sounds("resources/sounds/footsteps/water_footsteps", 5)
+	#load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
+	#load_sounds("resources/sounds/footsteps/water_footsteps", 5)
 	load_sounds("resources/sounds/footsteps/gravel_footsteps", 6)
 	load_sounds("resources/sounds/footsteps/carpet_footsteps", 7)
-	load_sounds("resources/sounds/footsteps/metal_footsteps", 8)
-	load_sounds("resources/sounds/footsteps/tile_footsteps", 9)
+	#load_sounds("resources/sounds/footsteps/metal_footsteps", 8)
+	#load_sounds("resources/sounds/footsteps/tile_footsteps", 9)
 #	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
-	load_sounds("resources/sounds/breathing/breathe", 1)
+	#load_sounds("resources/sounds/breathing/breathe", 1)
 	load_sounds("resources/sounds/jumping_landing/landing", 2)
 
 	choose_voice()   # Choose one from the appropriate voices for this character

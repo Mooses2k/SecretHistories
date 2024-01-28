@@ -1,26 +1,26 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://d4addihtopap0"]
 
-[ext_resource path="res://scenes/game.gd" type="Script" id=1]
-[ext_resource path="res://globals/settings.gd" type="Script" id=2]
-[ext_resource path="res://scenes/characters/player/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/worlds/procedural_world/procedural_world.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/ui/game_ui.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/worlds/game_environment.tres" type="Environment" id=6]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1"]
+[ext_resource type="Script" path="res://globals/settings.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://bg7aeaviu8ftd" path="res://scenes/characters/player/player.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://d1lbexonric4u" path="res://scenes/worlds/procedural_world/procedural_world.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_ui.tscn" id="5"]
+[ext_resource type="Environment" uid="uid://bxgnfe0qgcrm" path="res://scenes/worlds/game_environment.tres" id="6"]
 
 [node name="Game" type="Node"]
 process_mode = 1
-script = ExtResource( 1 )
-start_level_scn = ExtResource( 4 )
-player_scn = ExtResource( 3 )
+script = ExtResource("1")
+start_level_scn = ExtResource("4")
+player_scn = ExtResource("3")
 
 [node name="World" type="Node3D" parent="."]
 process_mode = 1
 
-[node name="GameUI" parent="." instance=ExtResource( 5 )]
+[node name="GameUI" parent="." instance=ExtResource("5")]
 
 [node name="LocalSettings" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource( 6 )
+environment = ExtResource("6")

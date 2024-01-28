@@ -1,8 +1,8 @@
 extends BTCheck
 
 
-@export(NodePath) onready var visual_sensor = get_node(visual_sensor) as VisualSensor
-@export(NodePath) onready var touch_sensor = get_node(touch_sensor) as TouchSensor
+@export var visual_sensor : VisualSensor
+@export var touch_sensor : TouchSensor
 
 
 func tick(state: CharacterState) -> int:

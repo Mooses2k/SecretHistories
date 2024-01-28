@@ -7,7 +7,7 @@ var tween_speed = 0.7
 var is_fade_in = false
 
 @onready var opacity_target = [0.1, 0.2]
-@onready var debug_label: RichTextLabel = $RichTextLabel
+@onready var debug_label: RichTextLabel = $DebugInfo
 @onready var keybind_defaults: RichTextLabel = $KeybindDefaults
 @onready var color_rect: TextureRect = $ColorRect
 @onready var texture_rect: TextureRect = $TextureRect

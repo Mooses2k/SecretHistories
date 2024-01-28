@@ -253,7 +253,7 @@ func get_player_light_area() -> PlayerLightArea:
 		light_idx = wrapi(light_idx + 1, 0, light_sources.size() - 1)
 		
 		if !is_instance_valid(light_sources[light_idx]):
-			light_sources.remove(light_idx) ; continue
+			light_sources.remove_at(light_idx) ; continue   # manually changed from remove() during migration
 		
 		return light_sources[light_idx]
 	return null

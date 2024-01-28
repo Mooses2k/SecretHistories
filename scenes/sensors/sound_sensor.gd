@@ -32,13 +32,15 @@ func tick(_character: Character, _delta: float) -> int:
 	return OK if check_for_sounds() else FAILED
 
 
-func check_for_sounds() -> void:
+func check_for_sounds() -> bool:   # changed to bool during migration
 	for object in sound_sources:
 		var interest_level := get_interest_level(object) 
 		if !interest_level: continue
 		
 		emit_signal("sound_detected", object, interest_level)
 		emit_signal("event", interest_level, object.global_transform.origin, object, self)
+		return true   # this and next return line added during migration to fix error
+	return false
 
 
 func get_interest_level(source: Node3D) -> int:

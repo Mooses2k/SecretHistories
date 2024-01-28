@@ -105,15 +105,19 @@ func load_level(packed : PackedScene):
 	match current_floor_level:
 		-1:
 			BackgroundMusic.stream = _empty_ambience
+			BackgroundMusic.volume_db = 0
 			BackgroundMusic.play()
 		-2:
 			BackgroundMusic.stream = _empty_ambience
+			BackgroundMusic.volume_db = 0
 			BackgroundMusic.play()
 		-3:
 			BackgroundMusic.stream = _empty_ambience
+			BackgroundMusic.volume_db = 0
 			BackgroundMusic.play()
 		-4:
 			BackgroundMusic.stream = _empty_ambience
+			BackgroundMusic.volume_db = 0
 			BackgroundMusic.play()
 		-5:
 			BackgroundMusic.stop()   # Music will be the gregorian chanting from the shard

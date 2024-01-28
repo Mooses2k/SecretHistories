@@ -137,7 +137,7 @@ _data = {
 [node name="Character" type="CharacterBody3D" groups=["CHARACTER"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0378679, 0)
 collision_layer = 16
-collision_mask = 19
+collision_mask = 531
 script = ExtResource("1")
 _legcast = NodePath("Legs/Feet")
 

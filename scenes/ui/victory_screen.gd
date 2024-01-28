@@ -4,6 +4,7 @@ extends Control
 func _ready():
 	BackgroundMusic.stream = preload("res://resources/sounds/music/you_and_me_-_scp_fifthist_hub_old_am_radio_1.ogg")
 	if !BackgroundMusic.is_playing():
+		BackgroundMusic.volume_db = 0
 		BackgroundMusic.play()
 
 

@@ -9,6 +9,7 @@ func _ready():
 	$VBoxContainer/ContinueButton.grab_focus()
 	
 	if !BackgroundMusic.is_playing():
+		BackgroundMusic.volume_db = 0
 		BackgroundMusic.play()
 	
 	# Slowly animate up the title text

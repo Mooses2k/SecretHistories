@@ -286,7 +286,7 @@ func kick():
 	if kick_timer.is_stopped() and legcast.is_colliding() and stamina > 50:
 		var kick_object = legcast.get_collider()
 		if is_instance_valid(_camera):
-			_camera.add_stress(0.25)
+			_camera.add_stress(0.5)
 		kick_timer.start()
 		
 		stamina -= 50

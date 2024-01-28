@@ -19,6 +19,7 @@ func _input(event):
 
 
 func _on_PreMusicTimer_timeout():
+	BackgroundMusic.volume_db = 0
 	BackgroundMusic.play()
 	$Timer.start()
 

@@ -39,7 +39,6 @@ func _ready():
 	print("player.gd added candle")
 
 
-
 func _process(delta: float) -> void:
 	# TODO: This should probably be in character.gd
 	if is_reloading == true:

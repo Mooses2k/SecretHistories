@@ -16,12 +16,12 @@ enum HoldStates {
 	UNEQUIPPED
 }
 
-
 @export var _cam_path : NodePath
 
 var offhand_active = false
 var mainhand_active = false
 var is_on_ads = false
+var ads_tween : Tween
 
 @onready var inventory = $"../Inventory"
 @onready var arm_position = %MainCharOnlyArmsGameRig.position
@@ -244,7 +244,7 @@ func operation_tween(object : Object, method, tweening_from, tweening_to, durati
 	.from(tweening_from)\
 	.set_trans(Tween.TRANS_LINEAR)
 
-var ads_tween : Tween
+
 func adjust_arm(final_position, interpolation_value):
 	if is_instance_valid(ads_tween):
 		ads_tween.kill()

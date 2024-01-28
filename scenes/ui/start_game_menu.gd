@@ -10,6 +10,7 @@ func _ready() -> void:
 	game = GAME_SCENE.instantiate()
 	%StartGameSettings.attach_settings(game.get_node("%LocalSettings"))
 	%SettingsUI.attach_settings(game.get_node("%LocalSettings"), false)
+	BackgroundMusic.volume_db = -10
 
 
 func _input(event):
@@ -30,7 +31,8 @@ func _on_GhostDetectionRange_value_changed(value: float) -> void:
 
 
 func _on_StartGame_pressed() -> void:
-	$HBoxContainer.visible = false
+	$MarginContainer/HBoxContainer.visible = false
+	$TextureRect.visible = false
 	BackgroundMusic.stop()
 	$AudioStreamPlayer.play()
 	$Timer.start(3)

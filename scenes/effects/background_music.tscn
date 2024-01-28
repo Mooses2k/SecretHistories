@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://j2eycaw7ehml"]
 
-[ext_resource path="res://resources/sounds/music/main_menu_music_FUGUE.mp3" type="AudioStream" id=1]
+[ext_resource type="AudioStream" uid="uid://bddpsuvqttqe6" path="res://resources/sounds/music/main_menu_music_FUGUE.mp3" id="1"]
 
 [node name="BackgroundMusic" type="AudioStreamPlayer"]
-stream = ExtResource( 1 )
-bus = "Music"
+stream = ExtResource("1")
+bus = &"Music"

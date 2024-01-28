@@ -1,5 +1,6 @@
 extends Node
 
+
 @export var frame_interval : int = 1
 
 var frame_count : int = 0
@@ -9,8 +10,6 @@ var kick_raycast : RayCast3D
 func _ready():
 	await owner.ready
 	kick_raycast = owner.legcast
-	pass # Replace with function body.
-
 
 
 func _physics_process(delta):

@@ -7,9 +7,6 @@ var node_to_view : Dictionary = {}
 @export var failed_color : Color = Color.RED
 @export var skip_color : Color = Color.DARK_GRAY
 
-func _ready() -> void:
-	pass # Replace with function body.
-
 
 func initialize_tree(root_node : BTNode):
 	clear()

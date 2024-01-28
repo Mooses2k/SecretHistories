@@ -5,7 +5,6 @@ extends GenerationStep
 
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	contour_walls(data)
-	pass
 
 
 func contour_walls(data : WorldData):

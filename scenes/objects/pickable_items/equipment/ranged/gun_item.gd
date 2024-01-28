@@ -170,8 +170,8 @@ func _use_reload():
 
 
 func _use_unload():
-	return   # TODO: when animations available for unload, remove this line
-	unload()
+	#unload()   # TODO: when animations available for unload, remove this line
+	pass
 
 
 # TODO: Needs more code for revolvers and bolt-actions as they're more complicated

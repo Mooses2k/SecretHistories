@@ -8,10 +8,6 @@ var trigger = false
 const IMPULSE_MULTIPLIER = 1.0
 
 
-func _physics_process(delta):
-	pass
-
-
 func _on_Bomb_explosion():
 	var collisions = blastradius.get_overlapping_bodies()
 	collisions.append_array(blastradius.get_overlapping_areas())

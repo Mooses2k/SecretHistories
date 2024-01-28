@@ -46,7 +46,6 @@ extends ControlMode
 # func _ready():
 # 	aim.visible = false
 # 	aim.set_as_toplevel(true)
-# 	pass
 
 # func get_target_placement_position() -> Vector3:
 # 	var ray_end = aim.global_transform.origin

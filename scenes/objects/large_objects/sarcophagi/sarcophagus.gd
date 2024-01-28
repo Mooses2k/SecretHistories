@@ -131,6 +131,5 @@ func _on_2Tiles_tree_exiting() -> void:
 			var node_path := animation.track_get_path(index)
 			if node_path.get_name(0) == "2Tiles":
 				animation.remove_track(index)
-	pass
 
 ### -----------------------------------------------------------------------------------------------

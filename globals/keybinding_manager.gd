@@ -60,7 +60,6 @@ func load_keys():
 		keys_default = data
 	else:
 		printerr("corrupted data!")
-	pass
 
 
 func setup_keys(key_dict : Dictionary):

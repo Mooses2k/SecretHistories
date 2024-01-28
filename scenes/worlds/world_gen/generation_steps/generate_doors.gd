@@ -37,6 +37,7 @@ const DOUBLE_DOOR_ADJACENT_DIRECTION_P : Dictionary = {
 func _get_transform_for_cell_direction(data : WorldData, cell_index : int, direction : int):
 	pass
 
+
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	# Dictionary of scene -> corresponding spawn data
 	var doors_spawn_data : Dictionary = {}

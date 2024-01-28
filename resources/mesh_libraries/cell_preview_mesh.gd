@@ -13,7 +13,6 @@ func set_size(value : Vector3):
 
 func _init():
 	regenerate()
-	pass
 
 
 func regenerate():

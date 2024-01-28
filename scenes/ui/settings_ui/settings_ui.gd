@@ -40,7 +40,6 @@ func clear_ui():
 	for k in group_nodes.keys():
 		group_nodes[k].queue_free()
 	group_nodes.clear()
-	pass
 
 
 func generate_ui():
@@ -50,7 +49,6 @@ func generate_ui():
 	for _s in settings.get_settings_list():
 		var setting_name = _s as String
 		add_setting(setting_name)
-	pass
 
 
 func sort_setting_groups():
@@ -145,12 +143,10 @@ func add_blank_row() -> void:
 
 func has_group(group_name : String) -> bool:
 	return group_nodes.has(group_name)
-	pass
 
 
 func get_group_node(group_name : String) -> GroupClass:
 	return group_nodes.get(group_name)
-	pass
 
 
 func _on_ShowDebugOptions_pressed():

@@ -44,4 +44,3 @@ func on_setting_changed(setting_name, old_value, new_value):
 		SETTING_CROUCH:
 			#crouch_hold_enabled = new_value
 			SettingsConfig.save_settings()
-	pass

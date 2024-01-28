@@ -187,4 +187,3 @@ func world_changed(world_data : Array, world_size : int):
 	self.grid_size = world_size
 	self.cell_size = world.CELL_SIZE
 	self.generate_mesh(world_data)
-	pass # Replace with function body.

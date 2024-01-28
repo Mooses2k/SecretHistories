@@ -46,4 +46,3 @@ func _interact(character):
 		# as soon as it's called
 		if owner.can_lock() and other_half.try_lock_padlock():
 			self.is_locked = true
-	pass

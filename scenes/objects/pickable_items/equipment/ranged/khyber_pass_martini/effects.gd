@@ -13,9 +13,9 @@ func _on_GunItem_target_hit(target, position, direction, normal):
 	
 	world_scene.call_deferred("add_child", effect)
 
+
 # audiostream thing with unit_db to make this louder than the rifle
 func _on_GunItem_on_shoot():
 	handle_sound()
 	handle_particles()
 	handle_flash()
-	pass

@@ -8,7 +8,6 @@ var temp_setting_name : String = ""
 # Override this function
 func _get_value():
 	return str(%Value.text)
-	pass
 
 
 # Override this function
@@ -40,7 +39,6 @@ func _on_value_edited():
 	var new_value = get_value()
 	if new_value != settings.get_setting(_setting_name):
 		settings.set_setting(_setting_name, new_value)
-	pass
 
 
 # Override this function
@@ -71,7 +69,6 @@ func _on_setting_attached():
 	
 	temp_setting_name = temp_setting_name.replace("_", " ")
 	%Name.text = temp_setting_name[0].to_upper() + temp_setting_name.substr(1,-1)
-	pass
 
 
 func _on_Value_value_changed(value):

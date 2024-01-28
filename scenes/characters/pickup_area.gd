@@ -43,7 +43,6 @@ func get_item_list():
 		update_item_list()
 	
 	return item_list
-	pass
 
 
 func _physics_process(delta: float) -> void:
@@ -53,7 +52,6 @@ func _physics_process(delta: float) -> void:
 func item_removed(item : Node):
 #	item.disconnect("tree_exiting", self, "item_removed")
 	self.item_list.erase(item)
-	pass
 
 
 func attempt_pickup(item : PickableItem):

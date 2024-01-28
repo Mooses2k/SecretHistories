@@ -92,7 +92,6 @@ func _physics_process(delta):
 				
 		DoorState.STUCK:
 			door_should_move = false
-			pass
 
 
 func set_door_state(value : int):

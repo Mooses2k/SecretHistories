@@ -18,4 +18,3 @@ func _on_GunItem_on_shoot():
 	handle_sound()
 	handle_particles()
 	handle_flash()
-	pass

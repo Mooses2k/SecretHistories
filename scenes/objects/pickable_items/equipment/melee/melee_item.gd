@@ -36,10 +36,7 @@ var on_cooldown = false
 
 @onready var melee_hitbox = $Hitbox as Area3D
 
-@onready var character = get_parent()
 
-
-# Should be: Left-Click thrust, Right-Click cut, when nothing else, guard. Each attack has a recovery animation, but technically a thrust from one side should be able to recover to any of the guards
 func attack_thrust():
 	can_hit = true
 	did_a_thrust = true
@@ -112,12 +109,10 @@ func _use_secondary():
 		attack_cut()
 
 
-#
 #	TODO: Changing the status of the weapon (dropping the weapon or unequiping it)
 # while one of these timers is active should appropriately reset the timer and deal any of it's side effects
 #
 # currently if changed away from and changed back to melee weapon, first swing does nothing
-#
 
 
 func melee_throw_damage():
@@ -165,9 +160,9 @@ func _on_Hitbox_body_entered(body):
 		secondary_damage2 / 2
 	
 	# This pushes the hit object if it's a RigidBody
-#	if body is RigidBody and can_hit == true:
+	if body is RigidBody3D and can_hit == true:
 		# TODO: fix this, it's always pointing one direction possible because base character scene doesn't rotate?
-#		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage1)
-#		body.apply_central_impulse(-character.global_transform.basis.z * primary_damage2)
-#		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage1)
-#		body.apply_central_impulse(-character.global_transform.basis.z * secondary_damage2)
+		body.apply_central_impulse(-owner_character.global_transform.basis.z * primary_damage1)
+		body.apply_central_impulse(-owner_character.global_transform.basis.z * primary_damage2)
+		body.apply_central_impulse(-owner_character.global_transform.basis.z * secondary_damage1)
+		body.apply_central_impulse(-owner_character.global_transform.basis.z * secondary_damage2)

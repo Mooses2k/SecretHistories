@@ -53,7 +53,6 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		# connections
 		sorted_indexes.sort_custom(Callable(self, "_sort_cell_index_by_connections"))
 		gen_data[SORTED_GRAPH_INDEXES] = sorted_indexes
-	pass
 
 
 # gets all rooms as an Array of Rect2, returns an Array of Arrays of Rect2,
@@ -203,7 +202,6 @@ func add_extra_edges(from : Dictionary, to : Dictionary, random : RandomNumberGe
 		var b = from[a][random.randi_range(0, b_count - 1)]
 		graph_add_edge(to, a, b)
 		graph_remove_edge(from, a, b)
-	pass
 
 
 func graph_add_edge(graph : Dictionary, from : int, to : int):

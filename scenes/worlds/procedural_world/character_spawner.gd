@@ -144,7 +144,6 @@ func _set_random_loadout(character: Node3D) -> void:
 				if not inventory.tiny_items.has(item):
 					inventory.tiny_items[item] = 0
 				inventory.tiny_items[item] += amount
-				pass
 			elif item is PackedScene:
 				var instanced = item.instantiate()
 				if instanced is PickableItem:

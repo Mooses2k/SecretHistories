@@ -63,18 +63,15 @@ func _on_setting_changed(old_value, new_value):
 	else:
 		if new_value != get_value():
 			set_value(new_value)
-	pass
 
 
 func on_setting_removed(setting_name):
 	if setting_name == _setting_name:
 		_on_setting_removed()
-	pass
 
 
 func _on_setting_removed():
 	queue_free()
-	pass
 
 
 func on_value_edited():

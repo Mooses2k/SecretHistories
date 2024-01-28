@@ -183,7 +183,6 @@ func set_keys(x):
 func _input(event):
 	if event is InputEvent and is_waiting_input:
 		print("key pressed " + str(OS.get_keycode_string(event.physical_keycode)))
-		pass
 
 
 func set_action_event(value : float):

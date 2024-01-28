@@ -12,7 +12,6 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	var random = RandomNumberGenerator.new()
 	random.seed = generation_seed
 	generate_halls(data, random)
-	pass
 
 
 func generate_halls(data : WorldData, random : RandomNumberGenerator):
@@ -57,4 +56,3 @@ func generate_halls(data : WorldData, random : RandomNumberGenerator):
 	for i in data.cell_count:
 		if region_id[i] >= 0 and region_valid[region_id[i]]:
 			data.set_cell_type(i, data.CellType.HALL)
-	pass

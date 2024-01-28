@@ -89,4 +89,3 @@ func on_setting_changed(setting_name, old_value, new_value):
 			set_volume(bus_effects, new_value*internal_effects_volume, true)
 		SETTING_VOICE_VOLUME:
 			set_volume(bus_voice, new_value, true)
-	pass

@@ -44,11 +44,6 @@ func _ready():
 #	inventory.connect("equip_offhand", self, "_on_Inventory_equip_offhand")
 
 
-func _process(delta):
-	if not $"..".is_reloading:   # TODO: messy
-		pass
-
-
 func check_player_animation():
 	
 	for bulky_item in owner.mainhand_equipment_root.get_children():

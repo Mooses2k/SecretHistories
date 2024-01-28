@@ -21,10 +21,8 @@ func _ready() -> void:
 
 func exit_state():
 	self.visible = false
-	pass
 
 
 func enter_state():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	self.visible = true
-	pass

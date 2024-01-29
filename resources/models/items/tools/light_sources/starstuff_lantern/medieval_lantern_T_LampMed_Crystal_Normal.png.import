@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cijji215aaff2"
 path.s3tc="res://.godot/imported/medieval_lantern_T_LampMed_Crystal_Normal.png-e600a014fc5899388b129b1101f0b685.s3tc.ctex"
+path.etc2="res://.godot/imported/medieval_lantern_T_LampMed_Crystal_Normal.png-e600a014fc5899388b129b1101f0b685.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/medieval_lantern_T_LampMed_Crystal_Normal.png"
-dest_files=["res://.godot/imported/medieval_lantern_T_LampMed_Crystal_Normal.png-e600a014fc5899388b129b1101f0b685.s3tc.ctex"]
+dest_files=["res://.godot/imported/medieval_lantern_T_LampMed_Crystal_Normal.png-e600a014fc5899388b129b1101f0b685.s3tc.ctex", "res://.godot/imported/medieval_lantern_T_LampMed_Crystal_Normal.png-e600a014fc5899388b129b1101f0b685.etc2.ctex"]
 
 [params]
 

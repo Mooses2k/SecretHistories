@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0w7ig58pr3b3"
 path.s3tc="res://.godot/imported/trn_CupMetal_Normal.png-e091b310286fe3d2c5d171bd4704a536.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_CupMetal_Normal.png-e091b310286fe3d2c5d171bd4704a536.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/containers/dining/cups/trn_CupMetal_Normal.png"
-dest_files=["res://.godot/imported/trn_CupMetal_Normal.png-e091b310286fe3d2c5d171bd4704a536.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_CupMetal_Normal.png-e091b310286fe3d2c5d171bd4704a536.s3tc.ctex", "res://.godot/imported/trn_CupMetal_Normal.png-e091b310286fe3d2c5d171bd4704a536.etc2.ctex"]
 
 [params]
 

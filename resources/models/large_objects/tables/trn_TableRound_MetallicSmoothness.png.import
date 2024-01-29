@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcdb31ghibayl"
 path.s3tc="res://.godot/imported/trn_TableRound_MetallicSmoothness.png-53c137fd00063b4b0921b464a94ec1a0.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_TableRound_MetallicSmoothness.png-53c137fd00063b4b0921b464a94ec1a0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/tables/trn_TableRound_MetallicSmoothness.png"
-dest_files=["res://.godot/imported/trn_TableRound_MetallicSmoothness.png-53c137fd00063b4b0921b464a94ec1a0.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_TableRound_MetallicSmoothness.png-53c137fd00063b4b0921b464a94ec1a0.s3tc.ctex", "res://.godot/imported/trn_TableRound_MetallicSmoothness.png-53c137fd00063b4b0921b464a94ec1a0.etc2.ctex"]
 
 [params]
 

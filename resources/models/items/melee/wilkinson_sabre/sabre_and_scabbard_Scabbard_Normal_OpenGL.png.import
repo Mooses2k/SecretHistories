@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8tv4lga1iryf"
 path.s3tc="res://.godot/imported/sabre_and_scabbard_Scabbard_Normal_OpenGL.png-90a36b9f72015a9d411ea91eb70e0fa6.s3tc.ctex"
+path.etc2="res://.godot/imported/sabre_and_scabbard_Scabbard_Normal_OpenGL.png-90a36b9f72015a9d411ea91eb70e0fa6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/melee/wilkinson_sabre/sabre_and_scabbard_Scabbard_Normal_OpenGL.png"
-dest_files=["res://.godot/imported/sabre_and_scabbard_Scabbard_Normal_OpenGL.png-90a36b9f72015a9d411ea91eb70e0fa6.s3tc.ctex"]
+dest_files=["res://.godot/imported/sabre_and_scabbard_Scabbard_Normal_OpenGL.png-90a36b9f72015a9d411ea91eb70e0fa6.s3tc.ctex", "res://.godot/imported/sabre_and_scabbard_Scabbard_Normal_OpenGL.png-90a36b9f72015a9d411ea91eb70e0fa6.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://nwpmspygralj"
 path.s3tc="res://.godot/imported/neophyte_scaled_no_cape_RobedCultist_Normal_DirectX.png-82fe848cce1ae3642f1d58f2016450c7.s3tc.ctex"
+path.etc2="res://.godot/imported/neophyte_scaled_no_cape_RobedCultist_Normal_DirectX.png-82fe848cce1ae3642f1d58f2016450c7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/characters/cultists/cultist_neophyte/neophyte_scaled_no_cape_RobedCultist_Normal_DirectX.png"
-dest_files=["res://.godot/imported/neophyte_scaled_no_cape_RobedCultist_Normal_DirectX.png-82fe848cce1ae3642f1d58f2016450c7.s3tc.ctex"]
+dest_files=["res://.godot/imported/neophyte_scaled_no_cape_RobedCultist_Normal_DirectX.png-82fe848cce1ae3642f1d58f2016450c7.s3tc.ctex", "res://.godot/imported/neophyte_scaled_no_cape_RobedCultist_Normal_DirectX.png-82fe848cce1ae3642f1d58f2016450c7.etc2.ctex"]
 
 [params]
 

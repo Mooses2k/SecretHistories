@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddnwonporlat8"
 path.s3tc="res://.godot/imported/OilLamp_T_LanternOil_BaseColor.jpeg-T_LanternOil_Opacity.png-0cb590b05c9e9c1be993ff00534aa525.s3tc.ctex"
+path.etc2="res://.godot/imported/OilLamp_T_LanternOil_BaseColor.jpeg-T_LanternOil_Opacity.png-0cb590b05c9e9c1be993ff00534aa525.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/omnidirectional_lantern/OilLamp_T_LanternOil_BaseColor.jpeg-T_LanternOil_Opacity.png"
-dest_files=["res://.godot/imported/OilLamp_T_LanternOil_BaseColor.jpeg-T_LanternOil_Opacity.png-0cb590b05c9e9c1be993ff00534aa525.s3tc.ctex"]
+dest_files=["res://.godot/imported/OilLamp_T_LanternOil_BaseColor.jpeg-T_LanternOil_Opacity.png-0cb590b05c9e9c1be993ff00534aa525.s3tc.ctex", "res://.godot/imported/OilLamp_T_LanternOil_BaseColor.jpeg-T_LanternOil_Opacity.png-0cb590b05c9e9c1be993ff00534aa525.etc2.ctex"]
 
 [params]
 

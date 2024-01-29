@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dswocn8xqmcal"
 path.s3tc="res://.godot/imported/ModularPiecesExport_T_DoorSimple1_Normal.png-90d034ac1cc6faca516d9ddb3d1e385a.s3tc.ctex"
+path.etc2="res://.godot/imported/ModularPiecesExport_T_DoorSimple1_Normal.png-90d034ac1cc6faca516d9ddb3d1e385a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/gridmap/modular_doors/ModularPiecesExport_T_DoorSimple1_Normal.png"
-dest_files=["res://.godot/imported/ModularPiecesExport_T_DoorSimple1_Normal.png-90d034ac1cc6faca516d9ddb3d1e385a.s3tc.ctex"]
+dest_files=["res://.godot/imported/ModularPiecesExport_T_DoorSimple1_Normal.png-90d034ac1cc6faca516d9ddb3d1e385a.s3tc.ctex", "res://.godot/imported/ModularPiecesExport_T_DoorSimple1_Normal.png-90d034ac1cc6faca516d9ddb3d1e385a.etc2.ctex"]
 
 [params]
 

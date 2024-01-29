@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://76e8d41gwitm"
 path.s3tc="res://.godot/imported/sm_gargoyle_broken_color_map_5.png-ef2e718048ec1e2deffb73b3f2a599cd.s3tc.ctex"
+path.etc2="res://.godot/imported/sm_gargoyle_broken_color_map_5.png-ef2e718048ec1e2deffb73b3f2a599cd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/statues/gargoyle2/sm_gargoyle_broken_color_map_5.png"
-dest_files=["res://.godot/imported/sm_gargoyle_broken_color_map_5.png-ef2e718048ec1e2deffb73b3f2a599cd.s3tc.ctex"]
+dest_files=["res://.godot/imported/sm_gargoyle_broken_color_map_5.png-ef2e718048ec1e2deffb73b3f2a599cd.s3tc.ctex", "res://.godot/imported/sm_gargoyle_broken_color_map_5.png-ef2e718048ec1e2deffb73b3f2a599cd.etc2.ctex"]
 
 [params]
 

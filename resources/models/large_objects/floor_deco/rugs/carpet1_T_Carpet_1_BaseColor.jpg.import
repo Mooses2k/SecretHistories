@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ggkwqa0w765j"
 path.s3tc="res://.godot/imported/carpet1_T_Carpet_1_BaseColor.jpg-2cbc278cb0b6772502b3481614fb6898.s3tc.ctex"
+path.etc2="res://.godot/imported/carpet1_T_Carpet_1_BaseColor.jpg-2cbc278cb0b6772502b3481614fb6898.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/floor_deco/rugs/carpet1_T_Carpet_1_BaseColor.jpg"
-dest_files=["res://.godot/imported/carpet1_T_Carpet_1_BaseColor.jpg-2cbc278cb0b6772502b3481614fb6898.s3tc.ctex"]
+dest_files=["res://.godot/imported/carpet1_T_Carpet_1_BaseColor.jpg-2cbc278cb0b6772502b3481614fb6898.s3tc.ctex", "res://.godot/imported/carpet1_T_Carpet_1_BaseColor.jpg-2cbc278cb0b6772502b3481614fb6898.etc2.ctex"]
 
 [params]
 

@@ -1,93 +1,109 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=3 uid="uid://dd8qyetmxdcno"]
 
-[ext_resource path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" type="AudioStream" id=1]
-[ext_resource path="res://resources/sounds/impacts/metal_and_gun/653370__triqystudio__dullthud.wav" type="AudioStream" id=2]
-[ext_resource path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" type="AudioStream" id=3]
-[ext_resource path="res://resources/models/items/melee/mace/Mace.tres" type="Material" id=4]
-[ext_resource path="res://resources/models/items/melee/mace/source/Bulava.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" type="AudioStream" id=9]
-[ext_resource path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" type="AudioStream" id=10]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" type="PackedScene" id=17]
+[ext_resource type="AudioStream" uid="uid://ct80va2cymb30" path="res://resources/sounds/throwing/607856__department64__whipstick-29.ogg" id="1"]
+[ext_resource type="AudioStream" uid="uid://4sf0a2k8q4d6" path="res://resources/sounds/impacts/metal_and_gun/653370__triqystudio__dullthud.wav" id="2"]
+[ext_resource type="AudioStream" uid="uid://bifhmfmybkfly" path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" id="3"]
+[ext_resource type="Material" path="res://resources/models/items/melee/mace/Mace.tres" id="4"]
+[ext_resource type="ArrayMesh" uid="uid://cucvbr82xw00c" path="res://resources/models/items/melee/mace/source/Bulava.obj" id="5"]
+[ext_resource type="AudioStream" uid="uid://dg7noquhwfeve" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" id="9"]
+[ext_resource type="AudioStream" uid="uid://dfoxypidjr2o" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="17"]
 
-[sub_resource type="BoxShape3D" id=4]
-extents = Vector3( 0.0541316, 0.0303402, 0.051851 )
+[sub_resource type="BoxShape3D" id="4"]
+size = Vector3(0.108263, 0.0606804, 0.103702)
 
-[sub_resource type="SphereShape3D" id=5]
+[sub_resource type="SphereShape3D" id="5"]
 radius = 0.04
 
-[sub_resource type="CylinderShape3D" id=6]
+[sub_resource type="CylinderShape3D" id="6"]
 height = 0.5
 radius = 0.02
 
-[sub_resource type="CylinderShape3D" id=3]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ssnou"]
+radius = 0.0145947
+
+[sub_resource type="CylinderShape3D" id="3"]
 height = 0.145875
 radius = 0.1
 
-[node name="Mace" instance=ExtResource( 17 )]
+[node name="Mace" instance=ExtResource("17")]
 mass = 2.5
-item_drop_sound = ExtResource( 2 )
-item_throw_sound = ExtResource( 1 )
-item_name = "Mace"
-normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
-throw_logic = true
-can_spin = true
 weapon_type = 2
 primary_damage1 = 20
 secondary_damage1 = 51
+item_name = "Mace"
+normal_pos_path = NodePath("NormalPosition")
+throw_pos_path = NodePath("ThrowPosition")
+item_drop_sound = ExtResource("2")
+item_throw_sound = ExtResource("1")
+can_spin = true
 
 [node name="MeshInstance3D" parent="." index="0"]
-transform = Transform3D( 0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, -0.223767, 0 )
-mesh = ExtResource( 5 )
+transform = Transform3D(0.005, 0, 0, 0, 0.005, 0, 0, 0, 0.005, 0, -0.223767, 0)
+mesh = ExtResource("5")
 skeleton = NodePath("")
-surface_material_override/0 = ExtResource( 4 )
-__meta__ = {
-"_editor_description_": ""
-}
+surface_material_override/0 = ExtResource("4")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130931, 0 )
-shape = SubResource( 4 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.130931, 0)
+shape = SubResource("4")
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="." index="2"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138753, 0 )
-shape = SubResource( 5 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138753, 0)
+shape = SubResource("5")
 
 [node name="CollisionShape3" type="CollisionShape3D" parent="." index="3"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.116707, 0 )
-shape = SubResource( 6 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.116707, 0)
+shape = SubResource("6")
 
-[node name="Hitbox" parent="." index="4"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179844, 0 )
+[node name="CollisionShape4" type="CollisionShape3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.362261, 0)
+shape = SubResource("SphereShape3D_ssnou")
+
+[node name="Hitbox" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.179844, 0)
 
 [node name="CollisionShape3D" parent="Hitbox" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0 )
-shape = SubResource( 3 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0892928, 0)
+shape = SubResource("3")
 
-[node name="CooldownTimer" parent="." index="5"]
+[node name="CooldownTimer" parent="." index="6"]
 wait_time = 0.5
 
-[node name="HoldPosition" parent="." index="6"]
+[node name="HoldPosition" parent="." index="7"]
 unique_name_in_owner = false
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273457, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273457, 0)
 
-[node name="NormalPosition" parent="." index="7"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310187, 0 )
+[node name="NormalPosition" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310187, 0)
 
-[node name="ThrowPosition" parent="." index="8"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439791, 0 )
+[node name="ThrowPosition" parent="." index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439791, 0)
+
+[node name="Unsheath" parent="Sounds" index="0"]
+bus = &"Effects"
+
+[node name="Sheath" parent="Sounds" index="1"]
+bus = &"Effects"
 
 [node name="Thrust" parent="Sounds" index="2"]
-stream = ExtResource( 3 )
+stream = ExtResource("3")
+bus = &"Effects"
 
 [node name="Cut" parent="Sounds" index="3"]
-stream = ExtResource( 3 )
+stream = ExtResource("3")
+bus = &"Effects"
+
+[node name="Parry" parent="Sounds" index="4"]
+bus = &"Effects"
 
 [node name="FleshThrust" parent="Sounds" index="5"]
-stream = ExtResource( 10 )
+stream = ExtResource("10")
+bus = &"Effects"
 
 [node name="FleshCut" parent="Sounds" index="6"]
-stream = ExtResource( 9 )
+stream = ExtResource("9")
+bus = &"Effects"
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]

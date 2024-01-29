@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://t7t2hmon3hna"
 path.s3tc="res://.godot/imported/brazier1_v2_T_Brazier1_normal.png-e76037589b0cddd76654cb5d5b6a8bb0.s3tc.ctex"
+path.etc2="res://.godot/imported/brazier1_v2_T_Brazier1_normal.png-e76037589b0cddd76654cb5d5b6a8bb0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/brazier/brazier1_v2_T_Brazier1_normal.png"
-dest_files=["res://.godot/imported/brazier1_v2_T_Brazier1_normal.png-e76037589b0cddd76654cb5d5b6a8bb0.s3tc.ctex"]
+dest_files=["res://.godot/imported/brazier1_v2_T_Brazier1_normal.png-e76037589b0cddd76654cb5d5b6a8bb0.s3tc.ctex", "res://.godot/imported/brazier1_v2_T_Brazier1_normal.png-e76037589b0cddd76654cb5d5b6a8bb0.etc2.ctex"]
 
 [params]
 

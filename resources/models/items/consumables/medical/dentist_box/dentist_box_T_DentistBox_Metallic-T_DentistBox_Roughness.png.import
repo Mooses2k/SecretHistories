@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dq1jf4j8l8ekn"
 path.s3tc="res://.godot/imported/dentist_box_T_DentistBox_Metallic-T_DentistBox_Roughness.png-d1571f6ff5a67797daa5304fc7bc777f.s3tc.ctex"
+path.etc2="res://.godot/imported/dentist_box_T_DentistBox_Metallic-T_DentistBox_Roughness.png-d1571f6ff5a67797daa5304fc7bc777f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/medical/dentist_box/dentist_box_T_DentistBox_Metallic-T_DentistBox_Roughness.png"
-dest_files=["res://.godot/imported/dentist_box_T_DentistBox_Metallic-T_DentistBox_Roughness.png-d1571f6ff5a67797daa5304fc7bc777f.s3tc.ctex"]
+dest_files=["res://.godot/imported/dentist_box_T_DentistBox_Metallic-T_DentistBox_Roughness.png-d1571f6ff5a67797daa5304fc7bc777f.s3tc.ctex", "res://.godot/imported/dentist_box_T_DentistBox_Metallic-T_DentistBox_Roughness.png-d1571f6ff5a67797daa5304fc7bc777f.etc2.ctex"]
 
 [params]
 

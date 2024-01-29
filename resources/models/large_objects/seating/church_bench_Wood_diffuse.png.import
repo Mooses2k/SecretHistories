@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu6mghf76ro0p"
 path.s3tc="res://.godot/imported/church_bench_Wood_diffuse.png-b97954008ecfe82f2589e44b642ed1ab.s3tc.ctex"
+path.etc2="res://.godot/imported/church_bench_Wood_diffuse.png-b97954008ecfe82f2589e44b642ed1ab.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/seating/church_bench_Wood_diffuse.png"
-dest_files=["res://.godot/imported/church_bench_Wood_diffuse.png-b97954008ecfe82f2589e44b642ed1ab.s3tc.ctex"]
+dest_files=["res://.godot/imported/church_bench_Wood_diffuse.png-b97954008ecfe82f2589e44b642ed1ab.s3tc.ctex", "res://.godot/imported/church_bench_Wood_diffuse.png-b97954008ecfe82f2589e44b642ed1ab.etc2.ctex"]
 
 [params]
 

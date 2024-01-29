@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ysl48ljbvnu7"
 path.s3tc="res://.godot/imported/sabre_and_scabbard_Scabbard_Mixed_AO.png-2d500e8731374536ff316a63b88b94b3.s3tc.ctex"
+path.etc2="res://.godot/imported/sabre_and_scabbard_Scabbard_Mixed_AO.png-2d500e8731374536ff316a63b88b94b3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/melee/wilkinson_sabre/sabre_and_scabbard_Scabbard_Mixed_AO.png"
-dest_files=["res://.godot/imported/sabre_and_scabbard_Scabbard_Mixed_AO.png-2d500e8731374536ff316a63b88b94b3.s3tc.ctex"]
+dest_files=["res://.godot/imported/sabre_and_scabbard_Scabbard_Mixed_AO.png-2d500e8731374536ff316a63b88b94b3.s3tc.ctex", "res://.godot/imported/sabre_and_scabbard_Scabbard_Mixed_AO.png-2d500e8731374536ff316a63b88b94b3.etc2.ctex"]
 
 [params]
 

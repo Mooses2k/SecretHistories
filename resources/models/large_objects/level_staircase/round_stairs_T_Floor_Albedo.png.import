@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://drhmnt2imsm0s"
 path.s3tc="res://.godot/imported/round_stairs_T_Floor_Albedo.png-330e80d78cfd479ff0e5900feaf12780.s3tc.ctex"
+path.etc2="res://.godot/imported/round_stairs_T_Floor_Albedo.png-330e80d78cfd479ff0e5900feaf12780.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/level_staircase/round_stairs_T_Floor_Albedo.png"
-dest_files=["res://.godot/imported/round_stairs_T_Floor_Albedo.png-330e80d78cfd479ff0e5900feaf12780.s3tc.ctex"]
+dest_files=["res://.godot/imported/round_stairs_T_Floor_Albedo.png-330e80d78cfd479ff0e5900feaf12780.s3tc.ctex", "res://.godot/imported/round_stairs_T_Floor_Albedo.png-330e80d78cfd479ff0e5900feaf12780.etc2.ctex"]
 
 [params]
 

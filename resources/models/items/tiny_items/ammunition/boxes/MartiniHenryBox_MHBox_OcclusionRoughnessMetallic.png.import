@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://npka4gwlb8sr"
 path.s3tc="res://.godot/imported/MartiniHenryBox_MHBox_OcclusionRoughnessMetallic.png-367f62f8c9a9c3a385e5463091c9bbfe.s3tc.ctex"
+path.etc2="res://.godot/imported/MartiniHenryBox_MHBox_OcclusionRoughnessMetallic.png-367f62f8c9a9c3a385e5463091c9bbfe.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/boxes/MartiniHenryBox_MHBox_OcclusionRoughnessMetallic.png"
-dest_files=["res://.godot/imported/MartiniHenryBox_MHBox_OcclusionRoughnessMetallic.png-367f62f8c9a9c3a385e5463091c9bbfe.s3tc.ctex"]
+dest_files=["res://.godot/imported/MartiniHenryBox_MHBox_OcclusionRoughnessMetallic.png-367f62f8c9a9c3a385e5463091c9bbfe.s3tc.ctex", "res://.godot/imported/MartiniHenryBox_MHBox_OcclusionRoughnessMetallic.png-367f62f8c9a9c3a385e5463091c9bbfe.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://5wuckisvf2p1"
 path.s3tc="res://.godot/imported/khyber_pass_martini_pistol_1.png-376a389ee3aa031cd3c2e426975dba78.s3tc.ctex"
+path.etc2="res://.godot/imported/khyber_pass_martini_pistol_1.png-376a389ee3aa031cd3c2e426975dba78.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/martini-henry_pistol/khyber_pass_martini_pistol_1.png"
-dest_files=["res://.godot/imported/khyber_pass_martini_pistol_1.png-376a389ee3aa031cd3c2e426975dba78.s3tc.ctex"]
+dest_files=["res://.godot/imported/khyber_pass_martini_pistol_1.png-376a389ee3aa031cd3c2e426975dba78.s3tc.ctex", "res://.godot/imported/khyber_pass_martini_pistol_1.png-376a389ee3aa031cd3c2e426975dba78.etc2.ctex"]
 
 [params]
 

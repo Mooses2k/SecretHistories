@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1itcjuubvmyt"
 path.s3tc="res://.godot/imported/medieval_fountain_empty_Image_13.png-9c10b81d552ec7943e5584ff94437cb4.s3tc.ctex"
+path.etc2="res://.godot/imported/medieval_fountain_empty_Image_13.png-9c10b81d552ec7943e5584ff94437cb4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/fountains_and_wells/medieval_fountain_empty_Image_13.png"
-dest_files=["res://.godot/imported/medieval_fountain_empty_Image_13.png-9c10b81d552ec7943e5584ff94437cb4.s3tc.ctex"]
+dest_files=["res://.godot/imported/medieval_fountain_empty_Image_13.png-9c10b81d552ec7943e5584ff94437cb4.s3tc.ctex", "res://.godot/imported/medieval_fountain_empty_Image_13.png-9c10b81d552ec7943e5584ff94437cb4.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cftcs3ygsoa05"
 path.s3tc="res://.godot/imported/medieval_lantern_T_LampMedieval_BaseColor.png-9fc9c3b69d5ae7fb9ee47e9c9e0faac4.s3tc.ctex"
+path.etc2="res://.godot/imported/medieval_lantern_T_LampMedieval_BaseColor.png-9fc9c3b69d5ae7fb9ee47e9c9e0faac4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/medieval_lantern_T_LampMedieval_BaseColor.png"
-dest_files=["res://.godot/imported/medieval_lantern_T_LampMedieval_BaseColor.png-9fc9c3b69d5ae7fb9ee47e9c9e0faac4.s3tc.ctex"]
+dest_files=["res://.godot/imported/medieval_lantern_T_LampMedieval_BaseColor.png-9fc9c3b69d5ae7fb9ee47e9c9e0faac4.s3tc.ctex", "res://.godot/imported/medieval_lantern_T_LampMedieval_BaseColor.png-9fc9c3b69d5ae7fb9ee47e9c9e0faac4.etc2.ctex"]
 
 [params]
 

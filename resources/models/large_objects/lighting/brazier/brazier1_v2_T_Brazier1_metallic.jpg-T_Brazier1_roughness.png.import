@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://didvtmrgawwe"
 path.s3tc="res://.godot/imported/brazier1_v2_T_Brazier1_metallic.jpg-T_Brazier1_roughness.png-e61741eae3be08fbd8856de45b46da4e.s3tc.ctex"
+path.etc2="res://.godot/imported/brazier1_v2_T_Brazier1_metallic.jpg-T_Brazier1_roughness.png-e61741eae3be08fbd8856de45b46da4e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/brazier/brazier1_v2_T_Brazier1_metallic.jpg-T_Brazier1_roughness.png"
-dest_files=["res://.godot/imported/brazier1_v2_T_Brazier1_metallic.jpg-T_Brazier1_roughness.png-e61741eae3be08fbd8856de45b46da4e.s3tc.ctex"]
+dest_files=["res://.godot/imported/brazier1_v2_T_Brazier1_metallic.jpg-T_Brazier1_roughness.png-e61741eae3be08fbd8856de45b46da4e.s3tc.ctex", "res://.godot/imported/brazier1_v2_T_Brazier1_metallic.jpg-T_Brazier1_roughness.png-e61741eae3be08fbd8856de45b46da4e.etc2.ctex"]
 
 [params]
 

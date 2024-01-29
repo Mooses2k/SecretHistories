@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ci44lhufsb852"
 path.s3tc="res://.godot/imported/SM_Dynamite_T_DynamiteNormal.png-e1aa5b00ac689af0880285519272b7b7.s3tc.ctex"
+path.etc2="res://.godot/imported/SM_Dynamite_T_DynamiteNormal.png-e1aa5b00ac689af0880285519272b7b7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/bombs/dynamite/SM_Dynamite_T_DynamiteNormal.png"
-dest_files=["res://.godot/imported/SM_Dynamite_T_DynamiteNormal.png-e1aa5b00ac689af0880285519272b7b7.s3tc.ctex"]
+dest_files=["res://.godot/imported/SM_Dynamite_T_DynamiteNormal.png-e1aa5b00ac689af0880285519272b7b7.s3tc.ctex", "res://.godot/imported/SM_Dynamite_T_DynamiteNormal.png-e1aa5b00ac689af0880285519272b7b7.etc2.ctex"]
 
 [params]
 

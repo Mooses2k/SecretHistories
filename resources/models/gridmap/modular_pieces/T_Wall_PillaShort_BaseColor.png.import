@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmvojd2fyno4i"
 path.s3tc="res://.godot/imported/T_Wall_PillaShort_BaseColor.png-1e9a32e731d45cdff823201f8846d6b6.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Wall_PillaShort_BaseColor.png-1e9a32e731d45cdff823201f8846d6b6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/gridmap/modular_pieces/T_Wall_PillaShort_BaseColor.png"
-dest_files=["res://.godot/imported/T_Wall_PillaShort_BaseColor.png-1e9a32e731d45cdff823201f8846d6b6.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Wall_PillaShort_BaseColor.png-1e9a32e731d45cdff823201f8846d6b6.s3tc.ctex", "res://.godot/imported/T_Wall_PillaShort_BaseColor.png-1e9a32e731d45cdff823201f8846d6b6.etc2.ctex"]
 
 [params]
 

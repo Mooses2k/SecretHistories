@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c40daud5pmdbp"
 path.s3tc="res://.godot/imported/spyglass_v2_T_Spyglass_Metallic.png-T_Spyglass_Roughness.png-51618020479820cd47960971ed6079bb.s3tc.ctex"
+path.etc2="res://.godot/imported/spyglass_v2_T_Spyglass_Metallic.png-T_Spyglass_Roughness.png-51618020479820cd47960971ed6079bb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/spyglass/spyglass_v2_T_Spyglass_Metallic.png-T_Spyglass_Roughness.png"
-dest_files=["res://.godot/imported/spyglass_v2_T_Spyglass_Metallic.png-T_Spyglass_Roughness.png-51618020479820cd47960971ed6079bb.s3tc.ctex"]
+dest_files=["res://.godot/imported/spyglass_v2_T_Spyglass_Metallic.png-T_Spyglass_Roughness.png-51618020479820cd47960971ed6079bb.s3tc.ctex", "res://.godot/imported/spyglass_v2_T_Spyglass_Metallic.png-T_Spyglass_Roughness.png-51618020479820cd47960971ed6079bb.etc2.ctex"]
 
 [params]
 

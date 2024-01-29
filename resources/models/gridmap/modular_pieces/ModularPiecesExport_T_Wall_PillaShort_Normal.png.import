@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bu85r4r1ki3vm"
 path.s3tc="res://.godot/imported/ModularPiecesExport_T_Wall_PillaShort_Normal.png-e49fd69d28e17dd8ff649bf3320b6d24.s3tc.ctex"
+path.etc2="res://.godot/imported/ModularPiecesExport_T_Wall_PillaShort_Normal.png-e49fd69d28e17dd8ff649bf3320b6d24.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/gridmap/modular_pieces/ModularPiecesExport_T_Wall_PillaShort_Normal.png"
-dest_files=["res://.godot/imported/ModularPiecesExport_T_Wall_PillaShort_Normal.png-e49fd69d28e17dd8ff649bf3320b6d24.s3tc.ctex"]
+dest_files=["res://.godot/imported/ModularPiecesExport_T_Wall_PillaShort_Normal.png-e49fd69d28e17dd8ff649bf3320b6d24.s3tc.ctex", "res://.godot/imported/ModularPiecesExport_T_Wall_PillaShort_Normal.png-e49fd69d28e17dd8ff649bf3320b6d24.etc2.ctex"]
 
 [params]
 

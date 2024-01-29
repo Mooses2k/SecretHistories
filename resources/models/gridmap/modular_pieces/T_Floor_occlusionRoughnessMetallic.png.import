@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvsa3vopjm0cx"
 path.s3tc="res://.godot/imported/T_Floor_occlusionRoughnessMetallic.png-91a8f65ed088380ffb484d93517f417f.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Floor_occlusionRoughnessMetallic.png-91a8f65ed088380ffb484d93517f417f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/gridmap/modular_pieces/T_Floor_occlusionRoughnessMetallic.png"
-dest_files=["res://.godot/imported/T_Floor_occlusionRoughnessMetallic.png-91a8f65ed088380ffb484d93517f417f.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Floor_occlusionRoughnessMetallic.png-91a8f65ed088380ffb484d93517f417f.s3tc.ctex", "res://.godot/imported/T_Floor_occlusionRoughnessMetallic.png-91a8f65ed088380ffb484d93517f417f.etc2.ctex"]
 
 [params]
 

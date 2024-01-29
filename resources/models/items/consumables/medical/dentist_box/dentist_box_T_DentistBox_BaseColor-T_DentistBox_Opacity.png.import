@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccvhooyfoqu1w"
 path.s3tc="res://.godot/imported/dentist_box_T_DentistBox_BaseColor-T_DentistBox_Opacity.png-c86bbc765c1e39ee259905015f6b0851.s3tc.ctex"
+path.etc2="res://.godot/imported/dentist_box_T_DentistBox_BaseColor-T_DentistBox_Opacity.png-c86bbc765c1e39ee259905015f6b0851.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/medical/dentist_box/dentist_box_T_DentistBox_BaseColor-T_DentistBox_Opacity.png"
-dest_files=["res://.godot/imported/dentist_box_T_DentistBox_BaseColor-T_DentistBox_Opacity.png-c86bbc765c1e39ee259905015f6b0851.s3tc.ctex"]
+dest_files=["res://.godot/imported/dentist_box_T_DentistBox_BaseColor-T_DentistBox_Opacity.png-c86bbc765c1e39ee259905015f6b0851.s3tc.ctex", "res://.godot/imported/dentist_box_T_DentistBox_BaseColor-T_DentistBox_Opacity.png-c86bbc765c1e39ee259905015f6b0851.etc2.ctex"]
 
 [params]
 

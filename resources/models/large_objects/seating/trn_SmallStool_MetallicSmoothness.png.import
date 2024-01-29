@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dg4oafhr1jv6d"
 path.s3tc="res://.godot/imported/trn_SmallStool_MetallicSmoothness.png-694d501e8edffab0583555c30d1f416a.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_SmallStool_MetallicSmoothness.png-694d501e8edffab0583555c30d1f416a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/seating/trn_SmallStool_MetallicSmoothness.png"
-dest_files=["res://.godot/imported/trn_SmallStool_MetallicSmoothness.png-694d501e8edffab0583555c30d1f416a.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_SmallStool_MetallicSmoothness.png-694d501e8edffab0583555c30d1f416a.s3tc.ctex", "res://.godot/imported/trn_SmallStool_MetallicSmoothness.png-694d501e8edffab0583555c30d1f416a.etc2.ctex"]
 
 [params]
 

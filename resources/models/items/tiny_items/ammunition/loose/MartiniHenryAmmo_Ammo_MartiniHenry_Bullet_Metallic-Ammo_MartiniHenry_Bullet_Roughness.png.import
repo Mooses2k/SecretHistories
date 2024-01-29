@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://11eil0kyx1a"
 path.s3tc="res://.godot/imported/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Metallic-Ammo_MartiniHenry_Bullet_Roughness.png-0c92938717feb2f406847ae6c39371d5.s3tc.ctex"
+path.etc2="res://.godot/imported/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Metallic-Ammo_MartiniHenry_Bullet_Roughness.png-0c92938717feb2f406847ae6c39371d5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/loose/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Metallic-Ammo_MartiniHenry_Bullet_Roughness.png"
-dest_files=["res://.godot/imported/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Metallic-Ammo_MartiniHenry_Bullet_Roughness.png-0c92938717feb2f406847ae6c39371d5.s3tc.ctex"]
+dest_files=["res://.godot/imported/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Metallic-Ammo_MartiniHenry_Bullet_Roughness.png-0c92938717feb2f406847ae6c39371d5.s3tc.ctex", "res://.godot/imported/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Metallic-Ammo_MartiniHenry_Bullet_Roughness.png-0c92938717feb2f406847ae6c39371d5.etc2.ctex"]
 
 [params]
 

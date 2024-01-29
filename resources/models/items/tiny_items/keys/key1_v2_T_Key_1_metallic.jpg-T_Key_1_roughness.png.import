@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://jc0r2llfa2rt"
 path.s3tc="res://.godot/imported/key1_v2_T_Key_1_metallic.jpg-T_Key_1_roughness.png-d4f002651334cc86cba63f3e0098fd7b.s3tc.ctex"
+path.etc2="res://.godot/imported/key1_v2_T_Key_1_metallic.jpg-T_Key_1_roughness.png-d4f002651334cc86cba63f3e0098fd7b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/keys/key1_v2_T_Key_1_metallic.jpg-T_Key_1_roughness.png"
-dest_files=["res://.godot/imported/key1_v2_T_Key_1_metallic.jpg-T_Key_1_roughness.png-d4f002651334cc86cba63f3e0098fd7b.s3tc.ctex"]
+dest_files=["res://.godot/imported/key1_v2_T_Key_1_metallic.jpg-T_Key_1_roughness.png-d4f002651334cc86cba63f3e0098fd7b.s3tc.ctex", "res://.godot/imported/key1_v2_T_Key_1_metallic.jpg-T_Key_1_roughness.png-d4f002651334cc86cba63f3e0098fd7b.etc2.ctex"]
 
 [params]
 

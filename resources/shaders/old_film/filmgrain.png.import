@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bltcb0gl8rwp3"
 path.s3tc="res://.godot/imported/filmgrain.png-2705a6f8f76ca404a407e7d2d40f855e.s3tc.ctex"
+path.etc2="res://.godot/imported/filmgrain.png-2705a6f8f76ca404a407e7d2d40f855e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/shaders/old_film/filmgrain.png"
-dest_files=["res://.godot/imported/filmgrain.png-2705a6f8f76ca404a407e7d2d40f855e.s3tc.ctex"]
+dest_files=["res://.godot/imported/filmgrain.png-2705a6f8f76ca404a407e7d2d40f855e.s3tc.ctex", "res://.godot/imported/filmgrain.png-2705a6f8f76ca404a407e7d2d40f855e.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgupnd5rx6bjb"
 path.s3tc="res://.godot/imported/T_DoorSimple1_Normal.png-a33740976a0c306fa3f9efc39de7fbbb.s3tc.ctex"
+path.etc2="res://.godot/imported/T_DoorSimple1_Normal.png-a33740976a0c306fa3f9efc39de7fbbb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/gridmap/modular_doors/T_DoorSimple1_Normal.png"
-dest_files=["res://.godot/imported/T_DoorSimple1_Normal.png-a33740976a0c306fa3f9efc39de7fbbb.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_DoorSimple1_Normal.png-a33740976a0c306fa3f9efc39de7fbbb.s3tc.ctex", "res://.godot/imported/T_DoorSimple1_Normal.png-a33740976a0c306fa3f9efc39de7fbbb.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d4xmr2gsedbb"
 path.s3tc="res://.godot/imported/Crowbar_T_Crowbar_Albedo.png-c6caa8ae75c4f103b324b17c2610d7e0.s3tc.ctex"
+path.etc2="res://.godot/imported/Crowbar_T_Crowbar_Albedo.png-c6caa8ae75c4f103b324b17c2610d7e0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/melee/crowbar/Crowbar_T_Crowbar_Albedo.png"
-dest_files=["res://.godot/imported/Crowbar_T_Crowbar_Albedo.png-c6caa8ae75c4f103b324b17c2610d7e0.s3tc.ctex"]
+dest_files=["res://.godot/imported/Crowbar_T_Crowbar_Albedo.png-c6caa8ae75c4f103b324b17c2610d7e0.s3tc.ctex", "res://.godot/imported/Crowbar_T_Crowbar_Albedo.png-c6caa8ae75c4f103b324b17c2610d7e0.etc2.ctex"]
 
 [params]
 

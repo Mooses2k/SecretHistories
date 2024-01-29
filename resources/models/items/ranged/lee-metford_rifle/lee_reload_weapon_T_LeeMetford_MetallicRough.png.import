@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b60tbam7l7vcq"
 path.s3tc="res://.godot/imported/lee_reload_weapon_T_LeeMetford_MetallicRough.png-6f98007dab049493583ff951a34046af.s3tc.ctex"
+path.etc2="res://.godot/imported/lee_reload_weapon_T_LeeMetford_MetallicRough.png-6f98007dab049493583ff951a34046af.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/lee-metford_rifle/lee_reload_weapon_T_LeeMetford_MetallicRough.png"
-dest_files=["res://.godot/imported/lee_reload_weapon_T_LeeMetford_MetallicRough.png-6f98007dab049493583ff951a34046af.s3tc.ctex"]
+dest_files=["res://.godot/imported/lee_reload_weapon_T_LeeMetford_MetallicRough.png-6f98007dab049493583ff951a34046af.s3tc.ctex", "res://.godot/imported/lee_reload_weapon_T_LeeMetford_MetallicRough.png-6f98007dab049493583ff951a34046af.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdkyxmjuu4bsy"
 path.s3tc="res://.godot/imported/round_stairs_T_Wall_baseColor.png-dd03e36ca9ddd923727ba4b3a07eb30c.s3tc.ctex"
+path.etc2="res://.godot/imported/round_stairs_T_Wall_baseColor.png-dd03e36ca9ddd923727ba4b3a07eb30c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/level_staircase/round_stairs_T_Wall_baseColor.png"
-dest_files=["res://.godot/imported/round_stairs_T_Wall_baseColor.png-dd03e36ca9ddd923727ba4b3a07eb30c.s3tc.ctex"]
+dest_files=["res://.godot/imported/round_stairs_T_Wall_baseColor.png-dd03e36ca9ddd923727ba4b3a07eb30c.s3tc.ctex", "res://.godot/imported/round_stairs_T_Wall_baseColor.png-dd03e36ca9ddd923727ba4b3a07eb30c.etc2.ctex"]
 
 [params]
 

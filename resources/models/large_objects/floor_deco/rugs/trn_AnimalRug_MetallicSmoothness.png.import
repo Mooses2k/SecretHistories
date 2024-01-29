@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bk3do003m7uxj"
 path.s3tc="res://.godot/imported/trn_AnimalRug_MetallicSmoothness.png-f1f2e46e39138ad35e443882c023e92d.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_AnimalRug_MetallicSmoothness.png-f1f2e46e39138ad35e443882c023e92d.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/floor_deco/rugs/trn_AnimalRug_MetallicSmoothness.png"
-dest_files=["res://.godot/imported/trn_AnimalRug_MetallicSmoothness.png-f1f2e46e39138ad35e443882c023e92d.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_AnimalRug_MetallicSmoothness.png-f1f2e46e39138ad35e443882c023e92d.s3tc.ctex", "res://.godot/imported/trn_AnimalRug_MetallicSmoothness.png-f1f2e46e39138ad35e443882c023e92d.etc2.ctex"]
 
 [params]
 

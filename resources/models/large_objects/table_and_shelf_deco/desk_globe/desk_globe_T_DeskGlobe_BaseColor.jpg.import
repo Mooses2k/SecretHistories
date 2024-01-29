@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ckolgswhwvach"
 path.s3tc="res://.godot/imported/desk_globe_T_DeskGlobe_BaseColor.jpg-d352c94ae6f3559511ba58ee81b6c6d2.s3tc.ctex"
+path.etc2="res://.godot/imported/desk_globe_T_DeskGlobe_BaseColor.jpg-d352c94ae6f3559511ba58ee81b6c6d2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/table_and_shelf_deco/desk_globe/desk_globe_T_DeskGlobe_BaseColor.jpg"
-dest_files=["res://.godot/imported/desk_globe_T_DeskGlobe_BaseColor.jpg-d352c94ae6f3559511ba58ee81b6c6d2.s3tc.ctex"]
+dest_files=["res://.godot/imported/desk_globe_T_DeskGlobe_BaseColor.jpg-d352c94ae6f3559511ba58ee81b6c6d2.s3tc.ctex", "res://.godot/imported/desk_globe_T_DeskGlobe_BaseColor.jpg-d352c94ae6f3559511ba58ee81b6c6d2.etc2.ctex"]
 
 [params]
 

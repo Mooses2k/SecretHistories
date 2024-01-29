@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://1rx74hfh1ja"
 path.s3tc="res://.godot/imported/T_Wall_Metal_Color.png-8ee19a8ef4aaf6ad01c73544f0be1dad.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Wall_Metal_Color.png-8ee19a8ef4aaf6ad01c73544f0be1dad.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/gridmap/modular_doors/T_Wall_Metal_Color.png"
-dest_files=["res://.godot/imported/T_Wall_Metal_Color.png-8ee19a8ef4aaf6ad01c73544f0be1dad.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Wall_Metal_Color.png-8ee19a8ef4aaf6ad01c73544f0be1dad.s3tc.ctex", "res://.godot/imported/T_Wall_Metal_Color.png-8ee19a8ef4aaf6ad01c73544f0be1dad.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://n827q1ggwiop"
 path.s3tc="res://.godot/imported/T_MedicalSyringe_Color-T_MedicalSyringe_Alpha_png.png-8526c883d5291ecbbd7c4a18d2078403.s3tc.ctex"
+path.etc2="res://.godot/imported/T_MedicalSyringe_Color-T_MedicalSyringe_Alpha_png.png-8526c883d5291ecbbd7c4a18d2078403.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/consumables/medical/syringe/T_MedicalSyringe_Color-T_MedicalSyringe_Alpha_png.png"
-dest_files=["res://.godot/imported/T_MedicalSyringe_Color-T_MedicalSyringe_Alpha_png.png-8526c883d5291ecbbd7c4a18d2078403.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_MedicalSyringe_Color-T_MedicalSyringe_Alpha_png.png-8526c883d5291ecbbd7c4a18d2078403.s3tc.ctex", "res://.godot/imported/T_MedicalSyringe_Color-T_MedicalSyringe_Alpha_png.png-8526c883d5291ecbbd7c4a18d2078403.etc2.ctex"]
 
 [params]
 

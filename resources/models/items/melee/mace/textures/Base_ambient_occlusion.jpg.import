@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwqchj04gn1wm"
 path.s3tc="res://.godot/imported/Base_ambient_occlusion.jpg-8b7298db29f619dd406733e193235244.s3tc.ctex"
+path.etc2="res://.godot/imported/Base_ambient_occlusion.jpg-8b7298db29f619dd406733e193235244.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/melee/mace/textures/Base_ambient_occlusion.jpg"
-dest_files=["res://.godot/imported/Base_ambient_occlusion.jpg-8b7298db29f619dd406733e193235244.s3tc.ctex"]
+dest_files=["res://.godot/imported/Base_ambient_occlusion.jpg-8b7298db29f619dd406733e193235244.s3tc.ctex", "res://.godot/imported/Base_ambient_occlusion.jpg-8b7298db29f619dd406733e193235244.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8qlu061l2obm"
 path.s3tc="res://.godot/imported/martini_henry_reload_weapon_T_MartiniHenry_Base_color.png-f2a6d9840ce53ed9a0d7543db7c20181.s3tc.ctex"
+path.etc2="res://.godot/imported/martini_henry_reload_weapon_T_MartiniHenry_Base_color.png-f2a6d9840ce53ed9a0d7543db7c20181.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/martini-henry_rifle/martini_henry_reload_weapon_T_MartiniHenry_Base_color.png"
-dest_files=["res://.godot/imported/martini_henry_reload_weapon_T_MartiniHenry_Base_color.png-f2a6d9840ce53ed9a0d7543db7c20181.s3tc.ctex"]
+dest_files=["res://.godot/imported/martini_henry_reload_weapon_T_MartiniHenry_Base_color.png-f2a6d9840ce53ed9a0d7543db7c20181.s3tc.ctex", "res://.godot/imported/martini_henry_reload_weapon_T_MartiniHenry_Base_color.png-f2a6d9840ce53ed9a0d7543db7c20181.etc2.ctex"]
 
 [params]
 

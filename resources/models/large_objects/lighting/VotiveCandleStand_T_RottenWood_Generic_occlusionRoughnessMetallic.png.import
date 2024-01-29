@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5iwp7q6mvikx"
 path.s3tc="res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_occlusionRoughnessMetallic.png-5c9186553f9e4cb8aff96fea096b8321.s3tc.ctex"
+path.etc2="res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_occlusionRoughnessMetallic.png-5c9186553f9e4cb8aff96fea096b8321.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/VotiveCandleStand_T_RottenWood_Generic_occlusionRoughnessMetallic.png"
-dest_files=["res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_occlusionRoughnessMetallic.png-5c9186553f9e4cb8aff96fea096b8321.s3tc.ctex"]
+dest_files=["res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_occlusionRoughnessMetallic.png-5c9186553f9e4cb8aff96fea096b8321.s3tc.ctex", "res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_occlusionRoughnessMetallic.png-5c9186553f9e4cb8aff96fea096b8321.etc2.ctex"]
 
 [params]
 

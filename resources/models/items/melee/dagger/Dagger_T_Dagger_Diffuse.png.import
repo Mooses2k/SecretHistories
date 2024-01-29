@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://chinds7eqrl4r"
 path.s3tc="res://.godot/imported/Dagger_T_Dagger_Diffuse.png-2345205bf8806ae2df67839832fe7f0a.s3tc.ctex"
+path.etc2="res://.godot/imported/Dagger_T_Dagger_Diffuse.png-2345205bf8806ae2df67839832fe7f0a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/melee/dagger/Dagger_T_Dagger_Diffuse.png"
-dest_files=["res://.godot/imported/Dagger_T_Dagger_Diffuse.png-2345205bf8806ae2df67839832fe7f0a.s3tc.ctex"]
+dest_files=["res://.godot/imported/Dagger_T_Dagger_Diffuse.png-2345205bf8806ae2df67839832fe7f0a.s3tc.ctex", "res://.godot/imported/Dagger_T_Dagger_Diffuse.png-2345205bf8806ae2df67839832fe7f0a.etc2.ctex"]
 
 [params]
 

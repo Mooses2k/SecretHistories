@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cuv8no3dlcaoi"
 path.s3tc="res://.godot/imported/candle1_T_Candle1_AlbedoTransparency.png-afb5d63ffd8307119075fa515f323738.s3tc.ctex"
+path.etc2="res://.godot/imported/candle1_T_Candle1_AlbedoTransparency.png-afb5d63ffd8307119075fa515f323738.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/light_sources/candle/candle1_T_Candle1_AlbedoTransparency.png"
-dest_files=["res://.godot/imported/candle1_T_Candle1_AlbedoTransparency.png-afb5d63ffd8307119075fa515f323738.s3tc.ctex"]
+dest_files=["res://.godot/imported/candle1_T_Candle1_AlbedoTransparency.png-afb5d63ffd8307119075fa515f323738.s3tc.ctex", "res://.godot/imported/candle1_T_Candle1_AlbedoTransparency.png-afb5d63ffd8307119075fa515f323738.etc2.ctex"]
 
 [params]
 

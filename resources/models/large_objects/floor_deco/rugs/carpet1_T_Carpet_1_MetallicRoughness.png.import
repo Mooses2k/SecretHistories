@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0hl7tuifmn0b"
 path.s3tc="res://.godot/imported/carpet1_T_Carpet_1_MetallicRoughness.png-586922d4386b3da8a580dd1ab8fb1118.s3tc.ctex"
+path.etc2="res://.godot/imported/carpet1_T_Carpet_1_MetallicRoughness.png-586922d4386b3da8a580dd1ab8fb1118.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/floor_deco/rugs/carpet1_T_Carpet_1_MetallicRoughness.png"
-dest_files=["res://.godot/imported/carpet1_T_Carpet_1_MetallicRoughness.png-586922d4386b3da8a580dd1ab8fb1118.s3tc.ctex"]
+dest_files=["res://.godot/imported/carpet1_T_Carpet_1_MetallicRoughness.png-586922d4386b3da8a580dd1ab8fb1118.s3tc.ctex", "res://.godot/imported/carpet1_T_Carpet_1_MetallicRoughness.png-586922d4386b3da8a580dd1ab8fb1118.etc2.ctex"]
 
 [params]
 

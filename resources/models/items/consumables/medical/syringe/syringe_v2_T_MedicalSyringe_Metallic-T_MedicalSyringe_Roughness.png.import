@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cit78qwyxm2yp"
 path.s3tc="res://.godot/imported/syringe_v2_T_MedicalSyringe_Metallic-T_MedicalSyringe_Roughness.png-2250aee5cf8cdfab0342b4306578a85f.s3tc.ctex"
+path.etc2="res://.godot/imported/syringe_v2_T_MedicalSyringe_Metallic-T_MedicalSyringe_Roughness.png-2250aee5cf8cdfab0342b4306578a85f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/medical/syringe/syringe_v2_T_MedicalSyringe_Metallic-T_MedicalSyringe_Roughness.png"
-dest_files=["res://.godot/imported/syringe_v2_T_MedicalSyringe_Metallic-T_MedicalSyringe_Roughness.png-2250aee5cf8cdfab0342b4306578a85f.s3tc.ctex"]
+dest_files=["res://.godot/imported/syringe_v2_T_MedicalSyringe_Metallic-T_MedicalSyringe_Roughness.png-2250aee5cf8cdfab0342b4306578a85f.s3tc.ctex", "res://.godot/imported/syringe_v2_T_MedicalSyringe_Metallic-T_MedicalSyringe_Roughness.png-2250aee5cf8cdfab0342b4306578a85f.etc2.ctex"]
 
 [params]
 

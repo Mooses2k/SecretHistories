@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjw3qbkb4f5o"
 path.s3tc="res://.godot/imported/tile_template_base_square.png-85ecaadaa31dd79419e7332d616da9bd.s3tc.ctex"
+path.etc2="res://.godot/imported/tile_template_base_square.png-85ecaadaa31dd79419e7332d616da9bd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/gridmap/tile_template_base_square.png"
-dest_files=["res://.godot/imported/tile_template_base_square.png-85ecaadaa31dd79419e7332d616da9bd.s3tc.ctex"]
+dest_files=["res://.godot/imported/tile_template_base_square.png-85ecaadaa31dd79419e7332d616da9bd.s3tc.ctex", "res://.godot/imported/tile_template_base_square.png-85ecaadaa31dd79419e7332d616da9bd.etc2.ctex"]
 
 [params]
 

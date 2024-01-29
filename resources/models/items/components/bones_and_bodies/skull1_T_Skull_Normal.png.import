@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3v3t8ntdqtvt"
 path.s3tc="res://.godot/imported/skull1_T_Skull_Normal.png-07fc4cbd8df58d481d6582fb5b7bb5ce.s3tc.ctex"
+path.etc2="res://.godot/imported/skull1_T_Skull_Normal.png-07fc4cbd8df58d481d6582fb5b7bb5ce.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/components/bones_and_bodies/skull1_T_Skull_Normal.png"
-dest_files=["res://.godot/imported/skull1_T_Skull_Normal.png-07fc4cbd8df58d481d6582fb5b7bb5ce.s3tc.ctex"]
+dest_files=["res://.godot/imported/skull1_T_Skull_Normal.png-07fc4cbd8df58d481d6582fb5b7bb5ce.s3tc.ctex", "res://.godot/imported/skull1_T_Skull_Normal.png-07fc4cbd8df58d481d6582fb5b7bb5ce.etc2.ctex"]
 
 [params]
 

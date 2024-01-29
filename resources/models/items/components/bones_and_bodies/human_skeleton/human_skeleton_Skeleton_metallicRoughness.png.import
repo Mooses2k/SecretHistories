@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://61o0r4p3rcse"
 path.s3tc="res://.godot/imported/human_skeleton_Skeleton_metallicRoughness.png-cc14923963c3bf54f85f2b8a4849adfd.s3tc.ctex"
+path.etc2="res://.godot/imported/human_skeleton_Skeleton_metallicRoughness.png-cc14923963c3bf54f85f2b8a4849adfd.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/components/bones_and_bodies/human_skeleton/human_skeleton_Skeleton_metallicRoughness.png"
-dest_files=["res://.godot/imported/human_skeleton_Skeleton_metallicRoughness.png-cc14923963c3bf54f85f2b8a4849adfd.s3tc.ctex"]
+dest_files=["res://.godot/imported/human_skeleton_Skeleton_metallicRoughness.png-cc14923963c3bf54f85f2b8a4849adfd.s3tc.ctex", "res://.godot/imported/human_skeleton_Skeleton_metallicRoughness.png-cc14923963c3bf54f85f2b8a4849adfd.etc2.ctex"]
 
 [params]
 

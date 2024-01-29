@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://2la6apqg8ar4"
 path.s3tc="res://.godot/imported/pitchforkAO.png-c2f33452b1bef2d3a8b82e1a9916edca.s3tc.ctex"
+path.etc2="res://.godot/imported/pitchforkAO.png-c2f33452b1bef2d3a8b82e1a9916edca.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/melee/pitchfork/textures/pitchforkAO.png"
-dest_files=["res://.godot/imported/pitchforkAO.png-c2f33452b1bef2d3a8b82e1a9916edca.s3tc.ctex"]
+dest_files=["res://.godot/imported/pitchforkAO.png-c2f33452b1bef2d3a8b82e1a9916edca.s3tc.ctex", "res://.godot/imported/pitchforkAO.png-c2f33452b1bef2d3a8b82e1a9916edca.etc2.ctex"]
 
 [params]
 

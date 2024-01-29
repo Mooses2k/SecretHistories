@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://do4uhu0ed452p"
 path.s3tc="res://.godot/imported/book2_T_Book2_BaseColor.png-8c945ab908d236a0f6ef7cc76ea35279.s3tc.ctex"
+path.etc2="res://.godot/imported/book2_T_Book2_BaseColor.png-8c945ab908d236a0f6ef7cc76ea35279.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/writing/book2_T_Book2_BaseColor.png"
-dest_files=["res://.godot/imported/book2_T_Book2_BaseColor.png-8c945ab908d236a0f6ef7cc76ea35279.s3tc.ctex"]
+dest_files=["res://.godot/imported/book2_T_Book2_BaseColor.png-8c945ab908d236a0f6ef7cc76ea35279.s3tc.ctex", "res://.godot/imported/book2_T_Book2_BaseColor.png-8c945ab908d236a0f6ef7cc76ea35279.etc2.ctex"]
 
 [params]
 

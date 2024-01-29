@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://0efm31to77vr"
 path.s3tc="res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Roughness.png-aa46250b360d2f91a6d2c976cdcb086b.s3tc.ctex"
+path.etc2="res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Roughness.png-aa46250b360d2f91a6d2c976cdcb086b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/sarcophagi/Sarcophagus_knight_T_SarcoLidWight_Roughness.png"
-dest_files=["res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Roughness.png-aa46250b360d2f91a6d2c976cdcb086b.s3tc.ctex"]
+dest_files=["res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Roughness.png-aa46250b360d2f91a6d2c976cdcb086b.s3tc.ctex", "res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Roughness.png-aa46250b360d2f91a6d2c976cdcb086b.etc2.ctex"]
 
 [params]
 

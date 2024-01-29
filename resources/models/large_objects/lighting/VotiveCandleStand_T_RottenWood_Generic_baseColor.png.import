@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://riodntfxkguh"
 path.s3tc="res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_baseColor.png-c8cdf027337d0ee3bc783435a84353f6.s3tc.ctex"
+path.etc2="res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_baseColor.png-c8cdf027337d0ee3bc783435a84353f6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/VotiveCandleStand_T_RottenWood_Generic_baseColor.png"
-dest_files=["res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_baseColor.png-c8cdf027337d0ee3bc783435a84353f6.s3tc.ctex"]
+dest_files=["res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_baseColor.png-c8cdf027337d0ee3bc783435a84353f6.s3tc.ctex", "res://.godot/imported/VotiveCandleStand_T_RottenWood_Generic_baseColor.png-c8cdf027337d0ee3bc783435a84353f6.etc2.ctex"]
 
 [params]
 

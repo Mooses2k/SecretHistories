@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://y2wquihdpkst"
 path.s3tc="res://.godot/imported/doctor_bag_T_MedicalBagCross_Normal.png-8a9fa55777049372cfbbb0540373aab0.s3tc.ctex"
+path.etc2="res://.godot/imported/doctor_bag_T_MedicalBagCross_Normal.png-8a9fa55777049372cfbbb0540373aab0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/medical/medical_bag/doctor_bag_T_MedicalBagCross_Normal.png"
-dest_files=["res://.godot/imported/doctor_bag_T_MedicalBagCross_Normal.png-8a9fa55777049372cfbbb0540373aab0.s3tc.ctex"]
+dest_files=["res://.godot/imported/doctor_bag_T_MedicalBagCross_Normal.png-8a9fa55777049372cfbbb0540373aab0.s3tc.ctex", "res://.godot/imported/doctor_bag_T_MedicalBagCross_Normal.png-8a9fa55777049372cfbbb0540373aab0.etc2.ctex"]
 
 [params]
 

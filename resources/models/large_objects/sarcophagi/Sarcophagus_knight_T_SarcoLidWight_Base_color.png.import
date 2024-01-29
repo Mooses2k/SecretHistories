@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://fguryghq7t3m"
 path.s3tc="res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Base_color.png-428bb8e07c8cb07c0384f2188db35b82.s3tc.ctex"
+path.etc2="res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Base_color.png-428bb8e07c8cb07c0384f2188db35b82.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/sarcophagi/Sarcophagus_knight_T_SarcoLidWight_Base_color.png"
-dest_files=["res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Base_color.png-428bb8e07c8cb07c0384f2188db35b82.s3tc.ctex"]
+dest_files=["res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Base_color.png-428bb8e07c8cb07c0384f2188db35b82.s3tc.ctex", "res://.godot/imported/Sarcophagus_knight_T_SarcoLidWight_Base_color.png-428bb8e07c8cb07c0384f2188db35b82.etc2.ctex"]
 
 [params]
 

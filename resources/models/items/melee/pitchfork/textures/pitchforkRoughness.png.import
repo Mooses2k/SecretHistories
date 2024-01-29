@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://r5i5ovsfqx6x"
 path.s3tc="res://.godot/imported/pitchforkRoughness.png-07de3c22a458ca24d295b2151e8bea8a.s3tc.ctex"
+path.etc2="res://.godot/imported/pitchforkRoughness.png-07de3c22a458ca24d295b2151e8bea8a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/melee/pitchfork/textures/pitchforkRoughness.png"
-dest_files=["res://.godot/imported/pitchforkRoughness.png-07de3c22a458ca24d295b2151e8bea8a.s3tc.ctex"]
+dest_files=["res://.godot/imported/pitchforkRoughness.png-07de3c22a458ca24d295b2151e8bea8a.s3tc.ctex", "res://.godot/imported/pitchforkRoughness.png-07de3c22a458ca24d295b2151e8bea8a.etc2.ctex"]
 
 [params]
 

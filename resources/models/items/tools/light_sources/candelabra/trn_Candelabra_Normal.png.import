@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://5awuoxse0rjs"
 path.s3tc="res://.godot/imported/trn_Candelabra_Normal.png-a7a6b6966780934d9c4be6683d7f1a0f.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_Candelabra_Normal.png-a7a6b6966780934d9c4be6683d7f1a0f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/candelabra/trn_Candelabra_Normal.png"
-dest_files=["res://.godot/imported/trn_Candelabra_Normal.png-a7a6b6966780934d9c4be6683d7f1a0f.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_Candelabra_Normal.png-a7a6b6966780934d9c4be6683d7f1a0f.s3tc.ctex", "res://.godot/imported/trn_Candelabra_Normal.png-a7a6b6966780934d9c4be6683d7f1a0f.etc2.ctex"]
 
 [params]
 

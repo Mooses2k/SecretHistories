@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwvrpse54l8v7"
 path.s3tc="res://.godot/imported/sm_angel_headless_broken_T_Angel_Headless_Roughness.png-a4d41ca8f8f2658c1772f7d7f3038fc7.s3tc.ctex"
+path.etc2="res://.godot/imported/sm_angel_headless_broken_T_Angel_Headless_Roughness.png-a4d41ca8f8f2658c1772f7d7f3038fc7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/statues/angelHeadless/sm_angel_headless_broken_T_Angel_Headless_Roughness.png"
-dest_files=["res://.godot/imported/sm_angel_headless_broken_T_Angel_Headless_Roughness.png-a4d41ca8f8f2658c1772f7d7f3038fc7.s3tc.ctex"]
+dest_files=["res://.godot/imported/sm_angel_headless_broken_T_Angel_Headless_Roughness.png-a4d41ca8f8f2658c1772f7d7f3038fc7.s3tc.ctex", "res://.godot/imported/sm_angel_headless_broken_T_Angel_Headless_Roughness.png-a4d41ca8f8f2658c1772f7d7f3038fc7.etc2.ctex"]
 
 [params]
 

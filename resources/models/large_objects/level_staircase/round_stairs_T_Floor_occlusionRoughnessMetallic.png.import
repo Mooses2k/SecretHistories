@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b3rb2kxy7v5og"
 path.s3tc="res://.godot/imported/round_stairs_T_Floor_occlusionRoughnessMetallic.png-7ac5a0f482f8cc224157ddc5773836e3.s3tc.ctex"
+path.etc2="res://.godot/imported/round_stairs_T_Floor_occlusionRoughnessMetallic.png-7ac5a0f482f8cc224157ddc5773836e3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/level_staircase/round_stairs_T_Floor_occlusionRoughnessMetallic.png"
-dest_files=["res://.godot/imported/round_stairs_T_Floor_occlusionRoughnessMetallic.png-7ac5a0f482f8cc224157ddc5773836e3.s3tc.ctex"]
+dest_files=["res://.godot/imported/round_stairs_T_Floor_occlusionRoughnessMetallic.png-7ac5a0f482f8cc224157ddc5773836e3.s3tc.ctex", "res://.godot/imported/round_stairs_T_Floor_occlusionRoughnessMetallic.png-7ac5a0f482f8cc224157ddc5773836e3.etc2.ctex"]
 
 [params]
 

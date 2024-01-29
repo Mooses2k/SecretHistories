@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bc06a0vd6itna"
 path.s3tc="res://.godot/imported/torch_Image_1.png-63ee629b05d7775c2625d43e06031643.s3tc.ctex"
+path.etc2="res://.godot/imported/torch_Image_1.png-63ee629b05d7775c2625d43e06031643.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/light_sources/torch/torch_Image_1.png"
-dest_files=["res://.godot/imported/torch_Image_1.png-63ee629b05d7775c2625d43e06031643.s3tc.ctex"]
+dest_files=["res://.godot/imported/torch_Image_1.png-63ee629b05d7775c2625d43e06031643.s3tc.ctex", "res://.godot/imported/torch_Image_1.png-63ee629b05d7775c2625d43e06031643.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bl5wseffxosna"
 path.s3tc="res://.godot/imported/floor_candelabra_gothic_T_Candelabra1_normal.jpg-64bb832c0bde7debc1c71e7427ca90c0.s3tc.ctex"
+path.etc2="res://.godot/imported/floor_candelabra_gothic_T_Candelabra1_normal.jpg-64bb832c0bde7debc1c71e7427ca90c0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/floor_candelabra_gothic_T_Candelabra1_normal.jpg"
-dest_files=["res://.godot/imported/floor_candelabra_gothic_T_Candelabra1_normal.jpg-64bb832c0bde7debc1c71e7427ca90c0.s3tc.ctex"]
+dest_files=["res://.godot/imported/floor_candelabra_gothic_T_Candelabra1_normal.jpg-64bb832c0bde7debc1c71e7427ca90c0.s3tc.ctex", "res://.godot/imported/floor_candelabra_gothic_T_Candelabra1_normal.jpg-64bb832c0bde7debc1c71e7427ca90c0.etc2.ctex"]
 
 [params]
 

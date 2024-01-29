@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu1vfclfvia8a"
 path.s3tc="res://.godot/imported/spyglass_v2_T_Spyglass_Normal.png-416943b481f7b7339eaef874282e1258.s3tc.ctex"
+path.etc2="res://.godot/imported/spyglass_v2_T_Spyglass_Normal.png-416943b481f7b7339eaef874282e1258.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/spyglass/spyglass_v2_T_Spyglass_Normal.png"
-dest_files=["res://.godot/imported/spyglass_v2_T_Spyglass_Normal.png-416943b481f7b7339eaef874282e1258.s3tc.ctex"]
+dest_files=["res://.godot/imported/spyglass_v2_T_Spyglass_Normal.png-416943b481f7b7339eaef874282e1258.s3tc.ctex", "res://.godot/imported/spyglass_v2_T_Spyglass_Normal.png-416943b481f7b7339eaef874282e1258.etc2.ctex"]
 
 [params]
 

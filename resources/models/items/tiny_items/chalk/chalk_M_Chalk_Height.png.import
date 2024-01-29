@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://qdc5u76qef0g"
 path.s3tc="res://.godot/imported/chalk_M_Chalk_Height.png-c835a7586fecb630b59ff1e6e56cf4ef.s3tc.ctex"
+path.etc2="res://.godot/imported/chalk_M_Chalk_Height.png-c835a7586fecb630b59ff1e6e56cf4ef.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/chalk/chalk_M_Chalk_Height.png"
-dest_files=["res://.godot/imported/chalk_M_Chalk_Height.png-c835a7586fecb630b59ff1e6e56cf4ef.s3tc.ctex"]
+dest_files=["res://.godot/imported/chalk_M_Chalk_Height.png-c835a7586fecb630b59ff1e6e56cf4ef.s3tc.ctex", "res://.godot/imported/chalk_M_Chalk_Height.png-c835a7586fecb630b59ff1e6e56cf4ef.etc2.ctex"]
 
 [params]
 

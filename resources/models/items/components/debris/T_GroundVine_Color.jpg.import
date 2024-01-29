@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://0711xb7qjlv8"
 path.s3tc="res://.godot/imported/T_GroundVine_Color.jpg-481a8c05b52eb1407e9472a0dda95cd4.s3tc.ctex"
+path.etc2="res://.godot/imported/T_GroundVine_Color.jpg-481a8c05b52eb1407e9472a0dda95cd4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/components/debris/T_GroundVine_Color.jpg"
-dest_files=["res://.godot/imported/T_GroundVine_Color.jpg-481a8c05b52eb1407e9472a0dda95cd4.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_GroundVine_Color.jpg-481a8c05b52eb1407e9472a0dda95cd4.s3tc.ctex", "res://.godot/imported/T_GroundVine_Color.jpg-481a8c05b52eb1407e9472a0dda95cd4.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b78rxsyk308vq"
 path.s3tc="res://.godot/imported/glass_vial_medicine_T_MedicalVial_Metallic-T_MedicalVial_Roughness.png-6374486a2131744cc93a2d46b7406b32.s3tc.ctex"
+path.etc2="res://.godot/imported/glass_vial_medicine_T_MedicalVial_Metallic-T_MedicalVial_Roughness.png-6374486a2131744cc93a2d46b7406b32.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/medical/glass_vial_medicine/glass_vial_medicine_T_MedicalVial_Metallic-T_MedicalVial_Roughness.png"
-dest_files=["res://.godot/imported/glass_vial_medicine_T_MedicalVial_Metallic-T_MedicalVial_Roughness.png-6374486a2131744cc93a2d46b7406b32.s3tc.ctex"]
+dest_files=["res://.godot/imported/glass_vial_medicine_T_MedicalVial_Metallic-T_MedicalVial_Roughness.png-6374486a2131744cc93a2d46b7406b32.s3tc.ctex", "res://.godot/imported/glass_vial_medicine_T_MedicalVial_Metallic-T_MedicalVial_Roughness.png-6374486a2131744cc93a2d46b7406b32.etc2.ctex"]
 
 [params]
 

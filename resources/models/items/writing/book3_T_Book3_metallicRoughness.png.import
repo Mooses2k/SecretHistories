@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cf0k15gxu6tsg"
 path.s3tc="res://.godot/imported/book3_T_Book3_metallicRoughness.png-07377be14cac531b11d16536c0906caf.s3tc.ctex"
+path.etc2="res://.godot/imported/book3_T_Book3_metallicRoughness.png-07377be14cac531b11d16536c0906caf.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/writing/book3_T_Book3_metallicRoughness.png"
-dest_files=["res://.godot/imported/book3_T_Book3_metallicRoughness.png-07377be14cac531b11d16536c0906caf.s3tc.ctex"]
+dest_files=["res://.godot/imported/book3_T_Book3_metallicRoughness.png-07377be14cac531b11d16536c0906caf.s3tc.ctex", "res://.godot/imported/book3_T_Book3_metallicRoughness.png-07377be14cac531b11d16536c0906caf.etc2.ctex"]
 
 [params]
 

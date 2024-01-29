@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://crn10idal3ib1"
 path.s3tc="res://.godot/imported/lock1_v2_T_Lock_1_albedo.jpg-a7560af3785dd39536d035206b38c7f7.s3tc.ctex"
+path.etc2="res://.godot/imported/lock1_v2_T_Lock_1_albedo.jpg-a7560af3785dd39536d035206b38c7f7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/locks_and_keys/OldLockAndKey/lock1_v2_T_Lock_1_albedo.jpg"
-dest_files=["res://.godot/imported/lock1_v2_T_Lock_1_albedo.jpg-a7560af3785dd39536d035206b38c7f7.s3tc.ctex"]
+dest_files=["res://.godot/imported/lock1_v2_T_Lock_1_albedo.jpg-a7560af3785dd39536d035206b38c7f7.s3tc.ctex", "res://.godot/imported/lock1_v2_T_Lock_1_albedo.jpg-a7560af3785dd39536d035206b38c7f7.etc2.ctex"]
 
 [params]
 

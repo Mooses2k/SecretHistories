@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3donh48w6rb6"
 path.s3tc="res://.godot/imported/cupboard1_T_Cupboard1_metallicRoughness.png-2bd12007adf54bfe2894c5f3bc3f8d94.s3tc.ctex"
+path.etc2="res://.godot/imported/cupboard1_T_Cupboard1_metallicRoughness.png-2bd12007adf54bfe2894c5f3bc3f8d94.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/shelving/cupboard1/cupboard1_T_Cupboard1_metallicRoughness.png"
-dest_files=["res://.godot/imported/cupboard1_T_Cupboard1_metallicRoughness.png-2bd12007adf54bfe2894c5f3bc3f8d94.s3tc.ctex"]
+dest_files=["res://.godot/imported/cupboard1_T_Cupboard1_metallicRoughness.png-2bd12007adf54bfe2894c5f3bc3f8d94.s3tc.ctex", "res://.godot/imported/cupboard1_T_Cupboard1_metallicRoughness.png-2bd12007adf54bfe2894c5f3bc3f8d94.etc2.ctex"]
 
 [params]
 

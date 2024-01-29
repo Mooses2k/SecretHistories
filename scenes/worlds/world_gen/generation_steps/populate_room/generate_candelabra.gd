@@ -19,7 +19,7 @@ const MAX_Z_UNLIT_ROTATION = deg_to_rad(20)
 # Rooms must have both sides greater or equal to this value to be considered 
 # for spawning candelabra
 @export var _single_tile_size_threshold := 4
-@export var _room_chance := 0.6 # (float, 0.0,1.0,0.01)
+@export var _room_chance := .95 if GameManager.game.current_floor_level >= -2 else 0.6 # (float, 0.0,1.0,0.01)
 @export var _spawn_list_resource: Resource = null
 
 var _rng := RandomNumberGenerator.new()
@@ -45,7 +45,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 	var all_rooms := data.get_all_rooms()
 	var valid_rooms := _get_valid_rooms(all_rooms)
 	for entry in valid_rooms:
-		if _rng.randf() >= _room_chance:
+		if _rng.randf() <= _room_chance:
 			_handle_candelabra(data, entry)
 
 

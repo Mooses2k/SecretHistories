@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://312mj7a14e35"
 path.s3tc="res://.godot/imported/khyber_reload_weapon_HenryMartini_Base_color.png-0a71330e69571ef46a17208d76a8138a.s3tc.ctex"
+path.etc2="res://.godot/imported/khyber_reload_weapon_HenryMartini_Base_color.png-0a71330e69571ef46a17208d76a8138a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/martini-henry_pistol/khyber_reload_weapon_HenryMartini_Base_color.png"
-dest_files=["res://.godot/imported/khyber_reload_weapon_HenryMartini_Base_color.png-0a71330e69571ef46a17208d76a8138a.s3tc.ctex"]
+dest_files=["res://.godot/imported/khyber_reload_weapon_HenryMartini_Base_color.png-0a71330e69571ef46a17208d76a8138a.s3tc.ctex", "res://.godot/imported/khyber_reload_weapon_HenryMartini_Base_color.png-0a71330e69571ef46a17208d76a8138a.etc2.ctex"]
 
 [params]
 

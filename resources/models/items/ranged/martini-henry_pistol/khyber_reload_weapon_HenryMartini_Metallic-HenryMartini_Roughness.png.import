@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dlbrxo2akym43"
 path.s3tc="res://.godot/imported/khyber_reload_weapon_HenryMartini_Metallic-HenryMartini_Roughness.png-6bef0d2e0988b6568770a41aeaf86e6c.s3tc.ctex"
+path.etc2="res://.godot/imported/khyber_reload_weapon_HenryMartini_Metallic-HenryMartini_Roughness.png-6bef0d2e0988b6568770a41aeaf86e6c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/martini-henry_pistol/khyber_reload_weapon_HenryMartini_Metallic-HenryMartini_Roughness.png"
-dest_files=["res://.godot/imported/khyber_reload_weapon_HenryMartini_Metallic-HenryMartini_Roughness.png-6bef0d2e0988b6568770a41aeaf86e6c.s3tc.ctex"]
+dest_files=["res://.godot/imported/khyber_reload_weapon_HenryMartini_Metallic-HenryMartini_Roughness.png-6bef0d2e0988b6568770a41aeaf86e6c.s3tc.ctex", "res://.godot/imported/khyber_reload_weapon_HenryMartini_Metallic-HenryMartini_Roughness.png-6bef0d2e0988b6568770a41aeaf86e6c.etc2.ctex"]
 
 [params]
 

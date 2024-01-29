@@ -19,8 +19,8 @@ signal used_unload()
 var is_in_belt = false
 
 @onready var hold_position = %HoldPosition
-@onready var normal_pos = get_node(normal_pos_path)
-@onready var throw_pos = get_node(throw_pos_path)
+@onready var normal_pos = get_node(normal_pos_path)   # this still used?
+@onready var throw_pos = get_node(throw_pos_path)   # this still used?
 
 
 func _ready():

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://gex542yh5p3g"
 path.s3tc="res://.godot/imported/Webley_Webley_Metallic.png-Webley_Roughness.png-5f04407fb3689f595fe943dbfa42982a.s3tc.ctex"
+path.etc2="res://.godot/imported/Webley_Webley_Metallic.png-Webley_Roughness.png-5f04407fb3689f595fe943dbfa42982a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/webley_revolver/Webley_Webley_Metallic.png-Webley_Roughness.png"
-dest_files=["res://.godot/imported/Webley_Webley_Metallic.png-Webley_Roughness.png-5f04407fb3689f595fe943dbfa42982a.s3tc.ctex"]
+dest_files=["res://.godot/imported/Webley_Webley_Metallic.png-Webley_Roughness.png-5f04407fb3689f595fe943dbfa42982a.s3tc.ctex", "res://.godot/imported/Webley_Webley_Metallic.png-Webley_Roughness.png-5f04407fb3689f595fe943dbfa42982a.etc2.ctex"]
 
 [params]
 

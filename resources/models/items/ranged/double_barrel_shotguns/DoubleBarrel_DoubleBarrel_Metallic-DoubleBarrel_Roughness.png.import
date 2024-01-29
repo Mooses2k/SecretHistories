@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cv2jomw5otpmx"
 path.s3tc="res://.godot/imported/DoubleBarrel_DoubleBarrel_Metallic-DoubleBarrel_Roughness.png-5191f549e77151833e896199ef4bf0a6.s3tc.ctex"
+path.etc2="res://.godot/imported/DoubleBarrel_DoubleBarrel_Metallic-DoubleBarrel_Roughness.png-5191f549e77151833e896199ef4bf0a6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/double_barrel_shotguns/DoubleBarrel_DoubleBarrel_Metallic-DoubleBarrel_Roughness.png"
-dest_files=["res://.godot/imported/DoubleBarrel_DoubleBarrel_Metallic-DoubleBarrel_Roughness.png-5191f549e77151833e896199ef4bf0a6.s3tc.ctex"]
+dest_files=["res://.godot/imported/DoubleBarrel_DoubleBarrel_Metallic-DoubleBarrel_Roughness.png-5191f549e77151833e896199ef4bf0a6.s3tc.ctex", "res://.godot/imported/DoubleBarrel_DoubleBarrel_Metallic-DoubleBarrel_Roughness.png-5191f549e77151833e896199ef4bf0a6.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ba7oao8y4om23"
 path.s3tc="res://.godot/imported/round_stairs_T_Floor_Normal.png-a862adb520ca7ab07ed189a939fd91f0.s3tc.ctex"
+path.etc2="res://.godot/imported/round_stairs_T_Floor_Normal.png-a862adb520ca7ab07ed189a939fd91f0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/level_staircase/round_stairs_T_Floor_Normal.png"
-dest_files=["res://.godot/imported/round_stairs_T_Floor_Normal.png-a862adb520ca7ab07ed189a939fd91f0.s3tc.ctex"]
+dest_files=["res://.godot/imported/round_stairs_T_Floor_Normal.png-a862adb520ca7ab07ed189a939fd91f0.s3tc.ctex", "res://.godot/imported/round_stairs_T_Floor_Normal.png-a862adb520ca7ab07ed189a939fd91f0.etc2.ctex"]
 
 [params]
 

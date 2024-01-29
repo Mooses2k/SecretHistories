@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cayebirunrr3"
 path.s3tc="res://.godot/imported/cupboard1_T_Cupboard1_baseColor.png-5012c9440b655549f5d6a654dbdc970e.s3tc.ctex"
+path.etc2="res://.godot/imported/cupboard1_T_Cupboard1_baseColor.png-5012c9440b655549f5d6a654dbdc970e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/shelving/cupboard1/cupboard1_T_Cupboard1_baseColor.png"
-dest_files=["res://.godot/imported/cupboard1_T_Cupboard1_baseColor.png-5012c9440b655549f5d6a654dbdc970e.s3tc.ctex"]
+dest_files=["res://.godot/imported/cupboard1_T_Cupboard1_baseColor.png-5012c9440b655549f5d6a654dbdc970e.s3tc.ctex", "res://.godot/imported/cupboard1_T_Cupboard1_baseColor.png-5012c9440b655549f5d6a654dbdc970e.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dtatwerba2gvh"
 path.s3tc="res://.godot/imported/BeanHammer_T_BeanHammer_albedo.jpg-a7a1dfeaf5eb5ade818602504b27eb37.s3tc.ctex"
+path.etc2="res://.godot/imported/BeanHammer_T_BeanHammer_albedo.jpg-a7a1dfeaf5eb5ade818602504b27eb37.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/hammer_small/BeanHammer_T_BeanHammer_albedo.jpg"
-dest_files=["res://.godot/imported/BeanHammer_T_BeanHammer_albedo.jpg-a7a1dfeaf5eb5ade818602504b27eb37.s3tc.ctex"]
+dest_files=["res://.godot/imported/BeanHammer_T_BeanHammer_albedo.jpg-a7a1dfeaf5eb5ade818602504b27eb37.s3tc.ctex", "res://.godot/imported/BeanHammer_T_BeanHammer_albedo.jpg-a7a1dfeaf5eb5ade818602504b27eb37.etc2.ctex"]
 
 [params]
 

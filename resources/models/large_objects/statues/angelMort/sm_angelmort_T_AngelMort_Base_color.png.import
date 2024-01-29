@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://pmnpxukwka4x"
 path.s3tc="res://.godot/imported/sm_angelmort_T_AngelMort_Base_color.png-923aa0c0e88d06d2b1217b57c5ae037e.s3tc.ctex"
+path.etc2="res://.godot/imported/sm_angelmort_T_AngelMort_Base_color.png-923aa0c0e88d06d2b1217b57c5ae037e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/statues/angelMort/sm_angelmort_T_AngelMort_Base_color.png"
-dest_files=["res://.godot/imported/sm_angelmort_T_AngelMort_Base_color.png-923aa0c0e88d06d2b1217b57c5ae037e.s3tc.ctex"]
+dest_files=["res://.godot/imported/sm_angelmort_T_AngelMort_Base_color.png-923aa0c0e88d06d2b1217b57c5ae037e.s3tc.ctex", "res://.godot/imported/sm_angelmort_T_AngelMort_Base_color.png-923aa0c0e88d06d2b1217b57c5ae037e.etc2.ctex"]
 
 [params]
 

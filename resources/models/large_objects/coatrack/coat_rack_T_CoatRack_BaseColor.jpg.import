@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bkpljyjsqdisa"
 path.s3tc="res://.godot/imported/coat_rack_T_CoatRack_BaseColor.jpg-f3543dc629b9e558aa4f741312c3b319.s3tc.ctex"
+path.etc2="res://.godot/imported/coat_rack_T_CoatRack_BaseColor.jpg-f3543dc629b9e558aa4f741312c3b319.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/coatrack/coat_rack_T_CoatRack_BaseColor.jpg"
-dest_files=["res://.godot/imported/coat_rack_T_CoatRack_BaseColor.jpg-f3543dc629b9e558aa4f741312c3b319.s3tc.ctex"]
+dest_files=["res://.godot/imported/coat_rack_T_CoatRack_BaseColor.jpg-f3543dc629b9e558aa4f741312c3b319.s3tc.ctex", "res://.godot/imported/coat_rack_T_CoatRack_BaseColor.jpg-f3543dc629b9e558aa4f741312c3b319.etc2.ctex"]
 
 [params]
 

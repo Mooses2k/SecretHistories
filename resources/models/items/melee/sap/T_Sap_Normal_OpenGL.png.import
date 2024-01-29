@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjglyyxwkustx"
 path.s3tc="res://.godot/imported/T_Sap_Normal_OpenGL.png-00005d422ae9de22128e206e0de1d6b6.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Sap_Normal_OpenGL.png-00005d422ae9de22128e206e0de1d6b6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/melee/sap/T_Sap_Normal_OpenGL.png"
-dest_files=["res://.godot/imported/T_Sap_Normal_OpenGL.png-00005d422ae9de22128e206e0de1d6b6.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Sap_Normal_OpenGL.png-00005d422ae9de22128e206e0de1d6b6.s3tc.ctex", "res://.godot/imported/T_Sap_Normal_OpenGL.png-00005d422ae9de22128e206e0de1d6b6.etc2.ctex"]
 
 [params]
 

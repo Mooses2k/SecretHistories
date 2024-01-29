@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cogh1iugqtgo4"
 path.s3tc="res://.godot/imported/desk_globe_T_DeskGlobe_MetallicRoughness.jpg-2fc412c693cb5ca1c486039f2e7b1a85.s3tc.ctex"
+path.etc2="res://.godot/imported/desk_globe_T_DeskGlobe_MetallicRoughness.jpg-2fc412c693cb5ca1c486039f2e7b1a85.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/table_and_shelf_deco/desk_globe/desk_globe_T_DeskGlobe_MetallicRoughness.jpg"
-dest_files=["res://.godot/imported/desk_globe_T_DeskGlobe_MetallicRoughness.jpg-2fc412c693cb5ca1c486039f2e7b1a85.s3tc.ctex"]
+dest_files=["res://.godot/imported/desk_globe_T_DeskGlobe_MetallicRoughness.jpg-2fc412c693cb5ca1c486039f2e7b1a85.s3tc.ctex", "res://.godot/imported/desk_globe_T_DeskGlobe_MetallicRoughness.jpg-2fc412c693cb5ca1c486039f2e7b1a85.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bq4pjcqoh2aox"
 path.s3tc="res://.godot/imported/trn_Jug_AlbedoTransparency.png-10a78bf7fb657d163912bcb259879f2c.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_Jug_AlbedoTransparency.png-10a78bf7fb657d163912bcb259879f2c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/containers/dining/vessels/trn_Jug_AlbedoTransparency.png"
-dest_files=["res://.godot/imported/trn_Jug_AlbedoTransparency.png-10a78bf7fb657d163912bcb259879f2c.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_Jug_AlbedoTransparency.png-10a78bf7fb657d163912bcb259879f2c.s3tc.ctex", "res://.godot/imported/trn_Jug_AlbedoTransparency.png-10a78bf7fb657d163912bcb259879f2c.etc2.ctex"]
 
 [params]
 

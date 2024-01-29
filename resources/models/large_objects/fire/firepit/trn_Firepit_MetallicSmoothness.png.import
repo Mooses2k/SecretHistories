@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ubbnr5prco4u"
 path.s3tc="res://.godot/imported/trn_Firepit_MetallicSmoothness.png-afa29d73b67fd2a00002e286f2f5a878.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_Firepit_MetallicSmoothness.png-afa29d73b67fd2a00002e286f2f5a878.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/fire/firepit/trn_Firepit_MetallicSmoothness.png"
-dest_files=["res://.godot/imported/trn_Firepit_MetallicSmoothness.png-afa29d73b67fd2a00002e286f2f5a878.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_Firepit_MetallicSmoothness.png-afa29d73b67fd2a00002e286f2f5a878.s3tc.ctex", "res://.godot/imported/trn_Firepit_MetallicSmoothness.png-afa29d73b67fd2a00002e286f2f5a878.etc2.ctex"]
 
 [params]
 

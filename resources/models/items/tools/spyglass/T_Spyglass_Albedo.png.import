@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3b2xxx5gvfia"
 path.s3tc="res://.godot/imported/T_Spyglass_Albedo.png-32f3c8d565e7e5ae691959be123d0e11.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Spyglass_Albedo.png-32f3c8d565e7e5ae691959be123d0e11.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/tools/spyglass/T_Spyglass_Albedo.png"
-dest_files=["res://.godot/imported/T_Spyglass_Albedo.png-32f3c8d565e7e5ae691959be123d0e11.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Spyglass_Albedo.png-32f3c8d565e7e5ae691959be123d0e11.s3tc.ctex", "res://.godot/imported/T_Spyglass_Albedo.png-32f3c8d565e7e5ae691959be123d0e11.etc2.ctex"]
 
 [params]
 

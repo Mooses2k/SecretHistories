@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d07o3fyib3hh1"
 path.s3tc="res://.godot/imported/lp_Base+_Base_Metallic.png-a4b1e241934d4db6cc51bdb34e1acafb.s3tc.ctex"
+path.etc2="res://.godot/imported/lp_Base+_Base_Metallic.png-a4b1e241934d4db6cc51bdb34e1acafb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/melee/mace/textures/lp_Base+_Base_Metallic.png"
-dest_files=["res://.godot/imported/lp_Base+_Base_Metallic.png-a4b1e241934d4db6cc51bdb34e1acafb.s3tc.ctex"]
+dest_files=["res://.godot/imported/lp_Base+_Base_Metallic.png-a4b1e241934d4db6cc51bdb34e1acafb.s3tc.ctex", "res://.godot/imported/lp_Base+_Base_Metallic.png-a4b1e241934d4db6cc51bdb34e1acafb.etc2.ctex"]
 
 [params]
 

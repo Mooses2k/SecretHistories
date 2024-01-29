@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://6gwcwaai5u5i"
 path.s3tc="res://.godot/imported/trn_CandleFlame.png-333129e2494c13363ccfb1531d69c3ea.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_CandleFlame.png-333129e2494c13363ccfb1531d69c3ea.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png"
-dest_files=["res://.godot/imported/trn_CandleFlame.png-333129e2494c13363ccfb1531d69c3ea.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_CandleFlame.png-333129e2494c13363ccfb1531d69c3ea.s3tc.ctex", "res://.godot/imported/trn_CandleFlame.png-333129e2494c13363ccfb1531d69c3ea.etc2.ctex"]
 
 [params]
 

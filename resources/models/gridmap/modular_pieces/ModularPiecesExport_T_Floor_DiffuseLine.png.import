@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhnaqqiueh02u"
 path.s3tc="res://.godot/imported/ModularPiecesExport_T_Floor_DiffuseLine.png-1cb6c6a293a2d2dbed5b0e76d6599e03.s3tc.ctex"
+path.etc2="res://.godot/imported/ModularPiecesExport_T_Floor_DiffuseLine.png-1cb6c6a293a2d2dbed5b0e76d6599e03.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/gridmap/modular_pieces/ModularPiecesExport_T_Floor_DiffuseLine.png"
-dest_files=["res://.godot/imported/ModularPiecesExport_T_Floor_DiffuseLine.png-1cb6c6a293a2d2dbed5b0e76d6599e03.s3tc.ctex"]
+dest_files=["res://.godot/imported/ModularPiecesExport_T_Floor_DiffuseLine.png-1cb6c6a293a2d2dbed5b0e76d6599e03.s3tc.ctex", "res://.godot/imported/ModularPiecesExport_T_Floor_DiffuseLine.png-1cb6c6a293a2d2dbed5b0e76d6599e03.etc2.ctex"]
 
 [params]
 

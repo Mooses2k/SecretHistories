@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bu5ii6574aa7n"
 path.s3tc="res://.godot/imported/OldKnife_T_OldKnife_Metallic-T_OldKnife_Roughness.png-e997f183e3ad02da78fb3a9628905f19.s3tc.ctex"
+path.etc2="res://.godot/imported/OldKnife_T_OldKnife_Metallic-T_OldKnife_Roughness.png-e997f183e3ad02da78fb3a9628905f19.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/melee/knife_old/OldKnife_T_OldKnife_Metallic-T_OldKnife_Roughness.png"
-dest_files=["res://.godot/imported/OldKnife_T_OldKnife_Metallic-T_OldKnife_Roughness.png-e997f183e3ad02da78fb3a9628905f19.s3tc.ctex"]
+dest_files=["res://.godot/imported/OldKnife_T_OldKnife_Metallic-T_OldKnife_Roughness.png-e997f183e3ad02da78fb3a9628905f19.s3tc.ctex", "res://.godot/imported/OldKnife_T_OldKnife_Metallic-T_OldKnife_Roughness.png-e997f183e3ad02da78fb3a9628905f19.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://6kstg658ra2w"
 path.s3tc="res://.godot/imported/Lamp3_T_DarkLantern3_Albedo.png-d8178033a62359b8ee96b269180db172.s3tc.ctex"
+path.etc2="res://.godot/imported/Lamp3_T_DarkLantern3_Albedo.png-d8178033a62359b8ee96b269180db172.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/bullseye_lantern/Lamp3_T_DarkLantern3_Albedo.png"
-dest_files=["res://.godot/imported/Lamp3_T_DarkLantern3_Albedo.png-d8178033a62359b8ee96b269180db172.s3tc.ctex"]
+dest_files=["res://.godot/imported/Lamp3_T_DarkLantern3_Albedo.png-d8178033a62359b8ee96b269180db172.s3tc.ctex", "res://.godot/imported/Lamp3_T_DarkLantern3_Albedo.png-d8178033a62359b8ee96b269180db172.etc2.ctex"]
 
 [params]
 

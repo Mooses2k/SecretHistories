@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2uthgdq038sh"
 path.s3tc="res://.godot/imported/medieval_lantern_T_LampMedieval_Metallic-T_LampMedieval_Roughness.png-694e7822f883a450030f5971bcc8a535.s3tc.ctex"
+path.etc2="res://.godot/imported/medieval_lantern_T_LampMedieval_Metallic-T_LampMedieval_Roughness.png-694e7822f883a450030f5971bcc8a535.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/starstuff_lantern/medieval_lantern_T_LampMedieval_Metallic-T_LampMedieval_Roughness.png"
-dest_files=["res://.godot/imported/medieval_lantern_T_LampMedieval_Metallic-T_LampMedieval_Roughness.png-694e7822f883a450030f5971bcc8a535.s3tc.ctex"]
+dest_files=["res://.godot/imported/medieval_lantern_T_LampMedieval_Metallic-T_LampMedieval_Roughness.png-694e7822f883a450030f5971bcc8a535.s3tc.ctex", "res://.godot/imported/medieval_lantern_T_LampMedieval_Metallic-T_LampMedieval_Roughness.png-694e7822f883a450030f5971bcc8a535.etc2.ctex"]
 
 [params]
 

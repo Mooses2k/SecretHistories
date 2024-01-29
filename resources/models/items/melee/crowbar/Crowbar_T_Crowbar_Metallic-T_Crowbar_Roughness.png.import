@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://p6ko0wnmskxk"
 path.s3tc="res://.godot/imported/Crowbar_T_Crowbar_Metallic-T_Crowbar_Roughness.png-8a8479b805cfba98aa23210013016b3c.s3tc.ctex"
+path.etc2="res://.godot/imported/Crowbar_T_Crowbar_Metallic-T_Crowbar_Roughness.png-8a8479b805cfba98aa23210013016b3c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/melee/crowbar/Crowbar_T_Crowbar_Metallic-T_Crowbar_Roughness.png"
-dest_files=["res://.godot/imported/Crowbar_T_Crowbar_Metallic-T_Crowbar_Roughness.png-8a8479b805cfba98aa23210013016b3c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Crowbar_T_Crowbar_Metallic-T_Crowbar_Roughness.png-8a8479b805cfba98aa23210013016b3c.s3tc.ctex", "res://.godot/imported/Crowbar_T_Crowbar_Metallic-T_Crowbar_Roughness.png-8a8479b805cfba98aa23210013016b3c.etc2.ctex"]
 
 [params]
 

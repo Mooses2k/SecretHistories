@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://tf1lcrs0c5da"
 path.s3tc="res://.godot/imported/main_char_only_arms_game_rig_LongCoat_Base_Color.png-0e878de7f539603fc2bf52252aa84f92.s3tc.ctex"
+path.etc2="res://.godot/imported/main_char_only_arms_game_rig_LongCoat_Base_Color.png-0e878de7f539603fc2bf52252aa84f92.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/characters/player/fps_arms/main_char_only_arms_game_rig_LongCoat_Base_Color.png"
-dest_files=["res://.godot/imported/main_char_only_arms_game_rig_LongCoat_Base_Color.png-0e878de7f539603fc2bf52252aa84f92.s3tc.ctex"]
+dest_files=["res://.godot/imported/main_char_only_arms_game_rig_LongCoat_Base_Color.png-0e878de7f539603fc2bf52252aa84f92.s3tc.ctex", "res://.godot/imported/main_char_only_arms_game_rig_LongCoat_Base_Color.png-0e878de7f539603fc2bf52252aa84f92.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://x4xwd1vrvh6o"
 path.s3tc="res://.godot/imported/manequin_T_Manequin_normal.jpg-1912a3b5664e974ed7a2cf7a30174e3e.s3tc.ctex"
+path.etc2="res://.godot/imported/manequin_T_Manequin_normal.jpg-1912a3b5664e974ed7a2cf7a30174e3e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/manequin/manequin_T_Manequin_normal.jpg"
-dest_files=["res://.godot/imported/manequin_T_Manequin_normal.jpg-1912a3b5664e974ed7a2cf7a30174e3e.s3tc.ctex"]
+dest_files=["res://.godot/imported/manequin_T_Manequin_normal.jpg-1912a3b5664e974ed7a2cf7a30174e3e.s3tc.ctex", "res://.godot/imported/manequin_T_Manequin_normal.jpg-1912a3b5664e974ed7a2cf7a30174e3e.etc2.ctex"]
 
 [params]
 

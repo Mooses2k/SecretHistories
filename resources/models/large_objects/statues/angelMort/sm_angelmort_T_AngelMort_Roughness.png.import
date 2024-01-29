@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://pqm6gci4bmyd"
 path.s3tc="res://.godot/imported/sm_angelmort_T_AngelMort_Roughness.png-a90d01019f5fd34d98cd3152c5e54600.s3tc.ctex"
+path.etc2="res://.godot/imported/sm_angelmort_T_AngelMort_Roughness.png-a90d01019f5fd34d98cd3152c5e54600.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/statues/angelMort/sm_angelmort_T_AngelMort_Roughness.png"
-dest_files=["res://.godot/imported/sm_angelmort_T_AngelMort_Roughness.png-a90d01019f5fd34d98cd3152c5e54600.s3tc.ctex"]
+dest_files=["res://.godot/imported/sm_angelmort_T_AngelMort_Roughness.png-a90d01019f5fd34d98cd3152c5e54600.s3tc.ctex", "res://.godot/imported/sm_angelmort_T_AngelMort_Roughness.png-a90d01019f5fd34d98cd3152c5e54600.etc2.ctex"]
 
 [params]
 

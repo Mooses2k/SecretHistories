@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjw0yt8h4aae1"
 path.s3tc="res://.godot/imported/WebleyBox_WebleyBox_Base_Color.png-9068ec861132f522db9cace43631cc72.s3tc.ctex"
+path.etc2="res://.godot/imported/WebleyBox_WebleyBox_Base_Color.png-9068ec861132f522db9cace43631cc72.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/boxes/WebleyBox_WebleyBox_Base_Color.png"
-dest_files=["res://.godot/imported/WebleyBox_WebleyBox_Base_Color.png-9068ec861132f522db9cace43631cc72.s3tc.ctex"]
+dest_files=["res://.godot/imported/WebleyBox_WebleyBox_Base_Color.png-9068ec861132f522db9cace43631cc72.s3tc.ctex", "res://.godot/imported/WebleyBox_WebleyBox_Base_Color.png-9068ec861132f522db9cace43631cc72.etc2.ctex"]
 
 [params]
 

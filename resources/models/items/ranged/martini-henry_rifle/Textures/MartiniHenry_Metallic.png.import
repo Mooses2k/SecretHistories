@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkyi8bhwnmnvy"
 path.s3tc="res://.godot/imported/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.s3tc.ctex"
+path.etc2="res://.godot/imported/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/ranged/martini-henry_rifle/Textures/MartiniHenry_Metallic.png"
-dest_files=["res://.godot/imported/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.s3tc.ctex"]
+dest_files=["res://.godot/imported/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.s3tc.ctex", "res://.godot/imported/MartiniHenry_Metallic.png-6c925593f7bc9daabd43cdf12e37b1fb.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://mpe8wb4ynl65"
 path.s3tc="res://.godot/imported/floor_candelabra3_Kandelabra_baseColor.jpg-8452a482aec93baf3e68395c5e9143c6.s3tc.ctex"
+path.etc2="res://.godot/imported/floor_candelabra3_Kandelabra_baseColor.jpg-8452a482aec93baf3e68395c5e9143c6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/floor_candelabra3_Kandelabra_baseColor.jpg"
-dest_files=["res://.godot/imported/floor_candelabra3_Kandelabra_baseColor.jpg-8452a482aec93baf3e68395c5e9143c6.s3tc.ctex"]
+dest_files=["res://.godot/imported/floor_candelabra3_Kandelabra_baseColor.jpg-8452a482aec93baf3e68395c5e9143c6.s3tc.ctex", "res://.godot/imported/floor_candelabra3_Kandelabra_baseColor.jpg-8452a482aec93baf3e68395c5e9143c6.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://divsurqb23af6"
 path.s3tc="res://.godot/imported/double_barrel_weapon_reload_DoubleBarrel_Base_color.png-9e57e1df9a238f144db54f5401050360.s3tc.ctex"
+path.etc2="res://.godot/imported/double_barrel_weapon_reload_DoubleBarrel_Base_color.png-9e57e1df9a238f144db54f5401050360.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/double_barrel_shotguns/double_barrel_weapon_reload_DoubleBarrel_Base_color.png"
-dest_files=["res://.godot/imported/double_barrel_weapon_reload_DoubleBarrel_Base_color.png-9e57e1df9a238f144db54f5401050360.s3tc.ctex"]
+dest_files=["res://.godot/imported/double_barrel_weapon_reload_DoubleBarrel_Base_color.png-9e57e1df9a238f144db54f5401050360.s3tc.ctex", "res://.godot/imported/double_barrel_weapon_reload_DoubleBarrel_Base_color.png-9e57e1df9a238f144db54f5401050360.etc2.ctex"]
 
 [params]
 

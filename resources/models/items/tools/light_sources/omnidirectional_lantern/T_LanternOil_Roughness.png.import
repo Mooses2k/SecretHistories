@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cc0vms6iiev25"
 path.s3tc="res://.godot/imported/T_LanternOil_Roughness.png-c573e54a7a13f7324756f52fdbdc12de.s3tc.ctex"
+path.etc2="res://.godot/imported/T_LanternOil_Roughness.png-c573e54a7a13f7324756f52fdbdc12de.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/omnidirectional_lantern/T_LanternOil_Roughness.png"
-dest_files=["res://.godot/imported/T_LanternOil_Roughness.png-c573e54a7a13f7324756f52fdbdc12de.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_LanternOil_Roughness.png-c573e54a7a13f7324756f52fdbdc12de.s3tc.ctex", "res://.godot/imported/T_LanternOil_Roughness.png-c573e54a7a13f7324756f52fdbdc12de.etc2.ctex"]
 
 [params]
 

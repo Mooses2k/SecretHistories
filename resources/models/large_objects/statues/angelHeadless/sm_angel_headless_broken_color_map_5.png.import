@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dh4cpbs8ney5l"
 path.s3tc="res://.godot/imported/sm_angel_headless_broken_color_map_5.png-15f76c735b2442b46acc6ddfcff70cbb.s3tc.ctex"
+path.etc2="res://.godot/imported/sm_angel_headless_broken_color_map_5.png-15f76c735b2442b46acc6ddfcff70cbb.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/statues/angelHeadless/sm_angel_headless_broken_color_map_5.png"
-dest_files=["res://.godot/imported/sm_angel_headless_broken_color_map_5.png-15f76c735b2442b46acc6ddfcff70cbb.s3tc.ctex"]
+dest_files=["res://.godot/imported/sm_angel_headless_broken_color_map_5.png-15f76c735b2442b46acc6ddfcff70cbb.s3tc.ctex", "res://.godot/imported/sm_angel_headless_broken_color_map_5.png-15f76c735b2442b46acc6ddfcff70cbb.etc2.ctex"]
 
 [params]
 

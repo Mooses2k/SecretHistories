@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://4aw4moijma0t"
 path.s3tc="res://.godot/imported/table_chairs_Material_metallicRoughness.png-29cdf47dd003921395e4fe98a78380d3.s3tc.ctex"
+path.etc2="res://.godot/imported/table_chairs_Material_metallicRoughness.png-29cdf47dd003921395e4fe98a78380d3.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/seating/table_chairs_Material_metallicRoughness.png"
-dest_files=["res://.godot/imported/table_chairs_Material_metallicRoughness.png-29cdf47dd003921395e4fe98a78380d3.s3tc.ctex"]
+dest_files=["res://.godot/imported/table_chairs_Material_metallicRoughness.png-29cdf47dd003921395e4fe98a78380d3.s3tc.ctex", "res://.godot/imported/table_chairs_Material_metallicRoughness.png-29cdf47dd003921395e4fe98a78380d3.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://mx2utycvycog"
 path.s3tc="res://.godot/imported/bookshelf1_T_Bookshelf1_baseColor.png-630430191706982fb78b3a8933bea1a1.s3tc.ctex"
+path.etc2="res://.godot/imported/bookshelf1_T_Bookshelf1_baseColor.png-630430191706982fb78b3a8933bea1a1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/shelving/bookshelf1/bookshelf1_T_Bookshelf1_baseColor.png"
-dest_files=["res://.godot/imported/bookshelf1_T_Bookshelf1_baseColor.png-630430191706982fb78b3a8933bea1a1.s3tc.ctex"]
+dest_files=["res://.godot/imported/bookshelf1_T_Bookshelf1_baseColor.png-630430191706982fb78b3a8933bea1a1.s3tc.ctex", "res://.godot/imported/bookshelf1_T_Bookshelf1_baseColor.png-630430191706982fb78b3a8933bea1a1.etc2.ctex"]
 
 [params]
 

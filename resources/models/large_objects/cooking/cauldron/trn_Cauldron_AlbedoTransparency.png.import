@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://p12iwrh8i6k2"
 path.s3tc="res://.godot/imported/trn_Cauldron_AlbedoTransparency.png-6e26be04dbbb0913af5df007ab9adcf6.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_Cauldron_AlbedoTransparency.png-6e26be04dbbb0913af5df007ab9adcf6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/cooking/cauldron/trn_Cauldron_AlbedoTransparency.png"
-dest_files=["res://.godot/imported/trn_Cauldron_AlbedoTransparency.png-6e26be04dbbb0913af5df007ab9adcf6.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_Cauldron_AlbedoTransparency.png-6e26be04dbbb0913af5df007ab9adcf6.s3tc.ctex", "res://.godot/imported/trn_Cauldron_AlbedoTransparency.png-6e26be04dbbb0913af5df007ab9adcf6.etc2.ctex"]
 
 [params]
 

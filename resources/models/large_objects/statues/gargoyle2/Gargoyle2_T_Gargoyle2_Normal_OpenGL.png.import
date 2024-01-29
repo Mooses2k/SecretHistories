@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cin1337xe3u8r"
 path.s3tc="res://.godot/imported/Gargoyle2_T_Gargoyle2_Normal_OpenGL.png-756b269ff351daf75d314f83723f17d8.s3tc.ctex"
+path.etc2="res://.godot/imported/Gargoyle2_T_Gargoyle2_Normal_OpenGL.png-756b269ff351daf75d314f83723f17d8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/statues/gargoyle2/Gargoyle2_T_Gargoyle2_Normal_OpenGL.png"
-dest_files=["res://.godot/imported/Gargoyle2_T_Gargoyle2_Normal_OpenGL.png-756b269ff351daf75d314f83723f17d8.s3tc.ctex"]
+dest_files=["res://.godot/imported/Gargoyle2_T_Gargoyle2_Normal_OpenGL.png-756b269ff351daf75d314f83723f17d8.s3tc.ctex", "res://.godot/imported/Gargoyle2_T_Gargoyle2_Normal_OpenGL.png-756b269ff351daf75d314f83723f17d8.etc2.ctex"]
 
 [params]
 

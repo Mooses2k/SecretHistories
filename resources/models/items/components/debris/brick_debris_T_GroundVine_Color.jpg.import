@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5qb45yi2fe78"
 path.s3tc="res://.godot/imported/brick_debris_T_GroundVine_Color.jpg-4314026af3eab255e1ce41bb61666814.s3tc.ctex"
+path.etc2="res://.godot/imported/brick_debris_T_GroundVine_Color.jpg-4314026af3eab255e1ce41bb61666814.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/components/debris/brick_debris_T_GroundVine_Color.jpg"
-dest_files=["res://.godot/imported/brick_debris_T_GroundVine_Color.jpg-4314026af3eab255e1ce41bb61666814.s3tc.ctex"]
+dest_files=["res://.godot/imported/brick_debris_T_GroundVine_Color.jpg-4314026af3eab255e1ce41bb61666814.s3tc.ctex", "res://.godot/imported/brick_debris_T_GroundVine_Color.jpg-4314026af3eab255e1ce41bb61666814.etc2.ctex"]
 
 [params]
 

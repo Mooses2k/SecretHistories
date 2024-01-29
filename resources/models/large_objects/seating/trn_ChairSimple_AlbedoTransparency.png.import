@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b82mebfvxuvs3"
 path.s3tc="res://.godot/imported/trn_ChairSimple_AlbedoTransparency.png-bbe736a074f816b48f02a001a4eb6b39.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_ChairSimple_AlbedoTransparency.png-bbe736a074f816b48f02a001a4eb6b39.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/seating/trn_ChairSimple_AlbedoTransparency.png"
-dest_files=["res://.godot/imported/trn_ChairSimple_AlbedoTransparency.png-bbe736a074f816b48f02a001a4eb6b39.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_ChairSimple_AlbedoTransparency.png-bbe736a074f816b48f02a001a4eb6b39.s3tc.ctex", "res://.godot/imported/trn_ChairSimple_AlbedoTransparency.png-bbe736a074f816b48f02a001a4eb6b39.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhiy8gts12386"
 path.s3tc="res://.godot/imported/T_Rock_Roughness.png-83bbe7fd22373b2721bf2069eaf8c0f4.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Rock_Roughness.png-83bbe7fd22373b2721bf2069eaf8c0f4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/components/debris/T_Rock_Roughness.png"
-dest_files=["res://.godot/imported/T_Rock_Roughness.png-83bbe7fd22373b2721bf2069eaf8c0f4.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Rock_Roughness.png-83bbe7fd22373b2721bf2069eaf8c0f4.s3tc.ctex", "res://.godot/imported/T_Rock_Roughness.png-83bbe7fd22373b2721bf2069eaf8c0f4.etc2.ctex"]
 
 [params]
 

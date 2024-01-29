@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://0ev36kyka834"
 path.s3tc="res://.godot/imported/T_Candelabra2_Metallic-T_Candelabra2_Roughness.png-7bafb559f1101b5ba9757bedbec31517.s3tc.ctex"
+path.etc2="res://.godot/imported/T_Candelabra2_Metallic-T_Candelabra2_Roughness.png-7bafb559f1101b5ba9757bedbec31517.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/floor_candelabra2/T_Candelabra2_Metallic-T_Candelabra2_Roughness.png"
-dest_files=["res://.godot/imported/T_Candelabra2_Metallic-T_Candelabra2_Roughness.png-7bafb559f1101b5ba9757bedbec31517.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_Candelabra2_Metallic-T_Candelabra2_Roughness.png-7bafb559f1101b5ba9757bedbec31517.s3tc.ctex", "res://.godot/imported/T_Candelabra2_Metallic-T_Candelabra2_Roughness.png-7bafb559f1101b5ba9757bedbec31517.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://qxnt18vh0lpx"
 path.s3tc="res://.godot/imported/chalk_M_Chalk_Albedo.png-7c5d1a500454ddc2734c8f189e91a18c.s3tc.ctex"
+path.etc2="res://.godot/imported/chalk_M_Chalk_Albedo.png-7c5d1a500454ddc2734c8f189e91a18c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/chalk/chalk_M_Chalk_Albedo.png"
-dest_files=["res://.godot/imported/chalk_M_Chalk_Albedo.png-7c5d1a500454ddc2734c8f189e91a18c.s3tc.ctex"]
+dest_files=["res://.godot/imported/chalk_M_Chalk_Albedo.png-7c5d1a500454ddc2734c8f189e91a18c.s3tc.ctex", "res://.godot/imported/chalk_M_Chalk_Albedo.png-7c5d1a500454ddc2734c8f189e91a18c.etc2.ctex"]
 
 [params]
 

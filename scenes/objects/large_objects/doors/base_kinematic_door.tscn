@@ -23,7 +23,6 @@ size = Vector3(0.9, 1.9, 0.1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pcxe0"]
 resource_name = "M_DoorSimple1"
 cull_mode = 2
-vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("8_6l7jw")
 metallic = 1.0
 metallic_texture = ExtResource("9_r3ume")

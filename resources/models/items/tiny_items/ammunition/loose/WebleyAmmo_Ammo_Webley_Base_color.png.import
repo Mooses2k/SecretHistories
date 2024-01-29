@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8xhq6i6x0feh"
 path.s3tc="res://.godot/imported/WebleyAmmo_Ammo_Webley_Base_color.png-b733d0a1c9a0d85a9271f16492814b3a.s3tc.ctex"
+path.etc2="res://.godot/imported/WebleyAmmo_Ammo_Webley_Base_color.png-b733d0a1c9a0d85a9271f16492814b3a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/tiny_items/ammunition/loose/WebleyAmmo_Ammo_Webley_Base_color.png"
-dest_files=["res://.godot/imported/WebleyAmmo_Ammo_Webley_Base_color.png-b733d0a1c9a0d85a9271f16492814b3a.s3tc.ctex"]
+dest_files=["res://.godot/imported/WebleyAmmo_Ammo_Webley_Base_color.png-b733d0a1c9a0d85a9271f16492814b3a.s3tc.ctex", "res://.godot/imported/WebleyAmmo_Ammo_Webley_Base_color.png-b733d0a1c9a0d85a9271f16492814b3a.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7yupsrah6mqv"
 path.s3tc="res://.godot/imported/sawed_off_reload_weapon_DoubleBarrel_Base_color.png-550deb1a073e6bc9e8ce32b1515de68f.s3tc.ctex"
+path.etc2="res://.godot/imported/sawed_off_reload_weapon_DoubleBarrel_Base_color.png-550deb1a073e6bc9e8ce32b1515de68f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/double_barrel_shotguns/sawed_off_reload_weapon_DoubleBarrel_Base_color.png"
-dest_files=["res://.godot/imported/sawed_off_reload_weapon_DoubleBarrel_Base_color.png-550deb1a073e6bc9e8ce32b1515de68f.s3tc.ctex"]
+dest_files=["res://.godot/imported/sawed_off_reload_weapon_DoubleBarrel_Base_color.png-550deb1a073e6bc9e8ce32b1515de68f.s3tc.ctex", "res://.godot/imported/sawed_off_reload_weapon_DoubleBarrel_Base_color.png-550deb1a073e6bc9e8ce32b1515de68f.etc2.ctex"]
 
 [params]
 

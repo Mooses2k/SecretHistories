@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bs47mkgcul3l1"
 path.s3tc="res://.godot/imported/palette_moonlight.png-4329c97e90e35965a2d4b720b91c09cf.s3tc.ctex"
+path.etc2="res://.godot/imported/palette_moonlight.png-4329c97e90e35965a2d4b720b91c09cf.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/shaders/dither/assets/palette_moonlight.png"
-dest_files=["res://.godot/imported/palette_moonlight.png-4329c97e90e35965a2d4b720b91c09cf.s3tc.ctex"]
+dest_files=["res://.godot/imported/palette_moonlight.png-4329c97e90e35965a2d4b720b91c09cf.s3tc.ctex", "res://.godot/imported/palette_moonlight.png-4329c97e90e35965a2d4b720b91c09cf.etc2.ctex"]
 
 [params]
 

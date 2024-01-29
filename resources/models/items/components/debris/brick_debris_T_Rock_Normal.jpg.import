@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bey0qo767j0y4"
 path.s3tc="res://.godot/imported/brick_debris_T_Rock_Normal.jpg-8065270b84d251b5c40662babf01c214.s3tc.ctex"
+path.etc2="res://.godot/imported/brick_debris_T_Rock_Normal.jpg-8065270b84d251b5c40662babf01c214.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/components/debris/brick_debris_T_Rock_Normal.jpg"
-dest_files=["res://.godot/imported/brick_debris_T_Rock_Normal.jpg-8065270b84d251b5c40662babf01c214.s3tc.ctex"]
+dest_files=["res://.godot/imported/brick_debris_T_Rock_Normal.jpg-8065270b84d251b5c40662babf01c214.s3tc.ctex", "res://.godot/imported/brick_debris_T_Rock_Normal.jpg-8065270b84d251b5c40662babf01c214.etc2.ctex"]
 
 [params]
 

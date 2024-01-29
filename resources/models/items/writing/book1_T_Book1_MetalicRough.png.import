@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqiw0mqjlmclg"
 path.s3tc="res://.godot/imported/book1_T_Book1_MetalicRough.png-2d639b86aaf973abcb3946a913db2f06.s3tc.ctex"
+path.etc2="res://.godot/imported/book1_T_Book1_MetalicRough.png-2d639b86aaf973abcb3946a913db2f06.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/writing/book1_T_Book1_MetalicRough.png"
-dest_files=["res://.godot/imported/book1_T_Book1_MetalicRough.png-2d639b86aaf973abcb3946a913db2f06.s3tc.ctex"]
+dest_files=["res://.godot/imported/book1_T_Book1_MetalicRough.png-2d639b86aaf973abcb3946a913db2f06.s3tc.ctex", "res://.godot/imported/book1_T_Book1_MetalicRough.png-2d639b86aaf973abcb3946a913db2f06.etc2.ctex"]
 
 [params]
 

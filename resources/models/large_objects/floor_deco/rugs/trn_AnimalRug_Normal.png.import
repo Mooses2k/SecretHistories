@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqmtaib1k6d08"
 path.s3tc="res://.godot/imported/trn_AnimalRug_Normal.png-5b2c876e0b94ed6310b05d4a19e84258.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_AnimalRug_Normal.png-5b2c876e0b94ed6310b05d4a19e84258.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/floor_deco/rugs/trn_AnimalRug_Normal.png"
-dest_files=["res://.godot/imported/trn_AnimalRug_Normal.png-5b2c876e0b94ed6310b05d4a19e84258.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_AnimalRug_Normal.png-5b2c876e0b94ed6310b05d4a19e84258.s3tc.ctex", "res://.godot/imported/trn_AnimalRug_Normal.png-5b2c876e0b94ed6310b05d4a19e84258.etc2.ctex"]
 
 [params]
 

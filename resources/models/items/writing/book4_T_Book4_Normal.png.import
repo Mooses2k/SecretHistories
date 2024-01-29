@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://x6731d5xjoa7"
 path.s3tc="res://.godot/imported/book4_T_Book4_Normal.png-9e1b446eada14d6edb05e31b116839de.s3tc.ctex"
+path.etc2="res://.godot/imported/book4_T_Book4_Normal.png-9e1b446eada14d6edb05e31b116839de.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/writing/book4_T_Book4_Normal.png"
-dest_files=["res://.godot/imported/book4_T_Book4_Normal.png-9e1b446eada14d6edb05e31b116839de.s3tc.ctex"]
+dest_files=["res://.godot/imported/book4_T_Book4_Normal.png-9e1b446eada14d6edb05e31b116839de.s3tc.ctex", "res://.godot/imported/book4_T_Book4_Normal.png-9e1b446eada14d6edb05e31b116839de.etc2.ctex"]
 
 [params]
 

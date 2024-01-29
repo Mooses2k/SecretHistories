@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://m3q3w0jsldti"
 path.s3tc="res://.godot/imported/floor_candelabra4_Material_metallicRoughness.png-59a3144350c940fb235052da83ae8dd2.s3tc.ctex"
+path.etc2="res://.godot/imported/floor_candelabra4_Material_metallicRoughness.png-59a3144350c940fb235052da83ae8dd2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/floor_candelabra4_Material_metallicRoughness.png"
-dest_files=["res://.godot/imported/floor_candelabra4_Material_metallicRoughness.png-59a3144350c940fb235052da83ae8dd2.s3tc.ctex"]
+dest_files=["res://.godot/imported/floor_candelabra4_Material_metallicRoughness.png-59a3144350c940fb235052da83ae8dd2.s3tc.ctex", "res://.godot/imported/floor_candelabra4_Material_metallicRoughness.png-59a3144350c940fb235052da83ae8dd2.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://mt401061f3x1"
 path.s3tc="res://.godot/imported/T_LanternCandle_Metallic_png-T_LanternCandle_Roughness.png-8791f070fb3f58c509f94f03b55f63e1.s3tc.ctex"
+path.etc2="res://.godot/imported/T_LanternCandle_Metallic_png-T_LanternCandle_Roughness.png-8791f070fb3f58c509f94f03b55f63e1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/tools/light_sources/candle_lantern/T_LanternCandle_Metallic_png-T_LanternCandle_Roughness.png"
-dest_files=["res://.godot/imported/T_LanternCandle_Metallic_png-T_LanternCandle_Roughness.png-8791f070fb3f58c509f94f03b55f63e1.s3tc.ctex"]
+dest_files=["res://.godot/imported/T_LanternCandle_Metallic_png-T_LanternCandle_Roughness.png-8791f070fb3f58c509f94f03b55f63e1.s3tc.ctex", "res://.godot/imported/T_LanternCandle_Metallic_png-T_LanternCandle_Roughness.png-8791f070fb3f58c509f94f03b55f63e1.etc2.ctex"]
 
 [params]
 

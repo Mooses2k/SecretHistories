@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://btl5306xywds1"
 path.s3tc="res://.godot/imported/vignette.png-76036f3e4fd8f7f6944a8667b10b4e01.s3tc.ctex"
+path.etc2="res://.godot/imported/vignette.png-76036f3e4fd8f7f6944a8667b10b4e01.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/shaders/vignette/vignette.png"
-dest_files=["res://.godot/imported/vignette.png-76036f3e4fd8f7f6944a8667b10b4e01.s3tc.ctex"]
+dest_files=["res://.godot/imported/vignette.png-76036f3e4fd8f7f6944a8667b10b4e01.s3tc.ctex", "res://.godot/imported/vignette.png-76036f3e4fd8f7f6944a8667b10b4e01.etc2.ctex"]
 
 [params]
 

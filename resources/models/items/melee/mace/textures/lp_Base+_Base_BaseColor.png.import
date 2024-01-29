@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bo8ihhuwmvash"
 path.s3tc="res://.godot/imported/lp_Base+_Base_BaseColor.png-2800dcf9cf6640f41c339512e03f2067.s3tc.ctex"
+path.etc2="res://.godot/imported/lp_Base+_Base_BaseColor.png-2800dcf9cf6640f41c339512e03f2067.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/melee/mace/textures/lp_Base+_Base_BaseColor.png"
-dest_files=["res://.godot/imported/lp_Base+_Base_BaseColor.png-2800dcf9cf6640f41c339512e03f2067.s3tc.ctex"]
+dest_files=["res://.godot/imported/lp_Base+_Base_BaseColor.png-2800dcf9cf6640f41c339512e03f2067.s3tc.ctex", "res://.godot/imported/lp_Base+_Base_BaseColor.png-2800dcf9cf6640f41c339512e03f2067.etc2.ctex"]
 
 [params]
 

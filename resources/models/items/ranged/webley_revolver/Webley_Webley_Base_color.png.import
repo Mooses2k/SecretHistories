@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ddbnqd4rrwyj4"
 path.s3tc="res://.godot/imported/Webley_Webley_Base_color.png-ad64ded3224a687b4e47b01f7f70f1f4.s3tc.ctex"
+path.etc2="res://.godot/imported/Webley_Webley_Base_color.png-ad64ded3224a687b4e47b01f7f70f1f4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/ranged/webley_revolver/Webley_Webley_Base_color.png"
-dest_files=["res://.godot/imported/Webley_Webley_Base_color.png-ad64ded3224a687b4e47b01f7f70f1f4.s3tc.ctex"]
+dest_files=["res://.godot/imported/Webley_Webley_Base_color.png-ad64ded3224a687b4e47b01f7f70f1f4.s3tc.ctex", "res://.godot/imported/Webley_Webley_Base_color.png-ad64ded3224a687b4e47b01f7f70f1f4.etc2.ctex"]
 
 [params]
 

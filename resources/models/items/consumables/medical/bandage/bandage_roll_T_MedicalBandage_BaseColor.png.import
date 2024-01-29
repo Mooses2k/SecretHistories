@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://crgd10t7vl715"
 path.s3tc="res://.godot/imported/bandage_roll_T_MedicalBandage_BaseColor.png-5ead52926a8edbdd69a9decc956423b6.s3tc.ctex"
+path.etc2="res://.godot/imported/bandage_roll_T_MedicalBandage_BaseColor.png-5ead52926a8edbdd69a9decc956423b6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/consumables/medical/bandage/bandage_roll_T_MedicalBandage_BaseColor.png"
-dest_files=["res://.godot/imported/bandage_roll_T_MedicalBandage_BaseColor.png-5ead52926a8edbdd69a9decc956423b6.s3tc.ctex"]
+dest_files=["res://.godot/imported/bandage_roll_T_MedicalBandage_BaseColor.png-5ead52926a8edbdd69a9decc956423b6.s3tc.ctex", "res://.godot/imported/bandage_roll_T_MedicalBandage_BaseColor.png-5ead52926a8edbdd69a9decc956423b6.etc2.ctex"]
 
 [params]
 

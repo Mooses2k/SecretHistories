@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bt1p1be1g3dme"
 path.s3tc="res://.godot/imported/flame.webp-d2e1f14e02d56612e06fc9c8a0a1ffdc.s3tc.ctex"
+path.etc2="res://.godot/imported/flame.webp-d2e1f14e02d56612e06fc9c8a0a1ffdc.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/consumables/light_sources/candle/flame.webp"
-dest_files=["res://.godot/imported/flame.webp-d2e1f14e02d56612e06fc9c8a0a1ffdc.s3tc.ctex"]
+dest_files=["res://.godot/imported/flame.webp-d2e1f14e02d56612e06fc9c8a0a1ffdc.s3tc.ctex", "res://.godot/imported/flame.webp-d2e1f14e02d56612e06fc9c8a0a1ffdc.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dayvtcq0p4t34"
 path.s3tc="res://.godot/imported/bunk_bed_T_Linen_Color.jpg-35d957cdb7b0e7c105ee69e75d18b4d1.s3tc.ctex"
+path.etc2="res://.godot/imported/bunk_bed_T_Linen_Color.jpg-35d957cdb7b0e7c105ee69e75d18b4d1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/beds_and_bedding/bunk_bed/bunk_bed_T_Linen_Color.jpg"
-dest_files=["res://.godot/imported/bunk_bed_T_Linen_Color.jpg-35d957cdb7b0e7c105ee69e75d18b4d1.s3tc.ctex"]
+dest_files=["res://.godot/imported/bunk_bed_T_Linen_Color.jpg-35d957cdb7b0e7c105ee69e75d18b4d1.s3tc.ctex", "res://.godot/imported/bunk_bed_T_Linen_Color.jpg-35d957cdb7b0e7c105ee69e75d18b4d1.etc2.ctex"]
 
 [params]
 

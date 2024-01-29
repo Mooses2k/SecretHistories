@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c14o1jh6p7ljf"
 path.s3tc="res://.godot/imported/realistic_axe_free_0.png-13ef498d9ac1a90ae89a99b98dda1826.s3tc.ctex"
+path.etc2="res://.godot/imported/realistic_axe_free_0.png-13ef498d9ac1a90ae89a99b98dda1826.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/items/melee/hatchet/realistic_axe_free_0.png"
-dest_files=["res://.godot/imported/realistic_axe_free_0.png-13ef498d9ac1a90ae89a99b98dda1826.s3tc.ctex"]
+dest_files=["res://.godot/imported/realistic_axe_free_0.png-13ef498d9ac1a90ae89a99b98dda1826.s3tc.ctex", "res://.godot/imported/realistic_axe_free_0.png-13ef498d9ac1a90ae89a99b98dda1826.etc2.ctex"]
 
 [params]
 

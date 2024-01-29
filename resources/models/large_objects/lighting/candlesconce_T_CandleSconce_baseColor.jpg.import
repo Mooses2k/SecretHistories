@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://7uarwwc4q44m"
 path.s3tc="res://.godot/imported/candlesconce_T_CandleSconce_baseColor.jpg-1146516fc83e3950c66369a46deef147.s3tc.ctex"
+path.etc2="res://.godot/imported/candlesconce_T_CandleSconce_baseColor.jpg-1146516fc83e3950c66369a46deef147.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/lighting/candlesconce_T_CandleSconce_baseColor.jpg"
-dest_files=["res://.godot/imported/candlesconce_T_CandleSconce_baseColor.jpg-1146516fc83e3950c66369a46deef147.s3tc.ctex"]
+dest_files=["res://.godot/imported/candlesconce_T_CandleSconce_baseColor.jpg-1146516fc83e3950c66369a46deef147.s3tc.ctex", "res://.godot/imported/candlesconce_T_CandleSconce_baseColor.jpg-1146516fc83e3950c66369a46deef147.etc2.ctex"]
 
 [params]
 

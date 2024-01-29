@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://j0mlmag4nqor"
 path.s3tc="res://.godot/imported/trn_Plates_Normal.png-5d5a6984b9c71156836af803d6d2ac09.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_Plates_Normal.png-5d5a6984b9c71156836af803d6d2ac09.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/items/containers/dining/plates/trn_Plates_Normal.png"
-dest_files=["res://.godot/imported/trn_Plates_Normal.png-5d5a6984b9c71156836af803d6d2ac09.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_Plates_Normal.png-5d5a6984b9c71156836af803d6d2ac09.s3tc.ctex", "res://.godot/imported/trn_Plates_Normal.png-5d5a6984b9c71156836af803d6d2ac09.etc2.ctex"]
 
 [params]
 

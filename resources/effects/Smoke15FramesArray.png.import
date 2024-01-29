@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://5nqrguxj4bfu"
 path.s3tc="res://.godot/imported/Smoke15FramesArray.png-9c44f33e0ad457162216c94b3603de5c.s3tc.ctex"
+path.etc2="res://.godot/imported/Smoke15FramesArray.png-9c44f33e0ad457162216c94b3603de5c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/effects/Smoke15FramesArray.png"
-dest_files=["res://.godot/imported/Smoke15FramesArray.png-9c44f33e0ad457162216c94b3603de5c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Smoke15FramesArray.png-9c44f33e0ad457162216c94b3603de5c.s3tc.ctex", "res://.godot/imported/Smoke15FramesArray.png-9c44f33e0ad457162216c94b3603de5c.etc2.ctex"]
 
 [params]
 

@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="ObjectSpawnList" load_steps=2 format=3 uid="uid://cs6ibgi4rwbia"]
 
-[ext_resource path="res://scenes/worlds/procedural_world/object_spawn_list.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scenes/worlds/procedural_world/object_spawn_list.gd" id="1"]
 
 [resource]
-script = ExtResource( 1 )
-_paths = [ "res://scenes/objects/large_objects/lighting/floor_candelabra.tscn", "res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn", "" ]
-_weights = [ 97, 2, 1 ]
-_min_amounts = [ 1, 1, 1 ]
-_max_amounts = [ 1, 1, 1 ]
+script = ExtResource("1")
+_paths = ["res://scenes/objects/large_objects/lighting/floor_candelabra.tscn", "res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn", ""]
+_weights = [98, 1, 1]
+_min_amounts = [1, 1, 1]
+_max_amounts = [1, 1, 1]

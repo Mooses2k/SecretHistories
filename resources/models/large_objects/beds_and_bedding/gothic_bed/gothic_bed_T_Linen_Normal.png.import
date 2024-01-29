@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck08164ulm5o4"
 path.s3tc="res://.godot/imported/gothic_bed_T_Linen_Normal.png-42a8ca476d54a0354e9238cd902e1682.s3tc.ctex"
+path.etc2="res://.godot/imported/gothic_bed_T_Linen_Normal.png-42a8ca476d54a0354e9238cd902e1682.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={}
@@ -13,7 +14,7 @@ generator_parameters={}
 [deps]
 
 source_file="res://resources/models/large_objects/beds_and_bedding/gothic_bed/gothic_bed_T_Linen_Normal.png"
-dest_files=["res://.godot/imported/gothic_bed_T_Linen_Normal.png-42a8ca476d54a0354e9238cd902e1682.s3tc.ctex"]
+dest_files=["res://.godot/imported/gothic_bed_T_Linen_Normal.png-42a8ca476d54a0354e9238cd902e1682.s3tc.ctex", "res://.godot/imported/gothic_bed_T_Linen_Normal.png-42a8ca476d54a0354e9238cd902e1682.etc2.ctex"]
 
 [params]
 

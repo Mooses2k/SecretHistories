@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmqmwk04y48wq"
 path.s3tc="res://.godot/imported/trn_BarStool_Normal.png-358033413ea67f346f75b456c42031b6.s3tc.ctex"
+path.etc2="res://.godot/imported/trn_BarStool_Normal.png-358033413ea67f346f75b456c42031b6.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://resources/models/large_objects/seating/trn_BarStool_Normal.png"
-dest_files=["res://.godot/imported/trn_BarStool_Normal.png-358033413ea67f346f75b456c42031b6.s3tc.ctex"]
+dest_files=["res://.godot/imported/trn_BarStool_Normal.png-358033413ea67f346f75b456c42031b6.s3tc.ctex", "res://.godot/imported/trn_BarStool_Normal.png-358033413ea67f346f75b456c42031b6.etc2.ctex"]
 
 [params]
 

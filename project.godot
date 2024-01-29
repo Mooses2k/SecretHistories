@@ -331,5 +331,3 @@ common/enable_pause_aware_picking=true
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 environment/defaults/default_environment="res://default_env.tres"
-quality/directional_shadow/size=8192
-quality/filters/use_fxaa=true

@@ -43,6 +43,7 @@ radius = 0.118034
 
 [node name="Hatchet" instance=ExtResource("17")]
 mass = 1.5
+center_of_mass_mode = 1
 weapon_type = 2
 primary_damage1 = 15
 secondary_damage1 = 18

@@ -78,6 +78,18 @@ tracks/0/keys = {
 resource_name = "flicker"
 length = 5.0
 loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FireOrigin/Fire/Light3D:light_energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.4, 0, 1.3, 2.3, 3.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.4, 0.4, 0.42, 0.39, 0.41]
+}
 
 [sub_resource type="Animation" id="213"]
 resource_name = "unlit"
@@ -113,10 +125,10 @@ seamless = true
 bump_strength = 19.9
 noise = SubResource("9")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sst5r"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hecbq"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 345.194
+shader_parameter/noise_seed = 995.04
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -128,10 +140,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eltu0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o244x"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 283.467
+shader_parameter/noise_seed = 220.47
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -143,10 +155,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ua81f"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu741"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 314.713
+shader_parameter/noise_seed = 659.704
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -158,10 +170,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d8sdw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pvh0u"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 528.722
+shader_parameter/noise_seed = 385.565
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -173,10 +185,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vhga"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1dsqn"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 199.792
+shader_parameter/noise_seed = 323.641
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -188,10 +200,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hhiqy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2ctg"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 487.982
+shader_parameter/noise_seed = 970.672
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -203,10 +215,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8lk5c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k5g8m"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 201.536
+shader_parameter/noise_seed = 2.55399
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -218,10 +230,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a62qj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uqfxj"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 959.88
+shader_parameter/noise_seed = 5.7331
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -233,10 +245,10 @@ shader_parameter/noise = SubResource("10")
 shader_parameter/texture_albedo = ExtResource("7")
 shader_parameter/gradient = ExtResource("5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4uwgd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hvn5g"]
 render_priority = 0
 shader = ExtResource("4")
-shader_parameter/noise_seed = 596.786
+shader_parameter/noise_seed = 87.9598
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -290,7 +302,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_sst5r")
+surface_material_override/0 = SubResource("ShaderMaterial_hecbq")
 script = ExtResource("1")
 
 [node name="FireOrigin7" type="Marker3D" parent="."]
@@ -301,7 +313,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00948143, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_eltu0")
+surface_material_override/0 = SubResource("ShaderMaterial_o244x")
 script = ExtResource("1")
 
 [node name="FireOrigin6" type="Marker3D" parent="."]
@@ -312,7 +324,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.20401e-05, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_ua81f")
+surface_material_override/0 = SubResource("ShaderMaterial_eu741")
 script = ExtResource("1")
 
 [node name="FireOrigin5" type="Marker3D" parent="."]
@@ -323,7 +335,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0140193, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_d8sdw")
+surface_material_override/0 = SubResource("ShaderMaterial_pvh0u")
 script = ExtResource("1")
 
 [node name="FireOrigin4" type="Marker3D" parent="."]
@@ -334,7 +346,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00988299, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_1vhga")
+surface_material_override/0 = SubResource("ShaderMaterial_1dsqn")
 script = ExtResource("1")
 
 [node name="FireOrigin3" type="Marker3D" parent="."]
@@ -345,7 +357,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0179245, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_hhiqy")
+surface_material_override/0 = SubResource("ShaderMaterial_m2ctg")
 script = ExtResource("1")
 
 [node name="FireOrigin9" type="Marker3D" parent="."]
@@ -356,7 +368,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00945556, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_8lk5c")
+surface_material_override/0 = SubResource("ShaderMaterial_k5g8m")
 script = ExtResource("1")
 
 [node name="FireOrigin2" type="Marker3D" parent="."]
@@ -367,7 +379,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0135171, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_a62qj")
+surface_material_override/0 = SubResource("ShaderMaterial_uqfxj")
 script = ExtResource("1")
 
 [node name="FireOrigin" type="Marker3D" parent="."]
@@ -378,7 +390,7 @@ script = ExtResource("6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00492221, 0)
 cast_shadow = 0
 mesh = SubResource("214")
-surface_material_override/0 = SubResource("ShaderMaterial_4uwgd")
+surface_material_override/0 = SubResource("ShaderMaterial_hvn5g")
 script = ExtResource("1")
 
 [node name="Light3D" type="OmniLight3D" parent="FireOrigin/Fire"]
@@ -388,7 +400,6 @@ light_color = Color(0.980392, 0.529412, 0, 1)
 light_energy = 0.4
 shadow_enabled = true
 omni_range = 9.0
-omni_attenuation = 4.0
 
 [node name="Ignite" type="Area3D" parent="." groups=["Ignite"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0)

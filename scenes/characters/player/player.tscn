@@ -32,7 +32,7 @@
 [ext_resource type="Animation" uid="uid://bxokbk5xl0qxi" path="res://resources/animations/item_holding_vertical_right.res" id="27_vb6pq"]
 [ext_resource type="Script" path="res://scenes/characters/player/player_gun_reload_shells.gd" id="28"]
 [ext_resource type="Animation" uid="uid://b2v5qkcnqt10p" path="res://resources/animations/item_holding_vertical_left.res" id="28_a7tq0"]
-[ext_resource type="PackedScene" path="res://scenes/characters/stamina.tscn" id="29"]
+[ext_resource type="PackedScene" uid="uid://dr8q1if8gbb50" path="res://scenes/characters/stamina.tscn" id="29"]
 [ext_resource type="Animation" uid="uid://k316nwi61gan" path="res://resources/animations/one-handed_hip_idle_left.res" id="29_4wi7n"]
 [ext_resource type="Script" path="res://scenes/characters/player/player_anims.gd" id="30"]
 [ext_resource type="Animation" uid="uid://bocwvglbinqg1" path="res://resources/animations/one-handed_ads_idle_right.res" id="30_et47h"]

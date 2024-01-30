@@ -234,13 +234,13 @@ func _try_to_stand():
 
 
 func _on_GrabCastDot_body_entered(body):
-	if body is PickableItem or body is DoorBody:
+	if body is PickableItem:
 		if !colliding_pickable_items.has(body):
 			colliding_pickable_items.append(body)
 
 
 func _on_GrabCastDot_body_exited(body):
-	if body is PickableItem or body is DoorBody:
+	if body is PickableItem:
 		colliding_pickable_items.remove_at(colliding_pickable_items.find(body))
 
 

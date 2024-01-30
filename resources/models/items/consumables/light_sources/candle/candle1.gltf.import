@@ -29,6 +29,13 @@ animation/fps=15
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"M_Candle1": {
+"use_external/enabled": true,
+"use_external/path": "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/material/candle.tres"
+}
+}
+}
 gltf/naming_version=0
 gltf/embedded_image_handling=1

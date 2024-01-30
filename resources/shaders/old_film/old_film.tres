@@ -1,16 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c6uf872qwua2c"]
 
-[ext_resource path="res://resources/shaders/old_film/old_film.gdshader" type="Shader" id=1]
-[ext_resource path="res://resources/shaders/old_film/filmgrain.png" type="Texture2D" id=2]
-[ext_resource path="res://resources/shaders/vignette/vignette.png" type="Texture2D" id=3]
+[ext_resource type="Shader" path="res://resources/shaders/old_film/old_film.gdshader" id="1"]
+[ext_resource type="Texture2D" uid="uid://bltcb0gl8rwp3" path="res://resources/shaders/old_film/filmgrain.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://btl5306xywds1" path="res://resources/shaders/vignette/vignette.png" id="3"]
 
 [resource]
 render_priority = -5
-shader = ExtResource( 1 )
-shader_param/base = Color( 0.984314, 0.619608, 0.235294, 1 )
-shader_param/grain_strength = 0.1
-shader_param/fps = 12.0
-shader_param/stretch = 0.5
-shader_param/flashing = 0.001
-shader_param/grain = ExtResource( 2 )
-shader_param/vignette = ExtResource( 3 )
+shader = ExtResource("1")
+shader_parameter/base = Color(0.984314, 0.619608, 0.235294, 1)
+shader_parameter/grain_strength = 0.1
+shader_parameter/fps = 12.0
+shader_parameter/stretch = 0.5
+shader_parameter/flashing = 0.001
+shader_parameter/grain = ExtResource("2")
+shader_parameter/vignette = ExtResource("3")

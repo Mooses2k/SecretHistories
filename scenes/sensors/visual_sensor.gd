@@ -152,7 +152,14 @@ func can_see_player(character: Character) -> Player:
 		var world := get_world_3d()
 		
 		if is_instance_valid(world):
-			var result := world.direct_space_state.intersect_ray(global_transform.origin, target, [character], 1 << 0 | 1 << 1, true, false)
+			var raycast_parameters := PhysicsRayQueryParameters3D.new()
+			raycast_parameters.from = global_transform.origin
+			raycast_parameters.to = target
+			raycast_parameters.exclude = [character]
+			raycast_parameters.collision_mask = 0b11
+			raycast_parameters.collide_with_bodies = true
+			raycast_parameters.collide_with_areas = false
+			var result := world.direct_space_state.intersect_ray(raycast_parameters)
 			if !result.is_empty() and result.collider is Player:
 				line_of_sight = true
 				return player
@@ -244,7 +251,14 @@ func check_light() -> PlayerLightArea:
 func check_point(point: Vector3) -> bool: 
 	var world := get_world_3d()
 	if !is_instance_valid(world): return false
-	return world.direct_space_state.intersect_ray(global_transform.origin, point, [], 1 << 0).is_empty()
+	var raycast_parameters := PhysicsRayQueryParameters3D.new()
+	raycast_parameters.from = global_transform.origin
+	raycast_parameters.to = point
+	raycast_parameters.exclude = []
+	raycast_parameters.collision_mask = 0b1
+	raycast_parameters.collide_with_bodies = true
+	raycast_parameters.collide_with_areas = false
+	return world.direct_space_state.intersect_ray(raycast_parameters).is_empty()
 
 
 # Return's a `PlayerLightArea` from `light_sources`, automatically shuffling if multiple sources are available.

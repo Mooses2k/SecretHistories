@@ -1,8 +1,8 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d3dy1yntw4xr2"]
 
-[ext_resource path="res://resources/shaders/pixelate/pixelate.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://resources/shaders/pixelate/pixelate.gdshader" id="1"]
 
 [resource]
 render_priority = -5
-shader = ExtResource( 1 )
-shader_param/pixelSize = 16
+shader = ExtResource("1")
+shader_parameter/pixelSize = 16

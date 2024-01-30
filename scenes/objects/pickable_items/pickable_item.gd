@@ -144,6 +144,8 @@ func set_item_damaging():
 
 
 func set_physics_equipped():
+	self.collision_layer = 0
+	self.collision_mask = 0
 	self.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 	self.freeze = true
 

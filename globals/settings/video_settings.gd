@@ -339,9 +339,9 @@ func on_setting_changed(setting_name, old_value, new_value):
 			# Fast approximate anti-aliasing. Much faster than MSAA (and works on alpha scissor edges),
 			# but blurs the whole scene rendering slightly.
 			if new_value == true:
-				get_viewport().screen_space_aa = 1
+				get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA
 			else:
-				get_viewport().screen_space_aa = 0
+				get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
 			emit_signal("fxaa_changed", new_value)
 			SettingsConfig.save_settings()
 		SETTING_SHADOW_SIZE:

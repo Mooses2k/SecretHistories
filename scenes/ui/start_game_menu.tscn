@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/ui/start_game_menu.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/ui/start_game_settings.gd" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/ui/settings_ui/settings_ui.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://cx054wu2qvw12" path="res://scenes/ui/settings_ui/settings_ui.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://ds0tbwucn6o61" path="res://resources/art/game_intro/10-altar_descent/03-00445-4258926586.png" id="3_x7oum"]
 [ext_resource type="PackedScene" uid="uid://b240lsu1npran" path="res://scenes/ui/game_intro.tscn" id="4"]
 [ext_resource type="AudioStream" uid="uid://4trkmwlj2tu0" path="res://resources/sounds/death_sound.wav" id="5"]

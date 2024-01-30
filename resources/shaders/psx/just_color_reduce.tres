@@ -1,12 +1,13 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://btabirs1fks0w"]
 
-[ext_resource path="res://resources/shaders/psx/ps1_post_processing.tres" type="Shader" id=1]
+[ext_resource type="Shader" uid="uid://e0j6lwyjeryw" path="res://resources/shaders/psx/ps1_post_processing.tres" id="1"]
 
 [resource]
-shader = ExtResource( 1 )
-shader_param/color_depth = 5
-shader_param/dithering = false
-shader_param/resolution_scale = 4
-shader_param/brightness_correct = true
-shader_param/pitch_black_threshold = 0.116
-shader_param/dithering_adjust = 10.0
+render_priority = 0
+shader = ExtResource("1")
+shader_parameter/color_depth = 5
+shader_parameter/dithering = false
+shader_parameter/resolution_scale = 4
+shader_parameter/brightness_correct = true
+shader_parameter/pitch_black_threshold = 0.116
+shader_parameter/dithering_adjust = 10.0

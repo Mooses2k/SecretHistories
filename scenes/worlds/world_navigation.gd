@@ -180,6 +180,7 @@ func update_navigation():
 #			navmesh_add(navmesh, Transform.IDENTITY)
 	walls_done.clear()
 	var multimesh = MultiMesh.new()
+	multimesh.use_colors = true
 	multimesh.mesh = BoxMesh.new()
 	(multimesh.mesh as BoxMesh).size = 0.1 * Vector3.ONE
 	multimesh.transform_format = MultiMesh.TRANSFORM_3D

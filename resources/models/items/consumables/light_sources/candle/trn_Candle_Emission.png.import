@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cl4ap10mkojqq"
-path.s3tc="res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.s3tc.ctex"
-path.etc2="res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.etc2.ctex"
+path.bptc="res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.bptc.ctex"
+path.astc="res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,12 +13,12 @@ metadata={
 [deps]
 
 source_file="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Emission.png"
-dest_files=["res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.s3tc.ctex", "res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.etc2.ctex"]
+dest_files=["res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.bptc.ctex", "res://.godot/imported/trn_Candle_Emission.png-8eea74cbaaec594f86197ca8588a9b30.astc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=1

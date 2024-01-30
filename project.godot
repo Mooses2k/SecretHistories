@@ -318,8 +318,10 @@ debug_noclip={
 
 [network]
 
-limits/debugger/max_chars_per_second=16384
-limits/debugger/max_queued_messages=100
+limits/debugger/max_chars_per_second=65535
+limits/debugger/max_queued_messages=1000
+limits/debugger/max_errors_per_second=4000
+limits/debugger/max_warnings_per_second=4000
 
 [physics]
 

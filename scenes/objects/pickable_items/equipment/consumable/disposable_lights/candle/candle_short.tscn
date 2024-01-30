@@ -63,10 +63,10 @@ seamless = true
 bump_strength = 19.9
 noise = SubResource("9")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ijkp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3phk"]
 render_priority = 0
 shader = ExtResource("12")
-shader_parameter/noise_seed = 431.508
+shader_parameter/noise_seed = 920.881
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise_scale = 0.079
@@ -129,30 +129,30 @@ item_drop_sound = ExtResource("10")
 item_throw_sound = null
 
 [node name="MeshInstance3D" parent="." index="0"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.00946711, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.00339825, 0)
 mesh = SubResource("ArrayMesh_wygjq")
 surface_material_override/0 = ExtResource("4_y4my3")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0128893, 0.000977516)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3935e-05, 0.000977516)
 shape = SubResource("58")
 
 [node name="CollisionShapeStopRolling" type="CollisionShape3D" parent="." index="2"]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0.0129263, 0)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 6.09355e-05, 0)
 shape = SubResource("56")
 
 [node name="HoldPosition" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0.00757585)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0316476, 0.00757585)
 
 [node name="FireOrigin" type="Marker3D" parent="." index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000292407, 0.0620411, -0.00154841)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000292407, 0.0491757, -0.00154841)
 script = ExtResource("2")
 
 [node name="Fire" type="MeshInstance3D" parent="FireOrigin" index="0"]
 visible = false
 cast_shadow = 0
 mesh = SubResource("53")
-surface_material_override/0 = SubResource("ShaderMaterial_1ijkp")
+surface_material_override/0 = SubResource("ShaderMaterial_i3phk")
 script = ExtResource("6")
 
 [node name="Light3D" type="OmniLight3D" parent="FireOrigin/Fire" index="0"]
@@ -171,6 +171,9 @@ priority = 50
 script = ExtResource("13")
 parent_item_path = NodePath("../../../..")
 
+[node name="Sounds" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0128654, 0)
+
 [node name="LightSound" parent="Sounds" index="0"]
 bus = &"Effects"
 
@@ -182,10 +185,13 @@ stream = null
 bus = &"Effects"
 
 [node name="Ignite" parent="." index="7" groups=["IGNITE"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0757755, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0629101, 0)
 
 [node name="CollisionShape3D" parent="Ignite" index="0"]
 shape = SubResource("57")
+
+[node name="PlacementAnchor" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0128654, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {

@@ -183,6 +183,7 @@ var is_reloading = false
 @onready var _speech_player = get_node("Audio/Speech")
 
 @onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
+@onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
 
 func _ready():
@@ -288,7 +289,6 @@ func kick():
 		if is_instance_valid(_camera):
 			_camera.add_stress(0.5)
 		kick_timer.start()
-		
 		stamina -= 50
 		
 		if kick_object is DoorInteractable and is_grabbing == false:
@@ -310,6 +310,11 @@ func kick():
 			elif kick_object.has_method("play_drop_sound"):   # Is probably a PickableItem
 				kick_object.apply_central_impulse(-global_transform.basis.z * actual_kick_impulse)
 				kick_object.play_drop_sound(10, false)
+	else:
+		kick_timer.start()
+		stamina -= 50
+		$"Audio/Movement".stream = kick_sound
+		$"Audio/Movement".play()
 
 
 func damage(value : int, type : int, on_hitbox : Hitbox):

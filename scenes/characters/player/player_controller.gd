@@ -72,7 +72,6 @@ var _clamber_m = null
 @onready var _debug_light = get_node("../FPSCamera/DebugLight")
 
 @onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")   # doesn't belong here, hack
-@onready var kick_sound : AudioStream = load("res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav")
 
 # Control modes are things like FPS, topdown, VR
 var current_control_mode_index = 0

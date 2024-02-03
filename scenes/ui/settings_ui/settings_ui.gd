@@ -150,4 +150,9 @@ func get_group_node(group_name : String) -> GroupClass:
 
 
 func _on_ShowDebugOptions_pressed():
-	$"..".visible = !$"..".visible
+	get_parent().visible = !get_parent().visible
+	if get_parent().visible:
+		var parent_scroll : ScrollContainer = get_parent() as ScrollContainer
+		parent_scroll.scroll_vertical = 0
+		var h_scroll = parent_scroll.get_h_scroll_bar()
+		parent_scroll.scroll_horizontal = max(h_scroll.max_value - h_scroll.page, 0)

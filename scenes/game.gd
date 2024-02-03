@@ -99,7 +99,7 @@ func load_level(packed : PackedScene):
 		level = level_handler.get_level_instance()
 		world_root.add_child(level)
 		# this needs a yield because this function is called from within another yield
-		await get_tree().idle_frame
+		await get_tree().process_frame
 	
 	# Ambient music controllerprint("Current floor level: ", current_floor_level)
 	match current_floor_level:

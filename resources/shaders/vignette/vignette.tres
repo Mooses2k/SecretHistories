@@ -1,9 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://mnquuw3fayu4"]
 
-[ext_resource path="res://resources/shaders/vignette/vignette.gdshader" type="Shader" id=1]
-[ext_resource path="res://resources/shaders/vignette/vignette.png" type="Texture2D" id=2]
+[ext_resource type="Shader" path="res://resources/shaders/vignette/vignette.gdshader" id="1"]
+[ext_resource type="Texture2D" uid="uid://btl5306xywds1" path="res://resources/shaders/vignette/vignette.png" id="2"]
 
 [resource]
 render_priority = -5
-shader = ExtResource( 1 )
-shader_param/vignette = ExtResource( 2 )
+shader = ExtResource("1")
+shader_parameter/vignette = ExtResource("2")

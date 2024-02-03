@@ -30,7 +30,7 @@ int dithering_pattern(ivec2 fragcoord) {
 
 void vertex() {
 //    POSITION = vec4(VERTEX, 1.0);
-    POSITION = vec4(VERTEX.xy, -1.0, 1.0);
+    POSITION = vec4(VERTEX, 1.0);
 }
 
 float damp(float value) {

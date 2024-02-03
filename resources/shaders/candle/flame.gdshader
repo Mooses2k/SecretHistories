@@ -55,7 +55,7 @@ void vertex()
 
 void fragment()
 {
-	vec4 world_position = inverse(MODEL_MATRIX) * vec4(VERTEX, 1.0);
+	//vec4 world_position = inverse(MODEL_MATRIX) * vec4(VERTEX, 1.0);
 	float absolute_timescale = TIME * timescale;
 	vec4 noise_tex = texture(noise, (UV + absolute_timescale + vec2(noise_seed*666.0)) * noise_scale);
 	vec4 albedo_tex = texture(texture_albedo, (UV) + (noise_tex.r - 0.5));

@@ -12,7 +12,7 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 void vertex()
 {
-	POSITION = vec4(VERTEX.xy, -1.0, 1.0);
+	POSITION = vec4(VERTEX, 1.0);
 }
 
 

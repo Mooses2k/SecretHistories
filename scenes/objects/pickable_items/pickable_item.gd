@@ -7,9 +7,9 @@ extends RigidBody3D
 
 signal item_state_changed(previous_state, current_state)
 
-@export var dropped_layers : int = 0 # (int, LAYERS_3D_PHYSICS)
-@export var dropped_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
-@export var damage_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
+@export_flags_3d_physics var dropped_layers : int = 0 # (int, LAYERS_3D_PHYSICS)
+@export_flags_3d_physics var dropped_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
+@export_flags_3d_physics var damage_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
 
 @export var max_speed : float = 12.0
 @export var item_drop_sound : AudioStream

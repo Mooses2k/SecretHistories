@@ -252,8 +252,8 @@ func _handle_segments_size(
 	elif surplus_tiles % 2 == 1:
 		if sarcos_per_segment % 2 == 0:
 			var middle_index := segment.size() / 2
-			final_segments.append(segment.slice(0, middle_index-1))
-			final_segments.append(segment.slice(middle_index+1, segment.size()-1))
+			final_segments.append(segment.slice(0, middle_index))
+			final_segments.append(segment.slice(middle_index+1, segment.size()))
 		else:
 			if sarcos_per_segment > 1:
 				surplus_tiles += sarco_tile_size.x

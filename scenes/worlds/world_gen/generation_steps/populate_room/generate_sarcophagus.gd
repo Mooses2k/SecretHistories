@@ -76,7 +76,7 @@ func _spawn_sarcos_in_wall_segments(
 		var surplus_cells := segment.size() % int(sarco_tile_size.x)
 		if surplus_cells == 0:
 			for index in range(0, segment.size(), sarco_tile_size.x):
-				var slice = segment.slice(index, index + sarco_tile_size.x - 1)
+				var slice = segment.slice(index, index + sarco_tile_size.x)
 				var sarco_cells := _get_all_cells_for_sarco_segment(data, slice, direction)
 				_set_sarco_spawn_data(data, sarco_cells, direction)
 		else:

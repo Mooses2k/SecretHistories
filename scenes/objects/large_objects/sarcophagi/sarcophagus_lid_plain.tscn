@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bhv1a0txg52j4" path="res://resources/sounds/sarcophagus_lid_scrape.wav" id="3"]
 [ext_resource type="AudioStream" uid="uid://fsmbmceuvwh5" path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" id="4"]
 [ext_resource type="Script" path="res://scenes/objects/large_objects/placement_anchor.gd" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cykkk7776h00v" path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" id="6"]
 
 [sub_resource type="ArrayMesh" id="1"]
 resource_name = "Sarcophagus_Clean_Plane016"
@@ -23,14 +23,14 @@ _surfaces = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ks1dq"]
-size = Vector3(1.30077, 0.0976563, 0.594124)
+size = Vector3(1.691, 0.12696, 0.77236)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xkrg7"]
-size = Vector3(1.35534, 0.026001, 0.636979)
+size = Vector3(1.76194, 0.0338, 0.82807)
 
 [node name="SarcophagusLidPlain" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0)
-collision_layer = 512
+collision_layer = 513
 collision_mask = 65
 mass = 95.0
 continuous_cd = true
@@ -41,8 +41,8 @@ item_drag_sound = ExtResource("3")
 sarco_lid_drop_sound = ExtResource("4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
 mesh = SubResource("1")
-skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0.000763699, 0.00825198, -0.00232582)

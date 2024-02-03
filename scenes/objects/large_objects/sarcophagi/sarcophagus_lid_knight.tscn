@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bhv1a0txg52j4" path="res://resources/sounds/sarcophagus_lid_scrape.wav" id="3"]
 [ext_resource type="AudioStream" uid="uid://fsmbmceuvwh5" path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" id="4"]
 [ext_resource type="Script" path="res://scenes/objects/large_objects/placement_anchor.gd" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://cykkk7776h00v" path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" id="6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ny35n"]
 size = Vector3(2.199, 0.166, 1.004)
@@ -33,7 +33,7 @@ size = Vector3(0.129883, 0.200027, 0.428478)
 
 [node name="SarcophagusLidKnight" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.134346, 0)
-collision_layer = 512
+collision_layer = 513
 collision_mask = 65
 mass = 95.0
 continuous_cd = true

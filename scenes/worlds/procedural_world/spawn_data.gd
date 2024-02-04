@@ -183,8 +183,8 @@ func _set_amount(value: int) -> void:
 	for index in _transforms.size():
 		if index < old_tranforms.size() and _transforms[index] != old_tranforms[index]:
 			_transforms[index] = old_tranforms[index]
-		
-		_custom_properties[index] = {}
+		if _custom_properties[index] == null:
+			_custom_properties[index] = {}
 
 
 func _get_center_offset() -> Vector3:

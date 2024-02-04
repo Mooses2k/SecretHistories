@@ -18,42 +18,40 @@ func _process(delta):
 	if _last_time_since_detect + light_detect_interval > _get_time() and _last_time_since_detect != 0.0:
 		return
 	
-	# FIXME: Dirty performance hack
-	if Performance.get_monitor(Performance.TIME_FPS) > 20:
-#		var meshInstance := get_node("MeshInstance")
-		var meshInstance2 := get_node("MeshInstance2")
-		get_node("SubViewportContainer/SubViewport/Camera3D").global_transform.origin = (
-				Vector3(meshInstance2.global_transform.origin.x,
-				meshInstance2.global_transform.origin.y - .3, 
-				meshInstance2.global_transform.origin.z))
-		get_node("ViewportContainer2/SubViewport/Camera3D").global_transform.origin = (
-				Vector3(meshInstance2.global_transform.origin.x,
-				meshInstance2.global_transform.origin.y + .3, 
-				meshInstance2.global_transform.origin.z))
+#	var meshInstance := get_node("MeshInstance")
+	var meshInstance2 := get_node("MeshInstance2")
+	get_node("SubViewportContainer/SubViewport/Camera3D").global_transform.origin = (
+			Vector3(meshInstance2.global_transform.origin.x,
+			meshInstance2.global_transform.origin.y - .3, 
+			meshInstance2.global_transform.origin.z))
+	get_node("ViewportContainer2/SubViewport/Camera3D").global_transform.origin = (
+			Vector3(meshInstance2.global_transform.origin.x,
+			meshInstance2.global_transform.origin.y + .3, 
+			meshInstance2.global_transform.origin.z))
+	
+	# Bottom camera image
+	var image : Image = get_node("SubViewportContainer/SubViewport").get_texture().get_image()
+	
+	light_level_bottom = _average(_build_pixel_array(image))
+	
+	# Top camera image
+	image = get_node("ViewportContainer2/SubViewport").get_texture().get_image() as Image
+	
+	light_level_top = _average(_build_pixel_array(image))
+	
+	# If one's higher than the other, make them equal to the highest
+	if (light_level_bottom > light_level_top):
+		light_level_top = light_level_bottom
 		
-		# Bottom camera image
-		var image : Image = get_node("SubViewportContainer/SubViewport").get_texture().get_image()
-		
-		light_level_bottom = _average(_build_pixel_array(image))
-		
-		# Top camera image
-		image = get_node("ViewportContainer2/SubViewport").get_texture().get_image() as Image
-		
-		light_level_top = _average(_build_pixel_array(image))
-		
-		# If one's higher than the other, make them equal to the highest
-		if (light_level_bottom > light_level_top):
-			light_level_top = light_level_bottom
-			
-		_modify_by_mainhand_equipment()   # Now we multiply your light level if your mainhand is a weapon
-		_modify_by_encumbrance()   # Now we multiply your light level by your encumbrance value (have medium and/or bulky items)
-		_modify_by_speed()   # Now we check how fast player is moving
-		_modify_by_state()   # Now we check crouching and if a light is in hand
+	_modify_by_mainhand_equipment()   # Now we multiply your light level if your mainhand is a weapon
+	_modify_by_encumbrance()   # Now we multiply your light level by your encumbrance value (have medium and/or bulky items)
+	_modify_by_speed()   # Now we check how fast player is moving
+	_modify_by_state()   # Now we check crouching and if a light is in hand
 
-		# Finally we set the character's light_level
-		owner.light_level = light_level_top
-		
-		_last_time_since_detect = _get_time()   # Tracked to reduce function calls for performance
+	# Finally we set the character's light_level
+	owner.light_level = light_level_top
+	
+	_last_time_since_detect = _get_time()   # Tracked to reduce function calls for performance
 
 
 func _build_pixel_array(image):

@@ -551,7 +551,7 @@ _surfaces = [{
 "format": 34896613407,
 "index_count": 6,
 "index_data": PackedByteArray(1, 0, 3, 0, 0, 0, 1, 0, 2, 0, 3, 0),
-"material": SubResource("StandardMaterial3D_burgr"),
+"material": ExtResource("3"),
 "name": "M_Floor",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -1358,7 +1358,6 @@ shape = SubResource("61")
 
 [node name="Ceiling_15m" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 0.01, 0.01)
-visible = false
 mesh = SubResource("ArrayMesh_0jjsm")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ceiling_15m"]
@@ -1525,6 +1524,7 @@ shape = SubResource("51")
 
 [node name="Wall_3x3x015_Grates" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76, 0, 0.89)
+visible = false
 mesh = SubResource("ArrayMesh_a8h75")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Wall_3x3x015_Grates"]

@@ -255,9 +255,9 @@ func equip_mainhand_item():
 		
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:
+			remove_from_belt(item)
 			item.get_parent().remove_child(item)
 			owner.mainhand_equipment_root.add_child(item)
-			belt_item = null
 		else:
 			owner.mainhand_equipment_root.add_child(item)
 		emit_signal("inventory_changed")
@@ -342,9 +342,9 @@ func equip_offhand_item():
 	# Waits for the item to exit the tree, if necessary
 	item.transform = item.get_hold_transform()
 	if item.is_in_belt == true:
+		remove_from_belt(item)
 		item.get_parent().remove_child(item)
 		owner.offhand_equipment_root.add_child(item)
-		belt_item = null
 	else:
 		owner.offhand_equipment_root.add_child(item)
 
@@ -399,9 +399,8 @@ func drop_hotbar_slot(slot : int) -> Node:
 			unequip_offhand_item()
 		if item_node:
 			if item_node.can_attach == true:
+				remove_from_belt(item)
 				item_node.get_parent().remove_child(item_node)
-				item_node.is_in_belt = false
-				belt_item = null
 				_drop_item(item_node)
 			else:
 				_drop_item(item_node)
@@ -528,17 +527,25 @@ func switch_away_from_light(light_source):
 			print("unlighting light when putting it away because not swapping hands now")
 			light_source.unlight()
 	elif light_source.can_attach and light_source is LanternItem:
-		light_source.attach_to_belt()
+		attach_to_belt(light_source)
 
 
-# Currently bugged and moves out of position over time - issue #402
 func attach_to_belt(item):
 	if item.get_parent() != owner.belt_position:
+		item.mesh_instance.visible = false
+		item.is_in_belt = true
 		item.get_parent().remove_child(item)
 		owner.belt_position.add_child(item)
 		belt_item = item
 		$"%AdditionalAnimations".play("Belt_Equip")
 		print("Attached to belt in inventory.gd")
+
+
+func remove_from_belt(item):
+	item.mesh_instance.visible = true
+	item.is_in_belt = false
+	belt_item = null
+	print("Removed from belt in inventory.gd")
 
 
 func _on_Player_character_died():

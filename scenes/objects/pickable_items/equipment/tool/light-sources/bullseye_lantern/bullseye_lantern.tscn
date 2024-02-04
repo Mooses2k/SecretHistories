@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://h1ppl7ypl187"]
+[gd_scene load_steps=18 format=3 uid="uid://h1ppl7ypl187"]
 
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" id="1"]
 [ext_resource type="Script" path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="4_uhd8j"]
 [ext_resource type="AudioStream" uid="uid://cjv6effcbo6rt" path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" id="5"]
 [ext_resource type="AudioStream" uid="uid://bbusju33p65ex" path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" id="6"]
+[ext_resource type="Texture2D" uid="uid://csuywiw7oo5p8" path="res://resources/effects/particlePack_1.1/PNG (Transparent)/light_01.png" id="6_t4y7p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1t0xt"]
 resource_name = "M_DarkLantern3_Glass"
@@ -170,9 +171,10 @@ transform = Transform3D(-1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.7
 layers = 3
 light_color = Color(0.988235, 0.576471, 0.321569, 1)
 light_energy = 3.5
+light_projector = ExtResource("6_t4y7p")
 shadow_enabled = true
 spot_range = 20.0
-spot_angle = 20.0
+spot_angle = 35.0
 
 [node name="PlayerLightArea" type="Area3D" parent="Light3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

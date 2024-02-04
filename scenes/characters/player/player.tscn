@@ -680,7 +680,8 @@ T or G - throw off-hand item
 R (tap) - reload (can't with item in offhand)
 R (held) - unload
 
-B - bioncs/spyglass (if you have the item)
+F or N - open/close dark lantern on belt (if you have it)
+B - bioncs/spyglass (if you have it)
 
 M - minimap (currently for debug/cheating)
 L - cycle look (shaders and debug light)

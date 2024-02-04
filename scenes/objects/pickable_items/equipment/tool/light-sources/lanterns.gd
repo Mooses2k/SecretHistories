@@ -17,6 +17,8 @@ var random_number
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 
 var is_lit = true # starts on
+
+var mesh_instance : Node
 @onready var firelight = $Light3D
 
 
@@ -32,6 +34,9 @@ func _ready():
 		burn_time = 3600.0
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
+	
+	if is_instance_valid($MeshInstance3D):
+		mesh_instance = $MeshInstance3D
 
 
 func _process(delta):
@@ -54,13 +59,18 @@ func _use_primary():
 		light()
 	else:
 		unlight()
-		$BlowOutSound.play()
+		if !is_in_belt:
+			$BlowOutSound.play()
 
 
 func light():
 	if not is_depleted:
+		if !is_in_belt:
+			$LightSound.play()
+		else:
+			$SlideOpen.play()
+		
 		$AnimationPlayer.play("flicker")
-		$LightSound.play()
 		firelight.visible = true
 		$MeshInstance3D.cast_shadow = false
 		
@@ -71,6 +81,9 @@ func light():
 
 func unlight():
 	if not is_depleted:
+		if is_in_belt:
+			$SlideClosed.play()
+		
 		$AnimationPlayer.stop()
 		firelight.visible = false
 		$MeshInstance3D.cast_shadow = true
@@ -88,11 +101,6 @@ func _item_state_changed(previous_state, current_state):
 #			sound.connect("finished", sound, "queue_free")
 #			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
-
-
-func attach_to_belt():
-	owner_character.inventory.attach_to_belt(self)
-	is_in_belt = true
 
 
 func light_depleted():

@@ -64,8 +64,8 @@ var _clamber_m = null
 @onready var _camera : ShakeCamera = get_node(_cam_path)
 #export var _gun_cam_path : NodePath
 #onready var _gun_cam = get_node(_gun_cam_path)
-@onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
-@onready var _text = get_node("..//IndicationCanvas/Label")
+#@onready var _frob_raycast = get_node("../FPSCamera/GrabCast")
+#@onready var _text = get_node("..//IndicationCanvas/Label")
 @onready var _player_hitbox = get_node("../CanStandChecker")
 @onready var _ground_checker = get_node("../Body/GroundChecker")
 @onready var _screen_filter = get_node("../FPSCamera/ScreenFilter")
@@ -880,7 +880,7 @@ func _cheats():
 		else:
 			owner.gravity = 10
 			# Always end standing
-			owner.wanna_stand
+			owner.wanna_stand = true
 			owner._collider.disabled = false
 			owner._crouch_collider.disabled = true
 			print("CHEAT: noclip disabled")

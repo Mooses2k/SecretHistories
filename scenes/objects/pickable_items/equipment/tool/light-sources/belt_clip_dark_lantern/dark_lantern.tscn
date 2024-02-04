@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://nge4qayw0wob"]
+[gd_scene load_steps=20 format=3 uid="uid://nge4qayw0wob"]
 
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://ck382ne5fpvh0" path="res://resources/models/items/tools/light_sources/belt_clip_dark_lantern/dark_lantern_Lamp1_albedo.jpg" id="2_st2oi"]
@@ -8,6 +8,9 @@
 [ext_resource type="Script" path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://33wqm0dv03qm" path="res://resources/models/items/tools/light_sources/belt_clip_dark_lantern/dark_lantern_Lamp1_normal.png" id="4_wm3ny"]
 [ext_resource type="AudioStream" uid="uid://bbusju33p65ex" path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" id="5"]
+[ext_resource type="Texture2D" uid="uid://csuywiw7oo5p8" path="res://resources/effects/particlePack_1.1/PNG (Transparent)/light_01.png" id="6_26c1c"]
+[ext_resource type="AudioStream" uid="uid://72qhxpruyrb5" path="res://resources/sounds/lanterns/dark_lantern_slide/437551__leandri140029__opening-stapler_01.wav" id="9_24dw6"]
+[ext_resource type="AudioStream" uid="uid://dx18xj1p3clcl" path="res://resources/sounds/lanterns/dark_lantern_slide/154447__lucaslara__metal-latching_1-2.wav" id="10_34vi1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tpkvq"]
 resource_name = "M_Lamp1"
@@ -147,13 +150,14 @@ transform = Transform3D(0.25, 3.59529e-24, 0, 0, -1.09278e-08, -0.25, 0, 0.25, -
 script = ExtResource("3_jfbkx")
 
 [node name="Light3D" type="SpotLight3D" parent="." index="4"]
-transform = Transform3D(-1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0232877, -0.100272)
+transform = Transform3D(-1, 7.64275e-15, -8.74228e-08, 0, -1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, -0.0232877, -0.0855264)
 layers = 3
 light_color = Color(0.988235, 0.576471, 0.321569, 1)
 light_energy = 3.5
+light_projector = ExtResource("6_26c1c")
 shadow_enabled = true
 spot_range = 20.0
-spot_angle = 20.0
+spot_angle = 35.0
 
 [node name="PlayerLightArea" type="Area3D" parent="Light3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -182,4 +186,14 @@ bus = &"Effects"
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="." index="8"]
 stream = ExtResource("3")
+bus = &"Effects"
+
+[node name="SlideOpen" type="AudioStreamPlayer3D" parent="." index="9"]
+stream = ExtResource("9_24dw6")
+volume_db = -30.0
+bus = &"Effects"
+
+[node name="SlideClosed" type="AudioStreamPlayer3D" parent="." index="10"]
+stream = ExtResource("10_34vi1")
+volume_db = -30.0
 bus = &"Effects"

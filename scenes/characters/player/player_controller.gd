@@ -495,7 +495,8 @@ func _handle_inventory_and_grab_input(delta : float):
 						%AnimationTree.set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
 						%AnimationTree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 						%AnimationTree.set("parameters/MeleeThrust/active", true)
-						owner.noise_level = 8
+						if owner.noise_level < 8:
+							owner.noise_level = 8
 					throw_state = ThrowState.IDLE
 
 		if Input.is_action_just_pressed("playerhand|main_use_secondary"):
@@ -505,7 +506,8 @@ func _handle_inventory_and_grab_input(delta : float):
 					%AnimationTree.set("parameters/MeleeSpeed/scale", character.inventory.get_mainhand_item().melee_attack_speed)
 					%AnimationTree.set("parameters/OffHand_MainHand_Blend/blend_amount", 1)
 					%AnimationTree.set("parameters/MeleeChop1/active", true)
-					owner.noise_level = 10
+					if owner.noise_level < 8:
+						owner.noise_level = 10
 				throw_state = ThrowState.IDLE
 
 	# Start timer to check if want to reload or unload

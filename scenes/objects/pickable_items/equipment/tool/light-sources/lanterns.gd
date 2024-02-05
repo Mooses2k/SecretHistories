@@ -70,6 +70,9 @@ func light():
 		else:
 			$SlideOpen.play()
 		
+		if owner_character.noise_level < 5:
+			owner_character.noise_level = 5
+		
 		$AnimationPlayer.play("flicker")
 		firelight.visible = true
 		$MeshInstance3D.cast_shadow = false
@@ -83,6 +86,8 @@ func unlight():
 	if not is_depleted:
 		if is_in_belt:
 			$SlideClosed.play()
+			if owner_character.noise_level < 5:
+				owner_character.noise_level = 5
 		
 		$AnimationPlayer.stop()
 		firelight.visible = false

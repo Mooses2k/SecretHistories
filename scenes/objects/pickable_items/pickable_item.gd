@@ -88,7 +88,8 @@ func play_throw_sound():
 		self.audio_player.volume_db = item_sound_level   # This could be adjusted
 		self.audio_player.bus = "Effects"
 		self.audio_player.play()
-		self.noise_level = 3
+		if self.noise_level < 8:
+			self.noise_level = 3
 
 
 func play_drop_sound(body):

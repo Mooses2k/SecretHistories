@@ -68,6 +68,7 @@ mass = 2.0
 weapon_type = 2
 primary_damage1 = 20
 secondary_damage1 = 51
+item_size = 0
 item_name = "Crowbar"
 normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")

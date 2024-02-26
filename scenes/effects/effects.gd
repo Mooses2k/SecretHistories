@@ -15,7 +15,7 @@ extends Node3D
 
 
 func handle_sound():
-	var sound_instance = sound_effect.instance()
+	var sound_instance = sound_effect.instantiate()
 	sound_instance.set_as_top_level(true)
 	sound_instance.transform.origin = sound_origin.global_transform.origin
 	var world_scene
@@ -37,5 +37,5 @@ func _on_FlashTimer_timeout():
 
 
 func handle_particles():
-	var smoke_instance = smoke_particles.instance()
+	var smoke_instance = smoke_particles.instantiate()
 	smoke_origin.call_deferred("add_child", smoke_instance)

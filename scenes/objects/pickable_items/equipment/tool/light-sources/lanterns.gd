@@ -52,6 +52,11 @@ func _process(delta):
 		$Ignite/CollisionShape3D.disabled = true
 		is_dropped = false
 		is_just_dropped = false
+	
+	# With Spotlight3D, the light doesn't fall on the holder, but they should still be visible
+	if is_instance_valid(owner_character):
+		if is_lit and owner_character.light_level < 0.01:
+			owner_character.light_level = 0.01
 
 
 func _use_primary():

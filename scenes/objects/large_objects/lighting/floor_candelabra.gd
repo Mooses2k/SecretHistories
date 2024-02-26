@@ -3,7 +3,22 @@ extends "res://scenes/objects/large_objects/large_object_drop_sound.gd"
 # eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...not that you'd ever care to do that
 
 
-#onready var firelight = $FireOrigin/Fire/Light
+@onready var floor_candelabra_drop_sound : AudioStream = load("res://resources/sounds/impacts/metal_and_gun/414848__link-boy__metal-bang.wav")
+
+@onready var animation_player = $AnimationPlayer
+@onready var firelight = $FireOrigin/Fire/Light3D
+
+
+func _ready():
+	self.item_max_noise_level = 5
+	self.item_drop_sound = floor_candelabra_drop_sound
+
+
+func _process(delta):
+	if firelight.visible and !animation_player.is_playing():
+		animation_player.play("flicker")
+
+
 #onready var burn_time = $Durability
 #
 #var has_ever_been_on = false 
@@ -49,10 +64,3 @@ extends "res://scenes/objects/large_objects/large_object_drop_sound.gd"
 #	$FireOrigin/Fire.emitting = false
 #	$FireOrigin/EmberDrip.emitting = false
 #	$FireOrigin/Smoke.emitting = false
-
-@onready var floor_candelabra_drop_sound : AudioStream = load("res://resources/sounds/impacts/metal_and_gun/414848__link-boy__metal-bang.wav")
-
-
-func _ready():
-	self.item_max_noise_level = 5
-	self.item_drop_sound = floor_candelabra_drop_sound

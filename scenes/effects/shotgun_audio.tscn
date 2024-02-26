@@ -1,14 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://ebncv186qb3c"]
 
-[ext_resource path="res://resources/sounds/gunshots/Shotgun_Blast-Jim_Rogers-1914772763.wav" type="AudioStream" id=1]
-[ext_resource path="res://scenes/effects/shotgun_audio.gd" type="Script" id=2]
+[ext_resource type="AudioStream" uid="uid://coyage2lp4684" path="res://resources/sounds/gunshots/Shotgun_Blast-Jim_Rogers-1914772763.wav" id="1"]
+[ext_resource type="Script" path="res://scenes/effects/shotgun_audio.gd" id="2"]
 
 [node name="ShotgunAudio" type="AudioStreamPlayer3D"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
-stream = ExtResource( 1 )
-unit_size = 10.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+stream = ExtResource("1")
 autoplay = true
-bus = "Effects"
-script = ExtResource( 2 )
+bus = &"Effects"
+script = ExtResource("2")
 
 [connection signal="finished" from="." to="." method="_on_AudioStreamPlayer3D_finished"]

@@ -116,7 +116,7 @@ func break_door(position, impulse, damage):
 	npc_check_timer.queue_free()
 	navigation_obstacle_3d.queue_free()
 	
-	var broken_door_instance : Node3D = broken_door_scene.instance()
+	var broken_door_instance : Node3D = broken_door_scene.instantiate()
 	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
 	add_child(broken_door_instance)
 	broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)

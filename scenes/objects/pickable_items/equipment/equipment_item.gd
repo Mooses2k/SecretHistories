@@ -9,7 +9,7 @@ signal used_reload()
 signal used_unload()
 
 @export var can_attach : bool = false
-@export var item_size : int = GlobalConsts.ItemSize.SIZE_MEDIUM # (GlobalConsts.ItemSize)
+@export var item_size : GlobalConsts.ItemSize = GlobalConsts.ItemSize.SIZE_MEDIUM # (GlobalConsts.ItemSize)
 
 @export var item_name : String = "Equipment"
 @export var horizontal_holding : bool = false

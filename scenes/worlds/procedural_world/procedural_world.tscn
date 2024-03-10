@@ -26,7 +26,7 @@
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" id="24"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_large_obj_items.gd" id="25"]
 [ext_resource type="Resource" path="res://scenes/worlds/procedural_world/sarco_fountain_item_list.tres" id="26"]
-[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/sarco_lids_item_list.tres" id="27"]
+[ext_resource type="Resource" uid="uid://cr2ioviux8kdv" path="res://scenes/worlds/procedural_world/sarco_lids_item_list.tres" id="27"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" id="28"]
 [ext_resource type="PackedScene" uid="uid://b8fhjqun0honf" path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" id="29"]
 [ext_resource type="Resource" path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" id="30"]

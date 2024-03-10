@@ -122,7 +122,7 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 	for i in groups.size():
 		var r = random.randi_range(0, groups[i].size() - 1)
 		var room = groups[i][r] as Rect2
-		var center = room.position + 0.5*room.size
+		var center = room.position + 0.5 * room.size
 		var x = int(center.x)
 		var y = int(center.y)	
 		
@@ -192,7 +192,7 @@ func get_mst_from_delaunay(data : WorldData, delaunay : Dictionary) -> Dictionar
 func add_extra_edges(from : Dictionary, to : Dictionary, random : RandomNumberGenerator):
 	var edge_count = graph_edge_count(from)
 	var ratio = random.randf_range(edges_to_keep_min_ratio, edges_to_keep_max_ratio)
-	var extra_count = int(ratio*edge_count)
+	var extra_count = int(ratio * edge_count)
 	extra_count = max(extra_count, min(edges_to_keep_abs_min, edge_count))
 	
 	for i in extra_count:

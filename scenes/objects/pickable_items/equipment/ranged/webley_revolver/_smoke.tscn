@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cbi35dmqyjf2c"]
 
 [ext_resource type="Material" uid="uid://67a0nyjvrode" path="res://scenes/effects/explosion/material.tres" id="1"]
-[ext_resource type="Script" uid="uid://v47wvm6nhv5y" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/smoke.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/smoke.gd" id="2"]
 
 [sub_resource type="ParticleProcessMaterial" id="1"]
 direction = Vector3(0, 0, -90)
@@ -11,7 +11,7 @@ gravity = Vector3(0, 0, 0)
 [sub_resource type="QuadMesh" id="2"]
 size = Vector2(0.5, 0.5)
 
-[node name="Smoke" type="Particles"]
+[node name="Smoke" type="GPUParticles3D"]
 transform = Transform3D(0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479)
 material_override = ExtResource("1")
 emitting = false
@@ -20,15 +20,10 @@ lifetime = 2.0
 one_shot = true
 explosiveness = 0.91
 randomness = 0.84
-fixed_fps = 30
 visibility_aabb = AABB(-4, -4, -4.79199, 8, 8, 8)
-local_coords = false
 process_material = SubResource("1")
 draw_pass_1 = SubResource("2")
 script = ExtResource("2")
-__meta__ = {
-"_editor_description_": ""
-}
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

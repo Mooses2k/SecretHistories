@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxjkguxi04sjh"]
+
+[ext_resource type="Script" path="res://scripts/components/visibility_notifier_component/visibility_notifier_component.gd" id="1_45mvu"]
+
+[node name="VisibilityNotifierComponent" type="Node3D"]
+script = ExtResource("1_45mvu")

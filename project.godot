@@ -35,6 +35,7 @@ BackgroundMusic="*res://scenes/effects/background_music.tscn"
 SettingsConfig="*res://globals/settings_config.gd"
 Events="*res://globals/events.gd"
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
+SignalBus="*res://globals/signal_bus.gd"
 
 [debug]
 

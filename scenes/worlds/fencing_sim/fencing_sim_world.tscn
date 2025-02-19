@@ -1,0 +1,83 @@
+[gd_scene load_steps=14 format=3 uid="uid://bfw10bkhk8t22"]
+
+[ext_resource type="Script" path="res://scenes/worlds/fencing_sim/fencing_sim_world.gd" id="1_od018"]
+[ext_resource type="PackedScene" uid="uid://cf6quncrvriy1" path="res://resources/models/fencing_sim/world/ceiling.glb" id="2_6eijx"]
+[ext_resource type="PackedScene" uid="uid://btrk78urw1ksu" path="res://resources/models/fencing_sim/world/floor.glb" id="3_qmmmi"]
+[ext_resource type="Script" path="res://scenes/worlds/fencing_sim/candle_circle.gd" id="4_dpss8"]
+[ext_resource type="PackedScene" uid="uid://c8b20twjhptbk" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" id="5_nj7nb"]
+[ext_resource type="PackedScene" uid="uid://iik6knjj75ux" path="res://scenes/objects/pickable_items/equipment/melee/knife_old/knife_old.tscn" id="6_qjfpf"]
+[ext_resource type="PackedScene" uid="uid://dcwod8emtc3ti" path="res://resources/models/fencing_sim/world/scarecrow.glb" id="7_v43d7"]
+[ext_resource type="Script" path="res://scripts/components/visibility_notifier_component/visibility_notifier_component.gd" id="8_ghts7"]
+[ext_resource type="PackedScene" uid="uid://c2qsxnqekbghw" path="res://scenes/worlds/fencing_sim/enemy_spawner/enemy_spawner.tscn" id="9_16vf8"]
+[ext_resource type="Script" path="res://scenes/worlds/fencing_sim/tutorial_scarecrow.gd" id="9_ij6vt"]
+[ext_resource type="PackedScene" uid="uid://8op34oh85dk8" path="res://scenes/characters/dummy/dummy.tscn" id="10_r06sx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dl7mb"]
+size = Vector3(3.25684, 1, 3.08203)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nt513"]
+size = Vector3(55.0034, 0.514526, 54.9531)
+
+[node name="FencingSimWorld" type="Node3D" node_paths=PackedStringArray("enemy_spawner")]
+script = ExtResource("1_od018")
+enemy_spawner = NodePath("EnemySpawner")
+
+[node name="ceiling" parent="." instance=ExtResource("2_6eijx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36333, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="ceiling"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4.95385, 0)
+spot_range = 9.52345
+spot_attenuation = -0.42
+spot_angle = 39.18
+spot_angle_attenuation = 3.15938e-05
+
+[node name="RopeViewDetector" type="Area3D" parent="ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.90416, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ceiling/RopeViewDetector"]
+shape = SubResource("BoxShape3D_dl7mb")
+
+[node name="VisibilityNotifierComponent" type="Node3D" parent="ceiling/RopeViewDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0656321, -7.25297, 1.53441)
+script = ExtResource("8_ghts7")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="floor_model" parent="Floor" instance=ExtResource("3_qmmmi")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0129967, -0.242737, 0)
+shape = SubResource("BoxShape3D_nt513")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.119877, 0, 0.992789, 0, 1, 0, -0.992789, 0, 0.119877, 7.11113, 0.904209, 0)
+
+[node name="CandleCircle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0908725, 0.318088)
+script = ExtResource("4_dpss8")
+diameter = 12.4
+candle_count = 3
+candle_scene = ExtResource("5_nj7nb")
+
+[node name="OldKnife" parent="." instance=ExtResource("6_qjfpf")]
+transform = Transform3D(1, 0, 0, 0, -0.711094, -0.703097, 0, 0.703097, -0.711094, -0.064896, 1.28279, 1.31985)
+mass = 0.001
+gravity_scale = 0.0
+sleeping = true
+freeze = true
+
+[node name="tutorial_scaresrow" parent="." instance=ExtResource("7_v43d7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0656321, 0.0145258, 1.53441)
+visible = false
+script = ExtResource("9_ij6vt")
+
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("candle_circle", "spawn_root") instance=ExtResource("9_16vf8")]
+spawn_time = 2.0
+candle_circle = NodePath("../CandleCircle")
+spawn_root = NodePath("..")
+ENEMY_SCENE = ExtResource("10_r06sx")
+
+[connection signal="item_state_changed" from="CandleCircle/Candle" to="CandleCircle/Candle" method="_item_state_changed"]
+[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@21921" to="CandleCircle/@RigidBody3D@21921" method="_item_state_changed"]
+[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@21923" to="CandleCircle/@RigidBody3D@21923" method="_item_state_changed"]

@@ -1,7 +1,7 @@
 extends Control
 
 const GAME_SCENE = preload("res://scenes/game.tscn")
-const FENCING_SIM_SCENE = preload("res://scenes/worlds/fencing_sim_world.tscn")
+const FENCING_SIM_SCENE = preload("res://scenes/worlds/fencing_sim/fencing_sim_world.tscn")
 
 var game : Game
 

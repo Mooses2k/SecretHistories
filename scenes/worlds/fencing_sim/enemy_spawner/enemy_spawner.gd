@@ -29,6 +29,7 @@ func spawn_enemy(spawn_position: Vector3, origin_candle: Node3D) -> void:
 		return
 	
 	var enemy: Node3D = ENEMY_SCENE.instantiate()
+	spawn_root.add_child(enemy)
 	enemy.global_position = spawn_position
 
 	# adds an FencingSimEnemyComponent to the instantiated scene, to be easier to identify it later
@@ -36,7 +37,6 @@ func spawn_enemy(spawn_position: Vector3, origin_candle: Node3D) -> void:
 	new_component.my_candle = origin_candle
 	enemy.add_child(new_component)
 
-	spawn_root.add_child(enemy)
 
 
 ## Util func - Prepares data for spawning an enemy, calls spawn_enemy()
@@ -48,7 +48,7 @@ func spawn_enemy_on_random_candle() -> void:
 	# Klugde to find a candle that has not spawned an enemy yet, basically assumes that the first candle has spawned an enemy and tries to get the first that hasnt
 	#region I don't recommend touching here, if needed you can call me on discord: visnicio
 	var spawned_enemy = true
-	var max_iterations: int = 10 # controller to avoid stack overflow
+	var max_iterations: int = 50 # controller to avoid stack overflow
 	var iterations: int = 0
 	while spawned_enemy:
 		random_index = randi_range(0, candles_data.size() - 1)
@@ -71,8 +71,7 @@ func spawn_enemy_on_random_candle() -> void:
 	var origin_candle: Node3D = candles_data.keys()[random_index]
 	
 	spawn_enemy(target_position, origin_candle)
-	random_candle_data.enemy_spawned = true # works
-	#candle_circle.set_candle_spawned_enemy(origin_candle, true) # doest work
+	candle_circle.set_candle_spawned_enemy(origin_candle, true)
 
 
 func start_spawning() -> void:

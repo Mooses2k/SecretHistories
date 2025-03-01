@@ -1,6 +1,7 @@
 extends GameWorld
 
 @export var enemy_spawner: FencingSimEnemySpawner
+var number_of_candles := [3]
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("debug_switch_mouse_capture"):
@@ -21,6 +22,10 @@ func _process(delta: float) -> void:
 		for child in random_dummy.get_children():
 			if child is FencingSimEnemyComponent:
 				child.die()
+	
+	if ImGui.SliderFloat("N° of Candles", number_of_candles, 3, 8):
+		var number: int = floor(number_of_candles[0])
+		enemy_spawner.candle_circle.candle_count = number
 	
 	# Debug candle circle
 	if ImGui.BeginTable("Candle Circle", 4):

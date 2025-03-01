@@ -38,6 +38,7 @@ func _generate_candles() -> void:
 			"direction_to_center" = candle_instance.global_position.direction_to(global_position),
 			"enemy_spawned" = false
 		}
+		candle_instance.light()
 		
 		candles[candle_instance] = new_data
 		
@@ -75,12 +76,12 @@ func update_circle(new_diameter: float, new_candle_count: int) -> void:
 	diameter = new_diameter
 	candle_count = new_candle_count
 
-## Access candles data and set a candle .enemy_spawned = spawned_enemy
-func set_candle_spawned_enemy(candle: Node3D, spawned_enemy: bool) -> bool:
+## Access candles data and set a candle .enemy_spawned = enemy_spawned
+func set_candle_spawned_enemy(candle: Node3D, enemy_spawned: bool) -> bool:
 	
 	#if get_children().find(candle) != null:
 	if candles[candle] != null: # Check if candle existis
-		candles[candle].spawned_enemy = spawned_enemy
+		candles[candle].enemy_spawned = enemy_spawned
 		return true
 	
 	return false

@@ -13,7 +13,7 @@ func _ready() -> void:
 	add_to_group("fencing_sim_enemies")
 
 func die() -> void:
-	var candle = my_candle as CandleItem
-	candle.unlight()
+	if is_instance_valid(my_candle): # in case that the original candle was freed by circle resize
+		var candle = my_candle as CandleItem
+		candle.unlight()
 	get_parent().queue_free()
-

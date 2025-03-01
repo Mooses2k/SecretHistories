@@ -74,10 +74,7 @@ script = ExtResource("9_ij6vt")
 
 [node name="EnemySpawner" parent="." node_paths=PackedStringArray("candle_circle", "spawn_root") instance=ExtResource("9_16vf8")]
 spawn_time = 2.0
+distance_from_candle = 0.2
 candle_circle = NodePath("../CandleCircle")
 spawn_root = NodePath("..")
 ENEMY_SCENE = ExtResource("10_r06sx")
-
-[connection signal="item_state_changed" from="CandleCircle/Candle" to="CandleCircle/Candle" method="_item_state_changed"]
-[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@21921" to="CandleCircle/@RigidBody3D@21921" method="_item_state_changed"]
-[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@21923" to="CandleCircle/@RigidBody3D@21923" method="_item_state_changed"]

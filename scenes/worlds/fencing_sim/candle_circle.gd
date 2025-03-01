@@ -7,6 +7,10 @@ extends Node3D
 @export_range(0, 12, 1) var candle_count: int = 8: set = _candle_count_setter
 @export var candle_scene: PackedScene
 
+## A Dictionary containing data for each candle, key is CandleItem and value is another dict with useful data [br]
+## has [code]global_position[/code] [code]spawned_enemy[/code] [code]direction_to_center[/code]
+var candles: Dictionary = {}
+
 func _ready() -> void:
 	_generate_candles(); # This is called cause the script is a tool script, but for spawning when the game starts, you need to put the logic inside _ready
 	
@@ -18,6 +22,7 @@ func _generate_candles() -> void:
 	
 	# clear children
 	for child in get_children():
+		candles.erase(child)
 		child.queue_free()
 	
 	for i in range(candle_count):
@@ -26,9 +31,16 @@ func _generate_candles() -> void:
 		var z = radius * sin(theta)
 		
 		var candle_instance = candle_scene.instantiate() as CandleItem
-		candle_instance.global_position = Vector3(x, 0, z)
-		
 		add_child(candle_instance)
+		candle_instance.global_position = Vector3(x, 0, z)
+		var new_data: Dictionary = {
+			"global_position" = candle_instance.global_position,
+			"direction_to_center" = candle_instance.global_position.direction_to(global_position),
+			"enemy_spawned" = false
+		}
+		
+		candles[candle_instance] = new_data
+		
 
 ## Returns a dictionary containing the index and position of a candle [br]
 ## Ex of return: {1: Vector3(69, 69, 420) }
@@ -44,24 +56,38 @@ func get_candles_world_position() -> Dictionary:
 ## [code]global_position[/code][br]
 ## [code]direction_to_center[/code][br]
 func get_candles_data() -> Dictionary:
-	var data: Dictionary
-	
-	for child_index: int in get_child_count():
-		var child: CandleItem = get_child(child_index)
-		var new_data: Dictionary = {
-			"global_position" = child.global_position,
-			"direction_to_center" = child.global_position.direction_to(global_position)
-		}
-		data[child_index] = new_data
-	
-	return data
+	#var data: Dictionary
+	#
+	#for child_index: int in get_child_count():
+		#var child: CandleItem = get_child(child_index)
+		#var new_data: Dictionary = {
+			#"node" = child,
+			#"global_position" = child.global_position,
+			#"direction_to_center" = child.global_position.direction_to(global_position),
+			#"enemy_spawned" = false
+		#}
+		#data[child_index] = new_data
+	return candles
+
 
 ## Use this method whenever you need to update the circle
 func update_circle(new_diameter: float, new_candle_count: int) -> void:
 	diameter = new_diameter
 	candle_count = new_candle_count
 
+## Access candles data and set a candle .enemy_spawned = spawned_enemy
+func set_candle_spawned_enemy(candle: Node3D, spawned_enemy: bool) -> bool:
+	
+	#if get_children().find(candle) != null:
+	if candles[candle] != null: # Check if candle existis
+		candles[candle].spawned_enemy = spawned_enemy
+		return true
+	
+	return false
+
+
 ## -------------- SETTERS - Do not call from outside, or do --------
+
 
 func _diameter_setter(new_diameter: float) -> void:
 	print('set diameter')

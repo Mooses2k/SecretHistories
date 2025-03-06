@@ -117,3 +117,7 @@ func item_drop():
 		if random_number < prob_going_out:
 			unlight()
 			print("Light went out due to being thrown")
+
+
+func play_blowout_sound() -> void:
+	$Sounds/BlowOutSound.play()

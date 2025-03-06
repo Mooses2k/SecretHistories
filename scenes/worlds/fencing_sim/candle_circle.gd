@@ -16,7 +16,8 @@ func _ready() -> void:
 	
 	for candle : CandleItem in get_children():
 		candle.light()
-
+	
+	
 func _generate_candles() -> void:
 	var radius = diameter / 2.0
 	
@@ -36,7 +37,8 @@ func _generate_candles() -> void:
 		var new_data: Dictionary = {
 			"global_position" = candle_instance.global_position,
 			"direction_to_center" = candle_instance.global_position.direction_to(global_position),
-			"enemy_spawned" = false
+			"enemy_spawned" = false,
+			"is_lit" = true
 		}
 		candle_instance.light()
 		
@@ -57,17 +59,6 @@ func get_candles_world_position() -> Dictionary:
 ## [code]global_position[/code][br]
 ## [code]direction_to_center[/code][br]
 func get_candles_data() -> Dictionary:
-	#var data: Dictionary
-	#
-	#for child_index: int in get_child_count():
-		#var child: CandleItem = get_child(child_index)
-		#var new_data: Dictionary = {
-			#"node" = child,
-			#"global_position" = child.global_position,
-			#"direction_to_center" = child.global_position.direction_to(global_position),
-			#"enemy_spawned" = false
-		#}
-		#data[child_index] = new_data
 	return candles
 
 

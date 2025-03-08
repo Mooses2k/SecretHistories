@@ -10,7 +10,7 @@ class_name FencingSimWorld
 }
 
 @export_subgroup("Wave settings")
-var wave_settings: Dictionary = {
+@export var wave_settings: Dictionary = {
 	1: {
 		"amount_of_enemies": 3,
 		"enemy_spawn_time": 10
@@ -39,6 +39,7 @@ var wave_settings: Dictionary = {
 
 @export_subgroup("Scene Nodes")
 @export var central_light: SpotLight3D
+var wave_ratio: float = 0
 
 #region Debug Panel Variables
 # this variables shouldn't be used in game logic, they are containers for communicating with ImGui
@@ -121,19 +122,30 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	match current_wave:
-		5:
-			central_light.light_color = wave_colors[current_wave]
-		_: # default
-			central_light.light_color = Color.WHITE
-			
+	var temp_wave_ratio: float = 0
+	if current_wave == 1 or current_wave == 2: # doesnt change level color if its too soon
+		temp_wave_ratio = 0
+	else:
+		temp_wave_ratio = current_wave / 5.0 # gets the percetage of player's progression
+	
+	wave_ratio = lerp(wave_ratio, temp_wave_ratio, delta)
+	
+	central_light.light_color = lerp(Color.WHITE, Color.FIREBRICK, wave_ratio)
+	
 	# Move the ceiling while transitioning to a new wave
 	if !$ceiling/StopMovingTimer.is_stopped():
 		$ceiling.global_position.y += 0.2 * delta
-
+	
+	
+	
 
 func begin_wave(wave_to_begin: int) -> void:
 	current_wave = wave_to_begin
+	
+	if current_wave == 1: # first wave doesnt play sound so we have to force it
+		candle_circle.candle_count = wave_settings[current_wave]["amount_of_enemies"]
+		enemy_spawner.spawn_time = wave_settings[current_wave]["enemy_spawn_time"]
+		return
 	
 	# When final candle of wave unlit, wait a moment, then start cave wind sound
 	await get_tree().create_timer(1.2).timeout
@@ -147,6 +159,8 @@ func begin_wave(wave_to_begin: int) -> void:
 			$CaveWindSoundEmitter.stream = load("res://resources/sounds/cave_wind/130975__brandonnyte__wailing-winds_3.mp3")
 		5:
 			$CaveWindSoundEmitter.stream = load("res://resources/sounds/cave_wind/130975__brandonnyte__wailing-winds_4.mp3")
+		_: # default
+			$CaveWindSoundEmitter.stream = load("res://resources/sounds/cave_wind/130975__brandonnyte__wailing-winds_4.mp3")
 	$CaveWindSoundEmitter.play()
 	
 	# ceiling raises over course of 5 seconds.
@@ -156,12 +170,10 @@ func begin_wave(wave_to_begin: int) -> void:
 	# A few seconds after cave wind sound completes, light candles for the next wave
 	$CaveWindSoundEmitter.finished.connect(func():
 		await get_tree().create_timer(1).timeout
-		candle_circle.candle_count = wave_settings[current_wave]["amount_of_enemies"]
-		enemy_spawner.spawn_time = wave_settings[current_wave]["enemy_spawn_time"]
+		if current_wave <= 5:
+			candle_circle.candle_count = wave_settings[current_wave]["amount_of_enemies"]
+			enemy_spawner.spawn_time = wave_settings[current_wave]["enemy_spawn_time"]
+		else:
+			candle_circle.candle_count = wave_settings[5]["amount_of_enemies"]
+			enemy_spawner.spawn_time = wave_settings[5]["enemy_spawn_time"]
 		)
-	
-	if current_wave == 1: # first wave doesnt play sound so we have to force it
-		candle_circle.candle_count = wave_settings[current_wave]["amount_of_enemies"]
-		enemy_spawner.spawn_time = wave_settings[current_wave]["enemy_spawn_time"]
-	
-	pass

@@ -25,17 +25,10 @@ candle_circle = NodePath("CandleCircle")
 wave_colors = {
 5: Color(0.82945, 0.178446, 0.17436, 1)
 }
-central_light = NodePath("ceiling/SpotLight3D")
+central_light = NodePath("SpotLight3D")
 
 [node name="ceiling" parent="." instance=ExtResource("2_6eijx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36333, 0)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="ceiling"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4.95385, 0)
-spot_range = 9.52345
-spot_attenuation = -0.42
-spot_angle = 39.18
-spot_angle_attenuation = 3.15938e-05
 
 [node name="RopeViewDetector" type="Area3D" parent="ceiling"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.90416, 0)
@@ -89,5 +82,12 @@ spawn_root = NodePath("..")
 ENEMY_SCENE = ExtResource("10_r06sx")
 
 [node name="CaveWindSoundEmitter" type="AudioStreamPlayer3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 7.31718, 0)
+spot_range = 9.52345
+spot_attenuation = -0.42
+spot_angle = 39.18
+spot_angle_attenuation = 3.15938e-05
 
 [connection signal="item_state_changed" from="CandleCircle/Candle" to="CandleCircle/Candle" method="_item_state_changed"]

@@ -4,7 +4,7 @@
 [ext_resource type="MeshLibrary" uid="uid://b1txwxwvti23n" path="res://resources/mesh_libraries/modular_pieces.meshlib" id="2"]
 [ext_resource type="Script" path="res://utils/debug_scenes/_base/standalone_game_world.gd" id="2_6sikr"]
 [ext_resource type="PackedScene" uid="uid://dayafaxmfcfqx" path="res://scenes/worlds/game_world.tscn" id="3"]
-[ext_resource type="Script" path="res://utils/debug_scenes/_base/game_placholder.gd" id="3_dcgyj"]
+[ext_resource type="Script" path="res://utils/debug_scenes/_base/game_placeholder.gd" id="3_dcgyj"]
 [ext_resource type="Script" path="res://utils/debug_scenes/_base/top_down_camera.gd" id="4"]
 
 [node name="DebugWorld" instance=ExtResource("3")]

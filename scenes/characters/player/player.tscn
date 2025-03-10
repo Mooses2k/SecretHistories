@@ -1123,6 +1123,7 @@ extra_cull_margin = 16384.0
 mesh = SubResource("371")
 
 [node name="DebugLight" type="SpotLight3D" parent="FPSCamera" index="8"]
+visible = false
 layers = 131
 spot_range = 20.0
 

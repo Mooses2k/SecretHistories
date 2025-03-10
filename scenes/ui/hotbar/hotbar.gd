@@ -1,7 +1,7 @@
+class_name Hotbar
 extends MarginContainer
 
-
-var inventory : Node = null
+var inventory : InventoryManager = null
 
 
 func _ready():

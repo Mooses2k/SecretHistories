@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://badad718m4bn5"]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/containers/container_item.gd" type="Script" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
-[ext_resource path="res://resources/sounds/impacts/ceramic_and_glass/13929__adcbicycle__1_ding_hits.wav" type="AudioStream" id=4]
+[ext_resource type="Script" uid="uid://hko6eckq22pm" path="res://scenes/objects/pickable_items/equipment/containers/container_item.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://ckkrq7mwcamt0" path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" id="2"]
+[ext_resource type="AudioStream" uid="uid://bfhflhuea8p8f" path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" id="3"]
+[ext_resource type="AudioStream" uid="uid://0hu8bqeeab2g" path="res://resources/sounds/impacts/ceramic_and_glass/13929__adcbicycle__1_ding_hits.wav" id="4"]
 
-[node name="ContainerItem" instance=ExtResource( 2 )]
-script = ExtResource( 1 )
-item_drop_sound = ExtResource( 4 )
-item_throw_sound = ExtResource( 3 )
+[node name="ContainerItem" instance=ExtResource("2")]
+script = ExtResource("1")
+item_drop_sound = ExtResource("4")
+item_throw_sound = ExtResource("3")

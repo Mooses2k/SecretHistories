@@ -1,4 +1,4 @@
-#class_name Inventory
+class_name Inventory
 extends Node
 
 enum HandEnum {
@@ -56,8 +56,8 @@ var encumbrance : float = 0   # Is a float to allow easy division
 
 var belt_item = null   # The item currently in the belt_position slot
 
-# Where to drop items from
-@onready var Animations : AnimationPlayer = %AdditionalAnimations as AnimationPlayer
+@onready var character : HumanoidCharacter = owner as HumanoidCharacter
+
 
 
 func _ready():
@@ -92,7 +92,7 @@ func add_item(item : PickableItem) -> bool:
 		print("can't pick up")
 		return false
 
-	item.owner_character = owner
+	item.owner_character = character
 	print("item owner to be: ", item.owner_character)
 
 	if item is TinyItem:
@@ -291,9 +291,9 @@ func equip_mainhand_item():
 		if item.is_in_belt == true:
 			remove_from_belt(item)
 			item.get_parent().remove_child(item)
-			owner.mainhand_equipment_root.add_child(item)
+			character.main_hand_root.add_child(item)
 		else:
-			owner.mainhand_equipment_root.add_child(item)
+			character.main_hand_root.add_child(item)
 		emit_signal("inventory_changed")
 
 
@@ -327,7 +327,7 @@ func equip_bulky_item(item : EquipmentItem):
 		emit_signal("bulky_item_changed")
 		if item.get_parent():
 			item.get_parent().remove_child(item)
-		owner.mainhand_equipment_root.add_child(item)
+		character.main_hand_root.add_child(item)
 		emit_signal("inventory_changed")
 
 
@@ -378,9 +378,9 @@ func equip_offhand_item():
 	if item.is_in_belt == true:
 		remove_from_belt(item)
 		item.get_parent().remove_child(item)
-		owner.offhand_equipment_root.add_child(item)
+		character.off_hand_root.add_child(item)
 	else:
-		owner.offhand_equipment_root.add_child(item)
+		character.off_hand_root.add_child(item)
 
 
 func unequip_offhand_item():
@@ -491,10 +491,10 @@ func drop_hotbar_slot(slot : int) -> Node:
 # Drops the item, it must be unequipped first
 # Note that the drop is done in a deferred manner
 func _drop_item(item : EquipmentItem):
-	if owner is Player:
-		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
+	if character is Player:
+		if character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_PLACE:
 			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # At the moment, 'placed' items can't hurt anyone.
-		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:
+		elif character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_THROW:
 			item.set_item_state(GlobalConsts.ItemState.DAMAGING)
 		else:
 			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # Dropped for another reason like cycling away from bulky
@@ -504,10 +504,10 @@ func _drop_item(item : EquipmentItem):
 
 	if GameManager.game.level:   # This is for the real game
 		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
-			item.global_transform = owner.drop_position_node.global_transform
+			item.global_transform = character.drop_position_node.global_transform
 			print("Item set to DROPPED")
 		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
-			item.global_transform = owner.throw_position_node.global_transform
+			item.global_transform = character.throw_position_node.global_transform
 			print("Item set to DAMAGING")
 
 		if item.can_attach == true:
@@ -520,9 +520,9 @@ func _drop_item(item : EquipmentItem):
 
 	elif !GameManager.game:   # This is here for test scenes
 		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
-			item.global_transform = owner.drop_position_node.global_transform
+			item.global_transform = character.drop_position_node.global_transform
 		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
-			item.global_transform = owner.throw_position_node.global_transform
+			item.global_transform = character.throw_position_node.global_transform
 
 		find_parent("TestWorld").add_child(item)
 		if item.item_state == GlobalConsts.ItemState.DAMAGING:
@@ -630,7 +630,7 @@ func swap_hands():
 
 func switch_away_from_light(light_source):
 	if not light_source.can_attach:
-		if not are_swapping and owner.player_controller.throw_state != owner.player_controller.ThrowState.SHOULD_PLACE and owner.player_controller.throw_state != owner.player_controller.ThrowState.SHOULD_THROW:
+		if not are_swapping and character.player_controller.throw_state != character.player_controller.ThrowState.SHOULD_PLACE and character.player_controller.throw_state != character.player_controller.ThrowState.SHOULD_THROW:
 			print("unlighting light when putting it away because not swapping hands now")
 			light_source.unlight()
 	elif light_source.can_attach and light_source is LanternItem:
@@ -638,13 +638,12 @@ func switch_away_from_light(light_source):
 
 
 func attach_to_belt(item):
-	if item.get_parent() != owner.belt_position:
+	if item.get_parent() != character.belt_position:
 		item.mesh_instance.visible = false
 		item.is_in_belt = true
 		item.get_parent().remove_child(item)
-		owner.belt_position.add_child(item)
+		character.belt_position.add_child(item)
 		belt_item = item
-		$"%AdditionalAnimations".play("Belt_Equip")
 		print("Attached to belt in inventory.gd")
 
 

@@ -1,36 +1,36 @@
-[gd_resource type="Resource" load_steps=10 format=2]
+[gd_resource type="Resource" script_class="RoomPurpose" load_steps=10 format=3 uid="uid://d3tt61np1aakd"]
 
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" type="Script" id=1]
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" type="Script" id=2]
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd" type="Script" id=3]
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/pillar_requirement.gd" type="Script" id=4]
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd" type="Script" id=5]
+[ext_resource type="Script" uid="uid://cfaso1nq7iyx4" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" id="1"]
+[ext_resource type="Script" uid="uid://cq66exvfal75m" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" id="2"]
+[ext_resource type="Script" uid="uid://cp602rtjlnco3" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd" id="3"]
+[ext_resource type="Script" uid="uid://2bj72y7m66b8" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/pillar_requirement.gd" id="4"]
+[ext_resource type="Script" uid="uid://brpefsncuuwx8" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd" id="5"]
 
-[sub_resource type="Resource" id=1]
+[sub_resource type="Resource" id="1"]
 resource_name = "Min Size 0x0"
-script = ExtResource( 1 )
+script = ExtResource("1")
 min_x_tiles = 0
 min_y_tiles = 0
 
-[sub_resource type="Resource" id=2]
+[sub_resource type="Resource" id="2"]
 resource_name = "Max Size 9x9"
-script = ExtResource( 3 )
+script = ExtResource("3")
 max_x_tiles = 9
 max_y_tiles = 9
 
-[sub_resource type="Resource" id=3]
+[sub_resource type="Resource" id="3"]
 resource_name = "No Pillars"
-script = ExtResource( 4 )
+script = ExtResource("4")
 has_pillars = false
 
-[sub_resource type="Resource" id=4]
-resource_name = "2~99 Doorways"
-script = ExtResource( 5 )
-min_doorways = 2
+[sub_resource type="Resource" id="4"]
+resource_name = "1~99 Doorways"
+script = ExtResource("5")
+min_doorways = 1
 max_doorways = 99
 
 [resource]
-script = ExtResource( 2 )
+script = ExtResource("2")
 purpose_id = "3"
 max_amount = 2
-requirements = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ]
+requirements = [SubResource("1"), SubResource("2"), SubResource("3"), SubResource("4")]

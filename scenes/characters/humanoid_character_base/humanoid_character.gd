@@ -9,6 +9,11 @@ const COLLISIONS_REPORTED = 4
 @onready var input : HumanoidCharacterInput = $Input
 @onready var character_collision: CharacterCollision = $CharacterCollision
 @onready var model_root: Node3D = $ModelRoot
+@onready var off_hand_root: Marker3D = %OffHandRoot
+@onready var main_hand_root: Marker3D = %MainHandRoot
+@onready var components: Node = $Components
+
+
 
 var ground_ray_parameters := PhysicsRayQueryParameters3D.new()
 var ground_detection_test_parameters := PhysicsTestMotionParameters3D.new()
@@ -27,6 +32,9 @@ func _ready() -> void:
 	ceiling_detection_test_parameters.max_collisions = COLLISIONS_REPORTED
 
 func _physics_process(delta: float) -> void:
+	if global_rotation.y != 0:
+		character_state.facing = global_basis * character_state.facing
+		global_basis = Basis.IDENTITY
 	# crouch input
 	var target_crouch_ratio : float = 1.0 if input.crouch else 0.0
 
@@ -118,7 +126,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		control_multiplier = 1.0
 
 	var ground_plane : Plane = Plane(ground_normal, 0.0)
-	var ground_angle = PI*0.5 - ground_normal.angle_to(Vector3.UP)
+	#var ground_angle = PI*0.5 - ground_normal.angle_to(Vector3.UP)
 
 	var ground_velocity = ground_plane.project(state.linear_velocity)
 	var normal_speed = state.linear_velocity.dot(ground_normal)
@@ -135,13 +143,13 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		normal_speed = 0.0
 	state.linear_velocity = ground_velocity + normal_speed*ground_normal
 
-	var ramp_factor = inverse_lerp(
-		parameters.min_slope_angle,
-		parameters.max_slope_angle,
-		ground_angle
-	)
-
-	var slide_factor = clamp(ramp_factor - 1.0, 0.0, 1.0)
-	ramp_factor = clamp(ramp_factor, 0.0, 1.0)
+	#var ramp_factor = inverse_lerp(
+		#parameters.min_slope_angle,
+		#parameters.max_slope_angle,
+		#ground_angle
+	#)
+#
+	##var slide_factor = clamp(ramp_factor - 1.0, 0.0, 1.0)
+	#ramp_factor = clamp(ramp_factor, 0.0, 1.0)
 
 	state.linear_velocity += state.total_gravity*state.step

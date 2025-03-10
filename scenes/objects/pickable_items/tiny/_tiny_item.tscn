@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cbrcijnftxy68"]
 
-[ext_resource path="res://scenes/objects/pickable_items/_pickable_item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/tiny/tiny_item.gd" type="Script" id=2]
+[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/_pickable_item.tscn" id="1"]
+[ext_resource type="Script" uid="uid://rmdcy74ldvgk" path="res://scenes/objects/pickable_items/tiny/tiny_item.gd" id="2"]
 
-[node name="TinyItem" groups=["TINY_ITEM"] instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="TinyItem" groups=["TINY_ITEM"] instance=ExtResource("1")]
+script = ExtResource("2")
 item_data = null
 amount = 1

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ObjectSpawnList" load_steps=2 format=3 uid="uid://bgkc5x21fmrtf"]
 
-[ext_resource type="Script" path="res://scenes/worlds/procedural_world/object_spawn_list.gd" id="1"]
+[ext_resource type="Script" uid="uid://c110tf1hiympn" path="res://scenes/worlds/procedural_world/object_spawn_list.gd" id="1"]
 
 [resource]
 script = ExtResource("1")

@@ -18,9 +18,9 @@ var items_stacked: Array[EquipmentItem]
 func add_item(item: EquipmentItem) -> void:
 	items_stacked.append(item)
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-		GameManager.game.player.inventory.encumbrance += 1
+		GameManager.game.player.components.inventory.encumbrance += 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-		GameManager.game.player.inventory.encumbrance += 2
+		GameManager.game.player.components.inventory.encumbrance += 2
 
 
 func _init() -> void:

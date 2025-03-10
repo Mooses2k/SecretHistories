@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bdyoahtpn3bnl"]
 
-[ext_resource path="res://resources/sounds/gunshots/Webley_shot_1.wav" type="AudioStream" id=1]
-[ext_resource path="res://scenes/effects/shotgun_audio.gd" type="Script" id=2]
+[ext_resource type="AudioStream" uid="uid://dentyj4ortuc8" path="res://resources/sounds/gunshots/Webley_shot_1.wav" id="1"]
+[ext_resource type="Script" uid="uid://dxo20xl1p43l0" path="res://scenes/effects/shotgun_audio.gd" id="2"]
 
 [node name="ShotgunAudio" type="AudioStreamPlayer3D"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
-stream = ExtResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+stream = ExtResource("1")
 unit_size = 10.0
 autoplay = true
 bus = "Effects"
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [connection signal="finished" from="." to="." method="_on_AudioStreamPlayer3D_finished"]

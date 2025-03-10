@@ -1,7 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="TinyItemData" load_steps=2 format=3 uid="uid://qyjg50r7tj47"]
 
-[ext_resource path="res://resources/tiny_items/tiny_item_data.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://hbgat0qi55i0" path="res://resources/tiny_items/tiny_item_data.gd" id="1"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 name = "Spyglass"

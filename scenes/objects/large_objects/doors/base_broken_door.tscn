@@ -34,7 +34,7 @@
 [ext_resource type="ArrayMesh" path="res://resources/models/gridmap/modular_doors/broken_door/door1-broken_Plane_cell011.mesh" id="32"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_doors/M_DoorSimple1.material" id="33"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_doors/M_Wall_Metal.material" id="34"]
-[ext_resource type="Script" path="res://scenes/objects/large_objects/doors/base_broken_door.gd" id="35"]
+[ext_resource type="Script" uid="uid://dttoige73uno0" path="res://scenes/objects/large_objects/doors/base_broken_door.gd" id="35"]
 
 [sub_resource type="BoxShape3D" id="65"]
 size = Vector3(0.0182854, 0.14608, 0.0873894)

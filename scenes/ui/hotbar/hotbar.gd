@@ -1,7 +1,7 @@
 extends MarginContainer
 
 
-var inventory : Node = null
+var inventory : Inventory = null
 
 
 func _ready():
@@ -10,10 +10,10 @@ func _ready():
 	if player == null:
 		await game.player_spawned
 		player = game.player
-	inventory = player.inventory
+	inventory = player.components.inventory
 	if inventory == null:
 		await player.ready
-		inventory = player.inventory
+		inventory = player.components.inventory
 	initialize_hotbar()
 
 

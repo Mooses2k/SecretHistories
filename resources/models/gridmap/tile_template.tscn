@@ -1,27 +1,27 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://c77xyebs1b2ue"]
 
-[ext_resource path="res://resources/models/gridmap/tile_template.glb" type="PackedScene" id=1]
+[ext_resource type="PackedScene" uid="uid://t5nmsp1jgcpi" path="res://resources/models/gridmap/tile_template.glb" id="1"]
 
-[sub_resource type="BoxShape3D" id=1]
-extents = Vector3( 0.75, 0.75, 0.75 )
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(1.5, 1.5, 1.5)
 
-[sub_resource type="CylinderShape3D" id=2]
+[sub_resource type="CylinderShape3D" id="2"]
 height = 3.0
 radius = 0.3
 
-[sub_resource type="BoxShape3D" id=4]
-extents = Vector3( 0.175, 1.5, 0.15 )
+[sub_resource type="BoxShape3D" id="4"]
+size = Vector3(0.35, 3, 0.3)
 
-[sub_resource type="BoxShape3D" id=5]
-extents = Vector3( 0.75, 0.5, 0.15 )
+[sub_resource type="BoxShape3D" id="5"]
+size = Vector3(1.5, 1, 0.3)
 
-[sub_resource type="BoxShape3D" id=6]
-extents = Vector3( 1.5, 0.5, 0.15 )
+[sub_resource type="BoxShape3D" id="6"]
+size = Vector3(3, 1, 0.3)
 
-[sub_resource type="BoxShape3D" id=3]
-extents = Vector3( 0.75, 1.5, 0.15 )
+[sub_resource type="BoxShape3D" id="3"]
+size = Vector3(1.5, 3, 0.3)
 
-[node name="tile_template" instance=ExtResource( 1 )]
+[node name="tile_template" instance=ExtResource("1")]
 
 [node name="Ground" parent="." index="5"]
 visible = false
@@ -29,8 +29,8 @@ visible = false
 [node name="StaticBody3D" type="StaticBody3D" parent="Ground" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+shape = SubResource("1")
 
 [node name="Ceiling" parent="." index="6"]
 visible = false
@@ -38,8 +38,8 @@ visible = false
 [node name="StaticBody3D" type="StaticBody3D" parent="Ceiling" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling/StaticBody3D" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
+shape = SubResource("1")
 
 [node name="CornerBig" parent="." index="7"]
 visible = false
@@ -47,8 +47,8 @@ visible = false
 [node name="StaticBody3D" type="StaticBody3D" parent="CornerBig" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CornerBig/StaticBody3D" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1.5, -0.75 )
-shape = SubResource( 2 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1.5, -0.75)
+shape = SubResource("2")
 
 [node name="Doorway" parent="." index="8"]
 visible = false
@@ -56,30 +56,30 @@ visible = false
 [node name="StaticBody3D" type="StaticBody3D" parent="Doorway" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Doorway/StaticBody3D" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.575, 1.5, -0.75 )
-shape = SubResource( 4 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.575, 1.5, -0.75)
+shape = SubResource("4")
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="Doorway/StaticBody3D" index="1"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 1.5, -0.75 )
-shape = SubResource( 4 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.575, 1.5, -0.75)
+shape = SubResource("4")
 
 [node name="CollisionShape3" type="CollisionShape3D" parent="Doorway/StaticBody3D" index="2"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.75 )
-shape = SubResource( 5 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.75)
+shape = SubResource("5")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="DoorwayWide" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorwayWide/StaticBody3D" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.575, 1.5, -0.75 )
-shape = SubResource( 4 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.575, 1.5, -0.75)
+shape = SubResource("4")
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="DoorwayWide/StaticBody3D" index="1"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.075, 1.5, -0.75 )
-shape = SubResource( 4 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.075, 1.5, -0.75)
+shape = SubResource("4")
 
 [node name="CollisionShape3" type="CollisionShape3D" parent="DoorwayWide/StaticBody3D" index="2"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 2.5, -0.75 )
-shape = SubResource( 6 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 2.5, -0.75)
+shape = SubResource("6")
 
 [node name="Wall" parent="." index="10"]
 visible = false
@@ -87,5 +87,5 @@ visible = false
 [node name="StaticBody3D" type="StaticBody3D" parent="Wall" index="0"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.75 )
-shape = SubResource( 3 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -0.75)
+shape = SubResource("3")

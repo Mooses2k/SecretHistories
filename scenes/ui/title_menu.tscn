@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://h76gr0mnfl7c"]
 
-[ext_resource type="Script" path="res://scenes/ui/title_menu.gd" id="1"]
+[ext_resource type="Script" uid="uid://d2y4iwk8uisa" path="res://scenes/ui/title_menu.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c4lvb7orcowdb" path="res://resources/art/title_cathedral_photo.jpg" id="2"]
 [ext_resource type="PackedScene" uid="uid://dtmm8et2mxrcc" path="res://scenes/ui/settings_menu.tscn" id="3"]
 [ext_resource type="Theme" uid="uid://d1bhwd8v505pu" path="res://resources/ui_themes/main_menu.tres" id="4"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dihle2hwbplxu"]
 
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd" id="1"]
+[ext_resource type="Script" uid="uid://ci565nv4l61di" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://c4cyksqrscr1n" path="res://scenes/effects/explosion/explosions.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="3"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://m4eiratju10t"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/writing/_writing_item.tscn" id="1"]
-[ext_resource type="Script" path="res://scenes/effects/mesh_instances.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://dbkaemnmhuvkx" path="res://scenes/objects/pickable_items/equipment/writing/_writing_item.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://u7705rl6o2pt" path="res://resources/models/items/writing/book1.glb" id="2_4uej8"]
 
 [sub_resource type="ConvexPolygonShape3D" id="3"]

@@ -1,50 +1,42 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://bjt3g4ouqjyad"]
 
-[ext_resource path="res://resources/effects/Smoke15Frames.png" type="Texture2D" id=1]
+[ext_resource type="Texture2D" uid="uid://dxe4ph3y2jvou" path="res://resources/effects/Smoke15Frames.png" id="1"]
 
-[sub_resource type="Curve" id=1]
-min_value = -360.0
-max_value = 360.0
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, -349.917 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id="1"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -349.917), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="CurveTexture" id=2]
-curve = SubResource( 1 )
+[sub_resource type="CurveTexture" id="2"]
+curve = SubResource("1")
 
-[sub_resource type="Gradient" id=6]
-offsets = PackedFloat32Array( 0, 0.51938 )
-colors = PackedColorArray( 0, 0, 0, 0.564706, 1, 1, 1, 0 )
+[sub_resource type="Gradient" id="6"]
+offsets = PackedFloat32Array(0, 0.51938)
+colors = PackedColorArray(0, 0, 0, 0.564706, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id=7]
-gradient = SubResource( 6 )
+[sub_resource type="GradientTexture2D" id="7"]
+gradient = SubResource("6")
 
-[sub_resource type="ParticleProcessMaterial" id=3]
-direction = Vector3( 0, 0, -1 )
+[sub_resource type="ParticleProcessMaterial" id="3"]
+direction = Vector3(0, 0, -1)
 spread = 10.0
-gravity = Vector3( 0, 0.02, 0 )
-initial_velocity = 20.0
-initial_velocity_random = 1.0
-angular_velocity = 10.0
-angular_velocity_random = 0.5
-angular_velocity_curve = SubResource( 2 )
-damping = 50.0
-angle = 30.0
-angle_random = 1.0
-scale_random = 0.8
-color_ramp = SubResource( 7 )
+angular_velocity_curve = SubResource("2")
+gravity = Vector3(0, 0.02, 0)
+color_ramp = SubResource("7")
 
-[sub_resource type="StandardMaterial3D" id=4]
-flags_transparent = true
-flags_unshaded = true
+[sub_resource type="StandardMaterial3D" id="4"]
+transparency = 1
+shading_mode = 0
 vertex_color_use_as_albedo = true
-params_billboard_mode = 3
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = ExtResource("1")
+billboard_mode = 3
 particles_anim_h_frames = 5
 particles_anim_v_frames = 3
 particles_anim_loop = true
-albedo_color = Color( 0, 0, 0, 1 )
-albedo_texture = ExtResource( 1 )
 
-[sub_resource type="QuadMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="QuadMesh" id="5"]
+material = SubResource("4")
 
 [node name="Smoke" type="Particles"]
 emitting = false
@@ -55,8 +47,8 @@ explosiveness = 1.0
 randomness = 1.0
 local_coords = false
 draw_order = 2
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 5 )
+process_material = SubResource("3")
+draw_pass_1 = SubResource("5")
 __meta__ = {
 "_editor_description_": ""
 }

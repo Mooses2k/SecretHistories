@@ -24,23 +24,23 @@ var is_equippable_offhand : bool = false
 
 
 func _ready():
-	#TODO: fix this when inventory is updated
+	var game = GameManager.game
+	var player = game.player
+	if player == null:
+		await game.player_spawned
+		player = game.player
+	if player.components.inventory == null:
+		await player.ready
+	inventory = player.components.inventory
 	return
+
+	#TODO: fix this when inventory is updated
 	fadeanimations.play("Fade_in")
 	$"../..".show()
 	if self.name == "10":
 		$SlotNumber.text = str(index+1)
 	else:
 		$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
-	var game = GameManager.game
-	var player = game.player
-	if player == null:
-		await game.player_spawned
-		player = game.player
-	if player.inventory == null:
-		await player.ready
-		inventory = player.inventory
-	self.inventory = player.inventory
 
 
 #func _physics_process(delta):
@@ -80,13 +80,13 @@ func set_inventory(value : Node):
 	else:
 		inventory_bulky_item_changed()
 	update_equipped_status()
-	inventory.connect("hotbar_changed", Callable(self, "inventory_slot_changed"))
-	inventory.connect("bulky_item_changed", Callable(self, "inventory_bulky_item_changed"))
-	inventory.connect("tiny_item_changed", Callable(self, "inventory_tiny_item_changed"))
-	inventory.connect("mainhand_slot_changed", Callable(self, "inventory_mainhand_slot_changed"))
-	inventory.connect("offhand_slot_changed", Callable(self, "inventory_offhand_slot_changed"))
-	inventory.connect("inventory_changed", Callable(self, "hud_visibility"))
-	inventory.connect("player_died", Callable(self, "hide_hud"))
+	inventory.hotbar_changed.connect(inventory_slot_changed)
+	inventory.bulky_item_changed.connect(inventory_bulky_item_changed)
+	inventory.tiny_item_changed.connect(inventory_tiny_item_changed)
+	inventory.mainhand_slot_changed.connect(inventory_mainhand_slot_changed)
+	inventory.offhand_slot_changed.connect(inventory_offhand_slot_changed)
+	inventory.inventory_changed.connect(hud_visibility)
+	inventory.player_died.connect(hide_hud)
 
 
 func hide_hud():

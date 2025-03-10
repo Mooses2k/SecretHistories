@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmgwtetlnh0q2"]
 
-[ext_resource type="Script" path="res://scenes/ui/start_game_menu.gd" id="1"]
-[ext_resource type="Script" path="res://scenes/ui/start_game_settings.gd" id="2"]
+[ext_resource type="Script" uid="uid://vxkp4jjh1aiu" path="res://scenes/ui/start_game_menu.gd" id="1"]
+[ext_resource type="Script" uid="uid://cbabrgbwld2sv" path="res://scenes/ui/start_game_settings.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://cx054wu2qvw12" path="res://scenes/ui/settings_ui/settings_ui.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://ds0tbwucn6o61" path="res://resources/art/game_intro/10-altar_descent/03-00445-4258926586.png" id="3_x7oum"]
 [ext_resource type="PackedScene" uid="uid://b240lsu1npran" path="res://scenes/ui/game_intro.tscn" id="4"]

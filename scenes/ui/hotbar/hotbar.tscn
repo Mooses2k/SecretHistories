@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cc53beeb4yjce"]
 
 [ext_resource type="PackedScene" uid="uid://lfp017c611je" path="res://scenes/ui/hotbar/hotbar_slot.tscn" id="1"]
-[ext_resource type="Script" path="res://scenes/ui/hotbar/hotbar_slot.gd" id="2"]
+[ext_resource type="Script" uid="uid://qyryh6tmhriy" path="res://scenes/ui/hotbar/hotbar_slot.gd" id="2"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
 content_margin_left = 4.0
@@ -77,8 +77,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bpdt5"]
 _data = {
-"Fade_in": SubResource("3"),
-"Fade_out": SubResource("4")
+&"Fade_in": SubResource("3"),
+&"Fade_out": SubResource("4")
 }
 
 [node name="Hotbar" type="MarginContainer"]
@@ -236,7 +236,7 @@ index = 10
 
 [node name="FadeAnim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_bpdt5")
+&"": SubResource("AnimationLibrary_bpdt5")
 }
 
 [connection signal="animation_finished" from="FadeAnim" to="VBoxContainer/Bulky" method="_on_Fade_animation_finished"]

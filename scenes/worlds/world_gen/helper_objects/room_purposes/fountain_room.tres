@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="RoomPurpose" load_steps=8 format=3 uid="uid://g6sf4jtvvirj"]
 
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" id="1"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" id="2"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd" id="4"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd" id="5"]
+[ext_resource type="Script" uid="uid://cq66exvfal75m" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" id="1"]
+[ext_resource type="Script" uid="uid://cfaso1nq7iyx4" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" id="2"]
+[ext_resource type="Script" uid="uid://cp602rtjlnco3" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd" id="4"]
+[ext_resource type="Script" uid="uid://brpefsncuuwx8" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd" id="5"]
 
 [sub_resource type="Resource" id="1"]
 resource_name = "Min Size 6x6"

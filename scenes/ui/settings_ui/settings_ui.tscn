@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cx054wu2qvw12"]
 
-[ext_resource type="Script" path="res://scenes/ui/settings_ui/settings_ui.gd" id="1"]
+[ext_resource type="Script" uid="uid://ctnn0m1ldrqwx" path="res://scenes/ui/settings_ui/settings_ui.gd" id="1"]
 
 [node name="SettingsUI" type="VBoxContainer"]
 anchors_preset = 15

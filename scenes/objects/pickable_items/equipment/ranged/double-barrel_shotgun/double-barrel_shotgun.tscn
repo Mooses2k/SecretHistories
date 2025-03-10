@@ -1,18 +1,18 @@
 [gd_scene load_steps=22 format=3 uid="uid://bhp2gv8pijmxh"]
 
-[ext_resource type="Script" path="res://scenes/effects/mesh_instances.gd" id="1"]
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" id="2"]
+[ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="1"]
+[ext_resource type="Script" uid="uid://hwsje2cbuhqb" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://74l856553kcp" path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" id="3"]
 [ext_resource type="AudioStream" uid="uid://5yf0bei0ff5s" path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" id="4"]
 [ext_resource type="AudioStream" uid="uid://cwwsn3iuhstsp" path="res://resources/sounds/reloading/shotgun/shotgun_reload_1.wav" id="5"]
-[ext_resource type="Resource" path="res://resources/tiny_items/ammunition/shotgun_shell.tres" id="7"]
+[ext_resource type="Resource" uid="uid://b68g5xgtvxxf3" path="res://resources/tiny_items/ammunition/shotgun_shell.tres" id="7"]
 [ext_resource type="PackedScene" uid="uid://ebncv186qb3c" path="res://scenes/effects/shotgun_audio.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://bsp2pcx3vhuuh" path="res://resources/models/items/ranged/double_barrel_shotguns/DoubleBarrel.glb" id="8_6b3p7"]
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="9"]
-[ext_resource type="PackedScene" path="res://scenes/effects/hit_effect.tscn" id="10"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/_smoke.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://btgj1s4833cij" path="res://scenes/effects/hit_effect.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://d28ueuk3ox5j8" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/_smoke.tscn" id="11"]
 [ext_resource type="AudioStream" uid="uid://biqwhqeb70a3r" path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" id="12"]
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" id="13"]
+[ext_resource type="Script" uid="uid://cvituexifjryt" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" id="13"]
 [ext_resource type="Animation" uid="uid://dvvsdrao7uv56" path="res://resources/animations/double-barrel_shotgun_reload-weapon.res" id="13_yj4av"]
 
 [sub_resource type="Skin" id="375"]
@@ -55,11 +55,11 @@ length = 1.06667
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wc5fn"]
 _data = {
-"break_open_weapon": SubResource("382"),
-"close_breech_weapon": SubResource("383"),
-"enter_shell_1_weapon": SubResource("384"),
-"enter_shell_2_weapon": SubResource("385"),
-"reload": ExtResource("13_yj4av")
+&"break_open_weapon": SubResource("382"),
+&"close_breech_weapon": SubResource("383"),
+&"enter_shell_1_weapon": SubResource("384"),
+&"enter_shell_2_weapon": SubResource("385"),
+&"reload": ExtResource("13_yj4av")
 }
 
 [node name="Double-barrelShotgun" instance=ExtResource("9")]

@@ -9,9 +9,6 @@ const CAMERA_CROUCHING_HEIGHT = 1.1
 
 var camera_pitch : float = 0.0
 
-@onready var interaction_cast: RayCast3D = $"../ModelRoot/MainCamera/InteractionCast"
-
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var sens = InputSettings.setting_mouse_sensitivity*0.01
@@ -30,3 +27,7 @@ func _physics_process(delta: float) -> void:
 	input.jump = Input.is_action_just_pressed(&"player|jump")
 	input.crouch = Input.is_action_pressed(&"player|crouch")
 	input.sprint = Input.is_action_pressed(&"player|sprint")
+
+func set_ads(value : bool):
+	print("toggling ADS: ", value)
+	pass

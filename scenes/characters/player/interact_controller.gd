@@ -46,8 +46,9 @@ func _process(delta: float) -> void:
 	if interact_state == InteractState.PENDING:
 		_interaction_held_timer += delta
 		if _interaction_held_timer > interact_threshold and grabbed_item == null:
-			_try_grab()
-			#TODO: ADS
+			if not _try_grab():
+				player_controller.set_ads(true)
+				interact_state = InteractState.ADS
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:

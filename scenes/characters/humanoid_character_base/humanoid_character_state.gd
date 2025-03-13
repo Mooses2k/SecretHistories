@@ -6,7 +6,7 @@ var was_on_ground : bool = false
 var current_crouch_ratio : float = 0.0
 var facing : Basis = Basis.IDENTITY
 var sprinting : bool = false
-
+var is_reloading : bool = false
 
 # Things like being stunned, or ragdolled
 enum CurrentState {

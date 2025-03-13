@@ -99,6 +99,9 @@ func attack_thrust():
 #			melee_anim.queue("polearm_recovery_from_right")
 
 
+func _has_held_use() -> bool:
+	return true
+
 func _use_primary():
 	if not on_cooldown:
 		attack_cut()

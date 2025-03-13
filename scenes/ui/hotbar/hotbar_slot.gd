@@ -29,9 +29,9 @@ func _ready():
 	if player == null:
 		await game.player_spawned
 		player = game.player
-	if player.components.inventory == null:
+	if player.inventory == null:
 		await player.ready
-	inventory = player.components.inventory
+	inventory = player.inventory
 	return
 
 	#TODO: fix this when inventory is updated
@@ -69,8 +69,11 @@ func update_offhand_indicator():
 
 func set_item(value : EquipmentItem):
 	if item != value:
+		if is_instance_valid(item):
+			item.item_data_changed.disconnect(update_item_data)
 		item = value
 		update_item_data()
+		item.item_data_changed.connect(update_item_data)
 
 
 func set_inventory(value : Node):

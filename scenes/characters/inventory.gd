@@ -536,15 +536,21 @@ func _drop_item(item : EquipmentItem):
 		encumbrance -= 2
 
 
+# `slot_only` will simple change the slot variable, with no other changes
 func set_mainhand_slot(value : int):
+
 	if value != current_mainhand_slot:
-#		if are_swapping == false:
-		unequip_mainhand_item()
 		var previous_slot = current_mainhand_slot
-		current_mainhand_slot = value
-		equip_mainhand_item()
-		emit_signal("mainhand_slot_changed", previous_slot, value)
-		emit_signal("inventory_changed")
+		if hotbar[value] == get_mainhand_item():
+			current_mainhand_slot = value
+			mainhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
+		else:
+			unequip_mainhand_item()
+			current_mainhand_slot = value
+			equip_mainhand_item()
+			mainhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
 	else:
 		if get_mainhand_item() == hotbar[current_mainhand_slot]:
 			emit_signal("inventory_changed")
@@ -556,12 +562,16 @@ func set_mainhand_slot(value : int):
 func set_offhand_slot(value : int):
 	if value != current_offhand_slot:
 		var previous_slot = current_offhand_slot
-#		if are_swapping == false:
-		unequip_offhand_item()
-		current_offhand_slot = value
-		equip_offhand_item()
-		emit_signal("offhand_slot_changed", previous_slot, value)
-		emit_signal("inventory_changed")
+		if hotbar[value] == get_offhand_item():
+			current_offhand_slot = value
+			offhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
+		else:
+			unequip_offhand_item()
+			current_offhand_slot = value
+			equip_offhand_item()
+			offhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
 
 
 # Equipment in each slot goes to other slot
@@ -579,18 +589,23 @@ func swap_slots(first_slot, second_slot):
 	hotbar[first_slot] = second_temp
 	print(hotbar[first_slot])
 
-	# TODO: equip as appropriate or change current slot numbers for each hand
-		# if each item is currently in a hand, swap_hands()?
-
-	# null out the temp - not needed and breaks code
-	#if is_instance_valid(first_temp):
-		#first_temp.queue_free()
-	#if is_instance_valid(second_temp):
-		#second_temp.queue_free()
-
 	emit_signal("inventory_changed") # this do anything?
 	emit_signal("hotbar_changed", first_slot)
 	emit_signal("hotbar_changed", second_slot)
+
+	if current_mainhand_slot == first_slot:
+		current_mainhand_slot = second_slot
+		mainhand_slot_changed.emit(first_slot, second_slot)
+	elif current_mainhand_slot == second_slot:
+		current_mainhand_slot = first_slot
+		mainhand_slot_changed.emit(second_slot, first_slot)
+
+	if current_offhand_slot == first_slot:
+		current_offhand_slot = second_slot
+		offhand_slot_changed.emit(first_slot, second_slot)
+	elif current_offhand_slot == second_slot:
+		current_offhand_slot = first_slot
+		offhand_slot_changed.emit(second_slot, first_slot)
 
 
 # Equipment in each hand goes to other hand

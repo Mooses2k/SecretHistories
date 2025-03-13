@@ -10,10 +10,10 @@ func _ready():
 	if player == null:
 		await game.player_spawned
 		player = game.player
-	inventory = player.components.inventory
+	inventory = player.inventory
 	if inventory == null:
 		await player.ready
-		inventory = player.components.inventory
+		inventory = player.inventory
 	initialize_hotbar()
 
 

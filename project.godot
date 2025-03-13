@@ -56,6 +56,11 @@ description="An entirely forgettable game"
 
 enabled=PackedStringArray()
 
+[global_group]
+
+CHARACTER=""
+PLAYER=""
+
 [input]
 
 ui_cancel={

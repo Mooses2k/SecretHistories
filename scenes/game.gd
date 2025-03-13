@@ -216,7 +216,7 @@ func _on_Events_up_staircase_used() -> void:
 			print("Floor level changed from: %s to: %s" % [old_value, current_floor_level])
 			await _handle_floor_change(false)
 		elif current_floor_level == HIGHEST_FLOOR_LEVEL:
-			if player.components.inventory.bulky_equipment is ShardOfTheComet:
+			if player.inventory.bulky_equipment is ShardOfTheComet:
 				print("Win screen")
 				get_tree().change_scene_to_file("res://scenes/ui/victory_screen.tscn")
 			else:

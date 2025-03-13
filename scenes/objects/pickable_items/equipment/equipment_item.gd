@@ -4,6 +4,9 @@ extends PickableItem
 
 signal used_primary()
 signal used_secondary()
+signal held_use_toggled(enabled : bool)
+signal held_use_enabled()
+signal held_use_disabled()
 signal used_reload()
 signal used_unload()
 
@@ -22,6 +25,7 @@ var is_in_belt = false
 @onready var hold_position = %HoldPosition
 @onready var throw_pos = get_node(throw_pos_path)
 
+var _is_action_held : bool = false
 
 func _ready():
 	if horizontal_holding == true:
@@ -59,6 +63,7 @@ func _use_primary():
 	pass
 
 
+#TODO remove secondary use, replace with held use
 # Override this function for (LMB mainhand, LAlt offhand) hold-to-use actions
 func _use_secondary():
 	print("use secondary")
@@ -66,6 +71,8 @@ func _use_secondary():
 		stackable_resource.items_stacked.pop_front()
 	pass
 
+func _set_held_use(enabled : bool) -> void:
+	print("Held action set to: ", "enabled" if enabled else "disabled")
 
 # Reloads can only happen in main-hand, currently
 func _use_reload():
@@ -78,6 +85,8 @@ func _use_unload():
 	print("use unload")
 	pass
 
+func _has_held_use() -> bool:
+	return false
 
 func use_primary():
 	_use_primary()
@@ -88,6 +97,17 @@ func use_secondary():
 	_use_secondary()
 	emit_signal("used_secondary")
 
+func set_held_use(enabled : bool) -> void:
+	_set_held_use(enabled)
+	_is_action_held = enabled
+	if enabled:
+		held_use_enabled.emit()
+	else:
+		held_use_disabled.emit()
+	held_use_toggled.emit(enabled)
+
+func is_held():
+	return _is_action_held
 
 func use_reload():
 	_use_reload()
@@ -97,6 +117,10 @@ func use_reload():
 func use_unload():
 	_use_unload()
 	emit_signal("used_unload")
+
+
+func has_held_use():
+	return _has_held_use()
 
 
 func get_hold_transform() -> Transform3D:

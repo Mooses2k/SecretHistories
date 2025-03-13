@@ -262,7 +262,7 @@ func play_alert_sound():
 
 
 func get_player() -> Player:
-	var players := get_tree().get_nodes_in_group("Player")
+	var players := get_tree().get_nodes_in_group("PLAYER")
 	return players[0] if !players.is_empty() else null
 
 

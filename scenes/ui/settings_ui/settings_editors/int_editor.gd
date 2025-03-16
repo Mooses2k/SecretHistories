@@ -24,7 +24,10 @@ func _on_setting_attached():
 	%Value.max_value = settings.get_setting_max_value(_setting_name)
 	%Value.step = settings.get_setting_step(_setting_name)
 #	%Value.connect("value_changed", self, "on_value_edited")
-	%Name.text = _setting_name
+	if _setting_name.contains('|'):
+		%Name.text = _setting_name.split('|')[1]
+	else:
+		%Name.text = _setting_name
 	%RandomizeButton.visible = settings.has_setting_meta(_setting_name, settings._CAN_RANDOMIZE_FLAG)
 
 

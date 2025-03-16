@@ -44,31 +44,7 @@ func _on_value_edited():
 # Override this function
 func _on_setting_attached():
 #	%Value.connect("value_changed", self, "on_value_edited")
-	temp_setting_name = _setting_name
-	
-	if "movement|" in temp_setting_name:
-		temp_setting_name.erase(0, 9)
-		
-	elif "player|" in temp_setting_name:
-		temp_setting_name.erase(0, 7)
-		
-	elif "playerhand|" in temp_setting_name:
-		temp_setting_name.erase(0, 11)
-		
-	elif "misc|" in temp_setting_name:
-		temp_setting_name.erase(0, 5)
-		
-	elif "itm|" in temp_setting_name:
-		temp_setting_name.erase(0, 4)
-		
-	elif "ablty|" in temp_setting_name:
-		temp_setting_name.erase(0, 6)
-		
-	elif "com|" in temp_setting_name:
-		temp_setting_name.erase(0, 4)
-	
-	temp_setting_name = temp_setting_name.replace("_", " ")
-	%Name.text = temp_setting_name[0].to_upper() + temp_setting_name.substr(1,-1)
+	%Name.text = _setting_name.split('|')[1].capitalize()
 
 
 func _on_Value_value_changed(value):

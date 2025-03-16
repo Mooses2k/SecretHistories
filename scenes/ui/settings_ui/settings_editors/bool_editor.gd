@@ -21,7 +21,10 @@ func _on_value_edited():
 #Override this function
 func _on_setting_attached():
 #	%Value.connect("value_changed", self, "on_value_edited")
-	%Name.text = _setting_name
+	if _setting_name.contains('|'):
+		%Name.text = _setting_name.split('|')[1]
+	else:
+		%Name.text = _setting_name
 
 
 func _on_Value_toggled(button_pressed):

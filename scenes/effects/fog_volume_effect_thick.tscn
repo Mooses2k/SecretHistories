@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://b77ew1yh0h2dy"]
+
+[ext_resource type="Texture2D" uid="uid://dxe4ph3y2jvou" path="res://resources/effects/Smoke15Frames.png" id="1_g676q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kej20"]
+transparency = 1
+specular_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_g676q")
+metallic_specular = 0.0
+backlight_enabled = true
+backlight = Color(1, 1, 1, 1)
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 3
+particles_anim_loop = true
+proximity_fade_enabled = true
+distance_fade_mode = 1
+distance_fade_max_distance = 2.0
+
+[sub_resource type="Gradient" id="Gradient_q4fcy"]
+offsets = PackedFloat32Array(0, 0.18136, 0.768262, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hqjqk"]
+gradient = SubResource("Gradient_q4fcy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8styp"]
+emission_shape = 3
+emission_box_extents = Vector3(0.3, 0.5, 0.3)
+angle_min = 106.8
+angle_max = 106.8
+spread = 180.0
+initial_velocity_max = 0.2
+angular_velocity_min = -10.0
+angular_velocity_max = 9.99998
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 5.0
+color_ramp = SubResource("GradientTexture1D_hqjqk")
+anim_offset_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_65moy"]
+
+[node name="MeshInstance3D" type="Node3D"]
+
+[node name="FogVolumeEffect" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09, 0)
+material_override = SubResource("StandardMaterial3D_kej20")
+amount = 2
+lifetime = 6.0
+process_material = SubResource("ParticleProcessMaterial_8styp")
+draw_pass_1 = SubResource("QuadMesh_65moy")

@@ -9,6 +9,10 @@ var list2 : PackedStringArray
 var temp
 var keys = ""
 
+func has_loaded() -> bool:
+	var value: bool = not (list1.is_empty() and list2.is_empty())
+	return value
+
 
 func check_word():
 	if "[Interact key]" in temp:

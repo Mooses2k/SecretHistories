@@ -443,10 +443,7 @@ func get_cell_index_from_int_position(x : int, z : int) -> int:
 func get_player_spawn_cells(staircase_type: int) -> Array:
 	var value := []
 	
-	if (
-			staircase_type == RoomData.OriginalPurpose.DOWN_STAIRCASE 
-			or staircase_type == RoomData.OriginalPurpose.UP_STAIRCASE
-	):
+	if staircase_type in player_spawn_positions:
 		for cell_index in player_spawn_positions[staircase_type]:
 			value += player_spawn_positions[staircase_type][cell_index]["cell_indexes"]
 	

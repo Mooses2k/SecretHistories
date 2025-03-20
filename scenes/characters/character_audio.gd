@@ -1,27 +1,10 @@
 class_name CharacterAudio
 extends Node3D
 
-# TODO: Overhaul the entire system so as not to have multiple objects with the same streams in-memory, 
-#       support multiple materials (ie for walking).
-#       Also, save the Audio node with the child nodes as a scene, so as to avoid the possibility 
+# TODO: Save the Audio node with the child nodes as a scene, so as to avoid the possibility 
 #       of human error when creating new characters
-# TODO: Eventually get working or ensure working different footstep sounds
-@onready var _footstep_sounds : Array = _stone_footstep_sounds   # Unsure if onready needed ##Does not help to assign it an empty array
-# TODO: Either line 4, or have static links to files, like line 11-18
-var _stone_footstep_sounds : Array = [
-	preload("res://resources/sounds/footsteps/stone_footsteps/footstep_1.wav"),
-	preload("res://resources/sounds/footsteps/stone_footsteps/footstep_2.wav"),
-	preload("res://resources/sounds/footsteps/stone_footsteps/footstep_3.wav"),
-	preload("res://resources/sounds/footsteps/stone_footsteps/footstep_4.wav"),
-	preload("res://resources/sounds/footsteps/stone_footsteps/footstep_5.wav"),
-	preload("res://resources/sounds/footsteps/stone_footsteps/footstep_6.wav")
-	]
-var _wood_footstep_sounds : Array = []
-var _carpet_footstep_sounds : Array = []
-var _water_footstep_sounds : Array = []
-var _gravel_footstep_sounds : Array = []
-var _metal_footstep_sounds : Array = []
-var _tile_footstep_sounds : Array = []
+#       Move voice lines to a separate node and script. 
+#		Currently possible issue: can't play movement audio at the same time as voice lines
 
 var _landing_sounds : Array = []
 var _clamber_sounds : Dictionary = {
@@ -81,15 +64,7 @@ var last_speech_type   # Tracked to avoid interrupting self to say same type of 
 
 func _ready():
 	# Movement audio	
-	#load_sounds("resources/sounds/footsteps/stone_footsteps", 3)
-	#load_sounds("resources/sounds/footsteps/wood_footsteps", 4)
-	#load_sounds("resources/sounds/footsteps/water_footsteps", 5)
-	load_sounds("resources/sounds/footsteps/gravel_footsteps", 6)
-	load_sounds("resources/sounds/footsteps/carpet_footsteps", 7)
-	#load_sounds("resources/sounds/footsteps/metal_footsteps", 8)
-	#load_sounds("resources/sounds/footsteps/tile_footsteps", 9)
-#	_audio_player.load_sounds("resources/sounds/player/sfx/footsteps", 0)
-	#load_sounds("resources/sounds/breathing/breathe", 1)
+	load_sounds("resources/sounds/breathing/breathe", 1)
 	load_sounds("resources/sounds/jumping_landing/landing", 2)
 
 	choose_voice()   # Choose one from the appropriate voices for this character
@@ -136,21 +111,6 @@ func load_sounds(sound_dir, type : int) -> void:
 						_clamber_sounds["out"].append(load(sound_dir + "/" + sound))
 				2:
 					_landing_sounds.append(load(sound_dir + "/" + sound))
-				3:
-					_stone_footstep_sounds.append(load(sound_dir + "/" + sound))
-				4:
-					_wood_footstep_sounds.append(load(sound_dir + "/" + sound))
-				5:
-					_water_footstep_sounds.append(load(sound_dir + "/" + sound))
-				6:
-					_gravel_footstep_sounds.append(load(sound_dir + "/" + sound))
-				7:
-					_carpet_footstep_sounds.append(load(sound_dir + "/" + sound))
-				8:
-					_metal_footstep_sounds.append(load(sound_dir + "/" + sound))
-				9:
-					_tile_footstep_sounds.append(load(sound_dir + "/" + sound))
-					
 				# Speech
 				13:
 					_idle_sounds.append(load(sound_dir + "/" + sound))
@@ -449,24 +409,30 @@ func _on_BT_Reload_Gun_character_reloaded():
 
 
 # Movement
-
-func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float = 0.0):
+# TODO: Set terrain type on the tile collision data/metadata so that you can decide which type
+#       of terrain it's walking on when calling this method
+func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float = 0.0, material:AudioLibrary.FOOTSTEP_TYPES = AudioLibrary.FOOTSTEP_TYPES.STONE):
 	if(movement_audio.playing):
 		return
 	movement_audio.volume_db = rate
 	movement_audio.pitch_scale = pitch
-	## Why is there a volume AND a rate? TODO: fix during overhaul
-	#movement_audio.volume_db = volume
-	## During the overhaul, have a proper way to give the material and 
-	#  select the audio stream array with a match statement
-	#if _footstep_sounds.size() > 0:
-		#_footstep_sounds.shuffle()
-		#movement_audio.stream = _footstep_sounds.front()
-		#movement_audio.play()
-	if _stone_footstep_sounds.size() > 0:
-		_stone_footstep_sounds.shuffle()
-		movement_audio.stream = _stone_footstep_sounds.front()
-		movement_audio.play()
+	## Why is there a volume AND a rate? 
+	#movement_audio.volume_db = rate
+
+	match material:
+		AudioLibrary.FOOTSTEP_TYPES.STONE:
+			if AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.STONE).size() > 0:
+				AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.STONE).shuffle()
+				movement_audio.stream = AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.STONE).front()
+		AudioLibrary.FOOTSTEP_TYPES.CARPET:
+			if AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.CARPET).size() > 0:
+				AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.CARPET).shuffle()
+				movement_audio.stream = AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.CARPET).front()
+		AudioLibrary.FOOTSTEP_TYPES.GRAVEL:
+			if AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.GRAVEL).size() > 0:
+				AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.GRAVEL).shuffle()
+				movement_audio.stream = AudioLibrary.get_footsteps(AudioLibrary.FOOTSTEP_TYPES.GRAVEL).front()
+	movement_audio.play()
 
 
 func play_land_sound():

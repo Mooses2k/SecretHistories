@@ -1,4 +1,5 @@
 extends Node
+class_name PlayerController
 
 const CAMERA_STANDING_HEIGHT = 1.6
 const CAMERA_CROUCHING_HEIGHT = 1.1
@@ -30,4 +31,14 @@ func _physics_process(delta: float) -> void:
 
 func set_ads(value : bool):
 	print("toggling ADS: ", value)
+	pass
+
+func throw_object(object : RigidBody3D):
+	print("throwing item")
+	#TODO throw code
+	pass
+
+func place_object(object : RigidBody3D, at : Transform3D):
+	print("placing item")
+	#TODO place code
 	pass

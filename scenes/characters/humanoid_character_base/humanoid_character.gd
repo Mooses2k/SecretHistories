@@ -14,7 +14,7 @@ const COLLISIONS_REPORTED = 4
 @onready var model_root: Node3D = $ModelRoot
 @onready var off_hand_root: Marker3D = %OffHandRoot
 @onready var main_hand_root: Marker3D = %MainHandRoot
-@onready var inventory: Node = $Inventory
+@onready var inventory: Inventory = $Inventory
 
 
 

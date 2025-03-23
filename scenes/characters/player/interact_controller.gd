@@ -10,7 +10,7 @@ enum InteractState {
 
 @onready var interaction_cast: RayCast3D = $"../../ModelRoot/MainCamera/InteractionCast"
 @onready var grab_cast: RayCast3D = $"../../ModelRoot/MainCamera/GrabCast"
-@onready var player_controller: Node = $".."
+@onready var player_controller: PlayerController = $".."
 
 # Releasing the interact key before this time will cause an interaction, holding
 # it longer will attempt a grab
@@ -59,7 +59,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			interact_state = InteractState.PENDING
 			_interaction_held_timer = 0.0
-	if event.is_action_released(&"player|interact"):
+	elif event.is_action_released(&"player|interact"):
 		match interact_state:
 			InteractState.ADS:
 				player_controller.set_ads(false)
@@ -72,6 +72,15 @@ func _unhandled_input(event: InputEvent) -> void:
 					interact()
 		interact_state = InteractState.NONE
 		_holding_interact = false
+	elif (
+		event.is_action_pressed(&"playerhand|mainhand_throw") 
+		or event.is_action_pressed(&"playerhand|offhand_throw")
+	):
+		if interact_state == InteractState.GRAB:
+			interact_state = InteractState.NONE
+			grabbed_item = null
+			player_controller.throw_object(grabbed_item)
+			get_viewport().set_input_as_handled()
 
 func _try_grab() -> bool:
 	if is_instance_valid(grab_target):

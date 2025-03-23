@@ -60,6 +60,7 @@ enabled=PackedStringArray()
 
 CHARACTER=""
 PLAYER=""
+NO_BLUEPRINT="Nodes in this group should not be used for the blueprint when placing items."
 
 [input]
 

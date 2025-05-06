@@ -15,25 +15,6 @@ var _clamber_sounds : Dictionary = {
 # Speech
 @export var character_voice_path : String = ""   # "res:// path to folder structure of this voice pack"
 
-enum SpeechType {
-	IDLE,
-	ALERT,
-	DETECTION,
-	AMBUSH,
-	CHASE,
-	FIGHT,
-	RELOAD,
-	FLEE,
-	DIALOG_Q,
-	DIALOG_A,
-	DIALOG_SEQUENCE,
-	SURPRISED,
-	FIRE,
-	SNAKE,
-	BOMB,
-	COMET
-}
-
 var _reload_sounds : Array = []
 var _out_of_ammo_sounds : Array = []
 var _dialog_q_sounds : Array = []
@@ -64,36 +45,15 @@ func _ready():
 # Once per character, randomly choose an appropriate voice for this character
 func choose_voice():
 	if owner is Cultist:   # Later: Neophyte, later more types
-	
-	
 		# TODO audio library currently doesnt support multiple voices
-		var choose = randi() % 2
-		match choose:
-			0:
-				character_voice_path = "res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"
-			1:
-				character_voice_path = "res://resources/sounds/voices/cultists/neophyte/deanbrignell/"
+		# var choose = randi() % 2
+		# match choose:
+		# 	0:
+		# 		character_voice_path = "res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"
+		# 	1:
+		# 		character_voice_path = "res://resources/sounds/voices/cultists/neophyte/deanbrignell/"
+		pass
 		
-		# Speech audio - these should eventually be moved to each enemy's script or character audio
-		# and the paths adjusted to the correct voice
-		#load_sounds(character_voice_path + "idle", 13)
-		#load_sounds(character_voice_path + "alert", 14)
-		#load_sounds(character_voice_path + "detection", 15)
-		#load_sounds(character_voice_path + "ambush", 16)
-		#load_sounds(character_voice_path + "chase", 17)
-		#load_sounds(character_voice_path + "fight", 18)
-		#load_sounds(character_voice_path + "reload", 19)
-		#load_sounds(character_voice_path + "out_of_ammo", 20)
-		#load_sounds(character_voice_path + "flee", 21)
-		#load_sounds(character_voice_path + "dialog_q", 22)
-		#load_sounds(character_voice_path + "dialog_a", 23)
-		#load_sounds(character_voice_path + "dialog_sequence", 24)
-		#load_sounds(character_voice_path + "surprised", 25)
-		#load_sounds(character_voice_path + "fire", 26)
-		#load_sounds(character_voice_path + "snake", 27)
-		#load_sounds(character_voice_path + "bomb", 28)
-		#load_sounds(character_voice_path + "comet", 29)
-
 
 func pitch_alter_voice():
 	speech_audio.set_pitch_scale(randf_range(0.8, 1.1))
@@ -111,13 +71,13 @@ func play_idle_sound():
 	if last_speech_line == speech_audio.stream:
 		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.IDLE
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.IDLE
 	speech_audio.play()
 	print("Played idle sound")
 
 
 func play_alert_sound():
-	if last_speech_type == SpeechType.ALERT or last_speech_type == SpeechType.DETECTION or last_speech_type == SpeechType.FIGHT:
+	if last_speech_type == AudioLibrary.CULTIST_VOICE_TYPE.ALERT or last_speech_type == AudioLibrary.CULTIST_VOICE_TYPE.DETECTION or last_speech_type == AudioLibrary.CULTIST_VOICE_TYPE.FIGHT:
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
 #			print("Sounds already playing (alert called this)")
@@ -127,7 +87,7 @@ func play_alert_sound():
 	if last_speech_line == speech_audio.stream:   # This is not working to stop duplicate lines =/
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.ALERT
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.ALERT
 	speech_audio.play()
 	print_debug("Played alert sound")
 	
@@ -138,7 +98,7 @@ func get_player() -> Player:
 
 
 func play_detection_sound() -> void:
-	if last_speech_type == SpeechType.ALERT or last_speech_type == SpeechType.DETECTION or last_speech_type == SpeechType.FIGHT:
+	if last_speech_type == AudioLibrary.CULTIST_VOICE_TYPE.ALERT or last_speech_type == AudioLibrary.CULTIST_VOICE_TYPE.DETECTION or last_speech_type == AudioLibrary.CULTIST_VOICE_TYPE.FIGHT:
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
 #			print("Sounds already playing (detection called this)")
@@ -152,7 +112,7 @@ func play_detection_sound() -> void:
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.DETECTION
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DETECTION
 	speech_audio.play()
 	print("Played detection sound")
 
@@ -166,7 +126,7 @@ func play_chase_sound():
 
 
 func play_fight_sound():
-	if last_speech_type == SpeechType.FIGHT:   # Anything but fight
+	if last_speech_type == AudioLibrary.CULTIST_VOICE_TYPE.FIGHT:   # Anything but fight
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
 			return
@@ -175,7 +135,7 @@ func play_fight_sound():
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.FIGHT
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.FIGHT
 	speech_audio.play()
 	print("Played fight sound")
 
@@ -189,7 +149,7 @@ func play_reload_sound():
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.RELOAD
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.RELOAD
 	speech_audio.play()
 
 
@@ -204,7 +164,7 @@ func play_dialog_q_sound():
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.DIALOG_Q
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DIALOG_Q
 	speech_audio.play()
 
 
@@ -215,7 +175,7 @@ func play_dialog_a_sound():
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.DIALOG_A
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DIALOG_A
 	speech_audio.play()
 
 
@@ -226,7 +186,7 @@ func play_dialog_sequence_sound():
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.DIALOG_SEQUENCE
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DIALOG_SEQUENCE
 	speech_audio.play()
 
 
@@ -327,5 +287,5 @@ func _play_sound_from_library(cultist_voice_type: AudioLibrary.CULTIST_VOICE_TYP
 	if last_speech_line == speech_audio.stream:
 		return 
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
-	last_speech_type = SpeechType.FIRE
+	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.FIRE
 	speech_audio.play()

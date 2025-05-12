@@ -489,47 +489,29 @@ func drop_hotbar_slot(slot : int) -> Node:
 
 
 # Drops the item, it must be unequipped first
-# Note that the drop is done in a deferred manner
+# This positions the item at the 'PlaceOrigin' of the owner character,
+# in a DROPPED state. Further positioning can be done by the caller
 func _drop_item(item : EquipmentItem):
-	if character is Player:
-		if character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_PLACE:
-			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # At the moment, 'placed' items can't hurt anyone.
-		elif character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_THROW:
-			item.set_item_state(GlobalConsts.ItemState.DAMAGING)
-		else:
-			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # Dropped for another reason like cycling away from bulky
-			print("Dropped for another reason like cycling away from bulky")
+	#if character is Player:
+		#if character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_PLACE:
+			#item.set_item_state(GlobalConsts.ItemState.DROPPED)   # At the moment, 'placed' items can't hurt anyone.
+		#elif character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_THROW:
+			#item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		#else:
+			#item.set_item_state(GlobalConsts.ItemState.DROPPED)   # Dropped for another reason like cycling away from bulky
+			#print("Dropped for another reason like cycling away from bulky")
+	#else:
+	item.set_item_state(GlobalConsts.ItemState.DROPPED)
+	if is_instance_valid(GameManager.game.level):
+		GameManager.game.level.add_child(item)
 	else:
-		item.set_item_state(GlobalConsts.ItemState.DROPPED)   # This means, for now, non-players can't throw for damage; they drop when die
-
-	if GameManager.game.level:   # This is for the real game
-		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
-			item.global_transform = character.drop_position_node.global_transform
-			print("Item set to DROPPED")
-		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
-			item.global_transform = character.throw_position_node.global_transform
-			print("Item set to DAMAGING")
-
-		if item.can_attach == true:
-#			item.get_parent().remove_child(item)
-			GameManager.game.level.add_child(item)
-		else:
-			GameManager.game.level.add_child(item)
-			print("Item added to level at position: ", item.global_position)
-
-
-	elif !GameManager.game:   # This is here for test scenes
-		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
-			item.global_transform = character.drop_position_node.global_transform
-		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
-			item.global_transform = character.throw_position_node.global_transform
-
 		find_parent("TestWorld").add_child(item)
-		if item.item_state == GlobalConsts.ItemState.DAMAGING:
-			item.apply_throw_logic()
+	item.global_transform = character.place_origin.global_transform
+	item.linear_velocity = Vector3.ZERO
+	item.angular_velocity = Vector3.ZERO
 
 	item.owner_character = null
-
+	
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:

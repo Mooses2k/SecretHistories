@@ -11,6 +11,7 @@ enum InteractState {
 @onready var interaction_cast: RayCast3D = $"../../ModelRoot/MainCamera/InteractionCast"
 @onready var grab_cast: RayCast3D = $"../../ModelRoot/MainCamera/GrabCast"
 @onready var player_controller: PlayerController = $".."
+@onready var near_cast: Area3D = $"../../ModelRoot/MainCamera/NearCast"
 
 # Releasing the interact key before this time will cause an interaction, holding
 # it longer will attempt a grab
@@ -37,12 +38,27 @@ func _process(delta: float) -> void:
 	grab_cast.force_raycast_update()
 	grab_target = grab_cast.get_collider() as RigidBody3D
 	pick_target = grab_cast.get_collider() as PickableItem
+	#TODO: move this code to the gui instead, and make near cast behave like kick
+	GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.NONE
+	
 	if pick_target:
 		GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.GRAB
 	elif grab_target or interact_target:
 		GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.DOT
-	else:
-		GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.NONE
+		if is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
+			GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.IGNITE
+			print("Fire")
+	if GameManager.game.ui_root.hud_root.active_indicator == HUD.Indicator.NONE:
+		for body in near_cast.get_overlapping_bodies():
+			if body is RigidBody3D:
+				GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.DOT
+				break
+	if GameManager.game.ui_root.hud_root.active_indicator == HUD.Indicator.NONE:
+		for area in near_cast.get_overlapping_areas():
+			if area is Interactable:
+				GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.DOT
+				break
+	
 	if interact_state == InteractState.PENDING:
 		_interaction_held_timer += delta
 		if _interaction_held_timer > interact_threshold and grabbed_item == null:

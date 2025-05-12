@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=4 uid="uid://2kfmpyxg3xmw"]
 
 [ext_resource type="AudioStream" uid="uid://c1fbw0pkbvdug" path="res://resources/sounds/impacts/brick/593473__georgesavic__throwing-brick2.ogg" id="1"]
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="2"]
 [ext_resource type="Resource" uid="uid://cbrswthxagj2w" path="res://resources/inventory/stackables/bricks_rocks_stack.tres" id="2_x8plq"]
 [ext_resource type="AudioStream" uid="uid://bfhflhuea8p8f" path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" id="3"]
 [ext_resource type="Material" uid="uid://dcvanp8mapqxn" path="res://resources/models/gridmap/modular_pieces/M_Floor.material" id="4_lh4q6"]

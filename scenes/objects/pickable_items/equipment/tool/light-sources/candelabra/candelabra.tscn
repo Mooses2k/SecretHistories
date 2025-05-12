@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://cbkt7rvdbarwv"]
+[gd_scene load_steps=32 format=4 uid="uid://cbkt7rvdbarwv"]
 
 [ext_resource type="AudioStream" uid="uid://cjv6effcbo6rt" path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" id="1"]
 [ext_resource type="Material" path="res://resources/models/items/tools/light_sources/candelabra/trn_Candelabra_001.material" id="2"]
@@ -12,7 +12,8 @@
 [ext_resource type="Shader" uid="uid://bkw8bmlt3d1sr" path="res://resources/shaders/candle/flame.gdshader" id="10"]
 [ext_resource type="Texture2D" uid="uid://6gwcwaai5u5i" path="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://bt1p1be1g3dme" path="res://resources/models/items/consumables/light_sources/candle/flame.webp" id="12"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" id="56"]
+[ext_resource type="Script" uid="uid://dbgnsblia6cwb" path="res://scenes/objects/interactables/interactable.gd" id="12_0iqbf"]
+[ext_resource type="PackedScene" uid="uid://dfaktya4wr14r" path="res://scenes/objects/pickable_items/equipment/tool/_tool_item.tscn" id="56"]
 
 [sub_resource type="ArrayMesh" id="1"]
 _surfaces = [{
@@ -90,10 +91,10 @@ seamless = true
 bump_strength = 19.9
 noise = SubResource("9")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aku3l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2fpoc"]
 render_priority = 0
 shader = ExtResource("10")
-shader_parameter/noise_seed = 820.982
+shader_parameter/noise_seed = 548.953
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise = SubResource("10")
@@ -105,10 +106,10 @@ shader_parameter/gradient = ExtResource("11")
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bd1ds"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iqngh"]
 render_priority = 0
 shader = ExtResource("10")
-shader_parameter/noise_seed = 421.606
+shader_parameter/noise_seed = 988.295
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise = SubResource("10")
@@ -120,10 +121,10 @@ shader_parameter/gradient = ExtResource("11")
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3bb15"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_07aw0"]
 render_priority = 0
 shader = ExtResource("10")
-shader_parameter/noise_seed = 448.095
+shader_parameter/noise_seed = 999.285
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise = SubResource("10")
@@ -247,7 +248,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, 0, 0, 0
 visible = false
 cast_shadow = 0
 mesh = SubResource("127")
-surface_material_override/0 = SubResource("ShaderMaterial_aku3l")
+surface_material_override/0 = SubResource("ShaderMaterial_2fpoc")
 script = ExtResource("9")
 
 [node name="Light3D" type="OmniLight3D" parent="Candle1/FireOrigin/Fire" index="0"]
@@ -279,7 +280,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, 0, 0, 0
 visible = false
 cast_shadow = 0
 mesh = SubResource("127")
-surface_material_override/0 = SubResource("ShaderMaterial_bd1ds")
+surface_material_override/0 = SubResource("ShaderMaterial_iqngh")
 script = ExtResource("9")
 
 [node name="Candle3" type="Node3D" parent="." index="12"]
@@ -302,11 +303,12 @@ transform = Transform3D(1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, 0, 0, 0
 visible = false
 cast_shadow = 0
 mesh = SubResource("127")
-surface_material_override/0 = SubResource("ShaderMaterial_3bb15")
+surface_material_override/0 = SubResource("ShaderMaterial_07aw0")
 script = ExtResource("9")
 
 [node name="Ignite" type="Area3D" parent="." index="13" groups=["IGNITE"]]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -0.00712366, 0.203776, -0.00613392)
+script = ExtResource("12_0iqbf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 1.86265e-09, -0.0100397, -0.0584511)
@@ -322,7 +324,7 @@ bus = &"Effects"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="16"]
 libraries = {
-"": SubResource("AnimationLibrary_gq71w")
+&"": SubResource("AnimationLibrary_gq71w")
 }
 autoplay = "flicker"
 
@@ -336,4 +338,5 @@ autoplay = "flicker"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.179939, 0)
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
+[connection signal="character_interacted" from="Ignite" to="." method="_on_ignite_character_interacted"]
 [connection signal="timeout" from="Timer" to="." method="_on_light_depleted"]

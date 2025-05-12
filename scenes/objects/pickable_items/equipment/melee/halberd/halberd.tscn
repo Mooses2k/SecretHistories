@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7se3mjs7ggnr" path="res://resources/models/items/melee/halberd/textures/LP2_2_Metallic.png" id="6"]
 [ext_resource type="AudioStream" uid="uid://bifhmfmybkfly" path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" id="7"]
 [ext_resource type="AudioStream" uid="uid://em0b7as3g50m" path="res://resources/sounds/melee/wider_object/squish_hit/411122__vdovitsky__sword-hits-the-body.wav" id="11"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="22"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="22"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jur85"]
 resource_name = "DefaultMaterial"
@@ -83,7 +83,6 @@ secondary_damage_type2 = 1
 secondary_damage2 = 51
 item_size = 2
 item_name = "Halberd"
-normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 dropped_mask = 1
 item_drop_sound = ExtResource("3")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=4 uid="uid://dronfqqn3nw7b"]
 
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://bfhflhuea8p8f" path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" id="3"]
 [ext_resource type="AudioStream" uid="uid://bd6c4tbgh5o3b" path="res://resources/sounds/impacts/677013__staylor8__candle_hit.ogg" id="4"]
 [ext_resource type="Texture2D" uid="uid://1smfh3npjal5" path="res://resources/models/items/components/bones_and_bodies/human_skeleton/human_skeleton_Skeleton_baseColor.png" id="4_pfa3d"]

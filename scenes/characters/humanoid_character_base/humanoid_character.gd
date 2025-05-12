@@ -15,6 +15,9 @@ const COLLISIONS_REPORTED = 4
 @onready var off_hand_root: Marker3D = %OffHandRoot
 @onready var main_hand_root: Marker3D = %MainHandRoot
 @onready var inventory: Inventory = $Inventory
+@onready var throw_origin: Marker3D = $ModelRoot/ThrowOrigin
+@onready var place_origin: Marker3D = $ModelRoot/PlaceOrigin
+@onready var kick_cast: KickCast = $ModelRoot/KickCast
 
 
 
@@ -39,8 +42,13 @@ func _physics_process(delta: float) -> void:
 		state.facing = global_basis * state.facing
 		global_basis = Basis.IDENTITY
 	# crouch input
-	var target_crouch_ratio : float = 1.0 if input.crouch else 0.0
-
+	state.sprinting = input.sprint and input.movement_vector.dot(-state.facing.z) > 0.0 and state.stamina > 0.0
+	if state.sprinting:
+		state.stamina -= parameters.stamina_drain_rate * delta
+	else:
+		state.stamina += parameters.stamina_drain_rate * delta
+	var target_crouch_ratio : float = 1.0 if (input.crouch and not state.sprinting) else 0.0
+	
 	var target_height = lerp(parameters.standing_height, parameters.crouch_height, target_crouch_ratio)
 	if target_height > character_collision.height:
 		ceiling_detection_test_parameters.motion = Vector3.UP * (target_height - character_collision.height + 0.1)
@@ -63,10 +71,9 @@ func _physics_process(delta: float) -> void:
 					target_height = check_position.y - 0.1
 			target_height = maxf(target_height, character_collision.height)
 			target_crouch_ratio = inverse_lerp(parameters.standing_height, parameters.crouch_height, target_height)
-	state.current_crouch_ratio = move_toward(state.current_crouch_ratio, target_crouch_ratio, delta*parameters.crouch_animation_speed)
+	state.current_crouch_ratio = move_toward(state.current_crouch_ratio, target_crouch_ratio, delta/parameters.crouch_animation_duration)
 	character_collision.height = lerp(parameters.standing_height, parameters.crouch_height, state.current_crouch_ratio)
-	state.sprinting = input.sprint
-
+	
 	model_root.global_basis = state.facing
 
 func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
@@ -141,7 +148,7 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 
 	var local_z : Vector3 = ground_plane.project(physics_state.transform.basis.z).normalized()
 	var local_x : Vector3 = ground_plane.project(physics_state.transform.basis.x).normalized()
-	var target_ground_velocity = -(input.movement_vector.x*local_x + input.movement_vector.z*local_z)
+	var target_ground_velocity = (input.movement_vector.x*local_x + input.movement_vector.z*local_z)
 	target_ground_velocity *= state.get_target_speed()
 	ground_velocity = ground_velocity.move_toward(target_ground_velocity, physics_state.step*parameters.base_acceleration*control_multiplier)
 
@@ -164,3 +171,22 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 func recoil() -> void:
 	print("recoil")
 	recoiled.emit()
+
+func kick():
+	if state.stamina < parameters.kick_stamina_cost or state.time_since_kick < parameters.kick_cooldown:
+		return
+	state.time_since_kick = 0.0
+	state.stamina -= 50.0
+	var kick_list : Array[Node3D] = kick_cast.get_kick_objects()
+	var kick_direction := kick_cast.global_basis.y
+	var kick_origin := kick_cast.global_position
+	for node : Node3D in kick_list:
+		if node is RigidBody3D:
+			var body := node as RigidBody3D
+			var kick_impulse := minf(parameters.kick_impulse, body.mass * parameters.kick_max_speed)
+			body.apply_impulse(kick_impulse * kick_direction, kick_origin - body.global_position)
+		if node is Hurtbox:
+			var hurtbox := node as Hurtbox
+			hurtbox.damage(parameters.kick_damage, parameters.kick_damage_type, kick_direction, kick_origin)
+		pass
+	pass

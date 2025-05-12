@@ -28,6 +28,7 @@ script = ExtResource("7")
 [node name="PauseMenu" type="MarginContainer" parent="UIRoot"]
 unique_name_in_owner = true
 process_mode = 3
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -41,7 +42,9 @@ visible = false
 layout_mode = 2
 
 [node name="HUD" parent="UIRoot" instance=ExtResource("2")]
-anchors_preset = 0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Hotbar" parent="UIRoot/HUD" index="0"]
 layout_mode = 1

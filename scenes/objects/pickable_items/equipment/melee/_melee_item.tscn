@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://lhy76hfleimx" path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" id="5"]
 [ext_resource type="AudioStream" uid="uid://csmnd6mic6rlb" path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" id="6"]
 [ext_resource type="AudioStream" uid="uid://cllhmw6oauy3k" path="res://resources/sounds/melee/blade/slash_flesh/420674__sypherzent__deep-cut-slash-gash.wav" id="7"]
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="8"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="8"]
 [ext_resource type="AudioStream" uid="uid://dbuauufu364yl" path="res://resources/sounds/throwing/181679__gingie__knife-throw.ogg" id="9"]
 [ext_resource type="AudioStream" uid="uid://5y1gpex1x7kx" path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" id="10"]
 

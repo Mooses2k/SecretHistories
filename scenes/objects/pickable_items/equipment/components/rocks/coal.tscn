@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://mnnndx2i46dq" path="res://resources/sounds/impacts/brick/593473__georgesavic__throwing-brick1.ogg" id="2_u25k2"]
 [ext_resource type="AudioStream" uid="uid://bfhflhuea8p8f" path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" id="3_aqabf"]
 [ext_resource type="Texture2D" uid="uid://bchn1h75yi5uu" path="res://resources/models/items/components/coal/T_Coal_Albedo.png" id="4_douge"]
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="5_afqu2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="5_afqu2"]
 [ext_resource type="Texture2D" uid="uid://tfc7os3u4jym" path="res://resources/models/gridmap/modular_pieces/T_Wall_RoughAO.png" id="5_j5ytm"]
 [ext_resource type="Texture2D" uid="uid://bv3oyxtavtqp1" path="res://resources/models/items/components/coal/T_Coal_Normal.png" id="6_5sk15"]
 [ext_resource type="Texture2D" uid="uid://b4hurfwl6fux2" path="res://resources/models/items/components/coal/T_Coal_Roughness.png" id="7_25618"]

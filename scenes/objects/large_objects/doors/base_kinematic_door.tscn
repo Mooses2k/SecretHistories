@@ -1,8 +1,7 @@
-[gd_scene load_steps=28 format=4 uid="uid://b8fhjqun0honf"]
+[gd_scene load_steps=29 format=4 uid="uid://b8fhjqun0honf"]
 
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_pieces/M_Wall_Metal.material" id="1"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_pieces/M_DoorSimple1.material" id="2"]
-[ext_resource type="Script" uid="uid://bmpmiqic72glf" path="res://scenes/objects/large_objects/doors/door_interactable.gd" id="3"]
 [ext_resource type="Script" uid="uid://ck4san7rat661" path="res://scenes/objects/large_objects/doors/base_kinematic_door.gd" id="4"]
 [ext_resource type="AudioStream" uid="uid://bontcdvuuvf8q" path="res://resources/sounds/doors/damage/broken/160213__qubodup__kicking-forcing-breaking-wooden-door.wav" id="7"]
 [ext_resource type="AudioStream" uid="uid://but4ph5smgc0w" path="res://resources/sounds/doors/damage/ineffective/363697__pfranzen__kicking-a-door.ogg" id="8"]
@@ -16,6 +15,8 @@
 [ext_resource type="AudioStream" uid="uid://bx21y572mh2cq" path="res://resources/sounds/doors/shake/577273__trp__door-rattles-wood-2011.wav" id="12"]
 [ext_resource type="Texture2D" uid="uid://wso7xrynhgfn" path="res://resources/models/gridmap/modular_doors/T_Wall_Metal_RoughMetallicAO.png" id="12_2wtvc"]
 [ext_resource type="Texture2D" uid="uid://bxk0iai6kodlm" path="res://resources/models/gridmap/modular_doors/T_Wall_Metal_Normal.png" id="13_dmqe4"]
+[ext_resource type="Script" uid="uid://dbgnsblia6cwb" path="res://scenes/objects/interactables/interactable.gd" id="16_klvrj"]
+[ext_resource type="Script" uid="uid://bak2lmkkjrs45" path="res://scenes/hurtbox.gd" id="17_klvrj"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(0.9, 1.9, 0.1)
@@ -213,7 +214,7 @@ skeleton = NodePath("../../..")
 collision_layer = 512
 collision_mask = 0
 monitoring = false
-script = ExtResource("3")
+script = ExtResource("16_klvrj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorHingeZAxis/DoorBody/Interactable"]
 shape = SubResource("6")
@@ -249,6 +250,16 @@ remote_path = NodePath("../../../Sounds/DoorKickEffectiveSound")
 update_rotation = false
 update_scale = false
 
+[node name="Hurtbox" type="Area3D" parent="DoorHingeZAxis/DoorBody"]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("17_klvrj")
+metadata/_custom_type_script = "uid://bak2lmkkjrs45"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorHingeZAxis/DoorBody/Hurtbox"]
+shape = SubResource("6")
+
 [node name="DoorwayGapsFiller" type="StaticBody3D" parent="."]
 unique_name_in_owner = true
 
@@ -281,6 +292,6 @@ wait_time = 0.5
 autostart = true
 
 [connection signal="character_interacted" from="DoorHingeZAxis/DoorBody/Interactable" to="." method="_on_Interactable_character_interacted"]
-[connection signal="kicked" from="DoorHingeZAxis/DoorBody/Interactable" to="." method="_on_Interactable_kicked"]
+[connection signal="damaged" from="DoorHingeZAxis/DoorBody/Hurtbox" to="." method="damage"]
 [connection signal="body_entered" from="NpcDetector" to="." method="_on_NpcDetector_body_entered"]
 [connection signal="timeout" from="NpcCheckTimer" to="." method="_on_NpcCheckTimer_timeout"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c7882jhfihn6m" path="res://scenes/characters/undead/ghost/ghost.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://b7rc6vfysbo0i" path="res://resources/sounds/ghost/whispers.wav" id="2"]
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="4"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="4"]
 [ext_resource type="Script" uid="uid://bbnmsh6rprfk7" path="res://scenes/characters/undead/ghost/ghost_controller.gd" id="5"]
 [ext_resource type="Script" uid="uid://dtvpp5mfxipxu" path="res://scenes/characters/undead/ghost/damage_area.gd" id="6"]
 

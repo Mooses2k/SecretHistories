@@ -45,10 +45,16 @@ func _physics_process(delta):
 			transform = get_hold_transform().inverse()
 
 
-func apply_throw_logic():
+func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
 	if thrown_point_first:
 		print("Applying throw logic")
-		self.global_rotation = throw_pos.global_rotation   # This attempts to align the point forward when throwing piercing weapons
+		var throw_basis : Basis = Basis.IDENTITY
+		if not direction.is_equal_approx(Vector3.UP):
+			throw_basis.y = direction.normalized()
+			throw_basis.x = throw_basis.y.cross(Vector3.UP).normalized()
+			throw_basis.z = throw_basis.x.cross(throw_basis.y)
+		self.global_basis = throw_basis # This attempts to align the point forward when throwing piercing weapons
+		#self.global_rotation = throw_pos.global_rotation   
 	if can_spin:
 		print("Item spins when thrown")
 		angular_velocity = Vector3(global_transform.basis.x * -15)

@@ -122,63 +122,63 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0.0495, 0.09, 1, 0.09, 0.07584, 0.0369,
 gradient = SubResource("146")
 width = 32
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tnouh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qq67y"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3hnw2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0tlej"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_twuj3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s0y1d"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yss02"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xmf47"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3h2uj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7j0xw"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nbdqn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_00h4n"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2bkdf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b2t0q"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_axip0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mxq8e"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
 shader_parameter/INTENSITY = 4.0
 shader_parameter/COLOR_RAMP = SubResource("149")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2u125"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1xdk"]
 resource_local_to_scene = true
 render_priority = 0
 shader = SubResource("148")
@@ -193,45 +193,45 @@ mesh = SubResource("ArrayMesh_27vo4")
 
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
-"": SubResource("AnimationLibrary_5hu1m")
+&"": SubResource("AnimationLibrary_5hu1m")
 }
 autoplay = "unlit"
 
 [node name="Fire" parent="FireOrigin8" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_tnouh")
+surface_material_override/0 = SubResource("ShaderMaterial_qq67y")
 
 [node name="Fire" parent="FireOrigin7" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_3hnw2")
+surface_material_override/0 = SubResource("ShaderMaterial_0tlej")
 
 [node name="Fire" parent="FireOrigin6" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_twuj3")
+surface_material_override/0 = SubResource("ShaderMaterial_s0y1d")
 
 [node name="Fire" parent="FireOrigin5" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_yss02")
+surface_material_override/0 = SubResource("ShaderMaterial_xmf47")
 
 [node name="Fire" parent="FireOrigin4" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_3h2uj")
+surface_material_override/0 = SubResource("ShaderMaterial_7j0xw")
 
 [node name="Fire" parent="FireOrigin3" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_nbdqn")
+surface_material_override/0 = SubResource("ShaderMaterial_00h4n")
 
 [node name="Fire" parent="FireOrigin9" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_2bkdf")
+surface_material_override/0 = SubResource("ShaderMaterial_b2t0q")
 
 [node name="Fire" parent="FireOrigin2" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_axip0")
+surface_material_override/0 = SubResource("ShaderMaterial_mxq8e")
 
 [node name="Fire" parent="FireOrigin" index="0"]
 visible = false
-surface_material_override/0 = SubResource("ShaderMaterial_2u125")
+surface_material_override/0 = SubResource("ShaderMaterial_q1xdk")
 
 [node name="Light3D" parent="FireOrigin/Fire" index="0"]
 visible = false

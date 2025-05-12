@@ -237,3 +237,8 @@ func item_drop():
 		if random_number < prob_going_out:
 			unlight()
 			print("Light went out due to being thrown")
+
+
+func _on_ignite_character_interacted(_character: Variant) -> void:
+	_use_primary()
+	pass # Replace with function body.

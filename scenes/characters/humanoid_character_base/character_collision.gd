@@ -7,7 +7,7 @@ class_name CharacterCollision
 		hover_height = value
 		update_collision()
 
-@export var height : float = 1.6:
+@export var height : float = 1.7:
 	set(value):
 		height = value
 		update_collision()

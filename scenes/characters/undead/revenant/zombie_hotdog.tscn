@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://6kt8lc6tchxt"]
 
 [ext_resource type="Script" uid="uid://cmci7gwh23doq" path="res://scenes/characters/character.gd" id="1"]
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="2"]
 [ext_resource type="Script" uid="uid://bsnm5bv2j63y0" path="res://scenes/characters/undead/revenant/grab_area.gd" id="3"]
 [ext_resource type="Script" uid="uid://0nvxxergqacy" path="res://core/ai/bt_root.gd" id="4"]
 [ext_resource type="Script" uid="uid://d2jyqwlf4r4kn" path="res://core/ai/flow_nodes/bt_sequence.gd" id="5"]

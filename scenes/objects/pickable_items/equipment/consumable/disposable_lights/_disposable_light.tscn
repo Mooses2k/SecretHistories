@@ -1,20 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://beo60ftc42sao"]
+[gd_scene load_steps=8 format=3 uid="uid://beo60ftc42sao"]
 
 [ext_resource type="Script" uid="uid://cgl1x4gvbonv" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://b8pj06175scgh" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="2"]
 [ext_resource type="AudioStream" uid="uid://cjv6effcbo6rt" path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" id="3"]
 [ext_resource type="AudioStream" uid="uid://bbusju33p65ex" path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" id="4"]
 [ext_resource type="AudioStream" uid="uid://diw204jpwmjd1" path="res://resources/sounds/light-sources/torch/528662__soonus__paper-burn.ogg" id="5"]
+[ext_resource type="Script" uid="uid://dbgnsblia6cwb" path="res://scenes/objects/interactables/interactable.gd" id="6_ttghk"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(0.14, 0.14, 0.14)
 
 [node name="DisposableLight" instance=ExtResource("2")]
 script = ExtResource("1")
-normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
-throw_logic = false
-can_spin = false
 
 [node name="BurnTime" type="Timer" parent="." index="3"]
 
@@ -22,20 +19,23 @@ can_spin = false
 
 [node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
 stream = ExtResource("3")
-bus = "Effects"
+bus = &"Effects"
 
 [node name="BlowOutSound" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0)
 stream = ExtResource("4")
-bus = "Effects"
+bus = &"Effects"
 
 [node name="Burning" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
 stream = ExtResource("5")
 volume_db = 20.0
-bus = "Effects"
+bus = &"Effects"
 
-[node name="Ignite" type="Area3D" parent="." index="5" groups=["ignite"]]
+[node name="Ignite" type="Area3D" parent="." index="5" groups=["IGNITE"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.196083, 0)
+script = ExtResource("6_ttghk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite" index="0"]
 shape = SubResource("1")
+
+[connection signal="character_interacted" from="Ignite" to="." method="_on_ignite_character_interacted"]

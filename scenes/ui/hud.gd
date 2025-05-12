@@ -16,6 +16,7 @@ var active_indicator : Indicator = Indicator.NONE:
 	set(value):
 		hide_indicators()
 		active_indicator = value
+		print(active_indicator)
 		if value != Indicator.NONE:
 			indicators[value].show()
 

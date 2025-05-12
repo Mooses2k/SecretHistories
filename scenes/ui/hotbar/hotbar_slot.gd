@@ -73,7 +73,8 @@ func set_item(value : EquipmentItem):
 			item.item_data_changed.disconnect(update_item_data)
 		item = value
 		update_item_data()
-		item.item_data_changed.connect(update_item_data)
+		if is_instance_valid(item):
+			item.item_data_changed.connect(update_item_data)
 
 
 func set_inventory(value : Node):

@@ -13,6 +13,8 @@ enum ThrowState {
 @export var place_threshold = 0.4
 @export var place_blueprint_material : Material
 
+@export var place_origin : Node3D
+@export var throw_origin : Node3D
 
 var throw_held_timer_mainhand : float = 0.0
 var place_blueprint_mainhand : RigidBody3D
@@ -113,8 +115,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		throw_state_offhand = ThrowState.NONE
 
 func _get_place_transform(object : RigidBody3D) -> Transform3D:
-	var from_transform := object.global_transform
-	from_transform.origin = player_controller.main_camera.global_position
+	var from_transform := place_origin.global_transform
 	var move_dir : Vector3 = -player_controller.main_camera.global_basis.z * place_distance
 	if object.test_move(from_transform, move_dir * place_distance, _collision):
 		move_dir = _collision.get_travel()

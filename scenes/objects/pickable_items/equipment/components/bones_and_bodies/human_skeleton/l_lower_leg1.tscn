@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=4 uid="uid://b27unybaehnqu"]
 
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="2"]
 [ext_resource type="Resource" uid="uid://cbmn8q44m5tly" path="res://resources/inventory/stackables/bones_stack.tres" id="2_4d14m"]
 [ext_resource type="AudioStream" uid="uid://bfhflhuea8p8f" path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" id="3"]
 [ext_resource type="AudioStream" uid="uid://bxfvr86h2sc7o" path="res://resources/sounds/impacts/bone/69396__angel_perez_grandi__bone-click.wav" id="4"]

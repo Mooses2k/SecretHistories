@@ -1,10 +1,10 @@
 [gd_scene load_steps=50 format=3 uid="uid://id4ldu0s15ut"]
 
 [ext_resource type="Script" uid="uid://cmci7gwh23doq" path="res://scenes/characters/character.gd" id="1"]
-[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/characters/hitbox.gd" id="2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="2"]
 [ext_resource type="Script" uid="uid://c46ykpmv4spy8" path="res://scenes/characters/character_audio.gd" id="3"]
 [ext_resource type="Script" uid="uid://dlgx357ndlfip" path="res://scenes/characters/inventory.gd" id="4"]
-[ext_resource type="PackedScene" path="res://scenes/characters/character_anims_tree.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://cur28ns1ammuw" path="res://scenes/characters/character_anims_tree.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://dwjr3myw4kmoa" path="res://scenes/characters/character_anims.tscn" id="6"]
 [ext_resource type="Animation" uid="uid://dtprg438dlasp" path="res://resources/animations/ads_idle.res" id="6_ihxib"]
 [ext_resource type="Animation" uid="uid://da7h2ah61x6f7" path="res://resources/animations/crouch_loop.res" id="7_rv86j"]

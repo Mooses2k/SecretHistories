@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=4 uid="uid://cpgowwjd4pd2"]
+[gd_scene load_steps=121 format=4 uid="uid://cpgowwjd4pd2"]
 
 [ext_resource type="Material" path="res://resources/models/large_objects/lighting/M_Candelabra3.material" id="2"]
 [ext_resource type="Texture2D" uid="uid://mpe8wb4ynl65" path="res://resources/models/large_objects/lighting/floor_candelabra3_Kandelabra_baseColor.jpg" id="2_fejgq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://hrg4fxulwraa" path="res://resources/models/large_objects/lighting/floor_candelabra3_Kandelabra_metallicRoughness.png" id="3_1u3pj"]
 [ext_resource type="Texture2D" uid="uid://b2m21bwa6o2po" path="res://resources/models/large_objects/lighting/floor_candelabra3_Kandelabra_normal.jpg" id="4_2dfgx"]
 [ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="6"]
+[ext_resource type="Script" uid="uid://dbgnsblia6cwb" path="res://scenes/objects/interactables/interactable.gd" id="7_wec6s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ii0g6"]
 resource_name = "M_Candelabra3"
@@ -413,12 +414,11 @@ shader_parameter/COLOR_RAMP = SubResource("149")
 size = Vector3(0.314656, 0.472528, 0.320404)
 
 [node name="FloorCandelabra3" type="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0)
 collision_layer = 512
 mass = 30.0
 continuous_cd = true
-max_contacts_reported = 4
 contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -838,7 +838,7 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_smlkm")
+&"": SubResource("AnimationLibrary_smlkm")
 }
 
 [node name="FireOrigin8" type="Marker3D" parent="."]
@@ -1002,8 +1002,9 @@ light_energy = 0.4
 shadow_enabled = true
 omni_range = 9.0
 
-[node name="Ignite" type="Area3D" parent="." groups=["Ignite"]]
+[node name="Ignite" type="Area3D" parent="." groups=["IGNITE"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0)
+script = ExtResource("7_wec6s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite"]
 shape = SubResource("2")

@@ -15,6 +15,11 @@ enum FOOTSTEP_TYPES{
 	GRAVEL,
 	CARPET
 }
+
+enum VOICE_ACTOR {
+	Dylanb_vo,
+	Deanbrignell
+}
 	
 enum CULTIST_VOICE_TYPE {
 	IDLE,
@@ -35,7 +40,6 @@ enum CULTIST_VOICE_TYPE {
 	BOMB,
 	COMET
 }
-
 
 ##Add more, as they become available
 var library:Dictionary = {
@@ -70,24 +74,44 @@ var library:Dictionary = {
 	# TODO - for now we have just one type of enemy so its okay to hardcode voices, but a PR to make it dynamic is welcome
 	# See character_audio.gd - choose_voice()
 	AUDIO_TYPE.CULTIST_VOICES: {
-
-		CULTIST_VOICE_TYPE.IDLE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"idle"),
-		CULTIST_VOICE_TYPE.ALERT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"alert"),
-		CULTIST_VOICE_TYPE.DETECTION: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"detection"),
-		CULTIST_VOICE_TYPE.AMBUSH: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"ambush"),
-		CULTIST_VOICE_TYPE.CHASE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"chase"),
-		CULTIST_VOICE_TYPE.FIGHT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"fight"),
-		CULTIST_VOICE_TYPE.RELOAD: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"reload"),
-		CULTIST_VOICE_TYPE.OUT_OF_AMMO: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"out_of_ammo"),
-		CULTIST_VOICE_TYPE.FLEE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"flee"),
-		CULTIST_VOICE_TYPE.DIALOG_Q: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"dialog_q"),
-		CULTIST_VOICE_TYPE.DIALOG_A: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"dialog_a"),
-		CULTIST_VOICE_TYPE.DIALOG_SEQUENCE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"dialog_sequence"),
-		CULTIST_VOICE_TYPE.SURPRISED: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"surprised"),
-		CULTIST_VOICE_TYPE.FIRE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"fire"),
-		CULTIST_VOICE_TYPE.SNAKE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"snake"),
-		CULTIST_VOICE_TYPE.BOMB: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"bomb"),
-		CULTIST_VOICE_TYPE.COMET: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/"+"comet")
+		VOICE_ACTOR.Dylanb_vo: {
+			CULTIST_VOICE_TYPE.IDLE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle"),
+			CULTIST_VOICE_TYPE.ALERT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert"),
+			CULTIST_VOICE_TYPE.DETECTION: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection"),
+			CULTIST_VOICE_TYPE.AMBUSH: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush"),
+			CULTIST_VOICE_TYPE.CHASE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/chase"),
+			CULTIST_VOICE_TYPE.FIGHT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight"),
+			CULTIST_VOICE_TYPE.RELOAD: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/reload"),
+			CULTIST_VOICE_TYPE.OUT_OF_AMMO: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/out_of_ammo"),
+			CULTIST_VOICE_TYPE.FLEE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee"),
+			CULTIST_VOICE_TYPE.DIALOG_Q: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q"),
+			CULTIST_VOICE_TYPE.DIALOG_A: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a"),
+			CULTIST_VOICE_TYPE.DIALOG_SEQUENCE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence"),
+			CULTIST_VOICE_TYPE.SURPRISED: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised"),
+			CULTIST_VOICE_TYPE.FIRE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fire"),
+			CULTIST_VOICE_TYPE.SNAKE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/snake"),
+			CULTIST_VOICE_TYPE.BOMB: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb"),
+			CULTIST_VOICE_TYPE.COMET: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/comet")
+		 },
+		 VOICE_ACTOR.Deanbrignell: {
+			CULTIST_VOICE_TYPE.IDLE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle"),
+			CULTIST_VOICE_TYPE.ALERT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert"),
+			CULTIST_VOICE_TYPE.DETECTION: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection"),
+			CULTIST_VOICE_TYPE.AMBUSH: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/ambush"),
+			CULTIST_VOICE_TYPE.CHASE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/chase"),
+			CULTIST_VOICE_TYPE.FIGHT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight"),
+			CULTIST_VOICE_TYPE.RELOAD: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/reload"),
+			CULTIST_VOICE_TYPE.OUT_OF_AMMO: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/out_of_ammo"),
+			CULTIST_VOICE_TYPE.FLEE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee"),
+			CULTIST_VOICE_TYPE.DIALOG_Q: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/dialog_q"),
+			CULTIST_VOICE_TYPE.DIALOG_A: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/dialog_a"),
+			CULTIST_VOICE_TYPE.DIALOG_SEQUENCE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/dialog_sequence"),
+			CULTIST_VOICE_TYPE.SURPRISED: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/surprised"),
+			CULTIST_VOICE_TYPE.FIRE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/fire"),
+			CULTIST_VOICE_TYPE.SNAKE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/snake"),
+			CULTIST_VOICE_TYPE.BOMB: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/bomb"),
+			CULTIST_VOICE_TYPE.COMET: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/comet")
+		 },
 	}
 }
 
@@ -107,8 +131,15 @@ func get_footsteps(material: FOOTSTEP_TYPES) -> Array:
 	return library[AUDIO_TYPE.FOOTSTEPS][material]
 
 
-func get_voicelines(voice_tag: CULTIST_VOICE_TYPE) -> Array:
-	return library[AUDIO_TYPE.CULTIST_VOICES][voice_tag]
+func get_voicelines(voice_actor: VOICE_ACTOR ,voice_tag: CULTIST_VOICE_TYPE) -> Array:
+	if !library[AUDIO_TYPE.CULTIST_VOICES].has(voice_actor):
+		return []
+		
+	if !library[AUDIO_TYPE.CULTIST_VOICES][voice_actor].has(voice_tag):
+		push_error("voiceline " + str(voice_tag) + " does not exists to voice actor" + str(voice_actor))
+		return []
+	
+	return library[AUDIO_TYPE.CULTIST_VOICES][voice_actor][voice_tag]
 
 
 func load_cultists_voicelines(sound_dir) -> Array[AudioStream]:

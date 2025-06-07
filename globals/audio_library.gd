@@ -20,11 +20,13 @@ enum ENEMY_TYPE {
 	Neophyte
 }
 
+
 enum VOICE_ACTOR {
 	Dylanb_vo,
 	Deanbrignell
 }
-	
+
+
 enum CULTIST_VOICE_TYPE {
 	IDLE,
 	ALERT,
@@ -44,6 +46,7 @@ enum CULTIST_VOICE_TYPE {
 	BOMB,
 	COMET
 }
+
 
 ##Add more, as they become available
 var library:Dictionary = {
@@ -96,8 +99,6 @@ func _ready() -> void:
 				voices[enemy_type][voice_actor][voice_type] = load_cultists_voicelines(path)
 	
 	library[AUDIO_TYPE.CULTIST_VOICES] = voices
-	print("Loaded voicelines")
-	print_debug(library[AUDIO_TYPE.CULTIST_VOICES])
 
 
 func get_footsteps(material: FOOTSTEP_TYPES) -> Array:
@@ -142,9 +143,7 @@ func load_cultists_voicelines(sound_dir: String) -> Array[AudioStream]:
 	if !sound_dir.begins_with("res://"):
 		sound_dir = "res://" + sound_dir
 
-
 	var snd_dir = DirAccess.open(sound_dir)
-
 	if not is_instance_valid(snd_dir):
 		push_error("Unable to open sound directory :", sound_dir)
 		return []
@@ -159,5 +158,4 @@ func load_cultists_voicelines(sound_dir: String) -> Array[AudioStream]:
 			loaded_audios.append(load(sound_dir + "/" + sound))
 
 		sound = snd_dir.get_next()
-
 	return loaded_audios

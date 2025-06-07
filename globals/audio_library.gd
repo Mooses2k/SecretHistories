@@ -16,6 +16,10 @@ enum FOOTSTEP_TYPES{
 	CARPET
 }
 
+enum ENEMY_TYPE {
+	Neophyte
+}
+
 enum VOICE_ACTOR {
 	Dylanb_vo,
 	Deanbrignell
@@ -70,50 +74,31 @@ var library:Dictionary = {
 			preload("res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet6.wav") as AudioStream
 		]
 	},
-	
-	# TODO - for now we have just one type of enemy so its okay to hardcode voices, but a PR to make it dynamic is welcome
-	# See character_audio.gd - choose_voice()
-	AUDIO_TYPE.CULTIST_VOICES: {
-		VOICE_ACTOR.Dylanb_vo: {
-			CULTIST_VOICE_TYPE.IDLE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/idle"),
-			CULTIST_VOICE_TYPE.ALERT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/alert"),
-			CULTIST_VOICE_TYPE.DETECTION: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/detection"),
-			CULTIST_VOICE_TYPE.AMBUSH: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/ambush"),
-			CULTIST_VOICE_TYPE.CHASE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/chase"),
-			CULTIST_VOICE_TYPE.FIGHT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fight"),
-			CULTIST_VOICE_TYPE.RELOAD: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/reload"),
-			CULTIST_VOICE_TYPE.OUT_OF_AMMO: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/out_of_ammo"),
-			CULTIST_VOICE_TYPE.FLEE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/flee"),
-			CULTIST_VOICE_TYPE.DIALOG_Q: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_q"),
-			CULTIST_VOICE_TYPE.DIALOG_A: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_a"),
-			CULTIST_VOICE_TYPE.DIALOG_SEQUENCE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/dialog_sequence"),
-			CULTIST_VOICE_TYPE.SURPRISED: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/surprised"),
-			CULTIST_VOICE_TYPE.FIRE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/fire"),
-			CULTIST_VOICE_TYPE.SNAKE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/snake"),
-			CULTIST_VOICE_TYPE.BOMB: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/bomb"),
-			CULTIST_VOICE_TYPE.COMET: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/dylanb_vo/comet")
-		 },
-		 VOICE_ACTOR.Deanbrignell: {
-			CULTIST_VOICE_TYPE.IDLE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/idle"),
-			CULTIST_VOICE_TYPE.ALERT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/alert"),
-			CULTIST_VOICE_TYPE.DETECTION: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/detection"),
-			CULTIST_VOICE_TYPE.AMBUSH: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/ambush"),
-			CULTIST_VOICE_TYPE.CHASE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/chase"),
-			CULTIST_VOICE_TYPE.FIGHT: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/fight"),
-			CULTIST_VOICE_TYPE.RELOAD: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/reload"),
-			CULTIST_VOICE_TYPE.OUT_OF_AMMO: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/out_of_ammo"),
-			CULTIST_VOICE_TYPE.FLEE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/flee"),
-			CULTIST_VOICE_TYPE.DIALOG_Q: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/dialog_q"),
-			CULTIST_VOICE_TYPE.DIALOG_A: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/dialog_a"),
-			CULTIST_VOICE_TYPE.DIALOG_SEQUENCE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/dialog_sequence"),
-			CULTIST_VOICE_TYPE.SURPRISED: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/surprised"),
-			CULTIST_VOICE_TYPE.FIRE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/fire"),
-			CULTIST_VOICE_TYPE.SNAKE: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/snake"),
-			CULTIST_VOICE_TYPE.BOMB: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/bomb"),
-			CULTIST_VOICE_TYPE.COMET: load_cultists_voicelines("res://resources/sounds/voices/cultists/neophyte/deanbrignell/comet")
-		 },
-	}
 }
+
+
+func _ready() -> void:
+	var voices: Dictionary = {} # Structure: ENEMY_TYPE -> VOICE_ACTOR -> VOICE_TYPE
+	
+	for enemy_type: int in ENEMY_TYPE.values():
+		var enemy_type_name: String = ENEMY_TYPE.keys()[enemy_type] # we cant go the other way around (get int from name) cause its not possible to index an array by a string
+		if not voices.has(enemy_type):
+			voices[enemy_type] = {}
+		
+		for voice_actor: int in VOICE_ACTOR.values():
+			var voice_actor_name: String = VOICE_ACTOR.keys()[voice_actor]
+			if not voices[enemy_type].has(voice_actor):
+				voices[enemy_type][voice_actor] = {}
+			
+			for voice_type: int in CULTIST_VOICE_TYPE.values():
+				var voice_type_name: String = CULTIST_VOICE_TYPE.keys()[voice_type]
+				var path = "res://resources/sounds/voices/cultists/"+enemy_type_name.to_lower()+"/" + voice_actor_name.to_lower() + "/" + voice_type_name.to_lower()
+				voices[enemy_type][voice_actor][voice_type] = load_cultists_voicelines(path)
+	
+	library[AUDIO_TYPE.CULTIST_VOICES] = voices
+	print("Loaded voicelines")
+	print_debug(library[AUDIO_TYPE.CULTIST_VOICES])
+
 
 func get_footsteps(material: FOOTSTEP_TYPES) -> Array:
 	##Add more methods like this, as more audio types are added to this file
@@ -131,18 +116,21 @@ func get_footsteps(material: FOOTSTEP_TYPES) -> Array:
 	return library[AUDIO_TYPE.FOOTSTEPS][material]
 
 
-func get_voicelines(voice_actor: VOICE_ACTOR ,voice_tag: CULTIST_VOICE_TYPE) -> Array:
-	if !library[AUDIO_TYPE.CULTIST_VOICES].has(voice_actor):
+func get_voicelines(enemy_type: ENEMY_TYPE, voice_actor: VOICE_ACTOR ,voice_tag: CULTIST_VOICE_TYPE) -> Array:
+	if !library[AUDIO_TYPE.CULTIST_VOICES].has(enemy_type):
 		return []
 		
-	if !library[AUDIO_TYPE.CULTIST_VOICES][voice_actor].has(voice_tag):
+	if !library[AUDIO_TYPE.CULTIST_VOICES][enemy_type].has(voice_actor):
+		return []
+		
+	if !library[AUDIO_TYPE.CULTIST_VOICES][enemy_type][voice_actor].has(voice_tag):
 		push_error("voiceline " + str(voice_tag) + " does not exists to voice actor" + str(voice_actor))
 		return []
 	
-	return library[AUDIO_TYPE.CULTIST_VOICES][voice_actor][voice_tag]
+	return library[AUDIO_TYPE.CULTIST_VOICES][enemy_type][voice_actor][voice_tag]
 
-
-func load_cultists_voicelines(sound_dir) -> Array[AudioStream]:
+## Returns an aray with all voicelines in sound_dir
+func load_cultists_voicelines(sound_dir: String) -> Array[AudioStream]:
 	var loaded_audios: Array[AudioStream] = []
 
 	if sound_dir == "":

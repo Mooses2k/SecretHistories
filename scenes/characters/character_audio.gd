@@ -14,6 +14,7 @@ var _clamber_sounds : Dictionary = {
 
 # Speech
 @export var voice_actor : AudioLibrary.VOICE_ACTOR = AudioLibrary.VOICE_ACTOR.Dylanb_vo # fallback to dylan
+@export var enemy_type: AudioLibrary.ENEMY_TYPE = AudioLibrary.ENEMY_TYPE.Neophyte
 
 var _reload_sounds : Array = []
 var _out_of_ammo_sounds : Array = []
@@ -64,7 +65,7 @@ func play_idle_sound():
 #		print("Sound already playing (idle called this)")
 		return
 	# Tracked to avoid repeating the same line
-	var sound = AudioLibrary.get_voicelines(voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.IDLE).pick_random()
+	var sound = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.IDLE).pick_random()
 	speech_audio.stream = sound
 	# Don't replay the last line
 	if last_speech_line == speech_audio.stream:
@@ -81,7 +82,7 @@ func play_alert_sound():
 		if speech_audio.is_playing() == true:
 #			print("Sounds already playing (alert called this)")
 			return
-	var sound: AudioStream = AudioLibrary.get_voicelines(voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.ALERT).pick_random()
+	var sound: AudioStream = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.ALERT).pick_random()
 	speech_audio.stream = sound
 	if last_speech_line == speech_audio.stream:   # This is not working to stop duplicate lines =/
 		return 
@@ -103,10 +104,10 @@ func play_detection_sound() -> void:
 #			print("Sounds already playing (detection called this)")
 			return
 	if is_instance_valid(get_player()) and get_player().inventory.bulky_equipment is ShardOfTheComet:
-		var sound = AudioLibrary.get_voicelines(voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.COMET).pick_random()
+		var sound = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.COMET).pick_random()
 		speech_audio.stream = sound
 	else:
-		var sound = AudioLibrary.get_voicelines(voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.DETECTION).pick_random()
+		var sound = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.DETECTION).pick_random()
 		speech_audio.stream = sound
 	if last_speech_line == speech_audio.stream:
 		return 
@@ -129,7 +130,7 @@ func play_fight_sound():
 		# This means he doesn't interrupt itself - for detection lines, they should, but not idles, reloads, etc
 		if speech_audio.is_playing() == true:
 			return
-	var sound = AudioLibrary.get_voicelines(voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.FIGHT).pick_random()
+	var sound = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.FIGHT).pick_random()
 	speech_audio.stream = sound
 	if last_speech_line == speech_audio.stream:
 		return 
@@ -281,7 +282,7 @@ func on_player_detected(_player, _position) -> void:
 
 ## Generic function used to play a sound from the AudioLibrary
 func _play_sound_from_library(cultist_voice_type: AudioLibrary.CULTIST_VOICE_TYPE) -> void:
-	var sound = AudioLibrary.get_voicelines(voice_actor, cultist_voice_type).pick_random()
+	var sound = AudioLibrary.get_voicelines(enemy_type, voice_actor, cultist_voice_type).pick_random()
 	speech_audio.stream = sound
 	if last_speech_line == speech_audio.stream:
 		return 

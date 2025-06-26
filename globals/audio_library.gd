@@ -130,7 +130,7 @@ func get_voicelines(enemy_type: ENEMY_TYPE, voice_actor: VOICE_ACTOR ,voice_tag:
 	
 	return library[AUDIO_TYPE.CULTIST_VOICES][enemy_type][voice_actor][voice_tag]
 
-## Returns an aray with all voicelines in sound_dir
+## Returns an array with all voicelines in sound_dir
 func load_cultists_voicelines(sound_dir: String) -> Array[AudioStream]:
 	var loaded_audios: Array[AudioStream] = []
 

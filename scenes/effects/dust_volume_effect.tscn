@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://el6a71d85qxr"]
+
+[ext_resource type="Texture2D" uid="uid://co5rs3g2qo67a" path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_01.png" id="1_4njl6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60tlg"]
+transparency = 1
+blend_mode = 2
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_4njl6")
+metallic_specular = 0.0
+emission_enabled = true
+backlight_enabled = true
+backlight = Color(0.536458, 0.536458, 0.536458, 1)
+disable_receive_shadows = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+distance_fade_max_distance = 0.0
+
+[sub_resource type="Gradient" id="Gradient_hccq7"]
+offsets = PackedFloat32Array(0, 0.0954545, 0.859091, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ng0iv"]
+gradient = SubResource("Gradient_hccq7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y4acw"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.8, 0.5)
+angle_min = -428.7
+angle_max = 268.1
+spread = 180.0
+initial_velocity_min = 0.02
+initial_velocity_max = 0.05
+angular_velocity_min = -29.65
+angular_velocity_max = 40.85
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.03
+color_ramp = SubResource("GradientTexture1D_ng0iv")
+anim_offset_max = 1.0
+turbulence_enabled = true
+turbulence_noise_strength = 0.05
+turbulence_noise_scale = 1.256
+turbulence_noise_speed_random = 0.05
+turbulence_influence_min = 1.0
+turbulence_influence_max = 1.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_sr6sx"]
+
+[node name="MeshInstance3D" type="Node3D"]
+
+[node name="DustVolumeEffect" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.905, 0)
+material_override = SubResource("StandardMaterial3D_60tlg")
+amount = 64
+lifetime = 4.0
+trail_enabled = true
+trail_lifetime = 1.01
+process_material = SubResource("ParticleProcessMaterial_y4acw")
+draw_pass_1 = SubResource("QuadMesh_sr6sx")

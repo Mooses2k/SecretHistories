@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b240lsu1npran"]
+[gd_scene load_steps=36 format=3 uid="uid://b240lsu1npran"]
 
 [ext_resource type="Texture2D" uid="uid://bdxdnw0mkocqu" path="res://resources/art/game_intro/black.png" id="1"]
 [ext_resource type="AudioStream" uid="uid://bbxyhju3bc4yt" path="res://resources/sounds/infrasound/infrasound.ogg" id="2"]
@@ -32,26 +32,9 @@
 [ext_resource type="Texture2D" uid="uid://c7pbos5vimq5g" path="res://resources/art/game_intro/04-dream/00842-3674100213.png" id="30"]
 [ext_resource type="Texture2D" uid="uid://crscmektphrxs" path="res://resources/art/game_intro/04-dream/00907-1192118418.png" id="31"]
 [ext_resource type="AudioStream" uid="uid://bkr4lxmwfoig8" path="res://resources/sounds/radio/crazy_static.ogg" id="32"]
-[ext_resource type="Texture2D" uid="uid://smte3nhg4onn" path="res://resources/art/game_intro/05-train/06-00425-3558366558.png" id="34"]
-[ext_resource type="Texture2D" uid="uid://cmuv8syilaahk" path="res://resources/art/game_intro/05-train/08-00441-2652111050.png" id="35"]
-[ext_resource type="Texture2D" uid="uid://ddfvptn2dxjf0" path="res://resources/art/game_intro/06-train_terminus/03-00481-2912303295.png" id="38"]
-[ext_resource type="Texture2D" uid="uid://jylfqeidv1oq" path="res://resources/art/game_intro/08-forest/01-00660-563421388.png" id="44"]
-[ext_resource type="Texture2D" uid="uid://q6vp1k7hnw5x" path="res://resources/art/game_intro/08-forest/02-00668-988940309.png" id="45"]
-[ext_resource type="Texture2D" uid="uid://bipepac1gocuu" path="res://resources/art/game_intro/08-forest/03-00673-2431511164.png" id="46"]
-[ext_resource type="Texture2D" uid="uid://bnja8svsw6gi6" path="res://resources/art/game_intro/08-forest/06-00666-2381748213.png" id="48"]
-[ext_resource type="Texture2D" uid="uid://btw7qpev3wps8" path="res://resources/art/game_intro/08-forest/07-00678-3620594942.png" id="51"]
-[ext_resource type="Texture2D" uid="uid://chcp8iu3cr1yf" path="res://resources/art/game_intro/09-church/01-00174-1562542354.png" id="53"]
-[ext_resource type="Texture2D" uid="uid://t215jj43a2wx" path="res://resources/art/game_intro/09-church/02-00160-2010757704.png" id="54"]
-[ext_resource type="Texture2D" uid="uid://b8p1n7vxcjai0" path="res://resources/art/game_intro/09-church/03-00121-852369586 - edit.png" id="55"]
-[ext_resource type="Texture2D" uid="uid://dqb6u17kwoqnk" path="res://resources/art/game_intro/09-church/07-00283-2897357255.png" id="58"]
-[ext_resource type="Texture2D" uid="uid://cxon5tqdx7q3s" path="res://resources/art/game_intro/09-church/08-00973-4158237179.png" id="59"]
-[ext_resource type="Texture2D" uid="uid://g8itxwod2ya5" path="res://resources/art/game_intro/10-altar_descent/02-00423-1582198534.png" id="60"]
-[ext_resource type="Texture2D" uid="uid://ds0tbwucn6o61" path="res://resources/art/game_intro/10-altar_descent/03-00445-4258926586.png" id="62"]
-[ext_resource type="Texture2D" uid="uid://b6h12gcwr4311" path="res://resources/art/game_intro/10-altar_descent/01-00270-3182233773.png" id="63"]
 
-[sub_resource type="Animation" id="1"]
-resource_name = "Intro"
-length = 93.0
+[sub_resource type="Animation" id="Animation_5asu5"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -59,82 +42,235 @@ tracks/0/path = NodePath("CenterContainer/1:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 4, 9, 12, 15, 20, 23, 26, 29, 32, 37, 42, 47, 54, 60, 63, 65.9, 68.8, 71.7, 72.4, 73.2, 73.9, 74.6, 86.5, 89.8, 95, 98, 101, 104, 107, 110, 113, 116, 119, 124, 127, 130, 133, 136, 139, 142, 147),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1"), ExtResource("6"), ExtResource("8"), ExtResource("7"), ExtResource("20"), ExtResource("13"), ExtResource("9"), ExtResource("10"), ExtResource("18"), ExtResource("14"), ExtResource("12"), ExtResource("11"), ExtResource("19"), ExtResource("1"), ExtResource("26"), ExtResource("24"), ExtResource("21"), ExtResource("23"), ExtResource("31"), ExtResource("22"), ExtResource("28"), ExtResource("30"), ExtResource("27"), ExtResource("25"), ExtResource("1"), ExtResource("34"), ExtResource("35"), ExtResource("38"), ExtResource("44"), ExtResource("45"), ExtResource("46"), ExtResource("48"), ExtResource("51"), ExtResource("53"), ExtResource("54"), ExtResource("55"), ExtResource("58"), ExtResource("59"), ExtResource("63"), ExtResource("60"), ExtResource("62"), ExtResource("1")]
+"values": [ExtResource("1")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SlideClick:volume_db")
+tracks/1/path = NodePath("CenterContainer/1:stretch_mode")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": [0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("FanHum:volume_db")
+tracks/2/path = NodePath("CenterContainer/1:custom_minimum_size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 15.3, 15.8, 20.3, 23, 50.3, 53.3, 54.8, 95, 95.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-36.913, 0.0, 0.0, 5.0, 5.0, 0.0, 0.0, -10.0, -80.0, -80.0, 0.0]
+"values": [Vector2(768, 768)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Chatter:volume_db")
+tracks/3/path = NodePath("SlideClick:volume_db")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(20.4, 22.2, 32, 33, 34),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-80.0, 10.0, 10.0, -10.0, -80.0]
+"values": [0.0]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Doom:volume_db")
+tracks/4/path = NodePath("FanHum:volume_db")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(60, 74.8, 75.3, 88.6, 89.9, 110, 119.5, 119.6, 142, 142.1, 147, 151),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [10.0, 10.0, 15.0, 10.0, -80.0, -80.0, 0.0, 5.0, 5.0, 10.0, 10.0, -80.0]
+"values": [-36.913]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CenterContainer/1:stretch_mode")
+tracks/5/path = NodePath("CenterContainer/CanvasModulate:color")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Chatter:volume_db")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-80.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Train:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-80.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Doom:volume_db")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
+}
+
+[sub_resource type="Animation" id="Animation_gf8go"]
+resource_name = "Intro"
+length = 93.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CenterContainer/1:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4, 9.03333, 12.0333, 15, 20, 23, 26, 29, 32, 37, 42, 47, 54, 60, 63, 65.9, 68.8, 71.7, 72.4, 73.2, 73.9, 74.6, 86.5, 89.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1"), ExtResource("6"), ExtResource("8"), ExtResource("7"), ExtResource("20"), ExtResource("13"), ExtResource("9"), ExtResource("10"), ExtResource("18"), ExtResource("14"), ExtResource("12"), ExtResource("11"), ExtResource("19"), ExtResource("1"), ExtResource("26"), ExtResource("24"), ExtResource("21"), ExtResource("23"), ExtResource("31"), ExtResource("22"), ExtResource("28"), ExtResource("30"), ExtResource("27"), ExtResource("25"), ExtResource("1")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CenterContainer/1:stretch_mode")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 6]
 }
-tracks/6/type = "value"
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CenterContainer/1:custom_minimum_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 74.6, 86.5, 86.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(768, 768), Vector2(768, 768), Vector2(950, 950), Vector2(768, 768)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SlideClick:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SlideClick")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.7, 7.66667, 10.7, 13.7, 18.7, 21.7, 24.7, 27.7, 30.7, 35.7, 40.7, 45.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("FanHum:volume_db")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5, 15.3, 15.8, 20.3, 23, 50.3, 53.3, 54.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [-36.913, 0.0, 0.0, 5.0, 5.0, 0.0, 0.0, -10.0, -80.0]
+}
+tracks/6/type = "method"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Train:volume_db")
+tracks/6/path = NodePath("FanHum")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(32, 34, 49.6, 53.2, 54.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [-80.0, -5.0, -5.0, -20.0, -80.0]
+"times": PackedFloat32Array(0, 54.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -151,174 +287,100 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("NumberStation:volume_db")
+tracks/8/path = NodePath("Chatter:volume_db")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0, 74.6),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(20.4, 22.2, 32, 33, 34),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [10.0, 10.0]
+"values": [-80.0, 10.0, 10.0, -10.0, -80.0]
 }
-tracks/9/type = "value"
+tracks/9/type = "method"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Static:volume_db")
+tracks/9/path = NodePath("Chatter")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(74.6, 74.601),
+"times": PackedFloat32Array(20.4, 34),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 0.0]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Infrasound:volume_db")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(110, 140, 142, 142.1, 147, 151),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [-80.0, 0.0, 0.0, -15.0, -15.8603, -80.0]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("FanHum:pitch_scale")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(130, 142),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, 0.5]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("CenterContainer/1:custom_minimum_size")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0, 74.6, 86.5, 86.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(768, 768), Vector2(768, 768), Vector2(950, 950), Vector2(768, 768)]
-}
-tracks/13/type = "method"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("SlideClick")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(2.7, 7.7, 10.7, 13.7, 18.7, 21.7, 24.7, 27.7, 30.7, 35.7, 40.7, 45.7, 93.7, 96.7, 99.7, 102.7, 105.7, 108.7, 111.7, 114.7, 117.7, 122.7, 125.7, 128.7, 131.7, 134.7, 137.7, 140.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [0.0],
-"method": &"play"
-}]
-}
-tracks/14/type = "method"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("FanHum")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = {
-"times": PackedFloat32Array(0, 54.8, 95, 141.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
 "args": [0.0],
 "method": &"play"
 }, {
 "args": [],
 "method": &"stop"
+}]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Train:volume_db")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(32, 34, 49.5, 53.2, 54.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-80.0, -5.0, -5.0, -20.0, -80.0]
+}
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Train")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(32, 54.9),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
 }, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/12/type = "method"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Infrasound")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(60, 89.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Doom:volume_db")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(60, 74.8, 75.3, 88.6, 89.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [10.0, 10.0, 15.0, 15.0, -80.0]
+}
+tracks/14/type = "method"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Doom")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(60, 89.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
 "args": [0.0],
 "method": &"play"
 }, {
@@ -329,11 +391,11 @@ tracks/14/keys = {
 tracks/15/type = "method"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("Chatter")
+tracks/15/path = NodePath("NumberStation")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
-"times": PackedFloat32Array(20.4, 34),
+"times": PackedFloat32Array(74.6, 90.3),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [0.0],
@@ -346,90 +408,10 @@ tracks/15/keys = {
 tracks/16/type = "method"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("NumberStation")
+tracks/16/path = NodePath("Static")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
-"times": PackedFloat32Array(74.6, 90.3),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [],
-"method": &"stop"
-}]
-}
-tracks/17/type = "method"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("Doom")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = {
-"times": PackedFloat32Array(60, 89.8, 110, 150.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [],
-"method": &"stop"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [],
-"method": &"stop"
-}]
-}
-tracks/18/type = "method"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("Infrasound")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = {
-"times": PackedFloat32Array(60, 89.8, 110, 150.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [],
-"method": &"stop"
-}, {
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [],
-"method": &"stop"
-}]
-}
-tracks/19/type = "method"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath("Train")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = {
-"times": PackedFloat32Array(32, 54.8),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [0.0],
-"method": &"play"
-}, {
-"args": [],
-"method": &"stop"
-}]
-}
-tracks/20/type = "method"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath("Static")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = {
 "times": PackedFloat32Array(74.6, 89.8),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -441,181 +423,10 @@ tracks/20/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CenterContainer/1:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [null]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SlideClick:volume_db")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("FanHum:volume_db")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Doom:volume_db")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [10.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Chatter:volume_db")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-10.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Clop:volume_db")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CenterContainer/1:stretch_mode")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [6]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Train:volume_db")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("CenterContainer/CanvasModulate:color")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("NumberStation:volume_db")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [10.0]
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Static:volume_db")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Infrasound:volume_db")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-15.0]
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("FanHum:pitch_scale")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-tracks/13/type = "value"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("CenterContainer/1:custom_minimum_size")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(768, 768)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ll3ew"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s3oqq"]
 _data = {
-"Intro": SubResource("1"),
-"RESET": SubResource("2")
+"Intro": SubResource("Animation_gf8go"),
+"RESET": SubResource("Animation_5asu5")
 }
 
 [node name="GameIntro" type="Control"]
@@ -638,23 +449,24 @@ grow_vertical = 2
 [node name="1" type="TextureRect" parent="CenterContainer"]
 custom_minimum_size = Vector2(768, 768)
 layout_mode = 2
-stretch_mode = 6
+texture = ExtResource("1")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="CenterContainer"]
-color = Color(0, 0, 0, 0)
 
 [node name="SlideClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4")
 
 [node name="FanHum" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_s38m6")
+volume_db = -36.913
 
 [node name="Chatter" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_gmv72")
-volume_db = -10.0
+volume_db = -80.0
 
 [node name="Train" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17")
+volume_db = -80.0
 
 [node name="Infrasound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2")
@@ -671,11 +483,9 @@ volume_db = 10.0
 [node name="Static" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("32")
 
-[node name="Clop" type="AudioStreamPlayer" parent="."]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_ll3ew")
+"": SubResource("AnimationLibrary_s3oqq")
 }
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

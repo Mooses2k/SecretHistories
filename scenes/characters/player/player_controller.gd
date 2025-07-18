@@ -162,7 +162,7 @@ func _ready():
 #	_screen_filter.visible = false
 	
 	if OS.has_feature("editor"):
-		Events.connect_to("debug_filter_forced", self, "_set_screen_filter_to")
+		Events.debug_filter_forced.connect(_set_screen_filter_to)
 
 
 func _physics_process(delta : float):
@@ -174,7 +174,7 @@ func _physics_process(delta : float):
 	throw_item = null
 	current_grab_object = current_control_mode.get_grab_target()
 	
-	### TODO: many of these shouldn't be here and probably shouldn't be checked every _physics_process (moved in _input()?)
+	# TODO: many of these shouldn't be here and probably shouldn't be checked every _physics_process (moved in _input()?)
 	_walk(delta)
 	_crouch()
 	handle_grab(delta)

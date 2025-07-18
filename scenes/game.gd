@@ -1,7 +1,7 @@
 class_name Game
 extends Node
 
-### Member Variables and Dependencies -------------------------------------------------------------
+#- Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
 
 signal level_loaded(level)
@@ -46,9 +46,9 @@ var shard_has_spawned = false    # Tracks if the shard has spawned yet, so only 
 var _loaded_levels := {}
 var _empty_ambience = preload("res://resources/sounds/music/ambience_empty_(mastered).ogg")
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
-### Built-in Virtual Overrides --------------------------------------------------------------------
+#- Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _init():
 	GameManager.game = self
@@ -74,10 +74,10 @@ func _input(event):
 		if current_floor_level != LOWEST_FLOOR_LEVEL:
 			_on_Events_down_staircase_used()
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Public Methods --------------------------------------------------------------------------------
+#- Public Methods --------------------------------------------------------------------------------
 
 func set_brightness():
 	# Set game brightness/gamma
@@ -136,10 +136,10 @@ func spawn_player():
 	load_screen.hide()
 	emit_signal("player_spawned", player)
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Private Methods -------------------------------------------------------------------------------
+#- Private Methods -------------------------------------------------------------------------------
 
 func _connect_staircase_events() -> void:
 	if not Events.is_connected("up_staircase_used", Callable(self, "_on_Events_up_staircase_used")):
@@ -163,10 +163,10 @@ func disconnect_staircase_events() -> void:
 func _check_if_loading():
 	return LoadScene.loading
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Signal Callbacks ------------------------------------------------------------------------------
+#- Signal Callbacks ------------------------------------------------------------------------------
 
 func _on_first_level_loaded(_level : GameWorld):
 	load_screen.finish_loading()
@@ -235,4 +235,4 @@ func _on_Events_down_staircase_used() -> void:
 		elif current_floor_level == LOWEST_FLOOR_LEVEL:
 			print("You're already at the bottom of the dungeon, can't go lower.")
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------

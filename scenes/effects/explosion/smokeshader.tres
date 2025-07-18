@@ -259,7 +259,7 @@ void fragment() {
 		n_out22p0 = n_out22p0+(1.0 - n_out25p0.x)*n_out23p0;
 		float help = clamp(abs(cur_pos-pixel_position)*(1.0/n_out22p0),0.0,1.0);
 		n_out19p0 = help;
-		//if (abs(cur_pos-pixel_position)<blend_scale*(1.0-n_out25p0.x))
+		//if (abs(cur_pos-pixel_position)<n_out23p0*(1.0-n_out25p0.x))
 		//	n_out19p0 = 0.0;
 		//else
 		//	n_out19p0 = 1.0;

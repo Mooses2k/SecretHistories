@@ -41,13 +41,15 @@ func is_cell_walkable(cell_index : int) -> bool:
 		if room_data is RoomData:
 			result = result and room_data.type != RoomData.OriginalPurpose.UP_STAIRCASE
 			result = result and room_data.type != RoomData.OriginalPurpose.DOWN_STAIRCASE
+	
 	if result:
 		var spawn_data = data.get_objects_to_spawn().get(cell_index)
 		# FIXME : This is a hack to determine which cells the sarcophagus will actually block
 		if spawn_data is SpawnData:
 			result = result and not navigation_blocking_objects.has(spawn_data.scene_path) and spawn_data.amount > 0
-			if result and sarcophagus.has(spawn_data.scene_path):
-				var sarcophagus_wall = spawn_data._custom_properties[0]["wall_direction"]
+			
+			if result and spawn_data is SarcophagusSpawnData:
+				var sarcophagus_wall = spawn_data.wall_direction
 				if sarcophagus_wall >= 0:
 					var neighbour = data.get_neighbour_cell(cell_index, sarcophagus_wall)
 					result = result and spawn_data == data.get_objects_to_spawn().get(neighbour)

@@ -1,7 +1,7 @@
 class_name CandelabraItem
 extends ToolItem
 
-### Eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...
+# Eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...
 
 # TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candle.gd
 

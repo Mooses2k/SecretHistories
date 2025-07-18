@@ -148,7 +148,7 @@ func update(delta):
 	_camera.rotation_degrees = _camera_orig_rotation
 	
 	if up_recoil > 0:
-		### Recoil
+		# Recoil
 		# Horizontal recoil
 #		pitch_yaw.y = lerp(pitch_yaw.y, deg2rad(side_recoil), delta)   # TODO: fix this, currently based on global rotation for some reason
 		# Vertical recoil

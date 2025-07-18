@@ -1,6 +1,6 @@
 extends GenerationStep
 
-### Member Variables and Dependencies -------------------------------------------------------------
+#- Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
 
 #--- enums ----------------------------------------------------------------------------------------
@@ -48,10 +48,10 @@ const MASK_FULL_ROOM = 0b1111
 
 @onready var _room_graph_viz := get_node_or_null(_path_graph_viz) as RoomGraphViz
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### GenerationStep Virtual Overrides --------------------------------------------------------------------
+#- GenerationStep Virtual Overrides --------------------------------------------------------------------
 
 func _execute_step(data : WorldData, gen_data : Dictionary, _generation_seed : int):
 	var graph = gen_data.get(GraphGenerator.CONNECTION_GRAPH_KEY, Dictionary()) as Dictionary
@@ -77,13 +77,18 @@ func _execute_step(data : WorldData, gen_data : Dictionary, _generation_seed : i
 			if count-1 == _stop_at_corridor_count:
 				break
 	
+	# Cleans up the astar so that we can use it going forwards as a reliable astar for
+	# any paths inside the dungeon level
+	_remove_empty_cells(data, astar)
 	if is_instance_valid(_room_graph_viz):
 		_room_graph_viz.astar = astar
+	
+	gen_data[KEY_ASTAR] = astar
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Public Methods --------------------------------------------------------------------------------
+#- Public Methods --------------------------------------------------------------------------------
 
 func generate_double_a_star_grid(data : WorldData) -> AStar2D:
 	var astar = ManhattanAStar2D.new()
@@ -124,10 +129,10 @@ func generate_double_corridor(
 			if results.status == CorridorGenerationResults.GOAL:
 				is_generating = false
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Private Methods -------------------------------------------------------------------------------
+#- Private Methods -------------------------------------------------------------------------------
 
 func _add_weighted_points_to_astar_grid(data: WorldData, astar: AStar2D) -> void:
 	for x in range(1, data.world_size_x - 1):
@@ -327,9 +332,37 @@ func _disconnect_room_walls_from_grid(data: WorldData, astar: AStar2D, room: Roo
 				if astar.are_points_connected(cell_index, neighbour_index):
 					astar.disconnect_points(cell_index, neighbour_index)
 
-### -----------------------------------------------------------------------------------------------
+
+func _remove_empty_cells(data: WorldData, astar: ManhattanAStar2D) -> void:
+	for x in range(1, data.world_size_x - 1):
+		for z in range(1, data.world_size_z - 1):
+			var cell_index := data.get_cell_index_from_int_position(x, z)
+			if data.get_cell_type(cell_index) == data.CellType.EMPTY:
+				astar.remove_point(cell_index)
+			else:
+				if not astar.has_point(cell_index):
+					var point := Vector2(x, z)
+					astar.add_point(cell_index, point)
+					_connect_to_valid_neighbors(cell_index, point, data, astar)
 
 
-### Signal Callbacks ------------------------------------------------------------------------------
+func _connect_to_valid_neighbors(
+		from_index: int, 
+		from: Vector2, 
+		data: WorldData, 
+		astar: ManhattanAStar2D
+) -> void:
+	for direction in [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT]:
+		var to: Vector2 = from + direction
+		if data.is_inside_world_bounds(to.x, to.y):
+			var to_index := data.get_cell_index_from_int_position(to.x, to.y)
+			if not data.get_cell_type(to_index) == data.CellType.EMPTY:
+				astar.connect_points(from_index, to_index)
+	
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
+
+
+#- Signal Callbacks ------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------

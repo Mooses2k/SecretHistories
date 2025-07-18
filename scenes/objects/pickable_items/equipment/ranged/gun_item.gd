@@ -1,5 +1,5 @@
 @tool
-### Is a tool to support use in player_animations_test.gd
+# Is a tool to support use in player_animations_test.gd
 class_name GunItem
 extends EquipmentItem
 

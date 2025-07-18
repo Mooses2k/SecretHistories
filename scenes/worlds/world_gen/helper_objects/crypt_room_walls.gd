@@ -1,7 +1,7 @@
 # Helper class for Handling Crypt Room Walls, when spawning sarcophagi.
 extends RefCounted
 
-### Member Variables and Dependencies -------------------------------------------------------------
+#- Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
 
 #--- enums ----------------------------------------------------------------------------------------
@@ -26,10 +26,10 @@ var main_walls := []
 
 var _rng := RandomNumberGenerator.new()
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Built-in Virtual Overrides --------------------------------------------------------------------
+#- Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _to_string() -> String:
 	var msg := "RoomWalls:"
@@ -43,10 +43,10 @@ func _to_string() -> String:
 	
 	return msg
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Public Methods --------------------------------------------------------------------------------
+#- Public Methods --------------------------------------------------------------------------------
 
 func init_from_room(
 		world_data: WorldData, 
@@ -103,10 +103,10 @@ func get_sanitized_segments_for(
 	
 	return sanitized_segments
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Private Methods -------------------------------------------------------------------------------
+#- Private Methods -------------------------------------------------------------------------------
 # Analyzes the room and finds all cell indexes according to wall direction they're on.
 # Then only stores the groups of consecutive cell index that are bigger than 
 # the length of the sarco.
@@ -168,12 +168,12 @@ func _group_wall_cells_by_valid_segments(
 
 
 # Sets main_walls according to doorways in crypt, and exclude doorway walls. If crypt has:
-# - one doorway: set the opposing wall as main
-# - two doorways: if they are parallel, like NORTH and SOUTH, sets the main walls to the 
+#-- one doorway: set the opposing wall as main
+#-- two doorways: if they are parallel, like NORTH and SOUTH, sets the main walls to the 
 #                 perpendicular axis, so WEST and EAST. If not then chooses the biggest wall
 #				  as main.
-# - three doorways: sets the wall with no doors as main.
-# - four doorways: no main wall, excludes no wall, let's sarco's spawn whetever there is space.
+#-- three doorways: sets the wall with no doors as main.
+#-- four doorways: no main wall, excludes no wall, let's sarco's spawn whetever there is space.
 func _handle_main_wall(world_data: WorldData, crypt: RoomData) -> void:
 	var doorway_walls := crypt.get_doorway_directions()
 	if doorway_walls.size() == 1:
@@ -270,9 +270,9 @@ func _handle_segments_size(
 				final_segments.append(segment)
 	
 	return final_segments
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Signal Callbacks ------------------------------------------------------------------------------
+#- Signal Callbacks ------------------------------------------------------------------------------
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------

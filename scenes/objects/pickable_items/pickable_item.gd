@@ -2,7 +2,7 @@
 class_name PickableItem
 extends RigidBody3D
 
-### Is a tool to support use in player_animations_test.gd
+## Is a tool to support use in player_animations_test.gd
 
 
 signal item_state_changed(previous_state, current_state)

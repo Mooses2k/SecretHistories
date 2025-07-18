@@ -41,8 +41,6 @@ func _ready():
 	pitch_alter_voice()   # Randomly alter pitch of this character's voice up or down some
 
 
-### Speech
-
 # Once per character, randomly choose an appropriate voice for this character
 func choose_voice():
 	if owner is Cultist:   # Later: Neophyte, later more types

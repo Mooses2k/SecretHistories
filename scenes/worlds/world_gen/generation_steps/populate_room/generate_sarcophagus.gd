@@ -2,14 +2,13 @@
 # Write your doc string for this file here
 extends GenerationStep
 
-### Member Variables and Dependencies -------------------------------------------------------------
+#- Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
 
 #--- enums ----------------------------------------------------------------------------------------
 
 #--- constants ------------------------------------------------------------------------------------
 
-const Sarcophagus = preload("res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd")
 const RoomWalls = preload("res://scenes/worlds/world_gen/helper_objects/crypt_room_walls.gd")
 
 #--- public variables - order: export > normal var > onready --------------------------------------
@@ -17,40 +16,53 @@ const RoomWalls = preload("res://scenes/worlds/world_gen/helper_objects/crypt_ro
 @export_file("*.tscn") var sarco_scene_path := "res://scenes/objects/large_objects/sarcophagi/sarcophagus.tscn"
 
 @export var sarco_tile_size := Vector2(2,2)
-@export var vertical_center_rotation := 90 # (float, 0.0, 360.0, 90.0)
+@export_range(0.0,360.0,90.0) var vertical_center_rotation := 90
 
-@export var _sarco_spawn_list_resource: Resource = null
-@export var _sarco_shard_spawn_list_resource: Resource = null
-@export var _sarco_lids_spawn_list_resource: Resource = null
-@export var _min_item := 0
-@export var _max_item := 5
+@export_group("Spawns Inside Sarcophagus", "_inside_")
+@export var _inside_min_spawns := 0
+@export var _inside_max_spawns := 5
+@export var _inside_spawn_list: ObjectSpawnList = null
+
+@export_group("Spawns on Lid", "_lid_")
+@export var _lid_min_spawns := 0
+@export var _lid_max_spawns := 5
+@export var _lid_spawn_list: ObjectSpawnList = null
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
+var _generated_sarco_spawn_data: Array[SarcophagusSpawnData] = []
+
 var _force_lid := -1
 var _rng := RandomNumberGenerator.new()
+var _astar: ManhattanAStar2D = null
 
-### -----------------------------------------------------------------------------------------------
-
-
-### Built-in Virtual Overrides --------------------------------------------------------------------
-
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Public Methods --------------------------------------------------------------------------------
+#- Built-in Virtual Overrides --------------------------------------------------------------------
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Private Methods -------------------------------------------------------------------------------
+#- Public Methods --------------------------------------------------------------------------------
 
-func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
+#--------------------------------------------------------------------------------------------------
+
+
+#- Private Methods -------------------------------------------------------------------------------
+
+func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
+	_rng.seed = generation_seed
+	_astar = gen_data[KEY_ASTAR]
+	_generate_all_sarco_spawn_data(data)
+	_generate_sarco_items()
+
+
+func _generate_all_sarco_spawn_data(data:WorldData) -> void:
 	var crypt_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT)
 	if crypt_rooms.is_empty():
 		return
 	
-	_rng.seed = generation_seed
 	for c_value in crypt_rooms:
 		var crypt := c_value as RoomData
 		var walls_data := RoomWalls.new()
@@ -76,7 +88,7 @@ func _spawn_sarcos_in_wall_segments(
 		var surplus_cells := segment.size() % int(sarco_tile_size.x)
 		if surplus_cells == 0:
 			for index in range(0, segment.size(), sarco_tile_size.x):
-				var slice = segment.slice(index, index + sarco_tile_size.x)
+				var slice = segment.slice(index, index + int(sarco_tile_size.x))
 				var sarco_cells := _get_all_cells_for_sarco_segment(data, slice, direction)
 				_set_sarco_spawn_data(data, sarco_cells, direction)
 		else:
@@ -90,6 +102,10 @@ func _get_all_cells_for_sarco_segment(data: WorldData, segment: Array, direction
 	var sarco_cells := []
 	
 	for cell_index in segment:
+		# Remove sarco cells close to walls from Astar
+		if _astar.has_point(cell_index):
+			_astar.remove_point(cell_index)
+		
 		sarco_cells.append(cell_index)
 		for _width in sarco_tile_size.y - 1:
 			cell_index = data.get_neighbour_cell(cell_index, width_direction)
@@ -159,25 +175,25 @@ func _get_remaining_rect(crypt: RoomData, walls_data: RoomWalls) -> Rect2:
 					value.position.y += 1
 					value.size.y -= 1
 				else:
-					value.position.y += sarco_tile_size.y
-					value.size.y -= sarco_tile_size.y
+					value.position.y += int(sarco_tile_size.y)
+					value.size.y -= int(sarco_tile_size.y)
 			WorldData.Direction.WEST:
 				if segments.is_empty():
 					value.position.x += 1
 					value.size.x -= 1
 				else:
-					value.position.x += sarco_tile_size.x
-					value.size.x -= sarco_tile_size.x
+					value.position.x += int(sarco_tile_size.x)
+					value.size.x -= int(sarco_tile_size.x)
 			WorldData.Direction.SOUTH:
 				if segments.is_empty():
 					value.size.y -= 1
 				else:
-					value.size.y -= sarco_tile_size.y
+					value.size.y -= int(sarco_tile_size.y)
 			WorldData.Direction.EAST:
 				if segments.is_empty():
 					value.size.x -= 1
 				else:
-					value.size.x -= sarco_tile_size.x
+					value.size.x -= int(sarco_tile_size.x)
 	
 	return value
 
@@ -186,9 +202,9 @@ func _get_center_sarco_cells(world_data: WorldData, sarco_rect: Rect2) -> Array:
 	var value := []
 	
 	for offset_x in sarco_rect.size.x:
-		var x := (sarco_rect.position.x + offset_x) as float
+		var x := int(sarco_rect.position.x + offset_x)
 		for offset_y in sarco_rect.size.y:
-			var y := (sarco_rect.position.y + offset_y) as float
+			var y := int(sarco_rect.position.y + offset_y)
 			var cell_index := world_data.get_cell_index_from_int_position(x, y)
 			value.append(cell_index)
 			if not world_data.is_cell_free(cell_index):
@@ -201,11 +217,11 @@ func _get_center_sarco_cells(world_data: WorldData, sarco_rect: Rect2) -> Array:
 func _set_sarco_spawn_data(
 		data: WorldData, 
 		sarco_cells: Array, 
-		wall_direction: float, 
+		wall_direction: int, 
 		sarco_offset := Vector3.ZERO,
 		sarco_rotation := 0.0
 ) -> void:
-	var spawn_data := SpawnData.new()
+	var spawn_data := SarcophagusSpawnData.new()
 	spawn_data.scene_path = sarco_scene_path
 	
 	var spawn_position = (
@@ -216,50 +232,51 @@ func _set_sarco_spawn_data(
 	if wall_direction == -1:
 		spawn_data.set_y_rotation(sarco_rotation)
 	
-	var lid_type := Sarcophagus.get_random_lid_type(_rng)
 	if _force_lid != -1:
-		lid_type = _force_lid
-	spawn_data.set_custom_property("current_lid", lid_type)
-	spawn_data.set_custom_property("wall_direction", wall_direction)
-	spawn_data.set_custom_property("spawnable_items", _get_sarcophagus_spawn_list())
-	spawn_data.set_custom_property("sarco_spawnable_items", _get_lid_spawn_list())
+		spawn_data.lid_type = _force_lid as Sarcophagus.PossibleLids
+	else:
+		spawn_data.set_random_lid_type(_rng)
 	
+	spawn_data.wall_direction = wall_direction
+	
+	_generated_sarco_spawn_data.append(spawn_data)
 	for cell_index in sarco_cells:
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
-		# if shard_has_spawned == false 
 
 
-func _get_sarcophagus_spawn_list() -> PackedStringArray:
-	var draw_amount := _rng.randi_range(_min_item, _max_item)
-	var result : PackedStringArray
+func _generate_sarco_items() -> void:
+	if GameManager.game.current_floor_level == Game.LOWEST_FLOOR_LEVEL:
+		var shard_sarco_index := _rng.randi() % _generated_sarco_spawn_data.size()
+		var shard_sarco := _generated_sarco_spawn_data[shard_sarco_index]
+		_add_spawn_itens_to_sarcos(shard_sarco, true)
+		_generated_sarco_spawn_data.remove_at(shard_sarco_index)
 	
-	if GameManager.game.current_floor_level == -5 and draw_amount > 0:
-		result.push_back((_sarco_shard_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
-		draw_amount -= 1
-	for _i in draw_amount:
-		result.push_back((_sarco_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
-	return result
+	for _index in range(_generated_sarco_spawn_data.size()-1, -1, -1):
+		var sarco := _generated_sarco_spawn_data.pop_back() as SarcophagusSpawnData
+		_add_spawn_itens_to_sarcos(sarco, false)
 
 
-func _get_lid_spawn_list() -> PackedStringArray:
-	var draw_amount := _rng.randi_range(_min_item, _max_item)
-	var result : PackedStringArray
-	for _i in draw_amount:
-		result.push_back((_sarco_lids_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
-	return result
+func _add_spawn_itens_to_sarcos(sarco: SarcophagusSpawnData, has_shard: bool) -> void:
+	var inside_amount := _rng.randi_range(_inside_min_spawns, _inside_max_spawns)
+	if has_shard and inside_amount == 0:
+		inside_amount = 1
+	sarco.set_inside_spawns(inside_amount, _inside_spawn_list, _rng, has_shard)
+	
+	var lid_amount = _rng.randi_range(_lid_min_spawns, _lid_max_spawns)
+	sarco.set_lid_spawns(lid_amount, _lid_spawn_list, _rng)
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Signal Callbacks ------------------------------------------------------------------------------
+#- Signal Callbacks ------------------------------------------------------------------------------
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
-###################################################################################################
-# Editor Methods ##################################################################################
-###################################################################################################
+#--------------------------------------------------------------------------------------------------
+# Editor Methods ----------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
-### Custom Inspector built in functions -----------------------------------------------------------
+#- Custom Inspector built in functions -----------------------------------------------------------
 
 const ROTATION_GROUP_HINT = "rotation_"
 
@@ -310,4 +327,4 @@ func _get(property: StringName):
 	
 	return value
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------

@@ -1,26 +1,15 @@
-# Write your doc string for this file here
-extends LevelStaircase
+class_name GamePlaceholder
+extends Game
 
-#- Member Variables and Dependencies -------------------------------------------------------------
+## Mainly so that it's easier to do standalone tests without things that need to access
+## GameManager.game breaking.
+
+#- Member Variables and Dependencies --------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
 
 #--- enums ----------------------------------------------------------------------------------------
 
 #--- constants ------------------------------------------------------------------------------------
-
-const DOWN_FACING_ROTATIONS = {
-	WorldData.Direction.NORTH: 1.5 * PI,
-	WorldData.Direction.EAST: PI,
-	WorldData.Direction.SOUTH: 0.5 * PI,
-	WorldData.Direction.WEST: 0,
-}
-
-const PLAYER_FACING_ROTATIONS = {
-	WorldData.Direction.NORTH: 0,
-	WorldData.Direction.EAST: 1.5 * PI,
-	WorldData.Direction.SOUTH: PI,
-	WorldData.Direction.WEST: 0.5 * PI,
-}
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -31,38 +20,74 @@ const PLAYER_FACING_ROTATIONS = {
 
 #- Built-in Virtual Overrides ---------------------------------------------------------------------
 
-func _ready() -> void:
-	var game_world := get_parent() as GameWorld
-	if game_world and is_instance_valid(_spawn_position):
-		game_world.world_data.player_spawn_positions[RoomData.OriginalPurpose.DOWN_STAIRCASE] = \
-				{
-					"position": _spawn_position.global_position,
-					"y_rotation": PLAYER_FACING_ROTATIONS[facing_direction],
-				}
+func _ready():
+	pass
+
+
+func _input(_event: InputEvent) -> void:
+	pass
 
 #--------------------------------------------------------------------------------------------------
 
 
 #- Public Methods ---------------------------------------------------------------------------------
 
+func set_brightness():
+	pass
+
+
+func load_level(packed : PackedScene):
+	pass
+
+
+func spawn_player():
+	pass
+
 #--------------------------------------------------------------------------------------------------
 
 
 #- Private Methods --------------------------------------------------------------------------------
 
-func _get_facing_rotation() -> float:
-	return DOWN_FACING_ROTATIONS[facing_direction]
+func _connect_staircase_events() -> void:
+	pass
+
+
+func disconnect_staircase_events() -> void:
+	pass
+
+func _check_if_loading():
+	pass
 
 #--------------------------------------------------------------------------------------------------
 
 
 #- Signal Callbacks -------------------------------------------------------------------------------
 
-func _on_DownDetector_body_entered(body: Node) -> void:
-	var player = body as Player
-	if player == null:
-		return
-	
-	Events.emit_signal("down_staircase_used")
+func _on_first_level_loaded(_level : GameWorld):
+	pass
+
+
+func _handle_floor_change(is_going_downstairs: bool) -> void:
+	pass
+
+
+func _show_load_screen() -> void:
+	pass
+
+
+func _handle_floor_levels() -> void:
+	pass
+
+
+func _set_new_position_for_player(is_going_downstairs: bool) -> void:
+	pass
+
+
+func _on_Events_up_staircase_used() -> void:
+	pass
+
+
+func _on_Events_down_staircase_used() -> void:
+	pass
 
 #--------------------------------------------------------------------------------------------------

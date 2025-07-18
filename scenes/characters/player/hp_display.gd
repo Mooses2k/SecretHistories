@@ -1,6 +1,6 @@
 extends Node3D
 
-### This is the floating ring HP display when you look down while stationary
+## This is the floating ring HP display when you look down while stationary
 
 
 #onready var health_label = $Viewport/HBoxContainer/Health

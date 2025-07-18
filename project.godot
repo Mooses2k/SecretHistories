@@ -34,6 +34,7 @@ LoadScene="*res://globals/load_scene.gd"
 BackgroundMusic="*res://scenes/effects/background_music.tscn"
 SettingsConfig="*res://globals/settings_config.gd"
 Events="*res://globals/events.gd"
+AudioLibrary="*res://globals/audio_library.gd"
 
 [debug]
 

@@ -1,8 +1,8 @@
 class_name VisibilityMask
 extends MeshInstance3D
 
-### Legacy visibility determiner ala the roguelike 'what you can see from your position', top-eown
-### Not working since code changes in 2022
+# Legacy visibility determiner ala the roguelike 'what you can see from your position', top-eown
+# Not working since code changes in 2022
 
 
 @export var wall_height : float = 16.0

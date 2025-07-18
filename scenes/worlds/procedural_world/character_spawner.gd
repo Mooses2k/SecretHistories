@@ -121,7 +121,7 @@ func try_spawn_character_away_from_player():
 
 
 func _spawn_single_character(spawn_data : CharacterSpawnData):
-	var character := spawn_data.spawn_character_in(characters_root)
+	var character := spawn_data.spawn_in(characters_root)
 	_set_random_loadout(character)
 
 

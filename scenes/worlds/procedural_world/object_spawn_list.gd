@@ -15,10 +15,10 @@ var _current_max_amounts := []
 
 var _current_total_weight := 0
 
-### Public Methods --------------------------------------------------------------------------------
+#- Public Methods --------------------------------------------------------------------------------
 
-func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
-	var spawn_data: SpawnData = SpawnData.new()
+func get_random_spawn_data(rng: RandomNumberGenerator) -> ItemSpawnData:
+	var spawn_data: ItemSpawnData = ItemSpawnData.new()
 	
 	if _current_paths.is_empty():
 		_initialize_current_arrays()
@@ -34,6 +34,8 @@ func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 			index += 1
 	
 	spawn_data.scene_path = _current_paths[index]
+	if spawn_data.scene_path.is_empty():
+		push_warning("scene_path for object index %s is empty. Is this intentional?"%[index])
 	spawn_data.amount = rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
 	
 	_exclude_used_index(index)
@@ -41,10 +43,10 @@ func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 	
 	return spawn_data
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 
-### Private Methods -------------------------------------------------------------------------------
+#- Private Methods -------------------------------------------------------------------------------
 
 func _initialize_current_arrays() -> void:
 	_current_paths = _paths.duplicate()
@@ -70,16 +72,16 @@ func _calculate_total_weight() -> int:
 	
 	return value
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
-###################################################################################################
-# Editor Methods ##################################################################################
-###################################################################################################
+#--------------------------------------------------------------------------------------------------
+# Editor Methods ----------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------
 
 const GROUP_PREFIX = "object_"
 
 
-### Custom Inspector built in functions -----------------------------------------------------------
+#- Custom Inspector built in functions -----------------------------------------------------------
 
 func _get_property_list() -> Array:
 	var properties: = []
@@ -220,4 +222,4 @@ func _set(property: StringName, value) -> bool:
 	
 	return has_handled
 
-### -----------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------

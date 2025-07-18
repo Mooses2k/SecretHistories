@@ -76,8 +76,8 @@ func show_message():
 	
 	show()
 	#get_tree().paused = true
-	
-	
+
+
 func _on_load_timer_timeout():
 	#Every 0.5s, check if the next scene has loaded yet
 	var progress = []

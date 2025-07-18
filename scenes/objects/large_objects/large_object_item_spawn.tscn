@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cykkk7776h00v"]
-
-[ext_resource type="Script" path="res://scenes/objects/large_objects/large_object_item_spawn.gd" id="1"]
-
-[node name="ItemSpawnerOnPlacementAnchor" type="Node3D"]
-script = ExtResource("1")

@@ -1,7 +1,7 @@
 class_name PickupArea
 extends Area3D
 
-### Old top-down mode pickup area
+# Old top-down mode pickup area
 
 
 var up_to_date: bool = false

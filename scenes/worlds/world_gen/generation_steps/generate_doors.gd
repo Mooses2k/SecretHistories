@@ -88,7 +88,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 					var door_data_index = 0;
 					
 					if not is_instance_valid(spawn_data):
-						spawn_data = SpawnData.new()
+						spawn_data = ItemSpawnData.new()
 						doors_spawn_data[door_scene] = spawn_data
 						spawn_data.scene_path = door_scene.resource_path
 					else:

@@ -62,7 +62,7 @@ func check_player_animation():
 			animation_tree.set("parameters/Offhand_Hold_Animation/current", 0)
 			adjust_arm(Vector3(0, -1.287, 0.063), 0.1)
 			return
-	### Off-hand item
+	# Off-hand item
 	if inventory.current_offhand_equipment is GunItem:
 		animation_tree.set("parameters/OffHand_Weapon_States/current", 1)
 		
@@ -84,7 +84,7 @@ func check_player_animation():
 	else:
 		animation_tree.set("parameters/OffHand_Weapon_States/current", 2)
 	
-	### Main-hand item
+	# Main-hand item
 	if inventory.current_mainhand_equipment is GunItem:
 #		
 		if inventory.current_mainhand_equipment.item_size == 0:

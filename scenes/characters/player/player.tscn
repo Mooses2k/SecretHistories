@@ -133,6 +133,9 @@ _data = {
 
 [sub_resource type="FontFile" id="37"]
 fallbacks = Array[Font]([ExtResource("21")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
 cache/0/16/0/underline_position = 0.0
@@ -323,15 +326,18 @@ animation = &"double_barrel_reload"
 xfade_time = 0.2
 input_0/name = "Hand_Combinations"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 
 [sub_resource type="AnimationNodeTransition" id="400"]
 xfade_time = 0.2
 input_0/name = "VerticalAnimation"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "HorizontalAnimation"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="399"]
@@ -375,21 +381,26 @@ filters = ["rig_deform/Skeleton3D:DEF-f_index.01.L", "rig_deform/Skeleton3D:DEF-
 xfade_time = 0.2
 input_0/name = "Melee"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "Pistol"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "Idle"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 
 [sub_resource type="AnimationNodeTransition" id="409"]
 xfade_time = 0.2
 input_0/name = "LeftVerticalAnimation"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "LeftHorizontalAnimation"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="415"]
@@ -416,21 +427,27 @@ animation = &"ItemHoldingVertical"
 xfade_time = 0.2
 input_0/name = "Melee"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "Rifle"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "Pistol"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 input_3/name = "Reloads"
 input_3/auto_advance = false
+input_3/break_loop_at_end = false
 input_3/reset = true
 input_4/name = "Idle"
 input_4/auto_advance = false
+input_4/break_loop_at_end = false
 input_4/reset = true
 input_5/name = "Shotgun"
 input_5/auto_advance = false
+input_5/break_loop_at_end = false
 input_5/reset = true
 
 [sub_resource type="AnimationNodeOneShot" id="437"]

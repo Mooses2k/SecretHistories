@@ -1,10 +1,10 @@
 class_name MedicalItem
 extends ConsumableItem
 
-### For now, if bandage or something, remove it on use and add those HP up to max
-### For doctor's bag or dentist's kit, use charges up to HP max, but keep item unless exhausted
+# For now, if bandage or something, remove it on use and add those HP up to max
+# For doctor's bag or dentist's kit, use charges up to HP max, but keep item unless exhausted
 
-### TODO: Eventually move the bag and box to containers
+# TODO: Eventually move the bag and box to containers
 
 
 @export var heal_amount : int = 10   # Should probably be 10 for consumables & 1 for containers

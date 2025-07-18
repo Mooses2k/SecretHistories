@@ -1,67 +1,64 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=3 uid="uid://cebuk3akxq4yp"]
 
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" type="Script" id=1]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" type="Script" id=2]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" type="Script" id=3]
-[ext_resource path="res://scenes/worlds/procedural_world/generate_level_staircase.gd" type="Script" id=4]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=5]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" type="Script" id=6]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" type="Script" id=7]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=8]
-[ext_resource path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" type="PackedScene" id=9]
-[ext_resource path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" type="Script" id=11]
-[ext_resource path="res://utils/debug_scenes/_base/standalone_game_world.gd" type="Script" id=12]
-[ext_resource path="res://utils/debug_scenes/_base/standalone_character_spawner.gd" type="Script" id=13]
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" type="Resource" id=14]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" type="Script" id=15]
-[ext_resource path="res://scenes/worlds/world_gen/helper_objects/room_purposes/crypt.tres" type="Resource" id=16]
-[ext_resource path="res://scenes/worlds/game_environment.tres" type="Environment" id=17]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" id="3"]
+[ext_resource type="Script" path="res://scenes/worlds/procedural_world/generate_level_staircase.gd" id="4"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" id="5"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" id="6"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" id="7"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" id="8"]
+[ext_resource type="PackedScene" uid="uid://bf6510te2h8sw" path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://c7v08odk6hbss" path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" id="10"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" id="11"]
+[ext_resource type="Script" path="res://utils/debug_scenes/_base/standalone_character_spawner.gd" id="13"]
+[ext_resource type="Resource" uid="uid://g6sf4jtvvirj" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" id="14"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" id="15"]
+[ext_resource type="Resource" uid="uid://eli0cf8ff2uc" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/crypt.tres" id="16"]
+[ext_resource type="Environment" uid="uid://bxgnfe0qgcrm" path="res://scenes/worlds/game_environment.tres" id="17"]
 
-
-[node name="DebugWorld" instance=ExtResource( 9 )]
-script = ExtResource( 12 )
+[node name="DebugWorld" instance=ExtResource("9")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="3"]
-environment = ExtResource( 17 )
+environment = ExtResource("17")
 
-[node name="RoomGraphViz" parent="." index="5" instance=ExtResource( 10 )]
+[node name="RoomGraphViz" parent="." index="5" instance=ExtResource("10")]
 
-[node name="GenerationManager" parent="." index="6"]
+[node name="GenerationManager" parent="." index="7"]
 world_size_x = 55
 world_size_z = 55
-dungeon_level = -1
 
 [node name="GenerateLevelStaircase" type="Node" parent="GenerationManager" index="0"]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="GenerateRooms" type="Node" parent="GenerationManager" index="1"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 room_size_min = 2
 room_size_max = 3
 
 [node name="GenerateRoomGraph" type="Node" parent="GenerationManager" index="2"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
-script = ExtResource( 7 )
+script = ExtResource("7")
 _path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="GenerateWalls" type="Node" parent="GenerationManager" index="5"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="GenerateRoomPillars" type="Node" parent="GenerationManager" index="6"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 pillar_tile = 16
 
 [node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="7"]
-script = ExtResource( 8 )
+script = ExtResource("8")
 floor_tile = 6
 wall_tile = 5
+double_wall_tile = -1
 door_tile = 19
 double_door_tile = 14
 ceiling_tile = 10
@@ -71,13 +68,19 @@ pillar_room_double_ceiling_tile = 18
 pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
+alternative_wall_tiles = Array[int]([])
+alternative_double_wall_tiles = Array[int]([])
+alternative_ceiling_tiles = Array[int]([])
 
 [node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="8"]
-script = ExtResource( 15 )
-purpose_resources = [ ExtResource( 16 ), ExtResource( 14 ) ]
+script = ExtResource("15")
+purpose_resources = [ExtResource("16"), ExtResource("14")]
 
 [node name="PopulateRooms" type="Node" parent="GenerationManager" index="9"]
-script = ExtResource( 11 )
+script = ExtResource("11")
 
 [node name="CharacterSpawner" parent="." index="8"]
-script = ExtResource( 13 )
+script = ExtResource("13")
+character_loadout = Array[int]([])
+continuous_spawn_level = -5
+continuous_spawn_max = 7

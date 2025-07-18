@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://d1lbexonric4u"]
 
-[ext_resource type="PackedScene" path="res://scenes/worlds/game_world.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://dayafaxmfcfqx" path="res://scenes/worlds/game_world.tscn" id="1"]
 [ext_resource type="Script" path="res://scenes/worlds/procedural_world/procedural_world.gd" id="2"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" id="3"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" id="4"]
@@ -8,14 +8,14 @@
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" id="6"]
 [ext_resource type="Resource" uid="uid://g6sf4jtvvirj" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" id="7"]
 [ext_resource type="Resource" uid="uid://bgkc5x21fmrtf" path="res://scenes/worlds/procedural_world/initial_loot_list.tres" id="8"]
-[ext_resource type="PackedScene" path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://c7v08odk6hbss" path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" id="9"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" id="10"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" id="11"]
 [ext_resource type="Resource" uid="uid://cs6ibgi4rwbia" path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" id="12"]
 [ext_resource type="Script" path="res://scenes/worlds/procedural_world/generate_level_staircase.gd" id="13"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_initial_loot.gd" id="14"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_cultists.gd" id="15"]
-[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/skeletal_remains_list.tres" id="16"]
+[ext_resource type="Resource" uid="uid://b03gav2qpgcyp" path="res://scenes/worlds/procedural_world/skeletal_remains_list.tres" id="16"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" id="17"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" id="18"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" id="19"]
@@ -25,11 +25,11 @@
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_sarcophagus.gd" id="23"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" id="24"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_large_obj_items.gd" id="25"]
-[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/sarco_fountain_item_list.tres" id="26"]
+[ext_resource type="Resource" uid="uid://waq5ew6ulbve" path="res://scenes/worlds/procedural_world/sarco_fountain_item_list.tres" id="26"]
+[ext_resource type="Script" path="res://scenes/worlds/procedural_world/generate_initial_settings_items.gd" id="26_sotqo"]
 [ext_resource type="Resource" uid="uid://cr2ioviux8kdv" path="res://scenes/worlds/procedural_world/sarco_lids_item_list.tres" id="27"]
 [ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" id="28"]
 [ext_resource type="PackedScene" uid="uid://b8fhjqun0honf" path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" id="29"]
-[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" id="30"]
 
 [sub_resource type="StandardMaterial3D" id="3"]
 shading_mode = 0
@@ -71,7 +71,12 @@ path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateCorridors" type="Node" parent="GenerationManager" index="3"]
 script = ExtResource("20")
+existing_corridor_weight = null
+already_walked_room_weight = null
+existing_room_weight = null
+room_edge_cost_multiplier = null
 _path_graph_viz = NodePath("../../RoomGraphViz")
+_stop_at_corridor_count = null
 
 [node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
 script = ExtResource("19")
@@ -123,9 +128,8 @@ script = ExtResource("25")
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="0"]
 script = ExtResource("23")
-_sarco_spawn_list_resource = ExtResource("26")
-_sarco_shard_spawn_list_resource = ExtResource("30")
-_sarco_lids_spawn_list_resource = ExtResource("27")
+_inside_spawn_list = ExtResource("26")
+_lid_spawn_list = ExtResource("27")
 _force_lid = -1
 
 [node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="2"]
@@ -135,18 +139,21 @@ script = ExtResource("10")
 script = ExtResource("11")
 _spawn_list_resource = ExtResource("12")
 
-[node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
+[node name="GenerateInitialSettingsItems" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
+script = ExtResource("26_sotqo")
+
+[node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
 script = ExtResource("14")
 _loot_list_resource = ExtResource("8")
 _max_loot = 5
 
-[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
+[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource("14")
 _loot_list_resource = ExtResource("16")
 _min_loot = 3
 _max_loot = 5
 
-[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
+[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
 script = ExtResource("15")
 _character_scene_path = "res://scenes/characters/cultists/neophyte.tscn"
 _density_by_type = {
@@ -156,3 +163,5 @@ _density_by_type = {
 }
 
 [node name="RoomGraphViz" parent="." index="5" instance=ExtResource("9")]
+draw_astar_grid = true
+draw_astar_connections = true

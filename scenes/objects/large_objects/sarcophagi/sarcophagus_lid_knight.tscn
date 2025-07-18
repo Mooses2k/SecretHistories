@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bhv1a0txg52j4" path="res://resources/sounds/sarcophagus_lid_scrape.wav" id="3"]
 [ext_resource type="AudioStream" uid="uid://fsmbmceuvwh5" path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" id="4"]
 [ext_resource type="Script" path="res://scenes/objects/large_objects/placement_anchor.gd" id="5"]
-[ext_resource type="PackedScene" uid="uid://cykkk7776h00v" path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" id="6"]
+[ext_resource type="Script" path="res://scenes/objects/large_objects/anchor_spawner.gd" id="6_en8yb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ny35n"]
 size = Vector3(2.199, 0.166, 1.004)
@@ -150,7 +150,8 @@ script = ExtResource("5")
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.994057, 0.170658, 0.379488)
 script = ExtResource("5")
 
-[node name="ItemSpawnerOnPlacementAnchor" parent="." instance=ExtResource("6")]
+[node name="AnchorSpawner" type="Node3D" parent="."]
+script = ExtResource("6_en8yb")
 anchors_parent = NodePath("..")
 
 [editable path="Sarcophagus_knight"]

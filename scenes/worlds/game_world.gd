@@ -10,7 +10,7 @@ var world_data : WorldData
 @onready var gridmaps = $Gridmaps
 @onready var navigation = $Navigation
 
-@onready var _spawners := [$ItemSpawner, $CharacterSpawner]
+@onready var _spawners := [$CharacterSpawner]
 
 
 func _ready() -> void:
@@ -27,6 +27,7 @@ func create_world(is_last_floor: bool, p_floor_size: int = -1) -> void:
 	navigation.data = world_data
 	navigation.update_navigation()
 	world_data.print_world_map()
+	_spawn_world_data_objects(world_data)
 	emit_signal("generation_finished")
 
 
@@ -61,6 +62,16 @@ func _connect_signals() -> void:
 		
 		if not spawner.is_connected("spawning_finished", Callable(self, "_on_spawner_spawning_finished")):
 			spawner.connect("spawning_finished", Callable(self, "_on_spawner_spawning_finished"))
+
+
+func _spawn_world_data_objects(data: WorldData) -> void:
+	var objects_to_spawn := data.get_objects_to_spawn()
+	for cell_index in objects_to_spawn:
+		var spawn_data := objects_to_spawn[cell_index] as SpawnData
+		if spawn_data.scene_path.is_empty():
+			continue
+		
+		spawn_data.spawn_in(self)
 
 
 func _on_spawner_spawning_finished() -> void:

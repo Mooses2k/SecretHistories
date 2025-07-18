@@ -1,7 +1,7 @@
 class_name ShardOfTheComet
 extends StrangeDevice
 
-### Hurts player 3HP per 5 seconds when within 1m
+# Hurts player 3HP per 5 seconds when within 1m
 
 
 var player_in_killzone = false

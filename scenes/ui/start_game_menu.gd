@@ -12,6 +12,9 @@ func _ready() -> void:
 	%SettingsUI.attach_settings(game.get_node("%LocalSettings"), false)
 	var tween = get_tree().create_tween()
 	tween.tween_property(BackgroundMusic, "volume_db", -10, 0.3)
+	
+	if not LoadQuotes.has_loaded():
+		LoadQuotes.load_files()
 
 
 func _input(event):

@@ -6,6 +6,8 @@ func _enter_tree():
 
 
 func _on_finished():
-	prints("Drop sound was played by", self.get_parent(), "at", self.global_position, "with player at", GameManager.game.player.global_position)
-	#get_parent().remove_child(self)
+	var msg := "Drop sound was played by %s at %s"%[get_parent(), global_position]
+	if GameManager.game != null and GameManager.game.player != null:
+		msg += " with player at"%[GameManager.game.player.global_position]
+	print(msg)
 	queue_free()

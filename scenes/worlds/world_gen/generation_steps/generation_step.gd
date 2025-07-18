@@ -4,6 +4,7 @@ extends Node
 
 const ROOM_ARRAY_KEY = "rooms"
 const LAST_FLOOR_KEY = "is_last_floor"
+const KEY_ASTAR = "astar"
 
 
 # Override this function

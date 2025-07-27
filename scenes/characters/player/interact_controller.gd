@@ -195,4 +195,4 @@ func _reset_object_dampening(item: RigidBody3D) -> void:
 	if is_instance_valid(item):
 		# Reset to default physics values (or whatever the object's original values were)
 		item.linear_damp = 0.0  # Default Godot linear dampening
-		item.angular_damp = 0.1  # Default Godot angular dampening
+		item.angular_damp = 0.0  # Default Godot angular dampening

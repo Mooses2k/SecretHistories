@@ -11,30 +11,34 @@
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r3atx"]
 _data = {
-"Hip_Idle": ExtResource("3"),
-"ItemHolding": ExtResource("1"),
-"ItemHoldingHorizontal": ExtResource("6"),
-"ItemHoldingHorizontalL": ExtResource("7"),
-"ItemHoldingVertical": ExtResource("1"),
-"ItemHoldingVerticalL": ExtResource("2"),
-"OneHandedHipIdleL": ExtResource("8"),
-"One_Handed_Hip_Idle": ExtResource("10"),
-"idle-loop": ExtResource("5")
+&"Hip_Idle": ExtResource("3"),
+&"ItemHolding": ExtResource("1"),
+&"ItemHoldingHorizontal": ExtResource("6"),
+&"ItemHoldingHorizontalL": ExtResource("7"),
+&"ItemHoldingVertical": ExtResource("1"),
+&"ItemHoldingVerticalL": ExtResource("2"),
+&"OneHandedHipIdleL": ExtResource("8"),
+&"One_Handed_Hip_Idle": ExtResource("10"),
+&"idle-loop": ExtResource("5")
 }
 
 [sub_resource type="AnimationNodeTransition" id="172"]
 xfade_time = 0.2
 input_0/name = "ADS_Pistol_Idle"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "ADS_Pistol_walk"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "ADS_Pistol_Run"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 input_3/name = "ADS_Pistol_Crouch"
 input_3/auto_advance = false
+input_3/break_loop_at_end = false
 input_3/reset = true
 
 [sub_resource type="AnimationNodeBlend2" id="182"]
@@ -45,27 +49,34 @@ filters = ["rig_deform/Skeleton3D:DEF-breast.L", "rig_deform/Skeleton3D:DEF-brea
 xfade_time = 0.2
 input_0/name = "ADS_Rifle_Idle"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "ADS_Rifle_walk"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "ADS_Rifle_Run"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 input_3/name = "ADS_Rifle_Crouch"
 input_3/auto_advance = false
+input_3/break_loop_at_end = false
 input_3/reset = true
 
 [sub_resource type="AnimationNodeTransition" id="170"]
 xfade_time = 0.2
 input_0/name = "Rifle_ADS"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "Pistol_ADS"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "Not_ADS"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="241"]
@@ -78,18 +89,23 @@ animation = &"run_forward-loop"
 xfade_time = 0.2
 input_0/name = "Rifle_Idle"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "Rifle_Walk"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "Rifle_Run"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 input_3/name = "Rifle_Crouch"
 input_3/auto_advance = false
+input_3/break_loop_at_end = false
 input_3/reset = true
 input_4/name = "Rifle_gun_crouch_idle"
 input_4/auto_advance = false
+input_4/break_loop_at_end = false
 input_4/reset = true
 
 [sub_resource type="AnimationNodeBlend2" id="240"]
@@ -194,9 +210,11 @@ blend_point_8/pos = Vector2(-1, -1)
 xfade_time = 0.2
 input_0/name = "Equipped"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "Not_Equipped"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 
 [sub_resource type="AnimationNodeOneShot" id="124"]
@@ -208,9 +226,11 @@ animation = &"falling"
 xfade_time = 0.2
 input_0/name = "Small_guns"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "Large_guns"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 
 [sub_resource type="AnimationNodeOneShot" id="121"]
@@ -244,21 +264,27 @@ animation = &"Landing"
 xfade_time = 0.2
 input_0/name = "idle"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "walk"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "run"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 input_3/name = "air"
 input_3/auto_advance = false
+input_3/break_loop_at_end = false
 input_3/reset = true
 input_4/name = "crouch_idle"
 input_4/auto_advance = false
+input_4/break_loop_at_end = false
 input_4/reset = true
 input_5/name = "crouch_walk"
 input_5/auto_advance = false
+input_5/break_loop_at_end = false
 input_5/reset = true
 
 [sub_resource type="AnimationNodeBlend2" id="219"]
@@ -393,18 +419,23 @@ blend_point_8/pos = Vector2(0, 0)
 xfade_time = 0.2
 input_0/name = "Small_gun_idle"
 input_0/auto_advance = false
+input_0/break_loop_at_end = false
 input_0/reset = true
 input_1/name = "Small_gun_walk"
 input_1/auto_advance = false
+input_1/break_loop_at_end = false
 input_1/reset = true
 input_2/name = "Small_gun_run"
 input_2/auto_advance = false
+input_2/break_loop_at_end = false
 input_2/reset = true
 input_3/name = "Small_gun_crouch"
 input_3/auto_advance = false
+input_3/break_loop_at_end = false
 input_3/reset = true
 input_4/name = "Small_gun_crouch_idle"
 input_4/auto_advance = false
+input_4/break_loop_at_end = false
 input_4/reset = true
 
 [sub_resource type="AnimationNodeAnimation" id="87"]

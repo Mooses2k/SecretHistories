@@ -1,4 +1,6 @@
 extends CanvasLayer
+class_name GameUI
+
 
 
 enum GUIState {
@@ -13,7 +15,7 @@ var gui_state : int = GUIState.HUD: set = set_gui_state
 	%PauseMenu
 ]
 
-@onready var hud_root = %HUD
+@onready var hud_root : HUD = %HUD
 
 
 func set_gui_state(value : int):

@@ -4,7 +4,7 @@ extends RigidBody3D
 
 ### Is a tool to support use in player_animations_test.gd
 
-
+signal item_data_changed()
 signal item_state_changed(previous_state, current_state)
 
 @export_flags_3d_physics var dropped_layers : int = 0 # (int, LAYERS_3D_PHYSICS)

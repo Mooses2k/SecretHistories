@@ -1,27 +1,27 @@
 [gd_scene load_steps=138 format=3 uid="uid://bg7aeaviu8ftd"]
 
 [ext_resource type="PackedScene" uid="uid://id4ldu0s15ut" path="res://scenes/characters/character.tscn" id="1"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player.gd" id="2"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player_hit.gd" id="3"]
+[ext_resource type="Script" uid="uid://bcqkl0kh0jyl0" path="res://scenes/characters/player_old/player.gd" id="2"]
+[ext_resource type="Script" uid="uid://cqqb0idhm6w8c" path="res://scenes/characters/player_old/player_hit.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://dxdp45ss3ceqd" path="res://resources/effects/BloodOverlay1.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://h36fkqxqoh4x" path="res://resources/effects/whiteScreen.png" id="5"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player_controller.gd" id="6"]
+[ext_resource type="Script" uid="uid://d0v76b0w8cqdq" path="res://scenes/characters/player_old/player_controller.gd" id="6"]
 [ext_resource type="Texture2D" uid="uid://cc5bgrlvpb26j" path="res://resources/art/grab.png" id="7"]
 [ext_resource type="AudioStream" uid="uid://xlkhw6fivhbs" path="res://resources/sounds/player/377206__tnturner__tinnitus.mp3" id="8"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/tinnitus.gd" id="9"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/fps_control_mode.gd" id="10"]
+[ext_resource type="Script" uid="uid://k2rdhkg2gwf4" path="res://scenes/characters/player_old/tinnitus.gd" id="9"]
+[ext_resource type="Script" uid="uid://5gabmcpogkir" path="res://scenes/characters/player_old/fps_control_mode.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://b4ntthif3cwkw" path="res://resources/effects/bloodScreen.png" id="11"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/indication_canvas.gd" id="12"]
+[ext_resource type="Script" uid="uid://csoh1impr33pk" path="res://scenes/characters/player_old/indication_canvas.gd" id="12"]
 [ext_resource type="Animation" uid="uid://d1nu04jum22j1" path="res://resources/animations/double-barrel_shotgun_reload.res" id="13"]
 [ext_resource type="Material" path="res://resources/models/characters/player/fps_arms/LongCoat_001.material" id="14"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player_camera.gd" id="15"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player_death.gd" id="16"]
+[ext_resource type="Script" uid="uid://dguet2201nuyd" path="res://scenes/characters/player_old/player_camera.gd" id="15"]
+[ext_resource type="Script" uid="uid://mqjg1h07m4kk" path="res://scenes/characters/player_old/player_death.gd" id="16"]
 [ext_resource type="AudioStream" uid="uid://4trkmwlj2tu0" path="res://resources/sounds/death_sound.wav" id="17"]
 [ext_resource type="PackedScene" path="res://scenes/characters/light_detection.tscn" id="18"]
 [ext_resource type="Texture2D" uid="uid://dm7aoksvuysil" path="res://resources/art/flame-xxl.png" id="19"]
 [ext_resource type="Texture2D" uid="uid://brvu423htk6sc" path="res://resources/art/player ui/normal.png" id="20"]
 [ext_resource type="FontFile" uid="uid://3xm8131455un" path="res://resources/fonts/conjuring.ttf" id="21"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/effect_origin.gd" id="22"]
+[ext_resource type="Script" uid="uid://dy6chg58p4018" path="res://scenes/characters/player_old/effect_origin.gd" id="22"]
 [ext_resource type="Material" uid="uid://b5vykfj81qlba" path="res://scenes/characters/player_old/GridEffect.material" id="23"]
 [ext_resource type="PackedScene" uid="uid://s6at1mb16ktl" path="res://scenes/characters/player_old/player_anims.tscn" id="24"]
 [ext_resource type="Animation" uid="uid://bhavyctcjcgxs" path="res://resources/animations/martini-henry_pistol_reload.res" id="25"]
@@ -30,13 +30,13 @@
 [ext_resource type="Animation" uid="uid://cs6ie3rp55s41" path="res://resources/animations/item_holding_horizontal_left.res" id="26_cp5fw"]
 [ext_resource type="Animation" uid="uid://c1n3ea1nppvve" path="res://resources/animations/webley_reload.res" id="27"]
 [ext_resource type="Animation" uid="uid://bxokbk5xl0qxi" path="res://resources/animations/item_holding_vertical_right.res" id="27_vb6pq"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player_gun_reload_shells.gd" id="28"]
+[ext_resource type="Script" uid="uid://c835fqgafxsw5" path="res://scenes/characters/player_old/player_gun_reload_shells.gd" id="28"]
 [ext_resource type="Animation" uid="uid://b2v5qkcnqt10p" path="res://resources/animations/item_holding_vertical_left.res" id="28_a7tq0"]
 [ext_resource type="PackedScene" uid="uid://dr8q1if8gbb50" path="res://scenes/characters/stamina.tscn" id="29"]
 [ext_resource type="Animation" uid="uid://k316nwi61gan" path="res://resources/animations/one-handed_hip_idle_left.res" id="29_4wi7n"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player_anims.gd" id="30"]
+[ext_resource type="Script" uid="uid://bh3jfw85gilbs" path="res://scenes/characters/player_old/player_anims.gd" id="30"]
 [ext_resource type="Animation" uid="uid://bocwvglbinqg1" path="res://resources/animations/one-handed_ads_idle_right.res" id="30_et47h"]
-[ext_resource type="Script" path="res://scenes/characters/player_old/player_animations_test.gd" id="31"]
+[ext_resource type="Script" uid="uid://h2jnvudrtiil" path="res://scenes/characters/player_old/player_animations_test.gd" id="31"]
 [ext_resource type="Animation" uid="uid://ds4816bp1p2px" path="res://resources/animations/idle-loop.res" id="31_taxme"]
 [ext_resource type="PackedScene" uid="uid://dc4pkes5nchp5" path="res://resources/models/characters/player/fps_arms/main_char_only_arms_game_rig.glb" id="32"]
 [ext_resource type="Animation" uid="uid://3wg8b167k2eb" path="res://resources/animations/sawed-off_shotgun_reload.res" id="33"]
@@ -88,8 +88,7 @@ shading_mode = 0
 albedo_color = Color(0.219608, 1, 0, 1)
 
 [sub_resource type="Curve" id="16"]
-min_value = -100.0
-max_value = 0.0
+_limits = [-100.0, 0.0, 0.0, 1.0]
 _data = [Vector2(0, -100), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -127,8 +126,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wm27q"]
 _data = {
-"RESET": SubResource("22"),
-"hit_effect": SubResource("23")
+&"RESET": SubResource("22"),
+&"hit_effect": SubResource("23")
 }
 
 [sub_resource type="FontFile" id="37"]
@@ -186,48 +185,48 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_orj0v"]
 _data = {
-"Belt_Equip": SubResource("83"),
-"Belt_bob": SubResource("82")
+&"Belt_Equip": SubResource("83"),
+&"Belt_bob": SubResource("82")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_licmc"]
 _data = {
-"ads_idle": ExtResource("43_h8wkm"),
-"crouch_loop": ExtResource("44_uj15e"),
-"crouch_walk_back-loop": ExtResource("45_up4j1"),
-"crouch_walk_back_left-loop": ExtResource("46_hugbe"),
-"crouch_walk_back_right-loop": ExtResource("47_j4le0"),
-"crouch_walk_forward-loop": ExtResource("48_7jqxn"),
-"crouch_walk_forward_right-loop": ExtResource("49_fm8cs"),
-"crouch_walk_left-loop": ExtResource("50_y8qul"),
-"crouch_walk_right-loop": ExtResource("51_lfhoc"),
-"double_barrel_reload": ExtResource("13"),
-"falling": ExtResource("52_r4qyb"),
-"hip_idle": ExtResource("53_6iekj"),
-"hip_idle_shotgun": ExtResource("54_gyogg"),
-"idle-loop": ExtResource("31_taxme"),
-"item_holding": ExtResource("27_vb6pq"),
-"item_holding_horizontal_left": ExtResource("26_cp5fw"),
-"item_holding_horizontal_right": ExtResource("25_06b8b"),
-"item_holding_vertical_left": ExtResource("28_a7tq0"),
-"item_holding_vertical_right": ExtResource("27_vb6pq"),
-"jump": ExtResource("55_k02h4"),
-"jump_and_land": ExtResource("56_fekft"),
-"kick_low_toe": ExtResource("57_j4tcf"),
-"kick_mid_stomp": ExtResource("58_fciwl"),
-"landing": ExtResource("59_eed7m"),
-"one-handed_ads_idle": ExtResource("30_et47h"),
-"one-handed_hip_idle": ExtResource("30_et47h"),
-"one_handed_hip_idle_left": ExtResource("29_4wi7n"),
-"run_forward-loop": ExtResource("61_b2myb"),
-"walk_back_left-loop": ExtResource("62_kw8l7"),
-"walk_back_right-loop": ExtResource("63_d8l0c"),
-"walk_backward-loop": ExtResource("64_fag0d"),
-"walk_forward-loop": ExtResource("65_pxsew"),
-"walk_forward_left-loop": ExtResource("66_473vl"),
-"walk_forward_right-loop": ExtResource("67_63u3i"),
-"walk_left-loop": ExtResource("68_8m5vm"),
-"walk_right-loop": ExtResource("69_um6j7")
+&"ads_idle": ExtResource("43_h8wkm"),
+&"crouch_loop": ExtResource("44_uj15e"),
+&"crouch_walk_back-loop": ExtResource("45_up4j1"),
+&"crouch_walk_back_left-loop": ExtResource("46_hugbe"),
+&"crouch_walk_back_right-loop": ExtResource("47_j4le0"),
+&"crouch_walk_forward-loop": ExtResource("48_7jqxn"),
+&"crouch_walk_forward_right-loop": ExtResource("49_fm8cs"),
+&"crouch_walk_left-loop": ExtResource("50_y8qul"),
+&"crouch_walk_right-loop": ExtResource("51_lfhoc"),
+&"double_barrel_reload": ExtResource("13"),
+&"falling": ExtResource("52_r4qyb"),
+&"hip_idle": ExtResource("53_6iekj"),
+&"hip_idle_shotgun": ExtResource("54_gyogg"),
+&"idle-loop": ExtResource("31_taxme"),
+&"item_holding": ExtResource("27_vb6pq"),
+&"item_holding_horizontal_left": ExtResource("26_cp5fw"),
+&"item_holding_horizontal_right": ExtResource("25_06b8b"),
+&"item_holding_vertical_left": ExtResource("28_a7tq0"),
+&"item_holding_vertical_right": ExtResource("27_vb6pq"),
+&"jump": ExtResource("55_k02h4"),
+&"jump_and_land": ExtResource("56_fekft"),
+&"kick_low_toe": ExtResource("57_j4tcf"),
+&"kick_mid_stomp": ExtResource("58_fciwl"),
+&"landing": ExtResource("59_eed7m"),
+&"one-handed_ads_idle": ExtResource("30_et47h"),
+&"one-handed_hip_idle": ExtResource("30_et47h"),
+&"one_handed_hip_idle_left": ExtResource("29_4wi7n"),
+&"run_forward-loop": ExtResource("61_b2myb"),
+&"walk_back_left-loop": ExtResource("62_kw8l7"),
+&"walk_back_right-loop": ExtResource("63_d8l0c"),
+&"walk_backward-loop": ExtResource("64_fag0d"),
+&"walk_forward-loop": ExtResource("65_pxsew"),
+&"walk_forward_left-loop": ExtResource("66_473vl"),
+&"walk_forward_right-loop": ExtResource("67_63u3i"),
+&"walk_left-loop": ExtResource("68_8m5vm"),
+&"walk_right-loop": ExtResource("69_um6j7")
 }
 
 [sub_resource type="Animation" id="429"]
@@ -256,29 +255,29 @@ length = 0.1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1g5ph"]
 _data = {
-"Hip_Idle": SubResource("429"),
-"ItemHolding": ExtResource("27_vb6pq"),
-"ItemHoldingHorizontal": ExtResource("25_06b8b"),
-"ItemHoldingHorizontalL": ExtResource("26_cp5fw"),
-"ItemHoldingVertical": ExtResource("27_vb6pq"),
-"ItemHoldingVerticalL": ExtResource("28_a7tq0"),
-"OneHandedHipIdleL": ExtResource("29_4wi7n"),
-"One_Handed_Hip_Idle": ExtResource("30_et47h"),
-"ads_idle": SubResource("430"),
-"ads_idle_shotgun": SubResource("425"),
-"double_barrel_reload": ExtResource("13"),
-"hip_idle_shotgun": SubResource("428"),
-"idle-loop": ExtResource("31_taxme"),
-"kyber_pass_martini_reload": ExtResource("25"),
-"lee_metford_reload": ExtResource("26"),
-"martini_henry_reload": SubResource("423"),
-"melee_chop_1": ExtResource("35"),
-"melee_chop_2": ExtResource("36"),
-"melee_thrust": ExtResource("34"),
-"melee_thrust_l": ExtResource("37"),
-"one-handed_ads_idle": SubResource("420"),
-"sawed_off_shotgun_reload": ExtResource("33"),
-"webley_reload": ExtResource("27")
+&"Hip_Idle": SubResource("429"),
+&"ItemHolding": ExtResource("27_vb6pq"),
+&"ItemHoldingHorizontal": ExtResource("25_06b8b"),
+&"ItemHoldingHorizontalL": ExtResource("26_cp5fw"),
+&"ItemHoldingVertical": ExtResource("27_vb6pq"),
+&"ItemHoldingVerticalL": ExtResource("28_a7tq0"),
+&"OneHandedHipIdleL": ExtResource("29_4wi7n"),
+&"One_Handed_Hip_Idle": ExtResource("30_et47h"),
+&"ads_idle": SubResource("430"),
+&"ads_idle_shotgun": SubResource("425"),
+&"double_barrel_reload": ExtResource("13"),
+&"hip_idle_shotgun": SubResource("428"),
+&"idle-loop": ExtResource("31_taxme"),
+&"kyber_pass_martini_reload": ExtResource("25"),
+&"lee_metford_reload": ExtResource("26"),
+&"martini_henry_reload": SubResource("423"),
+&"melee_chop_1": ExtResource("35"),
+&"melee_chop_2": ExtResource("36"),
+&"melee_thrust": ExtResource("34"),
+&"melee_thrust_l": ExtResource("37"),
+&"one-handed_ads_idle": SubResource("420"),
+&"sawed_off_shotgun_reload": ExtResource("33"),
+&"webley_reload": ExtResource("27")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="442"]

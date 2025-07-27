@@ -34,7 +34,7 @@
 [ext_resource type="ArrayMesh" path="res://resources/models/gridmap/modular_doors/broken_door/door1-broken_Plane_cell011.mesh" id="32"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_doors/M_DoorSimple1.material" id="33"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_doors/M_Wall_Metal.material" id="34"]
-[ext_resource type="Script" path="res://scenes/objects/large_objects/doors/base_broken_door.gd" id="35"]
+[ext_resource type="Script" uid="uid://dttoige73uno0" path="res://scenes/objects/large_objects/doors/base_broken_door.gd" id="35"]
 
 [sub_resource type="BoxShape3D" id="65"]
 size = Vector3(0.0182854, 0.14608, 0.0873894)
@@ -500,7 +500,7 @@ surface_material_override/0 = ExtResource("34")
 shape = SubResource("92")
 
 [node name="RigidBody21" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, -0.752268, -0.0825789)
+transform = Transform3D(-1, -8.74228e-08, 0, -8.74228e-08, 1, 8.74228e-08, -7.64274e-15, 8.74228e-08, -1, 3.62396e-05, -0.752268, -0.0825789)
 collision_layer = 64
 collision_mask = 65
 
@@ -513,7 +513,7 @@ surface_material_override/0 = ExtResource("34")
 shape = SubResource("93")
 
 [node name="RigidBody22" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, -0.0159795, -0.0825791)
+transform = Transform3D(-1, -8.74228e-08, 0, -8.74228e-08, 1, 8.74228e-08, -7.64274e-15, 8.74228e-08, -1, 3.62396e-05, -0.0159795, -0.0825791)
 collision_layer = 64
 collision_mask = 65
 
@@ -526,7 +526,7 @@ surface_material_override/0 = ExtResource("34")
 shape = SubResource("94")
 
 [node name="RigidBody8" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, -1, 3.62396e-05, 0.772688, -0.0825795)
+transform = Transform3D(-1, -8.74228e-08, 0, -8.74228e-08, 1, 8.74228e-08, -7.64274e-15, 8.74228e-08, -1, 3.62396e-05, 0.772688, -0.0825795)
 collision_layer = 64
 collision_mask = 65
 

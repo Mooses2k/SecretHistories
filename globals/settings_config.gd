@@ -16,7 +16,7 @@ enum value_types {
 }
 
 var value_prefixes = [
-	"bool", 
+	"bool",
 	"float"
 ]
 
@@ -42,7 +42,7 @@ func gen_dict_from_settings() -> Dictionary:
 	var actions = InputMap.get_actions()
 	var config = Dictionary()
 	var value_type = value_types.BOOL
-	
+
 	for setting in settings_names:
 		match setting:
 			"is_crouch_hold":
@@ -65,7 +65,7 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.brightness)]
 			"gui_scale":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.gui_scale)]
-	
+
 	return config
 
 
@@ -101,7 +101,7 @@ func setup_settings(settings_dict : Dictionary):
 			value = settings_dict[saved_setting].trim_prefix(value_prefixes[1])
 			value = value.trim_prefix("(").trim_suffix(")")
 			value = value.to_float()
-		
+
 		match saved_setting:
 			"is_crouch_hold":
 				GameSettings.crouch_hold_enabled = value

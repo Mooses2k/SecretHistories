@@ -44,7 +44,7 @@ func attack_cut():
 	$CooldownTimer.start(cooldown)
 	on_cooldown = true
 #	emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
-	
+
 #	var melee_anim
 #	if weapon_type == 3:
 #		melee_anim = owner_character.find_node("SabreTechniques")
@@ -75,7 +75,7 @@ func attack_thrust():
 	$CooldownTimer.start(cooldown)
 	on_cooldown = true
 #	emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
-	
+
 #	var melee_anim
 #	if weapon_type == WeaponType.COMPLEX_HILT_ONE_HAND:
 #		melee_anim = owner_character.find_node("SabreTechniques")
@@ -99,6 +99,9 @@ func attack_thrust():
 #			melee_anim.queue("polearm_recovery_from_right")
 
 
+func _has_held_use() -> bool:
+	return true
+
 func _use_primary():
 	if not on_cooldown:
 		attack_cut()
@@ -117,14 +120,14 @@ func _use_secondary():
 
 func melee_throw_damage():
 	var item_damage
-	
+
 	if can_spin:
 		item_damage = secondary_damage1 + secondary_damage2
 		print(item_damage, " damage calculated")
 	elif thrown_point_first:
 		item_damage = primary_damage1 + primary_damage2
 		print(item_damage, " damage calculated")
-	
+
 	return item_damage
 
 
@@ -157,7 +160,7 @@ func _on_Hitbox_body_entered(body):
 		secondary_damage1 /= 2
 	elif secondary_damage_type2 == 0:
 		secondary_damage2 /= 2
-	
+
 	# This pushes the hit object if it's a RigidBody
 	#if body is RigidBody3D and can_hit == true:
 		## TODO: fix this, it's always pointing one direction possible because base character scene doesn't rotate?

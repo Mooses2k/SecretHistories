@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dxepmhcpbk1ma"]
 
-[ext_resource type="Script" path="res://scenes/ui/esc_menu.gd" id="1"]
+[ext_resource type="Script" uid="uid://pvykqt4s1274" path="res://scenes/ui/esc_menu.gd" id="1"]
 
 [node name="EscMenu" type="CenterContainer"]
 anchors_preset = 8

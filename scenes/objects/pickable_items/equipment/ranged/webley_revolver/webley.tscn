@@ -1,19 +1,19 @@
 [gd_scene load_steps=27 format=3 uid="uid://ruehqpba0q7b"]
 
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
-[ext_resource type="Resource" path="res://resources/tiny_items/ammunition/455_webley.tres" id="2"]
-[ext_resource type="Script" path="res://scenes/effects/mesh_instances.gd" id="4"]
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/effects.gd" id="5"]
+[ext_resource type="Resource" uid="uid://corn303d25lmc" path="res://resources/tiny_items/ammunition/455_webley.tres" id="2"]
+[ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="4"]
+[ext_resource type="Script" uid="uid://bo2hp7fykeoy6" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/effects.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://cs0hb0iqskdip" path="res://resources/models/items/ranged/webley_revolver/Webley.glb" id="5_78i6t"]
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd" id="6"]
-[ext_resource type="PackedScene" path="res://scenes/effects/hit_effect.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://scenes/effects/webley_audio.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" id="9"]
+[ext_resource type="Script" uid="uid://dr48bdckmsmeu" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd" id="6"]
+[ext_resource type="PackedScene" uid="uid://btgj1s4833cij" path="res://scenes/effects/hit_effect.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://bdyoahtpn3bnl" path="res://scenes/effects/webley_audio.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://cbi35dmqyjf2c" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" id="9"]
 [ext_resource type="AudioStream" uid="uid://4vdqkhe8at6p" path="res://resources/sounds/dryfire/412297__jaklocke__gun-trigger-pull-2.wav" id="10"]
 [ext_resource type="AudioStream" uid="uid://31uct7ytooar" path="res://resources/sounds/reloading/revolver/revolver_reload.wav" id="11"]
 [ext_resource type="AudioStream" uid="uid://ct3crbxdeurn6" path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" id="12"]
 [ext_resource type="AudioStream" uid="uid://biqwhqeb70a3r" path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" id="13"]
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/shell_reload_effects.gd" id="14"]
+[ext_resource type="Script" uid="uid://wcmyasfadv48" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/shell_reload_effects.gd" id="14"]
 [ext_resource type="Animation" uid="uid://cfv0ss0xjaxmj" path="res://resources/animations/webley_reload-weapon.res" id="15_ci8p3"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g655b"]
@@ -53,16 +53,16 @@ length = 8.06667
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ireru"]
 _data = {
-"break_open": SubResource("6"),
-"close_cyl_weapon": SubResource("7"),
-"enter_shell_1_weapon": SubResource("8"),
-"enter_shell_2_weapon": SubResource("9"),
-"enter_shell_3_weapon": SubResource("10"),
-"enter_shell_4_weapon": SubResource("11"),
-"enter_shell_5_weapon": SubResource("12"),
-"enter_shell_weapon": SubResource("13"),
-"reload": ExtResource("15_ci8p3"),
-"reload.old": SubResource("14")
+&"break_open": SubResource("6"),
+&"close_cyl_weapon": SubResource("7"),
+&"enter_shell_1_weapon": SubResource("8"),
+&"enter_shell_2_weapon": SubResource("9"),
+&"enter_shell_3_weapon": SubResource("10"),
+&"enter_shell_4_weapon": SubResource("11"),
+&"enter_shell_5_weapon": SubResource("12"),
+&"enter_shell_weapon": SubResource("13"),
+&"reload": ExtResource("15_ci8p3"),
+&"reload.old": SubResource("14")
 }
 
 [node name="WebleyRevolver" instance=ExtResource("1")]

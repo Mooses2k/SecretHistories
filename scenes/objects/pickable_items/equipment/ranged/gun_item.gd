@@ -39,7 +39,10 @@ var ads_reset_position : Vector3
 var ads_reset_rotation : Vector3
 var mesh_reset_position : Vector3 = Vector3(0, 0, 0)
 var reload_time : float = 0.0
-var current_ammo : int = 0
+var current_ammo : int = 0:
+	set(value):
+		current_ammo = value
+		item_data_changed.emit()
 var current_ammo_type : Resource = null
 
 #var is_reloading = false    # This has been changed to a character trait
@@ -148,16 +151,17 @@ func shoot():
 	
 	# Cultists can't recoil for now
 	if owner_character.get_node("PlayerController"):
-		owner_character.player_controller.current_control_mode.recoil(self, total_damage, handling)   # Should also send delta
+		#owner_character.recoil(self, total_damage, handling)   # Should also send delta
+		owner_character.recoil()
 
 
 func _use_primary():
-	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo > 0:
+	if (not owner_character.state.is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 		emit_signal("on_shoot")
-	if (not owner_character.is_reloading) and (not on_cooldown) and current_ammo == 0:
+	if (not owner_character.state.is_reloading) and (not on_cooldown) and current_ammo == 0:
 		dryfire()
 
 
@@ -177,7 +181,7 @@ func _use_unload():
 # TODO: Needs more code for revolvers and bolt-actions as they're more complicated
 # TODO: Needs some camera movement for immersion
 func reload():
-	if owner_character and current_ammo < ammunition_capacity and not owner_character.is_reloading:
+	if owner_character and current_ammo < ammunition_capacity and not owner_character.state.is_reloading:
 		var inventory = owner_character.inventory
 		for ammo_type in ammo_types:
 			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
@@ -193,10 +197,10 @@ func reload():
 					$ReloadTimer.start(reload_time)
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
-					owner_character.is_reloading = true
+					owner_character.state.is_reloading = true
 					##This is responsible for the reload animations for player
-					if "Player" in owner_character.name:
-						owner_character.player_animations.reload_weapons()
+					#if "Player" in owner_character.name:
+						#owner_character.player_animations.reload_weapons()
 #					elif "Cultist" in owner_character.name:
 #						owner_character.reload_weapons()
 #					print(player.owner)
@@ -210,7 +214,7 @@ func reload():
 func unload():
 	if current_ammo > 0:
 		$UnloadTimer.start(reload_time)
-		owner_character.is_reloading = true
+		owner_character.state.is_reloading = true
 		
 		# Later, based on parts of the reload animation
 		$Sounds/Reload.play()
@@ -231,24 +235,24 @@ func apply_knockback(total_damage):
 
 
 func _on_ReloadTimer_timeout() -> void:
-	if owner_character and owner_character.is_reloading and (current_ammo_type == null or current_ammo_type == _queued_reload_type):
+	if owner_character and owner_character.state.is_reloading and (current_ammo_type == null or current_ammo_type == _queued_reload_type):
 		var inventory = owner_character.inventory
 		if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
 			var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
 			inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
 			current_ammo_type = _queued_reload_type
 			current_ammo += _reload_amount
-	owner_character.is_reloading = false
+	owner_character.state.is_reloading = false
 	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 
 
 func _on_UnloadTimer_timeout() -> void:
-	if owner_character and owner_character.is_reloading:
+	if owner_character and owner_character.state.is_reloading:
 		var inventory = owner_character.inventory
 		inventory.insert_tiny_item(current_ammo_type, current_ammo)
 		print("Unload rounds: ", current_ammo)
 		current_ammo = 0
-		owner_character.is_reloading = false
+		owner_character.state.is_reloading = false
 		$Sounds/Unload.play()
 
 

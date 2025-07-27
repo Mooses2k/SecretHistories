@@ -36,7 +36,7 @@ func get_ads_hold() -> bool:
 	return Settings.get_setting(SETTING_ADS)
 
 
-func on_setting_changed(setting_name, old_value, new_value):
+func on_setting_changed(setting_name, _old_value, _new_value):
 	match setting_name:
 		SETTING_ADS:
 			#ads_hold_enabled = new_value

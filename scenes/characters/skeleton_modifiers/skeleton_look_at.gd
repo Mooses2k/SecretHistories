@@ -29,8 +29,10 @@ func _ready() -> void:
 	bone_ids.reverse()
 
 func _process_modification() -> void:
+	if not is_inside_tree(): return
 	if not is_instance_valid(target_node): return
 	var skeleton := get_skeleton()
+	if not is_instance_valid(skeleton): return
 	var base_pose : Transform3D = skeleton.get_bone_rest(bone_ids[-1])
 	var parent_pose_global : Transform3D = skeleton.get_bone_global_pose(bone_ids[-2])
 	var target_position : Vector3 = skeleton.to_local(target_node.global_position)

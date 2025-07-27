@@ -32,6 +32,7 @@ func create_world(is_last_floor: bool, p_floor_size: int = -1) -> void:
 
 # Override this function
 func set_player_on_spawn_position(player: Player, _is_going_downstairs: bool) -> void:
+	print("spawning player at position")
 	var spawn_data = {
 		"position": Vector3.ZERO,
 		"y_rotation": 0.0,

@@ -68,8 +68,8 @@ var encumbrance : float = 0   # Is a float to allow easy division
 
 var belt_item = null   # The item currently in the belt_position slot
 
-# Where to drop items from
-@onready var Animations : AnimationPlayer = %AdditionalAnimations as AnimationPlayer
+@onready var character : HumanoidCharacter = owner as HumanoidCharacter
+
 
 
 func _ready():
@@ -103,8 +103,8 @@ func add_item(item : PickableItem) -> bool:
 	if not can_pickup:
 		print("can't pick up")
 		return false
-	
-	item.owner_character = owner
+
+	item.owner_character = character
 	print("item owner to be: ", item.owner_character)
 
 	
@@ -262,9 +262,9 @@ func equip_mainhand_item():
 		if item.is_in_belt == true:
 			remove_from_belt(item)
 			item.get_parent().remove_child(item)
-			owner.mainhand_equipment_root.add_child(item)
+			character.main_hand_root.add_child(item)
 		else:
-			owner.mainhand_equipment_root.add_child(item)
+			character.main_hand_root.add_child(item)
 		emit_signal("inventory_changed")
 
 ## Perfoms heavy logic to unequip the mainhand_item, it uses the var current_mainhand_equipment
@@ -298,7 +298,7 @@ func equip_bulky_item(item : EquipmentItem):
 		emit_signal("bulky_item_changed")
 		if item.get_parent():
 			item.get_parent().remove_child(item)
-		owner.mainhand_equipment_root.add_child(item)
+		character.main_hand_root.add_child(item)
 		emit_signal("inventory_changed")
 
 
@@ -349,9 +349,9 @@ func equip_offhand_item():
 	if item.is_in_belt == true:
 		remove_from_belt(item)
 		item.get_parent().remove_child(item)
-		owner.offhand_equipment_root.add_child(item)
+		character.off_hand_root.add_child(item)
 	else:
-		owner.offhand_equipment_root.add_child(item)
+		character.off_hand_root.add_child(item)
 
 
 func unequip_offhand_item():
@@ -459,63 +459,51 @@ func drop_hotbar_slot(slot : int) -> Node:
 	return item
 
 
-## Drops the item, it must be unequipped first[br]
-## Note that the drop is done in a deferred manner
+# Drops the item, it must be unequipped first
+# This positions the item at the 'PlaceOrigin' of the owner character,
+# in a DROPPED state. Further positioning can be done by the caller
 func _drop_item(item : EquipmentItem):
-	if owner is Player:
-		if owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_PLACE:
-			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # At the moment, 'placed' items can't hurt anyone.
-		elif owner.player_controller.throw_state == owner.player_controller.ThrowState.SHOULD_THROW:
-			item.set_item_state(GlobalConsts.ItemState.DAMAGING)
-		else:
-			item.set_item_state(GlobalConsts.ItemState.DROPPED)   # Dropped for another reason like cycling away from bulky
-			print("Dropped for another reason like cycling away from bulky")
+	#if character is Player:
+		#if character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_PLACE:
+			#item.set_item_state(GlobalConsts.ItemState.DROPPED)   # At the moment, 'placed' items can't hurt anyone.
+		#elif character.player_controller.throw_state == character.player_controller.ThrowState.SHOULD_THROW:
+			#item.set_item_state(GlobalConsts.ItemState.DAMAGING)
+		#else:
+			#item.set_item_state(GlobalConsts.ItemState.DROPPED)   # Dropped for another reason like cycling away from bulky
+			#print("Dropped for another reason like cycling away from bulky")
+	#else:
+	item.set_item_state(GlobalConsts.ItemState.DROPPED)
+	if is_instance_valid(GameManager.game.level):
+		GameManager.game.level.add_child(item)
 	else:
-		item.set_item_state(GlobalConsts.ItemState.DROPPED)   # This means, for now, non-players can't throw for damage; they drop when die
-			
-	if GameManager.game.level:   # This is for the real game
-		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
-			item.global_transform = owner.drop_position_node.global_transform
-			print("Item set to DROPPED")
-		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
-			item.global_transform = owner.throw_position_node.global_transform
-			print("Item set to DAMAGING")
-				
-		if item.can_attach == true:
-#			item.get_parent().remove_child(item)
-			GameManager.game.level.add_child(item)
-		else:
-			GameManager.game.level.add_child(item)
-			print("Item added to level at position: ", item.global_position)
-			
-	
-	elif !GameManager.game:   # This is here for test scenes
-		if item.item_state == GlobalConsts.ItemState.DROPPED:   # Placed
-			item.global_transform = owner.drop_position_node.global_transform
-		if item.item_state == GlobalConsts.ItemState.DAMAGING:   # Thrown
-			item.global_transform = owner.throw_position_node.global_transform
-		
 		find_parent("TestWorld").add_child(item)
-		if item.item_state == GlobalConsts.ItemState.DAMAGING:
-			item.apply_throw_logic()
-			
+	item.global_transform = character.place_origin.global_transform
+	item.linear_velocity = Vector3.ZERO
+	item.angular_velocity = Vector3.ZERO
+
 	item.owner_character = null
-		
+	
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
 		encumbrance -= 2
 
 
+# `slot_only` will simple change the slot variable, with no other changes
 func set_mainhand_slot(value : int):
+
 	if value != current_mainhand_slot:
-#		if are_swapping == false:
-		unequip_mainhand_item()
 		var previous_slot = current_mainhand_slot
-		current_mainhand_slot = value
-		equip_mainhand_item()
-		emit_signal("mainhand_slot_changed", previous_slot, value)
-		emit_signal("inventory_changed")
+		if hotbar[value] == get_mainhand_item():
+			current_mainhand_slot = value
+			mainhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
+		else:
+			unequip_mainhand_item()
+			current_mainhand_slot = value
+			equip_mainhand_item()
+			mainhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
 	else:
 		if get_mainhand_item() == hotbar[current_mainhand_slot]:
 			emit_signal("inventory_changed")
@@ -527,12 +515,16 @@ func set_mainhand_slot(value : int):
 func set_offhand_slot(value : int):
 	if value != current_offhand_slot:
 		var previous_slot = current_offhand_slot
-#		if are_swapping == false:
-		unequip_offhand_item()
-		current_offhand_slot = value
-		equip_offhand_item()
-		emit_signal("offhand_slot_changed", previous_slot, value)
-		emit_signal("inventory_changed")
+		if hotbar[value] == get_offhand_item():
+			current_offhand_slot = value
+			offhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
+		else:
+			unequip_offhand_item()
+			current_offhand_slot = value
+			equip_offhand_item()
+			offhand_slot_changed.emit(previous_slot, value)
+			inventory_changed.emit()
 
 
 # Equipment in each slot goes to other slot
@@ -549,19 +541,24 @@ func swap_slots(first_slot, second_slot):
 	# place second item in initial slot
 	hotbar[first_slot] = second_temp
 	print(hotbar[first_slot])
-	
-	# TODO: equip as appropriate or change current slot numbers for each hand
-		# if each item is currently in a hand, swap_hands()?
-	
-	# null out the temp - not needed and breaks code
-	#if is_instance_valid(first_temp):
-		#first_temp.queue_free()
-	#if is_instance_valid(second_temp):
-		#second_temp.queue_free()
-	
+
 	emit_signal("inventory_changed") # this do anything?
 	emit_signal("hotbar_changed", first_slot)
 	emit_signal("hotbar_changed", second_slot)
+
+	if current_mainhand_slot == first_slot:
+		current_mainhand_slot = second_slot
+		mainhand_slot_changed.emit(first_slot, second_slot)
+	elif current_mainhand_slot == second_slot:
+		current_mainhand_slot = first_slot
+		mainhand_slot_changed.emit(second_slot, first_slot)
+
+	if current_offhand_slot == first_slot:
+		current_offhand_slot = second_slot
+		offhand_slot_changed.emit(first_slot, second_slot)
+	elif current_offhand_slot == second_slot:
+		current_offhand_slot = first_slot
+		offhand_slot_changed.emit(second_slot, first_slot)
 
 
 # Equipment in each hand goes to other hand
@@ -601,7 +598,7 @@ func swap_hands():
 
 func switch_away_from_light(light_source):
 	if not light_source.can_attach:
-		if not are_swapping and owner.player_controller.throw_state != owner.player_controller.ThrowState.SHOULD_PLACE and owner.player_controller.throw_state != owner.player_controller.ThrowState.SHOULD_THROW:
+		if not are_swapping and character.player_controller.throw_state != character.player_controller.ThrowState.SHOULD_PLACE and character.player_controller.throw_state != character.player_controller.ThrowState.SHOULD_THROW:
 			print("unlighting light when putting it away because not swapping hands now")
 			light_source.unlight()
 	elif light_source.can_attach and light_source is LanternItem:
@@ -609,13 +606,12 @@ func switch_away_from_light(light_source):
 
 
 func attach_to_belt(item):
-	if item.get_parent() != owner.belt_position:
+	if item.get_parent() != character.belt_position:
 		item.mesh_instance.visible = false
 		item.is_in_belt = true
 		item.get_parent().remove_child(item)
-		owner.belt_position.add_child(item)
+		character.belt_position.add_child(item)
 		belt_item = item
-		$"%AdditionalAnimations".play("Belt_Equip")
 		print("Attached to belt in inventory.gd")
 
 

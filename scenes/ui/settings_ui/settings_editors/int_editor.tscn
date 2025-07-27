@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://b3e8afa5l7q3w"]
 
-[ext_resource path="res://scenes/ui/settings_ui/settings_editors/int_editor.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://dqtff2fe4nndn" path="res://scenes/ui/settings_ui/settings_editors/int_editor.gd" id="1"]
 
 [node name="IntEditor" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 _setting_type = 4
 
 [node name="Name" type="Label" parent="."]

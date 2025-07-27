@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StackableResource" load_steps=2 format=3 uid="uid://cb7cxr74bb6a7"]
 
-[ext_resource type="Script" path="res://resources/inventory/stackable_resource.gd" id="1_op432"]
+[ext_resource type="Script" uid="uid://ch56kkgmai4he" path="res://resources/inventory/stackable_resource.gd" id="1_op432"]
 
 [resource]
 resource_local_to_scene = true

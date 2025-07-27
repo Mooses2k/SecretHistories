@@ -1,7 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://h0muw6owdyow"]
 
-[ext_resource path="res://scenes/ui/btnparent.gd" type="Script" id=1]
-
+[ext_resource type="Script" uid="uid://c4gklsgipx0x6" path="res://scenes/ui/btnparent.gd" id="1"]
 
 [node name="btnparent" type="Button"]
 offset_top = 18.0
@@ -10,4 +9,4 @@ offset_bottom = 38.0
 focus_mode = 0
 focus_mode = 0
 text = "W"
-script = ExtResource( 1 )
+script = ExtResource("1")

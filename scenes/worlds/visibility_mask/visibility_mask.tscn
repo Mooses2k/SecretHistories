@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dn64eq7oqvcvs"]
 
-[ext_resource type="Script" path="res://scenes/worlds/visibility_mask/visibility_mask.gd" id="1"]
+[ext_resource type="Script" uid="uid://bpvh3582m2usp" path="res://scenes/worlds/visibility_mask/visibility_mask.gd" id="1"]
 
 [sub_resource type="Shader" id="1"]
 code = "shader_type spatial;
@@ -33,8 +33,8 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="2"]
 render_priority = 100
 shader = SubResource("1")
-shader_parameter/offset = null
-shader_parameter/view_width = null
+shader_parameter/offset = Vector3(0, 0, 0)
+shader_parameter/view_width = 0.0
 
 [sub_resource type="QuadMesh" id="3"]
 size = Vector2(2, 2)

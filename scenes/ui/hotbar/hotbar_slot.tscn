@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://lfp017c611je"]
 
-[ext_resource type="Script" path="res://scenes/ui/hotbar/hotbar_slot.gd" id="1"]
+[ext_resource type="Script" uid="uid://qyryh6tmhriy" path="res://scenes/ui/hotbar/hotbar_slot.gd" id="1"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
 content_margin_left = 4.0

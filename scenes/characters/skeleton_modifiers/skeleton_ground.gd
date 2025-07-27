@@ -18,6 +18,7 @@ func _ready() -> void:
 
 func _process_modification() -> void:
 	var skeleton := get_skeleton()
+	if not is_instance_valid(skeleton): return
 	var lowest_height : float = 0.0
 	for bone_id : int in bone_ids:
 		var bone_position : Vector3 = skeleton.get_bone_global_pose(bone_id).origin

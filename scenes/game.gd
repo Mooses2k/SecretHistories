@@ -43,7 +43,7 @@ var current_floor_level := HIGHEST_FLOOR_LEVEL
 var shard_has_spawned = false    # Tracks if the shard has spawned yet, so only one spawns
 
 @onready var world_root : Node = $World
-@onready var ui_root : CanvasLayer = $GameUI
+@onready var ui_root : GameUI = $GameUI
 @onready var local_settings : SettingsClass = %LocalSettings
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var load_screen: LoadScreen = $Loading

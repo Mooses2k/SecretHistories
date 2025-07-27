@@ -1,69 +1,66 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://ynolib2aky0x"]
 
-[ext_resource path="res://scenes/characters/undead/ghost/ghost.gd" type="Script" id=1]
-[ext_resource path="res://resources/sounds/ghost/whispers.wav" type="AudioStream" id=2]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=4]
-[ext_resource path="res://scenes/characters/undead/ghost/ghost_controller.gd" type="Script" id=5]
-[ext_resource path="res://scenes/characters/undead/ghost/damage_area.gd" type="Script" id=6]
+[ext_resource type="Script" uid="uid://c7882jhfihn6m" path="res://scenes/characters/undead/ghost/ghost.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://b7rc6vfysbo0i" path="res://resources/sounds/ghost/whispers.wav" id="2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="4"]
+[ext_resource type="Script" uid="uid://bbnmsh6rprfk7" path="res://scenes/characters/undead/ghost/ghost_controller.gd" id="5"]
+[ext_resource type="Script" uid="uid://dtvpp5mfxipxu" path="res://scenes/characters/undead/ghost/damage_area.gd" id="6"]
 
-
-[sub_resource type="StandardMaterial3D" id=1]
-albedo_color = Color( 1, 0.776471, 0.776471, 1 )
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_color = Color(1, 0.776471, 0.776471, 1)
 emission_enabled = true
-emission = Color( 1, 0.776471, 0.776471, 1 )
-emission_energy = 1.2
-emission_operator = 0
-emission_on_uv2 = false
+emission = Color(1, 0.776471, 0.776471, 1)
+emission_energy_multiplier = 1.2
 
-[sub_resource type="SphereMesh" id=2]
-material = SubResource( 1 )
+[sub_resource type="SphereMesh" id="2"]
+material = SubResource("1")
 radial_segments = 8
 rings = 4
 
-[sub_resource type="CapsuleShape3D" id=3]
+[sub_resource type="CapsuleShape3D" id="3"]
 radius = 0.8
 
-[sub_resource type="SphereShape3D" id=4]
+[sub_resource type="SphereShape3D" id="4"]
 radius = 32.0
 
-[sub_resource type="SphereShape3D" id=5]
+[sub_resource type="SphereShape3D" id="5"]
 radius = 2.0
 
 [node name="Ghost" type="CharacterBody3D" groups=["Enemy"]]
 collision_layer = 8
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Body" type="Node3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.13678, 0 )
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.13678, 0)
 
 [node name="Eyes" type="Node3D" parent="Body"]
 visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body/Eyes"]
-transform = Transform3D( 0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, 0.182021, -0.593601, -0.681859 )
-mesh = SubResource( 2 )
+transform = Transform3D(0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, 0.182021, -0.593601, -0.681859)
+mesh = SubResource("2")
 
 [node name="MeshInstance2" type="MeshInstance3D" parent="Body/Eyes"]
-transform = Transform3D( 0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, -0.201965, -0.593601, -0.681859 )
-mesh = SubResource( 2 )
+transform = Transform3D(0.012, 0, 0, 0, 0.012, 0, 0, 0, 0.012, -0.201965, -0.593601, -0.681859)
+mesh = SubResource("2")
 
 [node name="HitboxArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxArea"]
-transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.16376, 0 )
-shape = SubResource( 3 )
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.16376, 0)
+shape = SubResource("3")
 
 [node name="Whisper" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource( 2 )
+stream = ExtResource("2")
 unit_size = 3.0
 autoplay = true
 max_distance = 10.0
 
 [node name="GhostController" type="Node3D" parent="."]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="DetectionArea" type="Area3D" parent="."]
 collision_layer = 0
@@ -71,14 +68,14 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
-shape = SubResource( 4 )
+shape = SubResource("4")
 
 [node name="DamageArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 monitorable = false
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
-transform = Transform3D( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-shape = SubResource( 5 )
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+shape = SubResource("5")

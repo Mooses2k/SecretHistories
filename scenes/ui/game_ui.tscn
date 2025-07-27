@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://q7wrpjiye0bb"]
+[gd_scene load_steps=10 format=3 uid="uid://q7wrpjiye0bb"]
 
 [ext_resource type="PackedScene" uid="uid://dtmm8et2mxrcc" path="res://scenes/ui/settings_menu.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bf3yktywuo08c" path="res://scenes/ui/hud.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://dxepmhcpbk1ma" path="res://scenes/ui/esc_menu.tscn" id="3"]
-[ext_resource type="Script" path="res://scenes/ui/game_ui.gd" id="5"]
-[ext_resource type="Script" path="res://scenes/ui/pause_menu.gd" id="6"]
-[ext_resource type="Script" path="res://scenes/ui/game_ui_root.gd" id="7"]
+[ext_resource type="Script" uid="uid://cfe4gviht7yhy" path="res://scenes/ui/game_ui.gd" id="5"]
+[ext_resource type="Script" uid="uid://bu2suh5xerdp1" path="res://scenes/ui/pause_menu.gd" id="6"]
+[ext_resource type="Script" uid="uid://51ig5y3mo4pc" path="res://scenes/ui/game_ui_root.gd" id="7"]
+[ext_resource type="Texture2D" uid="uid://brvu423htk6sc" path="res://resources/art/player ui/normal.png" id="7_qrkc0"]
+[ext_resource type="Texture2D" uid="uid://cc5bgrlvpb26j" path="res://resources/art/grab.png" id="8_k7elv"]
+[ext_resource type="Texture2D" uid="uid://dm7aoksvuysil" path="res://resources/art/flame-xxl.png" id="9_fftnl"]
 
 [node name="GameUI" type="CanvasLayer"]
 process_mode = 3
@@ -25,6 +28,7 @@ script = ExtResource("7")
 [node name="PauseMenu" type="MarginContainer" parent="UIRoot"]
 unique_name_in_owner = true
 process_mode = 3
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -38,13 +42,71 @@ visible = false
 layout_mode = 2
 
 [node name="HUD" parent="UIRoot" instance=ExtResource("2")]
-anchors_preset = 0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Hotbar" parent="UIRoot/HUD" index="0"]
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
 anchor_right = 0.0
-anchor_bottom = 0.0
+offset_top = -330.0
+offset_right = 397.0
+grow_vertical = 0
+
+[node name="IndicatorDot" type="TextureRect" parent="UIRoot/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_qrkc0")
+stretch_mode = 3
+
+[node name="IndicatorGrab" type="TextureRect" parent="UIRoot/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_k7elv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="IndicatorIgnite" type="TextureRect" parent="UIRoot/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_fftnl")
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="button_pressed" from="UIRoot/PauseMenu/EscMenu" to="UIRoot/PauseMenu" method="_on_EscMenu_button_pressed"]
 [connection signal="settings_menu_exited" from="UIRoot/PauseMenu/SettingsMenu" to="UIRoot/PauseMenu" method="_on_SettingsMenu_settings_menu_exited"]

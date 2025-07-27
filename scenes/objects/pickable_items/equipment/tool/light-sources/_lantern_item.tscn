@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cxph1woam84mj"]
 
 [ext_resource type="PackedScene" uid="uid://ckkrq7mwcamt0" path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" id="1"]
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" id="2"]
+[ext_resource type="Script" uid="uid://d3aglbytnsyj1" path="res://scenes/objects/pickable_items/equipment/tool/light-sources/lanterns.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://brqutfhvylb5s" path="res://resources/sounds/impacts/metal_and_gun/675009__sertonin__rifle-dropped-on-floor-3.ogg" id="3"]
 
 [sub_resource type="BoxMesh" id="1"]

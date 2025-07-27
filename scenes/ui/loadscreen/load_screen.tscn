@@ -2,10 +2,13 @@
 
 [ext_resource type="FontFile" uid="uid://3xm8131455un" path="res://resources/fonts/conjuring.ttf" id="1"]
 [ext_resource type="Theme" uid="uid://d1bhwd8v505pu" path="res://resources/ui_themes/main_menu.tres" id="2"]
-[ext_resource type="Script" path="res://scenes/ui/loadscreen/load_screen.gd" id="3"]
+[ext_resource type="Script" uid="uid://byjhxy72qsxmc" path="res://scenes/ui/loadscreen/load_screen.gd" id="3"]
 
 [sub_resource type="FontFile" id="2"]
 fallbacks = Array[Font]([ExtResource("1")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/38/0/ascent = 0.0
 cache/0/38/0/descent = 0.0
 cache/0/38/0/underline_position = 0.0
@@ -59,6 +62,9 @@ cache/0/96/0/kerning_overrides/96/0 = Vector2(0, 0)
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([ExtResource("1")])
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 cache/0/38/0/ascent = 0.0
 cache/0/38/0/descent = 0.0
 cache/0/38/0/underline_position = 0.0

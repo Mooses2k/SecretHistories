@@ -1,26 +1,26 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://e6c36ve4ak8x"]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" type="Script" id=2]
-[ext_resource path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" type="AudioStream" id=3]
-[ext_resource path="res://resources/sounds/melee/blade/attack/525182__sophia-c__longsword-swing-2-poor-edge-alignment.wav" type="AudioStream" id=4]
-[ext_resource path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" type="AudioStream" id=5]
-[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=6]
-[ext_resource path="res://resources/sounds/melee/blade/slash_flesh/420674__sypherzent__deep-cut-slash-gash.wav" type="AudioStream" id=7]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=8]
-[ext_resource path="res://resources/sounds/throwing/181679__gingie__knife-throw.ogg" type="AudioStream" id=9]
-[ext_resource path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" type="AudioStream" id=10]
+[ext_resource type="PackedScene" uid="uid://ckkrq7mwcamt0" path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cxlrjedn0i68b" path="res://scenes/objects/pickable_items/equipment/melee/melee_item.gd" id="2"]
+[ext_resource type="AudioStream" uid="uid://5qtu6as4dt7p" path="res://resources/sounds/melee/blade/parry/536104__eminyildirim__sword-hit-heavy.wav" id="3"]
+[ext_resource type="AudioStream" uid="uid://bk3p3ssr80nx6" path="res://resources/sounds/melee/blade/attack/525182__sophia-c__longsword-swing-2-poor-edge-alignment.wav" id="4"]
+[ext_resource type="AudioStream" uid="uid://lhy76hfleimx" path="res://resources/sounds/melee/blade/attack/525166__sophia-c__longsword-swing-1-good-edge-alignment.wav" id="5"]
+[ext_resource type="AudioStream" uid="uid://csmnd6mic6rlb" path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" id="6"]
+[ext_resource type="AudioStream" uid="uid://cllhmw6oauy3k" path="res://resources/sounds/melee/blade/slash_flesh/420674__sypherzent__deep-cut-slash-gash.wav" id="7"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="8"]
+[ext_resource type="AudioStream" uid="uid://dbuauufu364yl" path="res://resources/sounds/throwing/181679__gingie__knife-throw.ogg" id="9"]
+[ext_resource type="AudioStream" uid="uid://5y1gpex1x7kx" path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" id="10"]
 
-[sub_resource type="CylinderShape3D" id=1]
+[sub_resource type="CylinderShape3D" id="1"]
 height = 0.431874
 radius = 0.118034
 
-[node name="MeleeItem" instance=ExtResource( 1 )]
+[node name="MeleeItem" instance=ExtResource("1")]
 collision_mask = 1
 mass = 1.0
-script = ExtResource( 2 )
-item_drop_sound = ExtResource( 10 )
-item_throw_sound = ExtResource( 9 )
+script = ExtResource("2")
+item_drop_sound = ExtResource("10")
+item_throw_sound = ExtResource("9")
 weapon_type = 0
 primary_damage_type1 = 0
 primary_damage1 = 0
@@ -34,24 +34,24 @@ melee_attack_speed = 1.0
 cooldown = 1.0
 
 [node name="Hitbox" type="Area3D" parent="." index="2"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.607795, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.561166, 0.607795, 0)
 collision_layer = 0
 collision_mask = 12
 monitorable = false
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" index="0"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.681336, 0.00937342 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.554467, 0.681336, 0.00937342)
+shape = SubResource("1")
 
 [node name="CooldownTimer" type="Timer" parent="." index="3"]
 one_shot = true
 
 [node name="NormalPosition" type="Marker3D" parent="." index="5"]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
 [node name="ThrowPosition" type="Marker3D" parent="." index="6"]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.423551, 0 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.423551, 0)
 
 [node name="Sounds" type="Node3D" parent="." index="7"]
 
@@ -62,23 +62,23 @@ bus = "Effects"
 bus = "Effects"
 
 [node name="Thrust" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
-stream = ExtResource( 5 )
+stream = ExtResource("5")
 bus = "Effects"
 
 [node name="Cut" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
-stream = ExtResource( 4 )
+stream = ExtResource("4")
 bus = "Effects"
 
 [node name="Parry" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
-stream = ExtResource( 3 )
+stream = ExtResource("3")
 bus = "Effects"
 
 [node name="FleshThrust" type="AudioStreamPlayer3D" parent="Sounds" index="5"]
-stream = ExtResource( 6 )
+stream = ExtResource("6")
 bus = "Effects"
 
 [node name="FleshCut" type="AudioStreamPlayer3D" parent="Sounds" index="6"]
-stream = ExtResource( 7 )
+stream = ExtResource("7")
 bus = "Effects"
 
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c0rjw1bvbxyw6"
-path="res://.godot/imported/trn_bar_stool.gltf-25c72866f4087356d49f433cca889a3e.scn"
+valid=false
 
 [deps]
 
 source_file="res://resources/models/large_objects/seating/trn_bar_stool.gltf"
-dest_files=["res://.godot/imported/trn_bar_stool.gltf-25c72866f4087356d49f433cca889a3e.scn"]
 
 [params]
 
@@ -17,6 +16,8 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -28,6 +29,7 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
 gltf/naming_version=1

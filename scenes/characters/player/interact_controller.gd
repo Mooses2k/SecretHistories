@@ -81,6 +81,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				player_controller.set_ads(false)
 			InteractState.GRAB:
 				grabbed_item = null
+				player_controller.set_drag_speed_modifier(1.0)
 			InteractState.PENDING:
 				if pick_target:
 					pick_item()
@@ -94,8 +95,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	):
 		if interact_state == InteractState.GRAB:
 			interact_state = InteractState.NONE
+			var item_to_throw = grabbed_item
 			grabbed_item = null
-			player_controller.throw_object(grabbed_item)
+			player_controller.set_drag_speed_modifier(1.0)
+			player_controller.throw_object(item_to_throw)
 			get_viewport().set_input_as_handled()
 
 func _try_grab() -> bool:
@@ -114,10 +117,45 @@ func _physics_process(delta: float) -> void:
 		var point_object := grabbed_item.to_global(grab_position_object)
 		var point_raycast := grab_cast.to_global(grab_position_raycast)
 		var difference := point_raycast - point_object
-		var force = (difference * grabbed_item.mass * 50.0).limit_length(300.0)
+		
+		# Calculate mass-based force scaling
+		var mass = grabbed_item.mass
+		var base_force_multiplier = 100.0
+		var heavy_mass_threshold = 20.0  # kg
+		var max_force_limit = 200.0
+		
+		# Scale force based on mass for heavy objects
+		var force_multiplier = base_force_multiplier
+		if mass > heavy_mass_threshold:
+			# Increase force multiplier for heavy objects
+			var mass_factor = 1.0 + (mass - heavy_mass_threshold) / heavy_mass_threshold
+			force_multiplier = base_force_multiplier * mass_factor * 1.5  # Additional boost for heavy objects
+			max_force_limit = 200.0 + (mass - heavy_mass_threshold) * 4.0  # Higher limit for heavy objects
+		
+		var force = (difference * mass * force_multiplier)
+		force = force.limit_length(max_force_limit)
+		
 		grabbed_item.apply_force(force, point_object - grabbed_item.global_position)
+		
+		# Apply movement speed reduction based on mass
+		var speed_reduction_factor = 1.0
+		if mass > heavy_mass_threshold:
+			# Calculate speed reduction: heavier objects = more reduction
+			var mass_ratio = mass / 100.0  # Normalize against 100kg reference
+			speed_reduction_factor = clamp(1.0 - mass_ratio * 0.6, 0.2, 1.0)  # Min 20% speed
+			speed_reduction_factor = max(speed_reduction_factor, 0.2)  # Ensure minimum 20% speed
+		
+		# Apply speed reduction to player controller
+		player_controller.set_drag_speed_modifier(speed_reduction_factor)
+		
 	elif interact_state == InteractState.GRAB:
 		interact_state = InteractState.NONE
+		# Reset movement speed when not dragging
+		player_controller.set_drag_speed_modifier(1.0)
+	
+	# Safety check: if grabbed_item becomes invalid, reset drag speed modifier
+	if not is_instance_valid(grabbed_item) and interact_state != InteractState.GRAB:
+		player_controller.set_drag_speed_modifier(1.0)
 
 func pick_item() -> void:
 	if is_instance_valid(pick_target):

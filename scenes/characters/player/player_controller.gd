@@ -9,6 +9,7 @@ const CAMERA_CROUCHING_HEIGHT = 1.1
 @onready var main_camera: Camera3D = $"../ModelRoot/MainCamera"
 
 var camera_pitch : float = 0.0
+var drag_speed_modifier : float = 1.0
 
 var moved_since_sprint : bool = false
 
@@ -26,7 +27,10 @@ func _process(_delta : float) -> void:
 func _physics_process(delta: float) -> void:
 	var input_vector_2d := Input.get_vector(&"movement|move_left", &"movement|move_right", &"movement|move_up", &"movement|move_down")
 	var input_vector = Vector3(input_vector_2d.x, 0.0, input_vector_2d.y)
-	input.movement_vector = state.facing * input_vector
+	
+	# Apply drag speed modifier to movement
+	input.movement_vector = state.facing * input_vector * drag_speed_modifier
+	
 	input.jump = Input.is_action_just_pressed(&"player|jump")
 	input.sprint = Input.is_action_pressed(&"player|sprint")
 	var is_sprinting := input.sprint and not input.movement_vector.is_zero_approx()
@@ -37,6 +41,9 @@ func _physics_process(delta: float) -> void:
 		kick()
 	# moved is true if sprinting and either already moved or is moving, false otherwise
 	moved_since_sprint = input.sprint and (moved_since_sprint or is_sprinting)
+
+func set_drag_speed_modifier(modifier: float) -> void:
+	drag_speed_modifier = max(modifier, 0.1)  # Ensure minimum 10% speed
 	
 func set_ads(value : bool):
 	print("toggling ADS: ", value)

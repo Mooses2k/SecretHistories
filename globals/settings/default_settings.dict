@@ -5,7 +5,7 @@
 "is_ads_hold": "bool(True)",
 "is_crouch_hold": "bool(True)",
 "master_volume": "float(80.216184)",
-"mouse_sensitivity": "float(0.1)",
+"mouse_sensitivity": "float(1.0)",
 "music_volume": "float(49.503455)",
 "voice_volume": "float(100)"
 }

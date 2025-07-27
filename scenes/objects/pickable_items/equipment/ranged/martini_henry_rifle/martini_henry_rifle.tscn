@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=4 uid="uid://d1yjsppxahr0a"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ci40kj1q1kccs" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://b3ag3wvwggi4n" path="res://resources/tiny_items/ammunition/577_martini-henry.tres" id="2"]
 [ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="4"]
 [ext_resource type="AudioStream" uid="uid://biqwhqeb70a3r" path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" id="5"]

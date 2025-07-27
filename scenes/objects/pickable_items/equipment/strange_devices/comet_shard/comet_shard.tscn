@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=4 uid="uid://byrf5ntobt45p"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/strange_devices/_strange_device.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://eku7f0vs0ybw" path="res://scenes/objects/pickable_items/equipment/strange_devices/_strange_device.tscn" id="1"]
 [ext_resource type="Material" path="res://resources/models/items/strange_devices/comet_shard/M_Tetra.material" id="2"]
 [ext_resource type="Script" uid="uid://xp76jlelmmic" path="res://scenes/objects/pickable_items/equipment/strange_devices/comet_shard/comet_shard.gd" id="3"]
 [ext_resource type="AudioStream" uid="uid://mmp1lkcf4ijc" path="res://resources/sounds/music/gregorian_chant_full.mp3" id="4"]

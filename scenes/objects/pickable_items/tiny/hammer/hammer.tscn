@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://3vr6bdauu771"]
 
 [ext_resource type="Script" uid="uid://dgne83hjkscd4" path="res://scenes/objects/pickable_items/tiny/hammer/hammer.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/_pickable_item.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://ddpw8d0f8cgm0" path="res://scenes/objects/pickable_items/_pickable_item.tscn" id="2"]
 [ext_resource type="Texture2D" uid="uid://dtatwerba2gvh" path="res://resources/models/items/tiny_items/hammer_small/BeanHammer_T_BeanHammer_albedo.jpg" id="3_of203"]
 [ext_resource type="Texture2D" uid="uid://tfr3gy0w8872" path="res://resources/models/items/tiny_items/hammer_small/BeanHammer_T_BeanHammer_metallic-T_BeanHammer_roughness.png" id="4_resdm"]
 [ext_resource type="Texture2D" uid="uid://cj55aj2jsrcla" path="res://resources/models/items/tiny_items/hammer_small/BeanHammer_T_BeanHammer_normal.jpg" id="5_utnl4"]

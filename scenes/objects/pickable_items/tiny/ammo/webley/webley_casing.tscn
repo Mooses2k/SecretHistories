@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://b2h18khxx3afw"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cbrcijnftxy68" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
 [ext_resource type="AudioStream" uid="uid://bboj6r0ylwe0b" path="res://resources/sounds/impacts/bullets_and_casings/678882__drinkingwindgames__firearm-casing-bounce-1.wav" id="2"]
 [ext_resource type="Texture2D" uid="uid://b8xhq6i6x0feh" path="res://resources/models/items/tiny_items/ammunition/loose/WebleyAmmo_Ammo_Webley_Base_color.png" id="3_qa8bd"]
 [ext_resource type="Texture2D" uid="uid://cug5kaqqqxdnv" path="res://resources/models/items/tiny_items/ammunition/loose/WebleyAmmo_Ammo_Webley_Metallic-Ammo_Webley_Roughness.png" id="4_ls12q"]

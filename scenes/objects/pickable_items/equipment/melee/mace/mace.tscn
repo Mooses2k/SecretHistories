@@ -7,7 +7,7 @@
 [ext_resource type="ArrayMesh" uid="uid://cucvbr82xw00c" path="res://resources/models/items/melee/mace/source/Bulava.obj" id="5"]
 [ext_resource type="AudioStream" uid="uid://dg7noquhwfeve" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" id="9"]
 [ext_resource type="AudioStream" uid="uid://dfoxypidjr2o" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" id="10"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="17"]
 
 [sub_resource type="BoxShape3D" id="4"]
 size = Vector3(0.108263, 0.0606804, 0.103702)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://bkpnefr83pxry"]
 
 [ext_resource type="Script" uid="uid://bwvarr34nlo8g" path="res://scenes/objects/pickable_items/tiny/key/key_item.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cbrcijnftxy68" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="2"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_pieces/M_Wall_Metal.material" id="4"]
 [ext_resource type="Texture2D" uid="uid://f2yieo10xq7v" path="res://resources/models/items/tiny_items/keys/T_Key_1_albedo.jpg" id="4_rvhjj"]
 [ext_resource type="AudioStream" uid="uid://ibag6hv20ufn" path="res://resources/sounds/impacts/keys_and_coins/667394__mastersuite__key-drop.mp3" id="5"]

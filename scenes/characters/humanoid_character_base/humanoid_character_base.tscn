@@ -1,9 +1,9 @@
 [gd_scene load_steps=88 format=3 uid="uid://daf3jm6dh7y8a"]
 
 [ext_resource type="Script" uid="uid://cqeejcdn3pj2q" path="res://scenes/characters/humanoid_character_base/humanoid_character.gd" id="1_ahvev"]
-[ext_resource type="AnimationLibrary" uid="uid://hs8bbjhps5wl" path="res://resources/animations/libraries/character/movement_and_aiming.glb" id="2_npkk5"]
+[ext_resource type="PackedScene" uid="uid://c10la611hd885" path="res://resources/animations/libraries/character/movement_and_aiming.glb" id="2_npkk5"]
 [ext_resource type="Script" uid="uid://jyb8ugtl647k" path="res://scenes/characters/humanoid_character_base/humanoid_character_parameters.gd" id="2_us58w"]
-[ext_resource type="AnimationLibrary" uid="uid://bq2l1obbg860f" path="res://resources/animations/libraries/character/misc.glb" id="3_j2gfg"]
+[ext_resource type="PackedScene" uid="uid://n8jlf408j8y1" path="res://resources/animations/libraries/character/misc.glb" id="3_j2gfg"]
 [ext_resource type="Script" uid="uid://m1x3k8e3bmqb" path="res://scenes/characters/humanoid_character_base/humanoid_character_state.gd" id="3_k6yoj"]
 [ext_resource type="Script" uid="uid://cev183vqlo2jp" path="res://scenes/characters/humanoid_character_base/humanoid_character_input.gd" id="4_mje00"]
 [ext_resource type="Script" uid="uid://cmlwykunx6tm4" path="res://scenes/characters/humanoid_character_base/character_collision.gd" id="5_k8a6k"]
@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://bnn23oac2ukrf" path="res://scenes/characters/humanoid_character_base/character_animation_tree.gd" id="6_l2ljs"]
 [ext_resource type="Script" uid="uid://lb7unh23nikb" path="res://scenes/characters/skeleton_modifiers/skeleton_look_at.gd" id="7_2g320"]
 [ext_resource type="Script" uid="uid://cn3ypnxrxp063" path="res://scenes/characters/skeleton_modifiers/skeleton_fabrik.gd" id="8_n1rg5"]
-[ext_resource type="AnimationLibrary" uid="uid://nt0oqeqdgtfn" path="res://resources/animations/libraries/character/injured.glb" id="8_p8agw"]
+[ext_resource type="PackedScene" uid="uid://c1dq1m1ispot" path="res://resources/animations/libraries/character/injured.glb" id="8_p8agw"]
 [ext_resource type="Script" uid="uid://bc2pn85yullkj" path="res://scenes/characters/humanoid_character_base/kick_cast.gd" id="11_o2tj8"]
 [ext_resource type="Script" uid="uid://dlgx357ndlfip" path="res://scenes/characters/inventory.gd" id="14_tjgnq"]
 

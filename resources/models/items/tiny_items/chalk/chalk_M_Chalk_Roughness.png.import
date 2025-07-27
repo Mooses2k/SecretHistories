@@ -2,14 +2,13 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7it4mqnoo414"
+uid="uid://cdt37510b432g"
 path.s3tc="res://.godot/imported/chalk_M_Chalk_Roughness.png-ea39b8024904b9c462e8d2e87488dee7.s3tc.ctex"
 path.etc2="res://.godot/imported/chalk_M_Chalk_Roughness.png-ea39b8024904b9c462e8d2e87488dee7.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 

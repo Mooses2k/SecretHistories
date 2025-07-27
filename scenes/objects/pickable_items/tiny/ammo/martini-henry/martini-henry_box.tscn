@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://y2h5g0lw2q2e"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/_pickable_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ddpw8d0f8cgm0" path="res://scenes/objects/pickable_items/_pickable_item.tscn" id="1"]
 [ext_resource type="Script" uid="uid://rmdcy74ldvgk" path="res://scenes/objects/pickable_items/tiny/tiny_item.gd" id="2"]
 [ext_resource type="Resource" uid="uid://b3ag3wvwggi4n" path="res://resources/tiny_items/ammunition/577_martini-henry.tres" id="3"]
 [ext_resource type="AudioStream" uid="uid://ct3crbxdeurn6" path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" id="5"]

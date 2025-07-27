@@ -44,7 +44,7 @@ func set_ads(value : bool):
 
 func throw_object(object : RigidBody3D):
 	print("throwing item")
-	var inv : Inventory = (owner as HumanoidCharacter).inventory
+	var inv : InventoryManager = (owner as HumanoidCharacter).inventory
 	if object == inv.get_mainhand_item():
 		inv.drop_mainhand_item()
 	elif object == inv.get_offhand_item():
@@ -64,7 +64,7 @@ func throw_object(object : RigidBody3D):
 		object.play_throw_sound()
 
 func place_object(object : RigidBody3D, at : Transform3D):
-	var inv : Inventory = (owner as HumanoidCharacter).inventory
+	var inv : InventoryManager = (owner as HumanoidCharacter).inventory
 	if object == inv.get_mainhand_item():
 		inv.drop_mainhand_item()
 	elif object == inv.get_offhand_item():

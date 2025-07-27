@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c2qsxnqekbghw"]
 
-[ext_resource type="Script" path="res://scenes/worlds/fencing_sim/enemy_spawner/enemy_spawner.gd" id="1_4lko7"]
+[ext_resource type="Script" uid="uid://02mtvgwucd4f" path="res://scenes/worlds/fencing_sim/enemy_spawner/enemy_spawner.gd" id="1_4lko7"]
 
 [node name="FencingSimEnemySpawner" type="Node3D"]
 script = ExtResource("1_4lko7")

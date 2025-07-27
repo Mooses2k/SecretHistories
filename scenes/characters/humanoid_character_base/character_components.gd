@@ -2,4 +2,4 @@ extends Node
 
 
 
-@export var inventory : Inventory = null
+@export var inventory : InventoryManager = null

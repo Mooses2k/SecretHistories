@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cchcrldh4ylpp"]
 
 [ext_resource type="Script" uid="uid://byktf6kn1j6we" path="res://scenes/objects/pickable_items/equipment/consumable/medical/medical.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://b8pj06175scgh" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="2"]
 [ext_resource type="AudioStream" uid="uid://dc22jwmsfjssq" path="res://resources/sounds/breathing/sigh/568927__bogenseeberg__sigh_collection-18.ogg" id="3"]
 
 [node name="MedicalItem" instance=ExtResource("2")]

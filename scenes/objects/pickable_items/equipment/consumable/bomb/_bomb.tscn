@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ci565nv4l61di" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://c4cyksqrscr1n" path="res://scenes/effects/explosion/explosions.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b8pj06175scgh" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="3"]
 
 [node name="BombItem" instance=ExtResource("3")]
 mass = 0.5

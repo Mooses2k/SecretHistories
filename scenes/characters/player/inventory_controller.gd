@@ -5,7 +5,7 @@ extends Node
 @onready var player_controller: Node = get_parent()
 @onready var character : HumanoidCharacter = owner as HumanoidCharacter
 
-@export var inventory : Inventory
+@export var inventory : InventoryManager
 
 @export_range(0, 1, 1, "hide_slider","or_greater", "suffix:s")
 var swap_hands_delay : float = 0.5

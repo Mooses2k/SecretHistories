@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=4 uid="uid://bkus8a7dhapa3"]
 
 [ext_resource type="PackedScene" uid="uid://c8b20twjhptbk" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" id="2"]
-[ext_resource type="Texture2D" uid="uid://7uarwwc4q44m" path="res://resources/models/large_objects/lighting/candlesconce_T_CandleSconce_baseColor.jpg" id="2_m2oax"]
+[ext_resource type="Texture2D" uid="uid://bcyfw2mygwpur" path="res://resources/models/large_objects/lighting/candlesconce_T_CandleSconce_baseColor.jpg" id="2_m2oax"]
 [ext_resource type="Script" uid="uid://fwikgmcba62o" path="res://scenes/objects/large_objects/lighting/floor_candelabra.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://b3xj1fskj5fmm" path="res://resources/models/large_objects/lighting/candlesconce_T_CandleSconce_metallicRoughness.png" id="3_faamf"]
 [ext_resource type="Texture2D" uid="uid://dkflaoxqaqeer" path="res://resources/models/large_objects/lighting/candlesconce_T_CandleSconce_normal.png" id="4_l6adh"]

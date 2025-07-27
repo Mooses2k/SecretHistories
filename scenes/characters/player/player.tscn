@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://daf3jm6dh7y8a" path="res://scenes/characters/humanoid_character_base/humanoid_character_base.tscn" id="1_ta1ky"]
 [ext_resource type="Script" uid="uid://yuu65kqurr86" path="res://scenes/characters/player/player.gd" id="2_2y1xt"]
-[ext_resource type="PackedScene" uid="uid://de3r2tkumo27a" path="res://resources/models/characters/player/player_model.glb" id="2_kwwlw"]
+[ext_resource type="PackedScene" uid="uid://dbp3hdkdvdlpu" path="res://resources/models/characters/player/player_model.glb" id="2_kwwlw"]
 [ext_resource type="Script" uid="uid://ctybjomsr6okg" path="res://scenes/characters/player/interact_controller.gd" id="5_kd2t2"]
 [ext_resource type="Script" uid="uid://c1wafx3k555bn" path="res://scenes/characters/player/player_controller.gd" id="6"]
 [ext_resource type="Script" uid="uid://nirassqnoq2w" path="res://scenes/characters/player/inventory_controller.gd" id="6_mk55u"]

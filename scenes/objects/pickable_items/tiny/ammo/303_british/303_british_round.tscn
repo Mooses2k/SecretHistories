@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://difunwipo1dv1"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cbrcijnftxy68" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://c8h0y0qfw4hc5" path="res://resources/tiny_items/ammunition/303_british.tres" id="2"]
 [ext_resource type="AudioStream" uid="uid://clg24or8pyrxe" path="res://resources/sounds/impacts/bullets_and_casings/179005__smartwentcody__bullet-casing-on-concrete-2.wav" id="4"]
 [ext_resource type="Texture2D" uid="uid://b30qb6nl4uvee" path="res://resources/models/items/tiny_items/ammunition/loose/303LooseRound_303loose_Base_Color.png" id="4_3o8g5"]

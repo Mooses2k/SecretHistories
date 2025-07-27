@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://bfw10bkhk8t22"]
 
-[ext_resource type="PackedScene" uid="uid://dh20f4n6k2h0p" path="res://resources/models/fencing_sim/world/floor.glb" id="1_467sw"]
-[ext_resource type="Script" path="res://scenes/worlds/fencing_sim/fencing_sim_world.gd" id="1_ec46l"]
-[ext_resource type="PackedScene" uid="uid://dmuv0ddsypdxr" path="res://resources/models/fencing_sim/world/ceiling.glb" id="2_4kshk"]
-[ext_resource type="Script" path="res://scenes/worlds/fencing_sim/candle_circle.gd" id="4_3451y"]
+[ext_resource type="PackedScene" uid="uid://bgxxf4meb8k1t" path="res://resources/models/fencing_sim/world/floor.glb" id="1_467sw"]
+[ext_resource type="Script" uid="uid://djolo8l0eo8xv" path="res://scenes/worlds/fencing_sim/fencing_sim_world.gd" id="1_ec46l"]
+[ext_resource type="PackedScene" uid="uid://xvqs42u6fauu" path="res://resources/models/fencing_sim/world/ceiling.glb" id="2_4kshk"]
+[ext_resource type="Script" uid="uid://dy0b8foxux2ny" path="res://scenes/worlds/fencing_sim/candle_circle.gd" id="4_3451y"]
 [ext_resource type="PackedScene" uid="uid://c8b20twjhptbk" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" id="5_rvdlx"]
 [ext_resource type="PackedScene" uid="uid://iik6knjj75ux" path="res://scenes/objects/pickable_items/equipment/melee/knife_old/knife_old.tscn" id="6_v13d2"]
-[ext_resource type="PackedScene" uid="uid://b5mk18afmvbxy" path="res://resources/models/fencing_sim/world/scarecrow.glb" id="7_cgqxg"]
+[ext_resource type="PackedScene" uid="uid://iqdgnj30x0d8" path="res://resources/models/fencing_sim/world/scarecrow.glb" id="7_cgqxg"]
 [ext_resource type="PackedScene" uid="uid://c2qsxnqekbghw" path="res://scenes/worlds/fencing_sim/enemy_spawner/enemy_spawner.tscn" id="8_k541a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nt513"]
@@ -71,5 +71,5 @@ candle_manager = NodePath("../CandleCircle")
 spawn_root = NodePath("..")
 
 [connection signal="item_state_changed" from="CandleCircle/Candle" to="CandleCircle/Candle" method="_item_state_changed"]
-[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@34383" to="CandleCircle/@RigidBody3D@34383" method="_item_state_changed"]
-[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@34385" to="CandleCircle/@RigidBody3D@34385" method="_item_state_changed"]
+[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@26162" to="CandleCircle/@RigidBody3D@26162" method="_item_state_changed"]
+[connection signal="item_state_changed" from="CandleCircle/@RigidBody3D@26164" to="CandleCircle/@RigidBody3D@26164" method="_item_state_changed"]

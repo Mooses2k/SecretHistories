@@ -2,7 +2,7 @@ extends Node
 
 @onready var player_controller: Node = get_parent()
 
-@export var inventory : Inventory
+@export var inventory : InventoryManager
 
 @export var use_held_threshold = 0.25
 var use_hold_timer_mainhand = 0

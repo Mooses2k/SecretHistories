@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://dj0xsmvopiqfn"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cbrcijnftxy68" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
 [ext_resource type="AudioStream" uid="uid://bboj6r0ylwe0b" path="res://resources/sounds/impacts/bullets_and_casings/678882__drinkingwindgames__firearm-casing-bounce-1.wav" id="3"]
 [ext_resource type="Texture2D" uid="uid://cdoiwcr4q63cr" path="res://resources/models/items/tiny_items/ammunition/loose/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Base_color.png" id="3_a4oya"]
 [ext_resource type="Texture2D" uid="uid://11eil0kyx1a" path="res://resources/models/items/tiny_items/ammunition/loose/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Metallic-Ammo_MartiniHenry_Bullet_Roughness.png" id="4_6etll"]

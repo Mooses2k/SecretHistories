@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://rnx0eegxmxgg" path="res://resources/models/items/melee/crowbar/Crowbar_T_Crowbar_Normal.png" id="6_7dn8h"]
 [ext_resource type="AudioStream" uid="uid://dg7noquhwfeve" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" id="7"]
 [ext_resource type="AudioStream" uid="uid://dfoxypidjr2o" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" id="8"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="19"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="19"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mhtcc"]
 resource_name = "M_Crowbar"

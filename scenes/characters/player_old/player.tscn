@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://dguet2201nuyd" path="res://scenes/characters/player_old/player_camera.gd" id="15"]
 [ext_resource type="Script" uid="uid://mqjg1h07m4kk" path="res://scenes/characters/player_old/player_death.gd" id="16"]
 [ext_resource type="AudioStream" uid="uid://4trkmwlj2tu0" path="res://resources/sounds/death_sound.wav" id="17"]
-[ext_resource type="PackedScene" path="res://scenes/characters/light_detection.tscn" id="18"]
+[ext_resource type="PackedScene" uid="uid://bwlg8p4lrjie1" path="res://scenes/characters/light_detection.tscn" id="18"]
 [ext_resource type="Texture2D" uid="uid://dm7aoksvuysil" path="res://resources/art/flame-xxl.png" id="19"]
 [ext_resource type="Texture2D" uid="uid://brvu423htk6sc" path="res://resources/art/player ui/normal.png" id="20"]
 [ext_resource type="FontFile" uid="uid://3xm8131455un" path="res://resources/fonts/conjuring.ttf" id="21"]

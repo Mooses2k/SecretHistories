@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://nl62yqbqfkkh" path="res://resources/models/items/melee/shovel/Shovel_T_Shovel_Color.jpg" id="3_kqvcf"]
 [ext_resource type="AudioStream" uid="uid://dg7noquhwfeve" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" id="8"]
 [ext_resource type="AudioStream" uid="uid://dfoxypidjr2o" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" id="9"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="33"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="33"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_atq10"]
 resource_name = "M_Shovel"

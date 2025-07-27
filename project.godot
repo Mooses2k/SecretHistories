@@ -47,6 +47,10 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/size/fullscreen=true
 
+[dotnet]
+
+project/assembly_name="Secret Histories"
+
 [editor]
 
 description="An entirely forgettable game"

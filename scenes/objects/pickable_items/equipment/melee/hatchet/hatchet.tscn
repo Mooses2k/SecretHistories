@@ -5,7 +5,7 @@
 [ext_resource type="Material" path="res://resources/models/items/melee/hatchet/Main.material" id="3"]
 [ext_resource type="AudioStream" uid="uid://bifhmfmybkfly" path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" id="4"]
 [ext_resource type="AudioStream" uid="uid://em0b7as3g50m" path="res://resources/sounds/melee/wider_object/squish_hit/411122__vdovitsky__sword-hits-the-body.wav" id="7"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="17"]
 
 [sub_resource type="ArrayMesh" id="4"]
 resource_name = "Sketchfab_Scene_axe0326_Main_0"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=4 uid="uid://u2yfhymssh82"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ci40kj1q1kccs" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://c8h0y0qfw4hc5" path="res://resources/tiny_items/ammunition/303_british.tres" id="3"]
 [ext_resource type="PackedScene" uid="uid://bdbbilnpajndq" path="res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/_smoke.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://3yt01mio2buf" path="res://scenes/effects/lee-metford_audio.tscn" id="5"]

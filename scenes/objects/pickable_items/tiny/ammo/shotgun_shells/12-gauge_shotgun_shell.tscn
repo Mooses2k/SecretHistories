@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://b6lep0oas7ykd"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cbrcijnftxy68" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://b68g5xgtvxxf3" path="res://resources/tiny_items/ammunition/shotgun_shell.tres" id="2"]
 [ext_resource type="AudioStream" uid="uid://clg24or8pyrxe" path="res://resources/sounds/impacts/bullets_and_casings/179005__smartwentcody__bullet-casing-on-concrete-2.wav" id="4"]
 [ext_resource type="Texture2D" uid="uid://c2gsg6fh1byaq" path="res://resources/models/items/tiny_items/ammunition/loose/12Gauge_Ammo_12Gauge_Shell_Base_color.png" id="4_h86hh"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://bhcucu18w1y03"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cbrcijnftxy68" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://corn303d25lmc" path="res://resources/tiny_items/ammunition/455_webley.tres" id="2"]
 [ext_resource type="AudioStream" uid="uid://clg24or8pyrxe" path="res://resources/sounds/impacts/bullets_and_casings/179005__smartwentcody__bullet-casing-on-concrete-2.wav" id="4"]
 [ext_resource type="Texture2D" uid="uid://b8xhq6i6x0feh" path="res://resources/models/items/tiny_items/ammunition/loose/WebleyAmmo_Ammo_Webley_Base_color.png" id="4_5xsrg"]

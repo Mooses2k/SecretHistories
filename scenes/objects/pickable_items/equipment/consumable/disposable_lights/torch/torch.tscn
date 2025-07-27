@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=4 uid="uid://q85k5qw1o81q"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://beo60ftc42sao" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" id="1"]
 [ext_resource type="Script" uid="uid://bkwxr7hp83du2" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" id="2"]
 [ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://bc06a0vd6itna" path="res://resources/models/items/consumables/light_sources/torch/torch_Image_1.png" id="4_fn08l"]

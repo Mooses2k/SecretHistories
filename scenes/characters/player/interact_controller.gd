@@ -6,7 +6,7 @@ enum InteractState {
 	GRAB,
 	ADS
 }
-@export var inventory : Inventory
+@export var inventory : InventoryManager
 
 @onready var interaction_cast: RayCast3D = $"../../ModelRoot/MainCamera/InteractionCast"
 @onready var grab_cast: RayCast3D = $"../../ModelRoot/MainCamera/GrabCast"

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bu5ii6574aa7n" path="res://resources/models/items/melee/knife_old/OldKnife_T_OldKnife_Metallic-T_OldKnife_Roughness.png" id="4_0s2h6"]
 [ext_resource type="Texture2D" uid="uid://dmm7ldkaqghfi" path="res://resources/models/items/melee/knife_old/OldKnife_T_OldKnife_Normal.png" id="5_rgknk"]
 [ext_resource type="AudioStream" uid="uid://csmnd6mic6rlb" path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" id="8"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="14"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3v0x"]
 resource_name = "M_OldKnife"

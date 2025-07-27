@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://c36koijx6bphv"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cbrcijnftxy68" path="res://scenes/objects/pickable_items/tiny/_tiny_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://b3ag3wvwggi4n" path="res://resources/tiny_items/ammunition/577_martini-henry.tres" id="2"]
 [ext_resource type="AudioStream" uid="uid://clg24or8pyrxe" path="res://resources/sounds/impacts/bullets_and_casings/179005__smartwentcody__bullet-casing-on-concrete-2.wav" id="4"]
 [ext_resource type="Texture2D" uid="uid://cdoiwcr4q63cr" path="res://resources/models/items/tiny_items/ammunition/loose/MartiniHenryAmmo_Ammo_MartiniHenry_Bullet_Base_color.png" id="4_2kjsk"]

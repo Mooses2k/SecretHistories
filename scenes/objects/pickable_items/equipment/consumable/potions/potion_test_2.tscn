@@ -3,7 +3,7 @@
 [ext_resource type="Resource" uid="uid://blos2kpm34jw2" path="res://resources/inventory/stackables/potions_stack.tres" id="2_6ukwr"]
 [ext_resource type="Script" uid="uid://bdnux4wj2a6f1" path="res://scenes/objects/pickable_items/equipment/consumable/potions/potion.gd" id="2_bskuj"]
 [ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="3_hi0f8"]
-[ext_resource type="Texture2D" uid="uid://c6quljt043wpr" path="res://resources/models/items/consumables/potions/exported_gltf/propki.png" id="4_j4bvs"]
+[ext_resource type="Texture2D" uid="uid://bquh6qd4jrdee" path="res://resources/models/items/consumables/potions/exported_gltf/propki.png" id="4_j4bvs"]
 [ext_resource type="AudioStream" uid="uid://dc22jwmsfjssq" path="res://resources/sounds/breathing/sigh/568927__bogenseeberg__sigh_collection-18.ogg" id="5_dvdky"]
 [ext_resource type="AudioStream" uid="uid://dv0bd0pmmgo8f" path="res://resources/sounds/bottles_and_drinking/256568__sjnewton__cork.mp3" id="5_qsdln"]
 [ext_resource type="Script" uid="uid://bw5hualha4tj4" path="res://scenes/objects/large_objects/placement_anchor.gd" id="6_5ko86"]

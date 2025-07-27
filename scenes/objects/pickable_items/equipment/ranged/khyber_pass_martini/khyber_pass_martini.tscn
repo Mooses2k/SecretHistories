@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=4 uid="uid://db0my1h4js12r"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ci40kj1q1kccs" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://b3ag3wvwggi4n" path="res://resources/tiny_items/ammunition/577_martini-henry.tres" id="2"]
 [ext_resource type="Script" uid="uid://dwpb8q387gmjm" path="res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/kyber_pass_martini_shells.gd" id="3"]
 [ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="4"]

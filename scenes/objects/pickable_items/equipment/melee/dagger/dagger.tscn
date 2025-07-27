@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cgiiydynahkw" path="res://resources/models/items/melee/dagger/Dagger_T_Dagger_Metallic-T_Dagger_Roughness.png" id="4_0c714"]
 [ext_resource type="Texture2D" uid="uid://u3oh0vne8wxu" path="res://resources/models/items/melee/dagger/Dagger_T_Dagger_Normal.png" id="5_lw12x"]
 [ext_resource type="AudioStream" uid="uid://csmnd6mic6rlb" path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" id="8"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="14"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fsxq7"]
 resource_name = "M_Dagger"

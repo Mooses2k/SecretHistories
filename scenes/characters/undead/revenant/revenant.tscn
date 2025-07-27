@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bv6eg3xuikdc1"]
+[gd_scene load_steps=14 format=3 uid="uid://bv6eg3xuikdc1"]
 
 [ext_resource type="PackedScene" uid="uid://id4ldu0s15ut" path="res://scenes/characters/character.tscn" id="1"]
 [ext_resource type="Script" uid="uid://cfboonqa1jv3t" path="res://scenes/characters/body.gd" id="4"]
@@ -21,9 +21,6 @@ metadata/__load_path__ = "res://core/ai/weapon_nodes/check_nodes/bt_gun_cooldown
 
 [sub_resource type="Resource" id="Resource_r7du3"]
 metadata/__load_path__ = "res://core/ai/weapon_nodes/action_nodes/bt_gun_shoot.gd"
-
-[sub_resource type="Resource" id="Resource_jvovj"]
-metadata/__load_path__ = "res://scenes/sensors/direct_player_sight/direct_player_sight.tscn"
 
 [node name="Renevant" instance=ExtResource("1")]
 max_health = 50

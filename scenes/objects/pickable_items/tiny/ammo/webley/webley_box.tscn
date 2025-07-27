@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=4 uid="uid://f6pr06mhemcq"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/_pickable_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ddpw8d0f8cgm0" path="res://scenes/objects/pickable_items/_pickable_item.tscn" id="1"]
 [ext_resource type="Script" uid="uid://rmdcy74ldvgk" path="res://scenes/objects/pickable_items/tiny/tiny_item.gd" id="2"]
 [ext_resource type="Resource" uid="uid://corn303d25lmc" path="res://resources/tiny_items/ammunition/455_webley.tres" id="4"]
 [ext_resource type="AudioStream" uid="uid://ct3crbxdeurn6" path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" id="5"]

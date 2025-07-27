@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://s34o67j8i8sw" path="res://scenes/game.gd" id="1"]
 [ext_resource type="Script" uid="uid://ds1nbpmgimfml" path="res://globals/settings.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://6msa32pxnbrk" path="res://scenes/characters/player/player.tscn" id="3_dyxy8"]
+[ext_resource type="PackedScene" uid="uid://bfw10bkhk8t22" path="res://scenes/worlds/fencing_sim_world.tscn" id="3_gee14"]
 [ext_resource type="PackedScene" uid="uid://d1lbexonric4u" path="res://scenes/worlds/procedural_world/procedural_world.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://q7wrpjiye0bb" path="res://scenes/ui/game_ui.tscn" id="5"]
 [ext_resource type="Environment" uid="uid://bxgnfe0qgcrm" path="res://scenes/worlds/game_environment.tres" id="6"]
@@ -12,7 +13,7 @@
 process_mode = 1
 script = ExtResource("1")
 start_level_scn = ExtResource("4")
-fencing_sim_world = ExtResource("3_4d288")
+fencing_sim_world = ExtResource("3_gee14")
 player_scn = ExtResource("3_dyxy8")
 
 [node name="World" type="Node3D" parent="."]

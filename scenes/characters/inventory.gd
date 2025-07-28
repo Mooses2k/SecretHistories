@@ -269,10 +269,16 @@ func add_item(item : PickableItem) -> bool:
 						print ("...slot isn't empty and it's not the mainhand one")
 						slot = current_offhand_slot
 					if hotbar[slot] != null:
-						slot = hotbar.find(null)
+						# Find the lowest numbered empty slot (excluding slot 10 which is empty hands)
+						slot = -1
+						for i in range(10):  # Slots 0-9 only
+							if hotbar[i] == null:
+								slot = i
+								break
 					if slot == current_mainhand_slot:
 						slot += 1
-					if slot != 10:
+					# Safety check: if no empty slots found, don't place the light
+					if slot != 10 and slot != -1:
 						hotbar[slot] = item
 						print("Light3D-source going to slot ", slot + 1)
 						# If the item is stackable, add it to its own stack
@@ -588,6 +594,9 @@ func drop_hotbar_slot(slot : int) -> Node:
 			if next_item != null and is_instance_valid(next_item):
 				next_item.stackable_resource = item.stackable_resource
 				hotbar[slot] = next_item
+				
+				# BUGFIX: Emit hotbar_changed signal to update UI when stackable item is replaced
+				emit_signal("hotbar_changed", slot)
 
 				# Prepare for the droping
 				if current_mainhand_equipment == item_node:

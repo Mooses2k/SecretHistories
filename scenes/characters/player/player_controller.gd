@@ -125,10 +125,23 @@ func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is
 	# Search through hotbar from lowest to highest (0 to size-1)
 	# This ensures we follow the "lowest to highest" requirement
 	
+	# Safety check: Ensure hotbar is valid
+	if inv.hotbar == null:
+		print("[ERROR] _auto_switch_weapon: hotbar is null!")
+		return
+	if inv.hotbar.size() == 0:
+		print("[ERROR] _auto_switch_weapon: hotbar is empty!")
+		return
+	
 	# First priority: Check for same type items across all slots
 	for i in range(inv.hotbar.size()):
 		# Skip the slot that just had an item thrown
 		if i == thrown_slot:
+			continue
+		
+		# Safety check: Ensure index is valid
+		if i < 0 or i >= inv.hotbar.size():
+			print("[ERROR] _auto_switch_weapon: Invalid index ", i, " for hotbar size ", inv.hotbar.size())
 			continue
 			
 		var item = inv.hotbar[i]
@@ -159,6 +172,11 @@ func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is
 			# Skip the slot that just had an item thrown
 			if i == thrown_slot:
 				continue
+			
+			# Safety check: Ensure index is valid
+			if i < 0 or i >= inv.hotbar.size():
+				print("[ERROR] _auto_switch_weapon: SIZE_SMALL search - Invalid index ", i, " for hotbar size ", inv.hotbar.size())
+				continue
 				
 			var item = inv.hotbar[i]
 			if item == null:
@@ -175,6 +193,11 @@ func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is
 		for i in range(inv.hotbar.size()):
 			# Skip the slot that just had an item thrown
 			if i == thrown_slot:
+				continue
+			
+			# Safety check: Ensure index is valid
+			if i < 0 or i >= inv.hotbar.size():
+				print("[ERROR] _auto_switch_weapon: SIZE_MEDIUM search - Invalid index ", i, " for hotbar size ", inv.hotbar.size())
 				continue
 				
 			var item = inv.hotbar[i]

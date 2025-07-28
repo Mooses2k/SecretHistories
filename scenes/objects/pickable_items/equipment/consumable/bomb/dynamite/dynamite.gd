@@ -1,4 +1,4 @@
-class_name Dynamite
+wclass_name Dynamite
 extends BombItem
 
 

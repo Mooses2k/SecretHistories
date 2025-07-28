@@ -5,5 +5,5 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_aqfou")
-stack_name = "Bones"
+stack_name = "Daggers"
 max_stack = 2

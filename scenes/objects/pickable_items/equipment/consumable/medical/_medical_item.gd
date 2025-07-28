@@ -42,72 +42,102 @@ func _use_primary():
 
 # Reload functionality for medical containers
 func _use_reload():
+	print("[DEBUG] _use_reload called on: ", item_name, " (max_charges: ", max_charges_held, ", current_charges: ", charges_held, ")")
+	
 	# Only works for medical containers (max_charges_held > 1)
 	if max_charges_held <= 1:
+		print("[DEBUG] Not a container (max_charges_held <= 1), returning")
 		return
 	
 	# Silently fail if already full
 	if charges_held >= max_charges_held:
+		print("[DEBUG] Container already full, returning")
 		return
 	
 	# Get the owner's inventory
 	var inventory = owner_character.inventory
 	if inventory == null:
+		print("[DEBUG] No inventory found, returning")
 		return
 	
-	# Go through hotbar slots from lowest to highest
-	for i in range(inventory.hotbar.size()):
-		var item = inventory.hotbar[i]
-		if item == null:
-			continue
-			
-		# Check if it's a single-use medical item
-		if item is MedicalItem and item.max_charges_held == 1:
-			# Calculate how much space we have left
-			var space_left = max_charges_held - charges_held
-			if space_left <= 0:
-				break  # Container is full
-			
-			# Add heal_amount to charges_held (up to max_charges_held)
-			var amount_to_add = min(space_left, item.heal_amount)
-			charges_held += amount_to_add
-			
-			# Remove the item from inventory
-			if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
-				# Remove one from stack
-				item.stackable_resource.items_stacked.remove_at(0)
-				# Update the hotbar slot to point to the next item in stack
-				var next_item = item.stackable_resource.items_stacked[0]
-				next_item.stackable_resource = item.stackable_resource
-				inventory.hotbar[i] = next_item
-				# Adjust encumbrance when removing from stack
-				if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-					inventory.encumbrance -= 1
-				if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-					inventory.encumbrance -= 2
-			else:
-				# Remove single item
-				inventory.hotbar[i] = null
-				# If this was equipped, unequip it
-				if inventory.current_mainhand_slot == i:
-					inventory.unequip_mainhand_item()
-				elif inventory.current_offhand_slot == i:
-					inventory.unequip_offhand_item()
-				# Adjust encumbrance when removing single item
-				if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-					inventory.encumbrance -= 1
-				if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-					inventory.encumbrance -= 2
-			
-			# Queue the consumed item for removal
-			item.queue_free()
-			
-			# If we're full now, stop processing
-			if charges_held >= max_charges_held:
-				break
+	print("[DEBUG] Looking for single-use medical items with name: ", item_name)
+	
+	# Define filter function to find single-use medical items
+	var filter_func = func(item):
+		var is_medical = item is MedicalItem
+		var is_single_use = item.max_charges_held == 1 if is_medical else false
+		var has_charges = item.charges_held > 0 if is_medical else false
+		print("[DEBUG] Checking item: ", item.name if item != null else "null",
+			  " - is_medical: ", is_medical, ", is_single_use: ", is_single_use,
+			  ", has_charges: ", has_charges)
+		return is_medical and is_single_use and has_charges
+	
+	# Define action function to consume charges from matching items
+	var action_func = func(item, slot_index):
+		print("[DEBUG] Found matching item to consume: ", item.name, " at slot: ", slot_index)
+		# Calculate how much space we have left
+		var space_left = max_charges_held - charges_held
+		if space_left <= 0:
+			print("[DEBUG] Container became full, stopping")
+			return  # Container is full
+		
+		# Add heal_amount to charges_held (up to max_charges_held)
+		var amount_to_add = min(space_left, item.heal_amount)
+		charges_held += amount_to_add
+		print("[DEBUG] Added ", amount_to_add, " charges, new total: ", charges_held)
+		
+		# Remove the item from inventory
+		if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
+			print("[DEBUG] Removing from stack (size: ", item.stackable_resource.items_stacked.size(), ")")
+			# Remove one from stack
+			item.stackable_resource.items_stacked.remove_at(0)
+			# Update the hotbar slot to point to the next item in stack
+			var next_item = item.stackable_resource.items_stacked[0]
+			next_item.stackable_resource = item.stackable_resource
+			inventory.hotbar[slot_index] = next_item
+			# Adjust encumbrance when removing from stack
+			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+				inventory.encumbrance -= 1
+			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+				inventory.encumbrance -= 2
+			# Emit hotbar changed signal
+			inventory.emit_signal("hotbar_changed", slot_index)
+		else:
+			print("[DEBUG] Removing single item from slot: ", slot_index)
+			# Remove single item
+			inventory.hotbar[slot_index] = null
+			# If this was equipped, unequip it
+			if inventory.current_mainhand_slot == slot_index:
+				inventory.unequip_mainhand_item()
+			elif inventory.current_offhand_slot == slot_index:
+				inventory.unequip_offhand_item()
+			# Adjust encumbrance when removing single item
+			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+				inventory.encumbrance -= 1
+			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+				inventory.encumbrance -= 2
+			# Emit hotbar changed signal
+			inventory.emit_signal("hotbar_changed", slot_index)
+		
+		# Queue the consumed item for removal
+		item.queue_free()
+		# Emit inventory changed signal
+		inventory.emit_signal("inventory_changed")
+	
+	# Define early termination function to stop when container is full
+	var early_termination_func = func(item):
+		var is_full = self.charges_held >= self.max_charges_held
+		if is_full:
+			print("[DEBUG] Container is now full, terminating search")
+		return is_full
+	
+	# Use the search_hotbar utility function
+	print("[DEBUG] Starting hotbar search for consumable medical items")
+	inventory.search_hotbar(filter_func, action_func, early_termination_func)
 	
 	# Update UI if needed
 	emit_signal("item_data_changed")
+	print("[DEBUG] _use_reload completed, final charges: ", charges_held)
 
 
 

@@ -291,16 +291,23 @@ func add_item(item : PickableItem) -> bool:
 							equip_offhand_item()
 							return true   # Thus not processing the further autoequip logic below
 
-			### Part 2 - Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
+			### Part 2 - Otherwise, normal rules: Select the lowest numbered available slot
 			slot = current_mainhand_slot
-			# Then the offhand, preferring this slot for lights
+			
+			# If current mainhand slot is occupied, find the lowest numbered empty slot
 			if hotbar[slot] != null:
-				print("Current mainhand slot ", slot + 1, " is occupied. Trying offhand slot")
-				slot = current_offhand_slot
-			# Then the first empty slot
-			if hotbar[slot] != null:
-				slot = hotbar.find(null)
-				print("Found empty slot: ", slot)
+				print("Current mainhand slot ", slot + 1, " is occupied. Looking for lowest numbered empty slot")
+				# Find the lowest numbered empty slot (excluding slot 10 which is empty hands)
+				slot = -1
+				for i in range(10):  # Slots 0-9 only
+					if hotbar[i] == null:
+						slot = i
+						print("Found lowest numbered empty slot: ", slot + 1)
+						break
+				
+				# If no empty slots found, this will be handled below
+				if slot == -1:
+					print("No empty slots found, pickup will fail")
 			# This checks if the slot to add the item isn't the hands-free slot and is valid, then adds the item to the slot
 			if slot != 10 and slot != -1:
 				hotbar[slot] = item

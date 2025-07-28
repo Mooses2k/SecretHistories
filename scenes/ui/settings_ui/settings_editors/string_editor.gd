@@ -112,28 +112,12 @@ func _on_Clear_pressed():
 
 
 func _find_change_key_panel():
-	# Try to find the ChangeKeyPanel by traversing up the node tree safely
-	var current_node = self
-	var max_depth = 10  # Prevent infinite loops
-	var depth = 0
+	# Direct reference to the ChangeKeyPanel in the parent settings UI
+	var parent_ui = get_parent().get_parent().get_parent().get_parent()
+	if parent_ui and parent_ui.has_node("ChangeKeyPanel"):
+		return parent_ui.get_node("ChangeKeyPanel")
 	
-	while current_node and depth < max_depth:
-		# Check if current node has ChangeKeyPanel as a child
-		var change_key_panel = current_node.get_node_or_null("ChangeKeyPanel")
-		if change_key_panel:
-			return change_key_panel
-		
-		# Check if current node has an owner with ChangeKeyPanel
-		if current_node.owner:
-			change_key_panel = current_node.owner.get_node_or_null("ChangeKeyPanel")
-			if change_key_panel:
-				return change_key_panel
-		
-		# Move up to parent
-		current_node = current_node.get_parent()
-		depth += 1
-	
-	# If not found, try to find it in the scene tree
+	# Fallback to finding in the scene tree
 	var scene_root = get_tree().current_scene
 	if scene_root:
 		return scene_root.find_child("ChangeKeyPanel", true, false)

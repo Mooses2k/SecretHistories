@@ -86,11 +86,13 @@ pillar_tile = 16
 
 [node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="7"]
 script = ExtResource("21")
+alternative_double_floor_tile_chance = 0.1
 floor_tile = 6
 wall_tile = 5
 double_wall_tile = 4
 door_tile = 19
 double_door_tile = 14
+double_floor_tile = 7
 ceiling_tile = 10
 double_ceiling_tile = 8
 pillar_room_double_wall_tile = 3

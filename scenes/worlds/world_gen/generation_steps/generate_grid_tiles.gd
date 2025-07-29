@@ -11,7 +11,7 @@ var alternative_double_wall_tiles : Array[int] = []
 @export var alternative_double_wall_tile_chance : float = 0.1
 var double_floor_tile : int = -1
 var alternative_double_floor_tiles : Array[int] = []
-@export var alternative_double_floor_tile_chance : float = 0.1
+@export var alternative_double_floor_tile_chance : float = 0.2
 var door_tile : int = -1
 @export var door_width : float = 1.5
 var double_door_tile : int = -1
@@ -74,6 +74,13 @@ func _get_property_list() -> Array[Dictionary]:
 	})
 	result.append({
 		"name" : "double_door_tile",
+		"usage" : PROPERTY_USAGE_DEFAULT,
+		"type" : TYPE_INT,
+		"hint" : PROPERTY_HINT_ENUM,
+		"hint_string" : enum_hint,
+	})
+	result.append({
+		"name" : "double_floor_tile",
 		"usage" : PROPERTY_USAGE_DEFAULT,
 		"type" : TYPE_INT,
 		"hint" : PROPERTY_HINT_ENUM,
@@ -181,7 +188,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	print(pillar_rooms)
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = generation_seed
-	select_floor_tiles(data, pillar_rooms)
+	select_floor_tiles(data, pillar_rooms, rng)
 	select_ceiling_tiles(data, pillar_rooms, rng)
 	select_wall_tiles(data, rng)
 	select_pillar_room_walls(data, pillar_rooms)
@@ -189,9 +196,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	place_pillar_room_pillars(data, pillar_rooms)
 
 
-func select_floor_tiles(data : WorldData, pillar_rooms : Array):
-	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.seed = GameManager.world_gen_rng.seed
+func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumberGenerator):
 	
 	# Get all rooms to check for even dimensions
 	var all_rooms : Array = data.get_all_rooms()
@@ -224,7 +229,7 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 		for i in room_rect.size.x / 2:
 			for j in room_rect.size.y / 2:
 				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
-				var rnd = fposmod(rng.randf(), 1.0)
+				var rnd = rng.randf()
 				var selected_floor_tile : int = double_floor_tile
 				if rnd < alternative_double_floor_tile_chance and alternative_double_floor_tiles.size() > 0:
 					var index : int = rng.randi() % alternative_double_floor_tiles.size()
@@ -259,7 +264,7 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNu
 		if data.get_cell_type(i) != data.CellType.EMPTY:
 			var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
 			if not is_pillar_room:
-				var rnd = fposmod(rng.randf(), 1.0)
+				var rnd = rng.randf()
 				var selected_ceiling_tile : int = ceiling_tile
 				if rnd < alternative_ceiling_tile_chance and alternative_ceiling_tiles.size() > 0:
 					var index : int = rng.randi() % alternative_ceiling_tiles.size()
@@ -275,7 +280,7 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNu
 		for i in room_rect.size.x / 2:
 			for j in room_rect.size.y / 2:
 				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
-				var rnd = fposmod(rng.randf(), 1.0)
+				var rnd = rng.randf()
 				var selected_ceiling_tile : int = double_ceiling_tile
 				if rnd < alternative_double_ceiling_tile_chance and alternative_double_ceiling_tiles.size() > 0:
 					var index : int = rng.randi() % alternative_double_ceiling_tiles.size()
@@ -339,7 +344,7 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 							for _index in wall_extension.size() / 2:
 								var cell_left = wall_extension[2 * _index]
 								var cell_right = wall_extension[2 * _index + 1]
-								var rnd = fposmod(rng.randf(), 1.0)
+								var rnd = rng.randf()
 								var selected_wall_tile : int = double_wall_tile
 								if rnd < alternative_double_wall_tile_chance and alternative_double_wall_tiles.size() > 0:
 									var index : int = rng.randi() % alternative_double_wall_tiles.size()
@@ -353,7 +358,7 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 										done_edges[_cell] = done_edges_for_extension
 								
 						else:
-							var rnd = fposmod(rng.randf(), 1.0)
+							var rnd = rng.randf()
 							var selected_wall_tile : int = wall_tile
 							if rnd < alternative_wall_tile_chance and alternative_wall_tiles.size() > 0:
 								var index : int = rng.randi() % alternative_wall_tiles.size()

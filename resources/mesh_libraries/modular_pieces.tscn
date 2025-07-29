@@ -1,17 +1,14 @@
-[gd_scene load_steps=101 format=4 uid="uid://di4rfd6bfy35p"]
+[gd_scene load_steps=97 format=4 uid="uid://di4rfd6bfy35p"]
 
 [ext_resource type="Material" uid="uid://b5wuajoxkrdvo" path="res://resources/models/gridmap/modular_pieces/M_Wall.material" id="1_ppegc"]
 [ext_resource type="Material" uid="uid://dcvanp8mapqxn" path="res://resources/models/gridmap/modular_pieces/M_Floor.material" id="3"]
 [ext_resource type="Texture2D" uid="uid://bvqpddodh0qix" path="res://resources/models/gridmap/modular_pieces/T_Wall_Metal_Color.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://bmvojd2fyno4i" path="res://resources/models/gridmap/modular_pieces/T_Wall_PillaShort_BaseColor.png" id="7_knec3"]
-[ext_resource type="Texture2D" uid="uid://v4uvdyke6mt" path="res://resources/models/gridmap/modular_pieces/T_Floor_RoughAO.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://jpnyi2qwb5nn" path="res://resources/models/gridmap/modular_pieces/T_Wall_PillaShort_RoughAO.png" id="8_omsak"]
-[ext_resource type="Texture2D" uid="uid://cqcimtiotdmgq" path="res://resources/models/gridmap/modular_pieces/T_Floor_Normal.png" id="9"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_pieces/M_Wall-Metal.material" id="9_1vfti"]
 [ext_resource type="Texture2D" uid="uid://c8hl8w6nbjl24" path="res://resources/models/gridmap/modular_pieces/T_Wall_PillaShort_Normal.png" id="9_r1yiu"]
 [ext_resource type="Texture2D" uid="uid://bpr2xvbv046ud" path="res://resources/models/gridmap/modular_pieces/T_Cobwebs_baseColor.png" id="10_3axw4"]
 [ext_resource type="Texture2D" uid="uid://b3idcipbxp1dv" path="res://resources/models/gridmap/modular_pieces/T_Cobwebs_Normal.png" id="11_6cbux"]
-[ext_resource type="Texture2D" uid="uid://bptvd5ptibrc1" path="res://resources/models/gridmap/modular_pieces/T_Floor_DiffuseLine.png" id="15_3gddk"]
 [ext_resource type="Texture2D" uid="uid://7ykbd488v4ul" path="res://resources/models/gridmap/modular_pieces/T_Wall_Metal_RoughMetallicAO.png" id="16_04gdg"]
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_pieces/M_DirtPiles.material" id="16_ksk4s"]
 [ext_resource type="Texture2D" uid="uid://t33tgday4c5u" path="res://resources/models/gridmap/modular_pieces/T_Wall_Metal_Normal.png" id="17_f6f4a"]
@@ -361,20 +358,6 @@ shadow_mesh = SubResource("ArrayMesh_rey45")
 [sub_resource type="BoxShape3D" id="59"]
 size = Vector3(3, 1.5, 3)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_burgr"]
-resource_name = "M_Floor"
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("15_3gddk")
-metallic = 1.0
-metallic_texture = ExtResource("8")
-metallic_texture_channel = 2
-roughness_texture = ExtResource("8")
-roughness_texture_channel = 1
-normal_enabled = true
-normal_texture = ExtResource("9")
-ao_enabled = true
-ao_texture = ExtResource("8")
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_x3i1u"]
 _surfaces = [{
 "aabb": AABB(-1.5, 2.75, -1.5, 3, 0.25, 3.00001),
@@ -419,7 +402,7 @@ _surfaces = [{
 "format": 34896613407,
 "index_count": 6,
 "index_data": PackedByteArray("AQADAAAAAQACAAMA"),
-"material": SubResource("StandardMaterial3D_burgr"),
+"material": ExtResource("1_ppegc"),
 "name": "M_Floor",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -1470,7 +1453,6 @@ shape = SubResource("58")
 
 [node name="Floor-3x3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
-visible = false
 mesh = SubResource("ArrayMesh_1ub1y")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Floor-3x3"]
@@ -1482,7 +1464,6 @@ shape = SubResource("59")
 
 [node name="Ceiling_Steps_Open" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
-visible = false
 mesh = SubResource("ArrayMesh_3xwbt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ceiling_Steps_Open"]
@@ -1495,7 +1476,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, 0)
 shape = SubResource("59")
 
 [node name="Ceiling_Steps_Grated" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.865, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 2.865, 0.75)
+visible = false
 mesh = SubResource("ArrayMesh_0j6hl")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Ceiling_Steps_Grated"]
@@ -1699,6 +1681,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 1.51, -1.49)
 shape = SubResource("51")
 
 [node name="Floor_3x3_Irregular" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
 visible = false
 mesh = SubResource("ArrayMesh_6cbux")
 skeleton = NodePath("")
@@ -1711,24 +1694,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.75, 1.5)
 shape = SubResource("59")
 
 [node name="Floor_3x3m_broken1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
 visible = false
 mesh = SubResource("ArrayMesh_rsavs")
 skeleton = NodePath("")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Floor_3x3m_broken1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -2.99912)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_3x3m_broken1/StaticBody3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.75, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
 shape = SubResource("59")
 
 [node name="Floor_3x3m_broken_2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
+visible = false
 mesh = SubResource("ArrayMesh_muhy1")
 skeleton = NodePath("")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Floor_3x3m_broken_2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, -2.99912)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_3x3m_broken_2/StaticBody3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.75, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
 shape = SubResource("59")

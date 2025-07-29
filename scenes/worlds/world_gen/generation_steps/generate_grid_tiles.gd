@@ -9,6 +9,9 @@ var alternative_wall_tiles : Array[int] = []
 var double_wall_tile : int = -1
 var alternative_double_wall_tiles : Array[int] = []
 @export var alternative_double_wall_tile_chance : float = 0.1
+var double_floor_tile : int = -1
+var alternative_double_floor_tiles : Array[int] = []
+@export var alternative_double_floor_tile_chance : float = 0.1
 var door_tile : int = -1
 @export var door_width : float = 1.5
 var double_door_tile : int = -1
@@ -16,6 +19,9 @@ var double_door_tile : int = -1
 var ceiling_tile : int = -1
 var alternative_ceiling_tiles : Array[int] = []
 @export var alternative_ceiling_tile_chance : float = 0.05
+var double_ceiling_tile : int = -1
+var alternative_double_ceiling_tiles : Array[int] = []
+@export var alternative_double_ceiling_tile_chance : float = 0.1
 
 var pillar_room_double_wall_tile : int = -1
 var pillar_room_double_door_tile : int = -1
@@ -75,6 +81,13 @@ func _get_property_list() -> Array[Dictionary]:
 	})
 	result.append({
 		"name" : "ceiling_tile",
+		"usage" : PROPERTY_USAGE_DEFAULT,
+		"type" : TYPE_INT,
+		"hint" : PROPERTY_HINT_ENUM,
+		"hint_string" : enum_hint,
+	})
+	result.append({
+		"name" : "double_ceiling_tile",
 		"usage" : PROPERTY_USAGE_DEFAULT,
 		"type" : TYPE_INT,
 		"hint" : PROPERTY_HINT_ENUM,
@@ -144,6 +157,20 @@ func _get_property_list() -> Array[Dictionary]:
 		"hint" : PROPERTY_HINT_TYPE_STRING,
 		"hint_string" : "%d/%d:%s" % [TYPE_INT, PROPERTY_HINT_ENUM, enum_hint],
 	})
+	result.append({
+		"name" : "alternative_double_ceiling_tiles",
+		"type" : TYPE_ARRAY,
+		"usage" : PROPERTY_USAGE_DEFAULT,
+		"hint" : PROPERTY_HINT_TYPE_STRING,
+		"hint_string" : "%d/%d:%s" % [TYPE_INT, PROPERTY_HINT_ENUM, enum_hint],
+	})
+	result.append({
+		"name" : "alternative_double_floor_tiles",
+		"type" : TYPE_ARRAY,
+		"usage" : PROPERTY_USAGE_DEFAULT,
+		"hint" : PROPERTY_HINT_TYPE_STRING,
+		"hint_string" : "%d/%d:%s" % [TYPE_INT, PROPERTY_HINT_ENUM, enum_hint],
+	})
 	
 	return result
 
@@ -163,6 +190,21 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 
 
 func select_floor_tiles(data : WorldData, pillar_rooms : Array):
+	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = GameManager.world_gen_rng.seed
+	
+	# Get all rooms to check for even dimensions
+	var all_rooms : Array = data.get_all_rooms()
+	var even_dimension_rooms : Array = []
+	
+	# Find rooms with even dimensions (both width and height divisible by 2)
+	for room_data in all_rooms:
+		var room : RoomData = room_data as RoomData
+		if room and room.rect2.size.x % 2 == 0 and room.rect2.size.y % 2 == 0:
+			# Skip pillar rooms as they have their own handling
+			if not room.has_pillars:
+				even_dimension_rooms.append(room)
+	
 	for i in data.cell_count:
 		var cell_type = data.get_cell_type(i)
 		var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
@@ -173,7 +215,24 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 			elif cell_type == data.CellType.CORRIDOR:
 				data.set_cell_surfacetype(i, data.SurfaceType.CARPET) # TODO: actually have carpeted corridors rarely, usually stone
 			data.set_ground_tile_index(i, floor_tile)
+	
+	# Handle even-dimensioned rooms with double floor tiles
+	for room_data in even_dimension_rooms:
+		var room : RoomData = room_data as RoomData
+		var room_rect : Rect2 = room.rect2
+		print("even_dimension_room: %s" % [room_rect])
+		for i in room_rect.size.x / 2:
+			for j in room_rect.size.y / 2:
+				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
+				var rnd = fposmod(rng.randf(), 1.0)
+				var selected_floor_tile : int = double_floor_tile
+				if rnd < alternative_double_floor_tile_chance and alternative_double_floor_tiles.size() > 0:
+					var index : int = rng.randi() % alternative_double_floor_tiles.size()
+					selected_floor_tile = alternative_double_floor_tiles[index]
+					print("Selected double floor ", index)
+				data.set_ground_tile_index(cell, selected_floor_tile)
 			
+	# Handle pillar rooms (maintain existing behavior)
 	for _room in pillar_rooms:
 		var room : Rect2 = _room as Rect2
 		print("pillar_room: %s" % [room])
@@ -184,6 +243,18 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array):
 
 
 func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumberGenerator):
+	# Get all rooms to check for even dimensions
+	var all_rooms : Array = data.get_all_rooms()
+	var even_dimension_rooms : Array = []
+	
+	# Find rooms with even dimensions (both width and height divisible by 2)
+	for room_data in all_rooms:
+		var room : RoomData = room_data as RoomData
+		if room and room.rect2.size.x % 2 == 0 and room.rect2.size.y % 2 == 0:
+			# Skip pillar rooms as they have their own handling
+			if not room.has_pillars:
+				even_dimension_rooms.append(room)
+	
 	for i in data.cell_count:
 		if data.get_cell_type(i) != data.CellType.EMPTY:
 			var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
@@ -195,7 +266,24 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNu
 					selected_ceiling_tile = alternative_ceiling_tiles[index]
 					print("Selected ceiling ", index)
 				data.set_ceiling_tile_index(i, selected_ceiling_tile)
+	
+	# Handle even-dimensioned rooms with double ceiling tiles
+	for room_data in even_dimension_rooms:
+		var room : RoomData = room_data as RoomData
+		var room_rect : Rect2 = room.rect2
+		print("even_dimension_room ceiling: %s" % [room_rect])
+		for i in room_rect.size.x / 2:
+			for j in room_rect.size.y / 2:
+				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
+				var rnd = fposmod(rng.randf(), 1.0)
+				var selected_ceiling_tile : int = double_ceiling_tile
+				if rnd < alternative_double_ceiling_tile_chance and alternative_double_ceiling_tiles.size() > 0:
+					var index : int = rng.randi() % alternative_double_ceiling_tiles.size()
+					selected_ceiling_tile = alternative_double_ceiling_tiles[index]
+					print("Selected double ceiling ", index)
+				data.set_ceiling_tile_index(cell, selected_ceiling_tile)
 				
+	# Handle pillar rooms (maintain existing behavior)
 	for _room in pillar_rooms:
 		var room : Rect2 = _room as Rect2
 		for i in room.size.x / 2:

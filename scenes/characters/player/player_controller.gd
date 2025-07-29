@@ -21,9 +21,9 @@ var dodge_performed : bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var sens = InputSettings.setting_mouse_sensitivity*0.01
+		var sens = InputSettings.setting_mouse_sensitivity * 0.001
 		camera_pitch -= sens*event.relative.y
-		camera_pitch = clamp(camera_pitch, - PI*0.5, PI*0.5)
+		camera_pitch = clamp(camera_pitch, - PI * 0.5, PI * 0.5)
 		state.facing = state.facing.rotated(Vector3.UP, -sens*event.relative.x)
 
 

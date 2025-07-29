@@ -23,11 +23,6 @@ func enter_state():
 
 func _on_ResumeButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.RESUME)
-#	get_parent().get_parent().esc_menu_active = false #not tested
-#	get_tree().paused = not get_tree().paused
-#	$ColorRect.visible = get_tree().paused
-##	get_tree().set_input_as_handled()
-#	hide()
 
 
 func _on_SaveButton_pressed() -> void:
@@ -36,8 +31,6 @@ func _on_SaveButton_pressed() -> void:
 
 func _on_SettingsButton_pressed():
 	emit_signal("button_pressed", EscMenuButtons.SETTINGS)
-#	$"../SettingsMenu".show()
-#	call_deferred("hide")
 
 
 func _on_HelpButton_pressed():
@@ -46,7 +39,6 @@ func _on_HelpButton_pressed():
 
 func _on_QuitButton_pressed() -> void:
 	emit_signal("button_pressed", EscMenuButtons.QUIT)
-#	get_tree().quit()
 
 
 func _input(event):

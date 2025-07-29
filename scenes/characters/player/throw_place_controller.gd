@@ -1,5 +1,6 @@
 extends Node
 
+
 enum ThrowState {
 	NONE,
 	PLACE,
@@ -35,7 +36,6 @@ var throw_state_mainhand : ThrowState = ThrowState.NONE:
 			place_blueprint_mainhand.top_level = true
 			add_child(place_blueprint_mainhand)
 
-
 var throw_held_timer_offhand : float = 0.0
 var place_blueprint_offhand : RigidBody3D
 var target_place_transform_offhand : Transform3D = Transform3D.IDENTITY
@@ -58,10 +58,12 @@ var throw_state_offhand : ThrowState = ThrowState.NONE:
 # reused for collision checks
 var _collision : KinematicCollision3D = KinematicCollision3D.new()
 
+
 func _ready() -> void:
 	if not player.is_node_ready():
 		await player.ready
 	player.inventory.inventory_changed.connect(_on_inventory_changed)
+
 
 func _process(delta: float) -> void:
 	match throw_state_mainhand:
@@ -114,12 +116,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				player_controller.place_object(player.inventory.get_offhand_item(), target_place_transform_offhand)
 		throw_state_offhand = ThrowState.NONE
 
+
 func _get_place_transform(object : RigidBody3D) -> Transform3D:
 	var from_transform := place_origin.global_transform
 	var move_dir : Vector3 = -player_controller.main_camera.global_basis.z * place_distance
 	if object.test_move(from_transform, move_dir * place_distance, _collision):
 		move_dir = _collision.get_travel()
 	return from_transform.translated(move_dir)
+
 
 func _make_place_blueprint(object : RigidBody3D) -> RigidBody3D:
 	if not is_instance_valid(object): return null
@@ -165,6 +169,7 @@ func _make_place_blueprint(object : RigidBody3D) -> RigidBody3D:
 		transform_queue.append_array(transforms)
 	blueprint_root.top_level = true
 	return blueprint_root
+
 
 func _on_inventory_changed() -> void:
 	if throw_state_mainhand != ThrowState.NONE:

@@ -23,6 +23,7 @@ var value_prefixes = [
 var settings_names = [
 	"is_crouch_hold",
 	"is_ads_hold",
+	"auto_switch_weapon",
 	"mouse_sensitivity",
 	"master_volume",
 	"music_volume",
@@ -49,6 +50,8 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(GameSettings.crouch_hold_enabled)]
 			"is_ads_hold":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(GameSettings.ads_hold_enabled)]
+			"auto_switch_weapon":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(GameSettings.auto_switch_weapon)]
 			"mouse_sensitivity":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(InputSettings.setting_mouse_sensitivity)]
 			"master_volume":
@@ -126,6 +129,8 @@ func setup_settings(settings_dict : Dictionary):
 				VideoSettings.brightness = value
 			"gui_scale":
 				VideoSettings.gui_scale = value
+			"auto_switch_weapon":
+				GameSettings.auto_switch_weapon = value
 
 
 func save_settings():

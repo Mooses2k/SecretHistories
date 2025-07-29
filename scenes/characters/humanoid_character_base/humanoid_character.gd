@@ -20,7 +20,6 @@ const COLLISIONS_REPORTED = 4
 @onready var kick_cast: KickCast = $ModelRoot/KickCast
 
 
-
 var ground_ray_parameters := PhysicsRayQueryParameters3D.new()
 var ground_detection_test_parameters := PhysicsTestMotionParameters3D.new()
 var ceiling_detection_test_parameters := PhysicsTestMotionParameters3D.new()
@@ -36,6 +35,7 @@ func _ready() -> void:
 	ground_detection_test_parameters.max_collisions = COLLISIONS_REPORTED
 	ceiling_detection_test_parameters.motion = Vector3.UP*0.3
 	ceiling_detection_test_parameters.max_collisions = COLLISIONS_REPORTED
+
 
 func _physics_process(delta: float) -> void:
 	if global_rotation.y != 0:
@@ -75,6 +75,7 @@ func _physics_process(delta: float) -> void:
 	character_collision.height = lerp(parameters.standing_height, parameters.crouch_height, state.current_crouch_ratio)
 	
 	model_root.global_basis = state.facing
+
 
 func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 	state.was_on_ground = state.is_on_ground
@@ -168,9 +169,11 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 
 	physics_state.linear_velocity += physics_state.total_gravity*physics_state.step
 
+
 func recoil() -> void:
 	print("recoil")
 	recoiled.emit()
+
 
 func kick():
 	if state.stamina < parameters.kick_stamina_cost or state.time_since_kick < parameters.kick_cooldown:
@@ -190,3 +193,27 @@ func kick():
 			hurtbox.damage(parameters.kick_damage, parameters.kick_damage_type, kick_direction, kick_origin)
 		pass
 	pass
+
+
+func dodge() -> void:
+	if state.stamina >= parameters.dodge_stamina_cost and state.time_since_dodge >= parameters.dodge_cooldown:
+		state.stamina -= parameters.dodge_stamina_cost
+		state.time_since_dodge = 0.0
+		
+		# Apply impulse based on movement direction
+		var dodge_direction := input.movement_vector.normalized()
+		if dodge_direction == Vector3.ZERO:
+			# If no movement input, use facing direction
+			dodge_direction = -state.facing.z
+		else:
+			# Project movement direction onto ground plane
+			dodge_direction = dodge_direction - state.facing.y * dodge_direction.dot(state.facing.y)
+			dodge_direction = dodge_direction.normalized()
+		
+		# Apply the dodge impulse
+		apply_impulse(dodge_direction * parameters.dodge_impulse, Vector3.ZERO)
+		
+		# Add animation hook - set a parameter that can be used in the animation tree
+		pass
+		
+		print("Dodged with impulse: ", dodge_direction * parameters.dodge_impulse)

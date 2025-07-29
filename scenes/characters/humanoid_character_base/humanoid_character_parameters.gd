@@ -13,6 +13,7 @@ class_name HumanoidCharacterParameters
 @export var sprint_speed_multiplier_max : float = 2.0
 # Sprint multiplier as stamina goes to 0
 @export var sprint_speed_multiplier_min : float = 1.5
+@export_range(0.0, 20.0, 0.1, "or_greater", "suffix:m/s") var dodge_impulse : float = 5.0
 
 @export_group("Collision")
 @export var standing_height : float = 1.7
@@ -26,8 +27,12 @@ var turning_speed : float = TAU
 
 @export_group("Stamina")
 @export var max_stamina : float = 600.0
-@export_range(0.0, 100.0, 1.0, "or_greater", "suffix:/s") 
+@export var dodge_stamina_cost : float = 75.0
+@export_range(0.0, 5.0, 0.05, "or_greater", "suffix:s")
+var dodge_cooldown : float = 0.5
+@export_range(0.0, 100.0, 1.0, "or_greater", "suffix:/s")
 var stamina_drain_rate : float = 18.0
+
 
 @export_group("Kick")
 @export var kick_stamina_cost : float = 50.0

@@ -15,6 +15,8 @@ const SETTING_AUTO_SWITCH_WEAPON: String = "Auto-switch weapons on throw"
 var camera_pitch : float = 0.0
 
 var moved_since_sprint : bool = false
+var dodge_performed : bool = false
+
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -37,14 +39,33 @@ func _physics_process(delta: float) -> void:
 	input.jump = Input.is_action_just_pressed(&"player|jump")
 	input.sprint = Input.is_action_pressed(&"player|sprint")
 	var is_sprinting := input.sprint and not input.movement_vector.is_zero_approx()
-	input.crouch = Input.is_action_pressed(&"player|crouch") and not is_sprinting # can't crouch if sprinting
+	input.crouch = Input.is_action_pressed(&"player|crouch") and not is_sprinting  # can't crouch if sprinting
 	
-	# If pressed kick without moving, kick
+	# Dodge detection
+	if input.sprint and not dodge_performed:
+		# Check for left, right, or down movement (not forward)
+		var movement_direction = input.movement_vector.normalized()
+		var forward_direction = -state.facing.z
+		var dot_product = movement_direction.dot(forward_direction)
+		
+		# If moving sideways or backward (not forward)
+		if not is_equal_approx(dot_product, 1.0) and not input.movement_vector.is_zero_approx():
+			# Check if moving left, right, or down specifically AND move_up is NOT pressed
+			# input_vector_2d.y < 0 means move_up is pressed
+			if (input_vector_2d.x != 0 or input_vector_2d.y > 0) and input_vector_2d.y >= 0:
+				owner.dodge()
+				dodge_performed = true
+	
+	# If pressed sprint without moving, kick
 	if Input.is_action_just_released(&"player|sprint") and not moved_since_sprint:
 		kick()
 	# moved is true if sprinting and either already moved or is moving, false otherwise
 	moved_since_sprint = input.sprint and (moved_since_sprint or is_sprinting)
 	
+	# Reset dodge_performed when sprint is released
+	if not input.sprint:
+		dodge_performed = false
+
 
 func set_ads(value : bool):
 	print("toggling ADS: ", value)
@@ -235,6 +256,7 @@ func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is
 		elif is_offhand:
 			inv.current_offhand_slot = slot_to_equip
 			inv.equip_offhand_item()
+
 
 
 func place_object(object : RigidBody3D, at : Transform3D):

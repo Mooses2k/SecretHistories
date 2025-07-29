@@ -19,6 +19,7 @@ var facing : Basis = Basis.IDENTITY
 var sprinting : bool = false
 var is_reloading : bool = false
 var time_since_kick : float = INF
+var time_since_dodge : float = INF
 
 # Things like being stunned, or ragdolled
 enum CurrentState {
@@ -42,6 +43,6 @@ func get_target_speed() -> float:
 	)
 	sprint_multiplier = sprint_multiplier if sprinting else 1.0
 	return parameters.base_speed*crouch_multiplier*sprint_multiplier
-
 func _physics_process(delta: float) -> void:
 	time_since_kick += delta
+	time_since_dodge += delta

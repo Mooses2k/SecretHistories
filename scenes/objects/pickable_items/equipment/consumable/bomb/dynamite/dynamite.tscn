@@ -118,10 +118,18 @@ material = SubResource("16")
 
 [node name="Dynamite" instance=ExtResource("2")]
 script = ExtResource("1")
+radius = null
 bomb_damage = 110.0
+damage_type = null
+can_attach = null
 item_name = "Dynamite"
+horizontal_holding = null
+throw_pos_path = null
 stackable_resource = ExtResource("3_87f0d")
+max_speed = null
 item_drop_sound = ExtResource("9")
+melee_damage_type = null
+thrown_point_first = null
 
 [node name="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
@@ -131,11 +139,7 @@ mesh = SubResource("ArrayMesh_44snu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0158292, 0)
 shape = SubResource("29")
 
-[node name="Countdown" type="Timer" parent="." index="4"]
-wait_time = 5.0
-one_shot = true
-
-[node name="Shrapnel" type="GPUParticles3D" parent="." index="5"]
+[node name="Shrapnel" type="GPUParticles3D" parent="." index="4"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00112057, 0.142892, -0.00190479)
 material_override = ExtResource("5")
 cast_shadow = 0
@@ -149,7 +153,7 @@ visibility_aabb = AABB(-4, -4, -4.79199, 8, 8, 8)
 process_material = SubResource("21")
 draw_pass_1 = SubResource("22")
 
-[node name="Fuse" type="GPUParticles3D" parent="." index="6"]
+[node name="Fuse" type="GPUParticles3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00700194, 0.117903, 0)
 emitting = false
 amount = 20
@@ -157,15 +161,13 @@ randomness = 0.16
 process_material = SubResource("23")
 draw_pass_1 = SubResource("28")
 
-[node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="7"]
+[node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="6"]
 stream = ExtResource("8")
 volume_db = 5.0
 bus = &"Effects"
 
-[node name="Effect" type="Node3D" parent="." index="8"]
+[node name="Effect" type="Node3D" parent="." index="7"]
 script = ExtResource("6")
 sound_effect = ExtResource("7")
 
 [node name="SoundOrigin" type="Marker3D" parent="Effect" index="0"]
-
-[connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]

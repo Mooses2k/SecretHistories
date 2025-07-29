@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ci565nv4l61di" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://c4cyksqrscr1n" path="res://scenes/effects/explosion/explosions.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://b8pj06175scgh" path="res://scenes/objects/pickable_items/equipment/consumable/_consumable_item.tscn" id="3"]
 
 [node name="BombItem" instance=ExtResource("3")]
 mass = 0.5
@@ -17,7 +17,11 @@ can_spin = true
 transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, 0, 0, 0)
 amount = 40
 
-[node name="Flash" type="OmniLight3D" parent="." index="5"]
+[node name="Countdown" type="Timer" parent="." index="4"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Flash" type="OmniLight3D" parent="." index="6"]
 visible = false
 light_color = Color(0.760784, 0.364706, 0.0470588, 1)
 light_energy = 5.0
@@ -30,4 +34,5 @@ wait_time = 0.05
 one_shot = true
 
 [connection signal="item_state_changed" from="." to="." method="_on_item_state_changed"]
+[connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]
 [connection signal="timeout" from="Flash/FlashTimer" to="." method="_on_flash_timer_timeout"]

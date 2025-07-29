@@ -184,23 +184,40 @@ func _get_property_list() -> Array[Dictionary]:
 
 # Override this function
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
+	# DEBUG: Track if this step is being called multiple times
+	if not has_meta("execution_count"):
+		set_meta("execution_count", 0)
+	var exec_count = get_meta("execution_count") + 1
+	set_meta("execution_count", exec_count)
+	
+	print("DEBUG: Starting generate_grid_tiles execution #%d (seed: %d)" % [exec_count, generation_seed])
+	
+	if exec_count > 1:
+		print("WARNING: generate_grid_tiles is being executed multiple times! This will cause z-fighting!")
+	
 	var pillar_rooms = gen_data.get(PillarRoomGenerator.PILLAR_ROOMS_KEY, Array())
-	print(pillar_rooms)
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = generation_seed
+	
+	print("DEBUG: About to call select_floor_tiles")
 	select_floor_tiles(data, pillar_rooms, rng)
+	print("DEBUG: Finished select_floor_tiles")
+	
 	select_ceiling_tiles(data, pillar_rooms, rng)
 	select_wall_tiles(data, rng)
 	select_pillar_room_walls(data, pillar_rooms)
 	place_pillars(data)
 	place_pillar_room_pillars(data, pillar_rooms)
+	print("DEBUG: Finished generate_grid_tiles execution #%d" % exec_count)
 
 
 func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumberGenerator):
+	print("DEBUG: Starting select_floor_tiles with %d pillar rooms" % pillar_rooms.size())
 	
 	# Get all rooms to check for even dimensions
 	var all_rooms : Array = data.get_all_rooms()
 	var even_dimension_rooms : Array = []
+	var pillar_room_cells : Dictionary = {}
 	
 	# Find rooms with even dimensions (both width and height divisible by 2)
 	for room_data in all_rooms:
@@ -210,44 +227,127 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumb
 			if not room.has_pillars:
 				even_dimension_rooms.append(room)
 	
-	for i in data.cell_count:
-		var cell_type = data.get_cell_type(i)
-		var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
-		var is_stairs_down = data.get_cell_meta(i, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
-		if cell_type != data.CellType.EMPTY and not is_pillar_room and not is_stairs_down:
-			if cell_type == data.CellType.ROOM:
-				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
-			elif cell_type == data.CellType.CORRIDOR:
-				data.set_cell_surfacetype(i, data.SurfaceType.CARPET) # TODO: actually have carpeted corridors rarely, usually stone
-			data.set_ground_tile_index(i, floor_tile)
+	print("DEBUG: Found %d even dimension rooms" % even_dimension_rooms.size())
 	
-	# Handle even-dimensioned rooms with double floor tiles
+	# Pre-mark pillar room cells to avoid double placement
+	for _room in pillar_rooms:
+		var room : Rect2 = _room as Rect2
+		print("DEBUG: Processing pillar room at %s with size %s" % [room.position, room.size])
+		for i in room.size.x / 2:
+			for j in room.size.y / 2:
+				var cell = data.get_cell_index_from_int_position(room.position.x + 2 * i, room.position.y + 2 * j)
+				pillar_room_cells[cell] = true
+	
+	print("DEBUG: Marked %d pillar room cells" % pillar_room_cells.size())
+	
+	# Pre-mark even dimension room cells to avoid double placement
+	var even_room_cells : Dictionary = {}
 	for room_data in even_dimension_rooms:
 		var room : RoomData = room_data as RoomData
 		var room_rect : Rect2 = room.rect2
-		print("even_dimension_room: %s" % [room_rect])
+		print("DEBUG: Processing even dimension room at %s with size %s" % [room_rect.position, room_rect.size])
 		for i in room_rect.size.x / 2:
 			for j in room_rect.size.y / 2:
 				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
+				even_room_cells[cell] = true
+	
+	print("DEBUG: Marked %d even dimension room cells" % even_room_cells.size())
+	
+	# DEBUG: Check for overlaps between pillar room cells and even dimension room cells
+	var overlap_count = 0
+	for cell in pillar_room_cells:
+		if even_room_cells.has(cell):
+			overlap_count += 1
+			var cell_pos = data.get_int_position_from_cell_index(cell)
+			print("WARNING: Cell overlap detected at (%d,%d) - both pillar room and even dimension room!" % [cell_pos[0], cell_pos[1]])
+	
+	if overlap_count > 0:
+		print("CRITICAL: Found %d overlapping cells between pillar rooms and even dimension rooms!" % overlap_count)
+	else:
+		print("DEBUG: No overlaps detected between pillar rooms and even dimension rooms")
+	
+	# Set floor tiles - FIXED to prevent z-fighting from double tiles
+	var processed_cells : Dictionary = {}
+	
+	# First, handle pillar rooms (place double tiles only on 2x2 origins)
+	for _room in pillar_rooms:
+		var room : Rect2 = _room as Rect2
+		print("DEBUG: Processing pillar room floor tiles at %s with size %s" % [room.position, room.size])
+		for i in room.size.x / 2:
+			for j in room.size.y / 2:
+				var cell = data.get_cell_index_from_int_position(room.position.x + 2 * i, room.position.y + 2 * j)
+				var cell_pos = data.get_int_position_from_cell_index(cell)
+				var cell_key = "(%d,%d)" % [cell_pos[0], cell_pos[1]]
+				
+				print("DEBUG: Placing pillar room double floor tile at %s (covers 2x2 area)" % cell_key)
+				data.set_ground_tile_index(cell, pillar_room_double_floor_tile)
+				
+				# Mark all 4 cells of the 2x2 double tile as processed
+				for di in 2:
+					for dj in 2:
+						var sub_cell = data.get_cell_index_from_int_position(room.position.x + 2 * i + di, room.position.y + 2 * j + dj)
+						processed_cells[sub_cell] = true
+						# Set surface type for all cells in the 2x2 group
+						data.set_cell_surfacetype(sub_cell, data.SurfaceType.STONE)
+	
+	# Second, handle even dimension rooms (place double tiles only on 2x2 origins)
+	for room_data in even_dimension_rooms:
+		var room : RoomData = room_data as RoomData
+		var room_rect : Rect2 = room.rect2
+		print("DEBUG: Processing even dimension room floor tiles at %s with size %s" % [room_rect.position, room_rect.size])
+		for i in room_rect.size.x / 2:
+			for j in room_rect.size.y / 2:
+				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
+				var cell_pos = data.get_int_position_from_cell_index(cell)
+				var cell_key = "(%d,%d)" % [cell_pos[0], cell_pos[1]]
+				
+				if processed_cells.has(cell):
+					print("WARNING: Skipping already processed cell %s" % cell_key)
+					continue
+				
+				# Even dimension room with randomization using shared RNG
 				var rnd = rng.randf()
 				var selected_floor_tile : int = double_floor_tile
 				if rnd < alternative_double_floor_tile_chance and alternative_double_floor_tiles.size() > 0:
 					var index : int = rng.randi() % alternative_double_floor_tiles.size()
 					selected_floor_tile = alternative_double_floor_tiles[index]
-					print("Selected double floor ", index)
+				
+				print("DEBUG: Placing even dimension room double floor tile at %s: tile_id=%d (covers 2x2 area)" % [cell_key, selected_floor_tile])
 				data.set_ground_tile_index(cell, selected_floor_tile)
+				
+				# Mark all 4 cells of the 2x2 double tile as processed
+				for di in 2:
+					for dj in 2:
+						var sub_cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i + di, room_rect.position.y + 2 * j + dj)
+						processed_cells[sub_cell] = true
+						# Set surface type for all cells in the 2x2 group
+						data.set_cell_surfacetype(sub_cell, data.SurfaceType.STONE)
+	
+	# Finally, handle all remaining cells with regular floor tiles
+	for i in data.cell_count:
+		if processed_cells.has(i):
+			continue
 			
-	# Handle pillar rooms (maintain existing behavior)
-	for _room in pillar_rooms:
-		var room : Rect2 = _room as Rect2
-		print("pillar_room: %s" % [room])
-		for i in room.size.x / 2:
-			for j in room.size.y / 2:
-				var cell = data.get_cell_index_from_int_position(room.position.x + 2 * i, room.position.y + 2 * j)
-				data.set_ground_tile_index(cell, pillar_room_double_floor_tile)
+		var cell_type = data.get_cell_type(i)
+		var is_stairs_down = data.get_cell_meta(i, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
+		
+		if cell_type != data.CellType.EMPTY and not is_stairs_down:
+			var cell_pos = data.get_int_position_from_cell_index(i)
+			var cell_key = "(%d,%d)" % [cell_pos[0], cell_pos[1]]
+			
+			# Set surface type
+			if cell_type == data.CellType.ROOM:
+				data.set_cell_surfacetype(i, data.SurfaceType.STONE)
+			elif cell_type == data.CellType.CORRIDOR:
+				data.set_cell_surfacetype(i, data.SurfaceType.CARPET)
+			
+			print("DEBUG: Placing regular floor tile at %s" % cell_key)
+			data.set_ground_tile_index(i, floor_tile)
 
 
 func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumberGenerator):
+	print("DEBUG: Starting select_ceiling_tiles - FIXED VERSION")
+	
 	# Get all rooms to check for even dimensions
 	var all_rooms : Array = data.get_all_rooms()
 	var even_dimension_rooms : Array = []
@@ -260,33 +360,54 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNu
 			if not room.has_pillars:
 				even_dimension_rooms.append(room)
 	
-	for i in data.cell_count:
-		if data.get_cell_type(i) != data.CellType.EMPTY:
-			var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
-			if not is_pillar_room:
-				var rnd = rng.randf()
-				var selected_ceiling_tile : int = ceiling_tile
-				if rnd < alternative_ceiling_tile_chance and alternative_ceiling_tiles.size() > 0:
-					var index : int = rng.randi() % alternative_ceiling_tiles.size()
-					selected_ceiling_tile = alternative_ceiling_tiles[index]
-					print("Selected ceiling ", index)
-				data.set_ceiling_tile_index(i, selected_ceiling_tile)
+	# Track processed cells to prevent double placement
+	var processed_cells : Dictionary = {}
 	
-	# Handle even-dimensioned rooms with double ceiling tiles
+	# First, handle even-dimensioned rooms with double ceiling tiles (place only on 2x2 origins)
 	for room_data in even_dimension_rooms:
 		var room : RoomData = room_data as RoomData
 		var room_rect : Rect2 = room.rect2
-		print("even_dimension_room ceiling: %s" % [room_rect])
+		print("DEBUG: Processing even dimension room ceiling tiles at %s with size %s" % [room_rect.position, room_rect.size])
 		for i in room_rect.size.x / 2:
 			for j in room_rect.size.y / 2:
 				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
+				var cell_pos = data.get_int_position_from_cell_index(cell)
+				var cell_key = "(%d,%d)" % [cell_pos[0], cell_pos[1]]
+				
 				var rnd = rng.randf()
 				var selected_ceiling_tile : int = double_ceiling_tile
 				if rnd < alternative_double_ceiling_tile_chance and alternative_double_ceiling_tiles.size() > 0:
 					var index : int = rng.randi() % alternative_double_ceiling_tiles.size()
 					selected_ceiling_tile = alternative_double_ceiling_tiles[index]
-					print("Selected double ceiling ", index)
+				
+				print("DEBUG: Placing even dimension room double ceiling tile at %s: tile_id=%d (covers 2x2 area)" % [cell_key, selected_ceiling_tile])
 				data.set_ceiling_tile_index(cell, selected_ceiling_tile)
+				
+				# Mark all 4 cells of the 2x2 double tile as processed
+				for di in 2:
+					for dj in 2:
+						var sub_cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i + di, room_rect.position.y + 2 * j + dj)
+						processed_cells[sub_cell] = true
+	
+	# Second, handle all remaining non-empty, non-pillar-room cells with regular ceiling tiles
+	for i in data.cell_count:
+		if processed_cells.has(i):
+			continue
+			
+		if data.get_cell_type(i) != data.CellType.EMPTY:
+			var is_pillar_room = data.get_cell_meta(i, data.CellMetaKeys.META_PILLAR_ROOM, false)
+			if not is_pillar_room:
+				var cell_pos = data.get_int_position_from_cell_index(i)
+				var cell_key = "(%d,%d)" % [cell_pos[0], cell_pos[1]]
+				
+				var rnd = rng.randf()
+				var selected_ceiling_tile : int = ceiling_tile
+				if rnd < alternative_ceiling_tile_chance and alternative_ceiling_tiles.size() > 0:
+					var index : int = rng.randi() % alternative_ceiling_tiles.size()
+					selected_ceiling_tile = alternative_ceiling_tiles[index]
+				
+				print("DEBUG: Placing regular ceiling tile at %s: tile_id=%d" % [cell_key, selected_ceiling_tile])
+				data.set_ceiling_tile_index(i, selected_ceiling_tile)
 				
 	# Handle pillar rooms (maintain existing behavior)
 	for _room in pillar_rooms:
@@ -349,7 +470,6 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 								if rnd < alternative_double_wall_tile_chance and alternative_double_wall_tiles.size() > 0:
 									var index : int = rng.randi() % alternative_double_wall_tiles.size()
 									selected_wall_tile = alternative_double_wall_tiles[index]
-									print("Selected wall ", index)
 								data.set_wall_tile_index(cell_left, dir, selected_wall_tile)
 								for _cell in [cell_left, cell_right]:
 									var done_edges_for_extension = done_edges.get(_cell, []) as Array
@@ -363,7 +483,6 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 							if rnd < alternative_wall_tile_chance and alternative_wall_tiles.size() > 0:
 								var index : int = rng.randi() % alternative_wall_tiles.size()
 								selected_wall_tile = alternative_wall_tiles[index]
-								print("Selected wall ", index)
 							data.set_wall_tile_index(i, dir, selected_wall_tile)
 					data.EdgeType.DOOR:
 						data.set_wall_tile_index(i, dir, door_tile)

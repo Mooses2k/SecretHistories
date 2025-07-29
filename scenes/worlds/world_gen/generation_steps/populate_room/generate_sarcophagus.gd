@@ -11,7 +11,7 @@ extends GenerationStep
 
 const Sarcophagus = preload("res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd")
 const RoomWalls = preload("res://scenes/worlds/world_gen/helper_objects/crypt_room_walls.gd")
-const RoomPlacementUtils = preload("res://scenes/worlds/world_gen/generation_steps/room_placement_utils.gd")
+const DecorateRooms = preload("res://scenes/worlds/world_gen/generation_steps/decorate_rooms.gd")
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -68,7 +68,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 func _spawn_sarcos_in_wall_segments(
 		data: WorldData, walls_data: RoomWalls, direction: int
 ) -> void:
-	RoomPlacementUtils.process_wall_segments(
+	DecorateRooms.process_wall_segments(
 		data,
 		walls_data,
 		direction,
@@ -79,19 +79,19 @@ func _spawn_sarcos_in_wall_segments(
 
 
 func _spawn_middle_sarco(world_data: WorldData, crypt: RoomData, walls_data: RoomWalls) -> void:
-	var remaining_rect := RoomPlacementUtils.get_remaining_rect(crypt, walls_data, sarco_tile_size)
-	if not RoomPlacementUtils.can_place_object(remaining_rect, sarco_tile_size):
+	var remaining_rect := DecorateRooms.get_remaining_rect(crypt, walls_data, sarco_tile_size)
+	if not DecorateRooms.can_place_object(remaining_rect, sarco_tile_size):
 		return
 	
-	var placement_data := RoomPlacementUtils.calculate_center_position(
+	var placement_data := DecorateRooms.calculate_center_position(
 		remaining_rect, 
 		sarco_tile_size, 
 		world_data.CELL_SIZE
 	)
 	
-	var sarco_cells := RoomPlacementUtils.get_center_cells(world_data, placement_data.rect)
+	var sarco_cells := DecorateRooms.get_center_cells(world_data, placement_data.rect)
 	if not sarco_cells.is_empty():
-		var sarco_rotation := RoomPlacementUtils.calculate_rotation(walls_data, vertical_center_rotation)
+		var sarco_rotation := DecorateRooms.calculate_rotation(walls_data, vertical_center_rotation)
 		_set_sarco_spawn_data(world_data, sarco_cells, -1, placement_data.offset, sarco_rotation)
 
 

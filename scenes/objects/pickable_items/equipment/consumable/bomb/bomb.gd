@@ -21,7 +21,6 @@ func _process(delta):
 	# This is here instead of directly under throw() just due to requiring delta
 	if throwing == true:
 		owner_character.player_controller.throw_state = owner_character.player_controller.ThrowState.SHOULD_THROW
-		print("Throw state set to 3, so this should say 3: ", owner_character.player_controller.throw_state)
 		owner_character.player_controller.update_throw_state(self, delta)
 		throwing = false
 

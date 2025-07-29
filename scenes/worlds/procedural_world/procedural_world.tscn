@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d1lbexonric4u"]
+[gd_scene load_steps=33 format=3 uid="uid://d1lbexonric4u"]
 
 [ext_resource type="PackedScene" uid="uid://b2lftnajs8166" path="res://scenes/worlds/game_world.tscn" id="1"]
 [ext_resource type="Script" uid="uid://ckjgf5qsg358a" path="res://scenes/worlds/procedural_world/procedural_world.gd" id="2"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://dgv1hl4fa1gy5" path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" id="28"]
 [ext_resource type="PackedScene" uid="uid://b8fhjqun0honf" path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" id="29"]
 [ext_resource type="Resource" uid="uid://dksw0hp0yy3gl" path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" id="30"]
+[ext_resource type="Script" uid="uid://donwvlqymokbh" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_statue_fountain.gd" id="31"]
 
 [sub_resource type="StandardMaterial3D" id="3"]
 shading_mode = 0
@@ -129,25 +130,30 @@ _sarco_shard_spawn_list_resource = ExtResource("30")
 _sarco_lids_spawn_list_resource = ExtResource("27")
 _force_lid = -1
 
-[node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="2"]
+[node name="GenerateStatueFountain" type="Node" parent="GenerationManager/PopulateRooms" index="2"]
+script = ExtResource("31")
+room_purpose_data = ExtResource("7")
+fountain_scene_path = "uid://cs1ieq5xxrr18"
+
+[node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
 script = ExtResource("10")
 
 [node name="GenerateCandelabra" type="Node" parent="GenerationManager/PopulateRooms/IlluminationGroup" index="0"]
 script = ExtResource("11")
 _spawn_list_resource = ExtResource("12")
 
-[node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
+[node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
 script = ExtResource("14")
 _loot_list_resource = ExtResource("8")
 _max_loot = 5
 
-[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
+[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource("14")
 _loot_list_resource = ExtResource("16")
 _min_loot = 3
 _max_loot = 5
 
-[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
+[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
 script = ExtResource("15")
 _character_scene_path = "res://scenes/characters/cultist/neophyte.tscn"
 _density_by_type = {

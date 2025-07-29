@@ -1,5 +1,6 @@
 extends Node
 
+
 #TODO: do this through a signal instead
 @onready var interact_controller: Node = $"../InteractController"
 @onready var player_controller: Node = get_parent()
@@ -24,6 +25,7 @@ func is_inventory_locked() -> bool:
 
 func cancel_throw():
 	pass
+
 
 func _process(delta: float) -> void:
 	# If holding for too long, automatically swap hands
@@ -79,8 +81,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			inventory.current_mainhand_slot = wrapi(inventory.current_mainhand_slot - 1, 0, 11)
 			print(inventory.current_mainhand_slot)
 	pass
+
+
 func _is_weapon(item : EquipmentItem):
 	return (item is MeleeItem or item is GunItem or item is BombItem)
+
 
 func _cycle_offhand_slot():
 	var start_slot = inventory.current_offhand_slot
@@ -101,7 +106,6 @@ func _cycle_offhand_slot():
 	pass
 
 
-
 func _handle_inventory_and_grab_input(delta : float):
 	_handle_hotbar_buttons()
 
@@ -118,7 +122,7 @@ func _handle_hotbar_buttons():
 			if _pressed_slot_key_count == 2 and _pressed_slot >= 0:
 				inventory.swap_slots(_pressed_slot, i)
 				_slots_swapped = true
-
+	
 	for i in range(inventory.HOTBAR_SIZE - 1):
 		if Input.is_action_just_released("hotbar_%d" % [i + 1]):
 			if i == _pressed_slot:

@@ -3,7 +3,7 @@ extends RigidBody3D
 
 
 var drop_sound_scene = preload("res://scenes/effects/drop_sound.tscn")
-var item_drop_sound : AudioStream 
+var item_drop_sound : AudioStream
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 0
 var item_drop_sound_level = 0

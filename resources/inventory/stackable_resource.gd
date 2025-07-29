@@ -23,6 +23,15 @@ func add_item(item: EquipmentItem) -> void:
 		GameManager.game.player.inventory.encumbrance += 2
 
 
+## Will remove a EquipmentItem from the items_stacked and adjust the encumbrance for the player character
+func remove_item(item: EquipmentItem) -> void:
+	items_stacked.erase(item)
+	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+		GameManager.game.player.inventory.encumbrance -= 1
+	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+		GameManager.game.player.inventory.encumbrance -= 2
+
+
 func _init() -> void:
 	for i in items_stacked.size():
 		items_stacked.remove_at(i)

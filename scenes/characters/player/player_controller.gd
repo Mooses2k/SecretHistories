@@ -20,6 +20,7 @@ var dodge_performed : bool = false
 
 
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var sens = InputSettings.setting_mouse_sensitivity * 0.001
@@ -65,6 +66,7 @@ func _physics_process(delta: float) -> void:
 		kick()
 	# moved is true if sprinting and either already moved or is moving, false otherwise
 	moved_since_sprint = input.sprint and (moved_since_sprint or is_sprinting)
+
 
 func set_drag_speed_modifier(modifier: float) -> void:
 	drag_speed_modifier = max(modifier, 0.1)  # Ensure minimum 10% speed
@@ -263,6 +265,7 @@ func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is
 		elif is_offhand:
 			inv.current_offhand_slot = slot_to_equip
 			inv.equip_offhand_item()
+
 
 
 

@@ -7,10 +7,10 @@
 [ext_resource type="Script" uid="uid://brpefsncuuwx8" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd" id="5"]
 
 [sub_resource type="Resource" id="1"]
-resource_name = "Min Size 0x0"
+resource_name = "Min Size 6x6"
 script = ExtResource("1")
-min_x_tiles = 0
-min_y_tiles = 0
+min_x_tiles = 6
+min_y_tiles = 6
 
 [sub_resource type="Resource" id="2"]
 resource_name = "Max Size 9x9"

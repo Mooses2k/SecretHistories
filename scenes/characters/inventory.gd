@@ -1,6 +1,7 @@
 class_name Inventory
 extends Node
 
+
 enum HandEnum {
 	MAIN_HAND,
 	OFF_HAND
@@ -59,7 +60,6 @@ var belt_item = null   # The item currently in the belt_position slot
 @onready var character : HumanoidCharacter = owner as HumanoidCharacter
 
 
-
 func _ready():
 	hotbar.resize(HOTBAR_SIZE)
 	current_offhand_slot = 10
@@ -70,32 +70,53 @@ func can_pickup_item(item : PickableItem) -> bool:
 	# Can only pickup dropped items
 	# (may change later to steal weapons, or we can do that by dropping them first)
 	# Also prevents picking up busy items
-	print("can_pickup_item called")
+	print("can_pickup_item called for item: ", item.name if item != null else "null")
+	print("item.item_state is ", item.item_state if item != null else "null")
+	
+	if item == null:
+		print("Item is null, cannot pick up")
+		return false
+	
+	# Check if item is in a valid state for pickup
 	if item.item_state == GlobalConsts.ItemState.DROPPED or item.item_state == GlobalConsts.ItemState.DAMAGING:
 		print("item.item_state is ", item.item_state, ", so item is considered dropped or damaging")
 		# Can always pick up equipment (goes to bulky slot if necessary)
 		if item is EquipmentItem:
+			print("Item is EquipmentItem, can be picked up")
 			return true
-	# Can always pickup special items
-	if (item is TinyItem) or (item is KeyItem):
-		return true
+		else:
+			print("Item is not EquipmentItem, checking if TinyItem or KeyItem")
+			# Can always pickup special items
+			if (item is TinyItem) or (item is KeyItem):
+				print("Item is TinyItem or KeyItem, can be picked up")
+				return true
+			else:
+				print("Item is not EquipmentItem, TinyItem, or KeyItem")
+				return false
+	else:
+		print("item.item_state is not DROPPED or DAMAGING, current state: ", item.item_state)
+		return false
 
+	print("Fell through to end of function, returning false")
 	return false
 
 
 # Attempts to add a node as an Item to this inventory, returns 'true'
 # if the attempt was successful, or 'false' otherwise
 func add_item(item : PickableItem) -> bool:
+	print("add_item called for item: ", item.name if item != null else "null")
 	var can_pickup : bool = can_pickup_item(item)
+	print("can_pickup_item returned: ", can_pickup)
 
 	if not can_pickup:
-		print("can't pick up")
+		print("can't pick up item: ", item.name if item != null else "null")
 		return false
 
 	item.owner_character = character
 	print("item owner to be: ", item.owner_character)
 
 	if item is TinyItem:
+		print("Processing TinyItem")
 		if item.item_data != null:
 			insert_tiny_item(item.item_data, item.amount)
 
@@ -103,8 +124,10 @@ func add_item(item : PickableItem) -> bool:
 		item.set_item_state(GlobalConsts.ItemState.BUSY)
 		item.queue_free()
 		emit_signal("inventory_changed")
+		return true
 
 	if item is KeyItem:
+		print("Processing KeyItem")
 		if not keychain.has(item.key_id):
 			keychain[item.key_id] = 0
 		keychain[item.key_id] += 1
@@ -112,6 +135,7 @@ func add_item(item : PickableItem) -> bool:
 		# To make sure the item can't be interacted with again
 		item.set_item_state(GlobalConsts.ItemState.BUSY)
 		item.queue_free()
+		return true
 
 	elif item is EquipmentItem:
 		print("item is equipment item")
@@ -120,25 +144,113 @@ func add_item(item : PickableItem) -> bool:
 		# Update the inventory info immediately
 		# This is a bulky item, or there is no space on the hotbar
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
+			print("Adding as bulky item or hotbar is full")
 			drop_bulky_item()
 			unequip_mainhand_item()
 			unequip_offhand_item()
 			equip_bulky_item(item)
+			return true
 		else:
+			# Before anything, check if this is a single-use medical item that can be consolidated into a container
+			if item is MedicalItem and item.max_charges_held == 1:
+				print("[DEBUG] Processing MedicalItem consolidation for: ", item.name, " (heal_amount: ", item.heal_amount, ")")
+				# Search for medical containers with space using search_hotbar utility
+				var container_item = null
+				var container_found = false
+				
+				# Define filter function to find medical containers with space
+				var filter_func = func(potential_container):
+					var is_medical = potential_container is MedicalItem
+					var is_container = potential_container.max_charges_held > 1 if is_medical else false
+					var has_space = potential_container.charges_held < potential_container.max_charges_held if is_container else false
+					print("[DEBUG] Checking potential container: ", potential_container.name if potential_container != null else "null",
+						  " - is_medical: ", is_medical, ", is_container: ", is_container, ", has_space: ", has_space,
+						  " (container: '", potential_container.item_name if is_medical else "N/A",
+						  "' vs item: '", item.item_name, "')")
+					return is_medical and is_container and has_space
+				
+				# Define action function to consolidate the item
+				var action_func = func(potential_container, slot_index):
+					print("[DEBUG] Found suitable container: ", potential_container.name, " at slot: ", slot_index)
+					container_item = potential_container
+					container_found = true
+					# Calculate how much space the container has
+					var space_left = container_item.max_charges_held - container_item.charges_held
+					print("[DEBUG] Container space_left: ", space_left, ", item heal_amount: ", item.heal_amount)
+					
+					# Add heal_amount to container (up to its capacity)
+					var amount_to_add = min(space_left, item.heal_amount)
+					container_item.charges_held += amount_to_add
+					print("[DEBUG] Added ", amount_to_add, " charges to container, new total: ", container_item.charges_held)
+					
+					# Update the container's UI
+					container_item.emit_signal("item_data_changed")
+					
+					# Handle stackable resources if applicable
+					if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
+						print("[DEBUG] Removing from stack (stack size: ", item.stackable_resource.items_stacked.size(), ")")
+						# Remove one from stack
+						item.stackable_resource.items_stacked.remove_at(0)
+						# Adjust encumbrance when removing from stack
+						if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+							encumbrance -= 1
+						if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
+							encumbrance -= 2
+					else:
+						print("[DEBUG] Removing single item from world")
+						# Remove single item from the world
+						if item.is_inside_tree():
+							item.get_parent().remove_child(item)
+						item.queue_free()
+					
+					emit_signal("inventory_changed")
+					return true  # Stop searching after finding and processing the first container
+				
+				# Define early termination function to stop after processing one container
+				var early_termination_func = func(potential_container):
+					return container_found
+				
+				# Use the search_hotbar utility function
+				print("[DEBUG] Starting hotbar search for medical containers")
+				search_hotbar(filter_func, action_func, early_termination_func)
+				
+				# If we found and processed a container, we're done
+				if container_found:
+					print("[DEBUG] Medical consolidation successful, returning true")
+					return true  # Item was consolidated, we're done
+				else:
+					print("[DEBUG] No suitable medical container found, continuing to normal hotbar logic")
+					# Let's debug why no container was found
+					print("[DEBUG] Current hotbar contents:")
+					for i in range(hotbar.size()):
+						var hotbar_item = hotbar[i]
+						if hotbar_item != null:
+							print("[DEBUG]   Slot ", i, ": ", hotbar_item.name,
+								  " (is_medical: ", hotbar_item is MedicalItem,
+								  ", max_charges: ", hotbar_item.max_charges_held if hotbar_item is MedicalItem else "N/A",
+								  ", current_charges: ", hotbar_item.charges_held if hotbar_item is MedicalItem else "N/A", ")")
+						else:
+							print("[DEBUG]   Slot ", i, ": empty")
+
 			# Before anything, check if the item can be stacked on anything in the hotbar
+			print("Checking for stackable items")
 			for hotbar_item: EquipmentItem in hotbar:
 				if hotbar_item == null: continue # go to next hotbar_item if null
 
 				if hotbar_item.stackable_resource != null and item.stackable_resource != null and hotbar_item.stackable_resource.stack_name == item.stackable_resource.stack_name:
 					print("the item can stack with: " + hotbar_item.name)
-					if hotbar_item.stackable_resource.items_stacked.size() == hotbar_item.stackable_resource.max_stack:
+					if hotbar_item.stackable_resource.items_stacked.size() >= hotbar_item.stackable_resource.max_stack:
 						print("... but its at full capacity rn")
+						continue  # Continue searching for other stacks with space
 					else:
 						print("Hurray! Stacking boois")
 						hotbar_item.stackable_resource.add_item(item)
 						# Schedule the item removal from the world
 						if item.is_inside_tree():
 							item.get_parent().remove_child(item)
+						# Properly dispose of the item to prevent it from being picked up again
+						item.queue_free()
+						print("Item added to stack and queued for removal: ", item.name)
 
 						emit_signal("inventory_changed")
 						return true
@@ -157,12 +269,22 @@ func add_item(item : PickableItem) -> bool:
 						print ("...slot isn't empty and it's not the mainhand one")
 						slot = current_offhand_slot
 					if hotbar[slot] != null:
-						slot = hotbar.find(null)
+						# Find the lowest numbered empty slot (excluding slot 10 which is empty hands)
+						slot = -1
+						for i in range(10):  # Slots 0-9 only
+							if hotbar[i] == null:
+								slot = i
+								break
 					if slot == current_mainhand_slot:
 						slot += 1
-					if slot != 10:
+					# Safety check: if no empty slots found, don't place the light
+					if slot != 10 and slot != -1:
 						hotbar[slot] = item
 						print("Light3D-source going to slot ", slot + 1)
+						# If the item is stackable, add it to its own stack
+						if item.stackable_resource != null:
+							item.stackable_resource.add_item(item)
+							print("Added item to its own stack: ", item.name)
 						# Schedule the item removal from the world
 						if item.is_inside_tree():
 							item.get_parent().remove_child(item)
@@ -175,61 +297,74 @@ func add_item(item : PickableItem) -> bool:
 							equip_offhand_item()
 							return true   # Thus not processing the further autoequip logic below
 
-			### Part 2 - Otherwise, normal rules: Select an empty slot, prioritizing the current one, if empty
+			### Part 2 - Otherwise, normal rules: Select the lowest numbered available slot
 			slot = current_mainhand_slot
-			# Then the offhand, preferring this slot for lights
+			
+			# If current mainhand slot is occupied, find the lowest numbered empty slot
 			if hotbar[slot] != null:
-
-				#var current_equipped_item: EquipmentItem = hotbar[slot] as EquipmentItem
-				#if current_equipped_item.stackable_resource != null and current_equipped_item.stackable_resource == item.stackable_resource: #checks if the current mainhand item is stackable
-					#print("the item can be stacked with the mainhand item")
-				#else:
-
-				print("Current hotbar slot, ", slot + 1, " is null. Setting slot to current offhand slot")
-				slot = current_offhand_slot
-			# Then the first empty slot
-			if hotbar[slot] != null:
-				slot = hotbar.find(null)
-			# This checks if the slot to add the item isn't the hands-free slot then adds the item to the slot
-			if slot != 10:
+				print("Current mainhand slot ", slot + 1, " is occupied. Looking for lowest numbered empty slot")
+				# Find the lowest numbered empty slot (excluding slot 10 which is empty hands)
+				slot = -1
+				for i in range(10):  # Slots 0-9 only
+					if hotbar[i] == null:
+						slot = i
+						print("Found lowest numbered empty slot: ", slot + 1)
+						break
+				
+				# If no empty slots found, this will be handled below
+				if slot == -1:
+					print("No empty slots found, pickup will fail")
+			# This checks if the slot to add the item isn't the hands-free slot and is valid, then adds the item to the slot
+			if slot != 10 and slot != -1:
 				hotbar[slot] = item
 
+				# If the item is stackable, add it to its own stack
 				if item.stackable_resource != null:
 					item.stackable_resource.add_item(item)
+					print("Added item to its own stack: ", item.name)
 				# Schedule the item removal from the world
 				if item.is_inside_tree():
 					item.get_parent().remove_child(item)
 
 				emit_signal("hotbar_changed", slot)
 				emit_signal("inventory_changed")
+			elif slot == -1:
+				# No empty slots available, hotbar is full
+				print("Hotbar is full, cannot add item: ", item.name)
+				return false
 
-				### Auto-equip
-				# Autoequip if possible - main idea is prefer lights in off-hand and never forceably
-				# put a medium gun in hand if it means pushing out a (lit) light-source
-				# (we currently don't check if it's lit)
-				if current_mainhand_slot == slot and not bulky_equipment:
-					print("current slot is added item slot, which is ", slot + 1)
-					if current_offhand_equipment is LanternItem or current_offhand_equipment is CandleItem or current_offhand_equipment is TorchItem or current_offhand_equipment is CandelabraItem:
-						print("...and current offhand is a light")
-						if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-							equip_mainhand_item()
-							print("...and picked up item is a small item")
-							return true
-						if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
-							equip_mainhand_item()
-							print("...and picked up item is a medium melee weapon")
-
-					elif item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+			### Auto-equip
+			# Autoequip if possible - main idea is prefer lights in off-hand and never forceably
+			# put a medium gun in hand if it means pushing out a (lit) light-source
+			# (we currently don't check if it's lit)
+			if current_mainhand_slot == slot and not bulky_equipment:
+				print("current slot is added item slot, which is ", slot + 1)
+				if current_offhand_equipment is LanternItem or current_offhand_equipment is CandleItem or current_offhand_equipment is TorchItem or current_offhand_equipment is CandelabraItem:
+					print("...and current offhand is a light")
+					if item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 						equip_mainhand_item()
 						print("...and picked up item is a small item")
 						return true
-
-					# Medium items
-					elif item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+					if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM and item is MeleeItem:
 						equip_mainhand_item()
+						print("...and picked up item is a medium melee weapon")
+						return true
 
-				elif current_offhand_slot == slot and not bulky_equipment and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-					equip_offhand_item()
+				elif item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+					equip_mainhand_item()
+					print("...and picked up item is a small item")
+					return true
+
+				# Medium items
+				elif item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+					equip_mainhand_item()
+					print("Equipping medium item in main hand")
+					return true
+
+			elif current_offhand_slot == slot and not bulky_equipment and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+				equip_offhand_item()
+				print("Equipping small item in off hand")
+				return true
 
 			# Encumbrance makes character louder and more visible. Character uses more stamina.
 			# Eventually will affect mantling and swimming.
@@ -237,8 +372,13 @@ func add_item(item : PickableItem) -> bool:
 				encumbrance += 1
 			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
 				encumbrance += 2
-
-	return true
+			
+			print("Successfully added equipment item to inventory")
+			return true
+			
+	# If we reach here, the item type wasn't handled
+	print("Item type not handled in add_item: ", item.name if item != null else "null")
+	return false
 
 
 # Functions to interact with tiny items
@@ -442,12 +582,21 @@ func drop_hotbar_slot(slot : int) -> Node:
 				else:
 					_drop_item(item_node)
 		else:
-			item.stackable_resource.items_stacked.remove_at(0)
-			var hand = null
+			# Get the next item from the stack before removing the current item
+			var next_item = null
 			if item.stackable_resource.items_stacked.is_empty() == false:
-				var next_item = item.stackable_resource.items_stacked[0]
+				next_item = item.stackable_resource.items_stacked[0]
+			
+			# Remove the current item from the stack
+			item.stackable_resource.remove_item(item)
+			
+			var hand = null
+			if next_item != null and is_instance_valid(next_item):
 				next_item.stackable_resource = item.stackable_resource
 				hotbar[slot] = next_item
+				
+				# BUGFIX: Emit hotbar_changed signal to update UI when stackable item is replaced
+				emit_signal("hotbar_changed", slot)
 
 				# Prepare for the droping
 				if current_mainhand_equipment == item_node:
@@ -623,6 +772,29 @@ func swap_hands():
 		set_offhand_slot(previous_mainhand)
 
 	are_swapping = false
+
+
+# Generalized hotbar searching utility function
+# filter_func: Callable that takes an item and returns true if it matches the criteria
+# action_func: Callable that takes an item and its index, performs an action on the item
+# early_termination_func: Optional Callable that takes an item and returns true if search should stop
+func search_hotbar(filter_func: Callable, action_func: Callable, early_termination_func: Callable = Callable()) -> bool:
+	var items_processed = false
+	for i in range(hotbar.size()):
+		var item = hotbar[i]
+		if item == null:
+			continue
+			
+		# Apply filter condition
+		if filter_func.call(item):
+			# Perform action on matching item
+			action_func.call(item, i)
+			items_processed = true
+			
+			# Check for early termination
+			if early_termination_func.is_valid() and early_termination_func.call(item):
+				return true  # Early termination requested
+	return items_processed  # Return true if any items were processed
 
 
 func switch_away_from_light(light_source):

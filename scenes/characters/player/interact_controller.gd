@@ -94,8 +94,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	):
 		if interact_state == InteractState.GRAB:
 			interact_state = InteractState.NONE
-			grabbed_item = null
 			player_controller.throw_object(grabbed_item)
+			grabbed_item = null
 			get_viewport().set_input_as_handled()
 
 func _try_grab() -> bool:

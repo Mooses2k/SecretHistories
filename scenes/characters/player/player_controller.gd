@@ -1,8 +1,12 @@
 extends Node
 class_name PlayerController
 
+
 const CAMERA_STANDING_HEIGHT = 1.6
 const CAMERA_CROUCHING_HEIGHT = 1.1
+
+# Constants for auto-switch weapon setting
+const SETTING_AUTO_SWITCH_WEAPON: String = "Auto-switch weapons on throw"
 
 @onready var state: HumanoidCharacterState = $"../State"
 @onready var input: HumanoidCharacterInput = $"../Input"
@@ -12,6 +16,7 @@ var camera_pitch : float = 0.0
 
 var moved_since_sprint : bool = false
 var dodge_performed : bool = false
+
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -60,6 +65,8 @@ func _physics_process(delta: float) -> void:
 	# Reset dodge_performed when sprint is released
 	if not input.sprint:
 		dodge_performed = false
+
+
 func set_ads(value : bool):
 	print("toggling ADS: ", value)
 	pass
@@ -68,10 +75,26 @@ func set_ads(value : bool):
 func throw_object(object : RigidBody3D):
 	print("throwing item")
 	var inv : Inventory = (owner as HumanoidCharacter).inventory
-	if object == inv.get_mainhand_item():
+	
+	# Check if the thrown object is from mainhand or offhand (hotbar)
+	var is_mainhand = object == inv.get_mainhand_item()
+	var is_offhand = object == inv.get_offhand_item()
+	var thrown_from_hotbar = is_mainhand or is_offhand
+	
+	# Store the type of item being thrown for same-type search
+	var thrown_item_type = null
+	if object is MeleeItem:
+		thrown_item_type = object.get_script()  # Get the script type for comparison
+	
+	# Determine which slot was thrown from
+	var thrown_slot = -1
+	if is_mainhand:
 		inv.drop_mainhand_item()
-	elif object == inv.get_offhand_item():
+		thrown_slot = inv.current_mainhand_slot
+	elif is_offhand:
 		inv.drop_offhand_item()
+		thrown_slot = inv.current_offhand_slot
+	
 	var impulse := 100.0
 	if (object is PickableItem) and object.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 		impulse = 50.0 * object.mass
@@ -85,6 +108,155 @@ func throw_object(object : RigidBody3D):
 	object.add_collision_exception_with(owner)
 	if object.has_method(&"play_throw_sound"):
 		object.play_throw_sound()
+	
+	# Auto weapon switching logic (only for hotbar throws, not grabbed items)
+	if thrown_from_hotbar and GameSettings.get_auto_switch_weapon() != 2 and object is MeleeItem:  # 2 = "None"
+		_auto_switch_weapon(inv, thrown_item_type, is_mainhand, is_offhand, thrown_slot, object)
+
+
+# Add the auto switch weapon helper function
+func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is_offhand: bool, thrown_slot: int, thrown_item):
+	var auto_switch_mode = GameSettings.get_auto_switch_weapon()  # 0 = "Next same type then all", 1 = "Next same type only"
+	
+	# First check if the thrown item is from a stackable resource
+	var stackable_resource = thrown_item.stackable_resource
+	
+	if stackable_resource != null:
+		# Try to find the hotbar slot that contains this stackable resource
+		for i in range(inv.hotbar.size()):
+			var hotbar_item = inv.hotbar[i]
+			if hotbar_item != null and hotbar_item.stackable_resource == stackable_resource:
+				if stackable_resource.items_stacked.size() > 0:
+					if is_mainhand:
+						inv.current_mainhand_slot = i
+						inv.equip_mainhand_item()
+					elif is_offhand:
+						inv.current_offhand_slot = i
+						inv.equip_offhand_item()
+					return
+	
+	# Variables to store found items for each priority level
+	var same_type_item = null
+	var same_type_slot = -1
+	var small_item = null
+	var small_slot = -1
+	var medium_item = null
+	var medium_slot = -1
+	
+	# Search through hotbar from lowest to highest (0 to size-1)
+	# This ensures we follow the "lowest to highest" requirement
+	
+	# Safety check: Ensure hotbar is valid
+	if inv.hotbar == null:
+		print("[ERROR] _auto_switch_weapon: hotbar is null!")
+		return
+	if inv.hotbar.size() == 0:
+		print("[ERROR] _auto_switch_weapon: hotbar is empty!")
+		return
+	
+	# First priority: Check for same type items across all slots
+	for i in range(inv.hotbar.size()):
+		# Skip the slot that just had an item thrown
+		if i == thrown_slot:
+			continue
+		
+		# Safety check: Ensure index is valid
+		if i < 0 or i >= inv.hotbar.size():
+			print("[ERROR] _auto_switch_weapon: Invalid index ", i, " for hotbar size ", inv.hotbar.size())
+			continue
+			
+		var item = inv.hotbar[i]
+		if item == null:
+			continue
+			
+		# Check if this is a melee item of the same type
+		if item is MeleeItem and thrown_item_type != null and item.get_script() == thrown_item_type:
+			same_type_item = item
+			same_type_slot = i
+			# If we only want same type, we can break early
+			if auto_switch_mode == 1:  # "Next same type only"
+				break
+	
+	# If we found a same type item and we're in "same type only" mode, equip it and return
+	if same_type_item != null and auto_switch_mode == 1:
+		if is_mainhand:
+			inv.current_mainhand_slot = same_type_slot
+			inv.equip_mainhand_item()
+		elif is_offhand:
+			inv.current_offhand_slot = same_type_slot
+			inv.equip_offhand_item()
+		return
+	
+	# Second priority: Check for SIZE_SMALL MeleeItems (only if we're not in "same type only" mode)
+	if auto_switch_mode == 0:  # "Next same type then all"
+		for i in range(inv.hotbar.size()):
+			# Skip the slot that just had an item thrown
+			if i == thrown_slot:
+				continue
+			
+			# Safety check: Ensure index is valid
+			if i < 0 or i >= inv.hotbar.size():
+				print("[ERROR] _auto_switch_weapon: SIZE_SMALL search - Invalid index ", i, " for hotbar size ", inv.hotbar.size())
+				continue
+				
+			var item = inv.hotbar[i]
+			if item == null:
+				continue
+				
+			# Check if this is a SIZE_SMALL MeleeItem
+			if item is MeleeItem and item.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+				small_item = item
+				small_slot = i
+				break  # Take the first one found (lowest slot)
+	
+	# Third priority: Check for SIZE_MEDIUM MeleeItems (only if we're not in "same type only" mode)
+	if auto_switch_mode == 0 and small_item == null:  # Only check if we haven't found a small item
+		for i in range(inv.hotbar.size()):
+			# Skip the slot that just had an item thrown
+			if i == thrown_slot:
+				continue
+			
+			# Safety check: Ensure index is valid
+			if i < 0 or i >= inv.hotbar.size():
+				print("[ERROR] _auto_switch_weapon: SIZE_MEDIUM search - Invalid index ", i, " for hotbar size ", inv.hotbar.size())
+				continue
+				
+			var item = inv.hotbar[i]
+			if item == null:
+				continue
+				
+			# Check if this is a SIZE_MEDIUM MeleeItem
+			if item is MeleeItem and item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
+				medium_item = item
+				medium_slot = i
+				break  # Take the first one found (lowest slot)
+	
+	# Equip the appropriate item based on priority and settings
+	var item_to_equip = null
+	var slot_to_equip = -1
+	
+	if same_type_item != null:
+		# Found same type item
+		item_to_equip = same_type_item
+		slot_to_equip = same_type_slot
+	elif auto_switch_mode == 0:  # "Next same type then all"
+		# Look for SIZE_SMALL first, then SIZE_MEDIUM
+		if small_item != null:
+			item_to_equip = small_item
+			slot_to_equip = small_slot
+		elif medium_item != null:
+			item_to_equip = medium_item
+			slot_to_equip = medium_slot
+	
+	# Equip the found item to the appropriate hand
+	if item_to_equip != null and slot_to_equip != -1:
+		if is_mainhand:
+			inv.current_mainhand_slot = slot_to_equip
+			inv.equip_mainhand_item()
+		elif is_offhand:
+			inv.current_offhand_slot = slot_to_equip
+			inv.equip_offhand_item()
+
 
 
 func place_object(object : RigidBody3D, at : Transform3D):

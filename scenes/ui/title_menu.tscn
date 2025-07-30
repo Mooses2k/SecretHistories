@@ -44,6 +44,7 @@ theme_override_colors/font_outline_color = Color(0.760784, 0.364706, 0.0470588, 
 text = "SECRET HISTORIES"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.9
@@ -57,37 +58,32 @@ alignment = 1
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
 theme = ExtResource("4")
+theme_override_colors/font_disabled_color = Color(0.509804, 0.509804, 0.509804, 1)
 theme_override_colors/font_hover_color = Color(0.866667, 0.866667, 0.866667, 1)
 theme_override_colors/font_focus_color = Color(0.866667, 0.866667, 0.866667, 1)
-theme_override_colors/font_disabled_color = Color(0.509804, 0.509804, 0.509804, 1)
 disabled = true
 text = "Continue"
-flat = true
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4")
 text = "Commence"
-flat = true
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4")
 text = "Configure"
-flat = true
 
 [node name="CreditsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("4")
 text = "Credits"
-flat = true
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../ContinueButton")
 theme = ExtResource("4")
 text = "Conclude"
-flat = true
 
 [node name="Menus" type="Node" parent="."]
 

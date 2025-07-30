@@ -39,6 +39,7 @@ var shard_has_spawned = false    # Tracks if the shard has spawned yet, so only 
 @onready var local_settings : SettingsClass = %LocalSettings
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var load_screen: LoadScreen = $Loading
+@onready var screen_filters: ScreenFilters = $ScreenFilters
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 

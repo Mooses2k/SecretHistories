@@ -192,9 +192,6 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	
 	print("DEBUG: Starting generate_grid_tiles execution #%d (seed: %d)" % [exec_count, generation_seed])
 	
-	if exec_count > 1:
-		print("WARNING: generate_grid_tiles is being executed multiple times! This will cause z-fighting!")
-	
 	var pillar_rooms = gen_data.get(PillarRoomGenerator.PILLAR_ROOMS_KEY, Array())
 	var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.seed = generation_seed

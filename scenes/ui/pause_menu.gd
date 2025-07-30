@@ -23,6 +23,7 @@ func _ready() -> void:
 
 
 func set_gui_state(value : int):
+	if value == gui_state: return
 	states[gui_state].exit_state()
 	gui_state = value
 	states[gui_state].enter_state()
@@ -54,20 +55,21 @@ func _on_EscMenu_button_pressed(button) -> void:
 			owner.gui_state = owner.GUIState.HUD
 		esc_menu.EscMenuButtons.SAVE:
 			print_debug("Saving not yet implemented")
-			
+
 		esc_menu.EscMenuButtons.SETTINGS:
 			self.gui_state = PauseMenuState.SETTINGS_MENU
-		
+
 		esc_menu.EscMenuButtons.HELP:
 			GameManager.game.player.hit_effect.keybind_defaults.visible = !GameManager.game.player.hit_effect.keybind_defaults.visible
 			GameManager.game.player.hit_effect.debug_label.visible = !GameManager.game.player.hit_effect.debug_label.visible
-		
+
 		esc_menu.EscMenuButtons.QUIT:
 			get_tree().quit()
-			
+
 			# TODO: quit to main menu is preferred, but this doesn't work:
 #			var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")
 
 
 func _on_SettingsMenu_settings_menu_exited() -> void:
+	#if (self.gui_state != PauseMenuState.ESC_MENU):
 	self.gui_state = PauseMenuState.ESC_MENU

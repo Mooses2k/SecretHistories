@@ -20,8 +20,8 @@ var _camera_orig_rotation : Vector3
 var pitch_yaw : Vector2 = Vector2.ZERO
 
 const MAX_RECOIL = 35 * 60
-const DAMPENING_FACTOR = 6 * 60
-const DAMPENING_POWER = 0.0
+const DAMPING_FACTOR = 6 * 60
+const DAMPING_POWER = 0.0
 
 var up_recoil = 0.0
 var side_recoil = 0.0
@@ -160,7 +160,7 @@ func update(delta):
 			pitch_yaw.x += deg_to_rad(up_recoil) * delta
 			pitch_yaw.x = min(pitch_yaw.x, PI * 0.5)
 #            pitch_yaw.x = lerp(pitch_yaw.x, deg2rad(pitch_yaw.x + up_recoil), delta)
-		up_recoil -= DAMPENING_FACTOR * pow(up_recoil, DAMPENING_POWER) * delta
+		up_recoil -= DAMPING_FACTOR * pow(up_recoil, DAMPING_POWER) * delta
 
 	# Finally, apply rotations
 #	owner.character_body.rotation.y = pitch_yaw.y   # Horizontal (back before fps_camera)

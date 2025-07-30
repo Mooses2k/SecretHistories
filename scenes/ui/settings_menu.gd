@@ -17,7 +17,7 @@ func _ready() -> void:
 	var settings_ui = $MaxAspectContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/SettingsUI
 	if settings_ui:
 		settings_ui.queue_free()
-	
+
 	# Load the tabbed settings UI
 	var tabbed_settings_scene = preload("res://scenes/ui/tabbed_settings_ui.tscn")
 	var tabbed_settings = tabbed_settings_scene.instantiate()
@@ -27,6 +27,7 @@ func _ready() -> void:
 
 func exit_state():
 	# Gracefully exit the settings menu state
+	if not self.visible: return
 	self.hide()
 	emit_signal("settings_menu_exited")
 

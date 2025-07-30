@@ -22,8 +22,8 @@ func _get_property_list() -> Array[Dictionary]:
 		var item_name : String = meshlib.get_item_name(item_idx)
 		meshlib_items.push_back("%s:%d" % [item_name, item_idx])
 	var enum_hint : String = ",".join(meshlib_items)
-	print(enum_hint)
-	
+	#print(enum_hint)
+
 	result.append({
 		"name" : "pillar_tile",
 		"usage" : PROPERTY_USAGE_DEFAULT,
@@ -31,7 +31,7 @@ func _get_property_list() -> Array[Dictionary]:
 		"hint" : PROPERTY_HINT_ENUM,
 		"hint_string" : enum_hint,
 	})
-	
+
 	return result
 
 
@@ -44,25 +44,25 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	# the potential pillar is checked to verify that it contains only room cells
 	# and the area immediatelly around the pillar is also checked for other
 	# pillars, to prevent placing pillars too close to each other
-	
+
 	var rooms := data.get_all_rooms()
 	for value in rooms:
 		var room_data := value as RoomData
 		var room_rect := room_data.rect2
-		
+
 		# Validity Checks
 		# Check that room clears the minimum size requirement
 		if not room_data.is_min_dimension_greater_or_equal_to(min_room_dimension):
 			continue
-		
+
 		# Check that the room dimensions are even
 		if int(room_rect.size.x) % 2 != 0 and int(room_rect.size.y) % 2 != 0:
 			continue
-		
+
 		# Check that the room fills all cells of the rectangle
 		if room_rect.size.x*room_rect.size.y != room_data.cell_indexes.size():
 			continue
-		
+
 		# Checks that all walls and doors on the room are aligned to even spacing,
 		# To allow placing double wide tiles
 		var walls_even_aligned = true
@@ -79,7 +79,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
-			
+
 			# South
 			cell = data.get_cell_index_from_int_position(room_rect.position.x + i, room_rect.position.y + room_rect.size.y - 1)
 			wall_type = data.get_wall_type(cell, data.Direction.SOUTH)
@@ -91,7 +91,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
-		
+
 		# Check WEST and EAST walls for odd offsets
 		for i in room_rect.size.y:
 			# West
@@ -105,7 +105,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
-			
+
 			# East
 			cell = data.get_cell_index_from_int_position(room_rect.position.x + room_rect.size.x - 1, room_rect.position.y + i)
 			wall_type = data.get_wall_type(cell, data.Direction.EAST)
@@ -117,17 +117,17 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			if i % 2 == 1 and not (wall_type == data.EdgeType.WALL or wall_type == data.EdgeType.HALFDOOR_N):
 				walls_even_aligned = false
 				break
-		
+
 		if not walls_even_aligned:
 			continue
-		
+
 		# Room has passed all checks, consider it a pillar room
 		room_data.has_pillars = true
 		for cell in room_data.cell_indexes:
 			data.set_cell_meta(cell, data.CellMetaKeys.META_PILLAR_ROOM, true)
-		
+
 		pillar_rooms.push_back(room_rect)
-	
+
 	print("pillar rooms: %s" % [pillar_rooms])
 	if gen_data.has(PILLAR_ROOMS_KEY):
 		printerr("Generation data already contains pillar room data")

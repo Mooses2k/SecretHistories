@@ -48,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		state.stamina += parameters.stamina_drain_rate * delta
 	var target_crouch_ratio : float = 1.0 if (input.crouch and not state.sprinting) else 0.0
-	
+
 	var target_height = lerp(parameters.standing_height, parameters.crouch_height, target_crouch_ratio)
 	if target_height > character_collision.height:
 		ceiling_detection_test_parameters.motion = Vector3.UP * (target_height - character_collision.height + 0.1)
@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 			target_crouch_ratio = inverse_lerp(parameters.standing_height, parameters.crouch_height, target_height)
 	state.current_crouch_ratio = move_toward(state.current_crouch_ratio, target_crouch_ratio, delta/parameters.crouch_animation_duration)
 	character_collision.height = lerp(parameters.standing_height, parameters.crouch_height, state.current_crouch_ratio)
-	
+
 	model_root.global_basis = state.facing
 
 
@@ -134,8 +134,8 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 	if state.is_on_ground:
 		ground_normal = collision_normal
 		physics_state.transform.origin.y = move_toward(
-			physics_state.transform.origin.y, 
-			collision_position.y, 
+			physics_state.transform.origin.y,
+			collision_position.y,
 			2.0*physics_state.step
 		)
 		control_multiplier = 1.0
@@ -199,7 +199,7 @@ func dodge() -> void:
 	if state.stamina >= parameters.dodge_stamina_cost and state.time_since_dodge >= parameters.dodge_cooldown:
 		state.stamina -= parameters.dodge_stamina_cost
 		state.time_since_dodge = 0.0
-		
+
 		# Apply impulse based on movement direction
 		var dodge_direction := input.movement_vector.normalized()
 		if dodge_direction == Vector3.ZERO:
@@ -209,11 +209,11 @@ func dodge() -> void:
 			# Project movement direction onto ground plane
 			dodge_direction = dodge_direction - state.facing.y * dodge_direction.dot(state.facing.y)
 			dodge_direction = dodge_direction.normalized()
-		
+
 		# Apply the dodge impulse
-		apply_impulse(dodge_direction * parameters.dodge_impulse, Vector3.ZERO)
-		
+		apply_central_impulse(dodge_direction * parameters.dodge_impulse * mass)
+
 		# Add animation hook - set a parameter that can be used in the animation tree
 		pass
-		
+
 		print("Dodged with impulse: ", dodge_direction * parameters.dodge_impulse)

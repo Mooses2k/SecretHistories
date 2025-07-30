@@ -6,15 +6,15 @@ const GROUP_NAME : String = "Input Settings"
 const SETTING_MOUSE_SENSITIVITY : String = "Mouse Sensitivity"
 
 const MAX_VALUE = 8.0
-const STEP_VALUE = 0.05
-const MIN_VALUE = 0.05
-const DEFAULT_VALUE = 0.1
+const STEP_VALUE = 0.025
+const MIN_VALUE = 1.0/MAX_VALUE
+const DEFAULT_VALUE = 1.0
 
 var setting_mouse_sensitivity : float: get = get_mouse_sensitivity, set = set_mouse_sensitivity
 
 
 func _ready():
-	Settings.add_float_setting(SETTING_MOUSE_SENSITIVITY, MIN_VALUE, MAX_VALUE, STEP_VALUE, DEFAULT_VALUE)
+	Settings.add_float_setting(SETTING_MOUSE_SENSITIVITY, MIN_VALUE, MAX_VALUE, STEP_VALUE, DEFAULT_VALUE, true)
 	Settings.set_setting_group(SETTING_MOUSE_SENSITIVITY, GROUP_NAME)
 
 	Settings.connect("setting_changed", Callable(self, "on_setting_changed"))

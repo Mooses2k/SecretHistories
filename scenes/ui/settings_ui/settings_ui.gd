@@ -25,12 +25,12 @@ var settings: SettingsClass
 func attach_settings(s : SettingsClass, be_sorted : bool):
 	clear_ui()
 	settings = s
-	
+
 	# Check if we have the expected UI structure for tabbed settings
 	if tab_buttons == null or content_area == null:
 		print("WARNING: SettingsUI is using legacy scene structure, skipping tab generation")
 		return
-		
+
 	generate_tabs()
 	populate_settings()
 
@@ -38,10 +38,10 @@ func clear_ui():
 	# Only proceed if we have the expected UI elements
 	if tab_buttons == null or content_area == null:
 		return
-	
+
 	for child in tab_buttons.get_children():
 		child.queue_free()
-	
+
 	for child in content_area.get_children():
 		child.queue_free()
 	tab_data.clear()
@@ -54,7 +54,7 @@ func generate_tabs():
 		"Game": ["Game Settings"],
 		"Input": ["Input Settings", "Input Key Settings"]
 	}
-	
+
 	# Create tabs
 	var first_tab = true
 	for tab_name in tab_structure.keys():
@@ -63,22 +63,22 @@ func generate_tabs():
 		tab_button.text = tab_name
 		tab_button.pressed.connect(_on_tab_button_pressed.bind(tab_name))
 		tab_buttons.add_child(tab_button)
-		
+
 		# Create scroll container for tab content
 		var scroll_container = ScrollContainer.new()
 		scroll_container.name = "ScrollContainer_" + tab_name
 		scroll_container.visible = first_tab
-		
+
 		# Configure scroll container to fill available space
 		scroll_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		scroll_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		scroll_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		
+
 		# Configure scroll container properties
 		scroll_container.set_horizontal_scroll_mode(ScrollContainer.SCROLL_MODE_DISABLED)
 		scroll_container.set_vertical_scroll_mode(ScrollContainer.SCROLL_MODE_AUTO)
 		scroll_container.set_follow_focus(true)
-		
+
 		# Create margin container to provide spacing from scroll bar
 		# Adjust these margin values (in pixels) to customize the spacing:
 		# - Left/Right margins provide horizontal spacing from scroll bar
@@ -88,13 +88,13 @@ func generate_tabs():
 		margin_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		margin_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		margin_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		
+
 		# Configure margin values - customize these as needed for visual spacing
 		margin_container.add_theme_constant_override("margin_left", 12)    # Left spacing
 		margin_container.add_theme_constant_override("margin_right", 12)   # Right spacing (from scroll bar)
 		margin_container.add_theme_constant_override("margin_top", 8)      # Top spacing
 		margin_container.add_theme_constant_override("margin_bottom", 8)   # Bottom spacing
-		
+
 		# Create tab content container
 		var tab_content = VBoxContainer.new()
 		tab_content.name = "TabContent_" + tab_name
@@ -102,12 +102,12 @@ func generate_tabs():
 		tab_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		tab_content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		tab_content.add_theme_constant_override("separation", 8)
-		
+
 		# Add tab content to margin container, then margin container to scroll container
 		margin_container.add_child(tab_content)
 		scroll_container.add_child(margin_container)
 		content_area.add_child(scroll_container)
-		
+
 		# Create groups for this tab
 		for group_name in tab_structure[tab_name]:
 			var group = GroupScene.instantiate()
@@ -115,7 +115,7 @@ func generate_tabs():
 			tab_content.add_child(group)
 			tab_data[tab_name] = tab_data.get(tab_name, {})
 			tab_data[tab_name][group_name] = group
-		
+
 		if first_tab:
 			current_tab = tab_name
 			first_tab = false
@@ -123,7 +123,7 @@ func generate_tabs():
 func populate_settings():
 	if not settings:
 		return
-	
+
 	# Add default keys button for Input Key Settings
 	var input_key_group = tab_data.get("Input", {}).get("Input Key Settings")
 	if input_key_group:
@@ -132,13 +132,13 @@ func populate_settings():
 		if input_key_group.get_node_or_null("ListOffset/SettingsList/Container/Button"):
 			input_key_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed",
 				Callable(get_parent().owner.get_node("ResetPanel"), "toggle_panel"))
-	
+
 	# Add all settings to appropriate groups
 	for setting_name in settings.get_settings_list():
 		var group_name = settings.get_setting_group(setting_name)
 		if not group_name:
 			continue
-		
+
 		# Find which tab this group belongs to
 		for tab_name in tab_data.keys():
 			if group_name in tab_data[tab_name]:
@@ -155,20 +155,20 @@ func add_setting_to_group(setting_name: String, group: Node):
 func _on_tab_button_pressed(tab_name: String):
 	if tab_name == current_tab:
 		return
-	
+
 	# Hide all tab contents
 	for child in content_area.get_children():
 		child.visible = false
-	
+
 	# Show selected tab content
 	var scroll_container = content_area.get_node("ScrollContainer_" + tab_name)
 	if scroll_container:
 		scroll_container.visible = true
-	
+
 	# Update button states
 	for button in tab_buttons.get_children():
 		button.button_pressed = (button.text == tab_name)
-	
+
 	current_tab = tab_name
 
 

@@ -17,11 +17,11 @@ enum InteractState {
 # it longer will attempt a grab
 @export var interact_threshold : float = 0.2
 
-# Dampening parameters for non-heavy grabbed objects
-@export var light_object_mass_threshold : float = 20.0  # kg - objects below this get dampening
-@export var linear_dampening_factor : float = 8.0
-@export var rotational_dampening_factor : float = 8.0
-@export var mass_dampening_scale : float = 0.8  # How much mass affects dampening (0.0-1.0)
+# Damping parameters for non-heavy grabbed objects
+@export var light_object_mass_threshold : float = 20.0  # kg - objects below this get damping
+@export var linear_damping_factor : float = 8.0
+@export var rotational_damping_factor : float = 8.0
+@export var mass_damping_scale : float = 0.8  # How much mass affects damping (0.0-1.0)
 
 var _interaction_held_timer : float = 0.0
 var _holding_interact : bool = false
@@ -86,7 +86,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			InteractState.ADS:
 				player_controller.set_ads(false)
 			InteractState.GRAB:
-				_reset_object_dampening(grabbed_item)
+				_reset_object_damping(grabbed_item)
 				grabbed_item = null
 				player_controller.set_drag_speed_modifier(1.0)
 			InteractState.PENDING:
@@ -103,7 +103,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if interact_state == InteractState.GRAB:
 			interact_state = InteractState.NONE
 			var item_to_throw = grabbed_item
-			_reset_object_dampening(item_to_throw)
+			_reset_object_damping(item_to_throw)
 			grabbed_item = null
 			player_controller.set_drag_speed_modifier(1.0)
 			player_controller.throw_object(item_to_throw)
@@ -156,18 +156,18 @@ func _physics_process(delta: float) -> void:
 		# Apply speed reduction to player controller
 		player_controller.set_drag_speed_modifier(speed_reduction_factor)
 		
-		# Apply dampening to non-heavy objects
+		# Apply damping to non-heavy objects
 		if mass <= light_object_mass_threshold:
-			# Calculate mass-scaled dampening (lighter objects get more dampening)
+			# Calculate mass-scaled damping (lighter objects get more damping)
 			var mass_factor = clamp(mass / light_object_mass_threshold, 0.01, 1.0)
-			var scaled_linear_damp = linear_dampening_factor * (1.0 - mass_factor * mass_dampening_scale)
-			var scaled_rotational_damp = rotational_dampening_factor * (1.0 - mass_factor * mass_dampening_scale)
+			var scaled_linear_damp = linear_damping_factor * (1.0 - mass_factor * mass_damping_scale)
+			var scaled_rotational_damp = rotational_damping_factor * (1.0 - mass_factor * mass_damping_scale)
 			
-			# Ensure minimum dampening values
+			# Ensure minimum damping values
 			scaled_linear_damp = max(scaled_linear_damp, 0.01)
 			scaled_rotational_damp = max(scaled_rotational_damp, 0.01)
 			
-			# Apply dampening
+			# Apply damping
 			grabbed_item.linear_damp = scaled_linear_damp
 			grabbed_item.angular_damp = scaled_rotational_damp
 		
@@ -190,9 +190,9 @@ func interact() -> void:
 		print("interact")
 		interact_target.interact(owner)
 
-# Helper function to reset object dampening when released
-func _reset_object_dampening(item: RigidBody3D) -> void:
+# Helper function to reset object damping when released
+func _reset_object_damping(item: RigidBody3D) -> void:
 	if is_instance_valid(item):
 		# Reset to default physics values (or whatever the object's original values were)
-		item.linear_damp = 0.0  # Default Godot linear dampening
-		item.angular_damp = 0.0  # Default Godot angular dampening
+		item.linear_damp = 0.0  # Default Godot linear damping
+		item.angular_damp = 0.0  # Default Godot angular damping

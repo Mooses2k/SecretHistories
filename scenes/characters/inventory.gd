@@ -72,11 +72,11 @@ func can_pickup_item(item : PickableItem) -> bool:
 	# Also prevents picking up busy items
 	print("can_pickup_item called for item: ", item.name if item != null else "null")
 	print("item.item_state is ", item.item_state if item != null else "null")
-	
+
 	if item == null:
 		print("Item is null, cannot pick up")
 		return false
-	
+
 	# Check if item is in a valid state for pickup
 	if item.item_state == GlobalConsts.ItemState.DROPPED or item.item_state == GlobalConsts.ItemState.DAMAGING:
 		print("item.item_state is ", item.item_state, ", so item is considered dropped or damaging")
@@ -84,20 +84,17 @@ func can_pickup_item(item : PickableItem) -> bool:
 		if item is EquipmentItem:
 			print("Item is EquipmentItem, can be picked up")
 			return true
+		elif (item is TinyItem) or (item is KeyItem):
+			print("Item is TinyItem or KeyItem, can be picked up")
+			return true
 		else:
-			print("Item is not EquipmentItem, checking if TinyItem or KeyItem")
-			# Can always pickup special items
-			if (item is TinyItem) or (item is KeyItem):
-				print("Item is TinyItem or KeyItem, can be picked up")
-				return true
-			else:
-				print("Item is not EquipmentItem, TinyItem, or KeyItem")
-				return false
+			print("Item is not EquipmentItem, TinyItem, or KeyItem")
+			return false
 	else:
 		print("item.item_state is not DROPPED or DAMAGING, current state: ", item.item_state)
 		return false
 
-	print("Fell through to end of function, returning false")
+	# Unreachable
 	return false
 
 
@@ -143,6 +140,7 @@ func add_item(item : PickableItem) -> bool:
 			print("it has a stack")
 		# Update the inventory info immediately
 		# This is a bulky item, or there is no space on the hotbar
+		# TODO: Check for medical items first
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
 			print("Adding as bulky item or hotbar is full")
 			drop_bulky_item()
@@ -157,7 +155,7 @@ func add_item(item : PickableItem) -> bool:
 				# Search for medical containers with space using search_hotbar utility
 				var container_item = null
 				var container_found = false
-				
+
 				# Define filter function to find medical containers with space
 				var filter_func = func(potential_container):
 					var is_medical = potential_container is MedicalItem
@@ -168,7 +166,7 @@ func add_item(item : PickableItem) -> bool:
 						  " (container: '", potential_container.item_name if is_medical else "N/A",
 						  "' vs item: '", item.item_name, "')")
 					return is_medical and is_container and has_space
-				
+
 				# Define action function to consolidate the item
 				var action_func = func(potential_container, slot_index):
 					print("[DEBUG] Found suitable container: ", potential_container.name, " at slot: ", slot_index)
@@ -177,15 +175,15 @@ func add_item(item : PickableItem) -> bool:
 					# Calculate how much space the container has
 					var space_left = container_item.max_charges_held - container_item.charges_held
 					print("[DEBUG] Container space_left: ", space_left, ", item heal_amount: ", item.heal_amount)
-					
+
 					# Add heal_amount to container (up to its capacity)
 					var amount_to_add = min(space_left, item.heal_amount)
 					container_item.charges_held += amount_to_add
 					print("[DEBUG] Added ", amount_to_add, " charges to container, new total: ", container_item.charges_held)
-					
+
 					# Update the container's UI
 					container_item.emit_signal("item_data_changed")
-					
+
 					# Handle stackable resources if applicable
 					if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
 						print("[DEBUG] Removing from stack (stack size: ", item.stackable_resource.items_stacked.size(), ")")
@@ -202,18 +200,18 @@ func add_item(item : PickableItem) -> bool:
 						if item.is_inside_tree():
 							item.get_parent().remove_child(item)
 						item.queue_free()
-					
+
 					emit_signal("inventory_changed")
 					return true  # Stop searching after finding and processing the first container
-				
+
 				# Define early termination function to stop after processing one container
 				var early_termination_func = func(potential_container):
 					return container_found
-				
+
 				# Use the search_hotbar utility function
 				print("[DEBUG] Starting hotbar search for medical containers")
 				search_hotbar(filter_func, action_func, early_termination_func)
-				
+
 				# If we found and processed a container, we're done
 				if container_found:
 					print("[DEBUG] Medical consolidation successful, returning true")
@@ -299,7 +297,7 @@ func add_item(item : PickableItem) -> bool:
 
 			### Part 2 - Otherwise, normal rules: Select the lowest numbered available slot
 			slot = current_mainhand_slot
-			
+
 			# If current mainhand slot is occupied, find the lowest numbered empty slot
 			if hotbar[slot] != null:
 				print("Current mainhand slot ", slot + 1, " is occupied. Looking for lowest numbered empty slot")
@@ -310,7 +308,7 @@ func add_item(item : PickableItem) -> bool:
 						slot = i
 						print("Found lowest numbered empty slot: ", slot + 1)
 						break
-				
+
 				# If no empty slots found, this will be handled below
 				if slot == -1:
 					print("No empty slots found, pickup will fail")
@@ -372,10 +370,10 @@ func add_item(item : PickableItem) -> bool:
 				encumbrance += 1
 			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
 				encumbrance += 2
-			
+
 			print("Successfully added equipment item to inventory")
 			return true
-			
+
 	# If we reach here, the item type wasn't handled
 	print("Item type not handled in add_item: ", item.name if item != null else "null")
 	return false
@@ -586,15 +584,15 @@ func drop_hotbar_slot(slot : int) -> Node:
 			var next_item = null
 			if item.stackable_resource.items_stacked.is_empty() == false:
 				next_item = item.stackable_resource.items_stacked[0]
-			
+
 			# Remove the current item from the stack
 			item.stackable_resource.remove_item(item)
-			
+
 			var hand = null
 			if next_item != null and is_instance_valid(next_item):
 				next_item.stackable_resource = item.stackable_resource
 				hotbar[slot] = next_item
-				
+
 				# BUGFIX: Emit hotbar_changed signal to update UI when stackable item is replaced
 				emit_signal("hotbar_changed", slot)
 
@@ -660,7 +658,7 @@ func _drop_item(item : EquipmentItem):
 	item.angular_velocity = Vector3.ZERO
 
 	item.owner_character = null
-	
+
 	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		encumbrance -= 1
 	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
@@ -784,13 +782,13 @@ func search_hotbar(filter_func: Callable, action_func: Callable, early_terminati
 		var item = hotbar[i]
 		if item == null:
 			continue
-			
+
 		# Apply filter condition
 		if filter_func.call(item):
 			# Perform action on matching item
 			action_func.call(item, i)
 			items_processed = true
-			
+
 			# Check for early termination
 			if early_termination_func.is_valid() and early_termination_func.call(item):
 				return true  # Early termination requested

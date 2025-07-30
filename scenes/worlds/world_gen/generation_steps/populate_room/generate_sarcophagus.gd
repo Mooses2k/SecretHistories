@@ -11,7 +11,6 @@ extends GenerationStep
 
 const Sarcophagus = preload("res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd")
 const RoomWalls = preload("res://scenes/worlds/world_gen/helper_objects/crypt_room_walls.gd")
-const DecorateRooms = preload("res://scenes/worlds/world_gen/generation_steps/decorate_rooms.gd")
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -47,21 +46,21 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 	var crypt_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT)
 	if crypt_rooms.is_empty():
 		return
-	
+
 	_rng.seed = generation_seed
 	for c_value in crypt_rooms:
 		var crypt := c_value as RoomData
 		var walls_data := RoomWalls.new()
 		walls_data.init_from_room(data, crypt, sarco_tile_size, _rng)
-		
+
 		for direction in walls_data.main_walls:
 			_spawn_sarcos_in_wall_segments(data, walls_data, direction)
-		
+
 		for direction in walls_data.cells:
 			if direction in walls_data.main_walls:
 				continue
 			_spawn_sarcos_in_wall_segments(data, walls_data, direction)
-		
+
 		_spawn_middle_sarco(data, crypt, walls_data)
 
 
@@ -82,13 +81,13 @@ func _spawn_middle_sarco(world_data: WorldData, crypt: RoomData, walls_data: Roo
 	var remaining_rect := DecorateRooms.get_remaining_rect(crypt, walls_data, sarco_tile_size)
 	if not DecorateRooms.can_place_object(remaining_rect, sarco_tile_size):
 		return
-	
+
 	var placement_data := DecorateRooms.calculate_center_position(
-		remaining_rect, 
-		sarco_tile_size, 
+		remaining_rect,
+		sarco_tile_size,
 		world_data.CELL_SIZE
 	)
-	
+
 	var sarco_cells := DecorateRooms.get_center_cells(world_data, placement_data.rect)
 	if not sarco_cells.is_empty():
 		var sarco_rotation := DecorateRooms.calculate_rotation(walls_data, vertical_center_rotation)
@@ -96,15 +95,15 @@ func _spawn_middle_sarco(world_data: WorldData, crypt: RoomData, walls_data: Roo
 
 
 func _set_sarco_spawn_data(
-		data: WorldData, 
-		sarco_cells: Array, 
-		wall_direction: float, 
+		data: WorldData,
+		sarco_cells: Array,
+		wall_direction: float,
 		sarco_offset := Vector3.ZERO,
 		sarco_rotation := 0.0
 ) -> void:
 	var spawn_data := SpawnData.new()
 	spawn_data.scene_path = sarco_scene_path
-	
+
 	var spawn_position = (
 			data.get_local_cell_position(sarco_cells[0])
 			+ sarco_offset
@@ -112,7 +111,7 @@ func _set_sarco_spawn_data(
 	spawn_data.set_position_in_cell(spawn_position)
 	if wall_direction == -1:
 		spawn_data.set_y_rotation(sarco_rotation)
-	
+
 	var lid_type := Sarcophagus.get_random_lid_type(_rng)
 	if _force_lid != -1:
 		lid_type = _force_lid
@@ -120,7 +119,7 @@ func _set_sarco_spawn_data(
 	spawn_data.set_custom_property("wall_direction", wall_direction)
 	spawn_data.set_custom_property("spawnable_items", _get_sarcophagus_spawn_list())
 	spawn_data.set_custom_property("sarco_spawnable_items", _get_lid_spawn_list())
-	
+
 	for cell_index in sarco_cells:
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
 
@@ -128,7 +127,7 @@ func _set_sarco_spawn_data(
 func _get_sarcophagus_spawn_list() -> PackedStringArray:
 	var draw_amount := _rng.randi_range(_min_item, _max_item)
 	var result : PackedStringArray
-	
+
 	if GameManager.game.current_floor_level == -5 and draw_amount > 0:
 		result.push_back((_sarco_shard_spawn_list_resource.get_random_spawn_data(_rng)).scene_path)
 		draw_amount -= 1
@@ -160,13 +159,13 @@ const ROTATION_GROUP_HINT = "rotation_"
 
 func _get_property_list() -> Array:
 	var properties: = []
-	
+
 	properties.append({
 			name = "_force_lid",
 			type = TYPE_INT,
 			usage = PROPERTY_USAGE_STORAGE,
 	})
-	
+
 	var enum_keys := PackedStringArray(["DISABLED"])
 	enum_keys.append_array(Sarcophagus.PossibleLids.keys())
 	var enum_hint := ",".join(enum_keys)
@@ -177,13 +176,13 @@ func _get_property_list() -> Array:
 			hint = PROPERTY_HINT_ENUM,
 			hint_string = enum_hint
 	})
-	
+
 	return properties
 
 
 func _set(property: StringName, value) -> bool:
 	var has_handled := true
-	
+
 	if property == "force_lid":
 		if value in Sarcophagus.PossibleLids.keys():
 			value = Sarcophagus.PossibleLids[value]
@@ -192,14 +191,14 @@ func _set(property: StringName, value) -> bool:
 		_force_lid = value
 	else:
 		has_handled = false
-	
+
 	return has_handled
 
 
 func _get(property: StringName):
 	var value = null
-	
+
 	if property == "force_lid":
 		value = "DISABLED" if _force_lid == -1 else Sarcophagus.PossibleLids.keys()[_force_lid]
-	
+
 	return value

@@ -7,25 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://q7wrpjiye0bb" path="res://scenes/ui/game_ui.tscn" id="5"]
 [ext_resource type="Environment" uid="uid://bxgnfe0qgcrm" path="res://scenes/worlds/game_environment.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://d0h4ce7jlo0b0" path="res://scenes/ui/loadscreen/load_screen.tscn" id="7_4hehu"]
-[ext_resource type="Script" uid="uid://ckq0wuqytm54u" path="res://scenes/screen_filters/screen_filter_psx.gd" id="7_gee14"]
 [ext_resource type="Script" uid="uid://j5m4bpuhok61" path="res://scenes/screen_filters/screen_filters.gd" id="9_0tnpc"]
+[ext_resource type="Script" uid="uid://q41ssc12f0qb" path="res://scenes/screen_filters/screen_filter_color_reduce.gd" id="9_vtaks"]
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_0tnpc"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_kvpfn"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
 effect_callback_type = 4
 needs_motion_vectors = false
 needs_normal_roughness = false
-script = ExtResource("7_gee14")
-color_depth = 5
-dithering = true
-resolution_scale = 2
-brightness_correct = true
-pitch_black_threshold = 0.116
-dithering_adjust = 1.0
+script = ExtResource("9_vtaks")
+color_depth = 3
 intensity = 1.0
-metadata/_custom_type_script = "uid://ckq0wuqytm54u"
+metadata/_custom_type_script = "uid://q41ssc12f0qb"
 
 [node name="Game" type="Node"]
 process_mode = 1
@@ -51,5 +46,5 @@ visible = false
 
 [node name="ScreenFilters" type="Node" parent="."]
 script = ExtResource("9_0tnpc")
-screen_filter_psx = SubResource("CompositorEffect_0tnpc")
+_compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_kvpfn")])
 metadata/_custom_type_script = "uid://j5m4bpuhok61"

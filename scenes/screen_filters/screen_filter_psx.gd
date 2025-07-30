@@ -131,3 +131,6 @@ func _notification(what: int) -> void:
 		var rd : RenderingDevice = RenderingServer.get_rendering_device()
 		if shader.is_valid():
 			rd.free_rid(shader)
+			for image : RID in low_res_images:
+				if image.is_valid():
+					rd.free_rid(image)

@@ -158,11 +158,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0236034, -0.000669885, 0.0
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 shape = SubResource("27")
 
-[node name="Countdown" type="Timer" parent="." index="5"]
-wait_time = 5.0
-one_shot = true
-
-[node name="Shrapnel" type="GPUParticles3D" parent="." index="6"]
+[node name="Shrapnel" type="GPUParticles3D" parent="." index="5"]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00112057, -0.00427759, -0.00190479)
 material_override = ExtResource("10")
 cast_shadow = 0
@@ -176,7 +172,7 @@ visibility_aabb = AABB(-4, -4, -4.79199, 8, 8, 8)
 process_material = SubResource("28")
 draw_pass_1 = SubResource("29")
 
-[node name="Fuse" type="GPUParticles3D" parent="." index="7"]
+[node name="Fuse" type="GPUParticles3D" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.131587, 0)
 emitting = false
 amount = 20
@@ -184,12 +180,12 @@ randomness = 0.16
 process_material = SubResource("30")
 draw_pass_1 = SubResource("35")
 
-[node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="8"]
+[node name="FuseSound" type="AudioStreamPlayer3D" parent="." index="7"]
 stream = ExtResource("9")
 volume_db = 5.0
 bus = &"Effects"
 
-[node name="Flash2" type="OmniLight3D" parent="." index="9"]
+[node name="Flash2" type="OmniLight3D" parent="." index="8"]
 visible = false
 light_color = Color(0.760784, 0.364706, 0.0470588, 1)
 light_energy = 5.0
@@ -197,7 +193,7 @@ shadow_enabled = true
 omni_range = 10.0
 omni_attenuation = 7.0
 
-[node name="Effect" type="Node3D" parent="." index="10"]
+[node name="Effect" type="Node3D" parent="." index="9"]
 script = ExtResource("12")
 sound_effect = ExtResource("13")
 
@@ -206,5 +202,3 @@ sound_effect = ExtResource("13")
 [node name="FlashTimer2" type="Timer" parent="Flash" index="0"]
 wait_time = 0.05
 one_shot = true
-
-[connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]

@@ -43,6 +43,13 @@ func _physics_process(delta):
 			transform = get_hold_transform()
 		else:
 			transform = get_hold_transform().inverse()
+	elif self.item_state == GlobalConsts.ItemState.DAMAGING:
+		# Check if the item has come to rest after being thrown
+		# If linear velocity is below threshold, transition to DROPPED state
+		var velocity_threshold = 0.1  # Adjust this value as needed
+		if linear_velocity.length() < velocity_threshold and angular_velocity.length() < velocity_threshold:
+			print("Item has come to rest, transitioning from DAMAGING to DROPPED")
+			set_item_state(GlobalConsts.ItemState.DROPPED)
 
 
 func apply_throw_logic(direction : Vector3 = Vector3.ZERO):

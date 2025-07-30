@@ -62,25 +62,16 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 				):
 					# This cell is a staircase cell, skip
 					continue
-
-				var is_down_staircase : bool = false
-				var is_up_staircase : bool = false
-
+				
 				var other_cell : int = data.get_neighbour_cell(cell, dir)
-				var other_room_data = data.get_cell_meta(other_cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
-				if is_instance_valid(other_room_data):
-					if other_room_data.type == RoomData.OriginalPurpose.DOWN_STAIRCASE:
-						is_down_staircase = true
-					if other_room_data.type == RoomData.OriginalPurpose.UP_STAIRCASE:
-						is_up_staircase = true
+				var is_down_staircase = data.get_cell_meta(other_cell, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
+				var is_up_staircase = data.get_cell_meta(other_cell, data.CellMetaKeys.META_IS_UP_STAIRCASE, false)
 				var _is_staircase = is_down_staircase or is_up_staircase
 
 				# Comment this check out to allow doors that open away from a staircase room
-				#if _is_staircase:
-					#continue
-
-
-
+				if _is_staircase:
+					continue
+				
 				var has_door = data.get_wall_has_door(cell, dir)
 				if not has_door and fposmod(random.randf(), 1.0) >= (1.0 - partial_probability):
 #					var new_door = door_scene.instance() as Spatial

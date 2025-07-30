@@ -25,12 +25,23 @@ var settings: SettingsClass
 func attach_settings(s : SettingsClass, be_sorted : bool):
 	clear_ui()
 	settings = s
+	
+	# Check if we have the expected UI structure for tabbed settings
+	if tab_buttons == null or content_area == null:
+		print("WARNING: SettingsUI is using legacy scene structure, skipping tab generation")
+		return
+		
 	generate_tabs()
 	populate_settings()
 
 func clear_ui():
+	# Only proceed if we have the expected UI elements
+	if tab_buttons == null or content_area == null:
+		return
+	
 	for child in tab_buttons.get_children():
 		child.queue_free()
+	
 	for child in content_area.get_children():
 		child.queue_free()
 	tab_data.clear()

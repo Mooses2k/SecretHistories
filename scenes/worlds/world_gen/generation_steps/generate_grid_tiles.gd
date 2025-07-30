@@ -279,6 +279,14 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumb
 				var cell_pos = data.get_int_position_from_cell_index(cell)
 				var cell_key = "(%d,%d)" % [cell_pos[0], cell_pos[1]]
 				
+				# Check if this is a staircase cell
+				var is_stairs_down = data.get_cell_meta(cell, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
+				var is_stairs_up = data.get_cell_meta(cell, data.CellMetaKeys.META_IS_UP_STAIRCASE, false)
+				
+				if is_stairs_down or is_stairs_up:
+					print("DEBUG: Skipping staircase cell at %s" % cell_key)
+					continue
+				
 				print("DEBUG: Placing pillar room double floor tile at %s (covers 2x2 area)" % cell_key)
 				data.set_ground_tile_index(cell, pillar_room_double_floor_tile)
 				
@@ -303,6 +311,14 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumb
 				
 				if processed_cells.has(cell):
 					print("WARNING: Skipping already processed cell %s" % cell_key)
+					continue
+				
+				# Check if this is a staircase cell
+				var is_stairs_down = data.get_cell_meta(cell, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
+				var is_stairs_up = data.get_cell_meta(cell, data.CellMetaKeys.META_IS_UP_STAIRCASE, false)
+				
+				if is_stairs_down or is_stairs_up:
+					print("DEBUG: Skipping staircase cell at %s" % cell_key)
 					continue
 				
 				# Even dimension room with randomization using shared RNG
@@ -330,8 +346,9 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumb
 			
 		var cell_type = data.get_cell_type(i)
 		var is_stairs_down = data.get_cell_meta(i, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
+		var is_stairs_up = data.get_cell_meta(i, data.CellMetaKeys.META_IS_UP_STAIRCASE, false)
 		
-		if cell_type != data.CellType.EMPTY and not is_stairs_down:
+		if cell_type != data.CellType.EMPTY and not is_stairs_down and not is_stairs_up:
 			var cell_pos = data.get_int_position_from_cell_index(i)
 			var cell_key = "(%d,%d)" % [cell_pos[0], cell_pos[1]]
 			

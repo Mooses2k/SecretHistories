@@ -24,3 +24,16 @@ func _ready() -> void:
 	tabbed_settings.name = "TabbedSettingsUI"
 	$MaxAspectContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer.add_child(tabbed_settings)
 	tabbed_settings.attach_settings(Settings, true)
+
+func exit_state():
+	# Gracefully exit the settings menu state
+	self.hide()
+	emit_signal("settings_menu_exited")
+
+func enter_state():
+	# Enter the settings menu state
+	self.show()
+
+func _on_SettingsMenu_settings_menu_exited() -> void:
+	# Signal handler - let the pause menu handle state transitions
+	emit_signal("settings_menu_exited")

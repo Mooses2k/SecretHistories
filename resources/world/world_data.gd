@@ -65,6 +65,7 @@ enum CellMetaKeys {
 	META_PILLAR_ROOM,
 	META_ROOM_DATA,
 	META_IS_DOWN_STAIRCASE,
+	META_IS_UP_STAIRCASE
 }
 
 enum EdgeType {

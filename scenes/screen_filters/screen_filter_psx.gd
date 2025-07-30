@@ -2,14 +2,25 @@ extends CompositorEffect
 class_name ScreenFilterPSX
 
 # TODO: optimize with specialization constants
-# TODO: Fix race conditions in the shader
+# TODO: free resources when effect is disabled
+
 const SCREEN_FILTER_PSX : RDShaderFile = preload("res://scenes/screen_filters/screen_filter_psx.glsl")
 const LOCAL_GROUP_SIZE := Vector3i(8, 8, 1)
 const PUSH_CONSTANT_ELEMENT_COUNT = 7
 
+const Downsampler = preload("res://scenes/screen_filters/downsampler.gd")
+var downsampler : Downsampler
+
+enum ResolutionScale {
+	FULL,
+	HALF,
+	QUARTER,
+	EIGHTH
+}
+
 @export_range(1, 8, 1) var color_depth : int = 5;
 @export var dithering : bool = false
-@export var resolution_scale : int = 4
+@export var resolution_scale : ResolutionScale = ResolutionScale.QUARTER
 
 @export var brightness_correct : bool = true
 @export_range(0.0, 0.51) var pitch_black_threshold : float = 0.116;
@@ -19,6 +30,8 @@ const PUSH_CONSTANT_ELEMENT_COUNT = 7
 
 var shader : RID
 var pipeline : RID
+var low_res_images : Array[RID]
+
 
 func _init() -> void:
 	var rd : RenderingDevice = RenderingServer.get_rendering_device()
@@ -26,6 +39,33 @@ func _init() -> void:
 	assert(shader.is_valid())
 	pipeline = rd.compute_pipeline_create(shader)
 	assert(pipeline.is_valid())
+	downsampler = Downsampler.new(rd)
+
+func _update_low_res_image(original : RID, low_res : RID) -> RID:
+	var rd : RenderingDevice = RenderingServer.get_rendering_device()
+	var original_format := rd.texture_get_format(original)
+	var original_size := Vector2i(original_format.width, original_format.height)
+	var scale : int = 1 << resolution_scale;
+	var target_size := Vector2i(
+		(original_size.x + scale - 1) / scale,
+		(original_size.y + scale - 1) / scale
+	)
+	if low_res.is_valid():
+		var low_res_format := rd.texture_get_format(low_res)
+		var low_res_size := Vector2i(low_res_format.width, low_res_format.height)
+		if (low_res_size != target_size):
+			rd.free_rid(low_res)
+			low_res = RID()
+	if not low_res.is_valid():
+		var low_res_format := RDTextureFormat.new()
+		low_res_format.format = original_format.format
+		low_res_format.width = target_size.x
+		low_res_format.height = target_size.y
+		low_res_format.usage_bits = RenderingDevice.TEXTURE_USAGE_STORAGE_BIT
+		low_res = rd.texture_create(low_res_format, RDTextureView.new())
+	assert(low_res.is_valid())
+	downsampler.downsample(original, low_res, scale)
+	return low_res
 
 func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> void:
 	if not p_effect_callback_type == effect_callback_type: return
@@ -51,20 +91,32 @@ func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> v
 	push_constants.encode_float(1*4, intensity)
 	push_constants.encode_float(2*4, dithering_adjust)
 	push_constants.encode_s32(3*4, color_depth)
-	push_constants.encode_s32(4*4, resolution_scale)
+	push_constants.encode_s32(4*4, 1 << resolution_scale)
 	push_constants.encode_s32(5*4, 1 if dithering else 0)
 	push_constants.encode_s32(6*4, 1 if brightness_correct else 0)
 
 	var view_count = buffers.get_view_count()
+	if low_res_images.size() != view_count:
+		for i in low_res_images.size():
+			rd.free_rid(low_res_images[i])
+			low_res_images[i] =  RID()
+		low_res_images.resize(view_count)
 	for i : int in view_count:
 		var screen_color_image = buffers.get_color_layer(i)
+
+		low_res_images[i] = _update_low_res_image(screen_color_image, low_res_images[i])
 
 		var screen_color_image_uniform : RDUniform = RDUniform.new()
 		screen_color_image_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
 		screen_color_image_uniform.binding = 0
 		screen_color_image_uniform.add_id(screen_color_image)
 
-		var uniform_set = UniformSetCacheRD.get_cache(shader, 0, [screen_color_image_uniform])
+		var low_res_image_uniform : RDUniform = RDUniform.new()
+		low_res_image_uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
+		low_res_image_uniform.binding = 1
+		low_res_image_uniform.add_id(low_res_images[i])
+
+		var uniform_set = UniformSetCacheRD.get_cache(shader, 0, [screen_color_image_uniform, low_res_image_uniform])
 
 		var compute_list := rd.compute_list_begin()
 		rd.compute_list_bind_compute_pipeline(compute_list, pipeline)

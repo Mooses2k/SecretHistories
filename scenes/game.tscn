@@ -20,10 +20,10 @@ needs_normal_roughness = false
 script = ExtResource("7_gee14")
 color_depth = 5
 dithering = true
-resolution_scale = 4
+resolution_scale = 2
 brightness_correct = true
 pitch_black_threshold = 0.116
-dithering_adjust = 0.0
+dithering_adjust = 1.0
 intensity = 1.0
 metadata/_custom_type_script = "uid://ckq0wuqytm54u"
 

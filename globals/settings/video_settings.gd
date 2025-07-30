@@ -83,7 +83,7 @@ var sdfgi_array = PackedStringArray(["Disabled", "Low", "High"])
 const SETTING_GLOW : String = "Glow"
 
 var fullscreen_enabled : bool: get = get_fullscreen_enabled, set = set_fullscreen_enabled
-var brightness : bool: get = get_brightness, set = set_brightness
+var brightness : float: get = get_brightness, set = set_brightness
 var gui_scale : float: get = get_gui_scale, set = set_gui_scale
 var vsync : int: get = get_vsync, set = set_vsync
 var fps_limit : int: get = get_fps_limit, set = set_fps_limit
@@ -160,11 +160,15 @@ func get_fullscreen_enabled() -> bool:
 	return Settings.get_setting(SETTING_FULLSCREEN)
 
 
-func set_brightness(value : bool):
+func set_brightness(value : float):
+	print("DEBUG: VideoSettings.set_brightness() called with value: ", value, " (type: ", typeof(value), ")")
 	Settings.set_setting(SETTING_BRIGHTNESS, value)
+	print("DEBUG: VideoSettings.set_brightness() - Settings.get_setting result: ", Settings.get_setting(SETTING_BRIGHTNESS))
 
-func get_brightness() -> bool:
-	return Settings.get_setting(SETTING_BRIGHTNESS)
+func get_brightness() -> float:
+	var result = Settings.get_setting(SETTING_BRIGHTNESS)
+	print("DEBUG: VideoSettings.get_brightness() returning: ", result, " (type: ", typeof(result), ")")
+	return result
 
 
 func set_gui_scale(value : float):

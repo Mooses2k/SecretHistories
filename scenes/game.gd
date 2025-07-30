@@ -82,7 +82,8 @@ func _input(event):
 
 func set_brightness():
 	# Set game brightness/gamma
-	world_environment.environment.tonemap_exposure = VideoSettings.brightness
+	if is_instance_valid(world_environment):
+		world_environment.environment.tonemap_exposure = VideoSettings.brightness
 
 
 func load_level(packed : PackedScene):

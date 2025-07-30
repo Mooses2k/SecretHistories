@@ -85,6 +85,10 @@ script = ExtResource("2")
 visible = false
 layout_mode = 2
 
+[node name="BrightnessCalibration" parent="." instance=ExtResource("6_qyqw8")]
+visible = false
+layout_mode = 2
+
 [node name="Timer" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

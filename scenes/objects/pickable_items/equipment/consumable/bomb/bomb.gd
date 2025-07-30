@@ -23,6 +23,7 @@ func _process(delta):
 		print("Countdown timer is_stopped: ", countdown_timer.is_stopped())
 		print("Countdown timer is_paused: ", countdown_timer.is_paused())
 	# This is here instead of directly under throw() just due to requiring delta
+	# TODO : doesn't require delta anymore
 	if throwing == true:
 		if owner_character is Player and owner_character.has_node("PlayerController"):
 			var player_controller = owner_character.get_node("PlayerController")

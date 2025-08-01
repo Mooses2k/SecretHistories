@@ -91,7 +91,6 @@ func _get_valid_cells(data: WorldData) -> Array:
 	return valid_cells
 
 
-
 func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:
 	for cell_index in data._objects_to_spawn.keys():
 		p_array.erase(cell_index)

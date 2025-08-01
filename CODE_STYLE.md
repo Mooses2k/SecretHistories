@@ -14,6 +14,7 @@
 - One statement per line (except ternary operator)
 - Use parentheses for multiline expressions
 - Avoid unnecessary parentheses
+- Put a space before and after arithmatic operators ( 2 * 2 not 2*2 )
 
 ## Naming Conventions
 - Files: snake_case.gd

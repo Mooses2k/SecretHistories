@@ -3942,6 +3942,7 @@ node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animat
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+mass = 80.0
 physics_material_override = SubResource("PhysicsMaterial_asbh0")
 custom_integrator = true
 continuous_cd = true

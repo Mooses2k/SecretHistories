@@ -72,7 +72,8 @@ func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
 func _use_primary():
 	print("use primary")
 	if stackable_resource != null:
-		stackable_resource.items_stacked.pop_front()
+		if stackable_resource.items_stacked.size() > 0:
+			stackable_resource.items_stacked.pop_front()
 	pass
 
 
@@ -81,7 +82,8 @@ func _use_primary():
 func _use_secondary():
 	print("use secondary")
 	if stackable_resource != null:
-		stackable_resource.items_stacked.pop_front()
+		if stackable_resource.items_stacked.size() > 0:
+			stackable_resource.items_stacked.pop_front()
 	pass
 
 func _set_held_use(enabled : bool) -> void:

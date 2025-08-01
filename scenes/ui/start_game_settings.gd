@@ -12,7 +12,7 @@ func attach_settings(value : SettingsClass):
 func generate_settings():
 	add_generation_settings()
 	add_equipment()
-#	add_tiny_items()
+	add_tiny_items()
 
 
 func add_generation_settings():

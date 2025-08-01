@@ -9,7 +9,7 @@ var game : Game
 func _ready() -> void:
 	game = GAME_SCENE.instantiate()
 	%StartGameSettings.attach_settings(game.get_node("%LocalSettings"))
-	%SettingsUI.attach_settings(game.get_node("%LocalSettings"), false)
+	%AdaptiveSettingsUI.attach_settings(game.get_node("%LocalSettings"), false)
 	var tween = get_tree().create_tween()
 	tween.tween_property(BackgroundMusic, "volume_db", -10, 0.3)
 

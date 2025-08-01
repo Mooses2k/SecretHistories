@@ -27,21 +27,26 @@ func attach_settings(settings_instance: SettingsClass, be_sorted: bool = true):
 func _determine_ui_type():
 	if not settings:
 		is_tabbed_mode = false
+		print("AdaptiveSettingsUI: No settings provided, using non-tabbed interface")
 		return
 	
 	var unique_groups: Dictionary = {}
 	var settings_list: Array = settings.get_settings_list()
 	
+	print("AdaptiveSettingsUI: Analyzing ", settings_list.size(), " settings...")
+	
 	# Count unique groups
 	for setting_name in settings_list:
 		var group_name: String = settings.get_setting_group(setting_name)
+		print("AdaptiveSettingsUI: Setting '", setting_name, "' -> Group '", group_name, "'")
 		if group_name and not group_name.is_empty():
 			unique_groups[group_name] = true
 	
 	var group_count: int = unique_groups.size()
 	is_tabbed_mode = group_count >= TABBED_THRESHOLD
 	
-	print("AdaptiveSettingsUI: Found ", group_count, " unique groups, using ", 
+	print("AdaptiveSettingsUI: Found ", group_count, " unique groups: ", unique_groups.keys())
+	print("AdaptiveSettingsUI: Threshold is ", TABBED_THRESHOLD, ", using ",
 		  "tabbed" if is_tabbed_mode else "non-tabbed", " interface")
 
 ## Creates and configures the appropriate UI
@@ -103,11 +108,17 @@ func _add_ui_to_scene():
 	current_ui.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	
 	add_child(current_ui)
+	
+	# Force immediate layout update
+	call_deferred("_force_layout_update")
 
 ## Attaches settings to the current UI
 func _attach_settings_to_ui(be_sorted: bool):
 	if not current_ui or not settings:
 		return
+	
+	# Apply stored configuration before attaching settings
+	_apply_stored_configuration()
 	
 	# Both UI types should have the attach_settings method
 	if current_ui.has_method("attach_settings"):
@@ -119,6 +130,51 @@ func _attach_settings_to_ui(be_sorted: bool):
 			current_ui.attach_settings(settings, be_sorted)
 	else:
 		print("AdaptiveSettingsUI: Warning - UI doesn't have attach_settings method")
+
+
+## Configuration methods that forward to the current UI
+## These store the configuration and apply it when the UI is created
+
+var stored_group_order: Array[String] = []
+var stored_tab_grouping_rules: Dictionary = {}
+var stored_tab_order: Array[String] = []
+
+## Configure group ordering for non-tabbed UI
+func set_group_order(group_order: Array[String]):
+	stored_group_order = group_order
+	if current_ui and current_ui.has_method("set_group_order"):
+		current_ui.set_group_order(group_order)
+
+
+## Configure tab grouping rules for tabbed UI
+func set_tab_grouping_rules(grouping_rules: Dictionary):
+	stored_tab_grouping_rules = grouping_rules
+	if current_ui and current_ui.has_method("set_tab_grouping_rules"):
+		current_ui.set_tab_grouping_rules(grouping_rules)
+
+
+## Configure tab order for tabbed UI
+func set_tab_order(tab_order: Array[String]):
+	stored_tab_order = tab_order
+	if current_ui and current_ui.has_method("set_tab_order"):
+		current_ui.set_tab_order(tab_order)
+
+
+## Apply stored configuration to the current UI
+func _apply_stored_configuration():
+	if not current_ui:
+		return
+	
+	# Apply group order for non-tabbed UI
+	if not stored_group_order.is_empty() and current_ui.has_method("set_group_order"):
+		current_ui.set_group_order(stored_group_order)
+	
+	# Apply tab configuration for tabbed UI
+	if not stored_tab_grouping_rules.is_empty() and current_ui.has_method("set_tab_grouping_rules"):
+		current_ui.set_tab_grouping_rules(stored_tab_grouping_rules)
+	
+	if not stored_tab_order.is_empty() and current_ui.has_method("set_tab_order"):
+		current_ui.set_tab_order(stored_tab_order)
 
 ## Clears the current UI
 func _clear_current_ui():
@@ -166,6 +222,30 @@ func _connect_ui_signals():
 func _on_tab_changed(tab_name: String):
 	# Forward the signal or handle tab changes if needed
 	pass
+
+## Forward the ShowDebugOptions button press to the current UI
+func _on_ShowDebugOptions_pressed():
+	if current_ui and current_ui.has_method("_on_ShowDebugOptions_pressed"):
+		current_ui._on_ShowDebugOptions_pressed()
+	else:
+		# Fallback: toggle visibility of parent container
+		var parent_container = get_parent()
+		if parent_container:
+			parent_container.visible = !parent_container.visible
+			if parent_container.visible and parent_container is ScrollContainer:
+				var scroll_container = parent_container as ScrollContainer
+				scroll_container.scroll_vertical = 0
+				var h_scroll = scroll_container.get_h_scroll_bar()
+				scroll_container.scroll_horizontal = max(h_scroll.max_value - h_scroll.page, 0)
+
+## Force layout update for proper sizing
+func _force_layout_update():
+	if current_ui:
+		# Force the current UI to recalculate its size
+		current_ui.notification(NOTIFICATION_RESIZED)
+		# Also ensure we have proper size flags
+		size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		size_flags_vertical = Control.SIZE_EXPAND_FILL
 
 ## Cleanup
 func _exit_tree():

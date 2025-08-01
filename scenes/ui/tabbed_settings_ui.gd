@@ -15,22 +15,12 @@ var tab_data = {}
 var current_tab = ""
 var settings: SettingsClass
 
-## Configuration for intelligent tab grouping
-## Maps group patterns to tab names - groups matching patterns will be grouped under the same tab
-var tab_grouping_rules: Dictionary = {
-	"Input": ["Input Settings", "Input Key Settings"],  # Group input-related settings
-	"Video": ["Video Settings"],
-	"Audio": ["Audio Settings"],
-	"Game": ["Game Settings"]
-}
+## Configuration for intelligent tab grouping - can be set by caller
+## Empty rules mean each group gets its own tab
+var tab_grouping_rules: Dictionary = {}
 
-## Preferred tab order for consistent UI
-var preferred_tab_order: Array[String] = [
-	"Game",
-	"Video",
-	"Audio",
-	"Input"
-]
+## Preferred tab order - can be set by caller
+var preferred_tab_order: Array[String] = []
 
 ## Pattern to identify key-related groups for special handling
 var key_group_pattern: String = "Key"
@@ -39,6 +29,16 @@ var is_first_key_settings: bool = true
 func attach_settings(s: SettingsClass):
 	settings = s
 	generate_tabs()
+
+
+## Configure tab grouping rules - should be called by the parent/caller
+func set_tab_grouping_rules(grouping_rules: Dictionary):
+	tab_grouping_rules = grouping_rules
+
+
+## Configure tab order - should be called by the parent/caller
+func set_tab_order(tab_order: Array[String]):
+	preferred_tab_order = tab_order
 
 func generate_tabs():
 	# Ensure required nodes exist
@@ -125,21 +125,22 @@ func _create_tab_structure(detected_groups: Array[String]) -> Dictionary:
 	var tab_structure: Dictionary = {}
 	var unassigned_groups: Array[String] = detected_groups.duplicate()
 	
-	# Apply grouping rules
-	for tab_name in tab_grouping_rules.keys():
-		var rule_groups = tab_grouping_rules[tab_name]
-		var matched_groups: Array[String] = []
-		
-		# Find groups that match this rule
-		for rule_group in rule_groups:
-			for detected_group in detected_groups:
-				if detected_group == rule_group:
-					matched_groups.append(detected_group)
-					unassigned_groups.erase(detected_group)
-		
-		# Only create tab if we found matching groups
-		if matched_groups.size() > 0:
-			tab_structure[tab_name] = matched_groups
+	# Apply grouping rules if any are configured
+	if not tab_grouping_rules.is_empty():
+		for tab_name in tab_grouping_rules.keys():
+			var rule_groups = tab_grouping_rules[tab_name]
+			var matched_groups: Array[String] = []
+			
+			# Find groups that match this rule
+			for rule_group in rule_groups:
+				for detected_group in detected_groups:
+					if detected_group == rule_group:
+						matched_groups.append(detected_group)
+						unassigned_groups.erase(detected_group)
+			
+			# Only create tab if we found matching groups
+			if matched_groups.size() > 0:
+				tab_structure[tab_name] = matched_groups
 	
 	# Handle unassigned groups - create individual tabs with clean names
 	for group_name in unassigned_groups:
@@ -169,11 +170,12 @@ func _get_ordered_tabs(tab_names: Array) -> Array[String]:
 	var ordered: Array[String] = []
 	var remaining: Array[String] = []
 	
-	# Add tabs in preferred order
-	for preferred_tab in preferred_tab_order:
-		if tab_names.has(preferred_tab):
-			ordered.append(preferred_tab)
-		
+	# Add tabs in preferred order if configured
+	if not preferred_tab_order.is_empty():
+		for preferred_tab in preferred_tab_order:
+			if tab_names.has(preferred_tab):
+				ordered.append(preferred_tab)
+	
 	# Add remaining tabs alphabetically
 	for tab_name in tab_names:
 		if not ordered.has(tab_name):
@@ -190,8 +192,12 @@ func ensure_nodes_exist():
 	# Try to get existing nodes first (for scene-based instantiation)
 	if not tab_buttons:
 		tab_buttons = get_node_or_null("MarginContainer/VBoxContainer/TabButtons")
+		if not tab_buttons:
+			tab_buttons = get_node_or_null("VBoxContainer/TabButtons")
 	if not content_area:
 		content_area = get_node_or_null("MarginContainer/VBoxContainer/ScrollContainer/ScrollMarginContainer/ContentArea")
+		if not content_area:
+			content_area = get_node_or_null("VBoxContainer/ContentArea")
 	# Note: tab_container is no longer needed since ContentArea is now a VBoxContainer
 	
 	print("TabbedSettingsUI: Found existing nodes - tab_buttons: ", tab_buttons != null, ", content_area: ", content_area != null)
@@ -199,56 +205,85 @@ func ensure_nodes_exist():
 	# Create missing nodes if they don't exist (for programmatic instantiation)
 	if not tab_buttons:
 		print("TabbedSettingsUI: Creating programmatic UI structure")
-		# Create the full structure needed with proper spacing and scrolling
-		var margin_container = MarginContainer.new()
-		margin_container.name = "MarginContainer"
-		margin_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		# Use proper margins for visual clarity
-		margin_container.add_theme_constant_override("margin_left", 16)
-		margin_container.add_theme_constant_override("margin_top", 16)
-		margin_container.add_theme_constant_override("margin_right", 16)
-		margin_container.add_theme_constant_override("margin_bottom", 16)
-		add_child(margin_container)
 		
-		var vbox = VBoxContainer.new()
-		vbox.name = "VBoxContainer"
-		vbox.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		margin_container.add_child(vbox)
+		# Check if we're already inside a ScrollContainer
+		var is_inside_scroll_container = false
+		var parent = get_parent()
+		while parent:
+			if parent is ScrollContainer:
+				is_inside_scroll_container = true
+				print("TabbedSettingsUI: Detected we're inside an existing ScrollContainer")
+				break
+			parent = parent.get_parent()
+		
+		# Create the structure - simpler if we're inside a ScrollContainer
+		var main_container: Control
+		if is_inside_scroll_container:
+			# Don't add margins if we're inside a ScrollContainer - let the parent handle it
+			main_container = VBoxContainer.new()
+			main_container.name = "VBoxContainer"
+			main_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			main_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			add_child(main_container)
+		else:
+			# Create full structure with margins and internal ScrollContainer
+			var margin_container = MarginContainer.new()
+			margin_container.name = "MarginContainer"
+			margin_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+			margin_container.add_theme_constant_override("margin_left", 16)
+			margin_container.add_theme_constant_override("margin_top", 16)
+			margin_container.add_theme_constant_override("margin_right", 16)
+			margin_container.add_theme_constant_override("margin_bottom", 16)
+			add_child(margin_container)
+			
+			main_container = VBoxContainer.new()
+			main_container.name = "VBoxContainer"
+			main_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+			margin_container.add_child(main_container)
 		
 		# Tab buttons with spacing below
 		tab_buttons = HBoxContainer.new()
 		tab_buttons.name = "TabButtons"
 		tab_buttons.add_theme_constant_override("separation", 8)
-		vbox.add_child(tab_buttons)
+		main_container.add_child(tab_buttons)
 		
 		# Add spacer between tabs and content
 		var tab_spacer = Control.new()
 		tab_spacer.custom_minimum_size = Vector2(0, 16)
-		vbox.add_child(tab_spacer)
+		main_container.add_child(tab_spacer)
 		
-		# Scrollable content area - DON'T create another ScrollContainer if we're inside one
-		var scroll_container = ScrollContainer.new()
-		scroll_container.name = "ScrollContainer"
-		scroll_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		scroll_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		scroll_container.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-		scroll_container.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-		vbox.add_child(scroll_container)
-		
-		# Create margin container inside scroll container for proper spacing
-		var scroll_margin = MarginContainer.new()
-		scroll_margin.name = "ScrollMarginContainer"
-		scroll_margin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		scroll_margin.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		scroll_margin.add_theme_constant_override("margin_left", 16)
-		scroll_margin.add_theme_constant_override("margin_right", 24)
-		scroll_container.add_child(scroll_margin)
-		
-		content_area = VBoxContainer.new()
-		content_area.name = "ContentArea"
-		content_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		content_area.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		scroll_margin.add_child(content_area)
+		# Content area - create ScrollContainer only if we're not inside one
+		if is_inside_scroll_container:
+			# Direct content area without ScrollContainer
+			content_area = VBoxContainer.new()
+			content_area.name = "ContentArea"
+			content_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			content_area.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			main_container.add_child(content_area)
+		else:
+			# Create internal ScrollContainer
+			var scroll_container = ScrollContainer.new()
+			scroll_container.name = "ScrollContainer"
+			scroll_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			scroll_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			scroll_container.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+			scroll_container.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+			main_container.add_child(scroll_container)
+			
+			# Create margin container inside scroll container for proper spacing
+			var scroll_margin = MarginContainer.new()
+			scroll_margin.name = "ScrollMarginContainer"
+			scroll_margin.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			scroll_margin.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			scroll_margin.add_theme_constant_override("margin_left", 16)
+			scroll_margin.add_theme_constant_override("margin_right", 24)
+			scroll_container.add_child(scroll_margin)
+			
+			content_area = VBoxContainer.new()
+			content_area.name = "ContentArea"
+			content_area.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			content_area.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			scroll_margin.add_child(content_area)
 	
 	# Ensure content_area is properly configured for expansion
 	if content_area:

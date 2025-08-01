@@ -23,15 +23,9 @@ var settings : SettingsClass
 var is_first_settings : bool = true
 var is_first_key_settings : bool = true
 
-## Configuration for group ordering - can be customized
+## Configuration for group ordering - can be set by caller
 ## Groups not in this list will be sorted alphabetically after these
-var preferred_group_order : Array[String] = [
-	"Game",
-	"Video",
-	"Audio",
-	"Input",
-	"Input Key"
-]
+var preferred_group_order : Array[String] = []
 
 ## Pattern to identify key-related groups for special handling
 var key_group_pattern : String = "Key"
@@ -48,6 +42,11 @@ func attach_settings(s : SettingsClass, be_sorted : bool):
 	
 	# Force update ScrollContainer content size after setup
 	call_deferred("_update_scroll_content_size")
+
+
+## Configure group ordering - should be called by the parent/caller
+func set_group_order(group_order: Array[String]):
+	preferred_group_order = group_order
 
 
 func clear_ui():

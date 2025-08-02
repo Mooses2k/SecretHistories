@@ -210,8 +210,8 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 
 	select_ceiling_tiles(data, pillar_rooms, rng)
 	select_wall_tiles(data, rng)
-	apply_special_border_walls(data)
 	select_pillar_room_walls(data, pillar_rooms)
+	apply_special_border_walls(data)
 	place_pillars(data)
 	place_pillar_room_pillars(data, pillar_rooms)
 	print("DEBUG: Finished generate_grid_tiles execution #%d" % exec_count)
@@ -525,6 +525,7 @@ func select_wall_tiles(data : WorldData, rng : RandomNumberGenerator):
 
 
 ## Apply special wall tiles for borders between CORRIDOR and ROOM cell types
+## New simplified approach: Find ROOM cells with double walls, check if both neighbors are CORRIDOR cells
 func apply_special_border_walls(data : WorldData):
 	print("DEBUG: apply_special_border_walls() starting with tile index: %d" % corridor_room_border_wall_tile)
 	
@@ -533,158 +534,95 @@ func apply_special_border_walls(data : WorldData):
 		print("DEBUG: Early exit - no corridor_room_border_wall_tile configured (tile index is -1)")
 		return
 	
-	# Track processed edges to avoid double processing
-	var processed_edges : Dictionary = {}
-	var borders_found : int = 0
-	var tiles_applied : int = 0
-	var corridor_cells_found : int = 0
-	var room_cells_found : int = 0
+	var room_cells_with_double_walls : int = 0
+	var double_walls_checked : int = 0
+	var arch_walls_applied : int = 0
 	
-	# Iterate through all cells to find CORRIDOR-ROOM border wall segments
+	# Iterate through all ROOM cells
 	for i in data.cell_count:
 		var cell_type = data.get_cell_type(i)
+		if cell_type != data.CellType.ROOM:
+			continue
+		
 		var cell_pos = data.get_int_position_from_cell_index(i)
+		var has_double_walls : bool = false
 		
-		# Debug: Print when CORRIDOR or ROOM cells are found
-		if cell_type == data.CellType.CORRIDOR:
-			corridor_cells_found += 1
-			print("DEBUG: Found CORRIDOR cell at (%d,%d)" % [cell_pos[0], cell_pos[1]])
-		elif cell_type == data.CellType.ROOM:
-			room_cells_found += 1
-			print("DEBUG: Found ROOM cell at (%d,%d)" % [cell_pos[0], cell_pos[1]])
-		
-		# Check if current cell is CORRIDOR or ROOM
-		if cell_type == data.CellType.CORRIDOR or cell_type == data.CellType.ROOM:
-			# Check all 4 directions for borders
-			for dir in data.Direction.DIRECTION_MAX:
-				# Skip if this edge was already processed
-				var edge_key = "%d_%d" % [i, dir]
-				if processed_edges.has(edge_key):
-					continue
-				
-				var neighbor_cell = data.get_neighbour_cell(i, dir)
-				if neighbor_cell == -1:
-					continue  # Skip if no neighbor (edge of map)
-				
-				var neighbor_type = data.get_cell_type(neighbor_cell)
-				var neighbor_pos = data.get_int_position_from_cell_index(neighbor_cell)
-				
-				# Check for CORRIDOR-ROOM or ROOM-CORRIDOR border with actual wall
-				var is_corridor_room_border = (
-					(cell_type == data.CellType.CORRIDOR and neighbor_type == data.CellType.ROOM) or
-					(cell_type == data.CellType.ROOM and neighbor_type == data.CellType.CORRIDOR)
-				)
-				
-				# Debug: Print when CORRIDOR-ROOM borders are detected
-				if is_corridor_room_border:
+		# Check all 4 directions for double walls placed by select_wall_tiles()
+		for dir in data.Direction.DIRECTION_MAX:
+			var wall_tile_index = data.get_wall_tile_index(i, dir)
+			
+			# Check if there's a double wall tile placed (not -1)
+			if wall_tile_index != -1:
+				# Check if this is actually a double wall tile (including pillar room double walls)
+				if (wall_tile_index == double_wall_tile or
+					alternative_double_wall_tiles.has(wall_tile_index) or
+					wall_tile_index == pillar_room_double_wall_tile):
+					has_double_walls = true
+					double_walls_checked += 1
+					
 					var dir_name = ["NORTH", "EAST", "SOUTH", "WEST"][dir]
-					print("DEBUG: Detected CORRIDOR-ROOM border at cell (%d,%d) direction %s -> neighbor (%d,%d)" % [cell_pos[0], cell_pos[1], dir_name, neighbor_pos[0], neighbor_pos[1]])
-					borders_found += 1
-				
-				var wall_type = data.get_wall_type(i, dir)
-				
-				# Debug: Print wall type at borders
-				if is_corridor_room_border:
-					var wall_type_name = ["EMPTY", "WALL", "DOOR", "HALFDOOR_P", "HALFDOOR_N"][wall_type]
-					print("DEBUG: Wall type at border: %s" % wall_type_name)
-				
-				if is_corridor_room_border and wall_type == data.EdgeType.WALL:
-					# Find the wall extension using the same logic as select_wall_tiles()
-					var wall_extension = []
+					print("DEBUG: Found ROOM cell at (%d,%d) with double wall in direction %s (tile_id: %d)" % [cell_pos[0], cell_pos[1], dir_name, wall_tile_index])
 					
-					# Check how far the wall extends to the left
-					var extension_dir = WorldData.ROTATE_LEFT[dir]
-					var extension_cell = i
-					while true:
-						if not data.get_wall_type(extension_cell, extension_dir) == data.EdgeType.EMPTY:
-							break
-						extension_cell = data.get_neighbour_cell(extension_cell, extension_dir)
-						if not data.get_wall_type(extension_cell, dir) == data.EdgeType.WALL:
-							break
-						# Also check if this extension cell maintains the CORRIDOR-ROOM border
-						var ext_cell_type = data.get_cell_type(extension_cell)
-						var ext_neighbor_cell = data.get_neighbour_cell(extension_cell, dir)
-						if ext_neighbor_cell == -1:
-							break
-						var ext_neighbor_type = data.get_cell_type(ext_neighbor_cell)
-						var ext_is_corridor_room_border = (
-							(ext_cell_type == data.CellType.CORRIDOR and ext_neighbor_type == data.CellType.ROOM) or
-							(ext_cell_type == data.CellType.ROOM and ext_neighbor_type == data.CellType.CORRIDOR)
-						)
-						if not ext_is_corridor_room_border:
-							break
-						wall_extension.push_back(extension_cell)
+					# Get the neighbor cell in that direction
+					var neighbor_cell = data.get_neighbour_cell(i, dir)
+					if neighbor_cell == -1:
+						print("DEBUG: Skipping - no neighbor cell (edge of map)")
+						continue
 					
-					wall_extension.reverse()
-					wall_extension.push_back(i)
+					var neighbor_type = data.get_cell_type(neighbor_cell)
+					var neighbor_pos = data.get_int_position_from_cell_index(neighbor_cell)
 					
-					# Check how far the wall extends to the right
-					extension_dir = WorldData.ROTATE_RIGHT[dir]
-					extension_cell = i
-					while true:
-						if not data.get_wall_type(extension_cell, extension_dir) == data.EdgeType.EMPTY:
-							break
-						extension_cell = data.get_neighbour_cell(extension_cell, extension_dir)
-						if not data.get_wall_type(extension_cell, dir) == data.EdgeType.WALL:
-							break
-						# Also check if this extension cell maintains the CORRIDOR-ROOM border
-						var ext_cell_type = data.get_cell_type(extension_cell)
-						var ext_neighbor_cell = data.get_neighbour_cell(extension_cell, dir)
-						if ext_neighbor_cell == -1:
-							break
-						var ext_neighbor_type = data.get_cell_type(ext_neighbor_cell)
-						var ext_is_corridor_room_border = (
-							(ext_cell_type == data.CellType.CORRIDOR and ext_neighbor_type == data.CellType.ROOM) or
-							(ext_cell_type == data.CellType.ROOM and ext_neighbor_type == data.CellType.CORRIDOR)
-						)
-						if not ext_is_corridor_room_border:
-							break
-						wall_extension.push_back(extension_cell)
+					# Check if the neighbor is a CORRIDOR cell
+					if neighbor_type != data.CellType.CORRIDOR:
+						print("DEBUG: Skipping - neighbor at (%d,%d) is not CORRIDOR (type: %d)" % [neighbor_pos[0], neighbor_pos[1], neighbor_type])
+						continue
 					
-					# Debug: Print wall extension details
-					print("DEBUG: Found wall extension of length %d" % wall_extension.size())
+					# Get the second cell of the double wall pair (the cell to the right of current cell in wall direction)
+					var right_dir = WorldData.ROTATE_RIGHT[dir]
+					var second_cell = data.get_neighbour_cell(i, right_dir)
+					if second_cell == -1:
+						print("DEBUG: Skipping - no second cell for double wall pair (edge of map)")
+						continue
 					
-					# Apply wall tiles based on segment length
-					if wall_extension.size() % 2 == 0:
-						# Even width wall segment - use double tiles (placed on left cell of each pair)
-						print("DEBUG: Applying double tiles for even wall extension (length %d)" % wall_extension.size())
-						for _index in wall_extension.size() / 2:
-							var cell_left = wall_extension[2 * _index]
-							var cell_right = wall_extension[2 * _index + 1]
-							var left_pos = data.get_int_position_from_cell_index(cell_left)
-							var right_pos = data.get_int_position_from_cell_index(cell_right)
-							var dir_name = ["NORTH", "EAST", "SOUTH", "WEST"][dir]
-							
-							# Place double tile on the left cell (covers both cells)
-							data.set_wall_tile_index(cell_left, dir, corridor_room_border_wall_tile)
-							print("DEBUG: Applied special border tile at cell (%d,%d) direction %s (double tile covering (%d,%d) and (%d,%d))" % [left_pos[0], left_pos[1], dir_name, left_pos[0], left_pos[1], right_pos[0], right_pos[1]])
-							tiles_applied += 1
-							
-							# Mark both cells as processed
-							var left_edge_key = "%d_%d" % [cell_left, dir]
-							var right_edge_key = "%d_%d" % [cell_right, dir]
-							processed_edges[left_edge_key] = true
-							processed_edges[right_edge_key] = true
-					else:
-						# Odd width wall segment - use individual tiles
-						print("DEBUG: Applying individual tiles for odd wall extension (length %d)" % wall_extension.size())
-						for wall_cell in wall_extension:
-							var wall_pos = data.get_int_position_from_cell_index(wall_cell)
-							var dir_name = ["NORTH", "EAST", "SOUTH", "WEST"][dir]
-							
-							data.set_wall_tile_index(wall_cell, dir, corridor_room_border_wall_tile)
-							print("DEBUG: Applied special border tile at cell (%d,%d) direction %s" % [wall_pos[0], wall_pos[1], dir_name])
-							tiles_applied += 1
-							
-							var wall_edge_key = "%d_%d" % [wall_cell, dir]
-							processed_edges[wall_edge_key] = true
+					var second_neighbor = data.get_neighbour_cell(second_cell, dir)
+					if second_neighbor == -1:
+						print("DEBUG: Skipping - no second neighbor cell (edge of map)")
+						continue
+					
+					var second_neighbor_type = data.get_cell_type(second_neighbor)
+					var second_neighbor_pos = data.get_int_position_from_cell_index(second_neighbor)
+					
+					# Check if the second neighbor is also a CORRIDOR cell
+					if second_neighbor_type != data.CellType.CORRIDOR:
+						print("DEBUG: Skipping - second neighbor at (%d,%d) is not CORRIDOR (type: %d)" % [second_neighbor_pos[0], second_neighbor_pos[1], second_neighbor_type])
+						continue
+					
+					print("DEBUG: Both neighbors are CORRIDOR cells - applying arch wall tiles")
+					print("  - ROOM cell: (%d,%d)" % [cell_pos[0], cell_pos[1]])
+					print("  - First CORRIDOR neighbor: (%d,%d)" % [neighbor_pos[0], neighbor_pos[1]])
+					print("  - Second CORRIDOR neighbor: (%d,%d)" % [second_neighbor_pos[0], second_neighbor_pos[1]])
+					
+					# Replace the wall tiles with arch wall tiles
+					# Set the ROOM side double wall to corridor_room_border_wall_tile
+					data.set_wall_tile_index(i, dir, corridor_room_border_wall_tile)
+					print("DEBUG: Applied arch wall tile to ROOM side at (%d,%d) direction %s" % [cell_pos[0], cell_pos[1], dir_name])
+					
+					# Set the CORRIDOR side double wall to corridor_room_border_wall_tile
+					# The corridor side wall is in the opposite direction from the neighbor's perspective
+					var opposite_dir = data.direction_inverse(dir)
+					data.set_wall_tile_index(neighbor_cell, opposite_dir, corridor_room_border_wall_tile)
+					print("DEBUG: Applied arch wall tile to CORRIDOR side at (%d,%d) direction %s" % [neighbor_pos[0], neighbor_pos[1], ["NORTH", "EAST", "SOUTH", "WEST"][opposite_dir]])
+					
+					arch_walls_applied += 2  # Count both sides
+		
+		if has_double_walls:
+			room_cells_with_double_walls += 1
 	
 	# Debug: Print summary
 	print("DEBUG: apply_special_border_walls() summary:")
-	print("  - CORRIDOR cells found: %d" % corridor_cells_found)
-	print("  - ROOM cells found: %d" % room_cells_found)
-	print("  - CORRIDOR-ROOM borders detected: %d" % borders_found)
-	print("  - Special border tiles applied: %d" % tiles_applied)
+	print("  - ROOM cells with double walls found: %d" % room_cells_with_double_walls)
+	print("  - Double walls checked: %d" % double_walls_checked)
+	print("  - Arch wall tiles applied: %d" % arch_walls_applied)
 
 
 func select_pillar_room_walls(data : WorldData, pillar_rooms : Array):

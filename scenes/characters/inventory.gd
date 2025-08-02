@@ -65,12 +65,14 @@ func _ready():
 	current_offhand_slot = 10
 
 
-# Returns wether a given node can be added as an Item to this inventory
-func can_pickup_item(item : PickableItem) -> bool:
+## Returns whether a given node can be added as an Item to this inventory
+## Consolidated validation function that includes all pickup checks
+func can_pickup_item(item: PickableItem) -> bool:
 	# Can only pickup dropped items
 	# (may change later to steal weapons, or we can do that by dropping them first)
 	# Also prevents picking up busy items
 	
+	# Null check with error logging
 	if item == null:
 		print("[ERROR] can_pickup_item: Item is null, cannot pick up")
 		return false
@@ -78,29 +80,13 @@ func can_pickup_item(item : PickableItem) -> bool:
 	assert(item != null, "Item should not be null at this point")
 
 	# Check if item is in a valid state for pickup
-	if item.item_state == GlobalConsts.ItemState.DROPPED or item.item_state == GlobalConsts.ItemState.DAMAGING:
-		# Can always pick up equipment (goes to bulky slot if necessary)
-		if item is EquipmentItem:
-			return true
-		elif (item is TinyItem) or (item is KeyItem):
-			return true
-		else:
-			return false
-	else:
-		return false
-
-
-## Validates if an item can be picked up
-## Returns true if item can be picked up, false otherwise
-func validate_item_pickup(item: PickableItem) -> bool:
-	if item == null:
-		print("[ERROR] validate_item_pickup: Item is null")
+	if not (item.item_state == GlobalConsts.ItemState.DROPPED or item.item_state == GlobalConsts.ItemState.DAMAGING):
+		print("[DEBUG] Can't pick up item - invalid state: ", item.name, " (state: ", item.item_state, ")")
 		return false
 	
-	var can_pickup: bool = can_pickup_item(item)
-	
-	if not can_pickup:
-		print("[DEBUG] Can't pick up item: ", item.name)
+	# Check if item type is valid for pickup
+	if not ((item is EquipmentItem) or (item is TinyItem) or (item is KeyItem)):
+		print("[DEBUG] Can't pick up item - invalid type: ", item.name)
 		return false
 	
 	return true
@@ -378,7 +364,7 @@ func auto_equip_item(item: EquipmentItem, slot: int) -> bool:
 # if the attempt was successful, or 'false' otherwise
 func add_item(item : PickableItem) -> bool:
 	# Validate item pickup
-	if not validate_item_pickup(item):
+	if not can_pickup_item(item):
 		return false
 
 	assert(item != null, "Item should not be null after validation")

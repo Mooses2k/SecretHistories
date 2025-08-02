@@ -62,9 +62,10 @@ func light():
 		else:
 			$SlideOpen.play()
 		
-		if owner_character:
-			if owner_character.noise_level < 5:
-				owner_character.noise_level = 5
+		## TODO: Uncomment when noise_level ready
+		#if owner_character:
+			#if owner_character.noise_level < 5:
+				#owner_character.noise_level = 5
 		
 		$AnimationPlayer.play("flicker")
 		firelight.visible = true

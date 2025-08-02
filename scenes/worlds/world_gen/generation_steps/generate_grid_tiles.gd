@@ -31,6 +31,7 @@ var pillar_room_double_floor_tile : int = -1
 var pillar_room_pillar_tile : int = -1
 var pillar_tile : int = -1
 var corridor_room_border_wall_tile : int = -1
+var corridor_room_border_arch_grate_tile : int = -1
 
 const PillarRoomGenerator = preload("res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd")
 
@@ -145,6 +146,13 @@ func _get_property_list() -> Array[Dictionary]:
 	})
 	result.append({
 		"name" : "corridor_room_border_wall_tile",
+		"usage" : PROPERTY_USAGE_DEFAULT,
+		"type" : TYPE_INT,
+		"hint" : PROPERTY_HINT_ENUM,
+		"hint_string" : enum_hint,
+	})
+	result.append({
+		"name" : "corridor_room_border_arch_grate_tile",
 		"usage" : PROPERTY_USAGE_DEFAULT,
 		"type" : TYPE_INT,
 		"hint" : PROPERTY_HINT_ENUM,
@@ -689,6 +697,13 @@ func apply_special_border_walls(data : WorldData):
 					# This prevents the extra 1*CELL_SIZE wall from spawning on the right side
 					data.set_wall_tile_index(neighbor_cell, opposite_dir, -1)
 					print("DEBUG: Cleared overlapping wall tile at CORRIDOR cell (%d,%d) direction %s" % [neighbor_pos[0], neighbor_pos[1], ["NORTH", "EAST", "SOUTH", "WEST"][opposite_dir]])
+					
+					# Use combined arch+grate tile approach instead of spawn system
+					# Place arch+grate tile on left cell of room pair, open arch on right cell
+					if corridor_room_border_arch_grate_tile != -1:
+						# Replace the left cell (where double wall tile is placed) with arch+grate tile
+						data.set_wall_tile_index(cell_left, dir, corridor_room_border_arch_grate_tile)
+						print("DEBUG: Applied combined arch+grate tile to ROOM side at (%d,%d) direction %s (left cell of pair)" % [data.get_int_position_from_cell_index(cell_left)[0], data.get_int_position_from_cell_index(cell_left)[1], dir_name])
 					
 					arch_walls_applied += 2  # Count both sides
 		

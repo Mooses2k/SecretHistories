@@ -103,6 +103,7 @@ pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
 corridor_room_border_wall_tile = 1
+corridor_room_border_arch_grate_tile = 26
 alternative_wall_tiles = Array[int]([])
 alternative_double_wall_tiles = Array[int]([20, 21, 22])
 alternative_ceiling_tiles = Array[int]([11])

@@ -1,12 +1,13 @@
 extends LargeObject
 
 
+@export var item_drag_sound : AudioStream
+@export var sarco_lid_drop_sound : AudioStream
+
 var spawnable_items : PackedStringArray
 var sound_vol : float = 10
 var drag_noise_level : float = 0
 var drag_audio_player = null
-@export var item_drag_sound : AudioStream
-@export var sarco_lid_drop_sound : AudioStream
 
 
 func _enter_tree():
@@ -32,13 +33,13 @@ func _ready():
 func _integrate_forces(state):
 	super(state)
 	
-	if state.get_contact_count() > 0:
-		#prints("get contact_count:", state.get_contact_count(), "and lid linear velo: ", state.linear_velocity.length())
-		if state.get_contact_count() > self.old_contact_count and state.linear_velocity.length() > 0.7:
-			super.play_drop_sound(state.linear_velocity.length(), true)
-		
-	self.old_contact_count = state.get_contact_count()
-	
+	#if state.get_contact_count() > 0:
+		##prints("get contact_count:", state.get_contact_count(), "and lid linear velo: ", state.linear_velocity.length())
+		#if state.get_contact_count() > self.old_contact_count and state.linear_velocity.length() > 0.7:
+			#super.play_drop_sound(state.linear_velocity.length(), true)
+		#
+	#self.old_contact_count = state.get_contact_count()
+	#
 	if self.drag_audio_player:
 		if state.linear_velocity.length() > (1 / self.mass):
 			sound_vol = state.linear_velocity.length()

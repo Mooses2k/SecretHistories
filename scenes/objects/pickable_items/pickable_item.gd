@@ -2,7 +2,8 @@
 class_name PickableItem
 extends RigidBody3D
 
-### Is a tool to support use in player_animations_test.gd
+### This is a tool script to support use in player_animations_test.gd
+
 
 signal item_data_changed()
 signal item_state_changed(previous_state, current_state)
@@ -29,7 +30,7 @@ var item_drop_pitch_level = 10
 
 var has_thrown = false
 #var deceleration_factor = 0.9
-var can_play_sound : bool = false
+#var can_play_sound : bool = false  # Used to try to 
 
 var initial_linear_velocity
 var is_soundplayer_ready = false
@@ -40,6 +41,7 @@ var is_soundplayer_ready = false
 @onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 
 @onready var placement_position = %PlacementAnchor
+
 
 func _enter_tree():
 	# This was put here to try to stop sounds early in level load, but it bugs throwing.
@@ -97,9 +99,11 @@ func play_throw_sound():
 
 
 func play_drop_sound(body):
-	if (!LoadScene.loading and can_play_sound):   # If it's at least a few seconds after level load
+	#if (!LoadScene.loading and can_play_sound):   # If it's at least a few seconds after level load
+	if (!LoadScene.loading):
 		#TODO: bug here probably same as for large object drop sound where soundplayer is never ready
 		if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
+			print("DEBUG: if drop sound and audio_player and velocity > 0.2 and is_soundplayer_ready")
 			self.audio_player.stream = self.item_drop_sound
 			
 			if "Cultist" in body.name:
@@ -119,13 +123,16 @@ func play_drop_sound(body):
 			else:
 				self.item_drop_sound_level = self.linear_velocity.length() * 5.0
 				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
-				
+				print("DEBUG: item_drop_sound_level ", item_drop_sound_level)
+				print("DEBUG: item_drop_pitch_level ", item_drop_pitch_level)
+					
 			self.audio_player.volume_db = clamp(self.item_drop_sound_level, 5.0, 20.0)  
 			self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
 			self.audio_player.bus = "Effects"
 			self.audio_player.play()
+			print("DEBUG: audio_player.playing = ", audio_player.playing)
 			self.noise_level = clamp((self.item_max_noise_level * self.linear_velocity.length()), 1.0, 5.0)
-			print("noise_level == " + str(self.noise_level))
+			#print("DEBUG: thrown item noise_level == " + str(self.noise_level))
 			self.is_soundplayer_ready = false
 			start_delay()
 

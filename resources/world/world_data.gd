@@ -110,55 +110,6 @@ var world_size_x : int = 16
 var world_size_z : int = 16
 var cell_count : int = world_size_x * world_size_z
 
-
-func resize(size_x : int, size_z : int):
-	world_size_x = size_x
-	world_size_z = size_z
-	clear()
-
-
-func get_size_x() -> int:
-	return world_size_x
-
-
-func get_size_z() -> int:
-	return world_size_z
-
-
-# Clears all the data, resetting everything back to default values
-func clear():
-	cell_count = world_size_x * world_size_z
-	cell_type.resize(cell_count)
-	cell_surface_type.resize(cell_count)
-	ground_tile_index.resize(cell_count)
-	ceiling_tile_index.resize(cell_count)
-	pillar_tile_index.resize(cell_count)
-	for i in cell_count:
-		cell_type[i] = CellType.EMPTY
-		ground_tile_index[i] = -1
-		ceiling_tile_index[i] = -1
-		pillar_tile_index[i] = -1
-	
-	wall_tile_index.resize(4 * cell_count)
-	for i in wall_tile_index.size():
-		wall_tile_index[i] = -1
-	
-	wall_type.resize(2 * cell_count + world_size_x + world_size_z)
-	for i in wall_type.size():
-		wall_type[i] = EdgeType.EMPTY
-	
-	cell_meta.clear()
-	rooms.clear()
-	wall_meta.clear()
-	doors.clear()
-	pillar_radius.clear()
-	
-	player_spawn_positions.clear()
-	_objects_to_spawn.clear()
-	_characters_to_spawn.clear()
-	_cell_indexes_by_cell_type.clear()
-
-
 # Room definitions, store as a dictionary as follows:
 # {
 # 	room_type_1 : [RoomData_1, RoomData_2, ...]
@@ -227,7 +178,6 @@ var wall_tile_index : PackedInt32Array
 var pillar_tile_index : PackedInt32Array
 var ceiling_tile_index : PackedInt32Array
 
-
 # Player spawn position in World Coordinates
 # Keys are RoomData.OriginalPurpose STAIRCASE values
 # Values are dictionaries in the format: 
@@ -247,6 +197,54 @@ var _characters_to_spawn := {}
 # Private variable, use `get_cells_for(p_type: int)` to access the arrays.
 # ex: { CellType.ROOM = [15, 16, 17, 25, 26 ...], CellType.CORRIDOR = [...], ... }
 var _cell_indexes_by_cell_type := {}
+
+
+func resize(size_x : int, size_z : int):
+	world_size_x = size_x
+	world_size_z = size_z
+	clear()
+
+
+func get_size_x() -> int:
+	return world_size_x
+
+
+func get_size_z() -> int:
+	return world_size_z
+
+
+# Clears all the data, resetting everything back to default values
+func clear():
+	cell_count = world_size_x * world_size_z
+	cell_type.resize(cell_count)
+	cell_surface_type.resize(cell_count)
+	ground_tile_index.resize(cell_count)
+	ceiling_tile_index.resize(cell_count)
+	pillar_tile_index.resize(cell_count)
+	for i in cell_count:
+		cell_type[i] = CellType.EMPTY
+		ground_tile_index[i] = -1
+		ceiling_tile_index[i] = -1
+		pillar_tile_index[i] = -1
+	
+	wall_tile_index.resize(4 * cell_count)
+	for i in wall_tile_index.size():
+		wall_tile_index[i] = -1
+	
+	wall_type.resize(2 * cell_count + world_size_x + world_size_z)
+	for i in wall_type.size():
+		wall_type[i] = EdgeType.EMPTY
+	
+	cell_meta.clear()
+	rooms.clear()
+	wall_meta.clear()
+	doors.clear()
+	pillar_radius.clear()
+	
+	player_spawn_positions.clear()
+	_objects_to_spawn.clear()
+	_characters_to_spawn.clear()
+	_cell_indexes_by_cell_type.clear()
 
 
 func _get_property_list() -> Array:
@@ -594,6 +592,7 @@ func get_cell_meta(cell_index : int, key, default = null):
 		return meta.get(key, default)
 	return default
 
+
 func set_cell_meta(cell_index : int, key, value):
 	if cell_index >= 0:
 		var meta = cell_meta.get(cell_index, Dictionary()) as Dictionary
@@ -679,6 +678,7 @@ func set_wall_meta(cell_index : int, direction : int, value = null):
 func get_wall_has_door(cell_index : int, direction : int):
 	var idx = _get_wall_index(cell_index, direction)
 	return doors.get(idx, false)
+
 
 func set_wall_has_door(cell_index : int, direction : int, value : bool):
 	var idx = _get_wall_index(cell_index, direction)

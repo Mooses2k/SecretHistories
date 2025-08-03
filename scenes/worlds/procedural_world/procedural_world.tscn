@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://bn2pr1ol67q5q" path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" id="10"]
 [ext_resource type="Script" uid="uid://cu8brs7v4mha0" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" id="11"]
 [ext_resource type="Resource" uid="uid://cs6ibgi4rwbia" path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" id="12"]
-[ext_resource type="Script" uid="uid://dsyrl7fas0qaq" path="res://scenes/worlds/procedural_world/generate_level_staircase.gd" id="13"]
+[ext_resource type="Script" uid="uid://dsyrl7fas0qaq" path="res://scenes/worlds/world_gen/generation_steps/generate_level_staircase.gd" id="13"]
 [ext_resource type="Script" uid="uid://dr8l2ow5j0ue4" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_initial_loot.gd" id="14"]
 [ext_resource type="Script" uid="uid://dg7gpl5c585ds" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_cultists.gd" id="15"]
 [ext_resource type="Resource" uid="uid://c0fwgiq1r7hny" path="res://scenes/worlds/procedural_world/skeletal_remains_list.tres" id="16"]

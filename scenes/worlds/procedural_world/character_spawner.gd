@@ -166,7 +166,7 @@ func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 		if rng < cummulative_weight:
 			value = pack
 			break
-
+	
 	return value
 
 
@@ -175,6 +175,6 @@ func _on_game_world_generation_finished():
 	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
 	if setting_generation_seed is int:
 		_rng.seed = setting_generation_seed
-
+	
 	data = owner.world_data
 	call_deferred("spawn_characters")

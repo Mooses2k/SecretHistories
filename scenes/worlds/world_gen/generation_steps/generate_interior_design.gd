@@ -33,7 +33,7 @@ enum PlacementTags {
 	KEYHOLE, # found in a keyhole
 	PIT, # type of trap or otherwise a hole in the ground
 # other furniture
-	BOOKCASE,
+	SHELVING,
 	FOUNTAIN, # fonts and fountains; large, bowl-like containers of liquid that may also spit that liquid into the bowl
 	WELL, # deep hole leading to liquid
 # characters can lay on these
@@ -45,8 +45,8 @@ enum PlacementTags {
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-@export var place_first = false # important for room; any of these are placed before other things
-@export var must_have = false # if this isn't there at the end, regenerate the room
+#@export var place_first = false # important for room; any of these are placed before other things
+#@export var must_have = false # if this isn't there at the end, regenerate the room
 
 ### Public Static Utility Methods -----------------------------------------------------------------
 
@@ -84,6 +84,7 @@ static func get_remaining_rect(room: RoomData, walls_data: RoomWalls, object_siz
 
 	return value
 
+
 ## Calculate center position for an object in remaining space
 static func calculate_center_position(
 		remaining_rect: Rect2,
@@ -113,6 +114,7 @@ static func calculate_center_position(
 		"offset": offset
 	}
 
+
 ## Get cells for center placement
 static func get_center_cells(world_data: WorldData, placement_rect: Rect2) -> Array:
 	var cells := []
@@ -129,6 +131,7 @@ static func get_center_cells(world_data: WorldData, placement_rect: Rect2) -> Ar
 
 	return cells
 
+
 ## Calculate rotation based on wall direction
 static func calculate_rotation(
 		walls_data: RoomWalls,
@@ -141,9 +144,11 @@ static func calculate_rotation(
 			rotation = deg_to_rad(vertical_center_rotation)
 	return rotation
 
+
 ## Validate if object fits in remaining space
 static func can_place_object(remaining_rect: Rect2, object_size: Vector2) -> bool:
 	return remaining_rect.size >= object_size
+
 
 ## Get all cells for a wall segment
 static func get_cells_for_wall_segment(
@@ -163,6 +168,7 @@ static func get_cells_for_wall_segment(
 
 	return cells
 
+
 ## Calculate offset for wall placement
 static func get_wall_offset(direction: int, surplus_cells: int) -> Vector3:
 	var center_offset := surplus_cells / 2.0
@@ -172,6 +178,7 @@ static func get_wall_offset(direction: int, surplus_cells: int) -> Vector3:
 		WorldData.Direction.EAST, WorldData.Direction.WEST:
 			return Vector3(0, 0, center_offset)
 	return Vector3.ZERO
+
 
 ## Create spawn data for object placement
 static func create_spawn_data(
@@ -193,6 +200,7 @@ static func create_spawn_data(
 		spawn_data.set_custom_property(property_name, custom_properties[property_name])
 
 	return spawn_data
+
 
 ## Process wall segments for object placement
 static func process_wall_segments(
@@ -218,11 +226,3 @@ static func process_wall_segments(
 			callback.call(cells, direction, wall_offset)
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass

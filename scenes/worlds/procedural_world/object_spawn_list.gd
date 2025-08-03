@@ -24,6 +24,7 @@ func reset_current_arrays() -> void:
 	_current_max_amounts.clear()
 	_current_total_weight = 0
 
+
 func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 	var spawn_data: SpawnData = SpawnData.new()
 	

@@ -10,7 +10,7 @@ extends Resource
 
 #--- constants ------------------------------------------------------------------------------------
 
-const ITEM_CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
+const ITEM_CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)  # This is unique in the code with the 1m vertical
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 

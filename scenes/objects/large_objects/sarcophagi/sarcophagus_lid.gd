@@ -28,6 +28,7 @@ func _enter_tree():
 func _ready():
 	self.item_max_noise_level = 40
 	self.item_drop_sound = sarco_lid_drop_sound
+	super._ready()  # Call parent's _ready() to configure audio manager
 
 
 func _integrate_forces(state):

@@ -29,11 +29,14 @@ var item_drop_pitch_level = 10
 @export var can_spin : bool   # Some items should spin when thrown
 
 var has_thrown = false
-#var deceleration_factor = 0.9
-#var can_play_sound : bool = false  # Used to try to 
 
 var initial_linear_velocity
 var is_soundplayer_ready = false
+var old_contact_count = 0
+var impact_impulse_threshold : float = mass/18.0  ## Minimum impulse magnitude to trigger sound
+var old_velocity : float = 0.0  ## Track previous velocity for change detection
+var velocity_change_threshold : float = 0.1  ## Minimum velocity change to trigger sound (lower for lighter objects)
+var cooldown_time : float = 0.05  ## Time between allowed collision sounds
 
 @onready var audio_player = get_node("DropSound")
 
@@ -44,10 +47,6 @@ var is_soundplayer_ready = false
 
 
 func _enter_tree():
-	# This was put here to try to stop sounds early in level load, but it bugs throwing.
-	#await get_tree().create_timer(2).timeout
-	#can_play_sound = true
-	
 	if not audio_player:
 		var drop_sound = AudioStreamPlayer3D.new()
 		drop_sound.name = "DropSound"
@@ -98,49 +97,43 @@ func play_throw_sound():
 			self.noise_level = 3
 
 
-func play_drop_sound(body):
-	#if (!LoadScene.loading and can_play_sound):   # If it's at least a few seconds after level load
+func play_drop_sound(impact_intensity: float):
 	if (!LoadScene.loading):
-		#TODO: bug here probably same as for large object drop sound where soundplayer is never ready
-		if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
-			print("DEBUG: if drop sound and audio_player and velocity > 0.2 and is_soundplayer_ready")
+		if self.item_drop_sound and self.audio_player and self.is_soundplayer_ready:
+			print("DEBUG: if drop sound and audio_player and is_soundplayer_ready")
 			self.audio_player.stream = self.item_drop_sound
 			
-			if "Cultist" in body.name:
-				self.audio_player.stream = self.item_drop_sound_flesh
-				
-				if self.get("primary_damage1"): 
-					# Drop sound volume depends on item damage when cultist is the collided body
-					if self.get("can_spin"):   # If item can spin (cutting attack), use secondary damage
-						self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.secondary_damage1 + self.secondary_damage2)
-						self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.secondary_damage1 + self.secondary_damage2)
-					else:   # If item cannot spin (thrown point first / thrust attack), use primary damage
-						self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.primary_damage1 + self.primary_damage2)
-						self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.primary_damage1 + self.primary_damage2)
-				else:
-					self.item_drop_sound_level = self.linear_velocity.length() * 0.05
-					self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
-			else:
-				self.item_drop_sound_level = self.linear_velocity.length() * 5.0
-				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
-				print("DEBUG: item_drop_sound_level ", item_drop_sound_level)
-				print("DEBUG: item_drop_pitch_level ", item_drop_pitch_level)
-					
-			self.audio_player.volume_db = clamp(self.item_drop_sound_level, 5.0, 20.0)  
-			self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
+			# Scale volume based on impact intensity (0-5 range for lighter objects mapped to -25 to +10 dB)
+			var volume_scale = (impact_intensity / 5.0)  # Normalize to 0-1 for lighter objects
+			self.audio_player.volume_db = lerp(-25.0, 10.0, volume_scale)
+			
+			# Scale pitch based on impact intensity (0-5 range mapped to 0.7 to 1.6)
+			# Higher impact = higher pitch (faster sound)
+			var pitch_scale = lerp(0.7, 1.6, volume_scale)
+			self.audio_player.pitch_scale = pitch_scale
+			
 			self.audio_player.bus = "Effects"
 			self.audio_player.play()
+			
+			print("DEBUG: Impact intensity:", impact_intensity)
+			print("DEBUG: Final volume_db:", self.audio_player.volume_db)
+			print("DEBUG: Final pitch_scale:", self.audio_player.pitch_scale)
 			print("DEBUG: audio_player.playing = ", audio_player.playing)
-			self.noise_level = clamp((self.item_max_noise_level * self.linear_velocity.length()), 1.0, 5.0)
+			
+			self.noise_level = clamp((self.item_max_noise_level * impact_intensity), 1.0, 5.0)
 			#print("DEBUG: thrown item noise_level == " + str(self.noise_level))
 			self.is_soundplayer_ready = false
 			start_delay()
 
 
 func start_delay():
-	if self.is_inside_tree():
-		await get_tree().create_timer(0.2).timeout
-		self.is_soundplayer_ready = true
+	var timer = get_tree().create_timer(cooldown_time)
+	timer.timeout.connect(_on_delay_finished)
+
+
+func _on_delay_finished():
+	prints("DELAY DEBUG - Resetting is_soundplayer_ready to true")
+	self.is_soundplayer_ready = true
 
 
 func set_physics_dropped():
@@ -212,6 +205,39 @@ func decelerate_item_velocity(delta, decelerate):
 
 
 func _integrate_forces(state):
+	# Handle impact detection for sound
+	if !LoadScene.loading and (item_state == GlobalConsts.ItemState.DROPPED or item_state == GlobalConsts.ItemState.DAMAGING):
+		var current_velocity = state.linear_velocity.length()
+		var velocity_change = abs(current_velocity - old_velocity)
+		
+		# Check all contact points for significant impulses
+		var max_impulse_magnitude = 0.0
+		var total_impulse = Vector3.ZERO
+		
+		for i in state.get_contact_count():
+			var impulse = state.get_contact_impulse(i)
+			var impulse_magnitude = impulse.length()
+			
+			if impulse_magnitude > max_impulse_magnitude:
+				max_impulse_magnitude = impulse_magnitude
+			
+			total_impulse += impulse
+		
+		# Play sound if impulse is significant AND there's a sudden velocity change
+		# Use lower thresholds for lighter objects
+		if (max_impulse_magnitude > impact_impulse_threshold
+			and velocity_change > velocity_change_threshold
+			and is_soundplayer_ready):
+			# Cap impact intensity at 5.0 for lighter objects (vs 10.0 for large objects)
+			var impact_intensity = min(max_impulse_magnitude, 5.0)
+			play_drop_sound(impact_intensity)
+			print("Pickable item impact detected - Max impulse: ", max_impulse_magnitude, " Velocity change: ", velocity_change, " Total impulse: ", total_impulse.length())
+		
+		old_velocity = current_velocity
+	
+	old_contact_count = state.get_contact_count()
+	
+	# Handle velocity clamping
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), max_speed)
 	if item_state == GlobalConsts.ItemState.DAMAGING:

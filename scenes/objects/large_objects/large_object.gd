@@ -10,9 +10,9 @@ var item_drop_sound_level = 0
 var item_drop_pitch_level = 0
 var is_soundplayer_ready = false
 var old_contact_count = 0
-var impact_impulse_threshold : float = mass/8.0  ## Minimum impulse magnitude to trigger sound
+var impact_impulse_threshold : float = mass/10.0  ## Minimum impulse magnitude to trigger sound
 var old_velocity : float = 0.0  ## Track previous velocity for change detection
-var velocity_change_threshold : float = 0.17  ## Minimum velocity change to trigger sound
+var velocity_change_threshold : float = 0.15  ## Minimum velocity change to trigger sound
 var cooldown_time : float = 0.05  ## Time between allowed collision sounds
 
 
@@ -51,18 +51,29 @@ func _integrate_forces(state):
 	old_contact_count = state.get_contact_count()
 
 
-func play_drop_sound(linear_velo, is_heavy = false):
+func play_drop_sound(impact_intensity, is_heavy = false):
 	prints("Is_soundplayer_ready:", is_soundplayer_ready)
 	if self.item_drop_sound and self.is_soundplayer_ready:
 		# Create a simple AudioStreamPlayer3D directly instead of using the scene
 		var drop_audio_player = AudioStreamPlayer3D.new()
 		drop_audio_player.stream = self.item_drop_sound
-		drop_audio_player.bus = "Effects" 
+		drop_audio_player.bus = "Effects"
+
+		# Scale volume based on impact intensity (0-10 range mapped to -20 to +5 dB)
+		var volume_scale = (impact_intensity / 10.0)  # Normalize to 0-1
+		drop_audio_player.volume_db = lerp(-40.0, 5.0, volume_scale)
+		
+		# Scale pitch based on impact intensity (0-10 range mapped to 0.8 to 1.5)
+		# Higher impact = higher pitch (faster sound)
+		var pitch_scale = lerp(0.8, 1.5, volume_scale)
+		drop_audio_player.pitch_scale = pitch_scale
 
 		prints("AUDIO DEBUG - Object position:", self.global_position)
+		prints("AUDIO DEBUG - Impact intensity:", impact_intensity)
 		prints("AUDIO DEBUG - Final volume_db:", drop_audio_player.volume_db)
+		prints("AUDIO DEBUG - Final pitch_scale:", drop_audio_player.pitch_scale)
 		
-		self.noise_level = clamp((self.item_max_noise_level * linear_velo), 1.0, 5.0)
+		self.noise_level = clamp((self.item_max_noise_level * impact_intensity), 1.0, 5.0)
 		self.add_child(drop_audio_player)
 		
 		# Connect the finished signal to clean up

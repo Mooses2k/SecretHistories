@@ -10,3 +10,17 @@ var sprint : bool = false
 var lean_left : bool = false
 var lean_right : bool = false
 var lean_forward : bool = false
+var mouse_captured: bool = false
+
+
+func _ready() -> void:
+	set_input_capture_mode(Input.MOUSE_MODE_CAPTURED)
+
+
+func set_input_capture_mode(mode: Input.MouseMode) -> void:
+	if mode == Input.MOUSE_MODE_CAPTURED:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		mouse_captured = true
+	elif mode == Input.MOUSE_MODE_VISIBLE:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		mouse_captured = false

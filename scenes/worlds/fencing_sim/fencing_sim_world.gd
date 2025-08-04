@@ -66,10 +66,6 @@ func _ready() -> void:
 	
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("debug_switch_mouse_capture"):
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE else Input.MOUSE_MODE_VISIBLE
-	
-	
 	if Engine.has_singleton("ImGuiAPI"): # prevents from everything breaking when we export without ImGui
 		var ImGui: Object = Engine.get_singleton("ImGuiAPI")
 	

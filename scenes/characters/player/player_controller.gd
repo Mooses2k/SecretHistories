@@ -13,11 +13,17 @@ var camera_pitch : float = 0.0
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and input.mouse_captured:
 		var sens = InputSettings.setting_mouse_sensitivity*0.01
 		camera_pitch -= sens*event.relative.y
 		camera_pitch = clamp(camera_pitch, - PI*0.5, PI*0.5)
 		state.facing = state.facing.rotated(Vector3.UP, -sens*event.relative.x)
+	
+	if Input.is_action_just_pressed("debug_switch_mouse_capture"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			input.set_input_capture_mode(Input.MOUSE_MODE_VISIBLE)
+		elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			input.set_input_capture_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _process(_delta : float) -> void:
 	main_camera.rotation.x = camera_pitch

@@ -435,11 +435,11 @@ func _get_wall_mount_rotation() -> Vector3:
 		WorldData.Direction.NORTH:
 			return Vector3(0, 0, 0)
 		WorldData.Direction.EAST:
-			return Vector3(0, PI * 0.5, 0)
+			return Vector3(0, PI * 1.5, 0)
 		WorldData.Direction.SOUTH:
 			return Vector3(0, PI, 0)
 		WorldData.Direction.WEST:
-			return Vector3(0, PI * 1.5, 0)
+			return Vector3(0, PI * 0.5, 0)
 		_:
 			return Vector3.ZERO
 

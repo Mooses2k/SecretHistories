@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=4 uid="uid://c0jklw6pv1ucx"]
 
-[ext_resource type="Script" uid="uid://bsovojpefr6cg" path="res://scenes/objects/wall_objects/wall_painting_example.gd" id="1_tnkbv"]
+[ext_resource type="Script" uid="uid://bsovojpefr6cg" path="res://scenes/objects/wall_objects/wall_object_rigid.gd" id="1_tnkbv"]
 [ext_resource type="Texture2D" uid="uid://dva5nbwy2v5yo" path="res://resources/models/large_objects/paintings/painting_frame2_Image_1.jpg" id="2_3r0fv"]
 [ext_resource type="Texture2D" uid="uid://40dfj6tnwq6x" path="res://resources/models/large_objects/paintings/painting_frame2_Image_2.png" id="3_f0pqu"]
 [ext_resource type="Script" uid="uid://28huy1adex6d" path="res://scenes/objects/wall_objects/wall_attachment_component.gd" id="3_qsln8"]

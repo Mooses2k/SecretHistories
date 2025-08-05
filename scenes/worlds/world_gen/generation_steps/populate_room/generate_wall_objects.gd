@@ -248,13 +248,15 @@ func _get_rotation_for_direction(direction: int) -> float:
 		WorldData.Direction.NORTH:
 			return 0.0
 		WorldData.Direction.EAST:
-			return PI * 0.5
+			return PI * 1.5
 		WorldData.Direction.SOUTH:
 			return PI
 		WorldData.Direction.WEST:
-			return PI * 1.5
+			return PI * 0.5
 		_:
 			return 0.0
+
+
 func _get_directional_cell_offset(direction: int, pillar_x: int, pillar_z: int) -> Vector3:
 	## Calculate a small directional offset to ensure each pillar side maps to a unique cell
 	## This prevents multiple pillar sides from conflicting over the same cell index
@@ -274,8 +276,6 @@ func _get_directional_cell_offset(direction: int, pillar_x: int, pillar_z: int) 
 			return Vector3(-base_offset, 0, -base_offset * coord_factor)
 		_:
 			return Vector3.ZERO
-
-
 
 
 func _try_place_in_nearby_cell(data: WorldData, spawn_data: SpawnData, object_position: Vector3, direction: int, pillar_x: int, pillar_z: int):

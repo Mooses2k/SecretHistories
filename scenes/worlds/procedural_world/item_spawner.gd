@@ -40,9 +40,20 @@ func _on_game_world_generation_finished():
 
 func _spawn_world_data_objects(data: WorldData) -> void:
 	var objects_to_spawn := data.get_objects_to_spawn()
+	
 	for cell_index in objects_to_spawn:
 		var spawn_data := objects_to_spawn[cell_index] as SpawnData
-		spawn_data.spawn_item_in(owner)
+		
+		var children_before := owner.get_child_count()
+		spawn_data.spawn_item_in(owner, true)  # Enable logging
+		var children_after := owner.get_child_count()
+		
+		if children_after > children_before:
+			var new_child := owner.get_child(children_after - 1)
+			
+			# Check if it's a wall object and log its state
+			if new_child.get_node_or_null("WallAttachmentComponent"):
+				call_deferred("_debug_wall_object_state", new_child)
 
 
 func _spawn_initial_settings_items(data : WorldData):
@@ -107,5 +118,31 @@ func _spawn_tiny_item(item_data_path: String, amount: int, position: Vector3) ->
 	item.item_data = load(item_data_path)
 	item.position = position
 	owner.add_child(item)
+
+
+func _debug_wall_object_state(wall_object: Node3D) -> void:
+	print("=== WALL OBJECT STATE DEBUG ===")
+	print("WALL DEBUG: Object name: %s" % wall_object.name)
+	print("WALL DEBUG: Global position: %s" % wall_object.global_position)
+	
+	# Check if it's a RigidBody3D and log physics state
+	if wall_object is RigidBody3D:
+		var rigid_body := wall_object as RigidBody3D
+		print("WALL DEBUG: RigidBody3D - Gravity: %f, Sleeping: %s" % [
+			rigid_body.gravity_scale, rigid_body.sleeping
+		])
+		print("WALL DEBUG: Linear velocity: %s" % rigid_body.linear_velocity)
+	
+	# Check for wall attachment component
+	var wall_attachment := wall_object.get_node_or_null("WallAttachmentComponent")
+	if wall_attachment:
+		print("WALL DEBUG: Found WallAttachmentComponent")
+		print("WALL DEBUG: Wall direction: %d" % wall_attachment.wall_direction)
+		print("WALL DEBUG: Is attached: %s" % wall_attachment.is_attached_to_wall)
+		print("WALL DEBUG: Auto setup: %s" % wall_attachment.auto_setup_attachment)
+	else:
+		print("WALL DEBUG ERROR: No WallAttachmentComponent found!")
+	
+	print("=== END WALL OBJECT DEBUG ===")
 
 ### -----------------------------------------------------------------------------------------------

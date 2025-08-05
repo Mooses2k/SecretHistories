@@ -58,16 +58,16 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 
 
 func _spawn_middle(world_data: WorldData, statue_fountain: RoomData, walls_data: RoomWalls) -> void:
-	var remaining_rect := DecorateRooms.get_remaining_rect(statue_fountain, walls_data, fountain_tile_size)
+	var remaining_rect := GenerateInteriorDesign.get_remaining_rect(statue_fountain, walls_data, fountain_tile_size)
 
 	print("DEBUG: Room rect: ", statue_fountain.rect2)
 	print("DEBUG: Remaining rect after walls: ", remaining_rect)
 	print("DEBUG: Expected room center: ", Vector2(statue_fountain.rect2.position) + Vector2(statue_fountain.rect2.size) / 2.0)
 
-	if not DecorateRooms.can_place_object(remaining_rect, fountain_tile_size):
+	if not GenerateInteriorDesign.can_place_object(remaining_rect, fountain_tile_size):
 		return
 
-	var placement_data := DecorateRooms.calculate_center_position(
+	var placement_data := GenerateInteriorDesign.calculate_center_position(
 		remaining_rect,
 		fountain_tile_size,
 		world_data.CELL_SIZE
@@ -76,10 +76,10 @@ func _spawn_middle(world_data: WorldData, statue_fountain: RoomData, walls_data:
 	print("DEBUG: Placement data rect: ", placement_data.rect)
 	print("DEBUG: Placement data offset: ", placement_data.offset)
 
-	var fountain_cells := DecorateRooms.get_center_cells(world_data, placement_data.rect)
+	var fountain_cells := GenerateInteriorDesign.get_center_cells(world_data, placement_data.rect)
 
 	if not fountain_cells.is_empty():
-		var fountain_rotation := DecorateRooms.calculate_rotation(walls_data, vertical_center_rotation)
+		var fountain_rotation := GenerateInteriorDesign.calculate_rotation(walls_data, vertical_center_rotation)
 		_set_fountain_spawn_data(world_data, fountain_cells, -1, placement_data.offset, fountain_rotation)
 
 
@@ -103,7 +103,7 @@ func _set_fountain_spawn_data(
 	print("DEBUG: Cell world position: ", cell_world_pos)
 	print("DEBUG: Final spawn position: ", cell_world_pos + fountain_offset)
 
-	var spawn_data := DecorateRooms.create_spawn_data(
+	var spawn_data := GenerateInteriorDesign.create_spawn_data(
 		data,
 		fountain_scene_path,
 		fountain_cells[0],

@@ -1,5 +1,5 @@
 @tool
-class_name DecorateRooms
+class_name GenerateInteriorDesign
 extends Node
 
 ## Centralized utility library for room decoration and object placement

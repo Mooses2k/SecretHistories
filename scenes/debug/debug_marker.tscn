@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvqxr8y7qn2ys"]
+
+[ext_resource type="Script" path="res://scenes/debug/debug_marker.gd" id="1_0x8y9"]
+
+[node name="DebugMarker" type="Node3D"]
+script = ExtResource("1_0x8y9")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="Label3D" type="Label3D" parent="."]
+pixel_size = 0.01
+text = "DEBUG"

@@ -67,7 +67,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 func _spawn_sarcos_in_wall_segments(
 		data: WorldData, walls_data: RoomWalls, direction: int
 ) -> void:
-	DecorateRooms.process_wall_segments(
+	GenerateInteriorDesign.process_wall_segments(
 		data,
 		walls_data,
 		direction,
@@ -78,19 +78,19 @@ func _spawn_sarcos_in_wall_segments(
 
 
 func _spawn_middle_sarco(world_data: WorldData, crypt: RoomData, walls_data: RoomWalls) -> void:
-	var remaining_rect := DecorateRooms.get_remaining_rect(crypt, walls_data, sarco_tile_size)
-	if not DecorateRooms.can_place_object(remaining_rect, sarco_tile_size):
+	var remaining_rect := GenerateInteriorDesign.get_remaining_rect(crypt, walls_data, sarco_tile_size)
+	if not GenerateInteriorDesign.can_place_object(remaining_rect, sarco_tile_size):
 		return
 
-	var placement_data := DecorateRooms.calculate_center_position(
+	var placement_data := GenerateInteriorDesign.calculate_center_position(
 		remaining_rect,
 		sarco_tile_size,
 		world_data.CELL_SIZE
 	)
 
-	var sarco_cells := DecorateRooms.get_center_cells(world_data, placement_data.rect)
+	var sarco_cells := GenerateInteriorDesign.get_center_cells(world_data, placement_data.rect)
 	if not sarco_cells.is_empty():
-		var sarco_rotation := DecorateRooms.calculate_rotation(walls_data, vertical_center_rotation)
+		var sarco_rotation := GenerateInteriorDesign.calculate_rotation(walls_data, vertical_center_rotation)
 		_set_sarco_spawn_data(world_data, sarco_cells, -1, placement_data.offset, sarco_rotation)
 
 

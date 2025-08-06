@@ -111,8 +111,14 @@ func _physics_process(delta: float):
 		var parent_body = get_parent() as PhysicsBody3D
 		var is_being_grabbed = false
 		if parent_body and parent_body.has_method("get_attachment_status"):
-			var wall_object = parent_body as WallObjectRigid
-			is_being_grabbed = wall_object.is_grabbed
+			# Safe property access - check if wall object supports grabbing
+			# WallObjectRigid has is_grabbed property, WallObjectStatic does not
+			# Future WallObjectSoft will also have is_grabbed property
+			if "is_grabbed" in parent_body:
+				is_being_grabbed = parent_body.is_grabbed
+			else:
+				# Static objects cannot be grabbed, so assume false
+				is_being_grabbed = false
 		
 		if parent_body and parent_body is RigidBody3D:
 			var rigid_body = parent_body as RigidBody3D
@@ -288,6 +294,13 @@ func _create_wall_mount():
 	# Position mount at this component's position AFTER adding to scene
 	# Ensure the mount is at the exact attachment point
 	wall_mount.global_position = global_position
+	
+	# DEBUG: Log positioning details
+	print("WALL_ATTACHMENT DEBUG - Component global_position: ", global_position)
+	print("WALL_ATTACHMENT DEBUG - Parent global_position: ", get_parent().global_position)
+	print("WALL_ATTACHMENT DEBUG - Component local_position: ", position)
+	print("WALL_ATTACHMENT DEBUG - Wall mount positioned at: ", wall_mount.global_position)
+	print("WALL_ATTACHMENT DEBUG - Distance from parent to component: ", global_position.distance_to(get_parent().global_position))
 
 
 func _create_attachment_joint():
@@ -354,8 +367,15 @@ func _create_attachment_joint():
 		
 	elif parent_body is StaticBody3D:
 		# No joint needed for StaticBody3D - they're already static
-		# Just position them correctly
-		parent_body.global_position = wall_mount.global_position
+		# Position parent body so that this component aligns with wall mount
+		var component_offset = global_position - parent_body.global_position
+		parent_body.global_position = wall_mount.global_position - component_offset
+		
+		# DEBUG: Log StaticBody3D positioning
+		print("STATIC_BODY DEBUG - Component offset: ", component_offset)
+		print("STATIC_BODY DEBUG - Wall mount position: ", wall_mount.global_position)
+		print("STATIC_BODY DEBUG - Final parent position: ", parent_body.global_position)
+		print("STATIC_BODY DEBUG - Component should now be at: ", parent_body.global_position + component_offset)
 		return
 
 

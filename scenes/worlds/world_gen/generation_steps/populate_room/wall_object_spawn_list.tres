@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_476ld")
-_paths = ["uid://c0jklw6pv1ucx"]
-_weights = [90]
-_min_amounts = [1]
-_max_amounts = [1]
+_paths = ["uid://c0jklw6pv1ucx", "uid://wa012aqfc7ot"]
+_weights = [1, 10]
+_min_amounts = [1, 1]
+_max_amounts = [1, 1]

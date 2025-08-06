@@ -13,7 +13,7 @@ extends GenerationStep
 @export var _wall_object_spawn_list_resource: Resource = null
 @export var _spawn_chance: float = 0.25  # Chance to spawn on each valid pillar side
 @export var _wall_offset_multiplier: float = 0.225  # How far from pillar surface to place objects
-@export var _wall_mount_height: float = 1.5  # Height above floor to mount wall objects
+@export var _wall_mount_height: float = 1.6  # Height above floor to mount wall objects
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 var _rng := RandomNumberGenerator.new()
@@ -189,6 +189,12 @@ func _spawn_wall_object_on_pillar(data: WorldData, pillar_data: Dictionary):
 	print("DEBUG GenerateWallObjects: Base offset: %s, Directional offset: %s" % [base_offset, directional_offset])
 	
 	spawn_data.set_position_in_cell(object_position)
+	
+	# DEBUG: Log detailed spawn positioning
+	print("SPAWN DEBUG - Final object_position set in spawn_data: ", object_position)
+	print("SPAWN DEBUG - _wall_offset_multiplier: ", _wall_offset_multiplier)
+	print("SPAWN DEBUG - WorldData.CELL_SIZE: ", WorldData.CELL_SIZE)
+	print("SPAWN DEBUG - Calculated base_offset magnitude: ", base_offset.length())
 	
 	# Rotate to face outward from pillar
 	var rotation_angle = _get_rotation_for_direction(direction)

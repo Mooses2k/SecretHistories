@@ -1,5 +1,6 @@
 extends Node
 
+
 var game_manager : GDScript = preload("res://globals/game_manager.gd")
 
 #var file_name = "%s://globals/settings/settings_config.dict" % ("user" if OS.has_feature("standalone") else "res")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=3 uid="uid://wa012aqfc7ot"]
+
+[ext_resource type="Script" uid="uid://c2ex3musp0bl0" path="res://scenes/objects/wall_objects/wall_object_static.gd" id="1_jsyqa"]
+[ext_resource type="PackedScene" uid="uid://du7c8wsnvinou" path="res://resources/models/large_objects/lighting/candlesconce.glb" id="3_wocj4"]
+[ext_resource type="PackedScene" uid="uid://c8b20twjhptbk" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn" id="4_jsyqa"]
+[ext_resource type="Script" uid="uid://ch56kkgmai4he" path="res://resources/inventory/stackable_resource.gd" id="5_4lwge"]
+[ext_resource type="Script" uid="uid://28huy1adex6d" path="res://scenes/objects/wall_objects/wall_attachment_component.gd" id="8_robu0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i73d1"]
+size = Vector3(0.0810547, 0.0333862, 0.0475769)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jsyqa"]
+size = Vector3(0.0522766, 0.1422, 0.136856)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wocj4"]
+height = 0.0666428
+radius = 0.0419922
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wocj4"]
+size = Vector3(0.00938867, 0.0591309, 0.05)
+
+[sub_resource type="Resource" id="Resource_aosvy"]
+resource_local_to_scene = true
+script = ExtResource("5_4lwge")
+stack_name = "Candles"
+max_stack = 5
+
+[node name="WallCandleSconce" type="StaticBody3D"]
+collision_layer = 64
+collision_mask = 65
+script = ExtResource("1_jsyqa")
+
+[node name="Durability" type="Timer" parent="."]
+wait_time = 300.0
+one_shot = true
+
+[node name="WallAttachmentComponent" type="Node3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, -0.00533307, 0.0978926)
+script = ExtResource("8_robu0")
+snap_lerp_speed = 6.0
+metadata/_custom_type_script = "uid://28huy1adex6d"
+
+[node name="candlesconce" parent="." instance=ExtResource("3_wocj4")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -0.00321569, 0, -0.0448121)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -0.00209145, -0.10245, 0.000658997)
+shape = SubResource("BoxShape3D_i73d1")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -0.00386418, -0.00617075, 0.0564909)
+shape = SubResource("BoxShape3D_jsyqa")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -0.00321569, -0.0563858, -0.0613359)
+shape = SubResource("CylinderShape3D_wocj4")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -0.00321568, 0.0917372, 0.0357776)
+shape = SubResource("BoxShape3D_wocj4")
+
+[node name="Candle" parent="." instance=ExtResource("4_jsyqa")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -0.00321569, 0.0337026, -0.0642294)
+stackable_resource = SubResource("Resource_aosvy")
+
+[editable path="candlesconce"]

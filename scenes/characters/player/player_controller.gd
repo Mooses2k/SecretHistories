@@ -267,8 +267,6 @@ func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is
 			inv.equip_offhand_item()
 
 
-
-
 func place_object(object : RigidBody3D, at : Transform3D):
 	var inv : Inventory = (owner as HumanoidCharacter).inventory
 	if object == inv.get_mainhand_item():

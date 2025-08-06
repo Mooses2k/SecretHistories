@@ -12,7 +12,7 @@ extends GenerationStep
 #--- public variables - order: export > normal var > onready --------------------------------------
 @export var _wall_object_spawn_list_resource: Resource = null
 @export var _spawn_chance: float = 0.25  # Chance to spawn on each valid pillar side
-@export var _wall_offset_multiplier: float = 0.23  # How far from pillar surface to place objects
+@export var _wall_offset_multiplier: float = 0.225  # How far from pillar surface to place objects
 @export var _wall_mount_height: float = 1.5  # Height above floor to mount wall objects
 
 #--- private variables - order: export > normal var > onready -------------------------------------

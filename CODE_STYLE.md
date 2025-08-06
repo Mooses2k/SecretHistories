@@ -10,7 +10,7 @@
 - Use tabs for indentation (not spaces)
 - Keep lines under 100 characters (preferably 80)
 - Use trailing commas in arrays, dictionaries, enums
-- Add blank lines: 2 between class_name/extend, declarations, functions/classes; 1 inside functions
+- Add blank lines: 2 between class_name/extend, declarations, functions/classes
 - One statement per line (except ternary operator)
 - Use parentheses for multiline expressions
 - Avoid unnecessary parentheses

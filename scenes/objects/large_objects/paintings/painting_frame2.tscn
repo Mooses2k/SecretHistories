@@ -100,11 +100,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_0sg06")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y4kfg"]
-points = PackedVector3Array(-0.778513, 2.05062, -0.026377, 0.895013, 3.38448, 0.130547, 0.895013, 3.38448, -0.026377, -0.778513, 3.38448, 0.130547, 0.895013, 2.05062, 0.130547, 0.895013, 2.05062, -0.026377, -0.778513, 3.38448, -0.026377, -0.778513, 2.05062, 0.130547)
+[sub_resource type="BoxShape3D" id="BoxShape3D_3r0fv"]
+size = Vector3(1.64719, 1.30725, 0.158691)
 
 [node name="PaintingFrame2" type="RigidBody3D"]
-collision_layer = 513
+collision_layer = 64
+collision_mask = 65
 center_of_mass_mode = 1
 script = ExtResource("1_tnkbv")
 metadata/_custom_type_script = "uid://bsovojpefr6cg"
@@ -124,10 +125,11 @@ mesh = SubResource("ArrayMesh_p0cwh")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(2.18557e-08, 0.5, -4.37114e-08, 0.5, -2.18557e-08, 0, -1.91069e-15, -4.37114e-08, -0.5, -1.35866, 0, 0.0235577)
-shape = SubResource("ConvexPolygonShape3D_y4kfg")
+transform = Transform3D(2.18557e-08, 0.5, -4.37114e-08, 0.5, -2.18557e-08, 0, -1.91069e-15, -4.37114e-08, -0.5, 0.00343844, 0.0295486, 0.00118276)
+shape = SubResource("BoxShape3D_3r0fv")
 
 [node name="WallAttachmentComponent" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.251, 0)
 script = ExtResource("3_qsln8")
+snap_lerp_speed = 6.0
 metadata/_custom_type_script = "uid://28huy1adex6d"

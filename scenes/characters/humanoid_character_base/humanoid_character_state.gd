@@ -1,11 +1,6 @@
 extends Node
 class_name HumanoidCharacterState
 
-@onready var parameters: HumanoidCharacterParameters = $"../Parameters" as HumanoidCharacterParameters
-@onready var input: HumanoidCharacterInput = $"../Input" as HumanoidCharacterInput
-@onready var stamina : float = parameters.max_stamina:
-	set(value):
-		stamina = clampf(value, 0.0, parameters.max_stamina)
 
 var stamina_ratio : float:
 	get():
@@ -26,13 +21,20 @@ enum CurrentState {
 	NORMAL, # Normal state, can move around freely and do whatever
 }
 
+@onready var parameters: HumanoidCharacterParameters = $"../Parameters" as HumanoidCharacterParameters
+@onready var input: HumanoidCharacterInput = $"../Input" as HumanoidCharacterInput
+@onready var stamina : float = parameters.max_stamina:
+	set(value):
+		stamina = clampf(value, 0.0, parameters.max_stamina)
 
 
 func set_facing_vector(forward : Vector3) -> void:
 	facing = Basis.looking_at(forward, Vector3.UP, true)
 
+
 func should_jump():
 	return is_on_ground and input.jump
+
 
 func get_target_speed() -> float:
 	var crouch_multiplier = lerpf(1.0, parameters.crouch_speed_multiplier, current_crouch_ratio)
@@ -43,6 +45,8 @@ func get_target_speed() -> float:
 	)
 	sprint_multiplier = sprint_multiplier if sprinting else 1.0
 	return parameters.base_speed*crouch_multiplier*sprint_multiplier
+
+
 func _physics_process(delta: float) -> void:
 	time_since_kick += delta
 	time_since_dodge += delta

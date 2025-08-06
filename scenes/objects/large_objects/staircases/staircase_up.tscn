@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://cri3sdnmdalug"]
+[gd_scene load_steps=18 format=4 uid="uid://cri3sdnmdalug"]
 
 [ext_resource type="Script" uid="uid://dnscao5okxukw" path="res://scenes/objects/large_objects/staircases/staircase_up.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://cdkyxmjuu4bsy" path="res://resources/models/large_objects/level_staircase/round_stairs_T_Wall_baseColor.png" id="2_htily"]
@@ -99,7 +99,10 @@ size = Vector3(1, 0.8, 0.2)
 size = Vector3(1, 0.827856, 0.341699)
 
 [sub_resource type="BoxShape3D" id="2"]
-size = Vector3(0.1, 1, 0.6)
+size = Vector3(0.1, 1.01514, 0.585156)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_btagg"]
+size = Vector3(0.1, 2.77812, 0.973437)
 
 [node name="StaircaseUp" type="Node3D"]
 script = ExtResource("2")
@@ -165,7 +168,15 @@ width = 300.0
 [node name="CantLeaveTimer" type="Timer" parent="CantLeaveMessage"]
 wait_time = 2.0
 
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionBlockingPlayerUpStairs" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.880705, 1.56721, 0.306161)
+shape = SubResource("BoxShape3D_btagg")
+
 [connection signal="body_entered" from="UpDetector" to="." method="_on_UpDetector_body_entered"]
 [connection signal="timeout" from="LevelMessage/Timer" to="." method="_on_Timer_timeout"]
-[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_CantLeaveTimer_timeout"]
+[connection signal="timeout" from="CantLeaveMessage/CantLeaveTimer" to="." method="_on_Timer_timeout"]

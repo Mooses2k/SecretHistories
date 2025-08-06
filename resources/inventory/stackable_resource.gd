@@ -33,5 +33,4 @@ func remove_item(item: EquipmentItem) -> void:
 
 
 func _init() -> void:
-	for i in items_stacked.size():
-		items_stacked.remove_at(i)
+	items_stacked.clear()

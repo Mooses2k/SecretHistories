@@ -9,7 +9,27 @@ var game : Game
 func _ready() -> void:
 	game = GAME_SCENE.instantiate()
 	%StartGameSettings.attach_settings(game.get_node("%LocalSettings"))
-	%SettingsUI.attach_settings(game.get_node("%LocalSettings"), false)
+	
+	# Configure the debug settings UI with proper ordering
+	var debug_settings_ui = %AdaptiveSettingsUI
+	if debug_settings_ui.has_method("set_tab_grouping_rules"):
+		# Configure tab grouping for debug settings
+		debug_settings_ui.set_tab_grouping_rules({
+			"Generation": ["Generation Settings"],
+			"Equipment": ["Equipment"],
+			"Tiny Items": ["Tiny Items"]
+		})
+	
+	if debug_settings_ui.has_method("set_tab_order"):
+		# Set preferred tab order: Generation, Equipment, Tiny Items
+		var tab_order: Array[String] = [
+			"Generation",
+			"Equipment",
+			"Tiny Items"
+		]
+		debug_settings_ui.set_tab_order(tab_order)
+	
+	debug_settings_ui.attach_settings(game.get_node("%LocalSettings"), false)
 	var tween = get_tree().create_tween()
 	tween.tween_property(BackgroundMusic, "volume_db", -10, 0.3)
 	

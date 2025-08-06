@@ -141,9 +141,11 @@ static func calculate_rotation(
 			rotation = deg_to_rad(vertical_center_rotation)
 	return rotation
 
+
 ## Validate if object fits in remaining space
 static func can_place_object(remaining_rect: Rect2, object_size: Vector2) -> bool:
 	return remaining_rect.size >= object_size
+
 
 ## Get all cells for a wall segment
 static func get_cells_for_wall_segment(
@@ -163,6 +165,7 @@ static func get_cells_for_wall_segment(
 
 	return cells
 
+
 ## Calculate offset for wall placement
 static func get_wall_offset(direction: int, surplus_cells: int) -> Vector3:
 	var center_offset := surplus_cells / 2.0
@@ -172,6 +175,7 @@ static func get_wall_offset(direction: int, surplus_cells: int) -> Vector3:
 		WorldData.Direction.EAST, WorldData.Direction.WEST:
 			return Vector3(0, 0, center_offset)
 	return Vector3.ZERO
+
 
 ## Create spawn data for object placement
 static func create_spawn_data(
@@ -193,6 +197,7 @@ static func create_spawn_data(
 		spawn_data.set_custom_property(property_name, custom_properties[property_name])
 
 	return spawn_data
+
 
 ## Process wall segments for object placement
 static func process_wall_segments(

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dtmm8et2mxrcc"]
 
 [ext_resource type="Script" uid="uid://d1uxjii1xwatv" path="res://scenes/ui/settings_menu.gd" id="1"]
-[ext_resource type="Script" path="res://scenes/ui/adaptive_settings_ui.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://cx054wu2qvw12" path="res://scenes/ui/settings_ui/settings_ui.tscn" id="2"]
 [ext_resource type="Script" uid="uid://diikarxfg6g30" path="res://utils/max_aspect_container.gd" id="2_ffq28"]
 [ext_resource type="Script" uid="uid://sx7ebykf4oks" path="res://scenes/ui/settings_ui/settings_editors/reset_keybindings.gd" id="3"]
 
@@ -43,25 +43,21 @@ theme_override_constants/margin_right = 32
 theme_override_constants/margin_bottom = 16
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MaxAspectContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 horizontal_scroll_mode = 0
-vertical_scroll_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MaxAspectContainer/PanelContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_right = 24
+theme_override_constants/margin_right = 16
 
-[node name="SettingsUI" type="Control" parent="MaxAspectContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer"]
+[node name="SettingsUI" parent="MaxAspectContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer" instance=ExtResource("2")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-script = ExtResource("2")
 
 [node name="ChangeKeyPanel" type="Panel" parent="."]
 visible = false

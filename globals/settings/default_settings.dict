@@ -1,10 +1,11 @@
 {
 "is_ads_hold": "bool(True)",
 "is_crouch_hold": "bool(True)",
-"auto_switch_weapon": "float(0)"
+"auto_switch_weapon": "float(0)",
 "effects_volume": "float(100)",
 "full_screen": "bool(True)",
 "gui_scale": "float(1)",
+"is_first_run": "bool(True)",
 "master_volume": "float(80.216184)",
 "mouse_sensitivity": "float(1.0)",
 "music_volume": "float(49.503455)",

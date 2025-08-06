@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://57tosshxfyhs"]
+
+[ext_resource type="Texture2D" uid="uid://j1ca5ri6b8hr" path="res://resources/art/brightness_screen.png" id="1_ekd7g"]
+[ext_resource type="Script" uid="uid://c6d8akby2duwd" path="res://scenes/ui/brightness_calibration.gd" id="1_kssqj"]
+[ext_resource type="Theme" uid="uid://d1bhwd8v505pu" path="res://resources/ui_themes/main_menu.tres" id="3_a6cwf"]
+
+[node name="BrightnessCalibration" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kssqj")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ekd7g")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="GammaSlider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.86
+anchor_right = 0.75
+anchor_bottom = 0.9
+min_value = 0.05
+max_value = 5.0
+step = 0.05
+value = 1.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -82.0
+offset_right = 89.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_a6cwf")
+text = "DONE"
+
+[connection signal="value_changed" from="GammaSlider" to="." method="_on_gamma_slider_value_changed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

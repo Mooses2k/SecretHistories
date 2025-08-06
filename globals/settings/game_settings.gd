@@ -15,6 +15,7 @@ const ADS_DEFAULT : bool = true
 var crouch_hold_enabled : bool: get = get_crouch_hold, set = set_crouch_hold
 var ads_hold_enabled : bool: get = get_ads_hold, set = set_ads_hold
 var auto_switch_weapon : int: get = get_auto_switch_weapon, set = set_auto_switch_weapon
+var is_first_run : bool: get = get_first_run, set = set_first_run
 
 var auto_switch_options = PackedStringArray(["Next same type then all", "Next same type only", "None"])
 
@@ -25,6 +26,7 @@ func _ready():
 	Settings.set_setting_group(SETTING_CROUCH, GROUP_NAME)
 	Settings.add_enum_setting(SETTING_AUTO_SWITCH_WEAPON, auto_switch_options, AUTO_SWITCH_WEAPON_DEFAULT)
 	Settings.set_setting_group(SETTING_AUTO_SWITCH_WEAPON, GROUP_NAME)
+	# is_first_run is handled as a private variable, not registered with Settings singleton
 	Settings.connect("setting_changed", Callable(self, "on_setting_changed"))
 
 
@@ -49,6 +51,13 @@ func get_auto_switch_weapon() -> int:
 	return Settings.get_setting(SETTING_AUTO_SWITCH_WEAPON)
 
 
+func set_first_run(value : bool):
+	is_first_run = value
+
+func get_first_run() -> bool:
+	return is_first_run
+
+
 func on_setting_changed(setting_name, _old_value, _new_value):
 	match setting_name:
 		SETTING_ADS:
@@ -58,4 +67,6 @@ func on_setting_changed(setting_name, _old_value, _new_value):
 			#crouch_hold_enabled = new_value
 			SettingsConfig.save_settings()
 		SETTING_AUTO_SWITCH_WEAPON:
+			SettingsConfig.save_settings()
+		"is_first_run":
 			SettingsConfig.save_settings()

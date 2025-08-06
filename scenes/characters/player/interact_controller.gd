@@ -109,6 +109,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			player_controller.throw_object(item_to_throw)
 			get_viewport().set_input_as_handled()
 
+
 func _try_grab() -> bool:
 	if is_instance_valid(grab_target):
 		print("grab")
@@ -130,7 +131,7 @@ func _physics_process(delta: float) -> void:
 		var mass = grabbed_item.mass
 		var base_force_multiplier = 100.0
 		var temp_mass_threshold = light_object_mass_threshold
-		var max_force_limit = 220.0
+		var max_force_limit = 200.0
 		
 		# Scale force based on mass for heavy objects
 		var force_multiplier = base_force_multiplier
@@ -138,7 +139,7 @@ func _physics_process(delta: float) -> void:
 			# Increase force multiplier for heavy objects
 			var mass_factor = 1.0 + (mass - temp_mass_threshold) / temp_mass_threshold
 			force_multiplier = base_force_multiplier * mass_factor * 1.5  # Additional boost for heavy objects
-			max_force_limit = 220.0 + (mass - temp_mass_threshold) * 4.0  # Higher limit for heavy objects
+			max_force_limit = 200.0 + (mass - temp_mass_threshold) * 4.4  # Higher limit for heavy objects
 		
 		var force = (difference * mass * force_multiplier)
 		force = force.limit_length(max_force_limit)

@@ -2,7 +2,9 @@
 class_name PickableItem
 extends RigidBody3D
 
-### Is a tool to support use in player_animations_test.gd
+### This is a tool script to support use in player_animations_test.gd
+
+#const ImpactAudioManager = preload("res://scenes/audio/impact_audio_manager.gd")
 
 signal item_data_changed()
 signal item_state_changed(previous_state, current_state)
@@ -21,39 +23,61 @@ var item_state = GlobalConsts.ItemState.DROPPED: set = set_item_state
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 5
 var item_sound_level = 10
-var item_drop_sound_level = 10
-var item_drop_pitch_level = 10
 
 @export var thrown_point_first : bool   # Some items like swords and spears should be thrown point first
 @export var can_spin : bool   # Some items should spin when thrown
 
 var has_thrown = false
-#var deceleration_factor = 0.9
-var can_play_sound : bool = false
 
 var initial_linear_velocity
-var is_soundplayer_ready = false
 
 @onready var audio_player = get_node("DropSound")
+@onready var impact_audio_manager : ImpactAudioManager
 
 #onready var mesh_instance = $MeshInstance
 @onready var item_drop_sound_flesh : AudioStream = load("res://resources/sounds/impacts/blade_to_flesh/blade_to_flesh.wav")
 
 @onready var placement_position = %PlacementAnchor
 
+
 func _enter_tree():
-	# This was put here to try to stop sounds early in level load, but it bugs throwing.
-	#await get_tree().create_timer(2).timeout
-	#can_play_sound = true
-	
 	if not audio_player:
 		var drop_sound = AudioStreamPlayer3D.new()
 		drop_sound.name = "DropSound"
 		drop_sound.bus = "Effects"
 		add_child(drop_sound)
 	
+	# Create and configure the impact audio manager
+	impact_audio_manager = ImpactAudioManager.new()
+	add_child(impact_audio_manager)
+	impact_audio_manager.configure_for_object_type("pickable_item")
+	
 	check_item_state()
-	is_soundplayer_ready = true
+
+
+func _ready():
+	# Configure the audio manager after the scene is fully loaded
+	# This ensures item_drop_sound is properly set from the editor
+	prints("PICKABLE ITEM DEBUG - _ready() called")
+	prints("PICKABLE ITEM DEBUG - item_drop_sound in _ready():", item_drop_sound)
+	call_deferred("_configure_audio_manager")
+
+
+func _configure_audio_manager():
+	prints("PICKABLE ITEM DEBUG - Configuring audio manager")
+	prints("PICKABLE ITEM DEBUG - impact_audio_manager:", impact_audio_manager)
+	prints("PICKABLE ITEM DEBUG - item_drop_sound:", item_drop_sound)
+	prints("PICKABLE ITEM DEBUG - item_max_noise_level:", item_max_noise_level)
+	
+	if impact_audio_manager:
+		if item_drop_sound:
+			impact_audio_manager.drop_sound = item_drop_sound
+			impact_audio_manager.max_noise_level = item_max_noise_level
+			prints("PICKABLE ITEM DEBUG - Audio manager configured successfully")
+		else:
+			prints("PICKABLE ITEM DEBUG - No drop sound assigned in editor!")
+	else:
+		prints("PICKABLE ITEM DEBUG - No impact_audio_manager!")
 
 
 func _process(delta):
@@ -96,44 +120,9 @@ func play_throw_sound():
 			self.noise_level = 3
 
 
-func play_drop_sound(body):
-	if (!LoadScene.loading and can_play_sound):   # If it's at least a few seconds after level load
-		#TODO: bug here probably same as for large object drop sound where soundplayer is never ready
-		if self.item_drop_sound and self.audio_player and self.linear_velocity.length() > 0.2 and self.is_soundplayer_ready:
-			self.audio_player.stream = self.item_drop_sound
-			
-			if "Cultist" in body.name:
-				self.audio_player.stream = self.item_drop_sound_flesh
-				
-				if self.get("primary_damage1"): 
-					# Drop sound volume depends on item damage when cultist is the collided body
-					if self.get("can_spin"):   # If item can spin (cutting attack), use secondary damage
-						self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.secondary_damage1 + self.secondary_damage2)
-						self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.secondary_damage1 + self.secondary_damage2)
-					else:   # If item cannot spin (thrown point first / thrust attack), use primary damage
-						self.item_drop_sound_level = self.linear_velocity.length() * 0.4 * (self.primary_damage1 + self.primary_damage2)
-						self.item_drop_pitch_level = self.linear_velocity.length() * 0.02 * (self.primary_damage1 + self.primary_damage2)
-				else:
-					self.item_drop_sound_level = self.linear_velocity.length() * 0.05
-					self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
-			else:
-				self.item_drop_sound_level = self.linear_velocity.length() * 5.0
-				self.item_drop_pitch_level = self.linear_velocity.length() * 0.4
-				
-			self.audio_player.volume_db = clamp(self.item_drop_sound_level, 5.0, 20.0)  
-			self.audio_player.pitch_scale = clamp(self.item_drop_pitch_level, 0.85, 1.0)
-			self.audio_player.bus = "Effects"
-			self.audio_player.play()
-			self.noise_level = clamp((self.item_max_noise_level * self.linear_velocity.length()), 1.0, 5.0)
-			print("noise_level == " + str(self.noise_level))
-			self.is_soundplayer_ready = false
-			start_delay()
-
-
-func start_delay():
-	if self.is_inside_tree():
-		await get_tree().create_timer(0.2).timeout
-		self.is_soundplayer_ready = true
+## Method for the audio manager to set noise level
+func set_noise_level(level: float):
+	noise_level = level
 
 
 func set_physics_dropped():
@@ -205,6 +194,11 @@ func decelerate_item_velocity(delta, decelerate):
 
 
 func _integrate_forces(state):
+	# Handle impact detection for sound using the audio manager
+	if impact_audio_manager and (item_state == GlobalConsts.ItemState.DROPPED or item_state == GlobalConsts.ItemState.DAMAGING):
+		impact_audio_manager.process_impact_detection(state)
+	
+	# Handle velocity clamping
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), max_speed)
 	if item_state == GlobalConsts.ItemState.DAMAGING:

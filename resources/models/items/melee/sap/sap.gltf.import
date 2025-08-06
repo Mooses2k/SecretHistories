@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://xxvhs1552b21"
-valid=false
+path="res://.godot/imported/sap.gltf-8d0780f4ef2e67d932f91a8cfa4e2a3c.scn"
 
 [deps]
 
 source_file="res://resources/models/items/melee/sap/sap.gltf"
+dest_files=["res://.godot/imported/sap.gltf-8d0780f4ef2e67d932f91a8cfa4e2a3c.scn"]
 
 [params]
 

@@ -108,19 +108,19 @@ func process_impact_detection(state: PhysicsDirectBodyState3D) -> void:
 
 ## Play impact sound with volume and pitch scaling
 func play_impact_sound(impact_intensity: float) -> void:
-	prints("AUDIO DEBUG - play_impact_sound called with intensity:", impact_intensity)
+	#prints("AUDIO DEBUG - play_impact_sound called with intensity:", impact_intensity)
 	
 	# Check if parent has item_drop_sound and use it dynamically
 	var current_drop_sound = drop_sound
 	if not current_drop_sound and parent_body.has_method("get") and parent_body.get("item_drop_sound"):
 		current_drop_sound = parent_body.get("item_drop_sound")
-		prints("AUDIO DEBUG - Using parent's item_drop_sound:", current_drop_sound)
+		#prints("AUDIO DEBUG - Using parent's item_drop_sound:", current_drop_sound)
 	
-	prints("AUDIO DEBUG - drop_sound:", current_drop_sound)
-	prints("AUDIO DEBUG - is_soundplayer_ready:", is_soundplayer_ready)
+	#prints("AUDIO DEBUG - drop_sound:", current_drop_sound)
+	#prints("AUDIO DEBUG - is_soundplayer_ready:", is_soundplayer_ready)
 	
 	if not current_drop_sound:
-		prints("AUDIO DEBUG - No drop_sound available!")
+		#prints("AUDIO DEBUG - No drop_sound available!")
 		return
 		
 	if not is_soundplayer_ready:
@@ -140,11 +140,11 @@ func play_impact_sound(impact_intensity: float) -> void:
 	var pitch_scale = lerp(pitch_min_scale, pitch_max_scale, volume_scale)
 	drop_audio_player.pitch_scale = pitch_scale
 	
-	prints("AUDIO DEBUG - Object position:", parent_body.global_position)
-	prints("AUDIO DEBUG - Impact intensity:", impact_intensity)
-	prints("AUDIO DEBUG - Final volume_db:", drop_audio_player.volume_db)
-	prints("AUDIO DEBUG - Final pitch_scale:", drop_audio_player.pitch_scale)
-	prints("AUDIO DEBUG - Audio stream valid:", drop_audio_player.stream != null)
+	#prints("AUDIO DEBUG - Object position:", parent_body.global_position)
+	#prints("AUDIO DEBUG - Impact intensity:", impact_intensity)
+	#prints("AUDIO DEBUG - Final volume_db:", drop_audio_player.volume_db)
+	#prints("AUDIO DEBUG - Final pitch_scale:", drop_audio_player.pitch_scale)
+	#prints("AUDIO DEBUG - Audio stream valid:", drop_audio_player.stream != null)
 	
 	# Calculate noise level for AI detection
 	var noise_level = clamp((max_noise_level * impact_intensity), 1.0, 5.0)

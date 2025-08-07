@@ -157,18 +157,18 @@ script = ExtResource("14")
 _loot_list_resource = ExtResource("8")
 _max_loot = 5
 
-[node name="GenerateWallObjects" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
+[node name="GenerateWallObjects" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
 script = ExtResource("29_80e3b")
 _wall_object_spawn_list_resource = ExtResource("30_xitby")
 _spawn_chance = 5.0
 
-[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
+[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource("14")
 _loot_list_resource = ExtResource("16")
 _min_loot = 3
 _max_loot = 5
 
-[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="7"]
+[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
 script = ExtResource("15")
 _character_scene_path = "res://scenes/characters/cultist/neophyte.tscn"
 _density_by_type = {

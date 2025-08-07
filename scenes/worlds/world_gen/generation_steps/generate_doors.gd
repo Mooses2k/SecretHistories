@@ -65,7 +65,11 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 				
 				var other_cell : int = data.get_neighbour_cell(cell, dir)
 				var is_down_staircase = data.get_cell_meta(other_cell, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
-				var is_up_staircase = data.get_cell_meta(other_cell, data.CellMetaKeys.META_IS_UP_STAIRCASE, false)
+				
+				# Check if the neighboring cell is an up staircase by examining room data
+				var other_room_data = data.get_cell_meta(other_cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
+				var is_up_staircase = other_room_data != null and other_room_data.type == RoomData.OriginalPurpose.UP_STAIRCASE
+				
 				var _is_staircase = is_down_staircase or is_up_staircase
 
 				# Comment this check out to allow doors that open away from a staircase room

@@ -9,9 +9,34 @@ var game : Game
 func _ready() -> void:
 	game = GAME_SCENE.instantiate()
 	%StartGameSettings.attach_settings(game.get_node("%LocalSettings"))
-	%SettingsUI.attach_settings(game.get_node("%LocalSettings"), false)
+	
+	# Configure the debug settings UI with proper ordering
+	var debug_settings_ui = %AdaptiveSettingsUI
+	if debug_settings_ui.has_method("set_tab_grouping_rules"):
+		# Configure tab grouping for debug settings
+		debug_settings_ui.set_tab_grouping_rules({
+			"Generation": ["Generation Settings"],
+			"Equipment": ["Equipment"],
+			"Tiny Items": ["Tiny Items"]
+		})
+	
+	if debug_settings_ui.has_method("set_tab_order"):
+		# Set preferred tab order: Generation, Equipment, Tiny Items
+		var tab_order: Array[String] = [
+			"Generation",
+			"Equipment",
+			"Tiny Items"
+		]
+		debug_settings_ui.set_tab_order(tab_order)
+	
+	debug_settings_ui.attach_settings(game.get_node("%LocalSettings"), false)
 	var tween = get_tree().create_tween()
 	tween.tween_property(BackgroundMusic, "volume_db", -10, 0.3)
+	
+	if GameSettings.is_first_run == true:
+		$BrightnessCalibration.visible = true
+	else:
+		print("DEBUG: start_game_menu._ready() - NOT showing brightness calibration")
 
 
 func _input(event):
@@ -19,16 +44,16 @@ func _input(event):
 		VideoSettings.set_fullscreen_enabled(!VideoSettings.fullscreen_enabled)
 
 
-func _on_ZombieSpawnChance_value_changed(value: float) -> void:
-	pass # Replace with function body.
-
-
-func _on_CultistSpawnChance_value_changed(value: float) -> void:
-	pass # Replace with function body.
-
-
-func _on_GhostDetectionRange_value_changed(value: float) -> void:
-	pass # Replace with function body.
+#func _on_ZombieSpawnChance_value_changed(value: float) -> void:
+	#pass # Replace with function body.
+#
+#
+#func _on_CultistSpawnChance_value_changed(value: float) -> void:
+	#pass # Replace with function body.
+#
+#
+#func _on_GhostDetectionRange_value_changed(value: float) -> void:
+	#pass # Replace with function body.
 
 
 func _on_StartGame_pressed() -> void:

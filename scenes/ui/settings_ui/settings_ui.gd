@@ -1,10 +1,14 @@
-extends Control
+extends VBoxContainer
 
-const TabButtonScene = preload("../tab_button.tscn")
+
+#export var default_group_name = "Game Settings"
+
+const SetDefaultKeyBtn = preload("set_default_keys.tscn")
+const BlankRowScene = preload("blank_row.tscn")
 const GroupScene = preload("settings_group.tscn")
 const GroupClass = preload("settings_group.gd")
 const SettingEditor = preload("settings_editors/setting_editor.gd")
-const SetDefaultKeyBtn = preload("set_default_keys.tscn")
+
 
 const SettingsEditors = {
 	SettingsClass.SettingType.BOOL : preload("settings_editors/bool_editor.tscn"),
@@ -14,162 +18,169 @@ const SettingsEditors = {
 	SettingsClass.SettingType.STRING : preload("settings_editors/string_editor.tscn")
 }
 
-@onready var tab_container = $MarginContainer/VBoxContainer/TabContainer
-@onready var tab_buttons = $MarginContainer/VBoxContainer/TabButtons
-@onready var content_area = $MarginContainer/VBoxContainer/ContentArea
+var group_nodes : Dictionary = Dictionary()
+var settings : SettingsClass
+var is_first_settings : bool = true
+var is_first_key_settings : bool = true
 
-var tab_data = {}
-var current_tab = ""
-var settings: SettingsClass
+## Configuration for group ordering - can be set by caller
+## Groups not in this list will be sorted alphabetically after these
+var preferred_group_order : Array[String] = []
+
+## Pattern to identify key-related groups for special handling
+var key_group_pattern : String = "Key"
+
 
 func attach_settings(s : SettingsClass, be_sorted : bool):
+	print("NonTabbedSettingsUI: Attaching settings, be_sorted=", be_sorted)
 	clear_ui()
 	settings = s
+	generate_ui()
+	
+	if be_sorted:
+		sort_setting_groups()
+	
+	# Force update ScrollContainer content size after setup
+	call_deferred("_update_scroll_content_size")
 
-	# Check if we have the expected UI structure for tabbed settings
-	if tab_buttons == null or content_area == null:
-		print("WARNING: SettingsUI is using legacy scene structure, skipping tab generation")
-		return
 
-	generate_tabs()
-	populate_settings()
+## Configure group ordering - should be called by the parent/caller
+func set_group_order(group_order: Array[String]):
+	preferred_group_order = group_order
+
 
 func clear_ui():
-	# Only proceed if we have the expected UI elements
-	if tab_buttons == null or content_area == null:
-		return
+	for k in group_nodes.keys():
+		group_nodes[k].queue_free()
+	group_nodes.clear()
 
-	for child in tab_buttons.get_children():
-		child.queue_free()
 
-	for child in content_area.get_children():
-		child.queue_free()
-	tab_data.clear()
+func generate_ui():
+	is_first_settings = true
+	is_first_key_settings = true
+	
+	for _s in settings.get_settings_list():
+		var setting_name = _s as String
+		add_setting(setting_name)
 
-func generate_tabs():
-	# Define our tab structure
-	var tab_structure = {
-		"Video": ["Video Settings"],
-		"Audio": ["Audio Settings"],
-		"Game": ["Game Settings"],
-		"Input": ["Input Settings", "Input Key Settings"]
-	}
 
-	# Create tabs
-	var first_tab = true
-	for tab_name in tab_structure.keys():
-		# Create tab button
-		var tab_button = TabButtonScene.instantiate()
-		tab_button.text = tab_name
-		tab_button.pressed.connect(_on_tab_button_pressed.bind(tab_name))
-		tab_buttons.add_child(tab_button)
+func sort_setting_groups():
+	## Collect all group nodes and their names
+	var group_children : Array[Node] = []
+	var blank_children : Array[Node] = []
+	
+	for child in get_children():
+		if child.has_method("get_group_name"):
+			group_children.append(child)
+		else:
+			# These are blank rows or other UI elements
+			blank_children.append(child)
+	
+	## Sort groups based on preferred order, then alphabetically
+	group_children.sort_custom(_compare_groups)
+	
+	## Remove all children temporarily
+	for child in get_children():
+		remove_child(child)
+	
+	## Re-add children in the correct order with blank rows between groups
+	var is_first_group : bool = true
+	for group_child in group_children:
+		if not is_first_group:
+			# Add a blank row between groups
+			var blank_row = BlankRowScene.instantiate()
+			add_child(blank_row)
+		else:
+			is_first_group = false
+		
+		add_child(group_child)
+	
+	## Add any remaining blank children at the end
+	for blank_child in blank_children:
+		add_child(blank_child)
 
-		# Create scroll container for tab content
-		var scroll_container = ScrollContainer.new()
-		scroll_container.name = "ScrollContainer_" + tab_name
-		scroll_container.visible = first_tab
 
-		# Configure scroll container to fill available space
-		scroll_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		scroll_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		scroll_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+## Custom comparison function for sorting groups
+func _compare_groups(a : Node, b : Node) -> bool:
+	var group_a : String = a.get_group_name().strip_edges()
+	var group_b : String = b.get_group_name().strip_edges()
+	
+	var index_a : int = _get_group_priority(group_a)
+	var index_b : int = _get_group_priority(group_b)
+	
+	# If both groups have defined priorities, sort by priority
+	if index_a != -1 and index_b != -1:
+		return index_a < index_b
+	
+	# If only one has a defined priority, it comes first
+	if index_a != -1:
+		return true
+	if index_b != -1:
+		return false
+	
+	# If neither has a defined priority, sort alphabetically
+	return group_a < group_b
 
-		# Configure scroll container properties
-		scroll_container.set_horizontal_scroll_mode(ScrollContainer.SCROLL_MODE_DISABLED)
-		scroll_container.set_vertical_scroll_mode(ScrollContainer.SCROLL_MODE_AUTO)
-		scroll_container.set_follow_focus(true)
 
-		# Create margin container to provide spacing from scroll bar
-		# Adjust these margin values (in pixels) to customize the spacing:
-		# - Left/Right margins provide horizontal spacing from scroll bar
-		# - Top/Bottom margins provide vertical spacing from container edges
-		var margin_container = MarginContainer.new()
-		margin_container.name = "MarginContainer_" + tab_name
-		margin_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		margin_container.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		margin_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+## Get the priority index of a group, or -1 if not in preferred order
+func _get_group_priority(group_name : String) -> int:
+	for i in range(preferred_group_order.size()):
+		if group_name.contains(preferred_group_order[i]):
+			return i
+	return -1
 
-		# Configure margin values - customize these as needed for visual spacing
-		margin_container.add_theme_constant_override("margin_left", 12)    # Left spacing
-		margin_container.add_theme_constant_override("margin_right", 12)   # Right spacing (from scroll bar)
-		margin_container.add_theme_constant_override("margin_top", 8)      # Top spacing
-		margin_container.add_theme_constant_override("margin_bottom", 8)   # Bottom spacing
 
-		# Create tab content container
-		var tab_content = VBoxContainer.new()
-		tab_content.name = "TabContent_" + tab_name
-		tab_content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		tab_content.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		tab_content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		tab_content.add_theme_constant_override("separation", 8)
-
-		# Add tab content to margin container, then margin container to scroll container
-		margin_container.add_child(tab_content)
-		scroll_container.add_child(margin_container)
-		content_area.add_child(scroll_container)
-
-		# Create groups for this tab
-		for group_name in tab_structure[tab_name]:
-			var group = GroupScene.instantiate()
-			group.group_name = group_name
-			tab_content.add_child(group)
-			tab_data[tab_name] = tab_data.get(tab_name, {})
-			tab_data[tab_name][group_name] = group
-
-		if first_tab:
-			current_tab = tab_name
-			first_tab = false
-
-func populate_settings():
-	if not settings:
-		return
-
-	# Add default keys button for Input Key Settings
-	var input_key_group = tab_data.get("Input", {}).get("Input Key Settings")
-	if input_key_group:
-		var default_keys_btn = SetDefaultKeyBtn.instantiate()
-		input_key_group.add_editor(default_keys_btn)
-		if input_key_group.get_node_or_null("ListOffset/SettingsList/Container/Button"):
-			input_key_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed",
-				Callable(get_parent().owner.get_node("ResetPanel"), "toggle_panel"))
-
-	# Add all settings to appropriate groups
-	for setting_name in settings.get_settings_list():
-		var group_name = settings.get_setting_group(setting_name)
-		if not group_name:
-			continue
-
-		# Find which tab this group belongs to
-		for tab_name in tab_data.keys():
-			if group_name in tab_data[tab_name]:
-				var group = tab_data[tab_name][group_name]
-				if group and setting_name != "Reset Keys":  # Skip the reset button
-					add_setting_to_group(setting_name, group)
-				break
-
-func add_setting_to_group(setting_name: String, group: Node):
-	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instantiate()
-	group.add_editor(setting_editor)
+func add_setting(setting_name : String):
+	var group_name = settings.get_setting_group(setting_name)
+#	group_name = group_name if group_name else default_group_name
+	var settings_group : GroupClass = get_group_node(group_name)
+	if settings_group == null:
+		add_group(group_name)
+		settings_group = get_group_node(group_name)
+	
+	# Check if this is a key-related group for special handling
+	if _is_key_related_group(group_name) and is_first_key_settings:
+		is_first_key_settings = false
+		settings_group.add_editor(SetDefaultKeyBtn.instantiate())
+		settings_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed", Callable(get_parent().owner.get_node("ResetPanel"), "toggle_panel"))
+	
+	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instantiate() as SettingEditor
+	settings_group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
 
-func _on_tab_button_pressed(tab_name: String):
-	if tab_name == current_tab:
-		return
 
-	# Hide all tab contents
-	for child in content_area.get_children():
-		child.visible = false
+func add_group(group_name : String) -> bool:
+	if group_nodes.has(group_name):
+		return false
+	
+	if is_first_settings:
+		is_first_settings = false
+	else:
+		add_blank_row()
+	
+	var new_group = GroupScene.instantiate()
+	add_child(new_group)
+	group_nodes[group_name] = new_group
+	new_group.group_name = str(group_name) + "\n"
+	return true
 
-	# Show selected tab content
-	var scroll_container = content_area.get_node("ScrollContainer_" + tab_name)
-	if scroll_container:
-		scroll_container.visible = true
 
-	# Update button states
-	for button in tab_buttons.get_children():
-		button.button_pressed = (button.text == tab_name)
+func add_blank_row() -> void:
+	var new_group = BlankRowScene.instantiate()
+	add_child(new_group)
 
-	current_tab = tab_name
+
+func has_group(group_name : String) -> bool:
+	return group_nodes.has(group_name)
+
+
+func get_group_node(group_name : String) -> GroupClass:
+	return group_nodes.get(group_name)
+
+
+## Check if a group name is related to key settings
+func _is_key_related_group(group_name : String) -> bool:
+	return group_name.to_lower().contains(key_group_pattern.to_lower())
 
 
 func _on_ShowDebugOptions_pressed():
@@ -179,3 +190,46 @@ func _on_ShowDebugOptions_pressed():
 		parent_scroll.scroll_vertical = 0
 		var h_scroll = parent_scroll.get_h_scroll_bar()
 		parent_scroll.scroll_horizontal = max(h_scroll.max_value - h_scroll.page, 0)
+
+## Force update ScrollContainer content size
+func _update_scroll_content_size():
+	print("NonTabbedSettingsUI: Updating scroll content size...")
+	
+	# Find the ScrollContainer in our hierarchy
+	var scroll_container: ScrollContainer = get_parent()
+	if not scroll_container is ScrollContainer:
+		# Look up the hierarchy for a ScrollContainer
+		var parent = get_parent()
+		while parent:
+			if parent is ScrollContainer:
+				scroll_container = parent as ScrollContainer
+				break
+			parent = parent.get_parent()
+	
+	if scroll_container:
+		print("NonTabbedSettingsUI: Found ScrollContainer, forcing content size update")
+		# Force the ScrollContainer to recalculate its content size
+		scroll_container.queue_sort()
+		queue_sort()  # Also update our own layout
+		print("NonTabbedSettingsUI: Content size updated")
+	else:
+		print("NonTabbedSettingsUI: Warning - No ScrollContainer found in hierarchy!")
+
+## Debug function to print current hierarchy and sizes
+func _debug_print_hierarchy():
+	print("NonTabbedSettingsUI: === HIERARCHY DEBUG ===")
+	print("Self size: ", size)
+	print("Self size flags: H=", size_flags_horizontal, " V=", size_flags_vertical)
+	print("Children count: ", get_child_count())
+	
+	for i in range(get_child_count()):
+		var child = get_child(i)
+		print("  Child ", i, " (", child.name, "): size=", child.size)
+	
+	# Check for ScrollContainer
+	var scroll_container = get_parent()
+	if scroll_container is ScrollContainer:
+		print("ScrollContainer size: ", scroll_container.size)
+		print("ScrollContainer content size: ", scroll_container.get_v_scroll_bar().max_value)
+	
+	print("NonTabbedSettingsUI: === END HIERARCHY DEBUG ===")

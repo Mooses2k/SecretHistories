@@ -32,7 +32,8 @@ var settings_names = [
 	"voice_volume",
 	"fullscreen",
 	"brightness",
-	"gui_scale"
+	"gui_scale",
+	"is_first_run"
 ]
 
 
@@ -69,21 +70,30 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.brightness)]
 			"gui_scale":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.gui_scale)]
+			"is_first_run":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(GameSettings.is_first_run)]
 
 	return config
 
 
 func load_settings_config():
+	print("DEBUG: SettingsConfig.load_settings_config() - Starting to load settings")
+	print("DEBUG: SettingsConfig.load_settings_config() - File path: ", file_name)
+	print("DEBUG: SettingsConfig.load_settings_config() - File exists: ", FileAccess.file_exists(file_name))
+	
 	if(FileAccess.file_exists(file_name)):
 		var file = FileAccess.open(file_name,FileAccess.READ)
 		var file_str = file.get_as_text()
 		file.close()
+		print("DEBUG: SettingsConfig.load_settings_config() - File contents: ", file_str)
 		var data = str_to_var(file_str)
 		if(typeof(data) == TYPE_DICTIONARY):
+			print("DEBUG: SettingsConfig.load_settings_config() - Parsed dictionary: ", data)
 			setup_settings(data)
 		else:
 			printerr("corrupted data! " + str(typeof(data)))
 	else:
+		print("DEBUG: SettingsConfig.load_settings_config() - No settings file found, creating defaults")
 		#NoFile, so lets save the default settings now
 		save_settings()
 		save_default_settings()
@@ -95,9 +105,9 @@ func setup_settings(settings_dict : Dictionary):
 		if value_prefixes[0] in settings_dict[saved_setting]:
 			value = settings_dict[saved_setting].trim_prefix(value_prefixes[0])
 			value = value.trim_prefix("(").trim_suffix(")")
-			if "F" in value:
+			if "false" in value.to_lower():
 				value = false
-			elif "T" in value:
+			elif "true" in value.to_lower():
 				value = true
 			else:
 				value = true
@@ -114,6 +124,8 @@ func setup_settings(settings_dict : Dictionary):
 				print("crouch hold old val = " + str(value))
 				GameSettings.ads_hold_enabled = value
 				print("crouch hold new val = " + str(value))
+			"auto_switch_weapon":
+				GameSettings.auto_switch_weapon = value
 			"mouse_sensitivity":
 				InputSettings.setting_mouse_sensitivity = value
 			"master_volume":
@@ -130,12 +142,16 @@ func setup_settings(settings_dict : Dictionary):
 				VideoSettings.brightness = value
 			"gui_scale":
 				VideoSettings.gui_scale = value
-			"auto_switch_weapon":
-				GameSettings.auto_switch_weapon = value
+			"is_first_run":
+				print("DEBUG: SettingsConfig.setup_settings() - Loading is_first_run from file: ", value)
+				GameSettings.is_first_run = value
 
 
 func save_settings():
 	var key_dict = gen_dict_from_settings()
+	print("DEBUG: SettingsConfig.save_settings() - Generated dictionary keys: ", key_dict.keys())
+	print("DEBUG: SettingsConfig.save_settings() - is_first_run value in dict: ", key_dict.get("is_first_run", "NOT_FOUND"))
+	
 	var dir_path = file_name.get_base_dir()
 	var dir = DirAccess.open("res://")
 	if not dir.dir_exists(dir_path):

@@ -1,40 +1,61 @@
 extends Control
 
+
 signal settings_menu_exited()
+
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if not $ChangeKeyPanel.visible:
 			self.hide()
-			if self.visible:
+			if self.visible :
 				emit_signal("settings_menu_exited")
 		else:
 			$ChangeKeyPanel.hide()
 
+
 func _ready() -> void:
 	self.hide()
-	# Use the new tabbed interface - replace old SettingsUI with TabbedSettingsUI
-	var settings_ui = $MaxAspectContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/SettingsUI
-	if settings_ui:
-		settings_ui.queue_free()
+	
+	# Configure the settings UI with proper ordering
+	var settings_ui = %SettingsUI
+	if settings_ui.has_method("set_group_order"):
+		# Set the preferred order for main settings
+		var group_order: Array[String] = [
+			"Video",
+			"Audio",
+			"Game",
+			"Input",
+			"Input Key"
+		]
+		settings_ui.set_group_order(group_order)
+	
+	if settings_ui.has_method("set_tab_grouping_rules"):
+		# Configure tab grouping for main settings
+		settings_ui.set_tab_grouping_rules({
+			"Video": ["Video Settings"],
+			"Audio": ["Audio Settings"],
+			"Game": ["Game Settings"],
+			"Input": ["Input Settings", "Input Key Settings"]
+		})
+	
+	if settings_ui.has_method("set_tab_order"):
+		# Set preferred tab order
+		var tab_order: Array[String] = [
+			"Video",
+			"Audio",
+			"Game",
+			"Input"
+		]
+		settings_ui.set_tab_order(tab_order)
+	
+	settings_ui.attach_settings(Settings, true)
 
-	# Load the tabbed settings UI
-	var tabbed_settings_scene = preload("res://scenes/ui/tabbed_settings_ui.tscn")
-	var tabbed_settings = tabbed_settings_scene.instantiate()
-	tabbed_settings.name = "TabbedSettingsUI"
-	$MaxAspectContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer.add_child(tabbed_settings)
-	tabbed_settings.attach_settings(Settings, true)
 
 func exit_state():
-	# Gracefully exit the settings menu state
-	if not self.visible: return
-	self.hide()
-	emit_signal("settings_menu_exited")
+	self.visible = false
+
 
 func enter_state():
-	# Enter the settings menu state
-	self.show()
-
-func _on_SettingsMenu_settings_menu_exited() -> void:
-	# Signal handler - let the pause menu handle state transitions
-	emit_signal("settings_menu_exited")
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	self.visible = true

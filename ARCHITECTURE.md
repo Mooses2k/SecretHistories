@@ -219,7 +219,6 @@ globals/
 ├── groups.gd                 # Node group definitions
 ├── keybinding_manager.gd     # Input mapping system
 ├── load_*.gd                 # Loading utilities
-├── save.gd                   # Save/load system
 ├── settings*.gd              # Settings management
 └── settings/                 # Settings configuration files
 ```

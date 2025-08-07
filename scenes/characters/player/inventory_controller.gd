@@ -74,13 +74,37 @@ func _unhandled_input(event: InputEvent) -> void:
 		# hotbar scrolling
 		elif event.is_action_pressed(&"itm|next_hotbar_item"):
 			inventory.drop_bulky_item()
-			inventory.current_mainhand_slot = wrapi(inventory.current_mainhand_slot + 1, 0, 11)
+			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, 1)
+			inventory.current_mainhand_slot = next_slot
 			print(inventory.current_mainhand_slot)
 		elif event.is_action_pressed(&"itm|previous_hotbar_item"):
 			inventory.drop_bulky_item()
-			inventory.current_mainhand_slot = wrapi(inventory.current_mainhand_slot - 1, 0, 11)
+			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, -1)
+			inventory.current_mainhand_slot = next_slot
 			print(inventory.current_mainhand_slot)
 	pass
+
+# Helper function to find the next valid main hand slot that skips the equipped offhand slot
+func get_next_valid_mainhand_slot(current_slot: int, direction: int) -> int:
+	var next_slot = current_slot
+	var attempts = 0
+	var max_attempts = 11  # Number of hotbar slots
+	
+	while attempts < max_attempts:
+		next_slot = wrapi(next_slot + direction, 0, 11)
+		
+		# Skip if this slot is the current offhand slot
+		if next_slot == inventory.current_offhand_slot:
+			attempts += 1
+			continue
+			
+		# Found a valid slot
+		return next_slot
+		
+		attempts += 1
+	
+	# Fallback to original slot if no valid slot found (shouldn't happen)
+	return current_slot
 
 
 func _is_weapon(item : EquipmentItem):

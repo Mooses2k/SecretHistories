@@ -107,25 +107,33 @@ func _input(event):
 			settings.set_setting(_setting_name, event)
 
 
+## Helper function to find the ChangeKeyPanel node robustly
+func _find_change_key_panel() -> Control:
+	# First try to find it in the scene tree by name
+	var scene_root = get_tree().current_scene
+	if scene_root:
+		var panel = scene_root.find_child("ChangeKeyPanel", true, false)
+		if panel:
+			return panel
+	
+	# Fallback: traverse up the tree looking for a node with ChangeKeyPanel
+	var current_node = self
+	while current_node:
+		if current_node.has_node("ChangeKeyPanel"):
+			return current_node.get_node("ChangeKeyPanel")
+		current_node = current_node.get_parent()
+	
+	return null
+
+
 func _on_Clear_pressed():
 	settings.set_setting(_setting_name, null)
 
-
-func _find_change_key_panel():
-	# Direct reference to the ChangeKeyPanel in the parent settings UI
-	var parent_ui = get_parent().get_parent().get_parent().get_parent()
-	if parent_ui and parent_ui.has_node("ChangeKeyPanel"):
-		return parent_ui.get_node("ChangeKeyPanel")
-	
-	# Fallback to finding in the scene tree
-	var scene_root = get_tree().current_scene
-	if scene_root:
-		return scene_root.find_child("ChangeKeyPanel", true, false)
-	
-	return null
 
 func _on_Change_pressed():
 	var change_key_panel = _find_change_key_panel()
 	if change_key_panel:
 		change_key_panel.show()
-	is_waiting_input = true
+		is_waiting_input = true
+	else:
+		print("Warning: ChangeKeyPanel not found")

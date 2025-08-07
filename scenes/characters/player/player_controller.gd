@@ -19,8 +19,6 @@ var moved_since_sprint : bool = false
 var dodge_performed : bool = false
 
 
-
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var sens = InputSettings.setting_mouse_sensitivity * 0.001

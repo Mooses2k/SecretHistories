@@ -1,11 +1,16 @@
 extends RigidBody3D
 class_name HumanoidCharacter
 
+
 #TODO: figure out parameters (position, direction/force vector)
 signal recoiled()
 
 const MAX_NORMAL_Y = cos(deg_to_rad(55))
 const COLLISIONS_REPORTED = 4
+
+var ground_ray_parameters := PhysicsRayQueryParameters3D.new()
+var ground_detection_test_parameters := PhysicsTestMotionParameters3D.new()
+var ceiling_detection_test_parameters := PhysicsTestMotionParameters3D.new()
 
 @onready var parameters : HumanoidCharacterParameters = $Parameters
 @onready var state : HumanoidCharacterState = $State
@@ -18,11 +23,6 @@ const COLLISIONS_REPORTED = 4
 @onready var throw_origin: Marker3D = $ModelRoot/ThrowOrigin
 @onready var place_origin: Marker3D = $ModelRoot/PlaceOrigin
 @onready var kick_cast: KickCast = $ModelRoot/KickCast
-
-
-var ground_ray_parameters := PhysicsRayQueryParameters3D.new()
-var ground_detection_test_parameters := PhysicsTestMotionParameters3D.new()
-var ceiling_detection_test_parameters := PhysicsTestMotionParameters3D.new()
 
 
 func _ready() -> void:
@@ -107,7 +107,7 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 				collision_normal = check_normal
 				collision_position = check_position
 				state.is_on_ground = true
-
+	
 	# fallback to raycast
 	if not state.is_on_ground:
 		var space := PhysicsServer3D.space_get_direct_state(get_world_3d().space)
@@ -123,14 +123,14 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 			collision_normal = ray_result["normal"]
 			collision_position = ray_result["position"]
 			state.is_on_ground = collision_normal.y > MAX_NORMAL_Y
-
+	
 	if state.should_jump():
 		physics_state.linear_velocity.y = parameters.jump_speed
 		state.is_on_ground = false
-
+	
 	var ground_normal := Vector3.UP
 	var control_multiplier : float = parameters.jump_control_multiplier
-
+	
 	if state.is_on_ground:
 		ground_normal = collision_normal
 		physics_state.transform.origin.y = move_toward(
@@ -139,34 +139,33 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 			2.0*physics_state.step
 		)
 		control_multiplier = 1.0
-
+	
 	var ground_plane : Plane = Plane(ground_normal, 0.0)
 	#var ground_angle = PI*0.5 - ground_normal.angle_to(Vector3.UP)
-
+	
 	var ground_velocity = ground_plane.project(physics_state.linear_velocity)
-	var normal_speed = physics_state.linear_velocity.dot(ground_normal)
-
+	var normal_speed = physics_state.linear_velocity.dot(ground_normal)	
 
 	var local_z : Vector3 = ground_plane.project(physics_state.transform.basis.z).normalized()
 	var local_x : Vector3 = ground_plane.project(physics_state.transform.basis.x).normalized()
 	var target_ground_velocity = (input.movement_vector.x*local_x + input.movement_vector.z*local_z)
 	target_ground_velocity *= state.get_target_speed()
 	ground_velocity = ground_velocity.move_toward(target_ground_velocity, physics_state.step*parameters.base_acceleration*control_multiplier)
-
+	
 	if state.is_on_ground:
 		normal_speed = maxf(normal_speed, 0.0)
 		normal_speed = 0.0
 	physics_state.linear_velocity = ground_velocity + normal_speed*ground_normal
-
+	
 	#var ramp_factor = inverse_lerp(
 		#parameters.min_slope_angle,
 		#parameters.max_slope_angle,
 		#ground_angle
 	#)
-#
-	##var slide_factor = clamp(ramp_factor - 1.0, 0.0, 1.0)
+	
+	#var slide_factor = clamp(ramp_factor - 1.0, 0.0, 1.0)
 	#ramp_factor = clamp(ramp_factor, 0.0, 1.0)
-
+	
 	physics_state.linear_velocity += physics_state.total_gravity*physics_state.step
 
 

@@ -1,6 +1,5 @@
 extends Node
 
-@onready var player_controller: Node = get_parent()
 
 @export var inventory : Inventory
 
@@ -11,6 +10,9 @@ var use_hold_timer_offhand = 0
 @export var unload_threshold = 0.5
 var reload_hold_timer = 0
 var unloaded : bool = false
+
+@onready var player_controller: Node = get_parent()
+
 
 #TODO: disable held action if switching items (new item should not be held automatically)
 func _process(delta: float) -> void:
@@ -32,6 +34,7 @@ func _process(delta: float) -> void:
 			if main_item is GunItem:
 				main_item.use_unload()
 				unloaded = true
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	var main_item = inventory.get_mainhand_item()

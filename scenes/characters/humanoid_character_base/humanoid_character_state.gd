@@ -2,6 +2,11 @@ extends Node
 class_name HumanoidCharacterState
 
 
+# Things like being stunned, or ragdolled
+enum CurrentState {
+	NORMAL, # Normal state, can move around freely and do whatever
+}
+
 var stamina_ratio : float:
 	get():
 		return stamina / parameters.max_stamina
@@ -15,11 +20,6 @@ var sprinting : bool = false
 var is_reloading : bool = false
 var time_since_kick : float = INF
 var time_since_dodge : float = INF
-
-# Things like being stunned, or ragdolled
-enum CurrentState {
-	NORMAL, # Normal state, can move around freely and do whatever
-}
 
 @onready var parameters: HumanoidCharacterParameters = $"../Parameters" as HumanoidCharacterParameters
 @onready var input: HumanoidCharacterInput = $"../Input" as HumanoidCharacterInput

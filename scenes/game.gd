@@ -46,6 +46,7 @@ var shard_has_spawned = false    # Tracks if the shard has spawned yet, so only 
 # Keys are floor level indices and values are FloorLevelHandler objects or null.
 var _loaded_levels := {}
 var _empty_ambience = preload("res://resources/sounds/music/ambience_empty_(mastered).ogg")
+var light_resource = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/candle_lantern/candle_lantern.tscn")
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -134,7 +135,18 @@ func spawn_player():
 	level.set_player_on_spawn_position(player, true)
 	world_root.call_deferred("add_child", player)
 	await player.ready
+
+	# Add initial equipment to player
+#	inventory.add_item(spyglass_resource.instance())
+#	inventory.add_item(light2_resource.instance())
+#	inventory.set_mainhand_slot(2)
+	player.inventory.add_item(light_resource.instantiate())
+	#await player.inventory.get_offhand_item().ready
+	#print("Initial light of light-source")
+	
 	await load_screen.clicked
+	player.inventory.get_offhand_item().light()
+	
 	load_screen.hide()
 	emit_signal("player_spawned", player)
 

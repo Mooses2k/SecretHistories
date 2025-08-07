@@ -1,6 +1,7 @@
 extends Node
 class_name HumanoidCharacterParameters
 
+
 @export_group("Movement")
 @export_range(0.0, 10.0, 0.1,"or_greater", "suffix:m/s") var base_speed : float = 1.1
 @export_range(0.0, 10.0, 0.1,"or_greater", "suffix:m/s²") var base_acceleration : float = 10.0
@@ -32,7 +33,6 @@ var turning_speed : float = TAU
 var dodge_cooldown : float = 0.5
 @export_range(0.0, 100.0, 1.0, "or_greater", "suffix:/s")
 var stamina_drain_rate : float = 18.0
-
 
 @export_group("Kick")
 @export var kick_stamina_cost : float = 50.0

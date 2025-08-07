@@ -82,6 +82,7 @@ func show_special_image() -> void:
 	container.anchor_bottom = 1.0
 	container.modulate = Color(1, 1, 1, 1)  # Start fully visible (no fade-in)
 	container.z_index = -1
+	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Create the special image TextureRect
 	var texture_rect: TextureRect = TextureRect.new()
@@ -91,6 +92,7 @@ func show_special_image() -> void:
 	texture_rect.anchor_top = 0.0
 	texture_rect.anchor_right = 1.0
 	texture_rect.anchor_bottom = 1.0
+	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Load and set the special image
 	var image: Texture2D = load(special_image_path)
@@ -150,6 +152,7 @@ func create_new_image() -> Control:
 	container.anchor_bottom = 0.0
 	container.modulate = Color(1, 1, 1, 1)  # Keep container modulate at full opacity
 	container.z_index = -1
+	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Create the main image TextureRect
 	var texture_rect: TextureRect = TextureRect.new()
@@ -159,6 +162,7 @@ func create_new_image() -> Control:
 	texture_rect.anchor_top = 0.0
 	texture_rect.anchor_right = 1.0
 	texture_rect.anchor_bottom = 1.0
+	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Create material with shader for fade effect
 	var material = ShaderMaterial.new()

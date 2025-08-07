@@ -8,10 +8,9 @@ extends Spawner
 
 const ITEM_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
 
-var free_cell = 0
-
 var _rng := RandomNumberGenerator.new()
 var _used_cell_indexes := []
+var _sequential_filter: SequentialCellFilter
 
 ### Built in Engine Methods -----------------------------------------------------------------------
 
@@ -59,37 +58,36 @@ func _spawn_world_data_objects(data: WorldData) -> void:
 func _spawn_initial_settings_items(data : WorldData):
 	var settings : SettingsClass = GameManager.game.local_settings
 	
-	_get_next_free_cell(data)
+	# Initialize sequential filter for finding free cells
+	_sequential_filter = SequentialCellFilter.new()
+	
 	for s in settings.get_settings_list():
 		var g = settings.get_setting_group(s)
 		var amount = settings.get_setting(s)
 		
 		if g == "Equipment":
 			for i in amount:
-				if not _get_next_free_cell(data):
+				var available_cells := _sequential_filter.set_max_count(1).filter_cells(data, null, _rng)
+				if available_cells.is_empty():
 					return
 				
-				_used_cell_indexes.append(free_cell)
-				var cell_pos = data.get_local_cell_position(free_cell) + ITEM_POSITION_OFFSET
+				var cell_index: int = available_cells[0]
+				_used_cell_indexes.append(cell_index)
+				# Use CellFilter helper function instead of direct WorldData call
+				var cell_pos = CellFilter.get_cell_position(data, cell_index) + ITEM_POSITION_OFFSET
 				_spawn_item(s, cell_pos)
 		elif g == "Tiny Items":
 			if amount == 0:
 				continue
-			if not _get_next_free_cell(data):
+			var available_cells := _sequential_filter.set_max_count(1).filter_cells(data, null, _rng)
+			if available_cells.is_empty():
 				return
 			
-			_used_cell_indexes.append(free_cell)
-			var pos = data.get_local_cell_position(free_cell) + ITEM_POSITION_OFFSET
+			var cell_index: int = available_cells[0]
+			_used_cell_indexes.append(cell_index)
+			# Use CellFilter helper function instead of direct WorldData call
+			var pos = CellFilter.get_cell_position(data, cell_index) + ITEM_POSITION_OFFSET
 			_spawn_tiny_item(s, amount, pos)
-
-
-func _get_next_free_cell(data : WorldData) -> bool:
-	free_cell += 1
-	while free_cell < data.cell_count and data.get_cell_type(free_cell) == data.CellType.EMPTY:
-		free_cell += 1
-	if free_cell >= data.cell_count:
-		return false
-	return true
 
 
 # Angle is in radians

@@ -53,7 +53,7 @@ func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 	spawn_data.scene_path = _current_paths[index]
 	spawn_data.amount = rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
 	
-	_exclude_used_index(index)
+	#_exclude_used_index(index)  # Introduces bugs in random gen where you want the weights to stay steady
 	_current_total_weight = _calculate_total_weight()
 	
 	return spawn_data

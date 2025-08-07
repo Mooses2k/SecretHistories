@@ -12,11 +12,18 @@ var wall_mount_height: float = 1.6
 
 
 func filter_cells(world_data: WorldData, room_data: RoomData, rng: RandomNumberGenerator = null) -> Array:
+	# This method returns empty array - use get_valid_pillar_sides() instead
+	# Kept for CellFilter interface compatibility
+	return []
+
+
+## Main method for getting valid pillar sides with detailed data
+## Returns array of dictionaries with pillar side information
+func get_valid_pillar_sides(world_data: WorldData, rng: RandomNumberGenerator = null) -> Array:
 	var valid_pillar_sides := _find_valid_pillar_sides(world_data)
 	var filtered_sides := _apply_spawn_chance_filter(valid_pillar_sides, rng)
-	var placement_cells := _convert_pillar_sides_to_cells(world_data, filtered_sides)
 	
-	return placement_cells
+	return filtered_sides
 
 
 func _find_valid_pillar_sides(world_data: WorldData) -> Array:
@@ -32,9 +39,8 @@ func _find_valid_pillar_sides(world_data: WorldData) -> Array:
 				continue
 			
 			# Check each direction for valid wall placement
-			for direction in WorldData.Direction.values():
-				if direction == WorldData.Direction.DIRECTION_MAX:
-					continue
+			# Use DIRECTION_MAX directly like the known-good implementation
+			for direction in WorldData.Direction.DIRECTION_MAX:
 				
 				if _is_valid_pillar_side_for_vertex(world_data, x, z, direction):
 					valid_sides.append({
@@ -103,30 +109,10 @@ func _apply_spawn_chance_filter(pillar_sides: Array, rng: RandomNumberGenerator)
 	return filtered_sides
 
 
-func _convert_pillar_sides_to_cells(world_data: WorldData, pillar_sides: Array) -> Array:
-	var placement_cells := []
-	
-	for pillar_data in pillar_sides:
-		var pillar_position: Vector3 = pillar_data.position
-		var direction: int = pillar_data.direction
-		
-		# Calculate wall-mounted position
-		var wall_offset := _get_wall_offset_for_direction(direction)
-		var directional_offset := _get_directional_cell_offset(direction, pillar_data.pillar_x, pillar_data.pillar_z)
-		var base_offset := wall_offset * (WorldData.CELL_SIZE * wall_offset_multiplier)
-		var object_position := pillar_position + base_offset + directional_offset
-		object_position.y += wall_mount_height
-		
-		# Convert to cell index for placement
-		var target_cell_index := world_data.get_cell_index_from_local_position(object_position)
-		
-		if target_cell_index != -1 and is_cell_available(world_data, target_cell_index):
-			placement_cells.append(target_cell_index)
-	
-	return placement_cells
+## Helper methods for position calculation - used by generation steps
+## These are kept here for reusability but don't affect the core filtering logic
 
-
-func _get_wall_offset_for_direction(direction: int) -> Vector3:
+func get_wall_offset_for_direction(direction: int) -> Vector3:
 	match direction:
 		WorldData.Direction.NORTH:
 			return Vector3(0, 0, -1)
@@ -140,7 +126,7 @@ func _get_wall_offset_for_direction(direction: int) -> Vector3:
 			return Vector3.ZERO
 
 
-func _get_directional_cell_offset(direction: int, pillar_x: int, pillar_z: int) -> Vector3:
+func get_directional_cell_offset(direction: int, pillar_x: int, pillar_z: int) -> Vector3:
 	# Small offset to ensure unique cell mapping per pillar side
 	var base_offset := 0.01
 	var coord_factor := (pillar_x + pillar_z) % 4

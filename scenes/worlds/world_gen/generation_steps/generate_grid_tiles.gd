@@ -342,7 +342,7 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumb
 					var index : int = rng.randi() % alternative_double_floor_tiles.size()
 					selected_floor_tile = alternative_double_floor_tiles[index]
 
-				print("DEBUG: Placing even dimension room double floor tile at %s: tile_id=%d (covers 2x2 area)" % [cell_key, selected_floor_tile])
+				#print("DEBUG: Placing even dimension room double floor tile at %s: tile_id=%d (covers 2x2 area)" % [cell_key, selected_floor_tile])
 				data.set_ground_tile_index(cell, selected_floor_tile)
 
 				# Mark all 4 cells of the 2x2 double tile as processed
@@ -372,13 +372,11 @@ func select_floor_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumb
 			elif cell_type == data.CellType.CORRIDOR:
 				data.set_cell_surfacetype(i, data.SurfaceType.CARPET)
 
-			print("DEBUG: Placing regular floor tile at %s" % cell_key)
+			#print("DEBUG: Placing regular floor tile at %s" % cell_key)
 			data.set_ground_tile_index(i, floor_tile)
 
 
 func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNumberGenerator):
-	print("DEBUG: Starting select_ceiling_tiles - FIXED VERSION")
-
 	# Get all rooms to check for even dimensions
 	var all_rooms : Array = data.get_all_rooms()
 	var even_dimension_rooms : Array = []
@@ -398,7 +396,7 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNu
 	for room_data in even_dimension_rooms:
 		var room : RoomData = room_data as RoomData
 		var room_rect : Rect2 = room.rect2
-		print("DEBUG: Processing even dimension room ceiling tiles at %s with size %s" % [room_rect.position, room_rect.size])
+		#print("DEBUG: Processing even dimension room ceiling tiles at %s with size %s" % [room_rect.position, room_rect.size])
 		for i in room_rect.size.x / 2:
 			for j in room_rect.size.y / 2:
 				var cell = data.get_cell_index_from_int_position(room_rect.position.x + 2 * i, room_rect.position.y + 2 * j)
@@ -411,7 +409,7 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNu
 					var index : int = rng.randi() % alternative_double_ceiling_tiles.size()
 					selected_ceiling_tile = alternative_double_ceiling_tiles[index]
 
-				print("DEBUG: Placing even dimension room double ceiling tile at %s: tile_id=%d (covers 2x2 area)" % [cell_key, selected_ceiling_tile])
+				#print("DEBUG: Placing even dimension room double ceiling tile at %s: tile_id=%d (covers 2x2 area)" % [cell_key, selected_ceiling_tile])
 				data.set_ceiling_tile_index(cell, selected_ceiling_tile)
 
 				# Mark all 4 cells of the 2x2 double tile as processed
@@ -437,7 +435,7 @@ func select_ceiling_tiles(data : WorldData, pillar_rooms : Array, rng : RandomNu
 					var index : int = rng.randi() % alternative_ceiling_tiles.size()
 					selected_ceiling_tile = alternative_ceiling_tiles[index]
 
-				print("DEBUG: Placing regular ceiling tile at %s: tile_id=%d" % [cell_key, selected_ceiling_tile])
+				#print("DEBUG: Placing regular ceiling tile at %s: tile_id=%d" % [cell_key, selected_ceiling_tile])
 				data.set_ceiling_tile_index(i, selected_ceiling_tile)
 
 	# Handle pillar rooms (maintain existing behavior)

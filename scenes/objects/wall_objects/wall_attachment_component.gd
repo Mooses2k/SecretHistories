@@ -129,11 +129,11 @@ func _physics_process(delta: float):
 			var alignment = object_backward.dot(direction_to_mount)
 			
 			# DEBUG: Log magnetic zone orientation check
-			print("MAGNETIC ZONE DEBUG - Distance: ", snappedf(rigid_body.global_position.distance_to(wall_mount.global_position), 0.01))
-			print("MAGNETIC ZONE DEBUG - Alignment: ", snappedf(alignment, 0.01), " Threshold: ", orientation_threshold)
-			print("MAGNETIC ZONE DEBUG - Object +Z (backward): ", object_backward)
-			print("MAGNETIC ZONE DEBUG - Direction to mount: ", direction_to_mount)
-			print("MAGNETIC ZONE DEBUG - Should activate magnetic zone: ", alignment > orientation_threshold)
+			#print("MAGNETIC ZONE DEBUG - Distance: ", snappedf(rigid_body.global_position.distance_to(wall_mount.global_position), 0.01))
+			#print("MAGNETIC ZONE DEBUG - Alignment: ", snappedf(alignment, 0.01), " Threshold: ", orientation_threshold)
+			#print("MAGNETIC ZONE DEBUG - Object +Z (backward): ", object_backward)
+			#print("MAGNETIC ZONE DEBUG - Direction to mount: ", direction_to_mount)
+			#print("MAGNETIC ZONE DEBUG - Should activate magnetic zone: ", alignment > orientation_threshold)
 			
 			# Only proceed with magnetic pull if orientation is correct
 			if alignment > orientation_threshold:
@@ -158,10 +158,10 @@ func _physics_process(delta: float):
 				
 				# Apply magnetic orientation correction when close enough AND reasonably well-oriented
 				if distance <= reattachment_distance * 1.5:  # Start orienting when 1.5x reattachment distance
-					print("MAGNETIC DEBUG - Alignment: ", snappedf(alignment, 0.01), " Threshold: ", orientation_threshold, " Will correct: ", alignment > orientation_threshold)
+					#print("MAGNETIC DEBUG - Alignment: ", snappedf(alignment, 0.01), " Threshold: ", orientation_threshold, " Will correct: ", alignment > orientation_threshold)
 					_apply_magnetic_orientation_correction(rigid_body, delta, pull_strength)
-			else:
-				print("MAGNETIC ZONE DEBUG - BLOCKED magnetic pull due to wrong orientation (front facing wall)")
+			#else:
+				#print("MAGNETIC ZONE DEBUG - BLOCKED magnetic pull due to wrong orientation (front facing wall)")
 
 ### Public Methods --------------------------------------------------------------------------------
 

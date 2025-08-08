@@ -20,6 +20,7 @@ extends GenerationStep
 @export var _max_radius_multiplier := 0.3
 
 var _rng := RandomNumberGenerator.new()
+var _cell_filter: CellTypeFilter
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -29,6 +30,10 @@ var _rng := RandomNumberGenerator.new()
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+	
+	# Initialize cell filter for ROOM type cells
+	_cell_filter = CellTypeFilter.new()
+	_cell_filter.set_target_types([WorldData.CellType.ROOM])
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -56,8 +61,9 @@ func _execute_step(data: WorldData, gen_data : Dictionary, generation_seed : int
 func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnList) -> void:
 	var draw_amount := _rng.randi_range(_min_loot, (_max_loot * -GameManager.game.current_floor_level))
 	print("Spawning this many non-bone items on ground: ", draw_amount)
-	var possible_cells := data.get_cells_for(data.CellType.ROOM)
-	possible_cells = _remove_used_cells_from(possible_cells, data)
+	
+	# Use cell filter to get available ROOM cells (automatically removes used cells)
+	var possible_cells := _cell_filter.filter_cells(data, null, _rng)
 	
 	for _i in draw_amount:
 		var spawn_data := loot_list.get_random_spawn_data(_rng)
@@ -69,7 +75,8 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 		var cell_index := possible_cells[lucky_index] as int
 		possible_cells.remove_at(lucky_index)
 		
-		var cell_position := data.get_local_cell_position(cell_index)
+		# Use CellFilter utility for cell position
+		var cell_position := CellFilter.get_cell_position(data, cell_index)
 		var cell_radius := data.CELL_SIZE * 0.5
 		spawn_data.set_random_position_in_cell(
 				_rng, 
@@ -81,19 +88,8 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
 
 
-func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:
-	for cell_index in data._objects_to_spawn.keys():
-		p_array.erase(cell_index)
-	
-	if data.is_spawn_position_valid():
-		var player_cells := [
-				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE),
-				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.DOWN_STAIRCASE),
-		]
-		for player_cell in player_cells:
-			p_array.erase(player_cell)
-	
-	return p_array
+# Removed _remove_used_cells_from() - now handled by CellTypeFilter.filter_cells()
+# which uses CellFilter.remove_used_cells() utility
 
 
 func _set_min_loot(value: int) -> void:

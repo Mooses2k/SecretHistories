@@ -655,61 +655,54 @@ func drop_hotbar_slot(slot : int) -> Node:
 				else:
 					_drop_item(item_node)
 		else:
-			# Get the next item from the stack before removing the current item
-			var next_item = null
-			if item.stackable_resource.items_stacked.is_empty() == false:
-				next_item = item.stackable_resource.items_stacked[0]
-
-			# Remove the current item from the stack
-			item.stackable_resource.remove_item(item)
-
+			print("[DEBUG] Processing stackable item drop for: ", item_node.name)
+			print("[DEBUG] Stack size before: ", item.stackable_resource.items_stacked.size())
+			
 			var hand = null
-			if next_item != null and is_instance_valid(next_item):
-				next_item.stackable_resource = item.stackable_resource
-				hotbar[slot] = next_item
+			if current_mainhand_equipment == item_node:
+				unequip_mainhand_item()
+				hand = HandEnum.MAIN_HAND
+			elif current_offhand_equipment == item_node:
+				unequip_offhand_item()
+				hand = HandEnum.OFF_HAND
+			
+			# For stackable items: decrement the stack count but keep the same hotbar item
+			# The hotbar item represents the entire stack, not individual items
+			
+			# Remove one item from the stack (this decrements the count)
+			if item.stackable_resource.items_stacked.size() > 0:
+				item.stackable_resource.items_stacked.pop_back()
+				print("[DEBUG] Stack size after removal: ", item.stackable_resource.items_stacked.size())
+			
+			# Check if there are still items left in the stack
+			if item.stackable_resource.items_stacked.size() > 0:
+				print("[DEBUG] Items remaining in stack, keeping hotbar item")
 				
-				# BUGFIX: Emit hotbar_changed signal to update UI when stackable item is replaced
+				# Keep the hotbar item (it still represents the remaining stack)
+				# Just update the UI to reflect the new stack size
 				emit_signal("hotbar_changed", slot)
 				
-				# Prepare for the droping
-				if current_mainhand_equipment == item_node:
-					unequip_mainhand_item()
-					hand = HandEnum.MAIN_HAND
-				elif current_offhand_equipment == item_node:
-					unequip_offhand_item()
-					hand = HandEnum.OFF_HAND
-				
-				# Drop the item (it needed to be unequiped first)
-				if item_node.can_attach == true:
-					remove_from_belt(item)
-					var parent = item_node.get_parent()
-					if parent != null:
-						parent.remove_child(item_node)
-					_drop_item(item_node)
-				else:
-					_drop_item(item_node)
-				
-				# Equip the new item of the stack
+				# Re-equip the stack
 				match hand:
 					HandEnum.MAIN_HAND:
 						equip_mainhand_item()
 					HandEnum.OFF_HAND:
 						equip_offhand_item()
 			else:
+				print("[DEBUG] No items remaining in stack, clearing hotbar slot")
+				
+				# Clear the hotbar slot since this was the last item
 				hotbar[slot] = null
-				if current_mainhand_equipment == item_node:
-					unequip_mainhand_item()
-				elif current_offhand_equipment == item_node:
-					unequip_offhand_item()
-				if item_node != null:
-					if item_node.can_attach == true:
-						remove_from_belt(item)
-						var parent = item_node.get_parent()
-						if parent != null:
-							parent.remove_child(item_node)
-						_drop_item(item_node)
-					else:
-						_drop_item(item_node)
+			
+			# Drop the hotbar item (represents one item from the stack)
+			if item_node.can_attach == true:
+				remove_from_belt(item)
+				var parent = item_node.get_parent()
+				if parent != null:
+					parent.remove_child(item_node)
+				_drop_item(item_node)
+			else:
+				_drop_item(item_node)
 		emit_signal("hotbar_changed", slot)
 	return item
 
@@ -719,6 +712,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 # in a DROPPED state. Further positioning can be done by the caller
 func _drop_item(item : EquipmentItem):
 	item.set_item_state(GlobalConsts.ItemState.DROPPED)
+	
 	if is_instance_valid(GameManager.game.level):
 		GameManager.game.level.add_child(item)
 	else:

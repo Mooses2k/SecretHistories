@@ -10,7 +10,7 @@ extends SpawnData
 
 #--- constants ------------------------------------------------------------------------------------
 
-const CHARACTER_CENTER_POSITION_OFFSER = Vector3(0.75, 0.0, 0.75)
+const CHARACTER_CENTER_POSITION_OFFSET = Vector3(0.75, 0.0, 0.75)
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -60,7 +60,7 @@ func _set_amount(value: int) -> void:
 
 
 func _get_center_offset() -> Vector3:
-	return CHARACTER_CENTER_POSITION_OFFSER
+	return CHARACTER_CENTER_POSITION_OFFSET
 
 ### -----------------------------------------------------------------------------------------------
 

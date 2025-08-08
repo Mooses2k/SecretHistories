@@ -1,5 +1,6 @@
 extends Node
 
+
 enum InteractState {
 	NONE,
 	PENDING,
@@ -8,20 +9,21 @@ enum InteractState {
 }
 @export var inventory : Inventory
 
-@onready var interaction_cast: RayCast3D = $"../../ModelRoot/MainCamera/InteractionCast"
-@onready var grab_cast: RayCast3D = $"../../ModelRoot/MainCamera/GrabCast"
-@onready var player_controller: PlayerController = $".."
-@onready var near_cast: Area3D = $"../../ModelRoot/MainCamera/NearCast"
-
 # Releasing the interact key before this time will cause an interaction, holding
 # it longer will attempt a grab
 @export var interact_threshold : float = 0.2
 
 # Damping parameters for non-heavy grabbed objects
-@export var light_object_mass_threshold : float = 20.0  # kg - objects below this get damping
-@export var linear_damping_factor : float = 8.0
-@export var rotational_damping_factor : float = 8.0
-@export var mass_damping_scale : float = 0.8  # How much mass affects damping (0.0-1.0)
+@export var light_object_mass_threshold : float = 30.0  # kg - objects below this get damping
+@export var linear_damping_factor : float = 4.0
+@export var rotational_damping_factor : float = 2.0
+@export var mass_damping_scale : float = 1.0  # How much mass affects damping (0.0-1.0)
+
+# Rotation following parameters
+@export var rotation_follow_enabled : bool = true
+@export var rotation_deadband : float = 0.1  # Minimum rotation difference to apply torque (radians)
+@export var rotation_torque_multiplier : float = 10.0  # Base torque strength
+@export var max_rotation_torque : float = 20.0  # Maximum torque to prevent instability
 
 var _interaction_held_timer : float = 0.0
 var _holding_interact : bool = false
@@ -33,10 +35,22 @@ var grabbed_item : RigidBody3D = null
 var grab_position_object : Vector3
 # Where the object was grabbed, relative to the raycast
 var grab_position_raycast : Vector3
+# Initial rotation relationship between grabbed object and grab cast
+var grab_rotation_offset : Quaternion
 
 var interact_target : Interactable = null
 var grab_target : RigidBody3D = null
 var pick_target : PickableItem = null
+
+# Captured grab target and collision point when interact button is first pressed
+var captured_grab_target : RigidBody3D = null
+var captured_collision_point : Vector3
+
+@onready var interaction_cast: RayCast3D = $"../../ModelRoot/MainCamera/InteractionCast"
+@onready var grab_cast: RayCast3D = $"../../ModelRoot/MainCamera/GrabCast"
+@onready var player_controller: PlayerController = $".."
+@onready var near_cast: Area3D = $"../../ModelRoot/MainCamera/NearCast"
+
 
 func _process(delta: float) -> void:
 	interaction_cast.force_raycast_update()
@@ -68,10 +82,10 @@ func _process(delta: float) -> void:
 	if interact_state == InteractState.PENDING:
 		_interaction_held_timer += delta
 		if _interaction_held_timer > interact_threshold and grabbed_item == null:
-			if not _try_grab():
+			if not _try_grab_captured():
 				player_controller.set_ads(true)
 				interact_state = InteractState.ADS
-	pass
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"player|interact"):
@@ -79,6 +93,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			interact_state = InteractState.ADS
 			player_controller.set_ads(true)
 		else:
+			# Store the grab target and collision point that were under crosshair when button was FIRST pressed
+			captured_grab_target = grab_target
+			if grab_cast.is_colliding():
+				captured_collision_point = grab_cast.get_collision_point()
+			
 			interact_state = InteractState.PENDING
 			_interaction_held_timer = 0.0
 	elif event.is_action_released(&"player|interact"):
@@ -86,6 +105,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			InteractState.ADS:
 				player_controller.set_ads(false)
 			InteractState.GRAB:
+				# Special handling for wall objects
+				if grabbed_item and grabbed_item.has_method("release_by_player"):
+					grabbed_item.release_by_player(player_controller)
+				
 				_reset_object_damping(grabbed_item)
 				grabbed_item = null
 				player_controller.set_drag_speed_modifier(1.0)
@@ -103,6 +126,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if interact_state == InteractState.GRAB:
 			interact_state = InteractState.NONE
 			var item_to_throw = grabbed_item
+			
+			# Special handling for wall objects
+			if item_to_throw and item_to_throw.has_method("release_by_player"):
+				item_to_throw.release_by_player(player_controller)
+			
 			_reset_object_damping(item_to_throw)
 			grabbed_item = null
 			player_controller.set_drag_speed_modifier(1.0)
@@ -116,10 +144,48 @@ func _try_grab() -> bool:
 		grabbed_item = grab_target
 		grab_position_object = grabbed_item.to_local(grab_cast.get_collision_point())
 		grab_position_raycast = grab_cast.to_local(grab_cast.get_collision_point())
+		
+		# Store the initial rotation relationship between the object and the grab cast
+		grab_rotation_offset = grab_cast.global_transform.basis.get_rotation_quaternion().inverse() * grabbed_item.global_transform.basis.get_rotation_quaternion()
+		
+		# DEBUG: Log grab information
+		print("ROTATION DEBUG - Grabbed item: ", grabbed_item.name, " Type: ", grabbed_item.get_class())
+		print("ROTATION DEBUG - Initial grab_rotation_offset: ", grab_rotation_offset)
+		print("ROTATION DEBUG - Item mass: ", grabbed_item.mass)
+		print("ROTATION DEBUG - Item damping - Linear: ", grabbed_item.linear_damp, " Angular: ", grabbed_item.angular_damp)
+		
+		# Special handling for wall objects
+		if grabbed_item.has_method("grab_by_player"):
+			grabbed_item.grab_by_player(player_controller)
+		
 		interact_state = InteractState.GRAB
 		return true
 	return false
-	pass
+
+func _try_grab_captured() -> bool:
+	if is_instance_valid(captured_grab_target):
+		print("grab captured target")
+		grabbed_item = captured_grab_target
+		grab_position_object = grabbed_item.to_local(grab_cast.get_collision_point())
+		grab_position_raycast = grab_cast.to_local(grab_cast.get_collision_point())
+		
+		# Store the initial rotation relationship between the object and the grab cast
+		grab_rotation_offset = grab_cast.global_transform.basis.get_rotation_quaternion().inverse() * grabbed_item.global_transform.basis.get_rotation_quaternion()
+		
+		# DEBUG: Log grab information
+		print("ROTATION DEBUG - Grabbed item: ", grabbed_item.name, " Type: ", grabbed_item.get_class())
+		print("ROTATION DEBUG - Initial grab_rotation_offset: ", grab_rotation_offset)
+		print("ROTATION DEBUG - Item mass: ", grabbed_item.mass)
+		print("ROTATION DEBUG - Item damping - Linear: ", grabbed_item.linear_damp, " Angular: ", grabbed_item.angular_damp)
+		
+		# Special handling for wall objects
+		if grabbed_item.has_method("grab_by_player"):
+			grabbed_item.grab_by_player(player_controller)
+		
+		interact_state = InteractState.GRAB
+		return true
+	return false
+
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(grabbed_item):
@@ -146,6 +212,65 @@ func _physics_process(delta: float) -> void:
 		
 		grabbed_item.apply_force(force, point_object - grabbed_item.global_position)
 		
+		# Apply rotational forces to make object follow player's orientation
+		if rotation_follow_enabled:
+			var desired_rotation := grab_cast.global_transform.basis.get_rotation_quaternion() * grab_rotation_offset
+			var current_rotation := grabbed_item.global_transform.basis.get_rotation_quaternion()
+			var rotation_difference := desired_rotation * current_rotation.inverse()
+			
+			# Convert quaternion difference to angular velocity
+			var rotation_axis := Vector3.ZERO
+			var rotation_angle := 0.0
+			if abs(rotation_difference.w) < 0.999:  # Only process if there's meaningful rotation
+				rotation_angle = 2.0 * acos(clamp(abs(rotation_difference.w), 0.0, 1.0))
+				var sin_half_angle := sin(rotation_angle * 0.5)
+				if sin_half_angle > 0.001:  # Avoid division by zero
+					rotation_axis = Vector3(rotation_difference.x, rotation_difference.y, rotation_difference.z) / sin_half_angle
+					if rotation_difference.w < 0.0:
+						rotation_axis = -rotation_axis
+			
+			# Apply rotational torque with deadband and safety limits
+			if rotation_angle > rotation_deadband:
+				# Use mass-based scaling similar to the damping system
+				var mass_factor: float = clamp(mass / light_object_mass_threshold, 0.01, 1.0)
+				
+				# Scale torque inversely with mass for light objects, but proportionally for heavy ones
+				var base_torque := rotation_torque_multiplier
+				if mass < 0.5:
+					base_torque = 0.1
+				if mass <= light_object_mass_threshold:
+					# Light objects: reduce torque significantly and use mass_damping_scale
+					base_torque *= mass_factor * (1.0 - mass_damping_scale) + mass_damping_scale #* 0.1
+				else:
+					# Heavy objects: scale torque up but with diminishing returns
+					base_torque *= sqrt(mass / light_object_mass_threshold)
+				
+				# Calculate torque with angle-based scaling (stronger for larger differences)
+				var angle_factor: float = clamp(rotation_angle / PI, 0.1, 1.0)  # Scale from 0.1 to 1.0
+				var torque: Vector3 = rotation_axis * angle_factor * base_torque
+				
+				# Apply maximum torque limit that scales with mass
+				var mass_adjusted_max_torque := max_rotation_torque
+				if mass <= light_object_mass_threshold:
+					# Much lower max torque for light objects
+					mass_adjusted_max_torque *= mass_factor #* 0.5
+				else:
+					# Higher max torque for heavy objects
+					mass_adjusted_max_torque *= clamp(mass / light_object_mass_threshold, 1.0, 3.0)
+				
+				torque = torque.limit_length(mass_adjusted_max_torque)
+				
+				# DEBUG: Log rotation calculations for all objects
+				#print("ROTATION DEBUG - ", grabbed_item.name, " Angle: ", snappedf(rotation_angle, 0.01),
+					  #" Base torque: ", snappedf(base_torque, 0.1),
+					  #" Final torque: ", torque.length(),
+					  #" Angular damp: ", grabbed_item.angular_damp)
+				
+				grabbed_item.apply_torque(torque)
+			#else:
+				# DEBUG: Log when rotation is skipped due to deadband for all objects
+				#print("ROTATION DEBUG - ", grabbed_item.name, " Skipped rotation - angle ", snappedf(rotation_angle, 0.01), " < deadband ", rotation_deadband)
+		
 		# Apply movement speed reduction based on mass
 		var speed_reduction_factor = 1.0
 		if mass > temp_mass_threshold:
@@ -159,7 +284,6 @@ func _physics_process(delta: float) -> void:
 		
 		# Apply damping to non-heavy objects
 		if mass <= light_object_mass_threshold:
-			# Calculate mass-scaled damping (lighter objects get more damping)
 			var mass_factor = clamp(mass / light_object_mass_threshold, 0.01, 1.0)
 			var scaled_linear_damp = linear_damping_factor * (1.0 - mass_factor * mass_damping_scale)
 			var scaled_rotational_damp = rotational_damping_factor * (1.0 - mass_factor * mass_damping_scale)
@@ -181,19 +305,29 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(grabbed_item) and interact_state != InteractState.GRAB:
 		player_controller.set_drag_speed_modifier(1.0)
 
+
 func pick_item() -> void:
 	if is_instance_valid(pick_target):
 		print("pick")
 		inventory.add_item(pick_target)
+
 
 func interact() -> void:
 	if is_instance_valid(interact_target):
 		print("interact")
 		interact_target.interact(owner)
 
+
 # Helper function to reset object damping when released
 func _reset_object_damping(item: RigidBody3D) -> void:
 	if is_instance_valid(item):
+		print("INTERACT DEBUG - Resetting damping for: ", item.name)
+		print("INTERACT DEBUG - Before reset - Linear: ", item.linear_damp, " Angular: ", item.angular_damp)
+		
 		# Reset to default physics values (or whatever the object's original values were)
 		item.linear_damp = 0.0  # Default Godot linear damping
 		item.angular_damp = 0.0  # Default Godot angular damping
+		# Gravity should already be enabled, but ensure it's set correctly
+		item.gravity_scale = 1.0
+
+		print("INTERACT DEBUG - After reset - Linear: ", item.linear_damp, " Angular: ", item.angular_damp)

@@ -51,7 +51,7 @@ func _generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : 
 	rooms.append(entry_room)
 	
 	if not gen_data[LAST_FLOOR_KEY]:
-		cells_pool = _update_poll_of_possible_cells(data, cells_pool, entry_room)
+		cells_pool = _update_pool_of_possible_cells(data, cells_pool, entry_room)
 		
 		var exit_room := _gen_staircase_room_rect(data, random, cells_pool)
 		data.fill_room_data(exit_room, RoomData.OriginalPurpose.DOWN_STAIRCASE)
@@ -98,7 +98,7 @@ func _get_pool_of_possible_cells(data: WorldData) -> Array:
 	return value
 
 
-func _update_poll_of_possible_cells(data: WorldData, cells_pool: Array, room: Rect2) -> Array:
+func _update_pool_of_possible_cells(data: WorldData, cells_pool: Array, room: Rect2) -> Array:
 	var value := []
 	var range_x = range(room.position.x, room.end.x)
 	var range_y = range(room.position.y, room.end.y)
@@ -116,6 +116,7 @@ func _update_poll_of_possible_cells(data: WorldData, cells_pool: Array, room: Re
 			value.append(cell_index)
 	
 	return value
+
 
 func _can_fit_staircase_room(data: WorldData, initial_x: int, initial_y: int) -> bool:
 	var value := true

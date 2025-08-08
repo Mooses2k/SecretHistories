@@ -1,5 +1,7 @@
 extends Node
 class_name HumanoidCharacterInput
+
+
 # desired (horizontal) movement vector in world space, length limited to 1.0
 var movement_vector : Vector3 = Vector3.ZERO:
 	set(value):

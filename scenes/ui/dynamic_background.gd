@@ -5,6 +5,7 @@ extends Control
 ## This script manages a collection of background images that fade in and out
 ## with overlapping transitions, creating a dynamic visual effect.
 
+
 # Exported parameters for customization
 @export var fade_duration: float = 1.5  ## Duration of fade in/out animations
 @export var display_time: float = 5.0  ## Time each image is displayed before transitioning
@@ -16,11 +17,6 @@ extends Control
 @export var special_image_path: String = "res://resources/art/title_backgrounds/title_cathedral_photo.jpg"
 var special_image_shown: bool = false  ## Track if special image has been displayed
 
-# Node references
-@onready var background_container: Node = $BackgroundContainer
-@onready var image_container: Control = $BackgroundContainer/ImageContainer
-@onready var transition_timer: Timer = $TransitionTimer
-
 # Internal variables
 var background_images: Array[String] = []  ## List of available background image paths (excluding special image)
 var current_images: Array[Control] = []  ## Currently displayed images
@@ -28,6 +24,12 @@ var previous_image: String = ""  ## Last displayed image to prevent immediate re
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()  ## Random number generator for positioning
 var active_tweens: Array[Tween] = []  ## Active tweens for memory management
 var pan_tweens: Array[Tween] = []  ## Active panning tweens for smooth movement
+
+# Node references
+@onready var background_container: Node = $BackgroundContainer
+@onready var image_container: Control = $BackgroundContainer/ImageContainer
+@onready var transition_timer: Timer = $TransitionTimer
+
 
 # Lifecycle methods
 func _ready() -> void:
@@ -44,6 +46,7 @@ func _ready() -> void:
 	
 	# Show special cathedral image immediately without fade-in
 	show_special_image()
+
 
 func load_background_images() -> void:
 	## Load all background images from the specified directory, excluding the special image
@@ -66,6 +69,7 @@ func load_background_images() -> void:
 	if background_images.is_empty():
 		push_warning("No background images found in " + background_directory)
 
+
 func show_special_image() -> void:
 	## Show the special cathedral image immediately without fade-in, properly scaled to fit screen
 	print("Showing special cathedral image immediately...")
@@ -78,6 +82,7 @@ func show_special_image() -> void:
 	container.anchor_bottom = 1.0
 	container.modulate = Color(1, 1, 1, 1)  # Start fully visible (no fade-in)
 	container.z_index = -1
+	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Create the special image TextureRect
 	var texture_rect: TextureRect = TextureRect.new()
@@ -87,6 +92,7 @@ func show_special_image() -> void:
 	texture_rect.anchor_top = 0.0
 	texture_rect.anchor_right = 1.0
 	texture_rect.anchor_bottom = 1.0
+	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Load and set the special image
 	var image: Texture2D = load(special_image_path)
@@ -116,6 +122,7 @@ func show_special_image() -> void:
 	else:
 		push_warning("Failed to load special cathedral image: " + special_image_path)
 
+
 func _on_special_image_timeout(texture_rect: Control, timer: Timer) -> void:
 	## Handle special image timeout to fade it out and immediately transition to next image
 	if is_instance_valid(texture_rect):
@@ -132,6 +139,7 @@ func _on_special_image_timeout(texture_rect: Control, timer: Timer) -> void:
 	if is_instance_valid(timer):
 		timer.queue_free()
 
+
 func create_new_image() -> Control:
 	## Create a new TextureRect with a randomly selected background image, properly scaled
 	print("Creating new background image...")
@@ -144,6 +152,7 @@ func create_new_image() -> Control:
 	container.anchor_bottom = 0.0
 	container.modulate = Color(1, 1, 1, 1)  # Keep container modulate at full opacity
 	container.z_index = -1
+	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Create the main image TextureRect
 	var texture_rect: TextureRect = TextureRect.new()
@@ -153,6 +162,7 @@ func create_new_image() -> Control:
 	texture_rect.anchor_top = 0.0
 	texture_rect.anchor_right = 1.0
 	texture_rect.anchor_bottom = 1.0
+	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	# Create material with shader for fade effect
 	var material = ShaderMaterial.new()
@@ -257,6 +267,7 @@ func select_random_image() -> String:
 	
 	return selected_image
 
+
 func start_smooth_pan(texture_rect: Control) -> void:
 	## Start smooth panning animation for the image with continuous linear movement
 	if not is_instance_valid(texture_rect):
@@ -305,6 +316,7 @@ func start_smooth_pan(texture_rect: Control) -> void:
 	pan_tweens.append(pan_tween)
 	pan_tween.finished.connect(_on_pan_tween_finished.bind(pan_tween))
 
+
 func start_zoom_in_effect(texture_rect: Control, duration: float) -> void:
 	## Start zoom-in effect that continues through fade duration
 	if not is_instance_valid(texture_rect):
@@ -322,6 +334,7 @@ func start_zoom_in_effect(texture_rect: Control, duration: float) -> void:
 	
 	active_tweens.append(zoom_tween)
 	zoom_tween.finished.connect(_on_tween_finished.bind(zoom_tween))
+
 
 func start_fade_in(texture_rect: Control) -> void:
 	## Start the fade in animation for an image using Tween
@@ -362,6 +375,7 @@ func start_fade_in(texture_rect: Control) -> void:
 	# Debug: Log when fade in completes
 	tween.finished.connect(func(): print("DEBUG: Fade in completed for ", texture_rect))
 
+
 func start_continuous_zoom_effect(texture_rect: Control) -> void:
 	## Start zoom effect that spans the entire time the image is shown with more noticeable scaling
 	if not is_instance_valid(texture_rect):
@@ -382,6 +396,7 @@ func start_continuous_zoom_effect(texture_rect: Control) -> void:
 	
 	active_tweens.append(zoom_tween)
 	zoom_tween.finished.connect(_on_tween_finished.bind(zoom_tween))
+
 
 func start_fade_out(texture_rect: Control) -> void:
 	## Start the fade out animation for an image using Tween
@@ -412,6 +427,7 @@ func start_fade_out(texture_rect: Control) -> void:
 	# Debug: Log when fade out completes
 	tween.finished.connect(func(): print("DEBUG: Fade out completed for ", texture_rect))
 
+
 func _on_transition_timer_timeout() -> void:
 	## Handle transition timer timeout to manage image transitions
 	# Skip if special image is currently showing
@@ -428,6 +444,7 @@ func _on_transition_timer_timeout() -> void:
 	var new_image: Control = create_new_image()
 	start_fade_in(new_image)
 
+
 func _on_fade_out_finished(texture_rect: Control, tween: Tween) -> void:
 	## Handle fade out completion to clean up the image
 	_on_tween_finished(tween)  # Clean up the tween first
@@ -437,10 +454,12 @@ func _on_fade_out_finished(texture_rect: Control, tween: Tween) -> void:
 		if current_images.has(texture_rect):
 			current_images.erase(texture_rect)
 
+
 func _on_tween_finished(tween: Tween) -> void:
 	## Handle tween completion to clean up references
 	if active_tweens.has(tween):
 		active_tweens.erase(tween)
+
 
 func _on_pan_tween_finished(tween: Tween) -> void:
 	## Handle pan tween completion to clean up references

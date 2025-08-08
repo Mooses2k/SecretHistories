@@ -10,7 +10,7 @@ extends Resource
 
 #--- constants ------------------------------------------------------------------------------------
 
-const ITEM_CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)
+const ITEM_CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)  # This is unique in the code with the 1m vertical
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -49,20 +49,36 @@ func _to_string() -> String:
 func spawn_item_in(node: Node, should_log := false) -> void:
 	if _has_spawned:
 		return
-		
+	
 	var item_scene : PackedScene = load(scene_path)
+	if !is_instance_valid(item_scene):
+		print("ERROR SpawnData: Failed to load scene: %s" % scene_path)
+		return
+	
 	for index in amount:
-		# handle bad refs in the loot list
-		if !is_instance_valid(item_scene):
-			return
 		var item = item_scene.instantiate()
+		if !is_instance_valid(item):
+			print("ERROR SpawnData: Failed to instantiate scene: %s" % scene_path)
+			continue
 		
 		if item is Node3D:
-			item.transform = _transforms[index]
+			var node3d_item = item as Node3D
+			node3d_item.transform = _transforms[index]
 		
 		var custom_properties := _custom_properties[index] as Dictionary
 		for key in custom_properties:
-			item.set(key, custom_properties[key])
+			var value = custom_properties[key]
+			
+			# Try to set the property - Godot will handle validation internally
+			var property_list = item.get_property_list()
+			var has_property := false
+			for prop in property_list:
+				if prop.name == key:
+					has_property = true
+					break
+			
+			if has_property:
+				item.set(key, value)
 		
 		node.add_child(item, true)
 		
@@ -70,10 +86,23 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 		if item is CandleItem or item is CandelabraItem:
 			item.light()
 		
-		if should_log:
-			print("item spawned: %s | at: %s | rotated by: %s"%[
-					scene_path, _transforms[index].origin, _transforms[index].basis.get_euler()
-			])
+		# Special handling for wall objects with WallAttachmentComponent
+		var wall_attachment_component = item.get_node_or_null("WallAttachmentComponent")
+		if wall_attachment_component:
+			print("=== WALL OBJECT SPAWN DEBUG ===")
+			print("WALL SPAWN: Found WallAttachmentComponent on %s" % item.name)
+			print("WALL SPAWN: Scene path: %s" % scene_path)
+			print("WALL SPAWN: Final position: %s" % item.global_position)
+			var wall_direction = custom_properties.get("wall_direction", -1)
+			print("WALL SPAWN: Custom properties: %s" % custom_properties)
+			if wall_direction != -1:
+				print("WALL SPAWN: Setting wall_direction on component: %d" % wall_direction)
+				wall_attachment_component.wall_direction = wall_direction
+				print("WALL SPAWN: Manually calling setup_wall_attachment")
+				wall_attachment_component.call_deferred("setup_wall_attachment")
+			else:
+				print("WALL SPAWN ERROR: Wall object missing wall_direction property!")
+			print("=== END WALL OBJECT SPAWN DEBUG ===")
 	
 	_has_spawned = true
 

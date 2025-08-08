@@ -50,13 +50,13 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 	match GameManager.game.current_floor_level:
 		-1:
 			pass   # set _density_by_type?
-			_max_count = 1
+			_max_count = 0
 		-2:
 			pass   # set _density_by_type?
 			_max_count = 2
 		-3:
 			pass   # set _density_by_type?
-			_max_count = 5
+			_max_count = 4
 		-4:
 			pass   # set _density_by_type?
 			_max_count = 5
@@ -71,10 +71,12 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		if count >= _max_count:
 			break
 
-		var cell_type = data.get_cell_type(cell_index)
+		# Use CellFilter helper function instead of direct WorldData call
+		var cell_type := CellFilter.get_cell_type(data, cell_index)
 		if _rng.randf() < _density_by_type[cell_type]:
 			count += 1
-			var local_position := data.get_local_cell_position(cell_index)
+			# Use CellFilter helper function instead of direct WorldData call
+			var local_position := CellFilter.get_cell_position(data, cell_index)
 			var spawn_data := CharacterSpawnData.new()
 			spawn_data.scene_path = _character_scene_path
 			spawn_data.set_center_position_in_cell(local_position)
@@ -82,28 +84,13 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 
 
 func _get_valid_cells(data: WorldData) -> Array:
-	var valid_cells := []
-	for type in _density_by_type.keys():
-		valid_cells.append_array(data.get_cells_for(type))
-	valid_cells.sort()
-
-	_remove_used_cells_from(valid_cells, data)
-	return valid_cells
-
-
-func _remove_used_cells_from(p_array: Array, data: WorldData) -> Array:
-	for cell_index in data._objects_to_spawn.keys():
-		p_array.erase(cell_index)
-
-	if data.is_spawn_position_valid():
-		var player_cells := [
-				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE),
-				data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.DOWN_STAIRCASE),
-		]
-		for player_cell in player_cells:
-			p_array.erase(player_cell)
-
-	return p_array
+	# Use CellTypeFilter to consolidate cell filtering logic
+	var cell_filter := CellTypeFilter.new()
+	var target_types := _density_by_type.keys()
+	cell_filter.set_target_types(target_types)
+	
+	# Filter cells using the new system (handles used cell removal automatically)
+	return cell_filter.filter_cells(data, null, _rng)
 
 ### -----------------------------------------------------------------------------------------------
 

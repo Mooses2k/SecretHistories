@@ -1,5 +1,6 @@
 @tool
-# Write your doc string for this file here
+# Sarcophagus generation using the new Cell Filtering System
+# Refactored to use WallSegmentCellFilter and CenterCellFilter exclusively
 extends GenerationStep
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -10,7 +11,6 @@ extends GenerationStep
 #--- constants ------------------------------------------------------------------------------------
 
 const Sarcophagus = preload("res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd")
-const RoomWalls = preload("res://scenes/worlds/world_gen/helper_objects/crypt_room_walls.gd")
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -50,48 +50,73 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 	_rng.seed = generation_seed
 	for c_value in crypt_rooms:
 		var crypt := c_value as RoomData
-		var walls_data := RoomWalls.new()
-		walls_data.init_from_room(data, crypt, sarco_tile_size, _rng)
+		
+		# Check if room is 4x4 CELL_SIZE and apply 50% chance for center-only generation
+		var is_4x4_room := (crypt.rect2.size.x == 4 and crypt.rect2.size.y == 4)
+		var use_center_only := is_4x4_room and _rng.randf() < 0.5
+		
+		if use_center_only:
+			# Use center-only generation for 4x4 rooms with 50% chance
+			_spawn_center_only_sarcos(data, crypt)
+		else:
+			# Use original wall-based generation
+			# Create wall segment filter configured for sarcophagi
+			var wall_filter := WallSegmentCellFilter.new()
+			wall_filter.set_object_size(sarco_tile_size)
+			
+			# Get wall placement data using the filter (preserves exact working flow)
+			var placement_data := wall_filter.get_wall_segments_for_placement(data, crypt, _rng)
+			
+			# Process main walls first (exact flow from original: lines 56-57)
+			for segment_data in placement_data.main_wall_segments:
+				_spawn_sarcos_in_wall_segment(data, wall_filter, segment_data)
+			
+			# Process other walls (exact flow from original: lines 59-62)
+			for segment_data in placement_data.other_wall_segments:
+				_spawn_sarcos_in_wall_segment(data, wall_filter, segment_data)
+			
+			# Spawn center sarcophagus using proper space validation (exact flow from original: line 64)
+			_spawn_middle_sarco(data, crypt, wall_filter)
 
-		for direction in walls_data.main_walls:
-			_spawn_sarcos_in_wall_segments(data, walls_data, direction)
 
-		for direction in walls_data.cells:
-			if direction in walls_data.main_walls:
-				continue
-			_spawn_sarcos_in_wall_segments(data, walls_data, direction)
-
-		_spawn_middle_sarco(data, crypt, walls_data)
-
-
-func _spawn_sarcos_in_wall_segments(
-		data: WorldData, walls_data: RoomWalls, direction: int
+func _spawn_sarcos_in_wall_segment(
+		data: WorldData, wall_filter: WallSegmentCellFilter, segment_data: Dictionary
 ) -> void:
-	DecorateRooms.process_wall_segments(
+	wall_filter.process_wall_segments(
 		data,
-		walls_data,
-		direction,
-		sarco_tile_size,
+		segment_data.direction,
 		func(cells: Array, wall_direction: int, offset: Vector3 = Vector3.ZERO):
 			_set_sarco_spawn_data(data, cells, wall_direction, offset)
 	)
 
 
-func _spawn_middle_sarco(world_data: WorldData, crypt: RoomData, walls_data: RoomWalls) -> void:
-	var remaining_rect := DecorateRooms.get_remaining_rect(crypt, walls_data, sarco_tile_size)
-	if not DecorateRooms.can_place_object(remaining_rect, sarco_tile_size):
-		return
+func _spawn_center_only_sarcos(world_data: WorldData, crypt: RoomData) -> void:
+	# Create center filter for independent center-only placement
+	var center_filter := CenterCellFilter.new()
+	center_filter.set_object_size(sarco_tile_size)
+	
+	# Get center placement data without wall constraints
+	var placement_data := center_filter.get_center_placement_data(world_data, crypt)
+	
+	if not placement_data.is_empty():
+		# Use default rotation for center-only placement
+		var sarco_rotation := deg_to_rad(vertical_center_rotation)
+		_set_sarco_spawn_data(world_data, placement_data.cells, -1, placement_data.offset, sarco_rotation)
 
-	var placement_data := DecorateRooms.calculate_center_position(
-		remaining_rect,
-		sarco_tile_size,
-		world_data.CELL_SIZE
-	)
 
-	var sarco_cells := DecorateRooms.get_center_cells(world_data, placement_data.rect)
-	if not sarco_cells.is_empty():
-		var sarco_rotation := DecorateRooms.calculate_rotation(walls_data, vertical_center_rotation)
-		_set_sarco_spawn_data(world_data, sarco_cells, -1, placement_data.offset, sarco_rotation)
+func _spawn_middle_sarco(world_data: WorldData, crypt: RoomData, wall_filter: WallSegmentCellFilter) -> void:
+	# Create center filter with wall data for proper space calculation
+	var center_filter := CenterCellFilter.new()
+	center_filter.set_object_size(sarco_tile_size)
+	center_filter.set_walls_data(wall_filter)
+	
+	# Get center placement data
+	var placement_data := center_filter.get_center_placement_data(world_data, crypt)
+	
+	if not placement_data.is_empty():
+		# Calculate rotation
+		var sarco_rotation := wall_filter.calculate_rotation(vertical_center_rotation)
+		_set_sarco_spawn_data(world_data, placement_data.cells, -1, placement_data.offset, sarco_rotation)
 
 
 func _set_sarco_spawn_data(
@@ -104,8 +129,9 @@ func _set_sarco_spawn_data(
 	var spawn_data := SpawnData.new()
 	spawn_data.scene_path = sarco_scene_path
 
+	# Use CellFilter utility instead of direct WorldData call
 	var spawn_position = (
-			data.get_local_cell_position(sarco_cells[0])
+			CellFilter.get_cell_position(data, sarco_cells[0])
 			+ sarco_offset
 	)
 	spawn_data.set_position_in_cell(spawn_position)

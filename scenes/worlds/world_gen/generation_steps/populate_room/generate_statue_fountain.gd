@@ -1,4 +1,5 @@
-# Write your doc string for this file here
+## Generates fountains in fountain rooms using CenterCellFilter for placement
+## Refactored to use CellFilter wrapper calls instead of direct WorldData calls
 extends GenerationStep
 
 ### Member Variables and Dependencies -------------------------------------------------------------
@@ -9,7 +10,6 @@ extends GenerationStep
 #--- constants ------------------------------------------------------------------------------------
 
 const Fountain = preload("res://scenes/objects/large_objects/fountains_and_wells/medieval_fountain.tscn")
-const RoomWalls = preload("res://scenes/worlds/world_gen/helper_objects/crypt_room_walls.gd")
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 @export var room_purpose_data : Resource = null
@@ -23,6 +23,7 @@ const RoomWalls = preload("res://scenes/worlds/world_gen/helper_objects/crypt_ro
 
 var _rng := RandomNumberGenerator.new()
 var min_tile_size : Vector2
+var _center_filter := CenterCellFilter.new()
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -51,36 +52,33 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 		var statue_fountain := c_value as RoomData
 		print("DEBUG: Processing fountain room at: ", statue_fountain.rect2)
 
-		var walls_data := RoomWalls.new()
-		walls_data.init_from_room(data, statue_fountain, fountain_tile_size, _rng)
-
-		_spawn_middle(data, statue_fountain, walls_data)
+		_spawn_middle(data, statue_fountain)
 
 
-func _spawn_middle(world_data: WorldData, statue_fountain: RoomData, walls_data: RoomWalls) -> void:
-	var remaining_rect := DecorateRooms.get_remaining_rect(statue_fountain, walls_data, fountain_tile_size)
-
+func _spawn_middle(world_data: WorldData, statue_fountain: RoomData) -> void:
 	print("DEBUG: Room rect: ", statue_fountain.rect2)
-	print("DEBUG: Remaining rect after walls: ", remaining_rect)
 	print("DEBUG: Expected room center: ", Vector2(statue_fountain.rect2.position) + Vector2(statue_fountain.rect2.size) / 2.0)
 
-	if not DecorateRooms.can_place_object(remaining_rect, fountain_tile_size):
+	# Configure CenterCellFilter with fountain size
+	_center_filter.set_object_size(fountain_tile_size)
+	
+	# Use CenterCellFilter to get placement data
+	var placement_data := _center_filter.get_center_placement_data(world_data, statue_fountain)
+	
+	if placement_data.is_empty():
+		print("DEBUG: Cannot place fountain - no valid center placement found")
 		return
-
-	var placement_data := DecorateRooms.calculate_center_position(
-		remaining_rect,
-		fountain_tile_size,
-		world_data.CELL_SIZE
-	)
-
+	
+	var fountain_cells := placement_data.cells as Array
+	var fountain_offset := placement_data.offset as Vector3
+	
 	print("DEBUG: Placement data rect: ", placement_data.rect)
-	print("DEBUG: Placement data offset: ", placement_data.offset)
-
-	var fountain_cells := DecorateRooms.get_center_cells(world_data, placement_data.rect)
+	print("DEBUG: Placement data offset: ", fountain_offset)
 
 	if not fountain_cells.is_empty():
-		var fountain_rotation := DecorateRooms.calculate_rotation(walls_data, vertical_center_rotation)
-		_set_fountain_spawn_data(world_data, fountain_cells, -1, placement_data.offset, fountain_rotation)
+		# Simple rotation based on vertical_center_rotation setting
+		var fountain_rotation := deg_to_rad(vertical_center_rotation)
+		_set_fountain_spawn_data(world_data, fountain_cells, -1, fountain_offset, fountain_rotation)
 
 
 func _set_fountain_spawn_data(
@@ -96,20 +94,24 @@ func _set_fountain_spawn_data(
 	print("DEBUG: Fountain offset: ", fountain_offset)
 	print("DEBUG: Fountain rotation: ", fountain_rotation)
 
-	# Debug the cell position calculation
+	# Debug the cell position calculation using CellFilter wrapper
 	var first_cell_index = fountain_cells[0]
-	var cell_world_pos = data.get_local_cell_position(first_cell_index)
+	var cell_world_pos = CellFilter.get_cell_position(data, first_cell_index)
 	print("DEBUG: First cell index: ", first_cell_index)
 	print("DEBUG: Cell world position: ", cell_world_pos)
 	print("DEBUG: Final spawn position: ", cell_world_pos + fountain_offset)
 
-	var spawn_data := DecorateRooms.create_spawn_data(
-		data,
-		fountain_scene_path,
-		fountain_cells[0],
-		fountain_offset,
-		fountain_rotation if wall_direction == -1 else 0.0
+	var spawn_data := SpawnData.new()
+	spawn_data.scene_path = fountain_scene_path
+
+	# Use CellFilter utility instead of direct WorldData call
+	var spawn_position = (
+			CellFilter.get_cell_position(data, fountain_cells[0])
+			+ fountain_offset
 	)
+	spawn_data.set_position_in_cell(spawn_position)
+	if wall_direction == -1:
+		spawn_data.set_y_rotation(fountain_rotation)
 
 	print("DEBUG: Spawn data created: ", spawn_data)
 	print("DEBUG: Spawn data scene path: ", spawn_data.scene_path)

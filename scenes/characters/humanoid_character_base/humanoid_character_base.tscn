@@ -3939,6 +3939,8 @@ nodes/vertical_direction/position = Vector2(-429.698, 88.4592)
 node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animation_2", &"ads_r", 0, &"_hip_animation", &"ads_r", 1, &"_ads_animation", &"crouch", 0, &"movement", &"crouch", 1, &"movement_crouch", &"grounded", 0, &"vertical_direction", &"grounded", 1, &"run", &"gun_ready_l", 0, &"gun_ready_r", &"gun_ready_l", 1, &"ads_l", &"gun_ready_r", 0, &"grounded", &"gun_ready_r", 1, &"ads_r", &"output", 0, &"gun_ready_l", &"run", 0, &"crouch", &"run", 1, &"_run_animation"]
 
 [node name="HumanoidCharacterBase" type="RigidBody3D" groups=["CHARACTER"]]
+collision_layer = 18
+collision_mask = 531
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true

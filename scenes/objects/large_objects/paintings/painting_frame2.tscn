@@ -108,6 +108,8 @@ collision_layer = 64
 collision_mask = 65
 center_of_mass_mode = 1
 script = ExtResource("1_tnkbv")
+is_painting = true
+canvas_mesh_name = "Ramy02_OBRAZ_0"
 metadata/_custom_type_script = "uid://bsovojpefr6cg"
 
 [node name="Durability" type="Timer" parent="."]

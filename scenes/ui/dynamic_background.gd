@@ -12,6 +12,7 @@ extends Control
 @export var background_directory: String = "res://resources/art/title_backgrounds/"  ## Directory containing background images
 @export var zoom_scale: float = 1.3  ## Scale factor for zoom effect
 @export var max_images: int = 3  ## Maximum number of images on screen at once
+@export var target_image_scale = 0.6  # Use 67% of screen size (roughly 2/3)
 
 # Special image handling
 @export var special_image_path: String = "res://resources/art/title_backgrounds/title_cathedral_photo.jpg"
@@ -156,7 +157,7 @@ func create_new_image() -> Control:
 	
 	# Create the main image TextureRect
 	var texture_rect: TextureRect = TextureRect.new()
-	texture_rect.expand_mode = 0
+	texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	texture_rect.anchor_left = 0.0
 	texture_rect.anchor_top = 0.0
@@ -182,12 +183,11 @@ func create_new_image() -> Control:
 		if image:
 			texture_rect.texture = image
 			
-			# Scale to about 50% of screen size while maintaining aspect ratio
+			# Scale to about 67% of screen size while maintaining aspect ratio
 			var screen_size: Vector2 = Vector2(get_viewport().size)
-			var target_scale = 0.5  # Use 50% of screen size
 			var scale_factor = min(
-				target_scale * screen_size.x / image.get_size().x,
-				target_scale * screen_size.y / image.get_size().y
+				target_image_scale * screen_size.x / image.get_size().x,
+				target_image_scale * screen_size.y / image.get_size().y
 			)
 			container.size = image.get_size() * scale_factor
 			

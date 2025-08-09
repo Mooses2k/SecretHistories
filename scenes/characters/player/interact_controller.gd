@@ -58,6 +58,17 @@ func _process(delta: float) -> void:
 	grab_cast.force_raycast_update()
 	grab_target = grab_cast.get_collider() as RigidBody3D
 	pick_target = grab_cast.get_collider() as PickableItem
+	
+	# If we don't have a grab_target but we have an ignite area, check if its parent is grabbable
+	if grab_target == null and is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
+		print("DEBUG: Found ignite area without grab_target. Interact target: ", interact_target.name)
+		
+		# The ignite area is typically a child Area3D of a RigidBody3D (like a candle)
+		# So we need to check if the parent is a RigidBody3D
+		var interact_node = interact_target as Node
+		if interact_node and interact_node.get_parent() is RigidBody3D:
+			grab_target = interact_node.get_parent() as RigidBody3D
+			print("DEBUG: Set grab_target to ignite area's parent: ", grab_target.name)
 	#TODO: move this code to the gui instead, and make near cast behave like kick
 	GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.NONE
 	
@@ -95,6 +106,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			# Store the grab target and collision point that were under crosshair when button was FIRST pressed
 			captured_grab_target = grab_target
+			
+			# Special case: if we're pointing at an ignite area but no grab_target,
+			# check if the ignite area's parent is grabbable
+			if captured_grab_target == null and is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
+				print("DEBUG: Capturing ignite area's parent for grab. Interact target: ", interact_target.name)
+				var interact_node = interact_target as Node
+				if interact_node and interact_node.get_parent() is RigidBody3D:
+					captured_grab_target = interact_node.get_parent() as RigidBody3D
+					print("DEBUG: Captured grab_target from ignite area's parent: ", captured_grab_target.name)
+			
 			if grab_cast.is_colliding():
 				captured_collision_point = grab_cast.get_collision_point()
 			

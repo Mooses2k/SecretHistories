@@ -17,6 +17,8 @@ var drag_speed_modifier : float = 1.0
 
 var moved_since_sprint : bool = false
 var dodge_performed : bool = false
+var was_sprinting : bool = false  # Track previous sprint state to detect sprint end
+var sprint_end_time : float = 0.0  # Time when sprint ended
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -44,8 +46,18 @@ func _physics_process(delta: float) -> void:
 	var is_sprinting := input.sprint and not input.movement_vector.is_zero_approx()
 	input.crouch = Input.is_action_pressed(&"player|crouch") and not is_sprinting  # can't crouch if sprinting
 	
-	# Dodge detection
-	if input.sprint and not dodge_performed:
+	# Reset timer whenever forward + sprint is pressed to prevent false positive dodges
+	var forward_pressed = input_vector_2d.y < 0  # negative y means forward movement
+	if input.sprint and forward_pressed:
+		sprint_end_time = 0.0
+	else:
+		sprint_end_time += delta
+	
+	was_sprinting = is_sprinting
+	
+	# Dodge detection - prevent dodge for brief period after sprint ends
+	var sprint_recently_ended = sprint_end_time < 0.5
+	if input.sprint and not dodge_performed and not sprint_recently_ended and state.time_since_dodge >= (owner as HumanoidCharacter).parameters.dodge_cooldown:
 		# Check for left, right, or down movement (not forward)
 		var movement_direction = input.movement_vector.normalized()
 		var forward_direction = -state.facing.z
@@ -58,10 +70,11 @@ func _physics_process(delta: float) -> void:
 			if (input_vector_2d.x != 0 or input_vector_2d.y > 0) and input_vector_2d.y >= 0:
 				owner.dodge()
 				dodge_performed = true
-	
+
 	# If pressed sprint without moving, kick
 	if Input.is_action_just_released(&"player|sprint") and not moved_since_sprint:
 		kick()
+
 	# moved is true if sprinting and either already moved or is moving, false otherwise
 	moved_since_sprint = input.sprint and (moved_since_sprint or is_sprinting)
 

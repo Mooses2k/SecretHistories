@@ -20,6 +20,7 @@ var sprinting : bool = false
 var is_reloading : bool = false
 var time_since_kick : float = INF
 var time_since_dodge : float = INF
+var noclip_enabled : bool = false
 
 @onready var parameters: HumanoidCharacterParameters = $"../Parameters" as HumanoidCharacterParameters
 @onready var input: HumanoidCharacterInput = $"../Input" as HumanoidCharacterInput

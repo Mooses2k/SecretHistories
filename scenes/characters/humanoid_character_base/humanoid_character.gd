@@ -31,9 +31,9 @@ func _ready() -> void:
 
 	character_collision.height = parameters.standing_height
 	ground_detection_test_parameters.collide_separation_ray = false
-	ground_detection_test_parameters.motion = Vector3.DOWN*0.3
+	ground_detection_test_parameters.motion = Vector3.DOWN * 0.3
 	ground_detection_test_parameters.max_collisions = COLLISIONS_REPORTED
-	ceiling_detection_test_parameters.motion = Vector3.UP*0.3
+	ceiling_detection_test_parameters.motion = Vector3.UP * 0.3
 	ceiling_detection_test_parameters.max_collisions = COLLISIONS_REPORTED
 
 
@@ -41,47 +41,49 @@ func _physics_process(delta: float) -> void:
 	if global_rotation.y != 0:
 		state.facing = global_basis * state.facing
 		global_basis = Basis.IDENTITY
-	# crouch input
-	state.sprinting = input.sprint and input.movement_vector.dot(-state.facing.z) > 0.0 and state.stamina > 0.0
-	if state.sprinting:
-		state.stamina -= parameters.stamina_drain_rate * delta
-	else:
-		state.stamina += parameters.stamina_drain_rate * delta
-	var target_crouch_ratio : float = 1.0 if (input.crouch and not state.sprinting) else 0.0
+	# Skip normal movement logic in noclip mode
+	if not state.noclip_enabled:
+		# crouch input
+		state.sprinting = input.sprint and input.movement_vector.dot(-state.facing.z) > 0.0 and state.stamina > 0.0
+		if state.sprinting:
+			state.stamina -= parameters.stamina_drain_rate * delta
+		else:
+			state.stamina += parameters.stamina_drain_rate * delta
+		var target_crouch_ratio : float = 1.0 if (input.crouch and not state.sprinting) else 0.0
 
-	var target_height = lerp(parameters.standing_height, parameters.crouch_height, target_crouch_ratio)
-	if target_height > character_collision.height:
-		ceiling_detection_test_parameters.motion = Vector3.UP * (target_height - character_collision.height + 0.1)
-		ceiling_detection_test_parameters.from = global_transform
-		var ceiling_detection_result := PhysicsTestMotionResult3D.new()
-		var ceiling_detected : bool = PhysicsServer3D.body_test_motion(
-			get_rid(),
-			ceiling_detection_test_parameters,
-			ceiling_detection_result
-		)
-		if ceiling_detected:
-			for i in ceiling_detection_result.get_collision_count():
-				var check_normal := ceiling_detection_result.get_collision_normal(i)
-				var check_position := ceiling_detection_result.get_collision_point(i)
-				check_position.y -= global_position.y
-				# Only collisions with horizontal prin ground
-				if is_zero_approx(check_normal.y): continue
-				# Only collisions below the body origin
-				if (check_position.y < target_height + 0.1):
-					target_height = check_position.y - 0.1
-			target_height = maxf(target_height, character_collision.height)
-			target_crouch_ratio = inverse_lerp(parameters.standing_height, parameters.crouch_height, target_height)
-	state.current_crouch_ratio = move_toward(state.current_crouch_ratio, target_crouch_ratio, delta/parameters.crouch_animation_duration)
-	character_collision.height = lerp(parameters.standing_height, parameters.crouch_height, state.current_crouch_ratio)
+		var target_height = lerp(parameters.standing_height, parameters.crouch_height, target_crouch_ratio)
+		if target_height > character_collision.height:
+			ceiling_detection_test_parameters.motion = Vector3.UP * (target_height - character_collision.height + 0.1)
+			ceiling_detection_test_parameters.from = global_transform
+			var ceiling_detection_result := PhysicsTestMotionResult3D.new()
+			var ceiling_detected : bool = PhysicsServer3D.body_test_motion(
+				get_rid(),
+				ceiling_detection_test_parameters,
+				ceiling_detection_result
+			)
+			if ceiling_detected:
+				for i in ceiling_detection_result.get_collision_count():
+					var check_normal := ceiling_detection_result.get_collision_normal(i)
+					var check_position := ceiling_detection_result.get_collision_point(i)
+					check_position.y -= global_position.y
+					# Only collisions with horizontal prin ground
+					if is_zero_approx(check_normal.y): continue
+					# Only collisions below the body origin
+					if (check_position.y < target_height + 0.1):
+						target_height = check_position.y - 0.1
+				target_height = maxf(target_height, character_collision.height)
+				target_crouch_ratio = inverse_lerp(parameters.standing_height, parameters.crouch_height, target_height)
+		state.current_crouch_ratio = move_toward(state.current_crouch_ratio, target_crouch_ratio, delta/parameters.crouch_animation_duration)
+		character_collision.height = lerp(parameters.standing_height, parameters.crouch_height, state.current_crouch_ratio)
 
 	model_root.global_basis = state.facing
 
 
 func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 	state.was_on_ground = state.is_on_ground
-	ground_detection_test_parameters.motion = Vector3.DOWN*0.2
+	ground_detection_test_parameters.motion = Vector3.DOWN * 0.2
 	if state.was_on_ground:
-		ground_detection_test_parameters.motion += Vector3.DOWN*0.1
+		ground_detection_test_parameters.motion += Vector3.DOWN * 0.1
 	ground_detection_test_parameters.from = physics_state.transform
 	var ground_detection_result : PhysicsTestMotionResult3D = PhysicsTestMotionResult3D.new()
 	var ground_detected : bool = PhysicsServer3D.body_test_motion(
@@ -124,38 +126,60 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 			collision_position = ray_result["position"]
 			state.is_on_ground = collision_normal.y > MAX_NORMAL_Y
 	
-	if state.should_jump():
-		physics_state.linear_velocity.y = parameters.jump_speed
-		state.is_on_ground = false
-	
-	var ground_normal := Vector3.UP
-	var control_multiplier : float = parameters.jump_control_multiplier
-	
-	if state.is_on_ground:
-		ground_normal = collision_normal
-		physics_state.transform.origin.y = move_toward(
-			physics_state.transform.origin.y,
-			collision_position.y,
-			2.0*physics_state.step
+	# Handle noclip movement
+	if state.noclip_enabled:
+		# In noclip mode, move directly based on input without ground constraints
+		var noclip_input := input.movement_vector
+		# Add vertical movement in noclip mode using jump and crouch inputs
+		if input.jump:
+			noclip_input.y += 1.0
+		if input.crouch:
+			noclip_input.y -= 1.0
+		
+		# Normalize the input vector to prevent faster diagonal movement
+		if noclip_input.length() > 1.0:
+			noclip_input = noclip_input.normalized()
+		
+		# Use base speed directly to avoid crouch speed penalties
+		var target_velocity := noclip_input * parameters.base_speed
+		physics_state.linear_velocity = physics_state.linear_velocity.move_toward(
+			target_velocity,
+			physics_state.step * parameters.base_acceleration * 2.0
 		)
-		control_multiplier = 1.0
-	
-	var ground_plane : Plane = Plane(ground_normal, 0.0)
-	#var ground_angle = PI*0.5 - ground_normal.angle_to(Vector3.UP)
-	
-	var ground_velocity = ground_plane.project(physics_state.linear_velocity)
-	var normal_speed = physics_state.linear_velocity.dot(ground_normal)	
+	else:
+		# Normal movement logic
+		if state.should_jump():
+			physics_state.linear_velocity.y = parameters.jump_speed
+			state.is_on_ground = false
+		
+		var ground_normal := Vector3.UP
+		var control_multiplier : float = parameters.jump_control_multiplier
+		
+		if state.is_on_ground:
+			ground_normal = collision_normal
+			physics_state.transform.origin.y = move_toward(
+				physics_state.transform.origin.y,
+				collision_position.y,
+				2.0 * physics_state.step
+			)
+			control_multiplier = 1.0
+		
+		var ground_plane : Plane = Plane(ground_normal, 0.0)
+		#var ground_angle = PI*0.5 - ground_normal.angle_to(Vector3.UP)
+		
+		var ground_velocity = ground_plane.project(physics_state.linear_velocity)
+		var normal_speed = physics_state.linear_velocity.dot(ground_normal)
 
-	var local_z : Vector3 = ground_plane.project(physics_state.transform.basis.z).normalized()
-	var local_x : Vector3 = ground_plane.project(physics_state.transform.basis.x).normalized()
-	var target_ground_velocity = (input.movement_vector.x*local_x + input.movement_vector.z*local_z)
-	target_ground_velocity *= state.get_target_speed()
-	ground_velocity = ground_velocity.move_toward(target_ground_velocity, physics_state.step*parameters.base_acceleration*control_multiplier)
-	
-	if state.is_on_ground:
-		normal_speed = maxf(normal_speed, 0.0)
-		normal_speed = 0.0
-	physics_state.linear_velocity = ground_velocity + normal_speed*ground_normal
+		var local_z : Vector3 = ground_plane.project(physics_state.transform.basis.z).normalized()
+		var local_x : Vector3 = ground_plane.project(physics_state.transform.basis.x).normalized()
+		var target_ground_velocity = (input.movement_vector.x * local_x + input.movement_vector.z * local_z)
+		target_ground_velocity *= state.get_target_speed()
+		ground_velocity = ground_velocity.move_toward(target_ground_velocity, physics_state.step * parameters.base_acceleration * control_multiplier)
+		
+		if state.is_on_ground:
+			normal_speed = maxf(normal_speed, 0.0)
+			normal_speed = 0.0
+		physics_state.linear_velocity = ground_velocity + normal_speed * ground_normal
 	
 	#var ramp_factor = inverse_lerp(
 		#parameters.min_slope_angle,
@@ -166,7 +190,26 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 	#var slide_factor = clamp(ramp_factor - 1.0, 0.0, 1.0)
 	#ramp_factor = clamp(ramp_factor, 0.0, 1.0)
 	
-	physics_state.linear_velocity += physics_state.total_gravity*physics_state.step
+	# Apply gravity only if not in noclip mode
+	if not state.noclip_enabled:
+		physics_state.linear_velocity += physics_state.total_gravity * physics_state.step
+
+
+func toggle_noclip() -> void:
+	if not state.noclip_enabled:
+		# Enable noclip
+		state.noclip_enabled = true
+		character_collision.disabled = true
+		gravity_scale = 0.0
+		print("CHEAT: noclip enabled")
+	else:
+		# Disable noclip
+		state.noclip_enabled = false
+		gravity_scale = 1.0
+		# Always end standing (equivalent to wanna_stand = true in old system)
+		input.crouch = false
+		character_collision.disabled = false
+		print("CHEAT: noclip disabled")
 
 
 func recoil() -> void:

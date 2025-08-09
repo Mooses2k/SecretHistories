@@ -3,6 +3,7 @@ extends Node
 
 #TODO: do this through a signal instead
 @onready var interact_controller: Node = $"../InteractController"
+@onready var throw_place_controller: Node = $"../ThrowPlaceController"
 @onready var player_controller: Node = get_parent()
 @onready var character : HumanoidCharacter = owner as HumanoidCharacter
 
@@ -71,13 +72,27 @@ func _unhandled_input(event: InputEvent) -> void:
 					if _is_weapon(inventory.hotbar[inventory.current_offhand_slot]):
 						inventory.equip_offhand_item()
 		
-		# hotbar scrolling
+		# hotbar scrolling - but not when grabbing objects or placing blueprints
 		elif event.is_action_pressed(&"itm|next_hotbar_item"):
+			# Check if interact controller is currently grabbing
+			if interact_controller.interact_state == interact_controller.InteractState.GRAB:
+				return  # Don't handle hotbar switching while grabbing
+			# Check if throw place controller is currently placing
+			if (throw_place_controller.throw_state_mainhand == throw_place_controller.ThrowState.PLACE or
+				throw_place_controller.throw_state_offhand == throw_place_controller.ThrowState.PLACE):
+				return  # Don't handle hotbar switching while placing blueprints
 			inventory.drop_bulky_item()
 			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, 1)
 			inventory.current_mainhand_slot = next_slot
 			print(inventory.current_mainhand_slot)
 		elif event.is_action_pressed(&"itm|previous_hotbar_item"):
+			# Check if interact controller is currently grabbing
+			if interact_controller.interact_state == interact_controller.InteractState.GRAB:
+				return  # Don't handle hotbar switching while grabbing
+			# Check if throw place controller is currently placing
+			if (throw_place_controller.throw_state_mainhand == throw_place_controller.ThrowState.PLACE or
+				throw_place_controller.throw_state_offhand == throw_place_controller.ThrowState.PLACE):
+				return  # Don't handle hotbar switching while placing blueprints
 			inventory.drop_bulky_item()
 			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, -1)
 			inventory.current_mainhand_slot = next_slot

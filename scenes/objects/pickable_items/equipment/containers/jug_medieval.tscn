@@ -47,6 +47,7 @@ size = Vector3(0.2, 0.06, 0.36)
 
 [node name="JugMedieval" instance=ExtResource("2")]
 mass = 1.0
+center_of_mass_mode = 1
 item_size = 0
 item_name = "Ceramic Jug"
 item_drop_sound = ExtResource("3")
@@ -58,7 +59,6 @@ mesh = SubResource("ArrayMesh_4v0ht")
 [node name="CollisionShape3D" parent="." index="1"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0073195, 0)
 shape = SubResource("2")
-disabled = true
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="." index="2"]
 transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0.100291, -0.00241254, 0)

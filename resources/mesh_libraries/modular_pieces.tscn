@@ -1560,6 +1560,7 @@ shape = SubResource("58")
 
 [node name="Floor-3x3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
+visible = false
 mesh = SubResource("ArrayMesh_1ub1y")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Floor-3x3"]
@@ -1911,37 +1912,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.01, 1.51, -1.49)
 shape = SubResource("51")
 
 [node name="Floor_3x3_Irregular" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
-visible = false
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.01, 0.75)
 mesh = SubResource("ArrayMesh_6cbux")
 skeleton = NodePath("")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Floor_3x3_Irregular"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.01, -1.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_3x3_Irregular/StaticBody3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -0.75, 1.5)
 shape = SubResource("59")
 
 [node name="Floor_3x3m_broken1" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.01, 0.75)
 visible = false
 mesh = SubResource("ArrayMesh_rsavs")
 skeleton = NodePath("")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Floor_3x3m_broken1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_3x3m_broken1/StaticBody3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
 shape = SubResource("59")
 
 [node name="Floor_3x3m_broken_2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, -0.01, 0.75)
 visible = false
 mesh = SubResource("ArrayMesh_muhy1")
 skeleton = NodePath("")
 
 [node name="StaticBody3" type="StaticBody3D" parent="Floor_3x3m_broken_2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_3x3m_broken_2/StaticBody3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)

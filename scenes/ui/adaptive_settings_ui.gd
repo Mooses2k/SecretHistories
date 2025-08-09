@@ -9,12 +9,25 @@ const NonTabbedSettingsUI = preload("settings_ui/settings_ui.gd")
 const TabbedSettingsScene = preload("tabbed_settings_ui.tscn")
 const NonTabbedSettingsScene = preload("settings_ui/settings_ui.tscn")
 
+const TABBED_THRESHOLD: int = 2
+
 var current_ui: Control
 var settings: SettingsClass
 var is_tabbed_mode: bool = false
 
-## Threshold for switching to tabbed interface
-const TABBED_THRESHOLD: int = 2
+## Configuration methods that forward to the current UI
+## These store the configuration and apply it when the UI is created
+var stored_group_order: Array[String] = []
+var stored_tab_grouping_rules: Dictionary = {}
+var stored_tab_order: Array[String] = []
+
+
+## Forward signals from the current UI
+func _ready():
+	# Connect to child UI signals when they become available
+	if current_ui:
+		_connect_ui_signals()
+
 
 ## Main interface method - maintains backward compatibility
 func attach_settings(settings_instance: SettingsClass, be_sorted: bool = true):
@@ -22,6 +35,7 @@ func attach_settings(settings_instance: SettingsClass, be_sorted: bool = true):
 	_determine_ui_type()
 	_create_appropriate_ui()
 	_attach_settings_to_ui(be_sorted)
+
 
 ## Analyzes the SettingsClass to count unique groups
 func _determine_ui_type():
@@ -49,6 +63,7 @@ func _determine_ui_type():
 	print("AdaptiveSettingsUI: Threshold is ", TABBED_THRESHOLD, ", using ",
 		  "tabbed" if is_tabbed_mode else "non-tabbed", " interface")
 
+
 ## Creates and configures the appropriate UI
 func _create_appropriate_ui():
 	# Clear any existing UI
@@ -68,6 +83,7 @@ func _create_appropriate_ui():
 		is_tabbed_mode = false
 		_clear_current_ui()
 		_create_non_tabbed_ui()
+
 
 ## Creates the tabbed settings UI
 func _create_tabbed_ui() -> bool:
@@ -112,6 +128,7 @@ func _add_ui_to_scene():
 	# Force immediate layout update
 	call_deferred("_force_layout_update")
 
+
 ## Attaches settings to the current UI
 func _attach_settings_to_ui(be_sorted: bool):
 	if not current_ui or not settings:
@@ -131,13 +148,6 @@ func _attach_settings_to_ui(be_sorted: bool):
 	else:
 		print("AdaptiveSettingsUI: Warning - UI doesn't have attach_settings method")
 
-
-## Configuration methods that forward to the current UI
-## These store the configuration and apply it when the UI is created
-
-var stored_group_order: Array[String] = []
-var stored_tab_grouping_rules: Dictionary = {}
-var stored_tab_order: Array[String] = []
 
 ## Configure group ordering for non-tabbed UI
 func set_group_order(group_order: Array[String]):
@@ -207,11 +217,6 @@ func get_group_count() -> int:
 	
 	return unique_groups.size()
 
-## Forward signals from the current UI
-func _ready():
-	# Connect to child UI signals when they become available
-	if current_ui:
-		_connect_ui_signals()
 
 func _connect_ui_signals():
 	# Connect tabbed UI specific signals
@@ -219,24 +224,11 @@ func _connect_ui_signals():
 		if not current_ui.is_connected("tab_changed", _on_tab_changed):
 			current_ui.connect("tab_changed", _on_tab_changed)
 
+
 func _on_tab_changed(tab_name: String):
 	# Forward the signal or handle tab changes if needed
 	pass
 
-## Forward the ShowDebugOptions button press to the current UI
-func _on_ShowDebugOptions_pressed():
-	if current_ui and current_ui.has_method("_on_ShowDebugOptions_pressed"):
-		current_ui._on_ShowDebugOptions_pressed()
-	else:
-		# Fallback: toggle visibility of parent container
-		var parent_container = get_parent()
-		if parent_container:
-			parent_container.visible = !parent_container.visible
-			if parent_container.visible and parent_container is ScrollContainer:
-				var scroll_container = parent_container as ScrollContainer
-				scroll_container.scroll_vertical = 0
-				var h_scroll = scroll_container.get_h_scroll_bar()
-				scroll_container.scroll_horizontal = max(h_scroll.max_value - h_scroll.page, 0)
 
 ## Force layout update for proper sizing
 func _force_layout_update():
@@ -246,6 +238,7 @@ func _force_layout_update():
 		# Also ensure we have proper size flags
 		size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		size_flags_vertical = Control.SIZE_EXPAND_FILL
+
 
 ## Cleanup
 func _exit_tree():

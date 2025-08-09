@@ -44,11 +44,13 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_1pnpg")
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_l4kgk"]
-points = PackedVector3Array(0.0878388, 0.0154777, 0.00262568, -0.173638, -0.0162488, 0.0656568, -0.184178, -0.0172351, 0.0900111, 0.0172286, -0.184178, 0.0900111, 0.0748094, 0.172604, 0.0900111, 0.184166, -0.0172351, 0.0900111, -0.0983459, 0.0465768, 0.00773663, 0.00521863, -0.131111, 0.0177516, -0.126597, 0.138133, 0.0900111, -0.00534131, 0.139262, 0.0225555, -0.113848, -0.113846, 0.0439712, 0.106627, -0.106603, 0.0333186, 0.132795, 0.0584142, 0.0280378, -0.0827912, -0.0362218, 0.00256502, -0.0747852, -0.172604, 0.0900111, 0.132354, -0.132364, 0.0900111, 0.172664, 0.0747817, 0.0900111, 0.0960592, 0.101385, 0.0226313, 0.0154715, 0.0878482, 0.00262535, 0.12077, -0.0524771, 0.0177187, -0.0700617, 0.161701, 0.0655202, -0.10138, 0.0960613, 0.0226328, 0.0362116, -0.0828133, 0.00256855, -0.161689, 0.0700715, 0.065514, -0.13111, -0.00522463, 0.017752, -0.17264, -0.0748177, 0.0900111, 0.0700782, -0.161688, 0.0655185, -0.0172405, 0.184178, 0.0900111, -0.0525138, -0.120746, 0.0177189, 0.161711, -0.0700381, 0.0655141, 0.167842, 0.00539383, 0.0547917, -0.132798, -0.0584106, 0.0280388)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l4kgk"]
+height = 0.0532715
+radius = 0.090332
 
 [node name="BowlCeramicMedieval" instance=ExtResource("2")]
 mass = 0.5
+center_of_mass_mode = 1
 item_size = 0
 item_name = "Ceramic Bowl"
 item_drop_sound = ExtResource("3")
@@ -59,8 +61,8 @@ mesh = SubResource("ArrayMesh_fjfa6")
 surface_material_override/0 = ExtResource("1")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.5, 0, -0.5, -2.18557e-08, 0, -0.0223771, 0)
-shape = SubResource("ConvexPolygonShape3D_l4kgk")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00499936, 0)
+shape = SubResource("CylinderShape3D_l4kgk")
 
 [node name="HoldPosition" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0550002, -0.011146, 0)

@@ -30,6 +30,7 @@ points = PackedVector3Array(0.101536, 0.0142607, 0.0265163, -0.115237, -0.012308
 
 [node name="BottleShortMedieval2" instance=ExtResource("2")]
 mass = 1.0
+center_of_mass_mode = 1
 item_size = 0
 item_name = "Short Ceramic Bottle"
 

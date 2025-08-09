@@ -184,7 +184,7 @@ func create_new_image() -> Control:
 			
 			# Scale to about 50% of screen size while maintaining aspect ratio
 			var screen_size: Vector2 = Vector2(get_viewport().size)
-			var target_scale = 0.5  # Use 50% of screen size
+			var target_scale = 0.6
 			var scale_factor = min(
 				target_scale * screen_size.x / image.get_size().x,
 				target_scale * screen_size.y / image.get_size().y
@@ -192,7 +192,7 @@ func create_new_image() -> Control:
 			container.size = image.get_size() * scale_factor
 			
 			# Position randomly within the left 2/3 of the screen with strong bias toward top areas
-			var left_zone_width = screen_size.x * (2.0 / 3.0)  # Left 2/3 of screen width
+			var left_zone_width = screen_size.x * (1.0 / 2.0)  # Left half of screen width
 			var pan_margin = container.size * 0.1  # Smaller margin for more positioning freedom
 			
 			# Calculate available space with large bottom margin to prevent going off-screen
@@ -268,55 +268,6 @@ func select_random_image() -> String:
 	return selected_image
 
 
-func start_smooth_pan(texture_rect: Control) -> void:
-	## Start smooth panning animation for the image with continuous linear movement
-	if not is_instance_valid(texture_rect):
-		return
-	
-	# Get the actual TextureRect child from the container
-	var actual_texture_rect: TextureRect = texture_rect.get_child(0) as TextureRect
-	if not actual_texture_rect or actual_texture_rect.texture == null:
-		return
-	
-	var screen_size: Vector2 = get_viewport().size
-	var left_zone_width = screen_size.x * (2.0 / 3.0)
-	
-	# Calculate larger panning bounds for more noticeable movement
-	var max_offset = texture_rect.size * 0.25  # Increased from 10% to 25% of image size
-	
-	# Create smooth panning tween with linear transition for constant speed
-	var pan_tween: Tween = create_tween()
-	pan_tween.set_trans(Tween.TRANS_LINEAR)  # Changed from SINE to LINEAR for smooth constant movement
-	pan_tween.set_ease(Tween.EASE_IN_OUT)
-	
-	# Calculate upper-left zone center for reference (encourage upward movement)
-	var upper_zone_center = Vector2(left_zone_width / 2, screen_size.y * 0.3)  # Center of upper 30% of screen
-	var current_center = texture_rect.position + texture_rect.size / 2
-	
-	# Bias movement toward upper areas and add randomness
-	var direction_to_upper = (upper_zone_center - current_center).normalized()
-	var random_direction = Vector2(rng.randf_range(-1, 1), rng.randf_range(-1.5, 0.5)).normalized()  # Bias random Y toward negative (upward)
-	
-	# Blend upper-seeking with random movement (50% toward upper zone, 50% random with upward bias)
-	var final_direction = (direction_to_upper * 0.5 + random_direction * 0.5).normalized()
-	var target_offset = final_direction * max_offset.x
-	
-	# Ensure the final position stays within bounds with better bottom margin
-	var final_pos = texture_rect.position + target_offset
-	final_pos.x = clamp(final_pos.x, 0, left_zone_width - texture_rect.size.x)
-	
-	# Use larger bottom margin to prevent images from going off-screen
-	var bottom_margin = texture_rect.size.y * 0.2  # 20% of image height as bottom margin
-	final_pos.y = clamp(final_pos.y, 0, screen_size.y - texture_rect.size.y - bottom_margin)
-	
-	# Faster movement - reduced from display_time * 2.0 to just display_time + fade_duration
-	var movement_duration = display_time + fade_duration
-	pan_tween.tween_property(texture_rect, "position", final_pos, movement_duration)
-	
-	pan_tweens.append(pan_tween)
-	pan_tween.finished.connect(_on_pan_tween_finished.bind(pan_tween))
-
-
 func start_zoom_in_effect(texture_rect: Control, duration: float) -> void:
 	## Start zoom-in effect that continues through fade duration
 	if not is_instance_valid(texture_rect):
@@ -351,7 +302,6 @@ func start_fade_in(texture_rect: Control) -> void:
 	# Start zoom effect that spans entire display time (fade_in + display + fade_out)
 	if not texture_rect.has_meta("is_special"):
 		start_continuous_zoom_effect(texture_rect)
-		start_smooth_pan(texture_rect)
 	
 	# Create a tween for fade in
 	var tween: Tween = create_tween()
@@ -380,17 +330,17 @@ func start_continuous_zoom_effect(texture_rect: Control) -> void:
 	## Start zoom effect that spans the entire time the image is shown with more noticeable scaling
 	if not is_instance_valid(texture_rect):
 		return
-	
-	# Start with a slightly smaller scale to make zoom more noticeable
-	texture_rect.scale = Vector2(0.95, 0.95)
+
+	# Start with a smaller scale to make zoom more noticeable
+	texture_rect.scale = Vector2(0.93, 0.93)
 	
 	# Calculate total duration: fade_in + display_time + fade_out
 	var total_duration = fade_duration * 2 + display_time
 	
-	# Create continuous zoom tween with smoother easing
+	# Create continuous zoom tween with linear movement and ease in/out
 	var zoom_tween: Tween = create_tween()
-	zoom_tween.set_trans(Tween.TRANS_QUART)  # Changed from LINEAR to QUART for smoother acceleration
-	zoom_tween.set_ease(Tween.EASE_OUT)      # Added easing for more natural zoom
+	zoom_tween.set_trans(Tween.TRANS_QUART)
+	zoom_tween.set_ease(Tween.EASE_OUT)
 	zoom_tween.tween_property(texture_rect, "scale",
 		Vector2(zoom_scale, zoom_scale), total_duration)
 	

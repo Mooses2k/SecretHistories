@@ -57,10 +57,10 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kbml8")
 
 [sub_resource type="BoxShape3D" id="25"]
-size = Vector3(0.1, 0.158607, 0.04)
+size = Vector3(0.0996826, 0.16341, 0.0457666)
 
 [sub_resource type="SphereShape3D" id="12"]
-radius = 0.101082
+radius = 0.0849811
 
 [node name="LHand" instance=ExtResource("9")]
 item_size = 0
@@ -73,7 +73,7 @@ item_throw_sound = ExtResource("3")
 mesh = SubResource("ArrayMesh_0ytrr")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 0.972994, 0.230831, 0, -0.230831, 0.972994, 0.0122152, -0.0136181, 0.0124412)
+transform = Transform3D(1, 0, 0, 0, 0.972994, 0.230831, 0, -0.230831, 0.972994, 0.0120565, -0.0117475, 0.00992235)
 shape = SubResource("25")
 
 [node name="Hitbox" type="Area3D" parent="." index="3"]
@@ -84,7 +84,7 @@ monitorable = false
 script = ExtResource("2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.273551, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.290014, 0)
 shape = SubResource("12")
 
 [node name="CooldownTimer" type="Timer" parent="." index="4"]

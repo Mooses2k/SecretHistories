@@ -20,7 +20,7 @@ enum InteractState {
 @export var mass_damping_scale : float = 1.0  # How much mass affects damping (0.0-1.0)
 
 # Camera-centered grab parameters
-@export var grab_distance : float = 0.5  # Distance in front of camera to hold grabbed objects (meters)
+@export var grab_distance : float = 0.7  # Distance in front of camera to hold grabbed objects (meters)
 @export var grab_distance_min : float = 0.3  # Minimum grab distance
 @export var grab_distance_max : float = 1.5  # Maximum grab distance
 @export var grab_distance_increment : float = 0.1  # How much to change grab distance per mousewheel step
@@ -171,26 +171,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 
-func _try_grab() -> bool:
-	if is_instance_valid(grab_target):
-		grabbed_item = grab_target
-		
-		# CAMERA-CENTERED: No need to store grab positions, object will be centered on camera
-		# Store the initial rotation relationship between the object and the grab cast
-		grab_rotation_offset = grab_cast.global_transform.basis.get_rotation_quaternion().inverse() * grabbed_item.global_transform.basis.get_rotation_quaternion()
-
-		# Special handling for wall objects
-		if grabbed_item.has_method("grab_by_player"):
-			grabbed_item.grab_by_player(player_controller)
-		
-		interact_state = InteractState.GRAB
-		return true
-	return false
-
 func _try_grab_captured() -> bool:
 	if is_instance_valid(captured_grab_target):
 		grabbed_item = captured_grab_target
 		
+		grab_position_object = grabbed_item.to_local(grab_cast.get_collision_point())
+		grab_position_raycast = grab_cast.to_local(grab_cast.get_collision_point())
+
 		# CAMERA-CENTERED: No need to store grab positions or collision points
 		# Object will be pulled to camera center regardless of where it was initially grabbed
 		
@@ -208,10 +195,19 @@ func _try_grab_captured() -> bool:
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(grabbed_item):
-		# CAMERA-CENTERED APPROACH: Pull object toward camera center instead of maintaining grab offset
-		var desired_position = grab_cast.global_position + (-grab_cast.global_transform.basis.z * grab_distance)
-		var difference = desired_position - grabbed_item.global_position
+		var difference : Vector3
 
+		# Old method that works well with large objects
+		var point_object := grabbed_item.to_global(grab_position_object)
+		if grabbed_item is LargeObject:
+			var point_raycast := grab_cast.to_global(grab_position_raycast)
+			difference = point_raycast - point_object
+		
+		# CAMERA-CENTERED APPROACH: Pull object toward camera center instead of maintaining grab offset
+		else:
+			var desired_position = grab_cast.global_position + (-grab_cast.global_transform.basis.z * grab_distance)
+			difference = desired_position - grabbed_item.global_position
+		
 		# Calculate mass-based force scaling
 		var mass = grabbed_item.mass
 		var base_force_multiplier = 100.0
@@ -224,13 +220,13 @@ func _physics_process(delta: float) -> void:
 			# Increase force multiplier for heavy objects
 			var mass_factor = 1.0 + (mass - temp_mass_threshold) / temp_mass_threshold
 			force_multiplier = base_force_multiplier * mass_factor * 1.5  # Additional boost for heavy objects
-			max_force_limit = 200.0 + (mass - temp_mass_threshold) * 4.4  # Higher limit for heavy objects
+			max_force_limit = 200.0 + (mass - temp_mass_threshold) * 4.6  # Higher limit for heavy objects
 		
 		var force = (difference * mass * force_multiplier)
 		force = force.limit_length(max_force_limit)
 		
 		# Apply force to object center instead of specific grab point
-		grabbed_item.apply_central_force(force)
+		grabbed_item.apply_force(force, point_object - grabbed_item.global_position)
 		
 		# Apply rotational forces to make object follow player's orientation
 		if rotation_follow_enabled:

@@ -57,7 +57,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_sgun8")
 
 [sub_resource type="BoxShape3D" id="28"]
-size = Vector3(0.0943338, 0.014, 0.0380656)
+size = Vector3(0.0943338, 0.0153008, 0.0380656)
 
 [sub_resource type="SphereShape3D" id="12"]
 radius = 0.101082
@@ -74,7 +74,7 @@ transform = Transform3D(0.989591, -0.143907, 0, 0.143907, 0.989591, 0, 0, 0, 1, 
 mesh = SubResource("ArrayMesh_3y2hs")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00651884)
+transform = Transform3D(0.997943, 0.0641143, 0, -0.0641143, 0.997943, 0, 0, 0, 1, -4.16993e-05, 0.000928966, 0.00651884)
 shape = SubResource("28")
 
 [node name="Hitbox" type="Area3D" parent="." index="3"]

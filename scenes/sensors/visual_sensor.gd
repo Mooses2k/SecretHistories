@@ -242,7 +242,7 @@ func check_light() -> PlayerLightArea:
 
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
-	if player_light_area.check_point(point) and check_point(point): return player_light_area.parent_item.owner_character
+	if player_light_area.check_point(point) and check_point(point): return player_light_area#.parent_item.owner_character
 	# Return `player_light_area` if both player's light area and enemy's fov area can reach that point.
 	return null
 

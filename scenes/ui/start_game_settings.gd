@@ -24,54 +24,32 @@ func add_generation_settings():
 # add_equipment and add_tiny_items iterate through the pickable items and tiny items folders and 
 # add the appropriate things they find to the Debug/Cheat list for things that can be spawned
 # on the first dungeon level
+# !IMPORTANT! You must run the script: item_paths_updater.gd after adding new equipment and tiny items to the game.
+# This method avoid the DirAccess method which only works in editor, but not in builds
 
 func add_equipment():
-	var dir_stack = Array()
-	var dir = DirAccess.open("res://scenes/objects/pickable_items/")
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	dir_stack.push_back(dir)
-	while not dir_stack.is_empty():
-		var top : DirAccess = dir_stack[-1]
-		var next : String = top.get_next()
-		var base_path = top.get_current_dir()
-		if not base_path.ends_with("/"):
-			base_path += "/"
-		var full_path = base_path + next
-		if next.is_empty():
-			dir_stack.pop_back()
-			continue
-		elif top.current_is_dir():
-			var new_dir = DirAccess.open(full_path)
-			new_dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-			dir_stack.push_back(new_dir)
-			continue
-		else:
-			if full_path.ends_with(".tscn") and not full_path.get_file().begins_with("_"):
-				_settings.add_int_setting(full_path, 0, 999, 1, 0)
-				_settings.set_setting_group(full_path, "Equipment")
+	var item_paths_resource: ItemPathsResource = load("res://resources/item_paths.tres")
+	if not item_paths_resource:
+		printerr("Failed to load item paths resource. Run utils/item_paths_updater.gd to generate it.")
+		return
+	
+	for full_path in item_paths_resource.equipment_paths:
+		var display_name := item_paths_resource.get_equipment_display_name(full_path)
+		_settings.add_int_setting(display_name, 0, 999, 1, 0)
+		_settings.set_setting_group(display_name, "Equipment")
+		# Store the full path as metadata so other systems can access it
+		_settings.set_setting_meta(display_name, "full_path", full_path)
 
 
 func add_tiny_items():
-	var dir_stack = Array()
-	var dir = DirAccess.open("res://resources/tiny_items/")
-	dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	dir_stack.push_back(dir)
-	while not dir_stack.is_empty():
-		var top : DirAccess = dir_stack[-1]
-		var next : String = top.get_next()
-		var base_path = top.get_current_dir()
-		if not base_path.ends_with("/"):
-			base_path += "/"
-		var full_path = base_path + next
-		if next.is_empty():
-			dir_stack.pop_back()
-			continue
-		elif top.current_is_dir():
-			var new_dir = DirAccess.open(full_path)
-			new_dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-			dir_stack.push_back(new_dir)
-			continue
-		else:
-			if full_path.ends_with(".tres") and not full_path.get_file().begins_with("_"):
-				_settings.add_int_setting(full_path, 0, 999, 1, 0)
-				_settings.set_setting_group(full_path, "Tiny Items")
+	var item_paths_resource: ItemPathsResource = load("res://resources/item_paths.tres")
+	if not item_paths_resource:
+		printerr("Failed to load item paths resource. Run utils/item_paths_updater.gd to generate it.")
+		return
+	
+	for full_path in item_paths_resource.tiny_item_paths:
+		var display_name := item_paths_resource.get_tiny_item_display_name(full_path)
+		_settings.add_int_setting(display_name, 0, 999, 1, 0)
+		_settings.set_setting_group(display_name, "Tiny Items")
+		# Store the full path as metadata so other systems can access it
+		_settings.set_setting_meta(display_name, "full_path", full_path)

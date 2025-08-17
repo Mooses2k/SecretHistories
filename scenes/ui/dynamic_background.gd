@@ -9,7 +9,7 @@ extends Control
 # Exported parameters for customization
 @export var fade_duration: float = 1.5  ## Duration of fade in/out animations
 @export var display_time: float = 5.0  ## Time each image is displayed before transitioning
-@export var background_directory: String = "res://resources/art/title_backgrounds/"  ## Directory containing background images
+@export var background_directory: String = "resources/art/title_backgrounds/"  ## Directory containing background images
 @export var zoom_scale: float = 1.3  ## Scale factor for zoom effect
 @export var max_images: int = 3  ## Maximum number of images on screen at once
 
@@ -49,21 +49,50 @@ func _ready() -> void:
 
 
 func load_background_images() -> void:
-	## Load all background images from the specified directory, excluding the special image
+	## Load all background images from the predefined list, excluding the special image
 	print("Loading background images from: ", background_directory)
-	var dir: DirAccess = DirAccess.open(background_directory)
-	if dir:
-		dir.list_dir_begin()
-		var file_name: String = dir.get_next()
-		while file_name != "":
-			if not dir.current_is_dir() and (file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".jpeg")):
-				var full_path = background_directory + file_name
-				# Exclude the special cathedral image from random selection
-				if full_path != special_image_path:
-					background_images.append(full_path)
-					print("Found background image: ", file_name)
-			file_name = dir.get_next()
-		dir.list_dir_end()
+	
+	# Predefined list of background image filenames to avoid DirAccess method not working in builds
+	var image_filenames: Array[String] = [
+		"06-00391-2082957616.png",
+		"00008-787729727.png",
+		"00009-1236426289.png",
+		"00014-720767209.png",
+		"00015-1928675650.png",
+		"00020-187638769.png",
+		"00035-3305186785.png",
+		"00044-1825481839.png",
+		"00054-3758638628.png",
+		"00236-1921911877.png",
+		"00305-2505864101.png",
+		"00306-2505864102.png",
+		"00318-252378031.png",
+		"00332-3766491186.png",
+		"00352-3959123771.png",
+		"00373-2075715374.png",
+		"00382-848652815.png",
+		"00404-908592793.png",
+		"00659-3865673013.png",
+		"00787-2213723471.png",
+		"00848-2078861591.png",
+		"00852-1050146515.png",
+		"00880-2251940560.png",
+		"01036-2370997828.png",
+	]
+	
+	# Convert to full paths and verify each image can be loaded
+	for filename in image_filenames:
+		var full_path: String = "res://" + background_directory + filename
+		
+		# Exclude the special cathedral image from random selection
+		if full_path != special_image_path:
+			# Verify the image can be loaded
+			var test_image: Texture2D = load(full_path)
+			if test_image:
+				background_images.append(full_path)
+				print("Found background image: ", filename)
+			else:
+				push_warning("Failed to load background image: " + full_path)
 	
 	print("Total background images found (excluding special): ", background_images.size())
 	if background_images.is_empty():

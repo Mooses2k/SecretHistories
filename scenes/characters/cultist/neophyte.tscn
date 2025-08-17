@@ -1,8 +1,7 @@
-[gd_scene load_steps=36 format=3 uid="uid://cyymfxxvbr5i7"]
+[gd_scene load_steps=35 format=3 uid="uid://cyymfxxvbr5i7"]
 
 [ext_resource type="PackedScene" uid="uid://daf3jm6dh7y8a" path="res://scenes/characters/humanoid_character_base/humanoid_character_base.tscn" id="1_4tack"]
 [ext_resource type="PackedScene" uid="uid://4k72rthy8iex" path="res://resources/models/characters/cultists/cultist_neophyte/neophyte_scaled_no_cape.glb" id="2_bk543"]
-[ext_resource type="Script" uid="uid://dlgx357ndlfip" path="res://scenes/characters/inventory.gd" id="3_7w0y3"]
 [ext_resource type="Script" uid="uid://bjgur8ch0iu76" path="res://scenes/characters/cultist/ai_controller.gd" id="4_pc7x1"]
 [ext_resource type="Script" uid="uid://0nvxxergqacy" path="res://core/ai/bt_root.gd" id="5_f7c3r"]
 [ext_resource type="Script" uid="uid://dio1jo8ivp3gr" path="res://core/ai/flow_nodes/bt_selector.gd" id="6_xhddj"]
@@ -54,184 +53,89 @@ shading_mode = 0
 
 [node name="HumanoidCharacterBase" instance=ExtResource("1_4tack")]
 collision_layer = 16
-collision_mask = 531
 
-[node name="CharacterCollision" parent="." index="3"]
+[node name="CharacterCollision" parent="." index="4"]
 shape = SubResource("CylinderShape3D_0ini3")
 
-[node name="ModelRoot" parent="." index="4" node_paths=PackedStringArray("glb_root")]
+[node name="ModelRoot" parent="." index="5" node_paths=PackedStringArray("glb_root")]
 glb_root = NodePath("neophyte_scaled_no_cape")
 
-[node name="Physical Bone DEF-spine" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="0"]
-transform = Transform3D(0.999989, -0.000324416, 0.00472352, 0.00473103, 0.107415, -0.994203, -0.000184839, 0.994214, 0.107415, -0.00606855, 0.139026, 0.0462943)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00774644, -0.0188228, -0.736014)
-body_offset = Transform3D(0.985168, -0.000334933, 0.00485922, 0.00467745, 0.375829, -0.922411, -0.00152075, 0.910825, 0.3711, -0.0040614, -0.671869, 0.290291)
+[node name="PalmL" parent="ModelRoot/rig_deform/Skeleton3D" index="4"]
+transform = Transform3D(-0.525664, -0.407736, 0.766646, 0.831496, -0.466319, 0.322052, 0.219679, 0.806802, 0.579696, 0.115342, 1.21967, 0.453627)
 
-[node name="Physical Bone DEF-spine001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="1"]
-transform = Transform3D(0.943892, 0.330069, -0.0110475, -0.0604102, 0.139673, -0.988353, -0.324682, 0.933566, 0.151776, 0.00481931, 0.280802, 0.102396)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011504, -0.0113475, -0.725838)
-body_offset = Transform3D(0.929171, 0.326776, -0.0209761, -0.116601, 0.271198, -0.950407, -0.306031, 0.888767, 0.287733, -0.00082793, -0.688105, 0.215413)
+[node name="PalmR" parent="ModelRoot/rig_deform/Skeleton3D" index="5"]
+transform = Transform3D(-0.72805, 0.446063, 0.548897, 0.491124, -0.23861, 0.845233, 0.502711, 0.883132, -0.0509229, -0.132417, 1.19714, 0.170729)
 
-[node name="Physical Bone DEF-spine002" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="2"]
-transform = Transform3D(0.775206, 0.626351, 0.0820989, 0.0132719, 0.113786, -0.993417, -0.631569, 0.771192, 0.0798948, 0.092575, 0.399587, 0.0394111)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0413611, -0.00673405, -0.722237)
-body_offset = Transform3D(0.763716, 0.618318, 0.0707108, 0.0193509, 0.0895766, -0.989389, -0.620492, 0.760854, 0.0495588, 0.0868219, -0.71317, 0.0152526)
+[node name="Physical Bone DEF-spine" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="0"]
+transform = Transform3D(1, 2.3551e-07, 6.05799e-09, -2.3551e-07, 1, -7.39038e-06, -6.05973e-09, 7.39038e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.98518, 2.29282e-07, 6.09725e-09, -2.32019e-07, 0.996048, -7.45058e-06, -5.96992e-09, 7.36117e-06, 0.983524, 0, 0, 0)
 
-[node name="Physical Bone DEF-spine003" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="3"]
-transform = Transform3D(-0.211288, 0.971174, 0.110353, -0.0174751, 0.109131, -0.993874, -0.977268, -0.211922, -0.00608665, 0.122237, 0.545185, -0.0940871)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0759634, -0.0639049, -0.732199)
-body_offset = Transform3D(-0.571558, 0.79267, 0.121373, -0.0176655, 0.140657, -0.983565, -0.79966, -0.567597, -0.0733399, 0.0961074, -0.712519, -0.150717)
+[node name="Physical Bone DEF-spine_002" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="1"]
+transform = Transform3D(1, -7.18423e-07, -1.0015e-09, 7.18427e-07, 1, 6.41342e-07, 1.00049e-09, -6.4117e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.985179, 6.33266e-05, 2.44496e-05, 7.07779e-07, 0.993535, 0.00741591, 9.85665e-10, -6.37025e-07, 0.983103, 0, 0, 0)
 
-[node name="Physical Bone DEF-spine004" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="4"]
-transform = Transform3D(0.469618, 0.87705, 0.101207, 0.106784, 0.0573662, -0.992626, -0.876388, 0.476962, -0.0667146, 0.0971371, 0.663732, -0.112514)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0577075, 0.0115995, -0.783505)
-body_offset = Transform3D(0.42089, 0.884236, 0.107421, 0.394679, -0.0776378, -0.905186, -0.795686, 0.426681, -0.39666, 0.0981966, -0.685541, -0.361651)
+[node name="Physical Bone DEF-spine_003" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="2"]
+transform = Transform3D(1, -1.12009e-07, 7.95946e-06, 1.12073e-07, 1, 1.35417e-07, -7.95957e-06, -1.35651e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.984728, 0.00225537, -0.00179389, 1.10362e-07, 0.993611, 0.00682159, -7.83801e-06, -1.52737e-07, 0.983477, 0, 0, 0)
 
-[node name="Physical Bone DEF-spine005" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="5"]
-transform = Transform3D(0.408198, 0.904792, 0.121349, -0.0477378, 0.153902, -0.986932, -0.911644, 0.397071, 0.106015, 0.106093, 0.723706, -0.00357665)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0677712, 0.0153285, -0.746243)
-body_offset = Transform3D(0.358882, 0.902931, 0.134496, -0.267842, 0.2439, -0.92219, -0.866549, 0.295068, 0.32905, 0.110848, -0.710069, 0.182301)
+[node name="Physical Bone DEF-spine_006" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="3"]
+transform = Transform3D(1, 1.13587e-06, 1.03173e-07, -1.13587e-06, 1, -1.20287e-07, -1.03174e-07, 1.2054e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.974883, 5.48094e-05, -0.000330433, -1.10734e-06, 0.989004, 0.00809937, -1.00583e-07, 1.19209e-07, 0.967816, 0, 0, 0)
 
-[node name="Physical Bone DEF-shoulderL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="6"]
-transform = Transform3D(-0.437739, 0.884452, 0.161648, 0.0375289, 0.197605, -0.979563, -0.898319, -0.422726, -0.119692, 0.0111257, 0.582216, -0.0356735)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0544686, 0.0915167, -0.80639)
-body_offset = Transform3D(-0.693736, -0.67693, -0.164212, -0.696293, 0.684361, 0.129768, 0.0194703, 0.206774, -0.971913, -0.108255, 0.00408684, -0.801604)
+[node name="Physical Bone DEF-upper_arm_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="4"]
+transform = Transform3D(1, -3.24144e-05, -1.53461e-05, 3.24147e-05, 1, -3.93089e-06, 1.53464e-05, 3.93041e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.986523, 0.0100664, -0.0040237, 3.19779e-05, 0.988, -0.00752933, 1.51396e-05, 4.03821e-06, 0.987262, 0, 0, 0)
 
-[node name="Physical Bone DEF-upper_armL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="7"]
-transform = Transform3D(-0.244236, -0.54557, -0.801687, 0.907606, 0.162507, -0.387095, 0.341467, -0.822159, 0.455473, 0.364736, 0.675522, -0.305228)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.798553, -0.0809277, 0.0550995)
-body_offset = Transform3D(-0.457958, 0.853637, 0.187152, -0.552473, -0.436543, 0.693102, 0.687901, 0.216604, 0.674147, 0.424474, 0.36766, -0.568941)
+[node name="Physical Bone DEF-forearm_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="5"]
+transform = Transform3D(1, -9.4529e-08, 2.54247e-07, 9.45298e-08, 1, -1.43227e-05, -2.54285e-07, 1.43229e-05, 1, 0, 0, 0)
+body_offset = Transform3D(0.985216, -0.000516858, -0.00110014, 9.31323e-08, 0.985224, 0.0111755, -2.50526e-07, 1.41114e-05, 0.991357, 0, 0, 0)
 
-[node name="Physical Bone DEF-upper_armL001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="8"]
-transform = Transform3D(0.23365, -0.358634, -0.903764, 0.729762, 0.678917, -0.0807436, 0.642538, -0.640667, 0.420346, 0.0391328, 0.752859, -0.737272)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.942898, -0.255631, 0.229231)
-body_offset = Transform3D(-0.594321, 0.546203, 0.564606, -0.3439, -0.8166, 0.437131, 0.715865, 0.0753201, 0.67792, 0.570585, 0.0153104, -0.811134)
+[node name="Physical Bone DEF-hand_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="6"]
+transform = Transform3D(1, -1.12348e-05, 2.53229e-05, 1.12347e-05, 1, -2.0872e-06, -2.53231e-05, 2.0872e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.992111, -0.00371432, 0.00768208, 1.11461e-05, 0.983129, -0.0047332, -2.51234e-05, 2.14577e-06, 0.986563, 0, 0, 0)
 
-[node name="Physical Bone DEF-forearmL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="9"]
-transform = Transform3D(0.723667, -0.686387, 0.0719733, 0.651482, 0.713814, 0.256984, -0.227766, -0.139082, 0.963732, -0.359096, 0.802659, 0.137607)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.546121, -0.101004, 0.177501)
-body_offset = Transform3D(-0.744062, 0.633365, -0.126094, -0.0783523, 0.101492, 0.977031, 0.644901, 0.752596, -0.0149861, 0.492702, -0.120383, -0.273519)
+[node name="Physical Bone DEF-upper_arm_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="7"]
+transform = Transform3D(1, 4.87061e-07, -5.90372e-06, -4.86946e-07, 1, -2.49291e-06, 5.90375e-06, 2.49276e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.98689, -0.00720317, 0.00198796, -4.80562e-07, 0.991438, -0.00756034, 5.82635e-06, 2.42889e-06, 0.983472, 0, 0, 0)
 
-[node name="Physical Bone DEF-forearmL001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="10"]
-transform = Transform3D(-0.248252, -0.381963, 0.890211, 0.891267, 0.269952, 0.364375, -0.379492, 0.883872, 0.273414, 0.135638, 0.329135, 0.314534)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.748672, 0.246684, 0.286524)
-body_offset = Transform3D(0.843876, 0.249378, -0.448845, -0.101975, 0.93051, 0.307864, 0.506457, -0.208175, 0.823157, -0.5647, -0.241407, -0.563671)
+[node name="Physical Bone DEF-forearm_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="8"]
+transform = Transform3D(1, -3.23398e-06, -1.16361e-05, 3.23383e-06, 1, -8.93046e-06, 1.16357e-05, 8.93045e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.986091, 0.00175866, 0.00660785, 3.18885e-06, 0.985503, 0.0101792, 1.14739e-05, 8.82149e-06, 0.990196, 0, 0, 0)
 
-[node name="Physical Bone DEF-handL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="11"]
-transform = Transform3D(-0.77376, 0.125638, 0.620895, -0.63297, -0.11405, -0.76573, -0.025392, -0.985499, 0.167772, -1.09966, 1.41048, 0.408984)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.800332, 0.129178, 0.913509)
-body_offset = Transform3D(-0.120872, -0.360617, -0.916244, 0.572938, -0.765259, 0.229424, -0.796733, -0.502163, 0.294283, 0.786843, 0.347815, -0.841612)
+[node name="Physical Bone DEF-hand_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="9"]
+transform = Transform3D(1, -3.13646e-06, 2.19112e-05, 3.13638e-06, 1, 5.88958e-06, -2.19113e-05, -5.88955e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.988222, -0.00193828, 0.00980246, 3.09944e-06, 0.982555, 0.00171876, -2.16532e-05, -5.7444e-06, 0.991024, 0, 0, 0)
 
-[node name="Physical Bone DEF-shoulderR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="12"]
-transform = Transform3D(-0.795089, 0.573123, 0.198402, -0.0443566, 0.271303, -0.961471, -0.604869, -0.773255, -0.190289, 0.0167383, 0.575095, -0.0322752)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0410469, 0.115658, -0.812049)
-body_offset = Transform3D(-0.289851, 0.89828, 0.279617, 0.93861, 0.292931, 0.0241293, -0.0655212, 0.271369, -0.953841, 0.111272, 0.0242414, -0.808642)
+[node name="Physical Bone DEF-thigh_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="10"]
+transform = Transform3D(1, 2.3667e-06, -2.30802e-05, -2.36678e-06, 1, 4.83096e-06, 2.30802e-05, -4.83068e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.912915, 0.00652932, 0.00193784, -2.16067e-06, 1.00286, 0.00927652, 2.10702e-05, -4.69387e-06, 0.913594, 0, 0, 0)
 
-[node name="Physical Bone DEF-upper_armR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="13"]
-transform = Transform3D(-0.146641, -0.844914, 0.51441, -0.508404, 0.510465, 0.693506, -0.848541, -0.159831, -0.504413, -0.62338, 1.19044, -0.709046)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.687607, -0.395356, 0.055059)
-body_offset = Transform3D(-0.25733, 0.900158, -0.312032, 0.395111, -0.202332, -0.886699, -0.868928, -0.350127, -0.299088, 0.19612, 0.240509, -0.719438)
+[node name="Physical Bone DEF-shin_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="11"]
+transform = Transform3D(1, 2.27336e-06, 2.40459e-07, -2.27335e-06, 1, -5.97736e-06, -2.40157e-07, 5.97599e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.915204, 0.000416438, 0.00443096, -2.08057e-06, 0.957523, -0.0862771, -2.19792e-07, 5.72205e-06, 0.947315, 0, 0, 0)
 
-[node name="Physical Bone DEF-upper_armR001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="14"]
-transform = Transform3D(-0.103933, -0.888652, 0.446649, -0.449208, 0.442609, 0.776086, -0.887361, -0.119977, -0.445192, -0.696732, 1.22573, -0.835645)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.739642, -0.51627, -0.111114)
-body_offset = Transform3D(-0.535201, 0.784058, -0.270471, 0.318791, -0.115321, -0.931821, -0.766546, -0.587441, -0.184371, -0.0211242, 0.0727164, -0.890734)
+[node name="Physical Bone DEF-thigh_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="12"]
+transform = Transform3D(1, -3.05213e-06, 1.77428e-05, 3.05208e-06, 1, 3.73878e-07, -1.77428e-05, -3.73817e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.918788, -0.0037781, 0.000569701, 2.80421e-06, 0.996353, 0.00587785, -1.63019e-05, -3.05474e-07, 0.919171, 0, 0, 0)
 
-[node name="Physical Bone DEF-forearmR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="15"]
-transform = Transform3D(0.406713, 0.872613, -0.270428, -0.911167, 0.366073, -0.189118, -0.0660301, 0.323322, 0.943982, 0.0542157, 0.788018, -0.1039)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.42607, -0.138837, 0.0796832)
-body_offset = Transform3D(-0.608972, -0.539702, 0.556882, -0.103868, 0.756734, 0.622691, -0.777084, 0.331715, -0.516639, -0.378769, 0.01119, -0.24387)
-
-[node name="Physical Bone DEF-forearmR001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="16"]
-transform = Transform3D(0.38724, 0.226892, -0.893625, -0.916872, -0.00710608, -0.399118, -0.0969067, 0.973894, 0.205279, 0.283927, 0.657277, 0.0896985)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.630758, -0.138371, 0.236409)
-body_offset = Transform3D(-0.677174, 0.184091, 0.693674, -0.120542, 0.910983, -0.355903, -0.716193, -0.319962, -0.603487, -0.56565, 0.134159, -0.353349)
-
-[node name="Physical Bone DEF-handR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="17"]
-transform = Transform3D(-0.973518, 0.164248, 0.159016, -0.226093, -0.794692, -0.563335, 0.0338425, -0.584369, 0.810782, 0.100337, 2.23062, 0.142759)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.474558, 0.783243, 0.581834)
-body_offset = Transform3D(0.598696, -0.785685, 0.0258903, -0.348117, -0.233367, 0.888713, -0.701236, -0.560466, -0.42013, 0.316202, -0.169099, 1.0162)
-
-[node name="Physical Bone DEF-pelvisL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="18"]
-transform = Transform3D(0.720313, 0.680836, 0.132708, -0.205591, 0.392273, -0.896579, -0.662481, 0.618534, 0.422533, -0.10307, 0.291389, -0.00967656)
-joint_offset = Transform3D(0.815599, 0.578524, 0.0103922, 0.46369, -0.642753, -0.609804, -0.346106, 0.502173, -0.792486, -0.018063, 0.269594, -0.521906)
-body_offset = Transform3D(-0.760074, 0.0813998, 0.544876, -0.123426, 0.904347, -0.311109, -0.542969, -0.307974, -0.711497, 0.2487, -0.408406, -0.298115)
-
-[node name="Physical Bone DEF-thighL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="19"]
-transform = Transform3D(0.955434, -0.224684, -0.191475, -0.291192, -0.823883, -0.486235, -0.0485036, 0.520321, -0.852592, -0.062572, 0.478343, -0.39236)
-joint_offset = Transform3D(-0.891999, 0.0445856, 0.449832, 0.443379, -0.107527, 0.88986, 0.0880441, 0.993202, 0.0761457, -0.0046712, -0.201475, -0.570029)
-body_offset = Transform3D(0.740922, -0.331467, 0.417901, 0.311097, 0.931481, 0.20235, -0.451365, -0.0125465, 0.794408, 0.174894, 0.304469, 0.448199)
-
-[node name="Physical Bone DEF-thighL001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="20"]
-transform = Transform3D(-0.26309, 0.561441, -0.784581, -0.549853, -0.755483, -0.35624, -0.792746, 0.337681, 0.50747, -0.372572, 0.437668, 0.351725)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.038964, -0.0347862, -0.612699)
-body_offset = Transform3D(0.0439874, 0.42062, -0.810342, 0.277449, 0.850485, 0.452859, 0.877642, -0.234315, -0.0750103, -0.48015, 0.317862, -0.0199132)
-
-[node name="Physical Bone DEF-shinL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="21"]
-transform = Transform3D(-0.293093, -0.583301, 0.757533, -0.81116, -0.26769, -0.519963, 0.506079, -0.766878, -0.394692, 0.868475, 0.290269, -0.117435)
-joint_offset = Transform3D(-4.55099e-06, 0.40273, 0.91532, -2.11596e-06, 0.91532, -0.40273, -1, -3.7696e-06, -3.31345e-06, 0.190366, 0.199847, -0.773256)
-body_offset = Transform3D(-0.313559, -0.550771, 0.660116, 0.634003, 0.394358, 0.628843, -0.682095, 0.60742, 0.187498, 0.680199, 0.286753, 0.153441)
-
-[node name="Physical Bone DEF-shinL001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="22"]
-transform = Transform3D(0.0328091, 0.27261, 0.961565, -0.971915, 0.233022, -0.032901, -0.233035, -0.93348, 0.272599, 0.869974, 0.442138, 0.54074)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.235657, 0.203999, -0.842565)
-body_offset = Transform3D(-0.0491178, 0.503222, 0.767378, 0.975758, 0.010353, 0.0267092, -0.0678587, 0.778946, -0.500419, 0.555485, -0.209552, -0.564548)
-
-[node name="Physical Bone DEF-footL" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="23"]
-transform = Transform3D(0.862622, 0.505169, -0.02621, -0.48787, 0.817155, -0.306985, -0.133662, 0.277599, 0.951353, -0.0217554, 0.00549749, 1.20478)
-joint_offset = Transform3D(3.61999e-06, 9.17734e-12, 1, 2.53518e-06, -1, 3.46945e-18, 1, 2.53518e-06, -3.61999e-06, 0.254634, -0.183702, -1.1764)
-joint_rotation = Vector3(-3.46945e-18, 1.5708, 3.14159)
-body_offset = Transform3D(0.76348, 0.494465, 0.0445898, 0.151064, -0.312065, 0.906793, 0.510085, -0.750244, -0.249319, -0.051118, 0.97096, -0.561005)
-
-[node name="Physical Bone DEF-pelvisR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="24"]
-transform = Transform3D(0.720262, -0.682663, -0.123263, 0.212121, 0.385916, -0.897816, 0.660475, 0.620516, 0.422768, 0.089645, 0.302785, -0.0116549)
-joint_offset = Transform3D(-0.815599, -0.578524, 0.0103918, 0.463689, -0.642752, 0.609805, -0.346107, 0.502174, 0.792484, 0.0278987, 0.256138, -0.513732)
-body_offset = Transform3D(-0.756296, -0.0841565, -0.549563, 0.127051, 0.901707, -0.316728, 0.54752, -0.314025, -0.705488, -0.239672, -0.39722, -0.297273)
-
-[node name="Physical Bone DEF-thighR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="25"]
-transform = Transform3D(0.972382, 0.118959, 0.200802, 0.0851138, -0.981848, 0.169501, 0.21732, -0.147729, -0.964857, 0.0371512, 0.941146, -0.617589)
-joint_offset = Transform3D(-0.891998, -0.0445856, -0.449833, -0.443379, -0.107527, 0.889861, -0.088044, 0.993202, 0.0761459, 0.00572482, -0.0869531, -0.614119)
-body_offset = Transform3D(0.8142, -0.0767691, -0.408657, -0.0823753, 0.940767, -0.327764, 0.409078, 0.307754, 0.758455, -0.2623, -0.119012, 0.4902)
-
-[node name="Physical Bone DEF-thighR001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="26"]
-transform = Transform3D(0.0914469, -0.371209, 0.924036, -0.83665, -0.531875, -0.130869, 0.540051, -0.761127, -0.35921, 0.592751, 0.634419, -0.384777)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109075, -0.0897573, -0.795417)
-body_offset = Transform3D(0.232121, -0.578459, 0.670833, 0.908109, 0.415892, 0.0404044, -0.293566, 0.601341, 0.62022, 0.456353, -0.0295843, 0.579329)
-
-[node name="Physical Bone DEF-shinR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="27"]
-transform = Transform3D(-0.31199, 0.588671, 0.745741, 0.471269, 0.777437, -0.41653, -0.824966, 0.221491, -0.519974, 0.605892, 0.0984365, -0.363949)
-joint_offset = Transform3D(-3.61569e-06, -0.5, 0.866026, -7.45058e-09, 0.866025, 0.5, -1, 1.80139e-06, -3.135e-06, 0.0403676, -0.0375201, -0.909387)
-body_offset = Transform3D(-0.299078, 0.495773, 0.711395, 0.273096, -0.697653, 0.601342, 0.827565, 0.456419, 0.0243733, 0.677608, 0.509653, 0.00588286)
-
-[node name="Physical Bone DEF-shinR001" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="28"]
-transform = Transform3D(-0.319806, 0.873183, -0.367798, 0.922696, 0.375227, 0.0885213, 0.215303, -0.311056, -0.925683, 0.0210787, 0.389272, -0.817636)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.149461, -0.365096, -0.621817)
-body_offset = Transform3D(-0.476625, 0.626606, -0.479715, -0.74674, -0.0752315, 0.599696, 0.428184, 0.676573, 0.493465, 0.00171305, 0.457043, 0.489863)
-
-[node name="Physical Bone DEF-footR" parent="ModelRoot/rig_deform/Skeleton3D/PhysicalBoneSimulator3D" index="29"]
-transform = Transform3D(0.923812, 0.316778, -0.214994, 0.371043, -0.602461, 0.706659, 0.0943289, -0.732593, -0.6741, 0.0729095, 0.83215, -0.999215)
-joint_offset = Transform3D(3.61999e-06, 9.17734e-12, 1, 2.53518e-06, -1, 3.46945e-18, 1, 2.53518e-06, -3.61999e-06, -0.347997, -0.225948, -0.899936)
-joint_rotation = Vector3(-3.46945e-18, 1.5708, 3.14159)
-body_offset = Transform3D(0.850084, 0.314983, -0.107671, -0.311161, 0.555666, -0.761507, -0.201661, 0.706293, 0.544984, 0.2701, -0.668039, 0.579859)
-
-[node name="PalmL" parent="ModelRoot/rig_deform/Skeleton3D" index="5"]
-transform = Transform3D(0.0663642, 0.988991, -0.132261, 0.334374, -0.146932, -0.930916, -0.940101, 0.0175548, -0.340444, 0.804641, 1.35959, -0.0445469)
-
-[node name="PalmR" parent="ModelRoot/rig_deform/Skeleton3D" index="6"]
-transform = Transform3D(0.0663915, -0.98899, 0.132247, -0.334578, -0.146932, -0.930843, 0.940027, 0.0175535, -0.340649, -0.804641, 1.35959, -0.044547)
+[node name="Physical Bone DEF-shin_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="13"]
+transform = Transform3D(1, 1.71593e-08, 1.4065e-06, -1.71764e-08, 1, 6.29893e-06, -1.40644e-06, -6.30011e-06, 1, 0, 0, 0)
+joint_offset = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+body_offset = Transform3D(0.921757, 0.000880221, -0.00265688, -1.58325e-08, 0.983736, -0.0453929, -1.2964e-06, -6.19888e-06, 0.92261, 0, 0, 0)
 
 [node name="neophyte_scaled_no_cape" parent="ModelRoot" index="3" instance=ExtResource("2_bk543")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="Inventory" type="Node" parent="." index="8"]
-script = ExtResource("3_7w0y3")
+[node name="CharacterAnimationTree" parent="." index="7"]
+active = true
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="9"]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="8"]
 unique_name_in_owner = true
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 path_max_distance = 1.0
 
-[node name="AIController" type="Node" parent="." index="10"]
+[node name="AIController" type="Node" parent="." index="9"]
 script = ExtResource("4_pc7x1")
 
 [node name="BTRoot" type="Node" parent="AIController" index="0"]
@@ -345,7 +249,7 @@ script = ExtResource("23_2n0qg")
 wait_time = 0.1
 autostart = true
 
-[node name="Sensors" type="Node3D" parent="." index="11"]
+[node name="Sensors" type="Node3D" parent="." index="10"]
 script = ExtResource("24_wvp3v")
 
 [node name="SoundSensor" type="Area3D" parent="Sensors" index="0"]
@@ -366,6 +270,7 @@ script = ExtResource("26_f5htr")
 _ik_target = NodePath("../../ModelRoot/LookTarget")
 
 [node name="TouchSensor" type="Area3D" parent="Sensors" index="2"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("27_fwtma")
@@ -374,7 +279,7 @@ script = ExtResource("27_fwtma")
 transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_8fi7o")
 
-[node name="DebugVisualizers" type="Node3D" parent="." index="12"]
+[node name="DebugVisualizers" type="Node3D" parent="." index="11"]
 
 [node name="TargetPosition" type="MeshInstance3D" parent="DebugVisualizers" index="0"]
 mesh = SubResource("BoxMesh_dt6gn")

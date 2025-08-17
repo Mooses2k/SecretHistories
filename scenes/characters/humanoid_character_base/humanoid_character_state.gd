@@ -1,11 +1,19 @@
 extends Node
 class_name HumanoidCharacterState
 
-
 # Things like being stunned, or ragdolled
-enum CurrentState {
+enum PhysicalState {
 	NORMAL, # Normal state, can move around freely and do whatever
+	RAGDOLLED,
+	DEAD
 }
+
+signal physical_state_changed(new_physical_state : PhysicalState)
+
+var physical_state : PhysicalState = PhysicalState.NORMAL :
+	set(value):
+		physical_state = value
+		physical_state_changed.emit(value)
 
 var stamina_ratio : float:
 	get():
@@ -29,8 +37,10 @@ var time_since_dodge : float = INF
 
 
 func set_facing_vector(forward : Vector3) -> void:
-	facing = Basis.looking_at(forward, Vector3.UP, true)
+	facing = Basis.looking_at(-forward, Vector3.UP, true)
 
+func get_facing_vector() -> Vector3:
+	return -facing.z
 
 func should_jump():
 	return is_on_ground and input.jump
@@ -39,8 +49,8 @@ func should_jump():
 func get_target_speed() -> float:
 	var crouch_multiplier = lerpf(1.0, parameters.crouch_speed_multiplier, current_crouch_ratio)
 	var sprint_multiplier = lerpf(
-		parameters.sprint_speed_multiplier_min, 
-		parameters.sprint_speed_multiplier_max, 
+		parameters.sprint_speed_multiplier_min,
+		parameters.sprint_speed_multiplier_max,
 		stamina_ratio
 	)
 	sprint_multiplier = sprint_multiplier if sprinting else 1.0
@@ -50,3 +60,6 @@ func get_target_speed() -> float:
 func _physics_process(delta: float) -> void:
 	time_since_kick += delta
 	time_since_dodge += delta
+
+func is_controllable() -> bool:
+	return physical_state == PhysicalState.NORMAL

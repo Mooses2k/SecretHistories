@@ -103,6 +103,21 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 			else:
 				print("WALL SPAWN ERROR: Wall object missing wall_direction property!")
 			print("=== END WALL OBJECT SPAWN DEBUG ===")
+		
+		# Special handling for painting texture application
+		if item is WallObjectRigid:
+			var wall_object_rigid = item as WallObjectRigid
+			print("WALL SPAWN: Item is WallObjectRigid, is_painting: %s" % wall_object_rigid.is_painting)
+			var painting_texture_path = custom_properties.get("painting_texture_path", "")
+			print("WALL SPAWN: Painting texture path from custom properties: '%s'" % painting_texture_path)
+			if not painting_texture_path.is_empty():
+				print("WALL SPAWN: ✓ Found painting texture path: %s" % painting_texture_path)
+				print("WALL SPAWN: Calling set_painting_texture_path on wall object")
+				wall_object_rigid.set_painting_texture_path(painting_texture_path)
+			else:
+				print("WALL SPAWN: ✗ No painting texture path found in custom properties")
+				if wall_object_rigid.is_painting:
+					print("WALL SPAWN: WARNING - This is a painting but no texture path was set!")
 	
 	_has_spawned = true
 

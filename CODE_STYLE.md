@@ -37,6 +37,7 @@
 - Use ## for documentation comments
 - Use # for regular comments (add space after #)
 - Prefer standalone comments over inline ones
+- Do not comment var names, their names should be self-descriptive
 
 ## Best Practices
 - Declare local variables close to first use

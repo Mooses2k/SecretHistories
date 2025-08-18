@@ -4,11 +4,15 @@ extends PhysicalBone3D
 const CharacterBone = preload("res://scenes/characters/humanoid_character_base/character_bone.gd")
 
 @export var collision_exceptions : Array[CharacterBone]
+@onready var hurtbox: Hurtbox = $Hurtbox
 
 func _ready() -> void:
 	if Engine.is_editor_hint(): return
 	for bone in collision_exceptions:
 		add_collision_exception_with(bone)
+	for c in get_children():
+		if c is CollisionShape3D:
+			hurtbox.add_child(c.duplicate(0))
 	#body_offset = Transform3D.IDENTITY
 
 var _body_offset : Transform3D

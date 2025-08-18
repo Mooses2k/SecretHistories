@@ -1,3 +1,4 @@
+# An area that can detect hurtboxes (usually to damage them)
 @tool
 class_name Hitbox
 extends Area3D

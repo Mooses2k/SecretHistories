@@ -89,7 +89,7 @@ func _physics_process(delta):
 					# TODO: play a sound?
 					if fposmod(randf(), 1.0) < door_stuck_on_close_probability:
 						self.door_state = DoorState.STUCK
-				
+
 		DoorState.STUCK:
 			door_should_move = false
 
@@ -106,8 +106,7 @@ func reset_auto_close_timer():
 #	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)   # Actual logic
 
 
-# TODO: Shooting doors not currently working
-func damage(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, direction : Vector3 = Vector3.ZERO, origin : Vector3 = position):
+func _damage(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, direction : Vector3 = Vector3.ZERO, origin : Vector3 = position):
 	if damage < 10:
 		door_kick_ineffective_sound.play()
 	else:
@@ -122,12 +121,12 @@ func break_door(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, dire
 	door_state = DoorState.BROKEN
 	door_break_sound.play()
 	var global_door_transform = broken_door_origin.global_transform
-	
+
 	door_hinge_z_axis.queue_free()
 	npc_detector.queue_free()
 	npc_check_timer.queue_free()
 	navigation_obstacle_3d.queue_free()
-	
+
 	var broken_door_instance : Node3D = broken_door_scene.instantiate()
 	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
 	add_child(broken_door_instance)
@@ -142,14 +141,14 @@ func _on_Interactable_character_interacted(character):
 			door_close_sound.stop()
 			if !door_open_sound.playing:
 				door_open_sound.play()
-		
+
 		DoorState.OPEN:
 			self.door_state = DoorState.CLOSED
 			door_should_move = true
 			door_open_sound.stop()
 			if !door_close_sound.playing:
 				door_close_sound.play()
-		
+
 		DoorState.STUCK:
 			if !door_shake_sound.playing:
 				door_shake_sound.play()

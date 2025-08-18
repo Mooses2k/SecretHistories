@@ -255,6 +255,7 @@ collision_layer = 8
 collision_mask = 0
 monitoring = false
 script = ExtResource("17_klvrj")
+damage_multiplier = null
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorHingeZAxis/DoorBody/Hurtbox"]
@@ -292,6 +293,6 @@ wait_time = 0.5
 autostart = true
 
 [connection signal="character_interacted" from="DoorHingeZAxis/DoorBody/Interactable" to="." method="_on_Interactable_character_interacted"]
-[connection signal="damaged" from="DoorHingeZAxis/DoorBody/Hurtbox" to="." method="damage"]
+[connection signal="damaged" from="DoorHingeZAxis/DoorBody/Hurtbox" to="." method="_damage"]
 [connection signal="body_entered" from="NpcDetector" to="." method="_on_NpcDetector_body_entered"]
 [connection signal="timeout" from="NpcCheckTimer" to="." method="_on_NpcCheckTimer_timeout"]

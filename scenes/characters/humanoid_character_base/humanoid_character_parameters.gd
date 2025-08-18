@@ -1,7 +1,13 @@
 extends Node
 class_name HumanoidCharacterParameters
 
+@export_group("Health")
+@export var max_durability : int = 100
 
+@export_group("Ragdoll")
+@export var ragdoll_damage_threshold : int = 10
+@export var ragdoll_impulse_multiplier : float = 5.0
+@export_range(0.0, 60.0, 0.1, "or_greater", "suffix:s") var knocked_out_time : float = 5.0
 @export_group("Movement")
 @export_range(0.0, 10.0, 0.1,"or_greater", "suffix:m/s") var base_speed : float = 1.1
 @export_range(0.0, 10.0, 0.1,"or_greater", "suffix:m/s²") var base_acceleration : float = 10.0
@@ -21,9 +27,9 @@ class_name HumanoidCharacterParameters
 @export var crouch_height : float = 1.2
 
 @export_group("Animation")
-@export_range(0.0, 1.0, 0.05, "or_greater", "suffix:s") 
+@export_range(0.0, 1.0, 0.05, "or_greater", "suffix:s")
 var crouch_animation_duration : float = 0.2
-@export_range(0.0, 360, 1.0, "or_greater", "radians_as_degrees", "suffix:°/s") 
+@export_range(0.0, 360, 1.0, "or_greater", "radians_as_degrees", "suffix:°/s")
 var turning_speed : float = TAU
 
 @export_group("Stamina")
@@ -36,7 +42,7 @@ var stamina_drain_rate : float = 18.0
 
 @export_group("Kick")
 @export var kick_stamina_cost : float = 50.0
-@export_range(0.0, 5.0, 0.05, "or_greater", "suffix:s") 
+@export_range(0.0, 5.0, 0.05, "or_greater", "suffix:s")
 var kick_cooldown : float = 1.0
 @export var kick_max_speed : float = 10.0
 @export var kick_impulse : float = 7.0

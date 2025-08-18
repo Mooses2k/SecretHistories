@@ -67,7 +67,7 @@ func _ready():
 	ads_reset_position = hold_position.position
 	ads_reset_rotation = hold_position.rotation_degrees
 	get_reload_length()
-	
+
 	if owner_character:   # start loaded, for now
 		reload()
 
@@ -92,7 +92,7 @@ func _physics_process(delta):
 		target_object = target
 	elif "object" in target:
 		target_object = target.object as Node3D
-	
+
 	if not is_instance_valid(target_object):
 		return
 	var target_position_global = target_object.global_position + Vector3.UP * 0.5 # for 0.5 meters from ground
@@ -120,13 +120,13 @@ func set_range(value : Vector2):
 func shoot():
 	print("shoot")
 	var ammo_type = current_ammo_type as AmmunitionData
-	
+
 	# The reason it's MINUS damage_offset (thus louder) is more of the powder is exploding outside the barrel
 	noise_level = ammo_type.damage - damage_offset   # damage_offset is a negative so this is a addition operation
-	
+
 	var max_dispersion_radians : float = deg_to_rad(dispersion_offset_degrees + ammo_type.dispersion) / 2.0
 	var total_damage : int = damage_offset + ammo_type.damage
-	
+
 	var raycast_range = raycast.target_position.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)
@@ -141,14 +141,14 @@ func shoot():
 			var global_hit_position = raycast.get_collision_point()
 			var global_hit_direction = raycast.global_transform.basis * (shoot_direction)
 			var global_hit_normal = raycast.get_collision_normal()
-			if target is Hitbox or target.owner.has_method("damage"):
+			if target is Hurtbox:# or target.owner.has_method("damage"):
 				target.owner.damage(total_damage, ammo_type.attack_type)
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
 	raycast.target_position = Vector3.FORWARD * raycast_range
 	current_ammo -= 1
 	apply_knockback(total_damage)
 	print(owner_character, " shoots a ", self)
-	
+
 	# Cultists can't recoil for now
 	if owner_character.get_node("PlayerController"):
 		#owner_character.recoil(self, total_damage, handling)   # Should also send delta
@@ -215,7 +215,7 @@ func unload():
 	if current_ammo > 0:
 		$UnloadTimer.start(reload_time)
 		owner_character.state.is_reloading = true
-		
+
 		# Later, based on parts of the reload animation
 		$Sounds/Reload.play()
 		noise_level = 8

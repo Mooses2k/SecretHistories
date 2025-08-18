@@ -179,11 +179,15 @@ func recoil() -> void:
 func kick():
 	if state.stamina < parameters.kick_stamina_cost or state.time_since_kick < parameters.kick_cooldown:
 		return
+	print("kick")
 	state.time_since_kick = 0.0
 	state.stamina -= 50.0
 	var kick_list : Array[Node3D] = kick_cast.get_kick_objects()
+	print(kick_list)
 	var kick_direction := kick_cast.global_basis.y
 	var kick_origin := kick_cast.global_position
+	# Array instead of dicitonary because the list is assumed to be very small
+	var hit_list : Array[Node]
 	for node : Node3D in kick_list:
 		if node is RigidBody3D:
 			var body := node as RigidBody3D
@@ -191,7 +195,9 @@ func kick():
 			body.apply_impulse(kick_impulse * kick_direction, kick_origin - body.global_position)
 		if node is Hurtbox:
 			var hurtbox := node as Hurtbox
-			hurtbox.damage(parameters.kick_damage, parameters.kick_damage_type, kick_direction, kick_origin)
+			if not hit_list.has(hurtbox.owner_node):
+				hit_list.push_back(hurtbox.owner_node)
+				hurtbox.damage(parameters.kick_damage, parameters.kick_damage_type, kick_direction, kick_origin)
 		pass
 	pass
 

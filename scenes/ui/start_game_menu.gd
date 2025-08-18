@@ -5,6 +5,9 @@ const GAME_SCENE = preload("res://scenes/game.tscn")
 
 var game : Game
 
+@onready var margin_between_menus = $MarginContainer/HBoxContainer/MarginContainer
+@onready var adaptive_settings_container = $MarginContainer/HBoxContainer/ScrollContainer
+
 
 func _ready() -> void:
 	game = GAME_SCENE.instantiate()
@@ -83,3 +86,8 @@ func _on_GameIntro_intro_done():
 
 func _on_ReturnButton_pressed() -> void:
 	var _error = get_tree().change_scene_to_file("res://scenes/ui/title_menu.tscn")
+
+## Forward the ShowDebugOptions button press to the current UI
+func _on_ShowDebugOptions_pressed():
+	margin_between_menus.visible = !margin_between_menus.visible
+	adaptive_settings_container.visible = !adaptive_settings_container.visible

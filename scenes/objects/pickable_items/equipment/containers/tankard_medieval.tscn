@@ -53,6 +53,7 @@ size = Vector3(0.0558142, 0.08, 0.02)
 
 [node name="TankardMedieval" instance=ExtResource("2")]
 mass = 0.5
+center_of_mass_mode = 1
 item_size = 0
 item_name = "Tankard"
 item_drop_sound = ExtResource("3")

@@ -45,20 +45,24 @@ size = Vector3(0.12, 0.2, 0.12)
 
 [node name="BottleLongMedieval" instance=ExtResource("2")]
 mass = 1.5
+center_of_mass_mode = 1
 item_size = 0
 item_name = "Short Ceramic Bottle"
 
 [node name="MeshInstance3D" parent="." index="0"]
-transform = Transform3D(0.8, 0, 0, 0, -3.49691e-08, 0.8, 0, -0.8, -3.49691e-08, 0, -0.0965296, 0)
+transform = Transform3D(0.8, 0, 0, 0, -3.49691e-08, 0.8, 0, -0.8, -3.49691e-08, 0, -0.12793, 0)
 mesh = SubResource("ArrayMesh_mkoxr")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(0.8, 0, 0, 0, -3.49691e-08, 0.8, 0, -0.8, -3.49691e-08, 0, -0.0968146, 0)
+transform = Transform3D(0.8, 0, 0, 0, -3.49691e-08, 0.8, 0, -0.8, -3.49691e-08, 0, -0.128215, 0)
 shape = SubResource("2")
 
 [node name="CollisionShapeAntiRoll" type="CollisionShape3D" parent="." index="2"]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0680494, 0)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.0366489, 0)
 shape = SubResource("3")
 
 [node name="HoldPosition" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00542729, 0.2126, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00542729, 0.181199, 0)
+
+[node name="PlacementAnchor" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0314005, 0)

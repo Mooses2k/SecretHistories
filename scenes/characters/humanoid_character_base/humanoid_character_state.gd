@@ -28,6 +28,7 @@ var sprinting : bool = false
 var is_reloading : bool = false
 var time_since_kick : float = INF
 var time_since_dodge : float = INF
+var noclip_enabled : bool = false
 var knocked_out_timer : float = 0.0
 
 var _hurtboxes : Array[Hurtbox]

@@ -11,4 +11,4 @@ var crouch : bool = false
 var sprint : bool = false
 var lean_left : bool = false
 var lean_right : bool = false
-var lean_forward : bool = false
+var lean_forward : bool = false  # To be clear, lean_forward will be when lean_left and lean_right are pressed together; so does that mean this shouldn't be here?

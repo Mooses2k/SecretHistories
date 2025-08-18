@@ -53,7 +53,7 @@ func configure_for_object_type(object_type: String):
 			volume_max_db = 5.0
 			pitch_min_scale = 0.8
 			pitch_max_scale = 1.5
-			mass_divisor = 8.0
+			mass_divisor = 10.0
 		"pickable_item":
 			max_impact_intensity = 5.0
 			velocity_change_threshold = 0.17

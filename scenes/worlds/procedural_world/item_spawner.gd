@@ -75,7 +75,14 @@ func _spawn_initial_settings_items(data : WorldData):
 				_used_cell_indexes.append(cell_index)
 				# Use CellFilter helper function instead of direct WorldData call
 				var cell_pos = CellFilter.get_cell_position(data, cell_index) + ITEM_POSITION_OFFSET
-				_spawn_item(s, cell_pos)
+				
+				# Get the full path from metadata (s is the display name)
+				var full_path = settings.get_setting_meta(s, "full_path")
+				if full_path:
+					_spawn_item(full_path, cell_pos)
+				else:
+					# Fallback: assume s is already a full path (for backwards compatibility)
+					_spawn_item(s, cell_pos)
 		elif g == "Tiny Items":
 			if amount == 0:
 				continue
@@ -87,7 +94,14 @@ func _spawn_initial_settings_items(data : WorldData):
 			_used_cell_indexes.append(cell_index)
 			# Use CellFilter helper function instead of direct WorldData call
 			var pos = CellFilter.get_cell_position(data, cell_index) + ITEM_POSITION_OFFSET
-			_spawn_tiny_item(s, amount, pos)
+			
+			# Get the full path from metadata (s is the display name)
+			var full_path = settings.get_setting_meta(s, "full_path")
+			if full_path:
+				_spawn_tiny_item(full_path, amount, pos)
+			else:
+				# Fallback: assume s is already a full path (for backwards compatibility)
+				_spawn_tiny_item(s, amount, pos)
 
 
 # Angle is in radians

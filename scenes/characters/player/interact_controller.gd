@@ -19,6 +19,12 @@ enum InteractState {
 @export var rotational_damping_factor : float = 2.0
 @export var mass_damping_scale : float = 1.0  # How much mass affects damping (0.0-1.0)
 
+# Camera-centered grab parameters
+@export var grab_distance : float = 0.7  # Distance in front of camera to hold grabbed objects (meters)
+@export var grab_distance_min : float = 0.3  # Minimum grab distance
+@export var grab_distance_max : float = 1.5  # Maximum grab distance
+@export var grab_distance_increment : float = 0.1  # How much to change grab distance per mousewheel step
+
 # Rotation following parameters
 @export var rotation_follow_enabled : bool = true
 @export var rotation_deadband : float = 0.1  # Minimum rotation difference to apply torque (radians)
@@ -58,6 +64,15 @@ func _process(delta: float) -> void:
 	grab_cast.force_raycast_update()
 	grab_target = grab_cast.get_collider() as RigidBody3D
 	pick_target = grab_cast.get_collider() as PickableItem
+	
+	# If we don't have a grab_target but we have an ignite area, check if its parent is grabbable
+	if grab_target == null and is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
+		
+		# The ignite area is typically a child Area3D of a RigidBody3D (like a candle)
+		# So we need to check if the parent is a RigidBody3D
+		var interact_node = interact_target as Node
+		if interact_node and interact_node.get_parent() is RigidBody3D:
+			grab_target = interact_node.get_parent() as RigidBody3D
 	#TODO: move this code to the gui instead, and make near cast behave like kick
 	GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.NONE
 	
@@ -67,7 +82,6 @@ func _process(delta: float) -> void:
 		GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.DOT
 		if is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
 			GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.IGNITE
-			print("Fire")
 	if GameManager.game.ui_root.hud_root.active_indicator == HUD.Indicator.NONE:
 		for body in near_cast.get_overlapping_bodies():
 			if body is RigidBody3D:
@@ -88,6 +102,17 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Handle mousewheel for grab distance adjustment when grabbing
+	if interact_state == InteractState.GRAB:
+		if event.is_action_pressed(&"itm|next_hotbar_item"):
+			grab_distance = clamp(grab_distance + grab_distance_increment, grab_distance_min, grab_distance_max)
+			get_viewport().set_input_as_handled()  # Prevent hotbar switching
+			return
+		elif event.is_action_pressed(&"itm|previous_hotbar_item"):
+			grab_distance = clamp(grab_distance - grab_distance_increment, grab_distance_min, grab_distance_max)
+			get_viewport().set_input_as_handled()  # Prevent hotbar switching
+			return
+	
 	if event.is_action_pressed(&"player|interact"):
 		if not (interact_target or grab_target or pick_target):
 			interact_state = InteractState.ADS
@@ -95,6 +120,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			# Store the grab target and collision point that were under crosshair when button was FIRST pressed
 			captured_grab_target = grab_target
+			
+			# Special case: if we're pointing at an ignite area but no grab_target,
+			# check if the ignite area's parent is grabbable
+			if captured_grab_target == null and is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
+				var interact_node = interact_target as Node
+				if interact_node and interact_node.get_parent() is RigidBody3D:
+					captured_grab_target = interact_node.get_parent() as RigidBody3D
+			
 			if grab_cast.is_colliding():
 				captured_collision_point = grab_cast.get_collision_point()
 			
@@ -138,46 +171,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 
-func _try_grab() -> bool:
-	if is_instance_valid(grab_target):
-		print("grab")
-		grabbed_item = grab_target
-		grab_position_object = grabbed_item.to_local(grab_cast.get_collision_point())
-		grab_position_raycast = grab_cast.to_local(grab_cast.get_collision_point())
-		
-		# Store the initial rotation relationship between the object and the grab cast
-		grab_rotation_offset = grab_cast.global_transform.basis.get_rotation_quaternion().inverse() * grabbed_item.global_transform.basis.get_rotation_quaternion()
-		
-		# DEBUG: Log grab information
-		print("ROTATION DEBUG - Grabbed item: ", grabbed_item.name, " Type: ", grabbed_item.get_class())
-		print("ROTATION DEBUG - Initial grab_rotation_offset: ", grab_rotation_offset)
-		print("ROTATION DEBUG - Item mass: ", grabbed_item.mass)
-		print("ROTATION DEBUG - Item damping - Linear: ", grabbed_item.linear_damp, " Angular: ", grabbed_item.angular_damp)
-		
-		# Special handling for wall objects
-		if grabbed_item.has_method("grab_by_player"):
-			grabbed_item.grab_by_player(player_controller)
-		
-		interact_state = InteractState.GRAB
-		return true
-	return false
-
 func _try_grab_captured() -> bool:
 	if is_instance_valid(captured_grab_target):
-		print("grab captured target")
 		grabbed_item = captured_grab_target
+		
 		grab_position_object = grabbed_item.to_local(grab_cast.get_collision_point())
 		grab_position_raycast = grab_cast.to_local(grab_cast.get_collision_point())
+
+		# CAMERA-CENTERED: No need to store grab positions or collision points
+		# Object will be pulled to camera center regardless of where it was initially grabbed
 		
 		# Store the initial rotation relationship between the object and the grab cast
 		grab_rotation_offset = grab_cast.global_transform.basis.get_rotation_quaternion().inverse() * grabbed_item.global_transform.basis.get_rotation_quaternion()
-		
-		# DEBUG: Log grab information
-		print("ROTATION DEBUG - Grabbed item: ", grabbed_item.name, " Type: ", grabbed_item.get_class())
-		print("ROTATION DEBUG - Initial grab_rotation_offset: ", grab_rotation_offset)
-		print("ROTATION DEBUG - Item mass: ", grabbed_item.mass)
-		print("ROTATION DEBUG - Item damping - Linear: ", grabbed_item.linear_damp, " Angular: ", grabbed_item.angular_damp)
-		
+
 		# Special handling for wall objects
 		if grabbed_item.has_method("grab_by_player"):
 			grabbed_item.grab_by_player(player_controller)
@@ -189,9 +195,18 @@ func _try_grab_captured() -> bool:
 
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(grabbed_item):
+		var difference : Vector3
+
+		# Old method that works well with large objects
 		var point_object := grabbed_item.to_global(grab_position_object)
-		var point_raycast := grab_cast.to_global(grab_position_raycast)
-		var difference := point_raycast - point_object
+		if grabbed_item is LargeObject:
+			var point_raycast := grab_cast.to_global(grab_position_raycast)
+			difference = point_raycast - point_object
+		
+		# CAMERA-CENTERED APPROACH: Pull object toward camera center instead of maintaining grab offset
+		else:
+			var desired_position = grab_cast.global_position + (-grab_cast.global_transform.basis.z * grab_distance)
+			difference = desired_position - grabbed_item.global_position
 		
 		# Calculate mass-based force scaling
 		var mass = grabbed_item.mass
@@ -205,11 +220,12 @@ func _physics_process(delta: float) -> void:
 			# Increase force multiplier for heavy objects
 			var mass_factor = 1.0 + (mass - temp_mass_threshold) / temp_mass_threshold
 			force_multiplier = base_force_multiplier * mass_factor * 1.5  # Additional boost for heavy objects
-			max_force_limit = 200.0 + (mass - temp_mass_threshold) * 4.4  # Higher limit for heavy objects
+			max_force_limit = 200.0 + (mass - temp_mass_threshold) * 4.6  # Higher limit for heavy objects
 		
 		var force = (difference * mass * force_multiplier)
 		force = force.limit_length(max_force_limit)
 		
+		# Apply force to object center instead of specific grab point
 		grabbed_item.apply_force(force, point_object - grabbed_item.global_position)
 		
 		# Apply rotational forces to make object follow player's orientation
@@ -237,7 +253,9 @@ func _physics_process(delta: float) -> void:
 				# Scale torque inversely with mass for light objects, but proportionally for heavy ones
 				var base_torque := rotation_torque_multiplier
 				if mass < 0.5:
-					base_torque = 0.1
+					base_torque = 0.01
+					linear_damping_factor = 8.0
+					rotational_damping_factor = 8.0
 				if mass <= light_object_mass_threshold:
 					# Light objects: reduce torque significantly and use mass_damping_scale
 					base_torque *= mass_factor * (1.0 - mass_damping_scale) + mass_damping_scale #* 0.1
@@ -259,18 +277,9 @@ func _physics_process(delta: float) -> void:
 					mass_adjusted_max_torque *= clamp(mass / light_object_mass_threshold, 1.0, 3.0)
 				
 				torque = torque.limit_length(mass_adjusted_max_torque)
-				
-				# DEBUG: Log rotation calculations for all objects
-				#print("ROTATION DEBUG - ", grabbed_item.name, " Angle: ", snappedf(rotation_angle, 0.01),
-					  #" Base torque: ", snappedf(base_torque, 0.1),
-					  #" Final torque: ", torque.length(),
-					  #" Angular damp: ", grabbed_item.angular_damp)
-				
+	
 				grabbed_item.apply_torque(torque)
-			#else:
-				# DEBUG: Log when rotation is skipped due to deadband for all objects
-				#print("ROTATION DEBUG - ", grabbed_item.name, " Skipped rotation - angle ", snappedf(rotation_angle, 0.01), " < deadband ", rotation_deadband)
-		
+
 		# Apply movement speed reduction based on mass
 		var speed_reduction_factor = 1.0
 		if mass > temp_mass_threshold:
@@ -321,8 +330,7 @@ func interact() -> void:
 # Helper function to reset object damping when released
 func _reset_object_damping(item: RigidBody3D) -> void:
 	if is_instance_valid(item):
-		print("INTERACT DEBUG - Resetting damping for: ", item.name)
-		print("INTERACT DEBUG - Before reset - Linear: ", item.linear_damp, " Angular: ", item.angular_damp)
+		print("INTERACT DEBUG - Resetting damping for: ", item.name, ". Before reset - Linear: ", item.linear_damp, " Angular: ", item.angular_damp)
 		
 		# Reset to default physics values (or whatever the object's original values were)
 		item.linear_damp = 0.0  # Default Godot linear damping

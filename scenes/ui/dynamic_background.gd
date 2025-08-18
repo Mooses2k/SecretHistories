@@ -9,7 +9,7 @@ extends Control
 # Exported parameters for customization
 @export var fade_duration: float = 1.5  ## Duration of fade in/out animations
 @export var display_time: float = 5.0  ## Time each image is displayed before transitioning
-@export var background_directory: String = "res://resources/art/title_backgrounds/"  ## Directory containing background images
+@export var background_directory: String = "resources/art/title_backgrounds/"  ## Directory containing background images
 @export var zoom_scale: float = 1.3  ## Scale factor for zoom effect
 @export var max_images: int = 3  ## Maximum number of images on screen at once
 @export var target_image_scale = 0.6  # Use 67% of screen size (roughly 2/3)
@@ -50,21 +50,50 @@ func _ready() -> void:
 
 
 func load_background_images() -> void:
-	## Load all background images from the specified directory, excluding the special image
+	## Load all background images from the predefined list, excluding the special image
 	print("Loading background images from: ", background_directory)
-	var dir: DirAccess = DirAccess.open(background_directory)
-	if dir:
-		dir.list_dir_begin()
-		var file_name: String = dir.get_next()
-		while file_name != "":
-			if not dir.current_is_dir() and (file_name.ends_with(".png") or file_name.ends_with(".jpg") or file_name.ends_with(".jpeg")):
-				var full_path = background_directory + file_name
-				# Exclude the special cathedral image from random selection
-				if full_path != special_image_path:
-					background_images.append(full_path)
-					print("Found background image: ", file_name)
-			file_name = dir.get_next()
-		dir.list_dir_end()
+	
+	# Predefined list of background image filenames to avoid DirAccess method not working in builds
+	var image_filenames: Array[String] = [
+		"06-00391-2082957616.png",
+		"00008-787729727.png",
+		"00009-1236426289.png",
+		"00014-720767209.png",
+		"00015-1928675650.png",
+		"00020-187638769.png",
+		"00035-3305186785.png",
+		"00044-1825481839.png",
+		"00054-3758638628.png",
+		"00236-1921911877.png",
+		"00305-2505864101.png",
+		"00306-2505864102.png",
+		"00318-252378031.png",
+		"00332-3766491186.png",
+		"00352-3959123771.png",
+		"00373-2075715374.png",
+		"00382-848652815.png",
+		"00404-908592793.png",
+		"00659-3865673013.png",
+		"00787-2213723471.png",
+		"00848-2078861591.png",
+		"00852-1050146515.png",
+		"00880-2251940560.png",
+		"01036-2370997828.png",
+	]
+	
+	# Convert to full paths and verify each image can be loaded
+	for filename in image_filenames:
+		var full_path: String = "res://" + background_directory + filename
+		
+		# Exclude the special cathedral image from random selection
+		if full_path != special_image_path:
+			# Verify the image can be loaded
+			var test_image: Texture2D = load(full_path)
+			if test_image:
+				background_images.append(full_path)
+				print("Found background image: ", filename)
+			else:
+				push_warning("Failed to load background image: " + full_path)
 	
 	print("Total background images found (excluding special): ", background_images.size())
 	if background_images.is_empty():
@@ -185,6 +214,7 @@ func create_new_image() -> Control:
 			
 			# Scale to about 67% of screen size while maintaining aspect ratio
 			var screen_size: Vector2 = Vector2(get_viewport().size)
+			var target_scale = 0.6
 			var scale_factor = min(
 				target_image_scale * screen_size.x / image.get_size().x,
 				target_image_scale * screen_size.y / image.get_size().y
@@ -192,7 +222,7 @@ func create_new_image() -> Control:
 			container.size = image.get_size() * scale_factor
 			
 			# Position randomly within the left 2/3 of the screen with strong bias toward top areas
-			var left_zone_width = screen_size.x * (2.0 / 3.0)  # Left 2/3 of screen width
+			var left_zone_width = screen_size.x * (1.0 / 2.0)  # Left half of screen width
 			var pan_margin = container.size * 0.1  # Smaller margin for more positioning freedom
 			
 			# Calculate available space with large bottom margin to prevent going off-screen
@@ -268,55 +298,6 @@ func select_random_image() -> String:
 	return selected_image
 
 
-func start_smooth_pan(texture_rect: Control) -> void:
-	## Start smooth panning animation for the image with continuous linear movement
-	if not is_instance_valid(texture_rect):
-		return
-	
-	# Get the actual TextureRect child from the container
-	var actual_texture_rect: TextureRect = texture_rect.get_child(0) as TextureRect
-	if not actual_texture_rect or actual_texture_rect.texture == null:
-		return
-	
-	var screen_size: Vector2 = get_viewport().size
-	var left_zone_width = screen_size.x * (2.0 / 3.0)
-	
-	# Calculate larger panning bounds for more noticeable movement
-	var max_offset = texture_rect.size * 0.25  # Increased from 10% to 25% of image size
-	
-	# Create smooth panning tween with linear transition for constant speed
-	var pan_tween: Tween = create_tween()
-	pan_tween.set_trans(Tween.TRANS_LINEAR)  # Changed from SINE to LINEAR for smooth constant movement
-	pan_tween.set_ease(Tween.EASE_IN_OUT)
-	
-	# Calculate upper-left zone center for reference (encourage upward movement)
-	var upper_zone_center = Vector2(left_zone_width / 2, screen_size.y * 0.3)  # Center of upper 30% of screen
-	var current_center = texture_rect.position + texture_rect.size / 2
-	
-	# Bias movement toward upper areas and add randomness
-	var direction_to_upper = (upper_zone_center - current_center).normalized()
-	var random_direction = Vector2(rng.randf_range(-1, 1), rng.randf_range(-1.5, 0.5)).normalized()  # Bias random Y toward negative (upward)
-	
-	# Blend upper-seeking with random movement (50% toward upper zone, 50% random with upward bias)
-	var final_direction = (direction_to_upper * 0.5 + random_direction * 0.5).normalized()
-	var target_offset = final_direction * max_offset.x
-	
-	# Ensure the final position stays within bounds with better bottom margin
-	var final_pos = texture_rect.position + target_offset
-	final_pos.x = clamp(final_pos.x, 0, left_zone_width - texture_rect.size.x)
-	
-	# Use larger bottom margin to prevent images from going off-screen
-	var bottom_margin = texture_rect.size.y * 0.2  # 20% of image height as bottom margin
-	final_pos.y = clamp(final_pos.y, 0, screen_size.y - texture_rect.size.y - bottom_margin)
-	
-	# Faster movement - reduced from display_time * 2.0 to just display_time + fade_duration
-	var movement_duration = display_time + fade_duration
-	pan_tween.tween_property(texture_rect, "position", final_pos, movement_duration)
-	
-	pan_tweens.append(pan_tween)
-	pan_tween.finished.connect(_on_pan_tween_finished.bind(pan_tween))
-
-
 func start_zoom_in_effect(texture_rect: Control, duration: float) -> void:
 	## Start zoom-in effect that continues through fade duration
 	if not is_instance_valid(texture_rect):
@@ -351,7 +332,6 @@ func start_fade_in(texture_rect: Control) -> void:
 	# Start zoom effect that spans entire display time (fade_in + display + fade_out)
 	if not texture_rect.has_meta("is_special"):
 		start_continuous_zoom_effect(texture_rect)
-		start_smooth_pan(texture_rect)
 	
 	# Create a tween for fade in
 	var tween: Tween = create_tween()
@@ -380,17 +360,17 @@ func start_continuous_zoom_effect(texture_rect: Control) -> void:
 	## Start zoom effect that spans the entire time the image is shown with more noticeable scaling
 	if not is_instance_valid(texture_rect):
 		return
-	
-	# Start with a slightly smaller scale to make zoom more noticeable
-	texture_rect.scale = Vector2(0.95, 0.95)
+
+	# Start with a smaller scale to make zoom more noticeable
+	texture_rect.scale = Vector2(0.93, 0.93)
 	
 	# Calculate total duration: fade_in + display_time + fade_out
 	var total_duration = fade_duration * 2 + display_time
 	
-	# Create continuous zoom tween with smoother easing
+	# Create continuous zoom tween with linear movement and ease in/out
 	var zoom_tween: Tween = create_tween()
-	zoom_tween.set_trans(Tween.TRANS_QUART)  # Changed from LINEAR to QUART for smoother acceleration
-	zoom_tween.set_ease(Tween.EASE_OUT)      # Added easing for more natural zoom
+	zoom_tween.set_trans(Tween.TRANS_QUART)
+	zoom_tween.set_ease(Tween.EASE_OUT)
 	zoom_tween.tween_property(texture_rect, "scale",
 		Vector2(zoom_scale, zoom_scale), total_duration)
 	

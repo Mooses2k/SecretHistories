@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://yv7qkpwbxx2f" path="res://resources/models/items/melee/sap/T_Sap_Metallic-T_Sap_Roughness.png" id="6"]
 [ext_resource type="AudioStream" uid="uid://dg7noquhwfeve" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip2.ogg" id="9"]
 [ext_resource type="AudioStream" uid="uid://dfoxypidjr2o" path="res://resources/sounds/melee/wider_object/solid_flesh_hit/362782__taure__pistol-whip1.ogg" id="10"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://e6c36ve4ak8x" path="res://scenes/objects/pickable_items/equipment/melee/_melee_item.tscn" id="17"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ivn20"]
 resource_name = "M_Sap"
@@ -56,8 +56,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xrqv8")
 
-[sub_resource type="BoxShape3D" id="5"]
-size = Vector3(0.161741, 0.0125764, 0.0664566)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_md1j8"]
+points = PackedVector3Array(0.0670905, -0.00641182, 0.0157518, -0.0756905, -0.00343635, -0.0377873, -0.0756905, 0.00548688, -0.0377873, -0.081635, 0.0025114, 0.0365778, 0.075998, 0.0233333, -0.0110068, 0.0611273, -0.00641182, -0.0199312, -0.081635, -0.0093873, 0.00682738, 0.0313859, 0.0233333, 0.0098046, 0.0908873, 0.0173792, 0.0098046, -0.0994873, 0.00548688, 0.0127745, -0.0518936, -0.00641182, 0.0365778, -0.0875796, -0.00641182, -0.0318256, 0.0313859, 0.0233333, -0.0110068, -0.0489121, 0.00548688, 0.0365778, 0.0908873, 0.00845595, -0.0110068, -0.0965057, -0.00641182, 0.018729, -0.0965057, 0.00548688, -0.0199312, -0.0548566, 0.00548688, -0.0377873, -0.0489121, -0.0093873, -0.0139768, 0.075998, 0.0233333, 0.0098046, 0.0641089, 0.00548688, 0.018729, -0.0905612, 0.00548688, 0.0306233, -0.0875796, 0.00845595, 0.00682738, -0.0578382, -0.00641182, -0.0377873, 0.0611273, 0.00548688, -0.0199312, -0.0994873, -0.00641182, -0.00802962, -0.0518936, -0.0093873, 0.0157518, -0.0786534, -0.00641182, 0.0365778, 0.0641089, -0.00641182, 0.018729, 0.0908873, 0.00845595, 0.0098046, 0.0700534, -0.00641182, -0.0110068, 0.0908873, 0.0173792, -0.0110068)
 
 [sub_resource type="CylinderShape3D" id="3"]
 height = 0.0864951
@@ -71,7 +71,6 @@ secondary_damage1 = 40
 melee_attack_speed = 1.5
 item_size = 0
 item_name = "Sap"
-normal_pos_path = NodePath("NormalPosition")
 throw_pos_path = NodePath("ThrowPosition")
 item_drop_sound = ExtResource("2")
 item_throw_sound = ExtResource("1")
@@ -82,8 +81,8 @@ mesh = SubResource("ArrayMesh_14v4t")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(-2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 0, -3.76881e-08, 0.862204, 0.506561, 0, -0.026485, 0)
-shape = SubResource("5")
+transform = Transform3D(-2.21425e-08, 0.506561, -0.862204, -1, -4.37114e-08, 3.19744e-14, -3.76881e-08, 0.862204, 0.506561, 0, -0.0384153, 7.1682e-05)
+shape = SubResource("ConvexPolygonShape3D_md1j8")
 
 [node name="Hitbox" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.139101, 0)

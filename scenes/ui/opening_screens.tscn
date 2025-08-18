@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cjm6so1i3v5sg"]
 
-[ext_resource type="Script" path="res://scenes/ui/opening_screens.gd" id="1"]
+[ext_resource type="Script" uid="uid://xpo6q5ayd8ul" path="res://scenes/ui/opening_screens.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://beb8raax6yquc" path="res://resources/art/opening_screens/help_dev_and_everything_will_come_together (orange).png" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6hmagd0fuikk" path="res://resources/art/opening_screens/go_die_in_a_hole.png" id="3"]
 [ext_resource type="Theme" uid="uid://d1bhwd8v505pu" path="res://resources/ui_themes/main_menu.tres" id="4"]

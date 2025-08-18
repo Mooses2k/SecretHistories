@@ -23,7 +23,7 @@ func _tick(state : CharacterState) -> int:
 #		state.move_direction = Vector3.ZERO
 
 		return BTResult.OK
-	
+
 	while state.path.size() > 0:
 		var waypoint_delta : Vector3 = state.path[0] - character.global_transform.origin
 		waypoint_delta.y = 0.0
@@ -31,7 +31,7 @@ func _tick(state : CharacterState) -> int:
 			state.path.pop_front()
 		else:
 			break
-	
+
 	if state.path.size() > 0:
 		var waypoint_delta : Vector3 = state.path[0] - character.global_transform.origin
 		waypoint_delta.y = 0.0

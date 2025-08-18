@@ -1,121 +1,124 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=20 format=3 uid="uid://6kt8lc6tchxt"]
 
-[ext_resource path="res://scenes/characters/character.gd" type="Script" id=1]
-[ext_resource path="res://scenes/characters/hitbox.gd" type="Script" id=2]
-[ext_resource path="res://scenes/characters/undead/revenant/grab_area.gd" type="Script" id=3]
-[ext_resource path="res://core/ai/bt_root.gd" type="Script" id=4]
-[ext_resource path="res://core/ai/flow_nodes/bt_sequence.gd" type="Script" id=5]
-[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_go_to_target.gd" type="Script" id=6]
-[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_select_random_target.gd" type="Script" id=7]
-[ext_resource path="res://scenes/characters/body.gd" type="Script" id=8]
-[ext_resource path="res://core/ai/check_nodes/bt_player_sensor.gd" type="Script" id=9]
-[ext_resource path="res://core/ai/flow_nodes/bt_selector.gd" type="Script" id=10]
-[ext_resource path="res://scenes/sensors/direct_player_sight/direct_player_sight.tscn" type="PackedScene" id=11]
-[ext_resource path="res://core/ai/misc_nodes/action_nodes/bt_wait_random.gd" type="Script" id=12]
+[ext_resource type="Script" uid="uid://cmci7gwh23doq" path="res://scenes/characters/character.gd" id="1"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="2"]
+[ext_resource type="Script" uid="uid://bsnm5bv2j63y0" path="res://scenes/characters/undead/revenant/grab_area.gd" id="3"]
+[ext_resource type="Script" uid="uid://0nvxxergqacy" path="res://core/ai/bt_root.gd" id="4"]
+[ext_resource type="Script" uid="uid://d2jyqwlf4r4kn" path="res://core/ai/flow_nodes/bt_sequence.gd" id="5"]
+[ext_resource type="Script" uid="uid://cm5x8ephyohoi" path="res://core/ai/misc_nodes/action_nodes/bt_go_to_target.gd" id="6"]
+[ext_resource type="Script" uid="uid://cn425v4f6ds88" path="res://core/ai/misc_nodes/action_nodes/bt_select_random_target.gd" id="7"]
+[ext_resource type="Script" uid="uid://cfboonqa1jv3t" path="res://scenes/characters/body.gd" id="8"]
+[ext_resource type="Script" uid="uid://dio1jo8ivp3gr" path="res://core/ai/flow_nodes/bt_selector.gd" id="10"]
+[ext_resource type="Script" uid="uid://bw1s4qvaho3xx" path="res://core/ai/misc_nodes/action_nodes/bt_wait_random.gd" id="12"]
 
-
-
-[sub_resource type="CapsuleShape3D" id=1]
+[sub_resource type="CapsuleShape3D" id="1"]
 radius = 0.3
 height = 1.2
 
-[sub_resource type="StandardMaterial3D" id=2]
-albedo_color = Color( 1, 0.266667, 0.2, 1 )
+[sub_resource type="StandardMaterial3D" id="2"]
+albedo_color = Color(1, 0.266667, 0.2, 1)
 
-[sub_resource type="CapsuleMesh" id=3]
+[sub_resource type="CapsuleMesh" id="3"]
 radius = 0.3
 height = 1.2
 
-[sub_resource type="BoxMesh" id=4]
-size = Vector3( 0.1, 0.15, 1 )
+[sub_resource type="BoxMesh" id="4"]
+size = Vector3(0.1, 0.15, 1)
 
-[sub_resource type="Curve" id=5]
-max_value = 32.0
-_data = [ Vector2( 0.5, 32 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id="5"]
+_limits = [0.0, 32.0, 0.0, 1.0]
+_data = [Vector2(0.5, 32), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="SphereShape3D" id=6]
+[sub_resource type="SphereShape3D" id="6"]
 radius = 0.4
 
-[sub_resource type="CapsuleShape3D" id=7]
+[sub_resource type="Resource" id="Resource_p1ci2"]
+metadata/__load_path__ = "res://scenes/sensors/direct_player_sight/direct_player_sight.tscn"
+
+[sub_resource type="CapsuleShape3D" id="7"]
 radius = 0.4
 height = 1.2
+
+[sub_resource type="Resource" id="Resource_1fd2a"]
+metadata/__load_path__ = "res://core/ai/check_nodes/bt_player_sensor.gd"
 
 [node name="Zombie" type="CharacterBody3D"]
 collision_layer = 16
 collision_mask = 19
-script = ExtResource( 1 )
+script = ExtResource("1")
 move_speed = 2.0
 acceleration = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0)
+shape = SubResource("1")
 
 [node name="Body" type="Node3D" parent="."]
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-material_override = SubResource( 2 )
-mesh = SubResource( 3 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0)
+material_override = SubResource("2")
+mesh = SubResource("3")
 
 [node name="MeshInstance2" type="MeshInstance3D" parent="Body"]
-transform = Transform3D( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.4, 1.2, -0.5 )
-mesh = SubResource( 4 )
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.4, 1.2, -0.5)
+mesh = SubResource("4")
 
 [node name="MeshInstance3" type="MeshInstance3D" parent="Body"]
-transform = Transform3D( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.4, 1.2, -0.5 )
-mesh = SubResource( 4 )
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.4, 1.2, -0.5)
+mesh = SubResource("4")
 
 [node name="GrabArea" type="Area3D" parent="Body"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8)
 collision_layer = 0
 collision_mask = 2
-script = ExtResource( 3 )
-force_curve = SubResource( 5 )
+script = ExtResource("3")
+force_curve = SubResource("5")
 max_distance = 0.8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/GrabArea"]
-shape = SubResource( 6 )
+shape = SubResource("6")
 
-[node name="DirectPlayerSight" parent="Body" instance=ExtResource( 11 )]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0 )
+[node name="DirectPlayerSight" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 character = NodePath("../..")
 fov = 90.0
 distance = 12.0
 
 [node name="Hitbox" type="Area3D" parent="."]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0 )
-shape = SubResource( 7 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9, 0)
+shape = SubResource("7")
 
 [node name="ZombieController" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource("4")
 bt_root = NodePath("BT_Selector")
 
 [node name="BT_Selector" type="Node" parent="ZombieController"]
-script = ExtResource( 10 )
+script = ExtResource("10")
 
 [node name="BT_Sequence2" type="Node" parent="ZombieController/BT_Selector"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="BT_Player_Sensor" type="Node" parent="ZombieController/BT_Selector/BT_Sequence2"]
-script = ExtResource( 9 )
+script = SubResource("Resource_1fd2a")
 sensor = NodePath("../../../../Body/DirectPlayerSight")
 
 [node name="BT_Go_To_Target" type="Node" parent="ZombieController/BT_Selector/BT_Sequence2"]
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="BT_Sequence" type="Node" parent="ZombieController/BT_Selector"]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="BT_Go_To_Target" type="Node" parent="ZombieController/BT_Selector/BT_Sequence"]
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="BT_Wait_Random" type="Node" parent="ZombieController/BT_Selector/BT_Sequence"]
-script = ExtResource( 12 )
+script = ExtResource("12")
 
 [node name="BT_Select_Random_Target" type="Node" parent="ZombieController/BT_Selector/BT_Sequence"]
-script = ExtResource( 7 )
+script = ExtResource("7")

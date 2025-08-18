@@ -10,7 +10,7 @@ extends SpawnData
 
 #--- constants ------------------------------------------------------------------------------------
 
-const CHARACTER_CENTER_POSITION_OFFSER = Vector3(0.75, 0.0, 0.75)
+const CHARACTER_CENTER_POSITION_OFFSET = Vector3(0.75, 0.0, 0.75)
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -37,13 +37,13 @@ func spawn_character_in(node: Node, should_log := false) -> Node3D:
 	if character == null:
 		push_error("scene_path is not a Node3D: %s"%[scene_path])
 		return character
-	
+
 	character.transform = _transforms.front()
 	node.add_child(character, true)
-	
+
 	if should_log:
 		print("Character spawned: %s at: %s"%[character, character.position])
-	
+
 	return character
 
 ### -----------------------------------------------------------------------------------------------
@@ -55,12 +55,12 @@ func _set_amount(value: int) -> void:
 	if value != 1:
 		value = 1
 		push_warning("Can't spawn more than 1 character per cell")
-	
+
 	super._set_amount(value)
 
 
 func _get_center_offset() -> Vector3:
-	return CHARACTER_CENTER_POSITION_OFFSER
+	return CHARACTER_CENTER_POSITION_OFFSET
 
 ### -----------------------------------------------------------------------------------------------
 

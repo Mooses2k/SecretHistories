@@ -2,7 +2,7 @@ class_name SettingsClass
 extends Node
 
 ##If this is a singleton (autoloaded node), why is it also on a node inside a scene?
-#TODO: unify settings, possibly rework how they are in memory/file to something 
+#TODO: unify settings, possibly rework how they are in memory/file to something
 #	less or not at all error prone. Current version will give corrupted data for some settings
 signal setting_added(setting_name)
 signal setting_removed(setting_name)
@@ -23,6 +23,7 @@ const _FIELD_GROUP = "group"
 const _FIELD_MIN = "min_value"
 const _FIELD_MAX = "max_value"
 const _FIELD_STEP = "step"
+const _FIELD_EXP_EDIT = "exp"
 
 #enum only fields
 const _FIELD_VARIANTS = "variants"
@@ -183,7 +184,7 @@ func remove_setting(setting_name : String) -> bool:
 # Add a setting that is a float value. The setting will have the default value.
 # Adding will fail if a setting of the same name already exists, returns `true`
 # if adding was successful, `false` otherwise
-func add_float_setting(setting_name : String, min_value : float, max_value : float, step : float, default : float) -> bool:
+func add_float_setting(setting_name : String, min_value : float, max_value : float, step : float, default : float, exp_edit : bool = false) -> bool:
 	if _settings.has(setting_name):
 		return false
 	_settings[setting_name] = {
@@ -192,7 +193,8 @@ func add_float_setting(setting_name : String, min_value : float, max_value : flo
 		_FIELD_MAX : max_value,
 		_FIELD_STEP : step,
 		_FIELD_DEFAULT : default,
-		_FIELD_VALUE : default
+		_FIELD_VALUE : default,
+		_FIELD_EXP_EDIT : exp_edit
 	}
 	emit_signal("setting_added", setting_name)
 	emit_signal("settings_list_changed")
@@ -225,6 +227,9 @@ func add_int_setting(setting_name : String, min_value : int, max_value : int, st
 func is_setting_int(setting_name : String) -> bool:
 	return get_setting_type(setting_name) == SettingType.INT
 
+func get_setting_exp_edit(setting_name : String):
+	var setting_data = _settings.get(setting_name)
+	return setting_data.get(_FIELD_EXP_EDIT) if setting_data else null
 
 func get_setting_min_value(setting_name : String):
 	var setting_data = _settings.get(setting_name)

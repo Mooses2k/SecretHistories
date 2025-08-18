@@ -1,51 +1,47 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://btgj1s4833cij"]
 
-[ext_resource path="res://scenes/effects/hit_effect.gd" type="Script" id=1]
-[ext_resource path="res://scenes/effects/explosion/smokesprite.png" type="Texture2D" id=2]
-[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=3]
-[ext_resource path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" type="AudioStream" id=5]
-[ext_resource path="res://resources/sounds/impacts/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg" type="AudioStream" id=6]
+[ext_resource type="Script" uid="uid://h41wl1nkeymg" path="res://scenes/effects/hit_effect.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://hsdv1agd3pqe" path="res://scenes/effects/explosion/smokesprite.png" id="2"]
+[ext_resource type="AudioStream" uid="uid://csmnd6mic6rlb" path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" id="3"]
+[ext_resource type="AudioStream" uid="uid://74l856553kcp" path="res://resources/sounds/impacts/491790__hidrolion__42-golpe-metal-1.ogg" id="5"]
+[ext_resource type="AudioStream" uid="uid://dd4kk0o7ikt72" path="res://resources/sounds/impacts/534956__joedinessound__arrow-wood-impact-single-archery-01.ogg" id="6"]
 
-[sub_resource type="StandardMaterial3D" id=1]
-flags_transparent = true
-params_billboard_mode = 3
+[sub_resource type="StandardMaterial3D" id="1"]
+transparency = 1
+albedo_color = Color(0.254902, 0.105882, 0.105882, 1)
+albedo_texture = ExtResource("2")
+billboard_mode = 3
 particles_anim_h_frames = 8
 particles_anim_v_frames = 8
 particles_anim_loop = true
-albedo_color = Color( 0.254902, 0.105882, 0.105882, 1 )
-albedo_texture = ExtResource( 2 )
 
-[sub_resource type="Curve" id=2]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id="2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="CurveTexture" id=3]
+[sub_resource type="CurveTexture" id="3"]
 width = 64
-curve = SubResource( 2 )
+curve = SubResource("2")
 
-[sub_resource type="ParticleProcessMaterial" id=4]
-direction = Vector3( 0, 0, -1 )
+[sub_resource type="ParticleProcessMaterial" id="4"]
+direction = Vector3(0, 0, -1)
 spread = 10.0
-gravity = Vector3( 0, -4, 0 )
-initial_velocity = 10.0
-initial_velocity_random = 1.0
-damping = 5.0
-scale = 0.1
-scale_random = 0.1
-scale_curve = SubResource( 3 )
-anim_speed = 7.33
-anim_speed_random = 0.07
+gravity = Vector3(0, -4, 0)
+scale_min = 0.0
+scale_max = 0.0
+scale_curve = SubResource("3")
 
-[sub_resource type="StandardMaterial3D" id=5]
-params_billboard_mode = 3
+[sub_resource type="StandardMaterial3D" id="5"]
+billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="QuadMesh" id=6]
-material = SubResource( 5 )
+[sub_resource type="QuadMesh" id="6"]
+material = SubResource("5")
 
 [node name="HitEffect" type="Particles"]
-material_override = SubResource( 1 )
+material_override = SubResource("1")
 cast_shadow = 0
 emitting = false
 amount = 32
@@ -53,9 +49,9 @@ lifetime = 0.43
 one_shot = true
 explosiveness = 0.8
 local_coords = false
-process_material = SubResource( 4 )
-draw_pass_1 = SubResource( 6 )
-script = ExtResource( 1 )
+process_material = SubResource("4")
+draw_pass_1 = SubResource("6")
+script = ExtResource("1")
 __meta__ = {
 "_editor_description_": ""
 }
@@ -67,23 +63,23 @@ autostart = true
 [node name="Sounds" type="Node3D" parent="."]
 
 [node name="Flesh" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 6 )
+stream = ExtResource("6")
 bus = "Effects"
 
 [node name="Fabric" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 3 )
+stream = ExtResource("3")
 bus = "Effects"
 
 [node name="Wood" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 6 )
+stream = ExtResource("6")
 bus = "Effects"
 
 [node name="Metal" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 5 )
+stream = ExtResource("5")
 bus = "Effects"
 
 [node name="Stone" type="AudioStreamPlayer3D" parent="Sounds"]
-stream = ExtResource( 3 )
+stream = ExtResource("3")
 bus = "Effects"
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -26,7 +26,7 @@ func _tick(state : CharacterState) -> int:
 	var _speech_chance = randf()
 	ticks_since_active = 0
 	distance = state.character.global_transform.origin.distance_to(state.target_position)
-	
+
 	if target_reached:
 		# Since target distance changes every frame, this prevents the character from
 		# constantly repositioning every time it changes
@@ -35,7 +35,7 @@ func _tick(state : CharacterState) -> int:
 			return BTResult.FAILED
 		state.move_direction = Vector3.ZERO
 		return BTResult.OK
-	
+
 	if distance < target_distance:
 		target_reached = true
 		state.move_direction = Vector3.ZERO

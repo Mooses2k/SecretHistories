@@ -62,9 +62,10 @@ func light():
 		else:
 			$SlideOpen.play()
 		
-		if owner_character:
-			if owner_character.noise_level < 5:
-				owner_character.noise_level = 5
+		## TODO: Uncomment when noise_level ready
+		#if owner_character:
+			#if owner_character.noise_level < 5:
+				#owner_character.noise_level = 5
 		
 		$AnimationPlayer.play("flicker")
 		firelight.visible = true
@@ -96,12 +97,6 @@ func unlight():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-#		if is_lit and !previous_state == GlobalConsts.ItemState.INVENTORY:
-#			var sound = $BlowOutSound.duplicate()
-#			GameManager.game.level.add_child(sound)
-#			sound.global_transform = $BlowOutSound.global_transform
-#			sound.connect("finished", sound, "queue_free")
-#			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 	elif current_state == GlobalConsts.ItemState.DAMAGING:
 		#is_just_dropped = true

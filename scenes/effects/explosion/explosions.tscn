@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c4cyksqrscr1n"]
 
 [ext_resource type="Material" uid="uid://67a0nyjvrode" path="res://scenes/effects/explosion/material.tres" id="1"]
-[ext_resource type="Script" path="res://scenes/effects/explosion/explosions.gd" id="2"]
+[ext_resource type="Script" uid="uid://bb1u1ea7esndf" path="res://scenes/effects/explosion/explosions.gd" id="2"]
 
 [sub_resource type="ParticleProcessMaterial" id="1"]
 gravity = Vector3(0, 0, 0)

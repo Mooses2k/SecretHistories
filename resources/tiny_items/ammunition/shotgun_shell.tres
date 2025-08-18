@@ -1,11 +1,11 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="AmmunitionData" load_steps=2 format=3 uid="uid://b68g5xgtvxxf3"]
 
-[ext_resource path="res://resources/tiny_items/ammunition/ammunition_data.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://b7p45mkfbxmto" path="res://resources/tiny_items/ammunition/ammunition_data.gd" id="1"]
 
 [resource]
-script = ExtResource( 1 )
-name = "shotgun shell"
+script = ExtResource("1")
 attack_type = 3
 damage = 8
 dispersion = 10.0
 pellet_count = 9
+name = "shotgun shell"

@@ -56,16 +56,16 @@ var _total_weights_by_set := []
 func _ready():
 	if Engine.is_editor_hint():
 		return
-	
+
 	characters_root.name = "CharactersRoot"
 	add_child(characters_root, true)
-	
+
 	_total_weights_by_set.resize(character_loadout.size())
 	for set_index in character_loadout.size():
 		var set_weight := 0
 		for pack in (character_loadout[set_index] as Dictionary).keys():
 			set_weight += character_loadout[set_index][pack]
-		
+
 		_total_weights_by_set[set_index] = set_weight
 
 
@@ -78,13 +78,13 @@ func _physics_process(delta: float) -> void:
 func spawn_characters():
 	for child in characters_root.get_children():
 		child.queue_free()
-	
+
 	print("Spawning characters")
 	var characters_by_index := data.get_characters_to_spawn()
 	for cell_index in characters_by_index:
 		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
 		_spawn_single_character(spawn_data)
-	
+
 	print("Total Characters Spawned: %s" % [characters_by_index.size()])
 	has_finished_spawning = true
 	emit_signal("spawning_finished")
@@ -94,30 +94,35 @@ func try_spawn_character_away_from_player():
 	var original_spawn_data = data.get_characters_to_spawn()
 	if original_spawn_data.is_empty():
 		return
+	
 	var keys = original_spawn_data.keys()
 	var random_key = keys[randi() % keys.size()]
 	var random_spawn_data = original_spawn_data[random_key].duplicate()
-	
+
 	var player = GameManager.game.player
 	if not is_instance_valid(player):
 		return
-	var player_pos = player.global_position
-	var player_cell = data.get_cell_index_from_local_position(player_pos)
-	var player_int_coords = data.get_int_position_from_cell_index(player_cell)
-	var try_pos : Vector3 = Vector3(data.world_size_x - 1, 0, data.world_size_z - 1)
 	
-	if player_int_coords[0] > data.world_size_x/2:
-		try_pos.x = 0
-	if player_int_coords[1] > data.world_size_z/2:
-		try_pos.z = 0
+	# Use AwayFromPlayerCellFilter to find suitable spawn location
+	var away_filter := AwayFromPlayerCellFilter.new()
+	away_filter.set_player_position(player.global_position)
 	
-	try_pos = data.get_local_cell_position(data.get_cell_index_from_int_position(try_pos.x, try_pos.z))
-	try_pos = NavigationServer3D.map_get_closest_point(owner.get_world_3d().navigation_map, try_pos)
-	try_pos = data.get_local_cell_position(data.get_cell_index_from_local_position(try_pos))
+	var candidate_cells := away_filter.filter_cells(data, null, _rng)
+	if candidate_cells.is_empty():
+		print("No suitable spawn location found away from player")
+		return
 	
-	random_spawn_data.set_center_position_in_cell(try_pos)
+	# Get the first suitable cell and convert to world position
+	var spawn_cell_index: int = candidate_cells[0]
+	var spawn_position := CellFilter.get_cell_position(data, spawn_cell_index)
+	
+	# Use navigation to ensure the position is navigable
+	spawn_position = NavigationServer3D.map_get_closest_point(owner.get_world_3d().navigation_map, spawn_position)
+	spawn_position = CellFilter.get_cell_position(data, CellFilter.get_cell_from_local_position(data, spawn_position))
+
+	random_spawn_data.set_center_position_in_cell(spawn_position)
 	_spawn_single_character(random_spawn_data)
-	print("Spawned extra enemy at ", try_pos)
+	print("Spawned extra enemy at ", spawn_position)
 
 
 func _spawn_single_character(spawn_data : CharacterSpawnData):
@@ -131,7 +136,7 @@ func _set_random_loadout(character: Node3D) -> void:
 		var total_weight := _total_weights_by_set[set_index] as int
 		if total_weight == 0:
 			continue
-		
+
 		var chosen_pack := _get_chosen_pack(total_weight, set_index)
 		for item in chosen_pack.keys():
 			var min_amount := chosen_pack[item].x as int
@@ -139,7 +144,7 @@ func _set_random_loadout(character: Node3D) -> void:
 			var amount = min_amount
 			if max_amount > min_amount:
 				amount = _rng.randi() % (max_amount - min_amount) +  min_amount
-			
+
 			if item is TinyItemData:
 				if not inventory.tiny_items.has(item):
 					inventory.tiny_items[item] = 0
@@ -158,7 +163,7 @@ func _set_random_loadout(character: Node3D) -> void:
 
 func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 	var value := {}
-	
+
 	var rng = _rng.randi()%total_weight
 	var cummulative_weight = 0
 	for pack in (character_loadout[set_index] as Dictionary).keys():

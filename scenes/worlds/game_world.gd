@@ -32,11 +32,12 @@ func create_world(is_last_floor: bool, p_floor_size: int = -1) -> void:
 
 # Override this function
 func set_player_on_spawn_position(player: Player, _is_going_downstairs: bool) -> void:
+	print("spawning player at position")
 	var spawn_data = {
 		"position": Vector3.ZERO,
 		"y_rotation": 0.0,
 	}
-	
+
 	player.position = spawn_data.position
 	player.rotation.y = spawn_data.y_rotation
 
@@ -58,19 +59,19 @@ func _connect_signals() -> void:
 		var spawner := node as Spawner
 		if not is_connected("generation_finished", Callable(spawner, "_on_game_world_generation_finished")):
 			connect("generation_finished", Callable(spawner, "_on_game_world_generation_finished"))
-		
+
 		if not spawner.is_connected("spawning_finished", Callable(self, "_on_spawner_spawning_finished")):
 			spawner.connect("spawning_finished", Callable(self, "_on_spawner_spawning_finished"))
 
 
 func _on_spawner_spawning_finished() -> void:
 	var has_all_finished := true
-	
+
 	for node in _spawners:
 		var spawner := node as Spawner
 		if not spawner.has_finished_spawning:
 			has_all_finished = false
 			break
-	
+
 	if has_all_finished:
 		emit_signal("spawning_world_scenes_finished")

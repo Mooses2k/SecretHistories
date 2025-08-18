@@ -1,23 +1,23 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://crjd86wvu3mw8"]
 
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" type="Script" id=1]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" type="Resource" id=2]
-[ext_resource path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" type="Script" id=7]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" type="Script" id=8]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" type="Script" id=9]
-[ext_resource path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_sarcophagus.gd" type="Script" id=10]
-[ext_resource path="res://utils/debug_scenes/_base/generate_debug_room.gd" type="Script" id=13]
+[ext_resource type="Script" uid="uid://cu8brs7v4mha0" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" id="1"]
+[ext_resource type="Resource" uid="uid://cs6ibgi4rwbia" path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" id="2"]
+[ext_resource type="PackedScene" uid="uid://cbjdonhx2j4if" path="res://utils/debug_scenes/_base/base_standalone_game_world.tscn" id="3"]
+[ext_resource type="Script" uid="uid://bn2pr1ol67q5q" path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" id="7"]
+[ext_resource type="Script" uid="uid://b0t0gtownkwq7" path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" id="8"]
+[ext_resource type="Script" uid="uid://c7n777jrjkv80" path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" id="9"]
+[ext_resource type="Script" uid="uid://de4jlysl4g3u0" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_sarcophagus.gd" id="10"]
+[ext_resource type="Script" uid="uid://cl31e1vgivy1g" path="res://utils/debug_scenes/_base/generate_debug_room.gd" id="13"]
 
-[node name="SarcoDebugRoom" instance=ExtResource( 3 )]
+[node name="SarcoDebugRoom" instance=ExtResource("3")]
 
 [node name="GenerationManager" parent="." index="5"]
 world_size_x = 12
 world_size_z = 12
 
 [node name="GenerateDebugRoom" type="Node" parent="GenerationManager" index="0"]
-script = ExtResource( 13 )
-room_rect = Rect2( 2, 2, 6, 6 )
+script = ExtResource("13")
+room_rect = Rect2(2, 2, 6, 6)
 room_purpose = 1
 doorways = {
 0: -1,
@@ -27,10 +27,10 @@ doorways = {
 }
 
 [node name="GenerateWalls" type="Node" parent="GenerationManager" index="1"]
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="2"]
-script = ExtResource( 9 )
+script = ExtResource("9")
 floor_tile = 6
 wall_tile = 5
 door_tile = 19
@@ -44,16 +44,16 @@ pillar_room_pillar_tile = 15
 pillar_tile = 16
 
 [node name="PopulateRooms" type="Node" parent="GenerationManager" index="3"]
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [node name="GenerateSarcophagus" type="Node" parent="GenerationManager/PopulateRooms" index="0"]
-script = ExtResource( 10 )
+script = ExtResource("10")
 vertical_center_rotation = 90
 _force_lid = -1
 
 [node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="1"]
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [node name="GenerateCandelabra" type="Node" parent="GenerationManager/PopulateRooms/IlluminationGroup" index="0"]
-script = ExtResource( 1 )
-_spawn_list_resource = ExtResource( 2 )
+script = ExtResource("1")
+_spawn_list_resource = ExtResource("2")

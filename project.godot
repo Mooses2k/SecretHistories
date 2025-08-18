@@ -11,9 +11,8 @@ config_version=5
 [application]
 
 config/name="Secret Histories"
-config/description="An entirely forgettable game"
 run/main_scene="res://scenes/ui/opening_screens.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.4")
 run/flush_stdout_on_print=true
 boot_splash/show_image=false
 config/icon="res://icon.png"
@@ -27,7 +26,6 @@ InputSettings="*res://globals/settings/input_settings.gd"
 AudioSettings="*res://globals/settings/audio_settings.gd"
 VideoSettings="*res://globals/settings/video_settings.gd"
 KeyInputSettings="*res://globals/settings/key_input_settings.gd"
-Save="*res://globals/save.gd"
 LoadQuotes="*res://globals/load_quotes.gd"
 Settings="*res://globals/settings.gd"
 LoadScene="*res://globals/load_scene.gd"
@@ -56,6 +54,13 @@ description="An entirely forgettable game"
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[global_group]
+
+CHARACTER=""
+PLAYER=""
+NO_BLUEPRINT="Nodes in this group should not be used for the blueprint when placing items."
+IGNITE=""
 
 [input]
 
@@ -298,6 +303,7 @@ debug_noclip={
 [layer_names]
 
 3d_render/layer_2="GunCam on Player"
+3d_render/layer_3="PlayerBody"
 3d_render/layer_8="ScreenFilter on Player"
 3d_render/layer_10="KinestheticSense on Player"
 3d_physics/layer_1="World"

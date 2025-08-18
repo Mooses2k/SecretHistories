@@ -12,6 +12,7 @@ extends LargeObject
 func _ready():
 	self.item_max_noise_level = 5
 	self.item_drop_sound = floor_candelabra_drop_sound
+	super._ready()  # Call parent's _ready() to configure audio manager
 
 
 func _process(delta):
@@ -21,7 +22,7 @@ func _process(delta):
 
 #onready var burn_time = $Durability
 #
-#var has_ever_been_on = false 
+#var has_ever_been_on = false
 #var is_lit = false
 #
 #

@@ -53,7 +53,7 @@ func load_keys():
 		#NoFile, so lets save the default keys now
 		save_keys()
 		save_default_keys()
-	
+
 	var file_str = FileAccess.get_file_as_string(file_name_default)
 	var data = str_to_var(file_str)
 	if(typeof(data) == TYPE_DICTIONARY):
@@ -93,7 +93,7 @@ func event2str(event : InputEvent) -> String:
 	elif event is InputEventMouseButton:
 		print("Mouse Button " + str(event.get_button_index() ))
 		var ev_type = EventType.MOUSE_BUTTON
-		var keycode = event.get_button_index() 
+		var keycode = event.get_button_index()
 		return "%s(%s)" % [event_prefixes[ev_type], keycode]
 	else:
 		print(var_to_str(event))

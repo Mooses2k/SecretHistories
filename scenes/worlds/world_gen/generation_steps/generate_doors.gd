@@ -36,7 +36,7 @@ const DOUBLE_DOOR_ADJACENT_DIRECTION_P : Dictionary = {
 func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
 	# Dictionary of scene -> corresponding spawn data
 	var doors_spawn_data : Dictionary = {}
-	
+
 	var random = RandomNumberGenerator.new()
 	# Since each edge has 2 chances of getting a door, the probability used on each
 	# chance should be a slighly different value, so that the total probability
@@ -63,30 +63,25 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 					# This cell is a staircase cell, skip
 					continue
 				
-				var is_down_staircase : bool = false
-				var is_up_staircase : bool = false
-				
 				var other_cell : int = data.get_neighbour_cell(cell, dir)
+				var is_down_staircase = data.get_cell_meta(other_cell, data.CellMetaKeys.META_IS_DOWN_STAIRCASE, false)
+				
+				# Check if the neighboring cell is an up staircase by examining room data
 				var other_room_data = data.get_cell_meta(other_cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
-				if is_instance_valid(other_room_data):
-					if other_room_data.type == RoomData.OriginalPurpose.DOWN_STAIRCASE:
-						is_down_staircase = true
-					if other_room_data.type == RoomData.OriginalPurpose.UP_STAIRCASE:
-						is_up_staircase = true
+				var is_up_staircase = other_room_data != null and other_room_data.type == RoomData.OriginalPurpose.UP_STAIRCASE
+				
 				var _is_staircase = is_down_staircase or is_up_staircase
-				
+
 				# Comment this check out to allow doors that open away from a staircase room
-				#if _is_staircase:
-					#continue
-				
-				
+				if _is_staircase:
+					continue
 				
 				var has_door = data.get_wall_has_door(cell, dir)
 				if not has_door and fposmod(random.randf(), 1.0) >= (1.0 - partial_probability):
 #					var new_door = door_scene.instance() as Spatial
 					var spawn_data = doors_spawn_data.get(door_scene) as SpawnData
 					var door_data_index = 0;
-					
+
 					if not is_instance_valid(spawn_data):
 						spawn_data = SpawnData.new()
 						doors_spawn_data[door_scene] = spawn_data
@@ -96,7 +91,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 						# an amount of 1
 						door_data_index = spawn_data.amount
 						spawn_data.amount += 1
-					
+
 					if fposmod(random.randf(), 1.0) < door_stuck_probability and not is_up_staircase:
 						spawn_data.set_custom_property("door_state", BaseKinematicDoor.DoorState.STUCK, door_data_index)
 					else:
@@ -110,20 +105,20 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 					var cell_corner = data.get_local_cell_position(cell)
 					var wall_type = data.get_wall_type(cell, dir)
 					data.set_object_spawn_data_to_cell(cell, spawn_data)
-					
+
 					match wall_type:
 						data.EdgeType.DOOR:
 							origin = cell_corner + (Vector3(1, 0, 1) - basis.z) * 0.5 * data.CELL_SIZE
 							data.set_wall_has_door(cell, dir, true)
 							spawn_data.set_position_in_cell(origin, door_data_index)
-						
+
 						data.EdgeType.HALFDOOR_N:
 							origin = cell_corner + DOUBLE_DOOR_OFFSET_FROM_DIRECTION_N[dir]
 							data.set_wall_has_door(cell, dir, true)
 							var neighbour_cell = data.get_neighbour_cell(cell, DOUBLE_DOOR_ADJACENT_DIRECTION_N[dir])
 							data.set_wall_has_door(neighbour_cell, dir, true)
 							spawn_data.set_position_in_cell(origin, door_data_index)
-						
+
 						data.EdgeType.HALFDOOR_P:
 							origin = cell_corner + DOUBLE_DOOR_OFFSET_FROM_DIRECTION_P[dir]
 							data.set_wall_has_door(cell, dir, true)

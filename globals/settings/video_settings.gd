@@ -83,7 +83,7 @@ var sdfgi_array = PackedStringArray(["Disabled", "Low", "High"])
 const SETTING_GLOW : String = "Glow"
 
 var fullscreen_enabled : bool: get = get_fullscreen_enabled, set = set_fullscreen_enabled
-var brightness : bool: get = get_brightness, set = set_brightness
+var brightness : float: get = get_brightness, set = set_brightness
 var gui_scale : float: get = get_gui_scale, set = set_gui_scale
 var vsync : int: get = get_vsync, set = set_vsync
 var fps_limit : int: get = get_fps_limit, set = set_fps_limit
@@ -104,52 +104,52 @@ var glow : bool: get = get_glow, set = set_glow
 func _ready():
 	Settings.add_bool_setting(SETTING_FULLSCREEN, ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)))
 	Settings.set_setting_group(SETTING_FULLSCREEN, GROUP_NAME)
-	
+
 	Settings.add_float_setting(SETTING_BRIGHTNESS, BRIGHTNESS_MIN, BRIGHTNESS_MAX, BRIGHTNESS_STEP, BRIGHTNESS_DEFAULT)
 	Settings.set_setting_group(SETTING_BRIGHTNESS, GROUP_NAME)
-	
+
 	Settings.add_float_setting(SETTING_GUI_SCALE, GUI_SCALE_MIN, GUI_SCALE_MAX, GUI_SCALE_STEP, GUI_SCALE_DEFAULT)
 	Settings.set_setting_group(SETTING_GUI_SCALE, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_VSYNC, vsync_array, 0)
 	Settings.set_setting_group(SETTING_VSYNC, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_FPS_LIMIT, fps_limit_array, 0)
 	Settings.set_setting_group(SETTING_FPS_LIMIT, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_MSAA, msaa_array, 0)
 	Settings.set_setting_group(SETTING_MSAA, GROUP_NAME)
-	
+
 	Settings.add_bool_setting(SETTING_TAA, false)
 	Settings.set_setting_group(SETTING_TAA, GROUP_NAME)
-	
+
 	Settings.add_bool_setting(SETTING_FXAA, false)
 	Settings.set_setting_group(SETTING_FXAA, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_SHADOW_SIZE, shadow_size_array, 3)
 	Settings.set_setting_group(SETTING_SHADOW_SIZE, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_SHADOW_FILTER, shadow_filter_array, 2)
 	Settings.set_setting_group(SETTING_SHADOW_FILTER, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_MESH_LOD, mesh_lod_array, 3)
 	Settings.set_setting_group(SETTING_MESH_LOD, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_SSR, ssr_array, 0)
 	Settings.set_setting_group(SETTING_SSR, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_SSAO, ssao_array, 0)
 	Settings.set_setting_group(SETTING_SSAO, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_SSIL, ssil_array, 0)
 	Settings.set_setting_group(SETTING_SSIL, GROUP_NAME)
-	
+
 	Settings.add_enum_setting(SETTING_SDFGI, sdfgi_array, 0)
 	Settings.set_setting_group(SETTING_SDFGI, GROUP_NAME)
-	
+
 	Settings.add_bool_setting(SETTING_GLOW, false)
 	Settings.set_setting_group(SETTING_GLOW, GROUP_NAME)
-	
+
 	Settings.connect("setting_changed", Callable(self, "on_setting_changed"))
 
 
@@ -160,11 +160,15 @@ func get_fullscreen_enabled() -> bool:
 	return Settings.get_setting(SETTING_FULLSCREEN)
 
 
-func set_brightness(value : bool):
+func set_brightness(value : float):
+	print("DEBUG: VideoSettings.set_brightness() called with value: ", value, " (type: ", typeof(value), ")")
 	Settings.set_setting(SETTING_BRIGHTNESS, value)
+	print("DEBUG: VideoSettings.set_brightness() - Settings.get_setting result: ", Settings.get_setting(SETTING_BRIGHTNESS))
 
-func get_brightness() -> bool:
-	return Settings.get_setting(SETTING_BRIGHTNESS)
+func get_brightness() -> float:
+	var result = Settings.get_setting(SETTING_BRIGHTNESS)
+	print("DEBUG: VideoSettings.get_brightness() returning: ", result, " (type: ", typeof(result), ")")
+	return result
 
 
 func set_gui_scale(value : float):
@@ -265,7 +269,7 @@ func get_glow() -> bool:
 	return Settings.get_setting(SETTING_GLOW)
 
 
-func on_setting_changed(setting_name, old_value, new_value):
+func on_setting_changed(setting_name, _old_value, new_value):
 	match setting_name:
 		SETTING_FULLSCREEN:
 			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (new_value) else Window.MODE_WINDOWED

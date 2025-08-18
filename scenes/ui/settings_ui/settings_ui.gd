@@ -22,18 +22,31 @@ var group_nodes : Dictionary = Dictionary()
 var settings : SettingsClass
 var is_first_settings : bool = true
 var is_first_key_settings : bool = true
-var is_done : bool = false
-var index : int = 0
-var counter : int = 0
+
+## Configuration for group ordering - can be set by caller
+## Groups not in this list will be sorted alphabetically after these
+var preferred_group_order : Array[String] = []
+
+## Pattern to identify key-related groups for special handling
+var key_group_pattern : String = "Key"
 
 
 func attach_settings(s : SettingsClass, be_sorted : bool):
+	print("NonTabbedSettingsUI: Attaching settings, be_sorted=", be_sorted)
 	clear_ui()
 	settings = s
 	generate_ui()
 	
 	if be_sorted:
 		sort_setting_groups()
+	
+	# Force update ScrollContainer content size after setup
+	call_deferred("_update_scroll_content_size")
+
+
+## Configure group ordering - should be called by the parent/caller
+func set_group_order(group_order: Array[String]):
+	preferred_group_order = group_order
 
 
 func clear_ui():
@@ -52,54 +65,69 @@ func generate_ui():
 
 
 func sort_setting_groups():
-	while not is_done:
-		index = -1
-		counter = 0
+	## Collect all group nodes and their names
+	var group_children : Array[Node] = []
+	var blank_children : Array[Node] = []
+	
+	for child in get_children():
+		if child.has_method("get_group_name"):
+			group_children.append(child)
+		else:
+			# These are blank rows or other UI elements
+			blank_children.append(child)
+	
+	## Sort groups based on preferred order, then alphabetically
+	group_children.sort_custom(_compare_groups)
+	
+	## Remove all children temporarily
+	for child in get_children():
+		remove_child(child)
+	
+	## Re-add children in the correct order with blank rows between groups
+	var is_first_group : bool = true
+	for group_child in group_children:
+		if not is_first_group:
+			# Add a blank row between groups
+			var blank_row = BlankRowScene.instantiate()
+			add_child(blank_row)
+		else:
+			is_first_group = false
 		
-		for child in get_children():
-			index += 1
-			
-			if child.has_method("get_group_name"):
-				if "Game" in str(child.group_name):
-					if index != 0:
-						swap_child(child, 0, index)
-						break
-					else:
-						counter += 1
-				elif "Video" in str(child.group_name):
-					if index != 2:
-						swap_child(child, 2, index)
-						break
-					else:
-						counter += 1
-				elif "Audio" in str(child.group_name):
-					if index != 4:
-						swap_child(child, 4, index)
-						break
-					else:
-						counter += 1
-				elif "Input" in str(child.group_name) and not "Key" in str(child.group_name):
-					if index != 6:
-						swap_child(child, 6, index)
-						break
-					else:
-						counter += 1
-				elif "Input Key" in str(child.group_name):
-					if index != 8:
-						swap_child(child, 8, index)
-						break
-					else:
-						counter += 1
-		
-		if counter == 5:
-			is_done = true
+		add_child(group_child)
+	
+	## Add any remaining blank children at the end
+	for blank_child in blank_children:
+		add_child(blank_child)
 
 
-func swap_child(child : Node, target_index : int, current_index : int):
-	move_child(child, get_child_count() - 1)
-	move_child(get_child(target_index - 1), current_index) 
-	move_child(child, target_index) 
-	counter += 1
+## Custom comparison function for sorting groups
+func _compare_groups(a : Node, b : Node) -> bool:
+	var group_a : String = a.get_group_name().strip_edges()
+	var group_b : String = b.get_group_name().strip_edges()
+	
+	var index_a : int = _get_group_priority(group_a)
+	var index_b : int = _get_group_priority(group_b)
+	
+	# If both groups have defined priorities, sort by priority
+	if index_a != -1 and index_b != -1:
+		return index_a < index_b
+	
+	# If only one has a defined priority, it comes first
+	if index_a != -1:
+		return true
+	if index_b != -1:
+		return false
+	
+	# If neither has a defined priority, sort alphabetically
+	return group_a < group_b
+
+
+## Get the priority index of a group, or -1 if not in preferred order
+func _get_group_priority(group_name : String) -> int:
+	for i in range(preferred_group_order.size()):
+		if group_name.contains(preferred_group_order[i]):
+			return i
+	return -1
 
 
 func add_setting(setting_name : String):
@@ -110,7 +138,8 @@ func add_setting(setting_name : String):
 		add_group(group_name)
 		settings_group = get_group_node(group_name)
 	
-	if group_name == "Input Key Settings" and is_first_key_settings:
+	# Check if this is a key-related group for special handling
+	if _is_key_related_group(group_name) and is_first_key_settings:
 		is_first_key_settings = false
 		settings_group.add_editor(SetDefaultKeyBtn.instantiate())
 		settings_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed", Callable(get_parent().owner.get_node("ResetPanel"), "toggle_panel"))
@@ -149,6 +178,11 @@ func get_group_node(group_name : String) -> GroupClass:
 	return group_nodes.get(group_name)
 
 
+## Check if a group name is related to key settings
+func _is_key_related_group(group_name : String) -> bool:
+	return group_name.to_lower().contains(key_group_pattern.to_lower())
+
+
 func _on_ShowDebugOptions_pressed():
 	get_parent().visible = !get_parent().visible
 	if get_parent().visible:
@@ -156,3 +190,46 @@ func _on_ShowDebugOptions_pressed():
 		parent_scroll.scroll_vertical = 0
 		var h_scroll = parent_scroll.get_h_scroll_bar()
 		parent_scroll.scroll_horizontal = max(h_scroll.max_value - h_scroll.page, 0)
+
+## Force update ScrollContainer content size
+func _update_scroll_content_size():
+	print("NonTabbedSettingsUI: Updating scroll content size...")
+	
+	# Find the ScrollContainer in our hierarchy
+	var scroll_container: ScrollContainer = get_parent()
+	if not scroll_container is ScrollContainer:
+		# Look up the hierarchy for a ScrollContainer
+		var parent = get_parent()
+		while parent:
+			if parent is ScrollContainer:
+				scroll_container = parent as ScrollContainer
+				break
+			parent = parent.get_parent()
+	
+	if scroll_container:
+		print("NonTabbedSettingsUI: Found ScrollContainer, forcing content size update")
+		# Force the ScrollContainer to recalculate its content size
+		scroll_container.queue_sort()
+		queue_sort()  # Also update our own layout
+		print("NonTabbedSettingsUI: Content size updated")
+	else:
+		print("NonTabbedSettingsUI: Warning - No ScrollContainer found in hierarchy!")
+
+## Debug function to print current hierarchy and sizes
+func _debug_print_hierarchy():
+	print("NonTabbedSettingsUI: === HIERARCHY DEBUG ===")
+	print("Self size: ", size)
+	print("Self size flags: H=", size_flags_horizontal, " V=", size_flags_vertical)
+	print("Children count: ", get_child_count())
+	
+	for i in range(get_child_count()):
+		var child = get_child(i)
+		print("  Child ", i, " (", child.name, "): size=", child.size)
+	
+	# Check for ScrollContainer
+	var scroll_container = get_parent()
+	if scroll_container is ScrollContainer:
+		print("ScrollContainer size: ", scroll_container.size)
+		print("ScrollContainer content size: ", scroll_container.get_v_scroll_bar().max_value)
+	
+	print("NonTabbedSettingsUI: === END HIERARCHY DEBUG ===")

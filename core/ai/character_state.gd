@@ -43,7 +43,7 @@ func set_target_position(value : Vector3) -> void:
 	var map = character.get_world_3d().navigation_map
 	var nav = NavigationServer3D
 	value = nav.map_get_closest_point(map, value)
-	
+
 	var data : WorldData = GameManager.game.level.world_data
 	var cell = data.get_cell_index_from_local_position(value)
 	if data.get_cell_type(cell) != data.CellType.EMPTY:

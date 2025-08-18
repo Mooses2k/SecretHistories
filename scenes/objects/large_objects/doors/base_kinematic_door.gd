@@ -89,7 +89,7 @@ func _physics_process(delta):
 					# TODO: play a sound?
 					if fposmod(randf(), 1.0) < door_stuck_on_close_probability:
 						self.door_state = DoorState.STUCK
-				
+
 		DoorState.STUCK:
 			door_should_move = false
 
@@ -106,8 +106,7 @@ func reset_auto_close_timer():
 #	time_to_auto_close = rand_range(door_auto_close_delay_min, door_auto_close_delay_max)   # Actual logic
 
 
-# TODO: Shooting doors not currently working
-func damage(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, position = self.position, impulse = 0):
+func _damage(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, direction : Vector3 = Vector3.ZERO, origin : Vector3 = position):
 	if damage < 10:
 		door_kick_ineffective_sound.play()
 	else:
@@ -115,23 +114,23 @@ func damage(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, position
 		health -= damage
 	prints("Door health:", health)
 	if health <= 0:
-		break_door(damage, damage_type, position, impulse)   # TODO: have a way for bomb to set middle param which is impulse direction (away from explosion)
+		break_door(damage, damage_type, direction, origin)   # TODO: have a way for bomb to set middle param which is impulse direction (away from explosion)
 
 
-func break_door(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, position = self.position, impulse = 0):
+func break_door(damage, damage_type = GlobalConsts.AttackTypes.BLUDGEONING, direction : Vector3 = Vector3.ZERO, origin : Vector3 = position):
 	door_state = DoorState.BROKEN
 	door_break_sound.play()
 	var global_door_transform = broken_door_origin.global_transform
-	
+
 	door_hinge_z_axis.queue_free()
 	npc_detector.queue_free()
 	npc_check_timer.queue_free()
 	navigation_obstacle_3d.queue_free()
-	
+
 	var broken_door_instance : Node3D = broken_door_scene.instantiate()
 	broken_door_instance.transform = global_transform.affine_inverse() * global_door_transform
 	add_child(broken_door_instance)
-	broken_door_instance.apply_impulse(position, impulse * (damage / 5.0), 0.0)
+	broken_door_instance.apply_impulse(origin, direction * damage, 1.0)
 
 
 func _on_Interactable_character_interacted(character):
@@ -142,27 +141,17 @@ func _on_Interactable_character_interacted(character):
 			door_close_sound.stop()
 			if !door_open_sound.playing:
 				door_open_sound.play()
-		
+
 		DoorState.OPEN:
 			self.door_state = DoorState.CLOSED
 			door_should_move = true
 			door_open_sound.stop()
 			if !door_close_sound.playing:
 				door_close_sound.play()
-		
+
 		DoorState.STUCK:
 			if !door_shake_sound.playing:
 				door_shake_sound.play()
-
-
-func _on_Interactable_kicked(position, impulse, damage) -> void:
-	damage(damage, GlobalConsts.AttackTypes.BLUDGEONING, position, impulse)
-	print("Door kicked")
-	
-	## TODO: kick currently always opens it, but if you kick from hinge side, should close door
-	## This should automatically be fixed by using RigidBody doors in the future
-	#if door_state == DoorState.AUTO_CLOSING and door_hinge_z_axis.rotation.y > door_close_threshold:
-		#door_state = DoorState.OPEN
 
 
 func _on_NpcDetector_body_entered(body):

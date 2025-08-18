@@ -16,7 +16,40 @@ func _process(delta):
 
 func _ready() -> void:
 	self.hide()
-	%SettingsUI.attach_settings(Settings, true)
+	
+	# Configure the settings UI with proper ordering
+	var settings_ui = %SettingsUI
+	if settings_ui.has_method("set_group_order"):
+		# Set the preferred order for main settings
+		var group_order: Array[String] = [
+			"Video",
+			"Audio",
+			"Game",
+			"Input",
+			"Input Key"
+		]
+		settings_ui.set_group_order(group_order)
+	
+	if settings_ui.has_method("set_tab_grouping_rules"):
+		# Configure tab grouping for main settings
+		settings_ui.set_tab_grouping_rules({
+			"Video": ["Video Settings"],
+			"Audio": ["Audio Settings"],
+			"Game": ["Game Settings"],
+			"Input": ["Input Settings", "Input Key Settings"]
+		})
+	
+	if settings_ui.has_method("set_tab_order"):
+		# Set preferred tab order
+		var tab_order: Array[String] = [
+			"Video",
+			"Audio",
+			"Game",
+			"Input"
+		]
+		settings_ui.set_tab_order(tab_order)
+	
+	settings_ui.attach_settings(Settings, true)
 
 
 func exit_state():

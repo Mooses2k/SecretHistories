@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://ddpw8d0f8cgm0"]
 
-[ext_resource path="res://scenes/objects/pickable_items/pickable_item.gd" type="Script" id=1]
-[ext_resource path="res://scenes/effects/mesh_instances.gd" type="Script" id=2]
-[ext_resource path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" type="AudioStream" id=3]
-[ext_resource path="res://scenes/objects/large_objects/placement_anchor.gd" type="Script" id=4]
+[ext_resource type="Script" uid="uid://bf804prp027el" path="res://scenes/objects/pickable_items/pickable_item.gd" id="1"]
+[ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="2"]
+[ext_resource type="AudioStream" uid="uid://csmnd6mic6rlb" path="res://resources/sounds/impacts/522400__filmmakersmanual__bullet-concrete-hit-1.wav" id="3"]
+[ext_resource type="Script" uid="uid://bw5hualha4tj4" path="res://scenes/objects/large_objects/placement_anchor.gd" id="4"]
 
-[sub_resource type="BoxMesh" id=1]
-size = Vector3( 0.2, 0.2, 0.2 )
+[sub_resource type="BoxMesh" id="1"]
+size = Vector3(0.2, 0.2, 0.2)
 
-[sub_resource type="BoxShape3D" id=2]
-extents = Vector3( 0.1, 0.1, 0.1 )
+[sub_resource type="BoxShape3D" id="2"]
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="PickableItem" type="RigidBody3D"]
 collision_layer = 64
@@ -18,20 +18,20 @@ mass = 0.1
 continuous_cd = true
 max_contacts_reported = 5
 contact_monitor = true
-script = ExtResource( 1 )
+script = ExtResource("1")
 dropped_layers = 64
 dropped_mask = 65
 damage_mask = 81
 equipped_mode = 3
-item_drop_sound = ExtResource( 3 )
+item_drop_sound = ExtResource("3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource( 1 )
-script = ExtResource( 2 )
+mesh = SubResource("1")
+script = ExtResource("2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource("2")
 
 [node name="PlacementAnchor" type="Marker3D" parent="."]
 unique_name_in_owner = true
-script = ExtResource( 4 )
+script = ExtResource("4")

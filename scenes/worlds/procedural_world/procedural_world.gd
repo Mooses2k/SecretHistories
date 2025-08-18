@@ -15,10 +15,13 @@ func set_player_on_spawn_position(player: Player, is_going_downstairs: bool) -> 
 					* world_data.CELL_SIZE * 0.5,
 			"y_rotation": 0.0,
 		}
-	
+	await get_tree().physics_frame
 	player.position = spawn_data.position
-	player.rotation.y = spawn_data.y_rotation
-	player.velocity = Vector3.ZERO
+	# Set the player's facing direction properly for the new character design
+	var facing_basis := Basis(Vector3.UP, spawn_data.y_rotation)
+	player.state.facing = facing_basis
+	player.model_root.global_basis = facing_basis
+	player.linear_velocity = Vector3.ZERO
 
 
 # May lag everything for some reason

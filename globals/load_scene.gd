@@ -1,5 +1,6 @@
 extends Node
 
+
 const Loadscreen = preload("res://scenes/ui/loadscreen/load_screen.tscn")
 var next_scene : String 
 var target_node : Node = null

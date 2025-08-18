@@ -1,7 +1,7 @@
 extends CanvasLayer
 class_name LoadScreen
 # TODO: stop making a generator everywhere, having a global one is more performant and uses less memory
-# TODO: when the level generator works, add this scene on top of the game scene and show + run it 
+# TODO: when the level generator works, add this scene on top of the game scene and show + run it
 #       whenever it's time to get the new level, waiting not for loading, but generation
 var random_num_gen = RandomNumberGenerator.new()
 var random_num
@@ -20,7 +20,7 @@ signal clicked
 
 func _input(event: InputEvent):
 	if (event is InputEventMouseButton and event.is_pressed() and loading_done):
-		loading_done = false 
+		loading_done = false
 		handle_external_settings()
 		fade_in()
 		await clicked
@@ -39,8 +39,8 @@ func _input(event: InputEvent):
 
 
 func start_loading():
-	#With the suggestion from line 3, this is not required anymore. 
-	#The randomize method is somewhat expensive to run, so running it 
+	#With the suggestion from line 3, this is not required anymore.
+	#The randomize method is somewhat expensive to run, so running it
 	#only once on the global one it should be much easier
 	random_num_gen.randomize()
 	show_message()
@@ -73,17 +73,17 @@ func show_message():
 		# early game
 		random_num = random_num_gen.randi_range(0, LoadQuotes.list1.size()-1)
 		quote.text = LoadQuotes.list1[random_num]
-	
+
 	show()
 	#get_tree().paused = true
-	
-	
+
+
 func _on_load_timer_timeout():
 	#Every 0.5s, check if the next scene has loaded yet
 	var progress = []
 	match ResourceLoader.load_threaded_get_status(next_scene_path, progress):
-		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS: 
-			#This could be an update to something if required, like a progress bar, 
+		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS:
+			#This could be an update to something if required, like a progress bar,
 			#or just showing the percentage
 			print("Still loading, " + str(progress[0]) + "% done")
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_FAILED:
@@ -91,7 +91,7 @@ func _on_load_timer_timeout():
 			get_tree().change_scene_to_file(DEFAULT_PATH_TO_STARTUP)
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_INVALID_RESOURCE:
 			printerr("PANIC, BAD or NO Resource " + next_scene_path)
-			get_tree().change_scene_to_file(DEFAULT_PATH_TO_STARTUP) 
+			get_tree().change_scene_to_file(DEFAULT_PATH_TO_STARTUP)
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED:
 			print("Good, loaded next scene! ")
 			load_timer.stop()
@@ -122,16 +122,16 @@ func setup_loading_screen():
 
 func handle_external_settings():
 	AudioSettings.internal_effects_volume = 0.0
-	
+
 	get_tree().create_tween()\
 		.tween_property(AudioSettings, "internal_effects_volume", 1.0, 5.0)\
 		.set_trans(Tween.TRANS_EXPO)\
 		.set_ease(Tween.EASE_IN)
-		
-	if GameManager.game != null and GameManager.game.player != null:
-		GameManager.game.player.player_controller.no_click_after_load_period = true
-		await get_tree().create_timer(1).timeout   # Possibly 0.5 better?
-		GameManager.game.player.player_controller.no_click_after_load_period = false
+	# TODO : check what this is about
+	#if GameManager.game != null and GameManager.game.player != null:
+		#GameManager.game.player.player_controller.no_click_after_load_period = true
+		#await get_tree().create_timer(1).timeout   # Possibly 0.5 better?
+		#GameManager.game.player.player_controller.no_click_after_load_period = false
 
 
 func fade_in():

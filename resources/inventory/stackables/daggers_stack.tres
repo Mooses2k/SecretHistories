@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="StackableResource" load_steps=2 format=3 uid="uid://ds6piiasuymhf"]
 
-[ext_resource type="Script" path="res://resources/inventory/stackable_resource.gd" id="1_aqfou"]
+[ext_resource type="Script" uid="uid://ch56kkgmai4he" path="res://resources/inventory/stackable_resource.gd" id="1_aqfou"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_aqfou")
-stack_name = "Bones"
+stack_name = "Daggers"
 max_stack = 2

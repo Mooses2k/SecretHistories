@@ -1,35 +1,39 @@
-[gd_scene load_steps=32 format=3 uid="uid://d1lbexonric4u"]
+[gd_scene load_steps=36 format=3 uid="uid://d1lbexonric4u"]
 
-[ext_resource type="PackedScene" path="res://scenes/worlds/game_world.tscn" id="1"]
-[ext_resource type="Script" path="res://scenes/worlds/procedural_world/procedural_world.gd" id="2"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" id="3"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://b2lftnajs8166" path="res://scenes/worlds/game_world.tscn" id="1"]
+[ext_resource type="Script" uid="uid://ckjgf5qsg358a" path="res://scenes/worlds/procedural_world/procedural_world.gd" id="2"]
+[ext_resource type="Script" uid="uid://dr7u05qy82dya" path="res://scenes/worlds/world_gen/generation_steps/generate_room_graph.gd" id="3"]
+[ext_resource type="Script" uid="uid://e2hqgpyka75d" path="res://scenes/worlds/world_gen/generation_steps/generate_room_pillars.gd" id="4"]
 [ext_resource type="MeshLibrary" uid="uid://b1txwxwvti23n" path="res://resources/mesh_libraries/modular_pieces.meshlib" id="5"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" id="6"]
+[ext_resource type="Script" uid="uid://ctdrd26tvynoq" path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" id="6"]
 [ext_resource type="Resource" uid="uid://g6sf4jtvvirj" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" id="7"]
 [ext_resource type="Resource" uid="uid://bgkc5x21fmrtf" path="res://scenes/worlds/procedural_world/initial_loot_list.tres" id="8"]
-[ext_resource type="PackedScene" path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" id="9"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" id="10"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" id="11"]
+[ext_resource type="PackedScene" uid="uid://cbk46yj8v47ex" path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" id="9"]
+[ext_resource type="Script" uid="uid://bn2pr1ol67q5q" path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" id="10"]
+[ext_resource type="Script" uid="uid://cu8brs7v4mha0" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" id="11"]
 [ext_resource type="Resource" uid="uid://cs6ibgi4rwbia" path="res://scenes/worlds/world_gen/generation_steps/populate_room/candelabra_spawn_list.tres" id="12"]
-[ext_resource type="Script" path="res://scenes/worlds/procedural_world/generate_level_staircase.gd" id="13"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_initial_loot.gd" id="14"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_cultists.gd" id="15"]
-[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/skeletal_remains_list.tres" id="16"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" id="17"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" id="18"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" id="19"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" id="20"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" id="21"]
+[ext_resource type="Script" uid="uid://dsyrl7fas0qaq" path="res://scenes/worlds/world_gen/generation_steps/generate_level_staircase.gd" id="13"]
+[ext_resource type="Script" uid="uid://dr8l2ow5j0ue4" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_initial_loot.gd" id="14"]
+[ext_resource type="Script" uid="uid://dg7gpl5c585ds" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_cultists.gd" id="15"]
+[ext_resource type="Resource" uid="uid://c0fwgiq1r7hny" path="res://scenes/worlds/procedural_world/skeletal_remains_list.tres" id="16"]
+[ext_resource type="Script" uid="uid://cd3a6ylitc2bm" path="res://scenes/worlds/world_gen/generation_steps/generate_rooms.gd" id="17"]
+[ext_resource type="Script" uid="uid://b0t0gtownkwq7" path="res://scenes/worlds/world_gen/generation_steps/generate_walls.gd" id="18"]
+[ext_resource type="Script" uid="uid://jo3tjb5r6ajr" path="res://scenes/worlds/world_gen/generation_steps/generate_halls.gd" id="19"]
+[ext_resource type="Script" uid="uid://dp2m2i3klfd85" path="res://scenes/worlds/world_gen/generation_steps/generate_corridors.gd" id="20"]
+[ext_resource type="Script" uid="uid://c7n777jrjkv80" path="res://scenes/worlds/world_gen/generation_steps/generate_grid_tiles.gd" id="21"]
 [ext_resource type="Resource" uid="uid://eli0cf8ff2uc" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/crypt.tres" id="22"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_sarcophagus.gd" id="23"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" id="24"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_large_obj_items.gd" id="25"]
-[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/sarco_fountain_item_list.tres" id="26"]
+[ext_resource type="Script" uid="uid://de4jlysl4g3u0" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_sarcophagus.gd" id="23"]
+[ext_resource type="Script" uid="uid://botpacd56og2v" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_staircases.gd" id="24"]
+[ext_resource type="Script" uid="uid://b6nkhtue06if8" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_large_obj_items.gd" id="25"]
+[ext_resource type="Resource" uid="uid://beuldjx3xo0u5" path="res://scenes/worlds/procedural_world/sarco_fountain_item_list.tres" id="26"]
 [ext_resource type="Resource" uid="uid://cr2ioviux8kdv" path="res://scenes/worlds/procedural_world/sarco_lids_item_list.tres" id="27"]
-[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" id="28"]
+[ext_resource type="Script" uid="uid://dgv1hl4fa1gy5" path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" id="28"]
 [ext_resource type="PackedScene" uid="uid://b8fhjqun0honf" path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" id="29"]
-[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" id="30"]
+[ext_resource type="Script" uid="uid://dyw5r7nuidqua" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_wall_objects.gd" id="29_80e3b"]
+[ext_resource type="Resource" uid="uid://dksw0hp0yy3gl" path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" id="30"]
+[ext_resource type="Resource" uid="uid://coo2c3wk1hede" path="res://scenes/worlds/world_gen/generation_steps/populate_room/portrait_frame_spawn_list.tres" id="30_t34fi"]
+[ext_resource type="Resource" uid="uid://cwkonr55ypwpd" path="res://scenes/worlds/world_gen/generation_steps/populate_room/wall_object_spawn_list.tres" id="30_xitby"]
+[ext_resource type="Script" uid="uid://donwvlqymokbh" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_statue_fountain.gd" id="31"]
 
 [sub_resource type="StandardMaterial3D" id="3"]
 shading_mode = 0
@@ -75,6 +79,7 @@ _path_graph_viz = NodePath("../../RoomGraphViz")
 
 [node name="GenerateHalls" type="Node" parent="GenerationManager" index="4"]
 script = ExtResource("19")
+hall_creation_chance = 1.0
 
 [node name="GenerateWalls" type="Node" parent="GenerationManager" index="5"]
 script = ExtResource("18")
@@ -85,21 +90,28 @@ pillar_tile = 16
 
 [node name="GenerateGridTiles" type="Node" parent="GenerationManager" index="7"]
 script = ExtResource("21")
+alternative_double_floor_tile_chance = 0.1
 floor_tile = 6
 wall_tile = 5
 double_wall_tile = 4
 door_tile = 19
 double_door_tile = 14
+double_floor_tile = 7
 ceiling_tile = 10
+double_ceiling_tile = 8
 pillar_room_double_wall_tile = 3
 pillar_room_double_door_tile = 1
 pillar_room_double_ceiling_tile = 18
 pillar_room_double_floor_tile = 7
 pillar_room_pillar_tile = 15
 pillar_tile = 16
+corridor_room_border_wall_tile = 1
+corridor_room_border_arch_grate_tile = 26
 alternative_wall_tiles = Array[int]([])
 alternative_double_wall_tiles = Array[int]([20, 21, 22])
 alternative_ceiling_tiles = Array[int]([11])
+alternative_double_ceiling_tiles = Array[int]([9, 9])
+alternative_double_floor_tiles = Array[int]([23, 24, 25])
 
 [node name="GenerateDoors" type="Node" parent="GenerationManager" index="8"]
 script = ExtResource("28")
@@ -107,6 +119,7 @@ door_dict = {
 14: ExtResource("29"),
 19: ExtResource("29")
 }
+door_stuck_probability = 0.0
 
 [node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="9"]
 script = ExtResource("6")
@@ -128,6 +141,11 @@ _sarco_shard_spawn_list_resource = ExtResource("30")
 _sarco_lids_spawn_list_resource = ExtResource("27")
 _force_lid = -1
 
+[node name="GenerateStatueFountain" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="1"]
+script = ExtResource("31")
+room_purpose_data = ExtResource("7")
+fountain_scene_path = "uid://cs1ieq5xxrr18"
+
 [node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="2"]
 script = ExtResource("10")
 
@@ -140,15 +158,24 @@ script = ExtResource("14")
 _loot_list_resource = ExtResource("8")
 _max_loot = 5
 
-[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
+[node name="GenerateWallObjects" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
+script = ExtResource("29_80e3b")
+portrait_frame_spawn_list = ExtResource("30_t34fi")
+square_frame_spawn_list = ExtResource("30_t34fi")
+landscape_frame_spawn_list = ExtResource("30_t34fi")
+wide_landscape_frame_spawn_list = ExtResource("30_t34fi")
+wall_object_spawn_list_resource = ExtResource("30_xitby")
+_spawn_chance = 5.0
+
+[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource("14")
 _loot_list_resource = ExtResource("16")
 _min_loot = 3
 _max_loot = 5
 
-[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
+[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
 script = ExtResource("15")
-_character_scene_path = "res://scenes/characters/cultists/neophyte.tscn"
+_character_scene_path = "res://scenes/characters/cultist/neophyte.tscn"
 _density_by_type = {
 1: 0.05,
 2: 0.0,

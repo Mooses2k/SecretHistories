@@ -55,7 +55,7 @@ func set_fov(value : float) -> void:
 func update_mesh_and_collision() -> void:
 	if !is_inside_tree():
 		return
-	
+
 	_mesh.rings = 0
 	_mesh.radial_segments = 4
 	_mesh.height = distance
@@ -80,7 +80,7 @@ func get_aabb() -> AABB:
 
 func _ready() -> void:
 	ik_target = get_node(_ik_target)
-	
+
 	add_area_nodes()
 	connect_signals()
 	set_collision_layers()
@@ -104,7 +104,7 @@ func on_area_exited(area: Area3D) -> void:
 	if area is LightArea: light_area_exited(area)
 
 
-func tick(character: Character, _delta: float) -> int:
+func tick(character: HumanoidCharacter, _delta: float) -> int:
 	line_of_sight = false
 	if is_instance_valid(ik_target): look_at(ik_target.global_transform.origin, Vector3.UP)
 	if process_player_detection(character): return OK
@@ -120,7 +120,7 @@ func get_player() -> Player:
 	return null
 
 
-func process_player_detection(character: Character) -> bool:
+func process_player_detection(character: HumanoidCharacter) -> bool:
 	var player := can_see_player(character)
 	if is_instance_valid(player):
 		emit_signal\
@@ -141,16 +141,16 @@ func process_player_detection(character: Character) -> bool:
 	return false
 
 
-func can_see_player(character: Character) -> Player:
+func can_see_player(character: HumanoidCharacter) -> Player:
 	var player := get_player()
-	
-	if is_instance_valid(player) and player.light_level > light_sensitivity_level:
+	# TODO(Character): Light level
+	if is_instance_valid(player):# and player.light_level > light_sensitivity_level:
 		var target := player.global_transform.origin
 #		target.y = global_transform.origin.y
 		target.y += 0.5
-		
+
 		var world := get_world_3d()
-		
+
 		if is_instance_valid(world):
 			var raycast_parameters := PhysicsRayQueryParameters3D.new()
 			raycast_parameters.from = global_transform.origin
@@ -163,7 +163,7 @@ func can_see_player(character: Character) -> Player:
 			if !result.is_empty() and result.collider is Player:
 				line_of_sight = true
 				return player
-	
+
 	return null
 
 #--------------------------------------------------------------------------#
@@ -188,10 +188,10 @@ func get_overlapping_lights() -> Array:
 	return result
 
 
-func process_light_detection(_character: Character) -> bool:
+func process_light_detection(_character: HumanoidCharacter) -> bool:
 	# [ Evil hack in case of `on_light_entered` misbehaving ]
 	light_sources = get_overlapping_lights()
-	
+
 	if !light_sources.is_empty():
 		var light_area := check_light()
 		if is_instance_valid(light_area):
@@ -228,27 +228,27 @@ func light_area_exited(light_area: LightArea) -> void:
 
 func check_light() -> PlayerLightArea:
 	var player_light_area := get_player_light_area()
-	
+
 	if !is_instance_valid(player_light_area) or !(player_light_area is PlayerLightArea):
 		return null
-	
+
 	if !(player_light_area.parent_item is CandelabraItem or
 		player_light_area.parent_item is CandleItem or
 		player_light_area.parent_item is LanternItem
 		or player_light_area.parent_item.owner_character is Player):
 		return null
-	
+
 	if !player_light_area.parent_item.is_lit: return null
-	
+
 	# Get valid position on a grid inside the intersection area between the enemy's fov area and player's light area.
 	var point := get_position_in_grid(get_aabb().intersection(player_light_area.get_aabb()))
-	if player_light_area.check_point(point) and check_point(point): return player_light_area.parent_item.owner_character
+	if player_light_area.check_point(point) and check_point(point): return player_light_area#.parent_item.owner_character
 	# Return `player_light_area` if both player's light area and enemy's fov area can reach that point.
 	return null
 
 
 # Returns `true` if the raycast towards the point doesn't collide.
-func check_point(point: Vector3) -> bool: 
+func check_point(point: Vector3) -> bool:
 	var world := get_world_3d()
 	if !is_instance_valid(world): return false
 	var raycast_parameters := PhysicsRayQueryParameters3D.new()
@@ -265,10 +265,10 @@ func check_point(point: Vector3) -> bool:
 func get_player_light_area() -> PlayerLightArea:
 	while !light_sources.is_empty():
 		light_idx = wrapi(light_idx + 1, 0, light_sources.size() - 1)
-		
+
 		if !is_instance_valid(light_sources[light_idx]):
 			light_sources.remove_at(light_idx) ; continue   # manually changed from remove() during migration
-		
+
 		return light_sources[light_idx]
 	return null
 
@@ -291,14 +291,14 @@ func get_position_in_grid(aabb: AABB) -> Vector3:
 			floor(aabb.size.y / light_points_grid_size),
 			floor(aabb.size.z / light_points_grid_size)
 		)
-	
+
 	if grid_dims.x == 0 or grid_dims.y == 0:
 		push_warning("Warning: grid_dims contains a zero value!")
 		return Vector3(0, 0, 0)
-	
+
 	var total_points := int(grid_dims.x * grid_dims.y * grid_dims.z)
 	voxel_idx = wrapi(voxel_idx + 1, 0, total_points)
-	
+
 	var grid_area = grid_dims.x * grid_dims.y
 	var world_pos :=\
 		aabb.position +\

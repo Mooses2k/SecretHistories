@@ -1,17 +1,17 @@
 [gd_scene load_steps=22 format=3 uid="uid://347rkxj6e7d4"]
 
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" id="1"]
+[ext_resource type="Script" uid="uid://bxpahyvppyapw" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://5yf0bei0ff5s" path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" id="2"]
 [ext_resource type="AudioStream" uid="uid://bbqik4i4cjre" path="res://resources/sounds/reloading/shotgun/shotgun_reload_2.wav" id="3"]
 [ext_resource type="PackedScene" uid="uid://dmwv4wqqycha6" path="res://resources/models/items/ranged/double_barrel_shotguns/DoubleBarrelSawed.glb" id="3_a0rfu"]
-[ext_resource type="Resource" path="res://resources/tiny_items/ammunition/shotgun_shell.tres" id="4"]
+[ext_resource type="Resource" uid="uid://b68g5xgtvxxf3" path="res://resources/tiny_items/ammunition/shotgun_shell.tres" id="4"]
 [ext_resource type="PackedScene" uid="uid://ebncv186qb3c" path="res://scenes/effects/shotgun_audio.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/effects/hit_effect.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://btgj1s4833cij" path="res://scenes/effects/hit_effect.tscn" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/_smoke.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://dj3ly5s7kawhg" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/_smoke.tscn" id="8"]
 [ext_resource type="AudioStream" uid="uid://biqwhqeb70a3r" path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" id="10"]
-[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" id="11"]
-[ext_resource type="Script" path="res://scenes/effects/mesh_instances.gd" id="13"]
+[ext_resource type="Script" uid="uid://cvituexifjryt" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" id="11"]
+[ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="13"]
 
 [sub_resource type="Skin" id="7"]
 resource_name = "Skin"
@@ -85,11 +85,11 @@ tracks/3/keys = PackedFloat32Array(0, 1, -0.00946103, -0.672712, 0.011018, 0.739
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0qr5e"]
 _data = {
-"break_open_weapon": SubResource("15"),
-"close_breech_weapon": SubResource("16"),
-"enter_shell_1_weapon": SubResource("17"),
-"enter_shell_2_weapon": SubResource("18"),
-"reload": SubResource("Animation_jbtvc")
+&"break_open_weapon": SubResource("15"),
+&"close_breech_weapon": SubResource("16"),
+&"enter_shell_1_weapon": SubResource("17"),
+&"enter_shell_2_weapon": SubResource("18"),
+&"reload": SubResource("Animation_jbtvc")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0wtng"]

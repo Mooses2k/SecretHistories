@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://wonhlw0qvfbw"]
 
-[ext_resource path="res://scenes/effects/martini_audio.gd" type="Script" id=1]
-[ext_resource path="res://resources/sounds/gunshots/514228__superphat__sniper-rifle.wav" type="AudioStream" id=2]
+[ext_resource type="Script" uid="uid://cgg5cldjl72kb" path="res://scenes/effects/martini_audio.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://cud5c6oxnkinm" path="res://resources/sounds/gunshots/514228__superphat__sniper-rifle.wav" id="2"]
 
 [node name="MartiniAudio" type="AudioStreamPlayer3D"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2 )
-stream = ExtResource( 2 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+stream = ExtResource("2")
 unit_size = 10.0
 autoplay = true
 bus = "Effects"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [connection signal="finished" from="." to="." method="_on_AudioStreamPlayer3D_finished"]

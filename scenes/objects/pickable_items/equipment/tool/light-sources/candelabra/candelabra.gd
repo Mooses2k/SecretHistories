@@ -74,9 +74,9 @@ func light():
 		$Candle1/MeshInstance3D.get_surface_override_material(0).emission_enabled = true
 		firelight.visible = true
 		
-		if owner_character:
-			if owner_character.noise_level < 5:
-				owner_character.noise_level = 5
+		#if owner_character:
+			#if owner_character.noise_level < 5:
+				#owner_character.noise_level = 5
 		
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
@@ -237,3 +237,8 @@ func item_drop():
 		if random_number < prob_going_out:
 			unlight()
 			print("Light went out due to being thrown")
+
+
+func _on_ignite_character_interacted(_character: Variant) -> void:
+	_use_primary()
+	pass # Replace with function body.

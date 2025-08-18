@@ -85,15 +85,16 @@ func play_alert_sound():
 	var sound: AudioStream = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.ALERT).pick_random()
 	speech_audio.stream = sound
 	if last_speech_line == speech_audio.stream:   # This is not working to stop duplicate lines =/
-		return 
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.ALERT
 	speech_audio.play()
 	print_debug("Played alert sound")
 	
 
+
 func get_player() -> Player:
-	var players := get_tree().get_nodes_in_group("Player")
+	var players := get_tree().get_nodes_in_group("PLAYER")
 	return players[0] if !players.is_empty() else null
 
 
@@ -110,7 +111,7 @@ func play_detection_sound() -> void:
 		var sound = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.DETECTION).pick_random()
 		speech_audio.stream = sound
 	if last_speech_line == speech_audio.stream:
-		return 
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DETECTION
 	speech_audio.play()
@@ -133,7 +134,7 @@ func play_fight_sound():
 	var sound = AudioLibrary.get_voicelines(enemy_type, voice_actor, AudioLibrary.CULTIST_VOICE_TYPE.FIGHT).pick_random()
 	speech_audio.stream = sound
 	if last_speech_line == speech_audio.stream:
-		return 
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.FIGHT
 	speech_audio.play()
@@ -147,7 +148,7 @@ func play_reload_sound():
 	_reload_sounds.shuffle()
 	speech_audio.stream = _reload_sounds.front()
 	if last_speech_line == speech_audio.stream:
-		return 
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.RELOAD
 	speech_audio.play()
@@ -162,7 +163,7 @@ func play_dialog_q_sound():
 	_dialog_q_sounds.shuffle()
 	speech_audio.stream = _dialog_q_sounds.front()
 	if last_speech_line == speech_audio.stream:
-		return 
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DIALOG_Q
 	speech_audio.play()
@@ -173,7 +174,7 @@ func play_dialog_a_sound():
 	_dialog_a_sounds.shuffle()
 	speech_audio.stream = _dialog_a_sounds.front()
 	if last_speech_line == speech_audio.stream:
-		return 
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DIALOG_A
 	speech_audio.play()
@@ -184,7 +185,7 @@ func play_dialog_sequence_sound():
 	_dialog_sequence_sounds.shuffle()
 	speech_audio.stream = _dialog_sequence_sounds.front()
 	if last_speech_line == speech_audio.stream:
-		return 
+		return
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = AudioLibrary.CULTIST_VOICE_TYPE.DIALOG_SEQUENCE
 	speech_audio.play()

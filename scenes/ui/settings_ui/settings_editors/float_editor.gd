@@ -24,6 +24,8 @@ func _on_setting_attached():
 	%Value.min_value = settings.get_setting_min_value(_setting_name)
 	%Value.max_value = settings.get_setting_max_value(_setting_name)
 	%Value.step = settings.get_setting_step(_setting_name)
+	%Value.exp_edit = settings.get_setting_exp_edit(_setting_name)
+	print("exp_edit : ", %Value.exp_edit)
 #	%Value.connect("value_changed", self, "on_value_edited")
 	if _setting_name.contains('|'):
 		%Name.text = _setting_name.split('|')[1]

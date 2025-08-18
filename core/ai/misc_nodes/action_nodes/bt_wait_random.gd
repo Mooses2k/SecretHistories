@@ -29,7 +29,7 @@ func _tick(state : CharacterState) -> int:
 		state.move_direction = Vector3.ZERO
 		active = true
 		return BTResult.RUNNING
-	
+
 	reset_timer() # Reset timer in preparation for next execution
 	active = false
 	return BTResult.OK

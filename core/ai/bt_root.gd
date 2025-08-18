@@ -6,23 +6,20 @@ signal post_tick()
 
 var tick_delta : float = 0.1
 
-@onready var character: Character = owner
-
-
 func _ready() -> void:
 	super._ready()
 	_setup_ai_tree()
-	var timer := Timer.new()
-	timer.one_shot = false
-	timer.wait_time = tick_delta
-	timer.timeout.connect(run_tick)
-	add_child(timer)
-	timer.start()
+	#var timer := Timer.new()
+	#timer.one_shot = false
+	#timer.wait_time = tick_delta
+	#timer.timeout.connect(run_tick)
+	#add_child(timer)
+	#timer.start()
 
 
-func run_tick():
+func run_tick(state : CharacterState):
 	emit_signal("pre_tick")
-	tick(character.state)
+	tick(state)
 	emit_signal("post_tick")
 
 

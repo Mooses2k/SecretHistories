@@ -1,0 +1,108 @@
+[gd_scene load_steps=24 format=3 uid="uid://cwn471fcsn7yl"]
+
+[sub_resource type="Animation" id="376"]
+resource_name = "ADS_Idle"
+length = 2.0
+
+[sub_resource type="Animation" id="377"]
+resource_name = "Action"
+length = 2.0
+loop_mode = 1
+
+[sub_resource type="Animation" id="378"]
+resource_name = "CrouchWalkBackwards002"
+length = 1.21667
+
+[sub_resource type="Animation" id="379"]
+resource_name = "CrouchWalkBackwardsLeft002"
+
+[sub_resource type="Animation" id="380"]
+resource_name = "CrouchWalkBackwardsRight002"
+
+[sub_resource type="Animation" id="381"]
+resource_name = "CrouchWalkForward002"
+length = 1.21667
+
+[sub_resource type="Animation" id="382"]
+resource_name = "CrouchWalkForwardLeft002"
+
+[sub_resource type="Animation" id="383"]
+resource_name = "CrouchWalkForwardRight002"
+
+[sub_resource type="Animation" id="384"]
+resource_name = "CrouchWalkLeft002"
+
+[sub_resource type="Animation" id="385"]
+resource_name = "CrouchWalkRight002"
+
+[sub_resource type="Animation" id="386"]
+resource_name = "HipIdle"
+length = 2.0
+loop_mode = 1
+
+[sub_resource type="Animation" id="387"]
+resource_name = "Idle"
+length = 5.0
+
+[sub_resource type="Animation" id="388"]
+resource_name = "Kick"
+length = 1.16667
+
+[sub_resource type="Animation" id="389"]
+resource_name = "OneHandedADSIdle"
+length = 2.0
+
+[sub_resource type="Animation" id="390"]
+resource_name = "Runloopforward002"
+length = 0.6
+
+[sub_resource type="Animation" id="391"]
+resource_name = "WalkBackwards002"
+length = 1.2
+
+[sub_resource type="Animation" id="392"]
+resource_name = "WalkBackwardsLeft002"
+
+[sub_resource type="Animation" id="393"]
+resource_name = "WalkBackwardsRight002"
+
+[sub_resource type="Animation" id="394"]
+resource_name = "WalkForwardRight002"
+
+[sub_resource type="Animation" id="395"]
+resource_name = "WalkForwards002"
+length = 1.2
+
+[sub_resource type="Animation" id="396"]
+resource_name = "WalkForwardsLeft002"
+
+[sub_resource type="Animation" id="397"]
+resource_name = "WalkRight002"
+
+[sub_resource type="Animation" id="398"]
+resource_name = "Walkleft002"
+
+[node name="FPSArmsAnimationPlayer" type="AnimationPlayer"]
+anims/ADS_Idle = SubResource("376")
+anims/Action = SubResource("377")
+anims/CrouchWalkBackwards002 = SubResource("378")
+anims/CrouchWalkBackwardsLeft002 = SubResource("379")
+anims/CrouchWalkBackwardsRight002 = SubResource("380")
+anims/CrouchWalkForward002 = SubResource("381")
+anims/CrouchWalkForwardLeft002 = SubResource("382")
+anims/CrouchWalkForwardRight002 = SubResource("383")
+anims/CrouchWalkLeft002 = SubResource("384")
+anims/CrouchWalkRight002 = SubResource("385")
+anims/HipIdle = SubResource("386")
+anims/Idle = SubResource("387")
+anims/Kick = SubResource("388")
+anims/OneHandedADSIdle = SubResource("389")
+anims/Runloopforward002 = SubResource("390")
+anims/WalkBackwards002 = SubResource("391")
+anims/WalkBackwardsLeft002 = SubResource("392")
+anims/WalkBackwardsRight002 = SubResource("393")
+anims/WalkForwardRight002 = SubResource("394")
+anims/WalkForwards002 = SubResource("395")
+anims/WalkForwardsLeft002 = SubResource("396")
+anims/WalkRight002 = SubResource("397")
+anims/Walkleft002 = SubResource("398")

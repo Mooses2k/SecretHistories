@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://dgrv7l1saak5h" path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_saint.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://coi5edcyci001" path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_plain.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://bs375p3exel4b" path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_knight.tscn" id="4"]
-[ext_resource type="Script" path="res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd" id="5"]
-[ext_resource type="Script" path="res://utils/auto_free.gd" id="6"]
+[ext_resource type="Script" uid="uid://bmp2xupu848ru" path="res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd" id="5"]
+[ext_resource type="Script" uid="uid://cf7gtoudmk5ua" path="res://utils/auto_free.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://cykkk7776h00v" path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" id="7"]
 
 [sub_resource type="Animation" id="3"]
@@ -262,12 +262,12 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xamvy"]
 _data = {
-"RESET": SubResource("3"),
-"center": SubResource("4"),
-"east": SubResource("8"),
-"north": SubResource("5"),
-"south": SubResource("6"),
-"west": SubResource("7")
+&"RESET": SubResource("3"),
+&"center": SubResource("4"),
+&"east": SubResource("8"),
+&"north": SubResource("5"),
+&"south": SubResource("6"),
+&"west": SubResource("7")
 }
 
 [sub_resource type="BoxMesh" id="1"]

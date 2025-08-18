@@ -17,26 +17,43 @@ var _current_total_weight := 0
 
 ### Public Methods --------------------------------------------------------------------------------
 
+func reset_current_arrays() -> void:
+	_current_paths.clear()
+	_current_weights.clear()
+	_current_min_amounts.clear()
+	_current_max_amounts.clear()
+	_current_total_weight = 0
+
+
 func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 	var spawn_data: SpawnData = SpawnData.new()
 	
 	if _current_paths.is_empty():
 		_initialize_current_arrays()
 	
+	# Handle edge case where all items have been excluded
+	if _current_total_weight <= 0 or _current_paths.is_empty():
+		return spawn_data  # Returns empty spawn data
+	
 	var random_value = rng.randi() % _current_total_weight
+	var cumulative_weight := 0
 	var index := 0
-	for value in _current_weights:
-		var weight := value as int
-		if random_value < weight:
+	
+	# Fixed weighted selection algorithm
+	for i in _current_weights.size():
+		cumulative_weight += _current_weights[i]
+		if random_value < cumulative_weight:
+			index = i
 			break
-		else:
-			random_value -= weight
-			index += 1
+	
+	# Bounds check to prevent array access errors
+	if index >= _current_paths.size():
+		index = _current_paths.size() - 1
 	
 	spawn_data.scene_path = _current_paths[index]
 	spawn_data.amount = rng.randi_range(_current_min_amounts[index], _current_max_amounts[index])
 	
-	_exclude_used_index(index)
+	#_exclude_used_index(index)  # Introduces bugs in random gen where you want the weights to stay steady
 	_current_total_weight = _calculate_total_weight()
 	
 	return spawn_data
@@ -47,6 +64,9 @@ func get_random_spawn_data(rng: RandomNumberGenerator) -> SpawnData:
 ### Private Methods -------------------------------------------------------------------------------
 
 func _initialize_current_arrays() -> void:
+	# Clear existing arrays to prevent memory accumulation
+	reset_current_arrays()
+	
 	_current_paths = _paths.duplicate()
 	_current_weights = _weights.duplicate()
 	_current_min_amounts = _min_amounts.duplicate()

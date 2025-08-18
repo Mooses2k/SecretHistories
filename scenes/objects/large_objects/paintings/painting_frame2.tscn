@@ -1,0 +1,137 @@
+[gd_scene load_steps=16 format=4 uid="uid://c0jklw6pv1ucx"]
+
+[ext_resource type="Script" uid="uid://bsovojpefr6cg" path="res://scenes/objects/wall_objects/wall_object_rigid.gd" id="1_tnkbv"]
+[ext_resource type="Texture2D" uid="uid://dva5nbwy2v5yo" path="res://resources/models/large_objects/paintings/painting_frame2_Image_1.jpg" id="2_3r0fv"]
+[ext_resource type="Texture2D" uid="uid://40dfj6tnwq6x" path="res://resources/models/large_objects/paintings/painting_frame2_Image_2.png" id="3_f0pqu"]
+[ext_resource type="Script" uid="uid://28huy1adex6d" path="res://scenes/objects/wall_objects/wall_attachment_component.gd" id="3_qsln8"]
+[ext_resource type="Texture2D" uid="uid://clc1jv8t2bl2c" path="res://resources/models/large_objects/paintings/painting_frame2_Image_0.png" id="4_eucf2"]
+[ext_resource type="Texture2D" uid="uid://bqrxvdipe3fd5" path="res://resources/models/large_objects/paintings/painting_frame2_Image_5.jpg" id="5_ikc0t"]
+[ext_resource type="Texture2D" uid="uid://c0lf8oia2tmcc" path="res://resources/models/large_objects/paintings/painting_frame2_Image_4.png" id="6_42cgn"]
+[ext_resource type="Texture2D" uid="uid://b7hf1nual45d4" path="res://resources/models/large_objects/paintings/painting_frame2_Image_3.png" id="7_lxyw5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m7o5i"]
+resource_name = "OBRAZ"
+cull_mode = 2
+albedo_texture = ExtResource("2_3r0fv")
+metallic = 1.0
+metallic_texture = ExtResource("3_f0pqu")
+metallic_texture_channel = 2
+roughness = 0.837081
+roughness_texture = ExtResource("3_f0pqu")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("4_eucf2")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ebtqa"]
+_surfaces = [{
+"aabb": AABB(-0.632664, 2.19664, -0.0113365, 1.38187, 1.05, 1e-05),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"name": "OBRAZ",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAD/////BgAAAP//AAAGAAAAAAD//wAAAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_b6evu"]
+resource_name = "painting_frame2_Ramy02_OBRAZ_0"
+_surfaces = [{
+"aabb": AABB(-0.632664, 2.19664, -0.0113365, 1.38187, 1.05, 1e-05),
+"attribute_data": PackedByteArray("/3////7//3//f/9//3///////v/+//9/"),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUA"),
+"material": SubResource("StandardMaterial3D_m7o5i"),
+"name": "OBRAZ",
+"primitive": 3,
+"uv_scale": Vector4(2, 2, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray("AAAAAAAA/z//////BgD/P///AAAGAP8/AAAAAAAA/z8AAP//AAD/P/////8GAP8/////////////////////////////////")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ebtqa")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knjqx"]
+resource_name = "RAMY"
+cull_mode = 2
+albedo_texture = ExtResource("5_ikc0t")
+metallic = 1.0
+metallic_texture = ExtResource("6_42cgn")
+metallic_texture_channel = 2
+roughness_texture = ExtResource("6_42cgn")
+roughness_texture_channel = 1
+normal_enabled = true
+normal_texture = ExtResource("7_lxyw5")
+ao_enabled = true
+ao_texture = ExtResource("6_42cgn")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0sg06"]
+_surfaces = [{
+"aabb": AABB(-0.765559, 2.06374, -0.0132897, 1.64766, 1.31784, 0.132895),
+"format": 34896613377,
+"index_count": 270,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAAAEAAEAAgADAAUABgAEAAAABQADAAcABgAIAAQABQAHAAkACgAIAAYACQAHAAsACgAMAAgACQALAA0ADgAMAAoADQALAA8ADgAQAAwADQAPABEAEgAQAA4AEQAPABMAEgAUABAAEQATABUAFQAUABIAFQATABQAFgAXABgAGAAXABkAFgAaABcAGAAZABsAHAAaABYAGwAZAB0AHAAeABoAGwAdAB8AIAAeABwAHwAdACEAIAAiAB4AHwAhACMAJAAiACAAIwAhACUAJAAmACIAIwAlACcAKAAmACQAJwAlACkAKAAqACYAJwApACsAKwAqACgAKwApACoALAAtAC4ALgAtAC8ALAAwAC0ALgAvADEAMgAwACwAMQAvADMAMgA0ADAAMQAzADUANgA0ADIANQAzADcANgA4ADQANQA3ADkAOgA4ADYAOQA3ADsAOgA8ADgAOQA7AD0APgA8ADoAPQA7AD8APgBAADwAPQA/AEEAQQBAAD4AQQA/AEAAQgBDAEQARABDAEUAQgBGAEMARABFAEcASABGAEIARwBFAEkASABKAEYARwBJAEsATABKAEgASwBJAE0ATABOAEoASwBNAE8AUABOAEwATwBNAFEAUABSAE4ATwBRAFMAVABSAFAAUwBRAFUAVABWAFIAUwBVAFcAVwBWAFQAVwBVAFYAWABZAFoAWABbAFkA"),
+"name": "RAMY",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 92,
+"vertex_data": PackedByteArray("IQTV+v//AAAAAAAA//8AAAAA/v///wAAAAAAAAAAAAAhBCkF//8AAAAA/v8AAAAAIQTV+szMAAClFNAZAAAAACEEKQXMzAAApRQu5gAAAAAxBkD4MrMAAKUU0BmZGQAAMQa+BzKzAAClFC7mmRkAADEGQPj/fwAAjBHxFcxMAAAxBr4H/38AAIwRDerMTAAAYwyB8P9/AAB0DhISzEwAAGMMfQ//fwAAdA7s7cxMAADd+9X6/v8AAAAA/v/+/wAA/v////7/AAAAAP7/AAAAACEE1fr+/wAA/v///wAAAADd+9X6zMwAAKUULuYAAAAAIQTV+szMAABZ6y7mAAAAAM35QPgyswAApRQu5pkZAAAxBkD4MrMAAFnrLuaZGQAAzflA+P9/AACMEQ3qzEwAADEGQPj/fwAAcu4N6sxMAACb84Hw/38AAHQO7O3MTAAAYwyB8P9/AACK8eztzEwAAN37KQX//wAA///+////AAD+/wAA//8AAP///v8AAAAA3fvV+v//AAD+/wAAAAAAAN37KQXMzAAAWesu5gAAAADd+9X6zMwAAFnr0BkAAAAAzfm+BzKzAABZ6y7mmRkAAM35QPgyswAAWevQGZkZAADN+b4H/38AAHLuDerMTAAAzflA+P9/AABy7vEVzEwAAJvzfQ//fwAAivHs7cxMAACb84Hw/38AAIrxEhLMTAAAIQQpBf//AAD+/wAA//8AAAAAAAD//wAA/v8AAAAAAADd+ykF//8AAAAAAAAAAAAAIQQpBczMAABZ69AZAAAAAN37KQXMzAAApRTQGQAAAAAxBr4HMrMAAFnr0BmZGQAAzfm+BzKzAAClFNAZmRkAADEGvgf/fwAAcu7xFcxMAADN+b4H/38AAIwR8RXMTAAAYwx9D/9/AACK8RISzEwAAJvzfQ//fwAAdA4SEsxMAABZ6y7mAAAAAKUU0BkAAAAAWevQGQAAAAClFC7mAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_p0cwh"]
+resource_name = "painting_frame2_Ramy02_RAMY_0"
+_surfaces = [{
+"aabb": AABB(-0.765559, 2.06374, -0.0132897, 1.64766, 1.31784, 0.132895),
+"attribute_data": PackedByteArray("+z+vzb08QjC9PO3QiSxCMPs/gDOJLO3QVhx2QFYcucA4Q6/NOEOAM4NFEMyDRR81wEgQzMBIHzWcTTTHnE37OTxRlcU8UZo7qlMnw6pTCD63V7nAt1d2QFZZucBWWXZA+z+m5708AyK9POPqiSwDIvs/QSWJLOPqWBs/MVYcsNo4Q6bnOENBJYNFB+aDRd8mwEgH5sBI3yacTSvhnE28KzxRjN88UVstqlMe3apTyS+3V7Dat1c3MlZZsNpWWTcy+z+vzb08QjC9PO3QiSxCMPs/gDOJLO3QVhx2QFYcucA4Q6/NOEOAM4NFEMyDRR81wEgQzMBIHzWcTTTHnE37OTxRlcU8UZo7qlMnw6pTCD63V7nAt1d2QFZZucBWWXZA+z9j1708wBG9PKHaiSzAEfs//hSJLKHaVhz0IVYcbco4Q2PXOEP+FINFxNWDRZ0WwEjE1cBInRa/TQvRnE15Gz1RSc88URgdvVP0zKpThh+4V2zKt1f0IVlZbcpWWfQhrgkt/tQDw/euCcP3rgkt/tQDLf7UA8P3"),
+"format": 34896613399,
+"index_count": 270,
+"index_data": PackedByteArray("AAABAAIAAgABAAMAAAAEAAEAAgADAAUABQADAAYABQAGAAcACAAEAAAACAAJAAQACgAJAAgACgALAAkADAALAAoADAANAAsADgANAAwADgAPAA0AEAAPAA4AEAARAA8AEgARABAAEgATABEAFAATABIAFAAVABMAFgAVABQAFgAXABUAGAAZABoAGgAZABsAGAAcABkAGgAbAB0AHQAbAB4AHQAeAB8AIAAcABgAIAAhABwAIgAhACAAIgAjACEAJAAjACIAJAAlACMAJgAlACQAJgAnACUAKAAnACYAKAApACcAKgApACgAKgArACkALAArACoALAAtACsALgAtACwALgAvAC0AMAAxADIAMgAxADMAMAA0ADEAMgAzADUANQAzADYANQA2ADcAOAA0ADAAOAA5ADQAOgA5ADgAOgA7ADkAPAA7ADoAPAA9ADsAPgA9ADwAPgA/AD0AQAA/AD4AQABBAD8AQgBBAEAAQgBDAEEARABDAEIARABFAEMARgBFAEQARgBHAEUASABJAEoASgBJAEsASABMAEkASgBLAE0ATQBLAE4ATQBOAE8AUABMAEgAUABRAEwAUgBRAFAAUgBTAFEAVABTAFIAVABVAFMAVgBVAFQAVgBXAFUAWABXAFYAWABZAFcAWgBZAFgAWgBbAFkAXABbAFoAXABdAFsAXgBdAFwAXgBfAF0AYABhAGIAYwBkAGUA"),
+"material": SubResource("StandardMaterial3D_knjqx"),
+"name": "RAMY",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 102,
+"vertex_data": PackedByteArray("IQTV+v//CmgAAAAA///jUgAA/v///+NSAAAAAAAAGy0hBCkF//8KaAAA/v8AABstpRTQGQAA9RelFC7mAAD1FyEE1frMzOZLIQQpBczM5ksxBkD4MrPCUjEGvgcys8JSMQZA+P9/41IxBr4H/3/jUmMMgfD/f/pxYwx9D/9/+nF0DuztzEzCXnQOEhLMTMJejBEN6sxM+3SMEfEVzEz7dKUULuaZGRlPpRTQGZkZGU+lFC7mAAD1F6UU0BkAAPUX3fvV+v7/kjwAAP7//v+WNP7////+/5Y0AAD+/wAAkx4hBNX6/v+SPP7///8AAAgfpRQu5gAANxBZ6y7mAADgEN371frMzCsxIQTV+szMKzHN+UD4MrOHNDEGQPgys4c0zflA+P9/ljQxBkD4/3+WNJvzgfD/f80+YwyB8P9/zT6K8eztzEyPOXQO7O3MTI85cu4N6sxMQj+MEQ3qzExCP1nrLuaZGcYypRQu5pkZxjJZ6y7mAADQEKUULuYAANEQ3fspBf//AAD///7///8AAP7/AAD//wAA///+/wAAAADd+9X6//8AAP7/AAAAAAAAWesu5gAAAABZ69AZAAAAAN37KQXMzAAA3fvV+szMAADN+b4HMrMAAM35QPgyswAAzfm+B/9/AADN+UD4/38AAJvzfQ//fwAAm/OB8P9/AACK8RISzEwAAIrx7O3MTAAAcu7xFcxMAABy7g3qzEwAAFnr0BmZGQAAWesu5pkZAABZ69AZAAAAAFnrLuYAAAAAIQQpBf//kjz+/wAA//+WNAAAAAD//5Y0/v8AAAAACR/d+ykF//+SPAAAAAAAAAkfWevQGQAA0RClFNAZAADQECEEKQXMzCsx3fspBczMKzExBr4HMrOHNM35vgcys4c0MQa+B/9//jTN+b4H/3+XNGMMfQ//fwE/m/N9D/9/xT50DhISzEz8OIrxEhLMTI85jBHxFcxMIUBy7vEVzEw8P6UU0BmZGV8yWevQGZkZxjKlFNAZAADVEFnr0BkAANAQWesu5gAA//+lFNAZAAD//1nr0BkAAP//Wesu5gAA//+lFC7mAAD//6UU0BkAAP///38AAP9//v//f/7//3/+//9/AAD/f/7//38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP5/AQABgAEA3GfcZ2CjYKNgo2CjC7Bpsdxn3GfisOSwlUq/RjJIlEi7WbtZu1m7WZBckFyQXJBcnlyeXJ5cnlx9b31vfW99b1NiU2JTYlNiUHJQclByUHIFWwVbBVsFW2lIakhqSGlIQGL/f+Ow/3/jsP9/Gs//f0Bi/38az/9///+/nb8d/39pSf9/aUn/f/9O/3//Tv9/G0//fxtP/38Lbf9/C23/f2BZ/39gWf9/rHD/f6xw/3//S/9//0v/f9n/253cHdl/2+cjGGAjntxgI57c5DAaz9vnIxjkMBrPaciVN2nIlTe62UQmutlEJo/cbyOP3G8jv9y3I57cYCN/75QQfO9+EDbiSx1T4qsdV/L0DU/yrQ3f2p4kBNv6JHTIpDdqyJU3////f////3////9/////f////3////9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_0sg06")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3r0fv"]
+size = Vector3(1.64719, 1.30725, 0.158691)
+
+[node name="PaintingFrame2" type="RigidBody3D"]
+collision_layer = 64
+collision_mask = 65
+center_of_mass_mode = 1
+script = ExtResource("1_tnkbv")
+is_painting = true
+canvas_mesh_name = "Ramy02_OBRAZ_0"
+metadata/_custom_type_script = "uid://bsovojpefr6cg"
+
+[node name="Durability" type="Timer" parent="."]
+wait_time = 300.0
+one_shot = true
+
+[node name="Ramy02_OBRAZ_0" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.18557e-08, 0.5, -4.37114e-08, 0.5, -2.18557e-08, 0, -1.91069e-15, -4.37114e-08, -0.5, -1.35995, 0, 0.0238959)
+mesh = SubResource("ArrayMesh_b6evu")
+skeleton = NodePath("")
+
+[node name="Ramy02_RAMY_0" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.18557e-08, 0.5, -4.37114e-08, 0.5, -2.18557e-08, 0, -1.91069e-15, -4.37114e-08, -0.5, -1.35995, 0, 0.0238959)
+mesh = SubResource("ArrayMesh_p0cwh")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(2.18557e-08, 0.5, -4.37114e-08, 0.5, -2.18557e-08, 0, -1.91069e-15, -4.37114e-08, -0.5, 0.00343844, 0.0295486, 0.00118276)
+shape = SubResource("BoxShape3D_3r0fv")
+
+[node name="WallAttachmentComponent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.251, 0)
+script = ExtResource("3_qsln8")
+snap_lerp_speed = 6.0
+metadata/_custom_type_script = "uid://28huy1adex6d"

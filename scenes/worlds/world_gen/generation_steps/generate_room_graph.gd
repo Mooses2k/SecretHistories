@@ -17,7 +17,7 @@ const SORTED_GRAPH_INDEXES = "sorted_graph_indexes"
 # door.
 var _entry_staircases := []
 
-# Array of indices that represent "exit" or "down" staircases. These can only be connected FROM 
+# Array of indices that represent "exit" or "down" staircases. These can only be connected FROM
 # other rooms but connect TO other rooms, because Mooses2k wants level staircases to only have one
 # door.
 var _exit_staircases := []
@@ -34,7 +34,7 @@ var _cell_index_connections_count := {}
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	if is_instance_valid(_room_graph_viz):
 			_room_graph_viz.world_data = data
-	
+
 	var _rooms = gen_data.get(RoomGenerator.ROOM_ARRAY_KEY)
 	if _rooms is Array:
 		var random = RandomNumberGenerator.new()
@@ -60,7 +60,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 # each other
 func group_intersecting_rooms(rooms : Array) -> Array:
 	var groups : Array = Array()
-	
+
 	# First intersection pass
 	for i in rooms.size():
 		var room : Rect2 = rooms[i] as Rect2
@@ -124,18 +124,18 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 		var room = groups[i][r] as Rect2
 		var center = room.position + 0.5 * room.size
 		var x = int(center.x)
-		var y = int(center.y)	
-		
+		var y = int(center.y)
+
 		var cell_index := data.get_cell_index_from_int_position(x, y)
 		var room_data := data.get_cell_meta(cell_index, data.CellMetaKeys.META_ROOM_DATA) as RoomData
 		if room_data.type == room_data.OriginalPurpose.UP_STAIRCASE:
 			_entry_staircases.append(cell_index)
 		elif room_data.type == room_data.OriginalPurpose.DOWN_STAIRCASE:
 			_exit_staircases.append(cell_index)
-		
+
 		cells[i] = cell_index
 		room_centers[i] = center
-	
+
 	var delaunay : PackedInt32Array = Geometry2D.triangulate_delaunay(room_centers)
 	for vertex in delaunay:
 		var cell_index = cells[vertex]
@@ -143,7 +143,7 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 			_cell_index_connections_count[cell_index] = 1
 		else:
 			_cell_index_connections_count[cell_index] += 1
-	
+
 	for index in range(0, delaunay.size(), 3):
 		var cell_index_a: int = cells[delaunay[index]]
 		var cell_index_b: int = cells[delaunay[index + 1]]
@@ -151,26 +151,26 @@ func get_delaunay_from_groupings(data : WorldData, groups : Array, random : Rand
 		graph_add_edge(edges, cell_index_a, cell_index_b)
 		graph_add_edge(edges, cell_index_b, cell_index_c)
 		graph_add_edge(edges, cell_index_c, cell_index_a)
-	
+
 	if is_instance_valid(_room_graph_viz):
 		_room_graph_viz.room_centers_cell_indexes = cells
 		_room_graph_viz.room_centers = room_centers
 		_room_graph_viz.delaunay = delaunay
-	
+
 	return edges
 
 
 func get_mst_from_delaunay(data : WorldData, delaunay : Dictionary) -> Dictionary:
 	var edges : Dictionary = Dictionary()
 	var added_verts : Dictionary = Dictionary()
-		
+
 	added_verts[delaunay.keys()[0]] = true
 	var vert_added : bool = true
 	while vert_added:
 		vert_added = false
 		var candidate_a = -1
 		var candidate_b = -1
-		
+
 		var candidate_dist = INF
 		for a in added_verts.keys():
 			var p_a = data.get_local_cell_position(a)
@@ -194,7 +194,7 @@ func add_extra_edges(from : Dictionary, to : Dictionary, random : RandomNumberGe
 	var ratio = random.randf_range(edges_to_keep_min_ratio, edges_to_keep_max_ratio)
 	var extra_count = int(ratio * edge_count)
 	extra_count = max(extra_count, min(edges_to_keep_abs_min, edge_count))
-	
+
 	for i in extra_count:
 		var a_count = from.keys().size()
 		var a = from.keys()[random.randi_range(0, a_count - 1)]
@@ -257,14 +257,14 @@ func _sort_cell_index_by_connections(cell_index_a: int, cell_index_b: int) -> bo
 	var connections_a = _cell_index_connections_count[cell_index_a]
 	var connections_b = _cell_index_connections_count[cell_index_b]
 	var is_a_smaller_than_b: bool = connections_a < connections_b
-	
+
 	if connections_a == connections_b:
 		is_a_smaller_than_b = cell_index_a < cell_index_b
-	
+
 	var all_staircases = _entry_staircases + _exit_staircases
 	if cell_index_a in all_staircases and not cell_index_b in all_staircases:
 		is_a_smaller_than_b = true
 	elif not cell_index_a in all_staircases and cell_index_b in all_staircases:
 		is_a_smaller_than_b = false
-	
+
 	return is_a_smaller_than_b

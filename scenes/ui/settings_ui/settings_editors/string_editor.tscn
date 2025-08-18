@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://ciy8vgmhml8bf"]
 
-[ext_resource path="res://scenes/ui/settings_ui/settings_editors/string_editor.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://bhvqbnb8ggfd6" path="res://scenes/ui/settings_ui/settings_editors/string_editor.gd" id="1"]
 
 [node name="EventEditor" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 _setting_type = 5
 
 [node name="Name" type="Label" parent="."]

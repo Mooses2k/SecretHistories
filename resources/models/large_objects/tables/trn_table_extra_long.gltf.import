@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c2bbix1yqmhcw"
-path="res://.godot/imported/trn_table_extra_long.gltf-0d1889bd732e133992c40e20f212d080.scn"
+valid=false
 
 [deps]
 
 source_file="res://resources/models/large_objects/tables/trn_table_extra_long.gltf"
-dest_files=["res://.godot/imported/trn_table_extra_long.gltf-0d1889bd732e133992c40e20f212d080.scn"]
 
 [params]
 
@@ -17,6 +16,8 @@ nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -28,6 +29,7 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
 gltf/naming_version=1

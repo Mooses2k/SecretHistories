@@ -65,13 +65,13 @@ func _spawn_lid() -> void:
 	if _current_lid_node != null:
 		_current_lid_node.queue_free()
 		_current_lid_node = null
-	
+
 	if current_lid == PossibleLids.EMPTY:
 		return
-	
+
 	var packed_scene := _lid_scenes.get_resource(PossibleLids.keys()[current_lid]) as PackedScene
 	_current_lid_node = packed_scene.instantiate() as RigidBody3D
-	
+
 	_current_lid_node.set("spawnable_items", sarco_spawnable_items)
 	var spawn_node := _lid_positions[current_lid] as Marker3D
 	spawn_node.add_child(_current_lid_node, true)
@@ -82,7 +82,7 @@ func _set_current_lid(value: int) -> void:
 		push_warning("%s is not a valid Lid value."%[value])
 		value = posmod(value, PossibleLids.values().size())
 	current_lid = value
-	
+
 	if is_inside_tree():
 		_spawn_lid()
 
@@ -94,9 +94,9 @@ func _set_wall_direction(value: int) -> void:
 		push_warning("%s is not a valid wall direction for sarcophagus.")
 		var valid_index := posmod(value, valid_values.size())
 		value = valid_values[valid_index]
-	
+
 	wall_direction = value
-	
+
 	if is_inside_tree():
 		_adjust_to_wall_direction()
 
@@ -113,7 +113,7 @@ func _adjust_to_wall_direction() -> void:
 			_animation_player.play("west")
 		_:
 			_animation_player.play("center")
-	
+
 	await _animation_player.animation_finished
 
 ### -----------------------------------------------------------------------------------------------

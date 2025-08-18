@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://b8pj06175scgh"]
 
-[ext_resource path="res://scenes/objects/pickable_items/equipment/consumable/consumable.gd" type="Script" id=1]
-[ext_resource path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=3]
+[ext_resource type="Script" uid="uid://dn5fl2jeqmvun" path="res://scenes/objects/pickable_items/equipment/consumable/consumable.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://ckkrq7mwcamt0" path="res://scenes/objects/pickable_items/equipment/_equipment_item.tscn" id="2"]
+[ext_resource type="AudioStream" uid="uid://bfhflhuea8p8f" path="res://resources/sounds/throwing/346373__denao270__throwing-whip-effect.wav" id="3"]
 
-[node name="ConsumableItem" instance=ExtResource( 2 )]
-script = ExtResource( 1 )
-item_throw_sound = ExtResource( 3 )
+[node name="ConsumableItem" instance=ExtResource("2")]
+script = ExtResource("1")
+item_throw_sound = ExtResource("3")
 item_size = 0
 item_name = "Consumable"

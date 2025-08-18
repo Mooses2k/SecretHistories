@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://de71nhoxv7a4s"]
+
+[ext_resource type="Script" uid="uid://28huy1adex6d" path="res://scenes/objects/wall_objects/wall_attachment_component.gd" id="1_acww4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_akfh8"]
+cull_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jnq2s"]
+material = SubResource("StandardMaterial3D_akfh8")
+
+[node name="Tapestry" type="Node3D"]
+
+[node name="SoftBody3D" type="SoftBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_jnq2s")
+
+[node name="WallAttachmentComponent" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.992705, 0.99252, 0)
+script = ExtResource("1_acww4")
+metadata/_custom_type_script = "uid://28huy1adex6d"
+
+[node name="WallAttachmentComponent2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.977815, 0.973834, 0)
+script = ExtResource("1_acww4")
+metadata/_custom_type_script = "uid://28huy1adex6d"

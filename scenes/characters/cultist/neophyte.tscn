@@ -1,0 +1,295 @@
+[gd_scene load_steps=35 format=3 uid="uid://cyymfxxvbr5i7"]
+
+[ext_resource type="PackedScene" uid="uid://daf3jm6dh7y8a" path="res://scenes/characters/humanoid_character_base/humanoid_character_base.tscn" id="1_4tack"]
+[ext_resource type="PackedScene" uid="uid://4k72rthy8iex" path="res://resources/models/characters/cultists/cultist_neophyte/neophyte_scaled_no_cape.glb" id="2_bk543"]
+[ext_resource type="Script" uid="uid://bjgur8ch0iu76" path="res://scenes/characters/cultist/ai_controller.gd" id="4_pc7x1"]
+[ext_resource type="Script" uid="uid://0nvxxergqacy" path="res://core/ai/bt_root.gd" id="5_f7c3r"]
+[ext_resource type="Script" uid="uid://dio1jo8ivp3gr" path="res://core/ai/flow_nodes/bt_selector.gd" id="6_xhddj"]
+[ext_resource type="Script" uid="uid://d2jyqwlf4r4kn" path="res://core/ai/flow_nodes/bt_sequence.gd" id="7_7megi"]
+[ext_resource type="Script" uid="uid://dfybk4r0s2u07" path="res://core/ai/interest_nodes/check_nodes/bt_interest_machine.gd" id="8_buv1l"]
+[ext_resource type="Script" uid="uid://2fnnlltf8cty" path="res://core/ai/misc_nodes/check_nodes/bt_approach_distance.gd" id="9_y7ei2"]
+[ext_resource type="Script" uid="uid://cm5x8ephyohoi" path="res://core/ai/misc_nodes/action_nodes/bt_go_to_target.gd" id="10_rop7y"]
+[ext_resource type="Script" uid="uid://dkdg1w744r4eh" path="res://core/ai/misc_nodes/action_nodes/bt_is_player.gd" id="11_pbkfw"]
+[ext_resource type="Script" uid="uid://bee1y46jqokfj" path="res://scenes/characters/cultists-old/bt_line_of_sight.gd" id="12_jw73y"]
+[ext_resource type="Script" uid="uid://b01w626f3jxlq" path="res://core/ai/gun_nodes/action_nodes/bt_gun_equip.gd" id="13_k2ihh"]
+[ext_resource type="Script" uid="uid://b3m2sx5hkxadx" path="res://core/ai/gun_nodes/check_nodes/bt_gun_has_ammo.gd" id="14_giokx"]
+[ext_resource type="Script" uid="uid://h76s0wxhkrfo" path="res://core/ai/gun_nodes/check_nodes/bt_inventory_has_ammo.gd" id="15_q8xvq"]
+[ext_resource type="Script" uid="uid://cpahwvildxcpc" path="res://core/ai/gun_nodes/action_nodes/bt_gun_reload.gd" id="16_jtw6t"]
+[ext_resource type="Script" uid="uid://c7u7qp6x1s7cu" path="res://core/ai/misc_nodes/action_nodes/bt_look_at_target.gd" id="17_0ovc1"]
+[ext_resource type="Script" uid="uid://jw2ukha32p8" path="res://core/ai/gun_nodes/check_nodes/bt_gun_cooldown.gd" id="18_b5l8q"]
+[ext_resource type="Script" uid="uid://bw1s4qvaho3xx" path="res://core/ai/misc_nodes/action_nodes/bt_wait_random.gd" id="19_etvc6"]
+[ext_resource type="Script" uid="uid://cgcbr41bjs00m" path="res://core/ai/gun_nodes/action_nodes/bt_gun_shoot.gd" id="20_cw5nl"]
+[ext_resource type="Script" uid="uid://dq63u6267rdxr" path="res://core/ai/misc_nodes/action_nodes/bt_clear_current_interest.gd" id="21_y58r1"]
+[ext_resource type="Script" uid="uid://8gakdlcukl8e" path="res://core/ai/interest_nodes/action_nodes/bt_free_interest.gd" id="22_hwwtx"]
+[ext_resource type="Script" uid="uid://cn425v4f6ds88" path="res://core/ai/misc_nodes/action_nodes/bt_select_random_target.gd" id="23_2n0qg"]
+[ext_resource type="Script" uid="uid://d0mdri2qlxkdf" path="res://scenes/sensors/character_sensors.gd" id="24_wvp3v"]
+[ext_resource type="Script" uid="uid://bqindecxvgw37" path="res://scenes/sensors/sound_sensor.gd" id="25_cpi7t"]
+[ext_resource type="Script" uid="uid://ban08glkk5hnr" path="res://scenes/sensors/visual_sensor.gd" id="26_f5htr"]
+[ext_resource type="Script" uid="uid://dgduhnk26y8g0" path="res://scenes/sensors/touch_sensor.gd" id="27_fwtma"]
+[ext_resource type="Script" uid="uid://xptk7x8ti5r0" path="res://scenes/characters/cultists-old/debugviz_target_position.gd" id="28_ata88"]
+[ext_resource type="Script" uid="uid://bifubyoo58u2h" path="res://scenes/characters/cultists-old/debugviz_path.gd" id="29_byly4"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0ini3"]
+resource_local_to_scene = true
+height = 1.0
+radius = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jq6sk"]
+radius = 25.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8fi7o"]
+radius = 0.4
+height = 1.2
+
+[sub_resource type="StandardMaterial3D" id="40"]
+shading_mode = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_dt6gn"]
+material = SubResource("40")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0jilu"]
+shading_mode = 0
+
+[node name="HumanoidCharacterBase" instance=ExtResource("1_4tack")]
+collision_layer = 16
+
+[node name="CharacterCollision" parent="." index="4"]
+shape = SubResource("CylinderShape3D_0ini3")
+
+[node name="ModelRoot" parent="." index="5" node_paths=PackedStringArray("glb_root")]
+glb_root = NodePath("neophyte_scaled_no_cape")
+
+[node name="PalmL" parent="ModelRoot/rig_deform/Skeleton3D" index="4"]
+transform = Transform3D(-0.525664, -0.407736, 0.766646, 0.831496, -0.466319, 0.322052, 0.219679, 0.806802, 0.579696, 0.115342, 1.21967, 0.453627)
+
+[node name="PalmR" parent="ModelRoot/rig_deform/Skeleton3D" index="5"]
+transform = Transform3D(-0.72805, 0.446063, 0.548897, 0.491124, -0.23861, 0.845233, 0.502711, 0.883132, -0.0509229, -0.132417, 1.19714, 0.170729)
+
+[node name="Physical Bone DEF-spine" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="0"]
+transform = Transform3D(1, 2.3551e-07, 6.05799e-09, -2.3551e-07, 1, -7.39038e-06, -6.05973e-09, 7.39038e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.98518, 2.29282e-07, 6.09725e-09, -2.32019e-07, 0.996048, -7.45058e-06, -5.96992e-09, 7.36117e-06, 0.983524, 0, 0, 0)
+
+[node name="Physical Bone DEF-spine_002" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="1"]
+transform = Transform3D(1, -7.18423e-07, -1.0015e-09, 7.18427e-07, 1, 6.41342e-07, 1.00049e-09, -6.4117e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.985179, 6.33266e-05, 2.44496e-05, 7.07779e-07, 0.993535, 0.00741591, 9.85665e-10, -6.37025e-07, 0.983103, 0, 0, 0)
+
+[node name="Physical Bone DEF-spine_003" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="2"]
+transform = Transform3D(1, -1.12009e-07, 7.95946e-06, 1.12073e-07, 1, 1.35417e-07, -7.95957e-06, -1.35651e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.984728, 0.00225537, -0.00179389, 1.10362e-07, 0.993611, 0.00682159, -7.83801e-06, -1.52737e-07, 0.983477, 0, 0, 0)
+
+[node name="Physical Bone DEF-spine_006" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="3"]
+transform = Transform3D(1, 1.13587e-06, 1.03173e-07, -1.13587e-06, 1, -1.20287e-07, -1.03174e-07, 1.2054e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.974883, 5.48094e-05, -0.000330433, -1.10734e-06, 0.989004, 0.00809937, -1.00583e-07, 1.19209e-07, 0.967816, 0, 0, 0)
+
+[node name="Physical Bone DEF-upper_arm_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="4"]
+transform = Transform3D(1, -3.24144e-05, -1.53461e-05, 3.24147e-05, 1, -3.93089e-06, 1.53464e-05, 3.93041e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.986523, 0.0100664, -0.0040237, 3.19779e-05, 0.988, -0.00752933, 1.51396e-05, 4.03821e-06, 0.987262, 0, 0, 0)
+
+[node name="Physical Bone DEF-forearm_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="5"]
+transform = Transform3D(1, -9.4529e-08, 2.54247e-07, 9.45298e-08, 1, -1.43227e-05, -2.54285e-07, 1.43229e-05, 1, 0, 0, 0)
+body_offset = Transform3D(0.985216, -0.000516858, -0.00110014, 9.31323e-08, 0.985224, 0.0111755, -2.50526e-07, 1.41114e-05, 0.991357, 0, 0, 0)
+
+[node name="Physical Bone DEF-hand_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="6"]
+transform = Transform3D(1, -1.12348e-05, 2.53229e-05, 1.12347e-05, 1, -2.0872e-06, -2.53231e-05, 2.0872e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.992111, -0.00371432, 0.00768208, 1.11461e-05, 0.983129, -0.0047332, -2.51234e-05, 2.14577e-06, 0.986563, 0, 0, 0)
+
+[node name="Physical Bone DEF-upper_arm_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="7"]
+transform = Transform3D(1, 4.87061e-07, -5.90372e-06, -4.86946e-07, 1, -2.49291e-06, 5.90375e-06, 2.49276e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.98689, -0.00720317, 0.00198796, -4.80562e-07, 0.991438, -0.00756034, 5.82635e-06, 2.42889e-06, 0.983472, 0, 0, 0)
+
+[node name="Physical Bone DEF-forearm_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="8"]
+transform = Transform3D(1, -3.23398e-06, -1.16361e-05, 3.23383e-06, 1, -8.93046e-06, 1.16357e-05, 8.93045e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.986091, 0.00175866, 0.00660785, 3.18885e-06, 0.985503, 0.0101792, 1.14739e-05, 8.82149e-06, 0.990196, 0, 0, 0)
+
+[node name="Physical Bone DEF-hand_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="9"]
+transform = Transform3D(1, -3.13646e-06, 2.19112e-05, 3.13638e-06, 1, 5.88958e-06, -2.19113e-05, -5.88955e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.988222, -0.00193828, 0.00980246, 3.09944e-06, 0.982555, 0.00171876, -2.16532e-05, -5.7444e-06, 0.991024, 0, 0, 0)
+
+[node name="Physical Bone DEF-thigh_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="10"]
+transform = Transform3D(1, 2.3667e-06, -2.30802e-05, -2.36678e-06, 1, 4.83096e-06, 2.30802e-05, -4.83068e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.912915, 0.00652932, 0.00193784, -2.16067e-06, 1.00286, 0.00927652, 2.10702e-05, -4.69387e-06, 0.913594, 0, 0, 0)
+
+[node name="Physical Bone DEF-shin_L" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="11"]
+transform = Transform3D(1, 2.27336e-06, 2.40459e-07, -2.27335e-06, 1, -5.97736e-06, -2.40157e-07, 5.97599e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.915204, 0.000416438, 0.00443096, -2.08057e-06, 0.957523, -0.0862771, -2.19792e-07, 5.72205e-06, 0.947315, 0, 0, 0)
+
+[node name="Physical Bone DEF-thigh_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="12"]
+transform = Transform3D(1, -3.05213e-06, 1.77428e-05, 3.05208e-06, 1, 3.73878e-07, -1.77428e-05, -3.73817e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.918788, -0.0037781, 0.000569701, 2.80421e-06, 0.996353, 0.00587785, -1.63019e-05, -3.05474e-07, 0.919171, 0, 0, 0)
+
+[node name="Physical Bone DEF-shin_R" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" index="13"]
+transform = Transform3D(1, 1.71593e-08, 1.4065e-06, -1.71764e-08, 1, 6.29893e-06, -1.40644e-06, -6.30011e-06, 1, 0, 0, 0)
+joint_offset = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
+body_offset = Transform3D(0.921757, 0.000880221, -0.00265688, -1.58325e-08, 0.983736, -0.0453929, -1.2964e-06, -6.19888e-06, 0.92261, 0, 0, 0)
+
+[node name="neophyte_scaled_no_cape" parent="ModelRoot" index="3" instance=ExtResource("2_bk543")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CharacterAnimationTree" parent="." index="7"]
+active = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="8"]
+unique_name_in_owner = true
+path_desired_distance = 0.5
+target_desired_distance = 0.5
+path_max_distance = 1.0
+
+[node name="AIController" type="Node" parent="." index="9"]
+script = ExtResource("4_pc7x1")
+
+[node name="BTRoot" type="Node" parent="AIController" index="0"]
+script = ExtResource("5_f7c3r")
+
+[node name="SEL_Behaviors" type="Node" parent="AIController/BTRoot" index="0"]
+script = ExtResource("6_xhddj")
+
+[node name="SEQ_Interest" type="Node" parent="AIController/BTRoot/SEL_Behaviors" index="0"]
+script = ExtResource("7_7megi")
+
+[node name="InterestMachine" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="0" node_paths=PackedStringArray("active_sensors")]
+script = ExtResource("8_buv1l")
+active_sensors = [NodePath("../../../../../Sensors/VisualSensor"), NodePath("../../../../../Sensors/TouchSensor")]
+
+[node name="SEL_Action" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="1"]
+script = ExtResource("6_xhddj")
+
+[node name="SEQ_ApproachAndShoot" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action" index="0"]
+script = ExtResource("7_7megi")
+
+[node name="SEL_Reach" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot" index="0"]
+script = ExtResource("6_xhddj")
+
+[node name="Approach" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEL_Reach" index="0"]
+script = ExtResource("9_y7ei2")
+
+[node name="ReachTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEL_Reach" index="1"]
+script = ExtResource("10_rop7y")
+threshold = 0.3
+
+[node name="SEQ_ShouldShoot" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot" index="1"]
+script = ExtResource("7_7megi")
+
+[node name="BTIsPlayer" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="0"]
+script = ExtResource("11_pbkfw")
+
+[node name="BTLineOfSight" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="1"]
+script = ExtResource("12_jw73y")
+
+[node name="EquipWeapon (does nothing?)" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="2"]
+script = ExtResource("13_k2ihh")
+
+[node name="SEL_Reload" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="3"]
+script = ExtResource("6_xhddj")
+
+[node name="BTGunHasAmmo" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="0"]
+script = ExtResource("14_giokx")
+
+[node name="BTInventoryHasAmmo" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="1"]
+script = ExtResource("15_q8xvq")
+
+[node name="ReloadAmmo" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="2"]
+script = ExtResource("16_jtw6t")
+
+[node name="LookAtTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="4"]
+script = ExtResource("17_0ovc1")
+
+[node name="GunNotOnCooldown" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="5"]
+script = ExtResource("18_b5l8q")
+
+[node name="WaitRandom2" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="6"]
+script = ExtResource("19_etvc6")
+max_time = 1.55
+min_time = 0.75
+
+[node name="Shoot" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="7"]
+script = ExtResource("20_cw5nl")
+
+[node name="SEQ_Follow" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action" index="1"]
+script = ExtResource("7_7megi")
+
+[node name="LookAtTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="0"]
+script = ExtResource("17_0ovc1")
+
+[node name="ReachTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="1"]
+script = ExtResource("10_rop7y")
+threshold = 0.3
+
+[node name="ClearCurrentInterest" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="2"]
+script = ExtResource("21_y58r1")
+
+[node name="FreeInterest" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="2"]
+script = ExtResource("22_hwwtx")
+
+[node name="SEQ_Idle" type="Node" parent="AIController/BTRoot/SEL_Behaviors" index="1"]
+script = ExtResource("7_7megi")
+
+[node name="LookAtTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="0"]
+script = ExtResource("17_0ovc1")
+
+[node name="SEL_MoveOrChooseTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="1"]
+script = ExtResource("6_xhddj")
+
+[node name="ReachTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle/SEL_MoveOrChooseTarget" index="0"]
+script = ExtResource("10_rop7y")
+threshold = 0.3
+
+[node name="SelectRandomTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle/SEL_MoveOrChooseTarget" index="1"]
+script = ExtResource("23_2n0qg")
+
+[node name="WaitRandom" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="2"]
+script = ExtResource("19_etvc6")
+max_time = 15.0
+min_time = 5.0
+
+[node name="SelectRandomTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="3"]
+script = ExtResource("23_2n0qg")
+
+[node name="TickTimer" type="Timer" parent="AIController" index="1"]
+wait_time = 0.1
+autostart = true
+
+[node name="Sensors" type="Node3D" parent="." index="10"]
+script = ExtResource("24_wvp3v")
+
+[node name="SoundSensor" type="Area3D" parent="Sensors" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21336, 0)
+collision_layer = 0
+collision_mask = 578
+script = ExtResource("25_cpi7t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensors/SoundSensor" index="0"]
+shape = SubResource("SphereShape3D_jq6sk")
+
+[node name="VisualSensor" type="Area3D" parent="Sensors" index="1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.65, 0)
+collision_layer = 18
+collision_mask = 1042
+monitorable = false
+script = ExtResource("26_f5htr")
+_ik_target = NodePath("../../ModelRoot/LookTarget")
+
+[node name="TouchSensor" type="Area3D" parent="Sensors" index="2"]
+visible = false
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("27_fwtma")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensors/TouchSensor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_8fi7o")
+
+[node name="DebugVisualizers" type="Node3D" parent="." index="11"]
+
+[node name="TargetPosition" type="MeshInstance3D" parent="DebugVisualizers" index="0"]
+mesh = SubResource("BoxMesh_dt6gn")
+skeleton = NodePath("../../..")
+script = ExtResource("28_ata88")
+
+[node name="Path" type="MeshInstance3D" parent="DebugVisualizers" index="1"]
+top_level = true
+material_override = SubResource("StandardMaterial3D_0jilu")
+script = ExtResource("29_byly4")
+
+[connection signal="timeout" from="AIController/TickTimer" to="AIController" method="_on_tick_timer_timeout"]
+[connection signal="body_entered" from="Sensors/TouchSensor" to="Sensors/TouchSensor" method="on_body_entered"]

@@ -1,18 +1,32 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4addihtopap0"]
+[gd_scene load_steps=11 format=3 uid="uid://d4addihtopap0"]
 
-[ext_resource type="Script" path="res://scenes/game.gd" id="1"]
-[ext_resource type="Script" path="res://globals/settings.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://bg7aeaviu8ftd" path="res://scenes/characters/player/player.tscn" id="3"]
+[ext_resource type="Script" uid="uid://s34o67j8i8sw" path="res://scenes/game.gd" id="1"]
+[ext_resource type="Script" uid="uid://ds1nbpmgimfml" path="res://globals/settings.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://6msa32pxnbrk" path="res://scenes/characters/player/player.tscn" id="3_dyxy8"]
 [ext_resource type="PackedScene" uid="uid://d1lbexonric4u" path="res://scenes/worlds/procedural_world/procedural_world.tscn" id="4"]
-[ext_resource type="PackedScene" uid="uid://ojhqun7ijups" path="res://scenes/ui/game_ui.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://q7wrpjiye0bb" path="res://scenes/ui/game_ui.tscn" id="5"]
 [ext_resource type="Environment" uid="uid://bxgnfe0qgcrm" path="res://scenes/worlds/game_environment.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://d0h4ce7jlo0b0" path="res://scenes/ui/loadscreen/load_screen.tscn" id="7_4hehu"]
+[ext_resource type="Script" uid="uid://j5m4bpuhok61" path="res://scenes/screen_filters/screen_filters.gd" id="9_0tnpc"]
+[ext_resource type="Script" uid="uid://q41ssc12f0qb" path="res://scenes/screen_filters/screen_filter_color_reduce.gd" id="9_vtaks"]
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_kvpfn"]
+resource_local_to_scene = false
+resource_name = ""
+enabled = false
+effect_callback_type = 4
+needs_motion_vectors = false
+needs_normal_roughness = false
+script = ExtResource("9_vtaks")
+color_depth = 3
+intensity = 1.0
+metadata/_custom_type_script = "uid://q41ssc12f0qb"
 
 [node name="Game" type="Node"]
 process_mode = 1
 script = ExtResource("1")
 start_level_scn = ExtResource("4")
-player_scn = ExtResource("3")
+player_scn = ExtResource("3_dyxy8")
 
 [node name="World" type="Node3D" parent="."]
 process_mode = 1
@@ -24,7 +38,13 @@ unique_name_in_owner = true
 script = ExtResource("2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+unique_name_in_owner = true
 environment = ExtResource("6")
 
 [node name="Loading" parent="." instance=ExtResource("7_4hehu")]
 visible = false
+
+[node name="ScreenFilters" type="Node" parent="."]
+script = ExtResource("9_0tnpc")
+_compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_kvpfn")])
+metadata/_custom_type_script = "uid://j5m4bpuhok61"

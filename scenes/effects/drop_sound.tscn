@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbo2s88mdeaxe"]
 
-[ext_resource type="Script" path="res://scenes/effects/drop_sound_controller.gd" id="1_3kmy6"]
+[ext_resource type="Script" uid="uid://bl8xmh0eolimn" path="res://scenes/effects/drop_sound_controller.gd" id="1_3kmy6"]
 [ext_resource type="AudioStream" uid="uid://fsmbmceuvwh5" path="res://resources/sounds/impacts/heavy_stone/491119__jedimichael__lowbigboom.wav" id="1_knrr1"]
 
 [node name="DropSound" type="AudioStreamPlayer3D"]

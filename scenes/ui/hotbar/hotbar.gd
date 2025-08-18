@@ -3,6 +3,7 @@ extends MarginContainer
 
 var inventory : InventoryManager = null
 
+var inventory : Inventory = null
 
 func _ready():
 	var game = GameManager.game

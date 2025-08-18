@@ -7,7 +7,7 @@ class_name BTInventoryHasAmmo extends BTCheck
 func _tick(state : CharacterState) -> int:
 	var inventory = state.character.inventory
 	var equipment := inventory.current_mainhand_equipment as GunItem
-	
+
 	if equipment: for ammo_type in equipment.ammo_types:
 		return BTResult.FAILED
 	return BTResult.OK

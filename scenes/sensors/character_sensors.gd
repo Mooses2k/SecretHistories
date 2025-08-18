@@ -2,11 +2,12 @@ class_name CharacterSensors extends Node3D
 
 
 var _character: NodePath
-var character: Character
+var character: HumanoidCharacter
 var sensors: Array
 
 
 func _ready() -> void:
+	character = owner
 	for child in get_children():
 		if child is CharacterSense:
 			sensors.append(child)

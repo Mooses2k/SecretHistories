@@ -13,7 +13,7 @@ var inventory = null: set = set_inventory
 @export var index : int = -1
 @export var is_bulky : bool  = false
 
-var is_equipped_mainhand : bool = false 
+var is_equipped_mainhand : bool = false
 var is_equipped_offhand : bool = false
 var is_equippable_mainhand : bool = false
 var is_equippable_offhand : bool = false
@@ -24,12 +24,6 @@ var is_equippable_offhand : bool = false
 
 
 func _ready():
-	fadeanimations.play("Fade_in")
-	$"../..".show()
-	if self.name == "10":
-		$SlotNumber.text = str(index+1)
-	else:
-		$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
 	var game = GameManager.game
 	var player = game.player
 	if player == null:
@@ -37,8 +31,16 @@ func _ready():
 		player = game.player
 	if player.inventory == null:
 		await player.ready
-		inventory = player.inventory
-	self.inventory = player.inventory
+	inventory = player.inventory
+	return
+
+	#TODO: fix this when inventory is updated
+	fadeanimations.play("Fade_in")
+	$"../..".show()
+	if self.name == "10":
+		$SlotNumber.text = str(index+1)
+	else:
+		$SlotNumber/HBoxContainer/SlotNumber.text=str(index+1)
 
 
 #func _physics_process(delta):
@@ -67,8 +69,12 @@ func update_offhand_indicator():
 
 func set_item(value : EquipmentItem):
 	if item != value:
+		if is_instance_valid(item):
+			item.item_data_changed.disconnect(update_item_data)
 		item = value
 		update_item_data()
+		if is_instance_valid(item):
+			item.item_data_changed.connect(update_item_data)
 
 
 func set_inventory(value : Node):
@@ -78,13 +84,13 @@ func set_inventory(value : Node):
 	else:
 		inventory_bulky_item_changed()
 	update_equipped_status()
-	inventory.connect("hotbar_changed", Callable(self, "inventory_slot_changed"))
-	inventory.connect("bulky_item_changed", Callable(self, "inventory_bulky_item_changed"))
-	inventory.connect("tiny_item_changed", Callable(self, "inventory_tiny_item_changed"))
-	inventory.connect("mainhand_slot_changed", Callable(self, "inventory_mainhand_slot_changed"))
-	inventory.connect("offhand_slot_changed", Callable(self, "inventory_offhand_slot_changed"))
-	inventory.connect("inventory_changed", Callable(self, "hud_visibility"))
-	inventory.connect("player_died", Callable(self, "hide_hud"))
+	inventory.hotbar_changed.connect(inventory_slot_changed)
+	inventory.bulky_item_changed.connect(inventory_bulky_item_changed)
+	inventory.tiny_item_changed.connect(inventory_tiny_item_changed)
+	inventory.mainhand_slot_changed.connect(inventory_mainhand_slot_changed)
+	inventory.offhand_slot_changed.connect(inventory_offhand_slot_changed)
+	inventory.inventory_changed.connect(hud_visibility)
+	inventory.player_died.connect(hide_hud)
 
 
 func hide_hud():
@@ -162,7 +168,7 @@ func update_container_data():   # Things like gun ammo, charges in medical bags,
 	# temporary hack (issue #409)
 	if not is_instance_valid(item):
 		item = null
-	
+
 	if item is GunItem:
 		var current_ammo = item.current_ammo
 		var ammo_type = item.current_ammo_type if item.current_ammo_type != null else item.ammo_types.front()

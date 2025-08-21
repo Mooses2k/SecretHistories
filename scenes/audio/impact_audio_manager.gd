@@ -56,7 +56,7 @@ func configure_for_object_type(object_type: String):
 			mass_divisor = 10.0
 		"pickable_item":
 			max_impact_intensity = 5.0
-			velocity_change_threshold = 0.17
+			velocity_change_threshold = 0.10
 			volume_min_db = -25.0
 			volume_max_db = 10.0
 			pitch_min_scale = 0.7
@@ -108,6 +108,10 @@ func process_impact_detection(state: PhysicsDirectBodyState3D) -> void:
 
 ## Play impact sound with volume and pitch scaling
 func play_impact_sound(impact_intensity: float) -> void:
+	# Firstly, stop looping throw sounds
+	if is_instance_valid(parent_body.audio_player):
+		parent_body.audio_player.stop()
+	
 	#prints("AUDIO DEBUG - play_impact_sound called with intensity:", impact_intensity)
 	
 	# Check if parent has item_drop_sound and use it dynamically
@@ -139,12 +143,6 @@ func play_impact_sound(impact_intensity: float) -> void:
 	# Scale pitch based on impact intensity (higher impact = higher pitch)
 	var pitch_scale = lerp(pitch_min_scale, pitch_max_scale, volume_scale)
 	drop_audio_player.pitch_scale = pitch_scale
-	
-	#prints("AUDIO DEBUG - Object position:", parent_body.global_position)
-	#prints("AUDIO DEBUG - Impact intensity:", impact_intensity)
-	#prints("AUDIO DEBUG - Final volume_db:", drop_audio_player.volume_db)
-	#prints("AUDIO DEBUG - Final pitch_scale:", drop_audio_player.pitch_scale)
-	#prints("AUDIO DEBUG - Audio stream valid:", drop_audio_player.stream != null)
 	
 	# Calculate noise level for AI detection
 	var noise_level = clamp((max_noise_level * impact_intensity), 1.0, 5.0)

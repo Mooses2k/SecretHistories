@@ -188,7 +188,7 @@ var is_reloading = false
 
 
 func _ready():
-	_type_damage_multiplier.resize(GlobalConsts.AttackTypes._COUNT)
+	_type_damage_multiplier.resize(GlobalConsts.AttackTypes.size())
 	for i in _type_damage_multiplier.size():
 		_type_damage_multiplier[i] = 1
 	for immunity in self.immunities:

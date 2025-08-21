@@ -9,10 +9,10 @@ func _ready():
 	if not owner.spawnable_items.is_empty():
 		var random_num
 		var anchors = filter_list_anchors(get_node(anchors_parent).get_children())
-		
+
 		for item_path in owner.spawnable_items:
 			random_num = randi() % anchors.size()
-			
+
 			# handle bad refs in the loot list
 			var loaded = load(item_path)
 			if !loaded || (loaded and (!(loaded is PackedScene))):
@@ -21,13 +21,13 @@ func _ready():
 			var new_item = loaded.instantiate()
 			if not is_instance_valid(new_item):
 				return
-				
+
 			if new_item is ShardOfTheComet and GameManager.game.shard_has_spawned == false:
 				GameManager.game.shard_has_spawned = true
 			elif new_item is ShardOfTheComet and GameManager.game.shard_has_spawned:   # there should be only one
 				new_item.queue_free()
 				return
-			
+
 			if new_item is ShardOfTheComet:   # the code below this indent breaks this spawn, so have to use old version here
 				anchors[random_num].add_child(new_item)
 				new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
@@ -38,17 +38,17 @@ func _ready():
 				new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 				get_parent().get_parent().add_child(new_item)
 				anchors.remove_at(random_num)
-				
-			# Having this here instead of ready() function of light fixes blueprint SHOULD_PLACE candle emissive material bug	
+			
+			# Having this here instead of ready() function of light fixes blueprint SHOULD_PLACE candle emissive material bug
 			if new_item is CandleItem or new_item is CandelabraItem:
 				new_item.light()
 
 
 func filter_list_anchors(anchor_nodes: Array) -> Array:
 	var filtered_list := []
-	
+
 	for anchor_node in anchor_nodes:
 		if anchor_node is Marker3D:
 			filtered_list.append(anchor_node)
-	
+
 	return filtered_list

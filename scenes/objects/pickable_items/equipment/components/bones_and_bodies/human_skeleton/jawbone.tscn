@@ -66,6 +66,7 @@ radius = 0.101082
 item_size = 0
 item_name = "Jawbone"
 stackable_resource = ExtResource("2_g013e")
+damage_speed_threshold = 1.0
 item_drop_sound = ExtResource("4")
 item_throw_sound = ExtResource("3")
 

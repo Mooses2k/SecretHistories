@@ -12,6 +12,7 @@ enum WeaponType {
 	POLEARM,
 	COUNT
 }
+
 @export var weapon_type: WeaponType = 0
 
 # primary and secondary here refer to primary use (L-Click) and secondary use (R-Click)
@@ -118,8 +119,8 @@ func _use_secondary():
 # currently if changed away from and changed back to melee weapon, first swing does nothing
 
 
-func melee_throw_damage():
-	var item_damage
+func melee_throw_damage() -> int:
+	var item_damage = -1
 
 	if can_spin:
 		item_damage = secondary_damage1 + secondary_damage2

@@ -21,6 +21,5 @@ Build/
 *.zip
 *.exe
 *.pck
-*.import
 ~*
 .vscode/

@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://b1i5mxp3bmo8s"
+path="res://.godot/imported/screen_filter_color_reduce.glsl-ad7ff5d509a0807ac4d2cb228bce3896.res"
+
+[deps]
+
+source_file="res://scenes/screen_filters/screen_filter_color_reduce.glsl"
+dest_files=["res://.godot/imported/screen_filter_color_reduce.glsl-ad7ff5d509a0807ac4d2cb228bce3896.res"]
+
+[params]
+

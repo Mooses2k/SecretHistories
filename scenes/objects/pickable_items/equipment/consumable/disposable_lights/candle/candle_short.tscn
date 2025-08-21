@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="2"]
 [ext_resource type="Script" uid="uid://dvttjqo1l71vd" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd" id="3"]
 [ext_resource type="Resource" uid="uid://bg6vsnvwsvfve" path="res://resources/inventory/stackables/candles_stack.tres" id="3_brmvc"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://beo60ftc42sao" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" id="4"]
 [ext_resource type="Material" uid="uid://cmgswvdlevwyq" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/material/candle.tres" id="4_y4my3"]
 [ext_resource type="Script" uid="uid://dfo8j368ywv7c" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" id="6"]
 [ext_resource type="AudioStream" uid="uid://bd6c4tbgh5o3b" path="res://resources/sounds/impacts/677013__staylor8__candle_hit.ogg" id="10"]
@@ -64,10 +64,10 @@ seamless = true
 bump_strength = 19.9
 noise = SubResource("9")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lhh7t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_knqxf"]
 render_priority = 0
 shader = ExtResource("12")
-shader_parameter/noise_seed = 855.23
+shader_parameter/noise_seed = 26.9487
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise = SubResource("10")
@@ -126,6 +126,7 @@ life_percentage_lose = 0.2
 prob_going_out = 0.9
 item_name = "Candle"
 stackable_resource = ExtResource("3_brmvc")
+damage_speed_threshold = 1.0
 max_speed = 8.0
 item_drop_sound = ExtResource("10")
 item_throw_sound = null
@@ -154,7 +155,7 @@ script = ExtResource("2")
 visible = false
 cast_shadow = 0
 mesh = SubResource("53")
-surface_material_override/0 = SubResource("ShaderMaterial_lhh7t")
+surface_material_override/0 = SubResource("ShaderMaterial_knqxf")
 script = ExtResource("6")
 
 [node name="Light3D" type="OmniLight3D" parent="FireOrigin/Fire" index="0"]
@@ -174,17 +175,10 @@ parent_item_path = NodePath("../../../..")
 [node name="Sounds" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0128654, 0)
 
-[node name="LightSound" parent="Sounds" index="0"]
-bus = &"Effects"
-
-[node name="BlowOutSound" parent="Sounds" index="1"]
-bus = &"Effects"
-
 [node name="Burning" parent="Sounds" index="2"]
 stream = null
-bus = &"Effects"
 
-[node name="Ignite" parent="." index="7" groups=["IGNITE"]]
+[node name="Ignite" parent="." index="7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0629101, 0)
 
 [node name="CollisionShape3D" parent="Ignite" index="0"]
@@ -195,7 +189,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.04, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {
-"": SubResource("AnimationLibrary_t17yw")
+&"": SubResource("AnimationLibrary_t17yw")
 }
 autoplay = "flicker"
 

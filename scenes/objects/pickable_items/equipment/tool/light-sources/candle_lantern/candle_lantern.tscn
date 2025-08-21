@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://c6jvgu6skiu02"]
+[gd_scene load_steps=33 format=4 uid="uid://c6jvgu6skiu02"]
 
 [ext_resource type="PackedScene" uid="uid://cxph1woam84mj" path="res://scenes/objects/pickable_items/equipment/tool/light-sources/_lantern_item.tscn" id="1"]
 [ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="3"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bt1p1be1g3dme" path="res://resources/models/items/consumables/light_sources/candle/flame.webp" id="11"]
 [ext_resource type="Shader" uid="uid://bkw8bmlt3d1sr" path="res://resources/shaders/candle/flame.gdshader" id="12"]
 [ext_resource type="Script" uid="uid://bqouykmfhtegb" path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" id="13"]
+[ext_resource type="Script" uid="uid://dbgnsblia6cwb" path="res://scenes/objects/interactables/interactable.gd" id="14_5e4qd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t77e0"]
 resource_name = "lantern"
@@ -128,10 +129,10 @@ seamless = true
 bump_strength = 19.9
 noise = SubResource("9")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m80s1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5e4qd"]
 render_priority = 0
 shader = ExtResource("12")
-shader_parameter/noise_seed = 720.178
+shader_parameter/noise_seed = 481.759
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise = SubResource("10")
@@ -265,7 +266,7 @@ transform = Transform3D(1, 0, 0, 0, 1, -3.80135e-28, 0, -5.36862e-28, 1, -4.8359
 visible = false
 cast_shadow = 0
 mesh = SubResource("136")
-surface_material_override/0 = SubResource("ShaderMaterial_m80s1")
+surface_material_override/0 = SubResource("ShaderMaterial_5e4qd")
 script = ExtResource("10")
 
 [node name="Light3D" type="OmniLight3D" parent="Candle1/FireOrigin/Fire" index="0"]
@@ -287,7 +288,7 @@ parent_item_path = NodePath("../../../../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 libraries = {
-"": SubResource("AnimationLibrary_25dk5")
+&"": SubResource("AnimationLibrary_25dk5")
 }
 autoplay = "flicker"
 
@@ -296,6 +297,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.209246, -0.0167484)
 
 [node name="Ignite" parent="." index="10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0231552, 0)
+script = ExtResource("14_5e4qd")
 
 [node name="CollisionShape3D" parent="Ignite" index="0"]
 shape = SubResource("134")
@@ -313,3 +315,4 @@ bus = &"Effects"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.147812, 0)
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]
+[connection signal="character_interacted" from="Ignite" to="." method="_on_ignite_character_interacted"]

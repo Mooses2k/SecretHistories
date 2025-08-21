@@ -34,7 +34,7 @@ extends Node3D
 ### Private Methods -------------------------------------------------------------------------------
 
 func _set_facing_direction(value: int) -> void:
-	facing_direction = clamp(value, 0, WorldData.Direction.DIRECTION_MAX - 1)
+	facing_direction = clamp(value, 0, WorldData.Direction.size() - 1)
 	var angle = _get_facing_rotation()
 	rotation.y = angle
 

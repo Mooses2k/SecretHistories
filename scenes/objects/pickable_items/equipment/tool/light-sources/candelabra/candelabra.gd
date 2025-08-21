@@ -38,10 +38,10 @@ var random_number_2_3
 
 func _ready():
 	light_timer = $Timer
-	
+
 	self.connect("item_is_dropped", Callable(self, "light_dropped")) # this current fails, is bugged
 	light_timer.connect("timeout", Callable(self, "light_depleted_copy"))
-	
+
 	material = $Candle1/MeshInstance3D.get_surface_override_material(0)
 	new_material = material.duplicate()
 	$Candle1/MeshInstance3D.set_surface_override_material(0, new_material)
@@ -51,13 +51,13 @@ func _ready():
 		$Candle3/MeshInstance3D.set_surface_override_material(0, new_material)
 		var light_timer_2 = $Timer2
 		light_timer_2.connect("timeout", Callable(self, "light_depleted_2"))
-		
+
 		var light_timer_3 = $Timer3
 		light_timer_3.connect("timeout", Callable(self, "light_depleted_3"))
-		
+
 		burn_time_2 = burn_time
 		burn_time_3 = burn_time
-		
+
 		light_timer_2.set_wait_time(burn_time_2)
 		light_timer_2.start()
 		light_timer_3.set_wait_time(burn_time_3)
@@ -73,15 +73,15 @@ func light():
 		$MeshInstance3D.cast_shadow = false
 		$Candle1/MeshInstance3D.get_surface_override_material(0).emission_enabled = true
 		firelight.visible = true
-		
+
 		#if owner_character:
 			#if owner_character.noise_level < 5:
 				#owner_character.noise_level = 5
-		
+
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()
-		
+
 		if number_of_candles > 1:
 			var light_timer_2 = $Timer2
 			var light_timer_3 = $Timer3
@@ -89,12 +89,12 @@ func light():
 				$Candle2/FireOrigin/Fire.visible = not $Candle2/FireOrigin/Fire.visible
 				$Candle2/MeshInstance3D.cast_shadow = false
 				$Candle2/MeshInstance3D.get_surface_override_material(0).emission_enabled = true
-			
+
 			if $Candle3 != null and not is_depleted_3:
 				$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
 				$Candle3/MeshInstance3D.cast_shadow = false
 				$Candle3/MeshInstance3D.get_surface_override_material(0).emission_enabled = true
-			
+
 			if $Candle3 != null:
 				light_timer_2.set_wait_time(burn_time_2)
 				light_timer_2.start()
@@ -108,16 +108,16 @@ func unlight():
 		$Candle1/MeshInstance3D.get_surface_override_material(0).emission_enabled = false
 		$Candle1/FireOrigin/Fire.visible = false
 		$Candle1/MeshInstance3D.cast_shadow = true
-		
+
 		if get_node_or_null("Candle2") != null and not is_depleted_2:
 			unlight_candle_2()
-		
+
 		if get_node_or_null("Candle3") != null and not is_depleted_3:
 			unlight_candle_3()
-		
+
 		firelight.visible = false
 		$MeshInstance3D.cast_shadow = true
-		
+
 		is_lit = false
 		stop_light_timer()
 
@@ -143,7 +143,7 @@ func _item_state_changed(previous_state, current_state):
 #			sound.connect("finished", sound, "queue_free")
 #			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
-	elif current_state == GlobalConsts.ItemState.DAMAGING:
+	elif current_state == GlobalConsts.ItemState.DROPPED:
 		#is_just_dropped = true
 		self.emit_signal("item_is_dropped")
 		item_drop()
@@ -195,14 +195,14 @@ func light_dropped():
 		var light_timer_3 = $Timer3
 		stop_light_timer_2()
 		stop_light_timer_3()
-		
+
 		burn_time_2 -= (burn_time_2 * life_percentage_lose)
 		random_number_2_3 = randf_range(0.0, 1.0)
 		light_timer_2.set_wait_time(burn_time_2)
 		light_timer_2.start()
 		if random_number_2_3 < prob_going_out:
 			unlight_candle_2()
-		
+
 		burn_time_3 -= (burn_time_3 * life_percentage_lose)
 		random_number_2_3 = randf_range(0.0, 1.0)
 		light_timer_3.set_wait_time(burn_time_3)
@@ -218,9 +218,10 @@ func _on_light_depleted():
 
 
 func stop_light_timer():
-	burn_time = light_timer.get_time_left()
-#	print("current burn time " + str(burn_time))
-	light_timer.stop()
+	if is_instance_valid(light_timer):
+		burn_time = light_timer.get_time_left()
+#		print("current burn time " + str(burn_time))
+		light_timer.stop()
 
 
 func item_drop():
@@ -229,8 +230,9 @@ func item_drop():
 	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
 	
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
+	if is_instance_valid(light_timer):
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
 	
 	print("Linear velocity of candelabra: ", linear_velocity.length())
 	if linear_velocity.length() > 0.01:
@@ -241,4 +243,3 @@ func item_drop():
 
 func _on_ignite_character_interacted(_character: Variant) -> void:
 	_use_primary()
-	pass # Replace with function body.

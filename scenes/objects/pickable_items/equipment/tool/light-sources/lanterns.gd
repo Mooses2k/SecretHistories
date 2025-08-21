@@ -26,7 +26,7 @@ func _ready():
 	if not is_connected("body_entered", Callable(self, "play_drop_sound")):
 		connect("body_entered", Callable(self, "play_drop_sound"))
 	light_timer = $Timer
-	
+
 	light_timer.connect("timeout", Callable(self, "light_depleted"))
 	if is_oil_based:
 		burn_time = 1800.0
@@ -34,7 +34,7 @@ func _ready():
 		burn_time = 3600.0
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
-	
+
 	if is_instance_valid($MeshInstance3D):
 		mesh_instance = $MeshInstance3D
 
@@ -61,18 +61,18 @@ func light():
 			$LightSound.play()
 		else:
 			$SlideOpen.play()
-		
+
 		## TODO: Uncomment when noise_level ready
 		#if owner_character:
 			#if owner_character.noise_level < 5:
 				#owner_character.noise_level = 5
-		
+
 		$AnimationPlayer.play("flicker")
 		firelight.visible = true
 		if $FireOrigin:
 			$FireOrigin.visible = true # related to bugfix #604
 		$MeshInstance3D.cast_shadow = false
-		
+
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()
@@ -84,13 +84,13 @@ func unlight():
 			$SlideClosed.play()
 			if owner_character.noise_level < 5:
 				owner_character.noise_level = 5
-		
+
 		$AnimationPlayer.stop()
 		firelight.visible = false
 		if $FireOrigin:
 			$FireOrigin.visible = false # related to bugfix #604
 		$MeshInstance3D.cast_shadow = true
-		
+
 		is_lit = false
 		stop_light_timer()
 
@@ -98,7 +98,7 @@ func unlight():
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
 		owner_character.inventory.switch_away_from_light(self)
-	elif current_state == GlobalConsts.ItemState.DAMAGING:
+	elif current_state == GlobalConsts.ItemState.DROPPED:
 		#is_just_dropped = true
 		self.emit_signal("item_is_dropped")
 		item_drop()
@@ -111,9 +111,10 @@ func _on_light_depleted():
 
 
 func stop_light_timer():
-	burn_time = light_timer.get_time_left()
-#	print("current burn time " + str(burn_time))
-	light_timer.stop()
+	if is_instance_valid(light_timer):
+		burn_time = light_timer.get_time_left()
+#		print("current burn time " + str(burn_time))
+		light_timer.stop()
 
 
 func item_drop():
@@ -123,8 +124,9 @@ func item_drop():
 	random_number = randf_range(0.0, 1.0)
 	print("Random number: ", random_number)
 	
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
+	if is_instance_valid(light_timer):
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
 	
 	print("Linear velocity of lantern: ", linear_velocity.length())
 	if linear_velocity.length() > 0.01:

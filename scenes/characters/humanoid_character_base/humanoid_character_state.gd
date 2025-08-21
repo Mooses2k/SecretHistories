@@ -100,11 +100,11 @@ func is_ragdolled() -> bool:
 			return false
 
 func _on_damaged(amount : int, type : GlobalConsts.AttackTypes, direction : Vector3, origin : Vector3, hurtbox : Hurtbox) -> void:
-	print("Damaged ", owner.name, " by ", amount)
 	if amount > parameters.ragdoll_damage_threshold or is_ragdolled():
 		physical_state = PhysicalState.KNOCKED_OUT
 		var bone := hurtbox.get_parent() as PhysicalBone3D
 		if is_instance_valid(bone):
 			bone.apply_central_impulse.call_deferred(amount * direction * parameters.ragdoll_impulse_multiplier)
 	durability -= amount
+	print("Damaged ", owner.name, " by ", amount, " | Durability = ", durability)
 	pass

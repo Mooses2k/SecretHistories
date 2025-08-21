@@ -1,22 +1,24 @@
 @tool
 class_name PickableItem
 extends RigidBody3D
-
 ### This is a tool script to support use in player_animations_test.gd
+
+# Cooldown before being able to cause impact damage to the same entity again
+const IMPACT_DAMAGE_REPEAT_COOLDOWN : float = 0.25
 
 #const ImpactAudioManager = preload("res://scenes/audio/impact_audio_manager.gd")
 
 signal item_data_changed()
 signal item_state_changed(previous_state, current_state)
 
-@export_flags_3d_physics var dropped_layers : int = 0 # (int, LAYERS_3D_PHYSICS)
-@export_flags_3d_physics var dropped_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
-@export_flags_3d_physics var damage_mask : int = 0 # (int, LAYERS_3D_PHYSICS)
+@export_flags_3d_physics var dropped_layers : int = 0
+@export_flags_3d_physics var dropped_mask : int = 0
 
+@export var damage_speed_threshold : float = 1.0
 @export var max_speed : float = 12.0
 @export var item_drop_sound : AudioStream
 @export var item_throw_sound : AudioStream
-@export var melee_damage_type : int = 0 # (GlobalConsts.AttackTypes)
+@export var melee_damage_type : GlobalConsts.AttackTypes = GlobalConsts.AttackTypes.BLUDGEONING
 
 var owner_character : Node = null
 var item_state = GlobalConsts.ItemState.DROPPED: set = set_item_state
@@ -27,9 +29,9 @@ var item_sound_level = 10
 @export var thrown_point_first : bool   # Some items like swords and spears should be thrown point first
 @export var can_spin : bool   # Some items should spin when thrown
 
-var has_thrown = false
-
-var initial_linear_velocity
+# stores the impact damage cooldown for each object that has been hit
+# by this item
+var impact_damage_cooldown : Dictionary[Node, float]
 
 @onready var audio_player = get_node("DropSound")
 @onready var impact_audio_manager : ImpactAudioManager
@@ -46,12 +48,12 @@ func _enter_tree():
 		drop_sound.name = "DropSound"
 		drop_sound.bus = "Effects"
 		add_child(drop_sound)
-	
+
 	# Create and configure the impact audio manager
 	impact_audio_manager = ImpactAudioManager.new()
 	add_child(impact_audio_manager)
 	impact_audio_manager.configure_for_object_type("pickable_item")
-	
+
 	check_item_state()
 
 
@@ -68,7 +70,7 @@ func _configure_audio_manager():
 	prints("PICKABLE ITEM DEBUG - impact_audio_manager:", impact_audio_manager)
 	prints("PICKABLE ITEM DEBUG - item_drop_sound:", item_drop_sound)
 	prints("PICKABLE ITEM DEBUG - item_max_noise_level:", item_max_noise_level)
-	
+
 	if impact_audio_manager:
 		if item_drop_sound:
 			impact_audio_manager.drop_sound = item_drop_sound
@@ -86,10 +88,14 @@ func _process(delta):
 		self.noise_level = 0
 
 
-func _physics_process(delta):
-	if !sleeping:
-		if !is_instance_valid(owner_character):   # this is still hacky, but don't do throw damage if grabbing, basically
-			throw_damage(delta)
+func _physics_process(delta: float) -> void:
+	for node in impact_damage_cooldown.keys():
+		var time = impact_damage_cooldown[node]
+		time -= delta
+		if not is_instance_valid(node) or time <= 0.0:
+			impact_damage_cooldown.erase(node)
+		else:
+			impact_damage_cooldown[node] = time
 
 
 func check_item_state():
@@ -100,8 +106,6 @@ func check_item_state():
 			set_physics_equipped()
 		GlobalConsts.ItemState.EQUIPPED:
 			set_physics_equipped()
-		GlobalConsts.ItemState.DAMAGING:
-			set_item_damaging()
 
 
 func set_item_state(value : int) :
@@ -131,13 +135,6 @@ func set_physics_dropped():
 	self.freeze = false
 
 
-func set_item_damaging():
-	self.collision_layer = dropped_layers
-	self.collision_mask = damage_mask
-	print("Line 141 pickable_item.gd self's collision_mask: ", self.collision_mask)
-	self.freeze = false
-
-
 func set_physics_equipped():
 	self.collision_layer = 0
 	self.collision_mask = 0
@@ -145,61 +142,48 @@ func set_physics_equipped():
 	self.freeze = true
 
 
-func throw_damage(delta):
-	if item_state == GlobalConsts.ItemState.DAMAGING:
-		var bodies = get_colliding_bodies()
-		if has_thrown == false:
-			initial_linear_velocity = linear_velocity.z
-			has_thrown = true
-		
-		for body_found in bodies:
-			if body_found.is_in_group("CHARACTER"):
-				var item_damage_by_momentum = int(abs(initial_linear_velocity)) * mass * 0.5
-				var item_damage = 1
-				
-				# TODO: deal with can_spin items that aren't melee items like torch
-				if can_spin or thrown_point_first:
-					item_damage = melee_throw_damage()
-					print(item_damage, " damage calculated in pickable_item")
-				else:
-					print("Item thrown is NOT a melee item")
-					item_damage = item_damage_by_momentum
-					print(item_damage, " damage calculated")
-				
-				# Handle bad case (like torches apparently)
-				if item_damage == null:
-					item_damage = 1
-				
-				print("Damage inflicted on: ", body_found.name, " is: ", item_damage)
-				body_found.damage(item_damage, melee_damage_type)
-				has_thrown = false
-				decelerate_item_velocity(delta, true)
-				set_item_state(GlobalConsts.ItemState.DROPPED)
-			else:
-				has_thrown = false
-#				decelerate_item_velocity(delta, true)   # Causes glitches like thrown objects sticking in arched wall collisions
-				set_item_state(GlobalConsts.ItemState.DROPPED)
+func can_damage() -> bool:
+	return (
+		linear_velocity.length() >= damage_speed_threshold and
+		item_state == GlobalConsts.ItemState.DROPPED
+	)
 
 
-func melee_throw_damage():   # Override in melee.gd
-	pass
+func get_impact_damage() -> int:
+	if not can_damage(): return 0
+	var result = melee_throw_damage()
+	if result < 0:
+		result = max(int(linear_velocity.length() * mass * 0.5), 1)
+	return result
 
 
-func decelerate_item_velocity(delta, decelerate):
-	if is_in_group("TINY_ITEM"):
-		if self.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-			if decelerate == true:
-				print("decelerating item")
-				linear_velocity *= 0
+# Override in melee.gd
+# If the return is negative, a default velocity based calculation will be
+# used instead
+func melee_throw_damage() -> int:
+	return -1
+
+
+# used to decelerate objects on impact with hurtboxes
+func decelerate_item_velocity() -> void:
+	var inertia_factor = min(mass / 4.0, 1.0)
+	linear_velocity = lerp(Vector3.ZERO, linear_velocity, inertia_factor)
 
 
 func _integrate_forces(state):
 	# Handle impact detection for sound using the audio manager
-	if impact_audio_manager and (item_state == GlobalConsts.ItemState.DROPPED or item_state == GlobalConsts.ItemState.DAMAGING):
+	if impact_audio_manager and (item_state == GlobalConsts.ItemState.DROPPED):
 		impact_audio_manager.process_impact_detection(state)
-	
+
 	# Handle velocity clamping
 	if item_state == GlobalConsts.ItemState.DROPPED:
-		state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), max_speed)
-	if item_state == GlobalConsts.ItemState.DAMAGING:
-		state.linear_velocity = state.linear_velocity.normalized() * min(state.linear_velocity.length(), max_speed)
+		state.linear_velocity = state.linear_velocity.limit_length(max_speed)
+
+
+func on_hurtbox_hit(hurtbox : Hurtbox) -> void:
+	if impact_damage_cooldown.has(hurtbox.owner_node): return
+	var damage = get_impact_damage()
+	if damage > 0:
+		hurtbox.damage(damage, melee_damage_type, linear_velocity.normalized(), global_position)
+		decelerate_item_velocity()
+		impact_damage_cooldown[hurtbox.owner_node] = IMPACT_DAMAGE_REPEAT_COOLDOWN

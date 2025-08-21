@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://du14thibam65r"
+path="res://.godot/imported/screen_filter_psx.glsl-9d3a32472a7a3a3a551c72ebe38368c1.res"
+
+[deps]
+
+source_file="res://scenes/screen_filters/screen_filter_psx.glsl"
+dest_files=["res://.godot/imported/screen_filter_psx.glsl-9d3a32472a7a3a3a551c72ebe38368c1.res"]
+
+[params]
+

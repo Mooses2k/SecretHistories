@@ -31,6 +31,7 @@ func _ready() -> void:
 
 
 func light() -> void:
+	print("Light depleted: ", is_depleted)
 	if not is_depleted:
 		$AnimationPlayer.play("flicker")
 		$Sounds/LightSound.play()
@@ -40,11 +41,11 @@ func light() -> void:
 		firelight.visible = not firelight.visible
 		$FireOrigin.visible = true # related to bugfix #604
 		$MeshInstance3D.cast_shadow = false
-		
+
 		#if owner_character:
 			#if owner_character.noise_level < 5:
 				#owner_character.noise_level = 5
-		
+
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()
@@ -59,7 +60,7 @@ func unlight() -> void:
 		firelight.visible = false
 		$FireOrigin.visible = false # related to bugfix #604
 		$MeshInstance3D.cast_shadow = true
-		
+
 		is_lit = false
 		stop_light_timer()
 
@@ -82,7 +83,7 @@ func _item_state_changed(previous_state, current_state):
 #			sound.connect("finished", sound, "queue_free")
 #			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
-	elif current_state == GlobalConsts.ItemState.DAMAGING:
+	elif current_state == GlobalConsts.ItemState.DROPPED:
 		#is_just_dropped = true
 		self.emit_signal("item_is_dropped")
 		item_drop()
@@ -95,9 +96,10 @@ func _on_light_depleted():
 
 
 func stop_light_timer():
-	burn_time = light_timer.get_time_left()
-#	print("current burn time " + str(burn_time))
-	light_timer.stop()
+	if is_instance_valid(light_timer):
+		burn_time = light_timer.get_time_left()
+	#	print("current burn time " + str(burn_time))
+		light_timer.stop()
 
 
 func item_drop():
@@ -106,9 +108,10 @@ func item_drop():
 	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
 	
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
-	
+	if is_instance_valid(light_timer):
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
+
 	print("Linear velocity of candle: ", linear_velocity.length())
 	if linear_velocity.length() > 0.001:
 		if random_number < prob_going_out:

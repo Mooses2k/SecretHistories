@@ -32,7 +32,6 @@ func _ready():
 	if player.inventory == null:
 		await player.ready
 	inventory = player.inventory
-	return
 
 	#TODO: fix this when inventory is updated
 	fadeanimations.play("Fade_in")

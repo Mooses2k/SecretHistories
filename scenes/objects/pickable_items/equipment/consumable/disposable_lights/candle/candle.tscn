@@ -108,7 +108,7 @@ noise = SubResource("FastNoiseLite_v02r8")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ja71u"]
 render_priority = 0
 shader = ExtResource("10_oypmg")
-shader_parameter/noise_seed = 221.29
+shader_parameter/noise_seed = 324.866
 shader_parameter/top_offset = Vector3(0, 0, 0)
 shader_parameter/model_height_range = Vector2(-1, 1)
 shader_parameter/noise = SubResource("NoiseTexture2D_2wpu2")

@@ -12,6 +12,7 @@ enum WeaponType {
 	POLEARM,
 	COUNT
 }
+
 @export var weapon_type: WeaponType = 0
 
 # primary and secondary here refer to primary use (L-Click) and secondary use (R-Click)

@@ -57,12 +57,13 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_qplpk")
 
 [sub_resource type="BoxShape3D" id="14"]
-size = Vector3(0.14, 0.02, 0.02)
+size = Vector3(0.149102, 0.0204443, 0.036311)
 
 [sub_resource type="SphereShape3D" id="12"]
 radius = 0.101082
 
 [node name="RCollarbone" instance=ExtResource("9")]
+mass = 0.2
 item_size = 0
 item_name = "Clavicle"
 stackable_resource = ExtResource("2_c1ax6")
@@ -73,7 +74,7 @@ item_throw_sound = ExtResource("3")
 mesh = SubResource("ArrayMesh_cf5kt")
 
 [node name="CollisionShape3D" parent="." index="1"]
-transform = Transform3D(0.929847, 0.206653, -0.304432, -0.216951, 0.976183, 0, 0.297181, 0.0660468, 0.952534, 0.00562682, 0, 0)
+transform = Transform3D(0.949758, 0.0821546, -0.302011, -0.0982023, 0.994429, -0.0383136, 0.297181, 0.0660468, 0.952534, 0.000478619, -2.38981e-05, 3.51606e-06)
 shape = SubResource("14")
 
 [node name="Hitbox" type="Area3D" parent="." index="3"]
@@ -84,6 +85,7 @@ monitorable = false
 script = ExtResource("2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.281941, 0)
 shape = SubResource("12")
 
 [node name="CooldownTimer" type="Timer" parent="." index="4"]

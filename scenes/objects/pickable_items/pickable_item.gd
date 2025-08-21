@@ -4,7 +4,7 @@ extends RigidBody3D
 ### This is a tool script to support use in player_animations_test.gd
 
 # Cooldown before being able to cause impact damage to the same entity again
-const IMPACT_DAMAGE_REPEAT_COOLDOWN : float = 0.5
+const IMPACT_DAMAGE_REPEAT_COOLDOWN : float = 0.25
 
 #const ImpactAudioManager = preload("res://scenes/audio/impact_audio_manager.gd")
 
@@ -87,6 +87,7 @@ func _process(delta):
 		await get_tree().create_timer(0.2).timeout
 		self.noise_level = 0
 
+
 func _physics_process(delta: float) -> void:
 	for node in impact_damage_cooldown.keys():
 		var time = impact_damage_cooldown[node]
@@ -95,6 +96,7 @@ func _physics_process(delta: float) -> void:
 			impact_damage_cooldown.erase(node)
 		else:
 			impact_damage_cooldown[node] = time
+
 
 func check_item_state():
 	match self.item_state:
@@ -161,6 +163,7 @@ func get_impact_damage() -> int:
 func melee_throw_damage() -> int:
 	return -1
 
+
 # used to decelerate objects on impact with hurtboxes
 func decelerate_item_velocity() -> void:
 	var inertia_factor = min(mass / 4.0, 1.0)
@@ -175,6 +178,7 @@ func _integrate_forces(state):
 	# Handle velocity clamping
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		state.linear_velocity = state.linear_velocity.limit_length(max_speed)
+
 
 func on_hurtbox_hit(hurtbox : Hurtbox) -> void:
 	if impact_damage_cooldown.has(hurtbox.owner_node): return

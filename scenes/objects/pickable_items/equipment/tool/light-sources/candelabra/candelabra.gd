@@ -218,9 +218,10 @@ func _on_light_depleted():
 
 
 func stop_light_timer():
-	burn_time = light_timer.get_time_left()
-#	print("current burn time " + str(burn_time))
-	light_timer.stop()
+	if is_instance_valid(light_timer):
+		burn_time = light_timer.get_time_left()
+#		print("current burn time " + str(burn_time))
+		light_timer.stop()
 
 
 func item_drop():
@@ -228,10 +229,11 @@ func item_drop():
 	burn_time -= (burn_time * life_percentage_lose)
 	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
-
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
-
+	
+	if is_instance_valid(light_timer):
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
+	
 	print("Linear velocity of candelabra: ", linear_velocity.length())
 	if linear_velocity.length() > 0.01:
 		if random_number < prob_going_out:
@@ -241,4 +243,3 @@ func item_drop():
 
 func _on_ignite_character_interacted(_character: Variant) -> void:
 	_use_primary()
-	pass # Replace with function body.

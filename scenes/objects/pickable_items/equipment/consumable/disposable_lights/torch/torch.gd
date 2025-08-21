@@ -93,9 +93,10 @@ func _on_light_depleted():
 
 
 func stop_light_timer():
-	burn_time = light_timer.get_time_left()
-#	print("current burn time " + str(burn_time))
-	light_timer.stop()
+	if is_instance_valid(light_timer):
+		burn_time = light_timer.get_time_left()
+#		print("current burn time " + str(burn_time))
+		light_timer.stop()
 
 
 func item_drop():
@@ -104,10 +105,11 @@ func item_drop():
 	burn_time -= (burn_time * life_percentage_lose)
 	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
-
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
-
+	
+	if is_instance_valid(light_timer):
+		light_timer.set_wait_time(burn_time)
+		light_timer.start()
+	
 	print("Angular velocity of torch: ", angular_velocity.length())
 	if angular_velocity.length() > 5:
 		if random_number < prob_going_out:

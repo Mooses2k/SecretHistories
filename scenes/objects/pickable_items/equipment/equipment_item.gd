@@ -38,19 +38,13 @@ func _ready():
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
 # Bug here where when player rotates, items does a little circle thing in hand
 func _physics_process(delta):
+	super._physics_process(delta)
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		##This checks if the item is a gun
 		if self.get("ammunition_capacity") != null:
 			transform = get_hold_transform()
 		else:
 			transform = get_hold_transform().inverse()
-	elif self.item_state == GlobalConsts.ItemState.DAMAGING:
-		# Check if the item has come to rest after being thrown
-		# If linear velocity is below threshold, transition to DROPPED state
-		var velocity_threshold = 0.1  # Adjust this value as needed
-		if linear_velocity.length() < velocity_threshold and angular_velocity.length() < velocity_threshold:
-			print("Item has come to rest, transitioning from DAMAGING to DROPPED")
-			set_item_state(GlobalConsts.ItemState.DROPPED)
 
 
 func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
@@ -62,7 +56,7 @@ func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
 			throw_basis.x = throw_basis.y.cross(Vector3.UP).normalized()
 			throw_basis.z = throw_basis.x.cross(throw_basis.y)
 		self.global_basis = throw_basis # This attempts to align the point forward when throwing piercing weapons
-		#self.global_rotation = throw_pos.global_rotation   
+		#self.global_rotation = throw_pos.global_rotation
 	if can_spin:
 		print("Item spins when thrown")
 		angular_velocity = Vector3(global_transform.basis.x * -15)

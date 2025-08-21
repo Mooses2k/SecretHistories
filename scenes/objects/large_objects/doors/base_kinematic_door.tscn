@@ -252,10 +252,8 @@ update_scale = false
 
 [node name="Hurtbox" type="Area3D" parent="DoorHingeZAxis/DoorBody"]
 collision_layer = 8
-collision_mask = 0
-monitoring = false
+collision_mask = 64
 script = ExtResource("17_klvrj")
-damage_multiplier = null
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DoorHingeZAxis/DoorBody/Hurtbox"]

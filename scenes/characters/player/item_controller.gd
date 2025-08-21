@@ -50,14 +50,14 @@ func _unhandled_input(event: InputEvent) -> void:
 					main_item.use_primary()
 				else:
 					main_item.set_held_use(false)
-		
+
 		elif event.is_action_pressed(&"player|reload"):
 			unloaded = false
 			reload_hold_timer = 0
 		elif event.is_action_released(&"player|reload"):
 			if not unloaded and main_item is GunItem or MedicalItem:
 				main_item.use_reload()
-					
+
 	var off_item = inventory.get_offhand_item()
 	if off_item is EquipmentItem:
 		if event.is_action_pressed(&"playerhand|offhand_use"):

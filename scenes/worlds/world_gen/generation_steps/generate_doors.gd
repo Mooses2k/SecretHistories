@@ -49,7 +49,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 	var random_cell_order = range(data.cell_count)
 	random_cell_order.shuffle()
 	for cell in random_cell_order:
-		for dir in data.Direction.DIRECTION_MAX:
+		for dir in data.Direction.size():
 			var wall_tile : int = data.get_wall_tile_index(cell, dir)
 			var door_scene = door_dict.get(wall_tile)
 			if door_scene is PackedScene:

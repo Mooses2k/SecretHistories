@@ -22,26 +22,25 @@ func filter_cells(world_data: WorldData, room_data: RoomData, rng: RandomNumberG
 func get_valid_pillar_sides(world_data: WorldData, rng: RandomNumberGenerator = null) -> Array:
 	var valid_pillar_sides := _find_valid_pillar_sides(world_data)
 	var filtered_sides := _apply_spawn_chance_filter(valid_pillar_sides, rng)
-	
+
 	return filtered_sides
 
 
 func _find_valid_pillar_sides(world_data: WorldData) -> Array:
 	var valid_sides := []
-	
+
 	# Check each position for pillars (pillars are at vertices)
 	for x in range(1, world_data.world_size_x - 1):
 		for z in range(1, world_data.world_size_z - 1):
 			var pillar_cell_index := get_cell_index(world_data, x, z)
-			
+
 			# Check if there's a pillar at this vertex
 			if world_data.get_pillar_tile_index(pillar_cell_index) == -1:
 				continue
-			
+
 			# Check each direction for valid wall placement
 			# Use DIRECTION_MAX directly like the known-good implementation
-			for direction in WorldData.Direction.DIRECTION_MAX:
-				
+			for direction in WorldData.Direction.size():
 				if _is_valid_pillar_side_for_vertex(world_data, x, z, direction):
 					valid_sides.append({
 						"pillar_x": x,
@@ -49,32 +48,32 @@ func _find_valid_pillar_sides(world_data: WorldData) -> Array:
 						"direction": direction,
 						"position": get_cell_position(world_data, pillar_cell_index)
 					})
-	
+
 	return valid_sides
 
 
 func _is_valid_pillar_side_for_vertex(world_data: WorldData, pillar_x: int, pillar_z: int, direction: int) -> bool:
 	# Get the two cells adjacent to this pillar side
 	var cell_coords := _get_adjacent_cell_coordinates(pillar_x, pillar_z, direction)
-	
+
 	if not _are_coordinates_valid(world_data, cell_coords):
 		return false
-	
+
 	# Check if both adjacent cells match required types
 	for coord_pair in cell_coords:
 		var cell_index := get_cell_index(world_data, coord_pair[0], coord_pair[1])
 		var cell_type := get_cell_type(world_data, cell_index)
-		
+
 		if cell_type not in required_adjacent_cell_types:
 			return false
-	
+
 	return true
 
 
 func _get_adjacent_cell_coordinates(pillar_x: int, pillar_z: int, direction: int) -> Array:
 	# Returns array of [x, z] coordinate pairs for cells adjacent to pillar side
 	var coords := []
-	
+
 	match direction:
 		WorldData.Direction.NORTH:  # North side of pillar
 			coords = [[pillar_x - 1, pillar_z - 1], [pillar_x, pillar_z - 1]]
@@ -84,7 +83,7 @@ func _get_adjacent_cell_coordinates(pillar_x: int, pillar_z: int, direction: int
 			coords = [[pillar_x - 1, pillar_z], [pillar_x, pillar_z]]
 		WorldData.Direction.WEST:   # West side of pillar
 			coords = [[pillar_x - 1, pillar_z - 1], [pillar_x - 1, pillar_z]]
-	
+
 	return coords
 
 
@@ -100,12 +99,12 @@ func _are_coordinates_valid(world_data: WorldData, coord_pairs: Array) -> bool:
 func _apply_spawn_chance_filter(pillar_sides: Array, rng: RandomNumberGenerator) -> Array:
 	if not rng or spawn_chance >= 1.0:
 		return pillar_sides
-	
+
 	var filtered_sides := []
 	for side_data in pillar_sides:
 		if rng.randf() <= spawn_chance:
 			filtered_sides.append(side_data)
-	
+
 	return filtered_sides
 
 
@@ -130,7 +129,7 @@ func get_directional_cell_offset(direction: int, pillar_x: int, pillar_z: int) -
 	# Small offset to ensure unique cell mapping per pillar side
 	var base_offset := 0.01
 	var coord_factor := (pillar_x + pillar_z) % 4
-	
+
 	match direction:
 		WorldData.Direction.NORTH:
 			return Vector3(base_offset * coord_factor, 0, -base_offset)

@@ -30,7 +30,7 @@ func _configure_audio_manager():
 	prints("LARGE OBJECT DEBUG - impact_audio_manager:", impact_audio_manager)
 	prints("LARGE OBJECT DEBUG - item_drop_sound:", item_drop_sound)
 	prints("LARGE OBJECT DEBUG - item_max_noise_level:", item_max_noise_level)
-	
+
 	if impact_audio_manager and item_drop_sound:
 		impact_audio_manager.drop_sound = item_drop_sound
 		impact_audio_manager.max_noise_level = item_max_noise_level

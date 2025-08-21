@@ -115,11 +115,11 @@ static func get_cell_from_local_position(world_data: WorldData, position: Vector
 ## - generate_initial_loot.gd:84-96
 static func remove_used_cells(world_data: WorldData, cells: Array) -> Array:
 	var filtered_cells = cells.duplicate()
-	
+
 	# Remove cells with existing objects
 	for cell_index in world_data._objects_to_spawn.keys():
 		filtered_cells.erase(cell_index)
-	
+
 	# Remove player spawn cells
 	if world_data.is_spawn_position_valid():
 		var player_cells := [
@@ -128,7 +128,7 @@ static func remove_used_cells(world_data: WorldData, cells: Array) -> Array:
 		]
 		for player_cell in player_cells:
 			filtered_cells.erase(player_cell)
-	
+
 	return filtered_cells
 
 
@@ -156,9 +156,7 @@ static func filter_cells_away_from_doors(world_data: WorldData, cells: Array) ->
 	var filtered_cells := []
 	for cell_index in cells:
 		var has_nearby_door := false
-		for direction in WorldData.Direction.values():
-			if direction == WorldData.Direction.DIRECTION_MAX:
-				continue
+		for direction in WorldData.Direction.size():
 			if has_door_in_direction(world_data, cell_index, direction):
 				has_nearby_door = true
 				break
@@ -172,9 +170,7 @@ static func filter_cells_adjacent_to_walls(world_data: WorldData, cells: Array) 
 	var wall_adjacent_cells := []
 	for cell_index in cells:
 		var is_wall_adjacent := false
-		for direction in WorldData.Direction.values():
-			if direction == WorldData.Direction.DIRECTION_MAX:
-				continue
+		for direction in WorldData.Direction.size():
 			var wall_type = get_wall_type(world_data, cell_index, direction)
 			if wall_type == WorldData.EdgeType.WALL:
 				is_wall_adjacent = true

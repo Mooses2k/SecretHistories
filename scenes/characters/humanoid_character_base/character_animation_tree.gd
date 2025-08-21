@@ -3,6 +3,8 @@ extends AnimationTree
 #TODO : crouch walk forwards right and forwards left are flipped.
 # so we have to fix that when the animation names get fixed
 
+@export var auto_active_on_ready : bool = true
+
 @onready var parameters: HumanoidCharacterParameters = $"../Parameters"
 @onready var state: HumanoidCharacterState = $"../State"
 
@@ -58,7 +60,7 @@ const VERTICAL_DIRECTION = "parameters/vertical_direction/blend_position"
 @onready var model_root: Node3D = $"../ModelRoot"
 
 func _ready() -> void:
-	await owner.ready
+	active = active or auto_active_on_ready
 	pass # Replace with function body.
 
 

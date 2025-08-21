@@ -37,11 +37,11 @@ func light():
 		firelight.visible = true
 		$FireOrigin.visible = true # related to bugfix #604
 		$MeshInstance3D.cast_shadow = false
-		
+
 		if owner_character:
 			if owner_character.noise_level < 5:
 				owner_character.noise_level = 5
-		
+
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()
@@ -57,7 +57,7 @@ func unlight():
 		firelight.visible = false
 		$FireOrigin.visible = false # related to bugfix #604
 		$MeshInstance3D.cast_shadow = true
-		
+
 		is_lit = false
 		stop_light_timer()
 
@@ -72,7 +72,7 @@ func _item_state_changed(previous_state, current_state):
 #			sound.play()
 		print("calling switch_away_from_light()")
 		owner_character.inventory.switch_away_from_light(self)
-	elif current_state == GlobalConsts.ItemState.DAMAGING:
+	elif current_state == GlobalConsts.ItemState.DROPPED:
 		#is_just_dropped = true
 		self.emit_signal("item_is_dropped")
 		item_drop()
@@ -104,13 +104,12 @@ func item_drop():
 	burn_time -= (burn_time * life_percentage_lose)
 	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
-	
+
 	light_timer.set_wait_time(burn_time)
 	light_timer.start()
-	
+
 	print("Angular velocity of torch: ", angular_velocity.length())
 	if angular_velocity.length() > 5:
 		if random_number < prob_going_out:
 			unlight()
 			print("Light went out due to being thrown")
-			

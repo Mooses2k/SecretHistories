@@ -377,7 +377,7 @@ func handle_grab(delta : float):
 				is_grabbing = true
 				print("Just grabbed: ", grab_object)
 				if grab_object is PickableItem:   # So no plain RigidBodies or large objects
-					grab_object.set_item_state(GlobalConsts.ItemState.DAMAGING)   # This is so any pickable_item collides with cultists
+					grab_object.set_item_state(GlobalConsts.ItemState.DROPPED)   # This is so any pickable_item collides with cultists
 					grab_object.check_item_state()
 
 	if is_grabbing:

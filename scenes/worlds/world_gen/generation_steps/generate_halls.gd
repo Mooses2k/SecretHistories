@@ -33,7 +33,7 @@ func generate_halls(data : WorldData, random : RandomNumberGenerator):
 			while queue_idx < queue.size():
 				var current = queue[queue_idx]
 				if data.get_cell_type(current) == data.CellType.EMPTY:
-					for dir in data.Direction.DIRECTION_MAX:
+					for dir in data.Direction.size():
 						var neighbour = data.get_neighbour_cell(current, dir)
 						if neighbour < 0:
 							region_valid[neighbour] = false

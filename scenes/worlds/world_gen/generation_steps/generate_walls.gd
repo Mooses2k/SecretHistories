@@ -13,7 +13,7 @@ func contour_walls(data : WorldData):
 			var this = data.get_cell_index_from_int_position(x, y)
 			if data.get_cell_type(this) == data.CellType.EMPTY:
 				continue
-			for dir in data.Direction.DIRECTION_MAX:
+			for dir in data.Direction.size():
 				var other = data.get_cell_type(data.get_neighbour_cell(this, dir))
 				match data.get_cell_type(this):
 					data.CellType.ROOM:

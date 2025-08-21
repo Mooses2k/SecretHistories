@@ -189,7 +189,7 @@ func _connect_points_in_astar_grid(data: WorldData, astar: AStar2D) -> void:
 			if not astar.has_point(cell_index):
 				continue
 
-			for direction in data.Direction.DIRECTION_MAX:
+			for direction in data.Direction.size():
 				var neighbour = data.get_neighbour_cell(cell_index, direction)
 				if neighbour != -1 and astar.has_point(neighbour):
 					astar.connect_points(cell_index, neighbour)
@@ -320,7 +320,7 @@ func _set_doorways_meta(data: WorldData, cells: Array, direction: int) -> bool:
 func _disconnect_room_walls_from_grid(data: WorldData, astar: AStar2D, room: RoomData) -> void:
 	var doorway_cells := room.get_all_doorway_cells()
 	for cell_index in room.cell_indexes:
-		for direction in data.Direction.DIRECTION_MAX:
+		for direction in data.Direction.size():
 			var neighbour_index := data.get_neighbour_cell(cell_index, direction)
 			var is_door: bool = data.get_cell_type(neighbour_index) == data.CellType.DOOR
 			if neighbour_index != -1 and not neighbour_index in room.cell_indexes and not is_door:

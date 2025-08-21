@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://daf3jm6dh7y8a"]
+[gd_scene load_steps=69 format=3 uid="uid://daf3jm6dh7y8a"]
 
 [ext_resource type="Script" uid="uid://cqeejcdn3pj2q" path="res://scenes/characters/humanoid_character_base/humanoid_character.gd" id="1_ahvev"]
 [ext_resource type="AnimationLibrary" uid="uid://hs8bbjhps5wl" path="res://resources/animations/libraries/character/movement_and_aiming.glb" id="2_npkk5"]
@@ -3678,6 +3678,9 @@ _data = {
 &"RESET": SubResource("Animation_b6rbh")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ngi1s"]
+animation = &"RESET"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gpcch"]
 animation = &"movement_and_aiming/ads_idle"
 
@@ -3821,7 +3824,9 @@ blend_point_1/pos = -1.0
 value_label = "jump_direction"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nsnpf"]
-graph_offset = Vector2(-517.263, 129.916)
+graph_offset = Vector2(-815.263, -183.084)
+nodes/RESET/node = SubResource("AnimationNodeAnimation_ngi1s")
+nodes/RESET/position = Vector2(-740, -120)
 nodes/_ads_animation/node = SubResource("AnimationNodeAnimation_gpcch")
 nodes/_ads_animation/position = Vector2(-440, 1000)
 nodes/_ads_animation_2/node = SubResource("AnimationNodeAnimation_tjgnq")
@@ -5211,8 +5216,8 @@ transform = Transform3D(1.0001, 0, 0, 0, 1.00016, 0, 0, 0, 0.999742, -0.0237495,
 script = ExtResource("11_rjxbe")
 
 [node name="Physical Bone DEF-spine" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(1, 0, 0, 0, 0.964184, -0.265235, 0, 0.265235, 0.964184, 3.56496e-08, 0.88706, -0.0513049)
-body_offset = Transform3D(1, 1.77636e-15, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.999999, 0.00117735, -0.000380389, -0.00123659, 0.961251, -0.275672, 4.10877e-05, 0.275672, 0.961252, 0.00796542, 0.866073, -0.0515237)
+body_offset = Transform3D(0.98518, 5.09299e-08, -1.25801e-08, -5.13728e-08, 0.996048, -1.00136e-05, 1.2551e-08, 9.92417e-06, 0.983524, 0, 0, 0)
 mass = 10.0
 bone_name = "DEF-spine"
 script = ExtResource("12_5pa2u")
@@ -5230,9 +5235,9 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-spine_002" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(1, -1.02309e-11, -2.93689e-10, 2.01934e-11, 0.999424, 0.0339413, 2.93177e-10, -0.0339413, 0.999424, 3.56496e-08, 1.13356, -0.000371643)
+transform = Transform3D(0.999884, 0.0151994, 0.000595362, -0.0152079, 0.999705, 0.0189172, -0.000307657, -0.0189241, 0.999821, 0.00996231, 1.11284, 0.00386048)
 joint_type = 1
-body_offset = Transform3D(1, -1.01281e-11, -3.02116e-10, 1.01255e-11, 1, 0, 3.02137e-10, 0, 1, 0, 0, 0)
+body_offset = Transform3D(0.985181, -0.000279095, -9.79142e-05, -5.3856e-08, 0.993673, 0.00701769, -4.07454e-10, 4.09782e-07, 0.982964, 0, 0, 0)
 mass = 10.0
 bone_name = "DEF-spine.002"
 joint_constraints/bias = 0.3
@@ -5253,9 +5258,9 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-spine_003" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(1, -3.21965e-14, 9.73444e-13, 2.44634e-15, 0.999536, 0.0304711, -9.73444e-13, -0.0304711, 0.999536, 3.56496e-08, 1.28408, -0.00548328)
+transform = Transform3D(0.916636, 0.0598446, -0.395217, -0.0542657, 0.998206, 0.0252907, 0.396022, -0.00173566, 0.91824, 0.0123089, 1.26435, 0.000992253)
 joint_type = 1
-body_offset = Transform3D(1, 8.74856e-14, -7.63833e-12, -9.03722e-14, 1, 0, 7.65965e-12, 0, 1, 0, 0, 0)
+body_offset = Transform3D(0.984701, 0.00168857, -0.00196639, -1.63447e-07, 0.99376, 0.00651022, -5.27501e-06, -9.59262e-08, 0.983357, 0, 0, 0)
 mass = 10.0
 bone_name = "DEF-spine.003"
 joint_constraints/bias = 0.3
@@ -5276,9 +5281,9 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-spine_006" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll"]
-transform = Transform3D(1, -2.30356e-13, 3.86962e-10, 2.30926e-13, 1, -1.47521e-06, -3.86962e-10, 1.47521e-06, 1, 3.54543e-08, 1.52877, -0.0101434)
+transform = Transform3D(0.998243, 0.0348356, -0.0479409, -0.0374686, 0.997774, -0.0551658, 0.0459125, 0.0568651, 0.997326, 0.0249671, 1.51022, 0.00286297)
 joint_type = 1
-body_offset = Transform3D(1, 1.1229e-14, 2.84217e-14, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+body_offset = Transform3D(0.974889, -0.000379692, -0.000429366, 7.21775e-09, 0.98918, 0.0073887, 1.04308e-07, 1.49012e-08, 0.967639, 0, 0, 0)
 mass = 4.0
 bone_name = "DEF-spine.006"
 joint_constraints/bias = 0.3
@@ -5298,10 +5303,10 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-upper_arm_L" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(-0.0407315, 0.982135, 0.183715, -0.997776, -0.0302699, -0.0593948, -0.0527727, -0.185725, 0.981184, 0.177689, 1.38764, -0.024815)
+transform = Transform3D(-0.520791, -0.213135, -0.82665, -0.323362, -0.846926, 0.422082, -0.790072, 0.487124, 0.372152, 0.189125, 1.35779, 0.0627918)
 joint_type = 1
 joint_offset = Transform3D(0.999999, 0, 0, 0, 0.999997, 0, 0, 0, 0.999997, 0, 0, 0)
-body_offset = Transform3D(1, -2.6077e-08, -6.70552e-08, 5.02914e-08, 1, 4.17233e-07, 5.96046e-08, -3.8743e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.986341, 0.00991848, -0.00402632, 2.23517e-06, 0.988034, -0.00771371, 5.45382e-06, -1.13249e-06, 0.987411, 0, 0, 0)
 mass = 3.5
 bone_name = "DEF-upper_arm.L"
 joint_constraints/bias = 0.3
@@ -5322,11 +5327,11 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-forearm_L" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(-0.0402763, 0.991251, -0.125697, -0.997797, -0.0465385, -0.0472869, -0.052723, 0.123516, 0.990941, 0.44645, 1.37936, -0.0756383)
+transform = Transform3D(-0.998417, -0.0495642, -0.026607, -0.038585, 0.259194, 0.965054, -0.0409357, 0.964553, -0.260696, 0.131544, 1.12413, 0.199909)
 joint_type = 3
 joint_offset = Transform3D(-3.61999e-06, 0, 0.999999, 0, 1, 0, -0.999999, 0, -3.61999e-06, 0, 0, 0)
 joint_rotation = Vector3(0, 1.5708, 0)
-body_offset = Transform3D(1, 3.72529e-09, 1.93715e-07, 1.39698e-08, 1, 3.27826e-07, -2.12342e-07, -4.09782e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.985197, -0.000311948, -0.000874194, -9.31323e-08, 0.985271, 0.0112564, 2.8871e-08, -4.17233e-07, 0.991328, 0, 0, 0)
 mass = 3.5
 bone_name = "DEF-forearm.L"
 joint_constraints/angular_limit_enabled = true
@@ -5350,9 +5355,9 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-hand_L" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(-0.0777917, 0.988392, 0.130496, -0.9958, -0.0706942, -0.0581737, -0.0482731, -0.134473, 0.989741, 0.707195, 1.36712, -0.0431479)
+transform = Transform3D(-0.51059, -0.412047, 0.754662, 0.833433, -0.452963, 0.316566, 0.211394, 0.790596, 0.574692, 0.118227, 1.19332, 0.45742)
 joint_type = 2
-body_offset = Transform3D(1, 2.35159e-07, -1.22935e-07, -2.02563e-07, 1, -1.49012e-08, 1.15484e-07, -4.47035e-08, 1, 0, 0, 0)
+body_offset = Transform3D(0.992247, -0.00353706, 0.00758943, 2.5332e-07, 0.983104, -0.00463313, -3.30806e-06, 3.03984e-06, 0.986452, 0, 0, 0)
 bone_name = "DEF-hand.L"
 joint_constraints/swing_span = 45.0
 joint_constraints/twist_span = 30.0
@@ -5374,9 +5379,9 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-upper_arm_R" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(-0.0528113, -0.983328, -0.174005, 0.996953, -0.0619358, 0.0474288, -0.0574152, -0.17097, 0.983602, -0.177689, 1.38764, -0.024815)
+transform = Transform3D(-0.888118, -0.367257, 0.276348, 0.392119, -0.919099, 0.0387287, 0.239767, 0.142757, 0.960277, -0.140542, 1.37834, -0.0858934)
 joint_type = 1
-body_offset = Transform3D(1, 5.7742e-08, -1.11759e-07, 1.86265e-08, 1, -1.19209e-07, 1.15484e-07, 1.49012e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.987006, -0.00750106, 0.00175932, 3.80725e-06, 0.99152, -0.00704083, -6.55651e-07, 3.12924e-07, 0.983276, 0, 0, 0)
 mass = 3.5
 bone_name = "DEF-upper_arm.R"
 joint_constraints/bias = 0.3
@@ -5397,11 +5402,11 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-forearm_R" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(-0.0542456, -0.993666, 0.0984115, 0.996883, -0.0482374, 0.062438, -0.0572954, 0.101492, 0.993185, -0.458756, 1.36994, -0.0736836)
+transform = Transform3D(-0.875967, 0.462359, 0.137501, 0.266835, 0.226991, 0.936629, 0.401847, 0.857146, -0.32221, -0.248904, 1.1145, -0.0439971)
 joint_type = 3
 joint_offset = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 0, 0)
 joint_rotation = Vector3(0, -1.5708, 0)
-body_offset = Transform3D(1, 1.23866e-07, -3.72529e-08, -5.7742e-08, 1, -2.68221e-07, 2.6077e-08, -3.12924e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.986136, 0.00158268, 0.00687093, -7.7486e-07, 0.985219, 0.00981039, 4.08292e-06, 4.76837e-07, 0.990435, 0, 0, 0)
 mass = 3.5
 bone_name = "DEF-forearm.R"
 joint_constraints/angular_limit_enabled = true
@@ -5425,10 +5430,10 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-hand_R" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(-0.0633168, -0.988392, -0.138103, 0.996283, -0.0706974, 0.0492044, -0.0583967, -0.134474, 0.989195, -0.71092, 1.3577, -0.047928)
+transform = Transform3D(-0.707652, 0.443772, 0.549814, 0.48378, -0.262822, 0.834794, 0.514962, 0.856733, -0.0287014, -0.125769, 1.17179, 0.174835)
 joint_type = 2
 joint_offset = Transform3D(1, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0)
-body_offset = Transform3D(1, -8.3819e-08, -2.6077e-08, 1.58325e-07, 1, -8.34465e-07, 2.98023e-08, 7.30157e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.98825, -0.00239858, 0.00981826, 1.06096e-05, 0.982572, 0.00116171, -1.63354e-06, -2.47732e-06, 0.990979, 0, 0, 0)
 bone_name = "DEF-hand.R"
 joint_constraints/swing_span = 45.0
 joint_constraints/twist_span = 30.0
@@ -5450,9 +5455,9 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-thigh_L" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(0.764491, 0.0119632, -0.644523, 0.0297765, -0.999416, 0.0167685, -0.643946, -0.032011, -0.764401, 0.0891631, 0.94115, -0.0115246)
+transform = Transform3D(0.757316, 0.0367096, -0.652016, 0.255496, -0.93549, 0.244089, -0.600994, -0.351441, -0.717841, 0.0971917, 0.920057, -0.0110036)
 joint_type = 1
-body_offset = Transform3D(1, -6.1281e-07, -8.9407e-08, 5.97909e-07, 1, -1.05612e-06, 2.98023e-08, 1.05053e-06, 0.99999, 0, 0, 0)
+body_offset = Transform3D(0.917572, -0.00179927, -0.00146008, -1.57952e-06, 0.992611, -0.000972331, 4.11272e-06, -4.76837e-07, 0.91768, 0, 0, 0)
 mass = 7.5
 bone_name = "DEF-thigh.L"
 joint_constraints/bias = 0.3
@@ -5473,11 +5478,11 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-shin_L" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(0.764508, -0.0137407, -0.644468, 0.0310714, -0.997825, 0.0581336, -0.643865, -0.0644681, -0.762419, 0.0946977, 0.478833, -0.026332)
+transform = Transform3D(0.999221, 0.0392359, -0.00421693, 0.0357539, -0.854925, 0.517518, 0.0167001, -0.517266, -0.855662, 0.114991, 0.484323, -0.175335)
 joint_type = 3
 joint_offset = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
 joint_rotation = Vector3(0, -0.785398, 0)
-body_offset = Transform3D(1, 2.01166e-07, -2.98023e-08, -2.08616e-07, 1, -3.98606e-07, 0, -4.4331e-07, 0.99999, 0, 0, 0)
+body_offset = Transform3D(0.92097, -0.000586133, 0.0027569, -3.26894e-07, 0.969934, -0.0282216, -5.21541e-08, -9.0003e-06, 0.929745, 0, 0, 0)
 mass = 7.5
 bone_name = "DEF-shin.L"
 joint_constraints/angular_limit_enabled = true
@@ -5501,9 +5506,9 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-thigh_R" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(0.764509, -0.0119634, 0.644502, -0.0297752, -0.999416, 0.016768, 0.643925, -0.0320095, -0.764419, -0.0891631, 0.941151, -0.0115246)
+transform = Transform3D(0.773439, -0.0480886, 0.632044, 0.258657, -0.886381, -0.383961, 0.578696, 0.460453, -0.673123, -0.0811297, 0.920291, -0.0110091)
 joint_type = 1
-body_offset = Transform3D(1, 1.15298e-06, -1.35005e-05, -1.1418e-06, 1, 7.84174e-07, 1.35899e-05, -7.97212e-07, 1, 0, 0, 0)
+body_offset = Transform3D(0.910542, -0.00699006, -0.00377652, -3.8743e-07, 1.00899, 0.0101184, 1.32322e-05, -2.98023e-08, 0.911017, 0, 0, 0)
 mass = 7.5
 bone_name = "DEF-thigh.R"
 joint_constraints/bias = 0.3
@@ -5524,11 +5529,11 @@ script = ExtResource("13_ngi1s")
 metadata/_custom_type_script = "uid://bak2lmkkjrs45"
 
 [node name="Physical Bone DEF-shin_R" type="PhysicalBone3D" parent="ModelRoot/rig_deform/Skeleton3D/CharacterRagdoll" node_paths=PackedStringArray("collision_exceptions")]
-transform = Transform3D(0.764505, 0.0137402, 0.644472, -0.0310662, -0.997826, 0.0581261, 0.643869, -0.064459, -0.762416, -0.0946973, 0.478832, -0.0263321)
+transform = Transform3D(0.998361, -0.0566523, 0.00807975, -0.057204, -0.984111, 0.168086, -0.00157109, -0.168273, -0.985739, -0.100455, 0.514827, 0.202129)
 joint_type = 3
 joint_offset = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0, 0)
 joint_rotation = Vector3(0, 0.785398, 0)
-body_offset = Transform3D(1, 4.94346e-06, 1.84476e-05, -4.93601e-06, 1, 8.51974e-06, -1.83284e-05, -8.367e-06, 1, 0, 0, 0)
+body_offset = Transform3D(0.911571, 0.000246681, -0.00373573, -5.14273e-06, 0.97613, -0.0891028, -1.66292e-05, -1.10269e-05, 0.933479, 0, 0, 0)
 mass = 7.5
 bone_name = "DEF-shin.R"
 joint_constraints/angular_limit_enabled = true
@@ -5591,7 +5596,6 @@ libraries = {
 }
 
 [node name="CharacterAnimationTree" type="AnimationTree" parent="."]
-active = false
 root_node = NodePath("../ModelRoot")
 tree_root = SubResource("AnimationNodeBlendTree_nsnpf")
 anim_player = NodePath("../AnimationPlayer")

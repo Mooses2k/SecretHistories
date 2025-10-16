@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b2lftnajs8166"]
+[gd_scene load_steps=7 format=3 uid="uid://b2lftnajs8166"]
 
 [ext_resource type="Script" uid="uid://ulb0wp3yi8fy" path="res://scenes/worlds/game_world.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bbdk6x54vho6y" path="res://scenes/worlds/gridmaps/gridmaps.tscn" id="2"]
@@ -6,7 +6,6 @@
 [ext_resource type="MeshLibrary" path="res://resources/mesh_libraries/basic_grid_tiles.meshlib" id="4"]
 [ext_resource type="Script" uid="uid://coyjt0atm3gdi" path="res://scenes/worlds/world_navigation.gd" id="5"]
 [ext_resource type="Script" uid="uid://c42wvku2geutn" path="res://scenes/worlds/world_gen/generation_steps/generation_manager.gd" id="6"]
-[ext_resource type="Script" uid="uid://dg8ew70d68kx2" path="res://scenes/worlds/procedural_world/item_spawner.gd" id="7"]
 
 [node name="GameWorld" type="Node3D"]
 script = ExtResource("1")
@@ -30,9 +29,6 @@ script = ExtResource("5")
 
 [node name="GenerationManager" type="Node" parent="."]
 script = ExtResource("6")
-
-[node name="ItemSpawner" type="Node" parent="."]
-script = ExtResource("7")
 
 [node name="CharacterSpawner" type="Node" parent="."]
 script = ExtResource("3")

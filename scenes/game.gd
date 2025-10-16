@@ -105,7 +105,7 @@ func load_level(packed : PackedScene):
 		# this needs a yield because this function is called from within another yield
 		await get_tree().process_frame
 
-	# Ambient music controllerprint("Current floor level: ", current_floor_level)
+	# Ambient music controller
 	match current_floor_level:
 		-1:
 			BackgroundMusic.stream = _empty_ambience

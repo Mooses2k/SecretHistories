@@ -65,21 +65,6 @@ func _physics_process(delta: float) -> void:
 			try_spawn_character_away_from_player()
 
 
-func spawn_characters():
-	for child in characters_root.get_children():
-		child.queue_free()
-
-	print("Spawning characters")
-	var characters_by_index := data.get_characters_to_spawn()
-	for cell_index in characters_by_index:
-		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
-		_spawn_single_character_with_spawn_data(spawn_data)
-
-	print("Total Characters Spawned: %s" % [characters_by_index.size()])
-	has_finished_spawning = true
-	emit_signal("spawning_finished")
-
-
 func try_spawn_character_away_from_player():
 	var original_spawn_data = data.get_characters_to_spawn()
 	if original_spawn_data.is_empty():
@@ -143,10 +128,15 @@ func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
 
 
 # Parent GameWorld script connects here.
+# CharacterSpawner now only handles continuous spawning
+# Initial character spawning is handled by GameWorld._spawn_world_data_objects()
 func _on_game_world_generation_finished():
 	var setting_generation_seed = GameManager.game.local_settings.get_setting("World Seed")
 	if setting_generation_seed is int:
 		_rng.seed = setting_generation_seed
 	
 	data = owner.world_data
-	call_deferred("spawn_characters")
+	
+	# Mark as finished immediately since we don't spawn initial characters anymore
+	has_finished_spawning = true
+	emit_signal("spawning_finished")

@@ -173,6 +173,6 @@ func _on_delay_finished():
 
 
 func _on_drop_sound_finished(audio_player):
-	prints("DROP SOUND DEBUG - Sound finished playing")
+	#prints("DROP SOUND DEBUG - Sound finished playing")
 	if audio_player and is_instance_valid(audio_player):
 		audio_player.queue_free()

@@ -1,5 +1,6 @@
-# Write your doc string for this file here
-extends "res://scenes/worlds/procedural_world/item_spawner.gd"
+## Standalone Item Spawner for Debug Scenes
+## Spawns world data objects without requiring full game setup
+extends Spawner
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -34,7 +35,16 @@ extends "res://scenes/worlds/procedural_world/item_spawner.gd"
 
 func _on_game_world_generation_finished():
 	var data := owner.world_data as WorldData
-	_spawn_world_data_objects(data)
+	
+	# Spawn all world data objects using unified SpawnData interface
+	var objects_to_spawn := data.get_objects_to_spawn()
+	for cell_index in objects_to_spawn:
+		var spawn_data := objects_to_spawn[cell_index] as SpawnData
+		spawn_data.spawn_item_in(owner, true)  # Enable logging
+	
 	await get_tree().idle_frame
+	
+	has_finished_spawning = true
+	emit_signal("spawning_finished")
 
 ### -----------------------------------------------------------------------------------------------

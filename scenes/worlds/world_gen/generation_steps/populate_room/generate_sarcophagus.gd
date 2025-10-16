@@ -126,8 +126,9 @@ func _set_sarco_spawn_data(
 		sarco_offset := Vector3.ZERO,
 		sarco_rotation := 0.0
 ) -> void:
-	var spawn_data := SpawnData.new()
+	var spawn_data := SarcophagusSpawnData.new()
 	spawn_data.scene_path = sarco_scene_path
+	spawn_data.amount = 1
 
 	# Use CellFilter utility instead of direct WorldData call
 	var spawn_position = (
@@ -141,6 +142,9 @@ func _set_sarco_spawn_data(
 	var lid_type := Sarcophagus.get_random_lid_type(_rng)
 	if _force_lid != -1:
 		lid_type = _force_lid
+	
+	# Configure sarcophagus-specific properties
+	spawn_data.configure_sarcophagus(lid_type, wall_direction, _get_sarcophagus_spawn_list())
 	spawn_data.set_custom_property("current_lid", lid_type)
 	spawn_data.set_custom_property("wall_direction", wall_direction)
 	spawn_data.set_custom_property("spawnable_items", _get_sarcophagus_spawn_list())

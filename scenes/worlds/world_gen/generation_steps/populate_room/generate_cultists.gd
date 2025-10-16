@@ -79,6 +79,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 			var local_position := CellFilter.get_cell_position(data, cell_index)
 			var spawn_data := CharacterSpawnData.new()
 			spawn_data.scene_path = _character_scene_path
+			spawn_data.amount = 1  # Characters are always single spawns
 			spawn_data.set_center_position_in_cell(local_position)
 			data.set_character_spawn_data_to_cell(cell_index, spawn_data)
 

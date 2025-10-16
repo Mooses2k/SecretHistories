@@ -109,7 +109,7 @@ func process_impact_detection(state: PhysicsDirectBodyState3D) -> void:
 ## Play impact sound with volume and pitch scaling
 func play_impact_sound(impact_intensity: float) -> void:
 	# Firstly, stop looping throw sounds
-	if is_instance_valid(parent_body.audio_player):
+	if parent_body is PickableItem and is_instance_valid(parent_body.audio_player):
 		parent_body.audio_player.stop()
 	
 	#prints("AUDIO DEBUG - play_impact_sound called with intensity:", impact_intensity)

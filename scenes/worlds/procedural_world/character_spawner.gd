@@ -2,7 +2,7 @@ class_name CharacterSpawner
 extends Spawner
 
 
-const ENEMY_GROUP : String = "CULTIST"
+const ENEMY_GROUP: String = "CULTIST"
 
 # Represents the possible character loadouts, with the following structure:
 # Loadout:
@@ -40,15 +40,13 @@ const ENEMY_GROUP : String = "CULTIST"
 # a random amount of ammunition within the selected range
 #
 
-@export var character_loadout : Array # (Array, Dictionary)
-@export var continuous_spawn_level : int = -5
-@export var continuous_spawn_max : int = 7   # too many more than 5 can lag the game
+@export var character_loadout: Array # (Array, Dictionary)
+@export var continuous_spawn_level: int = -5
+@export var continuous_spawn_max: int = 7   # too many more than 5 can lag the game
 
-var data : WorldData
+var data: WorldData
 
 var _rng := RandomNumberGenerator.new()
-
-var _total_weights_by_set := []
 
 @onready var characters_root = Node.new()
 
@@ -59,14 +57,6 @@ func _ready():
 
 	characters_root.name = "CharactersRoot"
 	add_child(characters_root, true)
-
-	_total_weights_by_set.resize(character_loadout.size())
-	for set_index in character_loadout.size():
-		var set_weight := 0
-		for pack in (character_loadout[set_index] as Dictionary).keys():
-			set_weight += character_loadout[set_index][pack]
-
-		_total_weights_by_set[set_index] = set_weight
 
 
 func _physics_process(delta: float) -> void:
@@ -83,7 +73,7 @@ func spawn_characters():
 	var characters_by_index := data.get_characters_to_spawn()
 	for cell_index in characters_by_index:
 		var spawn_data := characters_by_index[cell_index] as CharacterSpawnData
-		_spawn_single_character(spawn_data)
+		_spawn_single_character_with_spawn_data(spawn_data)
 
 	print("Total Characters Spawned: %s" % [characters_by_index.size()])
 	has_finished_spawning = true
@@ -97,82 +87,59 @@ func try_spawn_character_away_from_player():
 	
 	var keys = original_spawn_data.keys()
 	var random_key = keys[randi() % keys.size()]
-	var random_spawn_data = original_spawn_data[random_key].duplicate()
+	var original_character_spawn_data = original_spawn_data[random_key] as CharacterSpawnData
 
 	var player = GameManager.game.player
 	if not is_instance_valid(player):
 		return
 	
-	# Use AwayFromPlayerCellFilter to find suitable spawn location
-	var away_filter := AwayFromPlayerCellFilter.new()
-	away_filter.set_player_position(player.global_position)
+	# Configure the spawn data with current loadout settings
+	original_character_spawn_data.configure_character_loadout(character_loadout)
+	original_character_spawn_data.configure_continuous_spawning(continuous_spawn_level, continuous_spawn_max)
 	
-	var candidate_cells := away_filter.filter_cells(data, null, _rng)
-	if candidate_cells.is_empty():
-		print("No suitable spawn location found away from player")
+	# Create a copy for continuous spawning with new positioning
+	var spawn_copy := original_character_spawn_data.create_continuous_spawn_copy(data, player.global_position, _rng)
+	if not spawn_copy:
 		return
 	
-	# Get the first suitable cell and convert to world position
-	var spawn_cell_index: int = candidate_cells[0]
-	var spawn_position := CellFilter.get_cell_position(data, spawn_cell_index)
+	_spawn_single_character_with_spawn_data(spawn_copy)
+	print("Spawned extra enemy at ", spawn_copy._transforms.front().origin)
+
+
+## Enhanced character spawning using CharacterSpawnData
+func _spawn_single_character_with_spawn_data(spawn_data: CharacterSpawnData) -> void:
+	# Configure spawn data with current loadout settings
+	spawn_data.configure_character_loadout(character_loadout)
+	spawn_data.configure_continuous_spawning(continuous_spawn_level, continuous_spawn_max)
 	
-	# Use navigation to ensure the position is navigable
-	spawn_position = NavigationServer3D.map_get_closest_point(owner.get_world_3d().navigation_map, spawn_position)
-	spawn_position = CellFilter.get_cell_position(data, CellFilter.get_cell_from_local_position(data, spawn_position))
-
-	random_spawn_data.set_center_position_in_cell(spawn_position)
-	_spawn_single_character(random_spawn_data)
-	print("Spawned extra enemy at ", spawn_position)
-
-
-func _spawn_single_character(spawn_data : CharacterSpawnData):
+	# Spawn character using enhanced spawn data
 	var character := spawn_data.spawn_character_in(characters_root)
-	_set_random_loadout(character)
+	if not character:
+		print("ERROR CharacterSpawner: Failed to spawn character")
 
 
+## Legacy method for backward compatibility
+## This maintains the original interface while using the new system internally
+func _spawn_single_character(spawn_data: CharacterSpawnData):
+	_spawn_single_character_with_spawn_data(spawn_data)
+
+
+## Legacy method for backward compatibility with manual loadout application
+## This is kept for any existing code that might call it directly
 func _set_random_loadout(character: Node3D) -> void:
-	var inventory = character.get_node("Inventory")
-	for set_index in character_loadout.size():
-		var total_weight := _total_weights_by_set[set_index] as int
-		if total_weight == 0:
-			continue
-
-		var chosen_pack := _get_chosen_pack(total_weight, set_index)
-		for item in chosen_pack.keys():
-			var min_amount := chosen_pack[item].x as int
-			var max_amount := chosen_pack[item].y as int
-			var amount = min_amount
-			if max_amount > min_amount:
-				amount = _rng.randi() % (max_amount - min_amount) +  min_amount
-
-			if item is TinyItemData:
-				if not inventory.tiny_items.has(item):
-					inventory.tiny_items[item] = 0
-				inventory.tiny_items[item] += amount
-			elif item is PackedScene:
-				var instanced = item.instantiate()
-				if instanced is PickableItem:
-					inventory.add_item(instanced)
-					instanced.set_range(chosen_pack[item])
-#					print("Added to hotbar")
-				else:
-					instanced.free()
-#	print(inventory.hotbar)
-#	print(inventory.tiny_items)
+	# Create a temporary CharacterSpawnData to handle loadout application
+	var temp_spawn_data := CharacterSpawnData.new()
+	temp_spawn_data.configure_character_loadout(character_loadout)
+	temp_spawn_data._rng = _rng
+	temp_spawn_data._apply_character_loadout(character)
 
 
+## Legacy loadout pack selection method - kept for compatibility
 func _get_chosen_pack(total_weight: int, set_index: int) -> Dictionary:
-	var value := {}
-
-	var rng = _rng.randi()%total_weight
-	var cummulative_weight = 0
-	for pack in (character_loadout[set_index] as Dictionary).keys():
-		cummulative_weight += character_loadout[set_index][pack]
-		if rng < cummulative_weight:
-			value = pack
-			break
-	
-	return value
+	var temp_spawn_data := CharacterSpawnData.new()
+	temp_spawn_data.configure_character_loadout(character_loadout)
+	temp_spawn_data._rng = _rng
+	return temp_spawn_data._get_chosen_pack(total_weight, set_index)
 
 
 # Parent GameWorld script connects here.

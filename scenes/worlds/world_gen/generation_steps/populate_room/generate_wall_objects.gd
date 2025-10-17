@@ -355,52 +355,70 @@ func _spawn_regular_wall_object_with_texture(data: WorldData, pillar_data: Dicti
 	print("DEBUG GenerateWallObjects: === END WALL OBJECT SPAWN ===")
 
 func _scan_painting_images():
-	## Scan the paintings directory including subfolders for supported image files
-	## Supports .jpg, .jpeg, .png files and stores paths in _painting_image_paths array
+	## Scan paintings directory using ResourceLoader.list_directory for build compatibility
+	## Supports recursive scanning of subdirectories for .jpg, .jpeg, .png files
 	
 	print("Scanning for painting images in: %s" % paintings_directory)
 	_painting_image_paths.clear()
 	
-	var dir: DirAccess = DirAccess.open(paintings_directory)
-	if not dir:
-		push_warning("Cannot access paintings directory: %s" % paintings_directory)
-		return
-	
-	_scan_directory_recursive(dir, paintings_directory)
+	# Start recursive scanning from the base directory
+	_scan_directory_with_resource_loader(paintings_directory)
 	
 	print("Found %d painting images total" % _painting_image_paths.size())
-	for path in _painting_image_paths:
-		var aspect_ratio: String = _detect_image_aspect_ratio(path)
-		print("  - %s [%s]" % [path, aspect_ratio])
+	if _painting_image_paths.size() > 0:
+		for path in _painting_image_paths:
+			var aspect_ratio: String = _detect_image_aspect_ratio(path)
+			print("  - %s [%s]" % [path, aspect_ratio])
+	else:
+		print("No painting images found during scanning")
 
 
-func _scan_directory_recursive(dir: DirAccess, current_path: String):
-	## Recursively scan directory for image files
+func _scan_directory_with_resource_loader(directory_path: String):
+	## Recursively scan directory using ResourceLoader.list_directory
+	## This method works in exported builds unlike DirAccess
 	
-	dir.list_dir_begin()
-	var file_name: String = dir.get_next()
+	print("Scanning directory: %s" % directory_path)
 	
-	while file_name != "":
-		var full_path: String = current_path + file_name
-		
-		if dir.current_is_dir():
+	# List all files in directory
+	var files: PackedStringArray
+	files = ResourceLoader.list_directory(directory_path)
+	
+	print("Found ", files.size(), " files/directories in directory:")
+	for i in range(files.size()):
+		print("  [", i, "] ", files[i])
+	
+	# Supported image extensions
+	var supported_extensions: Array[String] = [".jpg", ".jpeg", ".png"]
+	
+	# Process each file
+	for file in files:
+		# Skip directories (they end with "/")
+		if file.ends_with("/"):
+			print("Skipping directory: ", file)
 			# Recursively scan subdirectory
-			var subdir: DirAccess = DirAccess.open(full_path + "/")
-			if subdir:
-				_scan_directory_recursive(subdir, full_path + "/")
-			else:
-				push_warning("Cannot access subdirectory: %s" % full_path)
-		else:
-			# Check if file has supported image extension
-			var lower_filename: String = file_name.to_lower()
-			if (lower_filename.ends_with(".jpg")
-				or lower_filename.ends_with(".jpeg")
-				or lower_filename.ends_with(".png")):
-				_painting_image_paths.append(full_path)
+			var subdirectory_path: String = directory_path + file
+			_scan_directory_with_resource_loader(subdirectory_path)
+			continue
+			
+		# Check if file has supported image extension
+		var file_lower: String = file.to_lower()
+		var is_image: bool = false
 		
-		file_name = dir.get_next()
-	
-	dir.list_dir_end()
+		for ext in supported_extensions:
+			if file_lower.ends_with(ext):
+				is_image = true
+				break
+		
+		if not is_image:
+			print("Skipping non-image file: ", file)
+			continue
+		
+		# Create full path
+		var full_path: String = directory_path + file
+		print("Processing image file: ", file, " -> ", full_path)
+		
+		_painting_image_paths.append(full_path)
+		print("Found painting image: ", file)
 
 
 func _detect_image_aspect_ratio(image_path: String) -> String:

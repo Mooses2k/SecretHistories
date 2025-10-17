@@ -239,7 +239,7 @@ func _is_in_magnetic_range() -> bool:
 	
 	var distance = parent_body.global_position.distance_to(wall_mount.global_position)
 	var in_range = distance <= magnetic_pull_distance
-	print("MAGNETIC RANGE DEBUG - Distance: ", snappedf(distance, 0.01), " Threshold: ", magnetic_pull_distance, " In range: ", in_range)
+	#print("MAGNETIC RANGE DEBUG - Distance: ", snappedf(distance, 0.01), " Threshold: ", magnetic_pull_distance, " In range: ", in_range)
 	return in_range
 
 ### Private Methods -------------------------------------------------------------------------------

@@ -48,9 +48,9 @@ enum CULTIST_VOICE_TYPE {
 }
 
 
-##Add more, as they become available
+## Add more, as they become available
 var library:Dictionary = {
-	##Structure: library[AUDIO_TYPE][Optional subtype] = [list of audio streams]
+	## Structure: library[AUDIO_TYPE][Optional subtype] = [list of audio streams]
 	AUDIO_TYPE.FOOTSTEPS: {
 		FOOTSTEP_TYPES.STONE: [
 			preload("res://resources/sounds/footsteps/stone_footsteps/footstep_1.wav") as AudioStream,
@@ -102,9 +102,9 @@ func _ready() -> void:
 
 
 func get_footsteps(material: FOOTSTEP_TYPES) -> Array:
-	##Add more methods like this, as more audio types are added to this file
-	##If there is no subtype, don't add it
-	##Alternative if memory usage at start is in question, lazy loading version:
+	## Add more methods like this, as more audio types are added to this file
+	## If there is no subtype, don't add it
+	## Alternative if memory usage at start is in question, lazy loading version:
 	##    get_<audio type>(<optional subtype>: <subtype enum>):
 	##        if (library[<audio type>] == null):
 	##            library[<audio type>] = <if using subtypes, {}, otherwise, []>
@@ -129,6 +129,7 @@ func get_voicelines(enemy_type: ENEMY_TYPE, voice_actor: VOICE_ACTOR ,voice_tag:
 		return []
 	
 	return library[AUDIO_TYPE.CULTIST_VOICES][enemy_type][voice_actor][voice_tag]
+
 
 ## Returns an array with all voicelines in sound_dir
 func load_cultists_voicelines(sound_dir: String) -> Array[AudioStream]:

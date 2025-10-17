@@ -20,6 +20,7 @@ func add_item(item: EquipmentItem) -> void:
 		print("[ERROR] StackableResource.add_item: item is null")
 		return
 	
+	print("[DEBUG] StackableResource.add_item: adding ", item, " to stack (current size: ", items_stacked.size(), ")")
 	items_stacked.append(item)
 	
 	# Safety check for GameManager and player
@@ -39,6 +40,7 @@ func remove_item(item: EquipmentItem) -> void:
 		print("[ERROR] StackableResource.remove_item: item is null")
 		return
 		
+	print("[DEBUG] StackableResource.remove_item: removing ", item, " from stack (current size: ", items_stacked.size(), ")")
 	items_stacked.erase(item)
 	
 	# Safety check for GameManager and player

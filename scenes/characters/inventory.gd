@@ -116,6 +116,10 @@ func handle_tiny_items(item: PickableItem) -> bool:
 
 		insert_tiny_item(item.item_data, item.amount)
 
+		# Play pickup sound before destroying the item
+		if item.has_method("play_pickup_sound"):
+			item.play_pickup_sound()
+
 		# To make sure the item can't be interacted with again
 		item.set_item_state(GlobalConsts.ItemState.BUSY)
 		item.queue_free()

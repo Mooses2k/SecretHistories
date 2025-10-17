@@ -1,8 +1,10 @@
 extends CanvasLayer
 class_name LoadScreen
+
 # TODO: stop making a generator everywhere, having a global one is more performant and uses less memory
 # TODO: when the level generator works, add this scene on top of the game scene and show + run it
 #       whenever it's time to get the new level, waiting not for loading, but generation
+
 var random_num_gen = RandomNumberGenerator.new()
 var random_num
 const DEFAULT_PATH_TO_STARTUP = "res://scenes/ui/opening_screens.tscn"
@@ -39,9 +41,9 @@ func _input(event: InputEvent):
 
 
 func start_loading():
-	#With the suggestion from line 3, this is not required anymore.
-	#The randomize method is somewhat expensive to run, so running it
-	#only once on the global one it should be much easier
+	# With the suggestion from line 3, this is not required anymore.
+	# The randomize method is somewhat expensive to run, so running it
+	# only once on the global one it should be much easier
 	random_num_gen.randomize()
 	show_message()
 	load_scene()
@@ -50,7 +52,7 @@ func start_loading():
 
 func load_scene():
 	next_scene_path = LoadScene.next_scene
-	#TODO: remove next line once no longer required by other ui parts waiting for loads
+	# TODO: remove next line once no longer required by other ui parts waiting for loads
 	if(next_scene_path.is_empty()):
 		get_tree().change_scene_to_file(DEFAULT_PATH_TO_STARTUP)
 		return
@@ -60,7 +62,7 @@ func load_scene():
 
 func show_message():
 	setup_loading_screen()
-	#Level 2, or 4 or whatever would be better as predefined constants
+	# Level 2, or 4 or whatever would be better as predefined constants
 	if GameManager.act > 4:
 		# late game
 		random_num = random_num_gen.randi_range(0, LoadQuotes.list3.size()-1)
@@ -79,12 +81,12 @@ func show_message():
 
 
 func _on_load_timer_timeout():
-	#Every 0.5s, check if the next scene has loaded yet
+	# Every 0.5s, check if the next scene has loaded yet
 	var progress = []
 	match ResourceLoader.load_threaded_get_status(next_scene_path, progress):
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_IN_PROGRESS:
-			#This could be an update to something if required, like a progress bar,
-			#or just showing the percentage
+			# This could be an update to something if required, like a progress bar,
+			# or just showing the percentage
 			print("Still loading, " + str(progress[0]) + "% done")
 		ResourceLoader.ThreadLoadStatus.THREAD_LOAD_FAILED:
 			printerr("PANIC, can't load " + next_scene_path)
@@ -120,6 +122,7 @@ func setup_loading_screen():
 	loading_done = false
 
 
+# TODO: This was a way to try to hide drop sounds from playing a lot during level start
 func handle_external_settings():
 	AudioSettings.internal_effects_volume = 0.0
 
@@ -127,15 +130,14 @@ func handle_external_settings():
 		.tween_property(AudioSettings, "internal_effects_volume", 1.0, 5.0)\
 		.set_trans(Tween.TRANS_EXPO)\
 		.set_ease(Tween.EASE_IN)
-	# TODO : check what this is about
 	#if GameManager.game != null and GameManager.game.player != null:
 		#GameManager.game.player.player_controller.no_click_after_load_period = true
 		#await get_tree().create_timer(1).timeout   # Possibly 0.5 better?
 		#GameManager.game.player.player_controller.no_click_after_load_period = false
 
 
+# Hide the text to show black screen
 func fade_in():
-	#hide the texts to show black screen
 	label.text = ""
 	quote.text = ""
 	color_rect.modulate = Color.from_hsv(1,1,1,1)

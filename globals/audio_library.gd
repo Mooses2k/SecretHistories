@@ -1,5 +1,5 @@
 extends Node
-##Generic autoload, to be used as central location to grab any sound collections that are used by many objects. 
+##Generic autoload, to be used as central location to grab any sound collections that are used by many objects.
 ##Loading only once, it helps not access the disk every time an object using them is spawned
 
 enum AUDIO_TYPE {
@@ -52,35 +52,16 @@ enum CULTIST_VOICE_TYPE {
 var library:Dictionary = {
 	## Structure: library[AUDIO_TYPE][Optional subtype] = [list of audio streams]
 	AUDIO_TYPE.FOOTSTEPS: {
-		FOOTSTEP_TYPES.STONE: [
-			preload("res://resources/sounds/footsteps/stone_footsteps/footstep_1.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/stone_footsteps/footstep_2.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/stone_footsteps/footstep_3.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/stone_footsteps/footstep_4.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/stone_footsteps/footstep_5.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/stone_footsteps/footstep_6.wav") as AudioStream
-		],
-		FOOTSTEP_TYPES.GRAVEL: [
-			preload("res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel1.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel2.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel3.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel4.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel5.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/gravel_footsteps/footsteps_gravel6.wav") as AudioStream
-		],
-		FOOTSTEP_TYPES.CARPET: [
-			preload("res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet1.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet2.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet3.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet4.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet5.wav") as AudioStream,
-			preload("res://resources/sounds/footsteps/carpet_footsteps/footsteps_carpet6.wav") as AudioStream
-		]
+		# Will be populated dynamically in _ready()
 	},
 }
 
 
 func _ready() -> void:
+	# Load footsteps dynamically
+	_load_footsteps()
+	
+	# Load cultist voices
 	var voices: Dictionary = {} # Structure: ENEMY_TYPE -> VOICE_ACTOR -> VOICE_TYPE
 	
 	for enemy_type: int in ENEMY_TYPE.values():
@@ -99,6 +80,77 @@ func _ready() -> void:
 				voices[enemy_type][voice_actor][voice_type] = load_cultists_voicelines(path)
 	
 	library[AUDIO_TYPE.CULTIST_VOICES] = voices
+
+
+func _load_footsteps() -> void:
+	## Load footstep sounds dynamically using ResourceLoader
+	
+	library[AUDIO_TYPE.FOOTSTEPS][FOOTSTEP_TYPES.STONE] = \
+		_scan_audio_directory_with_resource_loader("res://resources/sounds/footsteps/stone_footsteps")
+	
+	library[AUDIO_TYPE.FOOTSTEPS][FOOTSTEP_TYPES.GRAVEL] = \
+		_scan_audio_directory_with_resource_loader("res://resources/sounds/footsteps/gravel_footsteps")
+	
+	library[AUDIO_TYPE.FOOTSTEPS][FOOTSTEP_TYPES.CARPET] = \
+		_scan_audio_directory_with_resource_loader("res://resources/sounds/footsteps/carpet_footsteps")
+	
+	print("Loaded footsteps: Stone=%d, Gravel=%d, Carpet=%d" % [
+		library[AUDIO_TYPE.FOOTSTEPS][FOOTSTEP_TYPES.STONE].size(),
+		library[AUDIO_TYPE.FOOTSTEPS][FOOTSTEP_TYPES.GRAVEL].size(),
+		library[AUDIO_TYPE.FOOTSTEPS][FOOTSTEP_TYPES.CARPET].size()
+	])
+
+
+func _scan_audio_directory_with_resource_loader(directory_path: String) -> Array[AudioStream]:
+	## Recursively scan directory using ResourceLoader.list_directory
+	## Works in exported builds unlike DirAccess
+	
+	var loaded_audios: Array[AudioStream] = []
+	
+	# Ensure proper path format
+	if not directory_path.begins_with("res://"):
+		directory_path = "res://" + directory_path
+	
+	if directory_path.ends_with("/"):
+		directory_path = directory_path.substr(0, directory_path.length() - 1)
+	
+	# List all files in directory
+	var files: PackedStringArray = ResourceLoader.list_directory(directory_path)
+	
+	# Supported audio extensions
+	var supported_extensions: Array[String] = [".wav", ".ogg", ".mp3"]
+	
+	# Process each file
+	for file in files:
+		# Handle subdirectories (they end with "/")
+		if file.ends_with("/"):
+			var subdirectory_path: String = directory_path + "/" + file
+			# Recursively scan subdirectory
+			var subdir_audios = _scan_audio_directory_with_resource_loader(subdirectory_path)
+			loaded_audios.append_array(subdir_audios)
+			continue
+		
+		# Check if file has supported audio extension
+		var file_lower: String = file.to_lower()
+		var is_audio: bool = false
+		
+		for ext in supported_extensions:
+			if file_lower.ends_with(ext):
+				is_audio = true
+				break
+		
+		if not is_audio:
+			continue
+		
+		# Create full path and load
+		var full_path: String = directory_path + "/" + file
+		var audio: AudioStream = load(full_path)
+		if audio:
+			loaded_audios.append(audio)
+		else:
+			push_warning("Failed to load audio file: " + full_path)
+	
+	return loaded_audios
 
 
 func get_footsteps(material: FOOTSTEP_TYPES) -> Array:
@@ -133,30 +185,9 @@ func get_voicelines(enemy_type: ENEMY_TYPE, voice_actor: VOICE_ACTOR ,voice_tag:
 
 ## Returns an array with all voicelines in sound_dir
 func load_cultists_voicelines(sound_dir: String) -> Array[AudioStream]:
-	var loaded_audios: Array[AudioStream] = []
-
-	if sound_dir == "":
+	## Load voicelines using ResourceLoader for build compatibility
+	
+	if sound_dir.is_empty():
 		return []
-
-	if sound_dir.ends_with("/"):
-		sound_dir.erase(sound_dir.length() - 1, 1)
-
-	if !sound_dir.begins_with("res://"):
-		sound_dir = "res://" + sound_dir
-
-	var snd_dir = DirAccess.open(sound_dir)
-	if not is_instance_valid(snd_dir):
-		push_error("Unable to open sound directory :", sound_dir)
-		return []
-
-	snd_dir.include_hidden = false
-	snd_dir.include_navigational = false
-	snd_dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-
-	var sound = snd_dir.get_next()
-	while sound != "":
-		if not sound.ends_with(".import") and (sound.ends_with(".wav") or sound.ends_with(".ogg") or sound.ends_with(".mp3")):
-			loaded_audios.append(load(sound_dir + "/" + sound))
-
-		sound = snd_dir.get_next()
-	return loaded_audios
+	
+	return _scan_audio_directory_with_resource_loader(sound_dir)

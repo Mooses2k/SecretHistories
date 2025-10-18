@@ -45,7 +45,7 @@ func _ready():
 
 # Once per character, randomly choose an appropriate voice for this character
 func choose_voice():
-	if owner is Cultist:   # Later: Neophyte, later more types
+	if owner is HumanoidCharacter and not Player:   # Later: Neophyte, later more types
 		var choose = randi() % 2
 		match choose:
 			0:
@@ -290,3 +290,7 @@ func _play_sound_from_library(cultist_voice_type: AudioLibrary.CULTIST_VOICE_TYP
 	last_speech_line = speech_audio.stream   # Tracked to avoid repeating the same line
 	last_speech_type = cultist_voice_type
 	speech_audio.play()
+
+
+func _on_reload_ammo_character_reloaded() -> void:
+	pass # Replace with function body.

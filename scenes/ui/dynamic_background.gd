@@ -50,40 +50,47 @@ func _ready() -> void:
 
 
 func load_background_images() -> void:
-	## Load all background images from the predefined list, excluding the special image
+	## Load all background images dynamically using ResourceLoader.list_directory
 	print("Loading background images from: ", background_directory)
 	
-	# Predefined list of background image filenames to avoid DirAccess method not working in builds
-	var image_filenames: Array[String] = [
-		"06-00391-2082957616.png",
-		"00008-787729727.png",
-		"00009-1236426289.png",
-		"00014-720767209.png",
-		"00015-1928675650.png",
-		"00020-187638769.png",
-		"00035-3305186785.png",
-		"00044-1825481839.png",
-		"00054-3758638628.png",
-		"00236-1921911877.png",
-		"00305-2505864101.png",
-		"00306-2505864102.png",
-		"00318-252378031.png",
-		"00332-3766491186.png",
-		"00352-3959123771.png",
-		"00373-2075715374.png",
-		"00382-848652815.png",
-		"00404-908592793.png",
-		"00659-3865673013.png",
-		"00787-2213723471.png",
-		"00848-2078861591.png",
-		"00852-1050146515.png",
-		"00880-2251940560.png",
-		"01036-2370997828.png",
-	]
+	# Get full directory path
+	var full_directory_path: String = "res://" + background_directory
+	print("Full directory path: ", full_directory_path)
 	
-	# Convert to full paths and verify each image can be loaded
-	for filename in image_filenames:
-		var full_path: String = "res://" + background_directory + filename
+	# List all files in directory
+	var files: PackedStringArray
+	files = ResourceLoader.list_directory(full_directory_path)
+	
+	print("Found ", files.size(), " files/directories in directory:")
+	for i in range(files.size()):
+		print("  [", i, "] ", files[i])
+	
+	# Supported image extensions
+	var supported_extensions: Array[String] = [".png", ".jpg", ".jpeg"]
+	
+	# Process each file
+	for file in files:
+		# Skip directories (they end with "/")
+		if file.ends_with("/"):
+			print("Skipping directory: ", file)
+			continue
+			
+		# Check if file has supported image extension
+		var file_lower: String = file.to_lower()
+		var is_image: bool = false
+		
+		for ext in supported_extensions:
+			if file_lower.ends_with(ext):
+				is_image = true
+				break
+		
+		if not is_image:
+			print("Skipping non-image file: ", file)
+			continue
+		
+		# Create full path
+		var full_path: String = full_directory_path + file
+		print("Processing image file: ", file, " -> ", full_path)
 		
 		# Exclude the special cathedral image from random selection
 		if full_path != special_image_path:
@@ -91,9 +98,11 @@ func load_background_images() -> void:
 			var test_image: Texture2D = load(full_path)
 			if test_image:
 				background_images.append(full_path)
-				print("Found background image: ", filename)
+				print("✓ Found background image: ", file)
 			else:
-				push_warning("Failed to load background image: " + full_path)
+				push_warning("✗ Failed to load background image: " + full_path)
+		else:
+			print("Skipping special image: ", file)
 	
 	print("Total background images found (excluding special): ", background_images.size())
 	if background_images.is_empty():

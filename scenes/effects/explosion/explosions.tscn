@@ -1,28 +1,336 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4cyksqrscr1n"]
+[gd_scene load_steps=33 format=3 uid="uid://c4cyksqrscr1n"]
 
-[ext_resource type="Material" uid="uid://67a0nyjvrode" path="res://scenes/effects/explosion/material.tres" id="1"]
-[ext_resource type="Script" uid="uid://bb1u1ea7esndf" path="res://scenes/effects/explosion/explosions.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://hsdv1agd3pqe" path="res://scenes/effects/explosion/smokesprite.png" id="1_4omy3"]
+[ext_resource type="Texture2D" uid="uid://dj11fsfhn8k4b" path="res://scenes/effects/explosion/normal+.png" id="1_hqa8q"]
+[ext_resource type="Script" path="res://scenes/effects/explosion/explosions.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://cr1qtbeyl3sre" path="res://scenes/effects/explosion/normal-.png" id="2_mkoqj"]
+[ext_resource type="Texture2D" uid="uid://bciednm5xtoxq" path="res://resources/effects/particlePack_1.1/PNG (Transparent)/circle_05.png" id="5_shpsw"]
+
+[sub_resource type="Shader" id="Shader_bjcq8"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform int particles_anim_h_frames : hint_range(1, 128);
+uniform int particles_anim_v_frames : hint_range(1, 128);
+uniform bool particles_anim_loop;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+// The albedo color of the explosion
+uniform sampler2D smoke_color_ramp : source_color, repeat_disable;
+
+// The gradient for the orange flare in the middle of the explosion
+uniform sampler2D smoke_emission_ramp :  source_color, repeat_disable;
+uniform sampler2D smoke_emission_falloff :  source_color, repeat_disable;
+// used for the initial flash
+uniform sampler2D smoke_emission_ramp_2 : source_color, repeat_disable;
+
+uniform sampler2D normal_1;
+uniform sampler2D normal_2;
+
+// Use the vertex color parameter to pass the particle data to the fragment shader 
+varying vec4 vertex_color;
+
+uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nearest;
+uniform float proximity_fade_distance;
+
+
+// Animated billboard code (unmodified from the standard material conversion)
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+
+	// Billboard Mode: Particles
+	mat4 mat_world = mat4(
+			normalize(INV_VIEW_MATRIX[0]),
+			normalize(INV_VIEW_MATRIX[1]),
+			normalize(INV_VIEW_MATRIX[2]),
+			MODEL_MATRIX[3]);
+	mat_world = mat_world * mat4(
+			vec4(cos(INSTANCE_CUSTOM.x), -sin(INSTANCE_CUSTOM.x), 0.0, 0.0),
+			vec4(sin(INSTANCE_CUSTOM.x), cos(INSTANCE_CUSTOM.x), 0.0, 0.0),
+			vec4(0.0, 0.0, 1.0, 0.0),
+			vec4(0.0, 0.0, 0.0, 1.0));
+	MODELVIEW_MATRIX = VIEW_MATRIX * mat_world;
+
+	// Billboard Keep Scale: Enabled
+	MODELVIEW_MATRIX = MODELVIEW_MATRIX * mat4(
+			vec4(length(MODEL_MATRIX[0].xyz), 0.0, 0.0, 0.0),
+			vec4(0.0, length(MODEL_MATRIX[1].xyz), 0.0, 0.0),
+			vec4(0.0, 0.0, length(MODEL_MATRIX[2].xyz), 0.0),
+			vec4(0.0, 0.0, 0.0, 1.0));
+
+
+	MODELVIEW_NORMAL_MATRIX = mat3(MODELVIEW_MATRIX);
+
+	float h_frames = float(particles_anim_h_frames);
+	float v_frames = float(particles_anim_v_frames);
+	float particle_total_frames = float(particles_anim_h_frames * particles_anim_v_frames);
+	float particle_frame = floor(INSTANCE_CUSTOM.z * float(particle_total_frames));
+	if (!particles_anim_loop) {
+		particle_frame = clamp(particle_frame, 0.0, particle_total_frames - 1.0);
+	} else {
+		particle_frame = mod(particle_frame, particle_total_frames);
+	}
+	UV /= vec2(h_frames, v_frames);
+	UV += vec2(mod(particle_frame, h_frames) / h_frames, floor((particle_frame + 0.5) / h_frames) / v_frames);
+	
+	vertex_color = INSTANCE_CUSTOM;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = texture(smoke_color_ramp, vec2(albedo_tex.r,0.5)).rgb;
+
+
+	// Emission is offset by both the particle age (vertex_color.y) and the brightness of the albedo texture (albedo_tex.r)
+	vec3 _emission_faloff = texture(smoke_emission_falloff, vertex_color.yy*0.5).rgb;
+	_emission_faloff += (albedo_tex.r);
+	_emission_faloff += 0.1;
+	
+	EMISSION = texture(smoke_emission_ramp , vec2(_emission_faloff.r,0.5)).rgb*5.0;
+	EMISSION += texture(smoke_emission_ramp_2 , vertex_color.yy).rgb*5.0;
+	
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	
+	// honestly idk why the godot3 version subtracted 2 normal textures, decided to just replicate it
+	NORMAL = texture(normal_1, base_uv).rgb-texture(normal_2, base_uv).rgb;
+	
+	ALPHA = albedo_tex.a;
+	
+	// Proximity Fade: Enabled
+	float depth_tex = textureLod(depth_texture, SCREEN_UV, 0.0).r;
+	depth_tex += albedo_tex.r*0.02;
+	vec4 world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_tex, 1.0);
+	world_pos.xyz /= world_pos.w;
+	ALPHA *= clamp(1.0 - smoothstep(world_pos.z + proximity_fade_distance, world_pos.z, VERTEX.z), 0.0, 1.0);
+	
+	
+	
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_r35ja"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5kb8v"]
+gradient = SubResource("Gradient_r35ja")
+
+[sub_resource type="Gradient" id="Gradient_5u0my"]
+offsets = PackedFloat32Array(0, 0.90939, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.878089, 0.878089, 0.878089, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cjw6e"]
+gradient = SubResource("Gradient_5u0my")
+
+[sub_resource type="Gradient" id="Gradient_q55gu"]
+offsets = PackedFloat32Array(0.014827, 0.0741351, 0.121911, 0.215815, 0.561779, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.633138, 0.161458, 1, 1, 0.3125, 0, 1, 0.03125, 0.0148722, 0.00504557, 1, 0.0260417, 0.0239224, 0.0226508, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rtlbe"]
+gradient = SubResource("Gradient_q55gu")
+
+[sub_resource type="Gradient" id="Gradient_i7nug"]
+offsets = PackedFloat32Array(0, 0.0313015, 0.0658979)
+colors = PackedColorArray(1, 0.816406, 0.510417, 1, 1, 0.4375, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_i0kso"]
+gradient = SubResource("Gradient_i7nug")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8a3ji"]
+render_priority = 0
+shader = SubResource("Shader_bjcq8")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/particles_anim_h_frames = 8
+shader_parameter/particles_anim_v_frames = 8
+shader_parameter/particles_anim_loop = false
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/proximity_fade_distance = 0.001
+shader_parameter/texture_albedo = ExtResource("1_4omy3")
+shader_parameter/smoke_color_ramp = SubResource("GradientTexture1D_5kb8v")
+shader_parameter/smoke_emission_ramp = SubResource("GradientTexture1D_rtlbe")
+shader_parameter/smoke_emission_falloff = SubResource("GradientTexture1D_cjw6e")
+shader_parameter/smoke_emission_ramp_2 = SubResource("GradientTexture1D_i0kso")
+shader_parameter/normal_1 = ExtResource("1_hqa8q")
+shader_parameter/normal_2 = ExtResource("2_mkoqj")
+
+[sub_resource type="Curve" id="Curve_yvshh"]
+_data = [Vector2(0, 0.592453), 0.0, 4.35423, 0, 0, Vector2(0.252026, 1), 0.821755, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_srw1k"]
+curve = SubResource("Curve_yvshh")
 
 [sub_resource type="ParticleProcessMaterial" id="1"]
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
 gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_srw1k")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_min = 0.0464
+anim_offset_max = 0.0975
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 1
 
-[sub_resource type="QuadMesh" id="5"]
+[sub_resource type="QuadMesh" id="QuadMesh_rm4by"]
 
 [sub_resource type="SphereShape3D" id="6"]
 radius = 2.45528
 
+[sub_resource type="BoxMesh" id="BoxMesh_heuh4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qsy22"]
+
+[sub_resource type="Shader" id="Shader_40ign"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float proximity_fade_distance : hint_range(0.0, 4096.0, 0.01);
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+uniform sampler2D depth_texture : hint_depth_texture, repeat_disable, filter_nearest;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	ALPHA *= albedo.a * albedo_tex.a;
+
+	// Proximity Fade: Enabled
+	float depth_tex = textureLod(depth_texture, SCREEN_UV, 0.0).r;
+	vec4 world_pos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth_tex, 1.0);
+	world_pos.xyz /= world_pos.w;
+	ALPHA *= clamp(1.0 - smoothstep(world_pos.z + proximity_fade_distance, world_pos.z, VERTEX.z), 0.0, 1.0);
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rqspf"]
+render_priority = 0
+shader = SubResource("Shader_40ign")
+shader_parameter/albedo = Color(1, 0.0677083, 0.0677083, 1)
+shader_parameter/proximity_fade_distance = 1.0
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a147w"]
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_shpsw")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_4fyrk"]
+offsets = PackedFloat32Array(0.100671, 0.194631, 0.399329, 0.681208)
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.173828, 0.0208333, 1, 1, 0.21875, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ux5ng"]
+gradient = SubResource("Gradient_4fyrk")
+
+[sub_resource type="CurveTexture" id="CurveTexture_18wrc"]
+
+[sub_resource type="Curve" id="Curve_mrprd"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 15.7758, 0, 0, Vector2(0.0520505, 0.581132), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7y76f"]
+curve = SubResource("Curve_mrprd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ej5gc"]
+spread = 180.0
+initial_velocity_max = 30.0
+scale_min = 0.0
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_7y76f")
+color_ramp = SubResource("GradientTexture1D_ux5ng")
+emission_curve = SubResource("CurveTexture_18wrc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_k060g"]
+
 [node name="Explosion" type="GPUParticles3D"]
-transform = Transform3D(0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479)
-material_override = ExtResource("1")
-emitting = false
-amount = 20
-lifetime = 1.2
-one_shot = true
-explosiveness = 0.91
+transform = Transform3D(0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00830353, -0.00427759, -0.00714297)
+material_override = SubResource("ShaderMaterial_8a3ji")
+amount = 5
+explosiveness = 0.97
 randomness = 0.84
 visibility_aabb = AABB(-4, -4, -4.79199, 8, 8, 8)
 process_material = SubResource("1")
-draw_pass_1 = SubResource("5")
+draw_pass_1 = SubResource("QuadMesh_rm4by")
 script = ExtResource("2")
 
 [node name="BlastRadius" type="Area3D" parent="."]
@@ -37,5 +345,23 @@ shape = SubResource("6")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.2
 one_shot = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.52104)
+visible = false
+mesh = SubResource("BoxMesh_heuh4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999969, -0.00783645, 0, 0.00783645, 0.999969, -0.517135, 0.185149, 0.85912)
+visible = false
+mesh = SubResource("BoxMesh_qsy22")
+surface_material_override/0 = SubResource("ShaderMaterial_rqspf")
+
+[node name="FragParticles" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_a147w")
+amount = 128
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ej5gc")
+draw_pass_1 = SubResource("QuadMesh_k060g")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

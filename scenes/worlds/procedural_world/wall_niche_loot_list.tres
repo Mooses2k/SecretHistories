@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ObjectSpawnList" load_steps=2 format=3 uid="uid://o2fcv7nghfv5"]
+
+[ext_resource type="Script" uid="uid://c110tf1hiympn" path="res://scenes/worlds/procedural_world/object_spawn_list.gd" id="1_7ca8v"]
+
+[resource]
+script = ExtResource("1_7ca8v")
+_paths = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_box.tscn", "", "", "", "uid://dek0ixbl37sw7", "uid://kv6wq1slt01x", "", "res://scenes/objects/pickable_items/equipment/melee/knife_old/knife_old.tscn", "res://scenes/objects/pickable_items/equipment/melee/sap/sap.tscn", "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle_short.tscn", "uid://coa05ro0d4wx", "", "", "", "", "", "res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_casing.tscn", "res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_round.tscn", "res://scenes/objects/pickable_items/tiny/ammo/shotgun_shells/12-gauge_shotgun_shell.tscn", "res://scenes/objects/pickable_items/tiny/ammo/webley/webley_casing.tscn", "res://scenes/objects/pickable_items/tiny/ammo/webley/webley_round.tscn"]
+_weights = [5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 10, 5, 1, 10, 5, 1000, 1000, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+_min_amounts = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+_max_amounts = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]

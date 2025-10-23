@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bs375p3exel4b" path="res://scenes/objects/large_objects/sarcophagi/sarcophagus_lid_knight.tscn" id="4"]
 [ext_resource type="Script" uid="uid://bmp2xupu848ru" path="res://scenes/objects/large_objects/sarcophagi/sarcophagus.gd" id="5"]
 [ext_resource type="Script" uid="uid://cf7gtoudmk5ua" path="res://utils/auto_free.gd" id="6"]
-[ext_resource type="PackedScene" uid="uid://cykkk7776h00v" path="res://scenes/objects/large_objects/large_object_item_spawn.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://bvn8k7h2qxr4p" path="res://scenes/worlds/procedural_world/anchor_spawner.tscn" id="7"]
 
 [sub_resource type="Animation" id="3"]
 resource_name = "RESET"
@@ -306,7 +306,7 @@ mesh = SubResource("1")
 surface_material_override/0 = SubResource("2")
 script = ExtResource("6")
 
-[node name="ItemGeneratorOnPlacementAnchor" parent="." instance=ExtResource("7")]
+[node name="AnchorSpawner" parent="." instance=ExtResource("7")]
 anchors_parent = NodePath("../SarcophagusBase")
 max_items_to_spawn = 1
 

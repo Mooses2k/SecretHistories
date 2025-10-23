@@ -116,6 +116,10 @@ func handle_tiny_items(item: PickableItem) -> bool:
 
 		insert_tiny_item(item.item_data, item.amount)
 
+		# Play pickup sound before destroying the item
+		if item.has_method("play_pickup_sound"):
+			item.play_pickup_sound()
+
 		# To make sure the item can't be interacted with again
 		item.set_item_state(GlobalConsts.ItemState.BUSY)
 		item.queue_free()
@@ -480,7 +484,8 @@ func equip_mainhand_item():
 	assert(character.main_hand_root != null, "Main hand root should not be null")
 
 	var item : EquipmentItem = hotbar[current_mainhand_slot] as EquipmentItem
-	if item:
+	if item and is_instance_valid(item):
+		print("[DEBUG] equip_mainhand_item - equipping valid item: ", item)
 		# Can't equip a Bulky Item simultaneously with a normal item
 		drop_bulky_item()
 		# Can't equip item in both hands
@@ -500,11 +505,14 @@ func equip_mainhand_item():
 		else:
 			character.main_hand_root.add_child(item)
 		emit_signal("inventory_changed")
+	else:
+		print("[DEBUG] equip_mainhand_item - item is null or invalid: ", item)
 
 ## Perfoms heavy logic to unequip the mainhand_item, it uses the var current_mainhand_equipment
 func unequip_mainhand_item():
 	# temporary hack (issue #409)
 	if not is_instance_valid(current_mainhand_equipment):
+		print("[DEBUG] unequip_mainhand_item - current_mainhand_equipment is invalid, clearing it")
 		current_mainhand_equipment = null
 
 	if current_mainhand_equipment == null:   # No item equipped
@@ -513,6 +521,7 @@ func unequip_mainhand_item():
 	emit_signal("unequip_mainhand")
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
+	print("[DEBUG] unequip_mainhand_item - unequipping: ", item, " setting current_mainhand_equipment to null")
 	if item != null:
 		if item.can_attach == true:
 			pass
@@ -589,6 +598,12 @@ func equip_offhand_item():
 
 	# Can't equip a Bulky Item simultaneously with a normal item
 	drop_bulky_item()
+	
+	# Safety check to prevent equipping freed instances
+	if not is_instance_valid(item):
+		print("[DEBUG] equip_offhand_item - item is invalid, cannot equip")
+		return
+		
 	item.item_state = GlobalConsts.ItemState.EQUIPPED
 	current_offhand_equipment = item
 	# Waits for the item to exit the tree, if necessary
@@ -628,11 +643,33 @@ func drop_mainhand_item():
 
 
 func get_mainhand_item() -> EquipmentItem:
-	return bulky_equipment if bulky_equipment else current_mainhand_equipment
+	# Check bulky equipment first
+	if bulky_equipment != null:
+		if not is_instance_valid(bulky_equipment):
+			print("[DEBUG] get_mainhand_item - bulky_equipment is invalid, clearing it")
+			bulky_equipment = null
+			return null
+		return bulky_equipment
+	
+	# Check mainhand equipment
+	if current_mainhand_equipment != null:
+		if not is_instance_valid(current_mainhand_equipment):
+			print("[DEBUG] get_mainhand_item - current_mainhand_equipment is invalid, clearing it")
+			current_mainhand_equipment = null
+			return null
+		return current_mainhand_equipment
+	
+	return null
 
 
 func get_offhand_item() -> EquipmentItem:
-	return current_offhand_equipment
+	if current_offhand_equipment != null:
+		if not is_instance_valid(current_offhand_equipment):
+			print("[DEBUG] get_offhand_item - current_offhand_equipment is invalid, clearing it")
+			current_offhand_equipment = null
+			return null
+		return current_offhand_equipment
+	return null
 
 
 func has_bulky_item() -> bool:
@@ -647,6 +684,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 	assert(slot >= 0 and slot < hotbar.size(), "Invalid slot index in drop_hotbar_slot")
 
 	var item = hotbar[slot]
+	print("[DEBUG] drop_hotbar_slot called for slot: ", slot, " item: ", item)
 	if item != null:
 		var item_node = item as EquipmentItem
 		if item_node == null:
@@ -654,6 +692,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 			return item
 
 		if item_node.stackable_resource == null:
+			print("[DEBUG] Non-stackable item drop: ", item_node.name)
 			hotbar[slot] = null
 			if current_mainhand_equipment == item_node:
 				unequip_mainhand_item()
@@ -674,9 +713,11 @@ func drop_hotbar_slot(slot : int) -> Node:
 
 			var hand = null
 			if current_mainhand_equipment == item_node:
+				print("[DEBUG] Unequipping from mainhand")
 				unequip_mainhand_item()
 				hand = HandEnum.MAIN_HAND
 			elif current_offhand_equipment == item_node:
+				print("[DEBUG] Unequipping from offhand")
 				unequip_offhand_item()
 				hand = HandEnum.OFF_HAND
 
@@ -685,8 +726,8 @@ func drop_hotbar_slot(slot : int) -> Node:
 
 			# Remove one item from the stack (this decrements the count)
 			if item.stackable_resource.items_stacked.size() > 0:
-				item.stackable_resource.items_stacked.pop_back()
-				print("[DEBUG] Stack size after removal: ", item.stackable_resource.items_stacked.size())
+				var removed_item = item.stackable_resource.items_stacked.pop_back()
+				print("[DEBUG] Removed item from stack: ", removed_item, " new stack size: ", item.stackable_resource.items_stacked.size())
 
 			# Check if there are still items left in the stack
 			if item.stackable_resource.items_stacked.size() > 0:
@@ -696,17 +737,27 @@ func drop_hotbar_slot(slot : int) -> Node:
 				# Just update the UI to reflect the new stack size
 				emit_signal("hotbar_changed", slot)
 
-				# Re-equip the stack
+				# Re-equip the stack with new top item
 				match hand:
 					HandEnum.MAIN_HAND:
+						print("[DEBUG] Re-equipping mainhand with new top item from stack")
 						equip_mainhand_item()
 					HandEnum.OFF_HAND:
+						print("[DEBUG] Re-equipping offhand with new top item from stack")
 						equip_offhand_item()
 			else:
 				print("[DEBUG] No items remaining in stack, clearing hotbar slot")
 
 				# Clear the hotbar slot since this was the last item
 				hotbar[slot] = null
+				
+				# Also clear equipment references if they point to this item
+				if current_mainhand_equipment == item:
+					print("[DEBUG] Clearing mainhand equipment reference")
+					current_mainhand_equipment = null
+				if current_offhand_equipment == item:
+					print("[DEBUG] Clearing offhand equipment reference")
+					current_offhand_equipment = null
 
 			# Drop the hotbar item (represents one item from the stack)
 			if item_node.can_attach == true:

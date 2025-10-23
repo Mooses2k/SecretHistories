@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvn8k7h2qxr4p"]
+
+[ext_resource type="Script" path="res://scenes/worlds/procedural_world/anchor_spawner.gd" id="1"]
+
+[node name="AnchorSpawner" type="Node"]
+script = ExtResource("1")

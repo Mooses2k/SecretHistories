@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://d1lbexonric4u"]
+[gd_scene load_steps=39 format=3 uid="uid://d1lbexonric4u"]
 
 [ext_resource type="PackedScene" uid="uid://b2lftnajs8166" path="res://scenes/worlds/game_world.tscn" id="1"]
 [ext_resource type="Script" uid="uid://ckjgf5qsg358a" path="res://scenes/worlds/procedural_world/procedural_world.gd" id="2"]
@@ -7,7 +7,6 @@
 [ext_resource type="MeshLibrary" uid="uid://b1txwxwvti23n" path="res://resources/mesh_libraries/modular_pieces.meshlib" id="5"]
 [ext_resource type="Script" uid="uid://ctdrd26tvynoq" path="res://scenes/worlds/world_gen/generation_steps/generate_room_purposes.gd" id="6"]
 [ext_resource type="Resource" uid="uid://g6sf4jtvvirj" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/fountain_room.tres" id="7"]
-[ext_resource type="Resource" uid="uid://bgkc5x21fmrtf" path="res://scenes/worlds/procedural_world/initial_loot_list.tres" id="8"]
 [ext_resource type="PackedScene" uid="uid://cbk46yj8v47ex" path="res://utils/debug_scenes/room_graph_viz/room_graph_viz.tscn" id="9"]
 [ext_resource type="Script" uid="uid://bn2pr1ol67q5q" path="res://scenes/worlds/world_gen/generation_steps/generation_group.gd" id="10"]
 [ext_resource type="Script" uid="uid://cu8brs7v4mha0" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_candelabra.gd" id="11"]
@@ -30,10 +29,14 @@
 [ext_resource type="Script" uid="uid://dgv1hl4fa1gy5" path="res://scenes/worlds/world_gen/generation_steps/generate_doors.gd" id="28"]
 [ext_resource type="PackedScene" uid="uid://b8fhjqun0honf" path="res://scenes/objects/large_objects/doors/base_kinematic_door.tscn" id="29"]
 [ext_resource type="Script" uid="uid://dyw5r7nuidqua" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_wall_objects.gd" id="29_80e3b"]
+[ext_resource type="Resource" uid="uid://bgkc5x21fmrtf" path="res://scenes/worlds/procedural_world/initial_loot_list.tres" id="29_u6wr6"]
 [ext_resource type="Resource" uid="uid://dksw0hp0yy3gl" path="res://scenes/worlds/procedural_world/sarco_shard_list.tres" id="30"]
 [ext_resource type="Resource" uid="uid://coo2c3wk1hede" path="res://scenes/worlds/world_gen/generation_steps/populate_room/portrait_frame_spawn_list.tres" id="30_t34fi"]
 [ext_resource type="Resource" uid="uid://cwkonr55ypwpd" path="res://scenes/worlds/world_gen/generation_steps/populate_room/wall_object_spawn_list.tres" id="30_xitby"]
 [ext_resource type="Script" uid="uid://donwvlqymokbh" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_statue_fountain.gd" id="31"]
+[ext_resource type="Script" uid="uid://ppbch1k85g6" path="res://scenes/worlds/world_gen/generation_steps/generate_initial_settings_items.gd" id="32"]
+[ext_resource type="Script" uid="uid://c30wpy5y4x4sh" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_wall_niche_items.gd" id="33"]
+[ext_resource type="Resource" uid="uid://o2fcv7nghfv5" path="res://scenes/worlds/procedural_world/wall_niche_loot_list.tres" id="34_u6wr6"]
 
 [sub_resource type="StandardMaterial3D" id="3"]
 shading_mode = 0
@@ -153,12 +156,15 @@ script = ExtResource("10")
 script = ExtResource("11")
 _spawn_list_resource = ExtResource("12")
 
-[node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
+[node name="GenerateInitialSettingsItems" type="Node" parent="GenerationManager/PopulateRooms" index="3"]
+script = ExtResource("32")
+
+[node name="GenerateInitialLoot" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
 script = ExtResource("14")
-_loot_list_resource = ExtResource("8")
+_loot_list_resource = ExtResource("29_u6wr6")
 _max_loot = 5
 
-[node name="GenerateWallObjects" type="Node" parent="GenerationManager/PopulateRooms" index="4"]
+[node name="GenerateWallObjects" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
 script = ExtResource("29_80e3b")
 portrait_frame_spawn_list = ExtResource("30_t34fi")
 square_frame_spawn_list = ExtResource("30_t34fi")
@@ -167,13 +173,18 @@ wide_landscape_frame_spawn_list = ExtResource("30_t34fi")
 wall_object_spawn_list_resource = ExtResource("30_xitby")
 _spawn_chance = 5.0
 
-[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="5"]
+[node name="GenerateWallNicheItems" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
+script = ExtResource("33")
+_niche_loot_list_resource = ExtResource("34_u6wr6")
+_max_niche_items = 2
+
+[node name="GenerateSkeletalRemains" type="Node" parent="GenerationManager/PopulateRooms" index="7"]
 script = ExtResource("14")
 _loot_list_resource = ExtResource("16")
 _min_loot = 3
 _max_loot = 5
 
-[node name="GenerationCultists" type="Node" parent="GenerationManager/PopulateRooms" index="6"]
+[node name="GenerateCultists" type="Node" parent="GenerationManager/PopulateRooms" index="8"]
 script = ExtResource("15")
 _character_scene_path = "res://scenes/characters/cultist/neophyte.tscn"
 _density_by_type = {

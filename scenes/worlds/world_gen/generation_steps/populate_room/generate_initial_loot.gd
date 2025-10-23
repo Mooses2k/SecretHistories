@@ -66,7 +66,7 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 	var possible_cells := _cell_filter.filter_cells(data, null, _rng)
 	
 	for _i in draw_amount:
-		var spawn_data := loot_list.get_random_spawn_data(_rng)
+		var base_spawn_data := loot_list.get_random_spawn_data(_rng)
 		
 		if possible_cells.is_empty():
 			return
@@ -75,13 +75,18 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 		var cell_index := possible_cells[lucky_index] as int
 		possible_cells.remove_at(lucky_index)
 		
+		# Convert to ItemSpawnData for unified spawning system
+		var spawn_data := ItemSpawnData.new()
+		spawn_data.scene_path = base_spawn_data.scene_path
+		spawn_data.amount = base_spawn_data.amount
+		
 		# Use CellFilter utility for cell position
 		var cell_position := CellFilter.get_cell_position(data, cell_index)
 		var cell_radius := data.CELL_SIZE * 0.5
 		spawn_data.set_random_position_in_cell(
-				_rng, 
-				cell_position, 
-				cell_radius * _min_radius_multiplier, 
+				_rng,
+				cell_position,
+				cell_radius * _min_radius_multiplier,
 				cell_radius * _max_radius_multiplier
 		)
 		

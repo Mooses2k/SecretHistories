@@ -10,7 +10,7 @@ var world_data : WorldData
 @onready var gridmaps = $Gridmaps
 @onready var navigation = $Navigation
 
-@onready var _spawners := [$ItemSpawner, $CharacterSpawner]
+@onready var _spawners := [$CharacterSpawner]
 
 
 func _ready() -> void:
@@ -55,6 +55,11 @@ func grid_to_world(position : Vector3) -> Vector3:
 
 
 func _connect_signals() -> void:
+	# Connect generation_finished to unified spawning system
+	if not is_connected("generation_finished", Callable(self, "_on_generation_finished")):
+		connect("generation_finished", Callable(self, "_on_generation_finished"))
+	
+	# Connect remaining spawners (CharacterSpawner for continuous spawning)
 	for node in _spawners:
 		var spawner := node as Spawner
 		if not is_connected("generation_finished", Callable(spawner, "_on_game_world_generation_finished")):
@@ -64,7 +69,44 @@ func _connect_signals() -> void:
 			spawner.connect("spawning_finished", Callable(self, "_on_spawner_spawning_finished"))
 
 
+func _on_generation_finished() -> void:
+	# Spawn all world data objects using unified spawn_data system
+	_spawn_world_data_objects()
+	
+	# Defer the completion check to ensure await has time to connect
+	call_deferred("_check_spawning_completion")
+
+
+func _spawn_world_data_objects() -> void:
+	var objects_to_spawn := world_data.get_objects_to_spawn()
+	var characters_to_spawn := world_data.get_characters_to_spawn()
+	
+	# Spawn regular objects using unified SpawnData interface
+	for cell_index in objects_to_spawn:
+		var spawn_data := objects_to_spawn[cell_index] as SpawnData
+		spawn_data.spawn_item_in(self, true)  # Enable logging
+	
+	# Spawn characters using unified SpawnData interface
+	# Use CharacterSpawner's characters_root for proper organization
+	var character_spawner := $CharacterSpawner as CharacterSpawner
+	
+	if not character_spawner.characters_root:
+		push_error("GameWorld: characters_root is null! CharacterSpawner._ready() hasn't run yet!")
+		return
+	
+	for cell_index in characters_to_spawn:
+		var spawn_data := characters_to_spawn[cell_index] as CharacterSpawnData
+		# Configure spawn data with CharacterSpawner's loadout settings
+		spawn_data.configure_character_loadout(character_spawner.character_loadout)
+		spawn_data.configure_continuous_spawning(character_spawner.continuous_spawn_level, character_spawner.continuous_spawn_max)
+		spawn_data.spawn_character_in(character_spawner.characters_root, true)  # Enable logging
+
+
 func _on_spawner_spawning_finished() -> void:
+	_check_spawning_completion()
+
+
+func _check_spawning_completion() -> void:
 	var has_all_finished := true
 
 	for node in _spawners:

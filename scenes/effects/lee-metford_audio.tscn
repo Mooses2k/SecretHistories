@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://3yt01mio2buf"]
 
-[ext_resource type="Script" uid="uid://cgg5cldjl72kb" path="res://scenes/effects/martini_audio.gd" id="1"]
+[ext_resource type="Script" uid="uid://dimm5wowr182h" path="res://scenes/effects/lee-metford_audio.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://csfrawtvf202i" path="res://resources/sounds/gunshots/450853__kyles__gun-lee-enfield-303-rifle-clean-shot.wav" id="2"]
 
 [node name="MartiniAudio" type="AudioStreamPlayer3D"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bdyoahtpn3bnl"]
 
 [ext_resource type="AudioStream" uid="uid://dentyj4ortuc8" path="res://resources/sounds/gunshots/Webley_shot_1.wav" id="1"]
-[ext_resource type="Script" uid="uid://dxo20xl1p43l0" path="res://scenes/effects/shotgun_audio.gd" id="2"]
+[ext_resource type="Script" uid="uid://bgkxi4y5bxwrb" path="res://scenes/effects/webley_audio.gd" id="2"]
 
 [node name="ShotgunAudio" type="AudioStreamPlayer3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)

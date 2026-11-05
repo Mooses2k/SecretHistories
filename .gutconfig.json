@@ -1,0 +1,8 @@
+{
+	"dirs": [
+		"res://tests/unit"
+	],
+	"include_subdirs": false,
+	"prefix": "test_",
+	"should_exit": true
+}

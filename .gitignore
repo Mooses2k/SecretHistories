@@ -12,6 +12,9 @@ data_*/
 # Local planning / research docs (not for the repo)
 /docs/
 
+# Local agent bridge (McpInteractionServer), never pushed to remote
+/autoload/
+
 # General
 *.log
 *.lock

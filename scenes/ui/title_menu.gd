@@ -24,8 +24,14 @@ func _input(event):
 		VideoSettings.set_fullscreen_enabled(!VideoSettings.fullscreen_enabled)
 
 
+const SAVE_SCREEN_SCN := preload("res://scenes/ui/save/save_game_screen.tscn")
+
+
 func _on_ContinueButton_pressed():
-	pass   # Replace with function body once save/load implemented.
+	var screen: Control = SAVE_SCREEN_SCN.instantiate()
+	screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	screen.set_mode("load")
+	add_child(screen)
 
 
 func _on_StartButton_pressed():

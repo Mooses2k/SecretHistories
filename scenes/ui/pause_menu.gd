@@ -54,7 +54,7 @@ func _on_EscMenu_button_pressed(button) -> void:
 		esc_menu.EscMenuButtons.RESUME:
 			owner.gui_state = owner.GUIState.HUD
 		esc_menu.EscMenuButtons.SAVE:
-			print_debug("Saving not yet implemented")
+			_open_save_screen()
 
 		esc_menu.EscMenuButtons.SETTINGS:
 			self.gui_state = PauseMenuState.SETTINGS_MENU
@@ -68,6 +68,24 @@ func _on_EscMenu_button_pressed(button) -> void:
 
 			# TODO: quit to main menu is preferred, but this doesn't work:
 #			var _error = get_tree().change_scene("res://scenes/ui/title_menu.tscn")
+
+
+func _open_save_screen() -> void:
+	# Capture the screenshot before the picker covers the viewport.
+	if not DisplayServer.get_name() == "headless":
+		var viewport: Viewport = get_viewport()
+		if viewport != null:
+			SaveManager.set_pending_screenshot(viewport.get_texture().get_image())
+	var screen: Control = preload("res://scenes/ui/save/save_game_screen.tscn").instantiate()
+	screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	screen.set_mode("save")
+	screen.operation_completed.connect(_on_save_screen_completed)
+	add_child(screen)
+
+
+func _on_save_screen_completed(success: bool, _message: String) -> void:
+	if success:
+		owner.gui_state = owner.GUIState.HUD
 
 
 func _on_SettingsMenu_settings_menu_exited() -> void:

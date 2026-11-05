@@ -57,6 +57,7 @@ func _init():
 
 
 func _ready():
+	SaveManager.register_game(self)   # save/load hooks: load overlay + autosave
 	set_brightness()
 	load_screen.show_message()
 	for floor_index in range(HIGHEST_FLOOR_LEVEL, LOWEST_FLOOR_LEVEL - 1, -1):
@@ -89,6 +90,7 @@ func set_brightness():
 
 func load_level(packed : PackedScene):
 	if _loaded_levels[current_floor_level] == null:
+		SaveManager.note_rng_state()   # capture the stream position this floor's generation starts from
 		level = packed.instantiate() as GameWorld
 		world_root.add_child(level)
 
@@ -213,6 +215,7 @@ func _handle_floor_levels() -> void:
 
 func _set_new_position_for_player(is_going_downstairs: bool) -> void:
 	level.set_player_on_spawn_position(player, is_going_downstairs)
+	SaveManager.autosave_floor_transition()   # design section 4: autosave on staircase floor changes
 	load_screen.finish_loading()
 	await load_screen.clicked
 	load_screen.hide()

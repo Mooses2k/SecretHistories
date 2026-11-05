@@ -130,7 +130,9 @@ func shoot():
 	var raycast_range = raycast.target_position.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)
-#	print("shoot")
+	# Per-collider pellet accumulation: pellets that hit the same target are
+	# applied as one summed damage call instead of one call per pellet.
+	var hit_accumulator : Dictionary = Dictionary()
 	for pellet in ammo_type.pellet_count:
 		var shoot_direction : Vector3 = Vector3.FORWARD.rotated(Vector3.RIGHT, randf() * max_dispersion_radians)
 		shoot_direction = shoot_direction.rotated(Vector3.FORWARD, randf() * 2 * PI)
@@ -142,10 +144,18 @@ func shoot():
 			var global_hit_position = raycast.get_collision_point()
 			var global_hit_direction = raycast.global_transform.basis * (shoot_direction)
 			var global_hit_normal = raycast.get_collision_normal()
-			if target is Hurtbox:# or target.owner.has_method("damage"):
-				target.damage(total_damage, ammo_type.attack_type)
+			if hit_accumulator.has(target):
+				hit_accumulator[target].damage += total_damage
+				hit_accumulator[target].hit_position = global_hit_position
+				hit_accumulator[target].hit_direction = global_hit_direction
+			else:
+				hit_accumulator[target] = {"damage": total_damage, "attack_type": ammo_type.attack_type, "hit_position": global_hit_position, "hit_direction": global_hit_direction}
 			emit_signal("target_hit", target, global_hit_position, global_hit_direction, global_hit_normal)
 	raycast.target_position = Vector3.FORWARD * raycast_range
+	for target in hit_accumulator:
+		if target is Hurtbox:# or target.owner.has_method("damage"):
+			var hit = hit_accumulator[target]
+			target.damage(hit.damage, hit.attack_type, hit.hit_direction, hit.hit_position)
 	current_ammo -= 1
 	apply_knockback(total_damage)
 	print(owner_character, " shoots a ", self)

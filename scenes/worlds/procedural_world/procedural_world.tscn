@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://d1lbexonric4u"]
+[gd_scene load_steps=42 format=3 uid="uid://d1lbexonric4u"]
 
 [ext_resource type="PackedScene" uid="uid://b2lftnajs8166" path="res://scenes/worlds/game_world.tscn" id="1"]
 [ext_resource type="Script" uid="uid://ckjgf5qsg358a" path="res://scenes/worlds/procedural_world/procedural_world.gd" id="2"]
@@ -37,6 +37,14 @@
 [ext_resource type="Script" uid="uid://ppbch1k85g6" path="res://scenes/worlds/world_gen/generation_steps/generate_initial_settings_items.gd" id="32"]
 [ext_resource type="Script" uid="uid://c30wpy5y4x4sh" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_wall_niche_items.gd" id="33"]
 [ext_resource type="Resource" uid="uid://o2fcv7nghfv5" path="res://scenes/worlds/procedural_world/wall_niche_loot_list.tres" id="34_u6wr6"]
+[ext_resource type="Resource" uid="uid://d3tt61np1aakd" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/statue_gallery.tres" id="35"]
+[ext_resource type="Resource" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/trophy_room.tres" id="36"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_statue_gallery.gd" id="37"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_trophy_room.gd" id="38"]
+[ext_resource type="Resource" path="res://scenes/worlds/procedural_world/statue_spawn_list.tres" id="39"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_room_fog.gd" id="40"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_room_dust.gd" id="41"]
+[ext_resource type="Script" path="res://scenes/worlds/world_gen/generation_steps/populate_room/generate_atmosphere_group.gd" id="42"]
 
 [sub_resource type="StandardMaterial3D" id="3"]
 shading_mode = 0
@@ -126,7 +134,7 @@ door_stuck_probability = 0.0
 
 [node name="GenerateRoomPurposes" type="Node" parent="GenerationManager" index="9"]
 script = ExtResource("6")
-purpose_resources = [ExtResource("22"), ExtResource("7")]
+purpose_resources = [ExtResource("22"), ExtResource("7"), ExtResource("35"), ExtResource("36")]
 
 [node name="PopulateRooms" type="Node" parent="GenerationManager" index="10"]
 script = ExtResource("10")
@@ -148,6 +156,15 @@ _force_lid = -1
 script = ExtResource("31")
 room_purpose_data = ExtResource("7")
 fountain_scene_path = "uid://cs1ieq5xxrr18"
+
+[node name="GenerateStatueGallery" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="2"]
+script = ExtResource("37")
+statue_spawn_list = ExtResource("39")
+
+[node name="GenerateTrophyRoom" type="Node" parent="GenerationManager/PopulateRooms/GenerateLargeObjectsItems" index="3"]
+script = ExtResource("38")
+statue_spawn_list = ExtResource("39")
+item_spawn_list = ExtResource("26")
 
 [node name="IlluminationGroup" type="Node" parent="GenerationManager/PopulateRooms" index="2"]
 script = ExtResource("10")
@@ -192,5 +209,14 @@ _density_by_type = {
 2: 0.0,
 3: 0
 }
+
+[node name="AtmosphereGroup" type="Node" parent="GenerationManager/PopulateRooms" index="9"]
+script = ExtResource("42")
+
+[node name="GenerateRoomDust" type="Node" parent="GenerationManager/PopulateRooms/AtmosphereGroup" index="0"]
+script = ExtResource("41")
+
+[node name="GenerateRoomFog" type="Node" parent="GenerationManager/PopulateRooms/AtmosphereGroup" index="1"]
+script = ExtResource("40")
 
 [node name="RoomGraphViz" parent="." index="5" instance=ExtResource("9")]

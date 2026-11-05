@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://bh6qsiqrhr5cc"]
+[gd_scene load_steps=10 format=4 uid="uid://bh6qsiqrhr5cc"]
 
 [ext_resource type="Material" path="res://resources/models/large_objects/pedestal/M_Wall.material" id="1"]
 [ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_sery0"]
 [ext_resource type="Script" uid="uid://bw5hualha4tj4" path="res://scenes/objects/large_objects/placement_anchor.gd" id="3_lb3n3"]
+[ext_resource type="PackedScene" uid="uid://bvn8k7h2qxr4p" path="res://scenes/worlds/procedural_world/anchor_spawner.tscn" id="4_spwn"]
 
 [sub_resource type="ArrayMesh" id="1"]
 resource_name = "pedestal_Object_0"
@@ -63,5 +64,8 @@ shape = SubResource("5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0120674, 1.4243, 0.0076589)
 script = ExtResource("3_lb3n3")
 metadata/_custom_type_script = "uid://bw5hualha4tj4"
+
+[node name="AnchorSpawner" parent="." instance=ExtResource("4_spwn")]
+anchors_parent = NodePath(".")
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

@@ -8,6 +8,9 @@ var item_drop_sound : AudioStream
 var noise_level : float = 0   # Noise detectable by characters; is a float for stamina -> noise conversion if nothing else
 var item_max_noise_level = 0
 
+# Loot scene paths placed by an embedded AnchorSpawner (sarcophagus/pedestal pattern)
+var spawnable_items : PackedStringArray
+
 @onready var impact_audio_manager : ImpactAudioManager
 
 

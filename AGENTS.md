@@ -11,7 +11,7 @@ This file is the entry point and index for AI agents, not the law.
 
 ## 2. License and Assets
 
-- All code is GPLv3.
+- Code is AGPL-3.0 (switched from GPLv3; see LICENSE). Art and audio keep per-asset licenses.
 - Art and audio keep an adjacent attribution file named `<asset>_license.txt` with four lines: name, author, link, license.
 - When reusing external work, in order: (1) reimplement from the idea first; (2) adopt the whole item only with its license intact and notices preserved.
 - Unlicensed means reimplement-only. Never paste unlicensed content.
@@ -50,12 +50,13 @@ Index only; one line each with rationale. Details live in the referenced section
 - NEVER edit files through pwsh or shell redirection. Rationale: Windows PowerShell corrupts UTF-8; use the harness write/edit tools.
 - NO em-dashes anywhere in anything written. Rationale: owner taste, enforced as writing habit.
 - No tree-wide or mechanical mass edits without an explicit per-operation mandate from the owner. Rationale: bulk edits are unauditable; git reverts do not make them safe.
-- Deliver tracked changes in the working tree only. No commits or pushes unless the owner says so. Rationale: the owner controls history.
+- Deliver tracked changes in the working tree only. Ask the owner before EVERY commit; the owner usually verifies each fix first. Rationale: the owner controls history (section 16).
 - Do not invent or commit story or spoiler content. Story plans are owner-secret. Rationale: narrative is the owner's to place.
 - Read big .tscn files partially. Rationale: many embed megabytes of mesh data (section 11).
 - Edit .tscn files through godot_headless_op or the editor-safe tools; never hand-splice inside embedded mesh blocks.
 - Prefer the godot_* management tools over hand-editing project.godot. Rationale: they serialize settings correctly (section 10).
 - Every behavioral claim needs fresh evidence. Rationale: see section 9.
+- Any action on github.com requires the owner's explicit approval first, never inferred. Rationale: public actions are outward-facing and cannot be silently trusted (section 15).
 
 ## 6. Thinking Discipline
 
@@ -147,15 +148,41 @@ The gitignored `/docs/` folder holds working memory; repo-root files are canonic
 - `docs/research/`: research-pass reports.
 - `docs/plans/`: implementation and integration plans.
 - `docs/design/`: owner design notes.
+- `docs/old/`: archive of consumed research and plans; add, do not read as current truth.
 
 Before proposing something new, grep /docs for prior gleans so nothing parked or rejected gets re-proposed.
 Wiki fix drafts also live in /docs until the owner pastes them to GitHub.
 Write research and plan reports as you work, not from memory at the end.
+GitHub issues are the home for anything smaller than a full design. Do not keep a local md copy of a filed issue; delete it once filed.
+Keep /docs free of cruft: when a plan or report is consumed, archive it under /docs/old promptly. Only active work stays in /docs/plans, /docs/research, and /docs/design.
 
 ## 14. Environment Notes (this machine)
 
 - Session workspace: C:\Games\GODOT\SecretHistories, branch dev4, in sync with origin/dev4 at session start.
 - File sandbox is workspace-write with approval-on-ask. Writes outside the workspace fail; network goes through the web tools, not raw sockets.
 - The harness is DSH (DeepSeek Harness). Use harness write/edit tools, not shell redirection.
-- Godot is 4.4, launched only via the bridge (section 10).
+- Godot: project.godot declares features 4.7 and the engine binary on this machine is Godot 4.7-stable (the 4.4 declarations were upgraded on owner instruction; the objective is to track Godot latest). Launched only via the bridge (section 10).
 - Project facts: 13 autoloads, JoltPhysics3D physics, ~40 namespaced input actions (see ARCHITECTURE.md for the systems map).
+
+## 15. GitHub and Public Actions
+
+Read-only browsing (opening the issue list or a PR page through web tools) needs no approval. Everything that WRITES to github.com does, with no exceptions:
+
+- Every write requires the owner's explicit approval for THAT action, in THAT session. Never inferred. Never carried over. Silence, a prior blanket statement, or "the issues are the work list" is not approval.
+- Gated actions include: filing, editing, closing, reopening, or commenting on issues and PRs; adding or removing labels, assignees, or milestones; wiki edits; releases; forks; branch pushes to anything not already owned by the owner; reactions. Triviality is never assumed, not even a label toggle.
+- Before requesting approval for anything wording-related, paste the EXACT final text that would be uploaded or changed: full title, full body, exact labels, exact target (new issue vs existing number). For edits, show old text versus new text.
+- Batch approvals are allowed only when the request enumerates every item with its exact text, and the owner explicitly approves the enumerated batch. Anything not in that enumeration needs its own approval.
+- If the owner approves with modifications, use the owner's wording, paste the final text actually used, and execute only that.
+- Report back with the link and number of everything created or changed. A failed or partially applied write is reported as such, not papered over.
+
+Rationale: this contract is trust-earning, not trust-assuming. The owner reviews before anything leaves the machine; the gitignored /docs work needs no approval, everything public does.
+
+## 16. Commit Discipline
+
+- Ask the owner before every commit. Never commit on inference, momentum, or "it is done". The owner often verifies each fix first.
+- One issue per commit. Message: plain imperative summary plus the issue number in parentheses, e.g. "Fix webley_audio script reference (#739)". No prefix, no emojis, no mixing unrelated work into one commit.
+- Before asking, capture fresh verification evidence for exactly that issue (section 9 ladder). Present the evidence, the exact file list, and the proposed message; wait for the yes.
+- Never stage or commit files the agent did not author this session. Pre-existing working-tree changes stay untouched and unstaged.
+- Pushes are a separate gate under section 15: local commit approval never implies push approval.
+- Gitignored paths (/docs, export_presets.cfg) are never committed.
+- Multi-agent runs keep one game window at a time; tests run only when no build agent is mid-edit on scenes the run would load.

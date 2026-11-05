@@ -1,6 +1,6 @@
 ## Secret Histories - Project Overview
 
-Core Identity: Victorian-era cosmic horror FPS roguelite with stealth/combat elements. Single-player initially, co-op planned. Free culture (GPLv3).
+Core Identity: Victorian-era cosmic horror FPS roguelite with stealth/combat elements. Single-player initially, co-op planned. Free culture (AGPL-3.0 for code).
 
 Primary Gameplay Loop: Enter procedurally-generated underworld → explore → survive through tactical decision-making → die → learn → repeat. Death is education, not failure.
 

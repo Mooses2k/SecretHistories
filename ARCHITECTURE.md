@@ -6,7 +6,7 @@ Secret Histories is a Victorian-era cosmic horror FPS roguelite built in Godot 4
 
 **Core Identity**: Victorian-era cosmic horror FPS roguelite with stealth/combat elements  
 **Technical Philosophy**: Systems over scripts, emergent gameplay through component interactions  
-**License**: Free culture (GPLv3)
+**License**: Free culture (AGPL-3.0 for code, see LICENSE; art/audio per-asset licenses)
 
 ### Current Development Status (dev4)
 

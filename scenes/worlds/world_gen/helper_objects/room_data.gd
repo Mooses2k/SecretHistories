@@ -14,6 +14,7 @@ enum OriginalPurpose {
 	STATUE_GALLERY,
 	UP_STAIRCASE,
 	DOWN_STAIRCASE,
+	TROPHY_ROOM,
 #	ENTRY, # (2x2 max, 2+ doors) 
 #	ALCOVE, # (1x2 max, 1 door)
 #	CHAPEL,

@@ -237,44 +237,6 @@ void fragment() {
 	}
 
 
-	vec4 n_out25p0;
-// Texture2D:25
-	n_out25p0 = texture(blend_help, vec2(n_out10p0.xy));
-
-
-// FloatParameter:22
-	float n_out22p0 = Soft_limit;
-
-
-// FloatParameter:23
-	float n_out23p0 = blend_scale;
-
-
-	float n_out19p0;
-// Expression:19
-	n_out19p0 = 0.0;
-	{
-		float depth = textureLod(DEPTH_TEXTURE, SCREEN_UV, 0.0).r;
-		vec4 upos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, depth * 2.0 - 1.0, 1.0);
-		float pixel_position = upos.z / upos.w;
-		
-		vec4 zpos = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, FRAGCOORD.z * 2.0 - 1.0, 1.0);
-		float cur_pos = zpos.z/zpos.w;
-		n_out22p0 = n_out22p0+(1.0 - n_out25p0.x)*n_out23p0;
-		float help = clamp(abs(cur_pos-pixel_position)*(1.0/n_out22p0),0.0,1.0);
-		n_out19p0 = help;
-		//if (abs(cur_pos-pixel_position)<n_out23p0*(1.0-n_out25p0.x))
-		//	n_out19p0 = 0.0;
-		//else
-		//	n_out19p0 = 1.0;
-	}
-
-
-// FloatOp:20
-	float n_in20p0 = 0.00000;
-	float n_out20p0 = n_in20p0 * n_out19p0;
-
-
 // FloatParameter:15
 	float n_out15p0 = emission_falloff_multiplier;
 

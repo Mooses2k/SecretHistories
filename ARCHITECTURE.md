@@ -2,11 +2,21 @@
 
 ## Overview
 
-Secret Histories is a Victorian-era cosmic horror FPS roguelite built in Godot 4, emphasizing systems-driven gameplay over scripted events. The architecture follows a modular design philosophy where every interaction emerges from believable physics and AI behaviors.
+Secret Histories is a Victorian-era cosmic horror FPS roguelite built in Godot 4.4 (GDScript, JoltPhysics3D), emphasizing systems-driven gameplay over scripted events. The architecture follows a modular design philosophy where every interaction emerges from believable physics and AI behaviors.
 
 **Core Identity**: Victorian-era cosmic horror FPS roguelite with stealth/combat elements  
 **Technical Philosophy**: Systems over scripts, emergent gameplay through component interactions  
 **License**: Free culture (GPLv3)
+
+### Current Development Status (dev4)
+
+This document describes the `dev4` branch: an in-progress Godot 4.4 port of the released Godot 3.x game (`main`). Feature parity with `main` is NOT complete; the backlog for parity and everything else lives in the [GitHub issues](https://github.com/Mooses2k/SecretHistories/issues). Known current gaps, kept visible on purpose:
+
+- **Character controller and AI development are paused** (contributor handoff). `scenes/characters/character.gd` is flagged for full redesign, and `scenes/characters/player_old/` / `scenes/characters/cultists-old/` are frozen legacy trees kept only for reference. Do not build on them.
+- Several features live on **unmerged branches**, not in `dev4`: the "fencing sim" melee demo (`fencing-sim-first-iteration-4dot3` and siblings), and dual-wield/light-source interaction (`light_sources_interaction`).
+- Merged-but-unwired work: the fog/dust effect scenes (PRs #709, #714) exist in `scenes/effects/` but are not yet referenced by level generation; the audio library system (PR #686) awaits migration of voice lines and movement audio.
+
+Planning documents and research notes live in the gitignored `/docs/` folder (local only). Agent-facing process rules live in [AGENTS.md](AGENTS.md).
 
 ## High-Level Architecture
 
@@ -87,7 +97,7 @@ The AI system uses a custom behavior tree implementation for intelligent, goal-d
 - **Interest Nodes**: Dynamic interest system for AI attention
 - **Misc Nodes**: Movement, targeting, and utility behaviors
 
-**AI Philosophy**: Enemies have goals, memories, and dynamic threat assessments. They react intelligently to player actions and environmental changes.
+**AI Philosophy** (design goal): Enemies will have goals, memories, and dynamic threat assessments, reacting intelligently to player actions and environmental changes. Today the behavior tree core, the sensor suite, and gun-handling nodes are implemented; the richer perception/memory behaviors (gradual sight detection, sound propagation, melee AI) are design targets tracked in the issue tracker, blocked on the paused character/AI work.
 
 ### 3. Character System
 
@@ -112,6 +122,11 @@ The character system provides a unified framework for both player and NPCs:
 - Dynamic crouching and stamina system
 - Integrated inventory system with equipment slots
 - Kick mechanics for environmental interaction
+
+**Legacy / frozen trees (do not extend)**:
+- [`character.gd`](scenes/characters/character.gd): previous-generation CharacterBody3D character, self-flagged for total redesign. New enemies should extend [`HumanoidCharacter`](scenes/characters/humanoid_character_base/humanoid_character.gd), not this.
+- [`player_old/`](scenes/characters/player_old/) and [`cultists-old/`](scenes/characters/cultists-old/): pre-refactor player and enemy scenes/scripts, kept for reference and asset recovery only.
+- [`undead/`](scenes/characters/undead/): undead enemy prototypes (revenant/wight line), not yet wired into world generation.
 
 ### 4. World Generation System
 
@@ -147,18 +162,27 @@ The item system provides a hierarchical equipment framework:
 PickableItem (base)
 ├── TinyItem (ammunition, keys, small tools)
 ├── EquipmentItem (wearable/usable items)
-│   ├── MeleeItem (swords, daggers, clubs)
+│   ├── MeleeItem (sabre, dagger, hatchet, mace, halberd, crowbar, ...)
 │   ├── GunItem (firearms with period-appropriate complexity)
-│   ├── ToolItem (lanterns, locks, utility items)
-│   ├── ConsumableItem (potions, medical supplies, bombs)
+│   │   └── RevolverItem (Webley; double/single-action trigger logic)
+│   ├── ToolItem (locks, utility items)
+│   │   ├── LanternItem / CandelabraItem (light sources)
+│   │   └── PadlockItem
+│   ├── ConsumableItem (potions, medical supplies)
+│   │   ├── BombItem / Dynamite / Grenade (throwables; wire the explosion effect)
+│   │   └── MedicalItem / PotionItem
+│   ├── DisposableLightItem (candles, torches; burn down and die)
 │   ├── ContainerItem (bags, boxes, storage)
 │   ├── StrangeDevice (supernatural items)
 │   └── WritingItem (books, notes, documents)
 ```
 
+Special cases: `EmptyHand` (bare-hand pseudo-item) and `ShardOfTheComet` (victory-condition item).
+
 **Key Features**:
 - Physics-based item interaction
 - Equipment slots with hand-specific assignments
+- Item size taxonomy (tiny/small/medium/bulky/large) driving carry and hotbar capacity (10 + bulky in the main game; 4 + bulky in the fencing sim demo)
 - Victorian-era weapon complexity (optional Receiver-style mechanics)
 - Light sources as both tools and stealth mechanics
 
@@ -186,13 +210,17 @@ The interaction system handles player-world communication:
 
 ```
 SecretHistories/
-├── addons/                    # Third-party plugins and extensions
-├── core/                      # Core game systems and utilities
+├── core/                      # Core game systems (currently: the AI behavior tree)
 ├── globals/                   # Global singletons and autoloads
 ├── resources/                 # Game assets (art, audio, models, etc.)
 ├── scenes/                    # Game scenes and prefabs
 ├── script_templates/          # Custom GDScript templates
 └── utils/                     # Utility scripts and debug tools
+
+Root project files: project.godot, default_bus_layout.tres (audio buses),
+default_env.tres (legacy Godot 3 environment, pending removal), debug.tres,
+export_presets.cfg, and the root documentation (ARCHITECTURE.md, CODE_STYLE.md,
+AGENTS.md, GAME_DESIGN_DOCUMENT.md, CONTRIBUTING.md).
 ```
 
 ### Core Systems (`core/`)
@@ -213,15 +241,23 @@ core/
 
 ```
 globals/
-├── events.gd                 # Event bus for decoupled communication
+├── events.gd                 # Event bus autoload for decoupled communication
 ├── game_manager.gd           # Global game state management
 ├── global_consts.gd          # Game-wide constants
 ├── groups.gd                 # Node group definitions
 ├── keybinding_manager.gd     # Input mapping system
-├── load_*.gd                 # Loading utilities
-├── settings*.gd              # Settings management
-└── settings/                 # Settings configuration files
+├── audio_library.gd          # Central audio stream catalog (new audio system)
+├── load_*.gd                 # Loading utilities (quotes, scenes)
+├── settings*.gd              # Settings system and persistence
+└── settings/                 # Per-domain settings managers
+    ├── game_settings.gd
+    ├── input_settings.gd
+    ├── audio_settings.gd
+    ├── video_settings.gd
+    └── key_input_settings.gd
 ```
+
+**Autoloads** (13): GameManager, Events, Settings, SettingsConfig, LoadQuotes, LoadScene, KeybindingManager, AudioLibrary, the five `settings/` managers, and BackgroundMusic (the one scene-based autoload, `scenes/effects/background_music.tscn`).
 
 ### Game Scenes (`scenes/`)
 
@@ -229,21 +265,28 @@ globals/
 scenes/
 ├── characters/               # Character-related scenes and scripts
 │   ├── humanoid_character_base/  # Base humanoid character system
-│   ├── player/              # Player-specific implementations
-│   ├── cultist/             # Enemy character implementations
-│   ├── skeleton_modifiers/  # IK and animation systems
-│   └── *.gd                 # Character utilities (inventory, audio, etc.)
+│   ├── player/               # Player-specific implementations (active controller)
+│   ├── cultist/              # Enemy character implementations (active)
+│   ├── undead/               # Undead enemy prototypes (not yet wired into generation)
+│   ├── skeleton_modifiers/   # IK and animation systems
+│   ├── player_old/, cultists-old/  # Frozen pre-refactor trees (reference only)
+│   └── *.gd                  # Character utilities (inventory, audio, etc.)
+├── audio/                    # Audio system scenes (audio library wiring)
 ├── effects/                  # Visual and particle effects
+│   ├── explosion/            # Explosion particles + blast logic
+│   └── *_audio.gd            # Per-weapon auto-free audio wrappers
 ├── objects/                  # Interactive world objects
-│   ├── interactables/       # Base interactable system
-│   ├── large_objects/       # Furniture, doors, decorations
-│   └── pickable_items/      # Item hierarchy and implementations
+│   ├── interactables/        # Base interactable system
+│   ├── large_objects/        # Furniture, doors, statues, decorations
+│   └── pickable_items/       # Item hierarchy and implementations
+├── screen_filters/           # Fullscreen post-process filters (GameManager.ScreenFilter)
 ├── sensors/                  # Detection and sensing systems
-├── ui/                      # User interface components
-└── worlds/                  # World and level systems
-    ├── procedural_world/    # Procedural generation implementation
-    ├── world_gen/           # Generation pipeline and tools
-    └── *.gd                 # World utilities and base classes
+├── ui/                       # User interface components (hotbar/, opening_screens, ...)
+└── worlds/                   # World and level systems
+    ├── procedural_world/     # Procedural generation implementation
+    ├── world_gen/            # Generation pipeline and tools
+    ├── gridmaps/             # GridMap-based level assembly data
+    └── *.gd                  # World utilities (floor_level_handler.gd, ...)
 ```
 
 ### Resources (`resources/`)
@@ -379,10 +422,15 @@ var game: Game
 
 **Observer Pattern**: Event bus for decoupled communication
 ```gdscript
-# Signal emission
-Events.emit_signal("up_staircase_used")
-# Signal connection
-Events.connect("up_staircase_used", Callable(self, "_on_staircase_used"))
+# globals/events.gd: declare the signal on the bus
+signal up_staircase_used
+
+# Emitting (Godot 4 call syntax)
+Events.up_staircase_used.emit()
+
+# Connecting: use the bus helpers (idempotent, duplicate-connect guarded)
+Events.connect_to("up_staircase_used", self, "_on_staircase_used")
+Events.disconnect_from("up_staircase_used", self)
 ```
 
 ## Development Guidelines
@@ -432,9 +480,11 @@ The architecture supports several extension points for modding and additional co
 
 ## Technical Specifications
 
-- **Engine**: Godot 4.x
-- **Language**: GDScript with static typing
-- **Physics**: 3D RigidBody-based character controller
+- **Engine**: Godot 4.4 (see project.godot config/features)
+- **Language**: GDScript with static typing (no C#)
+- **Physics**: JoltPhysics3D; RigidBody3D-based character controller
+- **Collision Layers**: 11 named layers (World, Player, PlayerHurtbox, EnemyHurtbox, Enemy, SoftCollisions, ItemDrops, ItemDropsSoftCollisions, Portals, Interactables, Light)
+- **Input**: ~40 namespaced input actions (`movement|move_up`, `player|interact`, `playerhand|mainhand_use`, `itm|next_hotbar_item`, `hotbar_1..10`, ...)
 - **AI**: Custom behavior tree implementation
 - **World**: Procedural generation with runtime navmesh
 - **Grid Unit**: 1.5m² (compatible with OSR D&D systems)
@@ -446,7 +496,9 @@ The architecture supports several extension points for modding and additional co
 - **Modding Support**: OSR D&D and fantasy/sci-fi genre expansion
 - **Performance Scaling**: Large dungeon optimization for deeper floors
 - **Save System**: Persistent world state and knowledge progression
-- **Audio System**: 3D spatial audio for enhanced stealth mechanics
+- **Audio Migration**: Move voice lines and movement audio onto the audio library system (PR #686 follow-up)
+- **Effect System Consolidation**: One parameterized pipeline for explosion/gunsmoke/fire/fog/dust/impacts (issue #169); wire the merged fog/dust scenes into level generation
+- **Scene/Mesh Hygiene**: Stop embedding mesh data in .tscn files; link .glb/.res sources instead (statues, candelabra, and lantern scenes are the worst offenders, some over 1 MB each)
 
 ---
 

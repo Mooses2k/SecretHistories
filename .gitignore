@@ -9,6 +9,9 @@ export_presets.cfg
 .mono/
 data_*/
 
+# Local planning / research docs (not for the repo)
+/docs/
+
 # General
 *.log
 *.lock

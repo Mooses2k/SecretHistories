@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://bh6qsiqrhr5cc"]
+[gd_scene load_steps=9 format=4 uid="uid://bh6qsiqrhr5cc"]
 
 [ext_resource type="Material" path="res://resources/models/large_objects/pedestal/M_Wall.material" id="1"]
 [ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_sery0"]
+[ext_resource type="Script" uid="uid://bw5hualha4tj4" path="res://scenes/objects/large_objects/placement_anchor.gd" id="3_lb3n3"]
 
 [sub_resource type="ArrayMesh" id="1"]
 resource_name = "pedestal_Object_0"
@@ -31,12 +32,11 @@ size = Vector3(0.8, 0.3, 0.8)
 size = Vector3(0.7, 0.2, 0.7)
 
 [node name="Pedestal" type="StaticBody3D" groups=["CLAMBERABLE"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.033008, 0)
 collision_layer = 513
 script = ExtResource("1_sery0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0120674, 0.0241874, 0.0076589)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0120674, 0.00166113, 0.0076589)
 mesh = SubResource("1")
 
 [node name="Durability" type="Timer" parent="."]
@@ -44,19 +44,24 @@ wait_time = 300.0
 one_shot = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0113986, 0.887701, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0113986, 0.865175, 0)
 shape = SubResource("2")
 
 [node name="CollisionShape2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 1.29059, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 1.26806, 0)
 shape = SubResource("3")
 
 [node name="CollisionShape3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.173186, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.15066, 0)
 shape = SubResource("4")
 
 [node name="CollisionShape4" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.334678, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0057905, 0.312152, 0)
 shape = SubResource("5")
+
+[node name="PlacementAnchor" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0120674, 1.4243, 0.0076589)
+script = ExtResource("3_lb3n3")
+metadata/_custom_type_script = "uid://bw5hualha4tj4"
 
 [connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

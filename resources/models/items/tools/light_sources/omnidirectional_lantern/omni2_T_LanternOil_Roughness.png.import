@@ -1,0 +1,39 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://duc2ewd5td8ym"
+path.s3tc="res://.godot/imported/omni2_T_LanternOil_Roughness.png-7b9d78be645782efdacc4710fff25c4d.s3tc.ctex"
+path.etc2="res://.godot/imported/omni2_T_LanternOil_Roughness.png-7b9d78be645782efdacc4710fff25c4d.etc2.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "87c1688bf83849c9db93b512b7839bac"
+}
+
+[deps]
+
+source_file="res://resources/models/items/tools/light_sources/omnidirectional_lantern/omni2_T_LanternOil_Roughness.png"
+dest_files=["res://.godot/imported/omni2_T_LanternOil_Roughness.png-7b9d78be645782efdacc4710fff25c4d.s3tc.ctex", "res://.godot/imported/omni2_T_LanternOil_Roughness.png-7b9d78be645782efdacc4710fff25c4d.etc2.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

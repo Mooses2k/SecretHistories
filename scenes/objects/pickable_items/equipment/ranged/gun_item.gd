@@ -142,7 +142,9 @@ func shoot():
 			var target = raycast.get_collider()
 			print(target)
 			var global_hit_position = raycast.get_collision_point()
-			var global_hit_direction = raycast.global_transform.basis * (shoot_direction)
+			# normalized: the raycast inherits the hand attachment scale, which
+			# would shrink the direction used for the door break impulse
+			var global_hit_direction = (raycast.global_transform.basis * (shoot_direction)).normalized()
 			var global_hit_normal = raycast.get_collision_normal()
 			if hit_accumulator.has(target):
 				hit_accumulator[target].damage += total_damage

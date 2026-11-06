@@ -1,6 +1,6 @@
-[gd_scene load_steps=27 format=3 uid="uid://ruehqpba0q7b"]
+[gd_scene format=3 uid="uid://ruehqpba0q7b"]
 
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ci40kj1q1kccs" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://corn303d25lmc" path="res://resources/tiny_items/ammunition/455_webley.tres" id="2"]
 [ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="4"]
 [ext_resource type="Script" uid="uid://bo2hp7fykeoy6" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/effects.gd" id="5"]
@@ -65,7 +65,7 @@ _data = {
 &"reload.old": SubResource("14")
 }
 
-[node name="WebleyRevolver" instance=ExtResource("1")]
+[node name="WebleyRevolver" unique_id=1272303458 instance=ExtResource("1")]
 mass = 1.0
 script = ExtResource("6")
 ammo_types = Array[Resource]([ExtResource("2")])
@@ -82,7 +82,7 @@ item_size = 0
 item_name = "Webley revolver"
 item_drop_sound = ExtResource("12")
 
-[node name="Webley" parent="." index="0" instance=ExtResource("5_78i6t")]
+[node name="Webley" parent="." index="0" unique_id=924214115 instance=ExtResource("5_78i6t")]
 transform = Transform3D(-0.996521, 0, 0.0833473, 0, 1, 0, -0.0833473, 0, -0.996521, -0.157248, -1.24888, 0.553996)
 
 [node name="Webley_Arm" parent="Webley" index="0"]
@@ -92,31 +92,32 @@ transform = Transform3D(0.0934741, 0.0195869, -0.995429, -0.0307337, 0.999387, 0
 bones/4/rotation = Quaternion(-4.65661e-10, -5.41007e-10, -3.25963e-09, 1)
 
 [node name="Webley2" parent="Webley/Webley_Arm/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, -7.450581e-09, 1, 7.625204e-09, 0, -1.4086254e-08, 1, 0.0008387426, -0.108814076, -0.0018524842)
 script = ExtResource("4")
 
-[node name="BulletPosition" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="0"]
+[node name="BulletPosition" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="0" unique_id=720721978]
 unique_name_in_owner = true
-transform = Transform3D(0.0934741, 0.0195869, -0.995429, -0.0307337, 0.999387, 0.0167788, 0.995147, 0.0290248, 0.0940188, 0.0379915, 0.0519359, 0)
+transform = Transform3D(0.03820587, -0.9326587, -0.35873282, 0.07564661, 0.36066446, -0.9296229, 0.9964022, 0.008380083, 0.08433199, 0.020631766, 0.1419907, 0.0013629969)
 
-[node name="BulletPosition2" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="1"]
+[node name="BulletPosition2" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="1" unique_id=1053538771]
 unique_name_in_owner = true
-transform = Transform3D(0.0934741, 0.0195869, -0.995429, -0.0307337, 0.999387, 0.0167788, 0.995147, 0.0290248, 0.0940188, 0.0308883, 0.0472652, 0.0127957)
+transform = Transform3D(0.03820587, -0.9326587, -0.35873282, 0.07564661, 0.36066446, -0.9296229, 0.9964022, 0.008380083, 0.08433199, 0.02229529, 0.13369621, 0.014186212)
 
-[node name="BulletPosition3" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="2"]
+[node name="BulletPosition3" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="2" unique_id=1297431072]
 unique_name_in_owner = true
-transform = Transform3D(0.0934741, 0.0195869, -0.995429, -0.0307337, 0.999387, 0.0167788, 0.995147, 0.0290248, 0.0940188, 0.0181057, 0.0429385, 0.0119502)
+transform = Transform3D(0.03820587, -0.9326587, -0.35873282, 0.07564661, 0.36066446, -0.9296229, 0.9964022, 0.008380083, 0.08433199, 0.022001809, 0.12020627, 0.013311487)
 
-[node name="BulletPosition4" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="3"]
+[node name="BulletPosition4" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="3" unique_id=138575574]
 unique_name_in_owner = true
-transform = Transform3D(0.0934741, 0.0195869, -0.995429, -0.0307337, 0.999387, 0.0167788, 0.995147, 0.0290248, 0.0940188, 0.0123582, 0.039929, 0.000377949)
+transform = Transform3D(0.03820587, -0.9326587, -0.35873282, 0.07564661, 0.36066446, -0.9296229, 0.9964022, 0.008380083, 0.08433199, 0.023124248, 0.11379475, 0.0017511761)
 
-[node name="BulletPosition5" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="4"]
+[node name="BulletPosition5" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="4" unique_id=215917209]
 unique_name_in_owner = true
-transform = Transform3D(0.0934741, 0.0195869, -0.995429, -0.0307337, 0.999387, 0.0167788, 0.995147, 0.0290248, 0.0940188, 0.0191213, 0.0415536, -0.0115351)
+transform = Transform3D(0.03820587, -0.9326587, -0.35873282, 0.07564661, 0.36066446, -0.9296229, 0.9964022, 0.008380083, 0.08433199, 0.024185304, 0.12072491, -0.010129337)
 
-[node name="BulletPosition6" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="5"]
+[node name="BulletPosition6" type="Marker3D" parent="Webley/Webley_Arm/Skeleton3D/Webley2" index="5" unique_id=2018173827]
 unique_name_in_owner = true
-transform = Transform3D(0.0934741, 0.0195869, -0.995429, -0.0307337, 0.999387, 0.0167788, 0.995147, 0.0290248, 0.0940188, 0.0306266, 0.048409, -0.0128195)
+transform = Transform3D(0.03820587, -0.9326587, -0.35873282, 0.07564661, 0.36066446, -0.9296229, 0.9964022, 0.008380083, 0.08433199, 0.021714788, 0.13388449, -0.0114485845)
 
 [node name="MeshInstance3D" parent="." index="1"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.108676, 0)
@@ -127,14 +128,14 @@ script = null
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.117287, 0)
 shape = SubResource("ConvexPolygonShape3D_g655b")
 
-[node name="Effects" type="Node3D" parent="." index="3"]
+[node name="Effects" type="Node3D" parent="." index="3" unique_id=1880723894]
 script = ExtResource("5")
 smoke_particles = ExtResource("8_c1gho")
 sound_effect = ExtResource("8")
 hit_effect = ExtResource("7")
 
-[node name="Flash" type="OmniLight3D" parent="Effects" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0123254, -0.132322)
+[node name="Flash" type="OmniLight3D" parent="Effects" index="0" unique_id=1107609013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.021261208, -0.132322)
 visible = false
 light_color = Color(0.760784, 0.364706, 0.0470588, 1)
 light_energy = 5.0
@@ -142,52 +143,49 @@ shadow_enabled = true
 omni_range = 6.0
 omni_attenuation = 7.0
 
-[node name="FlashTimer" type="Timer" parent="Effects/Flash" index="0"]
+[node name="FlashTimer" type="Timer" parent="Effects/Flash" index="0" unique_id=94390913]
 one_shot = true
 
-[node name="SmokeOrigin" type="Marker3D" parent="Effects" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0127416, -0.139536)
+[node name="SmokeOrigin" type="Marker3D" parent="Effects" index="1" unique_id=1562256136]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.021699164, -0.139536)
 visible = false
 
-[node name="SoundOrigin" type="Marker3D" parent="Effects" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0137776, -0.0354128)
+[node name="SoundOrigin" type="Marker3D" parent="Effects" index="2" unique_id=286514949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.022338688, -0.0354128)
 visible = false
 
 [node name="RayCast3D" parent="." index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, -0.03)
-visible = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.023164928, -0.13157737)
 
-[node name="Sounds" type="Node3D" parent="." index="8"]
+[node name="Sounds" type="Node3D" parent="." index="8" unique_id=576656854]
 
-[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0"]
+[node name="Unsheath" type="AudioStreamPlayer3D" parent="Sounds" index="0" unique_id=2113792296]
 bus = &"Effects"
 
-[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1"]
+[node name="Sheath" type="AudioStreamPlayer3D" parent="Sounds" index="1" unique_id=761439660]
 bus = &"Effects"
 
-[node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2"]
+[node name="Dryfire" type="AudioStreamPlayer3D" parent="Sounds" index="2" unique_id=330224694]
 stream = ExtResource("10")
 bus = &"Effects"
 
-[node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
+[node name="Reload" type="AudioStreamPlayer3D" parent="Sounds" index="3" unique_id=981650548]
 stream = ExtResource("11")
 bus = &"Effects"
 
-[node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
+[node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4" unique_id=2095398184]
 stream = ExtResource("13")
 bus = &"Effects"
 
 [node name="HoldPosition" parent="." index="9"]
 transform = Transform3D(0.990265, -0.138034, -0.0179346, 0.139175, 0.984048, 0.11081, 0.00235294, -0.112227, 0.99368, -0.02, 0.031, -0.081)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10" unique_id=1975527081]
 unique_name_in_owner = true
 root_node = NodePath("../Webley")
-libraries = {
-"": SubResource("AnimationLibrary_ireru")
-}
+libraries/ = SubResource("AnimationLibrary_ireru")
 
-[node name="ShellReloadEffects" type="Node" parent="AnimationPlayer" index="0"]
+[node name="ShellReloadEffects" type="Node" parent="AnimationPlayer" index="0" unique_id=2081237005]
 script = ExtResource("14")
 impulse_position = Vector3(0.2, 0.09, 0.2)
 

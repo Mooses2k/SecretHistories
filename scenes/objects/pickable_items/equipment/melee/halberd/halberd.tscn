@@ -83,7 +83,6 @@ secondary_damage_type2 = 1
 secondary_damage2 = 51
 item_size = 2
 item_name = "Halberd"
-throw_pos_path = NodePath("ThrowPosition")
 dropped_mask = 1
 item_drop_sound = ExtResource("3")
 item_throw_sound = ExtResource("2")

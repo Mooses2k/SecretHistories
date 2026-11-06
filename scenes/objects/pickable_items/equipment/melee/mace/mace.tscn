@@ -34,7 +34,6 @@ primary_damage1 = 20
 secondary_damage1 = 51
 item_name = "Mace"
 normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 item_drop_sound = ExtResource("2")
 item_throw_sound = ExtResource("1")
 can_spin = true

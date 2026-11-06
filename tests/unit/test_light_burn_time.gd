@@ -13,10 +13,7 @@
 # regression.
 # Real scenes and scripts are used: candle/torch/lantern load their real
 # lightweight scenes in-tree so the authored _ready code runs as authored.
-# The scenes ship throw_pos_path empty (the equipment base's onready
-# get_node("") errors on every spawn; documented separately), so the tests
-# point it at the real HoldPosition marker before adding the node to the
-# tree to keep the run clean. Candelabra is pinned at its authored class
+# Candelabra is pinned at its authored class
 # default, which its _ready leaves untouched; its scene embeds ~750 KB of
 # mesh data and is not needed for that value.
 extends GutTest
@@ -29,7 +26,6 @@ const CandelabraScript = preload("res://scenes/objects/pickable_items/equipment/
 
 func _make_light_scene(scene : PackedScene):
 	var light = scene.instantiate()
-	light.throw_pos_path = NodePath("HoldPosition")
 	return add_child_autofree(light)
 
 
@@ -57,7 +53,6 @@ func test_lantern_burn_time_is_1800_seconds_when_oil_based():
 	# is_oil_based = true (see those .tscn files).
 	var lantern = LanternScene.instantiate()
 	lantern.is_oil_based = true
-	lantern.throw_pos_path = NodePath("HoldPosition")
 	add_child_autofree(lantern)
 
 	assert_eq(lantern.burn_time, 1800.0, "authored oil lantern burn duration")

@@ -72,7 +72,6 @@ melee_attack_speed = 2.0
 item_size = 0
 item_name = "Knife"
 normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 item_drop_sound = ExtResource("1")
 can_spin = true
 

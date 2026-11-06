@@ -24,10 +24,6 @@ class CandelabraDouble extends "res://scenes/objects/pickable_items/equipment/to
 
 func _make_candle():
 	var candle = CandleScene.instantiate()
-	# The scenes ship throw_pos_path empty, so the equipment base's onready
-	# get_node("") errors on every spawn; point it at the real HoldPosition
-	# marker here to keep the test run clean (documented separately).
-	candle.throw_pos_path = NodePath("HoldPosition")
 	return add_child_autofree(candle)
 
 

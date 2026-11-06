@@ -124,7 +124,6 @@ damage_type = null
 can_attach = null
 item_name = "Dynamite"
 horizontal_holding = null
-throw_pos_path = null
 stackable_resource = ExtResource("3_87f0d")
 max_speed = null
 item_drop_sound = ExtResource("9")

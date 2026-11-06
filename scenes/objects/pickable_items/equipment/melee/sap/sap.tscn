@@ -71,7 +71,6 @@ secondary_damage1 = 40
 melee_attack_speed = 1.5
 item_size = 0
 item_name = "Sap"
-throw_pos_path = NodePath("ThrowPosition")
 item_drop_sound = ExtResource("2")
 item_throw_sound = ExtResource("1")
 

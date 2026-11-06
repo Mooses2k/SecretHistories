@@ -12,7 +12,6 @@ item_drop_sound = ExtResource("5")
 item_size = 1
 item_name = "Medical Box"
 normal_pos_path = NodePath("")
-throw_pos_path = NodePath("")
 throw_logic = false
 can_spin = false
 heal_amount = 1

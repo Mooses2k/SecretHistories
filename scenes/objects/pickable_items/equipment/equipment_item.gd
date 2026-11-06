@@ -15,7 +15,6 @@ signal used_unload()
 
 @export var item_name : String = "Equipment"
 @export var horizontal_holding : bool = false
-@export var throw_pos_path : NodePath
 
 @export_subgroup("Stacking")
 @export var stackable_resource: StackableResource
@@ -25,7 +24,6 @@ var is_in_belt : bool = false
 var _is_action_held : bool = false
 
 @onready var hold_position = %HoldPosition
-@onready var throw_pos = get_node(throw_pos_path)
 
 
 func _ready():
@@ -69,7 +67,6 @@ func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
 			throw_basis.x = throw_basis.y.cross(Vector3.UP).normalized()
 			throw_basis.z = throw_basis.x.cross(throw_basis.y)
 		self.global_basis = throw_basis # This attempts to align the point forward when throwing piercing weapons
-		#self.global_rotation = throw_pos.global_rotation
 	if can_spin:
 		angular_velocity = Vector3(global_transform.basis.x * -15)
 #		angular_velocity.z = -15   # Ah, maybe not working because it's already been put in world_space at this point

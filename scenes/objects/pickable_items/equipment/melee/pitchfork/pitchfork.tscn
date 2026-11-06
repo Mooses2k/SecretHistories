@@ -84,7 +84,6 @@ primary_damage1 = 34
 secondary_damage1 = 25
 item_size = 2
 item_name = "Pitchfork"
-throw_pos_path = NodePath("ThrowPosition")
 dropped_mask = 1
 item_throw_sound = ExtResource("1")
 thrown_point_first = true

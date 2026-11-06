@@ -52,7 +52,6 @@ secondary_damage2 = 18
 item_size = 0
 item_name = "Hatchet"
 normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 item_drop_sound = ExtResource("2")
 item_throw_sound = ExtResource("1")
 can_spin = true

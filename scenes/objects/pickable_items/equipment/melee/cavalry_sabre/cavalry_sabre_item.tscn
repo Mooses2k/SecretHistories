@@ -55,7 +55,6 @@ secondary_damage_type1 = 1
 secondary_damage1 = 51
 item_name = "Cavalry Sabre"
 normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 dropped_mask = 1
 item_drop_sound = ExtResource("1")
 thrown_point_first = true

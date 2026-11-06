@@ -9,7 +9,6 @@ can_attach = false
 item_size = 1
 item_name = "Equipment"
 horizontal_holding = false
-throw_pos_path = NodePath("")
 stackable_resource = null
 
 [node name="HoldPosition" type="Marker3D" parent="." index="2"]

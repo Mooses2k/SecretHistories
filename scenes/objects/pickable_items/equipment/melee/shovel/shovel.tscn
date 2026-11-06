@@ -118,7 +118,6 @@ secondary_damage1 = 51
 item_size = 2
 item_name = "Shovel"
 normal_pos_path = NodePath("NormalPosition")
-throw_pos_path = NodePath("ThrowPosition")
 dropped_mask = 1
 item_throw_sound = ExtResource("1")
 

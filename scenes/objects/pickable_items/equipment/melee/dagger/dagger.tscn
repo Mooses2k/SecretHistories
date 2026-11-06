@@ -73,7 +73,6 @@ secondary_damage1 = 19
 melee_attack_speed = 2.0
 item_size = 0
 item_name = "Dagger"
-throw_pos_path = NodePath("ThrowPosition")
 stackable_resource = ExtResource("2_ayteg")
 item_drop_sound = ExtResource("1")
 can_spin = true

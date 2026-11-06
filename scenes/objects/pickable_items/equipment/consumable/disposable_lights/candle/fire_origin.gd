@@ -6,8 +6,12 @@ extends Marker3D
 var toppled = false
 
 @onready var threshold_factor = cos(deg_to_rad(threshold_angle_degrees))
-@onready var fire: Node3D = $Fire
-@onready var light: Node3D = $Fire/Light3D
+# Some origins have no Fire child and most have no Light3D child (dark
+# lantern, FireOrigin2..9 dynamic-light reduction, owner design): fetch
+# tolerantly and let the is_instance_valid guards in handle_toppled_light
+# skip what is absent.
+@onready var fire: Node3D = get_node_or_null("Fire")
+@onready var light: Node3D = get_node_or_null("Fire/Light3D")
 
 
 func _ready():

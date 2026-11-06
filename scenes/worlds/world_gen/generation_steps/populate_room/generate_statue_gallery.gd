@@ -132,7 +132,8 @@ func _set_statue_spawn_data(
 	spawn_data.scene_path = statue_spawn.scene_path
 	spawn_data.amount = 1
 
-	# 1x1 statue centered in the 2x2 slot: half a cell along the wall and half a cell into the room
+	# 1x1 statue centered in the 2x2 slot: one full cell along the wall and one full
+	# cell into the room. Cell positions are cell corners, not centers.
 	var center_offset := _get_slot_center_offset(data, statue_cells[0], wall_direction)
 	var spawn_position = (
 			CellFilter.get_cell_position(data, statue_cells[0])
@@ -152,21 +153,27 @@ func _set_statue_spawn_data(
 
 
 ## Offset from the first cell of a 2x2 slot to the slot center, in world units.
-## Length runs along the wall, width runs into the room.
+## Length runs along the wall, width runs into the room; both are one full cell
+## because get_local_cell_position returns the cell corner, not its center.
+## Surplus slots additionally get the filter's half-cell wall_offset along the wall.
 ## Center placements (wall_direction -1) already carry the full 2x2 offset in slot_offset.
 func _get_slot_center_offset(data: WorldData, first_cell_index: int, wall_direction: int) -> Vector3:
 	if wall_direction == -1:
 		return Vector3.ZERO
-	var grid_offset := Vector2.ONE * 0.5
-	if wall_direction != -1:
-		var direction := wall_direction as int
-		var length_offset: Vector2
-		if direction == WorldData.Direction.NORTH or direction == WorldData.Direction.EAST:
-			length_offset = DIRECTION_GRID_OFFSETS[data.direction_rotate_cw(direction)]
-		else:
-			length_offset = DIRECTION_GRID_OFFSETS[data.direction_rotate_ccw(direction)]
-		var width_offset: Vector2 = DIRECTION_GRID_OFFSETS[data.direction_inverse(direction)]
-		grid_offset = Vector2(length_offset.x + width_offset.x, length_offset.y + width_offset.y) * 0.5
+	var grid_offset := Vector2.ONE
+	var direction := wall_direction as int
+	var length_offset: Vector2
+	if direction == WorldData.Direction.NORTH or direction == WorldData.Direction.EAST:
+		length_offset = DIRECTION_GRID_OFFSETS[data.direction_rotate_cw(direction)]
+	else:
+		length_offset = DIRECTION_GRID_OFFSETS[data.direction_rotate_ccw(direction)]
+	var width_offset: Vector2 = DIRECTION_GRID_OFFSETS[data.direction_inverse(direction)]
+	# NORTH/WEST walls sit on the wall cell's min edge (wall face == cell corner);
+	# SOUTH/EAST walls sit on the max edge (wall face == corner + 1 cell), so their
+	# slot straddles the corner and the center needs the +1 cell correction back.
+	if direction == WorldData.Direction.SOUTH or direction == WorldData.Direction.EAST:
+		width_offset += DIRECTION_GRID_OFFSETS[direction]
+	grid_offset = Vector2(length_offset.x + width_offset.x, length_offset.y + width_offset.y)
 
 	return Vector3(grid_offset.x, 0, grid_offset.y) * data.CELL_SIZE
 

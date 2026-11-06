@@ -7,9 +7,11 @@ signal settings_menu_exited()
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if not $ChangeKeyPanel.visible:
+			# Emit BEFORE hiding: the old hide() then "if self.visible" check
+			# could never fire, so settings_menu_exited stayed dead and the
+			# pause menu never learned the settings menu closed.
+			emit_signal("settings_menu_exited")
 			self.hide()
-			if self.visible :
-				emit_signal("settings_menu_exited")
 		else:
 			$ChangeKeyPanel.hide()
 

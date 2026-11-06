@@ -120,7 +120,7 @@ shape = SubResource("3")
 wait_time = 0.5
 
 [node name="HoldPosition" parent="." index="7"]
-unique_name_in_owner = false
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.154725, -0.0154864)
 
 [node name="NormalPosition" parent="." index="8"]

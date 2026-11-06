@@ -186,6 +186,11 @@ func _handle_standard_sarcophagus_spawn(item: Node, anchor: Node, index: int) ->
 			var stored_transform := _transforms[index] as Transform3D
 			node3d_item.transform.basis = stored_transform.basis
 	
+	# Rest orientation for held-pose authored item scenes (see
+	# PlacementOrientationData); leaves non-weapons (e.g. the sarco itself)
+	# at identity.
+	PlacementOrientationDataScript.apply_to_item(item, scene_path)
+
 	# Set item state
 	item.set_item_state(GlobalConsts.ItemState.DROPPED)
 	

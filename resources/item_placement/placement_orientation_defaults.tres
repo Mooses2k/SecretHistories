@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PlacementOrientationData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/worlds/procedural_world/placement_orientation_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+class_defaults = {
+"MeleeItem": Vector3(-90, 0, 0),
+"GunItem": Vector3(-90, 0, 0)
+}
+item_overrides = {
+"res://scenes/objects/pickable_items/equipment/melee/halberd/halberd.tscn": Vector3(-90, 0, 0),
+"res://scenes/objects/pickable_items/equipment/melee/mace/mace.tscn": Vector3(-90, 0, 0),
+"res://scenes/objects/pickable_items/equipment/melee/pitchfork/pitchfork.tscn": Vector3(-90, 0, 0)
+}

@@ -4,6 +4,8 @@
 class_name AnchorSpawner
 extends Node
 
+const PlacementOrientationDataScript = preload("res://scenes/worlds/procedural_world/placement_orientation_data.gd")
+
 
 ### Member Variables and Dependencies -------------------------------------------------------------
 #--- signals --------------------------------------------------------------------------------------
@@ -404,7 +406,11 @@ func _handle_legacy_spawnable_items(anchors: Array, all_spawned_items: Array) ->
 				var placement_position = new_item.get("placement_position")
 				if placement_position:
 					new_item.position += placement_position.position
-			
+
+			# Rest orientation for held-pose authored item scenes (see
+			# PlacementOrientationData); leaves non-weapons at identity.
+			PlacementOrientationDataScript.apply_to_item(new_item, item_path)
+
 			new_item.set_item_state(GlobalConsts.ItemState.DROPPED)
 			get_parent().get_parent().add_child(new_item)
 			available_anchors.remove_at(random_num)

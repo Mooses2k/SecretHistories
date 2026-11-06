@@ -81,11 +81,15 @@ func spawn_at_anchors(anchors: Array, rng: RandomNumberGenerator = null, should_
 				var stored_transform := _transforms[index] as Transform3D
 				node3d_item.transform.basis = stored_transform.basis
 		
+		# Rest orientation for held-pose authored item scenes (see
+		# PlacementOrientationData); leaves non-weapons at identity.
+		PlacementOrientationDataScript.apply_to_item(item, scene_path)
+
 		# Apply custom properties
 		if index < _custom_properties.size():
 			var custom_properties := _custom_properties[index] as Dictionary
 			_apply_custom_properties(item, custom_properties)
-		
+
 		# Add to scene tree - use anchor's parent or a suitable parent
 		var spawn_parent: Node = anchor.get_parent()
 		if not spawn_parent:
@@ -134,6 +138,10 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 			var node3d_item = item as Node3D
 			node3d_item.transform = _transforms[index]
 		
+		# Rest orientation for held-pose authored item scenes (see
+		# PlacementOrientationData); leaves non-weapons at identity.
+		PlacementOrientationDataScript.apply_to_item(item, scene_path)
+
 		# Apply custom properties
 		var custom_properties := _custom_properties[index] as Dictionary
 		_apply_custom_properties(item, custom_properties)

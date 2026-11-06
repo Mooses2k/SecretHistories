@@ -12,6 +12,8 @@ extends Resource
 
 const ITEM_CENTER_POSITION_OFFSET = Vector3(0.75, 1.0, 0.75)  # This is unique in the code with the 1m vertical
 
+const PlacementOrientationDataScript = preload("res://scenes/worlds/procedural_world/placement_orientation_data.gd")
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 @export var scene_path: String = ""
@@ -65,6 +67,10 @@ func spawn_item_in(node: Node, should_log := false) -> void:
 		if item is Node3D:
 			var node3d_item = item as Node3D
 			node3d_item.transform = _transforms[index]
+		
+		# Rest orientation for held-pose authored item scenes (see
+		# PlacementOrientationData); leaves non-weapons at identity.
+		PlacementOrientationDataScript.apply_to_item(item, scene_path)
 		
 		# Apply custom properties using extracted method
 		var custom_properties := _custom_properties[index] as Dictionary
@@ -138,6 +144,10 @@ func spawn_at_filtered_cells(node: Node, world_data: WorldData, cells: Array, sh
 				# Preserve the position we just set, but apply rotation
 				node3d_item.transform.basis = stored_transform.basis
 		
+		# Rest orientation for held-pose authored item scenes (see
+		# PlacementOrientationData); leaves non-weapons at identity.
+		PlacementOrientationDataScript.apply_to_item(item, scene_path)
+
 		# Apply custom properties
 		if index < _custom_properties.size():
 			var custom_properties := _custom_properties[index] as Dictionary

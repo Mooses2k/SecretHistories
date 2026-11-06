@@ -266,12 +266,19 @@ func _capture_inventory(inv: Inventory) -> Dictionary:
 	# without touching any character or cultist script).
 	var hotbar: Array = []
 	for slot in inv.hotbar.size():
-		var item: EquipmentItem = inv.hotbar[slot]
-		if item != null and is_instance_valid(item):
-			var entry: Dictionary = {"path": item.scene_file_path, "slot": slot}
-			if "charges_held" in item:
-				entry["charges"] = item.charges_held
-			hotbar.append(entry)
+		# Untyped read FIRST: assigning a freed instance to a typed variable
+		# throws ("Trying to assign invalid previously freed instance")
+		# before any is_instance_valid guard can run, which aborted the whole
+		# capture and blanked the saved inventory. Null or freed slots are
+		# skipped per item; one bad slot must not blank the rest.
+		var item_value: Variant = inv.hotbar[slot]
+		if item_value == null or not is_instance_valid(item_value):
+			continue
+		var item: EquipmentItem = item_value
+		var entry: Dictionary = {"path": item.scene_file_path, "slot": slot}
+		if "charges_held" in item:
+			entry["charges"] = item.charges_held
+		hotbar.append(entry)
 	var tiny: Dictionary = {}
 	for tiny_data in inv.tiny_items:
 		var res_path: String = tiny_data.resource_path if tiny_data is Resource else ""
@@ -757,10 +764,12 @@ func _apply_cultist_inventory(cultist: Node, data: Dictionary) -> void:
 		push_warning("[SaveManager] Cultist has no Inventory node, loadout not restored")
 		return
 	# Clear the fresh loadout: hotbar nodes, held items, tiny stacks, keys.
+	# Same freed-instance rule as _capture_inventory: read the slot untyped
+	# and guard before touching it.
 	for slot in inv.hotbar.size():
-		var item: EquipmentItem = inv.hotbar[slot]
-		if item != null and is_instance_valid(item):
-			item.queue_free()
+		var item_value: Variant = inv.hotbar[slot]
+		if item_value != null and is_instance_valid(item_value):
+			item_value.queue_free()
 		inv.hotbar[slot] = null
 	for held in [inv.current_mainhand_equipment, inv.current_offhand_equipment]:
 		if held != null and is_instance_valid(held) and not held.is_queued_for_deletion():

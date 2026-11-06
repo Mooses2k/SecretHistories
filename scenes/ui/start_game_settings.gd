@@ -32,13 +32,15 @@ func add_equipment():
 	if not item_paths_resource:
 		printerr("Failed to load item paths resource. Run utils/item_paths_updater.gd to generate it.")
 		return
-	
+
 	for full_path in item_paths_resource.equipment_paths:
-		var display_name := item_paths_resource.get_equipment_display_name(full_path)
-		_settings.add_int_setting(display_name, 0, 999, 1, 0)
-		_settings.set_setting_group(display_name, "Equipment")
-		# Store the full path as metadata so other systems can access it
-		_settings.set_setting_meta(display_name, "full_path", full_path)
+		# The setting key is the full item path: unique per item, and what the
+		# spawn step reads. The friendly name travels as display metadata so
+		# the UI can show it without making labels unique keys.
+		_settings.add_int_setting(full_path, 0, 999, 1, 0)
+		_settings.set_setting_group(full_path, "Equipment")
+		_settings.set_setting_meta(full_path, "display_name", item_paths_resource.get_equipment_display_name(full_path))
+		_settings.set_setting_meta(full_path, "full_path", full_path)
 
 
 func add_tiny_items():
@@ -46,10 +48,9 @@ func add_tiny_items():
 	if not item_paths_resource:
 		printerr("Failed to load item paths resource. Run utils/item_paths_updater.gd to generate it.")
 		return
-	
+
 	for full_path in item_paths_resource.tiny_item_paths:
-		var display_name := item_paths_resource.get_tiny_item_display_name(full_path)
-		_settings.add_int_setting(display_name, 0, 999, 1, 0)
-		_settings.set_setting_group(display_name, "Tiny Items")
-		# Store the full path as metadata so other systems can access it
-		_settings.set_setting_meta(display_name, "full_path", full_path)
+		_settings.add_int_setting(full_path, 0, 999, 1, 0)
+		_settings.set_setting_group(full_path, "Tiny Items")
+		_settings.set_setting_meta(full_path, "display_name", item_paths_resource.get_tiny_item_display_name(full_path))
+		_settings.set_setting_meta(full_path, "full_path", full_path)

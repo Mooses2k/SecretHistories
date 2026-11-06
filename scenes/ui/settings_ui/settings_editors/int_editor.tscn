@@ -14,18 +14,22 @@ offset_top = 293.0
 offset_right = 859.0
 offset_bottom = 307.0
 size_flags_horizontal = 3
+autowrap_mode = 3
+mouse_filter = 1
 
 [node name="Value" type="SpinBox" parent="."]
 unique_name_in_owner = true
 offset_left = 863.0
 offset_right = 937.0
 offset_bottom = 600.0
+size_flags_vertical = 4
 
 [node name="RandomizeButton" type="Button" parent="."]
 unique_name_in_owner = true
 offset_left = 941.0
 offset_right = 1024.0
 offset_bottom = 600.0
+size_flags_vertical = 4
 text = "Randomize"
 
 [connection signal="value_changed" from="Value" to="." method="_on_Value_value_changed"]

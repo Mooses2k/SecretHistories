@@ -36,10 +36,10 @@ alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer"]
 visible = false
-clip_contents = false
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
-horizontal_scroll_mode = 2
+horizontal_scroll_mode = 1
 
 [node name="AdaptiveSettingsUI" parent="MarginContainer/HBoxContainer/ScrollContainer" instance=ExtResource("3")]
 unique_name_in_owner = true

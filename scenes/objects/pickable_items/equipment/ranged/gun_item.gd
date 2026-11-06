@@ -130,6 +130,15 @@ func shoot():
 	var raycast_range = raycast.target_position.length()
 	raycast.clear_exceptions()
 	raycast.add_exception(owner_character)
+	# A shot can never damage its own shooter: the exception above covers the
+	# character body only, while the Hurtbox sensors are separate Area3D
+	# children (separate collision objects RayCast3D does not inherit
+	# exceptions from). A muzzle ray that crosses the shooter's own hand or
+	# torso hurtbox capsule would otherwise feed the shooter their own bullet
+	# damage and knock their rig out (KNOCKED_OUT ragdoll: held items drop to
+	# the floor with the bones and movement locks until the timer recovers).
+	for hurtbox in owner_character.find_children("*", "Hurtbox", true, false):
+		raycast.add_exception(hurtbox)
 	# Per-collider pellet accumulation: pellets that hit the same target are
 	# applied as one summed damage call instead of one call per pellet.
 	var hit_accumulator : Dictionary = Dictionary()

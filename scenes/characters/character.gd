@@ -307,7 +307,8 @@ func kick():
 
 			if kick_object is PickableItem:   # Is probably a PickableItem
 				kick_object.apply_central_impulse(-global_transform.basis.z * actual_kick_impulse)
-				kick_object.play_drop_sound(kick_object)
+				if kick_object.has_method("play_drop_sound"):
+					kick_object.play_drop_sound(kick_object)
 			elif kick_object.has_method("play_drop_sound"):   # Is probably a large object like a floor candelabra
 				kick_object.apply_central_impulse(-global_transform.basis.z * actual_kick_impulse)
 				kick_object.play_drop_sound(10, false)

@@ -34,12 +34,18 @@ func _init() -> void:
 func spawn_at_anchors(anchors: Array, rng: RandomNumberGenerator = null, should_log := false) -> Array:
 	if _has_spawned:
 		return []
-	
+
 	if anchors.is_empty():
 		if should_log:
 			print("ItemSpawnData: No anchors provided for spawning")
 		return []
-	
+
+	# Defensive: some spawn lists carry blank path entries. An empty path used
+	# to reach load() and log "Resource file not found: res://".
+	if scene_path.is_empty():
+		print("ERROR ItemSpawnData: empty scene_path, skipping spawn")
+		return []
+
 	var item_scene: PackedScene = load(scene_path)
 	if not is_instance_valid(item_scene):
 		print("ERROR ItemSpawnData: Failed to load scene: %s" % scene_path)
@@ -104,7 +110,14 @@ func spawn_at_anchors(anchors: Array, rng: RandomNumberGenerator = null, should_
 func spawn_item_in(node: Node, should_log := false) -> void:
 	if _has_spawned:
 		return
-	
+
+	# Defensive: some spawn lists carry blank path entries. An empty path used
+	# to reach load() and log "Resource file not found: res://" on every floor
+	# transition.
+	if scene_path.is_empty():
+		print("ERROR ItemSpawnData: empty scene_path, skipping spawn")
+		return
+
 	var item_scene: PackedScene = load(scene_path)
 	if not is_instance_valid(item_scene):
 		print("ERROR ItemSpawnData: Failed to load scene: %s" % scene_path)

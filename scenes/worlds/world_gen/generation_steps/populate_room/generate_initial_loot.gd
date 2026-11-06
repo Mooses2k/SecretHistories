@@ -89,7 +89,15 @@ func _generate_initial_loot_spawn_data(data: WorldData, loot_list: ObjectSpawnLi
 				cell_radius * _min_radius_multiplier,
 				cell_radius * _max_radius_multiplier
 		)
-		
+
+		# Spawn lists can carry blank path entries (unfilled object_N slots in
+		# the .tres). Every RNG draw above already happened, so skipping here
+		# keeps the seed parity of all other loot; we only avoid placing a
+		# SpawnData whose empty scene_path produced "Resource file not found:
+		# res://" at spawn time.
+		if base_spawn_data.scene_path.is_empty():
+			continue
+
 		data.set_object_spawn_data_to_cell(cell_index, spawn_data)
 
 

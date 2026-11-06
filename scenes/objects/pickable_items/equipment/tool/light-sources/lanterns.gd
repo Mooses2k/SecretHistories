@@ -63,10 +63,7 @@ func light():
 		else:
 			$SlideOpen.play()
 
-		## TODO: Uncomment when noise_level ready
-		#if owner_character:
-			#if owner_character.noise_level < 5:
-				#owner_character.noise_level = 5
+		# Not audible yet: light noise lands with the hearing restore (ai-direction-design.md item 2).
 
 		$AnimationPlayer.play("flicker")
 		firelight.visible = true
@@ -83,8 +80,6 @@ func unlight():
 	if not is_depleted:
 		if is_in_belt:
 			$SlideClosed.play()
-			if owner_character.noise_level < 5:
-				owner_character.noise_level = 5
 
 		$AnimationPlayer.stop()
 		firelight.visible = false

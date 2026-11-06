@@ -39,10 +39,7 @@ func light() -> void:
 		$FireOrigin.visible = true # related to bugfix #604
 		$MeshInstance3D.cast_shadow = false
 
-		#if owner_character:
-			#if owner_character.noise_level < 5:
-				#owner_character.noise_level = 5
-
+		# Not audible yet: light noise lands with the hearing restore (ai-direction-design.md item 2).
 		is_lit = true
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()

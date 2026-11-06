@@ -36,7 +36,7 @@ one_shot = true
 
 [node name="RayCast3D" type="RayCast3D" parent="." index="5"]
 target_position = Vector3(0, 0, -1000)
-collision_mask = 13
+collision_mask = 77
 collide_with_areas = true
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]

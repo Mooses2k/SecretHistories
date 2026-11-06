@@ -56,7 +56,7 @@ var _queued_reload_amount : int = 0
 @onready var raycast : RayCast3D = get_node(detection_raycast) as RayCast3D
 @onready var animation_player = %AnimationPlayer
 @onready var player = get_node(player_path)
-@onready var mesh = get_node(mesh_path)
+@onready var mesh = get_node_or_null(mesh_path)
 
 
 func _ready():

@@ -234,12 +234,9 @@ func _on_world_generation_finished() -> void:
 func _on_game_player_spawned(p_player: Player) -> void:
 	_player_icon.player = p_player
 	hide()   # Hidden by default
-
-	if not p_player.is_connected("character_died", Callable(self, "_on_player_character_died")):
-		p_player.connect("character_died", Callable(self, "_on_player_character_died"))
-
-
-func _on_player_character_died() -> void:
-	hide()
+	# No death hookup here: the old "character_died" signal belongs to the
+	# retired Character script; the dev4 Player (HumanoidCharacter) declares
+	# no death signal, so connecting produced two script errors per game start
+	# and the hide-on-death handler could never fire meaningfully.
 
 ### -----------------------------------------------------------------------------------------------

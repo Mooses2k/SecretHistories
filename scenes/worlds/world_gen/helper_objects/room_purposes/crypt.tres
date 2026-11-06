@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="RoomPurpose" load_steps=10 format=3 uid="uid://eli0cf8ff2uc"]
+[gd_resource type="Resource" script_class="RoomPurpose" load_steps=11 format=3 uid="uid://eli0cf8ff2uc"]
 
 [ext_resource type="Script" uid="uid://cq66exvfal75m" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" id="1"]
 [ext_resource type="Script" uid="uid://cfaso1nq7iyx4" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" id="2"]
 [ext_resource type="Script" uid="uid://2bj72y7m66b8" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/pillar_requirement.gd" id="3"]
 [ext_resource type="Script" uid="uid://cp602rtjlnco3" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/max_size_requirement.gd" id="4"]
 [ext_resource type="Script" uid="uid://brpefsncuuwx8" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/doorway_requirement.gd" id="5"]
+[ext_resource type="AudioStream" uid="uid://cy2n3ugiuw5ft" path="res://resources/sounds/music/cryptsMASTER.mp3" id="6"]
 
 [sub_resource type="Resource" id="1"]
 resource_name = "Min Size 3x3"
@@ -31,6 +32,7 @@ max_doorways = 1
 
 [resource]
 script = ExtResource("1")
+ambient_stream = ExtResource("6")
 purpose_id = "1"
 max_amount = -1
 requirements = [SubResource("1"), SubResource("3"), SubResource("2"), SubResource("4")]

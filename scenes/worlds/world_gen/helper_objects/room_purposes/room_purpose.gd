@@ -18,6 +18,13 @@ var purpose_id := ""
 var max_amount := 0
 var requirements := []
 
+# Room-specific ambience track (issue #179 music half). null means the room has
+# no own track (fountain until its track exists): the shared Empty ambience
+# stays the target. Owner ruling: purpose tracks do NOT mix with Empty, they
+# are their own; entering the room crossfades to this stream, leaving
+# crossfades back to Empty.
+@export var ambient_stream : AudioStream = null
+
 #--- private variables - order: export > normal var > onready -------------------------------------
 
 ### -----------------------------------------------------------------------------------------------

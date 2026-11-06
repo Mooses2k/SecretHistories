@@ -107,24 +107,17 @@ func load_level(packed : PackedScene):
 		# this needs a yield because this function is called from within another yield
 		await get_tree().process_frame
 
-	# Ambient music controller
+	# Ambient music controller (LoadScene.play_ambient: owner ruling, the same
+	# ambience track continues across floor loads instead of restarting)
 	match current_floor_level:
 		-1:
-			BackgroundMusic.stream = _empty_ambience
-			BackgroundMusic.volume_db = 0
-			BackgroundMusic.play()
+			LoadScene.play_ambient(_empty_ambience, 0)
 		-2:
-			BackgroundMusic.stream = _empty_ambience
-			BackgroundMusic.volume_db = 0
-			BackgroundMusic.play()
+			LoadScene.play_ambient(_empty_ambience, 0)
 		-3:
-			BackgroundMusic.stream = _empty_ambience
-			BackgroundMusic.volume_db = 0
-			BackgroundMusic.play()
+			LoadScene.play_ambient(_empty_ambience, 0)
 		-4:
-			BackgroundMusic.stream = _empty_ambience
-			BackgroundMusic.volume_db = 0
-			BackgroundMusic.play()
+			LoadScene.play_ambient(_empty_ambience, 0)
 		-5:
 			BackgroundMusic.stop()   # Music will be the gregorian chanting from the shard
 			print("Level 5, stop music")

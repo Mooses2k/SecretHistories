@@ -31,7 +31,25 @@ func load_level(path :String, target : Node, load_screen : LoadScreen):
 func clear_data():
 	next_scene = ""
 	target_node = null
-	
+
 	loading = false
 	#Only for debug menu
 	loading_screen_removed.emit()
+
+
+## Owner ruling: when a load flow requests the ambient/music track that is
+## already playing on the shared BackgroundMusic player, keep it running
+## instead of stopping and restarting it (floor -2 to -3 with the same
+## ambience must continue straight through the load). The check is
+## stream-identity-based: only the identical resource still playing
+## continues; anything else (menu music, a different ambience, a player that
+## was stopped, e.g. after quit to menu) switches or restarts as before.
+## The pre-click bus mute skips Music, so the loop simply never stops.
+## The request delegates to the ambience manager on the BackgroundMusic
+## autoload, which owns the identity check, the room-purpose crossfade engine
+## (issue #179 music half) and the loop enforcement; the same-track identity
+## check runs before any crossfade can start, so the crossfade system composes
+## with the continuity rule instead of defeating it. On a crossfade the
+## incoming track enters at the outgoing track's same relative point.
+func play_ambient(stream : AudioStream, volume_db : float = 0.0) -> void:
+	BackgroundMusic.play_ambient(stream, volume_db)

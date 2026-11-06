@@ -1,7 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://j2eycaw7ehml"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="AudioStream" uid="uid://bddpsuvqttqe6" path="res://resources/sounds/music/main_menu_music_FUGUE.mp3" id="1"]
+[ext_resource type="AudioStream" path="res://resources/sounds/music/main_menu_music_FUGUE.mp3" id="1"]
+[ext_resource type="Script" path="res://scenes/effects/background_music.gd" id="2"]
 
-[node name="BackgroundMusic" type="AudioStreamPlayer"]
+[node name="BackgroundMusic" type="AudioStreamPlayer" unique_id=1613390635]
+process_mode = 3
 stream = ExtResource("1")
+bus = &"Music"
+script = ExtResource("2")
+
+[node name="CrossfadePlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Music"

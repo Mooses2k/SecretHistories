@@ -146,21 +146,18 @@ func _on_Hitbox_hit(other):
 			other.owner.damage(primary_damage2, primary_damage_type2)
 		if did_a_cut:
 			other.owner.damage(secondary_damage1, secondary_damage_type1)
-			other.owner.damage(secondary_damage1, secondary_damage_type2)
+			other.owner.damage(secondary_damage2, secondary_damage_type2)
 		can_hit = false
 
 
 func _on_Hitbox_body_entered(body):
 	prints(body, "hit by", self)
-	# This is so slashing damage doesn't impulse objects as much
-	if primary_damage_type1 == 0:
-		primary_damage1 /= 2
-	elif primary_damage_type2 == 0:
-		primary_damage2 /= 2
-	elif secondary_damage_type1 == 0:
-		secondary_damage1 /= 2
-	elif secondary_damage_type2 == 0:
-		secondary_damage2 /= 2
+	# Slashing damage halves its impulse factor as a LOCAL value at the damage
+	# call, never by mutating the exported stats here (Brooks audit 4.1): the
+	# old primary_damage1 /= 2 pattern permanently corrupted the weapon's
+	# damage for every later hit once any body touched the hitbox. The only
+	# consumer of halved values (the impulse block below) is currently
+	# commented out, so there is no live local factor to compute today.
 
 	# This pushes the hit object if it's a RigidBody
 	#if body is RigidBody3D and can_hit == true:

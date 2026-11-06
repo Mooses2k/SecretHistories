@@ -554,10 +554,47 @@ func is_cell_free(cell_index: int) -> bool:
 
 func set_object_spawn_data_to_cell(cell_index: int, spawn_data: SpawnData) -> void:
 	if _objects_to_spawn.has(cell_index):
-		push_error("Aborting. Cell %s is already occupied with: %s" % [cell_index, spawn_data])
-		return
+		# A previous generation step already claimed this cell. The old
+		# behavior was push_error + abort, losing the placement on every
+		# affected generation. Relocate to the nearest free cell instead.
+		# The search is a deterministic ring scan and draws no RNG, so
+		# generation seed parity is preserved.
+		var relocated_cell := _find_nearest_free_cell(cell_index)
+		if relocated_cell == -1:
+			push_warning("Skipping spawn: cell %s already occupied and no free cell nearby (wanted: %s)" % [cell_index, spawn_data.scene_path])
+			return
+		push_warning("Cell %s already occupied, relocated %s spawn to cell %s" % [cell_index, spawn_data.scene_path, relocated_cell])
+		# Preserve the authored rotation (set_center_position_in_cell would
+		# wipe the basis); only move the origin to the relocated cell center.
+		spawn_data.set_position_in_cell(get_local_cell_position(relocated_cell) + SpawnData.ITEM_CENTER_POSITION_OFFSET)
+		cell_index = relocated_cell
 
 	_objects_to_spawn[cell_index] = spawn_data
+
+
+# Nearest free cell by ring distance (Chebyshev) around p_cell_index, scanning
+# each ring in ascending index order so the result is deterministic. Only cells
+# of the same CellType as the requested cell are considered, so a room-corner
+# object stays on a room cell. Returns -1 when nothing free exists.
+func _find_nearest_free_cell(p_cell_index: int) -> int:
+	var wanted_type := get_cell_type(p_cell_index)
+	var center_x := int(p_cell_index / world_size_z)
+	var center_z := p_cell_index % world_size_z
+	var max_radius := maxi(world_size_x, world_size_z)
+	for radius in range(1, max_radius + 1):
+		for x in range(center_x - radius, center_x + radius + 1):
+			for z in range(center_z - radius, center_z + radius + 1):
+				# Ring cells only: the inner square was scanned already.
+				if absi(x - center_x) != radius and absi(z - center_z) != radius:
+					continue
+				if not (x >= 0 and x < world_size_x and z >= 0 and z < world_size_z):
+					continue
+				var candidate := x * world_size_z + z
+				if get_cell_type(candidate) != wanted_type:
+					continue
+				if is_cell_free(candidate):
+					return candidate
+	return -1
 
 
 func get_objects_to_spawn() -> Dictionary:

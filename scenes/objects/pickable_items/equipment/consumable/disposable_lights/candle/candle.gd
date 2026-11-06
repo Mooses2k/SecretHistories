@@ -6,18 +6,18 @@ extends DisposableLightItem
 
 signal item_is_dropped
 
-var is_lit = false
+var is_lit : bool = false
 var burn_time : float
 var is_depleted : bool = false
 #var is_dropped: bool = false
 #var is_just_dropped: bool = true
-var light_timer
-var random_number
+var light_timer : Timer
+var random_number : float
 @export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 
-var material
-var new_material
+var material : Material
+var new_material : Material
 
 @onready var firelight = $FireOrigin/Fire/Light3D
 
@@ -31,7 +31,6 @@ func _ready() -> void:
 
 
 func light() -> void:
-	print("Light depleted: ", is_depleted)
 	if not is_depleted:
 		$AnimationPlayer.play("flicker")
 		$Sounds/LightSound.play()
@@ -66,7 +65,6 @@ func unlight() -> void:
 
 
 func _use_primary() -> void:
-	print("Lit state before use_primary: ", is_lit)
 	if is_lit == false:
 		light()
 	else:
@@ -98,22 +96,18 @@ func _on_light_depleted():
 func stop_light_timer():
 	if is_instance_valid(light_timer):
 		burn_time = light_timer.get_time_left()
-	#	print("current burn time " + str(burn_time))
 		light_timer.stop()
 
 
 func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)
-	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
 	
 	if is_instance_valid(light_timer):
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()
 
-	print("Linear velocity of candle: ", linear_velocity.length())
 	if linear_velocity.length() > 0.001:
 		if random_number < prob_going_out:
 			unlight()
-			print("Light went out due to being thrown")

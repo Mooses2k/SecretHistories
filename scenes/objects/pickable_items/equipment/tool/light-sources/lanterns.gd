@@ -23,8 +23,6 @@ var mesh_instance : Node
 
 
 func _ready():
-	if not is_connected("body_entered", Callable(self, "play_drop_sound")):
-		connect("body_entered", Callable(self, "play_drop_sound"))
 	light_timer = $Timer
 
 	light_timer.connect("timeout", Callable(self, "light_depleted"))

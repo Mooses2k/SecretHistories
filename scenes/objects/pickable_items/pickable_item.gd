@@ -60,26 +60,14 @@ func _enter_tree():
 func _ready():
 	# Configure the audio manager after the scene is fully loaded
 	# This ensures item_drop_sound is properly set from the editor
-	prints("PICKABLE ITEM DEBUG - _ready() called")
-	prints("PICKABLE ITEM DEBUG - item_drop_sound in _ready():", item_drop_sound)
 	call_deferred("_configure_audio_manager")
 
 
 func _configure_audio_manager():
-	prints("PICKABLE ITEM DEBUG - Configuring audio manager")
-	prints("PICKABLE ITEM DEBUG - impact_audio_manager:", impact_audio_manager)
-	prints("PICKABLE ITEM DEBUG - item_drop_sound:", item_drop_sound)
-	prints("PICKABLE ITEM DEBUG - item_max_noise_level:", item_max_noise_level)
-
 	if impact_audio_manager:
 		if item_drop_sound:
 			impact_audio_manager.drop_sound = item_drop_sound
 			impact_audio_manager.max_noise_level = item_max_noise_level
-			prints("PICKABLE ITEM DEBUG - Audio manager configured successfully")
-		else:
-			prints("PICKABLE ITEM DEBUG - No drop sound assigned in editor!")
-	else:
-		prints("PICKABLE ITEM DEBUG - No impact_audio_manager!")
 
 
 func _process(delta):

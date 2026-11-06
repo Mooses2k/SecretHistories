@@ -33,7 +33,6 @@ func _process(delta: float) -> void:
 	if _holding_swap_hands:
 		if _swap_hands_timer >= swap_hands_delay:
 			inventory.swap_hands()
-			print("swap hands")
 			_holding_swap_hands = false
 		else:
 			_swap_hands_timer += delta
@@ -84,7 +83,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			inventory.drop_bulky_item()
 			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, 1)
 			inventory.current_mainhand_slot = next_slot
-			print(inventory.current_mainhand_slot)
 		elif event.is_action_pressed(&"itm|previous_hotbar_item"):
 			# Check if interact controller is currently grabbing
 			if interact_controller.interact_state == interact_controller.InteractState.GRAB:
@@ -96,7 +94,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			inventory.drop_bulky_item()
 			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, -1)
 			inventory.current_mainhand_slot = next_slot
-			print(inventory.current_mainhand_slot)
 	pass
 
 # Helper function to find the next valid main hand slot that skips the equipped offhand slot
@@ -115,8 +112,6 @@ func get_next_valid_mainhand_slot(current_slot: int, direction: int) -> int:
 			
 		# Found a valid slot
 		return next_slot
-		
-		attempts += 1
 	
 	# Fallback to original slot if no valid slot found (shouldn't happen)
 	return current_slot
@@ -140,7 +135,6 @@ func _cycle_offhand_slot():
 			new_slot = (new_slot + 1) % inventory.hotbar.size()
 	if start_slot != new_slot:
 		inventory.current_offhand_slot = new_slot
-		print("Offhand slot cycled to ", new_slot)
 		cancel_throw()
 	pass
 

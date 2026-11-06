@@ -6,14 +6,14 @@ extends DisposableLightItem
 
 signal item_is_dropped
 
-var is_lit = false
+var is_lit : bool = false
 
 var burn_time : float
 var is_depleted : bool = false
 var is_dropped: bool = false
 var is_just_dropped: bool = true
-var light_timer
-var random_number
+var light_timer : Timer
+var random_number : float
 @export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 

@@ -16,12 +16,12 @@ enum MeleeStyle {
 
 @export var ammo_types : Array[Resource]# (Array, Resource)
 
-@export var ammunition_capacity = 0
-@export var reload_amount = 0
-@export var damage_offset = 0
-@export var dispersion_offset_degrees = 0
-@export var cooldown = 1.0
-@export var handling = 5.0
+@export var ammunition_capacity : int = 0
+@export var reload_amount : int = 0
+@export var damage_offset : int = 0
+@export var dispersion_offset_degrees : int = 0
+@export var cooldown : float = 1.0
+@export var handling : float = 5.0
 
 @export var reload_position : Vector3
 @export var reload_rotation : Vector3
@@ -118,7 +118,6 @@ func set_range(value : Vector2):
 
 
 func shoot():
-	print("shoot")
 	var ammo_type = current_ammo_type as AmmunitionData
 
 	# The reason it's MINUS damage_offset (thus louder) is more of the powder is exploding outside the barrel
@@ -140,7 +139,6 @@ func shoot():
 		raycast.force_raycast_update()
 		if raycast.is_colliding():
 			var target = raycast.get_collider()
-			print(target)
 			var global_hit_position = raycast.get_collision_point()
 			# normalized: the raycast inherits the hand attachment scale, which
 			# would shrink the direction used for the door break impulse
@@ -160,7 +158,6 @@ func shoot():
 			target.damage(hit.damage, hit.attack_type, hit.hit_direction, hit.hit_position)
 	current_ammo -= 1
 	apply_knockback(total_damage)
-	print(owner_character, " shoots a ", self)
 
 	# Cultists can't recoil for now
 	if owner_character.get_node("PlayerController"):
@@ -243,7 +240,6 @@ func apply_knockback(total_damage):
 	if raycast.is_colliding():
 		var object_detected = raycast.get_collider()
 		if object_detected is RigidBody3D and has_method("apply_damage") :
-			print("detected rigidbody")
 			object_detected.apply_central_impulse(-self.global_transform.basis.z * total_damage * 5)
 
 
@@ -256,14 +252,12 @@ func _on_ReloadTimer_timeout() -> void:
 			current_ammo_type = _queued_reload_type
 			current_ammo += _reload_amount
 	owner_character.state.is_reloading = false
-	print("Reload done, reloaded ", _queued_reload_amount, " bullets")
 
 
 func _on_UnloadTimer_timeout() -> void:
 	if owner_character and owner_character.state.is_reloading:
 		var inventory = owner_character.inventory
 		inventory.insert_tiny_item(current_ammo_type, current_ammo)
-		print("Unload rounds: ", current_ammo)
 		current_ammo = 0
 		owner_character.state.is_reloading = false
 		$Sounds/Unload.play()

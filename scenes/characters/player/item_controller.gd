@@ -74,7 +74,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	# Safety check to prevent crash with freed instances
 	if not is_instance_valid(off_item):
-		print("[DEBUG] Item controller - off_item is not valid, skipping input")
 		return
 		
 	if off_item is EquipmentItem:

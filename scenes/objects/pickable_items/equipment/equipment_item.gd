@@ -20,7 +20,7 @@ signal used_unload()
 @export_subgroup("Stacking")
 @export var stackable_resource: StackableResource
 
-var is_in_belt = false
+var is_in_belt : bool = false
 
 var _is_action_held : bool = false
 
@@ -31,8 +31,6 @@ var _is_action_held : bool = false
 func _ready():
 	if horizontal_holding == true:
 		hold_position.rotation_degrees.z = 90
-
-	connect("body_entered", Callable(self, "play_drop_sound"))
 
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
@@ -49,7 +47,6 @@ func _physics_process(delta):
 
 func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
 	if thrown_point_first:
-		print("Applying throw logic")
 		var throw_basis : Basis = Basis.IDENTITY
 		if not direction.is_equal_approx(Vector3.UP):
 			throw_basis.y = direction.normalized()
@@ -58,14 +55,12 @@ func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
 		self.global_basis = throw_basis # This attempts to align the point forward when throwing piercing weapons
 		#self.global_rotation = throw_pos.global_rotation
 	if can_spin:
-		print("Item spins when thrown")
 		angular_velocity = Vector3(global_transform.basis.x * -15)
 #		angular_velocity.z = -15   # Ah, maybe not working because it's already been put in world_space at this point
 
 
 # Override this function for (LMB mainhand, LAlt offhand) tap-to-use actions
 func _use_primary():
-	print("use primary")
 	if stackable_resource != null:
 		if stackable_resource.items_stacked.size() > 0:
 			stackable_resource.items_stacked.pop_front()
@@ -75,7 +70,6 @@ func _use_primary():
 #TODO remove secondary use, replace with held use
 # Override this function for (LMB mainhand, LAlt offhand) hold-to-use actions
 func _use_secondary():
-	print("use secondary")
 	if stackable_resource != null:
 		if stackable_resource.items_stacked.size() > 0:
 			stackable_resource.items_stacked.pop_front()
@@ -94,13 +88,11 @@ func use_secondary():
 
 # Reloads can only happen in main-hand, currently
 func _use_reload():
-	print("use reload")
 	pass
 
 
 # Unloads all ammo
 func _use_unload():
-	print("use unload")
 	pass
 
 
@@ -115,7 +107,7 @@ func use_unload():
 
 
 func _set_held_use(enabled : bool) -> void:
-	print("Held action set to: ", "enabled" if enabled else "disabled")
+	pass
 
 
 func _has_held_use() -> bool:

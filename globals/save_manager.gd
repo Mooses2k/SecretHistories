@@ -514,8 +514,6 @@ func _parse_floor_data(records: Array, current_floor: int) -> Dictionary:
 					data["taken"][target] = true
 			"item_dropped":
 				pass
-	if floor_meta.has(current_floor) or true:
-		pass
 	# Dropped items and cultists come from the entity files of the slot.
 	var save_path: String = slot_dir(int(pending_load["slot"]))
 	var items_dir: String = save_path + "entities/items/"

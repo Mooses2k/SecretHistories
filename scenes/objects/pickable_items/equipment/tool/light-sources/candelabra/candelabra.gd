@@ -10,28 +10,28 @@ signal item_dropped
 
 @export var number_of_candles : int = 1
 
-var is_lit = false
+var is_lit : bool = false
 
 var burn_time : float = 1000.0
 var is_depleted : bool = false
 var is_dropped : bool = false
 var is_just_dropped : bool = true
-var light_timer
-var random_number
+var light_timer : Timer
+var random_number : float
 @export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 
-var material
-var new_material
+var material : Material
+var new_material : Material
 
-var burn_time_2 = 0.0
-var burn_time_3 = 0.0
+var burn_time_2 : float = 0.0
+var burn_time_3 : float = 0.0
 @onready var light_timer_base : Node = $Timer
 #onready var light_timer_2 : Node = $Timer2   # Doing these in _ready avoids a red debugger error
 #onready var light_timer_3 : Node = $Timer3
 var is_depleted_2 : bool = false
 var is_depleted_3 : bool = false
-var random_number_2_3
+var random_number_2_3 : float
 
 @onready var firelight = $Candle1/FireOrigin/Fire/Light3D
 
@@ -189,7 +189,6 @@ func unlight_candle_3():
 
 # This is apparently not called anywhere
 func light_dropped():
-	print("light_dropped called")
 	if number_of_candles > 1:
 		var light_timer_2 = $Timer2
 		var light_timer_3 = $Timer3
@@ -220,25 +219,21 @@ func _on_light_depleted():
 func stop_light_timer():
 	if is_instance_valid(light_timer):
 		burn_time = light_timer.get_time_left()
-#		print("current burn time " + str(burn_time))
 		light_timer.stop()
 
 
 func item_drop():
 	stop_light_timer()
 	burn_time -= (burn_time * life_percentage_lose)
-	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
 	
 	if is_instance_valid(light_timer):
 		light_timer.set_wait_time(burn_time)
 		light_timer.start()
 	
-	print("Linear velocity of candelabra: ", linear_velocity.length())
 	if linear_velocity.length() > 0.01:
 		if random_number < prob_going_out:
 			unlight()
-			print("Light went out due to being thrown")
 
 
 func _on_ignite_character_interacted(_character: Variant) -> void:

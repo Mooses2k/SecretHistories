@@ -17,15 +17,15 @@ enum WeaponType {
 
 # primary and secondary here refer to primary use (L-Click) and secondary use (R-Click)
 @export var primary_damage_type1 : int = 0 # (GlobalConsts.AttackTypes)
-@export var primary_damage1 = 0
+@export var primary_damage1 : int = 0
 @export var primary_damage_type2 : int = 0 # (GlobalConsts.AttackTypes)
-@export var primary_damage2 = 0
+@export var primary_damage2 : int = 0
 @export var secondary_damage_type1 : int = 0 # (GlobalConsts.AttackTypes)
-@export var secondary_damage1 = 0
+@export var secondary_damage1 : int = 0
 @export var secondary_damage_type2 : int = 0 # (GlobalConsts.AttackTypes)
-@export var secondary_damage2 = 0
+@export var secondary_damage2 : int = 0
 @export var melee_attack_speed : float = 1.0
-@export var cooldown = 0.01
+@export var cooldown : float = 0.01
 
 #export var element_path : NodePath
 #onready var collision_and_mesh = get_node(element_path)

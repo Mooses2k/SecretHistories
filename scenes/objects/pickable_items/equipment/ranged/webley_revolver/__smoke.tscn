@@ -6,7 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bldcxb7njlw1w" path="res://resources/effects/muzzle_blast_spear.res" id="3_axe1f"]
 [ext_resource type="ArrayMesh" uid="uid://br8ut3jjv14uw" path="res://resources/effects/smoke_ring_mesh.res" id="5_070qw"]
 [ext_resource type="Texture2D" uid="uid://8teb10wclypx" path="res://resources/effects/particlePack_1.1/PNG (Transparent)/trace_05.png" id="6_3i3vo"]
-[ext_resource type="Texture2D" uid="uid://cgnf3ysner6sl" path="res://resources/effects/SmallSmoke15Frames.png" id="7_3x24n"]
+[ext_resource type="Texture2D" uid="uid://d1s7v17a3dip" path="res://resources/effects/SmallSmoke15Frames.png" id="7_3x24n"]
 
 [sub_resource type="Curve" id="Curve_bc7cn"]
 _data = [Vector2(0, 1), 0.0, -1.99537, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

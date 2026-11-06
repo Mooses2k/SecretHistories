@@ -35,11 +35,27 @@ func _ready():
 
 ## WORKAROUND for https://github.com/godotengine/godot/issues/62435
 # Bug here where when player rotates, items does a little circle thing in hand
+# Minimum documented workaround (audit Finding 4.8), so the future component
+# rework can remove it deliberately:
+# - The transform being asserted every physics frame is the EQUIPPED ITEM's
+#   local transform relative to the hand root the item is parented to.
+# - HoldPosition is authored in ITEM-LOCAL space. For non-guns it marks the
+#   grip point, so the item pose that puts the grip exactly on the hand root
+#   origin is the INVERSE of the marker transform: T * H = identity means
+#   T = HoldPosition.transform.inverse().
+# - For guns, HoldPosition is authored as the desired full item pose relative
+#   to the hand root instead, so the raw marker transform is used.
+# - The per-frame rewrite is what compensates for godot#62435: without it the
+#   equipped item slowly orbits ("does a little circle") in the hand while the
+#   player rotates, because the body's pose drifts between physics ticks.
+# The former duck-typed gun check (self.get("ammunition_capacity") != null)
+# was equivalent to `is GunItem`: gun_item.gd is the only script defining
+# ammunition_capacity.
 func _physics_process(delta):
 	super._physics_process(delta)
 	if self.item_state == GlobalConsts.ItemState.EQUIPPED:
 		##This checks if the item is a gun
-		if self.get("ammunition_capacity") != null:
+		if self is GunItem:
 			transform = get_hold_transform()
 		else:
 			transform = get_hold_transform().inverse()

@@ -114,7 +114,8 @@ func set_range(value : Vector2):
 	if value.y > value.x:
 		amount += randi() % (int(1 + value.y - value.x))
 	current_ammo = clamp(amount, 0, ammunition_capacity)
-	current_ammo_type = ammo_types[0]
+	if not ammo_types.is_empty():
+		current_ammo_type = ammo_types[0]
 
 
 func shoot():
@@ -160,7 +161,7 @@ func shoot():
 	apply_knockback(total_damage)
 
 	# Cultists can't recoil for now
-	if owner_character.get_node("PlayerController"):
+	if owner_character.get_node_or_null("PlayerController"):
 		#owner_character.recoil(self, total_damage, handling)   # Should also send delta
 		owner_character.recoil()
 
@@ -239,19 +240,23 @@ func unload():
 func apply_knockback(total_damage):
 	if raycast.is_colliding():
 		var object_detected = raycast.get_collider()
-		if object_detected is RigidBody3D and has_method("apply_damage") :
+		if object_detected is RigidBody3D and object_detected.has_method("apply_damage") :
 			object_detected.apply_central_impulse(-self.global_transform.basis.z * total_damage * 5)
 
 
 func _on_ReloadTimer_timeout() -> void:
-	if owner_character and owner_character.state.is_reloading and (current_ammo_type == null or current_ammo_type == _queued_reload_type):
-		var inventory = owner_character.inventory
-		if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
-			var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
-			inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
-			current_ammo_type = _queued_reload_type
-			current_ammo += _reload_amount
-	owner_character.state.is_reloading = false
+	# owner_character dereference kept inside the guard (Brooks audit 4.6):
+	# the is_reloading reset used to run outside the guard and errored when the
+	# gun was dropped mid-reload and owner_character became invalid.
+	if owner_character and owner_character.state.is_reloading:
+		if current_ammo_type == null or current_ammo_type == _queued_reload_type:
+			var inventory = owner_character.inventory
+			if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
+				var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
+				inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
+				current_ammo_type = _queued_reload_type
+				current_ammo += _reload_amount
+		owner_character.state.is_reloading = false
 
 
 func _on_UnloadTimer_timeout() -> void:

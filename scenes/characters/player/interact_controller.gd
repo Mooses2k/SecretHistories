@@ -37,6 +37,11 @@ var _holding_interact : bool = false
 var interact_state : InteractState = InteractState.NONE
 
 var grabbed_item : RigidBody3D = null
+# Pre-grab physics values, captured at grab start and restored on release
+# (Brooks audit 3.1): the reset used to assume authored damp was 0.0.
+var pre_grab_linear_damp : float = 0.0
+var pre_grab_angular_damp : float = 0.0
+var pre_grab_gravity_scale : float = 1.0
 # Where the object was grabbed, relative to the object
 var grab_position_object : Vector3
 # Where the object was grabbed, relative to the raycast
@@ -175,6 +180,11 @@ func _try_grab_captured() -> bool:
 	if is_instance_valid(captured_grab_target):
 		grabbed_item = captured_grab_target
 
+		# Capture the item's authored physics values before any damping change
+		pre_grab_linear_damp = grabbed_item.linear_damp
+		pre_grab_angular_damp = grabbed_item.angular_damp
+		pre_grab_gravity_scale = grabbed_item.gravity_scale
+
 		grab_position_object = grabbed_item.to_local(grab_cast.get_collision_point())
 		grab_position_raycast = grab_cast.to_local(grab_cast.get_collision_point())
 
@@ -213,6 +223,15 @@ func _physics_process(delta: float) -> void:
 
 		# Calculate mass-based force scaling
 		var mass = grabbed_item.mass
+
+		# Local damping factors for this grab (Brooks audit 3.1): very light
+		# objects get stronger damping via locals only. Assigning the exported
+		# members here kept the 8.0 override for every later grab in the session.
+		var linear_damp_factor : float = linear_damping_factor
+		var rotational_damp_factor : float = rotational_damping_factor
+		if mass < 0.5:
+			linear_damp_factor = 8.0
+			rotational_damp_factor = 8.0
 		var base_force_multiplier = 100.0
 		var temp_mass_threshold = light_object_mass_threshold
 		var max_force_limit = 200.0
@@ -257,8 +276,6 @@ func _physics_process(delta: float) -> void:
 				var base_torque := rotation_torque_multiplier
 				if mass < 0.5:
 					base_torque = 0.01
-					linear_damping_factor = 8.0
-					rotational_damping_factor = 8.0
 				if mass <= light_object_mass_threshold:
 					# Light objects: reduce torque significantly and use mass_damping_scale
 					base_torque *= mass_factor * (1.0 - mass_damping_scale) + mass_damping_scale #* 0.1
@@ -297,8 +314,8 @@ func _physics_process(delta: float) -> void:
 		# Apply damping to non-heavy objects
 		if mass <= light_object_mass_threshold:
 			var mass_factor = clamp(mass / light_object_mass_threshold, 0.01, 1.0)
-			var scaled_linear_damp = linear_damping_factor * (1.0 - mass_factor * mass_damping_scale)
-			var scaled_rotational_damp = rotational_damping_factor * (1.0 - mass_factor * mass_damping_scale)
+			var scaled_linear_damp = linear_damp_factor * (1.0 - mass_factor * mass_damping_scale)
+			var scaled_rotational_damp = rotational_damp_factor * (1.0 - mass_factor * mass_damping_scale)
 
 			# Ensure minimum damping values
 			scaled_linear_damp = max(scaled_linear_damp, 0.01)
@@ -335,10 +352,9 @@ func _reset_object_damping(item: RigidBody3D) -> void:
 	if is_instance_valid(item):
 		print("INTERACT DEBUG - Resetting damping for: ", item.name, ". Before reset - Linear: ", item.linear_damp, " Angular: ", item.angular_damp)
 
-		# Reset to default physics values (or whatever the object's original values were)
-		item.linear_damp = 0.0  # Default Godot linear damping
-		item.angular_damp = 0.0  # Default Godot angular damping
-		# Gravity should already be enabled, but ensure it's set correctly
-		item.gravity_scale = 1.0
+		# Restore the item's pre-grab physics values (captured in _try_grab_captured)
+		item.linear_damp = pre_grab_linear_damp
+		item.angular_damp = pre_grab_angular_damp
+		item.gravity_scale = pre_grab_gravity_scale
 
 		print("INTERACT DEBUG - After reset - Linear: ", item.linear_damp, " Angular: ", item.angular_damp)

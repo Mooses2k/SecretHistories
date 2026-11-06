@@ -93,8 +93,11 @@ func _on_light_depleted():
 
 func stop_light_timer():
 	if is_instance_valid(light_timer):
-		burn_time = light_timer.get_time_left()
-#		print("current burn time " + str(burn_time))
+		# Sample the remainder only while the timer is actually running:
+		# a stopped or never-started timer reports 0, and reading it here
+		# clobbered burn_time (a dropped, never-lit torch lost its 600 s).
+		if light_timer.time_left > 0.0:
+			burn_time = light_timer.get_time_left()
 		light_timer.stop()
 
 
@@ -104,10 +107,18 @@ func item_drop():
 	burn_time -= (burn_time * life_percentage_lose)
 	print("reduced burn time " + str(burn_time))
 	random_number = randf_range(0.0, 1.0)
-	
+
 	if is_instance_valid(light_timer):
-		light_timer.set_wait_time(burn_time)
-		light_timer.start()
+		# Timer.set_wait_time errors on <= 0 ("Time should be greater than
+		# zero"); the 0.1 floor keeps a depleted item's timeout chain intact.
+		light_timer.set_wait_time(maxf(burn_time, 0.1))
+		# Timer.start errors outside the scene tree; the drop flow calls
+		# this between the unequip removal and the re-add to the level
+		# (inventory._drop_item sets DROPPED before add_child).
+		if is_inside_tree():
+			light_timer.start()
+		else:
+			light_timer.start.call_deferred()
 	
 	print("Angular velocity of torch: ", angular_velocity.length())
 	if angular_velocity.length() > 5:

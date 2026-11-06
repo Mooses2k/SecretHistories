@@ -53,6 +53,15 @@ enum OriginalPurpose {
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 @export var type := OriginalPurpose.EMPTY
+# Fog weather rule copied from the room's RoomPurpose when the purpose is
+# assigned (generate_room_purposes.gd). Types without a purpose resource
+# (staircases) keep the small SOMETIMES default. Read by the atmosphere
+# group's per-room fog presence roll; see RoomPurpose.FogRule.
+var fog_rule := RoomPurpose.FogRule.SOMETIMES
+# Per-room fog presence chance copied alongside fog_rule. The chance is
+# per-purpose data (owner amendment: fountain 0.95, statue 0.5); rooms
+# without a purpose keep the SOMETIMES fallback.
+var fog_chance := RoomPurpose.DEFAULT_FOG_CHANCE
 @export var rect2 := Rect2i()
 @export var cell_indexes: Array
 @export var polygons: Array

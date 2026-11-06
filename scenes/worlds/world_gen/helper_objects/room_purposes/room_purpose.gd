@@ -8,7 +8,23 @@ extends Resource
 
 #--- enums ----------------------------------------------------------------------------------------
 
+# Fog assignment rule (owner ruling, fog rework follow-up): fog presence is
+# keyed to the room TYPE, not rolled uniformly. Fountain and statue rooms are
+# the often fogged ones; every other purpose stays at the small SOMETIMES
+# chance; NEVER exists for types that must never fog. The enum stays for
+# readability, but the presence chance itself is per-purpose data.
+enum FogRule {
+	NEVER, # this room type never gets fog
+	SOMETIMES, # small default chance (see DEFAULT_FOG_CHANCE below)
+	OFTEN, # carries its own explicit fog_chance (fountain, statue gallery)
+}
+
 #--- constants ------------------------------------------------------------------------------------
+
+# Fallback fog presence chance for purposes with no explicit fog_chance (the
+# SOMETIMES rule). OFTEN rooms carry their own number as data: fountain 0.95,
+# statue gallery 0.5 (owner amendment "Statue 50% fog").
+const DEFAULT_FOG_CHANCE : float = 0.08
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
@@ -24,6 +40,17 @@ var requirements := []
 # are their own; entering the room crossfades to this stream, leaving
 # crossfades back to Empty.
 @export var ambient_stream : AudioStream = null
+
+# How likely rooms of this purpose get fog weather. Read by the atmosphere
+# group's per-room fog presence roll (owner: fountain/statue OFTEN, others
+# SOMETIMES). Copied onto the RoomData when the purpose is assigned, so the
+# weather rolls read the room, not the resource.
+@export var fog_rule : FogRule = FogRule.SOMETIMES
+
+# Per-purpose fog presence chance (owner amendment: the number is data, not a
+# shared constant; fountain 0.95, statue 0.5). Purposes without an explicit
+# chance fall back to DEFAULT_FOG_CHANCE. NEVER rooms never fog regardless.
+@export_range(0.0, 1.0) var fog_chance : float = DEFAULT_FOG_CHANCE
 
 #--- private variables - order: export > normal var > onready -------------------------------------
 
@@ -95,6 +122,14 @@ func _get_property_list() -> Array:
 		usage = PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
 		hint = PROPERTY_HINT_RESOURCE_TYPE,
 		hint_string = "%s/%s:Resource"%[TYPE_OBJECT, TYPE_OBJECT]
+	})
+	
+	properties.append({
+		name = "fog_rule",
+		type = TYPE_INT,
+		usage = PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
+		hint = PROPERTY_HINT_ENUM,
+		hint_string = ",".join(FogRule.keys() as PackedStringArray)
 	})
 	
 	return properties

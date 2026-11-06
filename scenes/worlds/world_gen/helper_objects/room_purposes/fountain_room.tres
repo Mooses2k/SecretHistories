@@ -25,6 +25,8 @@ max_doorways = 99
 
 [resource]
 script = ExtResource("1")
+fog_rule = 2
+fog_chance = 0.95
 purpose_id = "2"
 max_amount = 1
 requirements = [SubResource("1"), SubResource("2"), SubResource("4")]

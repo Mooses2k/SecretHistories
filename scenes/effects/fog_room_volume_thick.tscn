@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[sub_resource type="FogMaterial" id="FogMaterial_thick"]
+density = 0.3
+edge_fade = 0.12
+
+[node name="FogRoomVolumeThick" type="FogVolume"]
+shape = 3
+size = Vector3(3, 3.4, 3)
+material = SubResource("FogMaterial_thick")

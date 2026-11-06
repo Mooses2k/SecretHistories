@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RoomPurpose" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="RoomPurpose" load_steps=8 format=3 uid="uid://ctoq7aews2rma"]
 
 [ext_resource type="Script" uid="uid://cq66exvfal75m" path="res://scenes/worlds/world_gen/helper_objects/room_purposes/room_purpose.gd" id="1"]
 [ext_resource type="Script" uid="uid://cfaso1nq7iyx4" path="res://scenes/worlds/world_gen/helper_objects/room_requirements/min_size_requirement.gd" id="2"]

@@ -8,3 +8,5 @@ tonemap_mode = 3
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false
 glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0

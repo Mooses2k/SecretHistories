@@ -47,6 +47,11 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 		for c_value in chosen_rooms:
 			var room := c_value as RoomData
 			room.type = purpose.purpose_id
+			# Fog weather follows the room type (owner ruling): carry the
+			# purpose's fog rule AND its per-purpose chance onto the room so
+			# the atmosphere group's presence roll reads them.
+			room.fog_rule = purpose.fog_rule
+			room.fog_chance = purpose.fog_chance
 			data.change_room_type(RoomData.OriginalPurpose.EMPTY, room.type, room)
 	
 	print("\n-- data.rooms:")

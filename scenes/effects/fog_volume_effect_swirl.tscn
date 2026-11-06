@@ -16,9 +16,6 @@ billboard_keep_scale = true
 particles_anim_h_frames = 5
 particles_anim_v_frames = 3
 particles_anim_loop = true
-proximity_fade_enabled = true
-distance_fade_mode = 1
-distance_fade_max_distance = 2.0
 
 [sub_resource type="Gradient" id="Gradient_wyt4h"]
 offsets = PackedFloat32Array(0, 0.0954545, 0.859091, 1)

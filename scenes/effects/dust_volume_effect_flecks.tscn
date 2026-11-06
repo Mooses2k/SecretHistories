@@ -10,13 +10,13 @@ albedo_texture = ExtResource("1_8lrih")
 metallic_specular = 1.0
 roughness = 0.39
 emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 1.5
 backlight_enabled = true
 backlight = Color(0.536458, 0.536458, 0.536458, 1)
 disable_receive_shadows = true
+billboard_mode = 3
 billboard_keep_scale = true
-distance_fade_mode = 1
-distance_fade_min_distance = 0.1
-distance_fade_max_distance = 0.3
 
 [sub_resource type="Gradient" id="Gradient_hccq7"]
 offsets = PackedFloat32Array(0, 0.0954545, 0.859091, 1)

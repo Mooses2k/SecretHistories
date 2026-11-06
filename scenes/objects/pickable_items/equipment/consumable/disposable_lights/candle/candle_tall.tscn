@@ -1,16 +1,23 @@
-[gd_scene load_steps=24 format=4 uid="uid://coa05ro0d4wx"]
+[gd_scene format=4]
 
-[ext_resource type="Texture2D" uid="uid://6gwcwaai5u5i" path="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png" id="1"]
-[ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="2"]
-[ext_resource type="Script" uid="uid://dvttjqo1l71vd" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd" id="3"]
-[ext_resource type="Resource" uid="uid://bg6vsnvwsvfve" path="res://resources/inventory/stackables/candles_stack.tres" id="3_quj73"]
-[ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" id="4"]
-[ext_resource type="Material" uid="uid://cmgswvdlevwyq" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/material/candle.tres" id="4_dvmpy"]
-[ext_resource type="Script" uid="uid://dfo8j368ywv7c" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" id="6"]
-[ext_resource type="AudioStream" uid="uid://bd6c4tbgh5o3b" path="res://resources/sounds/impacts/677013__staylor8__candle_hit.ogg" id="10"]
-[ext_resource type="Texture2D" uid="uid://bt1p1be1g3dme" path="res://resources/models/items/consumables/light_sources/candle/flame.webp" id="11"]
-[ext_resource type="Shader" uid="uid://bkw8bmlt3d1sr" path="res://resources/shaders/candle/flame.gdshader" id="12"]
-[ext_resource type="Script" uid="uid://bqouykmfhtegb" path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" id="13"]
+[ext_resource type="Texture2D" path="res://resources/models/items/consumables/light_sources/candle/trn_CandleFlame.png" id="1"]
+[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.gd" id="3"]
+[ext_resource type="Material" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/material/candle.tres" id="4_dvmpy"]
+[ext_resource type="Texture2D" path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_AlbedoTransparency.png" id="4_omdeb"]
+[ext_resource type="Texture2D" path="res://resources/models/items/consumables/light_sources/candle/T_Candle1_Emission.png" id="5_mx5nf"]
+[ext_resource type="Script" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/flame.gd" id="6"]
+[ext_resource type="Texture2D" path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_MetallicSmoothness.png" id="6_i2xo2"]
+[ext_resource type="Texture2D" path="res://resources/models/items/consumables/light_sources/candle/trn_Candle_Normal.png" id="7_f2nj8"]
+[ext_resource type="Script" path="res://scenes/effects/mesh_instances.gd" id="8_wblwd"]
+[ext_resource type="AudioStream" path="res://resources/sounds/impacts/677013__staylor8__candle_hit.ogg" id="10"]
+[ext_resource type="Texture2D" path="res://resources/models/items/consumables/light_sources/candle/flame.webp" id="11"]
+[ext_resource type="Shader" path="res://resources/shaders/candle/flame.gdshader" id="12"]
+[ext_resource type="Script" path="res://scenes/sensors/light_detection/player_light_area/player_light_area.gd" id="13"]
+[ext_resource type="AudioStream" path="res://resources/sounds/light-sources/strike-match/508261__aerolus__match.mp3" id="15_rw6y1"]
+[ext_resource type="AudioStream" path="res://resources/sounds/light-sources/blow-out/242867__reitanna__blowing-out-candle.ogg" id="16_jt37b"]
+[ext_resource type="Script" path="res://scenes/objects/interactables/interactable.gd" id="17_li1ml"]
+[ext_resource type="Script" path="res://scenes/objects/large_objects/placement_anchor.gd" id="18_mo5yq"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_pdy6h"]
 _surfaces = [{
@@ -46,6 +53,17 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_pdy6h")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mrsd4"]
+resource_local_to_scene = true
+resource_name = "trn_Candle"
+albedo_color = Color(0.8, 0.8, 0.8, 1)
+albedo_texture = ExtResource("4_omdeb")
+metallic = 1.0
+metallic_texture = ExtResource("6_i2xo2")
+emission_texture = ExtResource("5_mx5nf")
+normal_enabled = true
+normal_texture = ExtResource("7_f2nj8")
+
 [sub_resource type="CylinderShape3D" id="58"]
 height = 0.2
 radius = 0.025
@@ -60,9 +78,9 @@ size = Vector2(0.033, 0.1)
 seed = 13245
 
 [sub_resource type="NoiseTexture2D" id="10"]
+noise = SubResource("9")
 seamless = true
 bump_strength = 19.9
-noise = SubResource("9")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iijul"]
 render_priority = 0
@@ -120,50 +138,61 @@ _data = {
 &"flicker": SubResource("62")
 }
 
-[node name="CandleTall" instance=ExtResource("4")]
+[node name="CandleTall" type="RigidBody3D" unique_id=243937069]
+collision_layer = 64
+collision_mask = 65
+mass = 0.1
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 5
 script = ExtResource("3")
 life_percentage_lose = 0.2
 prob_going_out = 0.9
+item_size = 0
 item_name = "Candle"
-stackable_resource = ExtResource("3_quj73")
+dropped_layers = 64
+dropped_mask = 65
 max_speed = 8.0
 item_drop_sound = ExtResource("10")
-item_throw_sound = null
 
-[node name="MeshInstance3D" parent="." index="0"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1470772306]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.00946711, 0)
 mesh = SubResource("ArrayMesh_ljvh0")
-surface_material_override/0 = ExtResource("4_dvmpy")
+surface_material_override/0 = SubResource("StandardMaterial3D_mrsd4")
+script = ExtResource("8_wblwd")
 
-[node name="CollisionShape3D" parent="." index="1"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=745914949]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0127407, 0.000977516)
 shape = SubResource("58")
 
-[node name="CollisionShapeStopRolling" type="CollisionShape3D" parent="." index="2"]
+[node name="CollisionShapeStopRolling" type="CollisionShape3D" parent="." unique_id=447214778]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 shape = SubResource("59")
 
-[node name="HoldPosition" parent="." index="3"]
+[node name="HoldPosition" type="Marker3D" parent="." unique_id=240089428]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0187822, 0.0101141)
 
-[node name="FireOrigin" type="Marker3D" parent="." index="4"]
+[node name="FireOrigin" type="Marker3D" parent="." unique_id=1297814425]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00634081, 0.124777, 0.000872418)
 script = ExtResource("2")
+threshold_angle_degrees = 60
 
-[node name="Fire" type="MeshInstance3D" parent="FireOrigin" index="0"]
+[node name="Fire" type="MeshInstance3D" parent="FireOrigin" unique_id=1898530378]
 visible = false
 cast_shadow = 0
 mesh = SubResource("53")
 surface_material_override/0 = SubResource("ShaderMaterial_iijul")
 script = ExtResource("6")
 
-[node name="Light3D" type="OmniLight3D" parent="FireOrigin/Fire" index="0"]
+[node name="Light3D" type="OmniLight3D" parent="FireOrigin/Fire" unique_id=95207453]
 visible = false
 light_color = Color(0.760784, 0.364706, 0.0470588, 1)
 light_energy = 0.25
+shadow_enabled = true
 omni_range = 6.0
 
-[node name="PlayerLightArea" type="Area3D" parent="FireOrigin/Fire/Light3D" index="0"]
+[node name="PlayerLightArea" type="Area3D" parent="FireOrigin/Fire/Light3D" unique_id=2109066163]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 collision_layer = 1024
 collision_mask = 1024
@@ -171,30 +200,39 @@ priority = 50
 script = ExtResource("13")
 parent_item_path = NodePath("../../../..")
 
-[node name="LightSound" parent="Sounds" index="0"]
+[node name="BurnTime" type="Timer" parent="." unique_id=510521348]
+
+[node name="Sounds" type="Node3D" parent="." unique_id=1301889125]
+
+[node name="LightSound" type="AudioStreamPlayer3D" parent="Sounds" unique_id=755246264]
+stream = ExtResource("15_rw6y1")
 bus = &"Effects"
 
-[node name="BlowOutSound" parent="Sounds" index="1"]
+[node name="BlowOutSound" type="AudioStreamPlayer3D" parent="Sounds" unique_id=1573377324]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0359308, 0)
+stream = ExtResource("16_jt37b")
 bus = &"Effects"
 
-[node name="Burning" parent="Sounds" index="2"]
-stream = null
+[node name="Burning" type="AudioStreamPlayer3D" parent="Sounds" unique_id=1831307499]
+volume_db = 20.0
 bus = &"Effects"
 
-[node name="Ignite" parent="." index="7" groups=["IGNITE"]]
+[node name="Ignite" type="Area3D" parent="." unique_id=616542681 groups=["IGNITE"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00894699, 0.123041, 0)
+script = ExtResource("17_li1ml")
 
-[node name="CollisionShape3D" parent="Ignite" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite" unique_id=859156453]
 shape = SubResource("57")
 
-[node name="PlacementAnchor" parent="." index="8"]
+[node name="PlacementAnchor" type="Marker3D" parent="." unique_id=599150958]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0896366, 0)
+script = ExtResource("18_mo5yq")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
-libraries = {
-"": SubResource("AnimationLibrary_cu3vu")
-}
-autoplay = "flicker"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=369719956]
+libraries/ = SubResource("AnimationLibrary_cu3vu")
+autoplay = &"flicker"
 
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]
+[connection signal="character_interacted" from="Ignite" to="." method="_on_ignite_character_interacted"]

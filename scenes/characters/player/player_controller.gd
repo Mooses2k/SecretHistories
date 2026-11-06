@@ -129,6 +129,9 @@ func throw_object(object : RigidBody3D):
 	if (object is PickableItem) and object.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
 		impulse = 50.0 * object.mass
 	var impulse_vector := - main_camera.global_basis.z * impulse
+	# Thrown-item audio rule: remember the thrower so the spin loop ignores
+	# release-time contact with the hand and stops on the first real impact.
+	object.set_meta("thrown_by", owner)
 	object.apply_central_impulse(impulse_vector)
 	if object is PickableItem:
 		object.impact_damage_cooldown[owner] = PickableItem.IMPACT_DAMAGE_REPEAT_COOLDOWN

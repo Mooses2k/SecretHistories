@@ -58,6 +58,7 @@ stream = ExtResource("2")
 unit_size = 3.0
 autoplay = true
 max_distance = 10.0
+bus = &"Voice"
 
 [node name="GhostController" type="Node3D" parent="."]
 script = ExtResource("5")

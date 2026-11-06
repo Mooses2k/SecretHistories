@@ -23,6 +23,11 @@ var ceiling_detection_test_parameters := PhysicsTestMotionParameters3D.new()
 @onready var throw_origin: Marker3D = $ModelRoot/ThrowOrigin
 @onready var place_origin: Marker3D = $ModelRoot/PlaceOrigin
 @onready var kick_cast: KickCast = $ModelRoot/KickCast
+@onready var audio_player: CharacterAudio = $Audio
+
+# Old-character landing rule: the land sound plays only when the ground is
+# regained after a jump, not on every step-off-a-ledge.
+var _is_jumping := false
 
 
 func _ready() -> void:
@@ -76,6 +81,24 @@ func _physics_process(delta: float) -> void:
 				target_crouch_ratio = inverse_lerp(parameters.standing_height, parameters.crouch_height, target_height)
 		state.current_crouch_ratio = move_toward(state.current_crouch_ratio, target_crouch_ratio, delta/parameters.crouch_animation_duration)
 		character_collision.height = lerp(parameters.standing_height, parameters.crouch_height, state.current_crouch_ratio)
+
+		# Movement audio (old character.gd parity): a footstep whenever the
+		# body is actually moving on the ground and the previous one finished.
+		# Planar speed only: a grounded RigidBody always carries a constant
+		# gravity term on y (~0.16 m/s), which defeats the old 3D threshold.
+		var planar_speed := Vector2(linear_velocity.x, linear_velocity.z).length()
+		if state.is_on_ground and planar_speed > 0.5 and not audio_player.movement_audio.playing:
+			if state.current_crouch_ratio > 0.5:
+				audio_player.play_footstep_sound(-1.0, 0.1, -20)
+			elif state.sprinting:
+				audio_player.play_footstep_sound(5.0, 1.5)
+			else:
+				audio_player.play_footstep_sound(5.0, 1.0)
+
+		# Breathing (3.x Stamina node parity, player only): loudness tracks
+		# low stamina, always running while alive.
+		if self is Player:
+			audio_player.play_breathing(state.stamina_ratio)
 
 	model_root.global_basis = state.facing
 
@@ -153,6 +176,12 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 		if state.should_jump():
 			physics_state.linear_velocity.y = parameters.jump_speed
 			state.is_on_ground = false
+			_is_jumping = true
+
+		# Land sound (old character.gd parity): regain the ground after a jump.
+		if state.is_on_ground and not state.was_on_ground and _is_jumping:
+			_is_jumping = false
+			audio_player.play_land_sound()
 		
 		var ground_normal := Vector3.UP
 		var control_multiplier : float = parameters.jump_control_multiplier

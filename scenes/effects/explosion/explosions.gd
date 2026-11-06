@@ -8,9 +8,6 @@ var trigger = false
 @onready var blastradius = %BlastRadius
 @onready var timer = $Timer
 
-func _ready() -> void:
-	emitting = true
-
 func _on_Bomb_explosion():
 	timer.start()
 	var collisions = blastradius.get_overlapping_bodies()

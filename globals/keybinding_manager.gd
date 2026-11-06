@@ -61,6 +61,41 @@ func load_keys():
 	else:
 		printerr("corrupted data!")
 
+	# Stale-default migration: dev4 shipped the hotbar wheel actions reversed
+	# (wheel up cycled to the next slot, wheel down to the previous, opposite
+	# of 3.x). Saved keybinding files captured that old default, so a
+	# project.godot swap alone never reaches existing installs. Detect that
+	# exact stale pattern in the loaded map and swap it, then persist.
+	if _migrate_reversed_wheel_defaults():
+		keys_default = gen_dict_from_input_map()
+		save_keys()
+		save_default_keys()
+
+
+## Returns true when the live map held the stale reversed hotbar wheel
+## default and it was swapped in place. Leaves anything else (already
+## correct or user-customized) untouched.
+func _migrate_reversed_wheel_defaults() -> bool:
+	var next_up := false
+	var prev_down := false
+	for event in InputMap.action_get_events("itm|next_hotbar_item"):
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			next_up = true
+	for event in InputMap.action_get_events("itm|previous_hotbar_item"):
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			prev_down = true
+	if not (next_up and prev_down):
+		return false
+	InputMap.action_erase_events("itm|next_hotbar_item")
+	var next_event := InputEventMouseButton.new()
+	next_event.button_index = MOUSE_BUTTON_WHEEL_DOWN
+	InputMap.action_add_event("itm|next_hotbar_item", next_event)
+	InputMap.action_erase_events("itm|previous_hotbar_item")
+	var prev_event := InputEventMouseButton.new()
+	prev_event.button_index = MOUSE_BUTTON_WHEEL_UP
+	InputMap.action_add_event("itm|previous_hotbar_item", prev_event)
+	return true
+
 
 func setup_keys(key_dict : Dictionary):
 	for action in key_dict.keys():

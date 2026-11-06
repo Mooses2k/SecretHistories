@@ -26,6 +26,14 @@ var volume_max_db : float = 5.0
 var pitch_min_scale : float = 0.8
 var pitch_max_scale : float = 1.5
 
+## Rapid drop-sound deletion on level start (owner remedy: "If detect rapid
+## playing of dropsound on level start, delete item unless it's shard").
+## Active only during the reveal grace window (LoadScene.effects_grace_until_ms,
+## set by the load screen; 5s total per owner).
+const RAPID_WINDOW_MS : int = 2000
+const RAPID_MAX_PLAYS : int = 4
+var _recent_drop_plays : Array[int] = []
+
 ## Internal state
 var is_soundplayer_ready : bool = false
 var old_contact_count : int = 0
@@ -78,6 +86,12 @@ func process_impact_detection(state: PhysicsDirectBodyState3D) -> void:
 	if LoadScene.loading:  # Skip during level loading
 		return
 	
+	# Thrown-item rule (owner): the throw rotation loop dies on the FIRST
+	# physical contact after the throw. Runs ahead of the impact-sound
+	# thresholds, so a soft contact that plays no drop sound still stops the
+	# loop instead of letting it spin on past the hit.
+	_stop_throw_loop_on_first_contact(state)
+	
 	var current_velocity = state.linear_velocity.length()
 	var velocity_change = abs(current_velocity - old_velocity)
 	
@@ -104,6 +118,30 @@ func process_impact_detection(state: PhysicsDirectBodyState3D) -> void:
 	
 	old_velocity = current_velocity
 	old_contact_count = state.get_contact_count()
+
+
+## Stop the thrown item's rotation loop the moment the body touches anything,
+## regardless of impact intensity. Gated to PickableItem bodies (the only
+## owners of the throw loop on audio_player) and only while it is actually
+## playing, so idle items resting on the floor are untouched. Contacts with
+## the thrower are ignored: throw_object stamps "thrown_by" so release-time
+## overlap with the hand never counts as an impact.
+func _stop_throw_loop_on_first_contact(state: PhysicsDirectBodyState3D) -> void:
+	if state.get_contact_count() == 0:
+		return
+	if parent_body is PickableItem and is_instance_valid(parent_body.audio_player):
+		if parent_body.audio_player.playing:
+			var thrower = parent_body.get_meta("thrown_by", null)
+			for i in state.get_contact_count():
+				var collider_object = state.get_contact_collider_object(i)
+				# Release-time contact with the thrower's own bodies (capsule
+				# plus ragdoll PhysicalBone3D children) is not an impact.
+				if thrower is Node and collider_object is Node \
+						and (collider_object == thrower or thrower.is_ancestor_of(collider_object)):
+					continue
+				if collider_object != null:
+					parent_body.audio_player.stop()
+					return
 
 
 ## Play impact sound with volume and pitch scaling
@@ -159,7 +197,32 @@ func play_impact_sound(impact_intensity: float) -> void:
 	prints("AUDIO DEBUG - Sound play() called, is_playing:", drop_audio_player.is_playing())
 	
 	is_soundplayer_ready = false
+	_record_rapid_drop_play()
 	start_delay()
+
+
+## Owner remedy: while the reveal grace window is active, a body that fires
+## RAPID_MAX_PLAYS drop sounds within RAPID_WINDOW_MS is deleted, unless it is
+## the comet shard. Gated to pickable items and large objects only, so
+## characters are never candidates.
+func _record_rapid_drop_play():
+	var now : int = Time.get_ticks_msec()
+	if now > LoadScene.effects_grace_until_ms:
+		_recent_drop_plays.clear()
+		return
+	_recent_drop_plays.append(now)
+	while _recent_drop_plays.size() > 0 and now - _recent_drop_plays[0] > RAPID_WINDOW_MS:
+		_recent_drop_plays.pop_front()
+	if _recent_drop_plays.size() >= RAPID_MAX_PLAYS and _is_rapid_deletion_candidate():
+		prints("Rapid drop-sound detection on level start, deleting:", parent_body)
+		_recent_drop_plays.clear()
+		parent_body.queue_free()
+
+
+func _is_rapid_deletion_candidate() -> bool:
+	if parent_body is ShardOfTheComet:
+		return false
+	return parent_body is PickableItem or parent_body is LargeObject
 
 
 func start_delay():

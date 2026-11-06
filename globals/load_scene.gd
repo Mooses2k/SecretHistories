@@ -2,9 +2,13 @@ extends Node
 
 
 const Loadscreen = preload("res://scenes/ui/loadscreen/load_screen.tscn")
-var next_scene : String 
+var next_scene : String
 var target_node : Node = null
 var loading : bool = false
+# Reveal grace window end (Time.get_ticks_msec) set by the load screen at click.
+# While now < this, impact_audio_manager deletes bodies that fire rapid drop
+# sounds on level start (owner remedy: delete item unless it is the shard).
+var effects_grace_until_ms : int = 0
 #ONLY used for debug menu
 signal loading_screen_removed
 

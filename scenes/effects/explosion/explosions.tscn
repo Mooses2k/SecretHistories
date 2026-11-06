@@ -325,6 +325,8 @@ emission_curve = SubResource("CurveTexture_18wrc")
 [node name="Explosion" type="GPUParticles3D"]
 transform = Transform3D(0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00830353, -0.00427759, -0.00714297)
 material_override = SubResource("ShaderMaterial_8a3ji")
+emitting = false
+one_shot = true
 amount = 5
 explosiveness = 0.97
 randomness = 0.84
@@ -359,6 +361,8 @@ surface_material_override/0 = SubResource("ShaderMaterial_rqspf")
 
 [node name="FragParticles" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_a147w")
+emitting = false
+one_shot = true
 amount = 128
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_ej5gc")

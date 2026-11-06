@@ -24,6 +24,14 @@ var _dialog_sequence_sounds : Array = []
 
 var _current_sound_dir : String = ""
 
+# Breathing loop (3.x Stamina node port: same heavy_breath asset, loudness
+# tracks low stamina). Player-only: in 3.x only the player scene carried the
+# Stamina node.
+const BREATHING_STREAM : AudioStream = preload("res://resources/sounds/breathing/heavy_breath.mp3")
+const BREATHING_FULL_DB : float = -16.0   # 3.x tired() volume at full stamina
+const BREATHING_EMPTY_DB : float = 14.0   # 3.x tired() volume at zero stamina
+var _breathing_audio : AudioStreamPlayer
+
 @onready var speech_audio = $Speech as AudioStreamPlayer3D
 @onready var manipulation_audio = $Manipulation as AudioStreamPlayer3D
 @onready var movement_audio = $Movement as AudioStreamPlayer3D
@@ -33,12 +41,63 @@ var last_speech_type   # Tracked to avoid interrupting self to say same type of 
 
 
 func _ready():
-	# Movement audio	
-	#load_sounds("resources/sounds/breathing/breathe", 1)
-	#load_sounds("resources/sounds/jumping_landing/landing", 2)
+	# Movement audio
+	load_sounds("resources/sounds/jumping_landing/landing", 2)
 
 	choose_voice()   # Choose one from the appropriate voices for this character
 	pitch_alter_voice()   # Randomly alter pitch of this character's voice up or down some
+
+	if owner is Player:
+		_setup_breathing()
+
+
+## Loads every wav/ogg/mp3 under sound_dir into the array selected by type.
+## 3.x port (origin/main character_audio.gd): 1 clamber in/out, 2 landing,
+## 3-9 footstep materials. Footsteps live in AudioLibrary now; this loader
+## serves the arrays play_land_sound/play_clamber_sound read.
+func load_sounds(sound_dir : String, type : int) -> void:
+	if sound_dir == "" or _current_sound_dir == sound_dir:
+		return
+	_current_sound_dir = sound_dir
+	if sound_dir.ends_with("/"):
+		sound_dir = sound_dir.left(sound_dir.length() - 1)
+	if not sound_dir.begins_with("res://"):
+		sound_dir = "res://" + sound_dir
+	var dir := DirAccess.open(sound_dir)
+	if dir == null:
+		push_warning("CharacterAudio: sound dir not found: " + sound_dir)
+		return
+	dir.list_dir_begin()
+	var sound := dir.get_next()
+	while sound != "":
+		if not sound.ends_with(".import") and (sound.ends_with(".wav") or sound.ends_with(".ogg") or sound.ends_with(".mp3")):
+			var stream := load(sound_dir + "/" + sound)
+			match type:
+				1:
+					if "in" in sound:
+						_clamber_sounds["in"].append(stream)
+					elif "out" in sound:
+						_clamber_sounds["out"].append(stream)
+				2:
+					_landing_sounds.append(stream)
+		sound = dir.get_next()
+
+
+## 3.x Stamina node behavior: breathing always runs while alive, volume
+## interpolating from quiet at full stamina to loud at empty.
+func _setup_breathing() -> void:
+	_breathing_audio = AudioStreamPlayer.new()
+	_breathing_audio.stream = BREATHING_STREAM
+	_breathing_audio.bus = "Effects"
+	add_child(_breathing_audio)
+
+
+func play_breathing(stamina_ratio : float) -> void:
+	if _breathing_audio == null:
+		return
+	_breathing_audio.volume_db = lerpf(BREATHING_EMPTY_DB, BREATHING_FULL_DB, clampf(stamina_ratio, 0.0, 1.0))
+	if not _breathing_audio.playing:
+		_breathing_audio.play()
 
 
 ### Speech

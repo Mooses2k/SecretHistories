@@ -250,6 +250,17 @@ func place_in_hotbar(item: EquipmentItem) -> int:
 						break
 			if slot == current_mainhand_slot:
 				slot += 1
+			# Audit Finding 1.2: the bumped slot may already be occupied; fall
+			# through to the next free slot instead of overwriting its occupant
+			if slot != -1 and hotbar[slot] != null:
+				var bumped_slot: int = slot
+				# Find the lowest numbered empty slot after the bumped slot
+				# (excluding slot 10 which is empty hands)
+				slot = -1
+				for i in range(bumped_slot, 10):  # Slots up to 9 only
+					if hotbar[i] == null:
+						slot = i
+						break
 			# Safety check: if no empty slots found, don't place the light
 			if slot != 10 and slot != -1 and slot < hotbar.size():
 				hotbar[slot] = item

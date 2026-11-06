@@ -165,6 +165,13 @@ func _on_UseTime_timeout():
 	
 	# This is a single-use consumable, se we're done with it
 	if max_charges_held == 1:
-		owner_character.drop_consumable(self)
+		# owner_character.drop_consumable(self) has no definition anywhere
+		# (Brooks audit 4.2). Unequip through the inventory API instead, then free.
+		if owner_character != null and owner_character.inventory != null:
+			var inventory = owner_character.inventory
+			if inventory.current_mainhand_equipment == self:
+				inventory.unequip_mainhand_item()
+			elif inventory.current_offhand_equipment == self:
+				inventory.unequip_offhand_item()
 		queue_free()
 		# TODO: this should drop an empty bottle or syringe, only queue_free if nothing's left, like bandage

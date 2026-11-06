@@ -193,7 +193,7 @@ draw_order = 3
 process_material = SubResource("ParticleProcessMaterial_1sjkl")
 draw_pass_1 = SubResource("QuadMesh_w3co8")
 script = ExtResource("2_wljfh")
-others = [NodePath("muzzle_flash_crown")]
+others = [NodePath("muzzle_flash_crown"), NodePath("sparks"), NodePath("smoke_ring")]
 
 [node name="muzzle_flash_crown" type="GPUParticles3D" parent="."]
 emitting = false
@@ -227,6 +227,7 @@ process_material = SubResource("ParticleProcessMaterial_5s7cj")
 draw_pass_1 = ExtResource("5_070qw")
 
 [node name="sparks" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 16
 sub_emitter = NodePath("../spark_smoke")
 lifetime = 2.0
@@ -239,6 +240,7 @@ process_material = SubResource("ParticleProcessMaterial_fcjtn")
 draw_pass_1 = SubResource("QuadMesh_dah3k")
 
 [node name="spark_smoke" type="GPUParticles3D" parent="."]
+emitting = false
 amount = 12
 lifetime = 2.0
 randomness = 1.0

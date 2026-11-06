@@ -39,7 +39,7 @@ var random_number_2_3 : float
 func _ready():
 	light_timer = $Timer
 
-	self.connect("item_is_dropped", Callable(self, "light_dropped")) # this current fails, is bugged
+	self.connect("item_dropped", Callable(self, "light_dropped")) # this current fails, is bugged
 	light_timer.connect("timeout", Callable(self, "light_depleted_copy"))
 
 	material = $Candle1/MeshInstance3D.get_surface_override_material(0)
@@ -145,8 +145,10 @@ func _item_state_changed(previous_state, current_state):
 		owner_character.inventory.switch_away_from_light(self)
 	elif current_state == GlobalConsts.ItemState.DROPPED:
 		#is_just_dropped = true
-		self.emit_signal("item_is_dropped")
-		item_drop()
+		# Emit only, and under the DECLARED signal name (Brooks audit 4.4): the
+		# old emit of the undeclared "item_is_dropped" silently failed, so the
+		# drop penalty for candles 2 and 3 never ran.
+		self.emit_signal("item_dropped")
 
 
 func stop_light_timer_2():
@@ -187,8 +189,11 @@ func unlight_candle_3():
 	stop_light_timer_3()
 
 
-# This is apparently not called anywhere
+# Connected to the item_dropped signal (fires once per drop)
 func light_dropped():
+	# Apply the base candle 1 drop penalty too, which the deleted direct
+	# item_drop() call used to cover before the emit-only fix
+	item_drop()
 	if number_of_candles > 1:
 		var light_timer_2 = $Timer2
 		var light_timer_3 = $Timer3

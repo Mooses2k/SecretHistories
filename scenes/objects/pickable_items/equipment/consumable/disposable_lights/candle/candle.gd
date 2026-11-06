@@ -83,8 +83,9 @@ func _item_state_changed(previous_state, current_state):
 		owner_character.inventory.switch_away_from_light(self)
 	elif current_state == GlobalConsts.ItemState.DROPPED:
 		#is_just_dropped = true
+		# Emit only (Brooks audit 4.4): the direct item_drop() call here used to
+		# double-apply the burn penalty on top of the item_is_dropped signal.
 		self.emit_signal("item_is_dropped")
-		item_drop()
 
 
 func _on_light_depleted():

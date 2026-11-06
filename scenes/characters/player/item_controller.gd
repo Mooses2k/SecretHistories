@@ -3,12 +3,12 @@ extends Node
 
 @export var inventory : Inventory
 
-@export var use_held_threshold = 0.25
-var use_hold_timer_mainhand = 0
-var use_hold_timer_offhand = 0
+@export var use_held_threshold : float = 0.25
+var use_hold_timer_mainhand : float = 0
+var use_hold_timer_offhand : float = 0
 
-@export var unload_threshold = 0.5
-var reload_hold_timer = 0
+@export var unload_threshold : float = 0.5
+var reload_hold_timer : float = 0
 var unloaded : bool = false
 
 @onready var player_controller: Node = get_parent()
@@ -67,7 +67,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			unloaded = false
 			reload_hold_timer = 0
 		elif event.is_action_released(&"player|reload"):
-			if not unloaded and main_item is GunItem or MedicalItem:
+			if not unloaded and (main_item is GunItem or main_item is MedicalItem):
 				main_item.use_reload()
 
 	var off_item = inventory.get_offhand_item()

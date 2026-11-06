@@ -27,7 +27,14 @@ var _is_action_held : bool = false
 
 
 func _ready():
-	if horizontal_holding == true:
+	if hold_position == null:
+		# %HoldPosition only resolves when the scene's HoldPosition node has
+		# unique_name_in_owner = true. A missing marker used to be a per-spawn
+		# node-not-found error plus a mid-equip crash in get_hold_transform(),
+		# which stranded Inventory.current_mainhand_equipment with an empty
+		# hand. Warn once per spawn instead of erroring every equip.
+		push_warning("EquipmentItem '%s' has no HoldPosition marker, equip pose falls back to identity" % name)
+	elif horizontal_holding == true:
 		hold_position.rotation_degrees.z = 90
 
 
@@ -146,4 +153,6 @@ func has_held_use():
 
 
 func get_hold_transform() -> Transform3D:
-	return $HoldPosition.transform
+	if hold_position == null:
+		return Transform3D.IDENTITY
+	return hold_position.transform

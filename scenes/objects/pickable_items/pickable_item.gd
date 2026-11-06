@@ -6,6 +6,15 @@ extends RigidBody3D
 # Cooldown before being able to cause impact damage to the same entity again
 const IMPACT_DAMAGE_REPEAT_COOLDOWN : float = 0.25
 
+# World-integrity guard threshold (FALLEN_ITEM_DELETE_Y): every floor level
+# sits at y=0 (WorldData's cell grid is flat and items rest around y=1), and
+# the deepest legitimate geometry below a slab is the staircase shaft a few
+# meters down. Anything below -50 is through-the-world and unreachable, by a
+# wide margin (owner ruling: -50 fine for now; revisit when vazgriz 3D
+# dungeons bring very large levels). A free-falling item is clamped to
+# max_speed (12 m/s), so it reaches the threshold in seconds.
+const FALLEN_ITEM_DELETE_Y : float = -50.0
+
 #const ImpactAudioManager = preload("res://scenes/audio/impact_audio_manager.gd")
 
 signal item_data_changed()
@@ -166,6 +175,28 @@ func _integrate_forces(state):
 	# Handle velocity clamping
 	if item_state == GlobalConsts.ItemState.DROPPED:
 		state.linear_velocity = state.linear_velocity.limit_length(max_speed)
+
+		# World-integrity guard: an item that fell through the world can never
+		# be reached again, so remove it instead of leaking a falling body.
+		# Only DROPPED bodies run here (equipped ones are frozen), the check
+		# is one float compare per physics tick, and ShardOfTheComet is never
+		# deleted. The shard is matched by script global name (same idiom as
+		# anchor_spawner.gd); a class reference here would be a compile cycle
+		# PickableItem -> ShardOfTheComet -> EquipmentItem -> PickableItem.
+		var script_global_name := ""
+		if get_script():
+			script_global_name = get_script().get_global_name()
+		if global_position.y < FALLEN_ITEM_DELETE_Y and script_global_name != "ShardOfTheComet":
+			# Only items that are actually inside the scene tree may be
+			# deleted. Cached floor instances (FloorLevelHandler keeps them
+			# out of world_root) keep their DROPPED items for revisit, but
+			# during a floor transition those bodies still run
+			# _integrate_forces with no floor colliders beneath, so without
+			# this check the guard silently looted cached floors.
+			if not is_inside_tree():
+				return
+			push_warning("World-integrity: removing item '%s' that fell below the world (y=%0.1f)" % [name, global_position.y])
+			queue_free()
 
 
 func on_hurtbox_hit(hurtbox : Hurtbox) -> void:

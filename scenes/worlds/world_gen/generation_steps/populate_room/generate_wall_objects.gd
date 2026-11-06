@@ -426,21 +426,21 @@ func _detect_image_aspect_ratio(image_path: String) -> String:
 	## Returns: "portrait", "square", "landscape", or "wide_landscape"
 	## Fallback: Returns "square" if image loading fails
 	
-	print("DEBUG: Loading image for aspect ratio detection: %s" % image_path)
+	print("DEBUG: Loading texture resource for aspect ratio detection: %s" % image_path)
 	
-	var image: Image = Image.new()
-	var error: Error = image.load(image_path)
+	# Load the imported texture resource (CompressedTexture2D) instead of the raw
+	# image file. Image.load() on a res:// path reads the source file directly,
+	# which fails in exported builds; load() resolves through the .import remap.
+	var texture: Texture2D = load(image_path)
 	
-	if error != OK:
-		print("ERROR: Failed to load image for aspect ratio detection: %s (Error: %d)" % [image_path, error])
-		return "square"  # Fallback to square for failed loads
+	if not texture:
+		print("ERROR: Failed to load texture for aspect ratio detection: %s" % image_path)
+		return "square"  # Fallback to failed loads
 	
-	var width: int = image.get_width()
-	var height: int = image.get_height()
+	var image_size: Vector2i = texture.get_size()
+	var width: int = image_size.x
+	var height: int = image_size.y
 	print("DEBUG: Image dimensions: %dx%d" % [width, height])
-	
-	# Free the image to avoid memory leaks
-	image = null
 	
 	# Handle edge case of zero dimensions
 	if width <= 0 or height <= 0:

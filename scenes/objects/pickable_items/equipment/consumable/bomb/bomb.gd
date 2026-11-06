@@ -45,8 +45,11 @@ func _use_primary():
 
 
 func light():
-	countdown_timer.start()
-	countdown_timer.set_paused(false)
+	# The equip flow sets EQUIPPED before the item re-enters the tree, so the
+	# @onready timer can still be null here; guard instead of erroring.
+	if countdown_timer:
+		countdown_timer.start()
+		countdown_timer.set_paused(false)
 	countdown_started = true
 
 	# Safely access Fuse node - it may not exist in base bomb scene
@@ -57,7 +60,8 @@ func light():
 
 
 func unlight():
-	countdown_timer.set_paused(true)
+	if countdown_timer:
+		countdown_timer.set_paused(true)
 	# Safely access Fuse node - it may not exist in base bomb scene
 	if has_node("Fuse"):
 		$Fuse.emitting = false
@@ -97,7 +101,17 @@ func _on_Countdown_timeout():
 	if is_instance_valid(owner_character):
 		# If it blows up in hand
 		if owner_character.is_in_group("CHARACTER") and item_state == GlobalConsts.ItemState.EQUIPPED:
-			owner_character.damage(bomb_damage, damage_type)  ## TODO: implement after new damage rework
+			# dev4 damage entry is the Hurtbox (Hurtbox.damage -> State ->
+			# durability). HumanoidCharacter has no damage() method, so the
+			# old direct call was a per-explosion script error applying zero
+			# damage. Full bomb_damage magnitude is preserved; the first
+			# hurtbox is enough since durability is shared via State.
+			var hurtboxes := owner_character.find_children("*", "Hurtbox", true, false)
+			if hurtboxes.is_empty():
+				push_warning("Bomb explosion: owner character has no Hurtbox, self-damage skipped")
+			else:
+				var hurtbox := hurtboxes[0] as Hurtbox
+				hurtbox.damage(floori(bomb_damage), damage_type)
 		
 		# Camera shake, untested
 		#if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies().has(owner_character):

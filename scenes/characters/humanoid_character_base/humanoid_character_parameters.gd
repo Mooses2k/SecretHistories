@@ -5,7 +5,9 @@ class_name HumanoidCharacterParameters
 @export var max_durability : int = 100
 
 @export_group("Ragdoll")
-@export var ragdoll_damage_threshold : int = 10
+# Owner ruling: a knockdown requires a single damage event above 50. Small
+# hits (gun grazes, kicks, item bumps) never ragdoll; only big single events do.
+@export var ragdoll_damage_threshold : int = 50
 @export var ragdoll_impulse_multiplier : float = 5.0
 @export_range(0.0, 60.0, 0.1, "or_greater", "suffix:s") var knocked_out_time : float = 5.0
 @export_group("Movement")

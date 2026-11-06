@@ -26,6 +26,11 @@ var current_crouch_ratio : float = 0.0
 var facing : Basis = Basis.IDENTITY
 var sprinting : bool = false
 var is_reloading : bool = false
+# The item whose reload stage is in flight (owner ruling option c: a slot
+# switch during a reload defers to the stage boundary instead of hard
+# blocking; inventory_controller uses this to request the boundary abort).
+# Only reload() sets it; the hold-R unload() keeps the inventory locked.
+var reloading_item : EquipmentItem = null
 var time_since_kick : float = INF
 var time_since_dodge : float = INF
 var noclip_enabled : bool = false

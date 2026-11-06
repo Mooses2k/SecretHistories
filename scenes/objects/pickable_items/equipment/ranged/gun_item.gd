@@ -6,6 +6,10 @@ extends EquipmentItem
 
 signal target_hit(target, position, direction, normal)
 signal on_shoot()
+# Emitted when a reload stage boundary is reached: the stage's rounds are
+# already applied at this point (owner ruling option c: an interrupt never
+# cancels the in-flight stage, only the remaining stages after it).
+signal reload_stage_finished(loaded_amount : int)
 
 enum MeleeStyle {
 	BUTT_STRIKE,
@@ -50,6 +54,10 @@ var on_cooldown = false
 
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
+# Owner ruling option c: a slot switch during a reload requests a
+# stage-boundary interrupt. The in-flight stage still completes (its rounds
+# load, the count is preserved); the flag only stops any further stages.
+var _reload_abort_requested : bool = false
 
 @export var detection_raycast : NodePath
 
@@ -214,10 +222,12 @@ func reload():
 					current_ammo_type = null
 				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
 				if _reload_amount > 0:
+					_reload_abort_requested = false
 					$ReloadTimer.start(reload_time)
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
 					owner_character.state.is_reloading = true
+					owner_character.state.reloading_item = self
 					##This is responsible for the reload animations for player
 					#if "Player" in owner_character.name:
 						#owner_character.player_animations.reload_weapons()
@@ -235,6 +245,9 @@ func unload():
 	if current_ammo > 0:
 		$UnloadTimer.start(reload_time)
 		owner_character.state.is_reloading = true
+		# Unload is NOT a reload: reloading_item stays null, so the inventory
+		# keeps hard-blocking slot switches while an unload is in flight.
+		owner_character.state.reloading_item = null
 
 		# Later, based on parts of the reload animation
 		$Sounds/Reload.play()
@@ -261,11 +274,32 @@ func _on_ReloadTimer_timeout() -> void:
 		if current_ammo_type == null or current_ammo_type == _queued_reload_type:
 			var inventory = owner_character.inventory
 			if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
-				var _reload_amount = min(_queued_reload_amount, reload_amount - current_ammo)
+				# The queued amount is already stage-sized (reload() clamped it
+				# against reload_amount, tiny supply, and free capacity). The
+				# boundary re-clamp is a capacity guard only: clamping against
+				# reload_amount - current_ammo here silently loaded zero rounds
+				# whenever a weapon held at least reload_amount rounds already
+				# (dormant while every weapon shipped reload_amount == capacity).
+				var _reload_amount = min(_queued_reload_amount, ammunition_capacity - current_ammo)
 				inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
 				current_ammo_type = _queued_reload_type
 				current_ammo += _reload_amount
 		owner_character.state.is_reloading = false
+		# Stage boundary (owner ruling option c): the in-flight stage just
+		# finished, so this is where a requested interrupt takes effect. The
+		# rounds above were already applied, so the loaded count stands; a
+		# future multi-stage chain would consult _reload_abort_requested
+		# before starting its next stage.
+		if owner_character.state.reloading_item == self:
+			owner_character.state.reloading_item = null
+		reload_stage_finished.emit(current_ammo)
+	_reload_abort_requested = false
+
+
+func request_reload_abort() -> void:
+	# Called by inventory_controller when the player switches slots during a
+	# reload. No immediate effect: the in-flight stage finishes first.
+	_reload_abort_requested = true
 
 
 func _on_UnloadTimer_timeout() -> void:

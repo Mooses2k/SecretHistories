@@ -19,6 +19,12 @@ var _pressed_slot_key_count : int = 0
 var _pressed_slot : int = -1
 var _slots_swapped : bool = false
 
+# Owner ruling option c (stage-boundary interrupt): a mainhand slot switch
+# requested DURING a gun reload is parked here and executes at the reload's
+# current stage boundary. The gun stays equipped (and in the tree) until that
+# boundary, so its ReloadTimer can finish and the loaded-round count stands.
+var _deferred_mainhand_slot : int = -1
+
 
 func is_inventory_locked() -> bool:
 	return character.state.is_reloading
@@ -29,6 +35,18 @@ func cancel_throw():
 
 
 func _process(delta: float) -> void:
+	# Deferred mainhand switch fires at the first reload stage boundary after
+	# the request (is_reloading clearing is the boundary signal for every
+	# completion path, abort or normal).
+	if _deferred_mainhand_slot >= 0 and not character.state.is_reloading:
+		var slot := _deferred_mainhand_slot
+		_deferred_mainhand_slot = -1
+		# Same-slot requests are no-ops: set_mainhand_slot treats an equal
+		# value as a toggle (holster) and must not fire here.
+		if slot != inventory.current_mainhand_slot:
+			inventory.drop_bulky_item()
+			inventory.current_mainhand_slot = slot
+			cancel_throw()
 	# If holding for too long, automatically swap hands
 	if _holding_swap_hands:
 		if _swap_hands_timer >= swap_hands_delay:
@@ -39,8 +57,51 @@ func _process(delta: float) -> void:
 	_handle_inventory_and_grab_input(delta)
 
 
+## Mainhand slot switch entry point. Outside a reload this behaves exactly as
+## before. During a gun reload the switch defers to the stage boundary and
+## requests the abort on the reloading gun (owner ruling option c). During an
+## unload (hold R, reloading_item null) switching stays hard-locked.
+func _request_mainhand_switch(slot : int) -> void:
+	if character.state.is_reloading:
+		if not is_instance_valid(character.state.reloading_item):
+			return
+		if slot == inventory.current_mainhand_slot:
+			# "Stay on this weapon" cancels a pending switch; the reload's
+			# current stage simply finishes with no further changes.
+			_deferred_mainhand_slot = -1
+			return
+		_deferred_mainhand_slot = slot
+		character.state.reloading_item.request_reload_abort()
+		return
+	inventory.drop_bulky_item()
+	inventory.current_mainhand_slot = slot
+	cancel_throw()
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_inventory_locked():
+	# hotbar scrolling - but not when grabbing objects or placing blueprints.
+	# Allowed DURING a gun reload: the switch defers to the stage boundary and
+	# requests the abort (owner ruling option c). _request_mainhand_switch
+	# self-gates the unload case (still locked).
+	if event.is_action_pressed(&"itm|next_hotbar_item"):
+		# Check if interact controller is currently grabbing
+		if interact_controller.interact_state == interact_controller.InteractState.GRAB:
+			return  # Don't handle hotbar switching while grabbing
+		# Check if throw place controller is currently placing
+		if (throw_place_controller.throw_state_mainhand == throw_place_controller.ThrowState.PLACE or
+			throw_place_controller.throw_state_offhand == throw_place_controller.ThrowState.PLACE):
+			return  # Don't handle hotbar switching while placing blueprints
+		_request_mainhand_switch(get_next_valid_mainhand_slot(inventory.current_mainhand_slot, 1))
+	elif event.is_action_pressed(&"itm|previous_hotbar_item"):
+		# Check if interact controller is currently grabbing
+		if interact_controller.interact_state == interact_controller.InteractState.GRAB:
+			return  # Don't handle hotbar switching while grabbing
+		# Check if throw place controller is currently placing
+		if (throw_place_controller.throw_state_mainhand == throw_place_controller.ThrowState.PLACE or
+			throw_place_controller.throw_state_offhand == throw_place_controller.ThrowState.PLACE):
+			return  # Don't handle hotbar switching while placing blueprints
+		_request_mainhand_switch(get_next_valid_mainhand_slot(inventory.current_mainhand_slot, -1))
+	elif not is_inventory_locked():
 		# offhand_cycling and hand swapping
 		if event.is_action_pressed(&"playerhand|cycle_offhand_slot"):
 			_holding_swap_hands = true
@@ -70,30 +131,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				if not is_instance_valid(off_item):
 					if _is_weapon(inventory.hotbar[inventory.current_offhand_slot]):
 						inventory.equip_offhand_item()
-		
-		# hotbar scrolling - but not when grabbing objects or placing blueprints
-		elif event.is_action_pressed(&"itm|next_hotbar_item"):
-			# Check if interact controller is currently grabbing
-			if interact_controller.interact_state == interact_controller.InteractState.GRAB:
-				return  # Don't handle hotbar switching while grabbing
-			# Check if throw place controller is currently placing
-			if (throw_place_controller.throw_state_mainhand == throw_place_controller.ThrowState.PLACE or
-				throw_place_controller.throw_state_offhand == throw_place_controller.ThrowState.PLACE):
-				return  # Don't handle hotbar switching while placing blueprints
-			inventory.drop_bulky_item()
-			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, 1)
-			inventory.current_mainhand_slot = next_slot
-		elif event.is_action_pressed(&"itm|previous_hotbar_item"):
-			# Check if interact controller is currently grabbing
-			if interact_controller.interact_state == interact_controller.InteractState.GRAB:
-				return  # Don't handle hotbar switching while grabbing
-			# Check if throw place controller is currently placing
-			if (throw_place_controller.throw_state_mainhand == throw_place_controller.ThrowState.PLACE or
-				throw_place_controller.throw_state_offhand == throw_place_controller.ThrowState.PLACE):
-				return  # Don't handle hotbar switching while placing blueprints
-			inventory.drop_bulky_item()
-			var next_slot = get_next_valid_mainhand_slot(inventory.current_mainhand_slot, -1)
-			inventory.current_mainhand_slot = next_slot
 	pass
 
 # Helper function to find the next valid main hand slot that skips the equipped offhand slot
@@ -166,10 +203,10 @@ func _handle_hotbar_buttons():
 			if _pressed_slot_key_count == 0:
 				if _slots_swapped:
 					_slots_swapped = false
-				elif not is_inventory_locked():
+				else:
 					# slot that was pressed -> normal logic
 					# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
+					# Allowed during a gun reload: defers to the stage
+					# boundary and requests the abort (owner ruling option c).
 					if i != inventory.current_offhand_slot and i != 10:
-						inventory.drop_bulky_item()
-						inventory.current_mainhand_slot = i
-						cancel_throw()
+						_request_mainhand_switch(i)

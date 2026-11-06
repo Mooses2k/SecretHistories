@@ -29,6 +29,13 @@ var _pending_screenshot: Image = null
 
 var _active_game: Game = null
 
+# Game node retired by a mid-game load. The previous Game was added to the
+# root manually (start_game_menu.gd), so it is never the current scene and
+# unload_current_scene cannot free it. It is queue_free'd once the loaded
+# game's world is up (level_loaded), so the old world stays visible during
+# generation and no blank frame appears.
+var _retiring_game: Game = null
+
 # Per-floor item identity snapshot taken right after a floor loads (overlay
 # applied). At save time, snapshot identities no longer present in the level
 # become item_taken records, so the regenerated spawn is suppressed on load.
@@ -466,6 +473,13 @@ func start_loaded_game() -> bool:
 	var world_seed: int = int(meta.get("world_seed", 0))
 	var floor_level: int = int(meta.get("floor_level", Game.HIGHEST_FLOOR_LEVEL))
 
+	# Retire the previous Game, if one is alive (mid-game load): the new
+	# Game's _init overwrites GameManager.game, and the old node was root-
+	# added manually, so nothing else frees it (double world, double player).
+	# Freed after the new world is up; see _free_retiring_game.
+	if _active_game != null and is_instance_valid(_active_game):
+		_retiring_game = _active_game
+
 	var game_scene: PackedScene = load("res://scenes/game.tscn")
 	if game_scene == null:
 		push_error("[SaveManager] Cannot load game scene")
@@ -572,6 +586,11 @@ func register_game(game: Game) -> void:
 func _on_game_level_loaded(_level: GameWorld) -> void:
 	if _active_game == null:
 		return
+	# The retired Game is freed exactly when the loaded game's own world is
+	# up (level identifies the emitting Game: a dormant previous Game still
+	# finishing its own generation must not trigger the free).
+	if _retiring_game != null and _active_game.level == _level:
+		_free_retiring_game()
 	var floor_level: int = _active_game.current_floor_level
 	if _loaded_floor_data.has("floors_done") == false:
 		_loaded_floor_data["floors_done"] = {}
@@ -587,6 +606,18 @@ func _on_game_level_loaded(_level: GameWorld) -> void:
 	_loaded_floor_data["floors_done"][floor_level] = true
 	_apply_floor_overlay(_active_game, floor_level)
 	_capture_floor_item_snapshot(floor_level)
+
+
+# Free the Game retired by start_loaded_game. queue_free at the end of the
+# frame the new level finished generating: the old world remains visible
+# until then, so there is no blank frame.
+func _free_retiring_game() -> void:
+	if _retiring_game == null:
+		return
+	if is_instance_valid(_retiring_game):
+		_retiring_game.queue_free()
+		print("[SaveManager] Previous game freed after load")
+	_retiring_game = null
 
 
 func _capture_floor_item_snapshot(floor_level: int) -> void:

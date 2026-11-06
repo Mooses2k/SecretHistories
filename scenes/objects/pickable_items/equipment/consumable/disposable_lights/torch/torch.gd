@@ -22,7 +22,6 @@ var random_number : float
 
 func _ready():
 	light_timer = $BurnTime
-	light_timer.connect("timeout", Callable(self, "light_depleted"))
 	burn_time = 600.0
 
 

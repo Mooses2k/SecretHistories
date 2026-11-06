@@ -25,7 +25,10 @@ var mesh_instance : Node
 func _ready():
 	light_timer = $Timer
 
-	light_timer.connect("timeout", Callable(self, "light_depleted"))
+	# Variant scenes wire BurnTime themselves in their .tscn; connect here
+	# only when a scene (the base lantern, spike's embedded lantern) has not.
+	if not light_timer.is_connected("timeout", Callable(self, "_on_light_depleted")):
+		light_timer.connect("timeout", Callable(self, "_on_light_depleted"))
 	if is_oil_based:
 		burn_time = 1800.0
 	else:

@@ -25,8 +25,6 @@ var new_material : Material
 func _ready() -> void:
 	light_timer = $BurnTime
 	self.connect("item_is_dropped", Callable(self, "item_drop"))
-	if not light_timer.is_connected("timeout", Callable(self, "_light_depleted")):
-		light_timer.connect("timeout", Callable(self, "_light_depleted"))
 	burn_time = 3600.0
 
 

@@ -145,10 +145,10 @@ func handle_medical_consolidation(item: EquipmentItem) -> bool:
 	# Before anything, check if this is a single-use medical item that can be consolidated into a container
 	if item is MedicalItem and item.max_charges_held == 1:
 		# Search for medical containers with space using search_hotbar utility
-		var container_item = null
-		var container_found = false
 
-		# Define filter function to find medical containers with space
+		# Data-returning seam (Brooks audit 1.1): GDScript lambdas capture locals
+		# by value, so the old assign-in-lambda pattern never updated the outer
+		# container_item/container_found locals. Matched pairs come back as data.
 		var filter_func = func(potential_container):
 			if potential_container == null:
 				return false
@@ -157,14 +157,12 @@ func handle_medical_consolidation(item: EquipmentItem) -> bool:
 			var has_space = potential_container.charges_held < potential_container.max_charges_held if is_container else false
 			return is_medical and is_container and has_space
 
-		# Define action function to consolidate the item
-		var action_func = func(potential_container, slot_index):
-			if potential_container == null:
-				push_error("Action function called with null container")
-				return false
+		var matched_pairs = search_hotbar_matched(filter_func)
 
-			container_item = potential_container
-			container_found = true
+		# Consolidate into the first matching container only
+		if not matched_pairs.is_empty():
+			var container_item: MedicalItem = matched_pairs[0][0]
+
 			# Calculate how much space the container has
 			var space_left = container_item.max_charges_held - container_item.charges_held
 
@@ -194,17 +192,6 @@ func handle_medical_consolidation(item: EquipmentItem) -> bool:
 				item.queue_free()
 
 			emit_signal("inventory_changed")
-			return true  # Stop searching after finding and processing the first container
-
-		# Define early termination function to stop after processing one container
-		var early_termination_func = func(potential_container):
-			return container_found
-
-		# Use the search_hotbar utility function
-		search_hotbar(filter_func, action_func, early_termination_func)
-
-		# If we found and processed a container, we're done
-		if container_found:
 			return true  # Item was consolidated, we're done
 
 	return false
@@ -867,6 +854,34 @@ func search_hotbar(filter_func: Callable, action_func: Callable, early_terminati
 			if early_termination_func.is_valid() and early_termination_func.call(item):
 				return true  # Early termination requested
 	return items_processed  # Return true if any items were processed
+
+
+# Data-returning hotbar search seam (Brooks audit 1.1): returns all matched
+# (item, slot_index) pairs as two-entry arrays, in hotbar slot order. Callers
+# act on the returned data instead of assigning to locals inside lambdas,
+# which capture by value and never propagate.
+func search_hotbar_matched(filter_func: Callable) -> Array:
+	var matched_pairs : Array = []
+	for i in range(hotbar.size()):
+		var item = hotbar[i]
+		if item == null:
+			continue
+
+		if filter_func.call(item):
+			matched_pairs.append([item, i])
+	return matched_pairs
+
+
+## Clears the hotbar slot holding the given item and reports it to the UI
+## (Brooks audit 4.5: an exploding bomb used to leave a freed reference in its
+## hotbar slot). Returns true if a slot held the item.
+func clear_hotbar_slot_of(item: EquipmentItem) -> bool:
+	for i in range(hotbar.size()):
+		if hotbar[i] == item:
+			hotbar[i] = null
+			emit_signal("hotbar_changed", i)
+			return true
+	return false
 
 
 func switch_away_from_light(light_source):

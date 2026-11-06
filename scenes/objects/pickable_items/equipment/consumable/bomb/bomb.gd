@@ -111,12 +111,16 @@ func _on_Countdown_timeout():
 
 
 func _on_tree_exiting():
-	# Notify inventory that this item is being destroyed
-	if owner_character and owner_character.has_method("inventory"):
+	# Notify inventory that this item is being destroyed.
+	# inventory is a node property, not a method, so has_method("inventory")
+	# was always false and this cleanup never ran (Brooks audit 4.5).
+	if is_instance_valid(owner_character) and owner_character.inventory != null:
 		var inventory = owner_character.inventory
-		if inventory and inventory.current_mainhand_equipment == self:
+		# Null the hotbar slot through the inventory API, not a direct write
+		inventory.clear_hotbar_slot_of(self)
+		if inventory.current_mainhand_equipment == self:
 			inventory.current_mainhand_equipment = null
-		elif inventory and inventory.current_offhand_equipment == self:
+		elif inventory.current_offhand_equipment == self:
 			inventory.current_offhand_equipment = null
 
 

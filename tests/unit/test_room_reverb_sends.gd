@@ -52,3 +52,21 @@ func test_land_clamber_send_rides_the_reverb_bus():
 	_make_character_audio()
 	assert_not_null(_audio._land_clamber_audio, "setup creates the landing and clamber send player")
 	assert_eq(_audio._land_clamber_audio.bus, "Reverb", "the send player targets the Reverb bus")
+
+
+func test_gunshot_audio_scenes_target_the_reverb_bus():
+	# The one-shot gunshot wrappers (Effect.handle_sound spawns, autoplay,
+	# auto-free) carry the bus on their scene root. The shared reverb bus's
+	# dry is 1.0, so the dry crack stays full and only the room tail adds.
+	for scene_path in [
+		"res://scenes/effects/webley_audio.tscn",
+		"res://scenes/effects/shotgun_audio.tscn",
+		"res://scenes/effects/martini_audio.tscn",
+		"res://scenes/effects/lee-metford_audio.tscn",
+	]:
+		var scene : PackedScene = load(scene_path)
+		assert_not_null(scene, scene_path + " loads")
+		var player := scene.instantiate() as AudioStreamPlayer3D
+		assert_not_null(player, scene_path + " root is an AudioStreamPlayer3D")
+		assert_eq(player.bus, "Reverb", scene_path + " targets the Reverb bus")
+		player.free()

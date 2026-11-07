@@ -117,11 +117,11 @@ func _on_Countdown_timeout():
 		#if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies().has(owner_character):
 			#owner_character.fps_camera.add_stress(0.5)   # Eventually maybe based on distance from explosion
 	
-	# Remove this bomb from its stackable resource before freeing
+	# Remove this bomb from its stackable resource now, but do NOT free the
+	# bomb this frame: the explosion particles just started emitting and need
+	# frames to render. explosions.gd's Timer frees the owner after the blast.
 	if stackable_resource != null:
 		stackable_resource.remove_item(self)
-	
-	queue_free()
 
 
 func _on_tree_exiting():

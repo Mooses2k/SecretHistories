@@ -319,6 +319,14 @@ func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float
 
 
 func play_land_sound():
+	# Own the playback parameters: the footstep path shares the Movement
+	# player and leaves its own pitch (1.5 sprint, 0.1 crouch) and volume
+	# (+5.0 rate) behind. 3.x kept the land clip at natural pitch and 0 dB
+	# because its footstep call ended by resetting unit_db to the volume
+	# param; the 4.x port dropped that reset, so the landing thump played
+	# deformed by footstep leftovers and sounded like a wrong footstep clip.
+	movement_audio.pitch_scale = 1.0
+	movement_audio.volume_db = 0.0
 	_landing_sounds.shuffle()
 	movement_audio.stream = _landing_sounds.front()
 	movement_audio.play()

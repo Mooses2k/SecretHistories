@@ -1,9 +1,10 @@
 class_name CandelabraItem
 extends ToolItem
 ## Multi-candle light container (fuel design owner decisions 5 and 6): each
-## candle is a per-candle WAX fuel state burning at the authored 3.x duration,
-## and the shared light output follows the per-object logarithmic curve with
-## the lit-candle count, so a stand with one candle left reads dimmer than a
+## candle is a per-candle WAX fuel state burning at the same duration as a
+## loose candle (owner ruling: a candelabra's candles ARE candles), and the
+## shared light output follows the per-object logarithmic curve with the
+## lit-candle count, so a stand with one candle left reads dimmer than a
 ## fully lit one. Socket insert/swap interactions (the refill point for whole
 ## candles) arrive with the removable-candle work; inserted candles do NOT
 ## auto-light.
@@ -11,7 +12,7 @@ extends ToolItem
 
 signal item_dropped
 
-const BURN_SECONDS := 1000.0  # authored 3.x per-candle burn duration
+const BURN_SECONDS := 3600.0  # same as candle.gd per owner ruling
 
 @export var number_of_candles : int = 1
 ## Tuning gain of the per-object light-output curve (FuelContainer.light_scale_for).

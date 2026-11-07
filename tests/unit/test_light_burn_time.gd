@@ -7,8 +7,9 @@
 #   torch 600 s    -> WAX fill 1.0 at burn_rate 1/600 (torch.gd _ready)
 #   lantern 1800 s when is_oil_based, else 3600 s -> OIL fill 1.0 at the
 #       matching rate (lanterns.gd _ready)
-#   candelabra 1000 s per candle -> per-candle WAX fill 1.0 at burn_rate
-#       1/1000 (candelabra.gd BURN_SECONDS)
+#   candelabra 3600 s per candle (OWNER RULING: a candelabra's candles ARE
+#       candles, same as candle.gd, overriding the 3.x per-candle 1000 s)
+#       -> per-candle WAX fill 1.0 at burn_rate 1/3600 (BURN_SECONDS)
 # A failure here is a real fuel-value regression, not an expected contract
 # change anymore: this file is the post-refactor pin.
 # Real lightweight scenes are used for candle/torch/lantern so the authored
@@ -66,7 +67,7 @@ func test_lantern_fuel_burns_1800_seconds_when_oil_based():
 	_assert_full_fuel(lantern, FuelSource.FuelKind.OIL, 1800.0, "oil lantern")
 
 
-func test_candelabra_candles_burn_1000_seconds_each():
+func test_candelabra_candles_burn_3600_seconds_each():
 	# The fuel states are built from number_of_candles alone, so they are
 	# exercised without the tree (a bare EquipmentItem in the tree would trip
 	# the HoldPosition marker resolution error).
@@ -80,5 +81,5 @@ func test_candelabra_candles_burn_1000_seconds_each():
 		assert_almost_eq(fuel.fill, 1.0, 0.0001, "candle %d starts full" % (i + 1))
 		assert_eq(fuel.fuel_source.fuel_kind, FuelSource.FuelKind.WAX,
 			"candle %d is wax" % (i + 1))
-		assert_almost_eq(fuel.fuel_source.burn_rate, 1.0 / 1000.0, 0.000001,
-			"candle %d matches the authored 1000 s duration" % (i + 1))
+		assert_almost_eq(fuel.fuel_source.burn_rate, 1.0 / 3600.0, 0.000001,
+			"candle %d matches the candle.gd 3600 s duration" % (i + 1))

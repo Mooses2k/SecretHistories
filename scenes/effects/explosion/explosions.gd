@@ -13,20 +13,43 @@ func _on_Bomb_explosion():
 	var collisions = blastradius.get_overlapping_bodies()
 	collisions.append_array(blastradius.get_overlapping_areas())
 
-	# Prune duplicate collisions with the same body or area
 	var collisions_unique : Dictionary = Dictionary()
 	var space = get_world_3d().direct_space_state
+
+	# Character-owned candidates first, so the character's impulse entry is
+	# applied before the damage loop can ragdoll the character:
+	# character_ragdoll.gd freezes the root body the moment the state turns
+	# knocked out or dead, and an impulse on a frozen body is lost. These
+	# rays carry no own-body exclusions, so the first body hit is the
+	# character's own surface facing the bomb (the root cylinder on a living
+	# character, the active ragdoll bones on a corpse), or a legitimate
+	# occluder. Hits land in the same deduplicated set as the damage rays
+	# below, so every body takes exactly one impulse.
+	for collision in collisions:
+		if _candidate_character(collision) == null:
+			continue
+		var impulse_params := PhysicsRayQueryParameters3D.new()
+		impulse_params.from = global_position
+		impulse_params.to = collision.global_position
+		impulse_params.exclude = [owner.get_rid()]
+		impulse_params.collision_mask = blastradius.collision_mask | 1
+		impulse_params.collide_with_bodies = true
+		impulse_params.collide_with_areas = false
+		var body_hit = space.intersect_ray(impulse_params)
+		if not body_hit.is_empty() and not collisions_unique.has(body_hit.rid):
+			collisions_unique[body_hit.rid] = body_hit
+
+	# Damage rays: the candidate's own character body parts must not shield
+	# its hurtboxes, so the exclusion set carries the bomb owner plus every
+	# physics body owned by the candidate's character (the root body with
+	# its cylinder and the ragdoll bones), and the rays pass through that
+	# character and reach its hurtboxes directly. Level geometry and other
+	# characters still block, and hit_from_inside stays false so shapes
+	# containing the blast origin are skipped.
 	for collision in collisions:
 		var raycast_params := PhysicsRayQueryParameters3D.new()
 		raycast_params.from = global_position
 		raycast_params.to = collision.global_position
-		# The candidate's own character body parts must not shield its
-		# hurtboxes: the exclusion set carries the bomb owner plus every
-		# physics body owned by the candidate's character (the root body with
-		# its cylinder and the ragdoll bones), so the rays pass through that
-		# character and reach its hurtboxes directly. Level geometry and other
-		# characters still block, and hit_from_inside stays false so shapes
-		# containing the blast origin are skipped.
 		raycast_params.exclude = _ray_exclusions(collision)
 		raycast_params.collision_mask = blastradius.collision_mask | 1
 		raycast_params.collide_with_bodies = true

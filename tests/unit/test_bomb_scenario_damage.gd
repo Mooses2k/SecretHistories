@@ -12,7 +12,12 @@
 # exclude the victim's own body parts (root cylinder and ragdoll bones) and
 # reach the upper hurtboxes, a grenade resting beside a cultist deals heavy
 # damage, a grenade outside the blast radius deals none, and a wall between
-# the bomb and a cultist still blocks every ray.
+# the bomb and a cultist still blocks every ray. Blast impulses run through
+# a separate ray pass over character-owned candidates without the own-body
+# exclusions, applied before the damage loop so the impulse lands while the
+# victim is still unfrozen: living characters take the shove on the root
+# cylinder, ragdolled characters take it on their active bones, and walls
+# still shield both.
 extends GutTest
 
 const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
@@ -177,14 +182,44 @@ func test_grenade_at_the_players_feet_kills_the_player() -> void:
 		"the feet grenade kills the player instead of only knocking them down")
 
 
+func test_grenade_beside_a_ragdolled_corpse_scatters_it() -> void:
+	var cultist : Node3D = await _spawn_character(CULTIST_SCENE, Vector3(2.0, 0.0, 6.0))
+	var state : HumanoidCharacterState = cultist.get_node("State")
+	state.durability = 0
+	var settled := false
+	for i in 180:
+		await _physics_frames(1)
+		if _max_bone_speed(cultist) < 0.5:
+			settled = true
+			break
+	assert_true(settled, "the corpse settles before the blast")
+	var bomb : RigidBody3D = await _rest_grenade(Vector3(2.0, 0.14, 7.2))
+	bomb.call("_on_Countdown_timeout")
+	await _physics_frames(2)
+	assert_gt(_max_bone_speed(cultist), 1.0,
+		"the blast impulse pass records the ragdoll's own bone surfaces and flings the corpse parts")
+
+
+func _max_bone_speed(character : Node3D) -> float:
+	var top := 0.0
+	for bone in character.find_children("*", "PhysicalBone3D", true, false):
+		top = maxf(top, (bone as PhysicalBone3D).linear_velocity.length())
+	return top
+
+
 func test_wall_between_the_bomb_and_a_cultist_blocks_the_blast() -> void:
 	var cultist : Node3D = await _spawn_character(CULTIST_SCENE, Vector3(2.0, 0.0, 6.0))
 	_add_wall(Vector3(2.0, 1.5, 5.0))
 	var bomb : RigidBody3D = await _rest_grenade(Vector3(2.0, 0.14, 4.0))
 	var amounts := _record_damages(cultist)
 	var state : HumanoidCharacterState = cultist.get_node("State")
+	var velocity_before : Vector3 = (cultist as RigidBody3D).linear_velocity
 	bomb.call("_on_Countdown_timeout")
-	await _physics_frames(2)
+	await _physics_frames(1)
+	var flung_by : Vector3 = (cultist as RigidBody3D).linear_velocity - velocity_before
+	assert_lt(flung_by.length(), 0.5,
+		"the wall also blocks the blast impulse rays, so the cultist is not flung")
+	await _physics_frames(1)
 	assert_eq(amounts.size(), 0, "the wall occludes every ray to the cultist's hurtboxes")
 	assert_eq(state.durability, 100, "a cultist behind a wall keeps full durability")
 

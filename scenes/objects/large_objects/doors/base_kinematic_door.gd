@@ -108,9 +108,16 @@ enum FollowMode {
 # Owner playtest: "doors a bit lighter or can be moved faster on drag": the
 # follow tracks the hand faster now (stiffer, higher cap), and the body-push
 # terminal cap rose with it (see PUSH_MAX_SPEED).
+# Owner follow-up (Amnesia feel): drag FORCE must scale with the grab distance
+# from the hinge: a far grip on the leaf edge has the lever and swings the door
+# hard; a grip near the hinge feels sluggish. The follow stiffness is scaled by
+# lever length over HOLD_LEVER_REFERENCE, and damping stays critical.
 const HOLD_FOLLOW_STIFFNESS := 12.0
-const HOLD_FOLLOW_DAMPING := 6.93
+const HOLD_LEVER_REFERENCE := 1.0   # m: grab distance that matches the old feel
+const HOLD_LEVER_MIN := 0.35        # m: clamp below (near-hinge grip)
+const HOLD_LEVER_MAX := 1.6         # m: clamp above (beyond the leaf edge)
 const HOLD_MAX_SPEED := 7.5                       # rad/s cap while held
+var _follow_lever : float = HOLD_LEVER_REFERENCE
 # Coast damping for the inertial release (1/s, exponential-ish decay)
 const COAST_DAMPING := 1.1
 # Below this angular speed (rad/s) a released door is considered stationary
@@ -301,9 +308,12 @@ func _physics_process(delta):
 		FollowMode.HOLD_FOLLOW:
 			# Critically damped hand follow: the hinge lags the hand with a
 			# heavy pull feel, and the follow's angular velocity is the real
-			# momentum that carries over on release.
+			# momentum that carries over on release. Stiffness scales with the
+			# grab's lever length (Amnesia feel), damping stays critical.
+			var stiffness : float = HOLD_FOLLOW_STIFFNESS * (_follow_lever / HOLD_LEVER_REFERENCE)
+			var damping : float = 2.0 * sqrt(stiffness)
 			var error := _target_angle - angle
-			_angular_velocity += (HOLD_FOLLOW_STIFFNESS * error - HOLD_FOLLOW_DAMPING * _angular_velocity) * delta
+			_angular_velocity += (stiffness * error - damping * _angular_velocity) * delta
 			_angular_velocity = clampf(_angular_velocity, -HOLD_MAX_SPEED, HOLD_MAX_SPEED)
 			angle += _angular_velocity * delta
 			angle = _clamp_angle(angle)
@@ -615,6 +625,7 @@ func interact_hold_update(origin : Vector3, dir : Vector3):
 	# plane). Closed leaf points door-local -X, +Y rotation sweeps it toward
 	# door-local +Z, so the angle is atan2(z, -x) in [0, open].
 	var world_offset : Vector3 = hand - door_hinge_z_axis.global_position
+	_follow_lever = clampf(world_offset.length(), HOLD_LEVER_MIN, HOLD_LEVER_MAX)
 	var local_v : Vector3 = global_basis.inverse() * world_offset
 	_target_angle = clampf(atan2(local_v.z, -local_v.x), 0.0, door_open_angle)
 

@@ -1,5 +1,7 @@
 extends Node
 
+const PickupResolver := preload("res://scenes/characters/player/pickup_resolver.gd")
+
 
 enum InteractState {
 	NONE,
@@ -9,6 +11,14 @@ enum InteractState {
 	HOLD_INTERACT
 }
 @export var inventory : Inventory
+
+# Shapecast pickup zone (issue #736): a sphere anchored at the GrabCast hit
+# point (ray end in open air) finds pickup candidates instead of requiring an
+# exact ray hit on the item's collision shape. Mask is physics layer 7
+# ItemDrops, where dropped PickableItems live (project.godot layer names).
+const ITEM_DROPS_MASK : int = 1 << 6
+const MAX_PICKUP_HITS : int = 32
+@export var pickup_shapecast_radius : float = 0.35
 
 # Releasing the interact key before this time will cause an interaction, holding
 # it longer will attempt a grab
@@ -71,7 +81,6 @@ func _process(delta: float) -> void:
 	interact_target = interaction_cast.get_collider() as Interactable
 	grab_cast.force_raycast_update()
 	grab_target = grab_cast.get_collider() as RigidBody3D
-	pick_target = grab_cast.get_collider() as PickableItem
 
 	# If we don't have a grab_target but we have an ignite area, check if its parent is grabbable
 	if grab_target == null and is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
@@ -137,15 +146,24 @@ func _unhandled_input(event: InputEvent) -> void:
 			interact_state = InteractState.ADS
 			player_controller.set_ads(true)
 		else:
-			# Store the grab target and collision point that were under crosshair when button was FIRST pressed
-			captured_grab_target = grab_target
+			# Arbitration rule (issue #736): a tap always prefers the shapecast
+			# pickup, and a tiny item (ammo, coin, key) under the crosshair
+			# always wins pickup, so tiny and key candidates block hold-to-grab
+			# capture. Equipment keeps the timing split: tap picks it, holding
+			# drags it. Dragging therefore still works for everything else:
+			# tables, statues, and doors never become pickup candidates, and a
+			# player aiming to drag a table aims at a spot with no tiny
+			# candidate inside the pickup zone.
+			if pick_target == null or not PickupResolver.outranks_drag(pick_target):
+				# Store the grab target and collision point that were under crosshair when button was FIRST pressed
+				captured_grab_target = grab_target
 
-			# Special case: if we're pointing at an ignite area but no grab_target,
-			# check if the ignite area's parent is grabbable
-			if captured_grab_target == null and is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
-				var interact_node = interact_target as Node
-				if interact_node and interact_node.get_parent() is RigidBody3D:
-					captured_grab_target = interact_node.get_parent() as RigidBody3D
+				# Special case: if we're pointing at an ignite area but no grab_target,
+				# check if the ignite area's parent is grabbable
+				if captured_grab_target == null and is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
+					var interact_node = interact_target as Node
+					if interact_node and interact_node.get_parent() is RigidBody3D:
+						captured_grab_target = interact_node.get_parent() as RigidBody3D
 
 			interact_state = InteractState.PENDING
 			_interaction_held_timer = 0.0
@@ -226,6 +244,7 @@ func _try_grab_captured() -> bool:
 
 
 func _physics_process(delta: float) -> void:
+	_update_pick_target()
 	# Feed the held door drag: the camera ray steers the hinge every frame
 	if interact_state == InteractState.HOLD_INTERACT and is_instance_valid(_hold_follow_target):
 		_hold_follow_target.interact_hold_update(interaction_cast.global_position, -interaction_cast.global_transform.basis.z)
@@ -365,6 +384,39 @@ func pick_item() -> void:
 	if is_instance_valid(pick_target):
 		print("pick")
 		inventory.add_item(pick_target)
+		pick_target = null
+
+
+# Shapecast-based pickup detection (issue #736). Runs on the physics tick,
+# where direct space state queries are safe. The zone centers on the GrabCast
+# hit point, so it follows whatever the player is aiming at; in open air it
+# centers on the ray end.
+func _update_pick_target() -> void:
+	var space_state := grab_cast.get_world_3d().direct_space_state
+	var ray_origin := grab_cast.global_position
+	var ray_direction := -grab_cast.global_transform.basis.z
+	var ray_length : float = grab_cast.target_position.length()
+	var anchor := ray_origin + ray_direction * ray_length
+	if grab_cast.is_colliding():
+		anchor = grab_cast.get_collision_point()
+
+	var bodies : Array = []
+	for hit in _sphere_query(space_state, anchor, pickup_shapecast_radius):
+		bodies.append(hit["collider"])
+	var candidates : Array[PickableItem] = PickupResolver.filter_pick_candidates(bodies, inventory)
+	pick_target = PickupResolver.select_best(candidates, ray_origin, ray_direction)
+
+
+func _sphere_query(space_state : PhysicsDirectSpaceState3D, center : Vector3, radius : float) -> Array:
+	var shape := SphereShape3D.new()
+	shape.radius = radius
+	var params := PhysicsShapeQueryParameters3D.new()
+	params.shape = shape
+	params.transform = Transform3D(Basis.IDENTITY, center)
+	params.collision_mask = ITEM_DROPS_MASK
+	params.collide_with_bodies = true
+	params.collide_with_areas = false
+	return space_state.intersect_shape(params, MAX_PICKUP_HITS)
 
 
 func interact() -> void:

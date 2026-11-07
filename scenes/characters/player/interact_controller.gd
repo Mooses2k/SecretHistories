@@ -5,7 +5,8 @@ enum InteractState {
 	NONE,
 	PENDING,
 	GRAB,
-	ADS
+	ADS,
+	HOLD_INTERACT
 }
 @export var inventory : Inventory
 
@@ -52,10 +53,12 @@ var grab_rotation_offset : Quaternion
 var interact_target : Interactable = null
 var grab_target : RigidBody3D = null
 var pick_target : PickableItem = null
+# Door (or other hold-follow target) currently being dragged; fed the camera
+# ray every physics frame until the interact key is released
+var _hold_follow_target : Node = null
 
 # Captured grab target and collision point when interact button is first pressed
 var captured_grab_target : RigidBody3D = null
-var captured_collision_point : Vector3
 
 @onready var interaction_cast: RayCast3D = $"../../ModelRoot/MainCamera/InteractionCast"
 @onready var grab_cast: RayCast3D = $"../../ModelRoot/MainCamera/GrabCast"
@@ -101,6 +104,17 @@ func _process(delta: float) -> void:
 	if interact_state == InteractState.PENDING:
 		_interaction_held_timer += delta
 		if _interaction_held_timer > interact_threshold and grabbed_item == null:
+			# Hold-to-interact targets (doors #17, Amnesia style): fire once on
+			# the hold, then keep feeding the drag every frame until release
+			if captured_grab_target == null and is_instance_valid(interact_target) and interact_target.hold_interact:
+				interact_target.interact_press_was_hold = true
+				interact_target.interact(owner)
+				if interact_target.has_method(&"interact_hold_update"):
+					_hold_follow_target = interact_target
+					interact_state = InteractState.HOLD_INTERACT
+				else:
+					interact_state = InteractState.NONE
+				return
 			if not _try_grab_captured():
 				player_controller.set_ads(true)
 				interact_state = InteractState.ADS
@@ -133,9 +147,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				if interact_node and interact_node.get_parent() is RigidBody3D:
 					captured_grab_target = interact_node.get_parent() as RigidBody3D
 
-			if grab_cast.is_colliding():
-				captured_collision_point = grab_cast.get_collision_point()
-
 			interact_state = InteractState.PENDING
 			_interaction_held_timer = 0.0
 	elif event.is_action_released(&"player|interact"):
@@ -150,9 +161,20 @@ func _unhandled_input(event: InputEvent) -> void:
 				_reset_object_damping(grabbed_item)
 				grabbed_item = null
 				player_controller.set_drag_speed_modifier(1.0)
+			InteractState.HOLD_INTERACT:
+				# Release ends the door drag; the leaf keeps its momentum
+				if is_instance_valid(_hold_follow_target) and _hold_follow_target.has_method(&"interact_hold_end"):
+					_hold_follow_target.interact_hold_end()
+				_hold_follow_target = null
 			InteractState.PENDING:
 				if pick_target:
 					pick_item()
+				elif is_instance_valid(interact_target) and interact_target.hold_interact:
+					# Quick tap on a hold-interact target: still delivered, the
+					# target itself decides that a tap does nothing (locked
+					# doors rattle on tap, normal doors ignore it)
+					interact_target.interact_press_was_hold = false
+					interact()
 				else:
 					interact()
 		interact_state = InteractState.NONE
@@ -204,6 +226,10 @@ func _try_grab_captured() -> bool:
 
 
 func _physics_process(delta: float) -> void:
+	# Feed the held door drag: the camera ray steers the hinge every frame
+	if interact_state == InteractState.HOLD_INTERACT and is_instance_valid(_hold_follow_target):
+		_hold_follow_target.interact_hold_update(interaction_cast.global_position, -interaction_cast.global_transform.basis.z)
+
 	if is_instance_valid(grabbed_item):
 		var difference : Vector3
 

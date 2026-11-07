@@ -105,9 +105,12 @@ enum FollowMode {
 }
 # Spring stiffness for the hand follow (rad/s^2 per rad of error). Critically
 # damped: damping below is 2 * sqrt(stiffness). Lower = heavier, laggier feel.
-const HOLD_FOLLOW_STIFFNESS := 10.0
-const HOLD_FOLLOW_DAMPING := 6.32
-const HOLD_MAX_SPEED := 6.0                       # rad/s cap while held
+# Owner playtest: "doors a bit lighter or can be moved faster on drag": the
+# follow tracks the hand faster now (stiffer, higher cap), and the body-push
+# terminal cap rose with it (see PUSH_MAX_SPEED).
+const HOLD_FOLLOW_STIFFNESS := 12.0
+const HOLD_FOLLOW_DAMPING := 6.93
+const HOLD_MAX_SPEED := 7.5                       # rad/s cap while held
 # Coast damping for the inertial release (1/s, exponential-ish decay)
 const COAST_DAMPING := 1.1
 # Below this angular speed (rad/s) a released door is considered stationary
@@ -139,7 +142,7 @@ const PUSH_SENSOR_DEPTH := 0.3      # m: sensor slab thickness around the leaf p
 const PUSH_BREAK_SPEED := 0.45      # m/s approach needed to move the leaf; a light brush below this is absorbed
 const PUSH_GAIN := 0.55             # rad/s of swing target per unit of press memory (wooden reference)
 const PUSH_ACCEL := 3.0             # rad/s^2 while the hinge chases the press target (wooden reference)
-const PUSH_MAX_SPEED := 2.2         # rad/s terminal cap from body push (wooden reference)
+const PUSH_MAX_SPEED := 2.6         # rad/s terminal cap from body push (wooden reference; owner: "a bit lighter")
 const PUSH_ACCUM_RATE := 6.0        # press memory units gained per second of sustained contact (wooden reference)
 const PUSH_MAX_MEMORY := 6.0        # press memory cap (units)
 # Heavier door types are slower to push: target, accel and cap are divided by this

@@ -22,6 +22,10 @@ const BINDING_MAP : Array = [
 			{"action": "movement|move_down", "name": "Move Back"},
 			{"action": "movement|move_right", "name": "Move Right"},
 			{"action": "player|sprint", "name": "Sprint / Dodge / Kick (Shift)"},
+			# The kick, interact and ads escape-hatch actions ship unbound:
+			# their contextual integrated paths stay the default behavior
+			# (issue #606), and binding a key adds a dedicated trigger.
+			{"action": "kick", "name": "Kick (separate key)"},
 			{"action": "player|crouch", "name": "Crouch"},
 			{"mode": "Hold Crouch"},
 			{"action": "player|jump", "name": "Jump / Mantle / Stand"},
@@ -32,6 +36,8 @@ const BINDING_MAP : Array = [
 		"rows": [
 			{"action": "player|interact", "name": "Interact / ADS / Drag (RMB)"},
 			{"mode": "Hold ADS (Aim Down Sights)"},
+			{"action": "interact", "name": "Interact (separate key)"},
+			{"action": "ads", "name": "ADS (separate key)"},
 		],
 	},
 	{

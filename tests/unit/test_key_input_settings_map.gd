@@ -69,6 +69,11 @@ func test_saved_keybinding_dict_round_trips_the_mapped_actions() -> void:
 			var action: String = row_data["action"]
 			if not InputMap.has_action(action):
 				continue
+			# Unbound escape-hatch actions (kick, interact, ads, issue #606)
+			# carry no default events, so a pre-existing user keybinding.dict
+			# missing them leaves them correctly unbound: no snapshot needed.
+			if KeyInputSettings._project_default_events(action).is_empty():
+				continue
 			assert_true(KeybindingManager.keys_default.has(action),
 					"snapshot covers %s" % action)
 

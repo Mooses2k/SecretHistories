@@ -69,6 +69,9 @@ var grab_rotation_offset : Quaternion
 var interact_target : Interactable = null
 var grab_target : RigidBody3D = null
 var pick_target : PickableItem = null
+# Additive ADS trigger state (issue #606): true while the separately bound
+# ads action is held, so ADS stays engaged until both sources release.
+var _ads_action_held : bool = false
 # Door (or other hold-follow target) currently being dragged; fed the camera
 # ray every physics frame until the interact key is released
 var _hold_follow_target : Node = null
@@ -142,6 +145,17 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Additive triggers (issue #606): the kick, interact and ads actions
+	# ship unbound, so when nothing is bound these events never match and
+	# the contextual RMB/Shift paths remain the sole behavior.
+	if event.is_action_pressed(&"kick"):
+		_kick_from_action()
+	if event.is_action_pressed(&"interact"):
+		_tap_interact_from_action()
+	if event.is_action_pressed(&"ads"):
+		_ads_action_pressed()
+	elif event.is_action_released(&"ads"):
+		_ads_action_released()
 	# Handle mousewheel for grab distance adjustment when grabbing
 	if interact_state == InteractState.GRAB:
 		if event.is_action_pressed(&"itm|next_hotbar_item"):
@@ -182,6 +196,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_released(&"player|interact"):
 		match interact_state:
 			InteractState.ADS:
+				if _ads_action_held:
+					# The separately bound ads key keeps ADS held; it owns
+					# the disengage when it releases (issue #606).
+					_holding_interact = false
+					return
 				player_controller.set_ads(false)
 			InteractState.GRAB:
 				# Special handling for wall objects
@@ -478,6 +497,57 @@ func interact() -> void:
 	if is_instance_valid(interact_target):
 		print("interact")
 		interact_target.interact(owner)
+
+
+## Additive kick trigger (issue #606): a separately bound kick key fires
+## alongside the contextual path (sprint tapped without moving, wired in
+## player_controller.gd). Both paths share the single execution point
+## HumanoidCharacter.kick(), whose cooldown guard blocks the second call,
+## and this side skips the attempt outright when a kick already ran within
+## the cooldown, so a same frame double trigger kicks once.
+func _kick_from_action() -> void:
+	var character := owner as HumanoidCharacter
+	if character == null:
+		return
+	if character.state.time_since_kick < character.parameters.kick_cooldown:
+		return
+	character.kick()
+
+
+## Additive interact trigger (issue #606): a separately bound interact key
+## fires the RMB tap semantics on press: the shapecast pickup first (the
+## issue #736 arbitration), then the target's interact. Hold and grab
+## behaviors stay exclusive to the RMB context path.
+func _tap_interact_from_action() -> void:
+	if pick_target:
+		pick_item()
+		return
+	if is_instance_valid(interact_target) and interact_target.hold_interact:
+		interact_target.interact_press_was_hold = false
+	interact()
+
+
+## Additive ADS trigger (issue #606): the ads action engages the same
+## InteractState.ADS as the RMB hold on empty air, and ADS disengages only
+## when both the contextual hold and the ads action are released.
+func _ads_action_pressed() -> void:
+	_ads_action_held = true
+	if interact_state != InteractState.NONE:
+		return
+	if interact_target or grab_target or pick_target:
+		return
+	interact_state = InteractState.ADS
+	player_controller.set_ads(true)
+
+
+func _ads_action_released() -> void:
+	_ads_action_held = false
+	if interact_state != InteractState.ADS:
+		return
+	if Input.is_action_pressed(&"player|interact"):
+		return
+	interact_state = InteractState.NONE
+	player_controller.set_ads(false)
 
 
 # Helper function to reset object damping when released

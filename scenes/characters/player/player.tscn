@@ -471,6 +471,7 @@ place_origin = NodePath("../../ModelRoot/PlaceOrigin")
 throw_origin = NodePath("../../ModelRoot/ThrowOrigin")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="9"]
+visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 omni_range = 10.0
 

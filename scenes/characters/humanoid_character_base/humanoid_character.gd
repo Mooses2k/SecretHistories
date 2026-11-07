@@ -88,7 +88,12 @@ func _physics_process(delta: float) -> void:
 	# Skip normal movement logic in noclip mode
 	if not state.noclip_enabled:
 		# crouch input
-		state.sprinting = input.sprint and input.movement_vector.dot(-state.facing.z) > 0.0 and state.stamina > 0.0
+		state.sprinting = (
+			input.sprint
+			and input.movement_vector.dot(-state.facing.z) > 0.0
+			and state.stamina > 0.0
+			and KeyInputSettings.shift_sprint_enabled()
+		)
 		if state.sprinting:
 			state.stamina -= parameters.stamina_drain_rate * delta
 		else:
@@ -298,8 +303,16 @@ func recoil() -> void:
 	recoiled.emit()
 
 
-func kick():
+## Kick execution point shared by every trigger source. `from_action` marks
+## the separately bound kick key (issue #606); the default (no argument) is
+## the contextual Shift-tap path wired from player_controller, which the
+## Shift overload settings gate at this seam (wiki Interface 5.2.1). The
+## frozen player_controller keeps calling kick() with no argument, so its
+## call site stays untouched.
+func kick(from_action : bool = false) -> void:
 	if state.stamina < parameters.kick_stamina_cost or state.time_since_kick < parameters.kick_cooldown:
+		return
+	if not from_action and not KeyInputSettings.shift_kick_enabled():
 		return
 	print("kick")
 	state.time_since_kick = 0.0
@@ -331,6 +344,10 @@ func kick():
 
 
 func dodge() -> void:
+	# Contextual Shift + direction dodge: the only dodge trigger in dev4,
+	# so the Shift overload setting gates it here at the humanoid seam.
+	if not KeyInputSettings.shift_dodge_enabled():
+		return
 	if state.stamina >= parameters.dodge_stamina_cost and state.time_since_dodge >= parameters.dodge_cooldown:
 		state.stamina -= parameters.dodge_stamina_cost
 		state.time_since_dodge = 0.0

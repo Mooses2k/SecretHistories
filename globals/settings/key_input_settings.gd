@@ -11,8 +11,36 @@ const GROUP_NAME : String = "Input Key Settings"
 ## Ordered per the wiki Interface 5.2 control system: few keys overloaded
 ## with nuance, shown as coherent families, with separate keys still
 ## bindable. "action" rows bind an InputMap action; "mode" rows reposition an
-## existing bool setting (tap/hold) next to its binding family. An optional
-## "name" overrides the derived display label.
+## existing bool setting (tap/hold) next to its binding family; "setting"
+## rows register a new non-action setting (overload composition, 5.2.1).
+## An optional "name" overrides the derived display label.
+
+## Overload composition settings (wiki Interface 5.2.1): which behaviors the
+## Shift family composes. The wiki preset bundles, minus the behaviors that
+## do not exist in dev4 yet (butt-strike on ADS, prone kick, grapple throw,
+## dodge on Space): Sprint/kick/dodge (default), Sprint/kick, Sprint/dodge,
+## Kick. Individual bools stay editable as per-behavior overrides.
+const SETTING_OVERLOAD_PRESET : String = "Shift Overload Preset"
+const SETTING_SHIFT_KICK : String = "Kick on Shift (tap)"
+const SETTING_SHIFT_DODGE : String = "Dodge on Shift + direction"
+const SETTING_SHIFT_SPRINT : String = "Sprint on Shift (hold)"
+
+## Preset bundles: each entry is [kick, dodge, sprint]. Kick on Shift tap is
+## the footwork overload's anchor behavior and stays on in every preset.
+const OVERLOAD_PRESETS : Array = [
+	[true, true, true],   # Sprint / kick / dodge (default)
+	[true, false, true],  # Sprint / kick
+	[true, true, false],  # Sprint / dodge
+	[true, false, false], # Kick
+]
+
+const OVERLOAD_PRESET_VARIANTS : PackedStringArray = [
+	"Sprint / kick / dodge",
+	"Sprint / kick",
+	"Sprint / dodge",
+	"Kick",
+]
+
 const BINDING_MAP : Array = [
 	{
 		"category": "Footwork and Movement",
@@ -22,6 +50,10 @@ const BINDING_MAP : Array = [
 			{"action": "movement|move_down", "name": "Move Back"},
 			{"action": "movement|move_right", "name": "Move Right"},
 			{"action": "player|sprint", "name": "Sprint / Dodge / Kick (Shift)"},
+			{"setting": SETTING_OVERLOAD_PRESET},
+			{"setting": SETTING_SHIFT_KICK},
+			{"setting": SETTING_SHIFT_DODGE},
+			{"setting": SETTING_SHIFT_SPRINT},
 			# The kick, interact and ads escape-hatch actions ship unbound:
 			# their contextual integrated paths stay the default behavior
 			# (issue #606), and binding a key adds a dedicated trigger.
@@ -104,6 +136,60 @@ func get_last_conflict_notice() -> String:
 	return last_conflict_notice
 
 
+## Read gate for the contextual Shift-overload behaviors (wiki 5.2.1).
+## Defaults to enabled when the setting is not registered, so the humanoid
+## seam never blocks the shipped behavior by accident.
+func shift_kick_enabled() -> bool:
+	return _overload_enabled(SETTING_SHIFT_KICK)
+
+
+func shift_dodge_enabled() -> bool:
+	return _overload_enabled(SETTING_SHIFT_DODGE)
+
+
+func shift_sprint_enabled() -> bool:
+	return _overload_enabled(SETTING_SHIFT_SPRINT)
+
+
+func _overload_enabled(setting_name : String) -> bool:
+	if not Settings.has_setting(setting_name):
+		return true
+	return bool(Settings.get_setting(setting_name))
+
+
+func set_shift_kick(enabled : bool) -> void:
+	Settings.set_setting(SETTING_SHIFT_KICK, enabled)
+
+
+func set_shift_dodge(enabled : bool) -> void:
+	Settings.set_setting(SETTING_SHIFT_DODGE, enabled)
+
+
+func set_shift_sprint(enabled : bool) -> void:
+	Settings.set_setting(SETTING_SHIFT_SPRINT, enabled)
+
+
+func get_overload_preset() -> int:
+	if not Settings.has_setting(SETTING_OVERLOAD_PRESET):
+		return 0
+	return int(Settings.get_setting(SETTING_OVERLOAD_PRESET))
+
+
+func set_overload_preset(index : int) -> void:
+	Settings.set_setting(SETTING_OVERLOAD_PRESET, index)
+
+
+## Write the per-behavior bools for one wiki preset bundle. The bools stay
+## individually editable afterwards.
+func apply_overload_preset(index : int) -> void:
+	if index < 0 or index >= OVERLOAD_PRESETS.size():
+		return
+	var preset: Array = OVERLOAD_PRESETS[index]
+	set_shift_kick(bool(preset[0]))
+	set_shift_dodge(bool(preset[1]))
+	set_shift_sprint(bool(preset[2]))
+
+
 ## Register every mapped row in map order. Dictionary insertion order is the
 ## settings list order, so the map order is the render order, with mode rows
 ## landing exactly where the map places them.
@@ -116,6 +202,9 @@ func _register_rows() -> void:
 			var row_data: Dictionary = row
 			if row_data.has("mode"):
 				_register_mode_row(str(row_data["mode"]), category)
+				continue
+			if row_data.has("setting"):
+				_register_setting_row(str(row_data["setting"]), category)
 				continue
 			var action: String = row_data["action"]
 			if not InputMap.has_action(action):
@@ -153,7 +242,35 @@ func _register_mode_row(setting_name : String, category : String) -> void:
 	Settings.set_setting_meta(setting_name, "key_category", category)
 
 
+## Register a new non-action setting (overload composition, left-hand mouse)
+## in this group right where the map places it.
+func _register_setting_row(setting_name : String, category : String) -> void:
+	if Settings.has_setting(setting_name):
+		return
+	match setting_name:
+		SETTING_OVERLOAD_PRESET:
+			Settings.add_enum_setting(SETTING_OVERLOAD_PRESET,
+					OVERLOAD_PRESET_VARIANTS, 0)
+		SETTING_SHIFT_KICK, SETTING_SHIFT_DODGE, SETTING_SHIFT_SPRINT:
+			Settings.add_bool_setting(setting_name, true)
+		_:
+			push_warning("Unknown setting row skipped: " + setting_name)
+			return
+	Settings.set_setting_group(setting_name, GROUP_NAME)
+	Settings.set_setting_meta(setting_name, "key_category", category)
+
+
 func on_setting_changed(setting_name, _old_value, new_value) -> void:
+	match setting_name:
+		SETTING_OVERLOAD_PRESET:
+			if new_value is int:
+				apply_overload_preset(new_value)
+				SettingsConfig.save_settings()
+			return
+		SETTING_SHIFT_KICK, SETTING_SHIFT_DODGE, SETTING_SHIFT_SPRINT:
+			if new_value is bool:
+				SettingsConfig.save_settings()
+			return
 	if not _mapped_actions.has(setting_name):
 		return
 	if new_value is InputEvent:

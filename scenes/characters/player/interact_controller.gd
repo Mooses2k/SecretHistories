@@ -511,7 +511,9 @@ func _kick_from_action() -> void:
 		return
 	if character.state.time_since_kick < character.parameters.kick_cooldown:
 		return
-	character.kick()
+	# from_action: the separately bound kick key is its own trigger and is
+	# never gated by the Shift overload settings (wiki Interface 5.2.1).
+	character.kick(true)
 
 
 ## Additive interact trigger (issue #606): a separately bound interact key

@@ -44,7 +44,11 @@ var settings_names = [
 	"fullscreen",
 	"brightness",
 	"gui_scale",
-	"is_first_run"
+	"is_first_run",
+	"is_shift_kick",
+	"is_shift_dodge",
+	"is_shift_sprint",
+	"shift_preset"
 ]
 
 
@@ -94,6 +98,14 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(VideoSettings.gui_scale)]
 			"is_first_run":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(GameSettings.is_first_run)]
+			"is_shift_kick":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(KeyInputSettings.shift_kick_enabled())]
+			"is_shift_dodge":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(KeyInputSettings.shift_dodge_enabled())]
+			"is_shift_sprint":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(KeyInputSettings.shift_sprint_enabled())]
+			"shift_preset":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(KeyInputSettings.get_overload_preset())]
 
 	return config
 
@@ -167,6 +179,14 @@ func setup_settings(settings_dict : Dictionary):
 			"is_first_run":
 				print("DEBUG: SettingsConfig.setup_settings() - Loading is_first_run from file: ", value)
 				GameSettings.is_first_run = value
+			"is_shift_kick":
+				KeyInputSettings.set_shift_kick(value)
+			"is_shift_dodge":
+				KeyInputSettings.set_shift_dodge(value)
+			"is_shift_sprint":
+				KeyInputSettings.set_shift_sprint(value)
+			"shift_preset":
+				KeyInputSettings.set_overload_preset(int(value))
 
 
 func save_settings() -> void:

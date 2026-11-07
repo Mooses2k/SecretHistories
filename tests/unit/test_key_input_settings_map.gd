@@ -16,6 +16,8 @@ func test_every_mapped_action_exists_in_input_map() -> void:
 			var row_data: Dictionary = row
 			if row_data.has("mode"):
 				continue
+			if row_data.has("setting"):
+				continue
 			var action: String = row_data["action"]
 			assert_true(InputMap.has_action(action), "no invented actions: %s" % action)
 
@@ -26,6 +28,8 @@ func test_every_mapped_action_has_a_registered_row_with_clean_metadata() -> void
 		for row in entry["rows"]:
 			var row_data: Dictionary = row
 			if row_data.has("mode"):
+				continue
+			if row_data.has("setting"):
 				continue
 			var action: String = row_data["action"]
 			if not InputMap.has_action(action):
@@ -65,6 +69,8 @@ func test_saved_keybinding_dict_round_trips_the_mapped_actions() -> void:
 		for row in entry["rows"]:
 			var row_data: Dictionary = row
 			if row_data.has("mode"):
+				continue
+			if row_data.has("setting"):
 				continue
 			var action: String = row_data["action"]
 			if not InputMap.has_action(action):

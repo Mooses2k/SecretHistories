@@ -1,6 +1,9 @@
 extends Node
 
 
+## Asks for confirmation, then resets all mapped keybindings through the
+## key settings autoload: one reset path, straight from project.godot.
+
 func toggle_panel():
 	if self.visible:
 		get_node(".").hide()
@@ -9,8 +12,8 @@ func toggle_panel():
 
 
 func _on_Yes_pressed():
-	Settings.set_setting(KeybindingManager.keys_default.keys()[3], "all")
-	toggle_panel() 
+	KeyInputSettings.reset_actions()
+	toggle_panel()
 
 
 func _on_No_pressed():

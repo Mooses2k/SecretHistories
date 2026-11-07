@@ -152,8 +152,6 @@ func on_setting_changed(setting_name, _old_value, new_value) -> void:
 		return
 	if new_value is InputEvent:
 		apply_binding(setting_name, new_value)
-	elif new_value == "all":
-		reset_actions()
 	elif new_value == null:
 		_apply_cleared_action(setting_name)
 
@@ -227,27 +225,55 @@ func _persist_row(action : String, old_value) -> void:
 	KeybindingManager.save_keys()
 
 
+## One reset path: restore every mapped action's default events straight
+## from project.godot (no hardcoded table, no string round-trip), then clear
+## any user binding that now conflicts with a restored default.
 func reset_actions() -> void:
 	for action in _mapped_actions.keys():
 		var action_name: String = action
-		if not InputMap.has_action(action_name) or not KeybindingManager.keys_default.has(action_name):
-			continue
-		var has_invalid := false
-		var events_to_apply: Array = []
-		for event_str: String in KeybindingManager.keys_default[action_name]:
-			var event := KeybindingManager.str2event(event_str)
-			if event:
-				events_to_apply.push_back(event)
-			else:
-				has_invalid = true
-		if has_invalid:
-			push_warning("Keybinding reset skipped, unparsable default for: " + action_name)
+		if not InputMap.has_action(action_name):
 			continue
 		InputMap.action_erase_events(action_name)
-		for event in events_to_apply:
+		for event in _project_default_events(action_name):
 			InputMap.action_add_event(action_name, event)
 		_persist_row(action_name, null)
+	_clear_conflicts_with_defaults()
 	KeybindingManager.save_keys()
+
+
+func _project_default_events(action : String) -> Array:
+	if not ProjectSettings.has_setting("input/" + action):
+		return []
+	var config: Variant = ProjectSettings.get_setting("input/" + action)
+	if config is Dictionary:
+		var events: Variant = config.get("events")
+		if events is Array:
+			return events
+	return []
+
+
+## Project defaults are conflict-free among themselves, so any remaining
+## conflict is a user binding colliding with a restored default: defaults
+## win, the colliding event is cleared from the other mapped action.
+func _clear_conflicts_with_defaults() -> void:
+	for action in _mapped_actions.keys():
+		var action_name: String = action
+		if not InputMap.has_action(action_name):
+			continue
+		var default_ids := PackedStringArray()
+		for event in _project_default_events(action_name):
+			default_ids.append(_event_binding_id(event))
+		for other_action in _mapped_actions.keys():
+			var other_name: String = other_action
+			if other_name == action_name or not InputMap.has_action(other_name):
+				continue
+			var cleared := false
+			for other_event in InputMap.action_get_events(other_name):
+				if default_ids.has(_event_binding_id(other_event)):
+					InputMap.action_erase_event(other_name, other_event)
+					cleared = true
+			if cleared:
+				_persist_row(other_name, null)
 
 
 ## Display strings for one action's current InputMap events, in order.

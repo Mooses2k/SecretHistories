@@ -1,0 +1,138 @@
+extends GutTest
+
+## Unit tests for the declarative keybinding settings map (issues #307 and
+## #606): row coverage, render metadata, mode adjacency, capture apply with
+## explicit conflict clearing, and reset straight from project.godot.
+
+const MAP_GROUP : String = "Input Key Settings"
+const MODE_CROUCH : String = "Hold Crouch"
+const MODE_ADS : String = "Hold ADS (Aim Down Sights)"
+
+
+func test_every_mapped_action_exists_in_input_map() -> void:
+	for category_entry in KeyInputSettings.BINDING_MAP:
+		var entry: Dictionary = category_entry
+		for row in entry["rows"]:
+			var row_data: Dictionary = row
+			if row_data.has("mode"):
+				continue
+			var action: String = row_data["action"]
+			assert_true(InputMap.has_action(action), "no invented actions: %s" % action)
+
+
+func test_every_mapped_action_has_a_registered_row_with_clean_metadata() -> void:
+	for category_entry in KeyInputSettings.BINDING_MAP:
+		var entry: Dictionary = category_entry
+		for row in entry["rows"]:
+			var row_data: Dictionary = row
+			if row_data.has("mode"):
+				continue
+			var action: String = row_data["action"]
+			if not InputMap.has_action(action):
+				continue
+			assert_true(Settings.has_setting(action), "row registered for %s" % action)
+			assert_eq(Settings.get_setting_group(action), MAP_GROUP)
+			var display_name: Variant = Settings.get_setting_meta(action, "display_name")
+			assert_true(display_name is String and not str(display_name).is_empty(),
+					"display name set for %s" % action)
+			assert_false(str(display_name).contains("|"), "no prefix leak in %s" % action)
+			assert_eq(str(Settings.get_setting_meta(action, "key_category")), str(entry["category"]))
+			assert_true(Settings.get_setting(action) is PackedStringArray,
+					"row value populated for %s" % action)
+
+
+func test_mode_rows_regroup_into_the_key_group() -> void:
+	for mode_name in [MODE_CROUCH, MODE_ADS]:
+		assert_true(Settings.has_setting(mode_name), "%s registered" % mode_name)
+		assert_eq(Settings.get_setting_group(mode_name), MAP_GROUP)
+		assert_eq(Settings.get_setting_type(mode_name), SettingsClass.SettingType.BOOL)
+
+
+func test_crouch_mode_renders_right_after_the_crouch_row() -> void:
+	var names: Array = Settings.get_settings_list()
+	var crouch_index: int = names.find("player|crouch")
+	var mode_index: int = names.find(MODE_CROUCH)
+	assert_true(crouch_index != -1 and mode_index == crouch_index + 1,
+			"hold/toggle option adjacent to its binding family")
+
+
+func test_saved_keybinding_dict_round_trips_the_mapped_actions() -> void:
+	# An existing user keybinding.dict ({"action": ["key(W)", ...]}) loads and
+	# applies before rows register: the snapshot must cover every mapped action.
+	assert_true(KeybindingManager.keys_default.has("player|crouch"), "crouch in snapshot")
+	for category_entry in KeyInputSettings.BINDING_MAP:
+		var entry: Dictionary = category_entry
+		for row in entry["rows"]:
+			var row_data: Dictionary = row
+			if row_data.has("mode"):
+				continue
+			var action: String = row_data["action"]
+			if not InputMap.has_action(action):
+				continue
+			assert_true(KeybindingManager.keys_default.has(action),
+					"snapshot covers %s" % action)
+
+
+func _key_event(keycode : Key) -> InputEventKey:
+	var event := InputEventKey.new()
+	event.keycode = keycode
+	return event
+
+
+func test_apply_binding_accepts_mouse_buttons_and_clears_the_conflict() -> void:
+	var interact_before: Array = InputMap.action_get_events("player|interact").duplicate()
+	var throw_before: Array = InputMap.action_get_events("playerhand|mainhand_throw").duplicate()
+	assert_false(throw_before.is_empty(), "precondition: mainhand_throw bound")
+	var event := InputEventMouseButton.new()
+	event.button_index = MOUSE_BUTTON_MIDDLE
+	KeyInputSettings.apply_binding("player|interact", event)
+	assert_eq(KeyInputSettings.get_last_conflict_notice(),
+			"Mouse Middle Button was taken from Main Hand Throw / Drop (MMB)")
+	assert_eq(InputMap.action_get_events("playerhand|mainhand_throw").size(), 0)
+	assert_eq(InputMap.action_get_events("player|interact").size(), 1)
+	_restore_events("player|interact", interact_before)
+	_restore_events("playerhand|mainhand_throw", throw_before)
+
+
+func test_apply_binding_replaces_all_events_of_the_action() -> void:
+	var crouch_before: Array = InputMap.action_get_events("player|crouch").duplicate()
+	KeyInputSettings.apply_binding("player|crouch", _key_event(KEY_K))
+	var crouch_events: Array = InputMap.action_get_events("player|crouch")
+	assert_eq(crouch_events.size(), 1, "rebind replaces the event list, no Ctrl eater")
+	_restore_events("player|crouch", crouch_before)
+
+
+func test_reset_restores_ctrl_crouch_and_clears_conflicting_user_bindings() -> void:
+	var event := InputEventMouseButton.new()
+	event.button_index = MOUSE_BUTTON_RIGHT
+	KeyInputSettings.apply_binding("player|crouch", event)
+	KeyInputSettings.apply_binding("player|reload", _key_event(KEY_H))
+	KeyInputSettings.reset_actions()
+	var crouch_events: Array = InputMap.action_get_events("player|crouch")
+	assert_eq(crouch_events.size(), 2, "reset restores the full crouch default")
+	var has_ctrl := false
+	var has_c := false
+	for crouch_event in crouch_events:
+		var key := crouch_event as InputEventKey
+		if key == null:
+			continue
+		if key.keycode == KEY_CTRL:
+			has_ctrl = true
+		if key.keycode == KEY_C:
+			has_c = true
+	assert_true(has_ctrl and has_c, "reset keeps Ctrl-crouch from project.godot")
+	# The H bound onto reload conflicts with the restored holster default
+	# (H): defaults win, the user event is cleared from reload.
+	var reload_events: Array = InputMap.action_get_events("player|reload")
+	assert_eq(reload_events.size(), 1, "conflicting user binding cleared on reset")
+	var reload_key := reload_events[0] as InputEventKey
+	assert_eq(reload_key.keycode, KEY_R)
+
+
+func _restore_events(action : String, events : Array) -> void:
+	InputMap.action_erase_events(action)
+	for event in events:
+		var restored := event as InputEvent
+		if restored:
+			InputMap.action_add_event(action, restored)
+	KeybindingManager.save_keys()

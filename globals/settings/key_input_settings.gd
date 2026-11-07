@@ -158,12 +158,21 @@ func on_setting_changed(setting_name, _old_value, new_value) -> void:
 
 ## One apply path for every captured binding: clear conflicting events on
 ## other mapped actions (the new binding wins, with a notice), replace the
-## action's events with the new event, then persist row and dict.
+## action's keyboard and mouse events with the new event (its joypad events
+## stay, gamepad defaults are not rebindable yet), then persist row and dict.
 func apply_binding(action : String, event : InputEvent) -> void:
 	last_conflict_notice = _clear_conflicts(action, event)
-	InputMap.action_erase_events(action)
+	_clear_bindable_events(action)
 	InputMap.action_add_event(action, event)
 	_persist_row(action, null)
+
+
+## Remove only the keyboard and mouse events of one action, keeping joypad
+## events. Keyboard/mouse rebinds and clears never touch gamepad bindings.
+func _clear_bindable_events(action : String) -> void:
+	for event in InputMap.action_get_events(action):
+		if event is InputEventKey or event is InputEventMouseButton:
+			InputMap.action_erase_event(action, event)
 
 
 ## Conflict policy: the action being bound keeps the key, any other mapped
@@ -195,8 +204,10 @@ func _clear_conflicts(action : String, event : InputEvent) -> String:
 
 
 ## Comparable identity of a bindable event: keyboard keys by their keycode
-## (physical preferred), mouse buttons by button index. Unbindable event
-## types return "" and never conflict.
+## (physical preferred), mouse buttons by button index, joypad buttons by
+## button index and joypad axes by axis, device and value sign. Joypad events
+## need a non-empty id so reset conflict clearing never treats them as
+## erasable unknowns. Unbindable event types return "" and never conflict.
 func _event_binding_id(event : InputEvent) -> String:
 	if event is InputEventKey:
 		var keycode: int = event.keycode
@@ -206,11 +217,16 @@ func _event_binding_id(event : InputEvent) -> String:
 			return "k%d" % keycode
 	if event is InputEventMouseButton:
 		return "m%d" % event.button_index
+	if event is InputEventJoypadButton:
+		return "jb%d_%d" % [event.button_index, event.device]
+	if event is InputEventJoypadMotion:
+		var value_sign := 1 if event.axis_value >= 0.0 else -1
+		return "jm%d_%d_%d" % [event.axis, event.device, value_sign]
 	return ""
 
 
 func _apply_cleared_action(action : String) -> void:
-	InputMap.action_erase_events(action)
+	_clear_bindable_events(action)
 	_persist_row(action, null)
 
 

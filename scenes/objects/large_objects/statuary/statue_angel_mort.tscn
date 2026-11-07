@@ -22,10 +22,4 @@ transform = Transform3D(-1.19209e-07, 0, -1, 0, 1, 0, 1, 0, -1.19209e-07, 0, 0, 
 transform = Transform3D(3.17865e-08, 0, 1, 0, 1, 0, -1, 0, 3.17865e-08, 0, 0.774777, 0.170826)
 shape = SubResource("ConvexPolygonShape3D_fh7d7")
 
-[node name="Durability" type="Timer" parent="."]
-wait_time = 300.0
-one_shot = true
-
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]
-
 [editable path="sm_angelmort"]

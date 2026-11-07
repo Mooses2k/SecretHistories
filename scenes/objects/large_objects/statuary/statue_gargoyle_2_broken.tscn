@@ -556,9 +556,3 @@ mesh = SubResource("ArrayMesh_y6cjf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody13"]
 shape = SubResource("31")
-
-[node name="Durability" type="Timer" parent="."]
-wait_time = 300.0
-one_shot = true
-
-[connection signal="timeout" from="Durability" to="." method="_on_Durability_timeout"]

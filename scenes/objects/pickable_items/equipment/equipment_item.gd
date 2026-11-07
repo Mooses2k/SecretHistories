@@ -19,6 +19,10 @@ signal used_unload()
 @export_subgroup("Stacking")
 @export var stackable_resource: StackableResource
 
+## Stack record link: id of the StackableStackRecord this node represents in
+## its owner's Inventory, or -1 when the node is not a stack representative.
+var stack_record_id : int = -1
+
 var is_in_belt : bool = false
 
 var _is_action_held : bool = false

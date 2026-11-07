@@ -52,6 +52,13 @@ var keychain : Dictionary
 # Usable items that appear in the hotbar, as an array of nodes
 var hotbar : Array[Node3D]
 
+# One record per stack this inventory owns (see StackableStackRecord). Only
+# the stack record API below may create, mutate or destroy entries.
+var stack_records : Array[StackableStackRecord] = []
+
+# Monotonic counter handing out stable stack record ids.
+var _next_stack_record_id : int = 0
+
 # Holder of the hands_free slot number
 const hands_free_slot: int = 10
 
@@ -182,11 +189,7 @@ func handle_medical_consolidation(item: EquipmentItem) -> bool:
 			if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
 				# Remove one from stack
 				item.stackable_resource.items_stacked.remove_at(0)
-				# Adjust encumbrance when removing from stack
-				if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-					encumbrance -= 1
-				if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-					encumbrance -= 2
+				_recount_encumbrance()   # SEAM REMOVE
 			else:
 				# Remove single item from the world
 				if item.is_inside_tree():
@@ -217,6 +220,7 @@ func handle_stackable_items(item: EquipmentItem) -> bool:
 			if hotbar_item.stackable_resource.items_stacked.size() >= hotbar_item.stackable_resource.max_stack:
 				continue  # Continue searching for other stacks with space
 			else:
+				# Absorb into the stack's count first, only then free the node
 				hotbar_item.stackable_resource.add_item(item)
 				# Schedule the item removal from the world
 				if item.is_inside_tree():
@@ -226,6 +230,7 @@ func handle_stackable_items(item: EquipmentItem) -> bool:
 				# Properly dispose of the item to prevent it from being picked up again
 				item.queue_free()
 
+				_recount_encumbrance()   # SEAM ADD
 				emit_signal("inventory_changed")
 				return true
 
@@ -401,10 +406,7 @@ func add_item(item : PickableItem) -> bool:
 
 			# Encumbrance makes character louder and more visible. Character uses more stamina.
 			# Eventually will affect mantling and swimming.
-			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-				encumbrance += 1
-			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-				encumbrance += 2
+			_recount_encumbrance()   # SEAM ADD
 
 			return true
 
@@ -452,6 +454,204 @@ func tiny_item_amount(item : TinyItemData) -> int:
 		push_error("Cannot get amount for null TinyItemData")
 		return 0
 	return 0 if not tiny_items.has(item) else tiny_items[item]
+
+
+# Stack record API. Records are the count model for stacks (StackableStackRecord);
+# item scripts call this API and never touch record internals.
+
+
+## Adds units of one stackable type to the stack records. Merges into the first
+## record of that type with space under the type's max_stack, creating a new
+## record when none fits. per_item_state seeds a new record; when merging, its
+## keys are added without overwriting the record's existing entries.
+## Returns true when the inventory owns the units afterwards.
+func add_to_stack_record(type_id : StringName, item_scene_path : String, amount : int, per_item_state : Dictionary = {}) -> bool:
+	if amount <= 0:
+		push_warning("add_to_stack_record: amount must be positive, got ", amount)
+		return false
+	if not ResourceLoader.exists(String(type_id)):
+		push_warning("add_to_stack_record: no StackableResource at ", type_id)
+		return false
+	var stack_type := load(String(type_id)) as StackableResource
+	if stack_type == null:
+		push_warning("add_to_stack_record: not a StackableResource at ", type_id)
+		return false
+	if not ResourceLoader.exists(item_scene_path):
+		push_warning("add_to_stack_record: no item scene at ", item_scene_path)
+		return false
+
+	_destroy_empty_records()
+
+	var target : StackableStackRecord = null
+	for record in stack_records:
+		if record.type_id == type_id and record.count + amount <= stack_type.max_stack:
+			target = record
+			break
+
+	if target == null:
+		target = StackableStackRecord.new()
+		target.id = _next_stack_record_id
+		_next_stack_record_id += 1
+		target.type_id = type_id
+		target.item_scene_path = item_scene_path
+		target.count = 0
+		target.per_item_state = per_item_state.duplicate()
+		stack_records.append(target)
+	else:
+		target.per_item_state.merge(per_item_state)
+
+	target.count += amount
+	_recount_encumbrance()   # SEAM ADD
+	return true
+
+
+## Removes units from the record with the given id. Fails without mutation
+## when the record does not exist or holds fewer units than requested.
+## Returns true when the units were removed.
+func remove_from_stack_record(record_id : int, amount : int) -> bool:
+	if amount <= 0:
+		push_warning("remove_from_stack_record: amount must be positive, got ", amount)
+		return false
+	var record := get_stack_record(record_id)
+	if record == null:
+		push_warning("remove_from_stack_record: no record with id ", record_id)
+		return false
+	if record.count < amount:
+		push_warning("remove_from_stack_record: record ", record_id, " holds ", record.count, " of the requested ", amount)
+		return false
+
+	record.count -= amount
+	_recount_encumbrance()   # SEAM REMOVE
+	_destroy_empty_records()
+	return true
+
+
+## Spawns a world node for one unit of the record and decrements the record.
+## The spawned node is unparented and carries this record's id. Returns null
+## and keeps the record untouched when the record is unknown or empty, or the
+## item scene fails to instantiate: the spawn happens before the decrement, so
+## a failed materialization never loses an owned unit.
+func materialize_stack_item(record_id : int) -> EquipmentItem:
+	var record := get_stack_record(record_id)
+	if record == null:
+		push_warning("materialize_stack_item: no record with id ", record_id)
+		return null
+	if record.count <= 0:
+		push_warning("materialize_stack_item: record ", record_id, " is empty")
+		return null
+	var scene : PackedScene = load(record.item_scene_path)
+	if scene == null:
+		push_error("materialize_stack_item: no scene at ", record.item_scene_path)
+		return null
+	var item := scene.instantiate() as EquipmentItem
+	if item == null:
+		push_error("materialize_stack_item: scene root is not an EquipmentItem: ", record.item_scene_path)
+		return null
+
+	record.count -= 1
+	item.stack_record_id = record.id
+	_recount_encumbrance()   # SEAM REMOVE
+	_destroy_empty_records()
+	return item
+
+
+## Returns the record with the given id, or null when the inventory holds none.
+func get_stack_record(record_id : int) -> StackableStackRecord:
+	for record in stack_records:
+		if record.id == record_id:
+			return record
+	return null
+
+
+## Returns every record of one stackable type, in creation order. Same-type
+## records are allowed: one record per hotbar slot's stack.
+func records_for_type(type_id : StringName) -> Array[StackableStackRecord]:
+	var matched : Array[StackableStackRecord] = []
+	for record in stack_records:
+		if record.type_id == type_id:
+			matched.append(record)
+	return matched
+
+
+## Destroys every record that reached count 0 with no hotbar slot or hand
+## still holding its representative node.
+func _destroy_empty_records() -> void:
+	for record in stack_records.duplicate():
+		if record.count > 0:
+			continue
+		if _record_has_representative(record.id):
+			continue
+		stack_records.erase(record)
+
+
+## Returns whether a hotbar slot or hand still holds a node tagged with the
+## given record id.
+func _record_has_representative(record_id : int) -> bool:
+	for entry in hotbar:
+		var item := entry as EquipmentItem
+		if item != null and is_instance_valid(item) and item.stack_record_id == record_id:
+			return true
+	if current_mainhand_equipment != null and is_instance_valid(current_mainhand_equipment) \
+			and current_mainhand_equipment.stack_record_id == record_id:
+		return true
+	if current_offhand_equipment != null and is_instance_valid(current_offhand_equipment) \
+			and current_offhand_equipment.stack_record_id == record_id:
+		return true
+	return false
+
+
+## SEAM ADD and SEAM REMOVE: the only writers of encumbrance. Every owned
+## count mutation calls this full recount over the inventory content instead
+## of incremental adjustments, so drift self-heals at the next mutation.
+func _recount_encumbrance() -> void:
+	var total := 0.0
+	for entry in hotbar:
+		total += _encumbrance_for_item(entry as EquipmentItem)
+	total += _encumbrance_for_item(bulky_equipment)
+	encumbrance = total
+
+
+## Encumbrance contribution of one owned item: its size weight times the units
+## it stands for. A record-backed representative counts its record's units
+## (the representative itself is one of them, counted once per record); a
+## stackable without a record counts its legacy items_stacked members; anything
+## else is one unit. A record with no representative in the hotbar or hands
+## contributes nothing yet; the pickup flows place the representative in the
+## same frame that creates its record. Tiny items are tracked by amount only
+## and weigh nothing.
+func _encumbrance_for_item(item : EquipmentItem) -> float:
+	if item == null or not is_instance_valid(item):
+		return 0.0
+	var weight := _encumbrance_weight_for_size(item.item_size)
+	if weight == 0:
+		return 0.0
+
+	var units := 1
+	if item.stack_record_id >= 0:
+		var record := get_stack_record(item.stack_record_id)
+		if record != null:
+			units = record.count
+			# One representative reports the whole record; additional tagged
+			# nodes for the same record (a swap's transient state) add nothing.
+			return weight * units
+	if item.stackable_resource != null:
+		units = item.stackable_resource.items_stacked.size()
+		if units < 1:
+			units = 1
+	return weight * units
+
+
+## Per-unit weight by item size: the single weight table (SIZE_SMALL = 0,
+## SIZE_MEDIUM = 1, SIZE_BULKY = 2; any other size weighs 0).
+func _encumbrance_weight_for_size(size : GlobalConsts.ItemSize) -> int:
+	match size:
+		GlobalConsts.ItemSize.SIZE_MEDIUM:
+			return 1
+		GlobalConsts.ItemSize.SIZE_BULKY:
+			return 2
+		_:
+			return 0
+
 
 ## Perfoms heavy logic to equip the mainhand_item, it uses the var current_mainhand_equipment
 func equip_mainhand_item():
@@ -745,10 +945,7 @@ func _drop_item(item : EquipmentItem):
 
 	item.owner_character = null
 
-	if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-		encumbrance -= 1
-	if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-		encumbrance -= 2
+	_recount_encumbrance()   # SEAM REMOVE
 
 
 # `slot_only` will simple change the slot variable, with no other changes

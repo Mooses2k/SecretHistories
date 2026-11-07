@@ -1,0 +1,201 @@
+# Pins the floor-candelabra take (fuel design doc section 7, first slice,
+# owner-approved simple model): interacting with the stand's Ignite area
+# hands one whole candle to the character through the normal pickup path
+# (hand > hotbar), lit when the stand's fire burns and unlit otherwise, one
+# take per candle, takes stop when the count is zero with the stand's
+# diegetic reject cue, and a failed delivery frees the fresh node and leaves
+# the count untouched: nothing is lost (no-destroy guarantee).
+# The real stand scene and the real player scene are used so the authored
+# Ignite wiring and the real inventory pickup path are what is under test.
+# The delivery-failure case uses a rejecting Inventory subclass because the
+# real inventory's no-space path reports through push_error by design and
+# GUT fails tests on unexpected errors.
+extends GutTest
+
+const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
+const FLOOR_CANDELABRA_SCENE := "res://scenes/objects/large_objects/lighting/floor_candelabra.tscn"
+const VOTIVE_STAND_SCENE := "res://scenes/objects/large_objects/lighting/votive_candle_stand.tscn"
+
+
+class StubCharacter extends Node:
+	var inventory : Inventory
+
+
+class RejectingInventory extends Inventory:
+	func add_item(_item : PickableItem) -> bool:
+		return false
+
+
+var _world : Node3D
+var _game : Game
+var _level : GameWorld
+var _ui : GameUI
+var _hud : HUD
+var _saved_game : Game
+var _delivered_candles : Array[CandleItem] = []
+
+
+func before_each() -> void:
+	# Headless stub set that keeps the real per-frame handlers error-free
+	# (same shape as test_throw_scenario: interact_controller needs
+	# ui_root.hud_root, drops need game.level, TestWorld fallback).
+	_saved_game = GameManager.game
+	_world = Node3D.new()
+	_world.name = "TestWorld"
+	add_child(_world)
+	_game = Game.new()
+	_level = GameWorld.new()
+	var world_data : WorldData = WorldData.new()
+	world_data.cell_type.resize(world_data.cell_count)
+	_level.world_data = world_data
+	_game.level = _level
+	_ui = GameUI.new()
+	_hud = HUD.new()
+	var indicators : Array[TextureRect] = [
+		TextureRect.new(), TextureRect.new(), TextureRect.new(),
+	]
+	_hud.indicators = indicators
+	_hud.add_child(indicators[0])
+	_hud.add_child(indicators[1])
+	_hud.add_child(indicators[2])
+	_ui.hud_root = _hud
+	_game.ui_root = _ui
+	GameManager.game = _game
+
+
+func after_each() -> void:
+	_world.free()
+	GameManager.game = _saved_game
+	_game.free()
+	_level.free()
+	_ui.free()
+	_hud.free()
+
+
+func _spawn_player() -> Node3D:
+	var player : Node3D = (load(PLAYER_SCENE) as PackedScene).instantiate()
+	player.position = Vector3(2.0, 0.0, 2.0)
+	_world.add_child(player)
+	return player
+
+
+func _spawn_stand() -> Node:
+	var stand : Node = (load(FLOOR_CANDELABRA_SCENE) as PackedScene).instantiate()
+	_world.add_child(stand)
+	return stand
+
+
+func _inventory_of(player : Node3D) -> Inventory:
+	return player.get_node("Inventory") as Inventory
+
+
+func _collect_candles(inv : Inventory) -> Array[CandleItem]:
+	var found : Array[CandleItem] = []
+	for slot in inv.hotbar:
+		var item := slot as CandleItem
+		if item != null and is_instance_valid(item):
+			found.append(item)
+	_delivered_candles.append_array(found)
+	return found
+
+
+func _free_delivered_candles() -> void:
+	for candle : CandleItem in _delivered_candles:
+		if is_instance_valid(candle):
+			candle.free()
+	_delivered_candles.clear()
+
+
+func test_ignite_take_delivers_a_lit_candle_through_the_pickup_path() -> void:
+	var player : Node3D = _spawn_player()
+	var stand : Node = _spawn_stand()
+	var inv : Inventory = _inventory_of(player)
+	var count_before : int = stand.candle_count
+
+	# Through the real Interactable: interact() emits character_interacted,
+	# which the stand connects to the take in _ready.
+	stand.get_node("Ignite").interact(player)
+
+	var candles := _collect_candles(inv)
+	assert_eq(candles.size(), 1, "one candle entered the player's inventory")
+	if candles.size() == 1:
+		assert_true(candles[0].is_lit,
+			"a candle taken from a burning stand arrives lit")
+		assert_almost_eq(candles[0].fuel.fill, 1.0, 0.0001,
+			"the stand does not model per-candle burn: the taken candle is full")
+	assert_eq(stand.candle_count, count_before - 1,
+		"the derived 9-candle stand decrements by one")
+	_free_delivered_candles()
+
+
+func test_take_from_an_unlit_stand_arrives_unlit() -> void:
+	var player : Node3D = _spawn_player()
+	var stand : Node = _spawn_stand()
+	var inv : Inventory = _inventory_of(player)
+	stand.firelight.visible = false
+
+	stand.get_node("Ignite").interact(player)
+
+	var candles := _collect_candles(inv)
+	assert_eq(candles.size(), 1, "the take itself still works when unlit")
+	if candles.size() == 1:
+		assert_false(candles[0].is_lit,
+			"a candle taken from an unlit stand arrives unlit")
+	_free_delivered_candles()
+
+
+func test_bare_stand_takes_nothing_and_plays_the_reject_cue() -> void:
+	var player : Node3D = _spawn_player()
+	var stand : Node = _spawn_stand()
+	var inv : Inventory = _inventory_of(player)
+	stand.candle_count = 0
+
+	stand.get_node("Ignite").interact(player)
+
+	assert_eq(_collect_candles(inv).size(), 0, "a bare stand hands out nothing")
+	assert_eq(stand.candle_count, 0, "the count does not go negative")
+	assert_true(stand.get_node("TakeRejectSound").playing,
+		"the bare stand plays the diegetic reject cue")
+	_free_delivered_candles()
+
+
+func test_failed_delivery_keeps_the_candle_on_the_stand() -> void:
+	var stand : Node = _spawn_stand()
+	var stub_character : StubCharacter = autofree(StubCharacter.new())
+	stub_character.inventory = add_child_autofree(RejectingInventory.new())
+	var count_before : int = stand.candle_count
+
+	stand.get_node("Ignite").interact(stub_character)
+
+	assert_eq(_collect_candles(stub_character.inventory).size(), 0,
+		"no candle was delivered")
+	assert_eq(stand.candle_count, count_before,
+		"the no-destroy guarantee: the stand keeps its candle")
+	assert_true(stand.get_node("TakeRejectSound").playing,
+		"the failed delivery plays the reject cue")
+	_free_delivered_candles()
+
+
+func test_last_take_extinguishes_the_stand_fire() -> void:
+	var player : Node3D = _spawn_player()
+	var stand : Node = _spawn_stand()
+	var inv : Inventory = _inventory_of(player)
+	stand.candle_count = 1
+
+	stand.get_node("Ignite").interact(player)
+
+	assert_eq(stand.candle_count, 0, "the last candle left the stand")
+	assert_false(stand.firelight.visible, "the bare stand's light is out")
+	_free_delivered_candles()
+
+
+func test_votive_stand_is_interactable_with_four_authored_candles() -> void:
+	var stand : Node = (load(VOTIVE_STAND_SCENE) as PackedScene).instantiate()
+	_world.add_child(stand)
+
+	var ignite : Interactable = stand.get_node("Ignite") as Interactable
+	assert_not_null(ignite, "the votive stand's Ignite area carries the Interactable script")
+	assert_eq(stand.candle_count, 4,
+		"the votive stand authors its four baked candle hulls")
+	assert_true(ignite.is_in_group(&"IGNITE"),
+		"the votive stand joins the IGNITE group like its siblings")

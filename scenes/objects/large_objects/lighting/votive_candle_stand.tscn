@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b5iwp7q6mvikx" path="res://resources/models/large_objects/lighting/VotiveCandleStand_T_RottenWood_Generic_occlusionRoughnessMetallic.png" id="3_0ah1g"]
 [ext_resource type="Texture2D" uid="uid://dv4253egipbev" path="res://resources/models/large_objects/lighting/VotiveCandleStand_T_RottenWood_Generic_normal.png" id="4_yljbb"]
 [ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="6"]
+[ext_resource type="Script" uid="uid://dbgnsblia6cwb" path="res://scenes/objects/interactables/interactable.gd" id="10"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a71i7"]
 resource_name = "M_RottenWood_Generic"
@@ -180,6 +181,7 @@ mass = 30.0
 continuous_cd = true
 max_contacts_reported = 4
 script = ExtResource("3")
+candle_count = 4
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000979346, -0.510678, 8.01446e-05)
@@ -264,8 +266,9 @@ shadow_enabled = true
 omni_range = 10.0
 omni_attenuation = 7.0
 
-[node name="Ignite" type="Area3D" parent="." groups=["Ignite"]]
+[node name="Ignite" type="Area3D" parent="." groups=["IGNITE"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561863, 0)
+script = ExtResource("10")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.436321, 0)

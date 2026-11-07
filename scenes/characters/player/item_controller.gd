@@ -68,7 +68,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			unloaded = false
 			reload_hold_timer = 0
 		elif event.is_action_released(&"player|reload"):
-			if not unloaded and (main_item is GunItem or main_item is MedicalItem):
+			# Light fuel containers join the medical reload seam (fuel design
+			# doc section 6): tap = refill; the long-hold unload stays gun-only.
+			# The candelabra joins when its socket refill lands (its candles
+			# are swapped whole, not poured).
+			if not unloaded and (main_item is GunItem or main_item is MedicalItem or main_item is LanternItem):
 				main_item.use_reload()
 
 	var off_item = inventory.get_offhand_item()

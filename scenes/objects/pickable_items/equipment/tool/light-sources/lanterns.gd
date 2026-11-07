@@ -1,46 +1,44 @@
 class_name LanternItem
 extends ToolItem
-
-# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in candelabra.gd, torch.gd, candle.gd
+## Lantern: an OIL fuel container (fuel design owner decision 5). Burn
+## accounting is percentage fill in FuelContainer instead of a wall-clock
+## timer; refills come from same-kind oil carriers through the _use_reload()
+## medical-reload seam and never change the lighting state. The belt-attach
+## path is unchanged.
 
 
 signal item_is_dropped
 
-var burn_time : float
-var is_depleted : bool = false
-var is_dropped: bool = false
-var is_just_dropped: bool = true
-var light_timer
-var random_number
+var is_lit : bool = false
+var fuel : FuelContainer
+var random_number : float
 @export var is_oil_based : bool = false
 @export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
-
-var is_lit = false
 
 var mesh_instance : Node
 @onready var firelight = $Light3D
 
 
 func _ready():
-	light_timer = $Timer
-
-	# Variant scenes wire BurnTime themselves in their .tscn; connect here
-	# only when a scene (the base lantern, spike's embedded lantern) has not.
-	if not light_timer.is_connected("timeout", Callable(self, "_on_light_depleted")):
-		light_timer.connect("timeout", Callable(self, "_on_light_depleted"))
+	fuel = FuelContainer.new()
+	fuel.fuel_source = FuelSource.new()
+	fuel.fuel_source.fuel_kind = FuelSource.FuelKind.OIL
+	# Authored 3.x burn durations: oil lanterns 1800 s, non-oil 3600 s.
 	if is_oil_based:
-		burn_time = 1800.0
+		fuel.fuel_source.burn_rate = 1.0 / 1800.0
 	else:
-		burn_time = 3600.0
-	light_timer.set_wait_time(burn_time)
-	light_timer.start()
+		fuel.fuel_source.burn_rate = 1.0 / 3600.0
 
 	if is_instance_valid($MeshInstance3D):
 		mesh_instance = $MeshInstance3D
+	self.connect("item_is_dropped", Callable(self, "item_drop"))
 
 
 func _process(delta):
+	super._process(delta)
+	if fuel != null and fuel.tick_burn(delta, is_lit):
+		_on_light_depleted()
 	# With Spotlight3D, the light doesn't fall on the holder, but they should still be visible
 	if is_instance_valid(owner_character):
 		if is_lit and owner_character.light_level < 0.01:
@@ -57,75 +55,110 @@ func _use_primary():
 
 
 func light():
-	if not is_depleted:
-		if !is_in_belt:
-			$LightSound.play()
-		else:
-			$SlideOpen.play()
+	if fuel == null or not fuel.can_burn():
+		return
+	if !is_in_belt:
+		$LightSound.play()
+	else:
+		$SlideOpen.play()
 
-		# Not audible yet: light noise lands with the hearing restore (ai-direction-design.md item 2).
+	# Not audible yet: light noise lands with the hearing restore (ai-direction-design.md item 2).
 
-		$AnimationPlayer.play("flicker")
-		firelight.visible = true
-		if $FireOrigin:
-			$FireOrigin.visible = true # related to bugfix #604
-		$MeshInstance3D.cast_shadow = false
+	$AnimationPlayer.play("flicker")
+	firelight.visible = true
+	var fire_origin: Node3D = get_node_or_null("FireOrigin")
+	if fire_origin != null:
+		fire_origin.visible = true # related to bugfix #604
+	$MeshInstance3D.cast_shadow = false
 
-		is_lit = true
-		light_timer.set_wait_time(burn_time)
-		light_timer.start()
+	is_lit = true
 
 
 func unlight():
-	if not is_depleted:
-		if is_in_belt:
-			$SlideClosed.play()
+	if is_in_belt:
+		$SlideClosed.play()
 
-		$AnimationPlayer.stop()
-		firelight.visible = false
-		if $FireOrigin:
-			$FireOrigin.visible = false # related to bugfix #604
-		$MeshInstance3D.cast_shadow = true
+	$AnimationPlayer.stop()
+	firelight.visible = false
+	var fire_origin: Node3D = get_node_or_null("FireOrigin")
+	if fire_origin != null:
+		fire_origin.visible = false # related to bugfix #604
+	$MeshInstance3D.cast_shadow = true
 
-		is_lit = false
-		stop_light_timer()
+	is_lit = false
 
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
 		owner_character.inventory.switch_away_from_light(self)
 	elif current_state == GlobalConsts.ItemState.DROPPED:
-		#is_just_dropped = true
+		# Emit only, like candle (Brooks audit 4.4): the drop penalty applies
+		# exactly once through the declared item_is_dropped signal, connected
+		# in _ready (the old emit had no listeners next to a direct call).
 		self.emit_signal("item_is_dropped")
-		item_drop()
 
 
 func _on_light_depleted():
-	burn_time = 0
 	unlight()
-	is_depleted = true
 
 
-func stop_light_timer():
-	if is_instance_valid(light_timer):
-		burn_time = light_timer.get_time_left()
-#		print("current burn time " + str(burn_time))
-		light_timer.stop()
+## Medical-reload interaction baseline (fuel design section 6, owner decision
+## 1): tap reload scans the hotbar through the data-returning
+## search_hotbar_matched seam (no assignment inside lambdas, Brooks audit 1.1),
+## transfers percentage fill from same-kind fuel carriers, keeps drained
+## carriers at fill 0.0, and NEVER lights or extinguishes the lantern. A
+## mismatched-kind carrier produces a diegetic rejection cue and no transfer.
+func _use_reload() -> void:
+	if fuel == null or fuel.fuel_source == null:
+		return
+	if owner_character == null:
+		return
+	var inv: Inventory = owner_character.inventory
+	if inv == null:
+		return
+
+	var carriers: Array = inv.search_hotbar_matched(Callable(self, "_is_scannable_fuel_carrier"))
+	var transferred := false
+	var kind_mismatch_seen := false
+	for pair in carriers:
+		if fuel.fill >= 1.0:
+			break
+		var carrier: Object = pair[0]
+		var carrier_source: FuelSource = carrier.get("fuel_source")
+		if carrier_source.fuel_kind != fuel.fuel_source.fuel_kind:
+			kind_mismatch_seen = true
+			continue
+		if fuel.refill_from(carrier) == FuelContainer.RefillOutcome.TRANSFERRED:
+			transferred = true
+
+	if kind_mismatch_seen and not transferred:
+		_play_refill_rejected_cue()
+	emit_signal("item_data_changed")
+
+
+func _is_scannable_fuel_carrier(item: Object) -> bool:
+	if not FuelContainer.is_fuel_carrier(item):
+		return false
+	var carrier_fill: float = item.get("fill")
+	return carrier_fill > 0.0
+
+
+## v1 diegetic cue for a rejected same-kind exchange: the existing blow-out
+## puff. The owner can swap in a dedicated slosh/sputter asset later. Some
+## lantern variants author this node as a 3D player, so the type stays loose.
+func _play_refill_rejected_cue() -> void:
+	var cue: Node = get_node_or_null("BlowOutSound")
+	if cue != null and cue.has_method("play"):
+		cue.play()
 
 
 func item_drop():
-	stop_light_timer()
-	burn_time -= (burn_time * life_percentage_lose)
-	print("reduced burn time " + str(burn_time))
+	# Drop penalty (3.x life_percentage_lose semantics) applied to the fuel
+	# fill, exactly once per drop.
+	if fuel != null and fuel.fuel_source != null:
+		fuel.fill -= fuel.fill * life_percentage_lose
 	random_number = randf_range(0.0, 1.0)
-	print("Random number: ", random_number)
-	
-	if is_instance_valid(light_timer):
-		light_timer.set_wait_time(burn_time)
-		light_timer.start()
-	
-	print("Linear velocity of lantern: ", linear_velocity.length())
+
 	if linear_velocity.length() > 0.01:
 		if random_number < prob_going_out:
 			unlight()
-			print("Light went out due to being thrown")

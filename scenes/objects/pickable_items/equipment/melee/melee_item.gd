@@ -150,8 +150,25 @@ func _on_Hitbox_hit(other):
 		can_hit = false
 
 
+# Swing damage total for the current attack mode, mirroring the Hurtbox
+# resolution in _on_Hitbox_hit: a thrust sums the primary components, a cut
+# sums the secondary components.
+func _swing_damage() -> int:
+	if did_a_thrust:
+		return primary_damage1 + primary_damage2
+	if did_a_cut:
+		return secondary_damage1 + secondary_damage2
+	return 0
+
+
 func _on_Hitbox_body_entered(body):
 	prints(body, "hit by", self)
+	# Bludgeoning melee hits (damage 15 or over, the kick bar) accumulate on
+	# rigid large objects such as breakable statues. The rigid-body guard,
+	# the bar and the has_method guard all live in LargeObjectShared so this
+	# stays a one-line call (DRY); idle touches (can_hit false) never count.
+	if can_hit:
+		LargeObjectShared.accumulate_bludgeoning_damage(body, _swing_damage())
 	# Slashing damage halves its impulse factor as a LOCAL value at the damage
 	# call, never by mutating the exported stats here (Brooks audit 4.1): the
 	# old primary_damage1 /= 2 pattern permanently corrupted the weapon's

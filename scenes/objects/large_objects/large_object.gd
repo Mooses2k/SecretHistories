@@ -55,6 +55,11 @@ func is_breakable() -> bool:
 	return _shared.is_breakable(self)
 
 
+## Accumulated break damage, exposed for tests and probes.
+func get_break_accumulated_damage() -> float:
+	return _shared.get_break_accumulated_damage()
+
+
 func _enter_tree() -> void:
 	# Create and configure the impact audio manager
 	impact_audio_manager = ImpactAudioManager.new()

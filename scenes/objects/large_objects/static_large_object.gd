@@ -54,6 +54,11 @@ func is_breakable() -> bool:
 	return _shared.is_breakable(self)
 
 
+## Accumulated break damage, exposed for tests and probes.
+func get_break_accumulated_damage() -> float:
+	return _shared.get_break_accumulated_damage()
+
+
 ## Method for the audio manager to set noise level
 func set_noise_level(level: float) -> void:
 	_shared.set_noise_level(level)

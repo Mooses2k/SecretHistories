@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://baim2jxfs75kg"]
+[gd_scene load_steps=30 format=4 uid="uid://baim2jxfs75kg"]
 
 [ext_resource type="Script" uid="uid://ymwbq138guk3" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/dynamite/dynamite.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://dihle2hwbplxu" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/_bomb.tscn" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://prxhirqrgt51" path="res://scenes/effects/explosion_audio.tscn" id="7"]
 [ext_resource type="AudioStream" uid="uid://1in5p2wmlo5e" path="res://resources/sounds/explosion/fuse/102264__rytmenpinnen__onesparkler.ogg" id="8"]
 [ext_resource type="AudioStream" uid="uid://ct3crbxdeurn6" path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" id="9"]
+[ext_resource type="Texture2D" uid="uid://hsdv1agd3pqe" path="res://scenes/effects/explosion/smokesprite.png" id="10"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nu823"]
 resource_name = "M_Dynamite"
@@ -119,7 +120,7 @@ shader_parameter/particle_h_frames = 8.0
 shader_parameter/particle_v_frames = 8.0
 shader_parameter/particles_anim_loop = false
 shader_parameter/still_frame = -1.0
-shader_parameter/Smoke_color_ramp = SubResource("24")
+shader_parameter/Smoke_color_ramp = ExtResource("10")
 shader_parameter/blend_help = SubResource("25")
 shader_parameter/Soft_limit = 0.1
 shader_parameter/blend_scale = 0.1

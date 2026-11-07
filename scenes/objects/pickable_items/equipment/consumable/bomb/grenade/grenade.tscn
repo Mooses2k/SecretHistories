@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://4rvueox2w0g1"]
+[gd_scene load_steps=36 format=4 uid="uid://4rvueox2w0g1"]
 
 [ext_resource type="Script" uid="uid://c8j77j5uyip5" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b5bwgcp70dhdv" path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Mixed_AO.png" id="3"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://briqhor0qdubk" path="res://scenes/effects/effects.gd" id="12"]
 [ext_resource type="PackedScene" uid="uid://prxhirqrgt51" path="res://scenes/effects/explosion_audio.tscn" id="13"]
 [ext_resource type="AudioStream" uid="uid://5y1gpex1x7kx" path="res://resources/sounds/impacts/metal_and_gun/266345__ephisus__metal-thud.ogg" id="14"]
+[ext_resource type="Texture2D" uid="uid://hsdv1agd3pqe" path="res://scenes/effects/explosion/smokesprite.png" id="15"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmlg6"]
 resource_name = "Material"
@@ -135,7 +136,7 @@ shader_parameter/particle_h_frames = 8.0
 shader_parameter/particle_v_frames = 8.0
 shader_parameter/particles_anim_loop = false
 shader_parameter/still_frame = -1.0
-shader_parameter/Smoke_color_ramp = SubResource("31")
+shader_parameter/Smoke_color_ramp = ExtResource("15")
 shader_parameter/blend_help = SubResource("32")
 shader_parameter/Soft_limit = 0.1
 shader_parameter/blend_scale = 0.1

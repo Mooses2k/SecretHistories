@@ -4,6 +4,15 @@ extends GenerationStep
 @export var door_dict : Dictionary
 @export var door_probability = 0.6
 @export var door_stuck_probability = 0.2
+# Owner ruling: the T5 lock mechanism stays ready but spawns ZERO locked
+# doors until keys-on-cultists exists (blocked behind the Nov 8 character
+# freeze). Set the rate back up only when key placement lands. Keys spawn on
+# cultists only, never in world loot.
+@export var door_lock_probability = 0.0
+# T6 bars: hook point for generation-ready barred doors. Bars are state on the
+# door (is_barred, bar_reachable_side), no bar scene exists yet, so nothing is
+# spawned here this round. When a bar prop lands, coin-flip here the same way
+# the lock chance below does and set both custom properties.
 
 const DOUBLE_DOOR_OFFSET_FROM_DIRECTION_N : Dictionary = {
 	WorldData.Direction.NORTH : Vector3.ZERO,
@@ -43,7 +52,11 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 	# matches the value set
 	var partial_probability = 1 - sqrt(1 - door_probability)
 	random.seed = generation_seed
-	# Sets a deterministic seed for the global random number generator
+	# LOAD-BEARING for determinism: the cell shuffle below (Array.shuffle at
+	# L59) uses the GLOBAL RNG, not the per-step `random` stream seeded from
+	# generation_seed. Seeding the global RNG here from that deterministic
+	# stream is what makes the shuffle reproducible for the same floor seed.
+	# Do not remove unless the shuffle is moved onto the `random` stream too.
 	seed(random.randi())
 	# Shuffles cells to achieve random orientation
 	var random_cell_order = range(data.cell_count)
@@ -96,11 +109,22 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 						spawn_data.set_custom_property("door_state", BaseKinematicDoor.DoorState.STUCK, door_data_index)
 					else:
 						pass
+					# Lock coin on the same deterministic stream as the other
+					# door coins, so seeds stay reproducible
+					if fposmod(random.randf(), 1.0) < door_lock_probability:
+						spawn_data.set_custom_property("is_locked", true, door_data_index)
 					var origin = Vector3.ZERO
 					var basis = Basis.IDENTITY
 					var rotation_basis = Basis(Vector3.BACK, Vector3.UP, Vector3.LEFT)
 					for i in dir:
 						basis = rotation_basis * basis
+					# Deterministic into-room rule (owner ruling, no RNG in
+					# orientation): with the 3.x basis the sweep arc lands on
+					# this cell's side of the wall, so the door is flipped 180
+					# degrees only when the cell across the wall is the more
+					# room-like side. Ties keep the 3.x default orientation.
+					if BaseKinematicDoor.room_side_score(data, other_cell) > BaseKinematicDoor.room_side_score(data, cell):
+						basis = basis.rotated(Vector3.UP, PI)
 					spawn_data.set_y_rotation(basis.get_euler().y, door_data_index)
 					var cell_corner = data.get_local_cell_position(cell)
 					var wall_type = data.get_wall_type(cell, dir)

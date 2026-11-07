@@ -144,9 +144,28 @@ func add_setting(setting_name : String):
 		settings_group.add_editor(SetDefaultKeyBtn.instantiate())
 		settings_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed", Callable(get_parent().owner.get_node("ResetPanel"), "toggle_panel"))
 	
+	_add_key_category_header(settings_group, setting_name)
+
 	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instantiate() as SettingEditor
 	settings_group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
+
+
+## Keybinding rows carry a key_category meta from the declarative map:
+## insert a header label whenever the category changes inside a group, so
+## each overloaded key family reads as one block.
+func _add_key_category_header(group : Node, setting_name : String):
+	var category: Variant = settings.get_setting_meta(setting_name, "key_category")
+	if not category is String:
+		return
+	if category == group.get_meta("last_key_category", ""):
+		return
+	group.set_meta("last_key_category", category)
+	var header := Label.new()
+	header.text = str(category)
+	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	header.add_theme_font_size_override("font_size", 15)
+	group.add_editor(header)
 
 
 func add_group(group_name : String) -> bool:

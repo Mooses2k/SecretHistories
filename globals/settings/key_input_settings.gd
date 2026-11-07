@@ -1,258 +1,245 @@
 extends Node
 
+## Declarative keybinding settings (issues #307 and #606).
+## One const map drives registration, display metadata, capture application,
+## persistence and reset for every bindable action. Rows exist only for
+## actions that live in InputMap, so no invented actions reach the menu, and
+## actions stay rebindable and open for adventure authors.
 
 const GROUP_NAME : String = "Input Key Settings"
 
-var setting_key_inputs : String = ""
-var is_waiting_input : bool = false
-var events : PackedStringArray = []
-var actions : PackedStringArray = []
-var actions_copy : PackedStringArray
-var flag : int = 1
-var index : int = 0
-var is_done : bool = false
-var key_removed : bool = false
-var arr_size : int = 0
-var safe_counter : int = 0
-var counter : int = 0
-var counter_max : int = 0
+## Ordered per the wiki Interface 5.2 control system: few keys overloaded
+## with nuance, shown as coherent families, with separate keys still
+## bindable. "action" rows bind an InputMap action; "mode" rows reposition an
+## existing bool setting (tap/hold) next to its binding family. An optional
+## "name" overrides the derived display label.
+const BINDING_MAP : Array = [
+	{
+		"category": "Footwork and Movement",
+		"rows": [
+			{"action": "movement|move_up", "name": "Move Forward"},
+			{"action": "movement|move_left", "name": "Move Left"},
+			{"action": "movement|move_down", "name": "Move Back"},
+			{"action": "movement|move_right", "name": "Move Right"},
+			{"action": "player|sprint", "name": "Sprint / Dodge / Kick (Shift)"},
+			{"action": "player|crouch", "name": "Crouch"},
+			{"mode": "Hold Crouch"},
+			{"action": "player|jump", "name": "Jump / Mantle / Stand"},
+		],
+	},
+	{
+		"category": "Player Actions",
+		"rows": [
+			{"action": "player|interact", "name": "Interact / ADS / Drag (RMB)"},
+			{"mode": "Hold ADS (Aim Down Sights)"},
+		],
+	},
+	{
+		"category": "Hands and Inventory",
+		"rows": [
+			{"action": "playerhand|mainhand_use", "name": "Main Hand Use (LMB)"},
+			{"action": "playerhand|mainhand_throw", "name": "Main Hand Throw / Drop (MMB)"},
+			{"action": "playerhand|offhand_use", "name": "Offhand Use"},
+			{"action": "playerhand|offhand_throw", "name": "Offhand Throw / Place"},
+			{"action": "playerhand|cycle_offhand_slot", "name": "Cycle Offhand Slot"},
+			{"action": "itm|next_hotbar_item", "name": "Next Hotbar Item (Wheel Down)"},
+			{"action": "itm|previous_hotbar_item", "name": "Previous Hotbar Item (Wheel Up)"},
+			{"action": "itm|holster_weapons", "name": "Holster Weapons"},
+			{"action": "hotbar_1", "name": "Hotbar 1"},
+			{"action": "hotbar_2", "name": "Hotbar 2"},
+			{"action": "hotbar_3", "name": "Hotbar 3"},
+			{"action": "hotbar_4", "name": "Hotbar 4"},
+			{"action": "hotbar_5", "name": "Hotbar 5"},
+			{"action": "hotbar_6", "name": "Hotbar 6"},
+			{"action": "hotbar_7", "name": "Hotbar 7"},
+			{"action": "hotbar_8", "name": "Hotbar 8"},
+			{"action": "hotbar_9", "name": "Hotbar 9"},
+			{"action": "hotbar_10", "name": "Hotbar 10"},
+		],
+	},
+	{
+		"category": "Firearms and Reload",
+		"rows": [
+			{"action": "player|reload", "name": "Reload"},
+		],
+	},
+	{
+		"category": "Interface and Misc",
+		"rows": [
+			{"action": "ablty|nightvision_darksight", "name": "Nightvision / Darksight"},
+			{"action": "ablty|binocs_spyglass", "name": "Binoculars / Spyglass"},
+			{"action": "ablty|zap_spell", "name": "Zap Spell"},
+			{"action": "misc|map_menu", "name": "Map"},
+			{"action": "misc|journal", "name": "Journal"},
+			{"action": "misc|inventory_menu", "name": "Inventory Menu"},
+			{"action": "misc|help_info", "name": "Help"},
+			{"action": "misc|fullscreen", "name": "Toggle Fullscreen"},
+			{"action": "misc|change_screen_filter", "name": "Change Screen Filter"},
+			{"action": "com|communication_go", "name": "Command: Follow Me"},
+			{"action": "com|communication_stop", "name": "Command: Stop"},
+			{"action": "com|communication_text", "name": "Text Chat"},
+		],
+	},
+]
 
-const MAX_VALUE = 4.0
-const STEP_VALUE = 0.05
-const MIN_VALUE = 0.05
-
-var setting_action_event : float: get = get_action_event, set = set_action_event
-
-
-func _ready():
-	actions_copy.append_array(InputMap.get_actions())
-	
-	while not is_done:
-		safe_counter += 1
-		key_removed = false
-		arr_size = actions_copy.size()
-		index = -1
-		
-		for x in range(arr_size):
-			if not "ui_" in actions_copy[x] or "movement" == actions_copy[x] or not "debug_" in actions_copy[x]:
-				match flag:
-					1:
-						if "movement|" in actions_copy[x]:
-							if "move_up" in actions_copy[x] and counter == 0:
-								set_keys(x)
-							elif "move_left" in actions_copy[x] and counter == 1:
-								set_keys(x)
-							elif "move_right" in actions_copy[x] and counter == 2:
-								set_keys(x)
-							elif "move_down" in actions_copy[x] and counter == 3:
-								set_keys(x)
-					2:
-						if "player|" in actions_copy[x]:
-							if "interact" in actions_copy[x] and counter == 0:
-								set_keys(x)
-							elif "reload" in actions_copy[x] and counter == 1:
-								set_keys(x)
-#							elif "kick" in actions_copy[x] and counter == 2:
-#								set_keys(x)
-							elif "jump" in actions_copy[x] and counter == 2:
-								set_keys(x)
-							elif "crouch" in actions_copy[x] and counter == 3:
-								set_keys(x)
-							elif "sprint" in actions_copy[x] and counter == 4:
-								set_keys(x)
-					3:
-						if "playerhand|" in actions_copy[x]:
-							if "mainhand_use" in actions_copy[x] and counter == 0:
-								set_keys(x)
-							#elif "main_use_secondary" in actions_copy[x] and counter == 1:
-								#set_keys(x)
-							elif "mainhand_throw" in actions_copy[x] and counter == 1:
-								set_keys(x)
-							elif "offhand_use" in actions_copy[x] and counter == 2:
-								set_keys(x)
-							elif "offhand_throw" in actions_copy[x] and counter == 3:
-								set_keys(x)
-							elif "cycle_offhand_slot" in actions_copy[x] and counter == 4:
-								set_keys(x)
-					4:
-						if "itm|" in actions_copy[x]:
-							if "next_hotbar_item" in actions_copy[x] and counter == 0:
-								set_keys(x)
-							elif "previous_hotbar_item" in actions_copy[x] and counter == 1:
-								set_keys(x)
-							elif "holster_weapons" in actions_copy[x] and counter == 2:
-								set_keys(x)
-					5:
-						if "hotbar_" in actions_copy[x]:
-							if str(counter + 1) in actions_copy[x] and counter < 10:
-								if (counter + 1) == 1 and ( "11" in actions_copy[x] or "10" in actions_copy[x]):
-									pass
-								else:
-									set_keys(x)
-					6:
-						if "ablty|" in actions_copy[x]:
-							if "binocs_spyglass" in actions_copy[x] and counter == 0:
-								set_keys(x)
-							elif "nightvision_darksight" in actions_copy[x] and counter == 1:
-								set_keys(x)
-							elif "zap_spell" in actions_copy[x] and counter == 2:
-								set_keys(x)
-					7:
-						if "com|" in actions_copy[x]:
-							if "communication_stop" in actions_copy[x] and counter == 0:
-								set_keys(x)
-							elif "communication_go" in actions_copy[x] and counter == 1:
-								set_keys(x)
-							elif "communication_text" in actions_copy[x] and counter == 2:
-								set_keys(x)
-					8:
-						if "misc|" in actions_copy[x]:
-							if "inventory_menu" in actions_copy[x] and counter == 0:
-								set_keys(x)
-							elif "journal" in actions_copy[x] and counter == 1:
-								set_keys(x)
-							elif "map_menu" in actions_copy[x] and counter == 2:
-								set_keys(x)
-							elif "help_info" in actions_copy[x] and counter == 3:
-								set_keys(x)
-							elif "fullscreen" in actions_copy[x] and counter == 4:
-								set_keys(x)
-							elif "change_screen_filter" in actions_copy[x] and counter == 5:
-								set_keys(x)
-					_:
-						actions_copy.remove_at(actions_copy.find(actions_copy[x]))
-						key_removed = true
-			else:
-				actions_copy.remove_at(actions_copy.find(actions_copy[x]))
-				key_removed = true
-			
-			index = x
-			if key_removed:
-				break
-			
-		if index == arr_size - 1: 
-			if counter == counter_max:
-				flag += 1
-				counter = 0
-			
-			match flag:
-				1:
-					counter_max = 4
-				2:
-					counter_max = 5
-				3:
-					counter_max = 6
-				4:
-					counter_max = 3
-				5:
-					counter_max = 10
-				6:
-					counter_max = 3
-				7:
-					counter_max = 3
-				8:
-					counter_max = 6
-		
-		if actions_copy.size() < 1 or safe_counter > 100:
-			is_done = true
-		
-	Settings.connect("setting_changed", Callable(self, "on_setting_changed"))
+var _mapped_actions : Dictionary = {}
 
 
-func set_keys(x):
-	for event in InputMap.action_get_events(actions_copy[x]):
-		if event is InputEventMouseButton:
-			events.insert(0, "Mouse Button " + str(event.button_index))
-		elif event is InputEventJoypadButton:
-			events.insert(0, "Joypad Button " + str(event.button_index))
-		else:
-			if event.physical_keycode:
-				events.insert(0, str(OS.get_keycode_string(event.physical_keycode)))
-			else:
-				events.insert(0, str(OS.get_keycode_string(event.keycode)))
-	
-	actions.append(actions_copy[x])
-	Settings.add_string_setting(actions_copy[x], events)
-	Settings.set_setting_group(actions_copy[x], GROUP_NAME)
-	actions_copy.remove_at(actions_copy.find(actions_copy[x]))
-	events.resize(0)
-	key_removed = true
-	counter += 1
+func _ready() -> void:
+	_register_rows()
+	Settings.setting_changed.connect(on_setting_changed)
 
 
-func _input(event):
-	if event is InputEvent and is_waiting_input:
-		print("key pressed " + str(OS.get_keycode_string(event.physical_keycode)))
+## Register every mapped row in map order. Dictionary insertion order is the
+## settings list order, so the map order is the render order, with mode rows
+## landing exactly where the map places them.
+func _register_rows() -> void:
+	for category_entry in BINDING_MAP:
+		var entry: Dictionary = category_entry
+		var category: String = entry["category"]
+		var rows: Array = entry["rows"]
+		for row in rows:
+			var row_data: Dictionary = row
+			if row_data.has("mode"):
+				_register_mode_row(str(row_data["mode"]), category)
+				continue
+			var action: String = row_data["action"]
+			if not InputMap.has_action(action):
+				push_warning("Keybinding row skipped, action missing from InputMap: " + action)
+				continue
+			var display_name: String = row_data.get("name", "")
+			if display_name.is_empty():
+				display_name = _default_display_name(action)
+			_register_action_row(action, display_name, category)
 
 
-func set_action_event(value : float):
-	is_waiting_input = true
-	Settings.set_setting(setting_key_inputs, value)
+func _register_action_row(action : String, display_name : String, category : String) -> void:
+	_mapped_actions[action] = true
+	if not Settings.has_setting(action):
+		Settings.add_string_setting(action, _action_value_strings(action))
+	# The stored display strings are a render cache of the live InputMap;
+	# rebuild them on every boot so rows never show stale or emptied values.
+	Settings._settings[action][Settings._FIELD_VALUE] = _action_value_strings(action)
+	Settings.set_setting_group(action, GROUP_NAME)
+	Settings.set_setting_meta(action, "display_name", display_name)
+	Settings.set_setting_meta(action, "key_category", category)
 
 
-func get_action_event() -> float:
-	return Settings.get_setting(setting_key_inputs)
+## Move an existing bool setting (registered by GameSettings into
+## "Game Settings") into this group and reinsert it right after the rows
+## registered just before it, so it renders adjacent to its family.
+func _register_mode_row(setting_name : String, category : String) -> void:
+	if not Settings.has_setting(setting_name):
+		push_warning("Keybinding mode setting missing from Settings: " + setting_name)
+		return
+	var entry: Dictionary = Settings._settings[setting_name]
+	Settings._settings.erase(setting_name)
+	Settings._settings[setting_name] = entry
+	Settings.set_setting_group(setting_name, GROUP_NAME)
+	Settings.set_setting_meta(setting_name, "key_category", category)
 
 
-func set_event(setting_name, old_value, new_value):
-	if new_value == null:
-		InputMap.action_erase_events(setting_name)
-	else:
-		var events_setting = InputMap.action_get_events(setting_name)
-		if events_setting.size() > 1:
-			InputMap.action_erase_event(setting_name, events_setting[0])
-		InputMap.action_add_event(setting_name, new_value)
-	
-	KeybindingManager.save_keys()
-	
-	save_keys(setting_name, old_value)
-
-
-func save_keys(setting_name : String, old_value):
-	events.resize(0)
-	for event in InputMap.action_get_events(setting_name):
-		if event is InputEventMouseButton:
-			events.insert(0, "Mouse Button " + str(event.button_index))
-		elif event is InputEventJoypadButton:
-			events.insert(0, "Joypad Button " + str(event.button_index))
-		else:
-			if event.physical_keycode:
-				events.insert(0, str(OS.get_keycode_string(event.physical_keycode)))
-			else:
-				events.insert(0, str(OS.get_keycode_string(event.keycode)))
-	
-	if old_value == null:
-		old_value = Settings._settings[setting_name][Settings._FIELD_VALUE]
-	
-	Settings._settings[setting_name][Settings._FIELD_VALUE] = events
-	Settings.emit_signal("keys_saved", setting_name, old_value, events)
-	events.resize(0)
-
-
-func on_setting_changed(setting_name, old_value, new_value):
-	if new_value is String and new_value == "all":
+func on_setting_changed(setting_name, _old_value, new_value) -> void:
+	if not _mapped_actions.has(setting_name):
+		return
+	if new_value is InputEvent:
+		apply_binding(setting_name, new_value)
+	elif new_value == "all":
 		reset_actions()
-	elif actions.has(setting_name):
-		set_event(setting_name, old_value, new_value)
+	elif new_value == null:
+		_apply_cleared_action(setting_name)
 
 
-func reset_actions():
-	for action in actions:
-		InputMap.action_erase_events(action)
-		
-		var has_invalid : bool = false
-		var events_arr = Array()
-		for event_str in KeybindingManager.keys_default[action]:
-			var event = KeybindingManager.str2event(event_str)
+## One apply path for every captured binding: replace the action's events
+## with the new event, then persist the row and the keybinding dict.
+func apply_binding(action : String, event : InputEvent) -> void:
+	InputMap.action_erase_events(action)
+	InputMap.action_add_event(action, event)
+	_persist_row(action, null)
+
+
+func _apply_cleared_action(action : String) -> void:
+	InputMap.action_erase_events(action)
+	_persist_row(action, null)
+
+
+## Update the row's display cache, tell the editors through keys_saved, and
+## persist the whole InputMap to the keybinding dict.
+func _persist_row(action : String, old_value) -> void:
+	if not Settings._settings.has(action):
+		return
+	var value_strings := _action_value_strings(action)
+	Settings._settings[action][Settings._FIELD_VALUE] = value_strings
+	Settings.emit_signal("keys_saved", action, old_value, value_strings)
+	KeybindingManager.save_keys()
+
+
+func reset_actions() -> void:
+	for action in _mapped_actions.keys():
+		var action_name: String = action
+		if not InputMap.has_action(action_name) or not KeybindingManager.keys_default.has(action_name):
+			continue
+		var has_invalid := false
+		var events_to_apply: Array = []
+		for event_str: String in KeybindingManager.keys_default[action_name]:
+			var event := KeybindingManager.str2event(event_str)
 			if event:
-				events_arr.push_back(event)
+				events_to_apply.push_back(event)
 			else:
 				has_invalid = true
-		if not has_invalid:
-			InputMap.action_erase_events(action)
-		for event in events_arr:
-			InputMap.action_add_event(action, event)
-		
-		save_keys(action, null)
-	
+		if has_invalid:
+			push_warning("Keybinding reset skipped, unparsable default for: " + action_name)
+			continue
+		InputMap.action_erase_events(action_name)
+		for event in events_to_apply:
+			InputMap.action_add_event(action_name, event)
+		_persist_row(action_name, null)
 	KeybindingManager.save_keys()
+
+
+## Display strings for one action's current InputMap events, in order.
+func _action_value_strings(action : String) -> PackedStringArray:
+	var value_strings := PackedStringArray()
+	for event in InputMap.action_get_events(action):
+		var label := _event_display_label(event)
+		if not label.is_empty():
+			value_strings.append(label)
+	return value_strings
+
+
+func _event_display_label(event : InputEvent) -> String:
+	if event is InputEventKey:
+		var keycode: int = event.keycode
+		if keycode == 0:
+			keycode = event.physical_keycode
+		if keycode != 0:
+			return str(OS.get_keycode_string(keycode as Key))
+	if event is InputEventMouseButton:
+		return _mouse_button_label(event.button_index)
+	return ""
+
+
+func _mouse_button_label(button_index : int) -> String:
+	match button_index:
+		MOUSE_BUTTON_LEFT:
+			return "Mouse Left Button"
+		MOUSE_BUTTON_RIGHT:
+			return "Mouse Right Button"
+		MOUSE_BUTTON_MIDDLE:
+			return "Mouse Middle Button"
+		MOUSE_BUTTON_WHEEL_UP:
+			return "Mouse Wheel Up"
+		MOUSE_BUTTON_WHEEL_DOWN:
+			return "Mouse Wheel Down"
+		MOUSE_BUTTON_WHEEL_LEFT:
+			return "Mouse Wheel Left"
+		MOUSE_BUTTON_WHEEL_RIGHT:
+			return "Mouse Wheel Right"
+		_:
+			return "Mouse Button %d" % button_index
+
+
+func _default_display_name(action : String) -> String:
+	if action.contains("|"):
+		return action.get_slice("|", 1).capitalize()
+	return action.capitalize()

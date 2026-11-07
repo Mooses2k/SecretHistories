@@ -341,9 +341,27 @@ func add_setting_to_group(setting_name: String, group: Node, group_name: String)
 				if button_node:
 					button_node.connect("pressed", Callable(reset_panel, "toggle_panel"))
 
+	_add_key_category_header(group, setting_name)
+
 	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instantiate()
 	group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
+
+## Keybinding rows carry a key_category meta from the declarative map:
+## insert a header label whenever the category changes inside a group, so
+## each overloaded key family reads as one block.
+func _add_key_category_header(group: Node, setting_name: String):
+	var category: Variant = settings.get_setting_meta(setting_name, "key_category")
+	if not category is String:
+		return
+	if category == group.get_meta("last_key_category", ""):
+		return
+	group.set_meta("last_key_category", category)
+	var header := Label.new()
+	header.text = str(category)
+	header.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	header.add_theme_font_size_override("font_size", 15)
+	group.add_editor(header)
 
 ## Check if a group name is related to key settings
 func _is_key_related_group(group_name: String) -> bool:

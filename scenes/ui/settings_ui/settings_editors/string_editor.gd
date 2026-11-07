@@ -15,21 +15,9 @@ func _set_value(value):
 	%Value.text = ""
 	if value == null:
 		return
-	
+
 	for event in value:
-		var temp_event = event
-		match event:
-			"Mouse Button 1":
-				temp_event = "Mouse Left Button"
-			"Mouse Button 2":
-				temp_event = "Mouse Right Button"
-			"Mouse Button 3":
-				temp_event = "Mouse Middle Button"
-			"Mouse Button 4":
-				temp_event = "Mouse Wheel Up"
-			"Mouse Button 5":
-				temp_event = "Mouse Wheel Down"
-		%Value.text += temp_event
+		%Value.text += event
 		if value.find(event) != (value.size() - 1):
 			%Value.text += ", "
 
@@ -44,7 +32,20 @@ func _on_value_edited():
 # Override this function
 func _on_setting_attached():
 #	%Value.connect("value_changed", self, "on_value_edited")
-	%Name.text = _setting_name.split('|')[1].capitalize()
+	_apply_name_text()
+
+
+## A keybinding row carries a display_name meta from the declarative map.
+## Without one, fall back to the text after the action's namespace pipe, or
+## the raw name for pipe-less actions like hotbar_1.
+func _apply_name_text():
+	var display_name = settings.get_setting_meta(_setting_name, "display_name")
+	if display_name is String and not display_name.is_empty():
+		%Name.text = display_name
+	elif _setting_name.contains('|'):
+		%Name.text = _setting_name.get_slice('|', 1).capitalize()
+	else:
+		%Name.text = _setting_name.capitalize()
 
 
 func _on_Value_value_changed(value):

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=4 uid="uid://cg6kxi6x7ik21"]
 
 [ext_resource type="Texture2D" uid="uid://160o01cqgxm" path="res://resources/models/large_objects/statues/angel1/Angel1_T_Angel_1_Base_color.png" id="1_c434d"]
-[ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_e8n7v"]
+[ext_resource type="Script" uid="uid://b2ajbms2l7851" path="res://scenes/objects/large_objects/static_large_object.gd" id="1_e8n7v"]
 [ext_resource type="Texture2D" uid="uid://b7hxmn4yphlqf" path="res://resources/models/large_objects/statues/angel1/Angel1_T_Angel_1_Roughness.png" id="2_xxnib"]
 [ext_resource type="Texture2D" uid="uid://bh0k3x4dky70u" path="res://resources/models/large_objects/statues/angel1/Angel1_T_Angel_1_Normal_OpenGL.png" id="3_hhtrh"]
 

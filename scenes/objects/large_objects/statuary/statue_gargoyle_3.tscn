@@ -1,6 +1,6 @@
 [gd_scene load_steps=80 format=4 uid="uid://dwvtja63pinrl"]
 
-[ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_gegh4"]
+[ext_resource type="Script" uid="uid://b2ajbms2l7851" path="res://scenes/objects/large_objects/static_large_object.gd" id="1_gegh4"]
 [ext_resource type="Texture2D" uid="uid://4p5p12hovtjm" path="res://resources/models/large_objects/statues/gargoyle3/gargoyleStatue_Gargoyle_Base_color.png" id="1_huhuc"]
 [ext_resource type="Texture2D" uid="uid://ct2mhdh5oejn4" path="res://resources/models/large_objects/statues/gargoyle3/gargoyleStatue_Gargoyle_Metallic-Gargoyle_Roughness.png" id="2_8cpn6"]
 [ext_resource type="Texture2D" uid="uid://d1oq3hctqgg27" path="res://resources/models/large_objects/statues/gargoyle3/gargoyleStatue_Gargoyle_Normal_OpenGL.png" id="3_6ly8g"]

@@ -1,129 +1,176 @@
 class_name CandelabraItem
 extends ToolItem
-
-### Eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...
-
-# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, torch.gd, candle.gd
+## Multi-candle light container (fuel design owner decisions 5 and 6): each
+## candle is a per-candle WAX fuel state burning at the authored 3.x duration,
+## and the shared light output follows the per-object logarithmic curve with
+## the lit-candle count, so a stand with one candle left reads dimmer than a
+## fully lit one. Socket insert/swap interactions (the refill point for whole
+## candles) arrive with the removable-candle work; inserted candles do NOT
+## auto-light.
 
 
 signal item_dropped
 
+const BURN_SECONDS := 1000.0  # authored 3.x per-candle burn duration
+
 @export var number_of_candles : int = 1
+## Tuning gain of the per-object light-output curve (FuelContainer.light_scale_for).
+@export var light_scale_gain : float = 0.5
 
 var is_lit : bool = false
-
-var burn_time : float = 1000.0
 var is_depleted : bool = false
-var is_dropped : bool = false
-var is_just_dropped : bool = true
-var light_timer : Timer
 var random_number : float
 @export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
 
+var candle_fuel : Array[FuelContainer] = []
+var candle_lit : Array[bool] = []
+
 var material : Material
 var new_material : Material
+var base_light_energy : float = 0.0
+var base_light_range : float = 0.0
 
-var burn_time_2 : float = 0.0
-var burn_time_3 : float = 0.0
-@onready var light_timer_base : Node = $Timer
-#onready var light_timer_2 : Node = $Timer2   # Doing these in _ready avoids a red debugger error
-#onready var light_timer_3 : Node = $Timer3
-var is_depleted_2 : bool = false
-var is_depleted_3 : bool = false
-var random_number_2_3 : float
-
-@onready var firelight = $Candle1/FireOrigin/Fire/Light3D
+var firelight: Light3D
 
 
 func _ready():
-	light_timer = $Timer
+	_setup_candle_fuel()
+	self.connect("item_dropped", Callable(self, "light_dropped"))
+	_setup_base_light()
+	_setup_candle_materials()
 
-	self.connect("item_dropped", Callable(self, "light_dropped")) # this current fails, is bugged
-	light_timer.connect("timeout", Callable(self, "light_depleted_copy"))
 
-	material = $Candle1/MeshInstance3D.get_surface_override_material(0)
+## Per-candle fuel states are built from number_of_candles alone, so they do
+## not depend on the candle child nodes existing (the candlestick and candle
+## lantern scenes run this script with one candle).
+func _setup_candle_fuel() -> void:
+	candle_fuel.clear()
+	candle_lit.clear()
+	for i in range(number_of_candles):
+		var fuel := FuelContainer.new()
+		fuel.set_fuel(FuelSource.FuelKind.WAX, BURN_SECONDS)
+		candle_fuel.append(fuel)
+		candle_lit.append(false)
+
+
+func _setup_base_light() -> void:
+	# Resolved on demand (not @onready) so the per-candle fuel states can be
+	# exercised without the heavy scene or a live tree.
+	firelight = get_node_or_null("Candle1/FireOrigin/Fire/Light3D")
+	if firelight == null:
+		return
+	base_light_energy = firelight.light_energy
+	base_light_range = _light_range(firelight)
+
+
+func _setup_candle_materials() -> void:
+	var candle1_mesh: MeshInstance3D = get_node_or_null("Candle1/MeshInstance3D")
+	if candle1_mesh == null:
+		return
+	material = candle1_mesh.get_surface_override_material(0)
+	if material == null:
+		return
 	new_material = material.duplicate()
-	$Candle1/MeshInstance3D.set_surface_override_material(0, new_material)
+	candle1_mesh.set_surface_override_material(0, new_material)
+	for i in range(1, number_of_candles):
+		var mesh: MeshInstance3D = get_node_or_null("Candle%d/MeshInstance3D" % (i + 1))
+		if mesh != null:
+			mesh.set_surface_override_material(0, new_material)
 
-	if number_of_candles > 1:   # TODO: Switch other parts of this script to use this to avoid red debug errors
-		$Candle2/MeshInstance3D.set_surface_override_material(0, new_material)
-		$Candle3/MeshInstance3D.set_surface_override_material(0, new_material)
-		var light_timer_2 = $Timer2
-		light_timer_2.connect("timeout", Callable(self, "light_depleted_2"))
 
-		var light_timer_3 = $Timer3
-		light_timer_3.connect("timeout", Callable(self, "light_depleted_3"))
+func _candle_node(index: int) -> Node:
+	return get_node_or_null("Candle%d" % (index + 1))
 
-		burn_time_2 = burn_time
-		burn_time_3 = burn_time
 
-		light_timer_2.set_wait_time(burn_time_2)
-		light_timer_2.start()
-		light_timer_3.set_wait_time(burn_time_3)
-		light_timer_3.start()
+func _set_candle_fire(index: int, lit: bool) -> void:
+	var candle := _candle_node(index)
+	if candle == null:
+		return
+	var fire: Node3D = candle.get_node_or_null("FireOrigin/Fire")
+	if fire != null:
+		fire.visible = lit
+	var mesh: MeshInstance3D = candle.get_node_or_null("MeshInstance3D")
+	if mesh != null:
+		mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if lit \
+				else GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+		var mesh_material: Material = mesh.get_surface_override_material(0)
+		if mesh_material != null:
+			mesh_material.emission_enabled = lit
+
+
+func _light_range(light: Light3D) -> float:
+	if light is OmniLight3D:
+		return light.omni_range
+	if light is SpotLight3D:
+		return light.spot_range
+	return 0.0
+
+
+func _set_light_range(light: Light3D, value: float) -> void:
+	if light is OmniLight3D:
+		light.omni_range = value
+	elif light is SpotLight3D:
+		light.spot_range = value
+
+
+func _process(delta: float) -> void:
+	super._process(delta)
+	if candle_fuel.is_empty():
+		return
+	for i in range(candle_fuel.size()):
+		if not candle_lit[i]:
+			continue
+		if candle_fuel[i].tick_burn(delta, true):
+			candle_lit[i] = false
+			_set_candle_fire(i, false)
+			_refresh_light_output()
+			if i == 0:
+				_on_light_depleted()
+				break
 
 
 func light():
-	if not is_depleted:
-		$AnimationPlayer.play("flicker")
-		$LightSound.play()
-		$Candle1/FireOrigin/Fire.visible = true
-		$Candle1/MeshInstance3D.cast_shadow = false
-		$MeshInstance3D.cast_shadow = false
-		$Candle1/MeshInstance3D.get_surface_override_material(0).emission_enabled = true
+	if is_depleted:
+		return
+	var anim: AnimationPlayer = get_node_or_null("AnimationPlayer")
+	if anim != null:
+		anim.play("flicker")
+	var light_sound: AudioStreamPlayer = get_node_or_null("LightSound")
+	if light_sound != null:
+		light_sound.play()
+
+	for i in range(candle_fuel.size()):
+		if not candle_fuel[i].can_burn():
+			continue
+		_set_candle_fire(i, true)
+		candle_lit[i] = true
+
+	if firelight != null:
 		firelight.visible = true
+	var own_mesh: MeshInstance3D = get_node_or_null("MeshInstance3D")
+	if own_mesh != null:
+		own_mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
-		#if owner_character:
-			#if owner_character.noise_level < 5:
-				#owner_character.noise_level = 5
-
-		is_lit = true
-		light_timer.set_wait_time(burn_time)
-		light_timer.start()
-
-		if number_of_candles > 1:
-			var light_timer_2 = $Timer2
-			var light_timer_3 = $Timer3
-			if $Candle2 != null and not is_depleted_2:
-				$Candle2/FireOrigin/Fire.visible = not $Candle2/FireOrigin/Fire.visible
-				$Candle2/MeshInstance3D.cast_shadow = false
-				$Candle2/MeshInstance3D.get_surface_override_material(0).emission_enabled = true
-
-			if $Candle3 != null and not is_depleted_3:
-				$Candle3/FireOrigin/Fire.visible = not $Candle3/FireOrigin/Fire.visible
-				$Candle3/MeshInstance3D.cast_shadow = false
-				$Candle3/MeshInstance3D.get_surface_override_material(0).emission_enabled = true
-
-			if $Candle3 != null:
-				light_timer_2.set_wait_time(burn_time_2)
-				light_timer_2.start()
-				light_timer_3.set_wait_time(burn_time_3)
-				light_timer_3.start()
+	is_lit = true
+	_refresh_light_output()
 
 
 func unlight():
-	if not is_depleted:
-		$AnimationPlayer.stop()
-		$Candle1/MeshInstance3D.get_surface_override_material(0).emission_enabled = false
-		$Candle1/FireOrigin/Fire.visible = false
-		$Candle1/MeshInstance3D.cast_shadow = true
+	var anim: AnimationPlayer = get_node_or_null("AnimationPlayer")
+	if anim != null:
+		anim.stop()
+	for i in range(candle_lit.size()):
+		_set_candle_fire(i, false)
+		candle_lit[i] = false
 
-		if get_node_or_null("Candle2") != null and not is_depleted_2:
-			unlight_candle_2()
-
-		if get_node_or_null("Candle3") != null and not is_depleted_3:
-			unlight_candle_3()
-
+	if firelight != null:
 		firelight.visible = false
-		$MeshInstance3D.cast_shadow = true
+	var own_mesh: MeshInstance3D = get_node_or_null("MeshInstance3D")
+	if own_mesh != null:
+		own_mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON
 
-		is_lit = false
-		stop_light_timer()
-
-
-func light_depleted_copy():
-	_on_light_depleted()
+	is_lit = false
 
 
 func _use_primary():
@@ -136,57 +183,12 @@ func _use_primary():
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-#		if is_lit:
-#			var sound = $BlowOutSound.duplicate()
-#			GameManager.game.level.add_child(sound)
-#			sound.global_transform = $BlowOutSound.global_transform
-#			sound.connect("finished", sound, "queue_free")
-#			sound.play()
 		owner_character.inventory.switch_away_from_light(self)
 	elif current_state == GlobalConsts.ItemState.DROPPED:
-		#is_just_dropped = true
 		# Emit only, and under the DECLARED signal name (Brooks audit 4.4): the
 		# old emit of the undeclared "item_is_dropped" silently failed, so the
 		# drop penalty for candles 2 and 3 never ran.
 		self.emit_signal("item_dropped")
-
-
-func stop_light_timer_2():
-	var light_timer_2 = $Timer2
-	burn_time_2 = light_timer_2.get_time_left()
-	light_timer_2.stop()
-
-
-func stop_light_timer_3():
-	var light_timer_3 = $Timer3
-	burn_time_3 = light_timer_3.get_time_left()
-	light_timer_3.stop()
-
-
-func light_depleted_2():
-		burn_time_2 = 0
-		is_depleted_2 = true
-		unlight_candle_2()
-
-
-func light_depleted_3():
-		burn_time_3 = 0
-		is_depleted_3 = true
-		unlight_candle_3()
-
-
-func unlight_candle_2():
-	$Candle2/FireOrigin/Fire.visible = false
-	$Candle2/MeshInstance3D.get_surface_override_material(0).emission_enabled = false
-	$Candle2/MeshInstance3D.cast_shadow = true
-	stop_light_timer_2()
-
-
-func unlight_candle_3():
-	$Candle3/FireOrigin/Fire.visible = false
-	$Candle3/MeshInstance3D.get_surface_override_material(0).emission_enabled = false
-	$Candle3/MeshInstance3D.cast_shadow = true
-	stop_light_timer_3()
 
 
 # Connected to the item_dropped signal (fires once per drop)
@@ -194,51 +196,57 @@ func light_dropped():
 	# Apply the base candle 1 drop penalty too, which the deleted direct
 	# item_drop() call used to cover before the emit-only fix
 	item_drop()
-	if number_of_candles > 1:
-		var light_timer_2 = $Timer2
-		var light_timer_3 = $Timer3
-		stop_light_timer_2()
-		stop_light_timer_3()
-
-		burn_time_2 -= (burn_time_2 * life_percentage_lose)
-		random_number_2_3 = randf_range(0.0, 1.0)
-		light_timer_2.set_wait_time(burn_time_2)
-		light_timer_2.start()
-		if random_number_2_3 < prob_going_out:
-			unlight_candle_2()
-
-		burn_time_3 -= (burn_time_3 * life_percentage_lose)
-		random_number_2_3 = randf_range(0.0, 1.0)
-		light_timer_3.set_wait_time(burn_time_3)
-		light_timer_3.start()
-		if random_number_2_3 < prob_going_out:
-			unlight_candle_3()
+	for i in range(1, candle_fuel.size()):
+		var fuel := candle_fuel[i]
+		if fuel.fuel_source == null:
+			continue
+		fuel.fill -= fuel.fill * life_percentage_lose
+		random_number = randf_range(0.0, 1.0)
+		if random_number < prob_going_out:
+			candle_lit[i] = false
+			_set_candle_fire(i, false)
+	_refresh_light_output()
 
 
 func _on_light_depleted():
-	burn_time = 0
 	unlight()
 	is_depleted = true
 
 
-func stop_light_timer():
-	if is_instance_valid(light_timer):
-		burn_time = light_timer.get_time_left()
-		light_timer.stop()
-
-
 func item_drop():
-	stop_light_timer()
-	burn_time -= (burn_time * life_percentage_lose)
+	# Drop penalty (3.x life_percentage_lose semantics) applied to the base
+	# candle's fuel fill, exactly once per drop.
+	if not candle_fuel.is_empty() and candle_fuel[0].fuel_source != null:
+		candle_fuel[0].fill -= candle_fuel[0].fill * life_percentage_lose
 	random_number = randf_range(0.0, 1.0)
-	
-	if is_instance_valid(light_timer):
-		light_timer.set_wait_time(burn_time)
-		light_timer.start()
-	
+
 	if linear_velocity.length() > 0.01:
 		if random_number < prob_going_out:
 			unlight()
+
+
+func count_lit_candles() -> int:
+	var lit := 0
+	for state in candle_lit:
+		if state:
+			lit += 1
+	return lit
+
+
+## Per-object light output (owner decision 6): the shared flame light scales
+## its authored energy and range by the logarithmic curve over the current
+## lit-candle count, so the output drops as candles burn out or are removed.
+func _refresh_light_output() -> void:
+	if firelight == null:
+		return
+	var lit := count_lit_candles()
+	if lit <= 0:
+		firelight.visible = false
+		return
+	firelight.visible = true
+	var scale := FuelContainer.light_scale_for(lit, light_scale_gain)
+	firelight.light_energy = base_light_energy * scale
+	_set_light_range(firelight, base_light_range * scale)
 
 
 func _on_ignite_character_interacted(_character: Variant) -> void:

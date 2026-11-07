@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://4rvueox2w0g1"]
+[gd_scene load_steps=37 format=4 uid="uid://4rvueox2w0g1"]
 
 [ext_resource type="Script" uid="uid://c8j77j5uyip5" path="res://scenes/objects/pickable_items/equipment/consumable/bomb/grenade/grenade.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b5bwgcp70dhdv" path="res://resources/models/items/consumables/bombs/grenade/Textures/Material_Mixed_AO.png" id="3"]
@@ -147,6 +147,9 @@ shader_parameter/emission_color_ramp = SubResource("33")
 [sub_resource type="QuadMesh" id="35"]
 material = SubResource("25")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_blast_grenade"]
+radius = 5.0
+
 [node name="Grenade" instance=ExtResource("8")]
 mass = 0.3
 script = ExtResource("1")
@@ -217,3 +220,8 @@ sound_effect = ExtResource("13")
 [node name="FlashTimer2" type="Timer" parent="Flash" index="0"]
 wait_time = 0.05
 one_shot = true
+
+[node name="CollisionShape3D" parent="Explosion/BlastRadius" index="0"]
+shape = SubResource("SphereShape3D_blast_grenade")
+
+[editable path="Explosion"]

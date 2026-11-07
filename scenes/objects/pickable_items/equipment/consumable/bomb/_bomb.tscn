@@ -36,3 +36,5 @@ one_shot = true
 [connection signal="item_state_changed" from="." to="." method="_on_item_state_changed"]
 [connection signal="timeout" from="Countdown" to="." method="_on_Countdown_timeout"]
 [connection signal="timeout" from="Flash/FlashTimer" to="." method="_on_flash_timer_timeout"]
+
+[editable path="Explosion"]

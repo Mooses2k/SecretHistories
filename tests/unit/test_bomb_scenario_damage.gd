@@ -182,12 +182,12 @@ func test_grenade_beside_a_cultist_deals_heavy_damage() -> void:
 
 func test_grenade_outside_the_blast_radius_deals_no_damage() -> void:
 	var cultist : Node3D = await _spawn_character(CULTIST_SCENE, Vector3(2.0, 0.0, 6.0))
-	var bomb : RigidBody3D = await _rest_grenade(Vector3(2.0, 0.14, 14.0))
+	var bomb : RigidBody3D = await _rest_grenade(Vector3(2.0, 0.14, 18.0))
 	var amounts := _record_damages(cultist)
 	var state : HumanoidCharacterState = cultist.get_node("State")
 	bomb.call("_on_Countdown_timeout")
 	await _physics_frames(2)
-	assert_eq(amounts.size(), 0, "8 m is outside the about 4.9 m blast radius, no hurtbox is reached")
+	assert_eq(amounts.size(), 0, "12 m is outside the about 10 m grenade blast radius, no hurtbox is reached")
 	assert_eq(state.durability, 100, "a far grenade leaves the cultist untouched")
 
 

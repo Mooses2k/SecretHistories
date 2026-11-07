@@ -48,7 +48,8 @@ var settings_names = [
 	"is_shift_kick",
 	"is_shift_dodge",
 	"is_shift_sprint",
-	"shift_preset"
+	"shift_preset",
+	"is_left_hand_mouse"
 ]
 
 
@@ -106,6 +107,8 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(KeyInputSettings.shift_sprint_enabled())]
 			"shift_preset":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(KeyInputSettings.get_overload_preset())]
+			"is_left_hand_mouse":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(KeyInputSettings.get_left_hand_mouse())]
 
 	return config
 
@@ -187,6 +190,8 @@ func setup_settings(settings_dict : Dictionary):
 				KeyInputSettings.set_shift_sprint(value)
 			"shift_preset":
 				KeyInputSettings.set_overload_preset(int(value))
+			"is_left_hand_mouse":
+				KeyInputSettings.set_left_hand_mouse(value)
 
 
 func save_settings() -> void:

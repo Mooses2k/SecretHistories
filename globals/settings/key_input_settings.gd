@@ -24,6 +24,7 @@ const SETTING_OVERLOAD_PRESET : String = "Shift Overload Preset"
 const SETTING_SHIFT_KICK : String = "Kick on Shift (tap)"
 const SETTING_SHIFT_DODGE : String = "Dodge on Shift + direction"
 const SETTING_SHIFT_SPRINT : String = "Sprint on Shift (hold)"
+const SETTING_LEFT_HAND : String = "Left-hand Mouse"
 
 ## Preset bundles: each entry is [kick, dodge, sprint]. Kick on Shift tap is
 ## the footwork overload's anchor behavior and stays on in every preset.
@@ -40,6 +41,11 @@ const OVERLOAD_PRESET_VARIANTS : PackedStringArray = [
 	"Sprint / dodge",
 	"Kick",
 ]
+
+## Left-hand mouse swap (wiki Interface 5.2: "have left-hand mouse bind as
+## well"): these two actions exchange their keyboard/mouse events while the
+## setting is on. Joypad events never move.
+const LEFT_HAND_ACTIONS : Array = ["playerhand|mainhand_use", "player|interact"]
 
 const BINDING_MAP : Array = [
 	{
@@ -67,6 +73,7 @@ const BINDING_MAP : Array = [
 		"category": "Player Actions",
 		"rows": [
 			{"action": "player|interact", "name": "Interact / ADS / Drag (RMB)"},
+			{"setting": SETTING_LEFT_HAND},
 			{"mode": "Hold ADS (Aim Down Sights)"},
 			{"action": "interact", "name": "Interact (separate key)"},
 			{"action": "ads", "name": "ADS (separate key)"},
@@ -169,6 +176,77 @@ func set_shift_sprint(enabled : bool) -> void:
 	Settings.set_setting(SETTING_SHIFT_SPRINT, enabled)
 
 
+func get_left_hand_mouse() -> bool:
+	if not Settings.has_setting(SETTING_LEFT_HAND):
+		return false
+	return bool(Settings.get_setting(SETTING_LEFT_HAND))
+
+
+func set_left_hand_mouse(enabled : bool) -> void:
+	Settings.set_setting(SETTING_LEFT_HAND, enabled)
+
+
+## Left-hand mouse (wiki Interface 5.2): exchange the keyboard and mouse
+## events of mainhand use and interact, so LMB does the RMB job and vice
+## versa. Idempotent: only swaps when the current map is in the expected
+## state, so a boot against an already swapped keybinding.dict never swaps
+## twice. Joypad events never move. Returns true when events moved.
+func _apply_left_hand_swap(enabled : bool) -> bool:
+	var mainhand_action : String = LEFT_HAND_ACTIONS[0]
+	var interact_action : String = LEFT_HAND_ACTIONS[1]
+	if not InputMap.has_action(mainhand_action) or not InputMap.has_action(interact_action):
+		return false
+	if not _left_hand_can_swap(enabled, mainhand_action, interact_action):
+		return false
+	var mainhand_events := _bindable_events(mainhand_action)
+	var interact_events := _bindable_events(interact_action)
+	_clear_bindable_events(mainhand_action)
+	_clear_bindable_events(interact_action)
+	for event in interact_events:
+		InputMap.action_add_event(mainhand_action, event)
+	for event in mainhand_events:
+		InputMap.action_add_event(interact_action, event)
+	_persist_row(mainhand_action, null)
+	_persist_row(interact_action, null)
+	KeybindingManager.save_keys()
+	return true
+
+
+## The swap is safe only when the two actions currently hold the roles the
+## toggle expects: enabling requires the right-handed layout, disabling
+## requires the swapped one. Custom rebinds that blur the roles refuse the
+## swap instead of silently reshuffling the user's keys.
+func _left_hand_can_swap(enabled : bool, mainhand_action : String, interact_action : String) -> bool:
+	var mainhand_has_lmb := false
+	var mainhand_has_rmb := false
+	var interact_has_lmb := false
+	var interact_has_rmb := false
+	for event in _bindable_events(mainhand_action):
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				mainhand_has_lmb = true
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				mainhand_has_rmb = true
+	for event in _bindable_events(interact_action):
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				interact_has_lmb = true
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				interact_has_rmb = true
+	if enabled:
+		return mainhand_has_lmb and interact_has_rmb
+	return mainhand_has_rmb and interact_has_lmb
+
+
+## Keyboard and mouse events of one action, kept in order for the exchange.
+func _bindable_events(action : String) -> Array:
+	var events := Array()
+	for event in InputMap.action_get_events(action):
+		if event is InputEventKey or event is InputEventMouseButton:
+			events.append(event)
+	return events
+
+
 func get_overload_preset() -> int:
 	if not Settings.has_setting(SETTING_OVERLOAD_PRESET):
 		return 0
@@ -253,6 +331,8 @@ func _register_setting_row(setting_name : String, category : String) -> void:
 					OVERLOAD_PRESET_VARIANTS, 0)
 		SETTING_SHIFT_KICK, SETTING_SHIFT_DODGE, SETTING_SHIFT_SPRINT:
 			Settings.add_bool_setting(setting_name, true)
+		SETTING_LEFT_HAND:
+			Settings.add_bool_setting(SETTING_LEFT_HAND, false)
 		_:
 			push_warning("Unknown setting row skipped: " + setting_name)
 			return
@@ -269,6 +349,11 @@ func on_setting_changed(setting_name, _old_value, new_value) -> void:
 			return
 		SETTING_SHIFT_KICK, SETTING_SHIFT_DODGE, SETTING_SHIFT_SPRINT:
 			if new_value is bool:
+				SettingsConfig.save_settings()
+			return
+		SETTING_LEFT_HAND:
+			if new_value is bool:
+				_apply_left_hand_swap(new_value)
 				SettingsConfig.save_settings()
 			return
 	if not _mapped_actions.has(setting_name):
@@ -377,6 +462,10 @@ func reset_actions() -> void:
 			InputMap.action_add_event(action_name, event)
 		_persist_row(action_name, null)
 	_clear_conflicts_with_defaults()
+	# Reset restores the right-handed project defaults, so the left-hand
+	# swap must be re-applied when the setting is on.
+	if get_left_hand_mouse():
+		_apply_left_hand_swap(true)
 	KeybindingManager.save_keys()
 
 

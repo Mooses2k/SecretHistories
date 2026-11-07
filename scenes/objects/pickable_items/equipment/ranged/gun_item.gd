@@ -113,6 +113,22 @@ func get_reload_length():
 		reload_time = animation_player.get_animation("reload").length - 0.3
 
 
+## Owner-approved gunshot noise formula A: linear mapping chosen for gameplay
+## texture, one noise step per two damage points, so every gun stays distinct
+## without extremes. Pellet ammo measures its total payload (the shell's
+## damage times the pellet count) so a louder report tracks the powder
+## actually burned. The physically faithful model would be a pure log10
+## mapping (noise proportional to sound power, about 10 * log10 of the
+## muzzle energy); that is a documented future option. The barrel-shortness
+## modifier applies AFTER the transform: damage_offset is negative for
+## shortened barrels, so subtracting it adds noise.
+static func gunshot_noise_for(ammo_type : AmmunitionData, offset : int) -> float:
+	var payload_damage : int = ammo_type.damage
+	if ammo_type.pellet_count > 1:
+		payload_damage = ammo_type.damage * ammo_type.pellet_count
+	return 30.0 + round(payload_damage / 2.0) - offset
+
+
 func set_range(value : Vector2):
 	var amount : int = value.x
 	if value.y > value.x:
@@ -125,8 +141,7 @@ func set_range(value : Vector2):
 func shoot():
 	var ammo_type = current_ammo_type as AmmunitionData
 
-	# The reason it's MINUS damage_offset (thus louder) is more of the powder is exploding outside the barrel
-	noise_level = ammo_type.damage - damage_offset   # damage_offset is a negative so this is a addition operation
+	noise_level = gunshot_noise_for(ammo_type, damage_offset)
 
 	var max_dispersion_radians : float = deg_to_rad(dispersion_offset_degrees + ammo_type.dispersion) / 2.0
 	var total_damage : int = damage_offset + ammo_type.damage

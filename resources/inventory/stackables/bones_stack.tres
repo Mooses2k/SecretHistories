@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://ch56kkgmai4he" path="res://resources/inventory/stackable_resource.gd" id="1_otnc0"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_otnc0")
 stack_name = "Bones"
 max_stack = 3

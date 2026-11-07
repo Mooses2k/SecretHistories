@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://ch56kkgmai4he" path="res://resources/inventory/stackable_resource.gd" id="1_pw2qp"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_pw2qp")
 stack_name = "Vials"
 max_stack = 5

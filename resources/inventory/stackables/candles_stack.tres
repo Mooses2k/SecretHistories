@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://ch56kkgmai4he" path="res://resources/inventory/stackable_resource.gd" id="1_gn3cr"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_gn3cr")
 stack_name = "Candles"
 max_stack = 5

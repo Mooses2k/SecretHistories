@@ -299,8 +299,12 @@ func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float
 		return
 	movement_audio.volume_db = rate
 	movement_audio.pitch_scale = pitch
-	## Why is there a volume AND a rate? 
-	#movement_audio.volume_db = rate
+	# 3.x parity (origin/main): unit_db was assigned twice, first rate then
+	# the volume param, so walk/sprint footsteps ended at 0 dB and crouch at
+	# -20 dB. The 4.x port dropped the second assignment, which made
+	# footsteps 5 dB louder than 3.x and let footstep leftovers deform the
+	# landing sound into something that reads as a wrong footstep clip.
+	movement_audio.volume_db = volume
 
 	match material:
 		AudioLibrary.FOOTSTEP_TYPES.STONE:
@@ -319,14 +323,13 @@ func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float
 
 
 func play_land_sound():
-	# Own the playback parameters: the footstep path shares the Movement
-	# player and leaves its own pitch (1.5 sprint, 0.1 crouch) and volume
-	# (+5.0 rate) behind. 3.x kept the land clip at natural pitch and 0 dB
-	# because its footstep call ended by resetting unit_db to the volume
-	# param; the 4.x port dropped that reset, so the landing thump played
-	# deformed by footstep leftovers and sounded like a wrong footstep clip.
-	movement_audio.pitch_scale = 1.0
-	movement_audio.volume_db = 0.0
+	# 3.x parity (origin/main): the land clip inherits the pitch and volume
+	# the footstep path left on the shared Movement player. 3.x footsteps
+	# always ended at 0 dB (walk/sprint) or -20 dB (crouch, effectively
+	# silent), so landing played land_1.wav at natural pitch after walking
+	# and at 1.5 after a sprint, which reads as the sharp heel clap the
+	# owner remembers. The land_1.wav asset is blob-identical to 3.x main;
+	# the wrong landing audio came from the dropped footstep volume reset.
 	_landing_sounds.shuffle()
 	movement_audio.stream = _landing_sounds.front()
 	movement_audio.play()

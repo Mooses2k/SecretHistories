@@ -285,12 +285,29 @@ func _capture_inventory(inv: Inventory) -> Dictionary:
 		var entry: Dictionary = {"path": item.scene_file_path, "slot": slot}
 		if "charges_held" in item:
 			entry["charges"] = item.charges_held
+		# Tier C stack format (T12): the record is the count truth.
+		# record_id and type_id ride along for format completeness; restore
+		# re-creates records with fresh ids, so only count drives the load.
+		if item.stack_record_id >= 0:
+			var record: StackableStackRecord = inv.get_stack_record(item.stack_record_id)
+			if record != null:
+				entry["count"] = record.count
+				entry["record_id"] = record.id
+				entry["type_id"] = String(record.type_id)
 		hotbar.append(entry)
 	var tiny: Dictionary = {}
 	for tiny_data in inv.tiny_items:
 		var res_path: String = tiny_data.resource_path if tiny_data is Resource else ""
 		if res_path != "":
 			tiny[res_path] = inv.tiny_items[tiny_data]
+	# The #661 awareness set rides the same format: known tiny types are
+	# saved as resource paths so the ammo readout survives save/load even
+	# when a type was spent down to zero.
+	var known: Dictionary = {}
+	for known_data in inv.known_tiny_items:
+		var known_path: String = known_data.resource_path if known_data is Resource else ""
+		if known_path != "":
+			known[known_path] = true
 	var keys: Dictionary = {}
 	for key_id in inv.keychain:
 		keys[str(key_id)] = inv.keychain[key_id]
@@ -300,6 +317,7 @@ func _capture_inventory(inv: Inventory) -> Dictionary:
 		"mainhand_slot": inv.current_mainhand_slot,
 		"offhand_slot": inv.current_offhand_slot,
 		"tiny_items": tiny,
+		"known_tiny_items": known,
 		"keychain": keys,
 	}
 
@@ -667,15 +685,63 @@ func _apply_inventory(inv: Inventory, data: Dictionary) -> void:
 		_spawn_into_inventory(inv, bulky_path, -1)
 	for entry: Variant in data.get("hotbar", []):
 		if entry is Dictionary:
-			_spawn_into_inventory(inv, str(entry.get("path", "")), -1, int(entry.get("charges", -1)))
+			_spawn_hotbar_entry(inv, entry as Dictionary)
 	for res_path: String in data.get("tiny_items", {}):
 		var tiny_res: Resource = load(res_path)
 		if tiny_res is TinyItemData:
 			inv.insert_tiny_item(tiny_res, int(data["tiny_items"][res_path]))
+	# The #661 awareness set: restore known types (even at zero count)
+	# before the first pickup so the ammo readout survives save/load.
+	for known_path: String in data.get("known_tiny_items", {}):
+		var known_res: Resource = load(known_path)
+		if known_res is TinyItemData:
+			inv.known_tiny_items[known_res] = true
 	for key_id: String in data.get("keychain", {}):
 		inv.keychain[int(key_id)] = int(data["keychain"][key_id])
 	inv.set_mainhand_slot(int(data.get("mainhand_slot", 0)))
 	inv.set_offhand_slot(int(data.get("offhand_slot", Inventory.hands_free_slot)))
+	# Owner decision 5: encumbrance is never persisted; the load ends with
+	# one deterministic recount over the restored inventory.
+	inv._recount_encumbrance()
+
+
+func _spawn_hotbar_entry(inv: Inventory, entry: Dictionary) -> void:
+	var scene_path: String = str(entry.get("path", ""))
+	if scene_path == "":
+		return
+	var scene: PackedScene = load(scene_path)
+	if scene == null:
+		push_warning("[SaveManager] Cannot load item scene '%s', skipped" % scene_path)
+		return
+	var item: Node = scene.instantiate()
+	var charges: int = int(entry.get("charges", -1))
+	if item is EquipmentItem and charges >= 0 and "charges_held" in item:
+		item.charges_held = charges
+	if inv.character != null:
+		item.owner_character = inv.character
+	# T13: place_in_hotbar instead of add_item on purpose. add_item runs the
+	# pickup merge, so a later same-type entry would be absorbed into an
+	# earlier entry's record, and the medical consolidation would absorb a
+	# saved container into another saved container. place_in_hotbar tags
+	# every stackable with its own fresh count-1 record; the saved count is
+	# written onto that record below. Hand slots are re-pinned afterwards.
+	var slot: int = inv.place_in_hotbar(item)
+	if slot == -1:
+		push_warning("[SaveManager] Hotbar full on restore, item '%s' skipped" % scene_path)
+		item.free()
+		return
+	# Old-save fallback (owner decision 2): entries without "count" restore
+	# as one unit, which the place above already produced; a count-1 record
+	# is behaviorally identical to a bare single unit.
+	var count: int = int(entry.get("count", 1))
+	if item is EquipmentItem and count > 1 and item.stack_record_id >= 0:
+		var record: StackableStackRecord = inv.get_stack_record(item.stack_record_id)
+		if record != null:
+			# Direct count write on purpose (T13, doc-precedented direct
+			# surgery in the save path, T15 already clears the array
+			# directly): the record API merges by type and cannot target a
+			# specific record; the final recount covers encumbrance.
+			record.count = count
 
 
 func _spawn_into_inventory(inv: Inventory, scene_path: String, _slot: int, charges: int = -1) -> void:
@@ -809,6 +875,10 @@ func _apply_cultist_inventory(cultist: Node, data: Dictionary) -> void:
 	inv.current_offhand_equipment = null
 	inv.current_mainhand_slot = 0
 	inv.current_offhand_slot = Inventory.hands_free_slot
+	# T15: the record array is cleared with the rest of the loadout, and the
+	# id counter restarts so restore-produced ids are deterministic.
+	inv.stack_records.clear()
+	inv._next_stack_record_id = 0
 	inv.tiny_items.clear()
 	inv.keychain.clear()
 	if inv.bulky_equipment != null and is_instance_valid(inv.bulky_equipment) and not inv.bulky_equipment.is_queued_for_deletion():

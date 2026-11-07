@@ -19,19 +19,18 @@
 #   keychain, player position/rotation/health, and the door's state, flags
 #   and health. The load phase regenerates a fresh default door, exactly as
 #   the seeded world generation would, before the overlay applies the record.
-# - DEFERRED, asserted with nothing here:
-#   * Stackable equipment stacks: stackable_resource.items_stacked members do
-#     not roundtrip; the stack save gap is known and the stack design is
-#     being reworked. Do not pin.
-#   * Encumbrance: currently lost on load (audit row-22 gap). Verified by
-#     reading SaveManager._capture_inventory (writes no encumbrance field)
-#     and _apply_inventory (restores none). Deferred with the row-22 rework.
+# - Stack counts roundtrip through the Tier C format (T12/T13): the dagger
+#   stack is saved with its record count and restored as one representative
+#   with a fresh count-2 record; known_tiny_items roundtrip too (T12).
+# - Encumbrance is recomputed at load (owner decision 5), never persisted:
+#   the load-side value is asserted against the restored inventory.
 extends GutTest
 
 
 const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
 const MACE_SCENE := "res://scenes/objects/pickable_items/equipment/melee/mace/mace.tscn"
 const HATCHET_SCENE := "res://scenes/objects/pickable_items/equipment/melee/hatchet/hatchet.tscn"
+const DAGGER_SCENE := "res://scenes/objects/pickable_items/equipment/melee/dagger/dagger.tscn"
 const SPYGLASS_RESOURCE := "res://resources/tiny_items/spyglass.tres"
 const DOOR_SCENE := preload("res://scenes/objects/large_objects/doors/base_kinematic_door.tscn")
 
@@ -192,9 +191,17 @@ func test_save_roundtrip_restores_inventory_floor_and_door_state() -> void:
 	var hatchet_a : EquipmentItem = add_child_autofree((load(HATCHET_SCENE) as PackedScene).instantiate()) as EquipmentItem
 	inv_a.hotbar[0] = mace_a
 	inv_a.hotbar[1] = hatchet_a
-	# Two medium pickups' worth, simulating the add_item encumbrance gain.
-	# NOT saved (row-22 gap, see header) and asserted with nothing.
+	# A medium (mace) and a small (hatchet) pickup's worth; the save stores
+	# no encumbrance value and the load recomputes it (owner decision 5),
+	# asserted on the load side.
 	inv_a.encumbrance = 2.0
+	# A real dagger stack through the live pickup flow: the first places and
+	# tags, the second merges, one record holds 2 units (T1/T2/T3).
+	var dagger_a : EquipmentItem = add_child_autofree((load(DAGGER_SCENE) as PackedScene).instantiate()) as EquipmentItem
+	assert_true(inv_a.add_item(dagger_a), "precondition: the first dagger is picked up")
+	var dagger_b : EquipmentItem = add_child_autofree((load(DAGGER_SCENE) as PackedScene).instantiate()) as EquipmentItem
+	assert_true(inv_a.add_item(dagger_b), "precondition: the second dagger merges")
+	assert_eq(inv_a.stack_records[0].count, 2, "precondition: the dagger record holds 2 units")
 	var spyglass : TinyItemData = load(SPYGLASS_RESOURCE)
 	inv_a.insert_tiny_item(spyglass, 3)
 	inv_a.keychain[DOOR_SAVED_LOCK_ID] = 2
@@ -255,16 +262,29 @@ func test_save_roundtrip_restores_inventory_floor_and_door_state() -> void:
 
 	var inv_b : Inventory = _player_b.get_node("Inventory")
 	var restored_paths : Array = []
+	var restored_dagger : EquipmentItem = null
 	for slot in inv_b.hotbar.size():
 		var item_value : Variant = inv_b.hotbar[slot]
 		if item_value != null:
-			restored_paths.append((item_value as EquipmentItem).scene_file_path)
+			var restored_item : EquipmentItem = item_value as EquipmentItem
+			restored_paths.append(restored_item.scene_file_path)
+			if restored_item.scene_file_path == DAGGER_SCENE:
+				restored_dagger = restored_item
 	restored_paths.sort()
-	var expected_paths : Array = [HATCHET_SCENE, MACE_SCENE]
+	var expected_paths : Array = [DAGGER_SCENE, HATCHET_SCENE, MACE_SCENE]
 	expected_paths.sort()
-	assert_eq(restored_paths, expected_paths, "the non-stack loadout roundtrips (re-placed by the live add_item path)")
+	assert_eq(restored_paths, expected_paths, "the loadout roundtrips, stack included")
+	assert_not_null(restored_dagger, "the dagger representative roundtrips")
+	var restored_record : StackableStackRecord = inv_b.get_stack_record(restored_dagger.stack_record_id)
+	assert_eq(restored_record.count, 2, "T13: the stack count roundtrips onto a fresh record")
+	assert_eq(String(restored_record.type_id), "res://resources/inventory/stackables/daggers_stack.tres",
+		"T13: the restored record keeps the stack type")
+	assert_eq(inv_b.stack_records.size(), 1, "exactly one record for the one stack")
+	assert_eq(inv_b.encumbrance, 1.0,
+		"T13: encumbrance is recomputed at load (medium mace + small hatchet + a 0-weight dagger stack), never persisted")
 	assert_eq(inv_b.tiny_item_amount(spyglass), 3, "the tiny item stack count roundtrips")
 	assert_eq(inv_b.tiny_items.size(), 1, "only the saved tiny item type is present")
+	assert_true(inv_b.known_tiny_items.has(spyglass), "T12: the awareness set roundtrips")
 	assert_eq(inv_b.keychain, {DOOR_SAVED_LOCK_ID: 2}, "the keychain roundtrips")
 	assert_eq(inv_b.current_mainhand_slot, 0, "mainhand slot index roundtrips")
 	assert_eq(inv_b.current_offhand_slot, Inventory.hands_free_slot, "offhand slot index roundtrips")

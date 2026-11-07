@@ -60,6 +60,12 @@ size = Vector3(0.036, 0.214, 0.036)
 [sub_resource type="ParticleProcessMaterial" id="21"]
 direction = Vector3(0, 0, 0)
 spread = 180.0
+initial_velocity_min = 5.1
+initial_velocity_max = 10.0
+damping_min = 0.5
+damping_max = 1.5
+scale_min = 0.1
+scale_max = 0.1
 
 [sub_resource type="QuadMesh" id="22"]
 resource_local_to_scene = true
@@ -67,6 +73,14 @@ resource_local_to_scene = true
 [sub_resource type="ParticleProcessMaterial" id="23"]
 direction = Vector3(0, 0, 0)
 spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+damping_min = 8.65
+damping_max = 8.65
+scale_min = 0.03
+scale_max = 0.03
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 color = Color(1, 0.776471, 0.176471, 1)
 
 [sub_resource type="Gradient" id="9"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://c4cyksqrscr1n"]
+[gd_scene load_steps=31 format=3 uid="uid://c4cyksqrscr1n"]
 
 [ext_resource type="Texture2D" uid="uid://hsdv1agd3pqe" path="res://scenes/effects/explosion/smokesprite.png" id="1_4omy3"]
 [ext_resource type="Texture2D" uid="uid://dj11fsfhn8k4b" path="res://scenes/effects/explosion/normal+.png" id="1_hqa8q"]
@@ -135,6 +135,8 @@ void fragment() {
 "
 
 [sub_resource type="Gradient" id="Gradient_r35ja"]
+offsets = PackedFloat32Array(0, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_5kb8v"]
 gradient = SubResource("Gradient_r35ja")
@@ -185,27 +187,21 @@ shader_parameter/smoke_emission_ramp_2 = SubResource("GradientTexture1D_i0kso")
 shader_parameter/normal_1 = ExtResource("1_hqa8q")
 shader_parameter/normal_2 = ExtResource("2_mkoqj")
 
-[sub_resource type="Curve" id="Curve_yvshh"]
-_data = [Vector2(0, 0.592453), 0.0, 4.35423, 0, 0, Vector2(0.252026, 1), 0.821755, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_srw1k"]
-curve = SubResource("Curve_yvshh")
-
 [sub_resource type="ParticleProcessMaterial" id="1"]
 spread = 180.0
-initial_velocity_min = 0.5
-initial_velocity_max = 0.5
+initial_velocity_min = 0.51
+initial_velocity_max = 1.0
 gravity = Vector3(0, 0, 0)
-scale_min = 3.0
-scale_max = 3.0
-scale_curve = SubResource("CurveTexture_srw1k")
+angular_velocity_min = 0.0
+angular_velocity_max = 10.28
+linear_accel_min = -1.0
+linear_accel_max = -1.0
+angle_min = -180.0
+angle_max = 180.0
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 anim_offset_min = 0.0464
 anim_offset_max = 0.0975
-sub_emitter_mode = 2
-sub_emitter_amount_at_end = 1
 
 [sub_resource type="QuadMesh" id="QuadMesh_rm4by"]
 
@@ -327,9 +323,11 @@ transform = Transform3D(0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00830353, -0
 material_override = SubResource("ShaderMaterial_8a3ji")
 emitting = false
 one_shot = true
-amount = 5
-explosiveness = 0.97
+amount = 20
+lifetime = 2.13
+explosiveness = 0.91
 randomness = 0.84
+fixed_fps = 30
 visibility_aabb = AABB(-4, -4, -4.79199, 8, 8, 8)
 process_material = SubResource("1")
 draw_pass_1 = SubResource("QuadMesh_rm4by")

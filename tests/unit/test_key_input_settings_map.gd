@@ -88,8 +88,15 @@ func test_apply_binding_accepts_mouse_buttons_and_clears_the_conflict() -> void:
 	KeyInputSettings.apply_binding("player|interact", event)
 	assert_eq(KeyInputSettings.get_last_conflict_notice(),
 			"Mouse Middle Button was taken from Main Hand Throw / Drop (MMB)")
-	assert_eq(InputMap.action_get_events("playerhand|mainhand_throw").size(), 0)
-	assert_eq(InputMap.action_get_events("player|interact").size(), 1)
+	# Rebinds and conflict clears replace keyboard/mouse events only: the
+	# mainhand throw joypad default (Y button) survives the MMB conflict.
+	var throw_events: Array = InputMap.action_get_events("playerhand|mainhand_throw")
+	assert_eq(throw_events.size(), 1)
+	var throw_pad := throw_events[0] as InputEventJoypadButton
+	assert_true(throw_pad != null and throw_pad.button_index == JOY_BUTTON_Y,
+			"conflict clear keeps the joypad default")
+	assert_eq(InputMap.action_get_events("player|interact").size(), 2,
+			"rebound interact keeps its joypad default next to the new mouse event")
 	_restore_events("player|interact", interact_before)
 	_restore_events("playerhand|mainhand_throw", throw_before)
 
@@ -98,7 +105,19 @@ func test_apply_binding_replaces_all_events_of_the_action() -> void:
 	var crouch_before: Array = InputMap.action_get_events("player|crouch").duplicate()
 	KeyInputSettings.apply_binding("player|crouch", _key_event(KEY_K))
 	var crouch_events: Array = InputMap.action_get_events("player|crouch")
-	assert_eq(crouch_events.size(), 1, "rebind replaces the event list, no Ctrl eater")
+	# The keyboard default (Ctrl, C) is replaced by K; the L3 joypad default
+	# stays because gamepad bindings are not rebindable yet.
+	assert_eq(crouch_events.size(), 2, "rebind replaces keyboard/mouse, keeps joypad")
+	var has_k := false
+	var has_l3 := false
+	for crouch_event in crouch_events:
+		var key := crouch_event as InputEventKey
+		if key and key.keycode == KEY_K:
+			has_k = true
+		var pad := crouch_event as InputEventJoypadButton
+		if pad and pad.button_index == JOY_BUTTON_LEFT_STICK:
+			has_l3 = true
+	assert_true(has_k and has_l3, "keyboard replaced by K, L3 kept")
 	_restore_events("player|crouch", crouch_before)
 
 
@@ -109,24 +128,38 @@ func test_reset_restores_ctrl_crouch_and_clears_conflicting_user_bindings() -> v
 	KeyInputSettings.apply_binding("player|reload", _key_event(KEY_H))
 	KeyInputSettings.reset_actions()
 	var crouch_events: Array = InputMap.action_get_events("player|crouch")
-	assert_eq(crouch_events.size(), 2, "reset restores the full crouch default")
+	assert_eq(crouch_events.size(), 3, "reset restores the full crouch default")
 	var has_ctrl := false
 	var has_c := false
+	var has_l3 := false
 	for crouch_event in crouch_events:
 		var key := crouch_event as InputEventKey
-		if key == null:
-			continue
-		if key.keycode == KEY_CTRL:
-			has_ctrl = true
-		if key.keycode == KEY_C:
-			has_c = true
+		if key:
+			if key.keycode == KEY_CTRL:
+				has_ctrl = true
+			if key.keycode == KEY_C:
+				has_c = true
+		var pad := crouch_event as InputEventJoypadButton
+		if pad and pad.button_index == JOY_BUTTON_LEFT_STICK:
+			has_l3 = true
 	assert_true(has_ctrl and has_c, "reset keeps Ctrl-crouch from project.godot")
+	assert_true(has_l3, "reset restores the crouch joypad default")
 	# The H bound onto reload conflicts with the restored holster default
-	# (H): defaults win, the user event is cleared from reload.
+	# (H): defaults win, the user event is cleared from reload. Reload also
+	# keeps its L2 trigger joypad default.
 	var reload_events: Array = InputMap.action_get_events("player|reload")
-	assert_eq(reload_events.size(), 1, "conflicting user binding cleared on reset")
-	var reload_key := reload_events[0] as InputEventKey
-	assert_eq(reload_key.keycode, KEY_R)
+	assert_eq(reload_events.size(), 2, "conflicting user binding cleared on reset")
+	var has_r := false
+	var has_l2 := false
+	for reload_event in reload_events:
+		var key := reload_event as InputEventKey
+		if key and key.keycode == KEY_R:
+			has_r = true
+		var trigger := reload_event as InputEventJoypadMotion
+		if trigger and trigger.axis == JOY_AXIS_TRIGGER_LEFT:
+			has_l2 = true
+	assert_true(has_r, "reload keeps its keyboard default")
+	assert_true(has_l2, "reload keeps its trigger joypad default")
 
 
 func _restore_events(action : String, events : Array) -> void:

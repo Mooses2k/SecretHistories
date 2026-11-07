@@ -693,16 +693,17 @@ func _interact_barred(character):
 	# From the other side the bar cannot be reached; nothing happens.
 
 
-func _character_has_key(character) -> bool:
-	var inventory = character.get("inventory") if character != null else null
-	if inventory == null:
-		return false
-	var keychain = inventory.get("keychain")
-	return keychain is Dictionary and keychain.get(lock_id, 0) > 0
+func _character_has_key(character : Node) -> bool:
+	if character is HumanoidCharacter:
+		var inventory : Inventory = (character as HumanoidCharacter).inventory
+		if inventory != null:
+			return inventory.keychain.get(lock_id, 0) > 0
+	return false
 
 
-func _consume_key(character):
-	var keychain : Dictionary = character.get("inventory").get("keychain")
+func _consume_key(character : Node) -> void:
+	var inventory : Inventory = (character as HumanoidCharacter).inventory
+	var keychain : Dictionary = inventory.keychain
 	keychain[lock_id] = keychain.get(lock_id, 0) - 1
 	if keychain[lock_id] <= 0:
 		keychain.erase(lock_id)

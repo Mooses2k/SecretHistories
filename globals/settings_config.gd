@@ -11,6 +11,17 @@ var file_name_default = "%s://globals/settings/default_settings.dict" % ("user")
 
 var setting_key = false
 
+# Save coalescing: save_settings() only marks a batch pending and restarts a
+# short one-shot timer; the timer expiry writes the whole batch once. Every
+# settled change reaches disk at most SAVE_DEBOUNCE_SECONDS late, and a
+# pending batch is flushed on tree exit so quitting never loses it.
+const SAVE_DEBOUNCE_SECONDS : float = 0.25
+
+var _save_pending : bool = false
+var _batch_requests : int = 0
+var _write_count : int = 0
+var _save_timer : Timer
+
 enum value_types {
 	BOOL,
 	FLOAT
@@ -37,8 +48,19 @@ var settings_names = [
 ]
 
 
-func _ready():
+func _ready() -> void:
+	_save_timer = Timer.new()
+	_save_timer.one_shot = true
+	_save_timer.wait_time = SAVE_DEBOUNCE_SECONDS
+	_save_timer.timeout.connect(_flush_pending_save)
+	add_child(_save_timer)
 	load_settings_config()
+
+
+func _exit_tree() -> void:
+	# App quit tears the autoload out of the tree; flush anything pending
+	# first so the exit state of the settings is the on-disk state.
+	_flush_pending_save()
 
 
 func gen_dict_from_settings() -> Dictionary:
@@ -147,11 +169,31 @@ func setup_settings(settings_dict : Dictionary):
 				GameSettings.is_first_run = value
 
 
-func save_settings():
+func save_settings() -> void:
+	_batch_requests += 1
+	if _save_pending:
+		print("DEBUG: SettingsConfig.save_settings() - request coalesced into the pending batch (", _batch_requests, " requests)")
+		return
+	_save_pending = true
+	print("DEBUG: SettingsConfig.save_settings() - save requested, writing in ", SAVE_DEBOUNCE_SECONDS, " s")
+	_save_timer.start()
+
+
+func _flush_pending_save() -> void:
+	if not _save_pending:
+		return
+	_save_pending = false
+	var requests : int = _batch_requests
+	_batch_requests = 0
+	print("DEBUG: SettingsConfig.save_settings() - writing batch of ", requests, " coalesced request(s)")
+	_write_settings_file()
+
+
+func _write_settings_file() -> void:
 	var key_dict = gen_dict_from_settings()
 	print("DEBUG: SettingsConfig.save_settings() - Generated dictionary keys: ", key_dict.keys())
 	print("DEBUG: SettingsConfig.save_settings() - is_first_run value in dict: ", key_dict.get("is_first_run", "NOT_FOUND"))
-	
+
 	var dir_path = file_name.get_base_dir()
 	var dir = DirAccess.open("res://")
 	if not dir.dir_exists(dir_path):
@@ -159,15 +201,14 @@ func save_settings():
 	var file = FileAccess.open(file_name, FileAccess.WRITE)
 	file.store_string(var_to_str(key_dict))
 	file.close()
+	_write_count += 1
 	print("settings config saved")
 
 
 func save_default_settings():
 	var key_dict = gen_dict_from_settings()
-	var dir = DirAccess.open("res://")
 	var dir_path = file_name_default.get_base_dir()
-	if not dir.dir_exists(dir_path):
-		dir.make_dir_recursive(dir_path)
+	DirAccess.make_dir_recursive_absolute(dir_path)
 	var file = FileAccess.open(file_name_default, FileAccess.WRITE)
 	file.store_string(var_to_str(key_dict))
 	file.close()

@@ -86,11 +86,13 @@ func process_impact_detection(state: PhysicsDirectBodyState3D) -> void:
 	if LoadScene.loading:  # Skip during level loading
 		return
 	
-	# Thrown-item rule (owner): the throw rotation loop dies on the FIRST
-	# physical contact after the throw. Runs ahead of the impact-sound
-	# thresholds, so a soft contact that plays no drop sound still stops the
-	# loop instead of letting it spin on past the hit.
+	# Thrown-item rules (owner): the throw rotation loop dies on the FIRST
+	# physical contact after the throw, and dies again for certain when the
+	# spin itself stalls. Both run ahead of the impact-sound thresholds, so a
+	# soft contact that plays no drop sound still stops the loop instead of
+	# letting it spin on past the hit.
 	_stop_throw_loop_on_first_contact(state)
+	_stop_throw_loop_when_spin_stalls(state)
 	
 	var current_velocity = state.linear_velocity.length()
 	var velocity_change = abs(current_velocity - old_velocity)
@@ -142,6 +144,34 @@ func _stop_throw_loop_on_first_contact(state: PhysicsDirectBodyState3D) -> void:
 				if collider_object != null:
 					parent_body.audio_player.stop()
 					return
+
+
+## Stop the thrown item's rotation loop when the spin stalls, contact or no
+## contact. The contact stop above deliberately skips thrower contacts and
+## needs a non-null collider object, so a hatchet that settles against its own
+## thrower, or whose contacts report no collider, keeps the whoosh alive while
+## the blade lies still. While the loop plays, latch that the spin reached
+## active speed and cut the loop on the tick the spin falls back under the
+## stall floor. A throw that never spins (point-first daggers) never latches,
+## so their loop stays the contact stop's job.
+const SPIN_ACTIVE_SPEED : float = 2.0
+const SPIN_STALLED_SPEED : float = 0.5
+var _spin_reached_active_speed : bool = false
+
+
+func _stop_throw_loop_when_spin_stalls(state: PhysicsDirectBodyState3D) -> void:
+	if not (parent_body is PickableItem):
+		return
+	var loop_player : AudioStreamPlayer3D = parent_body.audio_player
+	if not is_instance_valid(loop_player) or not loop_player.playing:
+		_spin_reached_active_speed = false
+		return
+	var angular_speed : float = state.angular_velocity.length()
+	if angular_speed >= SPIN_ACTIVE_SPEED:
+		_spin_reached_active_speed = true
+	elif _spin_reached_active_speed and angular_speed < SPIN_STALLED_SPEED:
+		loop_player.stop()
+		_spin_reached_active_speed = false
 
 
 ## Play impact sound with volume and pitch scaling

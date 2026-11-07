@@ -108,6 +108,16 @@ func check_item_state():
 func set_item_state(value : int) :
 	var previous = item_state
 	item_state = value
+	# Throw-loop pairing: the whoosh starts on a throw and must never outlive
+	# the throw. While the body stays DROPPED the impact audio manager stops
+	# the loop on first contact or when the spin stalls; leaving DROPPED
+	# (pickup, re-equip, capture) removes the body from impact detection, so
+	# the funnel stops it here.
+	if (previous == GlobalConsts.ItemState.DROPPED
+			and value != GlobalConsts.ItemState.DROPPED
+			and is_instance_valid(audio_player)
+			and audio_player.playing):
+		audio_player.stop()
 	emit_signal("item_state_changed", previous, item_state)
 
 

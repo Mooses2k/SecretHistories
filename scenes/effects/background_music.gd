@@ -118,9 +118,17 @@ func _begin_crossfade(p_stream : AudioStream, p_volume_db : float) -> void:
 	if _fade_active:
 		if playing and p_stream == self.stream:
 			# The requested track is the one still fading out on this node
-			# (doorway thrash): reverse the running crossfade instead of
-			# cutting it, so its playback position never skips.
-			_reverse_crossfade(p_volume_db)
+			# (doorway thrash): retarget the running crossfade toward it
+			# instead of cutting it, so its playback position never skips.
+			_retarget_crossfade(p_stream, p_volume_db)
+			return
+		if _crossfade_player.stream != null and p_stream == _crossfade_player.stream:
+			# The requested track is the in-flight one fading down on the
+			# child (rapid enter/leave bounce right after a reversal):
+			# retarget the running crossfade back toward the child's stream
+			# instead of adopting it, which would cut this node's outgoing
+			# track at its current gain and restart a fresh self-crossfade.
+			_retarget_crossfade(p_stream, p_volume_db)
 			return
 		# Retargeting to a third stream: adopt the in-flight stream onto this
 		# node first so the fresh crossfade starts from a normalized state.
@@ -160,18 +168,31 @@ func _begin_crossfade(p_stream : AudioStream, p_volume_db : float) -> void:
 		_fade_tween.tween_callback(_commit_crossfade)
 
 
-## Reverses a running crossfade: the outgoing side on this node fades back up
-## to its request volume while the child fades down and stops.
-func _reverse_crossfade(p_volume_db : float) -> void:
-	_target_stream = self.stream
+## Retargets a running crossfade in flight: the side holding the requested
+## stream fades to the target gain while the other side fades to silence.
+## Tweens start from the current gains, so the transition is continuous with
+## no adopt cut and no restart; _commit_crossfade then adopts whichever side
+## ended up holding the target.
+func _retarget_crossfade(p_stream : AudioStream, p_volume_db : float) -> void:
+	_target_stream = p_stream
 	_target_volume_db = p_volume_db
 	_target_volume_linear = db_to_linear(p_volume_db)
 	_kill_fade_tween()
 	_fade_active = true
 	_fade_expects_root_playing = true
 	_fade_tween = create_tween().set_parallel(true)
-	_fade_tween.tween_property(self, "volume_linear", _target_volume_linear, CROSSFADE_SECONDS)
-	_fade_tween.tween_property(_crossfade_player, "volume_linear", 0.0, CROSSFADE_SECONDS)
+	if p_stream == self.stream:
+		# the outgoing side on this node comes back: it fades up while the
+		# child's in-flight stream fades down and stops
+		_fade_tween.tween_property(self, "volume_linear", _target_volume_linear, CROSSFADE_SECONDS)
+		_fade_tween.tween_property(_crossfade_player, "volume_linear", 0.0, CROSSFADE_SECONDS)
+	else:
+		# the child holds the in-flight stream: it fades back up to the
+		# target gain while this node's outgoing track fades down; no adopt,
+		# no cut
+		_fade_tween.tween_property(self, "volume_linear", 0.0, CROSSFADE_SECONDS)
+		_fade_tween.tween_property(_crossfade_player, "volume_linear",
+				_target_volume_linear, CROSSFADE_SECONDS)
 	_fade_tween.chain().tween_callback(_commit_crossfade)
 
 

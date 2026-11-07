@@ -141,6 +141,44 @@ func test_doorway_thrash_reverses_back_without_cutting_the_outgoing_track() -> v
 	assert_false(manager._crossfade_player.playing, "crypt incoming player went idle")
 
 
+func test_rapid_alternation_retargets_in_flight_fade_without_gain_jump() -> void:
+	# Enter/leave thrash faster than the crossfade: Empty -> crypt (crossfade
+	# starts) -> Empty (reversal toward the root's stream) -> crypt again
+	# before the reversal commits. The in-flight fade must retarget smoothly
+	# toward the child's stream: no adopt cut, no gain jump on either player,
+	# and the fade completes into the last requested track.
+	manager.play_ambient(EMPTY_AMBIENCE, 0.0)
+	await _frames(2)
+	manager.play_ambient(CRYPT_AMBIENCE, 0.0)
+	await get_tree().create_timer(0.5).timeout
+	manager.play_ambient(EMPTY_AMBIENCE, 0.0)
+	await get_tree().create_timer(0.5).timeout
+	var root_lin_before : float = db_to_linear(manager.volume_db)
+	var child_lin_before : float = db_to_linear(manager._crossfade_player.volume_db)
+
+	manager.play_ambient(CRYPT_AMBIENCE, 0.0)
+	await _frames(2)
+
+	var root_lin_after : float = db_to_linear(manager.volume_db)
+	var child_lin_after : float = db_to_linear(manager._crossfade_player.volume_db)
+	assert_almost_eq(root_lin_after, root_lin_before, 0.15,
+			"no gain jump on the outgoing player (before=%s after=%s)"
+			% [root_lin_before, root_lin_after])
+	assert_almost_eq(child_lin_after, child_lin_before, 0.15,
+			"no gain jump on the incoming player (before=%s after=%s)"
+			% [child_lin_before, child_lin_after])
+	assert_eq(manager._target_stream, CRYPT_AMBIENCE, "target flipped back to crypt")
+	assert_eq(manager.stream, EMPTY_AMBIENCE, "no adopt cut: Empty still on the root")
+	assert_eq(manager._crossfade_player.stream, CRYPT_AMBIENCE,
+			"in-flight child stream preserved, not restarted")
+
+	await get_tree().create_timer(3.4).timeout
+
+	assert_false(manager._fade_active, "retargeted crossfade completed")
+	assert_eq(manager.stream, CRYPT_AMBIENCE, "crypt is the committed track")
+	assert_false(manager._crossfade_player.playing, "child idle after commit")
+
+
 #--- loop enforcement -----------------------------------------------------------------------------
 
 func test_mp3_stream_is_forced_to_loop_on_request() -> void:

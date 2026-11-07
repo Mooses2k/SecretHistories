@@ -30,6 +30,10 @@ var _current_sound_dir : String = ""
 const BREATHING_STREAM : AudioStream = preload("res://resources/sounds/breathing/heavy_breath.mp3")
 const BREATHING_FULL_DB : float = -16.0   # 3.x tired() volume at full stamina
 const BREATHING_EMPTY_DB : float = 14.0   # 3.x tired() volume at zero stamina
+# Issue #179: shared room reverb system (one "Reverb" bus, re-parameterized
+# from the room the player stands in). Preloaded, not via the global class
+# name, because headless runs do not refresh the global class cache.
+const RoomReverbAreaScript : GDScript = preload("res://scenes/effects/room_reverb_area.gd")
 var _breathing_audio : AudioStreamPlayer
 
 @onready var speech_audio = $Speech as AudioStreamPlayer3D
@@ -86,9 +90,16 @@ func load_sounds(sound_dir : String, type : int) -> void:
 ## 3.x Stamina node behavior: breathing always runs while alive, volume
 ## interpolating from quiet at full stamina to loud at empty.
 func _setup_breathing() -> void:
+	# Issue #179: breathing rides the one shared "Reverb" bus so the room the
+	# player stands in re-parameterizes the reverb tail (was: bus Effects).
+	# Reverb sends onward to Effects, so the Effects Volume slider still
+	# applies. The default-params reset also clears stale params carried over
+	# from the previous floor at every player spawn.
+	RoomReverbAreaScript.ensure_reverb_bus()
+	RoomReverbAreaScript.apply_reverb_params(RoomReverbAreaScript.default_params())
 	_breathing_audio = AudioStreamPlayer.new()
 	_breathing_audio.stream = BREATHING_STREAM
-	_breathing_audio.bus = "Effects"
+	_breathing_audio.bus = RoomReverbAreaScript.BUS_NAME
 	add_child(_breathing_audio)
 
 

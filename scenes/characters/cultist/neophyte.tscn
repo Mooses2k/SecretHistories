@@ -162,7 +162,7 @@ script = ExtResource("7_7megi")
 
 [node name="InterestMachine" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="0" node_paths=PackedStringArray("active_sensors")]
 script = ExtResource("8_buv1l")
-active_sensors = [NodePath("../../../../../Sensors/VisualSensor"), NodePath("../../../../../Sensors/TouchSensor")]
+active_sensors = [NodePath("../../../../../Sensors/VisualSensor"), NodePath("../../../../../Sensors/TouchSensor"), NodePath("../../../../../Sensors/SoundSensor")]
 
 [node name="SEL_Action" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="1"]
 script = ExtResource("6_xhddj")

@@ -3,9 +3,9 @@
 # is PickableItem.noise_level (a float, zeroed again about 0.2 s after it is
 # set by _process). Producers pinned by observation: a bomb's countdown
 # handler sets noise_level = 80 with item_max_noise_level = 80 right before
-# the explosion, play_throw_sound raises the noise to 3 when it was below 8,
+# the explosion, play_throw_sound raises the noise to 6 when it was below 8,
 # and the real ImpactAudioManager.play_impact_sound entry sets
-# clamp(max_noise_level * impact_intensity, 1, 5) on the parent item (the
+# clamp(max_noise_level * impact_intensity, 1, 8) on the parent item (the
 # melee base scene gives every melee item a drop sound, so the noise write is
 # reached). The SoundSensor registration half of the chain is also pinned: a
 # sensor whose mask covers the ItemDrops layer registers an overlapping
@@ -111,8 +111,8 @@ func test_item_impact_audio_writes_noise_on_the_item() -> void:
 		"every pickable item carries an impact audio manager from _enter_tree")
 	assert_eq(dagger.get("noise_level"), 0.0, "a resting item is silent")
 	dagger.impact_audio_manager.play_impact_sound(5.0)
-	assert_eq(dagger.get("noise_level"), 5.0,
-		"play_impact_sound writes clamp(max_noise_level * intensity, 1, 5) on the item")
+	assert_eq(dagger.get("noise_level"), 8.0,
+		"play_impact_sound writes clamp(max_noise_level * intensity, 1, 8) on the item")
 
 
 func test_sound_sensor_registers_a_dropped_item_as_a_sound_source() -> void:
@@ -151,8 +151,8 @@ func test_thrown_item_noise_decays_back_to_silence() -> void:
 	# scope for the decay behavior under test.
 	var dagger : EquipmentItem = await _rest_dagger(Vector3(6.0, 2.0, 6.0))
 	dagger.call("play_throw_sound")
-	assert_eq(dagger.get("noise_level"), 3.0,
-		"play_throw_sound raises the item noise to 3 when it was below 8")
+	assert_eq(dagger.get("noise_level"), 6.0,
+		"play_throw_sound raises the item noise to 6 when it was below 8")
 	await _physics_frames(40)
 	assert_eq(dagger.get("noise_level"), 0.0,
 		"the item _process decay zeroes the noise after about 0.2 s")

@@ -213,7 +213,8 @@ func play_impact_sound(impact_intensity: float) -> void:
 	drop_audio_player.pitch_scale = pitch_scale
 	
 	# Calculate noise level for AI detection
-	var noise_level = clamp((max_noise_level * impact_intensity), 1.0, 5.0)
+	# Dropped item impact noise (owner-approved ladder): clamp to 1..8.
+	var noise_level = clamp((max_noise_level * impact_intensity), 1.0, 8.0)
 	if parent_body.has_method("set_noise_level"):
 		parent_body.set_noise_level(noise_level)
 	

@@ -17,7 +17,7 @@ var spawnable_items : PackedStringArray
 # static hosts carry the identical swap logic; door breaking stays separate
 # (base_kinematic_door.gd is door-specific).
 var break_damage_threshold : float = 100.0
-var break_noise_level : float = 10.0   # Loud: breaking a statue is heard room-wide
+var break_noise_level : float = 15.0   # Loud: breaking a statue is heard room-wide
 var broken_scene_override : PackedScene
 var _break_accumulated_damage : float = 0.0
 var _broken_scene : PackedScene

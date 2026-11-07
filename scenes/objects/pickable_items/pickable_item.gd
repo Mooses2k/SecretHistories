@@ -128,7 +128,7 @@ func play_throw_sound():
 		self.audio_player.bus = "Effects"
 		self.audio_player.play()
 		if self.noise_level < 8:
-			self.noise_level = 3
+			self.noise_level = 6
 
 
 ## Method for the audio manager to set noise level

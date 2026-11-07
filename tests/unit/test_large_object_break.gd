@@ -43,7 +43,7 @@ func test_threshold_cross_swaps_into_broken_variant() -> void:
 	target.accumulate_break_damage(60.0)
 	# The swap runs synchronously on the caller: the noise lands and the host
 	# is marked for deletion before the deferred sibling add_child executes.
-	assert_eq(target.get("noise_level"), 10.0, "breaking emits the large noise level")
+	assert_eq(target.get("noise_level"), 15.0, "breaking emits the large noise level")
 	assert_true(target.is_queued_for_deletion(), "intact host freed after the swap")
 	await get_tree().process_frame
 	await get_tree().process_frame

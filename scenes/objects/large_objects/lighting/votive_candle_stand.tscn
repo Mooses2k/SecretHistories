@@ -182,7 +182,6 @@ mass = 30.0
 continuous_cd = true
 max_contacts_reported = 4
 script = ExtResource("3")
-candle_count = 4
 candle_scene = ExtResource("20")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

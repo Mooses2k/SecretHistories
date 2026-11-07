@@ -7,12 +7,12 @@ extends LargeObject
 ## TALL candle item (the candle_scene default); the votive stand's scene
 ## overrides it to the small candle (owner mapping: votive = small only).
 ## Owner-approved simple model:
-## the stand does not model per-candle burn, so every taken candle carries a
-## full 1.0 fill. The candle visuals are baked into the stand mesh (no
-## per-candle mesh child exists to hide), so a take decrements the count and
-## the last take extinguishes the fire; per-candle visual removal waits for
-## the mesh-externalization objective. Taking is one-way: the stand is not a
-## refill target.
+## each stand yields exactly ONE candle (owner ruling: allow only one
+## candle from each), taken candles carry a full 1.0 fill, the stand keeps
+## burning after the take (the baked wax stays: per-candle visual removal
+## waits for the mesh-externalization objective), and a spent stand plays
+## the diegetic reject cue. Taking is one-way: the stand is not a refill
+## target.
 
 const TALL_CANDLE_SCENE_PATH := "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle_tall.tscn"
 
@@ -21,10 +21,8 @@ const TALL_CANDLE_SCENE_PATH := "res://scenes/objects/pickable_items/equipment/c
 ## overrides it to the small candle.
 @export var candle_scene : PackedScene = preload(TALL_CANDLE_SCENE_PATH)
 
-## Whole candles left on the stand. -1 derives the authored count from the
-## FireOrigin markers at ready; the votive stand (one consolidated fire,
-## four baked candles) overrides it in its scene.
-@export var candle_count : int = -1
+## Whole candles left to take from this stand. One per stand (owner ruling).
+@export var takes_remaining : int = 1
 
 # The lit variant burns permanently (the unlit look is a separate scene with
 # hidden flames). MeshInstanceLayered on the flame quads reads this and keeps
@@ -44,8 +42,6 @@ func _ready():
 	self.item_drop_sound = floor_candelabra_drop_sound
 	super._ready()  # Call parent's _ready() to configure audio manager
 
-	if candle_count < 0:
-		candle_count = _count_candle_fires()
 	var ignite : Interactable = get_node_or_null("Ignite") as Interactable
 	if ignite != null:
 		ignite.character_interacted.connect(_on_ignite_character_interacted)
@@ -67,14 +63,6 @@ func _stand_is_burning() -> bool:
 	return is_instance_valid(firelight) and firelight.visible
 
 
-func _count_candle_fires() -> int:
-	var count := 0
-	for child in get_children():
-		if child is Marker3D and child.has_node("Fire"):
-			count += 1
-	return count
-
-
 func _on_ignite_character_interacted(character) -> void:
 	_take_candle(character)
 
@@ -90,7 +78,7 @@ func _take_candle(character) -> void:
 		inventory = character.get("inventory")
 	if inventory == null:
 		return
-	if candle_count <= 0:
+	if takes_remaining <= 0:
 		_play_take_rejected_cue()
 		return
 
@@ -105,9 +93,7 @@ func _take_candle(character) -> void:
 		_play_take_rejected_cue()
 		return
 
-	candle_count -= 1
-	if candle_count <= 0:
-		_extinguish_stand()
+	takes_remaining -= 1
 
 
 ## The existing interaction-fail cue pattern (a diegetic sound, like the
@@ -115,15 +101,3 @@ func _take_candle(character) -> void:
 func _play_take_rejected_cue() -> void:
 	if _reject_sound != null and not _reject_sound.playing:
 		_reject_sound.play()
-
-
-func _extinguish_stand() -> void:
-	for child in get_children():
-		if child is Marker3D and child.has_node("Fire"):
-			var fire : Node3D = child.get_node("Fire")
-			fire.visible = false
-			var light_node : Node = fire.get_node_or_null("Light3D")
-			if light_node is Light3D:
-				light_node.visible = false
-	if animation_player != null and animation_player.is_playing():
-		animation_player.stop()

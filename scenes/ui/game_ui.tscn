@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://q7wrpjiye0bb"]
+[gd_scene load_steps=21 format=3 uid="uid://q7wrpjiye0bb"]
 
 [ext_resource type="PackedScene" uid="uid://dtmm8et2mxrcc" path="res://scenes/ui/settings_menu.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bf3yktywuo08c" path="res://scenes/ui/hud.tscn" id="2"]
@@ -15,6 +15,22 @@
 [ext_resource type="Script" uid="uid://1a1mpwany0im" path="res://scenes/ui/blood_screen_overlay.gd" id="13_bloodscreen"]
 [ext_resource type="Texture2D" uid="uid://b4ntthif3cwkw" path="res://resources/effects/bloodScreen.png" id="14_bloodflash"]
 [ext_resource type="Texture2D" uid="uid://dxdp45ss3ceqd" path="res://resources/effects/BloodOverlay1.png" id="15_bloodoverlay"]
+[ext_resource type="Script" uid="uid://cjkqamcmsssc5" path="res://scenes/ui/death_screen.gd" id="16_deathscreen"]
+[ext_resource type="AudioStream" uid="uid://4trkmwlj2tu0" path="res://resources/sounds/death_sound.wav" id="17_deathstream"]
+
+[sub_resource type="Shader" id="Shader_bw"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_tex : hint_screen_texture, repeat_disable, filter_nearest;
+
+void fragment() {
+	vec3 screen_color = texture(screen_tex, SCREEN_UV).rgb;
+	float gray = (screen_color.r + screen_color.g + screen_color.b) / 3.0;
+	COLOR = vec4(vec3(gray), 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bw"]
+shader = SubResource("Shader_bw")
 
 [node name="GameUI" type="CanvasLayer"]
 process_mode = 3
@@ -172,6 +188,42 @@ mouse_filter = 2
 texture = ExtResource("15_bloodoverlay")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="DeathScreen" type="Control" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_deathscreen")
+
+[node name="BlackRect" type="ColorRect" parent="DeathScreen"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="BWRect" type="ColorRect" parent="DeathScreen"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+material = SubResource("ShaderMaterial_bw")
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="DeathScreen"]
+stream = ExtResource("17_deathstream")
+volume_db = 20.263
+pitch_scale = 1.74
 
 [connection signal="button_pressed" from="UIRoot/PauseMenu/EscMenu" to="UIRoot/PauseMenu" method="_on_EscMenu_button_pressed"]
 [connection signal="settings_menu_exited" from="UIRoot/PauseMenu/SettingsMenu" to="UIRoot/PauseMenu" method="_on_SettingsMenu_settings_menu_exited"]

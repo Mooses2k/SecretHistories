@@ -3,6 +3,7 @@ class_name GameUI
 
 const TinnitusOverlay := preload("res://scenes/ui/tinnitus_overlay.gd")
 const BloodScreenOverlay := preload("res://scenes/ui/blood_screen_overlay.gd")
+const DeathScreen := preload("res://scenes/ui/death_screen.gd")
 
 
 enum GUIState {
@@ -20,6 +21,7 @@ var gui_state : int = GUIState.HUD: set = set_gui_state
 @onready var hud_root : HUD = %HUD
 @onready var _tinnitus : TinnitusOverlay = %Tinnitus
 @onready var _blood_screen : BloodScreenOverlay = %BloodScreen
+@onready var _death_screen : DeathScreen = %DeathScreen
 
 var _observed_player : Node = null
 var _observed_state : HumanoidCharacterState = null
@@ -96,6 +98,7 @@ func _on_player_physical_state_changed(new_physical_state : int) -> void:
 	if new_physical_state == HumanoidCharacterState.PhysicalState.DEAD:
 		_tinnitus.set_dead()
 		_blood_screen.set_dead()
+		_death_screen.start_sequence()
 
 
 func _on_player_hurtbox_damaged(_amount : int, _type : GlobalConsts.AttackTypes, _direction : Vector3, _origin : Vector3) -> void:

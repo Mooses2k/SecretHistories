@@ -9,7 +9,7 @@ gravity = Vector3(0, 0, 0)
 
 [sub_resource type="QuadMesh" id="2"]
 
-[node name="Smoke" type="Particles"]
+[node name="Smoke" type="GPUParticles3D"]
 transform = Transform3D(0.996103, 0, 0, 0, 0.996103, 0, 0, 0, 1, -0.00112057, -0.00427759, -0.00190479)
 material_override = ExtResource("1")
 emitting = false
@@ -20,13 +20,9 @@ explosiveness = 0.91
 randomness = 0.84
 fixed_fps = 30
 visibility_aabb = AABB(-4, -4, -4.79199, 8, 8, 8)
-local_coords = false
 process_material = SubResource("1")
 draw_pass_1 = SubResource("2")
 script = ExtResource("2")
-__meta__ = {
-"_editor_description_": ""
-}
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

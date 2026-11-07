@@ -1,7 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://67a0nyjvrode"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://67a0nyjvrode"]
 
 [ext_resource type="Shader" uid="uid://bmq4tysjb7cyu" path="res://scenes/effects/explosion/smokeshader.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://xnwiwkyeykfr" path="res://resources/effects/Smoke45Frames.png" id="2_qrwq6"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1")
+shader_parameter/particle_h_frames = 7.0
+shader_parameter/particle_v_frames = 7.0
+shader_parameter/particles_anim_loop = true
+shader_parameter/still_frame = null
+shader_parameter/Soft_limit = null
+shader_parameter/blend_scale = null
+shader_parameter/emission_falloff_multiplier = null
+shader_parameter/Smoke_color_ramp = ExtResource("2_qrwq6")

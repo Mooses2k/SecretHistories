@@ -40,7 +40,7 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="6"]
 material = SubResource("5")
 
-[node name="HitEffect" type="Particles"]
+[node name="HitEffect" type="GPUParticles3D"]
 material_override = SubResource("1")
 cast_shadow = 0
 emitting = false
@@ -48,13 +48,9 @@ amount = 32
 lifetime = 0.43
 one_shot = true
 explosiveness = 0.8
-local_coords = false
 process_material = SubResource("4")
 draw_pass_1 = SubResource("6")
 script = ExtResource("1")
-__meta__ = {
-"_editor_description_": ""
-}
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

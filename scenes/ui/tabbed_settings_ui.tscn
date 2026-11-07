@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="tabbed_settings_ui.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://c8j3k4m5n7p2q" path="tab_button.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://d4e5f6g7h8i9j" path="settings_ui/settings_group.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bn832l0irax54" path="settings_ui/settings_group.tscn" id="3"]
 
 [node name="TabbedSettingsUI" type="Control"]
 layout_mode = 3

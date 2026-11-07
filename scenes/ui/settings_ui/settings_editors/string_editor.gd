@@ -1,8 +1,11 @@
 extends "setting_editor.gd"
 
 
+## Hint shown while the capture panel waits for a binding.
+const CAPTURE_HINT : String = "Press Key or Mouse Button to Assign..."
+const CONFLICT_NOTICE_SECONDS : float = 2.5
+
 var is_waiting_input : bool = false
-var temp_setting_name : String = ""
 
 
 # Override this function
@@ -52,36 +55,46 @@ func _on_Value_value_changed(value):
 	on_value_edited()
 
 
+## One capture path for every row: keyboard keys and mouse buttons bind,
+## Escape cancels, everything else is swallowed while waiting.
 func _input(event):
-	var change_key_panel = _find_change_key_panel()
+	var change_key_panel := _find_change_key_panel()
 	if change_key_panel and not change_key_panel.visible:
 		is_waiting_input = false
-		
-	if is_waiting_input:
-		if not event is InputEventMouseMotion:
-			get_viewport().set_input_as_handled()
-			
-			if event is InputEventMouseButton:
-				print("Mouse Button " + str(event.get_button_index()))
-				if event.get_button_index() == 2:
-						return
-			elif event is InputEventJoypadButton:
-				print("Joypad Button " + str(event.get_button_index()))
-			elif event is InputEventJoypadMotion:
-				print("Joypad Motion " + str(event.get_axis()))
-			elif event is InputEventKey:
-				if event.physical_keycode:
-					if event.physical_keycode == 16777217:
-						return
-				else:
-					if event.keycode == 16777217:
-						return
-				print(str(OS.get_keycode_string(event.physical_keycode)))
-			
-			if change_key_panel:
-				change_key_panel.hide()
-			is_waiting_input = false
-			settings.set_setting(_setting_name, event)
+	if not is_waiting_input:
+		return
+	get_viewport().set_input_as_handled()
+	if _is_cancel_event(event):
+		_stop_capture(change_key_panel)
+		return
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		_show_panel_notice(change_key_panel, "Gamepad capture is not supported yet")
+		return
+	var capture := _capture_event(event)
+	if capture == null:
+		return
+	_stop_capture(change_key_panel)
+	settings.set_setting(_setting_name, capture)
+	_show_conflict_notice(change_key_panel, KeyInputSettings.get_last_conflict_notice())
+
+
+func _capture_event(event : InputEvent) -> InputEvent:
+	if event is InputEventKey and event.is_pressed() and not event.is_echo():
+		return event
+	if event is InputEventMouseButton and event.is_pressed():
+		return event
+	return null
+
+
+func _is_cancel_event(event : InputEvent) -> bool:
+	return event is InputEventKey and event.is_pressed() \
+			and (event.physical_keycode == KEY_ESCAPE or event.keycode == KEY_ESCAPE)
+
+
+func _stop_capture(change_key_panel : Control) -> void:
+	is_waiting_input = false
+	if change_key_panel:
+		change_key_panel.hide()
 
 
 ## Helper function to find the ChangeKeyPanel node robustly
@@ -108,9 +121,34 @@ func _on_Clear_pressed():
 
 
 func _on_Change_pressed():
-	var change_key_panel = _find_change_key_panel()
+	var change_key_panel := _find_change_key_panel()
 	if change_key_panel:
-		change_key_panel.show()
+		_show_panel_notice(change_key_panel, CAPTURE_HINT)
 		is_waiting_input = true
 	else:
 		print("Warning: ChangeKeyPanel not found")
+
+
+## Show a notice in the capture panel without changing capture state.
+func _show_panel_notice(change_key_panel : Control, notice : String) -> void:
+	var label := change_key_panel.get_node_or_null("Label") as Label
+	if label:
+		label.text = notice
+	change_key_panel.show()
+
+
+## After a binding that cleared a conflict, surface why the other row lost
+## its key, then restore the panel to its resting state.
+func _show_conflict_notice(change_key_panel : Control, notice : String) -> void:
+	if notice.is_empty() or change_key_panel == null:
+		return
+	_show_panel_notice(change_key_panel, notice)
+	var timer := get_tree().create_timer(CONFLICT_NOTICE_SECONDS)
+	timer.timeout.connect(_on_notice_timer_timeout.bind(change_key_panel))
+
+
+func _on_notice_timer_timeout(change_key_panel : Control) -> void:
+	if is_waiting_input:
+		return
+	_stop_capture(change_key_panel)
+	_show_panel_notice(change_key_panel, CAPTURE_HINT)

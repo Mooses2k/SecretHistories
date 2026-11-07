@@ -84,10 +84,18 @@ const BINDING_MAP : Array = [
 
 var _mapped_actions : Dictionary = {}
 
+## Set by the last apply_binding call: "" when the binding caused no
+## conflict, otherwise a notice naming the action whose key was cleared.
+var last_conflict_notice : String = ""
+
 
 func _ready() -> void:
 	_register_rows()
 	Settings.setting_changed.connect(on_setting_changed)
+
+
+func get_last_conflict_notice() -> String:
+	return last_conflict_notice
 
 
 ## Register every mapped row in map order. Dictionary insertion order is the
@@ -150,12 +158,57 @@ func on_setting_changed(setting_name, _old_value, new_value) -> void:
 		_apply_cleared_action(setting_name)
 
 
-## One apply path for every captured binding: replace the action's events
-## with the new event, then persist the row and the keybinding dict.
+## One apply path for every captured binding: clear conflicting events on
+## other mapped actions (the new binding wins, with a notice), replace the
+## action's events with the new event, then persist row and dict.
 func apply_binding(action : String, event : InputEvent) -> void:
+	last_conflict_notice = _clear_conflicts(action, event)
 	InputMap.action_erase_events(action)
 	InputMap.action_add_event(action, event)
 	_persist_row(action, null)
+
+
+## Conflict policy: the action being bound keeps the key, any other mapped
+## action loses that single event and keeps its remaining events, and the
+## returned notice names what was cleared. Escape and ui_cancel stay shared
+## by design and are untouched: neither is a mapped row.
+func _clear_conflicts(action : String, event : InputEvent) -> String:
+	var binding_id := _event_binding_id(event)
+	if binding_id.is_empty():
+		return ""
+	var notice := ""
+	for other_action in _mapped_actions.keys():
+		var other_name: String = other_action
+		if other_name == action or not InputMap.has_action(other_name):
+			continue
+		var cleared := false
+		for other_event in InputMap.action_get_events(other_name):
+			if _event_binding_id(other_event) == binding_id:
+				InputMap.action_erase_event(other_name, other_event)
+				cleared = true
+		if cleared:
+			_persist_row(other_name, null)
+			if notice.is_empty():
+				notice = "%s was taken from %s" % [
+					_event_display_label(event),
+					str(Settings.get_setting_meta(other_name, "display_name")),
+				]
+	return notice
+
+
+## Comparable identity of a bindable event: keyboard keys by their keycode
+## (physical preferred), mouse buttons by button index. Unbindable event
+## types return "" and never conflict.
+func _event_binding_id(event : InputEvent) -> String:
+	if event is InputEventKey:
+		var keycode: int = event.keycode
+		if keycode == 0:
+			keycode = event.physical_keycode
+		if keycode != 0:
+			return "k%d" % keycode
+	if event is InputEventMouseButton:
+		return "m%d" % event.button_index
+	return ""
 
 
 func _apply_cleared_action(action : String) -> void:

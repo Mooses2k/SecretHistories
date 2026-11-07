@@ -19,6 +19,11 @@ const COLOR_ASTAR = Color.ORANGE_RED
 
 const PATH_FONT = "res://resources/fonts/godot_default_bitmapfont.tres"
 
+## Owner fix: the minimap's shown/hidden state survives floor changes. Each
+## floor instantiates a fresh procedural_world (fresh RoomGraphViz), so the
+## toggled state must ride in a static or the next map starts blank.
+static var last_visible := true
+
 #--- public variables - order: export > normal var > onready --------------------------------------
 
 @export var max_minimap_screen_height := 0.5 # (float, 0.1, 1.0, 0.1)
@@ -52,6 +57,7 @@ var astar: ManhattanAStar2D = null
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
 func _ready() -> void:
+	visible = last_visible
 	if is_instance_valid(GameManager.game):
 		# warning-ignore:return_value_discarded
 		GameManager.game.connect("player_spawned", Callable(self, "_on_game_player_spawned"))
@@ -60,6 +66,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("misc|map_menu"):
 		visible = !visible
+		last_visible = visible
 
 
 func _draw() -> void:

@@ -1,17 +1,16 @@
 # Pins the live PLACE-state blueprint orientation contract (Brooks Wave 1
 # row 8 verification, probe-backed): the throw blueprint's basis follows the
 # PlaceOrigin marker (humanoid_character_base.tscn: identity basis at
-# (0, 1.5, 0), so it tracks ModelRoot's yaw), NOT the rotated-facing basis
-# written at throw_place_controller.gd L86/L97. That L86/L97 write does not
-# survive the same _process tick: _get_place_transform() returns a
-# PlaceOrigin-based transform and L88/L99 overwrite the basis unconditionally,
-# in both the collision and the mousewheel branch (headless probe on the real
-# player scene: blueprint basis == PlaceOrigin basis, and equal to NEITHER
-# facing.rotated(UP, deg_to_rad(90)) NOR facing.rotated(UP, 90)).
-# The deg_to_rad(90) fix itself is committed (f67aa424) and correct as typed
-# math, but the expression it fixed is dead in the live path; dropping the
-# dead write or applying the rotation on top of the origin transform is an
-# owner ruling. THIS TEST MUST BE CONSCIOUSLY UPDATED if that flow changes.
+# (0, 1.5, 0), so it tracks ModelRoot's yaw). The headless probe on the real
+# player scene proved the former rotated-facing write in the PLACE branches
+# (both hands) did not survive its own _process tick: _get_place_transform()
+# returns a PlaceOrigin-based transform and the next line overwrote the basis
+# unconditionally, in both the collision and the mousewheel branch (blueprint
+# basis == PlaceOrigin basis, and equal to NEITHER facing.rotated(UP,
+# deg_to_rad(90)) NOR facing.rotated(UP, 90)). Owner ruling: the dead
+# rotated-facing writes are deleted outright. This test pins the surviving
+# PlaceOrigin contract. THIS TEST MUST BE CONSCIOUSLY UPDATED if that flow
+# changes.
 extends GutTest
 
 

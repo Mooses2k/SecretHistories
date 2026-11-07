@@ -83,7 +83,6 @@ func _process(delta: float) -> void:
 			if throw_held_timer_mainhand > place_threshold:
 				throw_state_mainhand = ThrowState.PLACE
 		ThrowState.PLACE:
-			place_blueprint_mainhand.global_basis = player.state.facing.rotated(Vector3.UP, deg_to_rad(90))
 			target_place_transform_mainhand = _get_place_transform(place_blueprint_mainhand, true)  # true = mainhand
 			place_blueprint_mainhand.global_transform = target_place_transform_mainhand
 			pass
@@ -94,7 +93,6 @@ func _process(delta: float) -> void:
 			if throw_held_timer_offhand > place_threshold:
 				throw_state_offhand = ThrowState.PLACE
 		ThrowState.PLACE:
-			place_blueprint_offhand.global_basis = player.state.facing.rotated(Vector3.UP, deg_to_rad(90))
 			target_place_transform_offhand = _get_place_transform(place_blueprint_offhand, false)  # false = offhand
 			place_blueprint_offhand.global_transform = target_place_transform_offhand
 			pass

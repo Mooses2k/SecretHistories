@@ -39,18 +39,19 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	var main_item = inventory.get_mainhand_item()
 	#print("[DEBUG] Item controller - main_item: ", main_item, " is_instance_valid: ", is_instance_valid(main_item))
-	
+
 	# Safety check to prevent crash with freed instances
-	if main_item == null or not is_instance_valid(main_item):
-		#print("[DEBUG] Item controller - main_item is not valid, skipping input")
-		if main_item != null:
-			#print("[DEBUG] Item controller - main_item is freed, clearing inventory reference")
-			# Clear the invalid reference in inventory
-			if inventory.current_mainhand_equipment == main_item:
-				inventory.current_mainhand_equipment = null
-		return
-		
-	if main_item is EquipmentItem:
+	var main_valid : bool = main_item != null and is_instance_valid(main_item)
+	if main_item != null and not main_valid:
+		#print("[DEBUG] Item controller - main_item is freed, clearing inventory reference")
+		# Clear the invalid reference in inventory
+		if inventory.current_mainhand_equipment == main_item:
+			inventory.current_mainhand_equipment = null
+		main_item = null
+	# An empty mainhand must not gate offhand use: LAlt on an offhand-only
+	# loadout (candle lantern) died in the early return here (owner playtest).
+
+	if main_valid and main_item is EquipmentItem:
 		if event.is_action_pressed(&"playerhand|mainhand_use"):
 			if not main_item.has_held_use():
 				main_item.use_primary()

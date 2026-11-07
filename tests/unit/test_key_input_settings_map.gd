@@ -84,13 +84,32 @@ func test_saved_keybinding_dict_round_trips_the_mapped_actions() -> void:
 					"snapshot covers %s" % action)
 
 
+func test_display_names_carry_no_binding_hints() -> void:
+	# The left column is the role only (owner ruling): mouse button and
+	# wheel names must not ride along inside the display name.
+	for category_entry in KeyInputSettings.BINDING_MAP:
+		var entry: Dictionary = category_entry
+		for row in entry["rows"]:
+			var row_data: Dictionary = row
+			if not row_data.has("action"):
+				continue
+			var display_name: String = row_data.get("name", "")
+			if display_name.is_empty():
+				continue
+			assert_false(display_name.contains("Mouse"), "no mouse hint in %s" % display_name)
+			assert_false(display_name.contains("LMB"), "no LMB hint in %s" % display_name)
+			assert_false(display_name.contains("RMB"), "no RMB hint in %s" % display_name)
+			assert_false(display_name.contains("MMB"), "no MMB hint in %s" % display_name)
+			assert_false(display_name.contains("Wheel"), "no wheel hint in %s" % display_name)
+
+
 func _key_event(keycode : Key) -> InputEventKey:
 	var event := InputEventKey.new()
 	event.keycode = keycode
 	return event
 
 
-func test_apply_binding_accepts_mouse_buttons_and_clears_the_conflict() -> void:
+func test_apply_binding_accepts_mouse_buttons_and_appends_to_the_second_slot() -> void:
 	var interact_before: Array = InputMap.action_get_events("player|interact").duplicate()
 	var throw_before: Array = InputMap.action_get_events("playerhand|mainhand_throw").duplicate()
 	assert_false(throw_before.is_empty(), "precondition: mainhand_throw bound")
@@ -98,7 +117,7 @@ func test_apply_binding_accepts_mouse_buttons_and_clears_the_conflict() -> void:
 	event.button_index = MOUSE_BUTTON_MIDDLE
 	KeyInputSettings.apply_binding("player|interact", event)
 	assert_eq(KeyInputSettings.get_last_conflict_notice(),
-			"Mouse Middle Button was taken from Main Hand Throw / Drop (MMB)")
+			"Mouse Middle Button was taken from Main Hand Throw / Drop")
 	# Rebinds and conflict clears replace keyboard/mouse events only: the
 	# mainhand throw joypad default (Y button) survives the MMB conflict.
 	var throw_events: Array = InputMap.action_get_events("playerhand|mainhand_throw")
@@ -106,18 +125,20 @@ func test_apply_binding_accepts_mouse_buttons_and_clears_the_conflict() -> void:
 	var throw_pad := throw_events[0] as InputEventJoypadButton
 	assert_true(throw_pad != null and throw_pad.button_index == JOY_BUTTON_Y,
 			"conflict clear keeps the joypad default")
-	assert_eq(InputMap.action_get_events("player|interact").size(), 2,
-			"rebound interact keeps its joypad default next to the new mouse event")
+	# Two bindings: the interact joypad default plus the appended MMB capture.
+	assert_eq(InputMap.action_get_events("player|interact").size(), 3,
+			"capture appends to the second slot next to RMB and the joypad default")
 	_restore_events("player|interact", interact_before)
 	_restore_events("playerhand|mainhand_throw", throw_before)
 
 
-func test_apply_binding_replaces_all_events_of_the_action() -> void:
+func test_two_held_bindings_make_the_next_capture_replace_both() -> void:
 	var crouch_before: Array = InputMap.action_get_events("player|crouch").duplicate()
 	KeyInputSettings.apply_binding("player|crouch", _key_event(KEY_K))
 	var crouch_events: Array = InputMap.action_get_events("player|crouch")
-	# The keyboard default (Ctrl, C) is replaced by K; the L3 joypad default
-	# stays because gamepad bindings are not rebindable yet.
+	# Crouch held two keyboard defaults (Ctrl, C), so the capture cleared
+	# both and stored K alone; the L3 joypad default stays because gamepad
+	# bindings are not rebindable yet.
 	assert_eq(crouch_events.size(), 2, "rebind replaces keyboard/mouse, keeps joypad")
 	var has_k := false
 	var has_l3 := false
@@ -139,6 +160,8 @@ func test_reset_restores_ctrl_crouch_and_clears_conflicting_user_bindings() -> v
 	KeyInputSettings.apply_binding("player|reload", _key_event(KEY_H))
 	KeyInputSettings.reset_actions()
 	var crouch_events: Array = InputMap.action_get_events("player|crouch")
+	# Reset restores every action's full project default set: Ctrl, C and
+	# the L3 joypad event for crouch.
 	assert_eq(crouch_events.size(), 3, "reset restores the full crouch default")
 	var has_ctrl := false
 	var has_c := false
@@ -155,9 +178,8 @@ func test_reset_restores_ctrl_crouch_and_clears_conflicting_user_bindings() -> v
 			has_l3 = true
 	assert_true(has_ctrl and has_c, "reset keeps Ctrl-crouch from project.godot")
 	assert_true(has_l3, "reset restores the crouch joypad default")
-	# The H bound onto reload conflicts with the restored holster default
-	# (H): defaults win, the user event is cleared from reload. Reload also
-	# keeps its L2 trigger joypad default.
+	# Reset restores reload to its full default set: keyboard R and the L2
+	# trigger joypad default, discarding the temporary H binding.
 	var reload_events: Array = InputMap.action_get_events("player|reload")
 	assert_eq(reload_events.size(), 2, "conflicting user binding cleared on reset")
 	var has_r := false

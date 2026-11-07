@@ -55,7 +55,7 @@ const BINDING_MAP : Array = [
 			{"action": "movement|move_left", "name": "Move Left"},
 			{"action": "movement|move_down", "name": "Move Back"},
 			{"action": "movement|move_right", "name": "Move Right"},
-			{"action": "player|sprint", "name": "Sprint / Dodge / Kick (Shift)"},
+			{"action": "player|sprint", "name": "Sprint / Dodge / Kick"},
 			{"setting": SETTING_OVERLOAD_PRESET},
 			{"setting": SETTING_SHIFT_KICK},
 			{"setting": SETTING_SHIFT_DODGE},
@@ -72,7 +72,7 @@ const BINDING_MAP : Array = [
 	{
 		"category": "Player Actions",
 		"rows": [
-			{"action": "player|interact", "name": "Interact / ADS / Drag (RMB)"},
+			{"action": "player|interact", "name": "Interact / ADS / Drag"},
 			{"setting": SETTING_LEFT_HAND},
 			{"mode": "Hold ADS (Aim Down Sights)"},
 			{"action": "interact", "name": "Interact (separate key)"},
@@ -82,13 +82,13 @@ const BINDING_MAP : Array = [
 	{
 		"category": "Hands and Inventory",
 		"rows": [
-			{"action": "playerhand|mainhand_use", "name": "Main Hand Use (LMB)"},
-			{"action": "playerhand|mainhand_throw", "name": "Main Hand Throw / Drop (MMB)"},
+			{"action": "playerhand|mainhand_use", "name": "Main Hand Use"},
+			{"action": "playerhand|mainhand_throw", "name": "Main Hand Throw / Drop"},
 			{"action": "playerhand|offhand_use", "name": "Offhand Use"},
 			{"action": "playerhand|offhand_throw", "name": "Offhand Throw / Place"},
 			{"action": "playerhand|cycle_offhand_slot", "name": "Cycle Offhand Slot"},
-			{"action": "itm|next_hotbar_item", "name": "Next Hotbar Item (Wheel Down)"},
-			{"action": "itm|previous_hotbar_item", "name": "Previous Hotbar Item (Wheel Up)"},
+			{"action": "itm|next_hotbar_item", "name": "Next Hotbar Item"},
+			{"action": "itm|previous_hotbar_item", "name": "Previous Hotbar Item"},
 			{"action": "itm|holster_weapons", "name": "Holster Weapons"},
 			{"action": "hotbar_1", "name": "Hotbar 1"},
 			{"action": "hotbar_2", "name": "Hotbar 2"},
@@ -365,14 +365,42 @@ func on_setting_changed(setting_name, _old_value, new_value) -> void:
 
 
 ## One apply path for every captured binding: clear conflicting events on
-## other mapped actions (the new binding wins, with a notice), replace the
-## action's keyboard and mouse events with the new event (its joypad events
-## stay, gamepad defaults are not rebindable yet), then persist row and dict.
+## other mapped actions (the new binding wins, with a notice), then store
+## the event. Each action holds up to MAX_BINDINGS keyboard/mouse events:
+## a capture appends while fewer are held, and once two are held the next
+## capture clears both and stores the new one, with a notice explaining it.
+## Joypad events stay untouched (gamepad defaults are not rebindable yet).
 func apply_binding(action : String, event : InputEvent) -> void:
+	if _holds_binding(action, event):
+		# Capturing a key the action already holds is a no-op: the slot
+		# stays and the other binding is not disturbed.
+		return
+	var held := _bindable_events(action)
+	var replaces_both := held.size() >= MAX_BINDINGS
 	last_conflict_notice = _clear_conflicts(action, event)
-	_clear_bindable_events(action)
+	if replaces_both:
+		_clear_bindable_events(action)
+		if last_conflict_notice.is_empty():
+			last_conflict_notice = "%s already held two bindings: both were cleared, %s is the only binding now" % [
+				str(Settings.get_setting_meta(action, "display_name")),
+				_event_display_label(event),
+			]
 	InputMap.action_add_event(action, event)
 	_persist_row(action, null)
+
+
+## Maximum keyboard/mouse bindings one action holds (primary + alternate).
+const MAX_BINDINGS : int = 2
+
+
+func _holds_binding(action : String, event : InputEvent) -> bool:
+	var binding_id := _event_binding_id(event)
+	if binding_id.is_empty():
+		return false
+	for held_event in InputMap.action_get_events(action):
+		if _event_binding_id(held_event) == binding_id:
+			return true
+	return false
 
 
 ## Remove only the keyboard and mouse events of one action, keeping joypad
@@ -412,17 +440,25 @@ func _clear_conflicts(action : String, event : InputEvent) -> String:
 
 
 ## Comparable identity of a bindable event: keyboard keys by their keycode
-## (physical preferred), mouse buttons by button index, joypad buttons by
-## button index and joypad axes by axis, device and value sign. Joypad events
-## need a non-empty id so reset conflict clearing never treats them as
-## erasable unknowns. Unbindable event types return "" and never conflict.
+## (physical preferred) plus their modifier flags, mouse buttons by button
+## index, joypad buttons by button index and joypad axes by axis, device and
+## value sign. Modifier flags keep combos distinct: a bound Ctrl+W must not
+## conflict with a plain W. Joypad events need a non-empty id so reset
+## conflict clearing never treats them as erasable unknowns. Unbindable
+## event types return "" and never conflict.
 func _event_binding_id(event : InputEvent) -> String:
 	if event is InputEventKey:
 		var keycode: int = event.keycode
 		if keycode == 0:
 			keycode = event.physical_keycode
 		if keycode != 0:
-			return "k%d" % keycode
+			return "k%d_%d_%d_%d_%d" % [
+				keycode,
+				int(event.alt_pressed),
+				int(event.shift_pressed),
+				int(event.ctrl_pressed),
+				int(event.meta_pressed),
+			]
 	if event is InputEventMouseButton:
 		return "m%d" % event.button_index
 	if event is InputEventJoypadButton:
@@ -449,23 +485,26 @@ func _persist_row(action : String, old_value) -> void:
 	KeybindingManager.save_keys()
 
 
-## One reset path: restore every mapped action's default events straight
-## from project.godot (no hardcoded table, no string round-trip), then clear
-## any user binding that now conflicts with a restored default.
+## One reset path: restore every non-ui action's default events straight
+## from project.godot (no hardcoded table, no string round-trip), leaving
+## the additive unbound rows unbound and joypad defaults intact. The
+## left-hand mouse flag is turned off: the defaults are right-handed.
 func reset_actions() -> void:
-	for action in _mapped_actions.keys():
-		var action_name: String = action
-		if not InputMap.has_action(action_name):
+	for action in InputMap.get_actions():
+		var action_name := String(action)
+		if action_name.begins_with("ui_"):
+			continue
+		if not ProjectSettings.has_setting("input/" + action_name):
 			continue
 		InputMap.action_erase_events(action_name)
 		for event in _project_default_events(action_name):
 			InputMap.action_add_event(action_name, event)
-		_persist_row(action_name, null)
-	_clear_conflicts_with_defaults()
-	# Reset restores the right-handed project defaults, so the left-hand
-	# swap must be re-applied when the setting is on.
 	if get_left_hand_mouse():
-		_apply_left_hand_swap(true)
+		set_left_hand_mouse(false)
+	for action in _mapped_actions.keys():
+		var action_name: String = action
+		if InputMap.has_action(action_name):
+			_persist_row(action_name, null)
 	KeybindingManager.save_keys()
 
 
@@ -478,30 +517,6 @@ func _project_default_events(action : String) -> Array:
 		if events is Array:
 			return events
 	return []
-
-
-## Project defaults are conflict-free among themselves, so any remaining
-## conflict is a user binding colliding with a restored default: defaults
-## win, the colliding event is cleared from the other mapped action.
-func _clear_conflicts_with_defaults() -> void:
-	for action in _mapped_actions.keys():
-		var action_name: String = action
-		if not InputMap.has_action(action_name):
-			continue
-		var default_ids := PackedStringArray()
-		for event in _project_default_events(action_name):
-			default_ids.append(_event_binding_id(event))
-		for other_action in _mapped_actions.keys():
-			var other_name: String = other_action
-			if other_name == action_name or not InputMap.has_action(other_name):
-				continue
-			var cleared := false
-			for other_event in InputMap.action_get_events(other_name):
-				if default_ids.has(_event_binding_id(other_event)):
-					InputMap.action_erase_event(other_name, other_event)
-					cleared = true
-			if cleared:
-				_persist_row(other_name, null)
 
 
 ## Display strings for one action's current InputMap events, in order.

@@ -4,16 +4,24 @@ extends Control
 signal settings_menu_exited()
 
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		if not $ChangeKeyPanel.visible:
-			# Emit BEFORE hiding: the old hide() then "if self.visible" check
-			# could never fire, so settings_menu_exited stayed dead and the
-			# pause menu never learned the settings menu closed.
-			emit_signal("settings_menu_exited")
-			self.hide()
-		else:
-			$ChangeKeyPanel.hide()
+## Escape (keyboard only) leaves the settings menu; mouse buttons never do.
+## ui_cancel carries RMB project-wide, and RMB must stay free for rebinding
+## inside the input menu, so back navigation here reads the raw event and
+## ignores everything that is not a keyboard press. During capture the
+## string editor consumes Escape first, so capture-cancel never exits.
+func _unhandled_input(event: InputEvent) -> void:
+	if not visible:
+		return
+	var key_event := event as InputEventKey
+	if key_event == null or not key_event.is_pressed():
+		return
+	if not key_event.is_action_pressed("ui_cancel"):
+		return
+	if $ChangeKeyPanel.visible:
+		return
+	emit_signal("settings_menu_exited")
+	self.hide()
+	get_viewport().set_input_as_handled()
 
 
 func _ready() -> void:

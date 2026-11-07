@@ -29,7 +29,7 @@ script = ExtResource("1")
 [node name="MaxAspectContainer" type="Container" parent="."]
 layout_mode = 2
 script = ExtResource("2_ffq28")
-max_aspect_ratio = 1.2
+max_aspect_ratio = 1.6
 
 [node name="PanelContainer" type="PanelContainer" parent="MaxAspectContainer"]
 layout_mode = 2

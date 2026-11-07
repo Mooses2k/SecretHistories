@@ -102,13 +102,13 @@ func test_left_hand_swap_refuses_when_roles_are_blurred() -> void:
 	_restore_events(INTERACT, interact_before)
 
 
-func test_reset_reapplies_the_swap_when_left_hand_is_on() -> void:
+func test_reset_leaves_left_hand_mouse_off() -> void:
+	# Reset restores the right-handed project defaults and turns the
+	# left-hand mouse flag off: after reset the map is right-handed.
 	KeyInputSettings.set_left_hand_mouse(true)
 	assert_true(_has_mouse(INTERACT, MOUSE_BUTTON_LEFT), "precondition: swapped")
 	KeyInputSettings.reset_actions()
-	assert_true(_has_mouse(INTERACT, MOUSE_BUTTON_LEFT),
-			"reset restores defaults and re-applies the left-hand swap")
-
-	KeyInputSettings.set_left_hand_mouse(false)
-	KeyInputSettings._apply_left_hand_swap(false)
-	assert_true(_has_mouse(MAINHAND, MOUSE_BUTTON_LEFT), "right-handed after disable")
+	assert_false(KeyInputSettings.get_left_hand_mouse(),
+			"reset turns the left-hand flag off")
+	assert_true(_has_mouse(MAINHAND, MOUSE_BUTTON_LEFT), "LMB back on mainhand")
+	assert_true(_has_mouse(INTERACT, MOUSE_BUTTON_RIGHT), "RMB back on interact")

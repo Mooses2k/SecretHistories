@@ -19,6 +19,11 @@ var event_prefixes = [
 	"mouse", # MOUSE_BUTTON
 ]
 
+## Modifier tokens allowed in a key string, in the order event2str writes
+## them: "key(Alt+Ctrl+W)". A lone modifier key ("key(Alt)") is its own
+## binding, not a combo prefix.
+const MODIFIER_TOKENS : PackedStringArray = ["Alt", "Shift", "Ctrl", "Meta"]
+
 
 func _ready():
 	load_keys()
@@ -36,7 +41,9 @@ func gen_dict_from_input_map() -> Dictionary:
 		if not action.begins_with("ui_"):
 			result[action] = Array()
 			for event in InputMap.action_get_events(action):
-				result[action].push_back(event2str(event))
+				var event_str := event2str(event)
+				if not event_str.is_empty():
+					result[action].push_back(event_str)
 	return result
 
 
@@ -80,6 +87,14 @@ func load_keys():
 		keys_default = gen_dict_from_input_map()
 		save_keys()
 		save_default_keys()
+
+	# Reboot reconcile (#606): events re-parsed from the dict strings are
+	# new objects that differ from the project.godot default events in
+	# incidental fields (device, exact flags). Any live keyboard/mouse
+	# event that IS a project default binding gets replaced by the actual
+	# default event object, so default actions hold the exact project
+	# events after every boot and drift cannot accumulate.
+	_reconcile_default_events()
 
 
 ## Returns true when at least one project.godot joypad default was missing
@@ -137,21 +152,72 @@ func _migrate_reversed_wheel_defaults() -> bool:
 
 func setup_keys(key_dict : Dictionary):
 	for action in key_dict.keys():
-#		for j in get_tree().get_nodes_in_group("button_keys"):
-#			if(j.action_name == i):
-#				j.text = OS.get_scancode_string(key_dict[i])
-		var has_invalid : bool = false
-		var events = Array()
+		var action_name : String = action as String
+		InputMap.action_erase_events(action_name)
 		for event_str in key_dict[action]:
 			var event = str2event(event_str)
 			if event:
-				events.push_back(event)
+				InputMap.action_add_event(action_name, event)
 			else:
-				has_invalid = true
-		if not has_invalid:
-			InputMap.action_erase_events(action)
-		for event in events:
-			InputMap.action_add_event(action, event)
+				# Legacy "?" rows held joypad events the string format never
+				# carried; the joypad default merge restores them after this.
+				push_warning("keybinding.dict: unparseable event '%s' on %s" % [
+					str(event_str), action_name])
+
+
+## Replaces every live keyboard/mouse event that carries a project default
+## binding with the actual project default event object, so identity
+## matches exactly (device and flags included).
+func _reconcile_default_events() -> void:
+	for _action in InputMap.get_actions():
+		var action : String = _action as String
+		if not ProjectSettings.has_setting("input/" + action):
+			continue
+		var config: Variant = ProjectSettings.get_setting("input/" + action)
+		if not (config is Dictionary):
+			continue
+		var events: Variant = config.get("events")
+		if not (events is Array):
+			continue
+		for default_event in events:
+			var default := default_event as InputEvent
+			if default == null:
+				continue
+			if not (default is InputEventKey or default is InputEventMouseButton):
+				continue
+			for live_event in InputMap.action_get_events(action):
+				var live := live_event as InputEvent
+				if live != null and live != default and _same_binding(live, default):
+					InputMap.action_erase_event(action, live)
+					InputMap.action_add_event(action, default)
+					break
+
+
+## Binding-level equality of two keyboard/mouse events: key (physical
+## resolved) plus modifier flags for keys, button index for mouse buttons.
+## A modifier key's own flag is implied by the key itself and ignored, so
+## a parsed lone "key(Alt)" matches the project default Alt event.
+func _same_binding(left : InputEvent, right : InputEvent) -> bool:
+	if left is InputEventKey and right is InputEventKey:
+		var keycode: int = _resolved_keycode(left)
+		if keycode != _resolved_keycode(right):
+			return false
+		if keycode != KEY_ALT and left.alt_pressed != right.alt_pressed:
+			return false
+		if keycode != KEY_SHIFT and left.shift_pressed != right.shift_pressed:
+			return false
+		if keycode != KEY_CTRL and left.ctrl_pressed != right.ctrl_pressed:
+			return false
+		if keycode != KEY_META and left.meta_pressed != right.meta_pressed:
+			return false
+		return true
+	if left is InputEventMouseButton and right is InputEventMouseButton:
+		return left.button_index == right.button_index
+	return false
+
+
+func _resolved_keycode(event : InputEventKey) -> int:
+	return event.keycode if event.keycode != 0 else event.physical_keycode
 
 
 func event2str(event : InputEvent) -> String:
@@ -161,16 +227,31 @@ func event2str(event : InputEvent) -> String:
 		if event.keycode == 0:
 			ev_type = EventType.KEY_PHYSICAL
 			keycode = event.physical_keycode
-		print("event == " + "%s(%s)" % [event_prefixes[ev_type], OS.get_keycode_string(keycode)])
-		return "%s(%s)" % [event_prefixes[ev_type], OS.get_keycode_string(keycode)]
+		if keycode == 0:
+			return ""
+		return "%s(%s%s)" % [event_prefixes[ev_type],
+				_key_modifier_prefix(event, keycode),
+				OS.get_keycode_string(keycode)]
 	elif event is InputEventMouseButton:
-		print("Mouse Button " + str(event.get_button_index() ))
 		var ev_type = EventType.MOUSE_BUTTON
-		var keycode = event.get_button_index()
-		return "%s(%s)" % [event_prefixes[ev_type], keycode]
-	else:
-		print(var_to_str(event))
-	return "?"
+		return "%s(%s)" % [event_prefixes[ev_type], event.get_button_index()]
+	return ""
+
+
+## Modifier flags of a key event as combo tokens ("Alt+Ctrl+"). A modifier
+## key pressed on its own is not its own prefix: the Alt key event writes
+## "key(Alt)", never "key(Alt+Alt)".
+func _key_modifier_prefix(event : InputEventKey, keycode : int) -> String:
+	var prefix := ""
+	if keycode != KEY_ALT and event.alt_pressed:
+		prefix += "Alt+"
+	if keycode != KEY_SHIFT and event.shift_pressed:
+		prefix += "Shift+"
+	if keycode != KEY_CTRL and event.ctrl_pressed:
+		prefix += "Ctrl+"
+	if keycode != KEY_META and event.meta_pressed:
+		prefix += "Meta+"
+	return prefix
 
 
 func str2event(string : String) -> InputEvent:
@@ -180,22 +261,45 @@ func str2event(string : String) -> InputEvent:
 			string = string.trim_prefix(event_prefixes[ev_type])
 			string = string.trim_prefix("(").trim_suffix(")")
 			match ev_type:
-				EventType.KEY:
-					var keycode = OS.find_keycode_from_string(string)
-					var event = InputEventKey.new()
-					event.keycode = keycode
-					return event
-				EventType.KEY_PHYSICAL:
-					var keycode = OS.find_keycode_from_string(string)
-					var event = InputEventKey.new()
-					event.physical_keycode = keycode
-					return event
+				EventType.KEY, EventType.KEY_PHYSICAL:
+					return _str2key_event(string, ev_type == EventType.KEY_PHYSICAL)
 				EventType.MOUSE_BUTTON:
 					var button_index = int(string)
 					var event = InputEventMouseButton.new()
 					event.button_index = button_index
 					return event
 	return null
+
+
+## Parses "key(Alt+Ctrl+W)" style strings: leading modifier tokens set the
+## flags, the last token is the key. A lone modifier ("key(Shift)") gets
+## its own flag set, matching the OS event the player pressed to bind it.
+func _str2key_event(string : String, physical : bool) -> InputEvent:
+	if string.is_empty():
+		return null
+	var tokens := string.split("+")
+	var modifiers := {}
+	var key_token := ""
+	for i in range(tokens.size()):
+		var token := tokens[i]
+		if i < tokens.size() - 1 and token in MODIFIER_TOKENS:
+			modifiers[token] = true
+			continue
+		key_token = token
+		break
+	var keycode: Key = OS.find_keycode_from_string(key_token)
+	if keycode == KEY_NONE:
+		return null
+	var event := InputEventKey.new()
+	if physical:
+		event.physical_keycode = keycode
+	else:
+		event.keycode = keycode
+	event.alt_pressed = bool(modifiers.get("Alt", false)) or keycode == KEY_ALT
+	event.shift_pressed = bool(modifiers.get("Shift", false)) or keycode == KEY_SHIFT
+	event.ctrl_pressed = bool(modifiers.get("Ctrl", false)) or keycode == KEY_CTRL
+	event.meta_pressed = bool(modifiers.get("Meta", false)) or keycode == KEY_META
+	return event
 
 
 func save_keys():

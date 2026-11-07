@@ -32,24 +32,29 @@ func tick(_character: HumanoidCharacter, _delta: float) -> int:
 	return OK if check_for_sounds() else FAILED
 
 
-func check_for_sounds() -> bool:   # changed to bool during migration
+func check_for_sounds() -> bool:
+	var detected := false
 	for object in sound_sources:
 		var interest_level := get_interest_level(object)
 		if !interest_level: continue
 
 		emit_signal("sound_detected", object, interest_level)
 		emit_signal("event", interest_level, object.global_transform.origin, object, self)
-		return true   # this and next return line added during migration to fix error
-	return false
+		detected = true
+	return detected
 
 
 func get_interest_level(source: Node3D) -> int:
-	#FIXME
-	return 0
 	if !(source is HumanoidCharacter or source is PickableItem or source is LargeObject): return 0
-	if !source.noise_level: return 0
+	# HumanoidCharacter carries no noise_level yet (movement noise lives in the
+	# frozen legacy controller), so read it defensively instead of erroring.
+	var raw_noise: Variant = source.get("noise_level")
+	var noise_level: float = 0.0
+	if raw_noise != null:
+		noise_level = raw_noise
+	if noise_level <= 0.0: return 0
 
-	var interest := source.noise_level as int
+	var interest := noise_level as int
 	var walls_in_between := get_walls_in_between(source.global_transform.origin)
 	if walls_in_between: interest /= walls_in_between
 

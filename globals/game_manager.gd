@@ -20,4 +20,11 @@ var world_gen_rng: RandomNumberGenerator = null
 
 
 func _ready() -> void:
+	# The editor Debug menu ("Visible Navigation") injects the navigation debug
+	# hint into a game run, which draws white navmesh edge lines and closed
+	# entry squares around the world. The game must never show engine
+	# navigation debug, regardless of how it was launched.
+	get_tree().set_debug_navigation_hint(false)
+	NavigationServer3D.set_debug_enabled(false)
+
 	randomize()

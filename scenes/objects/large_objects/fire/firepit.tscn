@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=4 uid="uid://cbb21nelekyb"]
 
 [ext_resource type="Material" path="res://resources/models/large_objects/fire/firepit/trn_Firepit.material" id="1"]
-[ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_fhfx8"]
+[ext_resource type="Script" uid="uid://b2ajbms2l7851" path="res://scenes/objects/large_objects/static_large_object.gd" id="1_fhfx8"]
 [ext_resource type="Texture2D" uid="uid://b63c4k4vwmuyc" path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" id="4"]
 [ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="6"]
 

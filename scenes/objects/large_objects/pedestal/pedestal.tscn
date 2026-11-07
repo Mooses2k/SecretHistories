@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=4 uid="uid://bh6qsiqrhr5cc"]
 
 [ext_resource type="Material" path="res://resources/models/large_objects/pedestal/M_Wall.material" id="1"]
-[ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_sery0"]
+[ext_resource type="Script" uid="uid://b2ajbms2l7851" path="res://scenes/objects/large_objects/static_large_object.gd" id="1_sery0"]
 [ext_resource type="Script" uid="uid://bw5hualha4tj4" path="res://scenes/objects/large_objects/placement_anchor.gd" id="3_lb3n3"]
 [ext_resource type="PackedScene" uid="uid://bvn8k7h2qxr4p" path="res://scenes/worlds/procedural_world/anchor_spawner.tscn" id="4_spwn"]
 

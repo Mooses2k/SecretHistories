@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=4 uid="uid://mjyx24y5qej6"]
 
 [ext_resource type="Material" path="res://resources/models/gridmap/modular_pieces/M_DirtPiles.material" id="1"]
-[ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_kf177"]
+[ext_resource type="Script" uid="uid://b2ajbms2l7851" path="res://scenes/objects/large_objects/static_large_object.gd" id="1_kf177"]
 
 [sub_resource type="ArrayMesh" id="2"]
 resource_name = "brick_debris_SM_DirtPile_1"

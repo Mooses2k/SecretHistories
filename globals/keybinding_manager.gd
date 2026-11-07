@@ -71,6 +71,44 @@ func load_keys():
 		save_keys()
 		save_default_keys()
 
+	# Gamepad default migration (#268): a pre-existing keybinding.dict holds
+	# only keyboard/mouse strings, so setup_keys erased the joypad defaults
+	# the project file ships. Re-add any project joypad default the loaded
+	# map lacks, then persist. Idempotent: once present, the "?" dict rows
+	# keep the live events and the merge no-ops.
+	if _merge_missing_joypad_defaults():
+		keys_default = gen_dict_from_input_map()
+		save_keys()
+		save_default_keys()
+
+
+## Returns true when at least one project.godot joypad default was missing
+## from the live InputMap and was re-added. Keyboard/mouse bindings (user
+## customizations included) are never touched.
+func _merge_missing_joypad_defaults() -> bool:
+	var changed := false
+	for _action in InputMap.get_actions():
+		var action : String = _action as String
+		if not ProjectSettings.has_setting("input/" + action):
+			continue
+		var config: Variant = ProjectSettings.get_setting("input/" + action)
+		if not (config is Dictionary):
+			continue
+		var events: Variant = config.get("events")
+		if not (events is Array):
+			continue
+		for event in events:
+			var joypad_event := event as InputEvent
+			if joypad_event == null:
+				continue
+			if not (joypad_event is InputEventJoypadButton
+					or joypad_event is InputEventJoypadMotion):
+				continue
+			if not InputMap.action_has_event(action, joypad_event):
+				InputMap.action_add_event(action, joypad_event)
+				changed = true
+	return changed
+
 
 ## Returns true when the live map held the stale reversed hotbar wheel
 ## default and it was swapped in place. Leaves anything else (already

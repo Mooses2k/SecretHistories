@@ -48,9 +48,12 @@ func _on_Bomb_explosion():
 		var scaled_damage = owner.bomb_damage / (1 + distance)
 		if intersection.collider is RigidBody3D:
 			var body = intersection.collider as RigidBody3D
+			# Godot 4 signature apply_impulse(impulse, position): the blast
+			# pushes along the bomb-to-hit direction, applied at the hit
+			# offset from the body origin so off-center hits tip the body.
 			body.apply_impulse(
-				intersection.position - body.global_position,
-				global_position.direction_to(intersection.position) * scaled_damage * IMPULSE_MULTIPLIER
+				global_position.direction_to(intersection.position) * scaled_damage * IMPULSE_MULTIPLIER,
+				intersection.position - body.global_position
 			)
 			# Large rigid bodies (statues) take the same bomb damage
 			# characters take: owner.bomb_damage with the /(1 + distance)

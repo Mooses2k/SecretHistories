@@ -30,3 +30,9 @@ func _on_button_pressed():
 	# Save the setting to persistent storage
 	SettingsConfig.save_settings()
 	visible = false
+
+	# The first-start preference prompt rides the same one-time flow
+	# (issue #606): crouch hold-vs-toggle and left-hand mouse.
+	var preferences := get_node_or_null("../FirstStartPreferences") as Control
+	if preferences:
+		preferences.show_dialog()

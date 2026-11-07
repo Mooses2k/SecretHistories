@@ -41,6 +41,12 @@ func _ready() -> void:
 	else:
 		print("DEBUG: start_game_menu._ready() - NOT showing brightness calibration")
 
+	# The first-start preference prompt (issue #606) rides the one-time
+	# brightness calibration flow: the calibration confirm reveals it.
+	var preferences: Control = preload("res://scenes/ui/first_start_preferences.gd").new()
+	preferences.name = "FirstStartPreferences"
+	add_child(preferences)
+
 
 func _input(event):
 	if event.is_action_pressed("misc|fullscreen"):

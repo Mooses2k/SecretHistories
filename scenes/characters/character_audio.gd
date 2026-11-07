@@ -35,6 +35,7 @@ const BREATHING_EMPTY_DB : float = 14.0   # 3.x tired() volume at zero stamina
 # name, because headless runs do not refresh the global class cache.
 const RoomReverbAreaScript : GDScript = preload("res://scenes/effects/room_reverb_area.gd")
 var _breathing_audio : AudioStreamPlayer
+var _land_clamber_audio : AudioStreamPlayer3D
 
 @onready var speech_audio = $Speech as AudioStreamPlayer3D
 @onready var manipulation_audio = $Manipulation as AudioStreamPlayer3D
@@ -49,6 +50,7 @@ func _ready():
 	load_sounds("resources/sounds/jumping_landing/landing", 2)
 
 	_route_speech_to_reverb()
+	_setup_land_clamber_send()
 	choose_voice()   # Choose one from the appropriate voices for this character
 	pitch_alter_voice()   # Randomly alter pitch of this character's voice up or down some
 
@@ -121,6 +123,34 @@ func play_breathing(stamina_ratio : float) -> void:
 func _route_speech_to_reverb() -> void:
 	RoomReverbAreaScript.ensure_reverb_bus()
 	speech_audio.bus = RoomReverbAreaScript.BUS_NAME
+
+
+## Issue #179: landing and clamber one-shots ride the one shared "Reverb" bus,
+## whose effect is re-parameterized by the room the listener stands in. They
+## used to play on the Movement player shared with the footstep path, and
+## rerouting that player would have given footsteps reverb too, so the
+## one-shots play on this dedicated player instead. The bus reverb's dry is
+## 1.0, so the dry one-shot stays at its full 3.x volume and only the room's
+## wet tail is added. The bus sends onward to Effects. Ensure-only: this
+## never resets the room params.
+func _setup_land_clamber_send() -> void:
+	RoomReverbAreaScript.ensure_reverb_bus()
+	_land_clamber_audio = AudioStreamPlayer3D.new()
+	_land_clamber_audio.bus = RoomReverbAreaScript.BUS_NAME
+	add_child(_land_clamber_audio)
+
+
+## Plays the Movement player's current one-shot state (stream plus the 3.x
+## inherited pitch and volume the footstep path left behind) on the Reverb
+## bus send player instead of the shared Movement player, so the footstep
+## path itself stays untouched and nothing plays twice.
+func _play_land_clamber_send() -> void:
+	if _land_clamber_audio == null:
+		return
+	_land_clamber_audio.stream = movement_audio.stream
+	_land_clamber_audio.pitch_scale = movement_audio.pitch_scale
+	_land_clamber_audio.volume_db = movement_audio.volume_db
+	_land_clamber_audio.play()
 
 
 ### Speech
@@ -377,7 +407,7 @@ func play_land_sound():
 	# the wrong landing audio came from the dropped footstep volume reset.
 	_landing_sounds.shuffle()
 	movement_audio.stream = _landing_sounds.front()
-	movement_audio.play()
+	_play_land_clamber_send()
 
 
 func play_clamber_sound(clamber_in : bool) -> void:
@@ -385,12 +415,12 @@ func play_clamber_sound(clamber_in : bool) -> void:
 		if not movement_audio.stream in _clamber_sounds["in"]:
 				_clamber_sounds["in"].shuffle()
 				movement_audio.stream = _clamber_sounds["in"].front()
-				movement_audio.play()
+				_play_land_clamber_send()
 	else:
 		if !movement_audio.playing:
 				_clamber_sounds["out"].shuffle()
 				movement_audio.stream = _clamber_sounds["out"].front()
-				movement_audio.play()
+				_play_land_clamber_send()
 
 
 func on_player_detected(_player, _position) -> void:

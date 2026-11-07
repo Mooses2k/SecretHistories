@@ -46,3 +46,9 @@ func test_speech_routing_keeps_dry_full_and_leaves_room_params_alone():
 	_make_character_audio()
 	assert_almost_eq(reverb.dry, 1.0, 0.0001, "speech routing keeps dry full")
 	assert_almost_eq(reverb.wet, wet_before, 0.0001, "speech routing never resets the room params")
+
+
+func test_land_clamber_send_rides_the_reverb_bus():
+	_make_character_audio()
+	assert_not_null(_audio._land_clamber_audio, "setup creates the landing and clamber send player")
+	assert_eq(_audio._land_clamber_audio.bus, "Reverb", "the send player targets the Reverb bus")

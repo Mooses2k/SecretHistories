@@ -116,51 +116,62 @@ func throw_object(object : RigidBody3D):
 	if object is MeleeItem:
 		thrown_item_type = object.get_script()  # Get the script type for comparison
 
-	# Determine which slot was thrown from
+	# Determine which slot was thrown from. The dropped node is what actually
+	# left the inventory (T9): with units remaining in a record-backed stack
+	# the representative stays and a fresh materialized node is the thrown
+	# one; a null dropped node means nothing left the inventory.
 	var thrown_slot = -1
+	var thrown : RigidBody3D = object
 	if is_mainhand:
-		inv.drop_mainhand_item()
+		var dropped = inv.drop_mainhand_item()
+		if dropped == null:
+			return
+		thrown = dropped
 		thrown_slot = inv.current_mainhand_slot
 	elif is_offhand:
-		inv.drop_offhand_item()
+		var dropped = inv.drop_offhand_item()
+		if dropped == null:
+			return
+		thrown = dropped
 		thrown_slot = inv.current_offhand_slot
 
 	var impulse := 100.0
-	if (object is PickableItem) and object.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
-		impulse = 50.0 * object.mass
+	if (thrown is PickableItem) and thrown.item_size == GlobalConsts.ItemSize.SIZE_SMALL:
+		impulse = 50.0 * thrown.mass
 	var impulse_vector := - main_camera.global_basis.z * impulse
 	# Thrown-item audio rule: remember the thrower so the spin loop ignores
 	# release-time contact with the hand and stops on the first real impact.
-	object.set_meta("thrown_by", owner)
-	object.apply_central_impulse(impulse_vector)
-	if object is PickableItem:
-		object.impact_damage_cooldown[owner] = PickableItem.IMPACT_DAMAGE_REPEAT_COOLDOWN
-		object.set_item_state(GlobalConsts.ItemState.DROPPED)
-		if object is EquipmentItem:
-			object.apply_throw_logic(impulse_vector)
+	thrown.set_meta("thrown_by", owner)
+	thrown.apply_central_impulse(impulse_vector)
+	if thrown is PickableItem:
+		thrown.impact_damage_cooldown[owner] = PickableItem.IMPACT_DAMAGE_REPEAT_COOLDOWN
+		thrown.set_item_state(GlobalConsts.ItemState.DROPPED)
+		if thrown is EquipmentItem:
+			thrown.apply_throw_logic(impulse_vector)
 
-	object.add_collision_exception_with(owner)
-	if object.has_method(&"play_throw_sound"):
-		object.play_throw_sound()
+	thrown.add_collision_exception_with(owner)
+	if thrown.has_method(&"play_throw_sound"):
+		thrown.play_throw_sound()
 
 	# Auto weapon switching logic (only for hotbar throws, not grabbed items)
-	if thrown_from_hotbar and GameSettings.get_auto_switch_weapon() != 2 and object is MeleeItem:  # 2 = "None"
-		_auto_switch_weapon(inv, thrown_item_type, is_mainhand, is_offhand, thrown_slot, object)
+	if thrown_from_hotbar and GameSettings.get_auto_switch_weapon() != 2 and thrown is MeleeItem:  # 2 = "None"
+		_auto_switch_weapon(inv, thrown_item_type, is_mainhand, is_offhand, thrown_slot, thrown)
 
 
 # Add the auto switch weapon helper function
 func _auto_switch_weapon(inv: Inventory, thrown_item_type, is_mainhand: bool, is_offhand: bool, thrown_slot: int, thrown_item):
 	var auto_switch_mode = GameSettings.get_auto_switch_weapon()  # 0 = "Next same type then all", 1 = "Next same type only"
 
-	# First check if the thrown item is from a stackable resource
-	var stackable_resource = thrown_item.stackable_resource
-
-	if stackable_resource != null:
-		# Try to find the hotbar slot that contains this stackable resource
-		for i in range(inv.hotbar.size()):
-			var hotbar_item = inv.hotbar[i]
-			if hotbar_item != null and hotbar_item.stackable_resource == stackable_resource:
-				if stackable_resource.items_stacked.size() > 0:
+	# First check if the thrown item came from a surviving stack record (T9).
+	# The thrown node carries the record id, and the record is the count
+	# truth. The old reference-equality resource match never fired across
+	# local_to_scene resource copies anyway.
+	if thrown_item is EquipmentItem and thrown_item.stack_record_id >= 0:
+		var stack_record = inv.get_stack_record(thrown_item.stack_record_id)
+		if stack_record != null and stack_record.count > 0:
+			for i in range(inv.hotbar.size()):
+				var hotbar_item = inv.hotbar[i]
+				if hotbar_item != null and hotbar_item.stack_record_id == stack_record.id:
 					if is_mainhand:
 						inv.current_mainhand_slot = i
 						inv.equip_mainhand_item()

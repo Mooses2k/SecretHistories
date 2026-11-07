@@ -117,11 +117,14 @@ func _on_Countdown_timeout():
 		#if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies().has(owner_character):
 			#owner_character.fps_camera.add_stress(0.5)   # Eventually maybe based on distance from explosion
 	
-	# Remove this bomb from its stackable resource now, but do NOT free the
-	# bomb this frame: the explosion particles just started emitting and need
-	# frames to render. explosions.gd's Timer frees the owner after the blast.
-	if stackable_resource != null:
-		stackable_resource.remove_item(self)
+	# The exploding bomb consumes its own unit through the owning inventory's
+	# record API (T7), but the bomb is NOT freed this frame: the explosion
+	# particles just started emitting and need frames to render. explosions.gd
+	# frees the owner after the blast; the tree-exit cleanup then clears the
+	# hotbar slot and hands, so the emptied record is destroyed at the next
+	# mutation. A thrown bomb already left the inventory through the drop.
+	if is_instance_valid(owner_character) and owner_character.inventory != null and stack_record_id >= 0:
+		owner_character.inventory.remove_from_stack_record(stack_record_id, 1)
 
 
 func _on_tree_exiting():

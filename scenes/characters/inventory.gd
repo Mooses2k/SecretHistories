@@ -869,11 +869,12 @@ func unequip_offhand_item():
 				parent.remove_child(item)
 
 
-func drop_mainhand_item():
+func drop_mainhand_item() -> Node:
 	if bulky_equipment:
+		var dropped = bulky_equipment
 		drop_bulky_item()
-	else:
-		drop_hotbar_slot(current_mainhand_slot)
+		return dropped
+	return drop_hotbar_slot(current_mainhand_slot)
 
 
 func get_mainhand_item() -> EquipmentItem:
@@ -907,14 +908,15 @@ func has_bulky_item() -> bool:
 	return bulky_equipment != null
 
 
-func drop_offhand_item():
-	drop_hotbar_slot(current_offhand_slot)
+func drop_offhand_item() -> Node:
+	return drop_hotbar_slot(current_offhand_slot)
 
 
 func drop_hotbar_slot(slot : int) -> Node:
 	assert(slot >= 0 and slot < hotbar.size(), "Invalid slot index in drop_hotbar_slot")
 
 	var item = hotbar[slot]
+	var dropped_item : Node = null
 	if item != null:
 		var item_node = item as EquipmentItem
 		if item_node == null:
@@ -936,6 +938,7 @@ func drop_hotbar_slot(slot : int) -> Node:
 					_drop_item(item_node)
 				else:
 					_drop_item(item_node)
+			dropped_item = item_node
 		else:
 			var hand = null
 			if current_mainhand_equipment == item_node:
@@ -945,46 +948,44 @@ func drop_hotbar_slot(slot : int) -> Node:
 				unequip_offhand_item()
 				hand = HandEnum.OFF_HAND
 
-			# For stackable items: decrement the stack count but keep the same hotbar item
-			# The hotbar item represents the entire stack, not individual items
+			# Record-aware drop (T8): the record is the count truth. With
+			# units remaining, the representative stays in its slot and the
+			# dropped unit is a fresh materialized node; the last unit drops
+			# the representative itself, and the emptied record is destroyed
+			# because the slot and hands were cleared before the remove.
+			var record : StackableStackRecord = null
+			if item_node.stack_record_id >= 0:
+				record = get_stack_record(item_node.stack_record_id)
 
-			# Remove one item from the stack (this decrements the count)
-			if item.stackable_resource.items_stacked.size() > 0:
-				var removed_item = item.stackable_resource.items_stacked.pop_back()
-
-			# Check if there are still items left in the stack
-			if item.stackable_resource.items_stacked.size() > 0:
-				# Keep the hotbar item (it still represents the remaining stack)
-				# Just update the UI to reflect the new stack size
-				emit_signal("hotbar_changed", slot)
-
-				# Re-equip the stack with new top item
+			if record != null and record.count > 1:
+				dropped_item = materialize_stack_item(record.id)
+				if dropped_item != null:
+					_drop_item(dropped_item)
+				else:
+					# Spawn failed: the unit stays owned (no-destroy rule),
+					# so nothing is dropped this time.
+					push_warning("drop_hotbar_slot: materialization failed, the unit stays owned")
+				# Re-equip the surviving representative
 				match hand:
 					HandEnum.MAIN_HAND:
 						equip_mainhand_item()
 					HandEnum.OFF_HAND:
 						equip_offhand_item()
 			else:
-				# Clear the hotbar slot since this was the last item
 				hotbar[slot] = null
-				
-				# Also clear equipment references if they point to this item
-				if current_mainhand_equipment == item:
-					current_mainhand_equipment = null
-				if current_offhand_equipment == item:
-					current_offhand_equipment = null
-
-			# Drop the hotbar item (represents one item from the stack)
-			if item_node.can_attach == true:
-				remove_from_belt(item)
-				var parent = item_node.get_parent()
-				if parent != null:
-					parent.remove_child(item_node)
-				_drop_item(item_node)
-			else:
-				_drop_item(item_node)
+				if record != null:
+					remove_from_stack_record(record.id, 1)
+				if item_node.can_attach == true:
+					remove_from_belt(item)
+					var parent = item_node.get_parent()
+					if parent != null:
+						parent.remove_child(item_node)
+					_drop_item(item_node)
+				else:
+					_drop_item(item_node)
+				dropped_item = item_node
 		emit_signal("hotbar_changed", slot)
-	return item
+	return dropped_item
 
 
 # Drops the item, it must be unequipped first

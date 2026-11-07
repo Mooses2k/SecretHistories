@@ -14,6 +14,14 @@ var unloaded : bool = false
 @onready var player_controller: Node = get_parent()
 
 
+## Reload-gate allowlist: guns unload on long hold and refill on tap,
+## medical containers and light fuel containers refill on tap. Everything
+## else ignores the reload key.
+func _item_accepts_reload(item) -> bool:
+	return item is GunItem or item is MedicalItem \
+			or item is LanternItem or item is CandelabraItem
+
+
 #TODO: disable held action if switching items (new item should not be held automatically)
 func _process(delta: float) -> void:
 	var main_item = inventory.get_mainhand_item()
@@ -70,9 +78,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_released(&"player|reload"):
 			# Light fuel containers join the medical reload seam (fuel design
 			# doc section 6): tap = refill; the long-hold unload stays gun-only.
-			# The candelabra joins when its socket refill lands (its candles
-			# are swapped whole, not poured).
-			if not unloaded and (main_item is GunItem or main_item is MedicalItem or main_item is LanternItem):
+			# The candelabra refills spent candle slots from a hotbar candle
+			# stack (owner ruling b: one unit per press, never auto-lights).
+			if not unloaded and _item_accepts_reload(main_item):
 				main_item.use_reload()
 
 	var off_item = inventory.get_offhand_item()

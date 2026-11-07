@@ -1,6 +1,7 @@
 # Tests for the reload gate in item_controller.gd (Brooks Wave 1 row 4): the
-# reload release action must call use_reload() only when the mainhand item is a
-# GunItem or MedicalItem, and reject any other item type.
+# reload release action must call use_reload() only when the mainhand item is
+# a GunItem, MedicalItem, LanternItem, or CandelabraItem, and reject any
+# other item type.
 # A real Inventory carries the mainhand item (its get_mainhand_item cast is part
 # of the seam), and the items are GUT doubles so no item scene is needed.
 extends GutTest
@@ -11,6 +12,7 @@ const GunItemScript = preload("res://scenes/objects/pickable_items/equipment/ran
 const MedicalItemScript = preload("res://scenes/objects/pickable_items/equipment/consumable/medical/_medical_item.gd")
 const MeleeItemScript = preload("res://scenes/objects/pickable_items/equipment/melee/melee_item.gd")
 const PickableItemScript = preload("res://scenes/objects/pickable_items/pickable_item.gd")
+const CandelabraScript = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/candelabra/candelabra.gd")
 
 
 func _make_inventory() -> Inventory:
@@ -55,6 +57,20 @@ func test_reload_release_calls_use_reload_on_medical_item():
 	var controller = _make_controller(inv)
 	controller._unhandled_input(_release_reload_event())
 	assert_called(medical, "use_reload")  # the gate passes MedicalItem through
+
+
+func test_reload_release_calls_use_reload_on_candelabra_item():
+	# Owner ruling b: the handheld candelabra refills its spent candle slots
+	# from a hotbar candle stack through the same tap-reload seam.
+	var inv = _make_inventory()
+	var candelabra = double(CandelabraScript).new()
+	stub(candelabra, "use_reload").to_do_nothing()
+	autofree(candelabra)
+	inv.current_mainhand_equipment = candelabra
+
+	var controller = _make_controller(inv)
+	controller._unhandled_input(_release_reload_event())
+	assert_called(candelabra, "use_reload")  # the gate passes CandelabraItem through
 
 
 func test_reload_release_rejects_other_equipment_types():

@@ -5,9 +5,11 @@ extends ToolItem
 ## loose candle (owner ruling: a candelabra's candles ARE candles), and the
 ## shared light output follows the per-object logarithmic curve with the
 ## lit-candle count, so a stand with one candle left reads dimmer than a
-## fully lit one. Socket insert/swap interactions (the refill point for whole
-## candles) arrive with the removable-candle work; inserted candles do NOT
-## auto-light.
+## fully lit one. Refill rides the medical-reload seam (owner ruling b): one
+## tap R fills one spent candle slot to 1.0 by consuming one candle unit
+## from a hotbar candle stack; it never auto-lights. Whole-candle socket
+## insert/swap interactions arrive with the removable-candle work; inserted
+## candles do NOT auto-light.
 
 
 signal item_dropped
@@ -252,3 +254,83 @@ func _refresh_light_output() -> void:
 
 func _on_ignite_character_interacted(_character: Variant) -> void:
 	_use_primary()
+
+
+## Hotbar-swap refill (owner ruling b, medical-reload baseline, fuel design
+## section 6): one tap fills ONE spent candle slot to a full 1.0 by consuming
+## one candle unit from a hotbar candle stack. Never auto-lights: the
+## lighting state is untouched, and refilling while lit neither lights nor
+## extinguishes. This consumption is the one sanctioned wax consumption: the
+## candle unit is not destroyed, it becomes the socket's new fill. A
+## burned-out stub (fill 0.0) is not a wax source. Fresh wax clears the
+## burned-out lockout, so a depleted candelabra can be lit again.
+func _use_reload() -> void:
+	if owner_character == null:
+		return
+	var inv : Inventory = owner_character.inventory
+	if inv == null:
+		return
+	var target_slot := _first_spent_slot()
+	if target_slot == -1:
+		return
+	var carriers : Array = inv.search_hotbar_matched(Callable(self, "_is_scannable_candle"))
+	for pair in carriers:
+		if _refill_slot_from_candle(pair[0], pair[1], inv, target_slot):
+			return
+
+
+## The lowest-index socket that is not full is the refill target: sockets are
+## an ordered set, so the take order is deterministic.
+func _first_spent_slot() -> int:
+	for i in range(candle_fuel.size()):
+		if candle_fuel[i].fill < 1.0:
+			return i
+	return -1
+
+
+## A hotbar candle is a wax source when it is a real CandleItem carrying wax
+## (fill > 0.0). The kind is structural: candle.gd and this script both
+## hard-code FuelSource.FuelKind.WAX, so the pour is wax into wax by
+## construction. A candle is NOT a FuelContainer percentage carrier
+## (FuelContainer.is_fuel_carrier stays false for it, per owner decision 5);
+## whole candle units are the exchange shape here, not percentage fills.
+func _is_scannable_candle(item : Object) -> bool:
+	if not (item is CandleItem):
+		return false
+	var fuel : FuelContainer = item.get("fuel")
+	if fuel == null or fuel.fuel_source == null:
+		return false
+	if fuel.fuel_source.fuel_kind != FuelSource.FuelKind.WAX:
+		return false
+	return fuel.fill > 0.0
+
+
+## One candle unit becomes one full socket. The record is decremented when
+## the candle represents a stack (the node stays as the record's
+## representative); on its last unit, or with no record at all, the node
+## itself is consumed, exactly like the medical reload seam.
+func _refill_slot_from_candle(candle : CandleItem, slot_index : int, inv : Inventory, target_slot : int) -> bool:
+	var record : StackableStackRecord = null
+	if candle.stack_record_id >= 0:
+		record = inv.get_stack_record(candle.stack_record_id)
+	if record != null and record.count <= 0:
+		return false
+
+	candle_fuel[target_slot].fill = 1.0
+	is_depleted = false
+	if record != null and record.count > 1:
+		inv.remove_from_stack_record(record.id, 1)
+		inv.emit_signal("hotbar_changed", slot_index)
+	else:
+		inv.hotbar[slot_index] = null
+		if inv.current_mainhand_slot == slot_index:
+			inv.unequip_mainhand_item()
+		elif inv.current_offhand_slot == slot_index:
+			inv.unequip_offhand_item()
+		if record != null:
+			inv.remove_from_stack_record(record.id, 1)
+		inv.emit_signal("hotbar_changed", slot_index)
+		candle.queue_free()
+	inv.emit_signal("inventory_changed")
+	emit_signal("item_data_changed")
+	return true

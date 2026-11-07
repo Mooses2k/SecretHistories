@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cc53beeb4yjce"]
+[gd_scene load_steps=9 format=3 uid="uid://cc53beeb4yjce"]
 
 [ext_resource type="PackedScene" uid="uid://lfp017c611je" path="res://scenes/ui/hotbar/hotbar_slot.tscn" id="1"]
 [ext_resource type="Script" uid="uid://qyryh6tmhriy" path="res://scenes/ui/hotbar/hotbar_slot.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/ui/hotbar/ammo_readout.gd" id="3"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
 content_margin_left = 4.0
@@ -96,6 +97,11 @@ size_flags_vertical = 8
 mouse_filter = 2
 theme_override_constants/separation = 2
 alignment = 1
+
+[node name="AmmoReadout" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("3")
 
 [node name="Bulky" parent="VBoxContainer" instance=ExtResource("1")]
 visible = false

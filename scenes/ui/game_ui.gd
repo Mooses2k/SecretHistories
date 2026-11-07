@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name GameUI
 
 const TinnitusOverlay := preload("res://scenes/ui/tinnitus_overlay.gd")
+const BloodScreenOverlay := preload("res://scenes/ui/blood_screen_overlay.gd")
 
 
 enum GUIState {
@@ -18,9 +19,11 @@ var gui_state : int = GUIState.HUD: set = set_gui_state
 
 @onready var hud_root : HUD = %HUD
 @onready var _tinnitus : TinnitusOverlay = %Tinnitus
+@onready var _blood_screen : BloodScreenOverlay = %BloodScreen
 
 var _observed_player : Node = null
 var _observed_state : HumanoidCharacterState = null
+var _observed_hurtboxes : Array[Hurtbox] = []
 
 
 func set_gui_state(value : int):
@@ -57,11 +60,22 @@ func observe_player(player : Node) -> void:
 	_observed_player = player
 	_observed_state = player.get_node("State") as HumanoidCharacterState
 	_observed_state.physical_state_changed.connect(_on_player_physical_state_changed)
+	# Every hurtbox reports its own damage events; the overlay reads the
+	# decremented State.durability afterwards (State connected first at ready).
+	for node in player.find_children("*", "Hurtbox", true, false):
+		var hurtbox := node as Hurtbox
+		if hurtbox != null:
+			hurtbox.damaged.connect(_on_player_hurtbox_damaged)
+			_observed_hurtboxes.append(hurtbox)
 
 
 func _stop_observing_player() -> void:
 	if _observed_state != null and is_instance_valid(_observed_state):
 		_observed_state.physical_state_changed.disconnect(_on_player_physical_state_changed)
+	for hurtbox in _observed_hurtboxes:
+		if is_instance_valid(hurtbox) and hurtbox.damaged.is_connected(_on_player_hurtbox_damaged):
+			hurtbox.damaged.disconnect(_on_player_hurtbox_damaged)
+	_observed_hurtboxes.clear()
 	_observed_state = null
 	_observed_player = null
 
@@ -81,6 +95,11 @@ func _on_Events_tinnitus_triggered(strength : float) -> void:
 func _on_player_physical_state_changed(new_physical_state : int) -> void:
 	if new_physical_state == HumanoidCharacterState.PhysicalState.DEAD:
 		_tinnitus.set_dead()
+		_blood_screen.set_dead()
+
+
+func _on_player_hurtbox_damaged(_amount : int, _type : GlobalConsts.AttackTypes, _direction : Vector3, _origin : Vector3) -> void:
+	_blood_screen.on_player_hit(_observed_state.durability)
 
 
 func _input(event: InputEvent) -> void:

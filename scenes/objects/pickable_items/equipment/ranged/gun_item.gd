@@ -6,6 +6,12 @@ extends EquipmentItem
 
 signal target_hit(target, position, direction, normal)
 signal on_shoot()
+
+# The loudest gunshot report in the game: the shotgun shell's total payload
+# (8 damage x 9 pellets) through gunshot_noise_for. Normalizes the tinnitus
+# ring strength for every other gun against it.
+const LOUDEST_GUNSHOT_NOISE := 66.0
+
 # Emitted when a reload stage completes: the stage's rounds are already
 # applied at this point. An abort request preempts the stage instead and
 # does not emit this signal.
@@ -195,11 +201,22 @@ func shoot():
 
 
 func _use_primary():
+	var ammo_type := current_ammo_type as AmmunitionData
 	if (not owner_character.state.is_reloading) and (not on_cooldown) and current_ammo > 0:
 		shoot()
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 		emit_signal("on_shoot")
+		# The shooter's own gunfire rings their ears, scaled by the report's
+		# loudness (owner-approved gunfire tinnitus; 3.x had no gunshot
+		# trigger, only the ghost damage area). LOUDEST_GUNSHOT_NOISE is the
+		# loudest current report: the shotgun shell's 8 damage x 9 pellets
+		# through gunshot_noise_for. No distance model exists for AI shots.
+		if owner_character.is_in_group("PLAYER"):
+			var ring_strength := clampf(
+					gunshot_noise_for(ammo_type, damage_offset) / LOUDEST_GUNSHOT_NOISE,
+					0.0, 1.0)
+			Events.tinnitus_triggered.emit(ring_strength)
 	if (not owner_character.state.is_reloading) and (not on_cooldown) and current_ammo == 0:
 		dryfire()
 

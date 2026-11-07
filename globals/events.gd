@@ -9,6 +9,12 @@ signal down_staircase_used
 # parameters are values from GameManager.ScreenFilter enum
 signal debug_filter_forced(screen_filter)
 
+# Emitted when the player's ears should ring: the ghost damage area emits per
+# frame while the player overlaps (strength = frame delta), the player's own
+# gunshots emit their normalized loudness (gun_item.gd). Consumed by the
+# tinnitus overlay in scenes/ui.
+signal tinnitus_triggered(strength : float)
+
 func connect_to(
 		signal_name: String, 
 		object: Object, 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://q7wrpjiye0bb"]
+[gd_scene load_steps=13 format=3 uid="uid://q7wrpjiye0bb"]
 
 [ext_resource type="PackedScene" uid="uid://dtmm8et2mxrcc" path="res://scenes/ui/settings_menu.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bf3yktywuo08c" path="res://scenes/ui/hud.tscn" id="2"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://brvu423htk6sc" path="res://resources/art/player ui/normal.png" id="7_qrkc0"]
 [ext_resource type="Texture2D" uid="uid://cc5bgrlvpb26j" path="res://resources/art/grab.png" id="8_k7elv"]
 [ext_resource type="Texture2D" uid="uid://dm7aoksvuysil" path="res://resources/art/flame-xxl.png" id="9_fftnl"]
+[ext_resource type="Script" uid="uid://dhota7y04b0jr" path="res://scenes/ui/tinnitus_overlay.gd" id="10_tinnitus"]
+[ext_resource type="Texture2D" uid="uid://h36fkqxqoh4x" path="res://resources/effects/whiteScreen.png" id="11_whitescreen"]
+[ext_resource type="AudioStream" uid="uid://xlkhw6fivhbs" path="res://resources/sounds/player/377206__tnturner__tinnitus.mp3" id="12_tinnitus_stream"]
 
 [node name="GameUI" type="CanvasLayer"]
 process_mode = 3
@@ -105,6 +108,28 @@ offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_fftnl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tinnitus" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+process_mode = 1
+process_priority = 100
+stream = ExtResource("12_tinnitus_stream")
+volume_db = -100.0
+script = ExtResource("10_tinnitus")
+
+[node name="ScreenWhite" type="CanvasLayer" parent="Tinnitus"]
+
+[node name="TextureRect" type="TextureRect" parent="Tinnitus/ScreenWhite"]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_whitescreen")
 expand_mode = 1
 stretch_mode = 5
 

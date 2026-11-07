@@ -19,10 +19,11 @@ var _pressed_slot_key_count : int = 0
 var _pressed_slot : int = -1
 var _slots_swapped : bool = false
 
-# Owner ruling option c (stage-boundary interrupt): a mainhand slot switch
-# requested DURING a gun reload is parked here and executes at the reload's
-# current stage boundary. The gun stays equipped (and in the tree) until that
-# boundary, so its ReloadTimer can finish and the loaded-round count stands.
+# A mainhand slot switch requested DURING a gun reload is parked here and
+# executes once the reload stops. The parked switch requests the abort on the
+# reloading gun, which preempts its timer, keeps the rounds already loaded,
+# and clears is_reloading. The gun stays equipped (and in the tree) until
+# this switch runs.
 var _deferred_mainhand_slot : int = -1
 
 
@@ -35,9 +36,8 @@ func cancel_throw():
 
 
 func _process(delta: float) -> void:
-	# Deferred mainhand switch fires at the first reload stage boundary after
-	# the request (is_reloading clearing is the boundary signal for every
-	# completion path, abort or normal).
+	# Deferred mainhand switch fires once is_reloading clears: immediately
+	# after an abort preempt, or when a stage completes normally.
 	if _deferred_mainhand_slot >= 0 and not character.state.is_reloading:
 		var slot := _deferred_mainhand_slot
 		_deferred_mainhand_slot = -1
@@ -58,16 +58,17 @@ func _process(delta: float) -> void:
 
 
 ## Mainhand slot switch entry point. Outside a reload this behaves exactly as
-## before. During a gun reload the switch defers to the stage boundary and
-## requests the abort on the reloading gun (owner ruling option c). During an
-## unload (hold R, reloading_item null) switching stays hard-locked.
+## before. During a gun reload the switch parks until the reload stops and
+## requests the abort on the reloading gun, which preempts the reload
+## promptly. During an unload (hold R, reloading_item null) switching stays
+## hard-locked.
 func _request_mainhand_switch(slot : int) -> void:
 	if character.state.is_reloading:
 		if not is_instance_valid(character.state.reloading_item):
 			return
 		if slot == inventory.current_mainhand_slot:
-			# "Stay on this weapon" cancels a pending switch; the reload's
-			# current stage simply finishes with no further changes.
+			# "Stay on this weapon" cancels a pending switch; the reload
+			# keeps running with no further changes.
 			_deferred_mainhand_slot = -1
 			return
 		_deferred_mainhand_slot = slot
@@ -80,9 +81,9 @@ func _request_mainhand_switch(slot : int) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# hotbar scrolling - but not when grabbing objects or placing blueprints.
-	# Allowed DURING a gun reload: the switch defers to the stage boundary and
-	# requests the abort (owner ruling option c). _request_mainhand_switch
-	# self-gates the unload case (still locked).
+	# Allowed DURING a gun reload: the switch parks until the reload stops
+	# and requests the abort. _request_mainhand_switch self-gates the unload
+	# case (still locked).
 	if event.is_action_pressed(&"itm|next_hotbar_item"):
 		# Check if interact controller is currently grabbing
 		if interact_controller.interact_state == interact_controller.InteractState.GRAB:
@@ -206,7 +207,7 @@ func _handle_hotbar_buttons():
 				else:
 					# slot that was pressed -> normal logic
 					# Don't select current offhand slot and don't select 10 because it's hotbar_11, used for holstering offhand item, below
-					# Allowed during a gun reload: defers to the stage
-					# boundary and requests the abort (owner ruling option c).
+					# Allowed during a gun reload: parks until the reload
+					# stops and requests the abort.
 					if i != inventory.current_offhand_slot and i != 10:
 						_request_mainhand_switch(i)

@@ -6,9 +6,9 @@ extends EquipmentItem
 
 signal target_hit(target, position, direction, normal)
 signal on_shoot()
-# Emitted when a reload stage boundary is reached: the stage's rounds are
-# already applied at this point (owner ruling option c: an interrupt never
-# cancels the in-flight stage, only the remaining stages after it).
+# Emitted when a reload stage completes: the stage's rounds are already
+# applied at this point. An abort request preempts the stage instead and
+# does not emit this signal.
 signal reload_stage_finished(loaded_amount : int)
 
 enum MeleeStyle {
@@ -54,10 +54,6 @@ var on_cooldown = false
 
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
-# Owner ruling option c: a slot switch during a reload requests a
-# stage-boundary interrupt. The in-flight stage still completes (its rounds
-# load, the count is preserved); the flag only stops any further stages.
-var _reload_abort_requested : bool = false
 
 @export var detection_raycast : NodePath
 
@@ -222,7 +218,6 @@ func reload():
 					current_ammo_type = null
 				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
 				if _reload_amount > 0:
-					_reload_abort_requested = false
 					$ReloadTimer.start(reload_time)
 					_queued_reload_amount = _reload_amount
 					_queued_reload_type = ammo_type
@@ -285,21 +280,29 @@ func _on_ReloadTimer_timeout() -> void:
 				current_ammo_type = _queued_reload_type
 				current_ammo += _reload_amount
 		owner_character.state.is_reloading = false
-		# Stage boundary (owner ruling option c): the in-flight stage just
-		# finished, so this is where a requested interrupt takes effect. The
-		# rounds above were already applied, so the loaded count stands; a
-		# future multi-stage chain would consult _reload_abort_requested
-		# before starting its next stage.
 		if owner_character.state.reloading_item == self:
 			owner_character.state.reloading_item = null
 		reload_stage_finished.emit(current_ammo)
-	_reload_abort_requested = false
 
 
+## A mainhand slot switch during a reload requests this abort. Every reload
+## stage in this codebase is a single ReloadTimer whose rounds all land at
+## the timeout (the webley queues all 6 rounds in one timer, the lee-metford
+## one round per key press), so letting the in-flight stage run out would
+## finish the whole reload. The abort therefore preempts the timer: the
+## queued rounds are not consumed (the inventory is only debited at the
+## timeout) and the rounds loaded before the stage stand. An ammo-type
+## switch staged in reload() already returned the old rounds to the
+## inventory, so nothing is lost there either.
 func request_reload_abort() -> void:
-	# Called by inventory_controller when the player switches slots during a
-	# reload. No immediate effect: the in-flight stage finishes first.
-	_reload_abort_requested = true
+	if $ReloadTimer.is_stopped():
+		return
+	$ReloadTimer.stop()
+	if owner_character and owner_character.state.is_reloading:
+		owner_character.state.is_reloading = false
+		if owner_character.state.reloading_item == self:
+			owner_character.state.reloading_item = null
+	$Sounds/Reload.stop()
 
 
 func _on_UnloadTimer_timeout() -> void:

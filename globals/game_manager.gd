@@ -28,3 +28,11 @@ func _ready() -> void:
 	NavigationServer3D.set_debug_enabled(false)
 
 	randomize()
+
+
+func _process(_delta: float) -> void:
+	# Cheap bool checks every frame: whatever re-enables the engine navigation
+	# debug after startup (editor launch flags, future engine hooks) cannot win.
+	if get_tree().is_debugging_navigation_hint() or NavigationServer3D.get_debug_enabled():
+		get_tree().set_debug_navigation_hint(false)
+		NavigationServer3D.set_debug_enabled(false)

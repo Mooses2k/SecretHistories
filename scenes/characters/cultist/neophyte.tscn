@@ -293,13 +293,16 @@ transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_8fi7o")
 
 [node name="DebugVisualizers" type="Node3D" parent="." index="11"]
+visible = false
 
 [node name="TargetPosition" type="MeshInstance3D" parent="DebugVisualizers" index="0"]
+visible = false
 mesh = SubResource("BoxMesh_dt6gn")
 skeleton = NodePath("../../..")
 script = ExtResource("28_ata88")
 
 [node name="Path" type="MeshInstance3D" parent="DebugVisualizers" index="1"]
+visible = false
 top_level = true
 material_override = SubResource("StandardMaterial3D_0jilu")
 script = ExtResource("29_byly4")

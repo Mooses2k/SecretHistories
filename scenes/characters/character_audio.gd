@@ -292,8 +292,30 @@ func _on_BT_Reload_Gun_character_reloaded():
 
 
 # Movement
-# TODO: Set terrain type on the tile collision data/metadata so that you can decide which type
-#       of terrain it's walking on when calling this method
+## Resolves the footstep material for a world position from the level's
+## WorldData surface types, the same source the 3.x character used.
+## Falls back to Stone when there is no level, no world data, the position
+## is out of bounds, or the surface type has no footstep clips
+## (Wood, Water, Metal, Tile).
+func resolve_footstep_material(global_pos : Vector3) -> AudioLibrary.FOOTSTEP_TYPES:
+	if GameManager.game == null or GameManager.game.level == null or GameManager.game.level.world_data == null:
+		return AudioLibrary.FOOTSTEP_TYPES.STONE
+	var world_data : WorldData = GameManager.game.level.world_data
+	var level : GameWorld = GameManager.game.level
+	# A level outside the tree has no world placement, so its origin is zero.
+	var local_pos : Vector3 = global_pos
+	if level.is_inside_tree():
+		local_pos -= level.global_position
+	var surface_type : int = world_data.get_cell_surfacetype(world_data.get_cell_index_from_local_position(local_pos))
+	match surface_type:
+		WorldData.SurfaceType.CARPET:
+			return AudioLibrary.FOOTSTEP_TYPES.CARPET
+		WorldData.SurfaceType.GRAVEL:
+			return AudioLibrary.FOOTSTEP_TYPES.GRAVEL
+		_:
+			return AudioLibrary.FOOTSTEP_TYPES.STONE
+
+
 func play_footstep_sound(rate : float = 0.0, pitch : float = 1.0, volume : float = 0.0, material:AudioLibrary.FOOTSTEP_TYPES = AudioLibrary.FOOTSTEP_TYPES.STONE):
 	if(movement_audio.playing):
 		return

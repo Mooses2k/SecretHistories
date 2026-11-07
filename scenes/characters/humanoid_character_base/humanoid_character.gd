@@ -88,12 +88,15 @@ func _physics_process(delta: float) -> void:
 		# gravity term on y (~0.16 m/s), which defeats the old 3D threshold.
 		var planar_speed := Vector2(linear_velocity.x, linear_velocity.z).length()
 		if state.is_on_ground and planar_speed > 0.5 and not audio_player.movement_audio.playing:
+			# 3.x parity: the floor surface type under the character selects
+			# the footstep material set (stone, gravel, carpet).
+			var footstep_material : AudioLibrary.FOOTSTEP_TYPES = audio_player.resolve_footstep_material(global_position)
 			if state.current_crouch_ratio > 0.5:
-				audio_player.play_footstep_sound(-1.0, 0.1, -20)
+				audio_player.play_footstep_sound(-1.0, 0.1, -20, footstep_material)
 			elif state.sprinting:
-				audio_player.play_footstep_sound(5.0, 1.5)
+				audio_player.play_footstep_sound(5.0, 1.5, 0.0, footstep_material)
 			else:
-				audio_player.play_footstep_sound(5.0, 1.0)
+				audio_player.play_footstep_sound(5.0, 1.0, 0.0, footstep_material)
 
 		# Breathing (3.x Stamina node parity, player only): loudness tracks
 		# low stamina, always running while alive.

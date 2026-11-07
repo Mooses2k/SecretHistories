@@ -146,26 +146,26 @@ func test_materialize_counts_nothing_until_the_node_is_placed():
 	unit.free()
 
 
-func test_pickup_merge_recounts_the_merged_unit():
+func test_pickup_merge_merges_into_the_same_record():
+	# Real scene instances: identity is the StackableResource .tres path,
+	# recovered from the scene's stored state (the runtime instance's resource
+	# is a local_to_scene duplicate with an empty resource_path).
 	var inv = _make_inventory()
-	var rep_res := StackableResource.new()
-	rep_res.stack_name = "Daggers"
-	rep_res.max_stack = 2
-	var rep : EquipmentItem = _make_item(GlobalConsts.ItemSize.SIZE_MEDIUM, rep_res)
-	inv.hotbar[0] = rep
-	rep_res.add_item(rep)
-	inv._recount_encumbrance()
-	assert_eq(inv.encumbrance, 1.0, "precondition: the representative counts once")
+	var first : EquipmentItem = (load(DAGGER_SCENE) as PackedScene).instantiate()
+	_tracked.append(first)
+	var second : EquipmentItem = (load(DAGGER_SCENE) as PackedScene).instantiate()
+	_tracked.append(second)
 
-	var incoming_res := StackableResource.new()
-	incoming_res.stack_name = "Daggers"
-	incoming_res.max_stack = 2
-	var incoming : EquipmentItem = _make_item(GlobalConsts.ItemSize.SIZE_MEDIUM, incoming_res)
+	inv.hotbar[0] = first
+	inv._tag_new_stack_record(first)
+	assert_eq(inv.stack_records.size(), 1, "precondition: the first dagger owns one record")
+	assert_eq(first.stack_record_id, 0, "the placed node is tagged as the record's representative")
 
-	assert_true(inv.handle_stackable_items(incoming), "the merge succeeds")
-	assert_eq(inv.encumbrance, 2.0, "the merged unit is recounted at the seam")
-	assert_true(incoming.is_queued_for_deletion(), "the absorbed node is freed after the count rose")
-	incoming.free()
+	assert_true(inv.handle_stackable_items(second), "the same-type pickup merges into the record")
+	assert_eq(inv.stack_records.size(), 1, "no second record for the same type under max_stack")
+	assert_eq(inv.stack_records[0].count, 2, "the record's count rose to 2")
+	assert_true(second.is_queued_for_deletion(), "the absorbed node is freed after the count rose")
+	second.free()
 
 
 func test_medical_consolidation_stack_branch_recounts_instead_of_drifting():

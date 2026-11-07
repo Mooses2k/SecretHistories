@@ -59,6 +59,10 @@ var stack_records : Array[StackableStackRecord] = []
 # Monotonic counter handing out stable stack record ids.
 var _next_stack_record_id : int = 0
 
+# Stack type id (StackableResource res:// path) per item scene path, so the
+# identity walk runs once per scene instead of once per pickup.
+var _stack_type_id_cache : Dictionary = {}
+
 # Holder of the hands_free slot number
 const hands_free_slot: int = 10
 
@@ -209,30 +213,38 @@ func handle_medical_consolidation(item: EquipmentItem) -> bool:
 func handle_stackable_items(item: EquipmentItem) -> bool:
 	assert(item != null, "Item should not be null in handle_stackable_items")
 
-	# Before anything, check if the item can be stacked on anything in the hotbar
-	for hotbar_item: EquipmentItem in hotbar:
-		if hotbar_item == null:
-			continue # go to next hotbar_item if null
+	if item.stackable_resource == null:
+		return false
 
-		if (hotbar_item.stackable_resource != null and item.stackable_resource != null
-			and hotbar_item.stackable_resource.stack_name == item.stackable_resource.stack_name):
+	# Identity is the StackableResource res:// path, never the stack_name
+	# nickname, which two different item types can share.
+	var type_id := _stack_type_id_for_item(item)
+	if type_id.is_empty():
+		return false
 
-			if hotbar_item.stackable_resource.items_stacked.size() >= hotbar_item.stackable_resource.max_stack:
-				continue  # Continue searching for other stacks with space
-			else:
-				# Absorb into the stack's count first, only then free the node
-				hotbar_item.stackable_resource.add_item(item)
-				# Schedule the item removal from the world
-				if item.is_inside_tree():
-					var parent = item.get_parent()
-					if parent != null:
-						parent.remove_child(item)
-				# Properly dispose of the item to prevent it from being picked up again
-				item.queue_free()
+	var stack_type := load(String(type_id)) as StackableResource
+	if stack_type == null:
+		return false
 
-				_recount_encumbrance()   # SEAM ADD
-				emit_signal("inventory_changed")
-				return true
+	# Only merge when some same-type record still has space under the type's
+	# max_stack; otherwise place_in_hotbar starts a new stack.
+	for record in records_for_type(type_id):
+		if record.count >= stack_type.max_stack:
+			continue  # Continue searching for other stacks with space
+
+		# Absorb into the record first, only then free the node
+		if not add_to_stack_record(type_id, item.scene_file_path, 1):
+			return false
+		# Schedule the item removal from the world
+		if item.is_inside_tree():
+			var parent = item.get_parent()
+			if parent != null:
+				parent.remove_child(item)
+		# Properly dispose of the item to prevent it from being picked up again
+		item.queue_free()
+
+		emit_signal("inventory_changed")
+		return true
 
 	return false
 
@@ -273,9 +285,10 @@ func place_in_hotbar(item: EquipmentItem) -> int:
 			# Safety check: if no empty slots found, don't place the light
 			if slot != 10 and slot != -1 and slot < hotbar.size():
 				hotbar[slot] = item
-				# If the item is stackable, add it to its own stack
+				# If the item is stackable, it becomes the representative of
+				# its own new record (T2)
 				if item.stackable_resource != null:
-					item.stackable_resource.add_item(item)
+					_tag_new_stack_record(item)
 				# Schedule the item removal from the world
 				if item.is_inside_tree():
 					var parent = item.get_parent()
@@ -310,9 +323,10 @@ func place_in_hotbar(item: EquipmentItem) -> int:
 	if slot != 10 and slot != -1 and slot < hotbar.size():
 		hotbar[slot] = item
 
-		# If the item is stackable, add it to its own stack
+		# If the item is stackable, it becomes the representative of its own
+		# new record (T3)
 		if item.stackable_resource != null:
-			item.stackable_resource.add_item(item)
+			_tag_new_stack_record(item)
 		# Schedule the item removal from the world
 		if item.is_inside_tree():
 			var parent = item.get_parent()
@@ -571,6 +585,53 @@ func records_for_type(type_id : StringName) -> Array[StackableStackRecord]:
 		if record.type_id == type_id:
 			matched.append(record)
 	return matched
+
+
+## Returns the stack type id (the StackableResource res:// path) for an item.
+## A scene instance's resource is a local_to_scene duplicate whose
+## resource_path is empty, so the authored path is recovered from the item
+## scene's stored state and cached per scene path.
+func _stack_type_id_for_item(item: EquipmentItem) -> StringName:
+	if item.stackable_resource == null:
+		return &""
+	if not item.stackable_resource.resource_path.is_empty():
+		return StringName(item.stackable_resource.resource_path)
+	if item.scene_file_path.is_empty():
+		return &""
+	if _stack_type_id_cache.has(item.scene_file_path):
+		return _stack_type_id_cache[item.scene_file_path]
+	var type_id := &""
+	var scene: PackedScene = load(item.scene_file_path)
+	if scene != null:
+		var state := scene.get_state()
+		for node_idx in range(state.get_node_count()):
+			for prop_idx in range(state.get_node_property_count(node_idx)):
+				if state.get_node_property_name(node_idx, prop_idx) == "stackable_resource":
+					var value: Variant = state.get_node_property_value(node_idx, prop_idx)
+					if value is Resource and not value.resource_path.is_empty():
+						type_id = StringName(value.resource_path)
+						break
+			if not type_id.is_empty():
+				break
+	_stack_type_id_cache[item.scene_file_path] = type_id
+	return type_id
+
+
+## Creates the first record for a newly placed stackable node and tags the
+## node as its representative (T2/T3). place_in_hotbar only runs after
+## handle_stackable_items found no record with space, so the record API
+## always creates a fresh record here: the newest of the type's records.
+func _tag_new_stack_record(item: EquipmentItem) -> void:
+	var type_id := _stack_type_id_for_item(item)
+	if type_id.is_empty():
+		push_warning("place_in_hotbar: stackable has no StackableResource path, no record created")
+		return
+	if not add_to_stack_record(type_id, item.scene_file_path, 1):
+		push_warning("place_in_hotbar: stack record creation failed for ", item.scene_file_path)
+		return
+	var records := records_for_type(type_id)
+	if not records.is_empty():
+		item.stack_record_id = records[records.size() - 1].id
 
 
 ## Destroys every record that reached count 0 with no hotbar slot or hand

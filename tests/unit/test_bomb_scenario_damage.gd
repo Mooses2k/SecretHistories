@@ -6,12 +6,13 @@
 # blast raycast reaches (explosions.gd). The BlastRadius sphere is 2.45528 m
 # scaled x2 by _bomb.tscn, so the effective blast radius is about 4.91 m and
 # the smallest possible per-hurtbox blast amount for a 150 damage grenade is
-# floor(150 / (1 + 4.91056)) = 25. Observed current behavior, pinned here: a
-# grenade lit in hand kills the player (direct 150 plus reachable blast
-# events), a grenade resting at the player's feet knocks the player down
-# through the low hurtboxes below the collision cylinder (one 75 point hit in
-# the probe), a grenade resting beside a cultist deals heavy damage, and a
-# grenade outside the blast radius deals none.
+# floor(150 / (1 + 4.91056)) = 25. Pinned behavior: a grenade lit in hand
+# kills the player (direct 150 plus reachable blast events), a grenade
+# resting at the player's feet also kills the player because blast rays
+# exclude the victim's own body parts (root cylinder and ragdoll bones) and
+# reach the upper hurtboxes, a grenade resting beside a cultist deals heavy
+# damage, a grenade outside the blast radius deals none, and a wall between
+# the bomb and a cultist still blocks every ray.
 extends GutTest
 
 const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
@@ -86,6 +87,19 @@ func _add_floor() -> void:
 	_world.add_child(floor_body)
 
 
+func _add_wall(at : Vector3) -> void:
+	var wall := StaticBody3D.new()
+	wall.name = "Wall"
+	wall.collision_layer = 1
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = Vector3(3.0, 3.0, 0.5)
+	shape.shape = box
+	wall.add_child(shape)
+	wall.position = at
+	_world.add_child(wall)
+
+
 func _spawn_character(scene_path : String, at : Vector3) -> Node3D:
 	var character : Node3D = (load(scene_path) as PackedScene).instantiate()
 	character.position = at
@@ -148,7 +162,7 @@ func test_grenade_in_hand_applies_full_damage_and_kills_the_player() -> void:
 		"zero durability puts the character into the DEAD state")
 
 
-func test_grenade_at_the_players_feet_knocks_the_player_down() -> void:
+func test_grenade_at_the_players_feet_kills_the_player() -> void:
 	var player : Node3D = await _spawn_character(PLAYER_SCENE, Vector3(2.0, 0.0, 2.0))
 	var bomb : RigidBody3D = await _rest_grenade(Vector3(2.0, 0.14, 2.5))
 	var amounts := _record_damages(player)
@@ -157,10 +171,22 @@ func test_grenade_at_the_players_feet_knocks_the_player_down() -> void:
 	await _physics_frames(2)
 	assert_gt(amounts.size(), 0, "the blast reached at least one hurtbox")
 	_assert_falloff_bounds(amounts)
-	assert_true(state.durability <= 50,
-		"a grenade at the feet crosses the 50 knockdown bar, observed one 75 point hit")
-	assert_ne(state.physical_state, state.PhysicalState.NORMAL,
-		"the feet grenade leaves the player knocked out or dead")
+	assert_true(state.durability <= 0,
+		"blast rays pass through the victim's own body parts, so the feet grenade deals lethal-tier damage to the shared durability pool")
+	assert_eq(state.physical_state, state.PhysicalState.DEAD,
+		"the feet grenade kills the player instead of only knocking them down")
+
+
+func test_wall_between_the_bomb_and_a_cultist_blocks_the_blast() -> void:
+	var cultist : Node3D = await _spawn_character(CULTIST_SCENE, Vector3(2.0, 0.0, 6.0))
+	_add_wall(Vector3(2.0, 1.5, 5.0))
+	var bomb : RigidBody3D = await _rest_grenade(Vector3(2.0, 0.14, 4.0))
+	var amounts := _record_damages(cultist)
+	var state : HumanoidCharacterState = cultist.get_node("State")
+	bomb.call("_on_Countdown_timeout")
+	await _physics_frames(2)
+	assert_eq(amounts.size(), 0, "the wall occludes every ray to the cultist's hurtboxes")
+	assert_eq(state.durability, 100, "a cultist behind a wall keeps full durability")
 
 
 func test_grenade_beside_a_cultist_deals_heavy_damage() -> void:

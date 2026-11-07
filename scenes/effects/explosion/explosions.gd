@@ -20,7 +20,14 @@ func _on_Bomb_explosion():
 		var raycast_params := PhysicsRayQueryParameters3D.new()
 		raycast_params.from = global_position
 		raycast_params.to = collision.global_position
-		raycast_params.exclude = [owner.get_rid()]
+		# The candidate's own character body parts must not shield its
+		# hurtboxes: the exclusion set carries the bomb owner plus every
+		# physics body owned by the candidate's character (the root body with
+		# its cylinder and the ragdoll bones), so the rays pass through that
+		# character and reach its hurtboxes directly. Level geometry and other
+		# characters still block, and hit_from_inside stays false so shapes
+		# containing the blast origin are skipped.
+		raycast_params.exclude = _ray_exclusions(collision)
 		raycast_params.collision_mask = blastradius.collision_mask | 1
 		raycast_params.collide_with_bodies = true
 		raycast_params.collide_with_areas = false
@@ -63,3 +70,31 @@ func _on_Bomb_explosion():
 
 func _on_timer_timeout():
 	owner.queue_free()
+
+
+## RID exclusion list for the rays aimed at one candidate: the bomb owner
+## plus every physics body owned by the candidate's own character (the root
+## body with its cylinder and the ragdoll bones). Candidates without a
+## character, like world geometry and loose props, only exclude the bomb
+## owner.
+func _ray_exclusions(candidate : Node3D) -> Array[RID]:
+	var exclusions : Array[RID] = [owner.get_rid()]
+	var character := _candidate_character(candidate)
+	if character != null:
+		exclusions.append(character.get_rid())
+		for bone in character.find_children("*", "PhysicalBone3D", true, false):
+			exclusions.append((bone as PhysicsBody3D).get_rid())
+	return exclusions
+
+
+## The character a candidate belongs to, or null. Hurtboxes map through their
+## scene owner (Hurtbox.owner_node); bodies map through the ancestor chain.
+func _candidate_character(candidate : Node3D) -> HumanoidCharacter:
+	var node : Node = candidate
+	if node is Hurtbox:
+		node = (node as Hurtbox).owner_node
+	while node != null:
+		if node is HumanoidCharacter:
+			return node as HumanoidCharacter
+		node = node.get_parent()
+	return null

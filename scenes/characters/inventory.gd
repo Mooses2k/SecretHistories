@@ -41,6 +41,10 @@ const HOTBAR_SIZE : int = 11
 # don't show in hotbar
 var tiny_items : Dictionary
 
+# Tiny item types the player has picked up at least once, used by the HUD
+# ammo readout to list types even when their current amount is zero
+var known_tiny_items : Dictionary
+
 # Dictionary of {int : int}, where the key is the key_id and the value is the amount of keys owned
 # with that ID
 var keychain : Dictionary
@@ -418,6 +422,7 @@ func insert_tiny_item(item : TinyItemData, amount : int):
 
 	if not tiny_items.has(item):
 		tiny_items[item] = 0
+	known_tiny_items[item] = true
 	var prev = tiny_items[item]
 	tiny_items[item] += amount
 	var new = tiny_items[item]

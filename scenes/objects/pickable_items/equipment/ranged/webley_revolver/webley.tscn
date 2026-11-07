@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dr48bdckmsmeu" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/revolver_item.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://btgj1s4833cij" path="res://scenes/effects/hit_effect.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://bdyoahtpn3bnl" path="res://scenes/effects/webley_audio.tscn" id="8"]
-[ext_resource type="PackedScene" uid="uid://byvl4l5p2m0xl" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/__smoke.tscn" id="8_c1gho"]
+[ext_resource type="PackedScene" uid="uid://byvl4l5p2m0xl" path="res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/_smoke.tscn" id="8_c1gho"]
 [ext_resource type="AudioStream" uid="uid://4vdqkhe8at6p" path="res://resources/sounds/dryfire/412297__jaklocke__gun-trigger-pull-2.wav" id="10"]
 [ext_resource type="AudioStream" uid="uid://31uct7ytooar" path="res://resources/sounds/reloading/revolver/revolver_reload.wav" id="11"]
 [ext_resource type="AudioStream" uid="uid://ct3crbxdeurn6" path="res://resources/sounds/impacts/metal_and_gun/412295__jaklocke__gun-hitting-ground.mp3" id="12"]

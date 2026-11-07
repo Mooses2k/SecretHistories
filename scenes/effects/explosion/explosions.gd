@@ -45,6 +45,12 @@ func _on_Bomb_explosion():
 				intersection.position - body.global_position,
 				global_position.direction_to(intersection.position) * scaled_damage * IMPULSE_MULTIPLIER
 			)
+			# Large rigid bodies (statues) take the same bomb damage
+			# characters take: owner.bomb_damage with the /(1 + distance)
+			# falloff, floored like the Hurtbox call below. A close grenade
+			# (bomb_damage 150) breaks a breakable statue in one blast; a
+			# distant one does not. Statics and unbreakable bodies no-op.
+			LargeObjectShared.accumulate_bludgeoning_damage(body, floor(scaled_damage))
 
 		# If the body has a Hurtbox, apply damage
 		elif intersection.collider is Hurtbox:

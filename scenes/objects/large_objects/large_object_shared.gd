@@ -23,6 +23,25 @@ var _break_accumulated_damage : float = 0.0
 var _broken_scene : PackedScene
 var _broken_scene_resolved : bool = false
 
+## Minimum damage that counts as bludgeoning against large objects. It
+## generalizes the kick entry (parameters.kick_damage is 15): bombs and melee
+## weapons below this amount do not register on large bodies at all. Kept here
+## so every caller shares one bar (DRY, no per-scene damage semantics).
+const BLUDGEON_MIN_DAMAGE := 15.0
+
+
+## Caller-side entry for the non-kick damage sources (explosions, melee
+## weapons): rigid bodies only per the owner ruling, bludgeoning damage of
+## BLUDGEON_MIN_DAMAGE or over, then the same shared accumulate surface the
+## kick uses. Statics and unbreakable hosts no-op inside accumulate_break_damage.
+static func accumulate_bludgeoning_damage(node : Node, amount : float) -> void:
+	if not node is RigidBody3D:
+		return
+	if amount < BLUDGEON_MIN_DAMAGE:
+		return
+	if node.has_method("accumulate_break_damage"):
+		node.accumulate_break_damage(amount)
+
 
 ## Method for the audio manager to set noise level
 func set_noise_level(level: float) -> void:

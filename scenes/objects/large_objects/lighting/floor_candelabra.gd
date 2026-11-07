@@ -3,7 +3,10 @@ extends LargeObject
 ## Floor candelabra: a burning large-object light with takeable candles
 ## (#359, #193). Interacting with the stand hands one whole candle to the
 ## character through the normal pickup path (hand > hotbar), lit when the
-## stand's fire is burning and unlit otherwise. Owner-approved simple model:
+## stand's fire is burning and unlit otherwise. Floor stands deliver the
+## TALL candle item (the candle_scene default); the votive stand's scene
+## overrides it to the small candle (owner mapping: votive = small only).
+## Owner-approved simple model:
 ## the stand does not model per-candle burn, so every taken candle carries a
 ## full 1.0 fill. The candle visuals are baked into the stand mesh (no
 ## per-candle mesh child exists to hide), so a take decrements the count and
@@ -11,7 +14,12 @@ extends LargeObject
 ## the mesh-externalization objective. Taking is one-way: the stand is not a
 ## refill target.
 
-const CandleScene : PackedScene = preload("res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn")
+const TALL_CANDLE_SCENE_PATH := "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle_tall.tscn"
+
+## The candle item this stand hands out. Tall candle by default because
+## every spawning variant is a floor stand; the votive stand's scene
+## overrides it to the small candle.
+@export var candle_scene : PackedScene = preload(TALL_CANDLE_SCENE_PATH)
 
 ## Whole candles left on the stand. -1 derives the authored count from the
 ## FireOrigin markers at ready; the votive stand (one consolidated fire,
@@ -86,7 +94,7 @@ func _take_candle(character) -> void:
 		_play_take_rejected_cue()
 		return
 
-	var candle : CandleItem = CandleScene.instantiate()
+	var candle : CandleItem = candle_scene.instantiate()
 	add_child(candle)
 	candle.fuel.fill = 1.0
 	if _stand_is_burning():

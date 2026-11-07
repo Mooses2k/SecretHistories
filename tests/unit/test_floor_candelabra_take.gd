@@ -5,6 +5,9 @@
 # take per candle, takes stop when the count is zero with the stand's
 # diegetic reject cue, and a failed delivery frees the fresh node and leaves
 # the count untouched: nothing is lost (no-destroy guarantee).
+# Candle kind per owner mapping: the spawning floor stands (lit and unlit)
+# deliver the TALL candle item, the votive stand (does not spawn in the
+# world) delivers the SMALL candle.
 # The real stand scene and the real player scene are used so the authored
 # Ignite wiring and the real inventory pickup path are what is under test.
 # The delivery-failure case uses a rejecting Inventory subclass because the
@@ -14,7 +17,10 @@ extends GutTest
 
 const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
 const FLOOR_CANDELABRA_SCENE := "res://scenes/objects/large_objects/lighting/floor_candelabra.tscn"
+const UNLIT_STAND_SCENE := "res://scenes/objects/large_objects/lighting/floor_candelabra_unlit.tscn"
 const VOTIVE_STAND_SCENE := "res://scenes/objects/large_objects/lighting/votive_candle_stand.tscn"
+const TALL_CANDLE_SCENE := "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle_tall.tscn"
+const SMALL_CANDLE_SCENE := "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn"
 
 
 class StubCharacter extends Node:
@@ -123,6 +129,8 @@ func test_ignite_take_delivers_a_lit_candle_through_the_pickup_path() -> void:
 			"a candle taken from a burning stand arrives lit")
 		assert_almost_eq(candles[0].fuel.fill, 1.0, 0.0001,
 			"the stand does not model per-candle burn: the taken candle is full")
+		assert_eq(candles[0].scene_file_path, TALL_CANDLE_SCENE,
+			"the spawning floor stand delivers the TALL candle item")
 	assert_eq(stand.candle_count, count_before - 1,
 		"the derived 9-candle stand decrements by one")
 	_free_delivered_candles()
@@ -186,6 +194,28 @@ func test_last_take_extinguishes_the_stand_fire() -> void:
 
 	assert_eq(stand.candle_count, 0, "the last candle left the stand")
 	assert_false(stand.firelight.visible, "the bare stand's light is out")
+	# Track the delivered candle so cleanup frees it (no orphan).
+	_collect_candles(inv)
+	_free_delivered_candles()
+
+
+func test_unlit_spawning_variant_delivers_a_tall_unlit_candle() -> void:
+	var player : Node3D = _spawn_player()
+	var stand : Node = (load(UNLIT_STAND_SCENE) as PackedScene).instantiate()
+	_world.add_child(stand)
+	var inv : Inventory = _inventory_of(player)
+
+	# The unlit variant hides its Ignite node, but interact() has no
+	# visibility gate: toppled unlit stands stay takeable in the world.
+	stand.get_node("Ignite").interact(player)
+
+	var candles := _collect_candles(inv)
+	assert_eq(candles.size(), 1, "the unlit variant hands out a candle")
+	if candles.size() == 1:
+		assert_eq(candles[0].scene_file_path, TALL_CANDLE_SCENE,
+			"the unlit variant is a spawning floor stand: tall candle")
+		assert_false(candles[0].is_lit,
+			"a candle taken from the unlit variant arrives unlit")
 	_free_delivered_candles()
 
 
@@ -199,3 +229,19 @@ func test_votive_stand_is_interactable_with_four_authored_candles() -> void:
 		"the votive stand authors its four baked candle hulls")
 	assert_true(ignite.is_in_group(&"IGNITE"),
 		"the votive stand joins the IGNITE group like its siblings")
+
+
+func test_votive_stand_delivers_the_small_candle() -> void:
+	var player : Node3D = _spawn_player()
+	var stand : Node = (load(VOTIVE_STAND_SCENE) as PackedScene).instantiate()
+	_world.add_child(stand)
+	var inv : Inventory = _inventory_of(player)
+
+	stand.get_node("Ignite").interact(player)
+
+	var candles := _collect_candles(inv)
+	assert_eq(candles.size(), 1, "the votive stand hands out a candle")
+	if candles.size() == 1:
+		assert_eq(candles[0].scene_file_path, SMALL_CANDLE_SCENE,
+			"the votive stand delivers the SMALL candle (owner mapping: votive = small only)")
+	_free_delivered_candles()

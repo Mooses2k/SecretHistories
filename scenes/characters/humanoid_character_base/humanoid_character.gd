@@ -29,6 +29,40 @@ var ceiling_detection_test_parameters := PhysicsTestMotionParameters3D.new()
 # regained after a jump, not on every step-off-a-ledge.
 var _is_jumping := false
 
+# Owner-approved movement noise ladder (per footstep material; sprint carpet
+# equals walk stone). Crouch-walk is silent: no producer writes noise.
+const WALK_NOISE : Dictionary = {
+	AudioLibrary.FOOTSTEP_TYPES.STONE: 6.0,
+	AudioLibrary.FOOTSTEP_TYPES.GRAVEL: 9.0,
+	AudioLibrary.FOOTSTEP_TYPES.CARPET: 3.0,
+}
+const SPRINT_NOISE : Dictionary = {
+	AudioLibrary.FOOTSTEP_TYPES.STONE: 12.0,
+	AudioLibrary.FOOTSTEP_TYPES.GRAVEL: 14.0,
+	AudioLibrary.FOOTSTEP_TYPES.CARPET: 6.0,
+}
+const LANDING_NOISE : float = 10.0
+const NOISE_CLEAR_DELAY_MS : int = 200
+
+# Noise detectable by a SoundSensor. Set on each footstep and landing, then
+# cleared deterministically NOISE_CLEAR_DELAY_MS later (same decay shape as
+# the PickableItem noise surface).
+var noise_level : float = 0
+var _noise_clear_at_msec : int = 0
+
+
+## Ladder lookup, static so tests can pin the values without a live body.
+## Unknown materials are silent rather than falling back to stone.
+static func movement_noise_for(material : AudioLibrary.FOOTSTEP_TYPES, sprinting : bool) -> float:
+	var ladder : Dictionary = SPRINT_NOISE if sprinting else WALK_NOISE
+	var level : float = ladder.get(material, 0.0)
+	return level
+
+
+func apply_landing_noise() -> void:
+	noise_level = LANDING_NOISE
+	_noise_clear_at_msec = Time.get_ticks_msec() + NOISE_CLEAR_DELAY_MS
+
 
 func _ready() -> void:
 	state.facing = global_basis
@@ -43,6 +77,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Footstep and landing noise decay deterministically a short time after
+	# the step that set it, mirroring the item noise decay.
+	if noise_level > 0.0 and Time.get_ticks_msec() >= _noise_clear_at_msec:
+		noise_level = 0.0
 	if not state.is_controllable(): return
 	if global_rotation.y != 0:
 		state.facing = global_basis * state.facing
@@ -93,10 +131,15 @@ func _physics_process(delta: float) -> void:
 			var footstep_material : AudioLibrary.FOOTSTEP_TYPES = audio_player.resolve_footstep_material(global_position)
 			if state.current_crouch_ratio > 0.5:
 				audio_player.play_footstep_sound(-1.0, 0.1, -20, footstep_material)
-			elif state.sprinting:
-				audio_player.play_footstep_sound(5.0, 1.5, 0.0, footstep_material)
 			else:
-				audio_player.play_footstep_sound(5.0, 1.0, 0.0, footstep_material)
+				# Movement noise producer (owner-approved ladder). The
+				# SoundSensor reads this body's noise_level.
+				noise_level = movement_noise_for(footstep_material, state.sprinting)
+				_noise_clear_at_msec = Time.get_ticks_msec() + NOISE_CLEAR_DELAY_MS
+				if state.sprinting:
+					audio_player.play_footstep_sound(5.0, 1.5, 0.0, footstep_material)
+				else:
+					audio_player.play_footstep_sound(5.0, 1.0, 0.0, footstep_material)
 
 		# Breathing (3.x Stamina node parity, player only): loudness tracks
 		# low stamina, always running while alive.
@@ -185,6 +228,10 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 		if state.is_on_ground and not state.was_on_ground and _is_jumping:
 			_is_jumping = false
 			audio_player.play_land_sound()
+			# Landing noise (owner-approved ladder). Crouch land silent stays
+			# silent: no noise while crouched.
+			if state.current_crouch_ratio <= 0.5:
+				apply_landing_noise()
 		
 		var ground_normal := Vector3.UP
 		var control_multiplier : float = parameters.jump_control_multiplier

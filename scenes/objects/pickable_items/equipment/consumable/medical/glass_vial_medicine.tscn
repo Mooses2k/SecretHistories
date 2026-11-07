@@ -62,6 +62,7 @@ points = PackedVector3Array(-0.0118021, 0.020487, -0.0194969, 0.016597, -0.04473
 [node name="GlassVialMedicine" instance=ExtResource("1")]
 heal_amount = 20
 time_to_use = 3
+heal_duration = 2.0
 item_name = "Glass vial of mystery juice"
 stackable_resource = ExtResource("2_rm1iy")
 item_drop_sound = ExtResource("6")

@@ -10,6 +10,9 @@ extends ConsumableItem
 @export var heal_amount : int = 10   # Should probably be 10 for consumables & 1 for containers
 @export var speed_boost : int = 0
 
+## Seconds over which this single-use item's heal total ticks into durability.
+@export var heal_duration : float = 8.0
+
 @export var time_to_use : int = 5
 @onready var use_timer = $UseTime
 
@@ -30,14 +33,27 @@ func _set_starting_charges():
 	charges_held = randi() % (max_charges_held + 1)
 
 
+## The owner's durability State (the heal seam). The Player chain
+## (Player -> HumanoidCharacter -> RigidBody3D) exposes durability only
+## through its HumanoidCharacterState.
+func _get_owner_state() -> HumanoidCharacterState:
+	if owner_character == null:
+		return null
+	return owner_character.get("state") as HumanoidCharacterState
+
+
 func _use_primary():
 	# TODO: animation
 	# TODO: holding down to use, not just tap
-	if owner_character.current_health < owner_character.max_health:
-		if use_timer.is_stopped():
-			use_timer.start()
-			# Add something here to play the prep sound if it exists, wait til finished, then play use sound
-			$Sounds/Use.play()
+	var state := _get_owner_state()
+	if state == null:
+		return
+	if state.durability >= state.parameters.max_durability:
+		return
+	if use_timer.is_stopped():
+		use_timer.start()
+		# Add something here to play the prep sound if it exists, wait til finished, then play use sound
+		$Sounds/Use.play()
 
 
 # Reload functionality for medical containers
@@ -129,27 +145,37 @@ func _use_reload():
 
 
 func _on_UseTime_timeout():
-	var health_below_max = owner_character.max_health - owner_character.current_health
-	print("Health below max: ", health_below_max)
-	
+	var state := _get_owner_state()
+	if state == null:
+		return
+
+	var max_durability : int = state.parameters.max_durability
+	var missing : int = max_durability - state.durability
+	var charges_used : int = 0
+
 	if max_charges_held == 1:
 		charges_used = 1
-	
-	if max_charges_held > 1:   # This is a container for medical consumables
-		if health_below_max > charges_held:
-			charges_used = charges_held
-		else:
-			charges_used = health_below_max
+	else:   # This is a container for medical consumables
+		# Spend as many charges as the missing durability needs, one
+		# heal_amount per charge (identical to 3.x for the authored
+		# heal_amount = 1 containers).
+		charges_used = mini(ceili(missing / float(heal_amount)), charges_held)
 		charges_held -= charges_used
 
-	owner_character.heal(charges_used * heal_amount)
-	print("Healed ", owner_character, " for ", (charges_used * heal_amount))
-	
-	# TODO: if speed_boost > 0:
-	#	set a timer and give most player actions a bit of haste
-	
-	$Sounds/UseComplete.play()   # Currently doesn't play due to queue_free below
-	
+	if charges_used <= 0:
+		return
+
+	# Heal over time: the item's total heal value becomes a pending regen
+	# pool on the owner's durability. Hits do not cancel it and uses stack
+	# additively. Containers restore at a flat 10 HP/s.
+	var total : int = charges_used * heal_amount
+	var duration : float = heal_duration
+	if max_charges_held > 1:
+		duration = float(total) / 10.0
+	state.begin_heal_over_time(total, duration)
+
+	$Sounds/UseComplete.play()
+
 	# This is a single-use consumable, se we're done with it
 	if max_charges_held == 1:
 		# owner_character.drop_consumable(self) has no definition anywhere

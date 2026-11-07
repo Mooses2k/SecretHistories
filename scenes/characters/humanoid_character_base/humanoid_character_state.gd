@@ -38,6 +38,14 @@ var knocked_out_timer : float = 0.0
 
 var _hurtboxes : Array[Hurtbox]
 
+# Heal-over-time regen pool fed by used medical items. Pending restores tick
+# into durability at the source item's rate; being hit never cancels a pool
+# and multiple uses stack additively. Transient by design: never saved, any
+# pending regen is simply gone on load.
+var _heal_pending : float = 0.0
+var _heal_rate : float = 0.0
+var _heal_carry : float = 0.0
+
 @onready var parameters: HumanoidCharacterParameters = $"../Parameters" as HumanoidCharacterParameters
 @onready var input: HumanoidCharacterInput = $"../Input" as HumanoidCharacterInput
 @onready var stamina : float = parameters.max_stamina:
@@ -77,6 +85,7 @@ func get_target_speed() -> float:
 func _physics_process(delta: float) -> void:
 	time_since_kick += delta
 	time_since_dodge += delta
+	_tick_heal_over_time(delta)
 	if physical_state == PhysicalState.KNOCKED_OUT:
 		knocked_out_timer += delta
 		if knocked_out_timer > parameters.knocked_out_time:
@@ -85,6 +94,37 @@ func _physics_process(delta: float) -> void:
 
 func is_controllable() -> bool:
 	return physical_state == PhysicalState.NORMAL
+
+
+## Starts a heal-over-time regen pool: `total` durability restored at a
+## constant per-second rate over `duration` seconds, capped at max durability.
+## The most recent use sets the tick rate; pools from separate uses merge into
+## one pending accumulator.
+func begin_heal_over_time(total : int, duration : float) -> void:
+	if total <= 0 or duration <= 0.0:
+		return
+	_heal_pending += float(total)
+	_heal_rate = float(total) / duration
+
+
+func _tick_heal_over_time(delta : float) -> void:
+	if _heal_pending <= 0.0:
+		return
+	if physical_state == PhysicalState.DEAD:
+		_heal_pending = 0.0
+		_heal_carry = 0.0
+		return
+	_heal_carry += minf(_heal_rate * delta, _heal_pending)
+	var gained : int = int(_heal_carry)
+	if gained <= 0:
+		return
+	_heal_carry -= float(gained)
+	_heal_pending -= float(gained)
+	var max_durability : int = parameters.max_durability
+	durability = mini(durability + gained, max_durability)
+	if durability >= max_durability:
+		_heal_pending = 0.0
+		_heal_carry = 0.0
 
 func _collect_hurtboxes() -> void:
 	var queue := owner.get_children()

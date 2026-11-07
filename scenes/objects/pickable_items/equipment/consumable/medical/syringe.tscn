@@ -64,6 +64,7 @@ radius = 0.015
 [node name="Syringe" instance=ExtResource("1")]
 mass = 0.3
 time_to_use = 3
+heal_duration = 2.0
 item_name = "Syringe"
 stackable_resource = ExtResource("2_r7smn")
 item_drop_sound = ExtResource("5")

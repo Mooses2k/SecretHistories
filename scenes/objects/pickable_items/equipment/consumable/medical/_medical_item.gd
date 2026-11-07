@@ -74,54 +74,41 @@ func _use_reload():
 	
 	# Define action function to consume charges from matching items
 	var action_func = func(item, slot_index):
-		print("[DEBUG] Found matching item to consume: ", item.name, " at slot: ", slot_index)
 		# Calculate how much space we have left
 		var space_left = max_charges_held - charges_held
 		if space_left <= 0:
-			print("[DEBUG] Container became full, stopping")
 			return  # Container is full
-		
+
 		# Add heal_amount to charges_held (up to max_charges_held)
 		var amount_to_add = min(space_left, item.heal_amount)
 		charges_held += amount_to_add
-		print("[DEBUG] Added ", amount_to_add, " charges, new total: ", charges_held)
-		
-		# Remove the item from inventory
-		if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
-			print("[DEBUG] Removing from stack (size: ", item.stackable_resource.items_stacked.size(), ")")
-			# Remove one from stack
-			item.stackable_resource.items_stacked.remove_at(0)
-			# Update the hotbar slot to point to the next item in stack
-			var next_item = item.stackable_resource.items_stacked[0]
-			next_item.stackable_resource = item.stackable_resource
-			inventory.hotbar[slot_index] = next_item
-			# Adjust encumbrance when removing from stack
-			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-				inventory.encumbrance -= 1
-			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-				inventory.encumbrance -= 2
-			# Emit hotbar changed signal
+
+		# Consume one unit of the source through the owning inventory's
+		# record API: the record is the count truth (T5).
+		var record = null
+		if item.stack_record_id >= 0:
+			record = inventory.get_stack_record(item.stack_record_id)
+
+		if record != null and record.count > 1:
+			# Units remain after this one: the node stays as the record's
+			# representative.
+			inventory.remove_from_stack_record(record.id, 1)
 			inventory.emit_signal("hotbar_changed", slot_index)
 		else:
-			print("[DEBUG] Removing single item from slot: ", slot_index)
-			# Remove single item
+			# Last unit: the node itself is consumed. Clear the slot and any
+			# hand first so the record's destroy condition holds at the
+			# remove. A source without a record is consumed the same way; the
+			# encumbrance recount self-heals at the next mutation.
 			inventory.hotbar[slot_index] = null
-			# If this was equipped, unequip it
 			if inventory.current_mainhand_slot == slot_index:
 				inventory.unequip_mainhand_item()
 			elif inventory.current_offhand_slot == slot_index:
 				inventory.unequip_offhand_item()
-			# Adjust encumbrance when removing single item
-			if item.item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
-				inventory.encumbrance -= 1
-			if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY:
-				inventory.encumbrance -= 2
-			# Emit hotbar changed signal
+			if record != null:
+				inventory.remove_from_stack_record(record.id, 1)
 			inventory.emit_signal("hotbar_changed", slot_index)
-		
-		# Queue the consumed item for removal
-		item.queue_free()
-		# Emit inventory changed signal
+			item.queue_free()
+
 		inventory.emit_signal("inventory_changed")
 	
 	# Define early termination function to stop when container is full
@@ -166,12 +153,66 @@ func _on_UseTime_timeout():
 	# This is a single-use consumable, se we're done with it
 	if max_charges_held == 1:
 		# owner_character.drop_consumable(self) has no definition anywhere
-		# (Brooks audit 4.2). Unequip through the inventory API instead, then free.
+		# (Brooks audit 4.2). Consumption goes through the inventory record
+		# API (T11).
 		if owner_character != null and owner_character.inventory != null:
-			var inventory = owner_character.inventory
-			if inventory.current_mainhand_equipment == self:
-				inventory.unequip_mainhand_item()
-			elif inventory.current_offhand_equipment == self:
-				inventory.unequip_offhand_item()
-		queue_free()
+			_consume_self_through_inventory(owner_character.inventory)
+		else:
+			queue_free()
 		# TODO: this should drop an empty bottle or syringe, only queue_free if nothing's left, like bandage
+
+
+## Consumes this single-use unit through the owner's record API (T11). When
+## the record holds more units, the consumed representative is freed and a
+## fresh unit materializes into the same slot and hand; when it was the last
+## unit, the slot and any hand are cleared and the record is destroyed.
+func _consume_self_through_inventory(inventory) -> void:
+	var was_mainhand : bool = inventory.current_mainhand_equipment == self
+	var was_offhand : bool = inventory.current_offhand_equipment == self
+	var slot_index := -1
+	for i in range(inventory.hotbar.size()):
+		if inventory.hotbar[i] == self:
+			slot_index = i
+			break
+	var record = null
+	if stack_record_id >= 0:
+		record = inventory.get_stack_record(stack_record_id)
+
+	if record != null and record.count > 1 and slot_index != -1:
+		# Units remain: materialize the next one into the same slot. The
+		# materialize decrements the record by one: the consumed unit.
+		var next_unit = inventory.materialize_stack_item(record.id)
+		if next_unit != null:
+			if was_mainhand:
+				inventory.unequip_mainhand_item()
+			elif was_offhand:
+				inventory.unequip_offhand_item()
+			inventory.hotbar[slot_index] = next_unit
+			inventory.emit_signal("hotbar_changed", slot_index)
+			inventory.emit_signal("inventory_changed")
+			if was_mainhand:
+				inventory.equip_mainhand_item()
+			elif was_offhand:
+				inventory.equip_offhand_item()
+			queue_free()
+			return
+		# Spawn failed: keep this node as the representative (no-destroy
+		# rule); the next use retries.
+		push_warning("MedicalItem: materialization failed, the unit stays for a retry")
+		return
+
+	# Last unit (or no record): the node itself is consumed. A source without
+	# a record is consumed the same way; the encumbrance recount self-heals
+	# at the next mutation.
+	if slot_index != -1:
+		inventory.hotbar[slot_index] = null
+	if was_mainhand:
+		inventory.unequip_mainhand_item()
+	elif was_offhand:
+		inventory.unequip_offhand_item()
+	if record != null:
+		inventory.remove_from_stack_record(record.id, 1)
+	if slot_index != -1:
+		inventory.emit_signal("hotbar_changed", slot_index)
+	inventory.emit_signal("inventory_changed")
+	queue_free()

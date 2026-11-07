@@ -83,20 +83,16 @@ func apply_throw_logic(direction : Vector3 = Vector3.ZERO):
 #		angular_velocity.z = -15   # Ah, maybe not working because it's already been put in world_space at this point
 
 
-# Override this function for (LMB mainhand, LAlt offhand) tap-to-use actions
+# Override this function for (LMB mainhand, LAlt offhand) tap-to-use actions.
+# Stack consumption used to pop the legacy array here; consumption now goes
+# through the owning Inventory's record API, so the base body is empty.
 func _use_primary():
-	if stackable_resource != null:
-		if stackable_resource.items_stacked.size() > 0:
-			stackable_resource.items_stacked.pop_front()
 	pass
 
 
 #TODO remove secondary use, replace with held use
 # Override this function for (LMB mainhand, LAlt offhand) hold-to-use actions
 func _use_secondary():
-	if stackable_resource != null:
-		if stackable_resource.items_stacked.size() > 0:
-			stackable_resource.items_stacked.pop_front()
 	pass
 
 

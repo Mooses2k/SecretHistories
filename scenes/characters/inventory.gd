@@ -189,18 +189,15 @@ func handle_medical_consolidation(item: EquipmentItem) -> bool:
 			if container_item.has_signal("item_data_changed"):
 				container_item.emit_signal("item_data_changed")
 
-			# Handle stackable resources if applicable
-			if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
-				# Remove one from stack
-				item.stackable_resource.items_stacked.remove_at(0)
-				_recount_encumbrance()   # SEAM REMOVE
-			else:
-				# Remove single item from the world
-				if item.is_inside_tree():
-					var parent = item.get_parent()
-					if parent != null:
-						parent.remove_child(item)
-				item.queue_free()
+			# The incoming unit is spent as charges; free the node. An incoming
+			# single-use medical never carries a stack of its own under the
+			# record model (floor nodes carry no record), so there is no
+			# stack branch here (T4).
+			if item.is_inside_tree():
+				var parent = item.get_parent()
+				if parent != null:
+					parent.remove_child(item)
+			item.queue_free()
 
 			emit_signal("inventory_changed")
 			return true  # Item was consolidated, we're done

@@ -168,7 +168,7 @@ func test_pickup_merge_merges_into_the_same_record():
 	second.free()
 
 
-func test_medical_consolidation_stack_branch_recounts_instead_of_drifting():
+func test_medical_consolidation_frees_the_unit_without_touching_encumbrance():
 	var inv = _make_inventory()
 	var container := _make_container(3, 10)
 	_tracked.append(container)
@@ -177,16 +177,11 @@ func test_medical_consolidation_stack_branch_recounts_instead_of_drifting():
 	assert_eq(inv.encumbrance, 1.0, "precondition: the container counts once")
 
 	var incoming := _make_incoming(4)
-	incoming.stackable_resource = StackableResource.new()
-	incoming.stackable_resource.stack_name = "Bandages"
-	incoming.stackable_resource.max_stack = 5
-	incoming.stackable_resource.add_item(incoming)
-	incoming.stackable_resource.add_item(incoming)
-	inv.encumbrance = 7.0   # simulated legacy drift from incremental writes
 
 	assert_true(inv.handle_medical_consolidation(incoming), "the consolidation succeeds")
+	assert_eq(container.charges_held, 7, "charges absorbed min(space, heal)")
 	assert_eq(inv.encumbrance, 1.0,
-		"the stack branch recounts: no subtract for a unit the inventory never owned")
+		"consolidation frees an unowned floor node and writes no encumbrance (T4)")
 	incoming.free()
 
 

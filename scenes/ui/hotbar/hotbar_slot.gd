@@ -156,9 +156,16 @@ func update_name():
 	if item == null:
 		item_name_label.text = ""
 	else:
-		if item.stackable_resource != null and item.stackable_resource.items_stacked.size() > 1:
-			item_name_label.text = str(item.stackable_resource.items_stacked.size()) + "x " + item.stackable_resource.stack_name
-			pass
+		# The record is the count truth; the representative node only
+		# displays it (T14). Display uses the representative item_name;
+		# stack_name stays export-only.
+		var stack_count : int = 1
+		if item.stack_record_id >= 0 and inventory != null:
+			var record = inventory.get_stack_record(item.stack_record_id)
+			if record != null:
+				stack_count = record.count
+		if item.stackable_resource != null and stack_count > 1:
+			item_name_label.text = str(stack_count) + "x " + item.item_name
 		else:
 			item_name_label.text = item.item_name
 

@@ -4,36 +4,12 @@ extends Resource
 class_name StackableResource
 
 
-## A nickname for the stack, not used in code currently
+## The type identity of a stack: its own res:// path. The per-record state
+## (count, representative, per-item data) lives in Inventory's
+## StackableStackRecord, not here; this resource stays a pure type definition.
+## The old per-node items_stacked array was deleted with the legacy stack
+## model (S2).
 @export var stack_name: String
 
 ## The max items this stack can hold
 @export var max_stack: int
-
-## Array of current stacked items
-var items_stacked: Array[EquipmentItem]
-
-
-## Will add a EquipmentItem to the items_stacked
-func add_item(item: EquipmentItem) -> void:
-	if item == null:
-		print("[ERROR] StackableResource.add_item: item is null")
-		return
-
-	print("[DEBUG] StackableResource.add_item: adding ", item, " to stack (current size: ", items_stacked.size(), ")")
-	items_stacked.append(item)
-
-
-## Will remove a EquipmentItem from the items_stacked
-func remove_item(item: EquipmentItem) -> void:
-	if item == null:
-		print("[ERROR] StackableResource.remove_item: item is null")
-		return
-
-	print("[DEBUG] StackableResource.remove_item: removing ", item, " from stack (current size: ", items_stacked.size(), ")")
-	items_stacked.erase(item)
-
-
-func _init() -> void:
-	# Initialize the items_stacked array
-	items_stacked = []

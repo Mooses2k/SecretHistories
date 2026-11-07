@@ -1,10 +1,9 @@
 # Batch D anchor for the two encumbrance seams (stack rework design, section 3):
 # encumbrance is only ever written by the full recount, at the ADD seam and the
 # REMOVE seam. Pins the recount composition over inventory content (hotbar
-# items by size weight, record counts through their representative, legacy
-# items_stacked members during the S2 transition, bulky equipment) and that
-# every S1 mutation site recomputes: the record API, the pickup merge, the
-# medical consolidation stack branch, and the drop path.
+# items by size weight, record counts through their representative, bulky
+# equipment) and that every S1 mutation site recomputes: the record API, the
+# pickup merge, the medical consolidation stack branch, and the drop path.
 extends GutTest
 
 const InventoryScript = preload("res://scenes/characters/inventory.gd")
@@ -75,18 +74,11 @@ func test_recount_sums_hotbar_items_records_and_bulky():
 	record_rep.stack_record_id = 0
 	inv.hotbar[2] = record_rep
 
-	var legacy_rep : EquipmentItem = _make_item(GlobalConsts.ItemSize.SIZE_MEDIUM, StackableResource.new())
-	legacy_rep.stackable_resource.stack_name = "Legacy"
-	legacy_rep.stackable_resource.max_stack = 5
-	legacy_rep.stackable_resource.add_item(legacy_rep)
-	legacy_rep.stackable_resource.add_item(legacy_rep)
-	inv.hotbar[3] = legacy_rep
-
 	inv.bulky_equipment = _make_item(GlobalConsts.ItemSize.SIZE_BULKY, null)
 
 	inv._recount_encumbrance()
-	assert_eq(inv.encumbrance, 8.0,
-		"1 plain medium + 0 small + 3 record units + 2 legacy members + bulky 2")
+	assert_eq(inv.encumbrance, 6.0,
+		"1 plain medium + 0 small + 3 record units + bulky 2")
 
 
 func test_small_items_and_tiny_items_contribute_nothing():

@@ -672,8 +672,8 @@ func _recount_encumbrance() -> void:
 ## Encumbrance contribution of one owned item: its size weight times the units
 ## it stands for. A record-backed representative counts its record's units
 ## (the representative itself is one of them, counted once per record); a
-## stackable without a record counts its legacy items_stacked members; anything
-## else is one unit. A record with no representative in the hotbar or hands
+## stackable without a record is one unit (the node itself); anything else is
+## one unit. A record with no representative in the hotbar or hands
 ## contributes nothing yet; the pickup flows place the representative in the
 ## same frame that creates its record. Tiny items are tracked by amount only
 ## and weigh nothing.
@@ -692,10 +692,6 @@ func _encumbrance_for_item(item : EquipmentItem) -> float:
 			# One representative reports the whole record; additional tagged
 			# nodes for the same record (a swap's transient state) add nothing.
 			return weight * units
-	if item.stackable_resource != null:
-		units = item.stackable_resource.items_stacked.size()
-		if units < 1:
-			units = 1
 	return weight * units
 
 

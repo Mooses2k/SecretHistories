@@ -52,11 +52,12 @@ func test_one_drop_applies_burn_penalty_exactly_once():
 
 	assert_signal_emitted(candle, "item_is_dropped")
 	assert_signal_emit_count(candle, "item_is_dropped", 1, "one drop emits the drop signal once")
-	# burn_time was the live timer remainder (3600 s minus a fraction of a
-	# second of test runtime), then halved exactly once by the 0.5 penalty.
-	# A double-apply regression would land near 900, a lost penalty near 3600.
-	assert_gt(candle.burn_time, 1700.0, "the drop penalty must not be applied twice")
-	assert_lt(candle.burn_time, 1900.0, "the drop penalty must actually be applied")
+	# Fuel-model update (expected contract change per the fuel design): the
+	# penalty now applies to the fill, and fill only depletes while lit, so a
+	# drop of a full candle lands on exactly 0.5. A double-apply regression
+	# would land on 0.25, a lost penalty on 1.0.
+	assert_almost_eq(candle.fuel.fill, 0.5, 0.001,
+		"the drop penalty must be applied exactly once to the fuel fill")
 
 
 func test_candelabra_emits_declared_item_dropped_signal_on_drop():

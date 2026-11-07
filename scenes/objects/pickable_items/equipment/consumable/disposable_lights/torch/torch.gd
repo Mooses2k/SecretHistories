@@ -1,18 +1,15 @@
 class_name TorchItem
 extends DisposableLightItem
-
-# TODO: rework lighting code generally, function this out better, lots of duplicated lines here and in lantern.gd, candelabra.gd, candle.gd
+## Torch: a disposable wax-family light (pitch soaks the head; fuel design
+## owner decision 5 maps it to the WAX carrier shape). Burn accounting is
+## percentage fill in FuelContainer instead of a wall-clock timer; a torch
+## burns down to empty and is done, and it is never refillable.
 
 
 signal item_is_dropped
 
 var is_lit : bool = false
-
-var burn_time : float
-var is_depleted : bool = false
-var is_dropped: bool = false
-var is_just_dropped: bool = true
-var light_timer : Timer
+var fuel : FuelContainer
 var random_number : float
 @export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
@@ -21,57 +18,56 @@ var random_number : float
 
 
 func _ready():
-	light_timer = $BurnTime
-	burn_time = 600.0
+	fuel = FuelContainer.new()
+	# Authored 3.x burn duration: a full torch burns 600 s.
+	fuel.set_fuel(FuelSource.FuelKind.WAX, 600.0)
+	self.connect("item_is_dropped", Callable(self, "item_drop"))
+
+
+func _process(delta: float) -> void:
+	super._process(delta)
+	if fuel != null and fuel.tick_burn(delta, is_lit):
+		_on_light_depleted()
 
 
 func light():
-	if not is_depleted:
-		$AnimationPlayer.play("flicker")
-		$Sounds/LightSound.play()
-		$Sounds/Burning.play()
-		$FireOrigin/Fire.emitting = true
-		$FireOrigin/EmberDrip.emitting = true
-		$FireOrigin/Smoke.emitting = true
-		firelight.visible = true
-		$FireOrigin.visible = true # related to bugfix #604
-		$MeshInstance3D.cast_shadow = false
+	if fuel == null or not fuel.can_burn():
+		return
+	$AnimationPlayer.play("flicker")
+	$Sounds/LightSound.play()
+	$Sounds/Burning.play()
+	$FireOrigin/Fire.emitting = true
+	$FireOrigin/EmberDrip.emitting = true
+	$FireOrigin/Smoke.emitting = true
+	firelight.visible = true
+	$FireOrigin.visible = true # related to bugfix #604
+	$MeshInstance3D.cast_shadow = false
 
-		# Not audible yet: light noise lands with the hearing restore (ai-direction-design.md item 2).
-		is_lit = true
-		light_timer.set_wait_time(burn_time)
-		light_timer.start()
+	# Not audible yet: light noise lands with the hearing restore (ai-direction-design.md item 2).
+	is_lit = true
 
 
 func unlight():
-	if not is_depleted:
-		$AnimationPlayer.stop()
-		$Sounds/Burning.stop()
-		$FireOrigin/Fire.emitting = false
-		$FireOrigin/EmberDrip.emitting = false
-		$FireOrigin/Smoke.emitting = false
-		firelight.visible = false
-		$FireOrigin.visible = false # related to bugfix #604
-		$MeshInstance3D.cast_shadow = true
-
-		is_lit = false
-		stop_light_timer()
+	$AnimationPlayer.stop()
+	$Sounds/Burning.stop()
+	$FireOrigin/Fire.emitting = false
+	$FireOrigin/EmberDrip.emitting = false
+	$FireOrigin/Smoke.emitting = false
+	firelight.visible = false
+	$FireOrigin.visible = false # related to bugfix #604
+	$MeshInstance3D.cast_shadow = true
+	is_lit = false
 
 
 func _item_state_changed(previous_state, current_state):
 	if current_state == GlobalConsts.ItemState.INVENTORY:
-#		if is_lit and burn_time > 0:
-#			var sound = $Sounds/BlowOutSound.duplicate()
-#			GameManager.game.level.add_child(sound)
-#			sound.global_transform = $Sounds/BlowOutSound.global_transform
-#			sound.connect("finished", sound, "queue_free")
-#			sound.play()
-		print("calling switch_away_from_light()")
 		owner_character.inventory.switch_away_from_light(self)
 	elif current_state == GlobalConsts.ItemState.DROPPED:
-		#is_just_dropped = true
+		# Emit only, like candle (Brooks audit 4.4): the drop penalty applies
+		# exactly once through the declared item_is_dropped signal, which is
+		# connected in _ready (the old emit here had no listeners, so the
+		# penalty only ran through the deleted direct item_drop() call).
 		self.emit_signal("item_is_dropped")
-		item_drop()
 
 
 func _use_primary():
@@ -83,42 +79,16 @@ func _use_primary():
 
 
 func _on_light_depleted():
-	burn_time = 0
 	unlight()
-	is_depleted = true
-
-
-func stop_light_timer():
-	if is_instance_valid(light_timer):
-		# Sample the remainder only while the timer is actually running:
-		# a stopped or never-started timer reports 0, and reading it here
-		# clobbered burn_time (a dropped, never-lit torch lost its 600 s).
-		if light_timer.time_left > 0.0:
-			burn_time = light_timer.get_time_left()
-		light_timer.stop()
 
 
 func item_drop():
-	print("item_drop() in light-source called")
-	stop_light_timer()
-	burn_time -= (burn_time * life_percentage_lose)
-	print("reduced burn time " + str(burn_time))
+	# Drop penalty (3.x life_percentage_lose semantics) applied to the fuel
+	# fill, exactly once per drop.
+	if fuel != null and fuel.fuel_source != null:
+		fuel.fill -= fuel.fill * life_percentage_lose
 	random_number = randf_range(0.0, 1.0)
 
-	if is_instance_valid(light_timer):
-		# Timer.set_wait_time errors on <= 0 ("Time should be greater than
-		# zero"); the 0.1 floor keeps a depleted item's timeout chain intact.
-		light_timer.set_wait_time(maxf(burn_time, 0.1))
-		# Timer.start errors outside the scene tree; the drop flow calls
-		# this between the unequip removal and the re-add to the level
-		# (inventory._drop_item sets DROPPED before add_child).
-		if is_inside_tree():
-			light_timer.start()
-		else:
-			light_timer.start.call_deferred()
-	
-	print("Angular velocity of torch: ", angular_velocity.length())
 	if angular_velocity.length() > 5:
 		if random_number < prob_going_out:
 			unlight()
-			print("Light went out due to being thrown")

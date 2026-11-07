@@ -1,21 +1,20 @@
-# Pins the CURRENT burn-time values AS AUTHORED on the candle family
-# (Brooks Wave 1 row 7 companion; values per the landscape audit in
-# docs/plans/light-source-fuel-design.md section 1):
-#   candle 3600 s (candle.gd _ready)
-#   torch 600 s (torch.gd _ready)
-#   lantern 1800 s when is_oil_based, else 3600 s (lanterns.gd _ready)
-#   candelabra 1000 s (candelabra.gd class default)
-# NOTE FOR THE FuelContainer REFACTOR: this test documents TODAY'S contract
-# as the pre-refactor baseline. The FuelContainer refactor (same design doc,
-# section 3) replaces burn_time defaults with fill + burn_rate at the same
-# effective durations and MUST CONSCIOUSLY UPDATE this test when it lands;
-# a failure here after that refactor is an expected contract change, not a
-# regression.
-# Real scenes and scripts are used: candle/torch/lantern load their real
-# lightweight scenes in-tree so the authored _ready code runs as authored.
-# Candelabra is pinned at its authored class
-# default, which its _ready leaves untouched; its scene embeds ~750 KB of
-# mesh data and is not needed for that value.
+# Pins the FUEL-MODEL burn values on the light family, replacing the pre-fuel
+# burn_time pins (CONTRACT CHANGE, expected per the fuel design:
+# docs/plans/light-source-fuel-design.md section 9 step 4 says "old burn_time
+# defaults become fill + burn_rate (same effective durations)"). The values are
+# the 3.x ground truth (git show origin/main, identical in dev4):
+#   candle 3600 s  -> WAX fill 1.0 at burn_rate 1/3600 (candle.gd _ready)
+#   torch 600 s    -> WAX fill 1.0 at burn_rate 1/600 (torch.gd _ready)
+#   lantern 1800 s when is_oil_based, else 3600 s -> OIL fill 1.0 at the
+#       matching rate (lanterns.gd _ready)
+#   candelabra 1000 s per candle -> per-candle WAX fill 1.0 at burn_rate
+#       1/1000 (candelabra.gd BURN_SECONDS)
+# A failure here is a real fuel-value regression, not an expected contract
+# change anymore: this file is the post-refactor pin.
+# Real lightweight scenes are used for candle/torch/lantern so the authored
+# _ready code runs as authored. The candelabra scene embeds ~750 KB of mesh
+# data, so the candelabra side runs the script bare in the tree; its _ready is
+# node-guarded and builds the fuel states from number_of_candles alone.
 extends GutTest
 
 const CandleScene = preload("res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn")
@@ -29,25 +28,34 @@ func _make_light_scene(scene : PackedScene):
 	return add_child_autofree(light)
 
 
-func test_candle_burn_time_is_3600_seconds():
+func _assert_full_fuel(item, kind : FuelSource.FuelKind, burn_seconds : float, context : String) -> void:
+	assert_almost_eq(item.fuel.fill, 1.0, 0.0001, context + ": a fresh light starts full")
+	assert_eq(item.fuel.fuel_source.fuel_kind, kind, context + ": authored fuel kind")
+	assert_almost_eq(item.fuel.fuel_source.burn_rate, 1.0 / burn_seconds, 0.000001,
+		context + ": burn_rate matches the authored 3.x duration")
+	assert_almost_eq(item.fuel.burn_seconds_remaining(), burn_seconds, 0.01,
+		context + ": effective burn duration preserved")
+
+
+func test_candle_fuel_burns_3600_seconds():
 	var candle = _make_light_scene(CandleScene)
 
-	assert_eq(candle.burn_time, 3600.0, "authored candle burn duration")
+	_assert_full_fuel(candle, FuelSource.FuelKind.WAX, 3600.0, "candle")
 
 
-func test_torch_burn_time_is_600_seconds():
+func test_torch_fuel_burns_600_seconds():
 	var torch = _make_light_scene(TorchScene)
 
-	assert_eq(torch.burn_time, 600.0, "authored torch burn duration")
+	_assert_full_fuel(torch, FuelSource.FuelKind.WAX, 600.0, "torch")
 
 
-func test_lantern_burn_time_is_3600_seconds_when_not_oil_based():
+func test_lantern_fuel_burns_3600_seconds_when_not_oil_based():
 	var lantern = _make_light_scene(LanternScene)
 
-	assert_eq(lantern.burn_time, 3600.0, "authored non-oil lantern burn duration")
+	_assert_full_fuel(lantern, FuelSource.FuelKind.OIL, 3600.0, "non-oil lantern")
 
 
-func test_lantern_burn_time_is_1800_seconds_when_oil_based():
+func test_lantern_fuel_burns_1800_seconds_when_oil_based():
 	# The oil-based variants (omnidirectional, bullseye, dark lantern) are
 	# authored exactly like this: the same lantern scene with
 	# is_oil_based = true (see those .tscn files).
@@ -55,10 +63,22 @@ func test_lantern_burn_time_is_1800_seconds_when_oil_based():
 	lantern.is_oil_based = true
 	add_child_autofree(lantern)
 
-	assert_eq(lantern.burn_time, 1800.0, "authored oil lantern burn duration")
+	_assert_full_fuel(lantern, FuelSource.FuelKind.OIL, 1800.0, "oil lantern")
 
 
-func test_candelabra_burn_time_default_is_1000_seconds():
+func test_candelabra_candles_burn_1000_seconds_each():
+	# The fuel states are built from number_of_candles alone, so they are
+	# exercised without the tree (a bare EquipmentItem in the tree would trip
+	# the HoldPosition marker resolution error).
 	var candelabra = autofree(CandelabraScript.new())
+	candelabra.number_of_candles = 3
+	candelabra._setup_candle_fuel()
 
-	assert_eq(candelabra.burn_time, 1000.0, "authored candelabra burn duration")
+	assert_eq(candelabra.candle_fuel.size(), 3, "one fuel state per authored candle")
+	for i in range(3):
+		var fuel: FuelContainer = candelabra.candle_fuel[i]
+		assert_almost_eq(fuel.fill, 1.0, 0.0001, "candle %d starts full" % (i + 1))
+		assert_eq(fuel.fuel_source.fuel_kind, FuelSource.FuelKind.WAX,
+			"candle %d is wax" % (i + 1))
+		assert_almost_eq(fuel.fuel_source.burn_rate, 1.0 / 1000.0, 0.000001,
+			"candle %d matches the authored 1000 s duration" % (i + 1))

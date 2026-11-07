@@ -20,7 +20,7 @@ static func outranks_drag(item : PickableItem) -> bool:
 	return item is TinyItem or item is KeyItem
 
 
-static func filter_pick_candidates(bodies : Array, inventory : Inventory) -> Array[PickableItem]:
+static func filter_pick_candidates(bodies : Array, inventory : Inventory, tiny_only : bool = false) -> Array[PickableItem]:
 	# Keep only bodies the inventory can actually pick up. can_pickup_item is
 	# the canonical validation (dropped state plus pickup-legal types), so
 	# doors, paintings, statues, and equipped or busy items never become
@@ -31,6 +31,8 @@ static func filter_pick_candidates(bodies : Array, inventory : Inventory) -> Arr
 		if item == null:
 			continue
 		if inventory != null and not inventory.can_pickup_item(item):
+			continue
+		if tiny_only and not outranks_drag(item):
 			continue
 		picks.append(item)
 	return picks
@@ -58,3 +60,17 @@ static func select_best(candidates : Array[PickableItem], ray_origin : Vector3, 
 			best_perpendicular_sq = perpendicular_sq
 			best_along = along
 	return best
+
+
+## Kind identity for group pickup (issue #735): the TinyItemData resource
+## identity for TinyItem, the key id for KeyItem. A null data resource means
+## the key-id kind is active; a key id of -1 matches nothing, so an anchor
+## with no kind data collects alone.
+static func matches_group_kind(item : PickableItem, data : Resource, key_id : int) -> bool:
+	var tiny := item as TinyItem
+	if tiny != null:
+		return data != null and tiny.item_data == data
+	var key := item as KeyItem
+	if key != null:
+		return data == null and key.key_id == key_id
+	return false

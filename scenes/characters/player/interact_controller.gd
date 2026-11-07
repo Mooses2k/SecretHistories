@@ -19,6 +19,12 @@ enum InteractState {
 const ITEM_DROPS_MASK : int = 1 << 6
 const MAX_PICKUP_HITS : int = 32
 @export var pickup_shapecast_radius : float = 0.35
+# Tiny items (ammo, coins, keys) get a larger pickup zone and a Receiver-style
+# same-kind group radius (issue #735). The group radius is one grid cell (the
+# project grid unit is 1.5 m) plus margin: a spilled pile vacuums, the next
+# room does not.
+@export var tiny_pickup_shapecast_radius : float = 0.75
+@export var tiny_group_pickup_radius : float = 2.0
 
 # Releasing the interact key before this time will cause an interaction, holding
 # it longer will attempt a grab
@@ -69,6 +75,12 @@ var _hold_follow_target : Node = null
 
 # Captured grab target and collision point when interact button is first pressed
 var captured_grab_target : RigidBody3D = null
+
+# Deferred same-kind group pickup state (issue #735): the kind key and center
+# are captured at pick time, the radius query runs on the next physics tick.
+var _pending_group_data : Resource = null
+var _pending_group_key_id : int = -1
+var _pending_group_center := Vector3.ZERO
 
 @onready var interaction_cast: RayCast3D = $"../../ModelRoot/MainCamera/InteractionCast"
 @onready var grab_cast: RayCast3D = $"../../ModelRoot/MainCamera/GrabCast"
@@ -245,6 +257,7 @@ func _try_grab_captured() -> bool:
 
 func _physics_process(delta: float) -> void:
 	_update_pick_target()
+	_collect_pending_tiny_group()
 	# Feed the held door drag: the camera ray steers the hinge every frame
 	if interact_state == InteractState.HOLD_INTERACT and is_instance_valid(_hold_follow_target):
 		_hold_follow_target.interact_hold_update(interaction_cast.global_position, -interaction_cast.global_transform.basis.z)
@@ -383,8 +396,42 @@ func _physics_process(delta: float) -> void:
 func pick_item() -> void:
 	if is_instance_valid(pick_target):
 		print("pick")
-		inventory.add_item(pick_target)
+		var anchor := pick_target
 		pick_target = null
+		_capture_tiny_group(anchor)
+		inventory.add_item(anchor)
+
+
+# Group pickup (issue #735): the anchor's kind and position are captured here
+# because add_item frees the anchor node; the radius query runs on the next
+# physics tick, where direct space state queries are safe.
+func _capture_tiny_group(anchor : PickableItem) -> void:
+	var tiny := anchor as TinyItem
+	if tiny != null:
+		_pending_group_data = tiny.item_data
+	else:
+		var key := anchor as KeyItem
+		if key != null:
+			_pending_group_key_id = key.key_id
+	if _pending_group_data == null and _pending_group_key_id < 0:
+		return
+	_pending_group_center = anchor.global_position
+
+
+func _collect_pending_tiny_group() -> void:
+	if _pending_group_data == null and _pending_group_key_id < 0:
+		return
+	var data : Resource = _pending_group_data
+	var key_id : int = _pending_group_key_id
+	_pending_group_data = null
+	_pending_group_key_id = -1
+	var space_state := grab_cast.get_world_3d().direct_space_state
+	var bodies : Array = []
+	for hit in _sphere_query(space_state, _pending_group_center, tiny_group_pickup_radius):
+		bodies.append(hit["collider"])
+	for item in PickupResolver.filter_pick_candidates(bodies, inventory):
+		if PickupResolver.matches_group_kind(item, data, key_id):
+			inventory.add_item(item)
 
 
 # Shapecast-based pickup detection (issue #736). Runs on the physics tick,
@@ -404,6 +451,14 @@ func _update_pick_target() -> void:
 	for hit in _sphere_query(space_state, anchor, pickup_shapecast_radius):
 		bodies.append(hit["collider"])
 	var candidates : Array[PickableItem] = PickupResolver.filter_pick_candidates(bodies, inventory)
+
+	# Tiny/key candidates come from a second, larger zone (issue #735); the
+	# ranking over the union keeps the closest-to-crosshair item winning.
+	var tiny_bodies : Array = []
+	for hit in _sphere_query(space_state, anchor, tiny_pickup_shapecast_radius):
+		tiny_bodies.append(hit["collider"])
+	candidates.append_array(PickupResolver.filter_pick_candidates(tiny_bodies, inventory, true))
+
 	pick_target = PickupResolver.select_best(candidates, ray_origin, ray_direction)
 
 

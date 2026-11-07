@@ -33,6 +33,26 @@ var spawnable_items : PackedStringArray:
 	set(value):
 		_shared.spawnable_items = value
 
+@export var break_damage_threshold : float = 100.0:
+	get:
+		return _shared.break_damage_threshold
+	set(value):
+		_shared.break_damage_threshold = value
+
+@export var broken_scene_override : PackedScene:
+	get:
+		return _shared.broken_scene_override
+	set(value):
+		_shared.broken_scene_override = value
+
+
+func accumulate_break_damage(amount : float) -> void:
+	_shared.accumulate_break_damage(amount, self)
+
+
+func is_breakable() -> bool:
+	return _shared.is_breakable(self)
+
 
 ## Method for the audio manager to set noise level
 func set_noise_level(level: float) -> void:

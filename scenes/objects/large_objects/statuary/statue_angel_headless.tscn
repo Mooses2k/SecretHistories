@@ -1,6 +1,6 @@
 [gd_scene load_steps=169 format=4 uid="uid://cvswmoptnlbvy"]
 
-[ext_resource type="Script" uid="uid://b2ajbms2l7851" path="res://scenes/objects/large_objects/static_large_object.gd" id="1_inh86"]
+[ext_resource type="Script" uid="uid://jb2jakemasmd" path="res://scenes/objects/large_objects/large_object.gd" id="1_inh86"]
 [ext_resource type="Texture2D" uid="uid://c1aisbopyc0ku" path="res://resources/models/large_objects/statues/angelHeadless/AngelHeadless_T_Angel_Headless_Base_color.png" id="1_rnrjn"]
 [ext_resource type="Texture2D" uid="uid://7p4ny63enosh" path="res://resources/models/large_objects/statues/angelHeadless/AngelHeadless_T_Angel_Headless_Roughness.png" id="2_qsrp4"]
 [ext_resource type="Texture2D" uid="uid://c70v2ia61wuod" path="res://resources/models/large_objects/statues/angelHeadless/AngelHeadless_T_Angel_Headless_Normal_OpenGL.png" id="3_vslgp"]
@@ -533,7 +533,8 @@ points = PackedVector3Array(0.138638, 0.128468, -0.107868, 0.0371248, -0.0364256
 [sub_resource type="ConvexPolygonShape3D" id="162"]
 points = PackedVector3Array(0.265515, 1.66387, -0.602701, 0.227474, 1.43551, -0.437798, 0.240167, 1.43551, -0.437798, 0.265515, 1.66387, -0.348983, 0.189395, 1.57505, -0.348983, 0.316262, 1.63848, -0.450491, 0.252835, 1.57505, -0.70421, 0.290888, 1.60043, -0.678824, 0.2021, 1.65117, -0.361675, 0.2021, 1.48628, -0.526579, 0.227474, 1.47358, -0.348983, 0.240167, 1.6131, -0.666131, 0.252835, 1.49896, -0.640745, 0.303581, 1.66387, -0.628052, 0.303581, 1.58773, -0.590008, 0.189395, 1.48628, -0.348983, 0.214793, 1.44821, -0.526579, 0.189395, 1.52433, -0.42514, 0.252835, 1.6258, -0.691517, 0.316262, 1.66387, -0.450491, 0.227474, 1.49896, -0.628052, 0.214793, 1.66387, -0.399754, 0.240167, 1.43551, -0.412447, 0.265515, 1.48628, -0.475877, 0.189395, 1.47358, -0.437798, 0.240167, 1.44821, -0.539237, 0.214793, 1.43551, -0.412447, 0.316262, 1.65117, -0.55193, 0.265515, 1.51165, -0.628052)
 
-[node name="StatueAngelHeadless" type="StaticBody3D" groups=["CLAMBERABLE"]]
+[node name="StatueAngelHeadless" type="RigidBody3D" groups=["CLAMBERABLE"]]
+mass = 300.0
 script = ExtResource("1_inh86")
 
 [node name="mesh" type="MeshInstance3D" parent="."]

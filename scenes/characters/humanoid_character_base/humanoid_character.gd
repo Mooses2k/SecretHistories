@@ -265,6 +265,12 @@ func kick():
 			var body := node as RigidBody3D
 			var kick_impulse := minf(parameters.kick_impulse, body.mass * parameters.kick_max_speed)
 			body.apply_impulse(kick_impulse * kick_direction, kick_origin - body.global_position)
+		# The kick is the one damage entry that lands on large bodies today
+		# (bullets, bombs, dropped-item impacts and melee hitboxes all target
+		# Hurtbox sensors, which large objects do not carry). Break-capable
+		# large objects accumulate the kick damage; everyone else ignores it.
+		if node.has_method("accumulate_break_damage"):
+			node.accumulate_break_damage(parameters.kick_damage)
 		if node is Hurtbox:
 			var hurtbox := node as Hurtbox
 			if not hit_list.has(hurtbox.owner_node):

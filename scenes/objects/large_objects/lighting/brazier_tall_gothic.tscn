@@ -432,6 +432,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19638, 0)
 script = ExtResource("6")
 
 [node name="Fire" type="GPUParticles3D" parent="FireOrigin"]
+cast_shadow = 0
 transform = Transform3D(-0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0.270935, 0)
 amount = 32
 process_material = SubResource("76")

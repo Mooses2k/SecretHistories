@@ -71,6 +71,7 @@ _data = {
 script = ExtResource("1_fhfx8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.023457, 0)
 mesh = SubResource("1")
 skeleton = NodePath("")
@@ -88,6 +89,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.241018, 0)
 script = ExtResource("6")
 
 [node name="Fire" type="GPUParticles3D" parent="FireOrigin"]
+cast_shadow = 0
 transform = Transform3D(-0.4, 6.03983e-08, 0, -6.03983e-08, -0.4, 0, 0, 0, 0.4, 0, 0.270935, 0)
 amount = 32
 process_material = SubResource("76")

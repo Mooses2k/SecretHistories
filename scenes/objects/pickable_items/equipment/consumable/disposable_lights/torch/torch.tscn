@@ -244,6 +244,7 @@ visible = false
 script = ExtResource("4")
 
 [node name="Fire" type="GPUParticles3D" parent="FireOrigin" index="0"]
+cast_shadow = 0
 transform = Transform3D(-1, 1.50996e-07, 0, -1.50996e-07, -1, 0, 0, 0, 1, 0, -0.00654602, 0)
 emitting = false
 amount = 128
@@ -261,6 +262,7 @@ shadow_enabled = true
 omni_range = 13.0
 
 [node name="EmberDrip" type="GPUParticles3D" parent="FireOrigin" index="1"]
+cast_shadow = 0
 transform = Transform3D(1, -1.74846e-07, 0, 1.74846e-07, 1, 0, 0, 0, 1, 0, 0, 0)
 emitting = false
 amount = 4
@@ -270,6 +272,7 @@ draw_pass_1 = SubResource("20")
 script = ExtResource("6")
 
 [node name="Smoke" type="GPUParticles3D" parent="FireOrigin" index="2"]
+cast_shadow = 0
 transform = Transform3D(-0.2, 1.74846e-08, 0, -1.74846e-08, -0.2, 0, 0, 0, 0.2, 0, 0.0673523, 0)
 emitting = false
 amount = 16

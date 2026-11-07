@@ -3,6 +3,11 @@ extends LargeObject
 # eventually this is a tool/container-style item or large object that can be reloaded with candles which are disposable...not that you'd ever care to do that
 
 
+# The lit variant burns permanently (the unlit look is a separate scene with
+# hidden flames). MeshInstanceLayered on the flame quads reads this and keeps
+# them from shadowing their own light.
+var is_lit : bool = true
+
 @onready var floor_candelabra_drop_sound : AudioStream = load("res://resources/sounds/impacts/metal_and_gun/414848__link-boy__metal-bang.wav")
 
 @onready var animation_player = $AnimationPlayer

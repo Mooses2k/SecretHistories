@@ -422,7 +422,7 @@ func get_cell_index_from_local_position(pos : Vector3) -> int:
 
 func is_inside_world_bounds(x: int, z: int) -> bool:
 	var is_x_within_bounds := x >= 0 and x < world_size_x
-	var is_z_within_bounds := z >= 0 or z < world_size_z
+	var is_z_within_bounds := z >= 0 and z < world_size_z
 	return is_x_within_bounds and is_z_within_bounds
 
 

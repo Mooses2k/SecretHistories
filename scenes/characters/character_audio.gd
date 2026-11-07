@@ -48,6 +48,7 @@ func _ready():
 	# Movement audio
 	load_sounds("resources/sounds/jumping_landing/landing", 2)
 
+	_route_speech_to_reverb()
 	choose_voice()   # Choose one from the appropriate voices for this character
 	pitch_alter_voice()   # Randomly alter pitch of this character's voice up or down some
 
@@ -109,6 +110,17 @@ func play_breathing(stamina_ratio : float) -> void:
 	_breathing_audio.volume_db = lerpf(BREATHING_EMPTY_DB, BREATHING_FULL_DB, clampf(stamina_ratio, 0.0, 1.0))
 	if not _breathing_audio.playing:
 		_breathing_audio.play()
+
+
+## Issue #179: cultist speech rides the one shared "Reverb" bus, whose effect
+## is re-parameterized by the room the listener stands in. The bus reverb's
+## dry is 1.0, so the dry voice stays at full volume and only the room's wet
+## tail is added. The bus sends onward to Effects, so speech now follows the
+## existing Effects Volume slider. Ensure-only: this never resets the room
+## params, so a cultist spawn cannot stomp the player's current room.
+func _route_speech_to_reverb() -> void:
+	RoomReverbAreaScript.ensure_reverb_bus()
+	speech_audio.bus = RoomReverbAreaScript.BUS_NAME
 
 
 ### Speech

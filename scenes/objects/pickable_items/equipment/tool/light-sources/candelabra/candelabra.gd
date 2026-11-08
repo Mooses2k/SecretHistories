@@ -139,8 +139,12 @@ func light():
 	var anim: AnimationPlayer = get_node_or_null("AnimationPlayer")
 	if anim != null:
 		anim.play("flicker")
-	var light_sound: AudioStreamPlayer = get_node_or_null("LightSound")
-	if light_sound != null:
+	# The LightSound node is positional in the handheld candelabra scenes
+	# (AudioStreamPlayer3D), so type it as Node and duck-type the play call:
+	# typing it AudioStreamPlayer crashed the item light-up at spawn
+	# (owner report 2026-11-08: crash on entering game after Click to Continue).
+	var light_sound: Node = get_node_or_null("LightSound")
+	if light_sound != null and light_sound.has_method("play"):
 		light_sound.play()
 
 	for i in range(candle_fuel.size()):

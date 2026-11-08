@@ -8,6 +8,7 @@ const BlankRowScene = preload("blank_row.tscn")
 const GroupScene = preload("settings_group.tscn")
 const GroupClass = preload("settings_group.gd")
 const SettingEditor = preload("settings_editors/setting_editor.gd")
+const ResetKeybindingsEditor = preload("settings_editors/reset_keybindings.gd")
 
 
 const SettingsEditors = {
@@ -142,7 +143,17 @@ func add_setting(setting_name : String):
 	if _is_key_related_group(group_name) and is_first_key_settings:
 		is_first_key_settings = false
 		settings_group.add_editor(SetDefaultKeyBtn.instantiate())
-		settings_group.get_node("ListOffset/SettingsList/Container/Button").connect("pressed", Callable(get_parent().owner.get_node("ResetPanel"), "toggle_panel"))
+		var reset_button = settings_group.get_node_or_null("ListOffset/SettingsList/Container/Button")
+		if reset_button == null:
+			# The editor instance root is the Container; the button is its child.
+			var editors = settings_group.get_children()
+			for editor_node in editors:
+				if editor_node.name.begins_with("Container"):
+					reset_button = editor_node.get_node_or_null("Button")
+		# Runtime-built rows have no scene owner: walk ancestors for the panel.
+		var reset_panel = ResetKeybindingsEditor.find_panel(reset_button)
+		if reset_button != null and reset_panel != null and reset_panel.has_method("toggle_panel"):
+			reset_button.connect("pressed", Callable(reset_panel, "toggle_panel"))
 	
 	_add_key_category_header(settings_group, setting_name)
 

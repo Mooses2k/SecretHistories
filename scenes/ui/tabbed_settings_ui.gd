@@ -318,6 +318,7 @@ func populate_settings():
 
 func add_setting_to_group(setting_name: String, group: Node, group_name: String):
 	const SettingEditor = preload("settings_ui/settings_editors/setting_editor.gd")
+	const ResetKeybindingsEditor = preload("settings_ui/settings_editors/reset_keybindings.gd")
 	var SettingsEditors = {
 		SettingsClass.SettingType.BOOL: preload("settings_ui/settings_editors/bool_editor.tscn"),
 		SettingsClass.SettingType.FLOAT: preload("settings_ui/settings_editors/float_editor.tscn"),
@@ -331,15 +332,13 @@ func add_setting_to_group(setting_name: String, group: Node, group_name: String)
 		is_first_key_settings = false
 		var reset_btn = SetDefaultKeyBtn.instantiate()
 		group.add_editor(reset_btn)
-		# Connect to reset panel if it exists (maintaining compatibility with existing UI structure)
-		var reset_panel_path = "ResetPanel"
-		var owner_node = get_parent()
-		if owner_node and owner_node.owner:
-			var reset_panel = owner_node.owner.get_node_or_null(reset_panel_path)
-			if reset_panel and reset_panel.has_method("toggle_panel"):
-				var button_node = reset_btn.get_node_or_null("ListOffset/SettingsList/Container/Button")
-				if button_node:
-					button_node.connect("pressed", Callable(reset_panel, "toggle_panel"))
+		# Runtime-built rows have no scene owner: resolve the panel by
+		# walking ancestors (owner-chain lookups silently no-op here).
+		# The button is a direct child of the editor instance root.
+		var reset_btn_node = reset_btn.get_node_or_null("Button")
+		var reset_panel = ResetKeybindingsEditor.find_panel(reset_btn_node)
+		if reset_panel != null and reset_panel.has_method("toggle_panel") and reset_btn_node != null:
+			reset_btn_node.connect("pressed", Callable(reset_panel, "toggle_panel"))
 
 	_add_key_category_header(group, setting_name)
 

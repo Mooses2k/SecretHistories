@@ -113,6 +113,26 @@ func test_unbindable_events_are_explicitly_ignored() -> void:
 	assert_true(editor.is_waiting_input, "a key release is ignored, not assigned")
 
 
+func test_protected_keys_are_rejected_and_capture_stays_armed() -> void:
+	_arm_capture()
+	editor._input(_key_event(KEY_QUOTELEFT))
+	assert_true(editor.is_waiting_input, "backquote does not complete the capture")
+	assert_true(_panel_label_text().contains("reserved"),
+			"the notice says backquote and F1 are reserved")
+	editor._input(_key_event(KEY_F1))
+	assert_true(editor.is_waiting_input, "F1 does not complete the capture either")
+	assert_true(InputMap.action_get_events(KICK).is_empty(),
+			"no protected key was bound")
+	# apply_binding refuses them directly too, whatever path feeds it.
+	KeyInputSettings.apply_binding(KICK, _key_event(KEY_QUOTELEFT))
+	KeyInputSettings.apply_binding(KICK, _key_event(KEY_F1))
+	assert_true(InputMap.action_get_events(KICK).is_empty(),
+			"apply_binding refuses protected keys as well")
+	# The capture is still armed afterwards and a normal key binds.
+	editor._input(_key_event(KEY_P))
+	assert_false(editor.is_waiting_input, "a normal key still completes the capture")
+
+
 func test_idle_timeout_cancels_capture_with_a_notice() -> void:
 	_arm_capture()
 	editor._on_capture_idle_timeout(editor._capture_generation)

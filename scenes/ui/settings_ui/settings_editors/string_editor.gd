@@ -79,12 +79,22 @@ func _input(event):
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		_show_panel_notice(change_key_panel, "Gamepad capture is not supported yet")
 		return
+	if _is_protected_key(event):
+		_show_panel_notice(change_key_panel, "Backquote and F1 are reserved and cannot be assigned")
+		return
 	var capture := _capture_event(event)
 	if capture == null:
 		return
 	_stop_capture(change_key_panel)
 	settings.set_setting(_setting_name, capture)
 	_show_timed_notice(change_key_panel, KeyInputSettings.get_last_conflict_notice())
+
+
+## Protected keys stay out of the binding map: backquote/tilde (console
+## family) and F1 (help) are reserved, matched on both keycode and
+## physical_keycode (KeyInputSettings.is_protected_key).
+func _is_protected_key(event : InputEvent) -> bool:
+	return KeyInputSettings.is_protected_key(event)
 
 
 func _capture_event(event : InputEvent) -> InputEvent:

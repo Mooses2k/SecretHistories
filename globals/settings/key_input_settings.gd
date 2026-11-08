@@ -371,6 +371,8 @@ func on_setting_changed(setting_name, _old_value, new_value) -> void:
 ## capture clears both and stores the new one, with a notice explaining it.
 ## Joypad events stay untouched (gamepad defaults are not rebindable yet).
 func apply_binding(action : String, event : InputEvent) -> void:
+	if is_protected_key(event):
+		return
 	if _holds_binding(action, event):
 		# Capturing a key the action already holds is a no-op: the slot
 		# stays and the other binding is not disturbed.
@@ -391,6 +393,21 @@ func apply_binding(action : String, event : InputEvent) -> void:
 
 ## Maximum keyboard/mouse bindings one action holds (primary + alternate).
 const MAX_BINDINGS : int = 2
+
+
+## Protected keys stay out of the binding map entirely: backquote/tilde
+## (console family) and F1 (help) are reserved, matched on both keycode and
+## physical_keycode so keycode- and physical-shaped captures are covered.
+func is_protected_key(event : InputEvent) -> bool:
+	if event is not InputEventKey:
+		return false
+	var key := event as InputEventKey
+	if not key.is_pressed() or key.is_echo():
+		return false
+	for keycode in [key.keycode, key.physical_keycode]:
+		if keycode == KEY_QUOTELEFT or keycode == KEY_F1:
+			return true
+	return false
 
 
 func _holds_binding(action : String, event : InputEvent) -> bool:

@@ -12,6 +12,7 @@ const INPUT_FADE_TIME := 0.7
 const INPUT_FADE_WAIT := 1.0
 
 var _started := false
+var _fade_started := false
 
 @onready var _black_rect: ColorRect = $BlackRect
 @onready var _bw_rect: ColorRect = $BWRect
@@ -40,7 +41,18 @@ func _reveal() -> void:
 	tween.tween_property(_black_rect, "modulate:a", 0.0, BW_FADE_TIME)
 
 
+## ESC is its own escape hatch (owner playtest defect 6): the pause gating
+## keys off GameManager.is_player_dead and would otherwise swallow ESC on the
+## death screen, so the screen consumes ESC itself, from the moment the
+## sequence starts, before the grayscale reveal. Any other pressed key or
+## mouse click still waits for the reveal, per the 3.x is_bw contract.
 func _input(event : InputEvent) -> void:
+	if not _started or _fade_started:
+		return
+	if event.is_action_pressed(&"esc_menu") or event.is_action_pressed(&"ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_fade_out_to_title()
+		return
 	if not _bw_rect.visible:
 		return
 	var pressed_key : bool = event is InputEventKey and event.pressed and not event.echo
@@ -51,6 +63,9 @@ func _input(event : InputEvent) -> void:
 
 
 func _fade_out_to_title() -> void:
+	if _fade_started:
+		return
+	_fade_started = true
 	var tween := create_tween()
 	tween.tween_property(_black_rect, "modulate:a", 1.0, INPUT_FADE_TIME)
 	await tween.finished

@@ -30,6 +30,9 @@ const TALL_CANDLE_SCENE_PATH := "res://scenes/objects/pickable_items/equipment/c
 var is_lit : bool = true
 
 var _reject_sound : AudioStreamPlayer3D
+var _reject_tween : Tween
+var _mesh_to_shake : MeshInstance3D = null
+var _mesh_rest_position := Vector3.ZERO
 
 @onready var floor_candelabra_drop_sound : AudioStream = load("res://resources/sounds/impacts/metal_and_gun/414848__link-boy__metal-bang.wav")
 
@@ -49,6 +52,12 @@ func _ready():
 	_reject_sound.name = "TakeRejectSound"
 	_reject_sound.stream = floor_candelabra_drop_sound
 	add_child(_reject_sound)
+	# The shake target is the stand's baked candle mesh (one MeshInstance3D per
+	# stand, candelabra-take-and-refill.md section 1).
+	for node in find_children("*", "MeshInstance3D", true, false):
+		_mesh_to_shake = node as MeshInstance3D
+		_mesh_rest_position = _mesh_to_shake.position
+		break
 
 
 func _process(delta):
@@ -96,8 +105,25 @@ func _take_candle(character) -> void:
 	takes_remaining -= 1
 
 
-## The existing interaction-fail cue pattern (a diegetic sound, like the
-## locked-door rattle): the stand's own metal bang, played as a jiggle.
+## The unmissable reject cue (owner playtest): the diegetic metal bang plus a
+## brief shake of the stand's baked mesh, so a spent stand is felt and seen,
+## not only heard faintly. The rigid body itself is never moved: only the
+## mesh child wobbles and always returns to its authored rest position.
 func _play_take_rejected_cue() -> void:
 	if _reject_sound != null and not _reject_sound.playing:
 		_reject_sound.play()
+	_shake_stand_mesh()
+
+
+func _shake_stand_mesh() -> void:
+	if _mesh_to_shake == null:
+		return
+	if _reject_tween != null and _reject_tween.is_valid():
+		_reject_tween.kill()
+		_mesh_to_shake.position = _mesh_rest_position
+	_reject_tween = create_tween()
+	var step_time : float = 0.05
+	for i in 3:
+		var offset := Vector3(randf_range(-1.0, 1.0), 0.0, randf_range(-1.0, 1.0)) * 0.02
+		_reject_tween.tween_property(_mesh_to_shake, "position", _mesh_rest_position + offset, step_time)
+	_reject_tween.tween_property(_mesh_to_shake, "position", _mesh_rest_position, step_time)

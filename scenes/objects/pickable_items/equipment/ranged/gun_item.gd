@@ -7,11 +7,6 @@ extends EquipmentItem
 signal target_hit(target, position, direction, normal)
 signal on_shoot()
 
-# The loudest gunshot report in the game: the shotgun shell's total payload
-# (8 damage x 9 pellets) through gunshot_noise_for. Normalizes the tinnitus
-# ring strength for every other gun against it.
-const LOUDEST_GUNSHOT_NOISE := 66.0
-
 # Emitted when a reload stage completes: the stage's rounds are already
 # applied at this point. An abort request preempts the stage instead and
 # does not emit this signal.
@@ -207,16 +202,11 @@ func _use_primary():
 		$CooldownTimer.start(cooldown)
 		on_cooldown = true
 		emit_signal("on_shoot")
-		# The shooter's own gunfire rings their ears, scaled by the report's
-		# loudness (owner-approved gunfire tinnitus; 3.x had no gunshot
-		# trigger, only the ghost damage area). LOUDEST_GUNSHOT_NOISE is the
-		# loudest current report: the shotgun shell's 8 damage x 9 pellets
-		# through gunshot_noise_for. No distance model exists for AI shots.
-		if owner_character.is_in_group("PLAYER"):
-			var ring_strength := clampf(
-					gunshot_noise_for(ammo_type, damage_offset) / LOUDEST_GUNSHOT_NOISE,
-					0.0, 1.0)
-			Events.tinnitus_triggered.emit(ring_strength)
+		# No tinnitus here: the owner removed the gunfire ringing (the white
+		# screen flash read as a broken overlay). Tinnitus is the 3.x
+		# ghost-attack effect family; its only producer is the ghost damage
+		# area (docs/research/ui-parity-trio.md section 1). The noise_level
+		# set in shoot() stays: that is the AI hearing channel.
 	if (not owner_character.state.is_reloading) and (not on_cooldown) and current_ammo == 0:
 		dryfire()
 
@@ -319,8 +309,8 @@ func _on_ReloadTimer_timeout() -> void:
 
 ## A mainhand slot switch during a reload requests this abort. Every reload
 ## stage in this codebase is a single ReloadTimer whose rounds all land at
-## the timeout (the webley queues all 6 rounds in one timer, the lee-metford
-## one round per key press), so letting the in-flight stage run out would
+## the timeout (revolvers load one round per gate, magazine and break-action
+## weapons load their stage amount), so letting the in-flight stage run out would
 ## finish the whole reload. The abort therefore preempts the timer: the
 ## queued rounds are not consumed (the inventory is only debited at the
 ## timeout) and the rounds loaded before the stage stand. An ammo-type

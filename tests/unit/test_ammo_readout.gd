@@ -7,6 +7,7 @@ extends GutTest
 
 const AmmoReadoutScript = preload("res://scenes/ui/hotbar/ammo_readout.gd")
 const InventoryScript = preload("res://scenes/characters/inventory.gd")
+const GunItemScript = preload("res://scenes/objects/pickable_items/equipment/ranged/gun_item.gd")
 const WebleyAmmo = preload("res://resources/tiny_items/ammunition/455_webley.tres")
 const ShotgunAmmo = preload("res://resources/tiny_items/ammunition/shotgun_shell.tres")
 
@@ -66,6 +67,74 @@ func test_rebuild_shows_none_when_known_type_hits_zero() -> void:
 	var readout := _make_readout(inv)
 	readout.call("_rebuild")
 	assert_eq(_labels(readout), ["shotgun shell: None"] as Array[String])
+
+
+func _make_webley_gun() -> GunItem:
+	var gun: GunItem = autofree(GunItemScript.new())
+	var ammo_types: Array[Resource] = [WebleyAmmo]
+	gun.ammo_types = ammo_types
+	return gun
+
+
+func test_a_carried_gun_hides_its_ammo_type() -> void:
+	# Owner ruling: the readout slot is only for ammo whose gun is NOT in the
+	# inventory. A carried webley hides .455 even with rounds owned.
+	var inv: Inventory = autofree(InventoryScript.new())
+	inv.hotbar.resize(Inventory.HOTBAR_SIZE)
+	inv.tiny_items = {WebleyAmmo: 4}
+	inv.known_tiny_items = {WebleyAmmo: true}
+	inv.hotbar[0] = _make_webley_gun()
+	var readout := _make_readout(inv)
+
+	readout.call("_rebuild")
+	assert_eq(_labels(readout), [] as Array[String],
+		"a carried gun hides its caliber from the readout")
+
+
+func test_hidden_type_reappears_when_the_gun_leaves() -> void:
+	# Hidden stays hidden only while the gun is carried.
+	var inv: Inventory = autofree(InventoryScript.new())
+	inv.hotbar.resize(Inventory.HOTBAR_SIZE)
+	inv.tiny_items = {WebleyAmmo: 4}
+	inv.known_tiny_items = {WebleyAmmo: true}
+	var gun := _make_webley_gun()
+	inv.hotbar[0] = gun
+	var readout := _make_readout(inv)
+
+	readout.call("_rebuild")
+	assert_eq(_labels(readout), [] as Array[String], "sanity: the webley hides .455")
+
+	inv.hotbar[0] = null
+	readout.call("_rebuild")
+	assert_eq(_labels(readout), [".455 Webley round: Few"] as Array[String],
+		"the caliber shows again once its gun is gone")
+
+
+func test_a_bulky_carried_gun_hides_its_ammo_type() -> void:
+	var inv: Inventory = autofree(InventoryScript.new())
+	inv.hotbar.resize(Inventory.HOTBAR_SIZE)
+	inv.tiny_items = {WebleyAmmo: 4}
+	inv.known_tiny_items = {WebleyAmmo: true}
+	inv.bulky_equipment = _make_webley_gun()
+	var readout := _make_readout(inv)
+
+	readout.call("_rebuild")
+	assert_eq(_labels(readout), [] as Array[String],
+		"a gun in the bulky slot hides its caliber too")
+
+
+func test_another_guns_ammo_stays_listed_while_a_gun_is_carried() -> void:
+	# The hiding rule is per type: the carried webley hides only .455.
+	var inv: Inventory = autofree(InventoryScript.new())
+	inv.hotbar.resize(Inventory.HOTBAR_SIZE)
+	inv.tiny_items = {ShotgunAmmo: 2}
+	inv.known_tiny_items = {ShotgunAmmo: true}
+	inv.hotbar[0] = _make_webley_gun()
+	var readout := _make_readout(inv)
+
+	readout.call("_rebuild")
+	assert_eq(_labels(readout), ["shotgun shell: Few"] as Array[String],
+		"an unrelated caliber stays listed beside a carried gun")
 
 
 func test_hotbar_scene_carries_the_readout_node() -> void:

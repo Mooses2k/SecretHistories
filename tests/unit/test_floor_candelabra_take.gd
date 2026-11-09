@@ -22,6 +22,7 @@ const UNLIT_STAND_SCENE := "res://scenes/objects/large_objects/lighting/floor_ca
 const VOTIVE_STAND_SCENE := "res://scenes/objects/large_objects/lighting/votive_candle_stand.tscn"
 const TALL_CANDLE_SCENE := "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle_tall.tscn"
 const SMALL_CANDLE_SCENE := "res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/candle.tscn"
+const InteractControllerScript = preload("res://scenes/characters/player/interact_controller.gd")
 
 
 class StubCharacter extends Node:
@@ -194,7 +195,113 @@ func test_second_take_is_rejected_and_the_stand_keeps_burning() -> void:
 	assert_eq(stand.takes_remaining, 0, "the take stays spent")
 	assert_true(stand.firelight.visible,
 		"the stand keeps burning after its take: taking does not douse it")
+	assert_true(stand.get_node("TakeRejectSound").playing,
+		"the second take plays the diegetic reject cue")
 	_free_delivered_candles()
+
+
+func test_second_take_shakes_the_stand_mesh_and_restores_it() -> void:
+	# The unmissable reject upgrade (owner playtest): the spent stand shakes
+	# its baked mesh briefly, then returns it to the authored rest position.
+	var player : Node3D = _spawn_player()
+	var stand : Node = _spawn_stand()
+	var inv : Inventory = _inventory_of(player)
+	var mesh : MeshInstance3D = stand._mesh_to_shake
+	var rest : Vector3 = stand._mesh_rest_position
+	assert_not_null(mesh, "the stand captured a mesh to shake")
+
+	stand.get_node("Ignite").interact(player)
+	stand.get_node("Ignite").interact(player)
+	assert_true(stand._reject_tween != null,
+		"the rejected take starts the shake tween")
+	# Headless frame deltas vary, so the visible movement is pinned by the
+	# dedicated probe run (tests/probe_shake_debug.gd: the mesh leaves rest
+	# during the shake); here the start plus the guaranteed restore are pinned.
+	await _idle_frames(40)
+	assert_almost_eq(mesh.position.x, rest.x, 0.0001, "the shake ends back at rest x")
+	assert_almost_eq(mesh.position.z, rest.z, 0.0001, "the shake ends back at rest z")
+	assert_eq(_collect_candles(inv).size(), 1, "sanity: the shake ran on the spent stand")
+	_free_delivered_candles()
+
+
+func _idle_frames(count : int) -> void:
+	for i in count:
+		await get_tree().process_frame
+
+
+func test_ignite_zone_is_generous_and_offers_the_grab_icon() -> void:
+	var stand : Node = _spawn_stand()
+	var ignite : Interactable = stand.get_node("Ignite") as Interactable
+
+	var shape_node : CollisionShape3D = ignite.get_node("CollisionShape3D") as CollisionShape3D
+	var cylinder := shape_node.shape as CylinderShape3D
+	assert_not_null(cylinder, "the take zone is a generous cylinder around the stand")
+	if cylinder != null:
+		assert_true(cylinder.radius >= 1.2,
+			"the take zone reaches a player standing beside the stand (radius " + str(cylinder.radius) + ")")
+		assert_true(cylinder.height >= 1.5, "the take zone covers the stand's height")
+	assert_almost_eq(ignite.position.y, 0.8, 0.001, "the zone covers the stand from the floor up")
+	assert_eq(ignite.indicator_override, HUD.Indicator.GRAB,
+		"the take is a grab: the crosshair shows the GRAB icon, not a generic one")
+
+
+func test_interact_controller_shows_the_grab_icon_for_the_stand() -> void:
+	# The real decision point is the interact controller's _process: with the
+	# stand's Ignite area under the crosshair it must show GRAB (the override),
+	# not the IGNITE cursor the group default would pick.
+	var stub_root : Node = Node.new()
+	stub_root.name = "StubPlayerRoot"
+	_world.add_child(stub_root)
+	var parameters : Node = preload("res://scenes/characters/humanoid_character_base/humanoid_character_parameters.gd").new()
+	parameters.name = "Parameters"
+	stub_root.add_child(parameters)
+	var input_node : Node = preload("res://scenes/characters/humanoid_character_base/humanoid_character_input.gd").new()
+	input_node.name = "Input"
+	stub_root.add_child(input_node)
+	var state : Node = preload("res://scenes/characters/humanoid_character_base/humanoid_character_state.gd").new()
+	state.name = "State"
+	stub_root.add_child(state)
+	state.owner = stub_root
+	var model_root : Node3D = Node3D.new()
+	model_root.name = "ModelRoot"
+	stub_root.add_child(model_root)
+	var camera : Camera3D = Camera3D.new()
+	camera.name = "MainCamera"
+	model_root.add_child(camera)
+	var interaction_cast : RayCast3D = RayCast3D.new()
+	interaction_cast.name = "InteractionCast"
+	interaction_cast.target_position = Vector3(0.0, 0.0, -1.0)
+	interaction_cast.collide_with_areas = true
+	interaction_cast.collide_with_bodies = false
+	camera.add_child(interaction_cast)
+	var grab_cast : RayCast3D = RayCast3D.new()
+	grab_cast.name = "GrabCast"
+	grab_cast.target_position = Vector3(0.0, 0.0, -1.0)
+	camera.add_child(grab_cast)
+	var near_cast : Area3D = Area3D.new()
+	near_cast.name = "NearCast"
+	camera.add_child(near_cast)
+	var controller_node : Node = Node.new()
+	controller_node.name = "PlayerControllerNode"
+	controller_node.set_script(preload("res://scenes/characters/player/player_controller.gd"))
+	stub_root.add_child(controller_node)
+	var controller : Node = Node.new()
+	controller.set_script(InteractControllerScript)
+	controller_node.add_child(controller)
+
+	# The camera looks down its -Z at the stand from outside the enlarged
+	# Ignite cylinder. The stand is lifted so the cylinder covers the
+	# camera height the player controller's _process forces on MainCamera.
+	camera.position = Vector3(0.0, 0.9, 1.4)
+	var stand : Node = _spawn_stand()
+	stand.position = Vector3(0.0, 0.5, 0.0)
+
+	await _idle_frames(5)
+
+	var hud : HUD = GameManager.game.ui_root.hud_root
+	assert_eq(hud.active_indicator, HUD.Indicator.GRAB,
+		"the crosshair over the stand's take zone shows the GRAB icon")
+	stand.free()
 
 
 func test_unlit_spawning_variant_delivers_a_tall_unlit_candle() -> void:

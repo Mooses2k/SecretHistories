@@ -1,15 +1,16 @@
 # Pins the tinnitus overlay port (3.x scenes/characters/player/tinnitus.gd on
 # origin/main): the trigger/refresh/decay lifecycle through the real
-# game_ui scene, the Events.tinnitus_triggered bus wiring, the death stop, the
-# gunshot loudness mapping, and a real webley fired from a spawned player
-# probe ringing the overlay through the bus (the bomb-scenario harness).
+# game_ui scene, the Events.tinnitus_triggered bus wiring, and the death stop.
+# Gunfire does NOT trigger tinnitus (owner ruling: the white screen flash read
+# as a broken overlay; tinnitus belongs to the 3.x ghost-attack family and its
+# only producer is the ghost damage area). A real webley fired from a spawned
+# player probe pins the silence (the bomb-scenario harness).
 extends GutTest
 
 const UI_SCENE := preload("res://scenes/ui/game_ui.tscn")
 const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
 const WEBLEY_SCENE := preload("res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn")
 const WEBLEY_AMMO := preload("res://resources/tiny_items/ammunition/455_webley.tres")
-const SHOTGUN_SHELL := preload("res://resources/tiny_items/ammunition/shotgun_shell.tres")
 const TinnitusOverlay := preload("res://scenes/ui/tinnitus_overlay.gd")
 
 var _ui : GameUI
@@ -92,15 +93,10 @@ func test_death_stops_the_ring_and_ignores_further_triggers() -> void:
 	assert_false(_white_rect(_ui._tinnitus).visible, "a dead overlay never re-shows the white wash")
 
 
-func test_gunshot_loudness_maps_to_the_ring_scale() -> void:
-	var shotgun_noise := GunItem.gunshot_noise_for(SHOTGUN_SHELL, 0)
-	assert_eq(shotgun_noise, 66.0, "the shotgun shell is the loudest current report")
-	assert_eq(shotgun_noise / GunItem.LOUDEST_GUNSHOT_NOISE, 1.0, "the loudest gun rings at full strength")
-	var webley_noise := GunItem.gunshot_noise_for(WEBLEY_AMMO, 0)
-	assert_eq(webley_noise / GunItem.LOUDEST_GUNSHOT_NOISE, 41.0 / 66.0, "the webley rings at its loudness share")
-
-
-func test_player_gunshot_rings_the_ears_through_the_bus() -> void:
+func test_player_gunshot_does_not_ring_the_ears() -> void:
+	# Owner ruling: the gunfire tinnitus trigger is gone. Firing the webley
+	# must not emit the bus signal and must leave the overlay silent. The
+	# noise_level set in shoot() stays: that is the AI hearing channel.
 	# Minimal bomb-scenario harness: the before_each Game stub, a floor, and a
 	# real player probe.
 	_world = Node3D.new()
@@ -126,9 +122,10 @@ func test_player_gunshot_rings_the_ears_through_the_bus() -> void:
 	gun.call("_use_primary")
 	await _physics_frames(1)   # exactly the trigger tick: no decay step applied yet
 
-	assert_signal_emitted(Events, "tinnitus_triggered", "the player's own gunshot emits the bus signal")
-	var expected : float = GunItem.gunshot_noise_for(WEBLEY_AMMO, 0) / GunItem.LOUDEST_GUNSHOT_NOISE
-	assert_almost_eq(_ui._tinnitus._t, expected, 0.0001, "the overlay rings at the webley's loudness share")
+	assert_signal_not_emitted(Events, "tinnitus_triggered",
+		"a player gunshot must not trigger tinnitus")
+	assert_almost_eq(_ui._tinnitus._t, 0.0, 0.0001,
+		"the overlay stays silent through the gunshot")
 
 
 func _level_setup() -> void:

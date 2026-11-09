@@ -135,3 +135,59 @@ func _make_key_press() -> InputEventKey:
 	event.echo = false
 	event.keycode = KEY_SPACE
 	return event
+
+
+func _make_esc_press() -> InputEventKey:
+	var event := InputEventKey.new()
+	event.pressed = true
+	event.echo = false
+	event.keycode = KEY_ESCAPE
+	event.physical_keycode = KEY_ESCAPE
+	return event
+
+
+func test_esc_escapes_the_death_screen_during_the_black_cover() -> void:
+	# Owner playtest defect 6: ESC was gated off by the pause machinery and
+	# the player was stuck. The death screen consumes ESC itself, even before
+	# the grayscale reveal, and the route is the real input pipeline: a
+	# pressed ESC key event flushed through Input while the tree is paused.
+	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
+	var death_screen : Control = _ui._death_screen
+	_ui.observe_player(player)
+	_kill(player)
+	await _physics_frames(2)
+	assert_false(death_screen.get_node("BWRect").visible,
+		"sanity: the reveal has not happened yet, this is the swallowing moment")
+	assert_true(get_tree().paused, "sanity: the tree is paused while the ESC gate is armed")
+
+	Input.parse_input_event(_make_esc_press())
+	await _physics_frames(4)
+	assert_true(death_screen._fade_started,
+		"the death screen consumed ESC itself and started the fade")
+	assert_true(get_tree().paused, "the tree stays paused through the fade")
+	# free the screen before the tail (unpause plus scene change) runs so the
+	# GUT runner scene is never replaced
+	_world.free()
+	_world = null
+	_ui.free()
+	await _physics_frames(5)
+
+
+func test_esc_after_the_reveal_fades_like_any_key() -> void:
+	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
+	var death_screen : Control = _ui._death_screen
+	var black : ColorRect = death_screen.get_node("BlackRect")
+	_ui.observe_player(player)
+	_kill(player)
+	await _physics_frames(140)
+	assert_almost_eq(black.modulate.a, 0.0, 0.05, "sanity: the reveal is showing")
+	death_screen._input(_make_esc_press())
+	await _physics_frames(30)
+	assert_true(black.modulate.a > 0.3, "ESC starts the fade back to black like any key")
+	assert_true(get_tree().paused, "the tree stays paused through the fade")
+	# free the screen before the tail (unpause plus scene change) runs so the
+	# GUT runner scene is never replaced
+	_world.free()
+	_world = null
+	_ui.free()
+	await _physics_frames(5)

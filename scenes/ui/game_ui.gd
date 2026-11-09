@@ -108,7 +108,11 @@ func _on_player_hurtbox_damaged(_amount : int, _type : GlobalConsts.AttackTypes,
 func _input(event: InputEvent) -> void:
 	if LoadScene.loading:
 		return
-	if event.is_action_pressed("esc_menu") and not GameManager.is_player_dead:
+	if GameManager.is_player_dead:
+		# The death screen consumes its own ESC (any key fades to the title
+		# menu); the pause gate must never open over a dead player.
+		return
+	if event.is_action_pressed("esc_menu"):
 		match gui_state:
 			GUIState.HUD:
 				self.gui_state = GUIState.PAUSE

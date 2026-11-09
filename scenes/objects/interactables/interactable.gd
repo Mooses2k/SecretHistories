@@ -4,6 +4,13 @@ extends Area3D
 
 signal character_interacted(character)
 
+## Crosshair indicator override: a HUD.Indicator value forced whenever this
+## target is under the crosshair, instead of the interact controller's
+## group-based default (IGNITE group shows the ignite cursor, otherwise DOT).
+## -1 keeps the default. Take-from-stand targets (floor candelabra) pin GRAB:
+## taking a candle is a grab, not a generic interact (owner ruling).
+@export var indicator_override : int = -1
+
 ## Opt-in hold-to-interact semantics (Amnesia style, doors #17): when true,
 ## the player interact controller fires interact() when the button is HELD
 ## past the grab threshold instead of falling back to ADS, and a quick tap

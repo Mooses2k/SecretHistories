@@ -70,7 +70,7 @@ mass = 1.0
 script = ExtResource("6")
 ammo_types = Array[Resource]([ExtResource("2")])
 ammunition_capacity = 6
-reload_amount = 6
+reload_amount = 1
 cooldown = 0.1
 handling = 17.0
 ads_hold_position = Vector3(-0.023, 0.026, -0.076)
@@ -148,7 +148,6 @@ one_shot = true
 
 [node name="SmokeOrigin" type="Marker3D" parent="Effects" index="1" unique_id=1562256136]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.021699164, -0.139536)
-visible = false
 
 [node name="SoundOrigin" type="Marker3D" parent="Effects" index="2" unique_id=286514949]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.022338688, -0.0354128)

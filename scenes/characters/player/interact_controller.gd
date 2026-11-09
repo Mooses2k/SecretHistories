@@ -111,9 +111,15 @@ func _process(delta: float) -> void:
 	if pick_target:
 		GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.GRAB
 	elif grab_target or interact_target:
-		GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.DOT
-		if is_instance_valid(interact_target) and interact_target.is_in_group(&"IGNITE"):
-			GameManager.game.ui_root.hud_root.active_indicator = HUD.Indicator.IGNITE
+		# Per-target override first (the floor candelabra take is a GRAB), then
+		# the group default: ignite areas show the ignite cursor.
+		var target_indicator : HUD.Indicator = HUD.Indicator.DOT
+		if is_instance_valid(interact_target):
+			if interact_target.indicator_override >= 0:
+				target_indicator = interact_target.indicator_override as HUD.Indicator
+			elif interact_target.is_in_group(&"IGNITE"):
+				target_indicator = HUD.Indicator.IGNITE
+		GameManager.game.ui_root.hud_root.active_indicator = target_indicator
 	if GameManager.game.ui_root.hud_root.active_indicator == HUD.Indicator.NONE:
 		for body in near_cast.get_overlapping_bodies():
 			if body is RigidBody3D:

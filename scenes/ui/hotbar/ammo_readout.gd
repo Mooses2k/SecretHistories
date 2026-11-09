@@ -68,18 +68,16 @@ func _rebuild() -> void:
 		add_child(label)
 
 
-## Ammunition types the readout lists: types the player has ever picked up
-## plus the ammo types of guns the player carries, so a gun's caliber shows
-## even with no rounds owned
+## Ammunition types the readout lists (owner ruling): a type shows ONLY when
+## its matching gun is NOT in the inventory. A carried gun's caliber is hidden
+## until the gun is gone; types with no gun in the inventory show as before.
 func _known_ammo_types() -> Array[AmmunitionData]:
+	var hidden := _carried_gun_ammo_types()
 	var types: Array[AmmunitionData] = []
 	for entry in inventory.known_tiny_items:
 		var item := entry as TinyItemData
-		if item is AmmunitionData and not types.has(item):
+		if item is AmmunitionData and not hidden.has(item) and not types.has(item):
 			types.append(item)
-	for slot_item in inventory.hotbar:
-		_collect_gun_ammo(slot_item, types)
-	_collect_gun_ammo(inventory.bulky_equipment, types)
 	types.sort_custom(_sort_by_name)
 	return types
 
@@ -90,6 +88,16 @@ func _collect_gun_ammo(item, types: Array[AmmunitionData]) -> void:
 			var ammo_data := ammo as AmmunitionData
 			if ammo_data != null and not types.has(ammo_data):
 				types.append(ammo_data)
+
+
+## Ammo types of every gun the player currently carries (hotbar slots plus
+## bulky equipment): the set of types hidden from the readout.
+func _carried_gun_ammo_types() -> Array[AmmunitionData]:
+	var types: Array[AmmunitionData] = []
+	for slot_item in inventory.hotbar:
+		_collect_gun_ammo(slot_item, types)
+	_collect_gun_ammo(inventory.bulky_equipment, types)
+	return types
 
 
 func _sort_by_name(a: AmmunitionData, b: AmmunitionData) -> bool:

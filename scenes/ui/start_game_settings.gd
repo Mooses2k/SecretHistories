@@ -19,6 +19,16 @@ func add_generation_settings():
 	_settings.add_int_setting("World Seed", -55555, 55555, 1, randi() % 111110 - 55555)
 	_settings.set_setting_group("World Seed", "Generation Settings")
 	_settings.set_setting_meta("World Seed", _settings._CAN_RANDOMIZE_FLAG, true)
+	_settings.add_enum_setting(ForceRoomPurpose.SETTING_NAME, FORCE_ROOM_PURPOSE_VARIANTS, 0)
+	_settings.set_setting_group(ForceRoomPurpose.SETTING_NAME, "Generation Settings")
+
+
+## Display names for the Force Room Purpose debug enum: OFF plus the purposes
+## wired into procedural_world.tscn's GenerateRoomPurposes step, named after
+## their RoomData.OriginalPurpose keys. World generation matches the selected
+## variant against those keys, so this list is display data: wiring a new
+## purpose into the generation scene means adding its key here too.
+const FORCE_ROOM_PURPOSE_VARIANTS := ["OFF", "CRYPT", "FOUNTAIN", "STATUE_GALLERY", "TROPHY_ROOM"]
 
 
 # add_equipment and add_tiny_items iterate through the pickable items and tiny items folders and 

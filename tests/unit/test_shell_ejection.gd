@@ -1,0 +1,261 @@
+extends GutTest
+## Shell ejection on reload (3.x behavior restored, code-driven): a reload
+## press opens the action and ejects the chambers' spent cases as world
+## physics debris via the gun's per-gun shell effect node, at the swing-open
+## beat (owner decision: swing out and empty, then load one round per
+## cycle). The eject count is the chambers holding spent cases
+## (ammunition_capacity - current_ammo), not the whole cylinder, and the
+## ready-time convenience load ("start loaded, for now") ejects nothing.
+## 3.x shape reference (Ayo's late commits): webley ejects 6 casings, both
+## shotguns 2 shells, khyber 1, all into the world; Lee-Metford and
+## Martini-Henry rifle never ejected.
+##
+## Harness: real webley scene (its ShellReloadEffects node and chamber
+## markers come from the scene) with a stub owner carrying a real state and
+## Inventory, the same pattern as test_reload_stage_abort. Seam assertions
+## use a recording double swapped onto gun_item._shell_effects; the real
+## spawn path runs against a throwaway parent node.
+
+const InventoryScript = preload("res://scenes/characters/inventory.gd")
+const WebleyScene = preload("res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn")
+const DoubleBarrelScene = preload("res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/double-barrel_shotgun.tscn")
+const KhyberScene = preload("res://scenes/objects/pickable_items/equipment/ranged/khyber_pass_martini/khyber_pass_martini.tscn")
+const GameScript = preload("res://scenes/game.gd")
+const AmmoResource = preload("res://resources/tiny_items/ammunition/455_webley.tres")
+const StateScript = preload("res://scenes/characters/humanoid_character_base/humanoid_character_state.gd")
+const ParametersScript = preload("res://scenes/characters/humanoid_character_base/humanoid_character_parameters.gd")
+const InputScript = preload("res://scenes/characters/humanoid_character_base/humanoid_character_input.gd")
+
+
+class ReloadOwnerStub extends Node:
+	var state = null
+	var inventory = null
+
+
+class ShellEffectsDouble extends Node:
+	var calls : Array = []
+
+	func expell_shells(count : int, world_parent : Node) -> void:
+		calls.append({"count": count, "parent": world_parent})
+
+
+func _make_harness(start_ammo : int, start_tiny : int, stage_amount : int = 6, stub_clip_length : float = 0.6, ready_loaded : bool = false) -> Dictionary:
+	var owner_stub : ReloadOwnerStub = ReloadOwnerStub.new()
+	add_child_autofree(owner_stub)
+	var params : Node = ParametersScript.new()
+	params.name = "Parameters"
+	var input_node : Node = InputScript.new()
+	input_node.name = "Input"
+	var state : Node = StateScript.new()
+	state.name = "State"
+	owner_stub.add_child(params)
+	owner_stub.add_child(input_node)
+	owner_stub.add_child(state)
+	state.owner = owner_stub
+	owner_stub.state = state
+
+	var inv = add_child_autofree(InventoryScript.new())
+	owner_stub.inventory = inv
+
+	var webley = WebleyScene.instantiate()
+	webley.ammunition_capacity = 6
+	webley.reload_amount = stage_amount
+	webley.reload_time = 0.25
+	if ready_loaded:
+		# Set up before add_child so _ready runs the convenience load; the
+		# clip stub cannot be applied here (animation_player needs the tree).
+		webley.owner_character = owner_stub
+		webley.current_ammo_type = AmmoResource
+		webley.current_ammo = start_ammo
+		inv.tiny_items[AmmoResource] = start_tiny
+		add_child_autofree(webley)
+	else:
+		add_child_autofree(webley)
+		webley.owner_character = owner_stub
+		webley.current_ammo_type = AmmoResource
+		webley.current_ammo = start_ammo
+		inv.tiny_items[AmmoResource] = start_tiny
+		if stub_clip_length >= 0.0:
+			_own_reload_library(webley, stub_clip_length)
+	return {"owner": owner_stub, "state": state, "inventory": inv, "webley": webley}
+
+
+func _own_reload_library(webley : Node, stub_clip_length : float) -> void:
+	# The scene's sub_resource AnimationLibrary is shared across instantiate()
+	# calls, so the stub goes into a private per-instance copy.
+	var anim_player : AnimationPlayer = webley.animation_player
+	var shared : AnimationLibrary = anim_player.get_animation_library("")
+	var private_lib := AnimationLibrary.new()
+	for anim_name in shared.get_animation_list():
+		if stub_clip_length == 0.0 and anim_name == "reload":
+			continue
+		private_lib.add_animation(anim_name, shared.get_animation(anim_name))
+	if stub_clip_length > 0.0:
+		private_lib.remove_animation("reload")
+		var stub_anim := Animation.new()
+		stub_anim.length = stub_clip_length
+		private_lib.add_animation("reload", stub_anim)
+	anim_player.remove_animation_library("")
+	anim_player.add_animation_library("", private_lib)
+
+
+func _swap_double(webley : Node) -> ShellEffectsDouble:
+	var effects := ShellEffectsDouble.new()
+	autofree(effects)
+	webley._shell_effects = effects
+	return effects
+
+
+func test_webley_press_ejects_all_spent_casings_at_the_press() -> void:
+	var h := _make_harness(0, 6, 6)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 1, "the press ejects once, at the swing-open beat")
+	if effects.calls.size() == 1:
+		assert_eq(effects.calls[0]["count"], 6, "an empty cylinder ejects all six spent cases")
+	webley.request_reload_abort()
+
+
+func test_partial_cylinder_ejects_only_the_spent_cases() -> void:
+	var h := _make_harness(4, 6, 6)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 1, "the press ejects once")
+	if effects.calls.size() == 1:
+		assert_eq(effects.calls[0]["count"], 2, "two live rounds in the cylinder means two spent cases")
+	webley.request_reload_abort()
+
+
+func test_full_weapon_refuses_and_ejects_nothing() -> void:
+	var h := _make_harness(6, 6, 6)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_false(h.state.is_reloading, "a full weapon must not enter a reload stage")
+	assert_eq(effects.calls.size(), 0, "a refused reload ejects nothing")
+
+
+func test_ready_time_spawn_load_does_not_eject() -> void:
+	# _ready self-loads the gun ("start loaded, for now"); that convenience
+	# load is not a press and the chamber never held spent cases.
+	var fake_game : Node = GameScript.new()
+	autofree(fake_game)
+	GameManager.game = fake_game
+	var h := _make_harness(0, 6, 6, 0.6, true)
+	GameManager.game = null
+	assert_true(h.state.is_reloading, "the ready-time load stages the weapon")
+	assert_eq(fake_game.get_child_count(), 0, "the ready-time load ejects nothing")
+	h.webley.request_reload_abort()
+
+
+func test_abort_mid_chain_ejects_nothing_further_and_a_re_press_ejects_the_remaining_spent() -> void:
+	var h := _make_harness(0, 6, 6)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 1, "the first press ejects at the swing-open beat")
+	await wait_seconds(0.4)
+	assert_eq(webley.current_ammo, 1, "round one landed before the abort")
+
+	webley.request_reload_abort()
+	assert_eq(effects.calls.size(), 1, "the abort itself ejects nothing")
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 2, "the re-press opens the action again")
+	if effects.calls.size() == 2:
+		assert_eq(effects.calls[0]["count"], 6, "the first press ejected the empty cylinder")
+		assert_eq(effects.calls[1]["count"], 5, "the re-press ejects the chambers still without a live round")
+	webley.request_reload_abort()
+
+
+func test_casings_land_in_the_world_parent_as_physics_debris() -> void:
+	# The gun hands _casing_world_parent() to the effects node; in a real run
+	# that is GameManager.game, falling back to the current scene. The test
+	# provides the fallback branch as an in-tree container so the casings
+	# spawn through the same production path.
+	var h := _make_harness(0, 6, 6)
+	var webley : Node = h.webley
+	var world_container := Node3D.new()
+	autofree(world_container)
+	# current_scene must be a direct child of the tree root.
+	get_tree().root.add_child(world_container)
+	get_tree().current_scene = world_container
+	webley.reload()
+	get_tree().current_scene = null
+	assert_eq(world_container.get_child_count(), 6, "the press ejects six casings into the world parent")
+	for casing in world_container.get_children():
+		assert_true(casing is RigidBody3D, "casings spawn as world physics debris")
+	webley.request_reload_abort()
+
+
+func test_webley_effects_spawn_casings_at_the_chamber_markers() -> void:
+	var h := _make_harness(0, 6, 6)
+	var webley : Node = h.webley
+	var effects : Node = webley._shell_effects
+	assert_true(effects != null, "the webley scene wires AnimationPlayer/ShellReloadEffects")
+
+	var container := Node3D.new()
+	add_child_autofree(container)
+	effects.expell_shells(6, container)
+	assert_eq(container.get_child_count(), 6, "the webley spawns one casing per chamber marker")
+	for casing in container.get_children():
+		assert_true(casing is RigidBody3D, "casings are RigidBody3D debris")
+	var marker : Node3D = webley.get_node("Webley/Webley_Arm/Skeleton3D/Webley2/BulletPosition")
+	var first_casing : Node3D = container.get_child(0)
+	assert_almost_eq(first_casing.global_position.y, marker.global_position.y + 0.05, 0.001, "the casing starts at the chamber position plus the lift")
+
+	var before : int = container.get_child_count()
+	effects.expell_shells(9, container)
+	assert_eq(container.get_child_count() - before, 6, "the eject count clamps to the six chamber markers")
+
+
+func test_shotgun_effects_spawn_two_shells_and_clamp_to_their_markers() -> void:
+	var gun := DoubleBarrelScene.instantiate()
+	add_child_autofree(gun)
+	var effects : Node = gun._shell_effects
+	assert_true(effects != null, "the double-barrel scene wires AnimationPlayer/ShellReloadEffects")
+
+	var container := Node3D.new()
+	add_child_autofree(container)
+	effects.expell_shells(2, container)
+	assert_eq(container.get_child_count(), 2, "the double-barrel ejects both spent shells")
+	for casing in container.get_children():
+		assert_true(casing is RigidBody3D, "shells are RigidBody3D debris")
+	var before : int = container.get_child_count()
+	effects.expell_shells(7, container)
+	assert_eq(container.get_child_count() - before, 2, "the eject count clamps to the two breech markers")
+
+
+func test_khyber_effects_spawn_one_casing() -> void:
+	var gun := KhyberScene.instantiate()
+	add_child_autofree(gun)
+	var effects : Node = gun._shell_effects
+	assert_true(effects != null, "the khyber scene wires AnimationPlayer/KyberPassMartiniShells")
+
+	var container := Node3D.new()
+	add_child_autofree(container)
+	effects.expell_shells(1, container)
+	assert_eq(container.get_child_count(), 1, "the khyber ejects its single spent case")
+	var before : int = container.get_child_count()
+	effects.expell_shells(3, container)
+	assert_eq(container.get_child_count() - before, 1, "the eject count clamps to the single marker")
+	var casing : Node = container.get_child(0)
+	assert_true(casing is RigidBody3D, "the casing is RigidBody3D debris")
+
+
+func test_guns_without_shell_wiring_reload_silently() -> void:
+	# Lee-Metford and Martini-Henry rifle carry no shell_effects_path in 3.x
+	# or dev4: the reload works and nothing ejects.
+	var h := _make_harness(0, 6, 6)
+	var webley : Node = h.webley
+	webley._shell_effects = null
+	webley.reload()
+	assert_true(h.state.is_reloading, "the staged reload starts without a shell effect node")
+	webley.request_reload_abort()
+	assert_false(h.state.is_reloading, "the abort still clears the reload state")

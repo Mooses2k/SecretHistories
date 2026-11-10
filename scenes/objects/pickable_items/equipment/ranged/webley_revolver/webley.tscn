@@ -84,6 +84,7 @@ ads_hold_rotation = Vector3(-3.723, 2.163, 11.646)
 melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
+shell_effects_path = NodePath("AnimationPlayer/ShellReloadEffects")
 item_size = 0
 item_name = "Webley revolver"
 item_drop_sound = ExtResource("12")
@@ -196,7 +197,6 @@ libraries/ = SubResource("AnimationLibrary_ireru")
 
 [node name="ShellReloadEffects" type="Node" parent="AnimationPlayer" index="0" unique_id=2081237005]
 script = ExtResource("14")
-impulse_position = Vector3(0.2, 0.09, 0.2)
 
 [node name="PlacementAnchor" parent="." index="11"]
 visible = false

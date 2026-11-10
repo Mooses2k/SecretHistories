@@ -78,6 +78,7 @@ ads_hold_rotation = Vector3(-6.331, 2.484, 9.833)
 melee_style = 1
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
+shell_effects_path = NodePath("AnimationPlayer/KyberPassMartiniShells")
 item_size = 0
 item_name = "Sawed-off Martini pistol"
 item_drop_sound = ExtResource("11")

@@ -1,6 +1,4 @@
-extends Node
-
-@export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)
+extends "res://scenes/objects/pickable_items/equipment/ranged/gun_shell_effects.gd"
 
 var dropped_bullet_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/webley/webley_casing.tscn")
 var bullet_shells = preload("res://scenes/objects/pickable_items/tiny/ammo/webley/webley_round.tscn")
@@ -16,6 +14,7 @@ var all_bullet_shells : Array = []
 @onready var bullet_position_5 = %BulletPosition5
 @onready var bullet_position_6 = %BulletPosition6
 
+
 func _ready():
 	all_shell_positions.append(bullet_position_1)
 	all_shell_positions.append(bullet_position_2)
@@ -25,48 +24,16 @@ func _ready():
 	all_shell_positions.append(bullet_position_6)
 
 
-func expell_shells():
-	all_bullet_shells.clear()
-	var first_shell = dropped_bullet_shell.instantiate() as RigidBody3D
-	var second_shell = dropped_bullet_shell.instantiate() as RigidBody3D
-	var third_shell = dropped_bullet_shell.instantiate() as RigidBody3D
-	var fourth_shell = dropped_bullet_shell.instantiate() as RigidBody3D
-	var fifth_shell = dropped_bullet_shell.instantiate() as RigidBody3D
-	var sixth_shell = dropped_bullet_shell.instantiate() as RigidBody3D
-	
-	all_bullet_shells.append(first_shell)
-	all_bullet_shells.append(second_shell)
-	all_bullet_shells.append(third_shell)
-	all_bullet_shells.append(fourth_shell)
-	all_bullet_shells.append(fifth_shell)
-	all_bullet_shells.append(sixth_shell)
-	
-	
-	var world_scene
-	if is_instance_valid(GameManager.game):
-		world_scene = GameManager.game
-	else:
-		world_scene = owner.owner_character.owner as Node3D
-
-	first_shell.position = bullet_position_1.global_position
-	second_shell.position = bullet_position_2.global_position
-	third_shell.position = bullet_position_3.global_position
-	fourth_shell.position = bullet_position_4.global_position
-	fifth_shell.position = bullet_position_5.global_position
-	sixth_shell.position = bullet_position_6.global_position
-	
-	first_shell.position.y += 0.05
-	second_shell.position.y += 0.05
-	third_shell.position.y += 0.05
-	fourth_shell.position.y += 0.05
-	fifth_shell.position.y += 0.05
-	sixth_shell.position.y += 0.05
-	
-	for bullet_shells in all_bullet_shells:
-		world_scene.add_child(bullet_shells)
-	
-	for bullet_shells in all_bullet_shells:
-		bullet_shells.apply_impulse(owner.owner_character.global_transform.basis.z * randf_range(0.1, 0.5), Vector3(randf_range(0, 0.6), randf_range(0, 0.8), randf_range(0, 0.5)))
+func expell_shells(count : int, world_parent : Node) -> void:
+	var gun := owner as GunItem
+	var character_forward := Vector3.ZERO
+	if gun != null and gun.owner_character is Node3D:
+		character_forward = (gun.owner_character as Node3D).global_transform.basis.z
+	for i in mini(count, all_shell_positions.size()):
+		var marker := all_shell_positions[i] as Marker3D
+		if marker == null:
+			continue
+		spawn_casing(dropped_bullet_shell, world_parent, marker.global_position + Vector3(0, 0.05, 0), 0.0, character_forward * randf_range(0.1, 0.5), Vector3(randf_range(0, 0.6), randf_range(0, 0.8), randf_range(0, 0.5)))
 
 
 func player_add_shell():

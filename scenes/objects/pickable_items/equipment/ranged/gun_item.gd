@@ -32,6 +32,11 @@ const MAX_STAGED_CYCLE_TIME : float = 3.0
 ## landing order, the last entry covering any further rounds. Guns without
 ## entries keep their per-round cycles silent behind the press composite.
 @export var per_chamber_sounds : Array[AudioStream] = []
+## Per-gun reload shell effect node (a GunShellEffects script): owns the
+## casing data for the press-time ejection beat. Empty for guns that never
+## eject (Lee-Metford and Martini-Henry rifle carried no shell effects in
+## 3.x).
+@export var shell_effects_path : NodePath
 @export var damage_offset : int = 0
 @export var dispersion_offset_degrees : int = 0
 @export var cooldown : float = 1.0
@@ -86,6 +91,13 @@ var _staged_cycle_time : float = 0.0
 @onready var player = get_node(player_path)
 @onready var mesh = get_node_or_null(mesh_path)
 @onready var _chamber_sound : AudioStreamPlayer3D = get_node_or_null("Sounds/Chamber") as AudioStreamPlayer3D
+@onready var _shell_effects : Node = _resolve_shell_effects()
+
+
+func _resolve_shell_effects() -> Node:
+	if shell_effects_path.is_empty():
+		return null
+	return get_node_or_null(shell_effects_path)
 
 
 func _ready():
@@ -98,7 +110,9 @@ func _ready():
 	get_reload_length()
 
 	if owner_character:   # start loaded, for now
-		reload()
+		# The ready-time convenience load is not a player press: no ejection
+		# beat, the chamber never held spent cases.
+		reload(false)
 
 
 #TODO move this out of here
@@ -280,10 +294,29 @@ func _use_unload():
 	pass
 
 
+## A press opens the action: the spent cases eject as world debris at the
+## swing-open beat (owner decision: swing out and empty, then load one round
+## per cycle). The per-gun shell effect node owns the casing data; the count
+## is the chambers currently holding spent cases, not the whole cylinder.
+func _eject_spent_casings(count : int) -> void:
+	if count <= 0:
+		return
+	if _shell_effects == null or not _shell_effects.has_method("expell_shells"):
+		return
+	_shell_effects.call("expell_shells", count, _casing_world_parent())
+
+
+func _casing_world_parent() -> Node:
+	if is_instance_valid(GameManager.game):
+		return GameManager.game
+	return get_tree().current_scene
+
+
 # TODO: Needs more code for revolvers and bolt-actions as they're more complicated
 # TODO: Needs some camera movement for immersion
-func reload():
+func reload(eject_spent_casings : bool = true) -> void:
 	if owner_character and current_ammo < ammunition_capacity and not owner_character.state.is_reloading:
+		var casings_to_eject := ammunition_capacity - current_ammo
 		var inventory = owner_character.inventory
 		for ammo_type in ammo_types:
 			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
@@ -298,6 +331,8 @@ func reload():
 				if _reload_amount > 0:
 					_staged_cycle_time = _staged_reload_cycle_time(_reload_amount)
 					_staged_rounds_landed = 0
+					if eject_spent_casings:
+						_eject_spent_casings(casings_to_eject)
 					$ReloadTimer.start(_staged_cycle_time)
 					_queued_reload_amount = _reload_amount
 					_staged_reload_remaining = _reload_amount

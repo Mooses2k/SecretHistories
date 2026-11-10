@@ -1,5 +1,4 @@
-extends Node
-
+extends "res://scenes/objects/pickable_items/equipment/ranged/gun_shell_effects.gd"
 
 @export var impulse_position_1 : Vector3 = Vector3(0, 0.2, 0.1)
 @export var impulse_position_2 : Vector3 = Vector3(0, 0.2, 0.1)
@@ -12,36 +11,22 @@ var all_shell_positions : Array = []
 @onready var shell_position_2 = %ShellPosition2
 
 
-func expell_shotgun_shells() -> void:
+func _ready() -> void:
 	all_shell_positions.append(shell_position_1)
 	all_shell_positions.append(shell_position_2)
-	
-	print("Expelling shotgun shells")
-	var first_shell = shotgun_shell.instantiate() as RigidBody3D
-	var second_shell = shotgun_shell.instantiate() as RigidBody3D
-	
-	var shell_position_1 = %ShellPosition1.global_position
-	var shell_position_2 =  %ShellPosition2.global_position
-	
-	first_shell.position.y += 2
-	second_shell.position.y += 2
-	first_shell.rotation_degrees.z = 100.695
-	second_shell.rotation_degrees.z = 100.695
-	
-	var world_scene
-	if is_instance_valid(GameManager.game):
-		world_scene = GameManager.game
-	else:
-		world_scene = owner.owner_character.owner as Node3D
-	
-	first_shell.position = shell_position_1
-	second_shell.position = shell_position_2
-	
-	world_scene.add_child(first_shell)
-	world_scene.add_child(second_shell)
-	
-	first_shell.apply_impulse(owner.owner_character.global_transform.basis.z * 3, impulse_position_1)
-	second_shell.apply_impulse(owner.owner_character.global_transform.basis.z * 3, impulse_position_2)
+
+
+func expell_shells(count : int, world_parent : Node) -> void:
+	var gun := owner as GunItem
+	var character_forward := Vector3.ZERO
+	if gun != null and gun.owner_character is Node3D:
+		character_forward = (gun.owner_character as Node3D).global_transform.basis.z
+	for i in mini(count, all_shell_positions.size()):
+		var marker := all_shell_positions[i] as Marker3D
+		if marker == null:
+			continue
+		var impulse_offset := impulse_position_1 if i == 0 else impulse_position_2
+		spawn_casing(shotgun_shell, world_parent, marker.global_position, 100.695, character_forward * 3.0, impulse_offset)
 
 
 func add_shells_to_slot() -> void:

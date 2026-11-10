@@ -1,33 +1,26 @@
-extends Node
+extends "res://scenes/objects/pickable_items/equipment/ranged/gun_shell_effects.gd"
 
 @export var impulse_position : Vector3 = Vector3(0, 0.2, 0.1)
-@export var impulse_value : Vector3 = Vector3(0, 0.3, 0.2)
 
-var webley_expell_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/shotgun_shells/12-gauge_shotgun_shell.tscn")
-var webley_reload_shell = preload("res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_round.tscn")
+var casing_scene = preload("res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_casing.tscn")
+var reload_round_scene = preload("res://scenes/objects/pickable_items/tiny/ammo/martini-henry/martini-henry_round.tscn")
 
 
-func expell_shells():
-	print("Expelling shotgun shells")
-	var first_shell = webley_expell_shell.instantiate() as RigidBody3D
-
-	var shell_position_1 = %DropShellPosition.global_position
-	
-	first_shell.rotation_degrees.z = 100.695
-	
-	var world_scene
-	if is_instance_valid(GameManager.game):
-		world_scene = GameManager.game
-	else:
-		world_scene = owner.owner_character.owner as Node3D
-	
-	first_shell.position = shell_position_1
-	world_scene.add_child(first_shell)
-	first_shell.apply_impulse(owner.owner_character.global_transform.basis.z * 3, impulse_position)
+func expell_shells(count : int, world_parent : Node) -> void:
+	if count <= 0:
+		return
+	var gun := owner as GunItem
+	var character_forward := Vector3.ZERO
+	if gun != null and gun.owner_character is Node3D:
+		character_forward = (gun.owner_character as Node3D).global_transform.basis.z
+	var marker := %DropShellPosition as Marker3D
+	if marker == null:
+		return
+	spawn_casing(casing_scene, world_parent, marker.global_position, 100.695, character_forward * 3.0, impulse_position)
 
 
 func player_add_shell():
-	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(webley_reload_shell, Vector3(0.003, -0.006, -0.019), Vector3(-1.448, -16.595, -77.987))
+	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(reload_round_scene, Vector3(0.003, -0.006, -0.019), Vector3(-1.448, -16.595, -77.987))
 
 
 func player_clear_shell():

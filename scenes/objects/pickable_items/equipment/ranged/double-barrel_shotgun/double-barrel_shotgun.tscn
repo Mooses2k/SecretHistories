@@ -76,6 +76,7 @@ ads_hold_position = Vector3(0.053, 0.02, -0.194)
 ads_hold_rotation = Vector3(-5.039, -26.317, 13.705)
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
+shell_effects_path = NodePath("AnimationPlayer/ShellReloadEffects")
 item_name = "Double-barrel shotgun"
 item_drop_sound = ExtResource("3")
 per_chamber_sounds = Array[AudioStream]([ExtResource("14")])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bhp2gv8pijmxh"]
+[gd_scene load_steps=23 format=3 uid="uid://bhp2gv8pijmxh"]
 
 [ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="1"]
 [ext_resource type="Script" uid="uid://hwsje2cbuhqb" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/effects.gd" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://biqwhqeb70a3r" path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" id="12"]
 [ext_resource type="Script" uid="uid://cvituexifjryt" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" id="13"]
 [ext_resource type="Animation" uid="uid://dvvsdrao7uv56" path="res://resources/animations/double-barrel_shotgun_reload-weapon.res" id="13_yj4av"]
+[ext_resource type="AudioStream" uid="uid://c3pxftlcokkjt" path="res://resources/sounds/reloading/shotgun/522289__filmmakersmanual__loading-shell-shotgun-4.wav" id="14"]
 
 [sub_resource type="Skin" id="375"]
 resource_name = "Skin"
@@ -77,6 +78,7 @@ player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
 item_name = "Double-barrel shotgun"
 item_drop_sound = ExtResource("3")
+per_chamber_sounds = Array[AudioStream]([ExtResource("14")])
 
 [node name="Effects" type="Node3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0161471, -0.493225)
@@ -154,6 +156,9 @@ bus = &"Effects"
 
 [node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
 stream = ExtResource("12")
+bus = &"Effects"
+
+[node name="Chamber" type="AudioStreamPlayer3D" parent="Sounds" index="5"]
 bus = &"Effects"
 
 [node name="HoldPosition" parent="." index="9"]

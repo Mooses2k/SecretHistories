@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://347rkxj6e7d4"]
+[gd_scene load_steps=23 format=3 uid="uid://347rkxj6e7d4"]
 
 [ext_resource type="Script" uid="uid://bxpahyvppyapw" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/effects.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://5yf0bei0ff5s" path="res://resources/sounds/dryfire/46265__phreaksaccount__coachgun_dry_fire.wav" id="2"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://biqwhqeb70a3r" path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" id="10"]
 [ext_resource type="Script" uid="uid://cvituexifjryt" path="res://scenes/objects/pickable_items/equipment/ranged/double-barrel_sawed_shotgun/shell_reload_effects.gd" id="11"]
 [ext_resource type="Script" uid="uid://cclp8d6j5ppi7" path="res://scenes/effects/mesh_instances.gd" id="13"]
+[ext_resource type="AudioStream" uid="uid://c3pxftlcokkjt" path="res://resources/sounds/reloading/shotgun/522289__filmmakersmanual__loading-shell-shotgun-4.wav" id="12"]
 
 [sub_resource type="Skin" id="7"]
 resource_name = "Skin"
@@ -111,6 +112,7 @@ detection_raycast = NodePath("RayCast3D")
 item_size = 0
 item_name = "Sawed-off shotgun"
 can_spin = true
+per_chamber_sounds = Array[AudioStream]([ExtResource("12")])
 
 [node name="DoubleBarrelSawed" parent="." index="0" instance=ExtResource("3_a0rfu")]
 transform = Transform3D(-0.994928, 0, 0.100587, 0, 1, 0, -0.100587, 0, -0.994928, -0.157422, -1.19571, 0.556376)
@@ -189,6 +191,9 @@ bus = &"Effects"
 
 [node name="Unload" type="AudioStreamPlayer3D" parent="Sounds" index="4"]
 stream = ExtResource("10")
+bus = &"Effects"
+
+[node name="Chamber" type="AudioStreamPlayer3D" parent="Sounds" index="5"]
 bus = &"Effects"
 
 [node name="HoldPosition" parent="." index="9"]

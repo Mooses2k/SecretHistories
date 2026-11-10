@@ -19,10 +19,19 @@ enum MeleeStyle {
 	COUNT
 }
 
+## Cadence window for the derived per-round reload quantum: a mis-authored
+## clip must not produce absurd click spacing.
+const MIN_STAGED_CYCLE_TIME : float = 0.3
+const MAX_STAGED_CYCLE_TIME : float = 3.0
+
 @export var ammo_types : Array[Resource]# (Array, Resource)
 
 @export var ammunition_capacity : int = 0
 @export var reload_amount : int = 0
+## Per-round reload clicks: one stream per landed staged round, indexed by
+## landing order, the last entry covering any further rounds. Guns without
+## entries keep their per-round cycles silent behind the press composite.
+@export var per_chamber_sounds : Array[AudioStream] = []
 @export var damage_offset : int = 0
 @export var dispersion_offset_degrees : int = 0
 @export var cooldown : float = 1.0
@@ -60,6 +69,15 @@ var _queued_reload_amount : int = 0
 ## time up to 6 with ONE press), and each ReloadTimer cycle lands exactly
 ## one of them with its per-chamber sound until the stage is done.
 var _staged_reload_remaining : int = 0
+## Rounds of the staged batch that have landed so far; indexes the
+## per-chamber sound list.
+var _staged_rounds_landed : int = 0
+## Per-press reload quantum: the weapon reload clip length divided by the
+## rounds this press stages (owner decision: one press lasts about as long
+## as the authored animation and the rounds spread across it), clamped to
+## MIN/MAX_STAGED_CYCLE_TIME. Falls back to reload_time when no reload clip
+## is resolvable. Cached at press time so the chain cycles reuse it.
+var _staged_cycle_time : float = 0.0
 
 @export var detection_raycast : NodePath
 
@@ -67,6 +85,7 @@ var _staged_reload_remaining : int = 0
 @onready var animation_player = %AnimationPlayer
 @onready var player = get_node(player_path)
 @onready var mesh = get_node_or_null(mesh_path)
+@onready var _chamber_sound : AudioStreamPlayer3D = get_node_or_null("Sounds/Chamber") as AudioStreamPlayer3D
 
 
 func _ready():
@@ -115,8 +134,40 @@ func _physics_process(delta):
 
 
 func get_reload_length():
-	if animation_player:
-		reload_time = animation_player.get_animation("reload").length - 0.3
+	var anim_player := animation_player as AnimationPlayer
+	if anim_player == null or not anim_player.has_animation("reload"):
+		return
+	reload_time = anim_player.get_animation("reload").length - 0.3
+
+
+## One staged-reload timer cycle lasts the weapon's authored reload clip
+## divided by the rounds this press stages, so the rounds spread across the
+## clip (owner decision: one press lasts about as long as the authored
+## animation). Without a resolvable reload clip the press falls back to
+## reload_time per cycle, which keeps the per-round cadence of
+## reload_amount == 1 guns unchanged. The result is clamped so a
+## mis-authored clip cannot produce an absurd cadence.
+func _staged_reload_cycle_time(round_count : int) -> float:
+	if round_count <= 0:
+		return reload_time
+	var anim_player := animation_player as AnimationPlayer
+	if anim_player == null or not anim_player.has_animation("reload"):
+		return reload_time
+	var clip_length : float = anim_player.get_animation("reload").length
+	if clip_length <= 0.0:
+		return reload_time
+	return clampf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME, MAX_STAGED_CYCLE_TIME)
+
+
+## One per-chamber click per landed round when the gun wires a
+## Sounds/Chamber player and a stream list; otherwise the per-round cycles
+## are silent (the press composite carries the swing-open feel until the
+## reload clips are split per phase).
+func _play_chamber_sound() -> void:
+	if _chamber_sound == null or per_chamber_sounds.is_empty():
+		return
+	_chamber_sound.stream = per_chamber_sounds[clampi(_staged_rounds_landed - 1, 0, per_chamber_sounds.size() - 1)]
+	_chamber_sound.play()
 
 
 ## Owner-approved gunshot noise formula A: linear mapping chosen for gameplay
@@ -245,7 +296,9 @@ func reload():
 					current_ammo_type = null
 				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
 				if _reload_amount > 0:
-					$ReloadTimer.start(reload_time)
+					_staged_cycle_time = _staged_reload_cycle_time(_reload_amount)
+					_staged_rounds_landed = 0
+					$ReloadTimer.start(_staged_cycle_time)
 					_queued_reload_amount = _reload_amount
 					_staged_reload_remaining = _reload_amount
 					_queued_reload_type = ammo_type
@@ -305,9 +358,14 @@ func _on_ReloadTimer_timeout() -> void:
 				current_ammo_type = _queued_reload_type
 				current_ammo += 1
 				_staged_reload_remaining -= 1
+				_staged_rounds_landed += 1
+				_play_chamber_sound()
 				if _staged_reload_remaining > 0 and current_ammo < ammunition_capacity and inventory.tiny_item_amount(_queued_reload_type) > 0:
-					$Sounds/Reload.play()
-					$ReloadTimer.start(reload_time)
+					# The chain cycles on the cached per-press quantum. The
+					# composite Reload sound is NOT replayed per round: it
+					# played once at the press and the per-chamber click
+					# above carries the landing.
+					$ReloadTimer.start(_staged_cycle_time)
 					return
 		owner_character.state.is_reloading = false
 		if owner_character.state.reloading_item == self:
@@ -331,6 +389,8 @@ func request_reload_abort() -> void:
 		if owner_character.state.reloading_item == self:
 			owner_character.state.reloading_item = null
 	$Sounds/Reload.stop()
+	if _chamber_sound != null:
+		_chamber_sound.stop()
 
 
 func _on_UnloadTimer_timeout() -> void:

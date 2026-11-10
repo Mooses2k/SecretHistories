@@ -55,6 +55,11 @@ var on_cooldown = false
 
 var _queued_reload_type : Resource = null
 var _queued_reload_amount : int = 0
+## Rounds of the staged reload that have not landed yet. One press stages up
+## to reload_amount rounds (owner ruling: the webley loads one round at a
+## time up to 6 with ONE press), and each ReloadTimer cycle lands exactly
+## one of them with its per-chamber sound until the stage is done.
+var _staged_reload_remaining : int = 0
 
 @export var detection_raycast : NodePath
 
@@ -242,6 +247,7 @@ func reload():
 				if _reload_amount > 0:
 					$ReloadTimer.start(reload_time)
 					_queued_reload_amount = _reload_amount
+					_staged_reload_remaining = _reload_amount
 					_queued_reload_type = ammo_type
 					owner_character.state.is_reloading = true
 					owner_character.state.reloading_item = self
@@ -290,32 +296,32 @@ func _on_ReloadTimer_timeout() -> void:
 	if owner_character and owner_character.state.is_reloading:
 		if current_ammo_type == null or current_ammo_type == _queued_reload_type:
 			var inventory = owner_character.inventory
-			if inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= _queued_reload_amount:
-				# The queued amount is already stage-sized (reload() clamped it
-				# against reload_amount, tiny supply, and free capacity). The
-				# boundary re-clamp is a capacity guard only: clamping against
-				# reload_amount - current_ammo here silently loaded zero rounds
-				# whenever a weapon held at least reload_amount rounds already
-				# (dormant while every weapon shipped reload_amount == capacity).
-				var _reload_amount = min(_queued_reload_amount, ammunition_capacity - current_ammo)
-				inventory.remove_tiny_item(_queued_reload_type, _reload_amount)
+			# One round per timer cycle (owner ruling: one press loads up to
+			# reload_amount rounds ONE at a time, each with its per-chamber
+			# sound). Each landed round is debited immediately, so an abort
+			# keeps exactly the rounds already inserted.
+			if _staged_reload_remaining > 0 and inventory.tiny_items.has(_queued_reload_type) and inventory.tiny_items[_queued_reload_type] >= 1:
+				inventory.remove_tiny_item(_queued_reload_type, 1)
 				current_ammo_type = _queued_reload_type
-				current_ammo += _reload_amount
+				current_ammo += 1
+				_staged_reload_remaining -= 1
+				if _staged_reload_remaining > 0 and current_ammo < ammunition_capacity and inventory.tiny_item_amount(_queued_reload_type) > 0:
+					$Sounds/Reload.play()
+					$ReloadTimer.start(reload_time)
+					return
 		owner_character.state.is_reloading = false
 		if owner_character.state.reloading_item == self:
 			owner_character.state.reloading_item = null
 		reload_stage_finished.emit(current_ammo)
 
 
-## A mainhand slot switch during a reload requests this abort. Every reload
-## stage in this codebase is a single ReloadTimer whose rounds all land at
-## the timeout (revolvers load one round per gate, magazine and break-action
-## weapons load their stage amount), so letting the in-flight stage run out would
-## finish the whole reload. The abort therefore preempts the timer: the
-## queued rounds are not consumed (the inventory is only debited at the
-## timeout) and the rounds loaded before the stage stand. An ammo-type
-## switch staged in reload() already returned the old rounds to the
-## inventory, so nothing is lost there either.
+## A mainhand slot switch during a reload requests this abort. A staged
+## reload lands one round per ReloadTimer cycle (each debited as it lands),
+## so the abort preempts the remaining rounds: the rounds already inserted
+## stand, the rest stay in the inventory, and the character reload state
+## clears so a parked slot switch can run. An ammo-type switch staged in
+## reload() already returned the old rounds to the inventory, so nothing is
+## lost there either.
 func request_reload_abort() -> void:
 	if $ReloadTimer.is_stopped():
 		return

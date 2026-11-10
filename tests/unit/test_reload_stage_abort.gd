@@ -1,13 +1,12 @@
 extends GutTest
 ## Reload interruption: a mainhand slot switch during a gun reload requests
 ## an abort on the gun (gun_item.request_reload_abort), which preempts the
-## in-flight stage at once. Every reload stage here is a single ReloadTimer
-## whose rounds land at the timeout (revolvers load one round per gate; the
-## stage_amount override reproduces any multi-round stage configuration), so
-## the preempt is what stops the reload: the queued rounds stay in the
-## inventory, the rounds loaded before the stage stand, and the character
-## reload state clears so a parked slot switch can run.
-## The unload (hold R) path keeps the inventory hard lock.
+## in-flight staged reload at once. A staged reload lands one round per
+## ReloadTimer cycle, each debited as it lands (owner ruling: one press loads
+## the webley cylinder one round at a time up to 6), so the abort stops the
+## remaining rounds: the rounds already inserted stand, the rest stay in the
+## inventory, and the character reload state clears so a parked slot switch
+## can run. The unload (hold R) path keeps the inventory hard lock.
 ##
 ## Harness: real webley scene (its timers/sounds come from _gun_item.tscn)
 ## with a stub owner carrying a real HumanoidCharacterState and a real
@@ -148,41 +147,37 @@ func test_webley_single_stage_reload_aborts_before_any_round_lands() -> void:
 	assert_eq(h.inventory.tiny_item_amount(AmmoResource), 0, "the uninterrupted reload consumes all 6 rounds")
 
 
-func test_shipped_webley_loads_one_round_per_gate() -> void:
-	# Revolver realism (owner playtest defect 3): each reload gate cycle loads
-	# ONE round from the shipped scene values (reload_amount 1), repeated
-	# presses keep loading, and the cylinder count and ammo consumption stay
-	# consistent. The per-chamber reload sound plays per stage ($Sounds/Reload
-	# in reload(), one stage per gate).
-	var h := _make_harness(0, 6, 1)
+func test_shipped_webley_one_press_loads_the_cylinder_one_round_at_a_time() -> void:
+	# Owner ruling, verbatim: "The webley used to reload correctly 1 at a time
+	# up to 6 with ONE press." One press stages the whole cylinder; the rounds
+	# land ONE per reload_time cycle, each with its per-chamber sound, until
+	# the cylinder is full. Pins the staged chain: after the first cycle
+	# exactly one round has landed (no jump to 6), and the press alone
+	# finishes the full reload.
+	var h := _make_harness(0, 6, 6)
 	var webley : Node = h.webley
 	var state : Node = h.state
 	watch_signals(webley)
-	assert_eq(webley.reload_amount, 1, "the shipped webley scene loads one round per gate")
+	assert_eq(webley.reload_amount, 6, "the shipped webley stages the full cylinder")
 
 	webley.reload()
-	await wait_for_signal(webley.reload_stage_finished, 2.0)
-	assert_eq(webley.current_ammo, 1, "the first gate loads exactly one round")
-	assert_eq(h.inventory.tiny_items[AmmoResource], 5, "the gate consumes exactly one round")
+	assert_true(state.is_reloading, "the press starts the staged reload")
+	await wait_seconds(0.35)
+	assert_eq(webley.current_ammo, 1, "the first cycle lands exactly one round (no jump to 6)")
+	assert_eq(h.inventory.tiny_item_amount(AmmoResource), 5, "exactly one round is debited per cycle")
+	assert_true(state.is_reloading, "the staged reload continues without further presses")
 
-	# Repeated presses keep loading one round at a time.
-	webley.reload()
-	await wait_for_signal(webley.reload_stage_finished, 2.0)
-	assert_eq(webley.current_ammo, 2, "the second gate loads the next round")
-	assert_eq(h.inventory.tiny_items[AmmoResource], 4, "each gate consumes one round")
+	await wait_seconds(0.3)
+	assert_eq(webley.current_ammo, 2, "the second cycle lands the next round on its own")
 
-	# Filling the cylinder takes one gate per remaining round, and a full
-	# weapon refuses more.
-	for i in 4:
-		webley.reload()
-		await wait_for_signal(webley.reload_stage_finished, 2.0)
-	assert_eq(webley.current_ammo, 6, "six gates fill the cylinder")
-	assert_eq(h.inventory.tiny_item_amount(AmmoResource), 0, "each gate consumed exactly one round")
+	await wait_for_signal(webley.reload_stage_finished, 3.0)
+	assert_eq(webley.current_ammo, 6, "the one press finishes the full cylinder")
+	assert_eq(h.inventory.tiny_item_amount(AmmoResource), 0, "all six rounds were consumed by the one press")
+	assert_false(state.is_reloading, "the staged reload clears when the cylinder is full")
+
+	# A full weapon refuses further reloads.
 	webley.reload()
-	webley.reload()
-	await wait_seconds(0.5)
-	assert_eq(webley.current_ammo, 6, "repeated presses stop at a full cylinder")
-	assert_false(state.is_reloading, "the full weapon is not stuck in a reload stage")
+	assert_false(state.is_reloading, "a full weapon must not enter a reload stage")
 
 
 func test_no_interrupt_reload_baseline_unchanged() -> void:

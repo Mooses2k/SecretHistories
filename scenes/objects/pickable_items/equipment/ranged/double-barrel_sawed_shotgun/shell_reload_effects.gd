@@ -29,6 +29,22 @@ func expell_shells(count : int, world_parent : Node) -> void:
 		spawn_casing(shotgun_shell, world_parent, marker.global_position, 100.695, character_forward * 3.0, impulse_offset)
 
 
+## Realistic ejection mode: each unfired shell lands in the world as its
+## loose pickup item (12-gauge_shotgun_shell.tscn, a TinyItem carrying the
+## shotgun shell ammo data), sharing the casing impulse style.
+func expell_live_rounds(count : int, world_parent : Node) -> void:
+	var gun := owner as GunItem
+	var character_forward := Vector3.ZERO
+	if gun != null and gun.owner_character is Node3D:
+		character_forward = (gun.owner_character as Node3D).global_transform.basis.z
+	for i in mini(count, all_shell_positions.size()):
+		var marker := all_shell_positions[i] as Marker3D
+		if marker == null:
+			continue
+		var impulse_offset := impulse_position_1 if i == 0 else impulse_position_2
+		spawn_casing(shotgun_shell, world_parent, marker.global_position, 0.0, character_forward * 3.0, impulse_offset)
+
+
 func add_shells_to_slot() -> void:
 	var added_new_shells = shotgun_shell.instantiate()
 	added_new_shells.position = Vector3(0.001, -0.035, 0)

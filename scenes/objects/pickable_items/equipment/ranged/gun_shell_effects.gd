@@ -13,6 +13,15 @@ func expell_shells(_count : int, _world_parent : Node) -> void:
 	pass
 
 
+## Eject up to count unfired rounds as loose-ammo pickup items into
+## world_parent (realistic ejection mode: every chamber empties, and each
+## live round lands in the world for the group pickup to gather). Per-gun
+## scripts override this with their gun's loose round scene; the base does
+## nothing so an unconfigured gun stays silent.
+func expell_live_rounds(_count : int, _world_parent : Node) -> void:
+	pass
+
+
 ## Spawn one casing scene as world debris at the given position, with the
 ## shooter-forward impulse and an offset that makes the casing tumble.
 func spawn_casing(casing_scene : PackedScene, world_parent : Node, spawn_position : Vector3, rotation_z_degrees : float = 0.0, impulse : Vector3 = Vector3.ZERO, impulse_offset : Vector3 = Vector3.ZERO) -> void:

@@ -1,11 +1,16 @@
 extends GutTest
 ## Shell ejection on reload (3.x behavior restored, code-driven): a reload
-## press opens the action and ejects the chambers' spent cases as world
-## physics debris via the gun's per-gun shell effect node, at the swing-open
+## press opens the action and ejects the chambers' contents as world physics
+## debris via the gun's per-gun shell effect node, at the swing-open
 ## beat (owner decision: swing out and empty, then load one round per
-## cycle). The eject count is the chambers holding spent cases
-## (ammunition_capacity - current_ammo), not the whole cylinder, and the
-## ready-time convenience load ("start loaded, for now") ejects nothing.
+## cycle). The "Realistic Shell Ejection" setting picks the mode, read at
+## press time: OFF (default, arcade) ejects only the chambers holding spent
+## cases (ammunition_capacity - current_ammo); ON (realistic) empties every
+## chamber like an ejector rod run, the spent chambers leaving casings and
+## each unfired round landing in the world as its loose-ammo pickup item
+## (total ejected items = capacity; unspent rounds are never returned to
+## inventory by an ejection). The ready-time convenience load ("start
+## loaded, for now") ejects nothing in either mode.
 ## 3.x shape reference (Ayo's late commits): webley ejects 6 casings, both
 ## shotguns 2 shells, khyber 1, all into the world; Lee-Metford and
 ## Martini-Henry rifle never ejected.
@@ -14,7 +19,9 @@ extends GutTest
 ## markers come from the scene) with a stub owner carrying a real state and
 ## Inventory, the same pattern as test_reload_stage_abort. Seam assertions
 ## use a recording double swapped onto gun_item._shell_effects; the real
-## spawn path runs against a throwaway parent node.
+## spawn path runs against a throwaway parent node. Casings and loose-round
+## pickups are both TinyItem scenes; the pickups carry the ammo item_data
+## and the casings leave it null.
 
 const InventoryScript = preload("res://scenes/characters/inventory.gd")
 const WebleyScene = preload("res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn")
@@ -34,12 +41,16 @@ class ReloadOwnerStub extends Node:
 
 class ShellEffectsDouble extends Node:
 	var calls : Array = []
+	var pickup_calls : Array = []
 
 	func expell_shells(count : int, world_parent : Node) -> void:
 		calls.append({"count": count, "parent": world_parent})
 
+	func expell_live_rounds(count : int, world_parent : Node) -> void:
+		pickup_calls.append({"count": count, "parent": world_parent})
 
-func _make_harness(start_ammo : int, start_tiny : int, stage_amount : int = 6, stub_clip_length : float = 0.6, ready_loaded : bool = false) -> Dictionary:
+
+func _make_harness(start_ammo : int, start_tiny : int, stage_amount : int = 6, stub_clip_length : float = 0.6, ready_loaded : bool = false, capacity : int = 6) -> Dictionary:
 	var owner_stub : ReloadOwnerStub = ReloadOwnerStub.new()
 	add_child_autofree(owner_stub)
 	var params : Node = ParametersScript.new()
@@ -58,7 +69,7 @@ func _make_harness(start_ammo : int, start_tiny : int, stage_amount : int = 6, s
 	owner_stub.inventory = inv
 
 	var webley = WebleyScene.instantiate()
-	webley.ammunition_capacity = 6
+	webley.ammunition_capacity = capacity
 	webley.reload_amount = stage_amount
 	webley.reload_time = 0.25
 	if ready_loaded:
@@ -77,6 +88,10 @@ func _make_harness(start_ammo : int, start_tiny : int, stage_amount : int = 6, s
 		inv.tiny_items[AmmoResource] = start_tiny
 		if stub_clip_length >= 0.0:
 			_own_reload_library(webley, stub_clip_length)
+	# _ready's get_reload_length() derives the composite value from the real
+	# 8.067 s clip; pin the 0.25 fallback back for the tests that ride
+	# reload_time directly (the unload boundary starts from it).
+	webley.reload_time = 0.25
 	return {"owner": owner_stub, "state": state, "inventory": inv, "webley": webley}
 
 
@@ -104,6 +119,16 @@ func _swap_double(webley : Node) -> ShellEffectsDouble:
 	autofree(effects)
 	webley._shell_effects = effects
 	return effects
+
+
+func _set_realistic(enabled : bool) -> void:
+	GameSettings.set_realistic_shell_ejection(enabled)
+
+
+func after_each() -> void:
+	# The Settings registry is global across the suite: every realistic-mode
+	# test must leave the OFF default behind.
+	_set_realistic(false)
 
 
 func test_webley_press_ejects_all_spent_casings_at_the_press() -> void:
@@ -257,5 +282,179 @@ func test_guns_without_shell_wiring_reload_silently() -> void:
 	webley._shell_effects = null
 	webley.reload()
 	assert_true(h.state.is_reloading, "the staged reload starts without a shell effect node")
+	webley.request_reload_abort()
+	assert_false(h.state.is_reloading, "the abort still clears the reload state")
+
+
+func test_realistic_empty_cylinder_ejects_capacity_casings_and_no_pickups() -> void:
+	# An all-spent cylinder is the common press: every chamber leaves its
+	# casing and there is no unfired round to become a pickup. Same casing
+	# count as arcade mode; the mode differs only with live rounds chambered.
+	_set_realistic(true)
+	var h := _make_harness(0, 6, 6)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 1, "the press ejects the spent cases once")
+	if effects.calls.size() == 1:
+		assert_eq(effects.calls[0]["count"], 6, "an empty cylinder ejects all six casings")
+	assert_eq(effects.pickup_calls.size(), 0, "an empty cylinder has no unfired rounds to eject")
+	webley.request_reload_abort()
+
+
+func test_realistic_partial_cylinder_spent_casings_plus_live_pickups() -> void:
+	# Four live rounds, two spent: the ejector rod run empties all chambers,
+	# two casings plus four loose pickups, six ejected items for six chambers.
+	_set_realistic(true)
+	var h := _make_harness(4, 6, 6)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 1, "the spent chambers eject their casings once")
+	if effects.calls.size() == 1:
+		assert_eq(effects.calls[0]["count"], 2, "two spent chambers leave two casings")
+	assert_eq(effects.pickup_calls.size(), 1, "the unfired rounds eject as loose pickups")
+	if effects.pickup_calls.size() == 1:
+		assert_eq(effects.pickup_calls[0]["count"], 4, "four live rounds land as pickups")
+	webley.request_reload_abort()
+
+
+func test_realistic_two_round_gun_ejects_capacity_items_total() -> void:
+	# The owner's example: a two-round gun holding one live round and one
+	# spent case ejects one casing and one live cartridge, two ejected items
+	# for two chambers. No phantom casing for the unfired round.
+	_set_realistic(true)
+	var h := _make_harness(1, 6, 6, 0.6, false, 2)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 1, "the spent chamber ejects its casing once")
+	if effects.calls.size() == 1:
+		assert_eq(effects.calls[0]["count"], 1, "one spent chamber leaves one casing")
+	assert_eq(effects.pickup_calls.size(), 1, "the unfired round ejects as a loose pickup")
+	if effects.pickup_calls.size() == 1:
+		assert_eq(effects.pickup_calls[0]["count"], 1, "one live round lands as a pickup")
+	webley.request_reload_abort()
+
+
+func test_setting_change_at_runtime_applies_from_the_next_press() -> void:
+	# The setting is read at press time: an OFF press then an ON press on the
+	# same gun session must switch the ejection behavior immediately.
+	var h := _make_harness(0, 6, 6)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.reload()
+	assert_eq(effects.calls.size(), 1, "the arcade press ejects the spent cases")
+	assert_eq(effects.pickup_calls.size(), 0, "arcade mode ejects no pickups")
+	await wait_seconds(0.4)
+	assert_eq(webley.current_ammo, 1, "round one landed before the abort")
+	webley.request_reload_abort()
+	assert_eq(webley.current_ammo, 1, "the abort keeps the landed round")
+
+	_set_realistic(true)
+	webley.reload()
+	assert_eq(effects.calls.size(), 2, "the re-press still ejects the spent casings")
+	if effects.calls.size() == 2:
+		assert_eq(effects.calls[1]["count"], 5, "five spent chambers leave five casings")
+	assert_eq(effects.pickup_calls.size(), 1, "the realistic re-press now ejects pickups too")
+	if effects.pickup_calls.size() == 1:
+		assert_eq(effects.pickup_calls[0]["count"], 1, "the one chambered live round lands as a pickup")
+	webley.request_reload_abort()
+
+
+func test_realistic_press_spawns_loose_round_pickups_through_the_world_parent() -> void:
+	# The real spawn path: two casings plus four pickup TinyItems, all through
+	# the same world-parent fallback the casings use. A pickup is the gun's
+	# ammo type's loose round scene carrying the .455 Webley item data; a
+	# casing carries no item data.
+	_set_realistic(true)
+	var h := _make_harness(4, 6, 6)
+	var webley : Node = h.webley
+	var world_container := Node3D.new()
+	autofree(world_container)
+	get_tree().root.add_child(world_container)
+	get_tree().current_scene = world_container
+	webley.reload()
+	get_tree().current_scene = null
+	assert_eq(world_container.get_child_count(), 6, "six chambers, six ejected items: two casings plus four pickups")
+	var pickups : Array = []
+	for child in world_container.get_children():
+		assert_true(child is RigidBody3D, "ejected items spawn as world physics bodies")
+		if child.get("item_data") != null:
+			pickups.append(child)
+	assert_eq(pickups.size(), 4, "the four unfired rounds land as loose pickup items")
+	for pickup in pickups:
+		assert_eq(pickup.get("item_data"), AmmoResource, "each pickup carries the webley ammo item data")
+		assert_eq(pickup.get("amount"), 1, "each pickup is one round")
+	webley.request_reload_abort()
+
+
+func test_realistic_unload_press_ejects_and_keeps_the_rounds_out_of_the_inventory() -> void:
+	# The unload press opens the action too: the live rounds land in the
+	# world as pickups and the unload boundary must not ALSO return them to
+	# the inventory (they are in the world now, grabbable).
+	_set_realistic(true)
+	var h := _make_harness(6, 0)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.unload()
+	assert_eq(effects.calls.size(), 0, "a fully loaded cylinder holds no spent cases to eject")
+	assert_eq(effects.pickup_calls.size(), 1, "the unload press ejects the live rounds as pickups")
+	if effects.pickup_calls.size() == 1:
+		assert_eq(effects.pickup_calls[0]["count"], 6, "all six live rounds land as pickups")
+
+	await wait_seconds(0.6)
+
+	assert_eq(webley.current_ammo, 0, "the unload still empties the weapon at its boundary")
+	assert_eq(h.inventory.tiny_items[AmmoResource], 0, "the ejected live rounds stay in the world, not the inventory")
+	assert_false(h.state.is_reloading, "the unload boundary still clears the reload state")
+
+
+func test_arcade_unload_press_still_returns_rounds_to_the_inventory() -> void:
+	# OFF mode unload is unchanged: no ejection, the quiet inventory return.
+	var h := _make_harness(6, 0)
+	var webley : Node = h.webley
+	var effects := _swap_double(webley)
+
+	webley.unload()
+	assert_eq(effects.calls.size(), 0, "the arcade unload ejects nothing")
+	assert_eq(effects.pickup_calls.size(), 0, "the arcade unload ejects no pickups")
+
+	await wait_seconds(0.6)
+
+	assert_eq(webley.current_ammo, 0, "the unload empties the weapon at its boundary")
+	assert_eq(h.inventory.tiny_items[AmmoResource], 6, "the rounds return to the inventory in arcade mode")
+
+
+func test_ready_time_spawn_load_stays_silent_in_realistic_mode() -> void:
+	# The convenience load passes eject=false: even with realistic mode on,
+	# the ready-time load is not a press and the chamber never held spent
+	# cases or ejectable live rounds.
+	_set_realistic(true)
+	var fake_game : Node = GameScript.new()
+	autofree(fake_game)
+	GameManager.game = fake_game
+	var h := _make_harness(0, 6, 6, 0.6, true)
+	GameManager.game = null
+	assert_true(h.state.is_reloading, "the ready-time load stages the weapon")
+	assert_eq(fake_game.get_child_count(), 0, "the ready-time load ejects nothing in realistic mode either")
+	h.webley.request_reload_abort()
+
+
+func test_guns_without_shell_wiring_stay_silent_in_realistic_mode() -> void:
+	# Lee-Metford and Martini-Henry rifle have no shell effects node: both
+	# modes reload silently until their wiring lands.
+	_set_realistic(true)
+	var h := _make_harness(4, 6, 6)
+	var webley : Node = h.webley
+	webley._shell_effects = null
+	webley.reload()
+	assert_true(h.state.is_reloading, "the staged reload starts without a shell effect node")
+	assert_eq(webley.current_ammo, 4, "the live rounds were not disturbed")
 	webley.request_reload_abort()
 	assert_false(h.state.is_reloading, "the abort still clears the reload state")

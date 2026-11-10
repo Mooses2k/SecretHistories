@@ -49,7 +49,8 @@ var settings_names = [
 	"is_shift_dodge",
 	"is_shift_sprint",
 	"shift_preset",
-	"is_left_hand_mouse"
+	"is_left_hand_mouse",
+	"is_realistic_shell_ejection"
 ]
 
 
@@ -109,6 +110,8 @@ func gen_dict_from_settings() -> Dictionary:
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.FLOAT], str(KeyInputSettings.get_overload_preset())]
 			"is_left_hand_mouse":
 				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(KeyInputSettings.get_left_hand_mouse())]
+			"is_realistic_shell_ejection":
+				config[setting] = "%s(%s)" % [value_prefixes[value_types.BOOL], str(GameSettings.realistic_shell_ejection_enabled())]
 
 	return config
 
@@ -192,6 +195,8 @@ func setup_settings(settings_dict : Dictionary):
 				KeyInputSettings.set_overload_preset(int(value))
 			"is_left_hand_mouse":
 				KeyInputSettings.set_left_hand_mouse(value)
+			"is_realistic_shell_ejection":
+				GameSettings.set_realistic_shell_ejection(value)
 
 
 func save_settings() -> void:

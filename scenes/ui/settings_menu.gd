@@ -35,26 +35,29 @@ func _ready() -> void:
 			"Video",
 			"Audio",
 			"Game",
+			"Gunplay",
 			"Input",
 			"Input Key"
 		]
 		settings_ui.set_group_order(group_order)
-	
+
 	if settings_ui.has_method("set_tab_grouping_rules"):
 		# Configure tab grouping for main settings
 		settings_ui.set_tab_grouping_rules({
 			"Video": ["Video Settings"],
 			"Audio": ["Audio Settings"],
 			"Game": ["Game Settings"],
+			"Gunplay": ["Gunplay"],
 			"Input": ["Input Settings", "Input Key Settings"]
 		})
-	
+
 	if settings_ui.has_method("set_tab_order"):
 		# Set preferred tab order
 		var tab_order: Array[String] = [
 			"Video",
 			"Audio",
 			"Game",
+			"Gunplay",
 			"Input"
 		]
 		settings_ui.set_tab_order(tab_order)

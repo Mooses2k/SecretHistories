@@ -36,6 +36,22 @@ func expell_shells(count : int, world_parent : Node) -> void:
 		spawn_casing(dropped_bullet_shell, world_parent, marker.global_position + Vector3(0, 0.05, 0), 0.0, character_forward * randf_range(0.1, 0.5), Vector3(randf_range(0, 0.6), randf_range(0, 0.8), randf_range(0, 0.5)))
 
 
+## Realistic ejection mode: each unfired round lands in the world as its
+## loose pickup item (webley_round.tscn, a TinyItem carrying the .455 Webley
+## ammo data) at the chamber markers, sharing the casing impulse style. The
+## casings eject separately through expell_shells.
+func expell_live_rounds(count : int, world_parent : Node) -> void:
+	var gun := owner as GunItem
+	var character_forward := Vector3.ZERO
+	if gun != null and gun.owner_character is Node3D:
+		character_forward = (gun.owner_character as Node3D).global_transform.basis.z
+	for i in mini(count, all_shell_positions.size()):
+		var marker := all_shell_positions[i] as Marker3D
+		if marker == null:
+			continue
+		spawn_casing(bullet_shells, world_parent, marker.global_position + Vector3(0, 0.05, 0), 0.0, character_forward * randf_range(0.1, 0.5), Vector3(randf_range(0, 0.6), randf_range(0, 0.8), randf_range(0, 0.5)))
+
+
 func player_add_shell():
 	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(bullet_shells, Vector3(0.014, -0.001, -0.003), Vector3(1.372, 6.429, 0.474))
 

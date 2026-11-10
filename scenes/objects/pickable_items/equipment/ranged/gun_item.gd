@@ -83,6 +83,10 @@ var _staged_rounds_landed : int = 0
 ## MIN/MAX_STAGED_CYCLE_TIME. Falls back to reload_time when no reload clip
 ## is resolvable. Cached at press time so the chain cycles reuse it.
 var _staged_cycle_time : float = 0.0
+## Set at unload press: realistic ejection already dropped the chambers'
+## contents into the world, so the unload boundary must not also return the
+## rounds to the inventory.
+var _unload_ejected : bool = false
 
 @export var detection_raycast : NodePath
 
@@ -294,16 +298,36 @@ func _use_unload():
 	pass
 
 
-## A press opens the action: the spent cases eject as world debris at the
-## swing-open beat (owner decision: swing out and empty, then load one round
-## per cycle). The per-gun shell effect node owns the casing data; the count
-## is the chambers currently holding spent cases, not the whole cylinder.
-func _eject_spent_casings(count : int) -> void:
-	if count <= 0:
-		return
+## The ejection mode at press time (a mid-game settings change applies from
+## the next press on). Read through the GameSettings null-safe gate so
+## headless and editor runs never touch a missing registration.
+func _realistic_shell_ejection() -> bool:
+	if Engine.is_editor_hint():
+		return false
+	return GameSettings.realistic_shell_ejection_enabled()
+
+
+## A press opens the action: the chambers empty per the "Realistic Shell
+## Ejection" setting, read at press time. OFF (arcade, default): only the
+## spent chambers eject, capacity - live_rounds casings, and the live rounds
+## stay chambered through the reload. ON (realistic): the action empties
+## like a real ejector rod run, all chambers at once: the spent chambers
+## leave their casings and each unfired round lands in the world as its
+## loose-ammo pickup item (Receiver rule, issue #644 bullet 4), so the total
+## ejected items equal the capacity. Unspent rounds are never returned to
+## inventory by an ejection: they are grabbable world pickups. The per-gun
+## shell effect node owns both the casing and the loose round scenes; guns
+## without shell wiring stay silent in both modes (Lee-Metford and
+## Martini-Henry rifle).
+func _eject_chambers(live_rounds : int) -> void:
 	if _shell_effects == null or not _shell_effects.has_method("expell_shells"):
 		return
-	_shell_effects.call("expell_shells", count, _casing_world_parent())
+	var world_parent := _casing_world_parent()
+	var spent_cases := ammunition_capacity - live_rounds
+	if spent_cases > 0:
+		_shell_effects.call("expell_shells", spent_cases, world_parent)
+	if _realistic_shell_ejection() and live_rounds > 0 and _shell_effects.has_method("expell_live_rounds"):
+		_shell_effects.call("expell_live_rounds", live_rounds, world_parent)
 
 
 func _casing_world_parent() -> Node:
@@ -316,7 +340,10 @@ func _casing_world_parent() -> Node:
 # TODO: Needs some camera movement for immersion
 func reload(eject_spent_casings : bool = true) -> void:
 	if owner_character and current_ammo < ammunition_capacity and not owner_character.state.is_reloading:
-		var casings_to_eject := ammunition_capacity - current_ammo
+		# Captured before the staging loop: an ammo-type switch would zero
+		# current_ammo, and the ejection counts must reflect the cylinder as
+		# it stood at the press.
+		var live_rounds_to_eject := current_ammo
 		var inventory = owner_character.inventory
 		for ammo_type in ammo_types:
 			if inventory.tiny_items.has(ammo_type) and inventory.tiny_items[ammo_type] > 0:
@@ -332,7 +359,7 @@ func reload(eject_spent_casings : bool = true) -> void:
 					_staged_cycle_time = _staged_reload_cycle_time(_reload_amount)
 					_staged_rounds_landed = 0
 					if eject_spent_casings:
-						_eject_spent_casings(casings_to_eject)
+						_eject_chambers(live_rounds_to_eject)
 					$ReloadTimer.start(_staged_cycle_time)
 					_queued_reload_amount = _reload_amount
 					_staged_reload_remaining = _reload_amount
@@ -354,6 +381,14 @@ func reload(eject_spent_casings : bool = true) -> void:
 # Holding R unloads the weapon, for instance if you want the ammo from it to then drop the weapon
 func unload():
 	if current_ammo > 0:
+		# Realistic ejection: the unload press opens the action too, so the
+		# chambers empty into the world (the spent chambers leave their
+		# casings, the live rounds land as loose pickups) and the boundary
+		# below must not also return them to the inventory. Arcade mode
+		# keeps the quiet return.
+		_unload_ejected = _realistic_shell_ejection()
+		if _unload_ejected:
+			_eject_chambers(current_ammo)
 		$UnloadTimer.start(reload_time)
 		owner_character.state.is_reloading = true
 		# Unload is NOT a reload: reloading_item stays null, so the inventory
@@ -431,7 +466,9 @@ func request_reload_abort() -> void:
 func _on_UnloadTimer_timeout() -> void:
 	if owner_character and owner_character.state.is_reloading:
 		var inventory = owner_character.inventory
-		inventory.insert_tiny_item(current_ammo_type, current_ammo)
+		if not _unload_ejected:
+			inventory.insert_tiny_item(current_ammo_type, current_ammo)
+		_unload_ejected = false
 		current_ammo = 0
 		owner_character.state.is_reloading = false
 		$Sounds/Unload.play()

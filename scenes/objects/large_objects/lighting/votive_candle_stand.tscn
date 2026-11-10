@@ -270,6 +270,7 @@ omni_attenuation = 7.0
 [node name="Ignite" type="Area3D" parent="." groups=["IGNITE"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.561863, 0)
 script = ExtResource("10")
+indicator_override = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.436321, 0)

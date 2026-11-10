@@ -1005,6 +1005,7 @@ omni_range = 9.0
 [node name="Ignite" type="Area3D" parent="." groups=["IGNITE"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185908, 0)
 script = ExtResource("7_wec6s")
+indicator_override = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ignite"]
 shape = SubResource("2")

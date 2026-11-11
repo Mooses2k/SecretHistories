@@ -396,6 +396,9 @@ func add_item(item : PickableItem) -> bool:
 		# Update the inventory info immediately
 		# This is a bulky item, or there is no space on the hotbar
 		if item.item_size == GlobalConsts.ItemSize.SIZE_BULKY or !hotbar.has(null):
+			# Hands cleared for the bulky item: anything equipped is put away.
+			extinguish_stowed_light(current_mainhand_equipment)
+			extinguish_stowed_light(current_offhand_equipment)
 			drop_bulky_item()
 			unequip_mainhand_item()
 			unequip_offhand_item()
@@ -412,8 +415,10 @@ func add_item(item : PickableItem) -> bool:
 			if slot == -1:
 				return false
 
-			# Auto-equip if appropriate
-			auto_equip_item(item, slot)
+			# Auto-equip if appropriate. A pickup that ends unequipped in a
+			# slot is a put-away: a lit light goes out (owner ruling, #644).
+			if not auto_equip_item(item, slot):
+				extinguish_stowed_light(item)
 
 			# Encumbrance makes character louder and more visible. Character uses more stamina.
 			# Eventually will affect mantling and swimming.
@@ -1015,6 +1020,7 @@ func set_mainhand_slot(value : int):
 			mainhand_slot_changed.emit(previous_slot, value)
 			inventory_changed.emit()
 		else:
+			extinguish_stowed_light(get_mainhand_item())
 			unequip_mainhand_item()
 			current_mainhand_slot = value
 			equip_mainhand_item()
@@ -1023,6 +1029,7 @@ func set_mainhand_slot(value : int):
 	else:
 		if get_mainhand_item() == hotbar[current_mainhand_slot]:
 			emit_signal("inventory_changed")
+			extinguish_stowed_light(get_mainhand_item())
 			unequip_mainhand_item()
 		else:
 			equip_mainhand_item()
@@ -1036,6 +1043,7 @@ func set_offhand_slot(value : int):
 			offhand_slot_changed.emit(previous_slot, value)
 			inventory_changed.emit()
 		else:
+			extinguish_stowed_light(get_offhand_item())
 			unequip_offhand_item()
 			current_offhand_slot = value
 			equip_offhand_item()
@@ -1080,7 +1088,8 @@ func swap_hands():
 	# If medium item in mainhand, can't do anything since medium items can't be in offhand
 	if hotbar[current_mainhand_slot] and hotbar[current_mainhand_slot].item_size == GlobalConsts.ItemSize.SIZE_MEDIUM:
 		return
-	# There's probably a bug in here about light-sources staying lit, relating to unequipping items
+	# A hand-to-hand swap is not a put-away: lights moved between hands stay
+	# burning (are_swapping exempts the stow extinguish, owner ruling #644).
 	are_swapping = true
 	var previous_mainhand = current_mainhand_slot
 	var previous_offhand = current_offhand_slot
@@ -1153,6 +1162,24 @@ func clear_hotbar_slot_of(item: EquipmentItem) -> bool:
 			emit_signal("hotbar_changed", i)
 			return true
 	return false
+
+
+## Owner ruling (2026-11-09, issue #644): a lit light-source that is put away
+## goes out. The belt hook is the exception: a can_attach light that is
+## belt-stowed (is_in_belt, set by attach_to_belt) keeps burning under its
+## hood. A hand-to-hand swap (are_swapping) is not a put-away. Stow sites call
+## this as the item leaves a hand; dropping to the world never routes here.
+func extinguish_stowed_light(light_source : EquipmentItem) -> void:
+	if not is_instance_valid(light_source):
+		return
+	if are_swapping:
+		return
+	if light_source.can_attach and light_source.is_in_belt:
+		return
+	if not _item_is_light_source(light_source):
+		return
+	if light_source.get("is_lit") == true:
+		light_source.unlight()
 
 
 func switch_away_from_light(light_source):

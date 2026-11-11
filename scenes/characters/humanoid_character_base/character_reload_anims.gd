@@ -43,14 +43,14 @@ func start_reload(gun : EquipmentItem) -> void:
 	_ended = false
 	_reparented = false
 	_offhand_was_equipped = _character.inventory.current_offhand_equipment != null
-	# 3.x order: the offhand leaves BEFORE the character clip fires. The
-	# unequip keeps the item in its hotbar slot (no extinguish for a lit
-	# light: 3.x never extinguished on unequip and the dev4 light-fuel rules
-	# forbid a silent stow extinguish), so the re-equip brings the SAME item
-	# back in its current state. Phase 4: a left-hand long gun needs the
-	# left hand as a mount, so it clears the offhand too.
+	# 3.x order: the offhand leaves BEFORE the character clip fires. Owner
+	# ruling (2026-11-09, #644): this clear is a put-away, so a lit light is
+	# EXTINGUISHED here and the re-equip returns the same slot's item unlit.
+	# Phase 4: a left-hand long gun needs the left hand as a mount, so it
+	# clears the offhand too.
 	if (gun.item_size == GlobalConsts.ItemSize.SIZE_SMALL \
 			or gun.get("reload_needs_left_hand") == true) and _offhand_was_equipped:
+		_character.inventory.extinguish_stowed_light(_character.inventory.current_offhand_equipment)
 		_character.inventory.unequip_offhand_item()
 	# Phase 4: the left-hand gun rides the offhand mount while the reload
 	# runs. reparent() keeps the global transform, so the mount swap itself

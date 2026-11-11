@@ -99,22 +99,24 @@ func process_impact_detection(state: PhysicsDirectBodyState3D) -> void:
 	
 	# Check all contact points for significant impulses
 	var max_impulse_magnitude = 0.0
+	var max_impulse_collider : Object = null
 	var total_impulse = Vector3.ZERO
-	
+
 	for i in state.get_contact_count():
 		var impulse = state.get_contact_impulse(i)
 		var impulse_magnitude = impulse.length()
-		
+
 		if impulse_magnitude > max_impulse_magnitude:
 			max_impulse_magnitude = impulse_magnitude
-		
+			max_impulse_collider = state.get_contact_collider_object(i)
+
 		total_impulse += impulse
-	
+
 	# Play sound if impulse is significant AND there's a sudden velocity change
 	if (max_impulse_magnitude > impact_impulse_threshold
 		and velocity_change > velocity_change_threshold):
 		var impact_intensity = min(max_impulse_magnitude, max_impact_intensity)
-		play_impact_sound(impact_intensity)
+		play_impact_sound(impact_intensity, max_impulse_collider)
 		emit_signal("impact_detected", impact_intensity)
 		print("Impact detected - Max impulse: ", max_impulse_magnitude, " Velocity change: ", velocity_change, " Total impulse: ", total_impulse.length())
 	
@@ -174,20 +176,31 @@ func _stop_throw_loop_when_spin_stalls(state: PhysicsDirectBodyState3D) -> void:
 		_spin_reached_active_speed = false
 
 
-## Play impact sound with volume and pitch scaling
-func play_impact_sound(impact_intensity: float) -> void:
+## Play impact sound with volume and pitch scaling. The strongest contact's
+## collider object selects the impact material: an item landing on a
+## character body plays the flesh impact stream instead of the item's own
+## drop sound (3.x parity, origin/main scenes/objects/pickable_items/
+## pickable_item.gd play_drop_sound Cultist branch, issue #749). The player
+## body is excluded exactly as the 3.x name check excluded it.
+func play_impact_sound(impact_intensity: float, contact_body : Object = null) -> void:
 	# Firstly, stop looping throw sounds
 	if parent_body is PickableItem and is_instance_valid(parent_body.audio_player):
 		parent_body.audio_player.stop()
-	
+
 	#prints("AUDIO DEBUG - play_impact_sound called with intensity:", impact_intensity)
-	
+
 	# Check if parent has item_drop_sound and use it dynamically
 	var current_drop_sound = drop_sound
 	if not current_drop_sound and parent_body.has_method("get") and parent_body.get("item_drop_sound"):
 		current_drop_sound = parent_body.get("item_drop_sound")
 		#prints("AUDIO DEBUG - Using parent's item_drop_sound:", current_drop_sound)
-	
+
+	var flesh_sound : AudioStream = null
+	if parent_body.get("item_drop_sound_flesh") != null:
+		flesh_sound = parent_body.get("item_drop_sound_flesh")
+	if _contact_is_npc_body(contact_body) and flesh_sound != null:
+		current_drop_sound = flesh_sound
+
 	#prints("AUDIO DEBUG - drop_sound:", current_drop_sound)
 	#prints("AUDIO DEBUG - is_soundplayer_ready:", is_soundplayer_ready)
 	
@@ -254,6 +267,21 @@ func _is_rapid_deletion_candidate() -> bool:
 	if parent_body is ShardOfTheComet:
 		return false
 	return parent_body is PickableItem or parent_body is LargeObject
+
+
+## True when the strongest contact's collider is a non-player character body:
+## the 3.x drop-sound flesh override condition ("Cultist" in body.name on
+## origin/main pickable_item.gd:105) restated for the dev4 humanoid class.
+## Ragdoll PhysicalBone3D contacts stay excluded, same as 3.x, where the bone
+## body names never matched the check either. The legacy Character class is
+## deliberately NOT referenced here: it parses broken today (DoorInteractable
+## at character.gd:294), so this file must not depend on it.
+func _contact_is_npc_body(contact_body : Object) -> bool:
+	if contact_body == null:
+		return false
+	if not (contact_body is HumanoidCharacter):
+		return false
+	return not contact_body.is_in_group("PLAYER")
 
 
 func start_delay():

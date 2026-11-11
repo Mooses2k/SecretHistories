@@ -76,6 +76,18 @@ func _on_physical_state_changed(new_physical_state: HumanoidCharacterState.Physi
 	if new_physical_state == HumanoidCharacterState.PhysicalState.DEAD:
 		ai_state.dead = true
 		navigation_adapter.stop()
+		_drop_equipment_on_death()
+
+
+## Death drop (3.x parity, origin/main scenes/characters/character.gd:326-331):
+## a dead non-player character drops its hands' equipment. The falling items
+## then play their impact sounds through the item audio manager, which is the
+## 3.x cultist drop sound family (issue #749: cultist item drops regained
+## their sound). The player is excluded, exactly as the 3.x death branch
+## excluded it, so the player death flow is untouched.
+func _drop_equipment_on_death() -> void:
+	inventory.drop_mainhand_item()
+	inventory.drop_offhand_item()
 
 
 ## The world data lives on the live level; a brain built before the level is

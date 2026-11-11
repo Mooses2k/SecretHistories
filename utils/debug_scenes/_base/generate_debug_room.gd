@@ -128,7 +128,7 @@ const DOORWAY_HINT = "doorway_"
 func _get_property_list() -> Array:
 	var properties: = []
 	
-	var enum_hint := (WorldData.OriginalPurpose.keys() as ",".join(PackedStringArray))
+	var enum_hint := ",".join(WorldData.OriginalPurpose.keys())
 	properties.append({
 		name = "room_purpose",
 		type = TYPE_INT,
@@ -165,7 +165,7 @@ func _get_property_list() -> Array:
 	return properties
 
 
-func _set(property: String, value) -> bool:
+func _set(property: StringName, value: Variant) -> bool:
 	var has_handled := true
 	
 	if property.begins_with(DOORWAY_HINT):
@@ -178,7 +178,7 @@ func _set(property: String, value) -> bool:
 	return has_handled
 
 
-func _get(property: String):
+func _get(property: StringName) -> Variant:
 	var value = null
 	
 	if property.begins_with(DOORWAY_HINT):

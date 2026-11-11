@@ -25,6 +25,7 @@ var ceiling_detection_test_parameters := PhysicsTestMotionParameters3D.new()
 @onready var kick_cast: KickCast = $ModelRoot/KickCast
 @onready var audio_player: CharacterAudio = $Audio
 @onready var animation_tree: AnimationTree = $CharacterAnimationTree
+@onready var character_reload_anims = $CharacterReloadAnims
 
 # Old-character landing rule: the land sound plays only when the ground is
 # regained after a jump, not on every step-off-a-ledge.
@@ -70,6 +71,14 @@ func apply_landing_noise() -> void:
 ## that keeps items out of the animation tree's internals.
 func play_melee_attack(attack : StringName, left_hand : bool, attack_speed : float = 1.0) -> void:
 	animation_tree.fire_melee_one_shot(attack, left_hand, attack_speed)
+
+
+## Starts the character-side reload layer for one gun press: fires the
+## reload OneShot named by the gun's exact item_name and hands the offhand
+## unequip/re-equip choreography to the CharacterReloadAnims coordinator
+## (small guns only, 3.x parity).
+func play_reload_animation(gun : EquipmentItem) -> void:
+	character_reload_anims.start_reload(gun)
 
 
 ## Attack noise (3.x melee parity: thrust 8, cut 10), same decay shape as the

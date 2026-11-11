@@ -71,6 +71,34 @@ func fire_melee_one_shot(attack : StringName, left_hand : bool, attack_speed : f
 	var node_name := String(attack) + ("_l" if left_hand else "")
 	set("parameters/%s/request" % node_name, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
+
+## Fires the reload OneShot for a gun. The 3.x trigger keyed on the RAW
+## item_name (parameters/" + str(item_name) + "/active), but 4.x BlendTree
+## node names cannot contain spaces: the loader strips them ("Webley
+## revolver" becomes "Webleyrevolver"), so the tree node is named by the
+## SPACE-FREE item_name and this API maps an item_name to it the same way.
+## Its input-1 clip is the matching reload/<key> character-side animation
+## from the reload library. Uses the 4.x request pattern (this build's
+## AnimationNodeOneShot constants, probed from the engine:
+## ONE_SHOT_REQUEST_FIRE=1, ABORT=2, FADE_OUT=3).
+func fire_reload_one_shot(item_name : StringName) -> void:
+	var node_id := String(item_name).replace(" ", "")
+	set("parameters/%s/request" % node_id, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+
+## Winds the reload OneShot down early: an abort, or a completion where the
+## character-side clip is still running (the clamped Lee-Metford and
+## Martini-Henry chains finish ahead of their clips). This build's
+## ONE_SHOT_REQUEST_FADE_OUT does NOT cut the running clip: it keeps
+## playing to the end and only then fades back (engine-verified: a
+## FADE_OUT request left the hand bone 0.14 m off base after 0.4 s), so the
+## 3.x "active = false" cut maps to ONE_SHOT_REQUEST_ABORT here. The tree
+## ships zero fade times, so the abort cuts straight back to the base flow;
+## the gun keeps its own close beat.
+func abort_reload_one_shot(item_name : StringName) -> void:
+	var node_id := String(item_name).replace(" ", "")
+	set("parameters/%s/request" % node_id, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+
 func _ready() -> void:
 	active = active or auto_active_on_ready
 	pass # Replace with function body.

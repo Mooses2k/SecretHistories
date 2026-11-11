@@ -1,0 +1,18 @@
+[gd_resource type="AnimationLibrary" load_steps=7 format=3]
+
+[ext_resource type="Animation" path="res://resources/animations/webley_reload.res" id="1_webley"]
+[ext_resource type="Animation" path="res://resources/animations/martini-henry_pistol_reload.res" id="2_kyber"]
+[ext_resource type="Animation" path="res://resources/animations/double-barrel_shotgun_reload.res" id="3_db"]
+[ext_resource type="Animation" path="res://resources/animations/sawed-off_shotgun_reload.res" id="4_sawed"]
+[ext_resource type="Animation" path="res://resources/animations/lee-metford_reload.res" id="5_lee"]
+[ext_resource type="Animation" path="res://resources/animations/martini-henry_rifle_reload.res" id="6_martini"]
+
+[resource]
+_data = {
+&"double_barrel_reload": ExtResource("3_db"),
+&"kyber_pass_martini_reload": ExtResource("2_kyber"),
+&"lee_metford_reload": ExtResource("5_lee"),
+&"martini_henry_reload": ExtResource("6_martini"),
+&"sawed_off_shotgun_reload": ExtResource("4_sawed"),
+&"webley_reload": ExtResource("1_webley")
+}

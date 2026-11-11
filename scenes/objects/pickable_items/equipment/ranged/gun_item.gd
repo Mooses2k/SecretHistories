@@ -389,6 +389,14 @@ func reload(eject_spent_casings : bool = true) -> void:
 					if eject_spent_casings:
 						_eject_chambers(live_rounds_to_eject)
 						_start_reload_composite()
+						# Phase 2: the character-side reload layer rides the
+						# same press (the 3.x player hook, rebuilt on the
+						# humanoid base with a class check, no name-string
+						# checks). The coordinator handles the small-gun
+						# offhand unequip/re-equip and the tree OneShot.
+						var character := owner_character as HumanoidCharacter
+						if character != null:
+							character.play_reload_animation(self)
 					$ReloadTimer.start(_staged_cycle_time)
 					_queued_reload_amount = _reload_amount
 					_staged_reload_remaining = _reload_amount

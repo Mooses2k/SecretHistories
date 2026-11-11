@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://daf3jm6dh7y8a"]
+[gd_scene load_steps=94 format=3 uid="uid://daf3jm6dh7y8a"]
 
 [ext_resource type="Script" uid="uid://cqeejcdn3pj2q" path="res://scenes/characters/humanoid_character_base/humanoid_character.gd" id="1_ahvev"]
 [ext_resource type="AnimationLibrary" uid="uid://hs8bbjhps5wl" path="res://resources/animations/libraries/character/movement_and_aiming.glb" id="2_npkk5"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://bak2lmkkjrs45" path="res://scenes/hurtbox.gd" id="13_ngi1s"]
 [ext_resource type="Script" uid="uid://dlgx357ndlfip" path="res://scenes/characters/inventory.gd" id="14_tjgnq"]
 [ext_resource type="Script" uid="uid://c46ykpmv4spy8" path="res://scenes/characters/character_audio.gd" id="19_q0pp4"]
+[ext_resource type="AnimationLibrary" path="res://resources/animations/libraries/character/reload.tres" id="20_reload"]
+[ext_resource type="Script" path="res://scenes/characters/humanoid_character_base/character_reload_anims.gd" id="21_reloadanims"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_asbh0"]
 friction = 0.0
@@ -3847,6 +3849,36 @@ animation = &"melee/Thrust1_L"
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_melee_speed"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_reload_webley"]
+animation = &"reload/webley_reload"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_reload_kyber"]
+animation = &"reload/kyber_pass_martini_reload"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_reload_db"]
+animation = &"reload/double_barrel_reload"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_reload_sawed"]
+animation = &"reload/sawed_off_shotgun_reload"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_reload_lee"]
+animation = &"reload/lee_metford_reload"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_reload_martini"]
+animation = &"reload/martini_henry_reload"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_reload_webley"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_reload_kyber"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_reload_db"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_reload_sawed"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_reload_lee"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_reload_martini"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nsnpf"]
 graph_offset = Vector2(-815.263, -183.084)
 nodes/RESET/node = SubResource("AnimationNodeAnimation_ngi1s")
@@ -3892,6 +3924,30 @@ nodes/attack_thrust_l/node = SubResource("AnimationNodeOneShot_attack_thrust_l")
 nodes/attack_thrust_l/position = Vector2(1360, 380)
 nodes/melee_speed/node = SubResource("AnimationNodeTimeScale_melee_speed")
 nodes/melee_speed/position = Vector2(1520, 380)
+nodes/Webleyrevolver/node = SubResource("AnimationNodeOneShot_reload_webley")
+nodes/Webleyrevolver/position = Vector2(1680, 380)
+nodes/Sawed-offMartinipistol/node = SubResource("AnimationNodeOneShot_reload_kyber")
+nodes/Sawed-offMartinipistol/position = Vector2(1840, 380)
+nodes/Double-barrelshotgun/node = SubResource("AnimationNodeOneShot_reload_db")
+nodes/Double-barrelshotgun/position = Vector2(2000, 380)
+nodes/Sawed-offshotgun/node = SubResource("AnimationNodeOneShot_reload_sawed")
+nodes/Sawed-offshotgun/position = Vector2(2160, 380)
+nodes/Lee-Metfordrifle/node = SubResource("AnimationNodeOneShot_reload_lee")
+nodes/Lee-Metfordrifle/position = Vector2(2320, 380)
+nodes/Martini-Henryrifle/node = SubResource("AnimationNodeOneShot_reload_martini")
+nodes/Martini-Henryrifle/position = Vector2(2480, 380)
+nodes/_reload_webley/node = SubResource("AnimationNodeAnimation_reload_webley")
+nodes/_reload_webley/position = Vector2(1680, 500)
+nodes/_reload_kyber/node = SubResource("AnimationNodeAnimation_reload_kyber")
+nodes/_reload_kyber/position = Vector2(1840, 500)
+nodes/_reload_db/node = SubResource("AnimationNodeAnimation_reload_db")
+nodes/_reload_db/position = Vector2(2000, 500)
+nodes/_reload_sawed/node = SubResource("AnimationNodeAnimation_reload_sawed")
+nodes/_reload_sawed/position = Vector2(2160, 500)
+nodes/_reload_lee/node = SubResource("AnimationNodeAnimation_reload_lee")
+nodes/_reload_lee/position = Vector2(2320, 500)
+nodes/_reload_martini/node = SubResource("AnimationNodeAnimation_reload_martini")
+nodes/_reload_martini/position = Vector2(2480, 500)
 nodes/_melee_chop1/node = SubResource("AnimationNodeAnimation_melee_chop1")
 nodes/_melee_chop1/position = Vector2(880, 500)
 nodes/_melee_thrust1/node = SubResource("AnimationNodeAnimation_melee_thrust1")
@@ -3900,7 +3956,7 @@ nodes/_melee_chop1_l/node = SubResource("AnimationNodeAnimation_melee_chop1_l")
 nodes/_melee_chop1_l/position = Vector2(1200, 500)
 nodes/_melee_thrust1_l/node = SubResource("AnimationNodeAnimation_melee_thrust1_l")
 nodes/_melee_thrust1_l/position = Vector2(1360, 500)
-node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animation_2", &"ads_r", 0, &"_hip_animation", &"ads_r", 1, &"_ads_animation", &"crouch", 0, &"movement", &"crouch", 1, &"movement_crouch", &"grounded", 0, &"vertical_direction", &"grounded", 1, &"run", &"gun_ready_l", 0, &"gun_ready_r", &"gun_ready_l", 1, &"ads_l", &"gun_ready_r", 0, &"grounded", &"gun_ready_r", 1, &"ads_r", &"output", 0, &"melee_speed", &"attack_cut", 0, &"gun_ready_l", &"attack_cut", 1, &"_melee_chop1", &"attack_thrust", 0, &"attack_cut", &"attack_thrust", 1, &"_melee_thrust1", &"attack_cut_l", 0, &"attack_thrust", &"attack_cut_l", 1, &"_melee_chop1_l", &"attack_thrust_l", 0, &"attack_cut_l", &"attack_thrust_l", 1, &"_melee_thrust1_l", &"melee_speed", 0, &"attack_thrust_l", &"run", 0, &"crouch", &"run", 1, &"_run_animation"]
+node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animation_2", &"ads_r", 0, &"_hip_animation", &"ads_r", 1, &"_ads_animation", &"crouch", 0, &"movement", &"crouch", 1, &"movement_crouch", &"grounded", 0, &"vertical_direction", &"grounded", 1, &"run", &"gun_ready_l", 0, &"gun_ready_r", &"gun_ready_l", 1, &"ads_l", &"gun_ready_r", 0, &"grounded", &"gun_ready_r", 1, &"ads_r", &"output", 0, &"Martini-Henryrifle", &"Webleyrevolver", 0, &"melee_speed", &"Webleyrevolver", 1, &"_reload_webley", &"Sawed-offMartinipistol", 0, &"Webleyrevolver", &"Sawed-offMartinipistol", 1, &"_reload_kyber", &"Double-barrelshotgun", 0, &"Sawed-offMartinipistol", &"Double-barrelshotgun", 1, &"_reload_db", &"Sawed-offshotgun", 0, &"Double-barrelshotgun", &"Sawed-offshotgun", 1, &"_reload_sawed", &"Lee-Metfordrifle", 0, &"Sawed-offshotgun", &"Lee-Metfordrifle", 1, &"_reload_lee", &"Martini-Henryrifle", 0, &"Lee-Metfordrifle", &"Martini-Henryrifle", 1, &"_reload_martini", &"attack_cut", 0, &"gun_ready_l", &"attack_cut", 1, &"_melee_chop1", &"attack_thrust", 0, &"attack_cut", &"attack_thrust", 1, &"_melee_thrust1", &"attack_cut_l", 0, &"attack_thrust", &"attack_cut_l", 1, &"_melee_chop1_l", &"attack_thrust_l", 0, &"attack_cut_l", &"attack_thrust_l", 1, &"_melee_thrust1_l", &"melee_speed", 0, &"attack_thrust_l", &"run", 0, &"crouch", &"run", 1, &"_run_animation"]
 
 [node name="HumanoidCharacterBase" type="RigidBody3D" groups=["CHARACTER"]]
 collision_layer = 18
@@ -5629,7 +5685,8 @@ libraries = {
 &"injured": ExtResource("8_p8agw"),
 &"melee": ExtResource("9_melee"),
 &"misc": ExtResource("3_j2gfg"),
-&"movement_and_aiming": ExtResource("2_npkk5")
+&"movement_and_aiming": ExtResource("2_npkk5"),
+&"reload": ExtResource("20_reload")
 }
 
 [node name="CharacterAnimationTree" type="AnimationTree" parent="."]
@@ -5648,6 +5705,9 @@ parameters/movement_crouch/blend_position = Vector2(1.45519e-11, 1)
 parameters/run/blend_amount = 0.0
 parameters/vertical_direction/blend_position = -0.00711745
 script = ExtResource("6_l2ljs")
+
+[node name="CharacterReloadAnims" type="Node" parent="."]
+script = ExtResource("21_reloadanims")
 
 [node name="Audio" type="Node3D" parent="."]
 script = ExtResource("19_q0pp4")

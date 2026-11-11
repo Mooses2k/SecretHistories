@@ -104,6 +104,23 @@ func _physics_process(delta: float) -> void:
 	# moved is true if sprinting and either already moved or is moving, false otherwise
 	moved_since_sprint = input.sprint and (moved_since_sprint or is_sprinting)
 
+	# 3.x ability release chain (origin/main player_controller.gd:611-617):
+	# releasing F or N uses the belt item first, then the offhand item, then
+	# the mainhand item. A belt-stowed lantern toggles its light here (with
+	# the belt-clip hood sounds the lantern script plays while is_in_belt);
+	# a held item gets its primary use, for lights the same on/off toggle.
+	if Input.is_action_just_released(&"ablty|nightvision_darksight"):
+		var inv : Inventory = (owner as HumanoidCharacter).inventory
+		var belt_item : EquipmentItem = inv.belt_item as EquipmentItem
+		var offhand_item : EquipmentItem = inv.get_offhand_item()
+		var mainhand_item : EquipmentItem = inv.get_mainhand_item()
+		if belt_item != null:
+			belt_item.use_primary()
+		elif offhand_item != null:
+			offhand_item.use_primary()
+		elif mainhand_item != null:
+			mainhand_item.use_primary()
+
 
 func set_drag_speed_modifier(modifier: float) -> void:
 	drag_speed_modifier = max(modifier, 0.1)  # Ensure minimum 10% speed

@@ -479,4 +479,7 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 omni_range = 10.0
 
+[node name="BeltPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.3)
+
 [editable path="ModelRoot/player_model"]

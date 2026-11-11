@@ -763,6 +763,11 @@ func unequip_mainhand_item():
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item != null:
+		# 3.x belt stow moment (origin/main inventory.gd:274 set the
+		# INVENTORY state, which fired the lantern's belt attach): a
+		# belt-capable lantern leaving the main hand parents onto the belt
+		# and keeps burning.
+		_belt_stow_if_capable(item)
 		# Slot bookkeeping invariant: an unequip clears the slot AND leaves
 		# the node unparented from the hand, so a later re-equip can add_child
 		# it again without an engine "already has a parent" error. A
@@ -865,6 +870,10 @@ func unequip_offhand_item():
 	current_offhand_equipment = null
 	emit_signal("unequip_offhand")
 	if item != null:
+		# Same belt stow moment as unequip_mainhand_item (3.x inventory.gd:355
+		# set the INVENTORY state on the offhand unequip): a belt-capable
+		# lantern leaving the offhand parents onto the belt and keeps burning.
+		_belt_stow_if_capable(item)
 		# Same invariant as unequip_mainhand_item: clear the slot AND
 		# unparent from the hand so re-equip cannot double-add. A can_attach
 		# item stowed on the belt (is_in_belt) stays parented.
@@ -1167,7 +1176,9 @@ func clear_hotbar_slot_of(item: EquipmentItem) -> bool:
 ## Owner ruling (2026-11-09, issue #644): a lit light-source that is put away
 ## goes out. The belt hook is the exception: a can_attach light that is
 ## belt-stowed (is_in_belt, set by attach_to_belt) keeps burning under its
-## hood. A hand-to-hand swap (are_swapping) is not a put-away. Stow sites call
+## hood, and a hand-held belt-capable lantern skips this extinguish entirely
+## so it can stow onto the belt at the unequip (3.x belt flow) still burning.
+## A hand-to-hand swap (are_swapping) is not a put-away. Stow sites call
 ## this as the item leaves a hand; dropping to the world never routes here.
 func extinguish_stowed_light(light_source : EquipmentItem) -> void:
 	if not is_instance_valid(light_source):
@@ -1177,6 +1188,17 @@ func extinguish_stowed_light(light_source : EquipmentItem) -> void:
 	if light_source.can_attach and light_source.is_in_belt:
 		return
 	if not _item_is_light_source(light_source):
+		return
+	# 3.x belt flow (origin/main inventory.gd:525-541): a hand-held
+	# belt-capable lantern put away stows on the belt at the unequip and
+	# keeps burning, so the extinguish must not fire first. Only hand
+	# unequips route to the belt (3.x fired the attach from the unequips'
+	# INVENTORY state, never from a pickup landing in a slot). Rigs without
+	# a belt (NPCs, the bare humanoid) fall through to the put-away
+	# extinguish.
+	if light_source.can_attach and light_source is LanternItem \
+			and _belt_attach_point() != null \
+			and (light_source == get_mainhand_item() or light_source == get_offhand_item()):
 		return
 	if light_source.get("is_lit") == true:
 		light_source.unlight()
@@ -1190,11 +1212,30 @@ func switch_away_from_light(light_source):
 		attach_to_belt(light_source)
 
 
+## The belt attach point (player.gd belt_position, authored as the
+## player.tscn BeltPosition marker). Null on rigs without the marker, which
+## keeps every belt path a safe no-op there instead of a property-access
+## crash on a missing key.
+func _belt_attach_point() -> Node3D:
+	return character.get("belt_position") as Node3D
+
+
+## The belt stow (3.x origin/main inventory.gd:525-541 switch_away_from_light
+## dispatch): a can_attach lantern leaving a hand parents onto the belt
+## through attach_to_belt and keeps burning there. 3.x fired this from the
+## unequips' INVENTORY state change; dev4 unequips do not transition state,
+## so the unequip is the seam. Rigs without the belt marker (NPCs, the bare
+## humanoid) keep the plain unequip behavior.
+func _belt_stow_if_capable(item : EquipmentItem) -> void:
+	if item == null or not item.can_attach or not (item is LanternItem):
+		return
+	if _belt_attach_point() == null:
+		return
+	attach_to_belt(item)
+
+
 func attach_to_belt(item):
-	# belt_position is authored on the old character.gd rig; humanoid
-	# characters carry no belt, so the attach is a safe no-op there instead
-	# of a property-access crash on a missing key.
-	var belt : Node3D = character.get("belt_position") as Node3D
+	var belt : Node3D = _belt_attach_point()
 	if belt == null:
 		return
 	if item.get_parent() != belt:

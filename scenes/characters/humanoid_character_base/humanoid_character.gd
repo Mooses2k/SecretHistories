@@ -282,6 +282,18 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 		if state.is_on_ground and not state.was_on_ground and _is_jumping:
 			_is_jumping = false
 			audio_player.play_land_sound()
+			# 3.x landing camera stress (origin/main character.gd:435-438): the
+			# same landing that played the land sound kicked the camera with
+			# add_stress(0.25). The 3.x gate was is_on_floor() while the jump
+			# flag was still true: no fall-distance or velocity threshold, not
+			# crouch-gated (the old stress < 0.1 cap was already removed in
+			# 3.x itself). Only the player carries a camera; camera-less
+			# humanoids resolve null and skip, matching 3.x where only the
+			# player controller ever set do_jump and only the player rig had
+			# FPSCamera.
+			var camera_node := get_node_or_null("ModelRoot/MainCamera")
+			if camera_node != null and camera_node.has_method("add_stress"):
+				camera_node.add_stress(0.25)
 			# Landing noise (owner-approved ladder). Crouch land silent stays
 			# silent: no noise while crouched.
 			if state.current_crouch_ratio <= 0.5:

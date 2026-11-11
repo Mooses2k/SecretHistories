@@ -81,6 +81,11 @@ var weapon_mode: WeaponMode = WeaponMode.NONE
 var dead := false
 
 var _time_since_stimulus := 0.0
+## Seconds since the current target was last directly sighted. Sight of the
+## target resets it; past the attention span the conclusion lapses and the
+## target clears, so the creature re-derives from perception instead of
+## chasing a stale reference.
+var _time_since_target_sight := 0.0
 
 
 ## Feed one stimulus into the threat model. Sight of a Player is the one
@@ -100,6 +105,7 @@ func apply_stimulus(kind: StimulusKind, interest: float, position: Vector3, obje
 	if kind == StimulusKind.SIGHT and object is Player:
 		alertness = maxf(alertness, combat_bar)
 		target = object
+		_time_since_target_sight = 0.0
 
 
 func stimulus_weight(kind: StimulusKind) -> float:
@@ -111,9 +117,12 @@ func stimulus_weight(kind: StimulusKind) -> float:
 ## by the root HFSM.
 func tick(delta: float) -> void:
 	_time_since_stimulus += delta
+	_time_since_target_sight += delta
 	_prune_freed_percepts()
 	for percept: Percept in percepts.values():
 		percept.age += delta
+	if target != null and _time_since_target_sight > attention_span:
+		target = null
 	if _time_since_stimulus > attention_span:
 		alertness = maxf(alertness - decay_rate * delta, 0.0)
 
@@ -132,6 +141,24 @@ func most_interesting_percept() -> Percept:
 		if best == null or percept.interest > best.interest:
 			best = percept
 	return best
+
+
+## The best known position of the current target: the target percept's last
+## reported position when one exists, else the live node position. Approach
+## states chase this, so a target that stopped reporting holds its last seen
+## spot instead of being tracked through walls.
+func target_position_known() -> Vector3:
+	if target == null:
+		return Vector3.ZERO
+	var percept: Percept = percepts.get(target)
+	if percept != null:
+		return percept.position
+	var node := target as Node3D
+	if node == null:
+		return Vector3.ZERO
+	if node.is_inside_tree():
+		return node.global_position
+	return node.position
 
 
 func _upsert_percept(stimulus: Stimulus) -> void:

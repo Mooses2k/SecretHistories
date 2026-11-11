@@ -1,33 +1,28 @@
-[gd_scene load_steps=35 format=3 uid="uid://cyymfxxvbr5i7"]
+[gd_scene load_steps=29 format=3 uid="uid://cyymfxxvbr5i7"]
 
 [ext_resource type="PackedScene" uid="uid://daf3jm6dh7y8a" path="res://scenes/characters/humanoid_character_base/humanoid_character_base.tscn" id="1_4tack"]
 [ext_resource type="PackedScene" uid="uid://4k72rthy8iex" path="res://resources/models/characters/cultists/cultist_neophyte/neophyte_scaled_no_cape.glb" id="2_bk543"]
 [ext_resource type="Script" uid="uid://bjgur8ch0iu76" path="res://scenes/characters/cultist/ai_controller.gd" id="4_pc7x1"]
-[ext_resource type="Script" uid="uid://0nvxxergqacy" path="res://core/ai/bt_root.gd" id="5_f7c3r"]
-[ext_resource type="Script" uid="uid://dio1jo8ivp3gr" path="res://core/ai/flow_nodes/bt_selector.gd" id="6_xhddj"]
-[ext_resource type="Script" uid="uid://d2jyqwlf4r4kn" path="res://core/ai/flow_nodes/bt_sequence.gd" id="7_7megi"]
-[ext_resource type="Script" uid="uid://dfybk4r0s2u07" path="res://core/ai/interest_nodes/check_nodes/bt_interest_machine.gd" id="8_buv1l"]
-[ext_resource type="Script" uid="uid://2fnnlltf8cty" path="res://core/ai/misc_nodes/check_nodes/bt_approach_distance.gd" id="9_y7ei2"]
-[ext_resource type="Script" uid="uid://cm5x8ephyohoi" path="res://core/ai/misc_nodes/action_nodes/bt_go_to_target.gd" id="10_rop7y"]
-[ext_resource type="Script" uid="uid://dkdg1w744r4eh" path="res://core/ai/misc_nodes/action_nodes/bt_is_player.gd" id="11_pbkfw"]
-[ext_resource type="Script" uid="uid://bee1y46jqokfj" path="res://scenes/characters/cultists-old/bt_line_of_sight.gd" id="12_jw73y"]
-[ext_resource type="Script" uid="uid://b01w626f3jxlq" path="res://core/ai/gun_nodes/action_nodes/bt_gun_equip.gd" id="13_k2ihh"]
-[ext_resource type="Script" uid="uid://b3m2sx5hkxadx" path="res://core/ai/gun_nodes/check_nodes/bt_gun_has_ammo.gd" id="14_giokx"]
-[ext_resource type="Script" uid="uid://h76s0wxhkrfo" path="res://core/ai/gun_nodes/check_nodes/bt_inventory_has_ammo.gd" id="15_q8xvq"]
-[ext_resource type="Script" uid="uid://cpahwvildxcpc" path="res://core/ai/gun_nodes/action_nodes/bt_gun_reload.gd" id="16_jtw6t"]
-[ext_resource type="Script" uid="uid://c7u7qp6x1s7cu" path="res://core/ai/misc_nodes/action_nodes/bt_look_at_target.gd" id="17_0ovc1"]
-[ext_resource type="Script" uid="uid://jw2ukha32p8" path="res://core/ai/gun_nodes/check_nodes/bt_gun_cooldown.gd" id="18_b5l8q"]
-[ext_resource type="Script" uid="uid://bw1s4qvaho3xx" path="res://core/ai/misc_nodes/action_nodes/bt_wait_random.gd" id="19_etvc6"]
-[ext_resource type="Script" uid="uid://cgcbr41bjs00m" path="res://core/ai/gun_nodes/action_nodes/bt_gun_shoot.gd" id="20_cw5nl"]
-[ext_resource type="Script" uid="uid://dq63u6267rdxr" path="res://core/ai/misc_nodes/action_nodes/bt_clear_current_interest.gd" id="21_y58r1"]
-[ext_resource type="Script" uid="uid://8gakdlcukl8e" path="res://core/ai/interest_nodes/action_nodes/bt_free_interest.gd" id="22_hwwtx"]
-[ext_resource type="Script" uid="uid://cn425v4f6ds88" path="res://core/ai/misc_nodes/action_nodes/bt_select_random_target.gd" id="23_2n0qg"]
-[ext_resource type="Script" uid="uid://d0mdri2qlxkdf" path="res://scenes/sensors/character_sensors.gd" id="24_wvp3v"]
+[ext_resource type="Script" uid="uid://b1x7w4as4efb5" path="res://core/ai/hfsm.gd" id="101_hfsm"]
+[ext_resource type="Script" uid="uid://dxp8phxj5vha0" path="res://core/ai/stimulus_adapter.gd" id="102_stimadapter"]
+[ext_resource type="Script" uid="uid://d1n70rscr4cub" path="res://core/ai/navigation_adapter.gd" id="103_navadapter"]
+[ext_resource type="Script" uid="uid://dlokr0438u038" path="res://core/ai/animation_bridge.gd" id="104_animbridge"]
+[ext_resource type="Script" uid="uid://o64td7vmfsq4" path="res://core/ai/states/ai_state_idle.gd" id="110_idle"]
+[ext_resource type="Script" uid="uid://dxht5e1wi0k7n" path="res://core/ai/states/ai_state_patrol.gd" id="111_patrol"]
+[ext_resource type="Script" uid="uid://chln7jvb61ab6" path="res://core/ai/states/ai_state_suspicious.gd" id="112_suspicious"]
+[ext_resource type="Script" uid="uid://b6x88bp42d5y7" path="res://core/ai/states/ai_state_investigate.gd" id="113_investigate"]
+[ext_resource type="Script" uid="uid://bjxvewgxwaoii" path="res://core/ai/states/ai_state_combat.gd" id="114_combat"]
+[ext_resource type="Script" uid="uid://c88jy4iipyl4o" path="res://core/ai/states/ai_state_approach.gd" id="115_approach"]
+[ext_resource type="Script" uid="uid://c7bpgrxcgng67" path="res://core/ai/states/ai_state_gun_attack.gd" id="116_gunattack"]
+[ext_resource type="Script" uid="uid://445hgr1nqavb" path="res://core/ai/states/ai_state_melee_attack.gd" id="117_meleattack"]
+[ext_resource type="Script" uid="uid://b3ud3w0su82g7" path="res://core/ai/states/ai_state_dead.gd" id="118_dead"]
+[ext_resource type="Script" uid="uid://bjhpq1cfy5dpm" path="res://core/ai/debug/debugviz_target_position.gd" id="120_viztarget"]
+[ext_resource type="Script" uid="uid://cdx55ychv54sf" path="res://core/ai/debug/debugviz_path.gd" id="121_vizpath"]
+[ext_resource type="Script" uid="uid://bmcg7hhkvbn3x" path="res://core/ai/debug/debug_state_label.gd" id="122_statelabel"]
+[ext_resource type="Script" uid="uid://dq63u6267rdxr" path="res://scenes/sensors/character_sensors.gd" id="24_wvp3v"]
 [ext_resource type="Script" uid="uid://bqindecxvgw37" path="res://scenes/sensors/sound_sensor.gd" id="25_cpi7t"]
 [ext_resource type="Script" uid="uid://ban08glkk5hnr" path="res://scenes/sensors/visual_sensor.gd" id="26_f5htr"]
 [ext_resource type="Script" uid="uid://dgduhnk26y8g0" path="res://scenes/sensors/touch_sensor.gd" id="27_fwtma"]
-[ext_resource type="Script" uid="uid://xptk7x8ti5r0" path="res://scenes/characters/cultists-old/debugviz_target_position.gd" id="28_ata88"]
-[ext_resource type="Script" uid="uid://bifubyoo58u2h" path="res://scenes/characters/cultists-old/debugviz_path.gd" id="29_byly4"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_0ini3"]
 resource_local_to_scene = true
@@ -151,112 +146,54 @@ path_max_distance = 1.0
 [node name="AIController" type="Node" parent="." index="9"]
 script = ExtResource("4_pc7x1")
 
-[node name="BTRoot" type="Node" parent="AIController" index="0"]
-script = ExtResource("5_f7c3r")
+[node name="Brain" type="Node" parent="AIController" index="0"]
+script = ExtResource("101_hfsm")
+initial_state = &"Idle"
 
-[node name="SEL_Behaviors" type="Node" parent="AIController/BTRoot" index="0"]
-script = ExtResource("6_xhddj")
+[node name="StimulusAdapter" type="Node" parent="AIController/Brain" node_paths=PackedStringArray("active_sensors")]
+script = ExtResource("102_stimadapter")
+active_sensors = [NodePath("../../../Sensors/VisualSensor"), NodePath("../../../Sensors/TouchSensor"), NodePath("../../../Sensors/SoundSensor")]
 
-[node name="SEQ_Interest" type="Node" parent="AIController/BTRoot/SEL_Behaviors" index="0"]
-script = ExtResource("7_7megi")
+[node name="NavigationAdapter" type="Node" parent="AIController/Brain"]
+script = ExtResource("103_navadapter")
 
-[node name="InterestMachine" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="0" node_paths=PackedStringArray("active_sensors")]
-script = ExtResource("8_buv1l")
-active_sensors = [NodePath("../../../../../Sensors/VisualSensor"), NodePath("../../../../../Sensors/TouchSensor"), NodePath("../../../../../Sensors/SoundSensor")]
+[node name="AnimationBridge" type="Node" parent="AIController/Brain"]
+script = ExtResource("104_animbridge")
 
-[node name="SEL_Action" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="1"]
-script = ExtResource("6_xhddj")
+[node name="StateLabel" type="Label3D" parent="AIController/Brain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+visible = false
+billboard = 1
+text = "(none)"
+script = ExtResource("122_statelabel")
 
-[node name="SEQ_ApproachAndShoot" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action" index="0"]
-script = ExtResource("7_7megi")
+[node name="Idle" type="Node" parent="AIController/Brain"]
+script = ExtResource("110_idle")
 
-[node name="SEL_Reach" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot" index="0"]
-script = ExtResource("6_xhddj")
+[node name="Patrol" type="Node" parent="AIController/Brain"]
+script = ExtResource("111_patrol")
 
-[node name="Approach" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEL_Reach" index="0"]
-script = ExtResource("9_y7ei2")
+[node name="Suspicious" type="Node" parent="AIController/Brain"]
+script = ExtResource("112_suspicious")
 
-[node name="ReachTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEL_Reach" index="1"]
-script = ExtResource("10_rop7y")
-threshold = 0.3
+[node name="Investigate" type="Node" parent="AIController/Brain"]
+script = ExtResource("113_investigate")
 
-[node name="SEQ_ShouldShoot" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot" index="1"]
-script = ExtResource("7_7megi")
+[node name="Combat" type="Node" parent="AIController/Brain"]
+script = ExtResource("114_combat")
+initial_state = &"Approach"
 
-[node name="BTIsPlayer" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="0"]
-script = ExtResource("11_pbkfw")
+[node name="Approach" type="Node" parent="AIController/Brain/Combat"]
+script = ExtResource("115_approach")
 
-[node name="BTLineOfSight" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="1"]
-script = ExtResource("12_jw73y")
+[node name="GunAttack" type="Node" parent="AIController/Brain/Combat"]
+script = ExtResource("116_gunattack")
 
-[node name="EquipWeapon (does nothing?)" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="2"]
-script = ExtResource("13_k2ihh")
+[node name="MeleeAttack" type="Node" parent="AIController/Brain/Combat"]
+script = ExtResource("117_meleattack")
 
-[node name="SEL_Reload" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="3"]
-script = ExtResource("6_xhddj")
-
-[node name="BTGunHasAmmo" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="0"]
-script = ExtResource("14_giokx")
-
-[node name="BTInventoryHasAmmo" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="1"]
-script = ExtResource("15_q8xvq")
-
-[node name="ReloadAmmo" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload" index="2"]
-script = ExtResource("16_jtw6t")
-
-[node name="LookAtTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="4"]
-script = ExtResource("17_0ovc1")
-
-[node name="GunNotOnCooldown" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="5"]
-script = ExtResource("18_b5l8q")
-
-[node name="WaitRandom2" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="6"]
-script = ExtResource("19_etvc6")
-max_time = 1.55
-min_time = 0.75
-
-[node name="Shoot" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot" index="7"]
-script = ExtResource("20_cw5nl")
-
-[node name="SEQ_Follow" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action" index="1"]
-script = ExtResource("7_7megi")
-
-[node name="LookAtTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="0"]
-script = ExtResource("17_0ovc1")
-
-[node name="ReachTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="1"]
-script = ExtResource("10_rop7y")
-threshold = 0.3
-
-[node name="ClearCurrentInterest" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_Follow" index="2"]
-script = ExtResource("21_y58r1")
-
-[node name="FreeInterest" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Interest" index="2"]
-script = ExtResource("22_hwwtx")
-
-[node name="SEQ_Idle" type="Node" parent="AIController/BTRoot/SEL_Behaviors" index="1"]
-script = ExtResource("7_7megi")
-
-[node name="LookAtTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="0"]
-script = ExtResource("17_0ovc1")
-
-[node name="SEL_MoveOrChooseTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="1"]
-script = ExtResource("6_xhddj")
-
-[node name="ReachTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle/SEL_MoveOrChooseTarget" index="0"]
-script = ExtResource("10_rop7y")
-threshold = 0.3
-
-[node name="SelectRandomTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle/SEL_MoveOrChooseTarget" index="1"]
-script = ExtResource("23_2n0qg")
-
-[node name="WaitRandom" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="2"]
-script = ExtResource("19_etvc6")
-max_time = 15.0
-min_time = 5.0
-
-[node name="SelectRandomTarget" type="Node" parent="AIController/BTRoot/SEL_Behaviors/SEQ_Idle" index="3"]
-script = ExtResource("23_2n0qg")
+[node name="Dead" type="Node" parent="AIController/Brain"]
+script = ExtResource("118_dead")
 
 [node name="TickTimer" type="Timer" parent="AIController" index="1"]
 wait_time = 0.1
@@ -299,17 +236,13 @@ visible = false
 visible = false
 mesh = SubResource("BoxMesh_dt6gn")
 skeleton = NodePath("../../..")
-script = ExtResource("28_ata88")
+script = ExtResource("120_viztarget")
 
 [node name="Path" type="MeshInstance3D" parent="DebugVisualizers" index="1"]
 visible = false
 top_level = true
 material_override = SubResource("StandardMaterial3D_0jilu")
-script = ExtResource("29_byly4")
+script = ExtResource("121_vizpath")
 
-[connection signal="indirect_event_detected" from="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" to="Audio" method="play_alert_sound"]
-[connection signal="player_detected" from="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/InterestMachine" to="Audio" method="on_player_detected"]
-[connection signal="character_reloaded" from="AIController/BTRoot/SEL_Behaviors/SEQ_Interest/SEL_Action/SEQ_ApproachAndShoot/SEQ_ShouldShoot/SEL_Reload/ReloadAmmo" to="Audio" method="_on_reload_ammo_character_reloaded"]
-[connection signal="character_idled" from="AIController/BTRoot/SEL_Behaviors/SEQ_Idle/WaitRandom" to="Audio" method="_on_BT_Wait_Random_character_idled"]
 [connection signal="timeout" from="AIController/TickTimer" to="AIController" method="_on_tick_timer_timeout"]
 [connection signal="body_entered" from="Sensors/TouchSensor" to="Sensors/TouchSensor" method="on_body_entered"]

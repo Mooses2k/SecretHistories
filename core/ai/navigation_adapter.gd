@@ -26,6 +26,11 @@ func go_to(goal: Vector3) -> void:
 	if character == null or not is_instance_valid(character):
 		return
 	var map: RID = character.get_world_3d().navigation_map
+	# The navigation map is unsynchronized before its first iteration (a
+	# fresh headless run, a brain built before the first physics tick);
+	# queries then only print errors, so skip until the map is live.
+	if NavigationServer3D.map_get_iteration_id(map) < 1:
+		return
 	var clamped: Vector3 = NavigationServer3D.map_get_closest_point(map, goal)
 	if world_data != null:
 		var cell: int = world_data.get_cell_index_from_local_position(clamped)

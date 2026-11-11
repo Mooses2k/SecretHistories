@@ -27,7 +27,11 @@ func _approach() -> void:
 	if not has_target():
 		move_direction = Vector3.ZERO
 		return
-	brain.navigation.go_to(current_target_position())
+	var current_board := board()
+	if current_board != null:
+		brain.navigation.go_to(current_board.target_position_known())
+	else:
+		brain.navigation.go_to(current_target_position())
 	move_direction = brain.navigation.move_intent()
 	if not move_direction.is_equal_approx(Vector3.ZERO):
 		face_direction = move_direction

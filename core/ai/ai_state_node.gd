@@ -120,6 +120,15 @@ func guard_alert_at_least_combat() -> bool:
 	return current_board != null and current_board.alert_reaches_combat()
 
 
+## A raised but sub-investigate alertness: the Suspicious band. Alertness
+## above zero with no investigate conclusion comes from a fresh sound, light
+## or touch stimulus that never accumulated to the investigate bar.
+func guard_alert_raised_below_investigate() -> bool:
+	var current_board := board()
+	return current_board != null and current_board.alertness > 0.0 \
+			and not current_board.alert_reaches_investigate()
+
+
 func guard_has_target() -> bool:
 	return has_target()
 

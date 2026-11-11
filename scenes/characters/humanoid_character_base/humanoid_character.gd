@@ -61,6 +61,20 @@ static func movement_noise_for(material : AudioLibrary.FOOTSTEP_TYPES, sprinting
 	return level
 
 
+## Movement intent the body consumes (3.x kick-lock parity, issue #747):
+## while the kick cooldown window runs the intent reads as zero, so the
+## player cannot steer during the kick (origin/main player_controller.gd
+## line 231-233 zeroed character_state.move_direction while the kick timer
+## ran). The 3.x window was the one-shot KickTimer's default 1.0 s wait,
+## which equals parameters.kick_cooldown here, so the cooldown clock is the
+## lock window. Jump input stays live, so jumpkicks still work, and dodge
+## (a dev4 behavior) reads raw input and keeps its own rules.
+func movement_intent() -> Vector3:
+	if state.time_since_kick < parameters.kick_cooldown:
+		return Vector3.ZERO
+	return input.movement_vector
+
+
 func apply_landing_noise() -> void:
 	noise_level = LANDING_NOISE
 	_noise_clear_at_msec = Time.get_ticks_msec() + NOISE_CLEAR_DELAY_MS
@@ -91,6 +105,13 @@ func apply_attack_noise(level : float) -> void:
 func _ready() -> void:
 	state.facing = global_basis
 	global_basis = Basis.IDENTITY
+	# Runtime camera shake mount (issue #747): the player camera carries the
+	# minimal stress shake driver (3.x ShakeCamera parity). Attached here in
+	# code instead of the scene: scene edits on player.tscn are banned, and
+	# only the player has a camera node to find.
+	var camera_node := get_node_or_null("ModelRoot/MainCamera")
+	if camera_node is Camera3D and camera_node.get_script() == null:
+		camera_node.set_script(load("res://scenes/characters/player/camera_stress_shake.gd"))
 
 	character_collision.height = parameters.standing_height
 	ground_detection_test_parameters.collide_separation_ray = false
@@ -114,7 +135,7 @@ func _physics_process(delta: float) -> void:
 		# crouch input
 		state.sprinting = (
 			input.sprint
-			and input.movement_vector.dot(-state.facing.z) > 0.0
+			and movement_intent().dot(-state.facing.z) > 0.0
 			and state.stamina > 0.0
 			and KeyInputSettings.shift_sprint_enabled()
 		)
@@ -282,7 +303,7 @@ func _integrate_forces(physics_state: PhysicsDirectBodyState3D) -> void:
 
 		var local_z : Vector3 = ground_plane.project(physics_state.transform.basis.z).normalized()
 		var local_x : Vector3 = ground_plane.project(physics_state.transform.basis.x).normalized()
-		var target_ground_velocity = (input.movement_vector.x * local_x + input.movement_vector.z * local_z)
+		var target_ground_velocity = (movement_intent().x * local_x + movement_intent().z * local_z)
 		target_ground_velocity *= state.get_target_speed()
 		ground_velocity = ground_velocity.move_toward(target_ground_velocity, physics_state.step * parameters.base_acceleration * control_multiplier)
 		
@@ -341,6 +362,12 @@ func kick(from_action : bool = false) -> void:
 	print("kick")
 	state.time_since_kick = 0.0
 	state.stamina -= 50.0
+	# 3.x kick feedback parity (issue #747): the frozen character.gd kicked
+	# the camera with add_stress(0.25) on every kick (character.gd line 289).
+	# Only the player carries a camera node.
+	var camera_node := get_node_or_null("ModelRoot/MainCamera")
+	if camera_node != null and camera_node.has_method("add_stress"):
+		camera_node.add_stress(0.25)
 	var kick_list : Array[Node3D] = kick_cast.get_kick_objects()
 	print(kick_list)
 	var kick_direction := kick_cast.global_basis.y

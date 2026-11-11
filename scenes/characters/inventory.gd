@@ -735,12 +735,12 @@ func equip_mainhand_item():
 		item.transform = item.get_hold_transform()
 		if item.is_in_belt == true:
 			remove_from_belt(item)
-			var parent = item.get_parent()
-			if parent != null:
-				parent.remove_child(item)
-			character.main_hand_root.add_child(item)
-		else:
-			character.main_hand_root.add_child(item)
+		# The node may still be parented (belt, a hand root after an
+		# unequip); unparent before add_child so re-equip never double-adds.
+		var parent = item.get_parent()
+		if parent != null:
+			parent.remove_child(item)
+		character.main_hand_root.add_child(item)
 		emit_signal("inventory_changed")
 	else:
 		pass
@@ -758,12 +758,15 @@ func unequip_mainhand_item():
 	var item = current_mainhand_equipment
 	current_mainhand_equipment = null
 	if item != null:
-		if item.can_attach == true:
-			pass
-		else:
-			var parent = item.get_parent()
-			if parent != null:
-				parent.remove_child(item)
+		# Slot bookkeeping invariant: an unequip clears the slot AND leaves
+		# the node unparented from the hand, so a later re-equip can add_child
+		# it again without an engine "already has a parent" error. A
+		# can_attach item stowed on the belt (is_in_belt) stays parented; the
+		# belt is its storage and equip handles taking it back off.
+		var parent = item.get_parent()
+		if parent != null and not (item.can_attach == true and item.is_in_belt):
+			parent.remove_child(item)
+
 
 ## Perfoms heavy logic to equip a bulky_item and clearing the player hands for it
 func equip_bulky_item(item : EquipmentItem):
@@ -840,12 +843,12 @@ func equip_offhand_item():
 	item.transform = item.get_hold_transform()
 	if item.is_in_belt == true:
 		remove_from_belt(item)
-		var parent = item.get_parent()
-		if parent != null:
-			parent.remove_child(item)
-		character.off_hand_root.add_child(item)
-	else:
-		character.off_hand_root.add_child(item)
+	# Same unparent-before-add guard as equip_mainhand_item: a can_attach
+	# item left parented by a previous unequip must not be add_childed twice.
+	var parent = item.get_parent()
+	if parent != null:
+		parent.remove_child(item)
+	character.off_hand_root.add_child(item)
 
 
 func unequip_offhand_item():
@@ -857,12 +860,12 @@ func unequip_offhand_item():
 	current_offhand_equipment = null
 	emit_signal("unequip_offhand")
 	if item != null:
-		if item.can_attach == true:
-			pass
-		else:
-			var parent = item.get_parent()
-			if parent != null:
-				parent.remove_child(item)
+		# Same invariant as unequip_mainhand_item: clear the slot AND
+		# unparent from the hand so re-equip cannot double-add. A can_attach
+		# item stowed on the belt (is_in_belt) stays parented.
+		var parent = item.get_parent()
+		if parent != null and not (item.can_attach == true and item.is_in_belt):
+			parent.remove_child(item)
 
 
 func drop_mainhand_item() -> Node:
@@ -1161,11 +1164,21 @@ func switch_away_from_light(light_source):
 
 
 func attach_to_belt(item):
-	if item.get_parent() != character.belt_position:
+	# belt_position is authored on the old character.gd rig; humanoid
+	# characters carry no belt, so the attach is a safe no-op there instead
+	# of a property-access crash on a missing key.
+	var belt : Node3D = character.get("belt_position") as Node3D
+	if belt == null:
+		return
+	if item.get_parent() != belt:
 		item.mesh_instance.visible = false
 		item.is_in_belt = true
-		item.get_parent().remove_child(item)
-		character.belt_position.add_child(item)
+		# The item can be unparented (a just-cleared equip slot); guard the
+		# re-parent against a null parent.
+		var parent = item.get_parent()
+		if parent != null:
+			parent.remove_child(item)
+		belt.add_child(item)
 		belt_item = item
 
 

@@ -81,12 +81,19 @@ func test_rapid_triggers_refresh_without_stacking_past_full() -> void:
 	assert_eq(_ui._tinnitus._t, 1.0, "rapid re-triggers hold the ring at full, never above")
 
 
-func test_death_stops_the_ring_and_ignores_further_triggers() -> void:
-	Events.tinnitus_triggered.emit(1.0)
+func test_death_rings_once_then_the_fade_out_stops_it() -> void:
+	# Issue 414: death is the consumer that brings the tinnitus (the "silence
+	# or tinnitus" pair, owner ruling): the DEAD state rings the ears at full
+	# strength once, the white wash yields to the death cover, and the death
+	# screen's fade out stops the ring for good.
 	_ui._on_player_physical_state_changed(HumanoidCharacterState.PhysicalState.DEAD)
-	assert_false(_ui._tinnitus.playing, "death stops the ring")
-	assert_false(_white_rect(_ui._tinnitus).visible, "death hides the white wash")
 	await _physics_frames(2)
+	assert_almost_eq(_ui._tinnitus._t, 1.0, 0.0001, "death triggers the ring once at full strength")
+	assert_true(_ui._tinnitus.playing, "the ring audio sounds over the death")
+	assert_false(_white_rect(_ui._tinnitus).visible,
+		"the white wash yields to the death screen's own cover")
+	_ui._death_screen.fade_out_started.emit()
+	assert_false(_ui._tinnitus.playing, "the fade out stops the ring")
 	Events.tinnitus_triggered.emit(1.0)
 	await _physics_frames(2)
 	assert_false(_ui._tinnitus.playing, "a dead overlay never resumes the ring on later triggers")

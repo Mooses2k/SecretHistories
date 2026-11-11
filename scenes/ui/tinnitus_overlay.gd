@@ -39,6 +39,13 @@ func set_dead() -> void:
 	_white_rect.hide()
 
 
+## The death flow owns the screen after its ring starts: the white wash
+## yields to the death cover while the ring keeps sounding (issue 414, the
+## death side of the "silence or tinnitus" pair).
+func set_white_wash_hidden(hidden : bool) -> void:
+	_white_rect.visible = not hidden
+
+
 func _physics_process(delta: float) -> void:
 	if _is_dead:
 		return

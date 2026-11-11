@@ -5,6 +5,9 @@ const TinnitusOverlay := preload("res://scenes/ui/tinnitus_overlay.gd")
 const BloodScreenOverlay := preload("res://scenes/ui/blood_screen_overlay.gd")
 const DeathScreen := preload("res://scenes/ui/death_screen.gd")
 const HelpOverlay := preload("res://scenes/ui/help_overlay.gd")
+# No class_name on the death cam: headless runs never refresh the global
+# class cache, so the preload path is the only reliable handle.
+const DeathCamScript := preload("res://scenes/characters/player/death_cam.gd")
 
 
 enum GUIState {
@@ -44,6 +47,7 @@ func _ready():
 	%UIRoot.size = get_viewport().size/VideoSettings.gui_scale
 	VideoSettings.connect("gui_scale_changed", Callable(self, "on_gui_scale_changed"))
 	Events.connect("tinnitus_triggered", _on_Events_tinnitus_triggered)
+	_death_screen.fade_out_started.connect(_on_death_screen_fade_out)
 	var game := get_parent()
 	if game != null and game.has_signal("player_spawned"):
 		game.connect("player_spawned", _on_game_player_spawned)
@@ -52,6 +56,8 @@ func _ready():
 func _exit_tree() -> void:
 	if Events.is_connected("tinnitus_triggered", _on_Events_tinnitus_triggered):
 		Events.disconnect("tinnitus_triggered", _on_Events_tinnitus_triggered)
+	if _death_screen.fade_out_started.is_connected(_on_death_screen_fade_out):
+		_death_screen.fade_out_started.disconnect(_on_death_screen_fade_out)
 	_stop_observing_player()
 
 
@@ -99,9 +105,48 @@ func _on_Events_tinnitus_triggered(strength : float) -> void:
 
 func _on_player_physical_state_changed(new_physical_state : int) -> void:
 	if new_physical_state == HumanoidCharacterState.PhysicalState.DEAD:
-		_tinnitus.set_dead()
-		_blood_screen.set_dead()
-		_death_screen.start_sequence()
+		# The physical state change can arrive from inside a physics flush
+		# (Area3D damage signals); the death cam reparenting must wait for a
+		# safe point in the frame.
+		_start_death_flow.call_deferred()
+
+
+## The death flow: spawn the issue 414 death cam, ring the ears, own the
+## picture, then run the death screen sequence.
+func _start_death_flow() -> void:
+	_start_death_cam()
+	# Issue 414: death rings the ears (the tinnitus side of the "silence
+	# or tinnitus" pair); the death screen owns the picture from here on,
+	# so the white wash yields to it while the ring keeps sounding.
+	_tinnitus.trigger(1.0)
+	_tinnitus.set_white_wash_hidden(true)
+	_blood_screen.set_dead()
+	_death_screen.start_sequence()
+
+
+func _on_death_screen_fade_out() -> void:
+	_tinnitus.set_dead()
+
+
+## Spawns the issue 414 death cam on the dead player: the FPS camera mounts
+## to the head bone and rides the ragdoll down. Idempotent.
+func _start_death_cam() -> void:
+	if _observed_player == null or _observed_player.has_node("DeathCam"):
+		return
+	var death_cam : Node = DeathCamScript.new()
+	death_cam.name = "DeathCam"
+	_observed_player.add_child(death_cam)
+	death_cam.call("setup", _observed_player)
+
+
+## Dead-state mouse motion is the slow heavy head look: forwarded to the
+## death cam, which damps and clamps it to a tiny range.
+func _forward_death_look(event : InputEventMouseMotion) -> void:
+	if _observed_player == null:
+		return
+	var death_cam : Node = _observed_player.get_node_or_null("DeathCam")
+	if death_cam != null:
+		death_cam.call("apply_death_look", event.relative)
 
 
 func _on_player_hurtbox_damaged(_amount : int, _type : GlobalConsts.AttackTypes, _direction : Vector3, _origin : Vector3) -> void:
@@ -118,7 +163,11 @@ func _input(event: InputEvent) -> void:
 		return
 	if GameManager.is_player_dead:
 		# The death screen consumes its own ESC (any key fades to the title
-		# menu); the pause gate must never open over a dead player.
+		# menu); the pause gate must never open over a dead player. Mouse
+		# motion while dead is the slow heavy head look of the death cam.
+		if event is InputEventMouseMotion:
+			_forward_death_look(event)
+			get_viewport().set_input_as_handled()
 		return
 	if event.is_action_pressed("esc_menu"):
 		match gui_state:

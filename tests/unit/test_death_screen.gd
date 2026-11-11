@@ -1,11 +1,11 @@
 # Pins the death screen port (3.x scenes/characters/player/player_death.gd on
-# origin/main, minus the camera work that stays with issue #414's character
-# lane): the DEAD state routes through GameUI into the sequence, the screen
-# pauses the tree, plays the 3.x sound, covers with black, reveals the
-# grayscale scene after the 3.x 1.5 s delay, and fades out on input. The test
-# stops before the actual scene change: the tail (unpause plus change_scene)
-# frees the death screen mid-wait in the harness so the GUT runner is never
-# replaced.
+# origin/main) with the issue 414 ragdoll window in front of it: the DEAD
+# state routes through GameUI into the sequence, the tree stays RUNNING while
+# the cover fades in slowly behind the eye-closing stencil, the tree pauses
+# only when the cover is down, the grayscale reveal follows the 3.x 1.5 s
+# delay, and input fades out to the title. The test stops before the actual
+# scene change: the tail (unpause plus change_scene) frees the death screen
+# mid-wait in the harness so the GUT runner is never replaced.
 extends GutTest
 
 const UI_SCENE := preload("res://scenes/ui/game_ui.tscn")
@@ -77,44 +77,70 @@ func _kill(player : Node3D) -> void:
 	hurtbox.damage(1000, GlobalConsts.AttackTypes.BLUDGEONING)
 
 
-func test_death_routes_into_the_sequence_and_pauses_the_tree() -> void:
+func test_death_routes_into_the_sequence_and_starts_the_fade() -> void:
 	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
 	var death_screen : Control = _ui._death_screen
 	assert_false(death_screen.get_node("BlackRect").visible, "sanity: the cover is down while alive")
-	# connect through the production observation route like the blood tests
 	_ui.observe_player(player)
 	_kill(player)
 	await _physics_frames(2)
 	assert_true(GameManager.is_player_dead, "the death flag is set before anything else runs")
-	assert_true(get_tree().paused, "the tree is paused with the corpse frozen")
-	assert_true(death_screen.get_node("BlackRect").visible, "the black cover is up")
+	assert_false(get_tree().paused,
+		"the tree stays running through the ragdoll window (issue 414)")
+	assert_true(death_screen.get_node("BlackRect").visible, "the black cover is rising")
+	assert_lt(death_screen.get_node("BlackRect").modulate.a, 0.1,
+		"the cover starts transparent and fades in slowly")
+	assert_true(death_screen.get_node("LidTop").visible, "the top stencil lid is closing")
+	assert_true(death_screen.get_node("LidBottom").visible, "the bottom stencil lid is closing")
 	var sound : AudioStreamPlayer = death_screen.get_node("DeathSound")
 	assert_almost_eq(sound.pitch_scale, 1.74, 0.001, "the death sound keeps the 3.x pitch")
 	assert_almost_eq(sound.volume_db, 20.263, 0.001, "the death sound keeps the 3.x volume")
-	assert_false(death_screen.get_node("BWRect").visible, "the grayscale reveal waits out the delay")
 
 
-func test_grayscale_reveal_fades_the_black_cover_out() -> void:
+func test_the_stencil_and_cover_run_on_their_timer_then_the_tree_pauses() -> void:
 	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
 	var death_screen : Control = _ui._death_screen
+	death_screen.death_fade_time = 1.0
+	var black : ColorRect = death_screen.get_node("BlackRect")
+	var lid_top : TextureRect = death_screen.get_node("LidTop")
+	_ui.observe_player(player)
+	_kill(player)
+	await _physics_frames(30)
+	assert_gt(black.modulate.a, 0.0, "the cover fade is running")
+	assert_gt(lid_top.offset_bottom, 0.0, "the stencil lid is travelling down")
+	assert_false(get_tree().paused, "the tree still runs mid-window")
+	# the 1.0 s window is about 60 frames; give it a margin
+	await _physics_frames(40)
+	assert_almost_eq(black.modulate.a, 1.0, 0.02, "the cover is fully down")
+	assert_true(get_tree().paused, "the tree pauses only when the cover is down")
+	assert_false(lid_top.visible, "the stencil lids yield once the cover is down")
+	assert_false(death_screen.get_node("BWRect").visible, "the grayscale reveal waits out the delay")
+	await _physics_frames(100)
+	assert_true(death_screen.get_node("BWRect").visible,
+		"the grayscale shader layer reveals after the 1.5 s delay")
+
+
+func test_the_reveal_fades_the_black_cover_out() -> void:
+	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
+	var death_screen : Control = _ui._death_screen
+	death_screen.death_fade_time = 1.0
 	var black : ColorRect = death_screen.get_node("BlackRect")
 	var bw : ColorRect = death_screen.get_node("BWRect")
 	_ui.observe_player(player)
 	_kill(player)
-	await _physics_frames(2)
-	# the 3.x delay is 1.5 s (about 90 frames at 60 fps), then the 0.5 s fade
-	await _physics_frames(140)
-	assert_true(bw.visible, "the grayscale shader layer reveals after 1.5 s")
+	await _physics_frames(200)
+	assert_true(bw.visible, "the grayscale reveal is showing after the window")
 	assert_almost_eq(black.modulate.a, 0.0, 0.05, "the black cover fades out under the reveal")
 
 
 func test_input_fades_back_to_black_but_the_tail_stays_out_of_the_test() -> void:
 	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
 	var death_screen : Control = _ui._death_screen
+	death_screen.death_fade_time = 1.0
 	var black : ColorRect = death_screen.get_node("BlackRect")
 	_ui.observe_player(player)
 	_kill(player)
-	await _physics_frames(140)
+	await _physics_frames(200)
 	assert_almost_eq(black.modulate.a, 0.0, 0.05, "sanity: the reveal is showing")
 	# a pressed key starts the 0.7 s fade back to black
 	death_screen._input(_make_key_press())
@@ -146,25 +172,21 @@ func _make_esc_press() -> InputEventKey:
 	return event
 
 
-func test_esc_escapes_the_death_screen_during_the_black_cover() -> void:
-	# Owner playtest defect 6: ESC was gated off by the pause machinery and
-	# the player was stuck. The death screen consumes ESC itself, even before
-	# the grayscale reveal, and the route is the real input pipeline: a
-	# pressed ESC key event flushed through Input while the tree is paused.
+func test_esc_escapes_during_the_unpaused_ragdoll_window() -> void:
+	# ESC works from the very start of the sequence, before the cover is
+	# down and while the tree is still running the ragdoll window.
 	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
 	var death_screen : Control = _ui._death_screen
+	var black : ColorRect = death_screen.get_node("BlackRect")
 	_ui.observe_player(player)
 	_kill(player)
 	await _physics_frames(2)
-	assert_false(death_screen.get_node("BWRect").visible,
-		"sanity: the reveal has not happened yet, this is the swallowing moment")
-	assert_true(get_tree().paused, "sanity: the tree is paused while the ESC gate is armed")
-
+	assert_false(get_tree().paused, "sanity: this is the unpaused window")
 	Input.parse_input_event(_make_esc_press())
-	await _physics_frames(4)
+	await _physics_frames(12)
 	assert_true(death_screen._fade_started,
 		"the death screen consumed ESC itself and started the fade")
-	assert_true(get_tree().paused, "the tree stays paused through the fade")
+	assert_gt(black.modulate.a, 0.15, "the fade back to black is running over the window")
 	# free the screen before the tail (unpause plus scene change) runs so the
 	# GUT runner scene is never replaced
 	_world.free()
@@ -176,10 +198,11 @@ func test_esc_escapes_the_death_screen_during_the_black_cover() -> void:
 func test_esc_after_the_reveal_fades_like_any_key() -> void:
 	var player : Node3D = await _spawn_player(Vector3(2.0, 0.0, 2.0))
 	var death_screen : Control = _ui._death_screen
+	death_screen.death_fade_time = 1.0
 	var black : ColorRect = death_screen.get_node("BlackRect")
 	_ui.observe_player(player)
 	_kill(player)
-	await _physics_frames(140)
+	await _physics_frames(200)
 	assert_almost_eq(black.modulate.a, 0.0, 0.05, "sanity: the reveal is showing")
 	death_screen._input(_make_esc_press())
 	await _physics_frames(30)

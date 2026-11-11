@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://q7wrpjiye0bb"]
+[gd_scene load_steps=26 format=3 uid="uid://q7wrpjiye0bb"]
 
 [ext_resource type="PackedScene" uid="uid://dtmm8et2mxrcc" path="res://scenes/ui/settings_menu.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bf3yktywuo08c" path="res://scenes/ui/hud.tscn" id="2"]
@@ -32,6 +32,28 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bw"]
 shader = SubResource("Shader_bw")
+
+[sub_resource type="Gradient" id="Gradient_lid_top"]
+offsets = PackedFloat32Array(0.0, 0.55, 1.0)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lid_top"]
+gradient = SubResource("Gradient_lid_top")
+width = 64
+height = 256
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[sub_resource type="Gradient" id="Gradient_lid_bottom"]
+offsets = PackedFloat32Array(0.0, 0.45, 1.0)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lid_bottom"]
+gradient = SubResource("Gradient_lid_bottom")
+width = 64
+height = 256
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
 
 [node name="GameUI" type="CanvasLayer"]
 process_mode = 3
@@ -225,6 +247,25 @@ material = SubResource("ShaderMaterial_bw")
 stream = ExtResource("17_deathstream")
 volume_db = 20.263
 pitch_scale = 1.74
+
+[node name="LidTop" type="TextureRect" parent="DeathScreen"]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_lid_top")
+expand_mode = 1
+
+[node name="LidBottom" type="TextureRect" parent="DeathScreen"]
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_lid_bottom")
+expand_mode = 1
 
 [node name="HelpInfo" type="Control" parent="."]
 unique_name_in_owner = true

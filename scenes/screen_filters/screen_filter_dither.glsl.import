@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://tymlarm22udi"
+path="res://.godot/imported/screen_filter_dither.glsl-842dbd3251dba366ef86d5dc338f32a2.res"
+
+[deps]
+
+source_file="res://scenes/screen_filters/screen_filter_dither.glsl"
+dest_files=["res://.godot/imported/screen_filter_dither.glsl-842dbd3251dba366ef86d5dc338f32a2.res"]
+
+[params]
+

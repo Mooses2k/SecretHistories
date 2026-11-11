@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://de321p0ygpdbr"
+path="res://.godot/imported/screen_filter_old_film.glsl-bf4630119824805087c9eae0fd1f75fd.res"
+
+[deps]
+
+source_file="res://scenes/screen_filters/screen_filter_old_film.glsl"
+dest_files=["res://.godot/imported/screen_filter_old_film.glsl-bf4630119824805087c9eae0fd1f75fd.res"]
+
+[params]
+

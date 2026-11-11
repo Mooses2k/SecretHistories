@@ -13,6 +13,8 @@ const SETTING_AUTO_SWITCH_WEAPON: String = "Auto-switch weapons on throw"
 @onready var main_camera: Camera3D = $"../ModelRoot/MainCamera"
 @onready var debug_light: SpotLight3D = $"../ModelRoot/MainCamera/DebugLight"
 
+var screen_filter_controller : ScreenFilterController
+
 var camera_pitch : float = 0.0
 var drag_speed_modifier : float = 1.0
 
@@ -20,6 +22,14 @@ var moved_since_sprint : bool = false
 var dodge_performed : bool = false
 var was_sprinting : bool = false  # Track previous sprint state to detect sprint end
 var sprint_end_time : float = 0.0  # Time when sprint ended
+
+
+func _ready() -> void:
+	# The 3.x L screen-filter cycle (ending in the camera debug light), run
+	# by the shared controller on the Game's CompositorEffect pipeline.
+	screen_filter_controller = ScreenFilterController.new()
+	add_child(screen_filter_controller)
+	screen_filter_controller.setup(debug_light)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -40,10 +50,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed(&"debug_noclip"):
 		owner.toggle_noclip()
 
-	# Debug light toggle: a crude player-carried light for testing in the
-	# dark (3.x cycled it in as the last stop of the L screen-filter cycle).
-	if Input.is_action_just_pressed(&"misc|change_screen_filter"):
-		debug_light.visible = not debug_light.visible
+	# Screen filter cycle: L advances the 3.x filter order and the lowest
+	# floor forces the reduce color filter once (see ScreenFilterController).
+	if screen_filter_controller != null:
+		screen_filter_controller.handle_screen_filters()
 
 	var input_vector_2d := Input.get_vector(&"movement|move_left", &"movement|move_right", &"movement|move_up", &"movement|move_down")
 	var input_vector = Vector3(input_vector_2d.x, 0.0, input_vector_2d.y)

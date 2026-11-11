@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://c5dejv0qm3mto"
+path="res://.godot/imported/screen_filter_pixelate.glsl-99f1c648854c8f263e66172ad254d747.res"
+
+[deps]
+
+source_file="res://scenes/screen_filters/screen_filter_pixelate.glsl"
+dest_files=["res://.godot/imported/screen_filter_pixelate.glsl-99f1c648854c8f263e66172ad254d747.res"]
+
+[params]
+

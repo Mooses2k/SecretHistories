@@ -1,7 +1,7 @@
-# Pins the L-key debug light toggle: the input action exists bound to L,
-# the player scene carries the camera SpotLight, and a tap of the action
-# toggles it on and a second tap toggles it off (3.x had the same light as
-# the last stop of the L screen-filter cycle).
+# Pins the L-key screen filter cycle: the input action exists bound to L,
+# the player scene carries the camera SpotLight, and tapping L cycles the
+# 3.x filter order whose last stop (DEBUG_LIGHT) turns the light on and
+# whose wrap to NONE turns it off again.
 extends GutTest
 
 const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
@@ -81,12 +81,19 @@ func test_player_scene_carries_a_camera_debug_light() -> void:
 	assert_false(light.visible, "the debug light starts off")
 
 
-func test_L_tap_toggles_the_debug_light_on_and_off() -> void:
+func test_L_taps_reach_the_debug_light_stop_and_wrap_off() -> void:
+	# 3.x parity: the light is the LAST stop of the L screen-filter cycle
+	# (5 shader stops before it), so tap 6 turns the light on and tap 7
+	# wraps to NONE and turns it off.
 	await _spawn_player()
 	var light := _light(_player.get_node("PlayerController"))
+	for i in 5:
+		await _tap_action(LIGHT_ACTION)
+		await _physics_frames(1)
+	assert_false(light.visible, "the light stays off through the five shader stops")
 	await _tap_action(LIGHT_ACTION)
 	await _physics_frames(1)
-	assert_true(light.visible, "a first L tap turns the debug light on")
+	assert_true(light.visible, "the sixth tap, DEBUG_LIGHT, turns the light on")
 	await _tap_action(LIGHT_ACTION)
 	await _physics_frames(1)
-	assert_false(light.visible, "a second L tap turns the debug light off")
+	assert_false(light.visible, "the seventh tap wraps to NONE and turns the light off")

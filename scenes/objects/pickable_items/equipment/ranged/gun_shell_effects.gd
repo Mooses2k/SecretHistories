@@ -36,3 +36,52 @@ func spawn_casing(casing_scene : PackedScene, world_parent : Node, spawn_positio
 	casing.global_position = spawn_position
 	if impulse != Vector3.ZERO:
 		casing.apply_impulse(impulse, impulse_offset)
+
+
+## The landed reload round's insertion visual: the live round appears in the
+## character's left hand (3.x player_add_shell, when the per-gun script
+## defines it) and one chamber visual fills the gun's cylinder or breech
+## slots (3.x add_shells_to_slot, when defined). The per-gun scripts declare
+## exactly the methods their 3.x method tracks called; the khyber defines
+## only the hand pair (its 3.x track never filled a slot), so discovery by
+## has_method keeps an unconfigured gun silent.
+func insert_landed_round() -> void:
+	if has_method("player_add_shell"):
+		call("player_add_shell")
+	if has_method("add_shells_to_slot"):
+		call("add_shells_to_slot")
+
+
+## Empties every insertion visual: the hand shell (3.x player_clear_shell)
+## plus all chamber slot visuals (3.x clear_all_slots). GunItem calls this
+## when the reload fully ends, natural completion and abort alike, so the
+## inserted and pending visuals clear with the close beat.
+func clear_insertion_visuals() -> void:
+	if has_method("player_clear_shell"):
+		call("player_clear_shell")
+	if has_method("clear_all_slots"):
+		call("clear_all_slots")
+
+
+## The character's left-hand shell holder (the GunReloadShells node on the
+## humanoid base scene), or null when the character carries none: a missing
+## holder drops the hand visual but never the chamber slot visuals.
+func _shell_holder() -> Node:
+	var gun := owner as GunItem
+	if gun == null or gun.owner_character == null:
+		return null
+	return (gun.owner_character as Node).get_node_or_null("GunReloadShells")
+
+
+## Pins an insertion visual in place: a loose round scene spawns in the
+## DROPPED physics state and would fall off the hand or the chamber marker.
+## The visual is never a live pickup while inserted, so it rides its parent
+## frozen and uncollidable until the clear frees it.
+func _pin_insertion_visual(shell : Node) -> void:
+	var body := shell as RigidBody3D
+	if body == null:
+		return
+	body.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+	body.freeze = true
+	body.collision_layer = 0
+	body.collision_mask = 0

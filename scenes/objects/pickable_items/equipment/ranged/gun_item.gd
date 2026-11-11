@@ -358,6 +358,23 @@ func _eject_chambers(live_rounds : int) -> void:
 		_shell_effects.call("expell_live_rounds", live_rounds, world_parent)
 
 
+## The landed round's insertion visual rides the chamber click (3.x drove
+## this from weapon-clip method tracks; the port dropped those, so the beat
+## is code-driven per staged cycle: a live round appears in the left hand's
+## shell slot and the cylinder slot for that chamber fills). Visual only:
+## the staged chain already debited the round from the inventory. The
+## timing is approximate by design (rounds spread across the composite by
+## the per-press quantum, no frame-perfect chase of the authored mid-clip
+## moments). Only a press that opened the action inserts visuals: the
+## ready-time convenience load stays silent.
+func _insert_landed_round_visual() -> void:
+	if not _reload_composite_started:
+		return
+	if _shell_effects == null or not _shell_effects.has_method("insert_landed_round"):
+		return
+	_shell_effects.call("insert_landed_round")
+
+
 func _casing_world_parent() -> Node:
 	if is_instance_valid(GameManager.game):
 		return GameManager.game
@@ -497,6 +514,11 @@ func _finish_close_beat() -> void:
 ## be dropped mid-close and its owner freed) and emits the matching signal.
 func _finalize_reload(aborting : bool) -> void:
 	_reload_composite_started = false
+	# The insertion visuals clear with the close beat's end: an abort wipes
+	# the pending and inserted visuals alike, a natural completion empties
+	# the dressing slots the way the 3.x clear_all_slots beat did.
+	if _shell_effects != null and _shell_effects.has_method("clear_insertion_visuals"):
+		_shell_effects.call("clear_insertion_visuals")
 	if is_instance_valid(owner_character) and owner_character.state.is_reloading:
 		owner_character.state.is_reloading = false
 		if owner_character.state.reloading_item == self:
@@ -563,6 +585,7 @@ func _on_ReloadTimer_timeout() -> void:
 				_staged_reload_remaining -= 1
 				_staged_rounds_landed += 1
 				_play_chamber_sound()
+				_insert_landed_round_visual()
 				if _staged_reload_remaining > 0 and current_ammo < ammunition_capacity and inventory.tiny_item_amount(_queued_reload_type) > 0:
 					# The chain cycles on the cached per-press quantum. The
 					# composite Reload sound is NOT replayed per round: it

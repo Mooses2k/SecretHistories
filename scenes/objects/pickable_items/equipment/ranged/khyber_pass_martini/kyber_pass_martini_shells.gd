@@ -35,9 +35,16 @@ func expell_live_rounds(count : int, world_parent : Node) -> void:
 	spawn_casing(reload_round_scene, world_parent, marker.global_position, 0.0, character_forward * 3.0, impulse_position)
 
 
+## The khyber's 3.x method track called only the hand pair: a single-shot
+## break-open has no cylinder slots to fill, so there is no slot method.
 func player_add_shell():
-	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(reload_round_scene, Vector3(0.003, -0.006, -0.019), Vector3(-1.448, -16.595, -77.987))
+	var holder := _shell_holder()
+	if holder != null and holder.has_method("spawn_hand_shell"):
+		var shell : Node = holder.call("spawn_hand_shell", reload_round_scene, Vector3(0.003, -0.006, -0.019), Vector3(-1.448, -16.595, -77.987))
+		_pin_insertion_visual(shell)
 
 
 func player_clear_shell():
-	owner.owner_character.player_gun_reload_shells.clear_shotgun_shells()
+	var holder := _shell_holder()
+	if holder != null and holder.has_method("clear_hand_shells"):
+		holder.call("clear_hand_shells")

@@ -53,24 +53,38 @@ func expell_live_rounds(count : int, world_parent : Node) -> void:
 
 
 func player_add_shell():
-	owner.owner_character.player_gun_reload_shells.spawn_bullet_shells(bullet_shells, Vector3(0.014, -0.001, -0.003), Vector3(1.372, 6.429, 0.474))
+	var holder := _shell_holder()
+	if holder != null and holder.has_method("spawn_hand_shell"):
+		var shell : Node = holder.call("spawn_hand_shell", bullet_shells, Vector3(0.014, -0.001, -0.003), Vector3(1.372, 6.429, 0.474))
+		_pin_insertion_visual(shell)
 
 
 func player_clear_shell():
-	owner.owner_character.player_gun_reload_shells.clear_shotgun_shells()
+	var holder := _shell_holder()
+	if holder != null and holder.has_method("clear_hand_shells"):
+		holder.call("clear_hand_shells")
 
 
 func add_shells_to_slot():
-	var added_new_shells = bullet_shells.instantiate()
-	added_new_shells.position = Vector3(0.006, -0.009, 0)
-	added_new_shells.rotation_degrees = Vector3(0, 0, -68.136)
+	var added_new_shells := bullet_shells.instantiate() as Node3D
+	if added_new_shells == null:
+		return
 	for shells_positions in all_shell_positions:
-		if shells_positions.get_child_count() < 1:
-			shells_positions.add_child(added_new_shells)
+		var slot := shells_positions as Marker3D
+		if slot == null or slot.get_child_count() > 0:
+			continue
+		slot.add_child(added_new_shells)
+		added_new_shells.position = Vector3(0.006, -0.009, 0)
+		added_new_shells.rotation_degrees = Vector3(0, 0, -68.136)
+		_pin_insertion_visual(added_new_shells)
+		return
+	added_new_shells.free()
 
 
 func clear_all_slots():
-	var added_new_shells = bullet_shells.instantiate()
 	for shells_positions in all_shell_positions:
-		for bullet_shells in shells_positions.get_children():
-			bullet_shells.queue_free()
+		var slot := shells_positions as Marker3D
+		if slot == null:
+			continue
+		for added_shell in slot.get_children():
+			added_shell.queue_free()

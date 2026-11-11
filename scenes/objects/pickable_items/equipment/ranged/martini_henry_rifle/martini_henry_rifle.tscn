@@ -72,6 +72,7 @@ ads_hold_rotation = Vector3(13.347, 26.479, -7.829)
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
 reload_close_clip = &"lever_close_weapon"
+reload_needs_left_hand = true
 
 [node name="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0)

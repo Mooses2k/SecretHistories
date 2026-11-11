@@ -51,6 +51,12 @@ const MAX_STAGED_CYCLE_TIME : float = 3.0
 ## from the wired composite's action-bone keys: webley 7.4, khyber 1.6667,
 ## both shotguns 3.3. Guns with a dedicated close clip leave this at 0.
 @export var reload_close_start : float = 0.0
+## Phase 4: this gun's reload composite was authored with the gun riding the
+## LEFT hand (the Lee-Metford and Martini-Henry rifles), so the reload
+## coordinator reparents it to the offhand mount for the reload and the
+## staged cadence runs the authored composite UNCLAMPED by the 3.0 s
+## ceiling (the 0.3 s floor still guards a mis-authored clip).
+@export var reload_needs_left_hand : bool = false
 @export var damage_offset : int = 0
 @export var dispersion_offset_degrees : int = 0
 @export var cooldown : float = 1.0
@@ -192,7 +198,12 @@ func get_reload_length():
 ## animation). Without a resolvable reload clip the press falls back to
 ## reload_time per cycle, which keeps the per-round cadence of
 ## reload_amount == 1 guns unchanged. The result is clamped so a
-## mis-authored clip cannot produce an absurd cadence.
+## mis-authored clip cannot produce an absurd cadence - EXCEPT on a
+## reload_needs_left_hand gun: Phase 4 owner ruling, the 3.0 s ceiling was
+## a stopgap from the animation-less era and these guns play their authored
+## composite at full length per staged round (Lee-Metford 11.4 s, 3.x
+## parity was clip-0.3 = 11.1 s; Martini-Henry rifle 3.15 s). The 0.3 s
+## floor still applies to every gun.
 func _staged_reload_cycle_time(round_count : int) -> float:
 	if round_count <= 0:
 		return reload_time
@@ -202,7 +213,10 @@ func _staged_reload_cycle_time(round_count : int) -> float:
 	var clip_length : float = anim_player.get_animation("reload").length
 	if clip_length <= 0.0:
 		return reload_time
-	return clampf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME, MAX_STAGED_CYCLE_TIME)
+	var cycle := clampf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME, MAX_STAGED_CYCLE_TIME)
+	if reload_needs_left_hand:
+		cycle = maxf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME)
+	return cycle
 
 
 ## One per-chamber click per landed round when the gun wires a
@@ -405,15 +419,18 @@ func reload(eject_spent_casings : bool = true) -> void:
 					_staged_rounds_landed = 0
 					if eject_spent_casings:
 						_eject_chambers(live_rounds_to_eject)
-						_start_reload_composite()
-						# Phase 2: the character-side reload layer rides the
-						# same press (the 3.x player hook, rebuilt on the
-						# humanoid base with a class check, no name-string
-						# checks). The coordinator handles the small-gun
-						# offhand unequip/re-equip and the tree OneShot.
+						# Phase 2/4: the character-side reload layer rides the
+						# same press BEFORE the composite starts, so a
+						# reload_needs_left_hand gun is reparented to the
+						# offhand mount before the composite's first authored
+						# frame plays (its clips key the gun pose relative to
+						# the left hand). Class check, no name-string checks;
+						# the coordinator handles the offhand choreography,
+						# the tree OneShot and the Phase 4 reparenting.
 						var character := owner_character as HumanoidCharacter
 						if character != null:
 							character.play_reload_animation(self)
+						_start_reload_composite()
 					$ReloadTimer.start(_staged_cycle_time)
 					_queued_reload_amount = _reload_amount
 					_staged_reload_remaining = _reload_amount

@@ -10,6 +10,7 @@ extends GutTest
 const HUMANOID_BASE_SCENE := "res://scenes/characters/humanoid_character_base/humanoid_character_base.tscn"
 const WEBLEY_SCENE := "res://scenes/objects/pickable_items/equipment/ranged/webley_revolver/webley.tscn"
 const DB_SHOTGUN_SCENE := "res://scenes/objects/pickable_items/equipment/ranged/double-barrel_shotgun/double-barrel_shotgun.tscn"
+const LEE_SCENE := "res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/lee-metford_rifle.tscn"
 const DARK_LANTERN_SCENE := "res://scenes/objects/pickable_items/equipment/tool/light-sources/belt_clip_dark_lantern/dark_lantern.tscn"
 
 ## 3.x player_anims.tscn character-side clip keys per gun item_name.
@@ -52,10 +53,13 @@ func _spawn_gun(scene_path : String) -> Node:
 	add_child_autofree(gun)
 	await get_tree().process_frame
 	# Freeze the dropped body after _ready (set_physics_dropped resets a
-	# freeze applied before add_child; same harness rule as Phase 1).
+	# freeze applied before add_child; same harness rule as Phase 1), then
+	# mark the gun EQUIPPED: the coordinator's restore guard only returns a
+	# gun to the hand while it is still equipped, mirroring a held gun.
 	var body := _find_rigid_body(gun)
 	if body != null:
 		body.freeze = true
+	gun.item_state = GlobalConsts.ItemState.EQUIPPED
 	return gun
 
 
@@ -76,6 +80,15 @@ func _hand_pose() -> Transform3D:
 
 func _hand_moved_from(baseline : Transform3D) -> float:
 	return baseline.origin.distance_to(_hand_pose().origin)
+
+
+## The Lee-Metford rifle skeleton still stores the Godot 4.6-era pose
+## format; Godot 4.7 emits a load-time deprecation error for it (a
+## pre-existing asset artifact, flagged to the owner for an editor re-save).
+func _tolerate_lee_skeleton_pose_artifact() -> void:
+	for e in gut.error_tracker.get_current_test_errors():
+		if e.rationale.contains("old pose format"):
+			e.handled = true
 
 
 func _equip_offhand_light() -> Node:
@@ -254,3 +267,148 @@ func test_completion_cuts_a_still_running_clip() -> void:
 	# this window), so a tight return-to-baseline bound is meaningless; the
 	# held clip pose sits >= 0.25 off base, a released one stays under 0.2.
 	assert_lt(_hand_moved_from(baseline), 0.2, "ABORT releases the clip pose once the reload ends")
+
+
+## ---- Phase 4: left-hand reparenting for the Lee-Metford/Martini-Henry ----
+
+
+func test_left_hand_gun_mounts_on_the_offhand_and_returns_on_completion() -> void:
+	# G2: the composite's clips key the gun pose relative to the left hand,
+	# so the gun mounts on the offhand mount for the reload and reparents
+	# back to MainHandRoot (global transform kept, hold pose re-applied).
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	assert_true(gun.reload_needs_left_hand, "precondition: the Lee is a left-hand gun")
+	_start_reload(gun)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.off_hand_root, "the gun mounts on the offhand for the reload")
+	gun.emit_signal("reload_stage_finished", 0)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.main_hand_root, "the gun returns to the main hand on completion")
+	assert_eq(gun.transform, gun.get_hold_transform(), "the main-hand hold pose is re-applied")
+
+
+func test_left_hand_abort_returns_the_mount() -> void:
+	# G3: the abort arrives after the gun's close beat; the mount restores
+	# on the abort path exactly like on completion.
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	_start_reload(gun)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.off_hand_root, "precondition: the gun is mounted")
+	gun.emit_signal("reload_aborted")
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.main_hand_root, "the gun returns to the main hand on abort")
+
+
+func test_left_hand_reload_clears_the_offhand_and_the_medium_rule_holds_it() -> void:
+	# Premise flag (flagged to the parent, recorded in the doc): the
+	# Lee-Metford is SIZE_MEDIUM, and equip_offhand_item's own guard answers
+	# a medium mainhand gun by unequipping it. So the offhand clears for the
+	# reload (the left hand is the mount) but does NOT return while the
+	# medium gun stays mainhand; it returns as soon as the gun leaves.
+	var light := await _equip_offhand_light()
+	var inv : Inventory = _character.get_node("Inventory")
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	# Mirror a real equip: the medium gun IS the mainhand equipment (a real
+	# press runs through equip_mainhand_item), which is what the medium rule
+	# keys on.
+	inv.current_mainhand_equipment = gun
+	_start_reload(gun)
+	await get_tree().process_frame
+	assert_null(inv.current_offhand_equipment, "the offhand clears for the left-hand reload")
+	assert_eq(gun.get_parent(), _character.off_hand_root, "the mount happens after the unequip (same press)")
+	gun.emit_signal("reload_stage_finished", 0)
+	await get_tree().create_timer(0.7).timeout
+	_tolerate_light_harness_artifacts()
+	assert_eq(gun.get_parent(), _character.main_hand_root, "the mount restores")
+	assert_null(inv.current_offhand_equipment, "the offhand stays cleared while the medium gun is mainhand")
+	assert_eq(inv.hotbar[10], light, "the light stays owned in its hotbar slot")
+
+
+func test_offhand_returns_when_a_left_hand_gun_left_the_mainhand() -> void:
+	# G4: a gun dropped/unequipped mid-reload is a world body; it must NOT
+	# be dragged back into the hand. The offhand DOES return (the mainhand
+	# is empty, so the medium rule cannot fire).
+	var light := await _equip_offhand_light()
+	var inv : Inventory = _character.get_node("Inventory")
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	_start_reload(gun)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.off_hand_root, "precondition: the gun is mounted")
+	# Drop simulation: the gun leaves its hand mid-reload as a world body.
+	gun.get_parent().remove_child(gun)
+	gun.item_state = GlobalConsts.ItemState.DROPPED
+	gun.emit_signal("reload_stage_finished", 0)
+	await get_tree().process_frame
+	assert_null(gun.get_parent(), "the dropped gun is not dragged back into the hand")
+	await get_tree().create_timer(0.7).timeout
+	_tolerate_light_harness_artifacts()
+	assert_eq(inv.current_offhand_equipment, light, "the offhand still returns once the gun left")
+
+
+func test_ragdoll_mid_reload_still_restores_the_mount() -> void:
+	# G5: ragdoll keeps items EQUIPPED, so the restore proceeds; the PalmL
+	# BoneAttachment follows the physical bones. A death that drops items
+	# instead falls under the dropped-gun guard.
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	_start_reload(gun)
+	await get_tree().process_frame
+	_character.state.physical_state = HumanoidCharacterState.PhysicalState.KNOCKED_OUT
+	gun.emit_signal("reload_stage_finished", 0)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.main_hand_root, "the mount restores even while ragdolled")
+
+
+func test_second_start_does_not_double_mount() -> void:
+	# G1: first-press-wins; a second start must not mount a second gun nor
+	# steal the tracking.
+	var webley := await _spawn_gun(WEBLEY_SCENE)
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	_start_reload(gun)
+	await get_tree().process_frame
+	_start_reload(webley)
+	await get_tree().process_frame
+	assert_ne(webley.get_parent(), _character.off_hand_root, "the refused press must not mount")
+	assert_eq(gun.get_parent(), _character.off_hand_root, "the first press stays tracked and mounted")
+	webley.emit_signal("reload_stage_finished", 0)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.off_hand_root, "the second gun's signal must not end the tracked reload")
+	gun.emit_signal("reload_stage_finished", 0)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.main_hand_root, "only the tracked gun's completion restores")
+
+
+func test_scene_exit_travels_the_gun_with_the_character() -> void:
+	# G6: on scene exit the whole subtree (mounted gun included) tears down
+	# together; the coordinator's exit guard must never orphan the gun into
+	# the world.
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	_start_reload(gun)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.off_hand_root, "precondition: the gun rides the character subtree")
+	_character.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	assert_false(is_instance_valid(gun), "the gun goes down with the character, never orphaned")
+
+
+func test_mount_restore_runs_exactly_once_per_reload() -> void:
+	# G7: the end guard is single-shot; a completion followed by a stray
+	# abort signal must not process twice.
+	var gun := await _spawn_gun(LEE_SCENE)
+	_tolerate_lee_skeleton_pose_artifact()
+	_start_reload(gun)
+	await get_tree().process_frame
+	gun.emit_signal("reload_stage_finished", 0)
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.main_hand_root, "precondition: restored once")
+	gun.emit_signal("reload_aborted")
+	await get_tree().process_frame
+	assert_eq(gun.get_parent(), _character.main_hand_root, "the stray signal must not process again")
+	assert_eq(gun.transform, gun.get_hold_transform(), "the hold pose is untouched by the stray signal")

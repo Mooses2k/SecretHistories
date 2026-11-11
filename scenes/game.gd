@@ -47,6 +47,7 @@ var shard_has_spawned = false    # Tracks if the shard has spawned yet, so only 
 var _loaded_levels := {}
 var _empty_ambience = preload("res://resources/sounds/music/ambience_empty_(mastered).ogg")
 var light_resource = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/candle_lantern/candle_lantern.tscn")
+const SPYGLASS_ZOOM_CONTROLLER := preload("res://scenes/characters/player/spyglass_zoom_controller.gd")
 
 ### -----------------------------------------------------------------------------------------------
 
@@ -133,6 +134,7 @@ func spawn_player():
 
 	# Add initial equipment to player
 	player.inventory.add_item(light_resource.instantiate())
+	_attach_spyglass_zoom_controller(player)
 	#await player.inventory.get_offhand_item().ready
 	#print("Initial light of light-source")
 	
@@ -146,6 +148,17 @@ func spawn_player():
 
 
 ### Private Methods -------------------------------------------------------------------------------
+
+func _attach_spyglass_zoom_controller(player : HumanoidCharacter) -> void:
+	# 3.x parity: holding ablty|binocs_spyglass while carrying the spyglass
+	# tiny item zooms the camera (origin/main player_controller.gd:841-848).
+	# Attached at runtime so the player scene needs no scene-file edit.
+	var camera := player.get_node("ModelRoot/MainCamera") as Camera3D
+	var zoom_controller: Node = SPYGLASS_ZOOM_CONTROLLER.new()
+	zoom_controller.name = "SpyglassZoomController"
+	camera.add_child(zoom_controller)
+	zoom_controller.setup(camera, player.inventory)
+
 
 func _connect_staircase_events() -> void:
 	if not Events.is_connected("up_staircase_used", Callable(self, "_on_Events_up_staircase_used")):

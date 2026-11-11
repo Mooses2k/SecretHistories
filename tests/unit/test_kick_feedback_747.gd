@@ -2,9 +2,12 @@ extends GutTest
 
 ## Pins the 3.x kick feedback restored for issue #747: the movement lock
 ## while the kick window runs (origin/main player_controller.gd zeroed
-## move_direction while the kick timer ran) and the camera stress call the
-## frozen character.gd made on every kick (character.gd add_stress(0.25)),
-## plus the landed kick-on-door damage entry.
+## move_direction while the kick timer ran), the owner-ruled jump
+## suppression (once the kick fires the player is flatfooted: no movement
+## and no jump until the window ends, while jumping first and then kicking
+## stays legal), the camera stress call the frozen character.gd made on
+## every kick (character.gd add_stress(0.25)), and the landed kick-on-door
+## damage entry.
 
 const PLAYER_SCENE := "res://scenes/characters/player/player.tscn"
 const DOOR_SCENE := "res://scenes/objects/large_objects/doors/base_kinematic_door.tscn"
@@ -80,6 +83,60 @@ func test_kick_lock_stops_sprint_engagement() -> void:
 	character._physics_process(0.016)
 	assert_true(character.state.sprinting,
 			"sprint engages again after the window")
+
+
+func test_kick_window_blocks_jump_until_it_ends() -> void:
+	var character := _spawn_player()
+	character.input.jump = true
+	character.state.is_on_ground = true
+	assert_true(character.state.should_jump(),
+			"before a kick a grounded jump request passes")
+
+	character.kick(true)
+	assert_false(character.state.should_jump(),
+			"while the kick window runs the player is flatfooted: no jump")
+
+	character.state.time_since_kick = character.parameters.kick_cooldown + 0.1
+	assert_true(character.state.should_jump(),
+			"jump resumes after the window ends")
+
+
+func test_jump_then_kick_stays_legal() -> void:
+	# Airborne jump-first kick: the kick itself is never blocked, whatever the
+	# jump state is.
+	var character := _spawn_player()
+	character.state.is_on_ground = false
+	character.input.jump = true
+	var stamina_before := character.state.stamina
+	character.kick(true)
+	assert_almost_eq(stamina_before - character.state.stamina,
+			character.parameters.kick_stamina_cost, 0.0001,
+			"the kick fires while airborne")
+	assert_almost_eq(character.get_node("ModelRoot/MainCamera").stress, 0.25,
+			0.0001, "the airborne kick lands its camera feedback")
+	# And the recovery window starts immediately: no jump control mid-air.
+	assert_false(character.state.should_jump(),
+			"after an airborne kick the player is flatfooted mid-air")
+
+
+func test_airborne_kick_locks_input_until_the_window_ends() -> void:
+	var character := _spawn_player()
+	character.state.is_on_ground = false
+	character.kick(true)
+	# Still inside the window while airborne: falling with no control.
+	character.state.time_since_kick = character.parameters.kick_cooldown * 0.5
+	character.input.jump = true
+	character.state.is_on_ground = false
+	assert_false(character.state.should_jump(),
+			"no jump control while the airborne kick window runs")
+	# Landing inside the window does not lift the flatfootedness.
+	character.state.is_on_ground = true
+	assert_false(character.state.should_jump(),
+			"landing inside the window stays flatfooted")
+	# The window ends: control returns.
+	character.state.time_since_kick = character.parameters.kick_cooldown + 0.1
+	assert_true(character.state.should_jump(),
+			"jump control returns once the window ends")
 
 
 func test_kick_adds_camera_stress() -> void:

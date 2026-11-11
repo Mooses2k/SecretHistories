@@ -64,6 +64,11 @@ func get_facing_vector() -> Vector3:
 	return -facing.z
 
 func should_jump():
+	# Kick recovery flatfootedness (issue #747 owner ruling): while the kick
+	# window runs the player is recovering and cannot jump; jumping first and
+	# then kicking stays legal because the kick itself is never blocked.
+	if time_since_kick < parameters.kick_cooldown:
+		return false
 	return is_on_ground and input.jump
 
 func set_durability(value : int) -> void:

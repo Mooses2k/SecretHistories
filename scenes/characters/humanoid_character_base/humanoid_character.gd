@@ -67,8 +67,12 @@ static func movement_noise_for(material : AudioLibrary.FOOTSTEP_TYPES, sprinting
 ## line 231-233 zeroed character_state.move_direction while the kick timer
 ## ran). The 3.x window was the one-shot KickTimer's default 1.0 s wait,
 ## which equals parameters.kick_cooldown here, so the cooldown clock is the
-## lock window. Jump input stays live, so jumpkicks still work, and dodge
-## (a dev4 behavior) reads raw input and keeps its own rules.
+## lock window. Owner ruling on top: once the kick fires the player is
+## flatfooted for the window, so JUMP is suppressed too (state.should_jump
+## checks the same clock); jumping FIRST and then kicking stays legal, and
+## a kick fired mid-air starts the window airborne with no input control
+## until it ends. Dodge (a dev4 behavior) reads raw input and keeps its own
+## rules.
 func movement_intent() -> Vector3:
 	if state.time_since_kick < parameters.kick_cooldown:
 		return Vector3.ZERO

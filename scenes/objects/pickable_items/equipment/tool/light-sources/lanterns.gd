@@ -41,7 +41,12 @@ func _process(delta):
 		_on_light_depleted()
 	# With Spotlight3D, the light doesn't fall on the holder, but they should still be visible
 	if is_instance_valid(owner_character):
-		if is_lit and owner_character.light_level < 0.01:
+		# Held lit light forces holder light_level to at least 0.01 (3.x
+		# lanterns.gd:43-45) so the holder stays visible to sensors. Skip
+		# owners without the property: the active humanoid chain declares no
+		# light_level until the sight-model port lands, and reading a missing
+		# property is a hard script error every frame.
+		if is_lit and "light_level" in owner_character and owner_character.light_level < 0.01:
 			owner_character.light_level = 0.01
 
 

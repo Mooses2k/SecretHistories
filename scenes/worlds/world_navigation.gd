@@ -39,8 +39,8 @@ func is_cell_walkable(cell_index : int) -> bool:
 	if result:
 		var room_data = data.get_cell_meta(cell_index, WorldData.CellMetaKeys.META_ROOM_DATA)
 		if room_data is RoomData:
-			result = result and room_data.type != RoomData.OriginalPurpose.UP_STAIRCASE
-			result = result and room_data.type != RoomData.OriginalPurpose.DOWN_STAIRCASE
+			result = result and room_data.type != WorldData.OriginalPurpose.UP_STAIRCASE
+			result = result and room_data.type != WorldData.OriginalPurpose.DOWN_STAIRCASE
 	if result:
 		var spawn_data = data.get_objects_to_spawn().get(cell_index)
 		# FIXME : This is a hack to determine which cells the sarcophagus will actually block

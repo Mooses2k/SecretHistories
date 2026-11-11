@@ -123,8 +123,8 @@ static func remove_used_cells(world_data: WorldData, cells: Array) -> Array:
 	# Remove player spawn cells
 	if world_data.is_spawn_position_valid():
 		var player_cells := [
-			world_data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.UP_STAIRCASE),
-			world_data.get_player_spawn_position_as_index(RoomData.OriginalPurpose.DOWN_STAIRCASE),
+			world_data.get_player_spawn_position_as_index(WorldData.OriginalPurpose.UP_STAIRCASE),
+			world_data.get_player_spawn_position_as_index(WorldData.OriginalPurpose.DOWN_STAIRCASE),
 		]
 		for player_cell in player_cells:
 			filtered_cells.erase(player_cell)

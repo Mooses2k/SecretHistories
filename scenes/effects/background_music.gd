@@ -313,7 +313,7 @@ func _resolve_room_ambient_stream_for_data(world_data : WorldData, p_cell_index 
 
 ## RoomPurpose resources live on the level's GenerateRoomPurposes generation
 ## step; purpose_id is stored as a string ("1") that names a
-## RoomData.OriginalPurpose index, so compare stringified.
+## WorldData.OriginalPurpose index, so compare stringified.
 func _get_purpose_for_room_type(purpose_step : Node, p_room_type : int) -> RoomPurpose:
 	for value in purpose_step.purpose_resources:
 		var purpose := value as RoomPurpose

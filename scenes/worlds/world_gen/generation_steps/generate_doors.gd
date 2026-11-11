@@ -70,8 +70,8 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 				# Don't allow doors that opening towards a staircase room
 				var room_data = data.get_cell_meta(cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
 				if is_instance_valid(room_data) and	(
-					room_data.type == RoomData.OriginalPurpose.DOWN_STAIRCASE or
-					room_data.type == RoomData.OriginalPurpose.UP_STAIRCASE
+					room_data.type == WorldData.OriginalPurpose.DOWN_STAIRCASE or
+					room_data.type == WorldData.OriginalPurpose.UP_STAIRCASE
 				):
 					# This cell is a staircase cell, skip
 					continue
@@ -81,7 +81,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 				
 				# Check if the neighboring cell is an up staircase by examining room data
 				var other_room_data = data.get_cell_meta(other_cell, data.CellMetaKeys.META_ROOM_DATA) as RoomData
-				var is_up_staircase = other_room_data != null and other_room_data.type == RoomData.OriginalPurpose.UP_STAIRCASE
+				var is_up_staircase = other_room_data != null and other_room_data.type == WorldData.OriginalPurpose.UP_STAIRCASE
 				
 				var _is_staircase = is_down_staircase or is_up_staircase
 

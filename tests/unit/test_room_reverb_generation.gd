@@ -19,8 +19,8 @@ func before_each():
 	GameManager.game = null
 	data = WorldData.new()
 	data.resize(16, 16)
-	data.fill_room_data(ROOM_A_RECT, RoomData.OriginalPurpose.CRYPT)
-	data.fill_room_data(ROOM_B_RECT, RoomData.OriginalPurpose.FOUNTAIN)
+	data.fill_room_data(ROOM_A_RECT, WorldData.OriginalPurpose.CRYPT)
+	data.fill_room_data(ROOM_B_RECT, WorldData.OriginalPurpose.FOUNTAIN)
 
 
 func _run_reverb_step() -> void:
@@ -43,8 +43,8 @@ func test_one_area_per_real_room_never_one_per_cell():
 	var reverb_cells := _reverb_spawn_cells()
 	assert_eq(reverb_cells.size(), 2, "exactly one reverb spawn per room")
 	assert_eq(data.get_objects_to_spawn().size(), 2, "no other spawn data placed")
-	var room_a: RoomData = data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT)[0]
-	var room_b: RoomData = data.get_rooms_of_type(RoomData.OriginalPurpose.FOUNTAIN)[0]
+	var room_a: RoomData = data.get_rooms_of_type(WorldData.OriginalPurpose.CRYPT)[0]
+	var room_b: RoomData = data.get_rooms_of_type(WorldData.OriginalPurpose.FOUNTAIN)[0]
 	assert_true(reverb_cells[0] in room_a.cell_indexes or reverb_cells[0] in room_b.cell_indexes,
 		"each anchor cell belongs to a real room")
 	assert_true(reverb_cells[1] in room_a.cell_indexes or reverb_cells[1] in room_b.cell_indexes,
@@ -53,7 +53,7 @@ func test_one_area_per_real_room_never_one_per_cell():
 
 func test_empty_type_rooms_are_skipped():
 	var empty_rect := Rect2(2, 8, 2, 2)
-	data.fill_room_data(empty_rect, RoomData.OriginalPurpose.EMPTY)
+	data.fill_room_data(empty_rect, WorldData.OriginalPurpose.EMPTY)
 	_run_reverb_step()
 	for cell_index in _reverb_spawn_cells():
 		var pos = data.get_int_position_from_cell_index(cell_index)
@@ -104,8 +104,8 @@ func test_step_draws_no_rng_two_runs_are_identical():
 
 	data = WorldData.new()
 	data.resize(16, 16)
-	data.fill_room_data(ROOM_A_RECT, RoomData.OriginalPurpose.CRYPT)
-	data.fill_room_data(ROOM_B_RECT, RoomData.OriginalPurpose.FOUNTAIN)
+	data.fill_room_data(ROOM_A_RECT, WorldData.OriginalPurpose.CRYPT)
+	data.fill_room_data(ROOM_B_RECT, WorldData.OriginalPurpose.FOUNTAIN)
 	_run_reverb_step()
 	var second_cells := _reverb_spawn_cells()
 	assert_eq(first_cells, second_cells, "anchor cells are deterministic across runs")
@@ -118,7 +118,7 @@ func test_step_draws_no_rng_two_runs_are_identical():
 
 func test_anchor_avoids_occupied_cells():
 	var occupied := []
-	for room_cell in data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT)[0].cell_indexes:
+	for room_cell in data.get_rooms_of_type(WorldData.OriginalPurpose.CRYPT)[0].cell_indexes:
 		var pos = data.get_int_position_from_cell_index(room_cell)
 		if pos[0] == 3:
 			var dummy := SpawnData.new()
@@ -131,5 +131,5 @@ func test_anchor_avoids_occupied_cells():
 	var reverb_cells := _reverb_spawn_cells()
 	assert_eq(reverb_cells.size(), 2, "reverb still placed once per room")
 	assert_false(reverb_cells[0] in occupied, "reverb anchor is not an occupied cell")
-	assert_true(reverb_cells[0] in data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT)[0].cell_indexes,
+	assert_true(reverb_cells[0] in data.get_rooms_of_type(WorldData.OriginalPurpose.CRYPT)[0].cell_indexes,
 		"reverb anchor stays inside the room")

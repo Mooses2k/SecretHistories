@@ -254,8 +254,8 @@ func test_room_resolution_maps_crypt_null_track_and_no_room() -> void:
 	var world_data := WorldData.new()
 	world_data.resize(8, 8)
 	# crypt room cells 1..3 x 1..3, fountain room cells 5..6 x 1..2
-	world_data.fill_room_data(Rect2(1, 1, 3, 3), RoomData.OriginalPurpose.CRYPT)
-	world_data.fill_room_data(Rect2(5, 1, 2, 2), RoomData.OriginalPurpose.FOUNTAIN)
+	world_data.fill_room_data(Rect2(1, 1, 3, 3), WorldData.OriginalPurpose.CRYPT)
+	world_data.fill_room_data(Rect2(5, 1, 2, 2), WorldData.OriginalPurpose.FOUNTAIN)
 
 	var step := Node.new()
 	step.set_script(load(PURPOSE_STEP_SCRIPT))
@@ -278,7 +278,7 @@ func test_room_resolution_maps_crypt_null_track_and_no_room() -> void:
 func test_room_resolution_matches_string_purpose_ids() -> void:
 	var world_data := WorldData.new()
 	world_data.resize(8, 8)
-	world_data.fill_room_data(Rect2(1, 1, 3, 3), RoomData.OriginalPurpose.STATUE_GALLERY)
+	world_data.fill_room_data(Rect2(1, 1, 3, 3), WorldData.OriginalPurpose.STATUE_GALLERY)
 
 	var step := Node.new()
 	step.set_script(load(PURPOSE_STEP_SCRIPT))

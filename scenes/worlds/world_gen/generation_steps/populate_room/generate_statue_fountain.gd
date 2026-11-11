@@ -40,7 +40,7 @@ var _center_filter := CenterCellFilter.new()
 func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
 	min_tile_size = Vector2(room_purpose_data.requirements[0].min_x_tiles, room_purpose_data.requirements[0].min_y_tiles)
 
-	var statue_fountain_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.FOUNTAIN)
+	var statue_fountain_rooms := data.get_rooms_of_type(WorldData.OriginalPurpose.FOUNTAIN)
 	print("DEBUG: Found ", statue_fountain_rooms.size(), " fountain rooms")
 
 	if statue_fountain_rooms.is_empty():

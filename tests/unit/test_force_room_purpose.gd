@@ -15,9 +15,9 @@ const StartGameSettingsScript = preload("res://scenes/ui/start_game_settings.gd"
 const ProceduralWorldScene = preload(
 		"res://scenes/worlds/procedural_world/procedural_world.tscn")
 
-const STATUE := RoomData.OriginalPurpose.STATUE_GALLERY
-const TROPHY := RoomData.OriginalPurpose.TROPHY_ROOM
-const UP_STAIRS := RoomData.OriginalPurpose.UP_STAIRCASE
+const STATUE := WorldData.OriginalPurpose.STATUE_GALLERY
+const TROPHY := WorldData.OriginalPurpose.TROPHY_ROOM
+const UP_STAIRS := WorldData.OriginalPurpose.UP_STAIRCASE
 
 var _games: Array = []
 
@@ -95,9 +95,9 @@ func _make_statue_purpose(p_max_amount := 2) -> RoomPurpose:
 func _make_rooms_data() -> WorldData:
 	var data := WorldData.new()
 	data.resize(24, 24)
-	_add_room(data, Rect2(2, 2, 6, 6), RoomData.OriginalPurpose.EMPTY, true)
-	_add_room(data, Rect2(10, 2, 4, 4), RoomData.OriginalPurpose.EMPTY, true)
-	_add_room(data, Rect2(2, 10, 8, 8), RoomData.OriginalPurpose.EMPTY, false)
+	_add_room(data, Rect2(2, 2, 6, 6), WorldData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(10, 2, 4, 4), WorldData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(2, 10, 8, 8), WorldData.OriginalPurpose.EMPTY, false)
 	_add_room(data, Rect2(16, 16, 2, 2), UP_STAIRS, true)
 	return data
 
@@ -168,7 +168,7 @@ func test_force_assigns_only_compatible_rooms_and_leaves_stairs():
 	assert_eq(forced.fog_rule, RoomPurpose.FogRule.OFTEN, "fog rule copied onto forced room")
 	assert_eq(forced.fog_chance, 0.5, "fog chance copied onto forced room")
 
-	assert_eq(data.get_rooms_of_type(RoomData.OriginalPurpose.EMPTY).size(), 2,
+	assert_eq(data.get_rooms_of_type(WorldData.OriginalPurpose.EMPTY).size(), 2,
 			"small room and doorway-less room stay EMPTY")
 	var stairs := data.get_rooms_of_type(UP_STAIRS)
 	assert_eq(stairs.size(), 1, "entry stairs untouched")
@@ -179,15 +179,15 @@ func test_force_overrides_max_amount_assigning_all_compatible_rooms():
 	_make_game(_make_settings(_variant_index("STATUE_GALLERY")))
 	var data := WorldData.new()
 	data.resize(24, 24)
-	_add_room(data, Rect2(2, 2, 6, 6), RoomData.OriginalPurpose.EMPTY, true)
-	_add_room(data, Rect2(10, 10, 6, 6), RoomData.OriginalPurpose.EMPTY, true)
-	_add_room(data, Rect2(18, 2, 4, 4), RoomData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(2, 2, 6, 6), WorldData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(10, 10, 6, 6), WorldData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(18, 2, 4, 4), WorldData.OriginalPurpose.EMPTY, true)
 
 	_run_purposes_step(data, [_make_statue_purpose(1)])  # max_amount 1
 
 	assert_eq(data.get_rooms_of_type(STATUE).size(), 2,
 			"both compatible rooms forced, max_amount overridden")
-	assert_eq(data.get_rooms_of_type(RoomData.OriginalPurpose.EMPTY).size(), 1,
+	assert_eq(data.get_rooms_of_type(WorldData.OriginalPurpose.EMPTY).size(), 1,
 			"only the small room stays EMPTY")
 
 
@@ -197,15 +197,15 @@ func test_off_keeps_existing_max_amount_truncation():
 	_make_game(null)
 	var data := WorldData.new()
 	data.resize(24, 24)
-	_add_room(data, Rect2(2, 2, 6, 6), RoomData.OriginalPurpose.EMPTY, true)
-	_add_room(data, Rect2(10, 10, 6, 6), RoomData.OriginalPurpose.EMPTY, true)
-	_add_room(data, Rect2(18, 2, 4, 4), RoomData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(2, 2, 6, 6), WorldData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(10, 10, 6, 6), WorldData.OriginalPurpose.EMPTY, true)
+	_add_room(data, Rect2(18, 2, 4, 4), WorldData.OriginalPurpose.EMPTY, true)
 
 	_run_purposes_step(data, [_make_statue_purpose(1)])  # max_amount 1
 
 	assert_eq(data.get_rooms_of_type(STATUE).size(), 1,
 			"OFF: existing max_amount truncation still limits assignment")
-	assert_eq(data.get_rooms_of_type(RoomData.OriginalPurpose.EMPTY).size(), 2,
+	assert_eq(data.get_rooms_of_type(WorldData.OriginalPurpose.EMPTY).size(), 2,
 			"OFF: unchosen rooms stay EMPTY")
 
 
@@ -222,7 +222,7 @@ func _run_rooms_step(data: WorldData, settings: SettingsClass, seed_value: int) 
 	rooms_step.room_size_max = 3
 	rooms_step.purpose_step_path = rooms_step.get_path_to(purposes_step)
 	rooms_step._execute_step(data, {}, seed_value)
-	return data.get_rooms_of_type(RoomData.OriginalPurpose.EMPTY)
+	return data.get_rooms_of_type(WorldData.OriginalPurpose.EMPTY)
 
 
 func test_rooms_step_guarantees_one_room_in_forced_size_band():
@@ -281,8 +281,8 @@ func _room_rects(data: WorldData) -> Array:
 
 func _purpose_type_counts(data: WorldData) -> Dictionary:
 	var counts := {}
-	for key in RoomData.OriginalPurpose.keys():
-		var purpose_type: int = RoomData.OriginalPurpose[key]
+	for key in WorldData.OriginalPurpose.keys():
+		var purpose_type: int = WorldData.OriginalPurpose[key]
 		counts[key] = data.get_rooms_of_type(purpose_type).size()
 	return counts
 
@@ -300,7 +300,7 @@ func test_full_generation_forces_statue_gallery_on_the_floor():
 		assert_lte(room.rect2.size.y, 9, "statue gallery within the purpose max size")
 
 	assert_gte(data.get_rooms_of_type(UP_STAIRS).size(), 1, "entry stairs still present")
-	assert_gte(data.get_rooms_of_type(RoomData.OriginalPurpose.DOWN_STAIRCASE).size(), 1,
+	assert_gte(data.get_rooms_of_type(WorldData.OriginalPurpose.DOWN_STAIRCASE).size(), 1,
 			"exit stairs still present")
 
 

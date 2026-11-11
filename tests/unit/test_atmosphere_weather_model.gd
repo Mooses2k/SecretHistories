@@ -72,27 +72,27 @@ func _stat_data() -> WorldData:
 	var data := WorldData.new()
 	data.resize(80, 44)
 	for index in FOUNTAIN_ROOMS:
-		data.fill_room_data(Rect2(2 + index * 6, 2, 3, 3), RoomData.OriginalPurpose.FOUNTAIN)
+		data.fill_room_data(Rect2(2 + index * 6, 2, 3, 3), WorldData.OriginalPurpose.FOUNTAIN)
 	for index in STATUE_ROOMS:
-		data.fill_room_data(Rect2(2 + index * 6, 8, 3, 3), RoomData.OriginalPurpose.STATUE_GALLERY)
+		data.fill_room_data(Rect2(2 + index * 6, 8, 3, 3), WorldData.OriginalPurpose.STATUE_GALLERY)
 	for index in SOMETIMES_ROOMS:
 		data.fill_room_data(
 			Rect2(2 + (index % 12) * 6, 14 + (index / 12) * 4, 3, 3),
-			RoomData.OriginalPurpose.CRYPT)
+			WorldData.OriginalPurpose.CRYPT)
 	for index in NEVER_ROOMS:
-		data.fill_room_data(Rect2(2 + index * 6, 32, 3, 3), RoomData.OriginalPurpose.TROPHY_ROOM)
+		data.fill_room_data(Rect2(2 + index * 6, 32, 3, 3), WorldData.OriginalPurpose.TROPHY_ROOM)
 	# Assign the rules and per-purpose chances the way generate_room_purposes
 	# would: the shipped chances on the often fleets, the small fallback on
 	# crypts, NEVER (chance irrelevant) on trophy rooms.
 	for room in data.get_all_rooms():
 		match room.type:
-			RoomData.OriginalPurpose.FOUNTAIN:
+			WorldData.OriginalPurpose.FOUNTAIN:
 				room.fog_rule = RoomPurpose.FogRule.OFTEN
 				room.fog_chance = 0.95
-			RoomData.OriginalPurpose.STATUE_GALLERY:
+			WorldData.OriginalPurpose.STATUE_GALLERY:
 				room.fog_rule = RoomPurpose.FogRule.OFTEN
 				room.fog_chance = 0.5
-			RoomData.OriginalPurpose.TROPHY_ROOM:
+			WorldData.OriginalPurpose.TROPHY_ROOM:
 				room.fog_rule = RoomPurpose.FogRule.NEVER
 	return data
 
@@ -174,19 +174,19 @@ func test_fog_presence_follows_the_room_fog_rule():
 		for room in data.get_all_rooms():
 			var fogged: bool = paths.has(room)
 			match room.type:
-				RoomData.OriginalPurpose.FOUNTAIN:
+				WorldData.OriginalPurpose.FOUNTAIN:
 					fountain_total += 1
 					if fogged:
 						fountain_fogged += 1
-				RoomData.OriginalPurpose.STATUE_GALLERY:
+				WorldData.OriginalPurpose.STATUE_GALLERY:
 					statue_total += 1
 					if fogged:
 						statue_fogged += 1
-				RoomData.OriginalPurpose.CRYPT:
+				WorldData.OriginalPurpose.CRYPT:
 					sometimes_total += 1
 					if fogged:
 						sometimes_fogged += 1
-				RoomData.OriginalPurpose.TROPHY_ROOM:
+				WorldData.OriginalPurpose.TROPHY_ROOM:
 					if fogged:
 						never_fogged += 1
 	assert_gt(fountain_total, 100, "enough fountain-fleet samples observed")
@@ -298,17 +298,17 @@ func test_purpose_fog_rule_flows_onto_rooms_end_to_end():
 	var assigned := 0
 	for room in data.get_all_rooms():
 		match room.type:
-			RoomData.OriginalPurpose.FOUNTAIN:
+			WorldData.OriginalPurpose.FOUNTAIN:
 				assert_eq(room.fog_rule, RoomPurpose.FogRule.OFTEN,
 					"assigned fountain room carries the OFTEN rule")
 				assert_eq(room.fog_chance, 0.95, "fountain chance copied from the purpose")
 				assigned += 1
-			RoomData.OriginalPurpose.STATUE_GALLERY:
+			WorldData.OriginalPurpose.STATUE_GALLERY:
 				assert_eq(room.fog_rule, RoomPurpose.FogRule.OFTEN,
 					"assigned statue room carries the OFTEN rule")
 				assert_eq(room.fog_chance, 0.5, "statue chance copied from the purpose")
 				assigned += 1
-			RoomData.OriginalPurpose.CRYPT, RoomData.OriginalPurpose.TROPHY_ROOM:
+			WorldData.OriginalPurpose.CRYPT, WorldData.OriginalPurpose.TROPHY_ROOM:
 				assert_eq(room.fog_rule, RoomPurpose.FogRule.SOMETIMES,
 					"assigned default-purpose room carries the SOMETIMES rule")
 				assert_eq(room.fog_chance, 0.08, "default-purpose room uses the fallback chance")
@@ -317,9 +317,9 @@ func test_purpose_fog_rule_flows_onto_rooms_end_to_end():
 
 
 func _add_room_with_doorways(data : WorldData, rect : Rect2, doorway_count : int) -> void:
-	data.fill_room_data(rect, RoomData.OriginalPurpose.EMPTY)
+	data.fill_room_data(rect, WorldData.OriginalPurpose.EMPTY)
 	# fill_room_data appends the new room last in the EMPTY list.
-	var room: RoomData = data.get_rooms_of_type(RoomData.OriginalPurpose.EMPTY).back()
+	var room: RoomData = data.get_rooms_of_type(WorldData.OriginalPurpose.EMPTY).back()
 	var doorways := {}
 	for direction in doorway_count:
 		doorways[direction] = [room.cell_indexes[0]]

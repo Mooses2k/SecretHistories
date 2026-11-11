@@ -25,12 +25,12 @@ func before_each():
 	GameManager.game = null
 	data = WorldData.new()
 	data.resize(16, 16)
-	data.fill_room_data(ROOM_A_RECT, RoomData.OriginalPurpose.CRYPT)
-	data.fill_room_data(ROOM_B_RECT, RoomData.OriginalPurpose.FOUNTAIN)
+	data.fill_room_data(ROOM_A_RECT, WorldData.OriginalPurpose.CRYPT)
+	data.fill_room_data(ROOM_B_RECT, WorldData.OriginalPurpose.FOUNTAIN)
 
 
 func _room_a() -> RoomData:
-	return data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT)[0]
+	return data.get_rooms_of_type(WorldData.OriginalPurpose.CRYPT)[0]
 
 
 func _run_fog_step(room_paths := {}, weather_scene_path := "") -> void:
@@ -85,7 +85,7 @@ func test_special_all_fog_floor_covers_every_real_room():
 
 func test_empty_type_rooms_are_skipped():
 	var empty_rect := Rect2(2, 8, 2, 2)
-	data.fill_room_data(empty_rect, RoomData.OriginalPurpose.EMPTY)
+	data.fill_room_data(empty_rect, WorldData.OriginalPurpose.EMPTY)
 	_run_fog_step({}, FOG_SCENE)
 	for cell_index in _fog_spawn_cells():
 		var pos = data.get_int_position_from_cell_index(cell_index)

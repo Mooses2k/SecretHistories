@@ -62,7 +62,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 			# the atmosphere group's presence roll reads them.
 			room.fog_rule = purpose.fog_rule
 			room.fog_chance = purpose.fog_chance
-			data.change_room_type(RoomData.OriginalPurpose.EMPTY, room.type, room)
+			data.change_room_type(WorldData.OriginalPurpose.EMPTY, room.type, room)
 			if is_forced:
 				_print_forced_assignment(room)
 
@@ -71,7 +71,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : i
 
 	print("\n-- data.rooms:")
 	for key in data.rooms:
-		print("\t%s: %s"%[RoomData.OriginalPurpose.keys()[key], data.rooms[key].size()])
+		print("\t%s: %s"%[WorldData.OriginalPurpose.keys()[key], data.rooms[key].size()])
 	print("-- END OF data.rooms\n")
 
 
@@ -102,7 +102,7 @@ func _purposes_with_forced_first(forced_name: String) -> Array:
 func _get_valid_rooms(data: WorldData, purpose: RoomPurpose) -> Array:
 	var valid_rooms := []
 	
-	var empty_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.EMPTY)
+	var empty_rooms := data.get_rooms_of_type(WorldData.OriginalPurpose.EMPTY)
 	for value in empty_rooms:
 		var empty_room := value as RoomData
 		if purpose.is_compatible(empty_room):

@@ -128,7 +128,7 @@ const DOORWAY_HINT = "doorway_"
 func _get_property_list() -> Array:
 	var properties: = []
 	
-	var enum_hint := (RoomData.OriginalPurpose.keys() as ",".join(PackedStringArray))
+	var enum_hint := (WorldData.OriginalPurpose.keys() as ",".join(PackedStringArray))
 	properties.append({
 		name = "room_purpose",
 		type = TYPE_INT,

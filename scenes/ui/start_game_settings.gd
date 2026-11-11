@@ -25,7 +25,7 @@ func add_generation_settings():
 
 ## Display names for the Force Room Purpose debug enum: OFF plus the purposes
 ## wired into procedural_world.tscn's GenerateRoomPurposes step, named after
-## their RoomData.OriginalPurpose keys. World generation matches the selected
+## their WorldData.OriginalPurpose keys. World generation matches the selected
 ## variant against those keys, so this list is display data: wiring a new
 ## purpose into the generation scene means adding its key here too.
 const FORCE_ROOM_PURPOSE_VARIANTS := ["OFF", "CRYPT", "FOUNTAIN", "STATUE_GALLERY", "TROPHY_ROOM"]

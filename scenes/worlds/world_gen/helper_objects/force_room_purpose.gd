@@ -36,16 +36,16 @@ static func get_forced_purpose_name_from_settings(settings: SettingsClass) -> St
 	return "" if variant == OFF_VARIANT else variant
 
 
-## Display name of a purpose: its RoomData.OriginalPurpose enum key. The
+## Display name of a purpose: its WorldData.OriginalPurpose enum key. The
 ## editor stores purpose_id as an int while the .tres files carry it as a
 ## digit string, so int() covers both representations.
 static func get_purpose_display_name(purpose: RoomPurpose) -> String:
 	return get_purpose_display_name_from_type(int(purpose.purpose_id))
 
 
-## Display name of a RoomData.OriginalPurpose type value (enum key).
+## Display name of a WorldData.OriginalPurpose type value (enum key).
 static func get_purpose_display_name_from_type(purpose_type: int) -> String:
-	var purpose_names := RoomData.OriginalPurpose.keys()
+	var purpose_names := WorldData.OriginalPurpose.keys()
 	if purpose_type < 0 or purpose_type >= purpose_names.size():
 		return ""
 	return str(purpose_names[purpose_type])

@@ -100,13 +100,13 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		# room type via RoomData.fog_rule; dust stays a uniform per-room roll.
 		if _rng.randf() < fog_type_chance:
 			for room in data.get_all_rooms():
-				if room.type == RoomData.OriginalPurpose.EMPTY:
+				if room.type == WorldData.OriginalPurpose.EMPTY:
 					continue
 				if _rng.randf() < _fog_presence_chance(room):
 					fog_paths[room] = _pick_fog_variant()
 		else:
 			for room in data.get_all_rooms():
-				if room.type == RoomData.OriginalPurpose.EMPTY:
+				if room.type == WorldData.OriginalPurpose.EMPTY:
 					continue
 				if _rng.randf() < dust_room_chance:
 					dust_paths[room] = _pick_dust_variant()
@@ -114,7 +114,7 @@ func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : in
 		# Special all-fog floor: every real room fogs, each with its own
 		# weighted variant pick so a floor mixes the three heights.
 		for room in data.get_all_rooms():
-			if room.type == RoomData.OriginalPurpose.EMPTY:
+			if room.type == WorldData.OriginalPurpose.EMPTY:
 				continue
 			fog_paths[room] = _pick_fog_variant()
 	else:

@@ -44,7 +44,7 @@ const REVERB_AREA_SCENE_PATH : String = "res://scenes/effects/room_reverb_area.t
 func _execute_step(data : WorldData, _gen_data : Dictionary, _generation_seed : int) -> void:
 	for room_value in data.get_all_rooms():
 		var room := room_value as RoomData
-		if room.type == RoomData.OriginalPurpose.EMPTY:
+		if room.type == WorldData.OriginalPurpose.EMPTY:
 			continue
 		_spawn_room_reverb(data, room)
 

@@ -99,7 +99,7 @@ func is_compatible(room_data: RoomData) -> bool:
 func _get_property_list() -> Array:
 	var properties: = []
 	
-	var enum_hint := ",".join(RoomData.OriginalPurpose.keys() as PackedStringArray)
+	var enum_hint := ",".join(WorldData.OriginalPurpose.keys() as PackedStringArray)
 	properties.append({
 		name = "purpose_id",
 		type = TYPE_INT,

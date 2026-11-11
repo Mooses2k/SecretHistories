@@ -65,7 +65,7 @@ func _execute_step(data : WorldData, _gen_data : Dictionary, _generation_seed : 
 
 	for room_value in data.get_all_rooms():
 		var room := room_value as RoomData
-		if room.type == RoomData.OriginalPurpose.EMPTY:
+		if room.type == WorldData.OriginalPurpose.EMPTY:
 			continue
 		var path: String = room_paths.get(room, weather_scene_path)
 		if path.is_empty():

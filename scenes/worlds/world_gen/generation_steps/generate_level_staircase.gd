@@ -47,14 +47,14 @@ func _generate_rooms(data : WorldData, gen_data : Dictionary, generation_seed : 
 	var cells_pool := _get_pool_of_possible_cells(data)
 	
 	var entry_room := _gen_staircase_room_rect(data, random, cells_pool)
-	data.fill_room_data(entry_room, RoomData.OriginalPurpose.UP_STAIRCASE)
+	data.fill_room_data(entry_room, WorldData.OriginalPurpose.UP_STAIRCASE)
 	rooms.append(entry_room)
 	
 	if not gen_data[LAST_FLOOR_KEY]:
 		cells_pool = _update_pool_of_possible_cells(data, cells_pool, entry_room)
 		
 		var exit_room := _gen_staircase_room_rect(data, random, cells_pool)
-		data.fill_room_data(exit_room, RoomData.OriginalPurpose.DOWN_STAIRCASE)
+		data.fill_room_data(exit_room, WorldData.OriginalPurpose.DOWN_STAIRCASE)
 		rooms.append(exit_room)
 		var index := data.get_cell_index_from_int_position(
 				exit_room.position.x, exit_room.position.y

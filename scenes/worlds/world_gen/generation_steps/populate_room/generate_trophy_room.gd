@@ -58,7 +58,7 @@ var _rng := RandomNumberGenerator.new()
 ### Private Methods -------------------------------------------------------------------------------
 
 func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
-	var trophy_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.TROPHY_ROOM)
+	var trophy_rooms := data.get_rooms_of_type(WorldData.OriginalPurpose.TROPHY_ROOM)
 	if trophy_rooms.is_empty():
 		return
 

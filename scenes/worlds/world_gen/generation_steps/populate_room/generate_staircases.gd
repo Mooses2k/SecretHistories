@@ -32,17 +32,17 @@ const PATH_DOWN_STAIRCASE = "res://scenes/objects/large_objects/staircases/stair
 
 func _execute_step(data : WorldData, gen_data : Dictionary, generation_seed : int):
 	var staircase_rooms := []
-	staircase_rooms.append_array(data.get_rooms_of_type(RoomData.OriginalPurpose.UP_STAIRCASE))
-	staircase_rooms.append_array(data.get_rooms_of_type(RoomData.OriginalPurpose.DOWN_STAIRCASE))
+	staircase_rooms.append_array(data.get_rooms_of_type(WorldData.OriginalPurpose.UP_STAIRCASE))
+	staircase_rooms.append_array(data.get_rooms_of_type(WorldData.OriginalPurpose.DOWN_STAIRCASE))
 	for room in staircase_rooms:
 		_populate_staircase(room, data)
 
 
 func _populate_staircase(room: RoomData, world_data: WorldData) -> void:
 	var spawn_data := SpawnData.new()
-	if room.type == room.OriginalPurpose.UP_STAIRCASE:
+	if room.type == WorldData.OriginalPurpose.UP_STAIRCASE:
 		spawn_data.scene_path = PATH_UP_STAIRCASE
-	elif room.type == room.OriginalPurpose.DOWN_STAIRCASE:
+	elif room.type == WorldData.OriginalPurpose.DOWN_STAIRCASE:
 		spawn_data.scene_path = PATH_DOWN_STAIRCASE
 	else:
 		push_error("Not a staircase room | room_data: %s"%[room])

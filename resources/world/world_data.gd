@@ -97,6 +97,28 @@ enum SurfaceType {
 	TILE
 }
 
+# The original purpose a generated room was laid out for. Member order and
+# values are parity-stable: room type ints and purpose_id strings are derived
+# from these keys, so they must never be reordered.
+enum OriginalPurpose {
+	EMPTY,
+	CRYPT, # (1 door)
+	FOUNTAIN, # (2+ doors)
+	STATUE_GALLERY,
+	UP_STAIRCASE,
+	DOWN_STAIRCASE,
+	TROPHY_ROOM,
+#	ENTRY, # (2x2 max, 2+ doors)
+#	ALCOVE, # (1x2 max, 1 door)
+#	CHAPEL,
+#	SHRINE, # (3x3 max)
+#	MEDITATION_CHAMBER, # (2x2 max, 1 door, no wall lighting)
+#	MUSEUM,
+#	BESTIARY,
+#	RECORD_ROOM, # (3x3 min)
+#	WELL # (2x2 max)
+}
+
 var cell_surface_type : PackedByteArray
 
 # Physical parameters of the world
@@ -178,7 +200,7 @@ var pillar_tile_index : PackedInt32Array
 var ceiling_tile_index : PackedInt32Array
 
 # Player spawn position in World Coordinates
-# Keys are RoomData.OriginalPurpose STAIRCASE values
+# Keys are OriginalPurpose STAIRCASE values
 # Values are dictionaries in the format:
 # { "position": Vector2, "y_rotation": radians_angle }
 var player_spawn_positions := {}
@@ -353,7 +375,7 @@ func set_room(type: int, p_room_data: RoomData) -> void:
 		rooms[type] = []
 	elif rooms[type].has(p_room_data):
 		push_warning("room data already on rooms[%s]: %s" % [
-				RoomData.OriginalPurpose.keys()[type],
+				OriginalPurpose.keys()[type],
 				p_room_data
 		])
 		return
@@ -404,7 +426,7 @@ func get_rooms_of_type(p_type: int) -> Array:
 func get_starting_room_data() -> RoomData:
 	var value: RoomData = null
 
-	var starting_rooms := get_rooms_of_type(RoomData.OriginalPurpose.UP_STAIRCASE)
+	var starting_rooms := get_rooms_of_type(OriginalPurpose.UP_STAIRCASE)
 	if starting_rooms.is_empty():
 		push_error("No starting room found.")
 		return value
@@ -438,8 +460,8 @@ func get_player_spawn_position_as_index(staircase_type: int) -> int:
 	var value := -1
 
 	if (
-			staircase_type == RoomData.OriginalPurpose.DOWN_STAIRCASE
-			or staircase_type == RoomData.OriginalPurpose.UP_STAIRCASE
+			staircase_type == OriginalPurpose.DOWN_STAIRCASE
+			or staircase_type == OriginalPurpose.UP_STAIRCASE
 	):
 		value = get_cell_index_from_local_position(player_spawn_positions[staircase_type])
 
@@ -535,7 +557,7 @@ func is_cell_free(cell_index: int) -> bool:
 	var value := true
 
 	var staircase_cells := []
-	for type in [RoomData.OriginalPurpose.DOWN_STAIRCASE, RoomData.OriginalPurpose.UP_STAIRCASE]:
+	for type in [OriginalPurpose.DOWN_STAIRCASE, OriginalPurpose.UP_STAIRCASE]:
 		if rooms.has(type):
 			for room in rooms[type]:
 				staircase_cells.append_array(room.cell_indexes)

@@ -7,24 +7,8 @@ extends Resource
 
 #--- enums ----------------------------------------------------------------------------------------
 
-enum OriginalPurpose {
-	EMPTY,
-	CRYPT, # (1 door)
-	FOUNTAIN, # (2+ doors)
-	STATUE_GALLERY,
-	UP_STAIRCASE,
-	DOWN_STAIRCASE,
-	TROPHY_ROOM,
-#	ENTRY, # (2x2 max, 2+ doors) 
-#	ALCOVE, # (1x2 max, 1 door)
-#	CHAPEL,
-#	SHRINE, # (3x3 max)  
-#	MEDITATION_CHAMBER, # (2x2 max, 1 door, no wall lighting)
-#	MUSEUM,
-#	BESTIARY,
-#	RECORD_ROOM, # (3x3 min)
-#	WELL # (2x2 max)
-}
+# Room purposes moved to WorldData.OriginalPurpose (issue #760); RoomData.type
+# holds a value from that enum.
 
 #enum CurrentUse{
 #	UNUSED,
@@ -52,7 +36,7 @@ enum OriginalPurpose {
 
 #--- public variables - order: export > normal var > onready --------------------------------------
 
-@export var type := OriginalPurpose.EMPTY
+@export var type := WorldData.OriginalPurpose.EMPTY
 # Fog weather rule copied from the room's RoomPurpose when the purpose is
 # assigned (generate_room_purposes.gd). Types without a purpose resource
 # (staircases) keep the small SOMETIMES default. Read by the atmosphere
@@ -82,9 +66,9 @@ var fog_chance := RoomPurpose.DEFAULT_FOG_CHANCE
 
 ### Built-in Virtual Overrides --------------------------------------------------------------------
 
-func _init(p_type := OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
-	var invalid_type_msg := "invalid type: %s, valid values are: %s"%[p_type, OriginalPurpose.keys()]
-	assert(p_type in OriginalPurpose.values(), invalid_type_msg)
+func _init(p_type := WorldData.OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
+	var invalid_type_msg := "invalid type: %s, valid values are: %s"%[p_type, WorldData.OriginalPurpose.keys()]
+	assert(p_type in WorldData.OriginalPurpose.values(), invalid_type_msg)
 	
 	type = p_type
 	rect2 = p_rect2
@@ -95,7 +79,7 @@ func _init(p_type := OriginalPurpose.EMPTY, p_rect2 := Rect2()) -> void:
 
 func _to_string() -> String:
 	var msg := "\n---- RoomData %s \n"%[get_instance_id()]
-	msg += "type: %s | rect2: %s | has_pillars: %s\n"%[OriginalPurpose.keys()[type], rect2, has_pillars]
+	msg += "type: %s | rect2: %s | has_pillars: %s\n"%[WorldData.OriginalPurpose.keys()[type], rect2, has_pillars]
 	msg += "cell_indexes: %s \n"%[cell_indexes]
 	msg += "---- RoomData End %s \n"%[get_instance_id()]
 	return msg
@@ -172,7 +156,7 @@ func has_doorway_on(cell_index: int, direction := -1) -> bool:
 
 
 func is_staircase_room() -> bool:
-	var value: bool = type == OriginalPurpose.DOWN_STAIRCASE or type == OriginalPurpose.UP_STAIRCASE
+	var value: bool = type == WorldData.OriginalPurpose.DOWN_STAIRCASE or type == WorldData.OriginalPurpose.UP_STAIRCASE
 	return value
 
 

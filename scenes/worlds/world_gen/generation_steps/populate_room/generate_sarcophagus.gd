@@ -43,7 +43,7 @@ var _rng := RandomNumberGenerator.new()
 ### Private Methods -------------------------------------------------------------------------------
 
 func _execute_step(data : WorldData, _gen_data : Dictionary, generation_seed : int):
-	var crypt_rooms := data.get_rooms_of_type(RoomData.OriginalPurpose.CRYPT)
+	var crypt_rooms := data.get_rooms_of_type(WorldData.OriginalPurpose.CRYPT)
 	if crypt_rooms.is_empty():
 		return
 

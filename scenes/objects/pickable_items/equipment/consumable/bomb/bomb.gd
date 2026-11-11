@@ -113,9 +113,20 @@ func _on_Countdown_timeout():
 				var hurtbox := hurtboxes[0] as Hurtbox
 				hurtbox.damage(floori(bomb_damage), damage_type)
 		
-		# Camera shake, untested
-		#if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies().has(owner_character):
-			#owner_character.fps_camera.add_stress(0.5)   # Eventually maybe based on distance from explosion
+		# Explosion camera shake (issue #623, 3.x parity: origin/main
+		# scenes/objects/pickable_items/equipment/consumable/bomb/bomb.gd:71-72
+		# called owner_character.fps_camera.add_stress(0.5) when the owner
+		# player body sat inside the BlastRadius overlap). Dev4's camera seam
+		# is the runtime-mounted stress shake on the player camera (issue
+		# #747 mount, humanoid_character.gd _ready), and only the player has
+		# that node, so only the player camera shakes. The shake is reached
+		# duck-typed: the CameraStressShake class name is not referenced
+		# here (the headless class cache does not carry it, and referencing
+		# it broke the AI controller's compile chain in the chunk run).
+		if owner_character.is_in_group("PLAYER") and $Explosion/BlastRadius.get_overlapping_bodies().has(owner_character):
+			var camera_node := owner_character.get_node_or_null("ModelRoot/MainCamera")
+			if camera_node != null and camera_node.has_method("add_stress"):
+				camera_node.call("add_stress", 0.5)
 	
 	# The exploding bomb consumes its own unit through the owning inventory's
 	# record API (T7), but the bomb is NOT freed this frame: the explosion

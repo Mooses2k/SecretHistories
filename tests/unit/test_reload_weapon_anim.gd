@@ -80,6 +80,41 @@ func _make_webley_harness(start_ammo : int, start_tiny : int, ready_loaded : boo
 	return {"owner": owner_stub, "state": state, "inventory": inv, "webley": webley}
 
 
+## Lee-Metford harness: the scene carries ammunition_capacity 10 and
+## reload_amount 10 (two loading methods, owner ruling), the .303 British
+## supply is set per test.
+func _make_lee_harness(start_ammo : int, start_tiny : int) -> Dictionary:
+	var owner_stub : ReloadOwnerStub = ReloadOwnerStub.new()
+	add_child_autofree(owner_stub)
+	var params : Node = ParametersScript.new()
+	params.name = "Parameters"
+	var input_node : Node = InputScript.new()
+	input_node.name = "Input"
+	var state : Node = StateScript.new()
+	state.name = "State"
+	owner_stub.add_child(params)
+	owner_stub.add_child(input_node)
+	owner_stub.add_child(state)
+	state.owner = owner_stub
+	owner_stub.state = state
+
+	var inv = add_child_autofree(InventoryScript.new())
+	owner_stub.inventory = inv
+
+	var lee = LeeScene.instantiate()
+	add_child_autofree(lee)
+	_tolerate_lee_skeleton_pose_artifact()
+	# Freeze AFTER add_child (see the harness freeze note): the presses here
+	# run up to 13 s, far past the free-fall delete window.
+	lee.freeze = true
+	lee.owner_character = owner_stub
+	var ammo_type = load("res://resources/tiny_items/ammunition/303_british.tres")
+	lee.current_ammo_type = ammo_type
+	lee.current_ammo = start_ammo
+	inv.tiny_items[ammo_type] = start_tiny
+	return {"owner": owner_stub, "state": state, "inventory": inv, "lee": lee, "ammo": ammo_type}
+
+
 ## The Lee-Metford rifle skeleton still stores the Godot 4.6-era pose
 ## format; Godot 4.7 emits a load-time deprecation error for it (a
 ## pre-existing asset artifact, flagged to the owner for an editor re-save,
@@ -231,104 +266,114 @@ func test_convenience_load_abort_clears_at_once_without_a_close_beat() -> void:
 	assert_signal_emitted(webley, "reload_aborted")
 
 
-func test_left_hand_cadence_unclamps_only_left_hand_guns() -> void:
-	# Phase 4 owner ruling: the 3.0 s ceiling clamp was a stopgap from the
-	# animation-less era. Left-hand guns (Lee-Metford, Martini-Henry rifle)
-	# run the authored composite at full length per staged round; the 0.3 s
-	# floor still guards a mis-authored clip. Every other gun keeps the
-	# ceiling.
+func test_reload_quantum_follows_the_two_loading_methods() -> void:
+	# Owner ruling, two loading methods: a supply covering the remaining
+	# magazine is a FULL LOAD (the composite plays once, rounds spread across
+	# it, webley math clip/rounds); a partial supply chains at the AUTHORED
+	# per-insertion rhythm (clip/capacity) and closes early. The 0.3 s floor
+	# stays; the 3.0 s ceiling stays on non-left-hand guns.
 	var lee : Node = LeeScene.instantiate()
 	add_child_autofree(lee)
 	_tolerate_lee_skeleton_pose_artifact()
-	assert_almost_eq(lee._staged_reload_cycle_time(1), 11.4, 0.01, "Lee runs its full composite")
+	assert_almost_eq(lee._staged_reload_cycle_time(10, true), 1.14, 0.01, "full load on an empty magazine: authored rhythm")
+	assert_almost_eq(lee._staged_reload_cycle_time(7, true), 11.4 / 7.0, 0.01, "full load tops the magazine across the whole composite")
+	assert_almost_eq(lee._staged_reload_cycle_time(7, false), 1.14, 0.01, "partial chain keeps the authored rhythm")
+	assert_almost_eq(lee._staged_reload_cycle_time(1, false), 1.14, 0.01, "a single round is one insertion beat")
+	# The unclamp stays load-bearing for a full load of few rounds: 11.4/2
+	# sits above the ceiling on a left-hand gun and stays clamped otherwise.
+	lee.reload_needs_left_hand = false
+	assert_almost_eq(lee._staged_reload_cycle_time(2, true), 3.0, 0.01, "non-left-hand guns keep the ceiling clamp")
+	lee.reload_needs_left_hand = true
+	assert_almost_eq(lee._staged_reload_cycle_time(2, true), 5.7, 0.01, "left-hand full loads play the composite once, unclamped")
+	# Martini-Henry verdict: single-shot by asset (capacity 1, the 3.15 s
+	# composite shows one lever-open + insertion + lever-close), so the
+	# two-method shape degenerates to one composite per press and the landed
+	# 3.15 s cadence stands.
 	var martini : Node = MartiniScene.instantiate()
 	add_child_autofree(martini)
-	assert_almost_eq(martini._staged_reload_cycle_time(1), 3.15, 0.01, "Martini rifle runs its full composite")
-	# The same gun with the flag off stays ceiling-clamped.
-	lee.reload_needs_left_hand = false
-	assert_almost_eq(lee._staged_reload_cycle_time(1), 3.0, 0.01, "non-left-hand guns keep the ceiling clamp")
+	assert_eq(martini.ammunition_capacity, 1, "Martini asset precondition: single shot")
+	assert_eq(martini.reload_amount, 1, "Martini asset precondition: one insertion per press")
+	assert_almost_eq(martini._staged_reload_cycle_time(1, true), 3.15, 0.01, "Martini cadence unchanged")
 
 
-func test_left_hand_press_runs_the_full_authored_composite() -> void:
-	# The Lee-Metford press is UNCLAMPED since Phase 4: the single round
-	# lands at the END of the authored 11.4 s composite, so there is no
-	# separate close beat on natural completion (3.x parity: one press was
-	# clip-0.3 = 11.1 s of authored reload). The bolt close lives inside the
-	# composite's final stretch.
-	var owner_stub : ReloadOwnerStub = ReloadOwnerStub.new()
-	add_child_autofree(owner_stub)
-	var params : Node = ParametersScript.new()
-	params.name = "Parameters"
-	var input_node : Node = InputScript.new()
-	input_node.name = "Input"
-	var state : Node = StateScript.new()
-	state.name = "State"
-	owner_stub.add_child(params)
-	owner_stub.add_child(input_node)
-	owner_stub.add_child(state)
-	state.owner = owner_stub
-	owner_stub.state = state
-	var inv = add_child_autofree(InventoryScript.new())
-	owner_stub.inventory = inv
-
-	var lee = LeeScene.instantiate()
-	add_child_autofree(lee)
-	# Freeze after add_child (see the harness freeze note): the press waits
-	# 11.4 s, far past the free-fall delete window.
-	lee.freeze = true
-	lee.owner_character = owner_stub
-	var ammo_type = load("res://resources/tiny_items/ammunition/303_british.tres")
-	lee.current_ammo_type = ammo_type
-	lee.current_ammo = 0
-	inv.tiny_items[ammo_type] = 5
-	watch_signals(lee)
+func test_full_load_press_spreads_ten_rounds_across_the_composite() -> void:
+	# Full load: supply covers the empty magazine, so ONE press loads all 10
+	# rounds over ONE authored 11.4 s composite play, one insertion per
+	# 1.14 s beat, and the bolt close lives inside the composite.
+	var h := _make_lee_harness(0, 10)
+	var lee : Node = h.lee
+	var state : Node = h.state
 	var player := _weapon_player(lee)
+	watch_signals(lee)
 
 	lee.reload()
 	await wait_seconds(5.0)
-	assert_true(state.is_reloading, "the press holds the state through the unclamped composite")
-	assert_eq(lee.current_ammo, 0, "no round lands before the composite ends")
-	assert_eq(player.current_animation, "reload", "the composite runs uncut")
-	assert_true(await wait_for_signal(lee.reload_stage_finished, 9.0), "the press finishes at the composite end")
-	assert_eq(lee.current_ammo, 1, "the round landed at the unclamped quantum")
-	assert_false(state.is_reloading, "the state clears right after the composite tail")
+	assert_true(state.is_reloading, "the press holds the state through the composite")
+	assert_eq(lee.current_ammo, 4, "rounds land at the 1.14 s insertion rhythm")
+	assert_eq(player.current_animation, "reload", "the composite runs uncut through the insertions")
+	assert_true(await wait_for_signal(lee.reload_stage_finished, 9.0), "the press finishes with the composite")
+	assert_eq(lee.current_ammo, 10, "the full magazine loaded in one press")
+	assert_false(state.is_reloading, "the state clears at the composite end")
 
 
-func test_left_hand_abort_still_plays_the_bolt_close_beat() -> void:
-	# The unclamp changes only the NATURAL completion: an interrupt still
-	# cuts to the dedicated close clip and holds the state through it.
-	var owner_stub : ReloadOwnerStub = ReloadOwnerStub.new()
-	add_child_autofree(owner_stub)
-	var params : Node = ParametersScript.new()
-	params.name = "Parameters"
-	var input_node : Node = InputScript.new()
-	input_node.name = "Input"
-	var state : Node = StateScript.new()
-	state.name = "State"
-	owner_stub.add_child(params)
-	owner_stub.add_child(input_node)
-	owner_stub.add_child(state)
-	state.owner = owner_stub
-	owner_stub.state = state
-	var inv = add_child_autofree(InventoryScript.new())
-	owner_stub.inventory = inv
-
-	var lee = LeeScene.instantiate()
-	add_child_autofree(lee)
-	lee.freeze = true
-	lee.owner_character = owner_stub
-	var ammo_type = load("res://resources/tiny_items/ammunition/303_british.tres")
-	lee.current_ammo_type = ammo_type
-	lee.current_ammo = 0
-	inv.tiny_items[ammo_type] = 5
-	watch_signals(lee)
+func test_partial_chain_lands_supply_then_closes_early() -> void:
+	# Partial supply (7 short of the 10 remaining): the chain keeps the
+	# authored 1.14 s rhythm, then the press ENDS after the last insertion
+	# with a clean bolt close (the landed close-beat machinery, not an error
+	# path): the composite is cut to close_bolt_weapon and the state holds
+	# through it.
+	var h := _make_lee_harness(0, 7)
+	var lee : Node = h.lee
+	var state : Node = h.state
 	var player := _weapon_player(lee)
+	watch_signals(lee)
 
 	lee.reload()
-	await wait_seconds(1.0)
+	await wait_seconds(5.0)
+	assert_eq(lee.current_ammo, 4, "the chain lands at the authored rhythm")
+	await wait_seconds(3.5)
+	assert_eq(lee.current_ammo, 7, "the whole partial supply landed")
+	assert_eq(player.current_animation, "close_bolt_weapon", "the chain exhausts into a clean bolt close")
+	assert_true(state.is_reloading, "the close beat holds the state")
+	assert_true(await wait_for_signal(lee.reload_stage_finished, 4.0), "the early close finishes the press")
+	assert_eq(lee.current_ammo, 7, "exactly the supply landed")
+	assert_false(state.is_reloading, "the state clears after the close beat")
+
+
+func test_single_round_press_is_one_beat_plus_close() -> void:
+	# A single available round: one insertion beat (1.14 s), then the bolt
+	# close. No composite stretch, no full-load choreography.
+	var h := _make_lee_harness(0, 1)
+	var lee : Node = h.lee
+	var state : Node = h.state
+	var player := _weapon_player(lee)
+	watch_signals(lee)
+
+	lee.reload()
+	await wait_seconds(1.5)
+	assert_eq(lee.current_ammo, 1, "the single round landed on its beat")
+	assert_eq(player.current_animation, "close_bolt_weapon", "the press closes right after the beat")
+	assert_true(await wait_for_signal(lee.reload_stage_finished, 4.0), "the press finishes after the close")
+	assert_false(state.is_reloading, "the state clears after the close beat")
+
+
+func test_interrupt_at_a_chain_boundary_keeps_inserted_rounds() -> void:
+	# Interrupt at a chain boundary: the rounds already inserted stand, the
+	# rest stay in the inventory, the close beat plays first and the state
+	# clears only after it (landed abort rule, unchanged by the reshaping).
+	var h := _make_lee_harness(0, 10)
+	var lee : Node = h.lee
+	var state : Node = h.state
+	var player := _weapon_player(lee)
+	watch_signals(lee)
+
+	lee.reload()
+	await wait_seconds(2.5)
+	assert_eq(lee.current_ammo, 2, "two insertions landed at the chain boundary")
 	lee.request_reload_abort()
 	assert_eq(player.current_animation, "close_bolt_weapon", "the abort cuts to the bolt close beat")
 	assert_true(await wait_for_signal(lee.reload_aborted, 4.0), "the abort completes after the close beat")
+	assert_eq(lee.current_ammo, 2, "the inserted rounds stand")
 	assert_false(state.is_reloading, "the state clears only after the close beat")
 
 
@@ -339,7 +384,7 @@ func test_unclamped_quantum_spreads_rounds_across_the_composite() -> void:
 	# landings and must not be forced to.
 	var h := _make_webley_harness(0, 6)
 	var webley : Node = h.webley
-	var cycle : float = webley._staged_reload_cycle_time(6)
+	var cycle : float = webley._staged_reload_cycle_time(6, true)
 	assert_almost_eq(cycle * 6.0, 8.0667, 0.01)
 	webley.reload()
 	var player := _weapon_player(webley)

@@ -192,19 +192,26 @@ func get_reload_length():
 	reload_time = anim_player.get_animation("reload").length - 0.3
 
 
-## One staged-reload timer cycle lasts the weapon's authored reload clip
-## divided by the rounds this press stages, so the rounds spread across the
-## clip (owner decision: one press lasts about as long as the authored
-## animation). Without a resolvable reload clip the press falls back to
-## reload_time per cycle, which keeps the per-round cadence of
-## reload_amount == 1 guns unchanged. The result is clamped so a
-## mis-authored clip cannot produce an absurd cadence - EXCEPT on a
-## reload_needs_left_hand gun: Phase 4 owner ruling, the 3.0 s ceiling was
-## a stopgap from the animation-less era and these guns play their authored
-## composite at full length per staged round (Lee-Metford 11.4 s, 3.x
-## parity was clip-0.3 = 11.1 s; Martini-Henry rifle 3.15 s). The 0.3 s
-## floor still applies to every gun.
-func _staged_reload_cycle_time(round_count : int) -> float:
+## One staged-reload timer cycle lasts the shape-aware per-press quantum
+## (owner ruling, reload two loading methods). The press is a FULL LOAD when
+## the supply covers the whole remaining magazine: the authored composite
+## plays ONCE for the entire press and the rounds spread across it
+## (clip_length / staged_rounds, the webley math) - for the Lee that is 1.14
+## s per insertion on an empty magazine, 11.4 s total. A PARTIAL press
+## (supply is more than 1 but short of the remaining magazine) chains at the
+## AUTHORED per-insertion rhythm (clip_length / ammunition_capacity, the
+## beat spacing the composite was authored with) and cuts to the bolt close
+## when the chain exhausts the supply or fills the magazine, reusing the
+## landed close-beat machinery (the last landing routes through
+## _begin_close_beat(false) with the composite short of its close segment).
+## A single available round is the degenerate partial chain: one insertion
+## beat plus the close. Without a resolvable reload clip the press falls
+## back to reload_time per cycle. The result keeps the 0.3 s floor for every
+## gun; the 3.0 s ceiling stays on non-left-hand guns (the animation-less
+## stopgap), and reload_needs_left_hand guns keep the unclamped spread
+## (owner ruling: a full load of 2 rounds into a near-full magazine sits 5.7
+## s between insertions, which is the authored composite playing once).
+func _staged_reload_cycle_time(round_count : int, full_load : bool) -> float:
 	if round_count <= 0:
 		return reload_time
 	var anim_player := animation_player as AnimationPlayer
@@ -213,6 +220,8 @@ func _staged_reload_cycle_time(round_count : int) -> float:
 	var clip_length : float = anim_player.get_animation("reload").length
 	if clip_length <= 0.0:
 		return reload_time
+	if not full_load:
+		return maxf(clip_length / float(ammunition_capacity), MIN_STAGED_CYCLE_TIME)
 	var cycle := clampf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME, MAX_STAGED_CYCLE_TIME)
 	if reload_needs_left_hand:
 		cycle = maxf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME)
@@ -415,7 +424,13 @@ func reload(eject_spent_casings : bool = true) -> void:
 					current_ammo_type = null
 				var _reload_amount = min(inventory.tiny_items[ammo_type], min(reload_amount, ammunition_capacity - current_ammo))
 				if _reload_amount > 0:
-					_staged_cycle_time = _staged_reload_cycle_time(_reload_amount)
+					# Two loading methods (owner ruling): a supply that
+					# covers the remaining magazine is a FULL LOAD (the
+					# composite plays once, rounds spread across it); a
+					# partial supply chains at the authored insertion rhythm
+					# and closes early.
+					var full_load : bool = _reload_amount >= ammunition_capacity - current_ammo
+					_staged_cycle_time = _staged_reload_cycle_time(_reload_amount, full_load)
 					_staged_rounds_landed = 0
 					if eject_spent_casings:
 						_eject_chambers(live_rounds_to_eject)
@@ -492,13 +507,13 @@ func _is_composite_playing(anim_player : AnimationPlayer) -> bool:
 ## Plays the close beat before the reload state clears. An abort always
 ## closes the action first (owner rule, research doc 6.1: the cylinder
 ## closes FIRST, then the swap runs) when this press actually started the
-## composite. A natural completion only needs it when the staged quantum
-## finished ahead of the composite (the clamped single-round guns: the
-## Lee-Metford press lands its round at 3.0 s while the authored clip runs
-## 11.4 s, so the bolt cuts to its close beat instead of animating 8 s of
-## orphaned insertion). While the beat plays, is_reloading stays set: the
-## inventory lock holds, shooting stays blocked, and a parked slot switch
-## waits until the beat ends.
+## composite. A natural completion only needs it when the staged chain ends
+## ahead of the composite: a partial-supply chain (two loading methods,
+## owner ruling) lands its rounds at the authored insertion rhythm and cuts
+## to the close beat once the supply is dry or the magazine is full, instead
+## of animating the composite's remaining insertions. While the beat plays,
+## is_reloading stays set: the inventory lock holds, shooting stays blocked,
+## and a parked slot switch waits until the beat ends.
 func _begin_close_beat(aborting : bool) -> void:
 	var close_time := 0.0
 	var anim_player := animation_player as AnimationPlayer

@@ -256,16 +256,25 @@ func test_quantum_is_the_clip_length_split_across_the_staged_rounds() -> void:
 
 
 func test_quantum_clamps_to_the_sanity_window_and_falls_back_without_a_clip() -> void:
-	# Ceiling: a 24 s clip staged over 2 rounds would be 12 s per cycle; the
-	# clamp holds it at 3.0 s. Floor: a 0.6 s clip staged over 6 rounds would
-	# be 0.1 s per cycle; the clamp holds it at 0.3 s. Fallback: no
-	# resolvable reload clip keeps reload_time as the per-cycle quantum.
-	var ceiling := _make_harness(0, 6, 2, 24.0)
+	# Two loading methods (owner ruling), sanity window update. FULL LOAD
+	# ceiling: a 24 s clip staged over 6 rounds (supply covers the magazine)
+	# would be 4 s per cycle; the clamp holds the full-load spread at 3.0 s.
+	# PARTIAL rhythm: a partial supply chains at the authored per-insertion
+	# beat (clip/capacity) with no ceiling above the floor. Floor: a 0.6 s
+	# clip staged over 6 rounds would be 0.1 s per cycle; the clamp holds it
+	# at 0.3 s. Fallback: no resolvable reload clip keeps reload_time as the
+	# per-cycle quantum.
+	var ceiling := _make_harness(0, 6, 6, 24.0)
 	ceiling.webley.reload()
-	assert_almost_eq(ceiling.webley._staged_cycle_time, 3.0, 0.0001, "the derived quantum is capped at the ceiling")
+	assert_almost_eq(ceiling.webley._staged_cycle_time, 3.0, 0.0001, "the full-load spread is capped at the ceiling")
 	await wait_seconds(0.5)
 	assert_eq(ceiling.webley.current_ammo, 0, "the first round waits out the clamped cycle")
 	ceiling.webley.request_reload_abort()
+
+	var partial_rhythm := _make_harness(0, 6, 2, 24.0)
+	partial_rhythm.webley.reload()
+	assert_almost_eq(partial_rhythm.webley._staged_cycle_time, 4.0, 0.0001, "a partial chain runs the authored insertion rhythm, floor only")
+	partial_rhythm.webley.request_reload_abort()
 
 	var floor_case := _make_harness(0, 6, 6, 0.6)
 	floor_case.webley.reload()

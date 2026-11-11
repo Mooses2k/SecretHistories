@@ -11,7 +11,7 @@ Binding code rulebook for Secret Histories. AGENTS.md indexes this file and defe
 ## 2. Language and Runtime
 
 - GDScript only for game logic. No C#.
-- Godot 4.4.
+- Godot 4.7-stable (owner instruction: track Godot latest).
 - The Resource system owns data: entities, items, save data live in `.tres` resources.
 - JoltPhysics3D is the physics engine. Do not change it or "clean up" its settings without owner sign-off.
 
@@ -45,7 +45,7 @@ Binding code rulebook for Secret Histories. AGENTS.md indexes this file and defe
 - Never put `class_name` on autoload scripts going forward. The autoload name registered in project.godot is the global identifier; adding a class_name creates a second name for one thing. Do not sweep the existing offenders.
 - Access autoloads by their registered name (`Events.foo_signal.emit(...)`), not through `get_node("/root/Events")` chains.
 - `Engine.has_singleton()` does NOT detect autoloads (it only sees GDExtension singletons). Just reference autoloads directly.
-- The repo has 13 autoloads, listed in ARCHITECTURE.md. Adding a new one is an owner decision, not a reflex.
+- The repo has 16 autoloads (one is the agent-bridge debug autoload), listed in ARCHITECTURE.md. Adding a new one is an owner decision, not a reflex.
 
 ## 6. Typing Discipline
 
@@ -135,6 +135,9 @@ gun.setup(loadout)
   - Color values in scene files MUST have all 4 components. A 3-arg Color that is valid in GDScript crashes the parser.
   - `ext_resource` entries for scripts must carry the `.uid`.
 - The failure signature is `load()` returning null silently with no console error. When you see it, suspect the scene file, not the script.
+- Assets are correct at the asset. A scene or mesh must be authored, exported, or rescaled in its own file so it is final game size with its origin at its base (feet on the floor). Never compensate for a wrong-size or wrong-origin asset at spawn or runtime: no spawn-time scale/offset tables, no per-placement wrapper nodes, no "shrink it when spawning" code. If an asset is wrong, fix the asset file (root transform, mesh instance transform, or re-export), then let every spawn site place it untouched.
+  - Rationale: spawn-site corrections multiply silently across every future placement, are invisible at the asset, and turn the asset into a lie that only some code knows about.
+  - Exception: dynamic gameplay scaling (a growing creature, a shrink spell) is behavior and lives in code; authoring-time correction is not.
 
 ## 10. DRY and Canonical Owners
 

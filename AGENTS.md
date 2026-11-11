@@ -28,18 +28,20 @@ Read in this order:
 Work on a system means reading that system's docs plus the docs of what it depends on.
 Planning docs live in the gitignored `/docs/` folder (see section 13).
 If a doc and the code disagree, the code wins. Fix the doc or flag the gap; never trust a plan over the actual files.
+ALWAYS read GitHub wiki pages via the raw source URL (`https://raw.githubusercontent.com/wiki/<owner>/<repo>/<Page>.md`), never the rendered HTML page: the rendered page truncates the body and buries it in site chrome.
 
 ## 4. Project State
 
 Read [ARCHITECTURE.md](ARCHITECTURE.md) "Current Development Status" before planning anything. Operational facts:
 
-- Character controller and AI work is FROZEN by owner decision (contributor handoff).
-- Contributor crazystewie may push controller updates around Nov 8. Expect the freeze to lift or move; do not pre-empt it.
-- Do not modify `scenes/characters/character.gd`, `scenes/characters/player_old/`, `scenes/characters/cultists-old/`, or `core/ai` behavior unless the owner explicitly unfreezes them.
+- Character controller is unfrozen: contributor crazystewie is no longer working on the project (owner, 2026-11-09), so all controller work is ours. `player_controller.gd` is editable under the same verification discipline as any Tier B file.
+- `scenes/characters/character.gd`, `scenes/characters/player_old/`, and `scenes/characters/cultists-old/` stay read-only: they are 3.x blueprints, not live code. `core/ai` behavior-tree files stay frozen until the P3 deletion gate.
 - Several features live on unmerged branches (fencing sim, dual-wield/light sources). They are NOT in dev4; do not assume their code exists here.
-- `dev4` is the base branch, an in-progress Godot 4.4 port of the released Godot 3.x game (`main`). Feature parity is not complete.
+- `dev4` is the base branch, an in-progress Godot 4.7 port of the released Godot 3.x game (`main`). Feature parity is not complete.
 - The issue list at github.com/Mooses2k/SecretHistories/issues is the work list.
 - Near-term primary target: functional parity with the 3.x build. Playable to floor 5, crystal grabbed, surface reached, with hostile AI. AI working, animations working, 3.x-era melee working. The fencing sim is the melee-system testbed in service of that target; Act 1 content is later. See /docs/design/owner-todo-dump.md "Near-term target hierarchy".
+- KNOWN RISK AREA: inventory and interaction code produced roughly half of all project bugs for a long time. There is a plan to rework it from inheritance into extensible components, and the surrounding code still likely carries bugs; stackables especially. Treat inventory/interaction code as suspect by default; extra verification on any change there.
+- DIRECTION: before expanding feature work much further, the owner wants a refactor and bug shakeout of non-character systems, starting with inventory/interaction. GUT tests should not pin broad swaths of existing behavior first: run a full Brooks-style audit first (the owner will supply the audit skill), then let the test suite grow against audited, cleaned code.
 - The working tree may carry modified and untracked files from other agents or the owner. Do not revert, clean up, or "fix" files you did not touch.
 
 ## 5. Hard Rules
@@ -53,7 +55,8 @@ Index only; one line each with rationale. Details live in the referenced section
 - Deliver tracked changes in the working tree only. Ask the owner before EVERY commit; the owner usually verifies each fix first. Rationale: the owner controls history (section 16).
 - Do not invent or commit story or spoiler content. Story plans are owner-secret. Rationale: narrative is the owner's to place.
 - Read big .tscn files partially. Rationale: many embed megabytes of mesh data (section 11).
-- Edit .tscn files through godot_headless_op or the editor-safe tools; never hand-splice inside embedded mesh blocks.
+- Fix assets at the asset: no spawn-time or runtime scale/origin compensation for wrong-size assets. Rationale: spawn-site hacks multiply and hide the real defect (CODE_STYLE.md section 9).
+- Edit .tscn files through godot_headless_op or the editor-safe tools; never hand-splice inside embedded mesh blocks. CAUTION: godot_headless_op add_node/attach_script repacks and resaves the WHOLE scene, which mangles scenes with editable-instance bases (it inlined humanoid_character_base.tscn into player.tscn and stripped uids): for such scenes, prefer careful text edits or runtime (code) attach instead.
 - Prefer the godot_* management tools over hand-editing project.godot. Rationale: they serialize settings correctly (section 10).
 - Every behavioral claim needs fresh evidence. Rationale: see section 9.
 - Any action on github.com requires the owner's explicit approval first, never inferred. Rationale: public actions are outward-facing and cannot be silently trusted (section 15).
@@ -83,6 +86,7 @@ A review pass by another agent never satisfies sign-off. A human approves.
 - Clobber-free: disjoint files only; no two writers on one file.
 - Start independent delegations in the same round; collect every result before making final claims.
 - Parallelism happens inside phase gates. It never bypasses them (CODE_STYLE.md section 13).
+- Owner decisions can arrive through the owner's DIRECT chat with a subagent, not only through parent relay. Both channels are authoritative. When a message's provenance is unclear, flag it and ask; never treat a possibly-owner message as fabricated without asking first.
 
 ## 9. Verification
 
@@ -97,7 +101,7 @@ Validation ladder, in reliability order:
 3. `godot_run_headless` for a bounded scene or logic run.
 4. Driving the running game via `godot_command`.
 
-There is NO unit test suite in this repo yet. Do not pretend there is one. Do not encode known bugs as expected behavior.
+There is a GUT unit test suite for logic-level tests. Rules: do not encode known bugs as expected behavior. Run it headless via `godot_run_headless` with script `addons/gut/gut_cmdln.gd` and no extra args (it reads `.gutconfig.json`). Tests live in `tests/unit/`, one subject per file, named `test_*.gd` extending GutTest. Scope discipline: per the owner's audit-first direction, tests pin only audited, verified behavior, not broad swaths of unexamined legacy.
 
 Engine API in doubt: check the official stable docs (docs.godotengine.org/en/stable/classes/class_<name>.html) before trusting model memory. Model memory invents plausible-looking API names. Project API in doubt: read the source.
 When other agents are mid-edit, verify per-file only; a failure confined to files you do not own is inconclusive, not a regression.
@@ -116,6 +120,9 @@ All Godot interaction goes through the godot_* bridge tools, never a shell.
 - `godot_validate_script`: compiles one GDScript file.
 - `godot_set_project_setting`, `godot_manage_autoloads`, `godot_manage_input_map`: edit project.godot safely.
 - If a tool reports diagnosis sandbox-crash, the cause is the launch channel. Re-run through the bridge, never through a shell.
+- Fresh class_name declarations are invisible to headless/runtime loads until the editor regenerates the global class cache. Never reference a newly added class by name from other scripts: load() it or use duck-typed seams.
+- **Port-injection defect (upstream godot-bridge):** the game side binds `GODOT_BRIDGE_PORT` from its environment, but a bridge install that does not inject that env var when spawning the game ignores the `port=` parameter of `godot_run_project` (the engine binds a port nobody asked for while the tool reports the requested one), so two agents' bridge commands round-robin across each other's live games. This repo has no launcher script, so the reconcile is a pre-launch ritual: `python tools/mcp_guard.py --verbose` checks every installed plugin copy (PASS/MISSING per copy, exit 0 pass, 1 missing, 2 rebase needed) and `python tools/mcp_guard.py --restore` re-inserts `GODOT_BRIDGE_PORT: String(port),` directly above the `GODOT_BRIDGE_TOKEN: token,` anchor in `spawnOwnInstance`'s env map (one-time .bak backup, idempotent via marker, refuses and reports rebase-needed if a newer template drops the token anchor). The restore self-heals the copy after every plugin upgrade. A patched plugin file takes effect on the next DSH restart: the harness loads plugin code at boot.
+- **Two-lane ritual:** before running two bridge lanes concurrently, confirm the installed plugin injects `GODOT_BRIDGE_PORT` on spawn (the check above passes), and verify one spawn's engine log line `McpInteractionServer: Listening on 127.0.0.1:<port>` against the port you asked for.
 
 ## 11. Big Files and Partial Reading
 
@@ -151,10 +158,20 @@ The gitignored `/docs/` folder holds working memory; repo-root files are canonic
 - `docs/old/`: archive of consumed research and plans; add, do not read as current truth.
 
 Before proposing something new, grep /docs for prior gleans so nothing parked or rejected gets re-proposed.
+NEVER leave open questions written in a doc. Ask the owner in chat and record only the answer (a decision). An "open questions" section in any doc is a defect; questions are asked, not stored.
 Wiki fix drafts also live in /docs until the owner pastes them to GitHub.
 Write research and plan reports as you work, not from memory at the end.
 GitHub issues are the home for anything smaller than a full design. Do not keep a local md copy of a filed issue; delete it once filed.
 Keep /docs free of cruft: when a plan or report is consumed, archive it under /docs/old promptly. Only active work stays in /docs/plans, /docs/research, and /docs/design.
+
+### 13.1 Owner notes intake
+
+When the owner delivers notes directly to an intake agent, each note ends in exactly one of these states:
+- Quick and doable now: approve to design, design, build it (same verification discipline as any change).
+- An issue already covers it: the intake agent adds a comment to that issue via gh CLI, showing the owner the exact final text first and getting explicit per-item approval (section 15 applies to every write).
+- Big, complex, or needing design: ask the owner whether it becomes a GitHub issue or a design doc here, then follow the answer.
+
+Clean up after yourself: docs/design/owner-todo-dump.md is a ledger, not a landfill, and is ultimately to be retired. When an item reaches its final home, shrink its dump entry to a one-line pointer or delete it. Never leave open questions in the dump (section 13 rule).
 
 ## 14. Environment Notes (this machine)
 
@@ -162,7 +179,7 @@ Keep /docs free of cruft: when a plan or report is consumed, archive it under /d
 - File sandbox is workspace-write with approval-on-ask. Writes outside the workspace fail; network goes through the web tools, not raw sockets.
 - The harness is DSH (DeepSeek Harness). Use harness write/edit tools, not shell redirection.
 - Godot: project.godot declares features 4.7 and the engine binary on this machine is Godot 4.7-stable (the 4.4 declarations were upgraded on owner instruction; the objective is to track Godot latest). Launched only via the bridge (section 10).
-- Project facts: 13 autoloads, JoltPhysics3D physics, ~40 namespaced input actions (see ARCHITECTURE.md for the systems map).
+- Project facts: 16 autoloads (one is the agent-bridge debug autoload), JoltPhysics3D physics, ~48 defined input actions, most namespaced (see ARCHITECTURE.md for the systems map).
 
 ## 15. GitHub and Public Actions
 

@@ -81,6 +81,7 @@ detection_raycast = NodePath("RayCast3D")
 shell_effects_path = NodePath("AnimationPlayer/KyberPassMartiniShells")
 item_size = 0
 item_name = "Sawed-off Martini pistol"
+reload_close_start = 1.6667
 item_drop_sound = ExtResource("11")
 
 [node name="Effects" type="Node3D" parent="." index="0"]

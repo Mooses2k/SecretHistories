@@ -88,6 +88,10 @@ func _make_harness(start_ammo : int, start_tiny : int, stage_amount : int = 6, s
 		inv.tiny_items[AmmoResource] = start_tiny
 		if stub_clip_length >= 0.0:
 			_own_reload_library(webley, stub_clip_length)
+	# Freeze AFTER add_child: _ready re-arms the dropped physics state
+	# (set_physics_dropped resets freeze), and the close-beat awaits added up
+	# can cross the 3.2 s free-fall delete window inside one test.
+	webley.freeze = true
 	# _ready's get_reload_length() derives the composite value from the real
 	# 8.067 s clip; pin the 0.25 fallback back for the tests that ride
 	# reload_time directly (the unload boundary starts from it).
@@ -190,6 +194,9 @@ func test_abort_mid_chain_ejects_nothing_further_and_a_re_press_ejects_the_remai
 
 	webley.request_reload_abort()
 	assert_eq(effects.calls.size(), 1, "the abort itself ejects nothing")
+	# The close beat holds the state until it ends; the re-press must wait it
+	# out or reload() refuses the press.
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the abort completes after the close beat")
 
 	webley.reload()
 	assert_eq(effects.calls.size(), 2, "the re-press opens the action again")
@@ -283,7 +290,8 @@ func test_guns_without_shell_wiring_reload_silently() -> void:
 	webley.reload()
 	assert_true(h.state.is_reloading, "the staged reload starts without a shell effect node")
 	webley.request_reload_abort()
-	assert_false(h.state.is_reloading, "the abort still clears the reload state")
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the abort completes after the close beat")
+	assert_false(h.state.is_reloading, "the abort clears the reload state after the close beat")
 
 
 func test_realistic_empty_cylinder_ejects_capacity_casings_and_no_pickups() -> void:
@@ -354,6 +362,8 @@ func test_setting_change_at_runtime_applies_from_the_next_press() -> void:
 	assert_eq(webley.current_ammo, 1, "round one landed before the abort")
 	webley.request_reload_abort()
 	assert_eq(webley.current_ammo, 1, "the abort keeps the landed round")
+	# The close beat holds the state; the realistic re-press must wait it out.
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the abort completes after the close beat")
 
 	_set_realistic(true)
 	webley.reload()
@@ -457,4 +467,5 @@ func test_guns_without_shell_wiring_stay_silent_in_realistic_mode() -> void:
 	assert_true(h.state.is_reloading, "the staged reload starts without a shell effect node")
 	assert_eq(webley.current_ammo, 4, "the live rounds were not disturbed")
 	webley.request_reload_abort()
-	assert_false(h.state.is_reloading, "the abort still clears the reload state")
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the abort completes after the close beat")
+	assert_false(h.state.is_reloading, "the abort clears the reload state after the close beat")

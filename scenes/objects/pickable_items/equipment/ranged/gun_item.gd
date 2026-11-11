@@ -12,6 +12,12 @@ signal on_shoot()
 # does not emit this signal.
 signal reload_stage_finished(loaded_amount : int)
 
+# Emitted when an abort's close beat finishes and the reload state fully
+# clears (after the close animation, not at the press of the abort). The
+# character-side reload coordinator uses it to time the offhand re-equip so
+# the swap waits out the close beat (owner rule, research doc 6.1).
+signal reload_aborted()
+
 enum MeleeStyle {
 	BUTT_STRIKE,
 	PISTOL_WHIP,
@@ -37,6 +43,14 @@ const MAX_STAGED_CYCLE_TIME : float = 3.0
 ## eject (Lee-Metford and Martini-Henry rifle carried no shell effects in
 ## 3.x).
 @export var shell_effects_path : NodePath
+## Library clip that plays as the abort close beat (the action swinging
+## shut) when this press is interrupted. Empty means tail mode: the close
+## segment is the composite's final stretch, started at reload_close_start.
+@export var reload_close_clip : StringName = &""
+## Composite time where the close segment starts (tail mode only). Derived
+## from the wired composite's action-bone keys: webley 7.4, khyber 1.6667,
+## both shotguns 3.3. Guns with a dedicated close clip leave this at 0.
+@export var reload_close_start : float = 0.0
 @export var damage_offset : int = 0
 @export var dispersion_offset_degrees : int = 0
 @export var cooldown : float = 1.0
@@ -87,6 +101,20 @@ var _staged_cycle_time : float = 0.0
 ## contents into the world, so the unload boundary must not also return the
 ## rounds to the inventory.
 var _unload_ejected : bool = false
+## True while the close beat (action swinging shut) owns the ReloadTimer.
+## The reload state stays set through it: the inventory lock and the parked
+## slot switch both wait until the close beat ends (owner rule, research
+## doc 6.1: the cylinder closes FIRST, then the swap runs).
+var _close_beat_pending : bool = false
+## Which ending the pending close beat finalizes: an abort (emits
+## reload_aborted) or a natural stage completion (emits
+## reload_stage_finished).
+var _close_finish_aborts : bool = false
+## True from the press that started the weapon reload composite until the
+## reload fully ends. The close beat only plays for a press that actually
+## opened the action: the ready-time convenience load (reload(false)) and
+## an unload stay silent.
+var _reload_composite_started : bool = false
 
 @export var detection_raycast : NodePath
 
@@ -360,22 +388,115 @@ func reload(eject_spent_casings : bool = true) -> void:
 					_staged_rounds_landed = 0
 					if eject_spent_casings:
 						_eject_chambers(live_rounds_to_eject)
+						_start_reload_composite()
 					$ReloadTimer.start(_staged_cycle_time)
 					_queued_reload_amount = _reload_amount
 					_staged_reload_remaining = _reload_amount
 					_queued_reload_type = ammo_type
 					owner_character.state.is_reloading = true
 					owner_character.state.reloading_item = self
-					##This is responsible for the reload animations for player
-					#if "Player" in owner_character.name:
-						#owner_character.player_animations.reload_weapons()
-#					elif "Cultist" in owner_character.name:
-#						owner_character.reload_weapons()
-#					print(player.owner)
 					# TODO: Eventually randomize which reload sound it uses
 					$Sounds/Reload.play()
 					noise_level = 8
 					return
+
+
+## Starts the weapon-local reload composite on the gun's own AnimationPlayer
+## (the 3.x weapon-side animation: break open, insertion beats, action
+## closing). The staged rounds spread across the composite via the per-press
+## quantum, so one insertion beat per landed round is approximate, not
+## frame-perfect. Only a real press plays it; the ready-time convenience
+## load (reload(false)) must not animate a gun that is not in hand yet.
+func _start_reload_composite() -> void:
+	var anim_player := animation_player as AnimationPlayer
+	if anim_player == null or not anim_player.has_animation("reload"):
+		return
+	anim_player.stop()
+	anim_player.play("reload")
+	_reload_composite_started = true
+
+
+## Close-beat wait in seconds for an interruption or a clamped completion:
+## the dedicated close clip's length, or the composite tail from
+## reload_close_start. Returns the remaining close time when the composite
+## is already inside its close segment (never restart a close that is
+## playing), and 0.0 when nothing is authored to play.
+func _close_beat_time(anim_player : AnimationPlayer) -> float:
+	if anim_player == null:
+		return 0.0
+	var reload_length : float = 0.0
+	var has_reload := anim_player.has_animation("reload")
+	if has_reload:
+		reload_length = anim_player.get_animation("reload").length
+	if reload_close_clip != &"" and anim_player.has_animation(reload_close_clip):
+		var clip_length : float = anim_player.get_animation(reload_close_clip).length
+		if has_reload and _reload_composite_started and _is_composite_playing(anim_player):
+			var close_start := reload_length - clip_length
+			if anim_player.current_animation_position >= close_start:
+				return maxf(reload_length - anim_player.current_animation_position, 0.0)
+		return clip_length
+	if has_reload and reload_close_start > 0.0 and reload_close_start < reload_length:
+		if _reload_composite_started and _is_composite_playing(anim_player) \
+				and anim_player.current_animation_position >= reload_close_start:
+			return maxf(reload_length - anim_player.current_animation_position, 0.0)
+		return reload_length - reload_close_start
+	return 0.0
+
+
+func _is_composite_playing(anim_player : AnimationPlayer) -> bool:
+	return anim_player.is_playing() and anim_player.current_animation == "reload"
+
+
+## Plays the close beat before the reload state clears. An abort always
+## closes the action first (owner rule, research doc 6.1: the cylinder
+## closes FIRST, then the swap runs) when this press actually started the
+## composite. A natural completion only needs it when the staged quantum
+## finished ahead of the composite (the clamped single-round guns: the
+## Lee-Metford press lands its round at 3.0 s while the authored clip runs
+## 11.4 s, so the bolt cuts to its close beat instead of animating 8 s of
+## orphaned insertion). While the beat plays, is_reloading stays set: the
+## inventory lock holds, shooting stays blocked, and a parked slot switch
+## waits until the beat ends.
+func _begin_close_beat(aborting : bool) -> void:
+	var close_time := 0.0
+	var anim_player := animation_player as AnimationPlayer
+	if aborting:
+		if _reload_composite_started:
+			close_time = _close_beat_time(anim_player)
+	elif _is_composite_playing(anim_player):
+		close_time = _close_beat_time(anim_player)
+	if close_time <= 0.0:
+		_finalize_reload(aborting)
+		return
+	_close_beat_pending = true
+	_close_finish_aborts = aborting
+	if anim_player != null:
+		anim_player.stop()
+		if reload_close_clip != &"" and anim_player.has_animation(reload_close_clip):
+			anim_player.play(reload_close_clip)
+		elif anim_player.has_animation("reload"):
+			anim_player.play("reload")
+			anim_player.seek(reload_close_start, true)
+	$ReloadTimer.start(close_time)
+
+
+func _finish_close_beat() -> void:
+	_close_beat_pending = false
+	_finalize_reload(_close_finish_aborts)
+
+
+## Ends the reload: clears the character reload state (guarded: the gun can
+## be dropped mid-close and its owner freed) and emits the matching signal.
+func _finalize_reload(aborting : bool) -> void:
+	_reload_composite_started = false
+	if is_instance_valid(owner_character) and owner_character.state.is_reloading:
+		owner_character.state.is_reloading = false
+		if owner_character.state.reloading_item == self:
+			owner_character.state.reloading_item = null
+	if aborting:
+		reload_aborted.emit()
+	else:
+		reload_stage_finished.emit(current_ammo)
 
 
 # Holding R unloads the weapon, for instance if you want the ammo from it to then drop the weapon
@@ -413,6 +534,10 @@ func apply_knockback(total_damage):
 
 
 func _on_ReloadTimer_timeout() -> void:
+	# A pending close beat owns this timeout: it is the beat's end marker.
+	if _close_beat_pending:
+		_finish_close_beat()
+		return
 	# owner_character dereference kept inside the guard (Brooks audit 4.6):
 	# the is_reloading reset used to run outside the guard and errored when the
 	# gun was dropped mid-reload and owner_character became invalid.
@@ -437,30 +562,34 @@ func _on_ReloadTimer_timeout() -> void:
 					# above carries the landing.
 					$ReloadTimer.start(_staged_cycle_time)
 					return
-		owner_character.state.is_reloading = false
-		if owner_character.state.reloading_item == self:
-			owner_character.state.reloading_item = null
-		reload_stage_finished.emit(current_ammo)
+		# Last round of the stage (or nothing left to land): close the action
+		# beat first when the composite is still short of its close segment,
+		# then clear the state and report the stage.
+		_begin_close_beat(false)
 
 
 ## A mainhand slot switch during a reload requests this abort. A staged
 ## reload lands one round per ReloadTimer cycle (each debited as it lands),
 ## so the abort preempts the remaining rounds: the rounds already inserted
-## stand, the rest stay in the inventory, and the character reload state
-## clears so a parked slot switch can run. An ammo-type switch staged in
-## reload() already returned the old rounds to the inventory, so nothing is
-## lost there either.
+## stand, the rest stay in the inventory. The character reload state does
+## NOT clear here: the close beat plays first (owner rule, research doc
+## 6.1: the cylinder closes FIRST, then the swap runs), and
+## _finalize_reload clears the state when the beat ends, which is when a
+## parked slot switch may run. An ammo-type switch staged in reload()
+## already returned the old rounds to the inventory, so nothing is lost
+## there either.
 func request_reload_abort() -> void:
+	# A close beat already owns the finish; a second abort must not restart
+	# it or cut it short.
+	if _close_beat_pending:
+		return
 	if $ReloadTimer.is_stopped():
 		return
 	$ReloadTimer.stop()
-	if owner_character and owner_character.state.is_reloading:
-		owner_character.state.is_reloading = false
-		if owner_character.state.reloading_item == self:
-			owner_character.state.reloading_item = null
-	$Sounds/Reload.stop()
 	if _chamber_sound != null:
 		_chamber_sound.stop()
+	$Sounds/Reload.stop()
+	_begin_close_beat(true)
 
 
 func _on_UnloadTimer_timeout() -> void:

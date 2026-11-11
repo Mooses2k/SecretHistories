@@ -60,6 +60,10 @@ func _make_harness(start_ammo : int, start_tiny : int, stage_amount : int = 2, s
 
 	var webley = WebleyScene.instantiate()
 	add_child_autofree(webley)
+	# Freeze AFTER add_child: _ready re-arms the dropped physics state
+	# (set_physics_dropped resets freeze), and the close-beat awaits added up
+	# can cross the 3.2 s free-fall delete window inside one test.
+	webley.freeze = true
 	webley.owner_character = owner_stub
 	webley.ammunition_capacity = 6
 	webley.reload_amount = stage_amount
@@ -99,11 +103,15 @@ func test_abort_preempts_the_in_flight_stage() -> void:
 	assert_true(state.is_reloading, "reload() must start a stage")
 	assert_eq(state.reloading_item, webley, "reload() must register the reloading item on the state")
 
-	# The slot switch request arrives while the stage is in flight.
+	# The slot switch request arrives while the stage is in flight. The abort
+	# plays the close beat FIRST (owner rule, research doc 6.1: the cylinder
+	# closes before the swap runs) and only clears the state when the beat
+	# ends, which is what reload_aborted reports.
 	webley.request_reload_abort()
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the abort completes after the close beat")
 
-	assert_false(state.is_reloading, "the abort must clear is_reloading at once")
-	assert_null(state.reloading_item, "the abort must clear reloading_item at once")
+	assert_false(state.is_reloading, "the abort clears is_reloading once the close beat ends")
+	assert_null(state.reloading_item, "the abort clears reloading_item once the close beat ends")
 	assert_eq(webley.current_ammo, 2, "the rounds loaded before the stage must stand")
 	assert_eq(h.inventory.tiny_items[AmmoResource], 10, "the queued rounds must not be consumed")
 
@@ -135,6 +143,9 @@ func test_reload_after_abort_loads_only_the_remaining_rounds() -> void:
 	webley.reload()
 	webley.request_reload_abort()
 	assert_eq(webley.current_ammo, 2, "the aborted stage must leave the loaded rounds standing")
+	# The close beat plays before the state clears; a re-press inside the
+	# beat window is refused, so wait out the beat first.
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the abort completes after the close beat")
 
 	# Re-initiating later loads stage-sized steps from the standing count.
 	webley.reload()
@@ -167,9 +178,10 @@ func test_webley_single_stage_reload_aborts_before_any_round_lands() -> void:
 	assert_true(state.is_reloading, "the single-stage reload must start")
 	await wait_seconds(0.1)
 	webley.request_reload_abort()
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the single-stage abort completes after the close beat")
 
-	assert_false(state.is_reloading, "the single-stage abort must clear is_reloading at once")
-	assert_null(state.reloading_item, "the single-stage abort must clear reloading_item")
+	assert_false(state.is_reloading, "the single-stage abort clears is_reloading after the close beat")
+	assert_null(state.reloading_item, "the single-stage abort clears reloading_item after the close beat")
 	assert_eq(webley.current_ammo, 0, "no queued round may land after the abort")
 	assert_eq(h.inventory.tiny_items[AmmoResource], 6, "the full cylinder's worth of ammo must stay in the inventory")
 
@@ -308,8 +320,9 @@ func test_abort_mid_chain_keeps_landed_rounds_and_cancels_the_rest() -> void:
 	assert_eq(h.inventory.tiny_item_amount(AmmoResource), 4, "the landed rounds were debited once")
 
 	webley.request_reload_abort()
-	assert_false(state.is_reloading, "the abort clears the reload state")
-	assert_null(state.reloading_item, "the abort clears the reloading item")
+	assert_true(await wait_for_signal(webley.reload_aborted, 3.0), "the mid-chain abort completes after the close beat")
+	assert_false(state.is_reloading, "the abort clears the reload state after the close beat")
+	assert_null(state.reloading_item, "the abort clears the reloading item after the close beat")
 	assert_eq(webley.current_ammo, 2, "the landed rounds stand")
 	assert_eq(h.inventory.tiny_item_amount(AmmoResource), 4, "nothing was debited twice")
 	assert_signal_not_emitted(webley, "reload_stage_finished")

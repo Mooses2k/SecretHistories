@@ -112,6 +112,7 @@ detection_raycast = NodePath("RayCast3D")
 shell_effects_path = NodePath("AnimationPlayer/ShellReloadEffects")
 item_size = 0
 item_name = "Sawed-off shotgun"
+reload_close_start = 3.3
 can_spin = true
 per_chamber_sounds = Array[AudioStream]([ExtResource("12")])
 

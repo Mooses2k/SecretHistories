@@ -78,6 +78,7 @@ player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
 shell_effects_path = NodePath("AnimationPlayer/ShellReloadEffects")
 item_name = "Double-barrel shotgun"
+reload_close_start = 3.3
 item_drop_sound = ExtResource("3")
 per_chamber_sounds = Array[AudioStream]([ExtResource("14")])
 

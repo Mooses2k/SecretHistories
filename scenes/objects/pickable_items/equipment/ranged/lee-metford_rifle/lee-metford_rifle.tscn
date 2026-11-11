@@ -1,5 +1,4 @@
 [gd_scene load_steps=19 format=4 uid="uid://u2yfhymssh82"]
-
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://c8h0y0qfw4hc5" path="res://resources/tiny_items/ammunition/303_british.tres" id="3"]
 [ext_resource type="PackedScene" uid="uid://bdbbilnpajndq" path="res://scenes/objects/pickable_items/equipment/ranged/lee-metford_rifle/_smoke.tscn" id="4"]
@@ -11,6 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://d25dcloiewol" path="res://resources/sounds/reloading/lever-action/long1.wav" id="10"]
 [ext_resource type="AudioStream" uid="uid://biqwhqeb70a3r" path="res://resources/sounds/reloading/ammo_pickup/422716__niamhd00145229__reload-ammo.ogg" id="11"]
 [ext_resource type="Material" path="res://resources/models/items/ranged/lee-metford_rifle/M_LeeMetford_001.material" id="12"]
+[ext_resource type="Animation" path="res://resources/animations/lee-metford_rifle_reload-weapon.res" id="13"]
+[ext_resource type="Animation" path="res://resources/animations/close_bolt_weapon.res" id="14"]
 
 [sub_resource type="ArrayMesh" id="376"]
 resource_name = "lee_reload_weapon_Cube001"
@@ -57,10 +58,6 @@ bind/6/pose = Transform3D(-0.996397, -0.080877, -0.0256227, 0.0768062, -0.988212
 [sub_resource type="ConvexPolygonShape3D" id="375"]
 points = PackedVector3Array(-0.00889741, -0.144837, 0.603807, 0.0106393, -0.144837, 0.603807, 0.00672808, -0.000160143, -0.631761, 0.0419293, -0.0158136, 0.2832, -0.0245554, -0.00798686, -0.174404, -0.0126577, -0.0393758, 0.626509, 0.0106393, -0.0353534, -0.506634, -0.00499917, 0.0389375, -0.600479, -0.0167264, -0.0197179, -0.510591, 0.0184553, -0.0353894, 0.631132, -0.00818355, 0.0276684, 0.275265, -0.0167329, -0.140915, 0.619386, 0.0184618, 0.0193797, -0.510591, 0.0145441, 0.0350331, 0.232258, 0.0184553, -0.133088, 0.60764, 0.0419293, -0.000160143, 0.294946, 0.0184618, -0.0157956, -0.510591, -0.00891042, -0.0353534, -0.506634, -0.0155, -0.0362411, 0.600505, -0.0128152, 0.00764858, -0.631761, -0.0142521, 0.0193837, 0.110816, 0.0106393, 0.0193797, -0.631761, 0.0184553, -0.117453, 0.623342, 0.0301891, 0.0154753, 0.290989, -0.0148383, -0.0294382, 0.584068, -0.0245554, -0.00798686, -0.189983, 0.0184618, -0.0118912, -0.526293, -0.0133, 0.0129887, 0.248227, -0.0153199, 0.0116883, -0.497183, 0.0145441, -0.140915, 0.619386, 0.0184618, 0.00764858, -0.522213, -0.0167264, -0.0157956, -0.526293, -0.0104337, 0.0252884, 0.196164, -0.0137698, 0.017881, -0.444233, -0.0142521, 0.0193837, 0.0825869)
 
-[sub_resource type="Animation" id="378"]
-resource_name = "close_bolt_weapon"
-length = 1.15
-
 [sub_resource type="Animation" id="379"]
 resource_name = "enter_shell_weapon"
 length = 9.71667
@@ -68,10 +65,6 @@ length = 9.71667
 [sub_resource type="Animation" id="381"]
 resource_name = "lock_bolt_open_weapon"
 length = 1.15
-
-[sub_resource type="Animation" id="380"]
-resource_name = "reload"
-length = 11.4
 
 [node name="Lee-MetfordRifle" instance=ExtResource("1")]
 mass = 1.0
@@ -85,6 +78,7 @@ ads_hold_position = Vector3(0.078, 0.037, -0.322)
 ads_hold_rotation = Vector3(-2.752, -23.514, 13.292)
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
+reload_close_clip = &"close_bolt_weapon"
 
 [node name="Effects" type="Node3D" parent="." index="0"]
 script = ExtResource("6")
@@ -196,10 +190,10 @@ transform = Transform3D(0.906545, 0.151185, -0.394107, -0.200015, 0.97604, -0.08
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 unique_name_in_owner = true
 root_node = NodePath("../MeshInstance3D/lee_reload_weapon")
-anims/close_bolt_weapon = SubResource("378")
+anims/close_bolt_weapon = ExtResource("14")
 anims/enter_shell_weapon = SubResource("379")
 anims/lock_bolt_open_weapon = SubResource("381")
-anims/reload = SubResource("380")
+anims/reload = ExtResource("13")
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

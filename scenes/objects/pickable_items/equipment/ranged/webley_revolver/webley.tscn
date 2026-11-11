@@ -21,6 +21,7 @@
 [ext_resource type="AudioStream" uid="uid://behshtgp2vxxg" path="res://resources/sounds/reloading/revolver/revolver4.wav" id="19"]
 [ext_resource type="AudioStream" uid="uid://d3d0alv80l7o3" path="res://resources/sounds/reloading/revolver/revolver5.wav" id="20"]
 [ext_resource type="AudioStream" uid="uid://bkt2tv21jipcf" path="res://resources/sounds/reloading/revolver/revolver6.wav" id="21"]
+[ext_resource type="Animation" path="res://resources/animations/close_cyl_weapon.res" id="22"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_g655b"]
 points = PackedVector3Array(-0.0912268, 0.0786623, -0.0078841, 0.1152, 0.165088, 0.00282586, 0.126479, 0.153818, 0.0103448, -0.0840095, -0.00398862, -0.0122032, -0.0163347, 0.142547, 0.0216254, -0.0163347, 0.13879, -0.0234794, -0.0877535, -0.00398862, 0.0103448, 0.126479, 0.135033, -0.0084415, -0.0276139, 0.165088, -0.0122032, -0.0739984, 0.110032, 0.00953065, 0.0249672, 0.116232, 0.0216254, 0.0249672, 0.119989, -0.0234794, -0.106544, 0.0335803, -0.0159604, 0.126479, 0.135033, 0.0103448, -0.0276139, 0.165088, 0.0103448, -0.114079, 0.0185527, 0.00658312, 0.1152, 0.165088, -0.00468424, -0.0764744, 0.104961, -0.0159604, -0.0576837, 0.146304, 0.00658312, -0.0840095, -0.00777936, 0.00658312, -0.0989494, 0.037976, 0.0126364, -0.0651953, 0.0185527, 0.014102, 0.126479, 0.131276, -0.00468424, -0.106544, 0.0223096, -0.0159604, -0.0840095, -0.00777936, -0.0084415, -0.0966583, 0.0715881, 0.00615994, -0.0651953, 0.0223096, -0.0159604, -0.0163347, 0.116232, 0.0216254, -0.0576837, 0.146304, -0.00468424, 0.126479, 0.131276, 0.00658312, -0.0163347, 0.119989, -0.0234794, -0.1028, 0.0486248, -0.0159604)
@@ -28,10 +29,6 @@ points = PackedVector3Array(-0.0912268, 0.0786623, -0.0078841, 0.1152, 0.165088,
 [sub_resource type="Animation" id="6"]
 resource_name = "break_open"
 length = 1.68333
-
-[sub_resource type="Animation" id="7"]
-resource_name = "close_cyl_weapon"
-length = 1.08333
 
 [sub_resource type="Animation" id="8"]
 resource_name = "enter_shell_1_weapon"
@@ -60,7 +57,7 @@ length = 8.06667
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ireru"]
 _data = {
 &"break_open": SubResource("6"),
-&"close_cyl_weapon": SubResource("7"),
+&"close_cyl_weapon": ExtResource("22"),
 &"enter_shell_1_weapon": SubResource("8"),
 &"enter_shell_2_weapon": SubResource("9"),
 &"enter_shell_3_weapon": SubResource("10"),
@@ -87,6 +84,7 @@ detection_raycast = NodePath("RayCast3D")
 shell_effects_path = NodePath("AnimationPlayer/ShellReloadEffects")
 item_size = 0
 item_name = "Webley revolver"
+reload_close_clip = &"close_cyl_weapon"
 item_drop_sound = ExtResource("12")
 per_chamber_sounds = Array[AudioStream]([ExtResource("16"), ExtResource("17"), ExtResource("18"), ExtResource("19"), ExtResource("20"), ExtResource("21")])
 

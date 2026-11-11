@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://d1yjsppxahr0a"]
+[gd_scene load_steps=17 format=4 uid="uid://d1yjsppxahr0a"]
 
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/ranged/_gun_item.tscn" id="1"]
 [ext_resource type="Resource" uid="uid://b3ag3wvwggi4n" path="res://resources/tiny_items/ammunition/577_martini-henry.tres" id="2"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://bbexjtn8l4ab3" path="res://scenes/objects/pickable_items/equipment/ranged/martini_henry_rifle/effects.gd" id="12"]
 [ext_resource type="AudioStream" uid="uid://bidqqtke0s6hw" path="res://resources/sounds/dryfire/171211__brianhanson2nd__dry-fire.wav" id="13"]
 [ext_resource type="AudioStream" uid="uid://d25dcloiewol" path="res://resources/sounds/reloading/lever-action/long1.wav" id="14"]
+[ext_resource type="Animation" path="res://resources/animations/martini-henry_rifle_reload-weapon.res" id="15"]
+[ext_resource type="Animation" path="res://resources/animations/lever_close_weapon.res" id="16"]
 
 [sub_resource type="ConvexPolygonShape3D" id="3"]
 points = PackedVector3Array(-0.0074919, -0.124901, -0.551035, 0.00610333, -0.124901, -0.551035, -0.00408893, 0.000958506, 0.676793, -0.0142978, -0.012668, -0.544192, -0.0177008, 0.0315533, 0.585024, 0.0163156, 0.0349469, 0.585024, 0.0129093, 0.0519844, -0.20412, 0.0163156, -0.101041, -0.547614, 0.0129059, -0.0194553, 0.578181, -0.0142978, -0.12149, -0.540771, -0.00722157, 0.048468, -0.1964, -0.0074919, -0.114685, -0.244933, -0.0142912, -0.0160617, 0.578181, -0.00408893, 0.0485735, 0.659808, 0.0127401, -0.0264014, -0.543462, -0.0177008, 0.0145504, -0.180291, 0.00610333, -0.114685, -0.244933, 0.0095063, 0.0383579, 0.693901, -0.0177008, 0.00776312, 0.578181, 0.0129059, -0.12149, -0.537349, 0.0163156, 0.00776312, 0.585024, -0.0108949, 0.0383579, 0.693901, 0.00605214, -0.0128472, -0.542963, 0.0095063, 0.0213377, 0.693901, -0.0142978, -0.0840732, -0.554456, -0.0177008, 0.000941191, -0.183713, -0.0108949, 0.0247487, 0.693901, 0.0163156, -0.101041, -0.533928, 0.0127556, -0.0666976, -0.547555, -0.0142978, -0.107863, -0.551035, -0.00744914, -0.0567092, -0.55053)
@@ -56,10 +58,6 @@ bind/6/name = &"Selector"
 bind/6/bone = -1
 bind/6/pose = Transform3D(-0.998601, 0.0316873, 0.0423417, 0.0438527, 0.0486138, 0.997854, 0.0295608, 0.998315, -0.0499356, -0.17385, -0.304415, -1.17169)
 
-[sub_resource type="Animation" id="7"]
-resource_name = "reload"
-length = 3.15
-
 [node name="Martini-HenryRifle" instance=ExtResource("1")]
 mass = 1.0
 item_drop_sound = ExtResource("13")
@@ -73,6 +71,7 @@ ads_hold_position = Vector3(0.067, -0.081, 0.261)
 ads_hold_rotation = Vector3(13.347, 26.479, -7.829)
 player_path = NodePath(".")
 detection_raycast = NodePath("RayCast3D")
+reload_close_clip = &"lever_close_weapon"
 
 [node name="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, -0.1, 0)
@@ -188,7 +187,8 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 unique_name_in_owner = true
 root_node = NodePath("../Effects/martini_henry_reload_weapon")
-anims/reload = SubResource("7")
+anims/reload = ExtResource("15")
+anims/lever_close_weapon = ExtResource("16")
 
 [connection signal="on_shoot" from="." to="Effects" method="_on_GunItem_on_shoot"]
 [connection signal="target_hit" from="." to="Effects" method="_on_GunItem_target_hit"]

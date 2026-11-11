@@ -48,7 +48,8 @@ func _ready() -> void:
 			"Audio": ["Audio Settings"],
 			"Game": ["Game Settings"],
 			"Gunplay": ["Gunplay"],
-			"Input": ["Input Settings", "Input Key Settings"]
+			"Input": ["Input Settings", "Input Key Settings"],
+			"Gamepad": ["Gamepad Key Settings"]
 		})
 
 	if settings_ui.has_method("set_tab_order"):
@@ -58,7 +59,8 @@ func _ready() -> void:
 			"Audio",
 			"Game",
 			"Gunplay",
-			"Input"
+			"Input",
+			"Gamepad"
 		]
 		settings_ui.set_tab_order(tab_order)
 	

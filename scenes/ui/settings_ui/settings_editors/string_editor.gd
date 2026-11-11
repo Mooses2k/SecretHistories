@@ -77,7 +77,7 @@ func _input(event):
 		_stop_capture(change_key_panel)
 		return
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
-		_show_panel_notice(change_key_panel, "Gamepad capture is not supported yet")
+		_on_joypad_event_while_waiting(event, change_key_panel)
 		return
 	if _is_protected_key(event):
 		_show_panel_notice(change_key_panel, "Backquote and F1 are reserved and cannot be assigned")
@@ -143,12 +143,24 @@ func _on_Clear_pressed():
 func _on_Change_pressed():
 	var change_key_panel := _find_change_key_panel()
 	if change_key_panel:
-		_show_panel_notice(change_key_panel, CAPTURE_HINT)
+		_show_panel_notice(change_key_panel, _capture_hint())
 		is_waiting_input = true
 		_capture_generation += 1
 		_arm_idle_timer()
 	else:
 		print("Warning: ChangeKeyPanel not found")
+
+
+## Overridable capture hint: the gamepad editor asks for a pad button or a
+## stick tilt instead of a key.
+func _capture_hint() -> String:
+	return CAPTURE_HINT
+
+
+## Keyboard and mouse rows never bind joypad inputs: the Gamepad tab owns
+## them. The gamepad editor overrides this to run its capture here.
+func _on_joypad_event_while_waiting(_event : InputEvent, change_key_panel : Control) -> void:
+	_show_panel_notice(change_key_panel, "Gamepad inputs are captured on the Gamepad tab")
 
 
 ## Idle capture watchdog: a waiting capture that receives no bindable event

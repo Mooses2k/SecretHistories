@@ -5,6 +5,8 @@ extends GutTest
 ## explicit conflict clearing, and reset straight from project.godot.
 
 const MAP_GROUP : String = "Input Key Settings"
+const GAMEPAD_GROUP : String = "Gamepad Key Settings"
+const GAMEPAD_ROW_PREFIX : String = "gamepad|"
 const MODE_CROUCH : String = "Hold Crouch"
 const MODE_ADS : String = "Hold ADS (Aim Down Sights)"
 
@@ -107,6 +109,45 @@ func _key_event(keycode : Key) -> InputEventKey:
 	var event := InputEventKey.new()
 	event.keycode = keycode
 	return event
+
+
+func _action_has_joypad_default(action : String) -> bool:
+	for event in KeyInputSettings._project_default_events(action):
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			return true
+	return false
+
+
+func test_gamepad_rows_mirror_the_map_only_where_joypad_defaults_exist() -> void:
+	# The Gamepad tab is the same row list filtered to actions that ship a
+	# project joypad default: every such action has a gamepad row carrying
+	# the keyboard row's display name and category, and no other row exists.
+	var registered := 0
+	for category_entry in KeyInputSettings.BINDING_MAP:
+		var entry: Dictionary = category_entry
+		for row in entry["rows"]:
+			var row_data: Dictionary = row
+			if not row_data.has("action"):
+				continue
+			var action: String = row_data["action"]
+			if not InputMap.has_action(action):
+				continue
+			var row_name: String = GAMEPAD_ROW_PREFIX + action
+			if _action_has_joypad_default(action):
+				registered += 1
+				assert_true(Settings.has_setting(row_name),
+						"gamepad row registered for %s" % action)
+				assert_eq(Settings.get_setting_group(row_name), GAMEPAD_GROUP)
+				assert_eq(str(Settings.get_setting_meta(row_name, "display_name")),
+						str(Settings.get_setting_meta(action, "display_name")),
+						"same display name as the keyboard row of %s" % action)
+				assert_eq(str(Settings.get_setting_meta(row_name, "key_category")),
+						str(entry["category"]),
+						"same category as the keyboard row of %s" % action)
+			else:
+				assert_false(Settings.has_setting(row_name),
+						"no gamepad row without a joypad default: %s" % action)
+	assert_true(registered > 0, "precondition: the map ships joypad defaults")
 
 
 func test_apply_binding_accepts_mouse_buttons_and_appends_to_the_second_slot() -> void:

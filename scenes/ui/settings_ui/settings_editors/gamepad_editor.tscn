@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4tv0hfjojrfn"]
+
+[ext_resource type="Script" uid="uid://c7ocgqeegtyvr" path="res://scenes/ui/settings_ui/settings_editors/gamepad_editor.gd" id="1"]
+
+[node name="GamepadEventEditor" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+script = ExtResource("1")
+_setting_type = 5
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Value" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Change" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Change"
+
+[node name="Clear" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Defaults"
+
+[connection signal="pressed" from="Change" to="." method="_on_Change_pressed"]
+[connection signal="pressed" from="Clear" to="." method="_on_Clear_pressed"]

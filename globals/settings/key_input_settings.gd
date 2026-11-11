@@ -8,6 +8,23 @@ extends Node
 
 const GROUP_NAME : String = "Input Key Settings"
 
+## The Gamepad tab exposes the joypad half of the map. Its rows live in
+## their own settings group so the tabbed settings UI gives them a tab of
+## their own, one row per action that ships a joypad default in
+## project.godot, editing only the joypad slot of that action (the
+## keyboard/mouse slot stays on the Input tab).
+const GAMEPAD_GROUP_NAME : String = "Gamepad Key Settings"
+
+## Gamepad row setting names prefix the action so both slots of one action
+## are distinct settings: "gamepad|player|jump" is the joypad slot of
+## player|jump. The prefix is not an InputMap namespace: the row name is a
+## settings key only.
+const GAMEPAD_ROW_PREFIX : String = "gamepad|"
+
+## Device field of a joypad binding that applies to every pad, matching the
+## project.godot joypad defaults.
+const GAMEPAD_DEVICE_ALL : int = -1
+
 ## Ordered per the wiki Interface 5.2 control system: few keys overloaded
 ## with nuance, shown as coherent families, with separate keys still
 ## bindable. "action" rows bind an InputMap action; "mode" rows reposition an
@@ -128,6 +145,11 @@ const BINDING_MAP : Array = [
 ]
 
 var _mapped_actions : Dictionary = {}
+
+## Gamepad row setting names ("gamepad|<action>") registered for actions
+## that ship a joypad default. Keyboard conflict clearing iterates
+## _mapped_actions only, so the two slot families never erase each other.
+var _gamepad_rows : Dictionary = {}
 
 ## Set by the last apply_binding call: "" when the binding caused no
 ## conflict, otherwise a notice naming the action whose key was cleared.
@@ -270,7 +292,10 @@ func apply_overload_preset(index : int) -> void:
 
 ## Register every mapped row in map order. Dictionary insertion order is the
 ## settings list order, so the map order is the render order, with mode rows
-## landing exactly where the map places them.
+## landing exactly where the map places them. Keyboard, mode and setting
+## rows register first in one pass, then the gamepad rows in a second pass:
+## the Input tab's list order stays exactly what it was, and the Gamepad tab
+## renders the same row order filtered to actions with joypad defaults.
 func _register_rows() -> void:
 	for category_entry in BINDING_MAP:
 		var entry: Dictionary = category_entry
@@ -292,6 +317,23 @@ func _register_rows() -> void:
 			if display_name.is_empty():
 				display_name = _default_display_name(action)
 			_register_action_row(action, display_name, category)
+	for category_entry in BINDING_MAP:
+		var entry: Dictionary = category_entry
+		var category: String = entry["category"]
+		var rows: Array = entry["rows"]
+		for row in rows:
+			var row_data: Dictionary = row
+			if not row_data.has("action"):
+				continue
+			var action: String = row_data["action"]
+			if not InputMap.has_action(action):
+				continue
+			if not _has_joypad_default(action):
+				continue
+			var display_name: String = row_data.get("name", "")
+			if display_name.is_empty():
+				display_name = _default_display_name(action)
+			_register_gamepad_row(action, display_name, category)
 
 
 func _register_action_row(action : String, display_name : String, category : String) -> void:
@@ -304,6 +346,38 @@ func _register_action_row(action : String, display_name : String, category : Str
 	Settings.set_setting_group(action, GROUP_NAME)
 	Settings.set_setting_meta(action, "display_name", display_name)
 	Settings.set_setting_meta(action, "key_category", category)
+
+
+## One Gamepad tab row per action that ships a joypad default: same display
+## name and key category as the keyboard row, own settings group, value
+## cache showing only the joypad bindings.
+func _register_gamepad_row(action : String, display_name : String, category : String) -> void:
+	var row_name := _gamepad_row_name(action)
+	_gamepad_rows[row_name] = true
+	if not Settings.has_setting(row_name):
+		Settings.add_string_setting(row_name, _gamepad_value_strings(action))
+	Settings._settings[row_name][Settings._FIELD_VALUE] = _gamepad_value_strings(action)
+	Settings.set_setting_group(row_name, GAMEPAD_GROUP_NAME)
+	Settings.set_setting_meta(row_name, "display_name", display_name)
+	Settings.set_setting_meta(row_name, "key_category", category)
+
+
+func _gamepad_row_name(action : String) -> String:
+	return GAMEPAD_ROW_PREFIX + action
+
+
+func _gamepad_action_of(row_name : String) -> String:
+	return row_name.trim_prefix(GAMEPAD_ROW_PREFIX)
+
+
+## A gamepad row exists only for actions the game can restore: project.godot
+## must ship at least one joypad default. Unbound escape-hatch rows (kick,
+## interact, ads) and non-mapped actions (esc_menu) stay off the tab.
+func _has_joypad_default(action : String) -> bool:
+	for event in _project_default_events(action):
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			return true
+	return false
 
 
 ## Move an existing bool setting (registered by GameSettings into
@@ -356,6 +430,12 @@ func on_setting_changed(setting_name, _old_value, new_value) -> void:
 				_apply_left_hand_swap(new_value)
 				SettingsConfig.save_settings()
 			return
+	if _gamepad_rows.has(setting_name):
+		if new_value is InputEvent:
+			apply_gamepad_binding(_gamepad_action_of(setting_name), new_value)
+		elif new_value == null:
+			_apply_gamepad_defaults(_gamepad_action_of(setting_name))
+		return
 	if not _mapped_actions.has(setting_name):
 		return
 	if new_value is InputEvent:
@@ -393,6 +473,212 @@ func apply_binding(action : String, event : InputEvent) -> void:
 
 ## Maximum keyboard/mouse bindings one action holds (primary + alternate).
 const MAX_BINDINGS : int = 2
+
+
+## One apply path for every captured gamepad binding. The joypad slot holds
+## up to MAX_BINDINGS joypad events: a capture appends while fewer are
+## held, and once two are held the next capture clears both and stores the
+## new one, with a notice explaining it. Keyboard/mouse events of the
+## action are never touched, and conflicts clear the matching joypad event
+## from other gamepad rows (the new binding wins, with a notice). The
+## capture is stored in canonical form: device -1 (all pads, matching the
+## project defaults) and full +/-1.0 axis travel.
+func apply_gamepad_binding(action : String, event : InputEvent) -> void:
+	if not InputMap.has_action(action):
+		return
+	var binding := _canonical_gamepad_event(event)
+	if binding == null:
+		return
+	if _holds_gamepad_binding(action, binding):
+		# Capturing a button or axis the action already holds is a no-op:
+		# the slot stays and the other binding is not disturbed.
+		return
+	var held := _gamepad_events(action)
+	var replaces_both := held.size() >= MAX_BINDINGS
+	last_conflict_notice = _clear_gamepad_conflicts(action, binding)
+	if replaces_both:
+		_clear_gamepad_events(action)
+		if last_conflict_notice.is_empty():
+			last_conflict_notice = "%s already held two bindings: both were cleared, %s is the only binding now" % [
+				str(Settings.get_setting_meta(action, "display_name")),
+				_gamepad_display_label(binding),
+			]
+	InputMap.action_add_event(action, binding)
+	_persist_gamepad_row(action, null)
+
+
+## Canonical form of a captured joypad event, or null for events that are
+## no gamepad binding. Device -1 makes the binding work on every pad and
+## keeps the binding id stable; the axis value collapses to its sign, so a
+## half-tilted stick capture binds the same direction at full travel.
+func _canonical_gamepad_event(event : InputEvent) -> InputEvent:
+	if event is InputEventJoypadButton:
+		var button := InputEventJoypadButton.new()
+		button.button_index = event.button_index
+		button.device = GAMEPAD_DEVICE_ALL
+		return button
+	if event is InputEventJoypadMotion:
+		var motion := InputEventJoypadMotion.new()
+		motion.axis = event.axis
+		motion.axis_value = 1.0 if event.axis_value >= 0.0 else -1.0
+		motion.device = GAMEPAD_DEVICE_ALL
+		return motion
+	return null
+
+
+func _holds_gamepad_binding(action : String, event : InputEvent) -> bool:
+	var binding_id := _event_binding_id(event)
+	if binding_id.is_empty():
+		return false
+	for held_event in _gamepad_events(action):
+		if _event_binding_id(held_event) == binding_id:
+			return true
+	return false
+
+
+## Joypad events of one action: the gamepad slot's current bindings.
+func _gamepad_events(action : String) -> Array:
+	var events := Array()
+	for event in InputMap.action_get_events(action):
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			events.append(event)
+	return events
+
+
+## Remove only the joypad events of one action, keeping keyboard/mouse.
+func _clear_gamepad_events(action : String) -> void:
+	for event in InputMap.action_get_events(action):
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			InputMap.action_erase_event(action, event)
+
+
+## Conflict policy for gamepad captures, mirroring the keyboard path: the
+## action being bound keeps the button or axis, any other gamepad row loses
+## that single joypad event and keeps its remaining events, and the
+## returned notice names what was cleared. Non-mapped actions (esc_menu,
+## ui_cancel) stay shared by design and are untouched.
+func _clear_gamepad_conflicts(action : String, event : InputEvent) -> String:
+	var binding_id := _event_binding_id(event)
+	if binding_id.is_empty():
+		return ""
+	var notice := ""
+	for other_row in _gamepad_rows.keys():
+		var other_action := _gamepad_action_of(other_row)
+		if other_action == action or not InputMap.has_action(other_action):
+			continue
+		var cleared := false
+		for other_event in InputMap.action_get_events(other_action):
+			if _event_binding_id(other_event) == binding_id:
+				InputMap.action_erase_event(other_action, other_event)
+				cleared = true
+		if cleared:
+			_persist_gamepad_row(other_action, null)
+			if notice.is_empty():
+				notice = "%s was taken from %s" % [
+					_gamepad_display_label(event),
+					str(Settings.get_setting_meta(other_action, "display_name")),
+				]
+	return notice
+
+
+## The Gamepad row's Defaults button (a null set_setting): restore the
+## action's joypad events straight from project.godot. A permanently
+## unbound gamepad row would be undone by the boot-time joypad merge
+## anyway, so clearing here means back to the shipped bindings.
+func _apply_gamepad_defaults(action : String) -> void:
+	if not InputMap.has_action(action):
+		return
+	_clear_gamepad_events(action)
+	for event in _project_default_events(action):
+		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+			InputMap.action_add_event(action, event)
+	_persist_gamepad_row(action, null)
+
+
+## Refresh the gamepad row's display cache, tell the editors through
+## keys_saved, and persist the whole InputMap to the keybinding dict.
+func _persist_gamepad_row(action : String, old_value) -> void:
+	var row_name := _gamepad_row_name(action)
+	if not Settings._settings.has(row_name):
+		return
+	var value_strings := _gamepad_value_strings(action)
+	Settings._settings[row_name][Settings._FIELD_VALUE] = value_strings
+	Settings.emit_signal("keys_saved", row_name, old_value, value_strings)
+	KeybindingManager.save_keys()
+
+
+## Display strings for one action's current joypad events, in order. The
+## keyboard rows never show these: each slot renders its own device class.
+func _gamepad_value_strings(action : String) -> PackedStringArray:
+	var value_strings := PackedStringArray()
+	for event in _gamepad_events(action):
+		var label := _gamepad_display_label(event)
+		if not label.is_empty():
+			value_strings.append(label)
+	return value_strings
+
+
+func _gamepad_display_label(event : InputEvent) -> String:
+	if event is InputEventJoypadButton:
+		return _joypad_button_label(event.button_index)
+	if event is InputEventJoypadMotion:
+		return _joypad_motion_label(event.axis, event.axis_value)
+	return ""
+
+
+func _joypad_button_label(button_index : int) -> String:
+	match button_index:
+		JOY_BUTTON_A:
+			return "Gamepad A"
+		JOY_BUTTON_B:
+			return "Gamepad B"
+		JOY_BUTTON_X:
+			return "Gamepad X"
+		JOY_BUTTON_Y:
+			return "Gamepad Y"
+		JOY_BUTTON_BACK:
+			return "Gamepad Back"
+		JOY_BUTTON_GUIDE:
+			return "Gamepad Guide"
+		JOY_BUTTON_START:
+			return "Gamepad Start"
+		JOY_BUTTON_LEFT_STICK:
+			return "Gamepad L3"
+		JOY_BUTTON_RIGHT_STICK:
+			return "Gamepad R3"
+		JOY_BUTTON_LEFT_SHOULDER:
+			return "Gamepad LB"
+		JOY_BUTTON_RIGHT_SHOULDER:
+			return "Gamepad RB"
+		JOY_BUTTON_DPAD_UP:
+			return "Gamepad D-pad Up"
+		JOY_BUTTON_DPAD_DOWN:
+			return "Gamepad D-pad Down"
+		JOY_BUTTON_DPAD_LEFT:
+			return "Gamepad D-pad Left"
+		JOY_BUTTON_DPAD_RIGHT:
+			return "Gamepad D-pad Right"
+		_:
+			return "Gamepad Button %d" % button_index
+
+
+func _joypad_motion_label(axis : int, axis_value : float) -> String:
+	var sign_text := "+" if axis_value >= 0.0 else "-"
+	match axis:
+		JOY_AXIS_LEFT_X:
+			return "Left Stick X%s" % sign_text
+		JOY_AXIS_LEFT_Y:
+			return "Left Stick Y%s" % sign_text
+		JOY_AXIS_RIGHT_X:
+			return "Right Stick X%s" % sign_text
+		JOY_AXIS_RIGHT_Y:
+			return "Right Stick Y%s" % sign_text
+		JOY_AXIS_TRIGGER_LEFT:
+			return "Left Trigger%s" % sign_text
+		JOY_AXIS_TRIGGER_RIGHT:
+			return "Right Trigger%s" % sign_text
+		_:
+			return "Axis %d%s" % [axis, sign_text]
 
 
 ## Protected keys stay out of the binding map entirely: backquote/tilde
@@ -522,6 +808,10 @@ func reset_actions() -> void:
 		var action_name: String = action
 		if InputMap.has_action(action_name):
 			_persist_row(action_name, null)
+	for gamepad_row in _gamepad_rows.keys():
+		var gamepad_action := _gamepad_action_of(gamepad_row)
+		if InputMap.has_action(gamepad_action):
+			_persist_gamepad_row(gamepad_action, null)
 	KeybindingManager.save_keys()
 
 

@@ -6,6 +6,7 @@ const TabButtonScene = preload("tab_button.tscn")
 const SettingsGroupScene = preload("settings_ui/settings_group.tscn")
 const GroupClass = preload("settings_ui/settings_group.gd")
 const SetDefaultKeyBtn = preload("settings_ui/set_default_keys.tscn")
+const GamepadEditorScene = preload("settings_ui/settings_editors/gamepad_editor.tscn")
 
 var tab_container: VBoxContainer
 var tab_buttons: HBoxContainer
@@ -24,7 +25,6 @@ var preferred_tab_order: Array[String] = []
 
 ## Pattern to identify key-related groups for special handling
 var key_group_pattern: String = "Key"
-var is_first_key_settings: bool = true
 
 func attach_settings(s: SettingsClass):
 	settings = s
@@ -53,7 +53,6 @@ func generate_tabs():
 			child.queue_free()
 
 	tab_data.clear()
-	is_first_key_settings = true
 
 	# Dynamically detect all groups from settings
 	var detected_groups = _detect_settings_groups()
@@ -327,9 +326,10 @@ func add_setting_to_group(setting_name: String, group: Node, group_name: String)
 		SettingsClass.SettingType.STRING: preload("settings_ui/settings_editors/string_editor.tscn")
 	}
 
-	# Check if this is a key-related group for special handling
-	if _is_key_related_group(group_name) and is_first_key_settings:
-		is_first_key_settings = false
+	# Every key-related group carries the reset button: the keyboard rows on
+	# the Input tab and the gamepad rows on the Gamepad tab share one reset
+	# path that rebuilds both slots from project.godot.
+	if _is_key_related_group(group_name):
 		var reset_btn = SetDefaultKeyBtn.instantiate()
 		group.add_editor(reset_btn)
 		# Runtime-built rows have no scene owner: resolve the panel by
@@ -342,7 +342,12 @@ func add_setting_to_group(setting_name: String, group: Node, group_name: String)
 
 	_add_key_category_header(group, setting_name)
 
-	var setting_editor = SettingsEditors[settings.get_setting_type(setting_name)].instantiate()
+	var editor_scene: PackedScene = SettingsEditors[settings.get_setting_type(setting_name)]
+	if group_name == KeyInputSettings.GAMEPAD_GROUP_NAME:
+		# Gamepad rows capture pad buttons and stick/trigger axes: same row
+		# layout, gamepad capture rules.
+		editor_scene = GamepadEditorScene
+	var setting_editor = editor_scene.instantiate()
 	group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
 

@@ -24,6 +24,7 @@ var ceiling_detection_test_parameters := PhysicsTestMotionParameters3D.new()
 @onready var place_origin: Marker3D = $ModelRoot/PlaceOrigin
 @onready var kick_cast: KickCast = $ModelRoot/KickCast
 @onready var audio_player: CharacterAudio = $Audio
+@onready var animation_tree: AnimationTree = $CharacterAnimationTree
 
 # Old-character landing rule: the land sound plays only when the ground is
 # regained after a jump, not on every step-off-a-ledge.
@@ -61,6 +62,20 @@ static func movement_noise_for(material : AudioLibrary.FOOTSTEP_TYPES, sprinting
 
 func apply_landing_noise() -> void:
 	noise_level = LANDING_NOISE
+	_noise_clear_at_msec = Time.get_ticks_msec() + NOISE_CLEAR_DELAY_MS
+
+
+## Fires a melee attack one-shot on the character animation tree. The equipped
+## item owns the attack fact (attack_cut / attack_thrust); this is the seam
+## that keeps items out of the animation tree's internals.
+func play_melee_attack(attack : StringName, left_hand : bool, attack_speed : float = 1.0) -> void:
+	animation_tree.fire_melee_one_shot(attack, left_hand, attack_speed)
+
+
+## Attack noise (3.x melee parity: thrust 8, cut 10), same decay shape as the
+## landing and footstep producers.
+func apply_attack_noise(level : float) -> void:
+	noise_level = level
 	_noise_clear_at_msec = Time.get_ticks_msec() + NOISE_CLEAR_DELAY_MS
 
 

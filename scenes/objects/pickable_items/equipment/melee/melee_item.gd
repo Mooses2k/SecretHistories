@@ -44,29 +44,7 @@ func attack_cut():
 	$Sounds/Cut.play()
 	$CooldownTimer.start(cooldown)
 	on_cooldown = true
-#	emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
-
-#	var melee_anim
-#	if weapon_type == 3:
-#		melee_anim = owner_character.find_node("SabreTechniques")
-#		if not melee_anim.is_playing():
-#			can_hit = true
-#			melee_anim.play("Swing1FromTierce")
-#			$Sounds/Cut.play()
-#			yield(melee_anim, "animation_finished")
-#			owner_character.stamina -= 50
-#			can_hit = false
-#			melee_anim.queue("Recovery1ToTierce")
-#	if weapon_type == 6:
-#		melee_anim = owner_character.find_node("PolearmTechniques")
-#		if not melee_anim.is_playing():
-#			can_hit = true
-#			melee_anim.play("polearm_cut_2") # WIP, AnimationPlayer got wiped during import_items merge
-#			$Sounds/Cut.play()
-#			yield(melee_anim, "animation_finished")
-#			character.stamina -= 50
-#			can_hit = false
-#			melee_anim.queue("polearm_cut_2_recovery") # WIP, AnimationPlayer got wiped during import_items merge
+	_play_attack_effects(&"attack_cut", 10.0)
 
 
 func attack_thrust():
@@ -75,42 +53,47 @@ func attack_thrust():
 	$Sounds/Thrust.play()
 	$CooldownTimer.start(cooldown)
 	on_cooldown = true
-#	emit_signal("on_attack")  #not used at the moment; should be used to signal up to Animation Player and Hitbox?
-
-#	var melee_anim
-#	if weapon_type == WeaponType.COMPLEX_HILT_ONE_HAND:
-#		melee_anim = owner_character.find_node("SabreTechniques")
-#		if not melee_anim.is_playing():
-#			can_hit = true
-#			melee_anim.play("ThrustFromTierce")
-#			$Sounds/Thrust.play()
-#			yield(melee_anim, "animation_finished")
-#			owner_character.stamina -= 30
-#			can_hit = false
-#			melee_anim.queue("RecoveryThrustToTierce")
-#	if weapon_type == WeaponType.POLEARM:
-#		melee_anim = owner_character.find_node("PolearmTechniques")
-#		if not melee_anim.is_playing():
-#			can_hit = true
-#			melee_anim.play("polearm_thrust_from_right")
-#			$Sounds/Thrust.play()
-#			yield(melee_anim, "animation_finished")
-#			character.stamina -= 30 # this is bugged with halberd
-#			can_hit = false
-#			melee_anim.queue("polearm_recovery_from_right")
+	_play_attack_effects(&"attack_thrust", 8.0)
 
 
 func _has_held_use() -> bool:
 	return true
 
+
+## 3.x input parity: Left-Click thrust, Right-Click cut. The item owns the
+## attack fact, so the animation request and the attack noise fire from the
+## attack entry points for both the player path and the AI path.
 func _use_primary():
 	if not on_cooldown:
-		attack_cut()
+		attack_thrust()
 
 
 func _use_secondary():
 	if not on_cooldown:
-		attack_thrust()
+		attack_cut()
+
+
+func _play_attack_effects(attack : StringName, noise : float) -> void:
+	if owner_character == null:
+		return
+	if owner_character.has_method("play_melee_attack"):
+		owner_character.play_melee_attack(attack, not _held_in_main_hand(), melee_attack_speed)
+	if owner_character.has_method("apply_attack_noise"):
+		owner_character.apply_attack_noise(noise)
+
+
+## Right hand unless the owning inventory holds this item in the offhand slot.
+## Items outside a normal equip slot (mid-equip, AI-injected) use the main hand.
+func _held_in_main_hand() -> bool:
+	if owner_character == null:
+		return true
+	var inventory_value: Variant = owner_character.get("inventory")
+	var inventory: Inventory = inventory_value as Inventory
+	if inventory == null:
+		return true
+	if inventory.get_offhand_item() == self:
+		return false
+	return true
 
 
 #	TODO: Changing the status of the weapon (dropping the weapon or unequiping it)
@@ -140,14 +123,24 @@ func _on_CooldownTimer_timeout() -> void:
 
 
 func _on_Hitbox_hit(other):
-	if can_hit and other.owner != owner_character and other.owner.has_method("damage"):
-		if did_a_thrust:
-			other.owner.damage(primary_damage1, primary_damage_type1)
-			other.owner.damage(primary_damage2, primary_damage_type2)
-		if did_a_cut:
-			other.owner.damage(secondary_damage1, secondary_damage_type1)
-			other.owner.damage(secondary_damage2, secondary_damage_type2)
-		can_hit = false
+	if not can_hit:
+		return
+	var hurtbox := other as Hurtbox
+	if hurtbox == null:
+		return
+	var hit_owner: Node = hurtbox.owner_node
+	if hit_owner == null or hit_owner == owner_character:
+		return
+	# dev4 damage path: the hurtbox emits damaged into its owner's state
+	# (humanoid_character_state._on_damaged), mirroring the kick. Direction
+	# and origin stay at their defaults: 3.x melee applied no swing impulse.
+	if did_a_thrust:
+		hurtbox.damage(primary_damage1, primary_damage_type1)
+		hurtbox.damage(primary_damage2, primary_damage_type2)
+	if did_a_cut:
+		hurtbox.damage(secondary_damage1, secondary_damage_type1)
+		hurtbox.damage(secondary_damage2, secondary_damage_type2)
+	can_hit = false
 
 
 # Swing damage total for the current attack mode, mirroring the Hurtbox

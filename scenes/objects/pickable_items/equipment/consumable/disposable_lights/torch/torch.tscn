@@ -1,7 +1,9 @@
-[gd_scene load_steps=29 format=4 uid="uid://q85k5qw1o81q"]
+[gd_scene load_steps=32 format=4 uid="uid://q85k5qw1o81q"]
 
 [ext_resource type="PackedScene" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/_disposable_light.tscn" id="1"]
 [ext_resource type="Script" uid="uid://bkwxr7hp83du2" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/torch/torch.gd" id="2"]
+[ext_resource type="Script" uid="uid://ce3qcpjqh72pk" path="res://scenes/hitbox.gd" id="8_hitbox"]
+[ext_resource type="AudioStream" uid="uid://bifhmfmybkfly" path="res://resources/sounds/melee/wider_object/59992__qubodup__swosh-sword-swing.mp3" id="10_cut"]
 [ext_resource type="Script" uid="uid://c3cbhjy3g2q7r" path="res://scenes/objects/pickable_items/equipment/consumable/disposable_lights/candle/fire_origin.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://bc06a0vd6itna" path="res://resources/models/items/consumables/light_sources/torch/torch_Image_1.png" id="4_fn08l"]
 [ext_resource type="Texture2D" uid="uid://b63c4k4vwmuyc" path="res://resources/effects/particlePack_1.1/PNG (Transparent)/smoke_02.png" id="5"]
@@ -209,6 +211,9 @@ _data = {
 &"flicker": SubResource("26")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_torchcut"]
+radius = 0.12
+
 [node name="Torch" instance=ExtResource("1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0542236, 0)
 mass = 0.5
@@ -299,5 +304,24 @@ bus = &"Effects"
 [node name="Ignite" parent="." index="9" groups=["IGNITE"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.177249, 0)
 
+[node name="Hitbox" type="Area3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 0)
+collision_layer = 0
+collision_mask = 12
+monitorable = false
+script = ExtResource("8_hitbox")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("SphereShape3D_torchcut")
+
+[node name="CooldownTimer" type="Timer" parent="." index="11"]
+one_shot = true
+
+[node name="Cut" type="AudioStreamPlayer3D" parent="Sounds" index="3"]
+stream = ExtResource("10_cut")
+bus = &"Effects"
+
 [connection signal="item_state_changed" from="." to="." method="_item_state_changed"]
 [connection signal="timeout" from="BurnTime" to="." method="_on_light_depleted"]
+[connection signal="hit" from="Hitbox" to="." method="_on_Hitbox_hit"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

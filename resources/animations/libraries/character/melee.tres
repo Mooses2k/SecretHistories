@@ -1,0 +1,18 @@
+[gd_resource type="AnimationLibrary" load_steps=7 format=3]
+
+[ext_resource type="Animation" path="res://resources/animations/melee_simple_cut_1_right.res" id="1_chop1_r"]
+[ext_resource type="Animation" path="res://resources/animations/melee_simple_cut_1_left.res" id="2_chop1_l"]
+[ext_resource type="Animation" path="res://resources/animations/melee_simple_cut_2_right.res" id="3_chop2_r"]
+[ext_resource type="Animation" path="res://resources/animations/melee_simple_cut_2_left.res" id="4_chop2_l"]
+[ext_resource type="Animation" path="res://resources/animations/melee_simple_thrust_7_right.res" id="5_thrust_r"]
+[ext_resource type="Animation" path="res://resources/animations/melee_simple_thrust_7_left.res" id="6_thrust_l"]
+
+[resource]
+_data = {
+&"Chop1": ExtResource("1_chop1_r"),
+&"Chop1_L": ExtResource("2_chop1_l"),
+&"Chop2": ExtResource("3_chop2_r"),
+&"Chop2_L": ExtResource("4_chop2_l"),
+&"Thrust1": ExtResource("5_thrust_r"),
+&"Thrust1_L": ExtResource("6_thrust_l")
+}

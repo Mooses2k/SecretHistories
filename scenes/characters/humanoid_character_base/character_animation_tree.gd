@@ -59,6 +59,18 @@ const VERTICAL_DIRECTION = "parameters/vertical_direction/blend_position"
 
 @onready var model_root: Node3D = $"../ModelRoot"
 
+const MELEE_SPEED = "parameters/melee_speed/scale"
+
+
+## Fires a melee attack OneShot on this tree, the established
+## parameters/<name>/request pattern. `attack` is the tree node name
+## (attack_cut, attack_thrust); left-hand attacks use the _l variants. The
+## melee_speed TimeScale node carries the 3.x melee_attack_speed scaling.
+func fire_melee_one_shot(attack : StringName, left_hand : bool, attack_speed : float = 1.0) -> void:
+	set(MELEE_SPEED, attack_speed)
+	var node_name := String(attack) + ("_l" if left_hand else "")
+	set("parameters/%s/request" % node_name, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
 func _ready() -> void:
 	active = active or auto_active_on_ready
 	pass # Replace with function body.

@@ -4,6 +4,12 @@ extends DisposableLightItem
 ## owner decision 5 maps it to the WAX carrier shape). Burn accounting is
 ## percentage fill in FuelContainer instead of a wall-clock timer; a torch
 ## burns down to empty and is done, and it is never refillable.
+## Owner ruling (melee parity lane): a lit torch swings as an improvised cut
+## weapon; an unlit torch lights on use; holding the use key never swings
+## (the held-use gate raises the light instead). 3.x had no torch melee; this
+## is owner-ruled beyond parity. Torch-local cut machinery: second user of
+## the melee cut pattern, a shared strike component is deferred until a third
+## appears (Rule of Three valve).
 
 
 signal item_is_dropped
@@ -13,6 +19,17 @@ var fuel : FuelContainer
 var random_number : float
 @export var life_percentage_lose : float = 0.0 # (float, 0.0, 1.0)
 @export var prob_going_out : float = 0.0 # (float, 0.0, 1.0)
+
+# Cut stats, owner-tunable exports (no 3.x reference values exist). A burning
+# stick slashes plus burns; the pair mirrors the melee cut component shape.
+@export var cut_damage_type1 : int = 1 # (GlobalConsts.AttackTypes) SLASHING
+@export var cut_damage1 : int = 12
+@export var cut_damage_type2 : int = 4 # (GlobalConsts.AttackTypes) FIRE
+@export var cut_damage2 : int = 8
+@export var cut_cooldown : float = 1.0
+
+var can_hit := false
+var on_cooldown := false
 
 @onready var firelight = $FireOrigin/Fire/Light3D
 
@@ -73,9 +90,67 @@ func _item_state_changed(previous_state, current_state):
 func _use_primary():
 	if is_lit == false:
 		light()
-	else:
-		unlight()
-		$Sounds/BlowOutSound.play()
+	elif not on_cooldown:
+		attack_cut()
+
+
+## Held use is declared so a hold never swings: item_controller routes holds
+## into set_held_use (a raise no-op for now) and taps fire use_primary on
+## release, exactly like melee items.
+func _has_held_use() -> bool:
+	return true
+
+
+## The torch cut: same cooldown, sound, damage and animation-request shape as
+## MeleeItem.attack_cut. The tap-to-blow-out slot is taken by the swing; a lit
+## torch goes out by depletion and the drop rule only.
+func attack_cut() -> void:
+	can_hit = true
+	$Sounds/Cut.play()
+	$CooldownTimer.start(cut_cooldown)
+	on_cooldown = true
+	_play_cut_effects()
+
+
+func _play_cut_effects() -> void:
+	if owner_character == null:
+		return
+	if owner_character.has_method("play_melee_attack"):
+		owner_character.play_melee_attack(&"attack_cut", not _held_in_main_hand(), 1.0)
+	if owner_character.has_method("apply_attack_noise"):
+		owner_character.apply_attack_noise(10.0)
+
+
+## Right hand unless the owning inventory holds this torch in the offhand slot.
+func _held_in_main_hand() -> bool:
+	if owner_character == null:
+		return true
+	var inventory_value: Variant = owner_character.get("inventory")
+	var inventory: Inventory = inventory_value as Inventory
+	if inventory == null:
+		return true
+	if inventory.get_offhand_item() == self:
+		return false
+	return true
+
+
+func _on_CooldownTimer_timeout() -> void:
+	on_cooldown = false
+	can_hit = false
+
+
+func _on_Hitbox_hit(other):
+	if not can_hit:
+		return
+	var hurtbox := other as Hurtbox
+	if hurtbox == null:
+		return
+	var hit_owner: Node = hurtbox.owner_node
+	if hit_owner == null or hit_owner == owner_character:
+		return
+	hurtbox.damage(cut_damage1, cut_damage_type1)
+	hurtbox.damage(cut_damage2, cut_damage_type2)
+	can_hit = false
 
 
 func _on_light_depleted():

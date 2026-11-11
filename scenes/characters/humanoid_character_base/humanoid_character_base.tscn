@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://daf3jm6dh7y8a"]
+[gd_scene load_steps=80 format=3 uid="uid://daf3jm6dh7y8a"]
 
 [ext_resource type="Script" uid="uid://cqeejcdn3pj2q" path="res://scenes/characters/humanoid_character_base/humanoid_character.gd" id="1_ahvev"]
 [ext_resource type="AnimationLibrary" uid="uid://hs8bbjhps5wl" path="res://resources/animations/libraries/character/movement_and_aiming.glb" id="2_npkk5"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://lb7unh23nikb" path="res://scenes/characters/skeleton_modifiers/skeleton_look_at.gd" id="7_2g320"]
 [ext_resource type="Script" uid="uid://cn3ypnxrxp063" path="res://scenes/characters/skeleton_modifiers/skeleton_fabrik.gd" id="8_n1rg5"]
 [ext_resource type="AnimationLibrary" uid="uid://nt0oqeqdgtfn" path="res://resources/animations/libraries/character/injured.glb" id="8_p8agw"]
+[ext_resource type="AnimationLibrary" path="res://resources/animations/libraries/character/melee.tres" id="9_melee"]
 [ext_resource type="Script" uid="uid://bc2pn85yullkj" path="res://scenes/characters/humanoid_character_base/kick_cast.gd" id="11_o2tj8"]
 [ext_resource type="Script" uid="uid://lhl3khv2vf8g" path="res://scenes/characters/humanoid_character_base/character_ragdoll.gd" id="11_rjxbe"]
 [ext_resource type="Script" uid="uid://dqjokp40unoc4" path="res://scenes/characters/humanoid_character_base/character_bone.gd" id="12_5pa2u"]
@@ -3824,6 +3825,28 @@ blend_point_1/node = SubResource("AnimationNodeAnimation_53sre")
 blend_point_1/pos = -1.0
 value_label = "jump_direction"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_melee_chop1"]
+animation = &"melee/Chop1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_melee_thrust1"]
+animation = &"melee/Thrust1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_melee_chop1_l"]
+animation = &"melee/Chop1_L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_melee_thrust1_l"]
+animation = &"melee/Thrust1_L"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_attack_cut"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_attack_thrust"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_attack_cut_l"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_attack_thrust_l"]
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_melee_speed"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nsnpf"]
 graph_offset = Vector2(-815.263, -183.084)
 nodes/RESET/node = SubResource("AnimationNodeAnimation_ngi1s")
@@ -3859,7 +3882,25 @@ nodes/run/node = SubResource("AnimationNodeBlend2_aiv8h")
 nodes/run/position = Vector2(-400, 400)
 nodes/vertical_direction/node = SubResource("AnimationNodeBlendSpace1D_uvjh2")
 nodes/vertical_direction/position = Vector2(-429.698, 88.4592)
-node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animation_2", &"ads_r", 0, &"_hip_animation", &"ads_r", 1, &"_ads_animation", &"crouch", 0, &"movement", &"crouch", 1, &"movement_crouch", &"grounded", 0, &"vertical_direction", &"grounded", 1, &"run", &"gun_ready_l", 0, &"gun_ready_r", &"gun_ready_l", 1, &"ads_l", &"gun_ready_r", 0, &"grounded", &"gun_ready_r", 1, &"ads_r", &"output", 0, &"gun_ready_l", &"run", 0, &"crouch", &"run", 1, &"_run_animation"]
+nodes/attack_cut/node = SubResource("AnimationNodeOneShot_attack_cut")
+nodes/attack_cut/position = Vector2(880, 380)
+nodes/attack_thrust/node = SubResource("AnimationNodeOneShot_attack_thrust")
+nodes/attack_thrust/position = Vector2(1040, 380)
+nodes/attack_cut_l/node = SubResource("AnimationNodeOneShot_attack_cut_l")
+nodes/attack_cut_l/position = Vector2(1200, 380)
+nodes/attack_thrust_l/node = SubResource("AnimationNodeOneShot_attack_thrust_l")
+nodes/attack_thrust_l/position = Vector2(1360, 380)
+nodes/melee_speed/node = SubResource("AnimationNodeTimeScale_melee_speed")
+nodes/melee_speed/position = Vector2(1520, 380)
+nodes/_melee_chop1/node = SubResource("AnimationNodeAnimation_melee_chop1")
+nodes/_melee_chop1/position = Vector2(880, 500)
+nodes/_melee_thrust1/node = SubResource("AnimationNodeAnimation_melee_thrust1")
+nodes/_melee_thrust1/position = Vector2(1040, 500)
+nodes/_melee_chop1_l/node = SubResource("AnimationNodeAnimation_melee_chop1_l")
+nodes/_melee_chop1_l/position = Vector2(1200, 500)
+nodes/_melee_thrust1_l/node = SubResource("AnimationNodeAnimation_melee_thrust1_l")
+nodes/_melee_thrust1_l/position = Vector2(1360, 500)
+node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animation_2", &"ads_r", 0, &"_hip_animation", &"ads_r", 1, &"_ads_animation", &"crouch", 0, &"movement", &"crouch", 1, &"movement_crouch", &"grounded", 0, &"vertical_direction", &"grounded", 1, &"run", &"gun_ready_l", 0, &"gun_ready_r", &"gun_ready_l", 1, &"ads_l", &"gun_ready_r", 0, &"grounded", &"gun_ready_r", 1, &"ads_r", &"output", 0, &"melee_speed", &"attack_cut", 0, &"gun_ready_l", &"attack_cut", 1, &"_melee_chop1", &"attack_thrust", 0, &"attack_cut", &"attack_thrust", 1, &"_melee_thrust1", &"attack_cut_l", 0, &"attack_thrust", &"attack_cut_l", 1, &"_melee_chop1_l", &"attack_thrust_l", 0, &"attack_cut_l", &"attack_thrust_l", 1, &"_melee_thrust1_l", &"melee_speed", 0, &"attack_thrust_l", &"run", 0, &"crouch", &"run", 1, &"_run_animation"]
 
 [node name="HumanoidCharacterBase" type="RigidBody3D" groups=["CHARACTER"]]
 collision_layer = 18
@@ -5586,6 +5627,7 @@ root_node = NodePath("../ModelRoot")
 libraries = {
 &"": SubResource("AnimationLibrary_gyp67"),
 &"injured": ExtResource("8_p8agw"),
+&"melee": ExtResource("9_melee"),
 &"misc": ExtResource("3_j2gfg"),
 &"movement_and_aiming": ExtResource("2_npkk5")
 }

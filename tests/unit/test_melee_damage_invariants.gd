@@ -28,10 +28,16 @@ class DamageTarget extends Node:
 		damage_calls.append([amount, type])
 
 
-# Stand-in for the Hitbox hit argument: _on_Hitbox_hit reads other.owner, so
-# the proxy declares an owner property of its own (Resource has no such member).
-class HitProxy extends Resource:
-	var owner: Node = null
+# Stand-in for the Hitbox hit argument: dev4 melee damage routes through the
+# Hurtbox (hitbox.gd only ever passes Hurtbox areas), so the proxy extends
+# Hurtbox and forwards its damage() to the hittable target, keeping the
+# assertions on target.damage_calls. owner_node mirrors the @onready field the
+# production hurtbox gets from its scene owner.
+class HitProxy extends Hurtbox:
+	var target : Node = null
+
+	func damage(amount : int, type : GlobalConsts.AttackTypes, direction := Vector3.ZERO, origin := Vector3.ZERO):
+		target.damage(amount, type)
 
 
 func _make_melee() -> MeleeItem:
@@ -47,9 +53,11 @@ func _make_melee() -> MeleeItem:
 	return item
 
 
-func _make_hit(target : Node) -> Resource:
+func _make_hit(target : Node) -> Hurtbox:
 	var proxy = HitProxy.new()
-	proxy.owner = target
+	proxy.target = target
+	proxy.owner_node = target
+	autofree(proxy)
 	return proxy
 
 

@@ -97,3 +97,16 @@ func _on_ReturnButton_pressed() -> void:
 func _on_ShowDebugOptions_pressed():
 	margin_between_menus.visible = !margin_between_menus.visible
 	adaptive_settings_container.visible = !adaptive_settings_container.visible
+	# The spawn box (issue #651) rides the same debug toggle.
+	%SpawnItemBox.visible = adaptive_settings_container.visible
+
+
+## Spawn box (issue #651): register one spawn of the typed item path on the
+## game's local settings, following the Equipment/Tiny Items entry pattern,
+## so the initial-settings-items generation step spawns it on the first
+## dungeon level like every counted entry already does.
+func _on_SpawnItemButton_pressed() -> void:
+	var line_edit : LineEdit = %SpawnItemPath
+	var registered : bool = %StartGameSettings.register_spawn_by_path(line_edit.text)
+	if registered:
+		line_edit.clear()

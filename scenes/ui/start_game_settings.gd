@@ -64,3 +64,52 @@ func add_tiny_items():
 		_settings.set_setting_group(full_path, "Tiny Items")
 		_settings.set_setting_meta(full_path, "display_name", item_paths_resource.get_tiny_item_display_name(full_path))
 		_settings.set_setting_meta(full_path, "full_path", full_path)
+
+
+## Debug spawn box (issue #651): registers one spawn of any item by path,
+## following the same settings pattern the Equipment and Tiny Items lists
+## use, so the generation's initial-settings-items step spawns it on the
+## first dungeon level exactly like the counted entries. A .tscn path goes
+## to the Equipment branch (loaded directly as the item scene), a .tres path
+## to the Tiny Items branch (the tiny item data the tiny spawner wraps).
+## Pressing again bumps the count, one more spawn per press.
+func register_spawn_by_path(item_path : String) -> bool:
+	var trimmed := item_path.strip_edges()
+	if trimmed.is_empty():
+		printerr("Spawn box: empty item path")
+		return false
+	if not trimmed.begins_with("res://"):
+		printerr("Spawn box: item path must start with res://: " + trimmed)
+		return false
+	var resource : Resource = null
+	if FileAccess.file_exists(trimmed):
+		resource = load(trimmed)
+	if resource == null:
+		printerr("Spawn box: failed to load item path: " + trimmed)
+		return false
+	if trimmed.ends_with(".tres"):
+		# Tiny items spawn through their item data resource, and only the
+		# registered ones are spawnyable: anything else cannot become an item.
+		var item_paths_resource: ItemPathsResource = load("res://resources/item_paths.tres")
+		if item_paths_resource == null or not item_paths_resource.tiny_item_paths.has(trimmed):
+			printerr("Spawn box: not a registered tiny item path: " + trimmed)
+			return false
+		_register_spawn_setting(trimmed, "Tiny Items")
+	elif trimmed.ends_with(".tscn"):
+		_register_spawn_setting(trimmed, "Equipment")
+	else:
+		printerr("Spawn box: not an item scene (.tscn) or registered tiny item (.tres): " + trimmed)
+		return false
+	return true
+
+
+func _register_spawn_setting(item_path : String, group : String) -> void:
+	if _settings.has_setting(item_path):
+		# Each press spawns one more: bump the existing spawn count.
+		var amount : int = _settings.get_setting(item_path)
+		_settings.set_setting(item_path, amount + 1)
+		return
+	_settings.add_int_setting(item_path, 0, 999, 1, 1)
+	_settings.set_setting_group(item_path, group)
+	_settings.set_setting_meta(item_path, "display_name", item_path.get_file())
+	_settings.set_setting_meta(item_path, "full_path", item_path)

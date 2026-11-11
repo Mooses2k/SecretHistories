@@ -71,13 +71,6 @@ func _unhandled_input(event: InputEvent) -> void:
 					main_item.use_primary()
 				else:
 					main_item.set_held_use(false)
-		elif event.is_action_pressed(&"playerhand|mainhand_secondary"):
-			# 3.x parity: RMB is the melee cut (use_secondary). 3.x guarded
-			# this against aiming at pickables/interactables; dev4 splits
-			# interaction onto player|interact, so the dispatch is
-			# unconditional here. Cooldown gating lives on the item.
-			main_item.use_secondary()
-
 		elif event.is_action_pressed(&"player|reload"):
 			unloaded = false
 			reload_hold_timer = 0

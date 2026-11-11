@@ -15,7 +15,9 @@ enum WeaponType {
 
 @export var weapon_type: WeaponType = 0
 
-# primary and secondary here refer to primary use (L-Click) and secondary use (R-Click)
+# Names carried from 3.x: primary_* is the thrust pair, secondary_* is the
+# cut pair. The input grammar is one button (Interface wiki): LMB tap = cut,
+# LMB held = thrust.
 @export var primary_damage_type1 : int = 0 # (GlobalConsts.AttackTypes)
 @export var primary_damage1 : int = 0
 @export var primary_damage_type2 : int = 0 # (GlobalConsts.AttackTypes)
@@ -60,17 +62,22 @@ func _has_held_use() -> bool:
 	return true
 
 
-## 3.x input parity: Left-Click thrust, Right-Click cut. The item owns the
-## attack fact, so the animation request and the attack noise fire from the
-## attack entry points for both the player path and the AI path.
+## One-button melee grammar (Interface wiki, Melee section): LMB tap = cut
+## swing, LMB held = thrust. The item owns the attack fact, so the animation
+## request and the attack noise fire from the attack entry points for both
+## the player path and the AI path.
 func _use_primary():
 	if not on_cooldown:
-		attack_thrust()
-
-
-func _use_secondary():
-	if not on_cooldown:
 		attack_cut()
+
+
+## Held past the controller's use_held_threshold fires one thrust; releasing
+## after the hold clears the state without a second attack. RMB is not an
+## attack surface: canon melee RMB is a future reverse-grip/hanging-guard
+## stance, never a strike.
+func _set_held_use(enabled : bool) -> void:
+	if enabled and not on_cooldown:
+		attack_thrust()
 
 
 func _play_attack_effects(attack : StringName, noise : float) -> void:

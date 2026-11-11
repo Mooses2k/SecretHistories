@@ -1,8 +1,11 @@
-# Tests for 3.x melee attack parity (melee lane, Gate 2). Pins:
-# 1. 3.x dispatch: use_primary -> attack_thrust, use_secondary -> attack_cut
-#    (Left-Click thrust, Right-Click cut).
-# 2. Cooldown gating: a second attack during cooldown is a no-op, the
-#    cooldown timer actually runs, and its timeout clears the attack flags.
+# Tests for the one-button melee grammar (Interface wiki, melee lane fix).
+# Pins:
+# 1. Dispatch: LMB tap = cut swing, LMB held past the controller's
+#    use_held_threshold = one thrust. RMB is not an attack surface
+#    (playerhand|mainhand_secondary is gone from the input map).
+# 2. Cooldown gating: a second attack during cooldown is a no-op on both
+#    dispatch paths, the cooldown timer actually runs, and its timeout clears
+#    the attack flags.
 # 3. Damage application through the Hurtbox path: a thrust applies the primary
 #    pair once each, a cut the secondary pair once each, one hit consumes
 #    can_hit, own hurtboxes are skipped.
@@ -75,35 +78,40 @@ func _make_character() -> RecordingCharacter:
 	return character
 
 
-func test_primary_use_performs_a_thrust_like_3x():
+func test_tap_releases_into_a_cut():
 	var item := _make_item()
-	item._use_primary()
-	assert_true(item.did_a_thrust, "primary use thrusts (3.x Left-Click)")
-	assert_false(item.did_a_cut, "primary use does not cut")
-	assert_true(item.on_cooldown, "primary use starts the cooldown")
-	assert_true(item.can_hit, "the thrust hit is armed")
+	item.use_primary()
+	assert_true(item.did_a_cut, "a tap cuts (wiki: LMB tap = Cut)")
+	assert_false(item.did_a_thrust, "a tap does not thrust")
+	assert_true(item.on_cooldown, "a tap starts the cooldown")
+	assert_true(item.can_hit, "the cut hit is armed")
 
 
-func test_secondary_use_performs_a_cut_like_3x():
+func test_hold_crosses_the_threshold_into_one_thrust():
 	var item := _make_item()
-	item.on_cooldown = false
-	item._use_secondary()
-	assert_true(item.did_a_cut, "secondary use cuts (3.x Right-Click)")
-	assert_false(item.did_a_thrust, "secondary use does not thrust")
-	assert_true(item.on_cooldown, "secondary use starts the cooldown")
+	item.set_held_use(true)
+	assert_true(item.did_a_thrust, "a hold thrusts (wiki: LMB held = thrust)")
+	assert_false(item.did_a_cut, "a hold does not cut")
+	assert_true(item.on_cooldown, "a hold starts the cooldown")
+	assert_true(item.is_held(), "the hold state stays raised until release")
+	item.set_held_use(false)
+	assert_false(item.is_held(), "releasing lowers the hold")
+	assert_true(item.did_a_thrust and not item.did_a_cut, "releasing after a hold fires no second attack")
 
 
 func test_cooldown_blocks_a_second_attack():
 	var item := _make_item()
 	var character := _make_character()
 	item.owner_character = character
-	item._use_primary()
-	assert_true(item.on_cooldown, "precondition: the primary attack started the cooldown")
+	item.use_primary()
+	assert_true(item.on_cooldown, "precondition: the tap started the cooldown")
 	item.can_hit = false
 	var requests_before : int = character.melee_requests.size()
-	item._use_primary()
-	assert_false(item.can_hit, "an attack during cooldown does not arm the hitbox again")
-	assert_eq(character.melee_requests.size(), requests_before, "an attack during cooldown fires no animation request")
+	item.use_primary()
+	assert_false(item.can_hit, "a tap during cooldown does not arm the hitbox again")
+	assert_eq(character.melee_requests.size(), requests_before, "a tap during cooldown fires no animation request")
+	item.set_held_use(true)
+	assert_false(item.did_a_thrust, "a hold during cooldown does not thrust")
 	assert_true(item.get_node("CooldownTimer").get_time_left() > 0.0, "the cooldown timer is actually running")
 
 
@@ -168,17 +176,29 @@ func test_animation_requests_carry_attack_hand_and_speed():
 	var character := _make_character()
 	item.owner_character = character
 	character.inventory.current_mainhand_equipment = item
-	item.attack_thrust()
-	assert_eq(character.melee_requests, [[&"attack_thrust", false, 2.0]], "main-hand thrust requests the right-hand thrust one-shot")
+	item.use_primary()
+	assert_eq(character.melee_requests, [[&"attack_cut", false, 2.0]], "a main-hand tap requests the right-hand cut one-shot")
+	assert_eq(character.noises, [10.0], "a cut raises the 3.x cut noise level")
+	character.melee_requests.clear()
+	character.noises.clear()
+	item._on_CooldownTimer_timeout()
+	item.set_held_use(true)
+	assert_eq(character.melee_requests, [[&"attack_thrust", false, 2.0]], "a main-hand hold requests the right-hand thrust one-shot")
 	assert_eq(character.noises, [8.0], "a thrust raises the 3.x thrust noise level")
 	character.melee_requests.clear()
 	character.noises.clear()
 	item._on_CooldownTimer_timeout()
+	item.set_held_use(false)
 	character.inventory.current_mainhand_equipment = null
 	character.inventory.current_offhand_equipment = item
-	item.attack_cut()
-	assert_eq(character.melee_requests, [[&"attack_cut", true, 2.0]], "off-hand cut requests the left-hand cut one-shot")
+	item.use_primary()
+	assert_eq(character.melee_requests, [[&"attack_cut", true, 2.0]], "an off-hand tap requests the left-hand cut one-shot")
 	assert_eq(character.noises, [10.0], "a cut raises the 3.x cut noise level")
+
+
+func test_rmb_attack_action_is_gone_from_the_input_map():
+	assert_false(InputMap.has_action(&"playerhand|mainhand_secondary"), "the RMB attack action is removed from the input map")
+	assert_true(InputMap.has_action(&"playerhand|mainhand_use"), "the one melee button (LMB) stays bound")
 
 
 func test_character_tree_fires_the_matching_one_shot_parameters():

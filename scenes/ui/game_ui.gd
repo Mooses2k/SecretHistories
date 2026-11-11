@@ -4,6 +4,7 @@ class_name GameUI
 const TinnitusOverlay := preload("res://scenes/ui/tinnitus_overlay.gd")
 const BloodScreenOverlay := preload("res://scenes/ui/blood_screen_overlay.gd")
 const DeathScreen := preload("res://scenes/ui/death_screen.gd")
+const HelpOverlay := preload("res://scenes/ui/help_overlay.gd")
 
 
 enum GUIState {
@@ -22,6 +23,7 @@ var gui_state : int = GUIState.HUD: set = set_gui_state
 @onready var _tinnitus : TinnitusOverlay = %Tinnitus
 @onready var _blood_screen : BloodScreenOverlay = %BloodScreen
 @onready var _death_screen : DeathScreen = %DeathScreen
+@onready var _help_info : HelpOverlay = %HelpInfo
 
 var _observed_player : Node = null
 var _observed_state : HumanoidCharacterState = null
@@ -88,6 +90,7 @@ func on_gui_scale_changed(value):
 
 func _on_game_player_spawned(player : Node) -> void:
 	observe_player(player)
+	_help_info.set_player(player)
 
 
 func _on_Events_tinnitus_triggered(strength : float) -> void:
@@ -106,6 +109,11 @@ func _on_player_hurtbox_damaged(_amount : int, _type : GlobalConsts.AttackTypes,
 
 
 func _input(event: InputEvent) -> void:
+	# F1 help overlay: debug feature, available even during load or death.
+	if event.is_action_pressed("misc|help_info"):
+		_help_info.toggle()
+		get_viewport().set_input_as_handled()
+		return
 	if LoadScene.loading:
 		return
 	if GameManager.is_player_dead:

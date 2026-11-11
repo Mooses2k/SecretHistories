@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://q7wrpjiye0bb"]
+[gd_scene load_steps=22 format=3 uid="uid://q7wrpjiye0bb"]
 
 [ext_resource type="PackedScene" uid="uid://dtmm8et2mxrcc" path="res://scenes/ui/settings_menu.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bf3yktywuo08c" path="res://scenes/ui/hud.tscn" id="2"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b4ntthif3cwkw" path="res://resources/effects/bloodScreen.png" id="14_bloodflash"]
 [ext_resource type="Texture2D" uid="uid://dxdp45ss3ceqd" path="res://resources/effects/BloodOverlay1.png" id="15_bloodoverlay"]
 [ext_resource type="Script" uid="uid://cjkqamcmsssc5" path="res://scenes/ui/death_screen.gd" id="16_deathscreen"]
+[ext_resource type="Script" uid="uid://dq8ptbyfod5on" path="res://scenes/ui/help_overlay.gd" id="18_helpoverlay"]
 [ext_resource type="AudioStream" uid="uid://4trkmwlj2tu0" path="res://resources/sounds/death_sound.wav" id="17_deathstream"]
 
 [sub_resource type="Shader" id="Shader_bw"]
@@ -224,6 +225,40 @@ material = SubResource("ShaderMaterial_bw")
 stream = ExtResource("17_deathstream")
 volume_db = 20.263
 pitch_scale = 1.74
+
+[node name="HelpInfo" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("18_helpoverlay")
+
+[node name="DebugInfo" type="RichTextLabel" parent="HelpInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+tab_size = 8
+text = "<this is replaced through code with debug info>"
+
+[node name="KeybindDefaults" type="RichTextLabel" parent="HelpInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+tab_size = 8
+text = "WASD - movement"
 
 [connection signal="button_pressed" from="UIRoot/PauseMenu/EscMenu" to="UIRoot/PauseMenu" method="_on_EscMenu_button_pressed"]
 [connection signal="settings_menu_exited" from="UIRoot/PauseMenu/SettingsMenu" to="UIRoot/PauseMenu" method="_on_SettingsMenu_settings_menu_exited"]

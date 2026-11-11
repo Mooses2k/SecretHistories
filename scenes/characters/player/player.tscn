@@ -436,6 +436,10 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.3, 
 [node name="CameraDir" type="Marker3D" parent="ModelRoot/MainCamera" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
+[node name="DebugLight" type="SpotLight3D" parent="ModelRoot/MainCamera" index="6"]
+visible = false
+spot_range = 20.0
+
 [node name="CharacterAnimationTree" parent="." index="7"]
 active = true
 parameters/ads_l/blend_amount = false

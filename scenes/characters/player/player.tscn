@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6msa32pxnbrk"]
+[gd_scene load_steps=14 format=3 uid="uid://6msa32pxnbrk"]
 
 [ext_resource type="PackedScene" uid="uid://daf3jm6dh7y8a" path="res://scenes/characters/humanoid_character_base/humanoid_character_base.tscn" id="1_ta1ky"]
 [ext_resource type="Script" uid="uid://yuu65kqurr86" path="res://scenes/characters/player/player.gd" id="2_2y1xt"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://bx1lsrcik4wyb" path="res://scenes/characters/player/ik_controller.gd" id="8_xuses"]
 [ext_resource type="Script" uid="uid://b23uajvfm4rrj" path="res://scenes/characters/player/throw_place_controller.gd" id="9_42irl"]
 [ext_resource type="Material" uid="uid://dm2xq2p3ko5bt" path="res://resources/shaders/blueprints/blueprint.tres" id="10_3xnwo"]
+[ext_resource type="Script" uid="uid://qwips2iyc3xn" path="res://scenes/characters/player/indication_driver.gd" id="11_kinest"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ajeom"]
 resource_local_to_scene = true
@@ -487,5 +488,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953)
 light_color = Color(0, 0.647059, 1, 1)
 light_energy = 0.0
 omni_range = 1.5
+
+[node name="IndicationDriver" type="Node" parent="."]
+script = ExtResource("11_kinest")
+interact_controller_path = NodePath("../PlayerController/InteractController")
 
 [editable path="ModelRoot/player_model"]

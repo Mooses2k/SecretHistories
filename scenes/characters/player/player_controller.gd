@@ -51,6 +51,41 @@ var camera_look_mod : float = 1.0
 
 var is_ads_active : bool = false
 var _spyglass_zoom_active : bool = false
+
+# 3.x head bob parity (origin/main player_controller.gd:56 gate export,
+# origin/main player_controller.gd:287-288 call site, origin/main
+# fps_control_mode.gd:204-216 head_bob): a position-only y offset on the
+# camera while walking on the ground, one full cycle per second
+# (sin(_bob_time * 2 * PI)), amplitude proportional to the speed so
+# sprinting bobs harder. The 3.x rotation half of the bob is commented out
+# in 3.x itself for motion sickness, so nothing here writes rotation: the
+# camera stress shake keeps owning the roll axis and the bob stays a pure
+# position offset on top of the crouch base height. The 3.x speed input was
+# the full CharacterBody velocity length; a grounded dev4 RigidBody always
+# carries a small gravity term on y (the same constant the footstep code
+# filters out), so the planar speed is the dev4 translation, and the
+# standing reset condition (3.x velocity == 0) keys on the planar speed
+# being zero. Gate translation: 3.x grounded AND STATE_WALKING becomes
+# grounded AND controllable AND not noclip, and death is excluded because
+# the death cam owns the camera then (death_cam disables this controller).
+const BOB_AMPLITUDE : float = 0.5 / 1000.0
+
+var head_bob_enabled : bool = true
+var _bob_time : float = 0.0
+var _bob_offset : float = 0.0
+
+# 3.x godmode parity (origin/main player_controller.gd:861-870 _cheats):
+# the debug_godmode keybind toggles an effectively unkillable pool by
+# raising the max and refilling it, 55555 on, and off restores the max and
+# refills again (3.x wrote both back to its 100 default). Damage still
+# subtracts in 3.x (character.gd:322-324 subtracts from current_health
+# regardless), so invulnerability is the size of the pool, not a damage
+# zero: the dev4 port keeps the Hurtbox damage path untouched and pins the
+# same semantics on the durability pool (parameters.max_durability 100
+# default matches the 3.x max_health 100 default).
+const GODMODE_POOL : int = 55555
+
+var _godmode_original_max_durability : int = 0
 var _ads_fov_restoring : bool = false
 var _ads_fov_resting_baseline : float = 75.0
 var _ads_hold_tween : Tween
@@ -77,14 +112,23 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(_delta : float) -> void:
+	_tick_head_bob(_delta)
 	main_camera.rotation.x = camera_pitch
-	main_camera.position.y = lerp(CAMERA_STANDING_HEIGHT, CAMERA_CROUCHING_HEIGHT, state.current_crouch_ratio)
+	# The bob is additive on top of the crouch base, mirroring the 3.x
+	# crouch_cam / head_bob ordering (origin/main fps_control_mode.gd
+	# crouch_cam lerps the base, head_bob adds the offset).
+	main_camera.position.y = lerp(CAMERA_STANDING_HEIGHT, CAMERA_CROUCHING_HEIGHT, state.current_crouch_ratio) + _bob_offset
 
 
 func _physics_process(delta: float) -> void:
 	# Handle noclip toggle
 	if Input.is_action_just_pressed(&"debug_noclip"):
 		owner.toggle_noclip()
+
+	# 3.x godmode keybind (origin/main player_controller.gd:862), same debug
+	# keybind surface as the noclip toggle above.
+	if Input.is_action_just_pressed(&"debug_godmode"):
+		toggle_godmode()
 
 	# Screen filter cycle: L advances the 3.x filter order and the lowest
 	# floor forces the reduce color filter once (see ScreenFilterController).
@@ -176,6 +220,50 @@ func _physics_process(delta: float) -> void:
 			offhand_item.use_primary()
 		elif mainhand_item != null:
 			mainhand_item.use_primary()
+
+
+## 3.x head bob (origin/main fps_control_mode.gd:204-216), gated the way
+## origin/main player_controller.gd:287-288 gated it: only while alive,
+## controllable, grounded, out of noclip, and actually moving. The offset
+## accumulates one sine sample per frame exactly as 3.x accumulated onto the
+## camera origin, and the 3.x standing reset (velocity == 0) zeroes it.
+func _tick_head_bob(delta : float) -> void:
+	var speed := _planar_speed()
+	if not head_bob_enabled or not _bob_allowed():
+		_bob_offset = 0.0
+		return
+	_bob_time += delta
+	_bob_offset += sin(_bob_time * (2.0 * PI)) * speed * BOB_AMPLITUDE
+
+
+func _bob_allowed() -> bool:
+	if GameManager.is_player_dead:
+		return false
+	return state.is_controllable() and state.is_on_ground and not state.noclip_enabled and _planar_speed() > 0.0
+
+
+func _planar_speed() -> float:
+	var velocity := (owner as RigidBody3D).linear_velocity
+	return Vector2(velocity.x, velocity.z).length()
+
+
+## 3.x godmode toggle (origin/main player_controller.gd:862-870): enable
+## raises the max pool to 55555 and refills it; disable restores the
+## previous max and refills to it, the same full-refill both ways the 3.x
+## handler produced. Same surface as noclip: the debug keybind, no
+## settings gate (3.x had none, and the landed noclip cheat follows the
+## same convention).
+func toggle_godmode() -> void:
+	var state_node : HumanoidCharacterState = state
+	if state_node.parameters.max_durability != GODMODE_POOL:
+		_godmode_original_max_durability = state_node.parameters.max_durability
+		state_node.parameters.max_durability = GODMODE_POOL
+		state_node.durability = GODMODE_POOL
+		print("CHEAT: godmode enabled")
+	else:
+		state_node.parameters.max_durability = _godmode_original_max_durability
+		state_node.durability = state_node.parameters.max_durability
+		print("CHEAT: godmode disabled")
 
 
 func set_drag_speed_modifier(modifier: float) -> void:

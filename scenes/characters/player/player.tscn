@@ -482,4 +482,10 @@ omni_range = 10.0
 [node name="BeltPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 1.2, -0.3)
 
+[node name="KinestheticSense" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.992437, 0.151953)
+light_color = Color(0, 0.647059, 1, 1)
+light_energy = 0.0
+omni_range = 1.5
+
 [editable path="ModelRoot/player_model"]

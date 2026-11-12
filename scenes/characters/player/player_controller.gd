@@ -8,6 +8,23 @@ const CAMERA_CROUCHING_HEIGHT = 1.1
 # Constants for auto-switch weapon setting
 const SETTING_AUTO_SWITCH_WEAPON: String = "Auto-switch weapons on throw"
 
+# 3.x ADS parity (player_old/player_anims.gd:148-212): per-size camera fov
+# targets and the per-frame lerp weights the 3.x hold path applied every
+# frame. Small items (revolvers) aim at 65, medium guns (rifles, shotguns)
+# at 60; the release lerps back at the 3.x end_ads weight. The restore
+# baseline is the dev4 camera default (75), not 3.x's normal_fov 70, the
+# same documented deviation the spyglass zoom lane recorded.
+const ADS_FOV_SMALL : float = 65.0
+const ADS_FOV_MEDIUM : float = 60.0
+const ADS_FOV_LERP_SMALL : float = 0.1
+const ADS_FOV_LERP_MEDIUM : float = 0.04
+const ADS_FOV_RESTORE_LERP : float = 0.1
+const ADS_BLEND_L : String = "parameters/ads_l/blend_amount"
+const ADS_BLEND_R : String = "parameters/ads_r/blend_amount"
+const ADS_BLEND_RATE_SMALL : float = 0.1
+const ADS_BLEND_RATE_MEDIUM : float = 0.05
+const ADS_RESTORE_TWEEN_TIME : float = 0.1
+
 @onready var state: HumanoidCharacterState = $"../State"
 @onready var input: HumanoidCharacterInput = $"../Input"
 @onready var main_camera: Camera3D = $"../ModelRoot/MainCamera"
@@ -23,6 +40,24 @@ var dodge_performed : bool = false
 var was_sprinting : bool = false  # Track previous sprint state to detect sprint end
 var sprint_end_time : float = 0.0  # Time when sprint ended
 
+# Mouse-look scale seam (3.x fps_control_mode.gd:90,92 pattern): the mouse
+# motion path multiplies the sensitivity by this factor. ADS scales it by the
+# live-read Ironsight Aim Sensitivity setting (owner ruling 2026-11-09: these
+# are ironsight aims, so the default is a mild 0.8; 1.0 restores the exact
+# 3.x behavior where ADS applied no look scale). The spyglass zoom sets 0.25
+# (3.x player_camera.gd zoom_camera_sens_mod parity) and restores 1.0 when
+# it releases. The seam floor is 0.05 so no consumer can freeze the look.
+var camera_look_mod : float = 1.0
+
+var is_ads_active : bool = false
+var _spyglass_zoom_active : bool = false
+var _ads_fov_restoring : bool = false
+var _ads_fov_resting_baseline : float = 75.0
+var _ads_hold_tween : Tween
+var _ads_blend_tween : Tween
+
+@onready var character_animation_tree : AnimationTree = get_node_or_null("../CharacterAnimationTree")
+
 
 func _ready() -> void:
 	# The 3.x L screen-filter cycle (ending in the camera debug light), run
@@ -30,11 +65,12 @@ func _ready() -> void:
 	screen_filter_controller = ScreenFilterController.new()
 	add_child(screen_filter_controller)
 	screen_filter_controller.setup(debug_light)
+	_ads_fov_resting_baseline = main_camera.fov
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var sens = InputSettings.setting_mouse_sensitivity * 0.001
+		var sens = InputSettings.setting_mouse_sensitivity * 0.001 * camera_look_mod
 		camera_pitch -= sens*event.relative.y
 		camera_pitch = clamp(camera_pitch, - PI * 0.5, PI * 0.5)
 		state.facing = state.facing.rotated(Vector3.UP, -sens*event.relative.x)
@@ -104,6 +140,26 @@ func _physics_process(delta: float) -> void:
 	# moved is true if sprinting and either already moved or is moving, false otherwise
 	moved_since_sprint = input.sprint and (moved_since_sprint or is_sprinting)
 
+	# ADS sustain (3.x player_controller.gd:664-688): while aimed, sprinting,
+	# reloading, a missing gun, or death each end the aim. The camera fov
+	# follows the 3.x per-size lerp while aimed and eases back to the dev4
+	# camera baseline afterwards.
+	if is_ads_active:
+		var ads_gun := _mainhand_gun()
+		if GameManager.is_player_dead or input.sprint or state.is_reloading or ads_gun == null:
+			_end_ads()
+		else:
+			_apply_ads_look_mod()
+			if not _spyglass_zoom_active:
+				var ads_small := ads_gun.item_size == GlobalConsts.ItemSize.SIZE_SMALL
+				var ads_target := ADS_FOV_SMALL if ads_small else ADS_FOV_MEDIUM
+				var ads_weight := ADS_FOV_LERP_SMALL if ads_small else ADS_FOV_LERP_MEDIUM
+				main_camera.fov = lerpf(main_camera.fov, ads_target, ads_weight)
+	elif _ads_fov_restoring and not _spyglass_zoom_active and not GameManager.is_player_dead:
+		main_camera.fov = lerpf(main_camera.fov, _ads_fov_baseline(), ADS_FOV_RESTORE_LERP)
+		if absf(main_camera.fov - _ads_fov_baseline()) < 0.05:
+			_ads_fov_restoring = false
+
 	# 3.x ability release chain (origin/main player_controller.gd:611-617):
 	# releasing F or N uses the belt item first, then the offhand item, then
 	# the mainhand item. A belt-stowed lantern toggles its light here (with
@@ -130,9 +186,122 @@ func set_drag_speed_modifier(modifier: float) -> void:
 		dodge_performed = false
 
 
-func set_ads(value : bool):
-	print("toggling ADS: ", value)
-	pass
+## ADS entry point, called by the interact controller on the RMB hold on
+## empty air and on the separately bound ads action (5 call sites). Ported
+## from 3.x player_controller.gd:664-706 with its hold/toggle split:
+## GameSettings.ads_hold_enabled true means hold (engage on press, release
+## on release); false means toggle (a press flips the state, a release is
+## inert). Gates follow the 3.x conditions: a GunItem in the mainhand, not
+## sprinting, not reloading; sprint, reload, gun loss, and death end the
+## aim in the _physics_process sustain block.
+func set_ads(value : bool) -> void:
+	if GameManager.is_player_dead:
+		return
+	if GameSettings.ads_hold_enabled:
+		if value:
+			_start_ads()
+		else:
+			_end_ads()
+	else:
+		if not value:
+			return
+		if is_ads_active:
+			_end_ads()
+		else:
+			_start_ads()
+
+
+## Spyglass zoom arbitration: the zoom controller reports its hold so ADS
+## fov application stands down while the spyglass owns the camera.
+func set_spyglass_zoom_active(active : bool) -> void:
+	_spyglass_zoom_active = active
+
+
+func _mainhand_gun() -> GunItem:
+	var item : EquipmentItem = (owner as HumanoidCharacter).inventory.get_mainhand_item()
+	if item is GunItem and is_instance_valid(item):
+		return item
+	return null
+
+
+func _start_ads() -> void:
+	var gun := _mainhand_gun()
+	if gun == null:
+		return
+	if input.sprint or state.is_reloading:
+		return
+	is_ads_active = true
+	_ads_fov_restoring = false
+	_apply_ads_look_mod()
+	_apply_ads_hold(gun)
+	_apply_ads_blend(true, gun.item_size == GlobalConsts.ItemSize.SIZE_SMALL)
+
+
+func _end_ads() -> void:
+	if not is_ads_active:
+		return
+	is_ads_active = false
+	_ads_fov_restoring = true
+	_apply_ads_look_mod()
+	var gun := _mainhand_gun()
+	if gun != null and is_instance_valid(gun.hold_position):
+		_tween_ads_hold(gun, gun.ads_reset_position, gun.ads_reset_rotation, ADS_RESTORE_TWEEN_TIME)
+	_apply_ads_blend(false, gun != null and gun.item_size == GlobalConsts.ItemSize.SIZE_SMALL)
+
+
+## 3.x player_anims.gd:151-160: the hold node snaps (a 0.0-duration tween)
+## to the gun's authored ads_hold_rotation / ads_hold_position and eases
+## back to the gun's ready-time reset values over 0.1 (player_anims.gd:184-192).
+func _apply_ads_hold(gun : GunItem) -> void:
+	if is_instance_valid(gun.hold_position):
+		_tween_ads_hold(gun, gun.ads_hold_position, gun.ads_hold_rotation, 0.0)
+
+
+func _tween_ads_hold(gun : GunItem, target_position : Vector3, target_rotation : Vector3, duration : float) -> void:
+	if _ads_hold_tween != null and _ads_hold_tween.is_valid():
+		_ads_hold_tween.kill()
+	var hold := gun.hold_position as Node3D
+	_ads_hold_tween = create_tween().set_parallel(true)
+	_ads_hold_tween.tween_property(hold, "rotation_degrees", target_rotation, duration)
+	_ads_hold_tween.tween_property(hold, "position", target_position, duration)
+
+
+## 3.x player_anims.gd:161-176 blended parameters/SmallAds, MediumAds or
+## ShotgunAds toward 1.0 (0.1 small, 0.05 medium/shotgun) and back on
+## release. Dev4's humanoid tree (humanoid_character_base.tscn:3897-3900)
+## carries no per-size ADS blends: it has a single ads_idle pose behind the
+## ads_l / ads_r Blend2 nodes, so both are written with the 3.x rate for the
+## current gun size. The per-size visual blends are asset-blocked.
+func _apply_ads_blend(engage : bool, small_gun : bool) -> void:
+	if character_animation_tree == null:
+		return
+	var target := 1.0 if engage else 0.0
+	var rate := ADS_BLEND_RATE_SMALL if small_gun else ADS_BLEND_RATE_MEDIUM
+	var from := float(character_animation_tree.get(ADS_BLEND_L))
+	if _ads_blend_tween != null and _ads_blend_tween.is_valid():
+		_ads_blend_tween.kill()
+	_ads_blend_tween = create_tween()
+	_ads_blend_tween.tween_method(_set_ads_blend_value, from, target, rate)
+
+
+func _set_ads_blend_value(value : float) -> void:
+	if character_animation_tree == null:
+		return
+	character_animation_tree.set(ADS_BLEND_L, value)
+	character_animation_tree.set(ADS_BLEND_R, value)
+
+
+func _ads_fov_baseline() -> float:
+	return _ads_fov_resting_baseline
+
+
+## The look seam value while aimed: the live-read ironsight sensitivity
+## setting, clamped, so a settings change applies without a restart. While
+## the spyglass zoom is active it owns the seam; ADS never touches it then.
+func _apply_ads_look_mod() -> void:
+	if _spyglass_zoom_active:
+		return
+	camera_look_mod = GameSettings.ads_look_scale() if is_ads_active else 1.0
 
 
 func throw_object(object : RigidBody3D):

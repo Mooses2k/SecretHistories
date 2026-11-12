@@ -157,7 +157,10 @@ func _attach_spyglass_zoom_controller(player : HumanoidCharacter) -> void:
 	var zoom_controller: Node = SPYGLASS_ZOOM_CONTROLLER.new()
 	zoom_controller.name = "SpyglassZoomController"
 	camera.add_child(zoom_controller)
-	zoom_controller.setup(camera, player.inventory)
+	# The controller is passed so the zoom can drive the player's
+	# camera_look_mod seam (0.25x while zoomed) and stand down its fov
+	# restore while ADS owns the camera.
+	zoom_controller.setup(camera, player.inventory, player.get_node("PlayerController"))
 
 
 func _connect_staircase_events() -> void:

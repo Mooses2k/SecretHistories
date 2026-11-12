@@ -1,9 +1,17 @@
-﻿# Pins the F1 help overlay (3.x scenes/characters/player/player_hit.gd on
+# Pins the F1 help overlay (3.x scenes/characters/player/player_hit.gd on
 # origin/main): F1 toggles the keybind defaults list and the live debug
-# readout, and F1 stays a protected key no user binding can take.
+# readout, F1 stays a protected key no user binding can take, and the
+# readout reports the player's light_level and noise_level live.
 extends GutTest
 
 const UI_SCENE := preload("res://scenes/ui/game_ui.tscn")
+
+
+class _StubPlayer extends Node3D:
+	# Minimal stand-in for the humanoid properties the readout rows read.
+	var light_level : float = 0.0
+	var noise_level : float = 0.0
+
 
 var _game : Game
 var _saved_game : Game
@@ -60,3 +68,71 @@ func test_debug_readout_fills_when_visible() -> void:
 	await get_tree().process_frame
 	assert_true(String(debug_label.text).contains("Player durability"),
 			"the visible overlay fills the debug readout")
+
+
+func test_debug_readout_keeps_the_3x_row_set() -> void:
+	# 3.x player_hit.gd rows: health, stamina, light_level, noise_level,
+	# grounded, strata, position, FPS. Dev4 shows durability (the health
+	# analog) and the stamina ratio; every row label must still be present.
+	var overlay : Control = _ui.get_node("%HelpInfo")
+	var debug_label : RichTextLabel = overlay.get_node("DebugInfo")
+	var stub := _StubPlayer.new()
+	add_child_autofree(stub)
+	overlay.set_player(stub)
+	_ui._input(_f1_event())
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var text := String(debug_label.text)
+	for row : String in [
+		"Player durability", "Player stamina", "Player light_level",
+		"Player noise_level", "Player on ground", "Current strata",
+		"Player position", "Current FPS",
+	]:
+		assert_true(text.contains(row), "the readout keeps the row " + row)
+
+
+func test_light_level_row_reports_the_player_value() -> void:
+	var overlay : Control = _ui.get_node("%HelpInfo")
+	var debug_label : RichTextLabel = overlay.get_node("DebugInfo")
+	var stub := _StubPlayer.new()
+	stub.light_level = 0.42
+	add_child_autofree(stub)
+	overlay.set_player(stub)
+	_ui._input(_f1_event())
+	await get_tree().process_frame
+	await get_tree().process_frame
+	assert_true(String(debug_label.text).contains("Player light_level = 0.42"),
+			"the light_level row shows the player's live light_level")
+
+
+func test_noise_level_row_updates_from_real_values() -> void:
+	var overlay : Control = _ui.get_node("%HelpInfo")
+	var debug_label : RichTextLabel = overlay.get_node("DebugInfo")
+	var stub := _StubPlayer.new()
+	stub.noise_level = 8.0
+	add_child_autofree(stub)
+	overlay.set_player(stub)
+	_ui._input(_f1_event())
+	await get_tree().process_frame
+	await get_tree().process_frame
+	assert_true(String(debug_label.text).contains("Player noise_level = 8"),
+			"the noise_level row shows the player's live noise_level")
+	stub.noise_level = 5.0
+	await get_tree().process_frame
+	await get_tree().process_frame
+	assert_true(String(debug_label.text).contains("Player noise_level = 5"),
+			"the noise_level row tracks the changing value")
+
+
+func test_missing_player_properties_fall_back_without_crashing() -> void:
+	var overlay : Control = _ui.get_node("%HelpInfo")
+	var debug_label : RichTextLabel = overlay.get_node("DebugInfo")
+	overlay.set_player(null)
+	_ui._input(_f1_event())
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var text := String(debug_label.text)
+	assert_true(text.contains("Player light_level = 0"),
+			"a missing player shows the dark default, not a crash")
+	assert_true(text.contains("Player noise_level = 0"),
+			"a missing player shows the silent default, not a crash")

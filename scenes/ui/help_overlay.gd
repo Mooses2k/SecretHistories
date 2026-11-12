@@ -61,14 +61,31 @@ func toggle() -> void:
 	visible = not visible
 
 
+## Reads a float off the player humanoid without crashing when the stub or
+## rig lacks the property; every readout row is live, never invented.
+func _player_float(property_name : StringName, fallback : float) -> float:
+	if _player == null:
+		return fallback
+	var value : Variant = _player.get(property_name)
+	return float(value) if value != null else fallback
+
+
 func _process(_delta : float) -> void:
 	if not visible:
 		return
+	var state_durability : int = _state.durability if _state != null else -1
+	var stamina : float = snappedf(_state.stamina_ratio if _state != null else 0.0, 0.01)
+	var on_ground : bool = _state.is_on_ground if _state != null else false
+	var strata : int = GameManager.game.current_floor_level if is_instance_valid(GameManager.game) else 0
+	var player_position : Vector3 = _player.global_position if _player != null else Vector3.ZERO
+	var fps : int = Performance.get_monitor(Performance.TIME_FPS)
 	debug_label.text = (
-		"Player durability = " + str(_state.durability if _state != null else -1) + "\n"
-		+ "Player stamina = " + str(snappedf(_state.stamina_ratio if _state != null else 0.0, 0.01)) + "\n"
-		+ "Player on ground = " + str(_state.is_on_ground if _state != null else false) + "\n"
-		+ "Current strata = " + str(GameManager.game.current_floor_level if is_instance_valid(GameManager.game) else 0) + "\n"
-		+ "Player position = " + str(_player.global_position if _player != null else Vector3.ZERO) + "\n"
-		+ "Current FPS = " + str(Performance.get_monitor(Performance.TIME_FPS)) + "\n"
+		"Player durability = " + str(state_durability) + "\n"
+		+ "Player stamina = " + str(stamina) + "\n"
+		+ "Player light_level = " + str(_player_float(&"light_level", 0.0)) + "\n"
+		+ "Player noise_level = " + str(_player_float(&"noise_level", 0.0)) + "\n"
+		+ "Player on ground = " + str(on_ground) + "\n"
+		+ "Current strata = " + str(strata) + "\n"
+		+ "Player position = " + str(player_position) + "\n"
+		+ "Current FPS = " + str(fps) + "\n"
 	)

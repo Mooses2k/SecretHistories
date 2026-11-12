@@ -1,39 +1,46 @@
 # Pins the RESET BUTTON PATH through the real settings menu scene: the
-# "Reset keybindings" button must actually open the confirmation panel and
-# Yes must reset the live bindings. Regression ground: runtime-built settings
-# rows have no scene owner, so the old owner-chain lookup silently skipped
-# the button-to-panel connection and the owner's Reset did nothing with
-# nothing printed (owner report 2026-11-08). The fix resolves the panel by
-# walking ancestors from the button.
+# "Reset" button must actually open the confirmation panel and Yes must
+# reset the live bindings. Regression ground: runtime-built settings rows
+# have no scene owner, so the old owner-chain lookup silently skipped the
+# button-to-panel connection and the owner's Reset did nothing with nothing
+# printed (owner report 2026-11-08). The fix resolves the panel by walking
+# ancestors from the button. Owner ruling 2026-11-09: the Reset is a compact
+# button riding the first binding row to the right of its Change and Clear
+# buttons (the old long-named "Reset to defaults" row is gone).
 # The real settings_menu.tscn is instantiated (both embed sites instance it:
 # title menu and pause menu), rows build through the real attach_settings
 # flow, and the live KeyInputSettings autoload is what gets reset.
 extends GutTest
 
 const SETTINGS_MENU_SCENE := "res://scenes/ui/settings_menu.tscn"
-const RESET_EDITOR_SCRIPT := preload("res://scenes/ui/settings_ui/settings_editors/reset_keybindings.gd")
-
-
-func _find_reset_editor(root : Node) -> Node:
-	var stack : Array[Node] = [root]
-	while not stack.is_empty():
-		var node : Node = stack.pop_back()
-		if node.get_script() == RESET_EDITOR_SCRIPT:
-			return node
-		stack.append_array(node.get_children())
-	return null
 
 
 func _find_reset_button(root : Node) -> Button:
-	# The reset button is the set_default_keys editor row (text "   Reset to
-	# defaults   "); ResetPanel's own Yes/No buttons must not match.
+	# The reset button rides the first binding row, to the right of that
+	# row's Change and Clear buttons; ResetPanel's own Yes/No buttons must
+	# not match.
 	var stack : Array[Node] = [root]
 	while not stack.is_empty():
 		var node : Node = stack.pop_back()
-		if node is Button and str((node as Button).text).strip_edges() == "Reset to defaults":
+		if node is Button and (node as Button).text == "Reset" \
+				and _row_has_change_and_clear(node.get_parent()):
 			return node as Button
 		stack.append_array(node.get_children())
 	return null
+
+
+func _row_has_change_and_clear(row : Node) -> bool:
+	if row == null:
+		return false
+	var change := false
+	var clear := false
+	for child in row.get_children():
+		if child is Button:
+			if (child as Button).text == "Change":
+				change = true
+			elif (child as Button).text == "Clear":
+				clear = true
+	return change and clear
 
 
 func test_reset_button_opens_the_panel_and_yes_resets_the_live_map() -> void:
@@ -41,13 +48,10 @@ func test_reset_button_opens_the_panel_and_yes_resets_the_live_map() -> void:
 	add_child_autofree(menu)
 	menu.visible = true
 
-	var editor := _find_reset_editor(menu)
-	assert_not_null(editor, "the settings menu builds the reset editor row")
-
 	# The regression: the button must be CONNECTED (the old owner-chain
 	# lookup silently skipped the connection).
 	var button := _find_reset_button(menu)
-	assert_not_null(button, "the reset editor carries its Button")
+	assert_not_null(button, "the first binding row carries the Reset button")
 	assert_gt(button.get_signal_connection_list("pressed").size(), 0,
 		"the reset button is connected to the panel (no silent no-op)")
 

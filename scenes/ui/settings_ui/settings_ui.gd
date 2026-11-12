@@ -3,7 +3,6 @@ extends VBoxContainer
 
 #export var default_group_name = "Game Settings"
 
-const SetDefaultKeyBtn = preload("set_default_keys.tscn")
 const BlankRowScene = preload("blank_row.tscn")
 const GroupScene = preload("settings_group.tscn")
 const GroupClass = preload("settings_group.gd")
@@ -23,6 +22,9 @@ const SettingsEditors = {
 var group_nodes : Dictionary = Dictionary()
 var settings : SettingsClass
 var is_first_settings : bool = true
+
+## Groups that already carry their Reset button (one per key group).
+var _groups_with_reset : Dictionary = {}
 
 ## Configuration for group ordering - can be set by caller
 ## Groups not in this list will be sorted alphabetically after these
@@ -54,6 +56,7 @@ func clear_ui():
 	for k in group_nodes.keys():
 		group_nodes[k].queue_free()
 	group_nodes.clear()
+	_groups_with_reset.clear()
 
 
 func generate_ui():
@@ -137,23 +140,6 @@ func add_setting(setting_name : String):
 	if settings_group == null:
 		add_group(group_name)
 		settings_group = get_group_node(group_name)
-	
-	# Every key-related group carries the reset button: the keyboard rows on
-	# the Input tab and the gamepad rows on the Gamepad tab share one reset
-	# path that rebuilds both slots from project.godot.
-	if _is_key_related_group(group_name):
-		settings_group.add_editor(SetDefaultKeyBtn.instantiate())
-		var reset_button = settings_group.get_node_or_null("ListOffset/SettingsList/Container/Button")
-		if reset_button == null:
-			# The editor instance root is the Container; the button is its child.
-			var editors = settings_group.get_children()
-			for editor_node in editors:
-				if editor_node.name.begins_with("Container"):
-					reset_button = editor_node.get_node_or_null("Button")
-		# Runtime-built rows have no scene owner: walk ancestors for the panel.
-		var reset_panel = ResetKeybindingsEditor.find_panel(reset_button)
-		if reset_button != null and reset_panel != null and reset_panel.has_method("toggle_panel"):
-			reset_button.connect("pressed", Callable(reset_panel, "toggle_panel"))
 
 	_add_key_category_header(settings_group, setting_name)
 
@@ -165,6 +151,25 @@ func add_setting(setting_name : String):
 	var setting_editor = editor_scene.instantiate() as SettingEditor
 	settings_group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
+
+	# One Reset per key group, riding the group's first binding row to the
+	# right of its Change and Clear buttons: same look and placement as the
+	# tabbed UI, and the reset itself stays the landed confirmation path.
+	if _is_key_related_group(group_name) and not _groups_with_reset.has(group_name):
+		_groups_with_reset[group_name] = true
+		_attach_row_reset_button(setting_editor)
+
+
+## Append the group Reset button into a binding row, after its Change and
+## Clear buttons, and connect it to the settings menu's confirmation panel.
+func _attach_row_reset_button(row : Control) -> void:
+	var reset_button := Button.new()
+	reset_button.name = "ResetButton"
+	reset_button.text = "Reset"
+	row.add_child(reset_button)
+	var reset_panel = ResetKeybindingsEditor.find_panel(reset_button)
+	if reset_panel != null and reset_panel.has_method("toggle_panel"):
+		reset_button.pressed.connect(reset_panel.toggle_panel)
 
 
 ## Keybinding rows carry a key_category meta from the declarative map:

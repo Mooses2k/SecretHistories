@@ -41,7 +41,27 @@ layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 1
 
-[node name="AdaptiveSettingsUI" parent="MarginContainer/HBoxContainer/ScrollContainer" instance=ExtResource("3")]
+[node name="CheatArea" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SpawnItemBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/ScrollContainer/CheatArea"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="SpawnItemPath" type="LineEdit" parent="MarginContainer/HBoxContainer/ScrollContainer/CheatArea/SpawnItemBox"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "res:// path to item scene or tiny item"
+
+[node name="SpawnItemButton" type="Button" parent="MarginContainer/HBoxContainer/ScrollContainer/CheatArea/SpawnItemBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spawn Item By Path"
+
+[node name="AdaptiveSettingsUI" parent="MarginContainer/HBoxContainer/ScrollContainer/CheatArea" instance=ExtResource("3")]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -77,21 +97,6 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 text = "Debug/Cheat Options"
 
-[node name="SpawnItemBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Column4"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="SpawnItemPath" type="LineEdit" parent="MarginContainer/HBoxContainer/Column4/SpawnItemBox"]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "res:// path to item scene or tiny item"
-
-[node name="SpawnItemButton" type="Button" parent="MarginContainer/HBoxContainer/Column4/SpawnItemBox"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Spawn Item By Path"
-
 [node name="ReturnButton" type="Button" parent="MarginContainer/HBoxContainer/Column4"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
@@ -117,7 +122,7 @@ stream = ExtResource("5")
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Column4/StartGame" to="." method="_on_StartGame_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Column4/ShowDebugOptions" to="." method="_on_ShowDebugOptions_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/Column4/SpawnItemBox/SpawnItemButton" to="." method="_on_SpawnItemButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/ScrollContainer/CheatArea/SpawnItemBox/SpawnItemButton" to="." method="_on_SpawnItemButton_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Column4/ReturnButton" to="." method="_on_ReturnButton_pressed"]
 [connection signal="intro_done" from="GameIntro" to="." method="_on_GameIntro_intro_done"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

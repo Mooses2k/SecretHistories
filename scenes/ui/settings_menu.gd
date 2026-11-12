@@ -42,12 +42,12 @@ func _ready() -> void:
 		settings_ui.set_group_order(group_order)
 
 	if settings_ui.has_method("set_tab_grouping_rules"):
-		# Configure tab grouping for main settings
+		# Configure tab grouping for main settings. Gunplay is sectioned
+		# inside the Game tab (owner ruling, 2026-11-09), not its own tab.
 		settings_ui.set_tab_grouping_rules({
 			"Video": ["Video Settings"],
 			"Audio": ["Audio Settings"],
-			"Game": ["Game Settings"],
-			"Gunplay": ["Gunplay"],
+			"Game": ["Game Settings", "Gunplay"],
 			"Input": ["Input Settings", "Input Key Settings"],
 			"Gamepad": ["Gamepad Key Settings"]
 		})
@@ -58,7 +58,6 @@ func _ready() -> void:
 			"Video",
 			"Audio",
 			"Game",
-			"Gunplay",
 			"Input",
 			"Gamepad"
 		]

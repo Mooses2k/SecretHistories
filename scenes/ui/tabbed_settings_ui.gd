@@ -5,7 +5,7 @@ signal tab_changed(tab_name: String)
 const TabButtonScene = preload("tab_button.tscn")
 const SettingsGroupScene = preload("settings_ui/settings_group.tscn")
 const GroupClass = preload("settings_ui/settings_group.gd")
-const SetDefaultKeyBtn = preload("settings_ui/set_default_keys.tscn")
+const ResetKeybindingsEditor = preload("settings_ui/settings_editors/reset_keybindings.gd")
 const GamepadEditorScene = preload("settings_ui/settings_editors/gamepad_editor.tscn")
 
 var tab_container: VBoxContainer
@@ -25,6 +25,9 @@ var preferred_tab_order: Array[String] = []
 
 ## Pattern to identify key-related groups for special handling
 var key_group_pattern: String = "Key"
+
+## Tabs that already carry their Reset button (one per tab).
+var _tabs_with_reset : Dictionary = {}
 
 func attach_settings(s: SettingsClass):
 	settings = s
@@ -53,6 +56,7 @@ func generate_tabs():
 			child.queue_free()
 
 	tab_data.clear()
+	_tabs_with_reset.clear()
 
 	# Dynamically detect all groups from settings
 	var detected_groups = _detect_settings_groups()
@@ -82,6 +86,12 @@ func generate_tabs():
 		# Add spacing between groups
 		tab_content.add_theme_constant_override("separation", 20)
 		content_area.add_child(tab_content)
+
+		# Tabs without binding rows (no Change/Clear anywhere) carry their
+		# one Reset as a compact right-aligned row at the top of the tab;
+		# key tabs instead ride the Reset inside their first binding row.
+		if not _tab_has_key_groups(groups_for_tab):
+			tab_content.add_child(_make_tab_reset_row(tab_name))
 
 		# Create groups for this tab with spacing
 		for i in range(groups_for_tab.size()):
@@ -309,15 +319,14 @@ func populate_settings():
 			if group_name in tab_data[tab_name]:
 				var group = tab_data[tab_name][group_name]
 				if group:
-					add_setting_to_group(setting_name, group, group_name)
+					add_setting_to_group(setting_name, group, group_name, tab_name)
 				break
 
 	# Force update ScrollContainer content size after populating
 	call_deferred("_update_scroll_content_size")
 
-func add_setting_to_group(setting_name: String, group: Node, group_name: String):
+func add_setting_to_group(setting_name: String, group: Node, group_name: String, tab_name: String = ""):
 	const SettingEditor = preload("settings_ui/settings_editors/setting_editor.gd")
-	const ResetKeybindingsEditor = preload("settings_ui/settings_editors/reset_keybindings.gd")
 	var SettingsEditors = {
 		SettingsClass.SettingType.BOOL: preload("settings_ui/settings_editors/bool_editor.tscn"),
 		SettingsClass.SettingType.FLOAT: preload("settings_ui/settings_editors/float_editor.tscn"),
@@ -325,20 +334,6 @@ func add_setting_to_group(setting_name: String, group: Node, group_name: String)
 		SettingsClass.SettingType.INT: preload("settings_ui/settings_editors/int_editor.tscn"),
 		SettingsClass.SettingType.STRING: preload("settings_ui/settings_editors/string_editor.tscn")
 	}
-
-	# Every key-related group carries the reset button: the keyboard rows on
-	# the Input tab and the gamepad rows on the Gamepad tab share one reset
-	# path that rebuilds both slots from project.godot.
-	if _is_key_related_group(group_name):
-		var reset_btn = SetDefaultKeyBtn.instantiate()
-		group.add_editor(reset_btn)
-		# Runtime-built rows have no scene owner: resolve the panel by
-		# walking ancestors (owner-chain lookups silently no-op here).
-		# The button is a direct child of the editor instance root.
-		var reset_btn_node = reset_btn.get_node_or_null("Button")
-		var reset_panel = ResetKeybindingsEditor.find_panel(reset_btn_node)
-		if reset_panel != null and reset_panel.has_method("toggle_panel") and reset_btn_node != null:
-			reset_btn_node.connect("pressed", Callable(reset_panel, "toggle_panel"))
 
 	_add_key_category_header(group, setting_name)
 
@@ -350,6 +345,50 @@ func add_setting_to_group(setting_name: String, group: Node, group_name: String)
 	var setting_editor = editor_scene.instantiate()
 	group.add_editor(setting_editor)
 	setting_editor.attach_setting(setting_name, settings)
+
+	# One Reset per tab, riding the first binding row to the right of its
+	# Change and Clear buttons (owner ruling, 2026-11-09). Both the keyboard
+	# and the gamepad tab share this look and placement; the reset itself
+	# stays the landed confirmation path.
+	if _is_key_related_group(group_name) and not _tabs_with_reset.has(tab_name):
+		_tabs_with_reset[tab_name] = true
+		_attach_row_reset_button(setting_editor)
+
+
+## Compact right-aligned Reset row for tabs whose rows carry no Change/Clear
+## buttons: it resets every row of the tab to its default value.
+func _make_tab_reset_row(tab_name: String) -> HBoxContainer:
+	var reset_row := HBoxContainer.new()
+	reset_row.name = "TabResetRow"
+	reset_row.alignment = BoxContainer.ALIGNMENT_END
+	var reset_button := Button.new()
+	reset_button.name = "ResetButton"
+	reset_button.text = "Reset"
+	reset_button.pressed.connect(_reset_tab_rows.bind(tab_name))
+	reset_row.add_child(reset_button)
+	return reset_row
+
+
+## Reset every setting shown on one tab back to its registered default.
+func _reset_tab_rows(tab_name: String) -> void:
+	var groups: Array = (tab_data.get(tab_name, {}) as Dictionary).keys()
+	for _setting in settings.get_settings_list():
+		var setting_name := _setting as String
+		if settings.get_setting_group(setting_name) in groups:
+			settings.set_setting(setting_name, settings.get_setting_default(setting_name))
+
+
+## Append the tab Reset button into a binding row, after its Change and
+## Clear buttons, and connect it to the settings menu's confirmation panel.
+func _attach_row_reset_button(row: Control) -> void:
+	var reset_button := Button.new()
+	reset_button.name = "ResetButton"
+	reset_button.text = "Reset"
+	row.add_child(reset_button)
+	var reset_panel = ResetKeybindingsEditor.find_panel(reset_button)
+	if reset_panel != null and reset_panel.has_method("toggle_panel"):
+		reset_button.pressed.connect(reset_panel.toggle_panel)
+
 
 ## Keybinding rows carry a key_category meta from the declarative map:
 ## insert a header label whenever the category changes inside a group, so
@@ -370,6 +409,14 @@ func _add_key_category_header(group: Node, setting_name: String):
 ## Check if a group name is related to key settings
 func _is_key_related_group(group_name: String) -> bool:
 	return group_name.to_lower().contains(key_group_pattern.to_lower())
+
+
+## Whether any group of a tab holds binding rows (Change/Clear editors).
+func _tab_has_key_groups(groups_for_tab: Array) -> bool:
+	for group_name in groups_for_tab:
+		if _is_key_related_group(str(group_name)):
+			return true
+	return false
 
 func _on_tab_button_pressed(tab_name: String):
 	if tab_name == current_tab:

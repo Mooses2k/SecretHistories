@@ -10,7 +10,8 @@ extends GutTest
 ## 2. Pressing the same path again bumps the count.
 ## 3. A registered tiny item data path registers under the Tiny Items group.
 ## 4. Empty, non-res, unloadable, and non-item paths are rejected.
-## 5. The menu scene carries the hidden spawn box wired to the handler.
+## 5. The menu scene carries the hidden spawn box wired to the handler,
+##    sitting at the TOP of the tabbed cheat area (owner ruling 2026-11-09).
 
 const SETTINGS_SCRIPT := "res://scenes/ui/start_game_settings.gd"
 const MENU_SCENE := "res://scenes/ui/start_game_menu.tscn"
@@ -110,9 +111,27 @@ func test_the_menu_scene_carries_the_hidden_spawn_box() -> void:
 			block += lines[j] + "\n"
 		assert_true(block.contains("visible = false"), "the spawn box starts hidden")
 		assert_true(block.contains("unique_name_in_owner = true"), "the spawn box is %unique addressed")
+		assert_true(block.contains("parent=\"MarginContainer/HBoxContainer/ScrollContainer/CheatArea\""),
+				"the spawn box lives inside the tabbed cheat area, not beside the menu buttons")
 	assert_true(scene_text.contains("placeholder_text = \"res:// path to item scene or tiny item\""),
 			"the path LineEdit explains what to type")
-	assert_true(scene_text.contains("[node name=\"SpawnItemButton\" type=\"Button\" parent=\"MarginContainer/HBoxContainer/Column4/SpawnItemBox\"]"),
+	assert_true(scene_text.contains("[node name=\"SpawnItemButton\" type=\"Button\" parent=\"MarginContainer/HBoxContainer/ScrollContainer/CheatArea/SpawnItemBox\"]"),
 			"the spawn button lives in the spawn box")
-	assert_true(scene_text.contains("[connection signal=\"pressed\" from=\"MarginContainer/HBoxContainer/Column4/SpawnItemBox/SpawnItemButton\" to=\".\" method=\"_on_SpawnItemButton_pressed\"]"),
+	assert_true(scene_text.contains("[connection signal=\"pressed\" from=\"MarginContainer/HBoxContainer/ScrollContainer/CheatArea/SpawnItemBox/SpawnItemButton\" to=\".\" method=\"_on_SpawnItemButton_pressed\"]"),
 			"the button press routes to the spawn handler")
+
+
+func test_the_spawn_box_sits_at_the_top_of_the_cheat_tab_area() -> void:
+	# Owner ruling 2026-11-09: the spawn box belongs at the TOP of the tabbed
+	# cheat area, one instance above the cheat tabs, or nowhere.
+	var scene_text : String = FileAccess.get_file_as_string(MENU_SCENE)
+	var box_index : int = scene_text.find("[node name=\"SpawnItemBox\"")
+	var cheat_area_index : int = scene_text.find("[node name=\"CheatArea\"")
+	var settings_index : int = scene_text.find("[node name=\"AdaptiveSettingsUI\"")
+	assert_true(cheat_area_index >= 0, "the cheat area wrapper exists inside the cheat scroll")
+	assert_true(box_index >= 0 and settings_index >= 0, "precondition: both nodes exist")
+	assert_true(box_index < settings_index,
+			"the spawn box is declared before the cheat settings UI: first child, top of the area")
+	assert_false(scene_text.contains("Column4/SpawnItemBox"),
+			"no spawn box remains under Column4")
+

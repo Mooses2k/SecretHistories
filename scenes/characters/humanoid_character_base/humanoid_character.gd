@@ -46,9 +46,16 @@ const SPRINT_NOISE : Dictionary = {
 const LANDING_NOISE : float = 10.0
 const NOISE_CLEAR_DELAY_MS : int = 200
 
-# Noise detectable by a SoundSensor. Set on each footstep and landing, then
-# cleared deterministically NOISE_CLEAR_DELAY_MS later (same decay shape as
-# the PickableItem noise surface).
+## Light level the LightDetection rig publishes about 4 times a second
+## (3.x character.gd:104). The VisualSensor sight gate reads it: a character
+## at or below the sensor's light_sensitivity_level (0.003) cannot be seen
+## in darkness. Runtime-only: SaveManager captures position, rotation,
+## health, alive and inventory explicitly, so this never round-trips a save.
+var light_level : float = 0.0
+
+## Noise detectable by a SoundSensor. Set on each footstep and landing, then
+## cleared deterministically NOISE_CLEAR_DELAY_MS later (same decay shape as
+## the PickableItem noise surface).
 var noise_level : float = 0
 var _noise_clear_at_msec : int = 0
 

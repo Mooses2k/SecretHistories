@@ -143,8 +143,11 @@ func process_player_detection(character: HumanoidCharacter) -> bool:
 
 func can_see_player(character: HumanoidCharacter) -> Player:
 	var player := get_player()
-	# TODO(Character): Light level
-	if is_instance_valid(player):# and player.light_level > light_sensitivity_level:
+	# 3.x origin/main scenes/sensors/visual_sensor.gd:146: an unlit player in
+	# darkness (light_level at or below light_sensitivity_level, export 0.003)
+	# cannot be seen at all. The humanoid LightDetection rig publishes the
+	# level; a held lit lantern keeps the holder above the floor.
+	if is_instance_valid(player) and player.light_level > light_sensitivity_level:
 		var target := player.global_transform.origin
 #		target.y = global_transform.origin.y
 		target.y += 0.5

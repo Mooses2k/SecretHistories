@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://daf3jm6dh7y8a"]
+[gd_scene load_steps=96 format=3 uid="uid://daf3jm6dh7y8a"]
 
 [ext_resource type="Script" uid="uid://cqeejcdn3pj2q" path="res://scenes/characters/humanoid_character_base/humanoid_character.gd" id="1_ahvev"]
 [ext_resource type="AnimationLibrary" uid="uid://hs8bbjhps5wl" path="res://resources/animations/libraries/character/movement_and_aiming.glb" id="2_npkk5"]
@@ -23,6 +23,7 @@
 [ext_resource type="AnimationLibrary" path="res://resources/animations/libraries/character/reload.tres" id="20_reload"]
 [ext_resource type="Script" path="res://scenes/characters/humanoid_character_base/character_reload_anims.gd" id="21_reloadanims"]
 [ext_resource type="Script" path="res://scenes/characters/player/player_gun_reload_shells.gd" id="22_shells"]
+[ext_resource type="PackedScene" uid="uid://bwlg8p4lrjie1" path="res://scenes/characters/light_detection.tscn" id="23_lightdet"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_asbh0"]
 friction = 0.0
@@ -5685,6 +5686,10 @@ top_level = true
 visible = false
 material_override = SubResource("StandardMaterial3D_o2tj8")
 mesh = SubResource("CapsuleMesh_rjxbe")
+
+[node name="LightDetection" parent="ModelRoot" instance=ExtResource("23_lightdet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0185888, 0)
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../ModelRoot")

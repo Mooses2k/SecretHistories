@@ -39,14 +39,13 @@ func _process(delta):
 	super._process(delta)
 	if fuel != null and fuel.tick_burn(delta, is_lit):
 		_on_light_depleted()
-	# With Spotlight3D, the light doesn't fall on the holder, but they should still be visible
-	if is_instance_valid(owner_character):
-		# Held lit light forces holder light_level to at least 0.01 (3.x
-		# lanterns.gd:43-45) so the holder stays visible to sensors. Skip
-		# owners without the property: the active humanoid chain declares no
-		# light_level until the sight-model port lands, and reading a missing
-		# property is a hard script error every frame.
-		if is_lit and "light_level" in owner_character and owner_character.light_level < 0.01:
+	# Held lit light keeps the holder above the sight-gate floor (0.01, well
+	# over the 0.003 gate). In 3.x this was emergent: the lantern's OmniLight
+	# lit the holder and the LightDetection viewports sampled it. Dev4
+	# lanterns emit through Spotlight3D, which does not fall on the holder,
+	# so the floor is written here instead. Owners without the property are
+	# skipped rather than erroring every frame.
+	if owner_character != null and is_lit and "light_level" in owner_character and owner_character.light_level < 0.01:
 			owner_character.light_level = 0.01
 
 

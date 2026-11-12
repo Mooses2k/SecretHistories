@@ -1,12 +1,12 @@
 extends GutTest
-## Pins the held-light visibility write (3.x lanterns.gd:43-45): a held lit
-## lantern forces the holder's light_level to at least 0.01 so the holder
-## stays visible to sensors. The active humanoid chain declares no light_level
-## yet (the sight-model lane owns the producer), so an owner without the
-## property is skipped instead of erroring every frame in _process.
+## Pins the held-light visibility floor: a held lit lantern forces the
+## holder's light_level to at least 0.01 so the holder stays visible to the
+## sight gate. That floor is dev4-native (3.x made holder visibility emerge
+## from the lantern's OmniLight sampled by the LightDetection viewports;
+## dev4 lanterns emit through Spotlight3D, which does not light the holder).
+## Owners without the property are skipped instead of erroring every frame.
 
 const LanternScene = preload("res://scenes/objects/pickable_items/equipment/tool/light-sources/starstuff_lantern/starstuff_lantern.tscn")
-const HUMANOID_SCENE := "res://scenes/characters/humanoid_character_base/humanoid_character_base.tscn"
 
 
 class LitOwnerStub extends Node:
@@ -33,15 +33,12 @@ func test_lit_lantern_forces_holder_light_level_to_0_01() -> void:
 func test_lit_lantern_skips_owners_without_the_light_level_property() -> void:
 	# The guard: before it, this _process read spammed
 	# "Invalid access to property or key 'light_level'" every frame with a
-	# humanoid holder (audit M3 probe). The absence of those SCRIPT ERROR
-	# lines in this chunk run's captured output is the regression evidence.
-	var holder : Node3D = (load(HUMANOID_SCENE) as PackedScene).instantiate()
-	add_child_autofree(holder)
+	# humanoid holder (audit M3 probe). Humanoid owners carry light_level
+	# now, so the skip path is pinned with a holder that has no property,
+	# which must not error or kill the burn.
+	var holder : Node3D = autofree(Node3D.new())
 	var lantern := _make_lit_lantern()
 	lantern.owner_character = holder
-
-	assert_false("light_level" in holder,
-		"precondition: the active humanoid chain declares no light_level")
 
 	lantern._process(0.016)
 

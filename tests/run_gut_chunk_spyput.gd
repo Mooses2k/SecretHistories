@@ -1,0 +1,32 @@
+extends SceneTree
+
+## Private chunk runner for the spyglass put-away lane (race-free pair;
+## lanes rewrite the shared pair per run, this one stays this lane's own).
+
+const CHUNK_LIST := preload("res://tests/gut_chunk_list_spyput.gd")
+
+
+func _init() -> void:
+	var max_iter := 20
+	var iter := 0
+	while(Engine.get_main_loop() == null and iter < max_iter):
+		await create_timer(0.01).timeout
+		iter += 1
+
+	if(Engine.get_main_loop() == null):
+		push_error("Chunk runner: main loop did not start in time.")
+		quit(1)
+		return
+
+	var gut_config = load("res://addons/gut/gut_config.gd").new()
+	var options: Dictionary = gut_config.default_options.duplicate()
+	options["tests"] = CHUNK_LIST.SCRIPTS
+	options["should_exit"] = true
+	options["junit_xml_file"] = "res://tests/tmp/gut_chunk_junit_spyput.xml"
+	options["junit_xml_timestamp"] = false
+	gut_config.options = options
+
+	var runner = load("res://addons/gut/gui/GutRunner.tscn").instantiate()
+	runner.set_gut_config(gut_config)
+	get_root().add_child(runner)
+	runner.run_tests()

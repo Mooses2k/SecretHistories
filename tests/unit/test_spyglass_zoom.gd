@@ -59,7 +59,8 @@ func _spawn_player_with_zoom() -> Node:
 	var zoom_controller: Node = ZOOM_CONTROLLER.new()
 	zoom_controller.name = "SpyglassZoomController"
 	camera.add_child(zoom_controller)
-	zoom_controller.setup(camera, player.get_node("Inventory") as Inventory)
+	zoom_controller.setup(camera, player.get_node("Inventory") as Inventory,
+		player.get_node("PlayerController") as PlayerController)
 	await _physics_frames(2)
 	return player
 

@@ -157,6 +157,18 @@ func update_equipment_pose() -> void:
 		_tween_pose_param(HOLD_ITEM_L, 1.0 if offhand.horizontal_holding else 0.0)
 
 
+## The light hold-up (owner ruling: a held use key raises a light, it never
+## swings): blends the raised ready pose over the item hold pose for as long
+## as the use key is held. No dedicated torch-raise clip exists in the
+## libraries, so today this lifts the arm from the vertical item hold toward
+## the ads_idle ready pose (a small raise, probe-verified visible through the
+## player hand IK); a dedicated torch-raise clip is the asset-blocked proper
+## fix. inventory_changed later re-derives the pose normally, so a held
+## raise that outlives the item self-heals on the next equip event.
+func set_light_hold_up(enabled : bool) -> void:
+	_tween_pose_param(HOLD_POSE_R, 1.0 if enabled else 0.0)
+
+
 func _on_inventory_changed() -> void:
 	update_equipment_pose()
 

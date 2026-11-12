@@ -95,10 +95,19 @@ func _use_primary():
 
 
 ## Held use is declared so a hold never swings: item_controller routes holds
-## into set_held_use (a raise no-op for now) and taps fire use_primary on
-## release, exactly like melee items.
+## into set_held_use, which raises the light (the owner-ruled light hold-up)
+## and taps fire use_primary on release, exactly like melee items. The raise
+## only fits the main hand: the tree's raised ready pose lives on the right
+## arm chain, and an offhand torch has no left-side raise param.
 func _has_held_use() -> bool:
 	return true
+
+
+func _set_held_use(enabled : bool) -> void:
+	if owner_character == null:
+		return
+	if owner_character.has_method("set_light_hold_up"):
+		owner_character.set_light_hold_up(enabled and _held_in_main_hand())
 
 
 ## The torch cut: same cooldown, sound, damage and animation-request shape as

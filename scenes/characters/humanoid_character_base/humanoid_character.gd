@@ -98,6 +98,13 @@ func play_melee_attack(attack : StringName, left_hand : bool, attack_speed : flo
 	animation_tree.fire_melee_one_shot(attack, left_hand, attack_speed)
 
 
+## Raises (or lowers) the light hold-up pose on the animation tree while a
+## light item holds the use key down, the same item-to-character seam shape
+## as play_melee_attack.
+func set_light_hold_up(enabled : bool) -> void:
+	animation_tree.set_light_hold_up(enabled)
+
+
 ## Starts the character-side reload layer for one gun press: fires the
 ## reload OneShot named by the gun's exact item_name and hands the offhand
 ## unequip/re-equip choreography to the CharacterReloadAnims coordinator

@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://bjhpq1cfy5dpm" path="res://core/ai/debug/debugviz_target_position.gd" id="120_viztarget"]
 [ext_resource type="Script" uid="uid://cdx55ychv54sf" path="res://core/ai/debug/debugviz_path.gd" id="121_vizpath"]
 [ext_resource type="Script" uid="uid://bmcg7hhkvbn3x" path="res://core/ai/debug/debug_state_label.gd" id="122_statelabel"]
-[ext_resource type="Script" uid="uid://dq63u6267rdxr" path="res://scenes/sensors/character_sensors.gd" id="24_wvp3v"]
+[ext_resource type="Script" uid="uid://d0mdri2qlxkdf" path="res://scenes/sensors/character_sensors.gd" id="24_wvp3v"]
 [ext_resource type="Script" uid="uid://bqindecxvgw37" path="res://scenes/sensors/sound_sensor.gd" id="25_cpi7t"]
 [ext_resource type="Script" uid="uid://ban08glkk5hnr" path="res://scenes/sensors/visual_sensor.gd" id="26_f5htr"]
 [ext_resource type="Script" uid="uid://dgduhnk26y8g0" path="res://scenes/sensors/touch_sensor.gd" id="27_fwtma"]
@@ -215,7 +215,7 @@ shape = SubResource("SphereShape3D_jq6sk")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.65, 0)
 collision_layer = 18
 collision_mask = 1042
-monitorable = false
+monitorable = true
 script = ExtResource("26_f5htr")
 _ik_target = NodePath("../../ModelRoot/LookTarget")
 

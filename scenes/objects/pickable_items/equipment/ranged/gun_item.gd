@@ -204,6 +204,11 @@ func get_reload_length():
 ## when the chain exhausts the supply or fills the magazine, reusing the
 ## landed close-beat machinery (the last landing routes through
 ## _begin_close_beat(false) with the composite short of its close segment).
+## A tail-mode composite (its close segment sits inside the clip at
+## reload_close_start, both shotguns and the khyber) spreads a full load
+## across the insertion window BEFORE the authored close: reload_close_start
+## / staged_rounds, so both shells land before the breech closes and the
+## close plays exactly once (doubles ruling, design doc 4.2).
 ## A single available round is the degenerate partial chain: one insertion
 ## beat plus the close. Without a resolvable reload clip the press falls
 ## back to reload_time per cycle. The result keeps the 0.3 s floor for every
@@ -222,6 +227,16 @@ func _staged_reload_cycle_time(round_count : int, full_load : bool) -> float:
 		return reload_time
 	if not full_load:
 		return maxf(clip_length / float(ammunition_capacity), MIN_STAGED_CYCLE_TIME)
+	# Tail-mode composite (the close segment lives inside the clip at
+	# reload_close_start): the rounds must land inside the insertion window
+	# BEFORE the authored close plays, one insertion beat per round, so the
+	# composite's close runs exactly once after the last shell (the doubles
+	# ruling, design doc 4.2: open, both shells, one close).
+	if reload_close_start > 0.0 and reload_close_start < clip_length:
+		var window_cycle := maxf(reload_close_start / float(round_count), MIN_STAGED_CYCLE_TIME)
+		if reload_needs_left_hand:
+			return window_cycle
+		return clampf(window_cycle, MIN_STAGED_CYCLE_TIME, MAX_STAGED_CYCLE_TIME)
 	var cycle := clampf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME, MAX_STAGED_CYCLE_TIME)
 	if reload_needs_left_hand:
 		cycle = maxf(clip_length / float(round_count), MIN_STAGED_CYCLE_TIME)
@@ -496,6 +511,11 @@ func _close_beat_time(anim_player : AnimationPlayer) -> float:
 		if _reload_composite_started and _is_composite_playing(anim_player) \
 				and anim_player.current_animation_position >= reload_close_start:
 			return maxf(reload_length - anim_player.current_animation_position, 0.0)
+		if _reload_composite_started and not _is_composite_playing(anim_player):
+			# The composite already ran to its end, so its authored close
+			# segment already played once: the action is closed. Never replay
+			# the close segment (the sawed-off doubled close defect).
+			return 0.0
 		return reload_length - reload_close_start
 	return 0.0
 
@@ -517,17 +537,24 @@ func _is_composite_playing(anim_player : AnimationPlayer) -> bool:
 func _begin_close_beat(aborting : bool) -> void:
 	var close_time := 0.0
 	var anim_player := animation_player as AnimationPlayer
+	# Tail-mode: when the composite is already at or past its authored close
+	# segment, the close is playing and must not be restarted (a stop and
+	# seek back to reload_close_start would replay the close a second time).
+	var resume_tail := false
 	if aborting:
 		if _reload_composite_started:
 			close_time = _close_beat_time(anim_player)
 	elif _is_composite_playing(anim_player):
 		close_time = _close_beat_time(anim_player)
+		resume_tail = reload_close_clip == &"" and reload_close_start > 0.0 \
+				and anim_player != null and anim_player.has_animation("reload") \
+				and anim_player.current_animation_position >= reload_close_start
 	if close_time <= 0.0:
 		_finalize_reload(aborting)
 		return
 	_close_beat_pending = true
 	_close_finish_aborts = aborting
-	if anim_player != null:
+	if anim_player != null and not resume_tail:
 		anim_player.stop()
 		if reload_close_clip != &"" and anim_player.has_animation(reload_close_clip):
 			anim_player.play(reload_close_clip)

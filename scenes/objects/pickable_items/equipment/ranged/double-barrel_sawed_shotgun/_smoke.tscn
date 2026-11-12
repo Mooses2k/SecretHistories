@@ -6,6 +6,14 @@
 [sub_resource type="ParticleProcessMaterial" id="1"]
 direction = Vector3(0, 0, -90)
 gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.9
+initial_velocity_max = 2.831
+angle_min = 0.0
+angle_max = 360.0
+angular_velocity_min = 10.28
+angular_velocity_max = 20.56
+linear_accel_min = -1.0
+linear_accel_max = -1.0
 
 [sub_resource type="QuadMesh" id="2"]
 

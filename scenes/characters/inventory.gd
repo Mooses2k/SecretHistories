@@ -859,6 +859,11 @@ func equip_offhand_item():
 	if parent != null:
 		parent.remove_child(item)
 	character.off_hand_root.add_child(item)
+	# Same post-equip signal the mainhand equip emits: 3.x inventory.gd:263
+	# fired inventory_changed after the equip coroutine, and the arm pose
+	# layer updated through it. The offhand equip never emitted, so the
+	# offhand arm pose (and HUD refresh) only followed via later signals.
+	emit_signal("inventory_changed")
 
 
 func unequip_offhand_item():
@@ -1248,6 +1253,18 @@ func attach_to_belt(item):
 			parent.remove_child(item)
 		belt.add_child(item)
 		belt_item = item
+		# 3.x origin/main inventory.gd:540 played the Belt_Equip clip on the
+		# character's AdditionalAnimations player at this stow. Dev4 content
+		# carries no Belt_Equip clip yet (asset-blocked), so the hook plays
+		# it the moment a clip with that name exists in any character
+		# library.
+		_play_belt_equip_animation()
+
+
+func _play_belt_equip_animation() -> void:
+	var player : AnimationPlayer = character.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if player != null and player.has_animation("Belt_Equip"):
+		player.play("Belt_Equip")
 
 
 func remove_from_belt(item):

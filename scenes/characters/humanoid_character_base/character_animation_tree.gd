@@ -61,6 +61,29 @@ const VERTICAL_DIRECTION = "parameters/vertical_direction/blend_position"
 
 const MELEE_SPEED = "parameters/melee_speed/scale"
 
+const EQUIP_HOLD_R = "parameters/equip_hold_r/blend_amount"
+const EQUIP_HOLD_L = "parameters/equip_hold_l/blend_amount"
+const HOLD_POSE_R = "parameters/hold_pose_r/blend_amount"
+const HOLD_ITEM_R = "parameters/hold_item_r/blend_amount"
+const HOLD_ITEM_L = "parameters/hold_item_l/blend_amount"
+const POSE_TWEEN_TIME = 0.1
+
+@onready var _inventory : Inventory = $"../Inventory"
+var _pose_tweens : Dictionary = {}
+
+
+func _ready() -> void:
+	active = active or auto_active_on_ready
+	_inventory.connect("inventory_changed", _on_inventory_changed)
+	_inventory.connect("unequip_mainhand", _on_inventory_unequip_mainhand)
+	_inventory.connect("unequip_offhand", _on_inventory_unequip_offhand)
+
+
+func _exit_tree() -> void:
+	_inventory.disconnect("inventory_changed", _on_inventory_changed)
+	_inventory.disconnect("unequip_mainhand", _on_inventory_unequip_mainhand)
+	_inventory.disconnect("unequip_offhand", _on_inventory_unequip_offhand)
+
 
 ## Fires a melee attack OneShot on this tree, the established
 ## parameters/<name>/request pattern. `attack` is the tree node name
@@ -99,10 +122,68 @@ func abort_reload_one_shot(item_name : StringName) -> void:
 	var node_id := String(item_name).replace(" ", "")
 	set("parameters/%s/request" % node_id, AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 
-func _ready() -> void:
-	active = active or auto_active_on_ready
-	pass # Replace with function body.
 
+## Re-derives the equipped-arm hold poses from the inventory, the 3.x
+## check_player_animation port. 3.x held the pose selection on the player
+## tree's Weapon_states / Hold_Animation / OffHand_Weapon_States state
+## machines (player_anims.gd:58-236, player.tscn connections); the dev4
+## humanoid tree keeps the same pose vocabulary on the equip_hold_r /
+## equip_hold_l Blend2s: a GunItem in the mainhand holds the raised
+## ads_idle pose (the single dev4 stand-in for 3.x's SmallAds/MediumAds
+## states, asset-blocked per size), an EquipmentItem holds
+## item_holding_vertical / item_holding_horizontal per its
+## horizontal_holding flag (the 3.x Hold_Animation pair), an offhand
+## EquipmentItem holds the _L variants (3.x Offhand_Hold_Animation), and
+## an empty or EmptyHand hand returns to the natural arm flow (3.x
+## MainHand_Idle / Offhand_Idle). An offhand GunItem has no dev4 clip for
+## 3.x's LeftHanded_Pistol_Hold, so the left arm stays in the natural flow
+## there (asset-blocked).
+func update_equipment_pose() -> void:
+	var mainhand : EquipmentItem = _inventory.get_mainhand_item()
+	if mainhand == null or mainhand is EmptyHand:
+		_tween_pose_param(EQUIP_HOLD_R, 0.0)
+	else:
+		_tween_pose_param(EQUIP_HOLD_R, 1.0)
+		if mainhand is GunItem:
+			_tween_pose_param(HOLD_POSE_R, 1.0)
+		else:
+			_tween_pose_param(HOLD_POSE_R, 0.0)
+			_tween_pose_param(HOLD_ITEM_R, 1.0 if mainhand.horizontal_holding else 0.0)
+	var offhand : EquipmentItem = _inventory.get_offhand_item()
+	if offhand == null or offhand is EmptyHand or offhand is GunItem:
+		_tween_pose_param(EQUIP_HOLD_L, 0.0)
+	else:
+		_tween_pose_param(EQUIP_HOLD_L, 1.0)
+		_tween_pose_param(HOLD_ITEM_L, 1.0 if offhand.horizontal_holding else 0.0)
+
+
+func _on_inventory_changed() -> void:
+	update_equipment_pose()
+
+
+## The 3.x unequip handlers (player_anims.gd:270-279) dropped the arm to
+## the empty pose the instant the unequip signal fired, so the drop fills
+## the 0.5 s equip coroutine gap before the next inventory_changed raises
+## the new item's pose.
+func _on_inventory_unequip_mainhand() -> void:
+	_tween_pose_param(EQUIP_HOLD_R, 0.0)
+
+
+func _on_inventory_unequip_offhand() -> void:
+	_tween_pose_param(EQUIP_HOLD_L, 0.0)
+
+
+func _tween_pose_param(param : String, target : float) -> void:
+	var existing : Tween = _pose_tweens.get(param)
+	if existing != null and existing.is_valid():
+		existing.kill()
+	var tween := create_tween()
+	tween.tween_method(_set_pose_param.bind(param), float(get(param)), target, POSE_TWEEN_TIME)
+	_pose_tweens[param] = tween
+
+
+func _set_pose_param(value : float, param : String) -> void:
+	set(param, value)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

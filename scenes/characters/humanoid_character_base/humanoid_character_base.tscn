@@ -3881,6 +3881,32 @@ animation = &"reload/martini_henry_reload"
 
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_reload_martini"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hold_vertical_r"]
+animation = &"movement_and_aiming/item_holding_vertical"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hold_horizontal_r"]
+animation = &"movement_and_aiming/item_holding_horizontal"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hold_vertical_l"]
+animation = &"movement_and_aiming/item_holding_vertical_L"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hold_horizontal_l"]
+animation = &"movement_and_aiming/item_holding_horizonta_L"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_hold_item_r"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_hold_pose_r"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_hold_item_l"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_equip_hold_r"]
+filter_enabled = true
+filters = ["rig_deform/Skeleton3D:DEF-breast.R", "rig_deform/Skeleton3D:DEF-f_index.01.R", "rig_deform/Skeleton3D:DEF-f_index.02.R", "rig_deform/Skeleton3D:DEF-f_index.03.R", "rig_deform/Skeleton3D:DEF-f_middle.01.R", "rig_deform/Skeleton3D:DEF-f_middle.02.R", "rig_deform/Skeleton3D:DEF-f_middle.03.R", "rig_deform/Skeleton3D:DEF-f_pinky.01.R", "rig_deform/Skeleton3D:DEF-f_pinky.02.R", "rig_deform/Skeleton3D:DEF-f_pinky.03.R", "rig_deform/Skeleton3D:DEF-f_ring.01.R", "rig_deform/Skeleton3D:DEF-f_ring.02.R", "rig_deform/Skeleton3D:DEF-f_ring.03.R", "rig_deform/Skeleton3D:DEF-forearm.R", "rig_deform/Skeleton3D:DEF-forearm.R.001", "rig_deform/Skeleton3D:DEF-hand.R", "rig_deform/Skeleton3D:DEF-palm.01.R", "rig_deform/Skeleton3D:DEF-palm.02.R", "rig_deform/Skeleton3D:DEF-palm.03.R", "rig_deform/Skeleton3D:DEF-palm.04.R", "rig_deform/Skeleton3D:DEF-shoulder.R", "rig_deform/Skeleton3D:DEF-spine.003", "rig_deform/Skeleton3D:DEF-spine.004", "rig_deform/Skeleton3D:DEF-thumb.01.R", "rig_deform/Skeleton3D:DEF-thumb.02.R", "rig_deform/Skeleton3D:DEF-thumb.03.R", "rig_deform/Skeleton3D:DEF-upper_arm.R", "rig_deform/Skeleton3D:DEF-upper_arm.R.001"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_equip_hold_l"]
+filter_enabled = true
+filters = ["rig_deform/Skeleton3D:DEF-breast.L", "rig_deform/Skeleton3D:DEF-f_index.01.L", "rig_deform/Skeleton3D:DEF-f_index.02.L", "rig_deform/Skeleton3D:DEF-f_index.03.L", "rig_deform/Skeleton3D:DEF-f_middle.01.L", "rig_deform/Skeleton3D:DEF-f_middle.02.L", "rig_deform/Skeleton3D:DEF-f_middle.03.L", "rig_deform/Skeleton3D:DEF-f_pinky.01.L", "rig_deform/Skeleton3D:DEF-f_pinky.02.L", "rig_deform/Skeleton3D:DEF-f_pinky.03.L", "rig_deform/Skeleton3D:DEF-f_ring.01.L", "rig_deform/Skeleton3D:DEF-f_ring.02.L", "rig_deform/Skeleton3D:DEF-f_ring.03.L", "rig_deform/Skeleton3D:DEF-forearm.L", "rig_deform/Skeleton3D:DEF-forearm.L.001", "rig_deform/Skeleton3D:DEF-hand.L", "rig_deform/Skeleton3D:DEF-palm.01.L", "rig_deform/Skeleton3D:DEF-palm.02.L", "rig_deform/Skeleton3D:DEF-palm.03.L", "rig_deform/Skeleton3D:DEF-palm.04.L", "rig_deform/Skeleton3D:DEF-shoulder.L", "rig_deform/Skeleton3D:DEF-thumb.01.L", "rig_deform/Skeleton3D:DEF-thumb.02.L", "rig_deform/Skeleton3D:DEF-thumb.03.L", "rig_deform/Skeleton3D:DEF-upper_arm.L", "rig_deform/Skeleton3D:DEF-upper_arm.L.001"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nsnpf"]
 graph_offset = Vector2(-815.263, -183.084)
 nodes/RESET/node = SubResource("AnimationNodeAnimation_ngi1s")
@@ -3958,7 +3984,27 @@ nodes/_melee_chop1_l/node = SubResource("AnimationNodeAnimation_melee_chop1_l")
 nodes/_melee_chop1_l/position = Vector2(1200, 500)
 nodes/_melee_thrust1_l/node = SubResource("AnimationNodeAnimation_melee_thrust1_l")
 nodes/_melee_thrust1_l/position = Vector2(1360, 500)
-node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animation_2", &"ads_r", 0, &"_hip_animation", &"ads_r", 1, &"_ads_animation", &"crouch", 0, &"movement", &"crouch", 1, &"movement_crouch", &"grounded", 0, &"vertical_direction", &"grounded", 1, &"run", &"gun_ready_l", 0, &"gun_ready_r", &"gun_ready_l", 1, &"ads_l", &"gun_ready_r", 0, &"grounded", &"gun_ready_r", 1, &"ads_r", &"output", 0, &"Martini-Henryrifle", &"Webleyrevolver", 0, &"melee_speed", &"Webleyrevolver", 1, &"_reload_webley", &"Sawed-offMartinipistol", 0, &"Webleyrevolver", &"Sawed-offMartinipistol", 1, &"_reload_kyber", &"Double-barrelshotgun", 0, &"Sawed-offMartinipistol", &"Double-barrelshotgun", 1, &"_reload_db", &"Sawed-offshotgun", 0, &"Double-barrelshotgun", &"Sawed-offshotgun", 1, &"_reload_sawed", &"Lee-Metfordrifle", 0, &"Sawed-offshotgun", &"Lee-Metfordrifle", 1, &"_reload_lee", &"Martini-Henryrifle", 0, &"Lee-Metfordrifle", &"Martini-Henryrifle", 1, &"_reload_martini", &"attack_cut", 0, &"gun_ready_l", &"attack_cut", 1, &"_melee_chop1", &"attack_thrust", 0, &"attack_cut", &"attack_thrust", 1, &"_melee_thrust1", &"attack_cut_l", 0, &"attack_thrust", &"attack_cut_l", 1, &"_melee_chop1_l", &"attack_thrust_l", 0, &"attack_cut_l", &"attack_thrust_l", 1, &"_melee_thrust1_l", &"melee_speed", 0, &"attack_thrust_l", &"run", 0, &"crouch", &"run", 1, &"_run_animation"]
+nodes/equip_hold_r/node = SubResource("AnimationNodeBlend2_equip_hold_r")
+nodes/equip_hold_r/position = Vector2(100, 600)
+nodes/hold_pose_r/node = SubResource("AnimationNodeBlend2_hold_pose_r")
+nodes/hold_pose_r/position = Vector2(100, 760)
+nodes/hold_item_r/node = SubResource("AnimationNodeBlend2_hold_item_r")
+nodes/hold_item_r/position = Vector2(100, 900)
+nodes/_hold_vertical_r/node = SubResource("AnimationNodeAnimation_hold_vertical_r")
+nodes/_hold_vertical_r/position = Vector2(100, 1000)
+nodes/_hold_horizontal_r/node = SubResource("AnimationNodeAnimation_hold_horizontal_r")
+nodes/_hold_horizontal_r/position = Vector2(220, 1000)
+nodes/_hold_gun_r/node = SubResource("AnimationNodeAnimation_gpcch")
+nodes/_hold_gun_r/position = Vector2(220, 760)
+nodes/equip_hold_l/node = SubResource("AnimationNodeBlend2_equip_hold_l")
+nodes/equip_hold_l/position = Vector2(600, 900)
+nodes/hold_item_l/node = SubResource("AnimationNodeBlend2_hold_item_l")
+nodes/hold_item_l/position = Vector2(600, 1040)
+nodes/_hold_vertical_l/node = SubResource("AnimationNodeAnimation_hold_vertical_l")
+nodes/_hold_vertical_l/position = Vector2(600, 1140)
+nodes/_hold_horizontal_l/node = SubResource("AnimationNodeAnimation_hold_horizontal_l")
+nodes/_hold_horizontal_l/position = Vector2(720, 1140)
+node_connections = [&"ads_l", 0, &"_hip_animation_2", &"ads_l", 1, &"_ads_animation_2", &"ads_r", 0, &"_hip_animation", &"ads_r", 1, &"_ads_animation", &"crouch", 0, &"movement", &"crouch", 1, &"movement_crouch", &"grounded", 0, &"vertical_direction", &"grounded", 1, &"run", &"gun_ready_l", 0, &"gun_ready_r", &"gun_ready_l", 1, &"ads_l", &"gun_ready_r", 0, &"equip_hold_r", &"gun_ready_r", 1, &"ads_r", &"equip_hold_r", 0, &"grounded", &"equip_hold_r", 1, &"hold_pose_r", &"hold_pose_r", 0, &"hold_item_r", &"hold_pose_r", 1, &"_hold_gun_r", &"hold_item_r", 0, &"_hold_vertical_r", &"hold_item_r", 1, &"_hold_horizontal_r", &"output", 0, &"Martini-Henryrifle", &"Webleyrevolver", 0, &"melee_speed", &"Webleyrevolver", 1, &"_reload_webley", &"Sawed-offMartinipistol", 0, &"Webleyrevolver", &"Sawed-offMartinipistol", 1, &"_reload_kyber", &"Double-barrelshotgun", 0, &"Sawed-offMartinipistol", &"Double-barrelshotgun", 1, &"_reload_db", &"Sawed-offshotgun", 0, &"Double-barrelshotgun", &"Sawed-offshotgun", 1, &"_reload_sawed", &"Lee-Metfordrifle", 0, &"Sawed-offshotgun", &"Lee-Metfordrifle", 1, &"_reload_lee", &"Martini-Henryrifle", 0, &"Lee-Metfordrifle", &"Martini-Henryrifle", 1, &"_reload_martini", &"attack_cut", 0, &"equip_hold_l", &"attack_cut", 1, &"_melee_chop1", &"equip_hold_l", 0, &"gun_ready_l", &"equip_hold_l", 1, &"hold_item_l", &"hold_item_l", 0, &"_hold_vertical_l", &"hold_item_l", 1, &"_hold_horizontal_l", &"attack_thrust", 0, &"attack_cut", &"attack_thrust", 1, &"_melee_thrust1", &"attack_cut_l", 0, &"attack_thrust", &"attack_cut_l", 1, &"_melee_chop1_l", &"attack_thrust_l", 0, &"attack_cut_l", &"attack_thrust_l", 1, &"_melee_thrust1_l", &"melee_speed", 0, &"attack_thrust_l", &"run", 0, &"crouch", &"run", 1, &"_run_animation"]
 
 [node name="HumanoidCharacterBase" type="RigidBody3D" groups=["CHARACTER"]]
 collision_layer = 18

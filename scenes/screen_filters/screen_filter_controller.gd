@@ -74,7 +74,14 @@ func _build_effects() -> void:
 		# there is nothing to apply to.
 		return
 	_effects_built = true
-	var filters : ScreenFilters = GameManager.game.screen_filters
+	_register_effects(GameManager.game.screen_filters)
+
+
+## Creates (or reuses) the per-filter CompositorEffects and registers them
+## on the Game's ScreenFilters compositor, the array the WorldEnvironment
+## consumes in a real Forward+ frame. Takes the ScreenFilters node as a
+## parameter so tests can pin the registration without a renderer.
+func _register_effects(filters : ScreenFilters) -> void:
 	var wired_color_reduce := filters.get_effect_by_type(ScreenFilterColorReduce)
 	if wired_color_reduce.is_empty():
 		_color_reduce = ScreenFilterColorReduce.new()
@@ -110,19 +117,32 @@ func _apply_current_filter() -> void:
 	if not _effects_built:
 		_build_effects()
 	# The debug light is player-owned, so its stop behavior applies even when
-	# there is no rendering pipeline (headless runs).
+	# there is no rendering pipeline (headless runs). The console readout is
+	# the 3.x parity cue (origin/main player_controller.gd printed
+	# "Screen Filter: <NAME>" on every stop).
 	match current_filter:
 		GameManager.ScreenFilter.NONE:
 			_set_only_active(GameManager.ScreenFilter.NONE)
+			print("Screen Filter: NONE")
 			if _debug_light != null:
 				_debug_light.visible = false
 		GameManager.ScreenFilter.DEBUG_LIGHT:
 			_set_only_active(GameManager.ScreenFilter.NONE)
+			print("Screen Filter: DEBUG_LIGHT")
 			if _debug_light != null:
 				_debug_light.visible = true
-		GameManager.ScreenFilter.OLD_FILM, \
-		GameManager.ScreenFilter.PIXELATE, \
-		GameManager.ScreenFilter.DITHER, \
-		GameManager.ScreenFilter.REDUCE_COLOR, \
+		GameManager.ScreenFilter.OLD_FILM:
+			_set_only_active(current_filter)
+			print("Screen Filter: OLD_FILM")
+		GameManager.ScreenFilter.PIXELATE:
+			_set_only_active(current_filter)
+			print("Screen Filter: PIXELATE")
+		GameManager.ScreenFilter.DITHER:
+			_set_only_active(current_filter)
+			print("Screen Filter: DITHER")
+		GameManager.ScreenFilter.REDUCE_COLOR:
+			_set_only_active(current_filter)
+			print("Screen Filter: REDUCE_COLOR")
 		GameManager.ScreenFilter.PSX:
 			_set_only_active(current_filter)
+			print("Screen Filter: PSX")

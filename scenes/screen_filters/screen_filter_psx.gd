@@ -34,7 +34,12 @@ var low_res_images : Array[RID]
 
 
 func _init() -> void:
+	enabled = false
+	effect_callback_type = CompositorEffect.EFFECT_CALLBACK_TYPE_POST_TRANSPARENT
 	var rd : RenderingDevice = RenderingServer.get_rendering_device()
+	if rd == null:
+		push_warning("ScreenFilterPSX: no RenderingDevice, filter stays unusable")
+		return
 	shader = rd.shader_create_from_spirv(SCREEN_FILTER_PSX.get_spirv())
 	assert(shader.is_valid())
 	pipeline = rd.compute_pipeline_create(shader)
@@ -69,6 +74,7 @@ func _update_low_res_image(original : RID, low_res : RID) -> RID:
 
 func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> void:
 	if not p_effect_callback_type == effect_callback_type: return
+	if not shader.is_valid(): return
 
 	var buffers : RenderSceneBuffersRD = render_data.get_render_scene_buffers() as RenderSceneBuffersRD
 	if not is_instance_valid(buffers) : return

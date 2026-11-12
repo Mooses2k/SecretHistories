@@ -229,18 +229,26 @@ func _idle_frames(count : int) -> void:
 		await get_tree().process_frame
 
 
-func test_ignite_zone_is_generous_and_offers_the_grab_icon() -> void:
+func test_ignite_zone_hugs_the_stand_and_offers_the_grab_icon() -> void:
+	# Revised in the melee2 lane: the take zone was shipped as a radius 1.2 /
+	# height 1.6 column centered high on the stand, which put the GRAB prompt
+	# and the drag target up to a meter outside the visible candelabra (owner
+	# playtest defect). The corrected zone is a snug enclosure of the stand
+	# body: big enough to win the interaction ray race from any side, small
+	# enough that the prompt only sits on the candelabra. The take itself is
+	# unchanged: the GRAB icon stays.
 	var stand : Node = _spawn_stand()
 	var ignite : Interactable = stand.get_node("Ignite") as Interactable
 
 	var shape_node : CollisionShape3D = ignite.get_node("CollisionShape3D") as CollisionShape3D
 	var cylinder := shape_node.shape as CylinderShape3D
-	assert_not_null(cylinder, "the take zone is a generous cylinder around the stand")
+	assert_not_null(cylinder, "the take zone is a snug cylinder around the stand")
 	if cylinder != null:
-		assert_true(cylinder.radius >= 1.2,
-			"the take zone reaches a player standing beside the stand (radius " + str(cylinder.radius) + ")")
+		assert_true(cylinder.radius <= 0.5,
+			"the take zone sits on the body, not a meter out (radius " + str(cylinder.radius) + ")")
 		assert_true(cylinder.height >= 1.5, "the take zone covers the stand's height")
-	assert_almost_eq(ignite.position.y, 0.8, 0.001, "the zone covers the stand from the floor up")
+		var bottom : float = ignite.position.y - cylinder.height / 2.0
+		assert_true(bottom <= -0.9, "the zone reaches down to the stand base, so a take works from any angle")
 	assert_eq(ignite.indicator_override, HUD.Indicator.GRAB,
 		"the take is a grab: the crosshair shows the GRAB icon, not a generic one")
 
@@ -249,7 +257,10 @@ func test_interact_controller_shows_the_grab_icon_for_the_stand() -> void:
 	# The real decision point is the interact controller's _process: with the
 	# stand's Ignite area under the crosshair it must show GRAB (the override),
 	# not the IGNITE cursor the group default would pick.
-	var stub_root : Node = Node.new()
+	# A RigidBody3D root: 4ca9b7b0's head bob reads the player body's
+	# linear_velocity through the controller's owner, so the stub must be the
+	# same body class player.tscn uses.
+	var stub_root : Node = RigidBody3D.new()
 	stub_root.name = "StubPlayerRoot"
 	_world.add_child(stub_root)
 	var parameters : Node = preload("res://scenes/characters/humanoid_character_base/humanoid_character_parameters.gd").new()
@@ -268,15 +279,20 @@ func test_interact_controller_shows_the_grab_icon_for_the_stand() -> void:
 	var camera : Camera3D = Camera3D.new()
 	camera.name = "MainCamera"
 	model_root.add_child(camera)
+	# 8db35b68 made the controller's @onready demand the F1 debug light under
+	# the camera: mirror player.tscn so the stub does not error.
+	var debug_light : SpotLight3D = SpotLight3D.new()
+	debug_light.name = "DebugLight"
+	camera.add_child(debug_light)
 	var interaction_cast : RayCast3D = RayCast3D.new()
 	interaction_cast.name = "InteractionCast"
-	interaction_cast.target_position = Vector3(0.0, 0.0, -1.0)
+	interaction_cast.target_position = Vector3(0.0, 0.0, -1.7)
 	interaction_cast.collide_with_areas = true
 	interaction_cast.collide_with_bodies = false
 	camera.add_child(interaction_cast)
 	var grab_cast : RayCast3D = RayCast3D.new()
 	grab_cast.name = "GrabCast"
-	grab_cast.target_position = Vector3(0.0, 0.0, -1.0)
+	grab_cast.target_position = Vector3(0.0, 0.0, -1.7)
 	camera.add_child(grab_cast)
 	var near_cast : Area3D = Area3D.new()
 	near_cast.name = "NearCast"
@@ -285,16 +301,24 @@ func test_interact_controller_shows_the_grab_icon_for_the_stand() -> void:
 	controller_node.name = "PlayerControllerNode"
 	controller_node.set_script(preload("res://scenes/characters/player/player_controller.gd"))
 	stub_root.add_child(controller_node)
+	controller_node.owner = stub_root
 	var controller : Node = Node.new()
 	controller.set_script(InteractControllerScript)
 	controller_node.add_child(controller)
+	# Runtime add_child does not set owner (an editor concept); the scene root
+	# owns the controller in player.tscn, and the head bob reads the body
+	# through it.
+	controller.owner = stub_root
 
-	# The camera looks down its -Z at the stand from outside the enlarged
-	# Ignite cylinder. The stand is lifted so the cylinder covers the
-	# camera height the player controller's _process forces on MainCamera.
+	# The camera looks down its -Z at the stand from a realistic interact
+	# distance. The player controller's _process forces the MainCamera to the
+	# 1.6 m standing height, and the snug Ignite cylinder must still catch the
+	# ray there: the stand is lifted so the zone spans the camera height, and
+	# the ray (1.7 m, game parity with player.tscn) enters the cylinder well
+	# inside its reach.
 	camera.position = Vector3(0.0, 0.9, 1.4)
 	var stand : Node = _spawn_stand()
-	stand.position = Vector3(0.0, 0.5, 0.0)
+	stand.position = Vector3(0.0, 0.8, 0.0)
 
 	await _idle_frames(5)
 

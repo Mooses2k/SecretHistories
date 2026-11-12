@@ -262,8 +262,8 @@ shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
 [sub_resource type="CylinderShape3D" id="2"]
-radius = 1.2
-height = 1.6
+radius = 0.3
+height = 1.9
 
 [sub_resource type="CylinderShape3D" id="216"]
 height = 1.7
@@ -404,7 +404,7 @@ shadow_enabled = true
 omni_range = 9.0
 
 [node name="Ignite" type="Area3D" parent="." groups=["IGNITE"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
 script = ExtResource("10_jjaqp")
 indicator_override = 1
 

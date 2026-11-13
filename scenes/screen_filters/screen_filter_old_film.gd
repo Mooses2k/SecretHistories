@@ -51,6 +51,11 @@ func _make_sampled_texture(rd : RenderingDevice, image : Image) -> RID:
 	format.height = image.get_height()
 	format.format = RenderingDevice.DATA_FORMAT_R8G8B8A8_UNORM
 	format.usage_bits = RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT
+	# Declare every mipmap the Image actually carries: texture_create checks
+	# the supplied data against format.mipmaps and silently returns an invalid
+	# RID on a mismatch, which left the sampled textures dead (RID(0)) and the
+	# whole uniform set failing per frame.
+	format.mipmaps = image.get_mipmap_count() + 1
 	return rd.texture_create(format, RDTextureView.new(), [image.get_data()])
 
 
@@ -74,7 +79,10 @@ func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> v
 	) / LOCAL_GROUP_SIZE + Vector3i.ONE
 
 	var push_constants : PackedByteArray = PackedByteArray()
-	push_constants.resize(16)
+	# The engine rejects a push constant whose size differs from the size the
+	# pipeline's SPIR-V declares (4 bytes here); padding to 16 errored every
+	# frame ("requires (4) bytes of push constant data, supplied: (16)").
+	push_constants.resize(4)
 	push_constants.encode_float(0, Time.get_ticks_msec() * 0.001)
 
 	var view_count = buffers.get_view_count()

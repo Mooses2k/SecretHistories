@@ -115,7 +115,9 @@ func test_spyglass_leaving_the_inventory_midhold_restores() -> void:
 func test_zoom_cycle_leaves_debug_light_and_transform_untouched() -> void:
 	var player : Node = await _spawn_player_with_zoom()
 	var camera := player.get_node("ModelRoot/MainCamera") as Camera3D
-	var light := player.get_node("ModelRoot/MainCamera/DebugLight") as SpotLight3D
+	var light := player.get_node_or_null("ModelRoot/DebugLight") as SpotLight3D
+	if light == null:
+		light = player.get_node("ModelRoot/MainCamera/DebugLight") as SpotLight3D
 	var inventory := player.get_node("Inventory") as Inventory
 	inventory.tiny_items[SPYGLASS_ITEM] = 1
 	Input.action_press(SPYGLASS_ACTION)

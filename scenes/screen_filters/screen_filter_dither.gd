@@ -59,6 +59,11 @@ func _make_sampled_texture(rd : RenderingDevice, image : Image) -> RID:
 	format.height = image.get_height()
 	format.format = RenderingDevice.DATA_FORMAT_R8G8B8A8_UNORM
 	format.usage_bits = RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT
+	# Declare every mipmap the Image actually carries: texture_create checks
+	# the supplied data against format.mipmaps and silently returns an invalid
+	# RID on a mismatch, which left the sampled textures dead (RID(0)) and the
+	# whole uniform set failing per frame.
+	format.mipmaps = image.get_mipmap_count() + 1
 	return rd.texture_create(format, RDTextureView.new(), [image.get_data()])
 
 

@@ -100,6 +100,19 @@ func _ready() -> void:
 	screen_filter_controller = ScreenFilterController.new()
 	add_child(screen_filter_controller)
 	screen_filter_controller.setup(debug_light)
+	# The scene parks the DebugLight under MainCamera, and MainCamera is
+	# hidden (visible = false in player.tscn, so its layer-2 viewmodel stuff
+	# never leaks into the main view). Tree visibility inherits, so the light
+	# is invisible in tree and lights nothing even when the filter cycle sets
+	# visible = true (live-verified: the corridor frame did not change).
+	# Move it to the visible ModelRoot and follow the camera transform here.
+	# Also re-arm the bake mode: the scene carries BAKE_DISABLED on this
+	# light, and a disabled light lights nothing either (live-verified).
+	var model_root := main_camera.get_parent()
+	if debug_light.get_parent() != model_root:
+		debug_light.reparent(model_root)
+	debug_light.light_bake_mode = Light3D.BAKE_DYNAMIC
+	debug_light.global_transform = main_camera.global_transform
 	_ads_fov_resting_baseline = main_camera.fov
 
 
@@ -118,6 +131,10 @@ func _process(_delta : float) -> void:
 	# crouch_cam / head_bob ordering (origin/main fps_control_mode.gd
 	# crouch_cam lerps the base, head_bob adds the offset).
 	main_camera.position.y = lerp(CAMERA_STANDING_HEIGHT, CAMERA_CROUCHING_HEIGHT, state.current_crouch_ratio) + _bob_offset
+	# The reparented debug light rides the camera transform: same origin and
+	# look direction as when it sat under the camera.
+	if is_instance_valid(debug_light) and debug_light.get_parent() != main_camera:
+		debug_light.global_transform = main_camera.global_transform
 
 
 func _physics_process(delta: float) -> void:

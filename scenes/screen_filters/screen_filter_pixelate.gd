@@ -48,7 +48,10 @@ func _render_callback(p_effect_callback_type: int, render_data: RenderData) -> v
 	) / LOCAL_GROUP_SIZE + Vector3i.ONE
 
 	var push_constants : PackedByteArray = PackedByteArray()
-	push_constants.resize( ceili(PUSH_CONSTANT_ELEMENT_COUNT * 4 / 16.0) * 16);
+	# The engine rejects a push constant whose size differs from the size the
+	# pipeline's SPIR-V declares (4 bytes here); the old 16-byte padding
+	# errored every frame and kept the filter a no-op.
+	push_constants.resize(PUSH_CONSTANT_ELEMENT_COUNT * 4)
 	push_constants.encode_s32(0*4, pixel_size)
 
 	var view_count = buffers.get_view_count()

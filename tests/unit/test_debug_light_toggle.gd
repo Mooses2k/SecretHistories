@@ -59,7 +59,14 @@ func _spawn_player() -> void:
 
 
 func _light(action_owner : Node) -> SpotLight3D:
-	return action_owner.get_node("../ModelRoot/MainCamera/DebugLight") as SpotLight3D
+	# The controller reparents the light out of the hidden MainCamera into
+	# the visible ModelRoot in _ready (tree visibility otherwise inherits
+	# false and the light never lights anything); support both park spots.
+	var controller := action_owner as Node
+	var light := controller.get_node("../ModelRoot/DebugLight") as SpotLight3D
+	if light == null:
+		light = controller.get_node("../ModelRoot/MainCamera/DebugLight") as SpotLight3D
+	return light
 
 
 func test_action_exists_and_defaults_to_L() -> void:

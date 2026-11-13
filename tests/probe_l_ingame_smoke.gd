@@ -85,7 +85,9 @@ func _init() -> void:
 	_check(controller != null, "PlayerController node present on the spawned player")
 	var sfc : Node = controller.get("screen_filter_controller") if controller != null else null
 	_check(sfc != null, "ScreenFilterController mounted on PlayerController at spawn")
-	var light : Node = player.get_node_or_null("ModelRoot/MainCamera/DebugLight")
+	var light : Node = player.get_node_or_null("ModelRoot/DebugLight")
+	if light == null:
+		light = player.get_node_or_null("ModelRoot/MainCamera/DebugLight")
 	_check(light != null, "DebugLight present on the spawned player")
 	if sfc == null or light == null:
 		print("PROBE RESULT=FAIL")
